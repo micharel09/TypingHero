@@ -5,15 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enermy
+  - PlayerWeapon
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Enermy
+  - PlayerWeapon
   - 
   - 
   - 

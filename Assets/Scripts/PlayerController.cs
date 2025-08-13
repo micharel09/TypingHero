@@ -1,18 +1,26 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Animator animator;
+    public SkeletonController boss; // Tham chiếu đến Boss
+    public int damage = 10; // Sát thương mỗi đòn
+    
+
+    void OnEnable()
     {
-        
+        TypingManager.OnWordCorrect += DoAttack;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        
+        TypingManager.OnWordCorrect -= DoAttack;
+    }
+
+    void DoAttack()
+    {
+        if (animator) animator.SetTrigger(AnimationStrings.Attack);
     }
 }
