@@ -1,84 +1,48 @@
 ﻿using UnityEngine;
-using System.Collections;
-using TMPro;
 
-public class SkeletonController : MonoBehaviour
+public class SkeletonController : MonoBehaviour, IDamageable
 {
-    [Header("References")]
-    public Animator animator;
-    public Transform target; // Player
-    public int health = 50;
+    [Header("References")] public Animator animator; public Transform target;
+    [Header("Stats")] public int health = 500; public bool IsDead { get; private set; }
+    [Header("Attack Settings")] public float attackDamage = 5f; public float attackCooldown = 4f;
+    float lastAttackTime;
+    public PlayerHealth playerHealth;   
 
-    [Header("Attack Settings")]
-    public float attackDamage = 5f;
-    public float attackCooldown = 2f;
+    void OnEnable() => TypingManager.OnWordTimeout += TryAttackPlayer;
+    void OnDisable() => TypingManager.OnWordTimeout -= TryAttackPlayer;
 
-    private float lastAttackTime;
-    private bool isDead = false;
-
-    [Header("Damage Settings")]
-    public int damageTakenPerHit = 10; // Số máu trừ khi bị player đánh
-
-    void OnEnable()
+    public void TakeDamage(int amount, Vector2 hitPoint)
     {
-        TypingManager.OnWordTimeout += TryAttackPlayer;
-    }
-
-    void OnDisable()
-    {
-        TypingManager.OnWordTimeout -= TryAttackPlayer;
-    }
-
-    void Update()
-    {
-        if (isDead) return; // Không làm gì khi đã chết
-    }
-
-    public void TakeDamage(int damage)
-    {
-        if (isDead) return; // Đã chết thì bỏ qua
-
-        health -= damage;
-        Debug.Log($"Skeleton bị trúng đòn! Máu còn: {health}");
-
-        if (health <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            animator.SetTrigger(AnimationStrings.Hit);
-        }
+        if (IsDead) return;
+        health -= amount;
+        Debug.Log($"Skeleton hit {amount}, HP: {health}");
+        if (health <= 0) Die();
+        else animator.SetTrigger(AnimationStrings.Hit);
     }
 
     void TryAttackPlayer()
     {
-        if (isDead) return;
+        if (IsDead) return;
+        if (Time.time - lastAttackTime < attackCooldown) return;
+        lastAttackTime = Time.time;
+        animator.SetTrigger(AnimationStrings.Attack);
+        // Gọi damage đúng frame bằng Animation Event:
+        // thêm event "EnemyDealDamage" trong clip attack của skeleton
+    }
 
-        if (Time.time - lastAttackTime >= attackCooldown)
-        {
-            animator.SetTrigger(AnimationStrings.Attack);
-            Debug.Log("Skeleton tấn công Player!");
-            lastAttackTime = Time.time;
-        }
+
+    // Animation Event trên clip skeleton_attack1
+    public void EnemyDealDamage()
+    {
+        if (playerHealth != null && !playerHealth.IsDead)
+            playerHealth.TakeDamage(Mathf.RoundToInt(attackDamage), (Vector2)playerHealth.transform.position);
+        if (HitStopper.I) HitStopper.I.StopPlayerHit();
     }
 
     void Die()
     {
-        isDead = true;
+        IsDead = true;
         animator.SetTrigger(AnimationStrings.Die);
-        Debug.Log("Skeleton chết!");
-
         Destroy(gameObject, 2f);
-    }
-
-    // Va chạm vũ khí của player
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // Kiểm tra tag của vũ khí
-        if (collision.CompareTag("PlayerWeapon"))
-        {
-            TakeDamage(damageTakenPerHit);
-        }
     }
 }

@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enermy
   - PlayerWeapon
+  - Enemy
+  - Enermy
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - Enermy
+  - Enemy
   - PlayerWeapon
   - 
   - 
