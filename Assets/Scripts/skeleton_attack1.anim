@@ -98,7 +98,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.4
-    functionName: EnemyDealDamage
+    functionName: Anim_StrikeFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
