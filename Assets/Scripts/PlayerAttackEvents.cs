@@ -8,44 +8,41 @@ public class PlayerAttackEvents : MonoBehaviour
     [Header("Window Config")]
     public float minOpenSeconds = 0.08f;
 
-    bool windowOpen = false;
-    float openedAt = -999f;
-    float closedAt = -999f;
-    Coroutine closeCo;
+    // id duy nhất cho mỗi cú vung
+    private static int globalAttackCounter = 0;
+    private int currentAttackId = 0;
 
-    // === Debug/leniency expose ===
-    public bool IsWindowOpen => windowOpen;
-    public float LastOpenTime => openedAt;
-    public float LastCloseTime => closedAt;
+    private bool open;
+    private float openedAt;
+    private Coroutine closeCo;
 
     public void OnAttackStart()
     {
-        ForceCloseWindow();
-        windowOpen = true;
+        if (hitbox == null) return;
+
+        if (closeCo != null) { StopCoroutine(closeCo); closeCo = null; }
+
+        open = true;
         openedAt = Time.time;
-        hitbox.BeginAttack();
+
+        currentAttackId = ++globalAttackCounter;   // tăng id cho cú vung mới
+        hitbox.BeginAttack(currentAttackId);       // ✅ truyền attackId
     }
 
     public void OnAttackEnd()
     {
-        if (!windowOpen) return;
+        if (!open) return;
+
         float remain = Mathf.Max(0f, minOpenSeconds - (Time.time - openedAt));
         if (closeCo != null) StopCoroutine(closeCo);
         closeCo = StartCoroutine(CloseAfter(remain));
     }
 
-    IEnumerator CloseAfter(float t)
+    private IEnumerator CloseAfter(float t)
     {
         if (t > 0f) yield return new WaitForSeconds(t);
-        ForceCloseWindow();
-    }
-
-    public void ForceCloseWindow()
-    {
-        if (!windowOpen) return;
-        if (closeCo != null) StopCoroutine(closeCo);
-        windowOpen = false;
-        closedAt = Time.time;
-        hitbox.EndAttack();
+        open = false;
+        if (hitbox != null) hitbox.EndAttack();
+        closeCo = null;
     }
 }

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd97475111842b4ea46006906971ecb, type: 3}
+  m_Name: PC_Parry
+  m_EditorClassIdentifier: 
+  parryKey: 32
+  showPoseOnPress: 1
+  pressWindowSeconds: 0.18
+  whiffRecoverySeconds: 0.1
+  preLeniency: 0.06
+  postLeniency: 0.06
+  useUnscaledTime: 1
+  stunEnemySeconds: 0.35
+  playerParryPoseStatePath: Base Layer.player_parry
+  playerParryPoseCrossfade: 0.02
+  playerParrySuccessStatePath: Base Layer.player_parry_success
+  playerParrySuccessCrossfade: 0.02
+  requirePlayerOpenWindow: 0

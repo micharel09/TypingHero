@@ -25,6 +25,8 @@ public class TypingManager : MonoBehaviour
     public static event Action OnWordCorrect;
     public static event Action OnWordTimeout;
 
+    public ParrySystem parry;
+
     void Start()
     {
         NextPrompt();

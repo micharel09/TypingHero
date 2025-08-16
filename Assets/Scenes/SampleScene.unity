@@ -226,10 +226,11 @@ MonoBehaviour:
   countdownSlider: {fileID: 1164099258}
   attackTimeLimit: 3
   attackWords:
-  - c
-  - c
-  - c
-  - c
+  - ccccc
+  - ccccc
+  - cccc
+  - cccccc
+  parry: {fileID: 1837079563}
 --- !u!4 &75867771
 Transform:
   m_ObjectHideFlags: 0
@@ -257,8 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815bc252348835c4396f76d481084e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHitStop: 0.06
-  playerHitStop: 0.06
+  enemyHitStop: 0.01
+  playerHitStop: 0.03
   frozenTimeScale: 0.0001
   allowStacking: 0
 --- !u!4 &89624897 stripped
@@ -377,7 +378,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -357.60205, y: -308.6101}
+  m_AnchoredPosition: {x: -817, y: 503}
   m_SizeDelta: {x: 259.204, y: 59.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &489905945
@@ -471,10 +472,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 515790409}
   target: {fileID: 89624897}
-  health: 500
-  attackDamage: 5
-  attackCooldown: 4
   playerHealth: {fileID: 1837079558}
+  health: 500
+  attackInterval: 3
+  useUnscaledClock: 1
+  attackStatePath: Base Layer.skeleton_attack1
+  attackCrossfade: 0.02
+  attackStartTime: 0
+  attackDamage: 5
+  uninterruptibleDuringAttack: 1
+  hitStatePath: Base Layer.skeleton_hit
+  hitCrossfade: 0.02
+  queueHitReactAfterAttack: 0
+  logs: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,7 +1050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015259, y: 112}
+  m_AnchoredPosition: {x: -0.000015259, y: 81}
   m_SizeDelta: {x: 543.2583, y: 85.0264}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &952444979
@@ -1176,7 +1186,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50.554, y: 253.465}
+  m_AnchoredPosition: {x: -8, y: -429}
   m_SizeDelta: {x: 960.555, y: 82.291}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026470125
@@ -2557,6 +2567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitbox: {fileID: 866447899}
+  minOpenSeconds: 0.08
 --- !u!114 &1837079558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2569,9 +2580,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f24a8995e1f51246aca8de8ee1b5780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  current: 0
+  maxHealth: 30
   animator: {fileID: 1837079552}
+  hitStatePath: Base Layer.player_hit
+  dieStatePath: Base Layer.player_die
+  hitCrossfade: 0.02
+  postHitIFrames: 0.05
+  parry: {fileID: 1837079563}
+  logs: 1
+--- !u!114 &1837079563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837079551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981207408fb6d934b8c42d1ae00b6103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 1d9701ce38b5b674fa1804c99e8662b1, type: 2}
+  playerAnimator: {fileID: 1837079552}
+  boss: {fileID: 515790415}
+  logs: 1
 --- !u!1 &2001535938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,7 +2802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5.0000153, y: 0}
+  m_AnchoredPosition: {x: 4.2, y: -16.7}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &3482038794572103693
@@ -2795,11 +2827,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3327866199189979277, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.25
+      value: -1.26
       objectReference: {fileID: 0}
     - target: {fileID: 3327866199189979277, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.85
+      value: -1.93
       objectReference: {fileID: 0}
     - target: {fileID: 3327866199189979277, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2838,6 +2870,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 515790415}
     - target: {fileID: 3954938540101357743, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: attack
+      value: 
+      objectReference: {fileID: 11400000, guid: 373597bbccd369d44a72491ba3620e6e, type: 2}
+    - target: {fileID: 3954938540101357743, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: attackEvents
       value: 
       objectReference: {fileID: 1837079557}
@@ -2863,6 +2899,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5449769088092458507, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1837079558}
+    - targetCorrespondingSourceObject: {fileID: 5449769088092458507, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1837079563}
     - targetCorrespondingSourceObject: {fileID: 3220913007637166692, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 866447899}
@@ -2881,11 +2920,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5316290525864657520, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.56
+      value: 1.41
       objectReference: {fileID: 0}
     - target: {fileID: 5316290525864657520, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.33
+      value: -1.39
       objectReference: {fileID: 0}
     - target: {fileID: 5316290525864657520, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2928,6 +2967,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7212155499661164206, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212155499661164206, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -2952,9 +2995,9 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1429611722}
-  - {fileID: 3482038794572103693}
   - {fileID: 11495573}
-  - {fileID: 75867771}
   - {fileID: 627287391}
   - {fileID: 2005077417}
   - {fileID: 8734117375464330131}
+  - {fileID: 3482038794572103693}
+  - {fileID: 75867771}
