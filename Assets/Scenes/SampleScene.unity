@@ -226,10 +226,10 @@ MonoBehaviour:
   countdownSlider: {fileID: 1164099258}
   attackTimeLimit: 3
   attackWords:
-  - ccc
-  - ccc
-  - ccc
-  - ccccc
+  - cc
+  - cc
+  - cc
+  - cc
   parry: {fileID: 1837079563}
 --- !u!4 &75867771
 Transform:
@@ -258,8 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815bc252348835c4396f76d481084e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHitStop: 0.01
-  playerHitStop: 0.03
+  enemyHitStop: 0.05
+  playerHitStop: 0.05
   frozenTimeScale: 0.0001
   allowStacking: 0
 --- !u!4 &89624897 stripped
@@ -473,13 +473,12 @@ MonoBehaviour:
   animator: {fileID: 515790409}
   target: {fileID: 89624897}
   playerHealth: {fileID: 1837079558}
-  stun: {fileID: 0}
   health: 500
   attackInterval: 3
   useUnscaledClock: 1
   attackStatePath: Base Layer.skeleton_attack1
   attackCrossfade: 0.02
-  attackStartTime: 0
+  attackStartTime: 10
   attackDamage: 5
   uninterruptibleDuringAttack: 1
   hitStatePath: Base Layer.skeleton_hit
@@ -500,6 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageReceiver: {fileID: 1837079558}
   damage: 5
+  hitStopTarget: 1
 --- !u!114 &515790421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2791,6 +2791,10 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 515790421}
+    - target: {fileID: 213540721010529462, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: hitStopper
+      value: 
+      objectReference: {fileID: 75867772}
     - target: {fileID: 3327866199189979277, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.26
@@ -2834,6 +2838,14 @@ PrefabInstance:
     - target: {fileID: 5449769088092458507, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000324945102724357, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: hitStopper
+      value: 
+      objectReference: {fileID: 75867772}
+    - target: {fileID: 6000324945102724357, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: hitStopTarget
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

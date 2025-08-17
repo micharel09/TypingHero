@@ -28,17 +28,17 @@ AnimationClip:
       value: {fileID: -617104445, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
     - time: 0.41666666
       value: {fileID: 371670811, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
-    - time: 0.51666665
-      value: {fileID: 440837093, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
-    - time: 0.5833333
-      value: {fileID: -2097475492, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
-    - time: 0.68333334
-      value: {fileID: -1953612697, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
-    - time: 0.75
-      value: {fileID: 2139548333, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
-    - time: 0.85
-      value: {fileID: 1650818480, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
     - time: 0.9166667
+      value: {fileID: 440837093, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    - time: 0.98333335
+      value: {fileID: -2097475492, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    - time: 1.0833334
+      value: {fileID: -1953612697, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    - time: 1.15
+      value: {fileID: 2139548333, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    - time: 1.25
+      value: {fileID: 1650818480, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    - time: 1.3166667
       value: {fileID: -1806675074, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
     attribute: m_Sprite
     path: 
@@ -77,7 +77,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.93333334
+    m_StopTime: 1.3333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -97,14 +97,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.5833333
+  - time: 0.98333335
     functionName: Anim_StrikeFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6
+  - time: 1
     functionName: Anim_DealDamage
     data: 
     objectReferenceParameter: {fileID: 0}

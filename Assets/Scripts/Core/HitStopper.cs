@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class HitStopper : MonoBehaviour
 {
+    // === Singleton ===
+    public static HitStopper I { get; private set; }
+    void Awake()
+    {
+        if (I != null && I != this) { Destroy(this); return; }
+        I = this;
+    }
+
     [Header("Defaults (editable in Inspector)")]
     [Tooltip("Hitstop mặc định áp cho Enemy khi có va chạm thường (s)")]
     public float enemyHitStop = 0.01f;
@@ -20,9 +28,8 @@ public class HitStopper : MonoBehaviour
     public void Stop(float seconds)
     {
         if (seconds <= 0f) return;
-        if (!allowStacking && active && Time.unscaledTime < restoreAt)  // đang hitstop rồi
+        if (!allowStacking && active && Time.unscaledTime < restoreAt)
         {
-            // kéo dài thêm
             restoreAt = Time.unscaledTime + seconds;
             return;
         }
@@ -30,7 +37,10 @@ public class HitStopper : MonoBehaviour
         co = StartCoroutine(CoHitstop(seconds));
     }
 
-    /// Gợi ý tiện dùng: truyền 2 giá trị và lấy cái lớn hơn
+    /// Gọi nhanh theo phía bị hit
+    public void StopEnemyHit() => Stop(enemyHitStop);
+    public void StopPlayerHit() => Stop(playerHitStop);
+
     public void Request(float player = 0f, float enemy = 0f)
     {
         float t = Mathf.Max(player, enemy);
@@ -44,8 +54,7 @@ public class HitStopper : MonoBehaviour
         restoreAt = Time.unscaledTime + seconds;
 
         Time.timeScale = Mathf.Max(0.000001f, frozenTimeScale);
-        while (Time.unscaledTime < restoreAt)
-            yield return null;
+        while (Time.unscaledTime < restoreAt) yield return null;
 
         Time.timeScale = prev;
         active = false;

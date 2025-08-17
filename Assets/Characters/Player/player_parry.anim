@@ -22,15 +22,15 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -72709093, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.36666667
+    - time: 0.25
       value: {fileID: -338187803, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.43333334
+    - time: 0.31666666
       value: {fileID: -1615060738, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.51666665
+    - time: 0.4
       value: {fileID: -1587955471, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.5833333
+    - time: 0.46666667
       value: {fileID: 768906646, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.65
+    - time: 0.53333336
       value: {fileID: 1786144713, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
     attribute: m_Sprite
     path: 
@@ -65,7 +65,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6666666
+    m_StopTime: 0.55
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -92,7 +92,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.2
+  - time: 0.25
     functionName: Anim_ParryClose
     data: 
     objectReferenceParameter: {fileID: 0}
