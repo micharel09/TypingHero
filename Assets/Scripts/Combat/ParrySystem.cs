@@ -14,6 +14,8 @@ public class ParrySystem : MonoBehaviour
     [Tooltip("I-frame sau parry thành công (unscaled).")]
     public float successIFrame = 0.08f;
 
+    [Header("Input Gate")]
+    public PlayerInputGate gate;
     [Header("Debug")] public bool logs = true;
 
     bool windowOpen;
@@ -46,8 +48,8 @@ public class ParrySystem : MonoBehaviour
         return inPose || inSucc;
     }
 
-    // ĐANG BỊ HIT?
-    bool IsHitLocked()                     // <--- THÊM
+
+    bool IsHitLocked()                   
     {
         return _hp && _hp.animator &&
                AnimUtil.IsInState(_hp.animator, _hp.hitStatePath, out _);
@@ -58,34 +60,32 @@ public class ParrySystem : MonoBehaviour
     {
         windowOpen = true;
         successUntilUnscaled = 0f;         // reset i-frame cũ
+        gate?.PushParryPose(this);
         if (logs) Debug.Log("[PARRY] Pose opened");
     }
     public void Anim_ParryClose()
     {
         windowOpen = false;
+        gate?.PopParryPose(this);
         if (logs) Debug.Log("[PARRY] Pose closed");
     }
 
     // --- Enemy strike-frame ---
     void OnEnemyStrike()
     {
-        if (!windowOpen) return;           // fail -> KHÔNG bật i-frame
+        if (!windowOpen) return;
 
         windowOpen = false;
-
-        // i-frame chỉ khi thành công, đo bằng unscaled để không kéo dài bởi hitstop
         successUntilUnscaled = Time.unscaledTime + successIFrame;
+        gate?.BeginParrySuccessIFrame(successIFrame);  // <-- thêm
 
-        // ⏸ Hit-stop riêng cho parry success
-        if (hitStopper && parrySuccessHitStop > 0f)
-            hitStopper.Stop(parrySuccessHitStop);
+        if (hitStopper && parrySuccessHitStop > 0f) hitStopper.Stop(parrySuccessHitStop);
 
-        // hiệu ứng thành công
         if (playerAnimator && config && !string.IsNullOrEmpty(config.playerParrySuccessStatePath))
             AnimUtil.CrossFadePath(playerAnimator, config.playerParrySuccessStatePath,
                                    config.playerParrySuccessCrossfade, 0f);
 
-        if (logs) Debug.Log($"[PARRY] OK (t={Time.unscaledTime:0.000})");
+        if (logs) Debug.Log($"[PARRY] OK");
     }
 
     public void ParrySuccess() => OnEnemyStrike();
@@ -94,23 +94,11 @@ public class ParrySystem : MonoBehaviour
     {
         if (!config) return;
 
+        // đang bị hit hoặc đang ở parry pose → không cho vào nữa
+        if (gate && !gate.CanParry) return;        
+
         if (Input.GetKeyDown(config.parryKey))
         {
-            // ⛔ Đang bị hit -> không cho vào parry
-            if (IsHitLocked())
-            {
-                if (logs) Debug.Log("[PARRY] blocked: player is in HIT");
-                return;
-            }
-
-            // ⛔ Đang ở parry/parry_success -> không đè
-            if (InParryOrSuccess())
-            {
-                if (logs) Debug.Log("[PARRY] blocked by window/state");
-                return;
-            }
-
-            // OK: vào tư thế parry, cửa sổ mở bằng Anim_ParryOpen
             if (playerAnimator && !string.IsNullOrEmpty(config.playerParryPoseStatePath))
                 AnimUtil.CrossFadePath(playerAnimator, config.playerParryPoseStatePath,
                                        config.playerParryPoseCrossfade, 0f);
