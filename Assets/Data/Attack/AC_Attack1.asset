@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52af63fc742ee92449d0d6ac119d3b55, type: 3}
+  m_Script: {fileID: 11500000, guid: 85cc1e5999c504e40b80820b89d6382b, type: 3}
   m_Name: AC_Attack1
   m_EditorClassIdentifier: 
   statePath: Base Layer.attack1
   crossfade: 0.02
   startTime: 0.02
-  minOpenSeconds: 0.08
-  damage: 10
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 64

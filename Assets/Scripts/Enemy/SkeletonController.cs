@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class SkeletonController : MonoBehaviour, IDamageable, IParryTarget
+public class SkeletonController : MonoBehaviour, IDamageable
 {
     [Header("References")]
     public Animator animator;
@@ -44,12 +44,9 @@ public class SkeletonController : MonoBehaviour, IDamageable, IParryTarget
     float _nextAttackAt;
     bool _attacking;
     bool _queuedHitReact;
-    float _stunnedUntil;
 
-    public event Action OnStrike;   // IParryTarget
 
     float Now => useUnscaledClock ? Time.unscaledTime : Time.time;
-    bool Stunned => Now < _stunnedUntil;
 
     void OnEnable()
     {
@@ -60,9 +57,6 @@ public class SkeletonController : MonoBehaviour, IDamageable, IParryTarget
     void Update()
     {
         if (IsDead) return;
-
-        // nếu đang stun thì thôi
-        if (Stunned) return;
 
         // tự ra đòn theo đồng hồ
         if (!_attacking && Now >= _nextAttackAt)
@@ -93,7 +87,7 @@ public class SkeletonController : MonoBehaviour, IDamageable, IParryTarget
         _attacking = false;
         _nextAttackAt = Now + attackInterval;
 
-        if (_queuedHitReact && !Stunned && !IsDead)
+        if (_queuedHitReact && !IsDead)
         {
             // phát hit-react đã xếp hàng
             _queuedHitReact = false;
@@ -104,39 +98,9 @@ public class SkeletonController : MonoBehaviour, IDamageable, IParryTarget
         if (logs) Debug.Log("[SKE] End attack");
     }
 
-    // --------- Animation Events ----------
-    // đặt trong clip tấn công đúng frame vung kiếm
-    public void Anim_StrikeFrame()
-    {
-        if (logs) Debug.Log("[SKE] Strike frame!");
-        OnStrike?.Invoke();
-    }
-
-    // đặt tại frame gây damage (có thể trùng strike-frame nếu bạn muốn)
-    // Gọi từ Animation Event trên clip skeleton_attack1 đúng frame vung kiếm
-    public void Anim_DealDamage()
-    {
-        if (!playerHealth || playerHealth.IsDead) return;
-        playerHealth.TakeDamage(attackDamage, (Vector2)transform.position);
-    }
 
 
-    // --------- IParryTarget ----------
-    public void Parried(float stunSeconds)
-    {
-        if (IsDead) return;
 
-        _stunnedUntil = Now + Mathf.Max(0f, stunSeconds);
-
-        // ngắt attack hiện tại nếu cho phép
-        _attacking = false;
-        _nextAttackAt = Now + attackInterval;
-
-        if (animator)
-            AnimUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
-
-        if (logs) Debug.Log($"[SKE] Parried! Stun {stunSeconds:0.00}s");
-    }
 
     // --------- IDamageable ----------
     public void TakeDamage(int amount, Vector2 hitPoint)
@@ -164,6 +128,7 @@ public class SkeletonController : MonoBehaviour, IDamageable, IParryTarget
         // không ở state attack thì được phép play hit-react ngay
         if (animator) AnimUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
     }
+
     void Die()
     {
         IsDead = true;

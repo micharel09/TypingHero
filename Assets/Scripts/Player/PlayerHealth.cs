@@ -30,17 +30,21 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
 
     // ===== IDamageable =====
+
     public void TakeDamage(int amount, Vector2 hitPoint)
     {
-        if (IsDead) return;
+        if (logs && parry)
+            Debug.Log($"[PARRY dbg] win={parry.IsWindowActive} succ={parry.IsSuccessActive} t={Time.time:0.000}");
 
-        // (1) Nếu cửa sổ parry đang mở: chặn damage + kích hoạt parry thành công
-        if (parry && parry.IsWindowActive)
+        if (IsDead) return;
+        // (1) Parry cửa sổ HOẶC i-frame thành công
+        if (parry && (parry.IsWindowActive || parry.IsSuccessActive))
         {
-            if (logs) Debug.Log("[PARRY] SUCCESS via window => no damage");
-            parry.ParrySuccess();
+            if (logs) Debug.Log("[PARRY] blocked by window/state");
+            parry.ParrySuccess(); // nếu window đã đóng, OnEnemyStrike() sẽ tự bỏ qua
             return;
         }
+
 
         // (2) i-frames sau khi vừa bị đánh
         if (Time.time < iFramesUntil)
@@ -49,7 +53,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             return;
         }
 
-        // (3) Nhận damage bình thường
+        // (3) Ăn damage bình thường
         Current = Mathf.Max(0, Current - amount);
         if (logs) Debug.Log($"[DMG] player took {amount}, HP: {Current}");
         iFramesUntil = Time.time + postHitIFrames;
@@ -64,4 +68,5 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (animator && !string.IsNullOrEmpty(hitStatePath))
             AnimUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
     }
+
 }
