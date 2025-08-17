@@ -13,11 +13,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [Range(0f, .2f)] public float hitCrossfade = 0.02f;
 
     [Header("Damage Windows")]
-    [Tooltip("Miễn thương ngắn sau khi bị đánh (giây)")]
     public float postHitIFrames = 0.05f;
 
-    [Tooltip("Kéo thả ParrySystem ở GameManager vào đây")]
+    [Header("Refs")]
     public ParrySystem parry;
+    public PlayerInputGate gate;
 
     [Header("Debug")] public bool logs = false;
 
@@ -26,40 +26,39 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void Awake()
     {
-        if (Current <= 0) Current = maxHealth; // tiện test
+        if (Current <= 0) Current = maxHealth;
     }
-
-    // ===== IDamageable =====
 
     public void TakeDamage(int amount, Vector2 hitPoint)
     {
-        if (logs && parry)
-            Debug.Log($"[PARRY dbg] win={parry.IsWindowActive} succ={parry.IsSuccessActive} t={Time.time:0.000}");
-
         if (IsDead) return;
-        // (1) Parry cửa sổ HOẶC i-frame thành công
+
+        // Parry chặn đòn?
         if (parry && (parry.IsWindowActive || parry.IsSuccessActive))
         {
-            if (logs) Debug.Log("[PARRY] blocked by window/state");
-            parry.ParrySuccess(); // nếu window đã đóng, OnEnemyStrike() sẽ tự bỏ qua
+            if (logs) Debug.Log("[PARRY] SUCCESS via window/i-frame => no damage");
+            parry.ParrySuccess();
             return;
         }
 
-
-        // (2) i-frames sau khi vừa bị đánh
+        // i-frames sau khi bị đánh
         if (Time.time < iFramesUntil)
         {
             if (logs) Debug.Log("[DMG] ignored (post-hit i-frames)");
             return;
         }
 
-        // (3) Ăn damage bình thường
+        // Nhận damage
         Current = Mathf.Max(0, Current - amount);
         if (logs) Debug.Log($"[DMG] player took {amount}, HP: {Current}");
         iFramesUntil = Time.time + postHitIFrames;
 
         if (Current <= 0)
         {
+            // Khóa toàn phần input khi chết
+            if (gate) gate.SetDeadLocked(true);
+
+            // Phát clip die, KHÔNG destroy ở đây nữa
             if (animator && !string.IsNullOrEmpty(dieStatePath))
                 AnimUtil.CrossFadePath(animator, dieStatePath, hitCrossfade, 0f);
             return;
@@ -69,4 +68,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             AnimUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
     }
 
+    // Animation Event ở frame CUỐI của clip player_die sẽ gọi hàm này
+    public void Anim_DieCleanup()
+    {
+        Destroy(gameObject);
+    }
 }

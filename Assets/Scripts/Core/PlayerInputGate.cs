@@ -7,9 +7,10 @@ public class PlayerInputGate : MonoBehaviour
     [Header("Debug")] public bool logs;
 
     // ---- nguồn khóa ----
-    bool _hitLocked;                                // do state "player_hit"
-    readonly HashSet<object> _parryPoseSources = new(); // do Anim_ParryOpen/Close
-    float _parrySuccUntilUnscaled;                  // i-frame sau parry OK
+    bool _hitLocked;                                   // do state "player_hit"
+    readonly HashSet<object> _parryPoseSources = new();
+    float _parrySuccUntilUnscaled;                     // i-frame sau parry OK (unscaled)
+    bool _deadLocked;                                  // <-- THÊM
 
     // ---- API set/clear từ các hệ khác ----
     public void SetHitLocked(bool v)
@@ -27,12 +28,20 @@ public class PlayerInputGate : MonoBehaviour
             _parrySuccUntilUnscaled = Time.unscaledTime + seconds;
     }
 
+    // ⛔ khóa toàn phần khi chết
+    public void SetDeadLocked(bool v)                    // <-- THÊM
+    {
+        _deadLocked = v;
+        if (logs) Debug.Log($"[GATE] DeadLocked={_deadLocked}");
+    }
+
     // ---- trạng thái tổng hợp ----
     public bool IsHitLocked => _hitLocked;
     public bool IsParryPoseLocked => _parryPoseSources.Count > 0;
     public bool IsParrySuccessIFrame => Time.unscaledTime < _parrySuccUntilUnscaled;
+    public bool IsDeadLocked => _deadLocked;     // <-- THÊM
 
     // Quy tắc cho phép/không cho phép
-    public bool CanAttack => !_hitLocked && !IsParryPoseLocked;    // muốn khác thì đổi ở đây
-    public bool CanParry => !_hitLocked && !IsParryPoseLocked;    // (parry thành công vẫn bị “pose lock” nên không spam)
+    public bool CanAttack => !_deadLocked && !_hitLocked && !IsParryPoseLocked;  // <-- SỬA
+    public bool CanParry => !_deadLocked && !_hitLocked && !IsParryPoseLocked;  // <-- SỬA
 }

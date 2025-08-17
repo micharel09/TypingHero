@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAttackEvents attackEvents;
     public AttackConfig attack;
 
-    public PlayerInputGate gate;  // <-- kéo PlayerInputGate vào
+    public PlayerInputGate gate;  
 
     void OnEnable() => TypingManager.OnWordCorrect += DoAttack;
     void OnDisable() => TypingManager.OnWordCorrect -= DoAttack;

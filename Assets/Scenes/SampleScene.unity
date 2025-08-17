@@ -2857,6 +2857,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3467237052091016004, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: gate
+      value: 
+      objectReference: {fileID: 1837079565}
+    - target: {fileID: 3467237052091016004, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4970529609976461952, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: gate
       value: 

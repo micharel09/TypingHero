@@ -8,32 +8,21 @@ public class ParrySystem : MonoBehaviour
     public ParryTarget enemy;
 
     [Header("Hitstop (parry success)")]
-    public HitStopper hitStopper;          // <- kéo GameManager(HitStopper) vào đây
-    [Tooltip("Thời gian hit-stop khi parry thành công (giây). 0 = tắt.")]
+    public HitStopper hitStopper;
     public float parrySuccessHitStop = 0.05f;
-    [Tooltip("I-frame sau parry thành công (unscaled).")]
     public float successIFrame = 0.08f;
 
     [Header("Input Gate")]
-    public PlayerInputGate gate;
+    public PlayerInputGate gate;                       // <-- đảm bảo đã kéo vào
+
     [Header("Debug")] public bool logs = true;
 
     bool windowOpen;
-    float successUntilUnscaled;            // i-frame dùng đồng hồ unscaled
-
-    // cache để biết Player có đang ở state "bị hit" hay không
-    PlayerHealth _hp;                      // <--- THÊM
+    float successUntilUnscaled;
 
     public bool IsWindowActive => windowOpen;
     public bool IsSuccessActive => Time.unscaledTime < successUntilUnscaled;
     public bool PoseLocked => InParryOrSuccess();
-
-    void Awake()                           // <--- THÊM
-    {
-        // tìm PlayerHealth từ animator nếu có, fallback về chính GameObject
-        _hp = playerAnimator ? playerAnimator.GetComponent<PlayerHealth>()
-                             : GetComponent<PlayerHealth>();
-    }
 
     void OnEnable() { if (enemy) enemy.OnStrike += OnEnemyStrike; }
     void OnDisable() { if (enemy) enemy.OnStrike -= OnEnemyStrike; }
@@ -48,44 +37,37 @@ public class ParrySystem : MonoBehaviour
         return inPose || inSucc;
     }
 
-
-    bool IsHitLocked()                   
-    {
-        return _hp && _hp.animator &&
-               AnimUtil.IsInState(_hp.animator, _hp.hitStatePath, out _);
-    }
-
     // --- Animation Events ---
     public void Anim_ParryOpen()
     {
+        if (gate && gate.IsDeadLocked) return;         // <-- CHẶN nếu đã chết
         windowOpen = true;
-        successUntilUnscaled = 0f;         // reset i-frame cũ
-        gate?.PushParryPose(this);
+        successUntilUnscaled = 0f;
         if (logs) Debug.Log("[PARRY] Pose opened");
     }
     public void Anim_ParryClose()
     {
+        if (gate && gate.IsDeadLocked) return;         // <-- CHẶN nếu đã chết
         windowOpen = false;
-        gate?.PopParryPose(this);
         if (logs) Debug.Log("[PARRY] Pose closed");
     }
 
-    // --- Enemy strike-frame ---
     void OnEnemyStrike()
     {
+        if (gate && gate.IsDeadLocked) return;         // <-- CHẶN nếu đã chết
         if (!windowOpen) return;
 
         windowOpen = false;
         successUntilUnscaled = Time.unscaledTime + successIFrame;
-        gate?.BeginParrySuccessIFrame(successIFrame);  // <-- thêm
 
-        if (hitStopper && parrySuccessHitStop > 0f) hitStopper.Stop(parrySuccessHitStop);
+        if (hitStopper && parrySuccessHitStop > 0f)
+            hitStopper.Stop(parrySuccessHitStop);
 
         if (playerAnimator && config && !string.IsNullOrEmpty(config.playerParrySuccessStatePath))
             AnimUtil.CrossFadePath(playerAnimator, config.playerParrySuccessStatePath,
                                    config.playerParrySuccessCrossfade, 0f);
 
-        if (logs) Debug.Log($"[PARRY] OK");
+        if (logs) Debug.Log($"[PARRY] OK (t={Time.unscaledTime:0.000})");
     }
 
     public void ParrySuccess() => OnEnemyStrike();
@@ -94,11 +76,13 @@ public class ParrySystem : MonoBehaviour
     {
         if (!config) return;
 
-        // đang bị hit hoặc đang ở parry pose → không cho vào nữa
-        if (gate && !gate.CanParry) return;        
+        // ❌ đã chết hoặc gate không cho parry → bỏ qua
+        if (gate && !gate.CanParry) return;            // <-- ĐỦ để chặn Space sau khi chết
 
         if (Input.GetKeyDown(config.parryKey))
         {
+            if (InParryOrSuccess()) return;
+
             if (playerAnimator && !string.IsNullOrEmpty(config.playerParryPoseStatePath))
                 AnimUtil.CrossFadePath(playerAnimator, config.playerParryPoseStatePath,
                                        config.playerParryPoseCrossfade, 0f);
