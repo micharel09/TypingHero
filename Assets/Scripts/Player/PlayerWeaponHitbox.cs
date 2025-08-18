@@ -10,7 +10,6 @@ public class PlayerWeaponHitbox : MonoBehaviour
     [Header("Who can be hit")]
     public LayerMask targetLayers;
 
-    // Hitstop (optional)
     public enum HitStopTarget { None, Player, Enemy, Both }
     [Header("Hitstop (optional)")]
     public HitStopper hitStopper;
@@ -19,9 +18,6 @@ public class PlayerWeaponHitbox : MonoBehaviour
     Collider2D col;
     readonly HashSet<IDamageable> hitTargets = new();
     bool active;
-    int currentAttackId;
-
-    public bool IsActive => active;
 
     void Awake()
     {
@@ -33,7 +29,6 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
     public void BeginAttack(int attackId)
     {
-        currentAttackId = attackId;
         hitTargets.Clear();
         active = true;
         col.enabled = true;
@@ -57,15 +52,19 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
         hitTargets.Add(dmg);
         Vector2 p = other.ClosestPoint(transform.position);
+
+        // Parry Success → nếu đang STUN thì giữ STUN, còn không thì ép Hit React
         Transform root = other.transform.root;
         if (UninterruptibleBypass.IsActiveFor(root))
         {
-            if (root.TryGetComponent(out EnemyHitReactGate gate))
+            if (root.TryGetComponent(out EnemyStunController stun) && stun.IsStunned)
+                stun.ReassertNow();
+            else if (root.TryGetComponent(out EnemyHitReactGate gate))
                 gate.ForceInterrupt();
         }
+
         dmg.TakeDamage(damage, p);
 
-        // === HITSTOP ===
         if (hitStopper)
         {
             float pStop = (hitStopTarget == HitStopTarget.Player || hitStopTarget == HitStopTarget.Both) ? hitStopper.playerHitStop : 0f;

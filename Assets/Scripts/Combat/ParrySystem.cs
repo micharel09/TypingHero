@@ -18,10 +18,6 @@ public class ParrySystem : MonoBehaviour
     [Header("Debug")]
     public bool logs = true;
 
-    [Header("Parry Success → Bypass Uninterruptible")]
-    public float bypassWindow = 0.22f; // 0.18–0.25 là đẹp cho parry_success
-
-
     // ========= Event dành cho VFX/SFX khi parry thành công =========
     public struct ParryContext
     {
@@ -93,10 +89,6 @@ public class ParrySystem : MonoBehaviour
         if (playerAnimator && config && !string.IsNullOrEmpty(config.playerParrySuccessStatePath))
             AnimUtil.CrossFadePath(playerAnimator, config.playerParrySuccessStatePath,
                                    config.playerParrySuccessCrossfade, 0f);   // ← hết crossfade tại đây  :contentReference[oaicite:3]{index=3}
-
-        var comp = enemyTarget as Component;                    // lấy component để truy ra root
-        var root = comp ? comp.transform.root : null;
-        if (root) UninterruptibleBypass.ActivateFor(root, bypassWindow);
 
         // phát sự kiện cho VFX/SFX (spark, âm thanh…)
         Transform targetRoot = null;

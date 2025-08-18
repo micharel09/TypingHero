@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2581763793603456263}
   - component: {fileID: 8355289382787411715}
   - component: {fileID: 7589877942810491710}
+  - component: {fileID: 573103039079237295}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Enemy
@@ -198,8 +199,8 @@ MonoBehaviour:
   animator: {fileID: 5902380356341294186}
   target: {fileID: 0}
   playerHealth: {fileID: 0}
-  health: 500
-  attackInterval: 3
+  health: 100
+  attackInterval: 4
   useUnscaledClock: 1
   attackStatePath: Base Layer.skeleton_attack1
   attackCrossfade: 0.02
@@ -224,7 +225,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 2581763793603456263}
   skeleton: {fileID: 2581763793603456263}
-  sparkAnchor: {fileID: 0}
 --- !u!114 &7589877942810491710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,3 +240,23 @@ MonoBehaviour:
   damageReceiver: {fileID: 0}
   damage: 5
   hitStopTarget: 1
+--- !u!114 &573103039079237295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212155499661164206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0021229d255a794892c44215e75557b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5902380356341294186}
+  hitStatePath: Base Layer.skeleton_hit
+  hitCrossfade: 0.02
+  layerIndex: 0
+  minInterval: 0.05
+  onForcedInterrupt:
+    m_PersistentCalls:
+      m_Calls: []

@@ -80,27 +80,30 @@ public class SkeletonController : MonoBehaviour, IDamageable
             AnimUtil.CrossFadePath(animator, attackStatePath, attackCrossfade, attackStartTime);
 
         if (logs) Debug.Log("[SKE] Start attack");
-    }   
+    }
 
     void EndAttack()
     {
         _attacking = false;
         _nextAttackAt = Now + attackInterval;
 
+        // NEW: đừng xả hit-react nếu đang stun
         if (_queuedHitReact && !IsDead)
         {
-            // phát hit-react đã xếp hàng
-            _queuedHitReact = false;
-            if (animator)
-                AnimUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
-            if (logs) Debug.Log("[SKE] Play queued hit-react");
+            if (TryGetComponent(out EnemyStunController stun) && stun.IsStunned)
+            {
+                _queuedHitReact = false;
+                if (logs) Debug.Log("[SKE] Skip queued hit-react (STUN)");
+            }
+            else
+            {
+                _queuedHitReact = false;
+                if (animator) AnimUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
+                if (logs) Debug.Log("[SKE] Play queued hit-react");
+            }
         }
         if (logs) Debug.Log("[SKE] End attack");
     }
-
-
-
-
 
     // --------- IDamageable ----------
     public void TakeDamage(int amount, Vector2 hitPoint)
@@ -109,26 +112,24 @@ public class SkeletonController : MonoBehaviour, IDamageable
 
         health -= amount;
         if (logs) Debug.Log($"[SKE] Hit {amount}, HP: {health}");
+        if (health <= 0) { Die(); return; }
 
-        if (health <= 0)
+        // NEW: đang stun → chỉ nhận damage, không vào hit-react
+        if (TryGetComponent(out EnemyStunController stun) && stun.IsStunned)
         {
-            Die();
+            if (logs) Debug.Log("[SKE] Damage while STUN → keep stun");
             return;
         }
 
-        // → KHÓA CHẶT: đang ở state attack thì không cho ngắt
         bool inAttackNow = AnimUtil.IsInState(animator, attackStatePath, out _);
         if (uninterruptibleDuringAttack && inAttackNow)
         {
-            if (queueHitReactAfterAttack) _queuedHitReact = true;   // để xả hit-react sau khi vung xong
+            if (queueHitReactAfterAttack) _queuedHitReact = true;
             if (logs) Debug.Log("[SKE] Got hit mid-swing → queued hit-react");
-            return; // QUAY RA, KHÔNG crossfade sang hit
+            return;
         }
-
-        // không ở state attack thì được phép play hit-react ngay
         if (animator) AnimUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
     }
-
     void Die()
     {
         IsDead = true;
