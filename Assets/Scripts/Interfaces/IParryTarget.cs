@@ -2,8 +2,8 @@
 
 public interface IParryTarget
 {
-    // Gọi đúng frame vung kiếm (animation event)
-    event Action OnStrike;
+    // Báo đúng frame vung kiếm + TRẢ CHÍNH ĐỐI TƯỢNG bị parry
+    event Action<IParryTarget> OnStrike;
 
     // Enemy đã chết chưa (để ParrySystem tự bỏ qua)
     bool IsDead { get; }

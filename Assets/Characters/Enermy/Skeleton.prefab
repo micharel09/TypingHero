@@ -12,11 +12,13 @@ GameObject:
   - component: {fileID: 3278272914554389335}
   - component: {fileID: 8665530717151484199}
   - component: {fileID: 7819345444398823029}
-  - component: {fileID: 179836890553357368}
   - component: {fileID: 5902380356341294186}
-  m_Layer: 0
+  - component: {fileID: 2581763793603456263}
+  - component: {fileID: 8355289382787411715}
+  - component: {fileID: 7589877942810491710}
+  m_Layer: 6
   m_Name: Skeleton
-  m_TagString: Enermy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.84, y: -1.43, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,7 +98,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7212155499661164206}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -160,23 +162,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7201848, y: 3.0484917}
   m_EdgeRadius: 0
---- !u!114 &179836890553357368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7212155499661164206}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ecccfeeb31a71468f2fba5c697c7aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  target: {fileID: 0}
-  health: 500
-  attackDamage: 5
-  attackCooldown: 4
 --- !u!95 &5902380356341294186
 Animator:
   serializedVersion: 5
@@ -198,3 +183,60 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2581763793603456263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212155499661164206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ecccfeeb31a71468f2fba5c697c7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5902380356341294186}
+  target: {fileID: 0}
+  playerHealth: {fileID: 0}
+  health: 500
+  attackInterval: 3
+  useUnscaledClock: 1
+  attackStatePath: Base Layer.skeleton_attack1
+  attackCrossfade: 0.02
+  attackStartTime: 10
+  attackDamage: 5
+  uninterruptibleDuringAttack: 1
+  hitStatePath: Base Layer.skeleton_hit
+  hitCrossfade: 0.02
+  queueHitReactAfterAttack: 0
+  logs: 0
+--- !u!114 &8355289382787411715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212155499661164206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19db4dcbace6ce344b439b21e9f4ab1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageable: {fileID: 2581763793603456263}
+  skeleton: {fileID: 2581763793603456263}
+  sparkAnchor: {fileID: 0}
+--- !u!114 &7589877942810491710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212155499661164206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf8554ef4250ea4fa8adf74b7104bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageReceiver: {fileID: 0}
+  damage: 5
+  hitStopTarget: 1

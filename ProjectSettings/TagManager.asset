@@ -16,7 +16,7 @@ TagManager:
   - UI
   - Enemy
   - PlayerWeapon
-  - 
+  - FX
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: VFX
+    uniqueID: 635770739
     locked: 0

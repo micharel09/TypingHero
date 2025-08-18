@@ -57,6 +57,12 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
         hitTargets.Add(dmg);
         Vector2 p = other.ClosestPoint(transform.position);
+        Transform root = other.transform.root;
+        if (UninterruptibleBypass.IsActiveFor(root))
+        {
+            if (root.TryGetComponent(out EnemyHitReactGate gate))
+                gate.ForceInterrupt();
+        }
         dmg.TakeDamage(damage, p);
 
         // === HITSTOP ===

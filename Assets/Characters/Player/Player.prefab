@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: 3467237052091016004}
   - component: {fileID: 213540721010529462}
   - component: {fileID: 4970529609976461952}
-  - component: {fileID: 1979998204382362851}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -320,7 +319,7 @@ MonoBehaviour:
   hitCrossfade: 0.02
   postHitIFrames: 0.05
   parry: {fileID: 213540721010529462}
-  gate: {fileID: 1979998204382362851}
+  gate: {fileID: 0}
   logs: 1
 --- !u!114 &213540721010529462
 MonoBehaviour:
@@ -340,7 +339,7 @@ MonoBehaviour:
   hitStopper: {fileID: 0}
   parrySuccessHitStop: 0.05
   successIFrame: 0.08
-  gate: {fileID: 1979998204382362851}
+  gate: {fileID: 0}
   logs: 1
 --- !u!114 &4970529609976461952
 MonoBehaviour:
@@ -357,17 +356,4 @@ MonoBehaviour:
   animator: {fileID: 2040951967068383774}
   attackEvents: {fileID: 6569085278038838052}
   attack: {fileID: 11400000, guid: 373597bbccd369d44a72491ba3620e6e, type: 2}
-  gate: {fileID: 1979998204382362851}
---- !u!114 &1979998204382362851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5449769088092458507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c81604dc44f09848bc87f3f430f6c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logs: 1
+  gate: {fileID: 0}

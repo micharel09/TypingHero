@@ -4,7 +4,7 @@ using System;
 [DisallowMultipleComponent]
 public class ParryTarget : MonoBehaviour, IParryTarget
 {
-    public event Action OnStrike;
+    public event Action<IParryTarget> OnStrike;
 
     [Header("Refs (tuỳ chọn)")]
     [Tooltip("Component có IDamageable để đọc IsDead (nếu để trống sẽ tự tìm trên chính GameObject).")]
@@ -27,5 +27,5 @@ public class ParryTarget : MonoBehaviour, IParryTarget
     public bool IsDead => _hp != null && _hp.IsDead;
 
     // Animation Event: đặt đúng strike-frame trong clip tấn công của enemy
-    public void Anim_StrikeFrame() => OnStrike?.Invoke();
+    public void Anim_StrikeFrame() => OnStrike?.Invoke(this);
 }
