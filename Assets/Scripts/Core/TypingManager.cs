@@ -16,14 +16,19 @@ public class TypingManager : MonoBehaviour
 
     [Header("Word Settings")]
     public string[] attackWords = { "slash", "strike", "cut", "stab" };
+    public static bool MuteWordCorrect = false;
 
-    private string target = "";
-    private int index = 0;
-    private float timer = 0f;
+    string target = "";
+    int index = 0;
+    float timer = 0f;
 
     // Sự kiện để thông báo ra ngoài
     public static event Action OnWordCorrect;
     public static event Action OnWordTimeout;
+    public static event System.Action OnWordAdvanced;
+
+    // NEW: mỗi ký tự đúng
+    public static event Action<char> OnCorrectChar;
 
     public ParrySystem parry;
 
@@ -43,13 +48,12 @@ public class TypingManager : MonoBehaviour
     {
         timer -= Time.deltaTime;
 
-        // Cập nhật UI
         if (countdownSlider)
         {
             float timeRatio = timer / attackTimeLimit;
             countdownSlider.value = timeRatio;
 
-            Image fillImage = countdownSlider.fillRect.GetComponent<Image>();
+            var fillImage = countdownSlider.fillRect.GetComponent<Image>();
             if (fillImage)
             {
                 if (timeRatio > 0.6f) fillImage.color = Color.green;
@@ -76,15 +80,22 @@ public class TypingManager : MonoBehaviour
             if (index < target.Length && char.ToLowerInvariant(c) == char.ToLowerInvariant(target[index]))
             {
                 index++;
-                wordText.text = $"<color=#7CFC00>{target.Substring(0, index)}</color>{target.Substring(index)}";
+
+                // NEW: phát sự kiện ký tự đúng cho Slayer
+                OnCorrectChar?.Invoke(c);
+
+                if (wordText)
+                    wordText.text = $"<color=#7CFC00>{target.Substring(0, index)}</color>{target.Substring(index)}";
 
                 if (index >= target.Length)
                 {
-                    Debug.Log("ATTACK OK");
-                    OnWordCorrect?.Invoke();
+                    if (!MuteWordCorrect) OnWordCorrect?.Invoke();
+                    OnWordAdvanced?.Invoke();
+
                     NextPrompt();
                     FocusInput();
                 }
+
             }
         }
     }

@@ -8,8 +8,12 @@ public class EnemyStamina : MonoBehaviour
     public int max = 25;
     public int parryCost = 25;
 
+    [Header("Hit (normal attack)")]
+    [Tooltip("Mức trừ khi dính đòn đánh thường của Player (nhỏ hơn parryCost).")]
+    public int hitCost = 12;
+
     [Header("Regen")]
-    [Tooltip("Bắt đầu hồi sau khi không bị parry trong khoảng này (giây).")]
+    [Tooltip("Bắt đầu hồi sau khi không bị parry/hit trong khoảng này (giây).")]
     [SerializeField] float regenDelaySeconds = 4f;
     [Tooltip("Khoảng cách giữa các tick hồi.")]
     [SerializeField] float regenTickInterval = 0.2f;
@@ -23,7 +27,6 @@ public class EnemyStamina : MonoBehaviour
     [SerializeField] bool refillToMaxOnStunEnd = true;
 
     public event Action<int, int> OnChanged;
-
     public int Current { get; private set; }
 
     WaitForSecondsRealtime _waitDelay, _waitTick;
@@ -37,7 +40,7 @@ public class EnemyStamina : MonoBehaviour
     {
         Current = max;
         _waitDelay = new WaitForSecondsRealtime(regenDelaySeconds);
-        _waitTick  = new WaitForSecondsRealtime(regenTickInterval);
+        _waitTick = new WaitForSecondsRealtime(regenTickInterval);
         TryGetComponent(out _stun);
         NotifyChange();
     }
@@ -47,6 +50,8 @@ public class EnemyStamina : MonoBehaviour
         if (regenDelaySeconds < 0f) regenDelaySeconds = 0f;
         if (regenTickInterval < 0.05f) regenTickInterval = 0.05f;
         if (regenPerTick < 1) regenPerTick = 1;
+        if (hitCost < 0) hitCost = 0;
+        if (parryCost < 0) parryCost = 0;
     }
 
     void NotifyChange() => OnChanged?.Invoke(Current, max);
@@ -54,8 +59,22 @@ public class EnemyStamina : MonoBehaviour
     // --- gọi khi parry thành công ---
     public void ConsumeParry()
     {
+        ApplyCost(parryCost);
+    }
+    public void NotifyParried() => StartRegenCountdown();
+
+    // --- gọi khi dính đòn đánh thường ---
+    public void ConsumeHit() => ApplyCost(hitCost);
+    public void ConsumeHit(int customCost) => ApplyCost(Mathf.Max(0, customCost));
+    public void NotifyHit() => StartRegenCountdown();
+
+    // --- core trừ stamina chung ---
+    void ApplyCost(int cost)
+    {
+        if (cost <= 0) { StartRegenCountdown(); return; }
+
         int before = Current;
-        Current = Mathf.Max(0, Current - parryCost);
+        Current = Mathf.Max(0, Current - cost);
         if (Current != before) NotifyChange();
 
         // nếu vừa tụt về 0 -> chờ hết stun để refill
@@ -68,8 +87,6 @@ public class EnemyStamina : MonoBehaviour
         // reset countdown regen
         StartRegenCountdown();
     }
-
-    public void NotifyParried() => StartRegenCountdown();
 
     void StartRegenCountdown()
     {
@@ -119,7 +136,7 @@ public class EnemyStamina : MonoBehaviour
         {
             _awaitRefillAfterStun = false;
 
-            // dừng regen (không cần nữa) rồi refill full
+            // dừng regen rồi refill full
             if (_regenCo != null) { StopCoroutine(_regenCo); _regenCo = null; }
 
             Current = max;

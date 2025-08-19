@@ -15,8 +15,13 @@ public class EnemyStunController : MonoBehaviour
     [Header("Auto disable trong lúc stun")]
     [SerializeField] bool autoDisableAttackStrike = true;
     [SerializeField] bool autoDisableSkeletonController = true;
+
     AttackStrike _attack;
     SkeletonController _brain;
+
+    [Header("Events")]
+    public UnityEvent onStunStart;   // <-- NEW
+    public UnityEvent onStunEnd;     // <-- NEW
 
     [Header("Debug")]
     [SerializeField] bool logs;
@@ -27,7 +32,7 @@ public class EnemyStunController : MonoBehaviour
     void Awake()
     {
         if (autoDisableAttackStrike) _attack = GetComponent<AttackStrike>();
-        if (autoDisableSkeletonController) _brain  = GetComponent<SkeletonController>();
+        if (autoDisableSkeletonController) _brain = GetComponent<SkeletonController>();
     }
 
     public void TriggerStun(float seconds)
@@ -43,6 +48,7 @@ public class EnemyStunController : MonoBehaviour
         SetDisabled(true);
 
         Crossfade(stunStatePath, stunCrossfade);
+        onStunStart?.Invoke(); // <-- NEW
         if (logs) Debug.Log($"[Stun] {name} START {seconds:0.00}s");
 
         yield return new WaitForSecondsRealtime(seconds);
@@ -50,13 +56,14 @@ public class EnemyStunController : MonoBehaviour
         _isStunned = false;
         SetDisabled(false);
         Crossfade(exitStatePath, exitCrossfade);
+        onStunEnd?.Invoke();   // <-- NEW
         if (logs) Debug.Log($"[Stun] {name} END");
     }
 
     void SetDisabled(bool off)
     {
         if (_attack) _attack.enabled = !off;
-        if (_brain) _brain.enabled  = !off;
+        if (_brain) _brain.enabled = !off;
     }
 
     void Crossfade(string path, float cf)
@@ -65,7 +72,6 @@ public class EnemyStunController : MonoBehaviour
         animator.CrossFadeInFixedTime(path, cf, 0, 0f);
     }
 
-    // Cho phép chốt lại stun khi có va chạm trong lúc đang stun
     public void ReassertNow()
     {
         if (!_isStunned) return;

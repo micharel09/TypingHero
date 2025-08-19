@@ -29,8 +29,12 @@ public class PlayerAttackEvents : MonoBehaviour
         open = true;
         openedAt = Time.time;
 
-        currentAttackId = ++globalAttackCounter;   // tăng id cho cú vung mới
-        hitbox.BeginAttack(currentAttackId);       // ✅ truyền attackId
+        currentAttackId = ++globalAttackCounter;
+        hitbox.BeginAttack(currentAttackId);
+
+        // Đẩy transform ra PhysX ngay frame này (để tiếp xúc chính xác)
+        Physics2D.SyncTransforms();
+
         OnWindowOpen?.Invoke();
     }
 
@@ -46,7 +50,11 @@ public class PlayerAttackEvents : MonoBehaviour
 
     private IEnumerator CloseAfter(float t)
     {
-        if (t > 0f) yield return new WaitForSeconds(t);
+        if (t > 0f)
+            yield return new WaitForSeconds(t);      // scaled time
+        else
+            yield return new WaitForFixedUpdate();   // bảo đảm có ÍT NHẤT 1 tick vật lý
+
         open = false;
         if (hitbox != null) hitbox.EndAttack();
         closeCo = null;

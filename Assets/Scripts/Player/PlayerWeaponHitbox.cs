@@ -11,9 +11,19 @@ public class PlayerWeaponHitbox : MonoBehaviour
     public LayerMask targetLayers;
 
     public enum HitStopTarget { None, Player, Enemy, Both }
+
     [Header("Hitstop (optional)")]
     public HitStopper hitStopper;
     public HitStopTarget hitStopTarget = HitStopTarget.Both;
+
+    [Header("Slayer (optional)")]
+    [SerializeField] PlayerSlayerMode slayer;
+
+    [Header("Stamina drain (normal hit)")]
+    [Tooltip("Nếu < 0 sẽ dùng HitCost trong EnemyStamina. Nếu >= 0 sẽ override theo vũ khí này.")]
+    [SerializeField] int staminaOnHit = -1;
+    [Tooltip("Thời lượng stun khi stamina tụt 0 bởi đòn đánh thường (ngắn hơn Parry).")]
+    [SerializeField] float hitStunSeconds = 6f;
 
     Collider2D col;
     readonly HashSet<IDamageable> hitTargets = new();
@@ -25,6 +35,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
         col.isTrigger = true;
         col.enabled = false;
         gameObject.tag = "PlayerWeapon";
+        if (!slayer) slayer = GetComponentInParent<PlayerSlayerMode>();
     }
 
     public void BeginAttack(int attackId)
@@ -53,22 +64,54 @@ public class PlayerWeaponHitbox : MonoBehaviour
         hitTargets.Add(dmg);
         Vector2 p = other.ClosestPoint(transform.position);
 
-        // Parry Success → nếu đang STUN thì giữ STUN, còn không thì ép Hit React
         Transform root = other.transform.root;
-        if (UninterruptibleBypass.IsActiveFor(root))
+
+        // === Reaction rules ===
+        if (slayer && slayer.IsActive)
         {
-            if (root.TryGetComponent(out EnemyStunController stun) && stun.IsStunned)
-                stun.ReassertNow();
+            // Đang stun → giữ stun; nếu không stun → ép hit-react
+            if (root.TryGetComponent(out EnemyStunController st) && st.IsStunned)
+                st.ReassertNow();
             else if (root.TryGetComponent(out EnemyHitReactGate gate))
                 gate.ForceInterrupt();
         }
+        else
+        {
+            // Parry-success bypass bình thường
+            if (UninterruptibleBypass.IsActiveFor(root) && root.TryGetComponent(out EnemyHitReactGate g2))
+                g2.ForceInterrupt();
+        }
 
-        dmg.TakeDamage(damage, p);
+        // === DAMAGE (theo tint afterimage trong Slayer) ===
+        int applyDamage = damage;
+        if (slayer && slayer.IsActive)
+        {
+            float mul = Mathf.Max(0f, slayer.CurrentSlayerMultiplier);
+            applyDamage = Mathf.RoundToInt(damage * mul);
+        }
+        dmg.TakeDamage(applyDamage, p);
 
-        if (hitStopper)
+        // === STAMINA DRAIN (đòn đánh thường) ===
+        if (root.TryGetComponent(out EnemyStamina stam))
+        {
+            int before = stam.Current;
+
+            if (staminaOnHit >= 0) stam.ConsumeHit(staminaOnHit);
+            else stam.ConsumeHit(); // dùng HitCost trong EnemyStamina
+
+            // Tụt về 0 lần này → Stun ngắn (nhỏ hơn Parry)
+            if (before > 0 && stam.Current == 0 && hitStunSeconds > 0f &&
+                root.TryGetComponent(out EnemyStunController stun))
+            {
+                stun.TriggerStun(hitStunSeconds);
+                if (slayer) slayer.ActivateForStun(stun);
+            }
+        }
+
+        if (hitStopper && !(slayer && slayer.IsActive && slayer.IgnoreHitstop))
         {
             float pStop = (hitStopTarget == HitStopTarget.Player || hitStopTarget == HitStopTarget.Both) ? hitStopper.playerHitStop : 0f;
-            float eStop = (hitStopTarget == HitStopTarget.Enemy  || hitStopTarget == HitStopTarget.Both) ? hitStopper.enemyHitStop : 0f;
+            float eStop = (hitStopTarget == HitStopTarget.Enemy || hitStopTarget == HitStopTarget.Both) ? hitStopper.enemyHitStop : 0f;
             hitStopper.Request(player: pStop, enemy: eStop);
         }
     }

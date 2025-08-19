@@ -5,7 +5,7 @@ public sealed class ParryStaminaDrainBinder : MonoBehaviour
 {
     [SerializeField] ParrySystem parry; // kéo ParrySystem (Player)
     [SerializeField] float stunDurationSeconds = 5f; // === MỚI ===
-    [SerializeField] bool logs;
+    [SerializeField] PlayerSlayerMode slayer;
 
     void OnEnable() { if (parry) parry.OnParrySuccess += OnParrySuccess; }
     void OnDisable() { if (parry) parry.OnParrySuccess -= OnParrySuccess; }
@@ -19,8 +19,12 @@ public sealed class ParryStaminaDrainBinder : MonoBehaviour
             stam.ConsumeParry();     // trừ stamina
             stam.NotifyParried();    // reset timer regen (4s)
             if (stam.Current == 0 && stunDurationSeconds > 0f &&
-                ctx.targetRoot.TryGetComponent(out EnemyStunController stun))
+            ctx.targetRoot.TryGetComponent(out EnemyStunController stun))
+            {
                 stun.TriggerStun(stunDurationSeconds);
+                if (slayer) slayer.ActivateForStun(stun);
+            }
+
         }
 
     }
