@@ -20,11 +20,11 @@ public class PlayerWeaponHitbox : MonoBehaviour
     [SerializeField] PlayerSlayerMode slayer;
 
     [Header("Stamina drain (normal hit)")]
-    [Tooltip("Nếu < 0 sẽ dùng HitCost trong EnemyStamina. Nếu >= 0 sẽ override theo vũ khí này.")]
     [SerializeField] int staminaOnHit = -1;
-    [Tooltip("Thời lượng stun khi stamina tụt 0 bởi đòn đánh thường (ngắn hơn Parry).")]
     [SerializeField] float hitStunSeconds = 6f;
-
+    [Header("Hit Flash")]
+    [SerializeField, Tooltip("Tăng thời lượng flash khi đang Slayer để mắt kịp thấy.")]
+    float slayerFlashDuration = 0.08f;
     Collider2D col;
     readonly HashSet<IDamageable> hitTargets = new();
     bool active;
@@ -69,7 +69,6 @@ public class PlayerWeaponHitbox : MonoBehaviour
         // === Reaction rules ===
         if (slayer && slayer.IsActive)
         {
-            // Đang stun → giữ stun; nếu không stun → ép hit-react
             if (root.TryGetComponent(out EnemyStunController st) && st.IsStunned)
                 st.ReassertNow();
             else if (root.TryGetComponent(out EnemyHitReactGate gate))
@@ -77,12 +76,11 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
         else
         {
-            // Parry-success bypass bình thường
             if (UninterruptibleBypass.IsActiveFor(root) && root.TryGetComponent(out EnemyHitReactGate g2))
                 g2.ForceInterrupt();
         }
 
-        // === DAMAGE (theo tint afterimage trong Slayer) ===
+        // === DAMAGE ===
         int applyDamage = damage;
         if (slayer && slayer.IsActive)
         {
@@ -91,7 +89,14 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
         dmg.TakeDamage(applyDamage, p);
 
-        // === STAMINA DRAIN (đòn đánh thường) ===
+        // === HIT FLASH (NEW) ===
+        if (root.TryGetComponent<EnemyHitFlash>(out var flash))
+        {
+            float dur = (slayer && slayer.IsActive) ? Mathf.Max(0.06f, slayerFlashDuration) : -1f;
+            flash.Tick(dur);   // nếu -1f → dùng duration mặc định trong EnemyHitFlash
+        }
+
+        // === STAMINA DRAIN ===
         if (root.TryGetComponent(out EnemyStamina stam))
         {
             int before = stam.Current;

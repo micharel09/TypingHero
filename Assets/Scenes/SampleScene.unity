@@ -647,6 +647,23 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   logs: 1
+--- !u!114 &515790437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464473849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469e07650159b4d40b6befcd5710d6f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers: []
+  flashColor: {r: 0.9622642, g: 0.93646914, b: 0.6581524, a: 1}
+  baseDuration: 0.134
+  useUnscaledTime: 1
+  minFrames: 2
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3867,6 +3884,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7212155499661164206, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
       insertIndex: 7
       addedObject: {fileID: 515790430}
+    - targetCorrespondingSourceObject: {fileID: 7212155499661164206, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 515790437}
   m_SourcePrefab: {fileID: 100100000, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
