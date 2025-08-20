@@ -44,6 +44,9 @@ TagManager:
   - name: BackGround
     uniqueID: 750519517
     locked: 0
+  - name: BackdropFX
+    uniqueID: 1068816671
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

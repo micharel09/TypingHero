@@ -50,6 +50,7 @@ public class PlayerSlayerMode : MonoBehaviour
     [SerializeField] float comboDecayIdleDelay = 0.4f;
     [SerializeField] float comboDecayPerSecond = 8f;
 
+
     // ===================== Slayer Damage (relative by tint) =====================
     [Header("Slayer Damage (relative by tint)")]
     [SerializeField] bool useSlayerRelativeDamage = true;
@@ -70,6 +71,13 @@ public class PlayerSlayerMode : MonoBehaviour
     [SerializeField] bool logs = false;
     [SerializeField] bool showDebugHUD = true;
     [SerializeField] Vector2 hudPosition = new Vector2(12, 12);
+
+    // ===================== Slayer ScreenFX (relative by tint) =====================
+    [SerializeField] bool autoPlayScreenFX = true;
+    [SerializeField] SlayerScreenFX screenFX;
+    [SerializeField] bool silhouetteOnInSlayer = true;
+
+
 
     // ---- runtime ----
     float _comboF;                                // vẫn giữ nếu cần dùng logic combo khác
@@ -172,6 +180,8 @@ public class PlayerSlayerMode : MonoBehaviour
             animator.CrossFadeInFixedTime(slayerEnterStatePath, enterCrossfade, 0, 0f);
 
         if (logs) Debug.Log(_followStun ? "[Slayer] ENTER (follow STUN)" : $"[Slayer] ENTER {_remain:0.00}s");
+        if (autoPlayScreenFX && screenFX) screenFX.EnterSlayerFX();
+        if (silhouetteOnInSlayer) SlayerModeSignals.SetActive(true);
         _co = StartCoroutine(Run());
     }
 
@@ -240,7 +250,8 @@ public class PlayerSlayerMode : MonoBehaviour
 
         if (_co != null) { StopCoroutine(_co); _co = null; }
         _remain = 0f;
-
+        if (autoPlayScreenFX && screenFX) screenFX.ExitSlayerFX();
+        if (silhouetteOnInSlayer) SlayerModeSignals.SetActive(false);
         if (logs) Debug.Log("[Slayer] EXIT");
     }
 
@@ -293,7 +304,9 @@ public class PlayerSlayerMode : MonoBehaviour
     void Awake()
     {
         if (!afterimage) afterimage = GetComponent<SlayerAfterimagePool>();
+        if (!screenFX) screenFX = FindObjectOfType<SlayerScreenFX>();
     }
+
 
     void OnDisable() => Exit();
 
