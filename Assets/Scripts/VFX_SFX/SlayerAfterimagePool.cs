@@ -7,8 +7,8 @@ public class SlayerAfterimagePool : MonoBehaviour
 {
     [Header("Source")]
     [SerializeField] SpriteRenderer source;
-    [SerializeField] bool forceLocalSource = true;   // NEW: khóa về SR của chính Player
-    [SerializeField] bool debugLogs = false;         // NEW
+    [SerializeField] bool forceLocalSource = true;
+    [SerializeField] bool debugLogs = false;
 
     [Header("Visual (base)")]
     [SerializeField] Color baseTint = new Color(1f, 1f, 1f, 0.55f);
@@ -62,7 +62,6 @@ public class SlayerAfterimagePool : MonoBehaviour
 
     void BindLocalSourceIfNeeded()
     {
-        // nếu forceLocal hoặc source null/khác root → lấy SR ở chính Player
         if (forceLocalSource || source == null || source.transform.root != transform.root)
         {
             var local = GetComponentInChildren<SpriteRenderer>(true);
@@ -80,15 +79,32 @@ public class SlayerAfterimagePool : MonoBehaviour
         go.SetActive(false);
         return go;
     }
-    void OnGet(GameObject go) => go.SetActive(true);
-    void OnRelease(GameObject go) { go.transform.SetParent(null); go.SetActive(false); }
+
+    // === POOL HOOKS ===
+    void OnGet(GameObject go)
+    {
+        // Parent trực tiếp về Player để disable Player là tắt hết afterimage
+        go.transform.SetParent(transform, worldPositionStays: true);
+        go.SetActive(true);
+    }
+
+    void OnRelease(GameObject go)
+    {
+        if (!go) return;
+        go.transform.SetParent(transform, true);   // giữ dưới Player cho dễ dọn
+        go.SetActive(false);
+    }
+
     void OnDestroyItem(GameObject go) { if (go) Destroy(go); }
 
-    // API
+    // === API ===
     public void SpawnBurstFromCurrentFrame(int combo)
     {
-        BindLocalSourceIfNeeded(); // đảm bảo mỗi lần spawn vẫn đúng nguồn
-        if (!isActiveAndEnabled || !source || !source.sprite) return;
+        // Không spawn nếu đã bị tắt
+        if (!isActiveAndEnabled || !gameObject.activeInHierarchy) return;
+
+        BindLocalSourceIfNeeded();
+        if (!source || !source.sprite) return;
 
         if (debugLogs)
             Debug.Log($"[Afterimage] Spawn from '{source.transform.root.name}/{source.name}' sprite={source.sprite.name}");
@@ -107,6 +123,7 @@ public class SlayerAfterimagePool : MonoBehaviour
         Color c = GetComboTint(combo);
         for (int i = 0; i < burstCount; i++)
         {
+            if (!isActiveAndEnabled || !gameObject.activeInHierarchy) yield break;
             SpawnOne(i, c, l);
             a *= alphaFalloff; c.a = a; l += lifeStep;
             if (i < burstCount - 1 && burstInterval > 0f)
@@ -152,11 +169,31 @@ public class SlayerAfterimagePool : MonoBehaviour
         float t = 0f;
         while (t < lifeSeconds)
         {
+            if (!isActiveAndEnabled || !gameObject.activeInHierarchy) break; // Player tắt -> dọn
             float a = alphaCurve.Evaluate(t / Mathf.Max(0.0001f, lifeSeconds));
             sr.color = new Color(baseColor.r, baseColor.g, baseColor.b, baseColor.a * a);
             t += Time.unscaledDeltaTime;
             yield return null;
         }
         _pool.Release(go);
+    }
+
+    // === CLEANUP GỌN ===
+    void OnDisable()
+    {
+        // Dừng mọi fade đang chạy và thu hồi tất cả Afterimage (đang ở dưới transform)
+        StopAllCoroutines();
+
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            var child = transform.GetChild(i);
+            if (!child || child.name != "Afterimage") continue;
+            if (_pool != null) _pool.Release(child.gameObject);
+            else Destroy(child.gameObject);
+        }
+
+#if UNITY_2021_3_OR_NEWER
+        if (_pool is ObjectPool<GameObject> op) op.Clear();
+#endif
     }
 }

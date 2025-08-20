@@ -1,29 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-/// Nháy flash ngắn khi bị trúng đòn. Không dùng coroutine để tránh GC.
 [DisallowMultipleComponent]
 public sealed class EnemyHitFlash : MonoBehaviour
 {
     [Header("Renderers")]
-    [Tooltip("Để trống sẽ quét toàn bộ SpriteRenderer con (active).")]
     [SerializeField] List<SpriteRenderer> renderers;
 
     [Header("Flash Tint")]
-    [Tooltip("Tint hơi đỏ để thấy rõ với sprite trắng.")]
     [SerializeField] Color flashColor = new Color(1f, 0.55f, 0.55f, 1f);
-
-    [Tooltip("Thời lượng nháy cơ bản (giây).")]
     [SerializeField, Range(0.02f, 0.20f)] float baseDuration = 0.06f;
 
     [Header("Timing")]
-    [Tooltip("Sử dụng unscaled time để bỏ qua hitstop.")]
     [SerializeField] bool useUnscaledTime = true;
-
-    [Tooltip("Đảm bảo tối thiểu số frame hiển thị flash.")]
     [SerializeField, Range(1, 4)] int minFrames = 2;
 
-    // Cache
     Color[] _originalColors;
     float _flashUntil = -1f;
     int _flashFrameUntil = -1;
@@ -33,7 +24,6 @@ public sealed class EnemyHitFlash : MonoBehaviour
     {
         if (renderers == null || renderers.Count == 0)
             renderers = new List<SpriteRenderer>(GetComponentsInChildren<SpriteRenderer>(includeInactive: false));
-
         EnsureCache();
         RestoreInstant();
     }
@@ -42,8 +32,15 @@ public sealed class EnemyHitFlash : MonoBehaviour
     {
         EnsureCache();
         RestoreInstant();
+        _active = false;
         _flashUntil = -1f;
         _flashFrameUntil = -1;
+    }
+
+    void OnDisable()
+    {
+        // Nếu đang flash mà bị tắt (hoặc đổi scene) → trả ngay về màu gốc
+        RestoreInstant();
         _active = false;
     }
 
@@ -65,7 +62,6 @@ public sealed class EnemyHitFlash : MonoBehaviour
         float now = useUnscaledTime ? Time.unscaledTime : Time.time;
         bool timePassed = now >= _flashUntil;
         bool framePassed = Time.frameCount >= _flashFrameUntil;
-
         if (timePassed && framePassed)
         {
             RestoreInstant();
@@ -73,9 +69,12 @@ public sealed class EnemyHitFlash : MonoBehaviour
         }
     }
 
-    /// Gọi khi bị trúng đòn. Có thể override duration (giây).
+    /// Gọi khi enemy trúng đòn
     public void Tick(float overrideDuration = -1f)
     {
+        // KHÓA: không cho hit-flash hoạt động trong Slayer, để tránh chụp “màu gốc” = đen
+        if (SlayerModeSignals.Active) return;
+
         if (renderers == null || renderers.Count == 0) return;
 
         float now = useUnscaledTime ? Time.unscaledTime : Time.time;
@@ -83,7 +82,7 @@ public sealed class EnemyHitFlash : MonoBehaviour
 
         if (!_active)
         {
-            // Chụp màu gốc (phòng trường hợp có hệ thống đổi màu khi hit-react)
+            // Lưu lại màu gốc đúng tại thời điểm BÌNH THƯỜNG (không phải lúc silhouette)
             for (int i = 0; i < renderers.Count; i++)
             {
                 var r = renderers[i];
@@ -95,12 +94,11 @@ public sealed class EnemyHitFlash : MonoBehaviour
         }
         else
         {
-            // Đang flash → chỉ gia hạn mốc tắt
+            // Gia hạn và đảm bảo vẫn là flashColor
             for (int i = 0; i < renderers.Count; i++)
             {
                 var r = renderers[i];
                 if (!r) continue;
-                // đảm bảo vẫn là flashColor nếu script khác vừa ghi đè
                 r.color = flashColor;
             }
         }
@@ -119,8 +117,4 @@ public sealed class EnemyHitFlash : MonoBehaviour
             r.color = _originalColors[i];
         }
     }
-
-    // API cấu hình động (tuỳ thích)
-    public void SetFlashColor(Color c) => flashColor = c;
-    public void SetBaseDuration(float d) => baseDuration = Mathf.Clamp(d, 0.02f, 0.2f);
 }

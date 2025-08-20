@@ -19,9 +19,6 @@ public class PlayerWeaponHitbox : MonoBehaviour
     [Header("Slayer (optional)")]
     [SerializeField] PlayerSlayerMode slayer;
 
-    [Header("Hit Spark (optional)")]
-    [SerializeField] HitSparkSlashPool hitSparkPool;
-
     [Header("Stamina drain (normal hit)")]
     [SerializeField] int staminaOnHit = -1;
     [SerializeField] float hitStunSeconds = 6f;
@@ -31,6 +28,10 @@ public class PlayerWeaponHitbox : MonoBehaviour
     Collider2D col;
     readonly HashSet<IDamageable> hitTargets = new();
     bool active;
+
+    //HitSpark
+    [Header("VFX (optional)")]
+    [SerializeField] HitSparkSpawner hitSpark;
 
     void Awake()
     {
@@ -91,13 +92,17 @@ public class PlayerWeaponHitbox : MonoBehaviour
             applyDamage = Mathf.RoundToInt(damage * mul);
         }
         dmg.TakeDamage(applyDamage, p);
-        if (hitSparkPool) hitSparkPool.Spawn(p);
         Debug.Log($"[Spark] Spawn at {p}");
         // === HIT FLASH (NEW) ===
         if (root.TryGetComponent<EnemyHitFlash>(out var flash))
         {
             float dur = (slayer && slayer.IsActive) ? Mathf.Max(0.06f, slayerFlashDuration) : -1f;
             flash.Tick(dur);   // nếu -1f → dùng duration mặc định trong EnemyHitFlash
+        }
+        // === HIT SPARK VFX (NEW) ===
+        if (hitSpark)
+        {
+            hitSpark.Spawn(p, transform.root, root);
         }
 
         // === STAMINA DRAIN ===

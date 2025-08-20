@@ -5,7 +5,8 @@ using UnityEngine;
 public class SlayerSilhouetteGroup : MonoBehaviour
 {
     [Header("Filter")]
-    [SerializeField] bool excludeUnlitShaders = true;   // tránh đụng VFX Unlit/UI
+    [SerializeField] bool excludeUnlitShaders = true;
+    [SerializeField] bool excludeAfterimages = true;      // NEW
 
     [Header("Tint")]
     [SerializeField] Color silhouetteColor = Color.black;
@@ -16,26 +17,14 @@ public class SlayerSilhouetteGroup : MonoBehaviour
 
     void Awake()
     {
-        // Gom 1 lần tất cả SpriteRenderer con (kể cả inactive)
-        GetComponentsInChildren(true, _targets);
-        // Lưu màu gốc
-        for (int i = 0; i < _targets.Count; i++)
-        {
-            var sr = _targets[i];
-            if (!sr) continue;
-            if (excludeUnlitShaders && sr.sharedMaterial != null)
-            {
-                var sh = sr.sharedMaterial.shader;
-                if (sh && (sh.name.Contains("Unlit") || sh.name.Contains("UI"))) continue;
-            }
-            if (!_orig.ContainsKey(sr)) _orig[sr] = sr.color;
-        }
+        RescanTargets();
+        SnapshotOriginals();
     }
 
     void OnEnable()
     {
         SlayerModeSignals.OnSetActive += SetActive;
-        if (SlayerModeSignals.Active) SetActive(true);
+        SetActive(SlayerModeSignals.Active);
     }
 
     void OnDisable()
@@ -48,7 +37,6 @@ public class SlayerSilhouetteGroup : MonoBehaviour
     void LateUpdate()
     {
         if (!_active) return;
-        // Ép đen mỗi frame để đè mọi thay đổi màu khác (hitflash…)
         for (int i = 0; i < _targets.Count; i++)
         {
             var sr = _targets[i];
@@ -61,15 +49,58 @@ public class SlayerSilhouetteGroup : MonoBehaviour
 
     void SetActive(bool on)
     {
-        _active = on;
         if (on)
         {
-            // set đen ngay một lần
+            RescanTargets();
+            SnapshotOriginals();
+            _active = true;
             LateUpdate();
         }
         else
         {
+            _active = false;
             RestoreOriginals();
+        }
+    }
+
+    // -------- helpers --------
+    void RescanTargets()
+    {
+        _targets.Clear();
+        GetComponentsInChildren(true, _targets);
+
+        for (int i = _targets.Count - 1; i >= 0; i--)
+        {
+            var sr = _targets[i];
+            if (!sr) { _targets.RemoveAt(i); continue; }
+
+            // NEW: bỏ qua các object afterimage
+            if (excludeAfterimages && sr.gameObject.name == "Afterimage")
+            {
+                _targets.RemoveAt(i);
+                continue;
+            }
+
+            if (excludeUnlitShaders)
+            {
+                var sh = sr.sharedMaterial ? sr.sharedMaterial.shader : null;
+                if (sh && (sh.name.Contains("Unlit") || sh.name.Contains("UI")))
+                {
+                    _targets.RemoveAt(i);
+                    continue;
+                }
+            }
+        }
+    }
+
+    void SnapshotOriginals()
+    {
+        _orig.Clear();
+        for (int i = 0; i < _targets.Count; i++)
+        {
+            var sr = _targets[i];
+            if (!sr) continue;
+            if (!_orig.ContainsKey(sr)) _orig[sr] = sr.color;
         }
     }
 
