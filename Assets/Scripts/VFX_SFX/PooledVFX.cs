@@ -1,18 +1,19 @@
+﻿using UnityEngine.Pool;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public sealed class PooledVFX : MonoBehaviour
 {
     IObjectPool<GameObject> _pool;
+    Vector3 _initial;
 
-    // ???c g?i b?i spawner sau khi Instantiate
+    void Awake() => _initial = transform.localScale;
     public void Setup(IObjectPool<GameObject> pool) => _pool = pool;
 
-    // G?I T? ANIMATION EVENT ? frame cu?i
-    // (??t t�n event trong clip: AnimEvent_Release)
+    // Gọi bởi animation event
     public void AnimEvent_Release()
     {
+        transform.localScale = _initial;   // RESET scale trước khi trả pool
         if (_pool != null) _pool.Release(gameObject);
-        else Destroy(gameObject); // fallback n?u ch?a c� pool
+        else Destroy(gameObject);
     }
 }

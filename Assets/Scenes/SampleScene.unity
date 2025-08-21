@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89edd0807ebe0e4f9bc23e93c97474b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max: 25
+  max: 200
   parryCost: 25
   hitCost: 12
   regenDelaySeconds: 4
@@ -660,8 +660,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderers: []
-  flashColor: {r: 0.9622642, g: 0.93646914, b: 0.6581524, a: 1}
-  baseDuration: 0.134
+  flashColor: {r: 1, g: 0.55, b: 0.55, a: 1}
+  baseDuration: 0.06
   useUnscaledTime: 1
   minFrames: 2
 --- !u!114 &515790444
@@ -677,6 +677,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excludeUnlitShaders: 1
+  includeDynamicChildren: 1
+  ignoreNameContains:
+  - Afterimage
+  - HitSpark
   silhouetteColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &515790445
 MonoBehaviour:
@@ -692,6 +696,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets:
   - {fileID: 515790437}
+--- !u!114 &515790452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464473849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96c9ee2ff254b14cb1e323c80d457f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 515790422}
+  stunController: {fileID: 515790430}
+  hitReactGate: {fileID: 515790453}
+  hitStatePath: Base Layer.skeleton_hitBySlayer
+  stunStatePath: Base Layer.skeleton_stun
+  hitClip: {fileID: 7400000, guid: a02f0f4e177e7024a83e16a9989e20a4, type: 2}
+  clipSteps: 2
+  backToStunAfter: 2
+  jitterRoot: {fileID: 515790458}
+  jitterDuration: 0.12
+  jitterAmplitude: 0.2
+  jitterDamping: 0.85
+  jitterFreqRange: {x: 80, y: 120}
+--- !u!114 &515790453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 573103039079237295, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
+  m_PrefabInstance: {fileID: 8734117375464330131}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464473849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0021229d255a794892c44215e75557b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &515790458 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5316290525864657520, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
+  m_PrefabInstance: {fileID: 8734117375464330131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,8 +1584,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: hello word
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 927ae6fd67cbecc4c99d191079f4147b, type: 2}
+  m_sharedMaterial: {fileID: 2681957031069284206, guid: 927ae6fd67cbecc4c99d191079f4147b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3730,8 +3775,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 1837079588}
-  forceLocalSource: 1
-  debugLogs: 1
   baseTint: {r: 1, g: 1, b: 1, a: 0.55}
   life: 0.18
   alphaCurve:
@@ -3796,8 +3839,35 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  useSaturationBoost: 1
+  maxSaturationBoost: 0.6
+  saturationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   defaultCapacity: 8
   maxSize: 32
+  forceUnlit: 1
 --- !u!114 &1837079594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3811,6 +3881,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excludeUnlitShaders: 1
+  includeDynamicChildren: 1
+  ignoreNameContains:
+  - Afterimage
+  - HitSpark
   silhouetteColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1837079598
 MonoBehaviour:
@@ -3825,9 +3899,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sparkPrefab: {fileID: 5835100190033160735, guid: 53d087d2f79c98f48b265a280c13a6cb, type: 3}
-  worldOffset: {x: 1, y: 0.5, z: 0}
+  parentUnderAttacker: 1
+  keepWorldScale: 1
+  worldOffset: {x: 1.2, y: 0.7, z: 0}
   faceFromAttacker: 1
-  zRotationOffset: 2
+  zRotationOffset: 20
+  angleJitter: {x: -0.5, y: 0.5}
+  flipXChance: 0.5
+  flipYChance: 0
+  scaleRange: {x: 0.9, y: 1.1}
+  verticalJitter: {x: -0.5, y: 0.5}
   minInterval: 0.02
 --- !u!1 &2001535938
 GameObject:
@@ -4430,6 +4511,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7212155499661164206, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
       insertIndex: -1
       addedObject: {fileID: 515790445}
+    - targetCorrespondingSourceObject: {fileID: 7212155499661164206, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 515790452}
   m_SourcePrefab: {fileID: 100100000, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

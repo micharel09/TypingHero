@@ -56,6 +56,8 @@ public class PlayerWeaponHitbox : MonoBehaviour
         hitTargets.Clear();
     }
 
+    // ... giữ nguyên phần khai báo ở trên
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!active) return;
@@ -67,15 +69,13 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
         hitTargets.Add(dmg);
         Vector2 p = other.ClosestPoint(transform.position);
-
         Transform root = other.transform.root;
 
         // === Reaction rules ===
         if (slayer && slayer.IsActive)
         {
-            if (root.TryGetComponent(out EnemyStunController st) && st.IsStunned)
-                st.ReassertNow();
-            else if (root.TryGetComponent(out EnemyHitReactGate gate))
+            // QUAN TRỌNG: KHÔNG reassert stun trong Slayer để nhường hit-pose
+            if (root.TryGetComponent(out EnemyHitReactGate gate))
                 gate.ForceInterrupt();
         }
         else
@@ -92,28 +92,32 @@ public class PlayerWeaponHitbox : MonoBehaviour
             applyDamage = Mathf.RoundToInt(damage * mul);
         }
         dmg.TakeDamage(applyDamage, p);
-        Debug.Log($"[Spark] Spawn at {p}");
-        // === HIT FLASH (NEW) ===
+        if (slayer && slayer.IsActive && root.TryGetComponent(out EnemySlayerHitPose pose))
+        {
+            pose.OnSlayerHit();
+        }
+
+        // (sau đó mới tới HitFlash, HitSpark, Stamina, Hitstop…)
+
+        // === HIT FLASH (tùy chọn) ===
         if (root.TryGetComponent<EnemyHitFlash>(out var flash))
         {
             float dur = (slayer && slayer.IsActive) ? Mathf.Max(0.06f, slayerFlashDuration) : -1f;
-            flash.Tick(dur);   // nếu -1f → dùng duration mặc định trong EnemyHitFlash
+            flash.Tick(dur);
         }
-        // === HIT SPARK VFX (NEW) ===
-        if (hitSpark)
-        {
-            hitSpark.Spawn(p, transform.root, root);
-        }
+
+        // === HIT SPARK (tùy chọn) ===
+        if (hitSpark) hitSpark.Spawn(p, transform.root, root);
+
+
 
         // === STAMINA DRAIN ===
         if (root.TryGetComponent(out EnemyStamina stam))
         {
             int before = stam.Current;
-
             if (staminaOnHit >= 0) stam.ConsumeHit(staminaOnHit);
-            else stam.ConsumeHit(); // dùng HitCost trong EnemyStamina
+            else stam.ConsumeHit();
 
-            // Tụt về 0 lần này → Stun ngắn (nhỏ hơn Parry)
             if (before > 0 && stam.Current == 0 && hitStunSeconds > 0f &&
                 root.TryGetComponent(out EnemyStunController stun))
             {
@@ -129,4 +133,5 @@ public class PlayerWeaponHitbox : MonoBehaviour
             hitStopper.Request(player: pStop, enemy: eStop);
         }
     }
+
 }
