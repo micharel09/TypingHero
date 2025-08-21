@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2914176976520719880}
   - component: {fileID: 7056096762626926388}
   - component: {fileID: 5484815900697251685}
-  - component: {fileID: 8665561399943269077}
   - component: {fileID: 2406705937855135772}
+  - component: {fileID: 4814167703252498058}
   m_Layer: 8
   m_Name: VFX_HitSpark_Parry
   m_TagString: Untagged
@@ -108,19 +108,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8665561399943269077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2444712665026297967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7a0c0f0eecfaf24d9c99d7d6e51f9cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  extraLifetime: 0
 --- !u!114 &2406705937855135772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,3 +120,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd8b3cc21126d44595005998ac665be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4814167703252498058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2444712665026297967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36c0e6527756ae499be6715fa4bcb85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parrySystem: {fileID: 0}
+  sparkPrefab: {fileID: 0}
+  playerSparkAnchor: {fileID: 0}
+  offset: {x: 0, y: 0}
+  flipTowardEnemy: 1
+  parentToAnchor: 0
+  defaultCapacity: 8
+  maxSize: 32

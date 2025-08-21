@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b055d7107eaeaad429225ceedc15fe65, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d18c4b20f4bb8749a795018f8fc40d5, type: 3}
   m_Name: PC_Parry
   m_EditorClassIdentifier: 
   parryKey: 32
   playerParryPoseStatePath: Base Layer.player_parry
-  playerParryPoseCrossfade: 0.2
+  playerParryPoseCrossfade: 0.02
   playerParrySuccessStatePath: Base Layer.player_parry_success
-  playerParrySuccessCrossfade: 0.2
+  playerParrySuccessCrossfade: 0.02
