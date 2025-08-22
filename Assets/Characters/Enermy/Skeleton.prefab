@@ -16,13 +16,12 @@ GameObject:
   - component: {fileID: 2581763793603456263}
   - component: {fileID: 1020424546824809957}
   - component: {fileID: 7589877942810491710}
-  - component: {fileID: 1370539849949205841}
   - component: {fileID: 3379320643344464324}
   - component: {fileID: 4186662736619228764}
   - component: {fileID: 4213450842822451045}
   - component: {fileID: 6335462748226833986}
   - component: {fileID: 8121196955070503774}
-  - component: {fileID: 9116180445385148828}
+  - component: {fileID: 660688279820089180}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Enemy
@@ -252,24 +251,6 @@ MonoBehaviour:
   damageReceiver: {fileID: 0}
   damage: 5
   hitStopTarget: 1
---- !u!114 &1370539849949205841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7212155499661164206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8250781881e907c48ba977391426792d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  excludeUnlitShaders: 1
-  includeDynamicChildren: 1
-  ignoreNameContains:
-  - Afterimage
-  - HitSpark
-  silhouetteColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &3379320643344464324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,7 +353,7 @@ MonoBehaviour:
   onForcedInterrupt:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &9116180445385148828
+--- !u!114 &660688279820089180
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -381,8 +362,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7212155499661164206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f969df439a804ad42a0f67ff15d5fe8e, type: 3}
+  m_Script: {fileID: 11500000, guid: d4df27e6d302a5143ab5a72c181d503f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageable: {fileID: 0}
-  skeleton: {fileID: 2581763793603456263}
+  excludeUnlitShaders: 1
+  includeDynamicChildren: 1
+  ignoreNameContains:
+  - Afterimage
+  - HitSpark
+  silhouetteColor: {r: 0, g: 0, b: 0, a: 1}

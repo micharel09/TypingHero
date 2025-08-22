@@ -48,10 +48,10 @@ public class ParrySystem : MonoBehaviour
         if (!playerAnimator || !config) return false;
 
         bool inPose = !string.IsNullOrEmpty(config.playerParryPoseStatePath) &&
-                      AnimUtil.IsInState(playerAnimator, config.playerParryPoseStatePath, out _);
+                      AnimatorUtil.IsInState(playerAnimator, config.playerParryPoseStatePath, out _);
 
         bool inSucc = !string.IsNullOrEmpty(config.playerParrySuccessStatePath) &&
-                      AnimUtil.IsInState(playerAnimator, config.playerParrySuccessStatePath, out _);
+                      AnimatorUtil.IsInState(playerAnimator, config.playerParrySuccessStatePath, out _);
 
         return inPose || inSucc;
     }
@@ -87,17 +87,16 @@ public class ParrySystem : MonoBehaviour
 
         // phát clip parry_success
         if (playerAnimator && config && !string.IsNullOrEmpty(config.playerParrySuccessStatePath))
-            AnimUtil.CrossFadePath(playerAnimator, config.playerParrySuccessStatePath,
-                                   config.playerParrySuccessCrossfade, 0f);   // ← hết crossfade tại đây  :contentReference[oaicite:3]{index=3}
+            AnimatorUtil.CrossFadePath(playerAnimator, config.playerParrySuccessStatePath,
+                                       config.playerParrySuccessCrossfade, 0f);
 
         // phát sự kiện cho VFX/SFX (spark, âm thanh…)
         Transform targetRoot = null;
         if (enemyTarget is Component c) targetRoot = c.transform;
-        OnParrySuccess?.Invoke(new ParryContext { targetRoot = targetRoot }); // ← event nằm sau chỗ bạn vừa chèn.  :contentReference[oaicite:4]{index=4}
+        OnParrySuccess?.Invoke(new ParryContext { targetRoot = targetRoot });
 
         if (logs) Debug.Log($"[PARRY] OK (t={Time.unscaledTime:0.000})");
     }
-
 
     public void ParrySuccess() { /* obsolete: handled in OnEnemyStrike */ }
 
@@ -113,8 +112,8 @@ public class ParrySystem : MonoBehaviour
             if (InParryOrSuccess()) return;
 
             if (playerAnimator && !string.IsNullOrEmpty(config.playerParryPoseStatePath))
-                AnimUtil.CrossFadePath(playerAnimator, config.playerParryPoseStatePath,
-                                       config.playerParryPoseCrossfade, 0f);
+                AnimatorUtil.CrossFadePath(playerAnimator, config.playerParryPoseStatePath,
+                                           config.playerParryPoseCrossfade, 0f);
         }
     }
 }

@@ -60,12 +60,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
             // Phát clip die, KHÔNG destroy ở đây nữa
             if (animator && !string.IsNullOrEmpty(dieStatePath))
-                AnimUtil.CrossFadePath(animator, dieStatePath, hitCrossfade, 0f);
+                AnimatorUtil.CrossFadePath(animator, dieStatePath, hitCrossfade, 0f);
             return;
         }
 
         if (animator && !string.IsNullOrEmpty(hitStatePath))
-            AnimUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
+            AnimatorUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
     }
 
     // Animation Event ở frame CUỐI của clip player_die sẽ gọi hàm này
