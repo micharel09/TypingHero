@@ -1,0 +1,11 @@
+{
+  version: 1,
+  mediaFileName: 'Epic Sword Swings & Slashes - Immersive Video Game Sound Effects .mp3',
+  cutSegments: [
+    {
+      start: 6.056354579996725,
+      end: 6.300989525998643,
+      name: '',
+    },
+  ],
+}

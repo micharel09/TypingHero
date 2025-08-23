@@ -1,0 +1,11 @@
+{
+  version: 1,
+  mediaFileName: '(1) Sekiro- Shadows Die Twice Voice Sounds & SFX - YouTube.mp3',
+  cutSegments: [
+    {
+      start: 396.66355479562037,
+      end: 396.8847301970802,
+      name: '',
+    },
+  ],
+}

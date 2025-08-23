@@ -1,0 +1,11 @@
+{
+  version: 1,
+  mediaFileName: '(1) Sound Effect Whoosh Sound (No Copyright) - YouTube.mp3',
+  cutSegments: [
+    {
+      start: 0.2114309560117302,
+      end: 0.3934965014662756,
+      name: '',
+    },
+  ],
+}

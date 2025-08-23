@@ -1,0 +1,11 @@
+{
+  version: 1,
+  mediaFileName: '(1) Sword Fight Sound Effect - DNA Free Sound Fx - YouTube.mp3',
+  cutSegments: [
+    {
+      start: 1.0207439339971474,
+      end: 1.7606154780029433,
+      name: '',
+    },
+  ],
+}

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc1ae22b322e9146ab7cd6e2221b5a5, type: 3}
+  m_Name: ev_parry_clang
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: dd08c460fc4321248bbee4ae5b6918f5, type: 3}
+  volume: 1
+  volumeJitter: 0.1
+  pitchMode: 1
+  pitchSemitone: -1.4
+  pitchJitterSemitone: 3.44
+  pitchSemitoneRange: {x: -7, y: 3}
+  mixerGroup: {fileID: 6381627121891708292, guid: 5ddb3f7fc7ae14543af7b622e31d9ee3, type: 2}
+  maxVoices: 6
+  cooldown: 0

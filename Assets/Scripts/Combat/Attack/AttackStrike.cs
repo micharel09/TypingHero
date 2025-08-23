@@ -3,7 +3,7 @@
 /// Gây damage đúng frame bằng Animation Event (dùng chung)
 public class AttackStrike : MonoBehaviour
 {
-    [Tooltip("Nơi nhận damage (kéo component implement IDamageable vào, ví dụ PlayerHealth)")]
+    [Tooltip("Component implement IDamageable (ưu tiên PlayerDamageSfx nếu có).")]
     public MonoBehaviour damageReceiver;
 
     public int damage = 5;
@@ -17,18 +17,48 @@ public class AttackStrike : MonoBehaviour
 
     void Awake()
     {
-        if (damageReceiver is IDamageable id) _target = id;
-        else Debug.LogWarning("[AttackStrike] Chưa gán damageReceiver hoặc component không implement IDamageable.");
+        _target = ResolveTarget();
+        Debug.Assert(_target != null, "[AttackStrike] damageReceiver phải implement IDamageable hoặc trong scene phải có IDamageable hợp lệ.");
     }
 
-    // Animation Event: đặt ở frame gây sát thương
+    IDamageable ResolveTarget()
+    {
+        // 1) Nếu ô inspector đã gán PlayerDamageSfx → dùng luôn
+        if (damageReceiver is PlayerDamageSfx sfxRelay) return sfxRelay;
+
+        // 2) Nếu gán PlayerHealth mà cùng GO có PlayerDamageSfx → ưu tiên Sfx
+        if (damageReceiver is PlayerHealth ph)
+        {
+            var relay = ph.GetComponent<PlayerDamageSfx>();
+            if (relay != null) return relay;
+            return ph;
+        }
+
+        // 3) Nếu chưa gán hoặc gán thứ khác: tìm PlayerDamageSfx trong scene
+        var foundRelay = Object.FindObjectOfType<PlayerDamageSfx>();
+        if (foundRelay != null) return foundRelay;
+
+        // 4) Fallback: tìm PlayerHealth
+        var foundHealth = Object.FindObjectOfType<PlayerHealth>();
+        if (foundHealth != null) return foundHealth;
+
+        // 5) Fallback cuối: bất kỳ IDamageable nào
+        foreach (var mb in Object.FindObjectsOfType<MonoBehaviour>(true))
+            if (mb is IDamageable id) return id;
+
+        return null;
+    }
+
+    // Animation Event sẽ gọi hàm này đúng frame
     public void Anim_DealDamage()
     {
         if (_target == null || _target.IsDead) return;
 
-        _target.TakeDamage(damage, transform.position);
+        // CHUẨN CHỮ KÝ: interface dùng Vector2
+        Vector2 hitPoint2D = (Vector2)transform.position;
+        _target.TakeDamage(damage, hitPoint2D);
 
-        // Gọi hitstop nếu có
+        // Hitstop nếu có
         if (HitStopper.I != null)
         {
             if (hitStopTarget == HitStopWho.Player) HitStopper.I.StopPlayerHit();

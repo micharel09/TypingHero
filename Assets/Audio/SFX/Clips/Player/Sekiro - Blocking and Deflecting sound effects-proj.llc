@@ -1,0 +1,11 @@
+{
+  version: 1,
+  mediaFileName: 'Sekiro - Blocking and Deflecting sound effects.mp3',
+  cutSegments: [
+    {
+      start: 10.634824316715545,
+      end: 11.84529212512219,
+      name: '',
+    },
+  ],
+}

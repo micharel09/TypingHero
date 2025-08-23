@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc1ae22b322e9146ab7cd6e2221b5a5, type: 3}
+  m_Name: ev_player_hit_light
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 4973bccc2b8c76c4481cfb2a2d075c14, type: 3}
+  volume: 1
+  volumeJitter: 0.1
+  pitchMode: 0
+  pitchSemitone: 0
+  pitchJitterSemitone: 0.5
+  pitchSemitoneRange: {x: -2, y: 2}
+  mixerGroup: {fileID: 6381627121891708292, guid: 5ddb3f7fc7ae14543af7b622e31d9ee3, type: 2}
+  maxVoices: 6
+  cooldown: 0
