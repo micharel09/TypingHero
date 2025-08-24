@@ -76,6 +76,12 @@ public class TypingManager : MonoBehaviour
     [Header("Type-ahead (gõ trước khi promote xong)")]
     [SerializeField] bool allowTypeAhead = true;
 
+    [Header("Error Feedback (flash đỏ khi sai)")]
+    [SerializeField] bool enableErrorFlash = true;
+    [SerializeField] Color errorFlashColor = new Color(1f, 0.25f, 0.25f, 1f);
+    [SerializeField, Tooltip("Tổng thời gian nháy (đỏ rồi trả về)")]
+    float errorFlashDuration = 0.12f;
+
     [Header("Debug")][SerializeField] bool logs;
 
     // ===================== Events (giữ API) =====================
@@ -94,6 +100,9 @@ public class TypingManager : MonoBehaviour
     CanvasGroup _curCG, _nextCG, _thirdCG;
     Vector3 _curBaseScale, _nextBaseScale, _thirdBaseScale;
 
+    // colors gốc để flash/khôi phục
+    Color _curBaseColor, _nextBaseColor, _thirdBaseColor;
+
     // Follow state
     float _nextVelX, _thirdVelX;
     Vector2 _nextTarget, _thirdTarget;
@@ -102,7 +111,9 @@ public class TypingManager : MonoBehaviour
     // Type-ahead state
     int _typeAheadCount = 0;
 
+    // coroutines
     Coroutine _advanceCo, _popCo, _spawn2Co, _spawn3Co;
+    Coroutine _errCoCur, _errCoNext;
 
     float DT => uiUseUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
@@ -124,6 +135,10 @@ public class TypingManager : MonoBehaviour
         _curBaseScale   = _curRT.localScale;
         _nextBaseScale  = _nextRT.localScale;
         _thirdBaseScale = _thirdRT.localScale;
+
+        _curBaseColor   = wordText.color;
+        _nextBaseColor  = nextWordText.color;
+        _thirdBaseColor = thirdWordText.color;
     }
 
     void Start() { ForceInitial(); }
@@ -183,11 +198,20 @@ public class TypingManager : MonoBehaviour
                         AdvanceToNext();
                     }
                 }
+                else
+                {
+                    // Sai ký tự khi đang gõ current
+                    TriggerErrorFlash(wordText, ref _errCoCur, _curBaseColor);
+                }
                 continue;
             }
 
             // current đã hết -> thử ăn input cho NEXT (type-ahead)
-            TryConsumeTypeAhead(c);
+            if (!TryConsumeTypeAhead(c))
+            {
+                // Sai ký tự khi type-ahead next
+                TriggerErrorFlash(nextWordText, ref _errCoNext, _nextBaseColor);
+            }
         }
     }
 
@@ -228,6 +252,10 @@ public class TypingManager : MonoBehaviour
         if (_curCG) _curCG.alpha   = 1f;
         if (_nextCG) _nextCG.alpha  = nextIdleAlpha;
         if (_thirdCG) _thirdCG.alpha = thirdIdleAlpha;
+
+        // reset flash if any
+        StopErrorFlash(ref _errCoCur, wordText, _curBaseColor);
+        StopErrorFlash(ref _errCoNext, nextWordText, _nextBaseColor);
 
         _nextVelX = _thirdVelX = 0f;
         _typeAheadCount = 0;
@@ -333,6 +361,10 @@ public class TypingManager : MonoBehaviour
         wordText.text      = current;
         nextWordText.text  = next;
         thirdWordText.text = third;
+
+        // reset color nếu có flash dang dở
+        StopErrorFlash(ref _errCoCur, wordText, _curBaseColor);
+        StopErrorFlash(ref _errCoNext, nextWordText, _nextBaseColor);
 
         // Reset current ở giữa
         _curRT.anchoredPosition = Vector2.zero;
@@ -502,6 +534,46 @@ public class TypingManager : MonoBehaviour
         float w = Mathf.Max(0f, Measure(label));
         float dur = baseDur + Mathf.Sqrt(w) * coefSqrt;
         return Mathf.Clamp(dur, clamp.x, clamp.y);
+    }
+
+    // ---- Error flash helpers ----
+    void TriggerErrorFlash(TextMeshProUGUI label, ref Coroutine token, Color baseColor)
+    {
+        if (!enableErrorFlash || label == null) return;
+        if (token != null) StopCoroutine(token);
+        token = StartCoroutine(FlashColorCo(label, baseColor, errorFlashColor, errorFlashDuration));
+    }
+
+    void StopErrorFlash(ref Coroutine token, TextMeshProUGUI label, Color baseColor)
+    {
+        if (token != null) StopCoroutine(token);
+        token = null;
+        if (label) label.color = baseColor;
+    }
+
+    IEnumerator FlashColorCo(TextMeshProUGUI label, Color baseColor, Color flashColor, float duration)
+    {
+        if (!label || duration <= 0f) yield break;
+        float half = duration * 0.5f, t = 0f;
+
+        // lên đỏ
+        while (t < half)
+        {
+            t += DT;
+            float k = Smooth01(Mathf.Clamp01(t / half));
+            label.color = Color.Lerp(baseColor, flashColor, k);
+            yield return null;
+        }
+        // về màu gốc
+        t = 0f;
+        while (t < half)
+        {
+            t += DT;
+            float k = Smooth01(Mathf.Clamp01(t / half));
+            label.color = Color.Lerp(flashColor, baseColor, k);
+            yield return null;
+        }
+        label.color = baseColor;
     }
 
     Vector2 PixelSnap(Vector2 v) => pixelSnap ? new Vector2(Mathf.Round(v.x), Mathf.Round(v.y)) : v;
