@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;   // NEW
 using System.Reflection;
 using UnityEngine;
 
@@ -75,6 +76,12 @@ public class PlayerSlayerMode : MonoBehaviour
     [SerializeField] bool autoPlayScreenFX = true;
     [SerializeField] SlayerScreenFX screenFX;
     [SerializeField] bool silhouetteOnInSlayer = true;
+
+    // ===== NEW: Auto toggle objects in Slayer =====
+    [Header("Objects Auto Toggle")]
+    [Tooltip("Các object trong list sẽ tự tắt khi Enter Slayer và tự bật lại khi Exit Slayer.")]
+    [SerializeField] GameObject[] disableDuringSlayer;
+    readonly List<GameObject> _disabledBySlayer = new();   // chỉ lưu những object mà chính script đã tắt
 
     float _comboF;
     int ComboInt => Mathf.Max(0, Mathf.FloorToInt(_comboF));
@@ -188,6 +195,10 @@ public class PlayerSlayerMode : MonoBehaviour
 
         if (autoPlayScreenFX && screenFX) screenFX.EnterSlayerFX();
         if (silhouetteOnInSlayer) SlayerModeSignals.SetActive(true);
+
+        // NEW: tắt các object được cấu hình
+        ToggleObjectsOnEnter();
+
         _co = StartCoroutine(Run());
     }
 
@@ -256,6 +267,10 @@ public class PlayerSlayerMode : MonoBehaviour
 
         if (_co != null) { StopCoroutine(_co); _co = null; }
         _remain = 0f;
+
+        // NEW: bật lại những object mình đã tắt khi Enter
+        ToggleObjectsOnExit();
+
         if (autoPlayScreenFX && screenFX) screenFX.ExitSlayerFX();
         if (silhouetteOnInSlayer) SlayerModeSignals.SetActive(false);
     }
@@ -343,5 +358,34 @@ public class PlayerSlayerMode : MonoBehaviour
         var field = pool.GetType().GetField(afterimageComboMaxFieldName, BindingFlags.NonPublic | BindingFlags.Instance);
         if (field != null && field.FieldType == typeof(int)) { comboMax = (int)field.GetValue(pool); return true; }
         return false;
+    }
+
+    // ===== NEW: helpers =====
+    void ToggleObjectsOnEnter()
+    {
+        _disabledBySlayer.Clear();
+        if (disableDuringSlayer == null || disableDuringSlayer.Length == 0) return;
+
+        for (int i = 0; i < disableDuringSlayer.Length; i++)
+        {
+            var go = disableDuringSlayer[i];
+            if (!go) continue;
+            if (go.activeSelf)
+            {
+                go.SetActive(false);
+                _disabledBySlayer.Add(go);
+            }
+        }
+    }
+
+    void ToggleObjectsOnExit()
+    {
+        if (_disabledBySlayer.Count == 0) return;
+        for (int i = 0; i < _disabledBySlayer.Count; i++)
+        {
+            var go = _disabledBySlayer[i];
+            if (go) go.SetActive(true);
+        }
+        _disabledBySlayer.Clear();
     }
 }

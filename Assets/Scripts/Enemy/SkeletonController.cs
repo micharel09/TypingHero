@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 [DisallowMultipleComponent]
 public sealed class SkeletonController : MonoBehaviour, IDamageable
@@ -10,6 +11,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     [SerializeField] PlayerHealth playerHealth;
     [SerializeField] GamePauseController gamePause;
 
+    public UnityEvent onDied;
     [Header("Stats")]
     public int maxHealth = 500;
     public int Current { get; private set; }
@@ -114,7 +116,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     {
         if (IsDead) return;
         IsDead = true;
-
+        onDied?.Invoke();
         if (!string.IsNullOrEmpty(dieBoolParam) && animator) animator.SetBool(dieBoolParam, true);
         if (animator && !string.IsNullOrEmpty(dieStatePath))
             AnimatorUtil.CrossFadePath(animator, dieStatePath, dieCrossfade, 0f);

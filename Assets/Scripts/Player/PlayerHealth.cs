@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [Header("Stats")]
     public int maxHealth = 20;
+    public UnityEvent onDied;
     public int Current { get; private set; }
 
     [Header("Anim")]
@@ -106,6 +108,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         if (diedNotified) return;
         diedNotified = true;
+        onDied?.Invoke();
 
         // 1) Phát event cho ai đang lắng nghe
         var hasListener = OnDied != null;

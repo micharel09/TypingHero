@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;   // thêm dòng này ở đầu file
 using TMPro;
 using Cinemachine;
 
@@ -10,6 +11,7 @@ public sealed class GamePauseController : MonoBehaviour
     [Header("Input")]
     [SerializeField] KeyCode toggleKey = KeyCode.Escape;
     [SerializeField] KeyCode restartKey = KeyCode.R;
+    [SerializeField] KeyCode menuKey = KeyCode.M;           // NEW
     [SerializeField] bool pauseOnLoseFocus = true;
 
     [Header("Camera Zoom (Manual Main Camera)")]
@@ -26,8 +28,12 @@ public sealed class GamePauseController : MonoBehaviour
     [SerializeField] Canvas pauseCanvas;
     [SerializeField] TextMeshProUGUI pauseLabel;
     [SerializeField] TextMeshProUGUI restartHintLabel;
+    [SerializeField] TextMeshProUGUI menuHintLabel;            // NEW
     [SerializeField] string pauseText = "PAUSE";
     [SerializeField] Color pauseTextColor = Color.green;
+
+    [Header("Main Menu")]
+    [SerializeField] string menuSceneName = "MainMenu";        // NEW
 
     [Header("Game Over")]
     [SerializeField] bool autoGameOverOnPlayerDie = true;
@@ -41,7 +47,9 @@ public sealed class GamePauseController : MonoBehaviour
     [SerializeField] Color thanksTextColor = new Color(0.25f, 1f, 0.25f, 1f);
 
     [Header("Audio")]
-    [SerializeField] bool pauseAudioListener = true;
+    [SerializeField] bool pauseAudioListener = true;          // đã có
+    [SerializeField] bool stopAudioOnReturnMenu = true;        // NEW
+    [SerializeField, Range(0f, 1f)] float stopAudioFade = 0.15f; // NEW
 
     bool _paused;
     bool _overlayLocked;
@@ -65,6 +73,7 @@ public sealed class GamePauseController : MonoBehaviour
     {
         targetCamera = Camera.main;
         if (targetCamera) cinemachineBrain = targetCamera.GetComponent<CinemachineBrain>();
+        if (string.IsNullOrEmpty(menuSceneName)) menuSceneName = "MainMenu";
     }
 
     void Awake()
@@ -75,6 +84,7 @@ public sealed class GamePauseController : MonoBehaviour
         if (pauseCanvas) pauseCanvas.enabled = false;
         if (pauseLabel) { pauseLabel.text = pauseText; pauseLabel.color = pauseTextColor; pauseLabel.gameObject.SetActive(false); }
         if (restartHintLabel) restartHintLabel.enabled = false;
+        if (menuHintLabel) menuHintLabel.enabled = false;      // NEW
         if (thanksLabel) { thanksLabel.text = thanksText; thanksLabel.color = thanksTextColor; thanksLabel.gameObject.SetActive(false); }
 
         // đảm bảo có playerHealth và subscribe
@@ -99,12 +109,19 @@ public sealed class GamePauseController : MonoBehaviour
         if (_overlayLocked)
         {
             if (Input.GetKeyDown(restartKey)) TryRestart();
+            if (Input.GetKeyDown(menuKey)) { ReturnToMenu(); return; }   // đã OK cho GameOver/Thanks
             return;
         }
 
         if (Input.GetKeyDown(toggleKey)) TogglePause(!_paused);
-        if (_paused && Input.GetKeyDown(restartKey)) TryRestart();
+
+        if (_paused)
+        {
+            if (Input.GetKeyDown(restartKey)) TryRestart();
+            if (Input.GetKeyDown(menuKey)) ReturnToMenu();               // 🔴 THÊM DÒNG NÀY
+        }
     }
+
 
     // ===== PUBLIC API =====
     public void ShowGameOverAfterPlayerDie()
@@ -123,6 +140,27 @@ public sealed class GamePauseController : MonoBehaviour
         if (_overlayLocked || _restarting) return;
         _overlayLocked = true;
         ShowOverlay_ThanksLabel(showRestart: true);
+    }
+
+    public void ReturnToMenu()
+    {
+        if (_restarting) return;         // dùng chung flag tránh spam
+        _restarting = true;
+
+        ZoomOutThen(() =>
+        {
+            // khôi phục trạng thái như Restart
+            if (pauseCanvas) pauseCanvas.enabled = false;
+            if (pauseAudioListener) AudioListener.pause = false;
+            Time.timeScale = 1f;
+            if (cinemachineBrain) cinemachineBrain.enabled = _brainSaved;
+
+            // fade/stop audio trước khi load menu hoặc load trực tiếp
+            if (stopAudioOnReturnMenu)
+                StartCoroutine(CoFadeStopThenLoad());
+            else
+                LoadMenuNow();
+        });
     }
 
     // ===== PAUSE CORE =====
@@ -144,6 +182,7 @@ public sealed class GamePauseController : MonoBehaviour
                 if (thanksLabel) thanksLabel.gameObject.SetActive(false);
                 if (pauseLabel) pauseLabel.gameObject.SetActive(false);
                 if (restartHintLabel) restartHintLabel.enabled = false;
+                if (menuHintLabel) menuHintLabel.enabled = false; // NEW
 
                 if (pauseAudioListener) AudioListener.pause = false;
                 Time.timeScale = 1f;
@@ -158,7 +197,8 @@ public sealed class GamePauseController : MonoBehaviour
 
         if (thanksLabel) thanksLabel.gameObject.SetActive(false);
         if (pauseLabel) { pauseLabel.text = text; pauseLabel.color = color; pauseLabel.gameObject.SetActive(true); }
-        if (restartHintLabel) restartHintLabel.enabled = showRestart;
+        if (restartHintLabel) restartHintLabel.enabled = true;
+        if (menuHintLabel) menuHintLabel.enabled    = true; // NEW
 
         SnapshotCam(); Freeze(true); ZoomIn();
     }
@@ -170,7 +210,8 @@ public sealed class GamePauseController : MonoBehaviour
 
         if (pauseLabel) pauseLabel.gameObject.SetActive(false);
         if (thanksLabel) { thanksLabel.text = thanksText; thanksLabel.color = thanksTextColor; thanksLabel.gameObject.SetActive(true); }
-        if (restartHintLabel) restartHintLabel.enabled = showRestart;
+        if (restartHintLabel) restartHintLabel.enabled = true;
+        if (menuHintLabel) menuHintLabel.enabled    = true; // NEW
 
         SnapshotCam(); Freeze(true); ZoomIn();
     }
@@ -205,6 +246,53 @@ public sealed class GamePauseController : MonoBehaviour
         _overlayLocked = false;
         _paused = false;
         if (cinemachineBrain) cinemachineBrain.enabled = _brainSaved;
+    }
+
+    // ===== AUDIO HELPERS =====
+    IEnumerator CoFadeStopAllAudio(float dur)
+    {
+        var sources = FindObjectsOfType<AudioSource>(true);
+        int n = sources.Length;
+        var vols = new float[n];
+        for (int i = 0; i < n; i++)
+        {
+            if (!sources[i]) continue;
+            vols[i] = sources[i].volume;
+            sources[i].ignoreListenerPause = false; // đảm bảo chịu ảnh hưởng pause/resume
+        }
+
+        if (dur > 0f)
+        {
+            float t = 0f;
+            while (t < dur)
+            {
+                t += Time.unscaledDeltaTime;
+                float k = 1f - Mathf.Clamp01(t / dur);
+                for (int i = 0; i < n; i++) if (sources[i]) sources[i].volume = vols[i] * k;
+                yield return null;
+            }
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            if (!sources[i]) continue;
+            sources[i].Stop();
+            sources[i].volume = vols[i]; // trả về volume cũ để lần sau phát đúng mức
+        }
+    }
+
+    void LoadMenuNow()
+    {
+        if (!string.IsNullOrEmpty(menuSceneName))
+            SceneManager.LoadScene(menuSceneName, LoadSceneMode.Single);
+        else
+            SceneManager.LoadScene(0, LoadSceneMode.Single); // fallback: index 0
+    }
+
+    IEnumerator CoFadeStopThenLoad()
+    {
+        yield return CoFadeStopAllAudio(stopAudioFade);
+        LoadMenuNow();
     }
 
     // ===== CAMERA & FREEZE =====
