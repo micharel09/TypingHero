@@ -20,6 +20,6 @@ MonoBehaviour:
   pitchSemitone: 0
   pitchJitterSemitone: 0.5
   pitchSemitoneRange: {x: -2, y: 2}
-  mixerGroup: {fileID: 0}
+  mixerGroup: {fileID: 6381627121891708292, guid: 5ddb3f7fc7ae14543af7b622e31d9ee3, type: 2}
   maxVoices: 6
   cooldown: 0

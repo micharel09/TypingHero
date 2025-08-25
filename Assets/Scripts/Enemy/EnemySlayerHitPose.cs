@@ -9,6 +9,7 @@ public class EnemySlayerHitPose : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] EnemyStunController stunController;   // optional
     [SerializeField] EnemyHitReactGate hitReactGate;      // optional
+    [SerializeField] SkeletonController skeleton;         // << NEW: để biết enemy đã chết chưa
 
     [Header("Animator States (full path)")]
     [SerializeField] string hitStatePath = "Base Layer.skeleton_hitBySlayer";
@@ -41,6 +42,7 @@ public class EnemySlayerHitPose : MonoBehaviour
     void Awake()
     {
         if (!animator) animator = GetComponentInChildren<Animator>();
+        if (!skeleton) skeleton = GetComponent<SkeletonController>(); // << NEW
         if (!jitterRoot) jitterRoot = GetFirstSpriteRoot();
         if (jitterRoot) _jitterBaseLocalPos = jitterRoot.localPosition;
 
@@ -75,7 +77,6 @@ public class EnemySlayerHitPose : MonoBehaviour
         animator.Update(0f);        // apply ngay frame này
         animator.speed = 0f;        // freeze đúng frame
 
-        // Jitter burst cho hit này
         StartJitter();
 
         // Giữ đến khi không bị đánh thêm trong ~backToStunAfter
@@ -113,10 +114,25 @@ public class EnemySlayerHitPose : MonoBehaviour
     {
         if (!active)
         {
+            // rời Slayer
             animator.speed = 1f;
+
+            // << NEW: nếu enemy đã CHẾT thì KHÔNG ép về stun/idle để khỏi đè state die
+            if (skeleton && skeleton.IsDead)
+            {
+                // dọn dẹp local effect rồi thoát
+                if (_holdCo   != null) { StopCoroutine(_holdCo); _holdCo = null; }
+                if (_jitterCo != null) { StopCoroutine(_jitterCo); _jitterCo = null; }
+                RestoreJitterBase();
+                // Giữ drivers đang khóa để stun/hit khác không cướp animator trong lúc die
+                return;
+            }
+
+            // bình thường: trả về stun
             animator.Play(stunStatePath, 0, 0f);
             animator.Update(0f);
             UnlockDrivers();
+
             if (_holdCo   != null) { StopCoroutine(_holdCo); _holdCo = null; }
             if (_jitterCo != null) { StopCoroutine(_jitterCo); _jitterCo = null; }
             RestoreJitterBase();
@@ -155,19 +171,15 @@ public class EnemySlayerHitPose : MonoBehaviour
         float amp = Mathf.Max(0f, jitterAmplitude);
         float freq = Random.Range(Mathf.Max(1f, jitterFreqRange.x), Mathf.Max(jitterFreqRange.x + 1f, jitterFreqRange.y));
 
-        // dùng unscaled để không bị ảnh hưởng hitstop
         while (Time.unscaledTime < tEnd && amp > 0f)
         {
-            // offset ngẫu nhiên hình tròn (2D)
             Vector2 dir = Random.insideUnitCircle.normalized;
             Vector3 off = new Vector3(dir.x, dir.y, 0f) * amp;
             jitterRoot.localPosition = _jitterBaseLocalPos + off;
 
-            // giảm biên độ theo thời gian
             amp *= Mathf.Pow(jitterDamping, Time.unscaledDeltaTime * freq);
             yield return null;
         }
-
         RestoreJitterBase();
         _jitterCo = null;
     }

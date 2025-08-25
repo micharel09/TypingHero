@@ -1,55 +1,68 @@
 ﻿using System;
 using UnityEngine;
 
-public class SkeletonController : MonoBehaviour, IDamageable
+[DisallowMultipleComponent]
+public sealed class SkeletonController : MonoBehaviour, IDamageable
 {
     [Header("References")]
-    public Animator animator;
-    public Transform target;
-    public PlayerHealth playerHealth;
+    [SerializeField] Animator animator;
+    [SerializeField] Transform target;
+    [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] GamePauseController gamePause;
 
     [Header("Stats")]
-    public int health = 500;
+    public int maxHealth = 500;
+    public int Current { get; private set; }
     public bool IsDead { get; private set; }
 
     [Header("Attack Clock")]
-    public float attackInterval = 1.5f;
-    public bool useUnscaledClock = true;
+    [SerializeField] float attackInterval = 1.5f;
+    [SerializeField] bool useUnscaledClock = true;
 
     [Header("Attack Animation")]
-    public string attackStatePath = "Base Layer.skeleton_attack_heavy";
-    [Range(0f, .2f)] public float attackCrossfade = 0.02f;
-    public float attackStartTime = 0f;
+    [SerializeField] string attackStatePath = "Base Layer.skeleton_attack_heavy";
+    [SerializeField, Range(0f, .2f)] float attackCrossfade = 0.02f;
+    [SerializeField] float attackStartTime = 0f;
 
     [Header("Damage")]
-    public int attackDamage = 5;
+    [SerializeField] int attackDamage = 5;
 
     [Header("Hit React")]
-    public bool uninterruptibleDuringAttack = true;
-    public string hitStatePath = "Base Layer.skeleton_hit";
-    [Range(0f, .2f)] public float hitCrossfade = 0.02f;
-    public bool queueHitReactAfterAttack = true;
+    [SerializeField] bool uninterruptibleDuringAttack = true;
+    [SerializeField] string hitStatePath = "Base Layer.skeleton_hit";
+    [SerializeField, Range(0f, .2f)] float hitCrossfade = 0.02f;
+    [SerializeField] bool queueHitReactAfterAttack = false;
 
-    [Header("Debug")]
-    public bool logs = false;
+    [Header("Death (Animator)")]
+    [SerializeField] string dieStatePath = "Base Layer.skeleton_die";
+    [SerializeField] string dieBoolParam = "isDead";
+    [SerializeField, Range(0f, .2f)] float dieCrossfade = 0.02f;
+
+    [Header("Debug")][SerializeField] bool logs;
+
+    // == EVENTS ==
+    public event Action OnDeathStarted;
+    public event Action OnDeathFinished;
 
     float _nextAttackAt;
     bool _attacking;
     bool _queuedHitReact;
+    bool _deathEventFired;
 
     float Now => useUnscaledClock ? Time.unscaledTime : Time.time;
 
-    void OnEnable()
+    void Awake()
     {
-        _nextAttackAt = Now + 0.5f;
+        if (Current <= 0) Current = maxHealth;
     }
+
+    void OnEnable() { _nextAttackAt = Now + 0.5f; }
 
     void Update()
     {
         if (IsDead) return;
 
-        if (!_attacking && Now >= _nextAttackAt)
-            StartAttack();
+        if (!_attacking && Now >= _nextAttackAt) StartAttack();
 
         if (_attacking)
         {
@@ -62,11 +75,8 @@ public class SkeletonController : MonoBehaviour, IDamageable
     {
         _attacking = true;
         _queuedHitReact = false;
-
-        if (animator)
+        if (animator && !string.IsNullOrEmpty(attackStatePath))
             AnimatorUtil.CrossFadePath(animator, attackStatePath, attackCrossfade, attackStartTime);
-
-        if (logs) Debug.Log("[SKE] Start attack");
     }
 
     void EndAttack()
@@ -74,51 +84,54 @@ public class SkeletonController : MonoBehaviour, IDamageable
         _attacking = false;
         _nextAttackAt = Now + attackInterval;
 
-        if (_queuedHitReact && !IsDead)
+        if (_queuedHitReact && !IsDead && animator && !string.IsNullOrEmpty(hitStatePath))
         {
-            if (TryGetComponent(out EnemyStunController stun) && stun.IsStunned)
-            {
-                _queuedHitReact = false;
-                if (logs) Debug.Log("[SKE] Skip queued hit-react (STUN)");
-            }
-            else
-            {
-                _queuedHitReact = false;
-                if (animator) AnimatorUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
-                if (logs) Debug.Log("[SKE] Play queued hit-react");
-            }
+            _queuedHitReact = false;
+            AnimatorUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
         }
-        if (logs) Debug.Log("[SKE] End attack");
     }
 
     public void TakeDamage(int amount, Vector2 hitPoint)
     {
         if (IsDead) return;
 
-        health -= amount;
-        if (logs) Debug.Log($"[SKE] Hit {amount}, HP: {health}");
-        if (health <= 0) { Die(); return; }
+        Current = Mathf.Max(0, Current - amount);
 
-        if (TryGetComponent(out EnemyStunController stun) && stun.IsStunned)
-        {
-            if (logs) Debug.Log("[SKE] Damage while STUN → keep stun");
-            return;
-        }
+        if (Current <= 0) { Die(); return; }
 
-        bool inAttackNow = AnimatorUtil.IsInState(animator, attackStatePath, out _);
-        if (uninterruptibleDuringAttack && inAttackNow)
+        bool inAttack = AnimatorUtil.IsInState(animator, attackStatePath, out _);
+        if (uninterruptibleDuringAttack && inAttack)
         {
             if (queueHitReactAfterAttack) _queuedHitReact = true;
-            if (logs) Debug.Log("[SKE] Got hit mid-swing → queued hit-react");
             return;
         }
-        if (animator) AnimatorUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
+
+        if (animator && !string.IsNullOrEmpty(hitStatePath))
+            AnimatorUtil.CrossFadePath(animator, hitStatePath, hitCrossfade, 0f);
     }
 
     void Die()
     {
+        if (IsDead) return;
         IsDead = true;
-        if (logs) Debug.Log("[SKE] Dead");
-        Destroy(gameObject, 2f);
+
+        if (!string.IsNullOrEmpty(dieBoolParam) && animator) animator.SetBool(dieBoolParam, true);
+        if (animator && !string.IsNullOrEmpty(dieStatePath))
+            AnimatorUtil.CrossFadePath(animator, dieStatePath, dieCrossfade, 0f);
+
+        OnDeathStarted?.Invoke(); // << báo cho SlayerMode thoát ngay
+    }
+
+    // Gọi bằng Animation Event ở FRAME CUỐI clip skeleton_die
+    public void Anim_DieCleanup()
+    {
+        if (_deathEventFired) return;
+        _deathEventFired = true;
+
+        if (gamePause && !gamePause.IsRestarting)
+            gamePause.ShowThanksSimple();
+
+        OnDeathFinished?.Invoke();
+        Destroy(gameObject);
     }
 }

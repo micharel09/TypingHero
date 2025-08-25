@@ -3,12 +3,11 @@ using UnityEngine.UI;
 
 public class HealthBarUI : MonoBehaviour
 {
-    public Slider slider;
-    [Tooltip("true = thanh máu Player, false = thanh máu Enemy")]
-    public bool bindPlayer = true;
+    [SerializeField] Slider slider;
+    [SerializeField] bool bindPlayer = true;
 
-    public PlayerHealth player;            // nếu bindPlayer = true
-    public SkeletonController enemy;       // nếu bindPlayer = false
+    [SerializeField] PlayerHealth player;       // nếu bindPlayer = true
+    [SerializeField] SkeletonController enemy;  // nếu bindPlayer = false
 
     void Awake()
     {
@@ -17,28 +16,47 @@ public class HealthBarUI : MonoBehaviour
 
     void Start()
     {
-        // set Max 1 lần khi bắt đầu (nếu sau này bạn có thay Max lúc chơi,
-        // có thể cập nhật lại trong Update)
-        if (bindPlayer && player)
-            slider.maxValue = player.maxHealth;
-        else if (!bindPlayer && enemy)
-            slider.maxValue = enemy.health;     // lấy máu hiện có làm max cho enemy
+        RebindIfNeeded(true);   // set maxValue ngay từ đầu
     }
 
     void Update()
     {
         if (!slider) return;
 
-        if (bindPlayer && player)
+        // Luôn bảo đảm reference còn sống; nếu mất (sau restart) thì tự tìm lại
+        RebindIfNeeded(false);
+
+        if (bindPlayer)
         {
+            if (!player) return;
+            if (slider.maxValue != player.maxHealth) slider.maxValue = player.maxHealth;
             slider.value = player.Current;
-            // đề phòng khi Max thay đổi lúc đang chơi
-            if (slider.maxValue != player.maxHealth)
-                slider.maxValue = player.maxHealth;
         }
-        else if (!bindPlayer && enemy)
+        else
         {
-            slider.value = enemy.health;
+            if (!enemy) return;
+            if (slider.maxValue != enemy.maxHealth) slider.maxValue = enemy.maxHealth;
+            slider.value = enemy.Current;
+        }
+    }
+
+    void RebindIfNeeded(bool force)
+    {
+        if (bindPlayer)
+        {
+            if (force || !player)
+            {
+                player = FindObjectOfType<PlayerHealth>();
+                if (player && slider) slider.maxValue = player.maxHealth;
+            }
+        }
+        else
+        {
+            if (force || !enemy)
+            {
+                enemy = FindObjectOfType<SkeletonController>();
+                if (enemy && slider) slider.maxValue = enemy.maxHealth;
+            }
         }
     }
 }

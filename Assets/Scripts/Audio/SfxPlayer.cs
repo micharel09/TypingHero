@@ -12,19 +12,17 @@ public class SfxPlayer : MonoBehaviour
 
     Transform _root;
 
-    // Pool
     readonly Queue<AudioSource> _idle = new();
 
-    // Active voices + metadata để crossfade theo "channel"
     sealed class Active
     {
         public AudioSource src;
         public SfxEvent ev;
-        public Transform owner;     // nhóm theo chủ sở hữu (Player, Enemy…)
-        public string channel;      // cùng channel => bị crossfade/override
-        public bool fading;         // đang fade-out
-        public Coroutine endCo;     // coroutine trả voice khi tự kết thúc
-        public Coroutine fadeCo;    // coroutine fade-out thủ công
+        public Transform owner;
+        public string channel;
+        public bool fading;
+        public Coroutine endCo;
+        public Coroutine fadeCo;
     }
 
     readonly Dictionary<AudioSource, Active> _bySrc = new();
@@ -84,19 +82,16 @@ public class SfxPlayer : MonoBehaviour
         _idle.Enqueue(s);
     }
 
-    // ---------------------- PUBLIC API ----------------------
+    // ===================== PUBLIC API =====================
 
-    /// Phát SFX bình thường (không quản lý channel).
     public AudioSource Play(SfxEvent ev, Vector3 pos, Transform follow = null)
         => StartVoice(ev, pos, follow, null, null);
 
-    /// Phát SFX trên "channel" (cùng chủ sở hữu). Bất kỳ voice đang chạy trên channel đó sẽ được fade-out rồi giải phóng.
     public AudioSource PlayOnChannel(
         SfxEvent ev, Vector3 pos, Transform follow, string channelKey, Transform owner, float crossfadeOutSeconds = 0.06f)
     {
         if (!string.IsNullOrEmpty(channelKey) && owner)
         {
-            // Fade-out tất cả voice cùng channel & owner
             for (int i = _actives.Count - 1; i >= 0; i--)
             {
                 var a = _actives[i];
@@ -104,11 +99,38 @@ public class SfxPlayer : MonoBehaviour
                     a.fadeCo = StartCoroutine(FadeOutAndReturn(a, Mathf.Max(0f, crossfadeOutSeconds)));
             }
         }
-
         return StartVoice(ev, pos, follow, channelKey, owner);
     }
 
-    // ---------------------- INTERNAL ----------------------
+    /// Duck/fade-out channel của owner (không phát mới)
+    public void FadeOutChannel(Transform owner, string channelKey, float seconds)
+    {
+        if (!owner || string.IsNullOrEmpty(channelKey)) return;
+        for (int i = _actives.Count - 1; i >= 0; i--)
+        {
+            var a = _actives[i];
+            if (a.owner == owner && a.channel == channelKey && !a.fading)
+                a.fadeCo = StartCoroutine(FadeOutAndReturn(a, Mathf.Max(0f, seconds)));
+        }
+    }
+
+    /// **IMPORTANT**: phát bất chấp Limits (MaxVoices/Cooldown). Dùng cho âm “phải nghe”.
+    public AudioSource PlayOnChannelImportant(
+        SfxEvent ev, Vector3 pos, Transform follow, string channelKey, Transform owner, float crossfadeOutSeconds = 0.06f)
+    {
+        if (!string.IsNullOrEmpty(channelKey) && owner)
+        {
+            for (int i = _actives.Count - 1; i >= 0; i--)
+            {
+                var a = _actives[i];
+                if (a.owner == owner && a.channel == channelKey && !a.fading)
+                    a.fadeCo = StartCoroutine(FadeOutAndReturn(a, Mathf.Max(0f, crossfadeOutSeconds)));
+            }
+        }
+        return StartVoiceImportant(ev, pos, follow, channelKey, owner);
+    }
+
+    // ===================== INTERNAL =====================
 
     AudioSource StartVoice(SfxEvent ev, Vector3 pos, Transform follow, string channel, Transform owner)
     {
@@ -133,13 +155,47 @@ public class SfxPlayer : MonoBehaviour
             src.transform.position = pos;
         }
 
-        var active = new Active { src = src, ev = ev, owner = owner, channel = channel, fading = false };
-        _bySrc[src] = active;
-        _actives.Add(active);
+        var a = new Active { src = src, ev = ev, owner = owner, channel = channel, fading = false };
+        _bySrc[src] = a;
+        _actives.Add(a);
 
         ev.NotifyStart();
         src.Play();
-        active.endCo = StartCoroutine(ReturnWhenDone(active));
+        a.endCo = StartCoroutine(ReturnWhenDone(a));
+        return src;
+    }
+
+    // Bỏ qua ev.CanPlayNow() → luôn phát
+    AudioSource StartVoiceImportant(SfxEvent ev, Vector3 pos, Transform follow, string channel, Transform owner)
+    {
+        if (!ev) return null;
+        var clip = ev.PickClip();
+        if (!clip) return null;
+
+        var src = Rent();
+        if (!src) return null;
+
+        ev.ApplyToSource(src);
+        src.clip = clip;
+
+        if (follow)
+        {
+            src.transform.SetParent(follow, false);
+            src.transform.localPosition = Vector3.zero;
+        }
+        else
+        {
+            src.transform.SetParent(_root, false);
+            src.transform.position = pos;
+        }
+
+        var a = new Active { src = src, ev = ev, owner = owner, channel = channel, fading = false };
+        _bySrc[src] = a;
+        _actives.Add(a);
+
+        ev.NotifyStart();              // vẫn báo start để counter về sau giảm đúng
+        src.Play();
+        a.endCo = StartCoroutine(ReturnWhenDone(a));
         return src;
     }
 
@@ -149,8 +205,8 @@ public class SfxPlayer : MonoBehaviour
         float est = (s.clip ? s.clip.length / Mathf.Max(0.01f, s.pitch) : 0f) + 0.05f;
         float tEnd = Time.unscaledTime + est;
 
-        // Đợi nguồn tự kết thúc (trừ khi đã bị fade-out thủ công)
-        while (s && s.isPlaying && !a.fading && Time.unscaledTime < tEnd) yield return null;
+        while (s && s.isPlaying && !a.fading && Time.unscaledTime < tEnd)
+            yield return null;
 
         if (s) Return(s);
     }
@@ -161,11 +217,7 @@ public class SfxPlayer : MonoBehaviour
         var s = a.src;
         if (!s) yield break;
 
-        if (seconds <= 0f)
-        {
-            Return(s);
-            yield break;
-        }
+        if (seconds <= 0f) { Return(s); yield break; }
 
         float v0 = s.volume;
         float t = 0f;

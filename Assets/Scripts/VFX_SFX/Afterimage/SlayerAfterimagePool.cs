@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -39,6 +40,7 @@ public class SlayerAfterimagePool : MonoBehaviour
     [SerializeField] bool forceUnlit = true; // <-- GIỮ ON để không bị tô đen trong Slayer
     static Material s_UnlitMat;              // share toàn scene
 
+    [SerializeField] bool freezeFadeOnPause = true;
     IObjectPool<GameObject> pool;
 
     void Awake()
@@ -90,6 +92,7 @@ public class SlayerAfterimagePool : MonoBehaviour
     // API
     public void SpawnBurstFromCurrentFrame(int combo = 0)
     {
+        if (Time.timeScale == 0f) return;
         if (!isActiveAndEnabled || !gameObject.activeInHierarchy) return;
         if (!source || !source.sprite) return;
 
@@ -155,16 +158,25 @@ public class SlayerAfterimagePool : MonoBehaviour
         StartCoroutine(FadeAndRelease(sr, go, tint, lifeSeconds));
     }
 
+    // sửa coroutine fade (đúng hàm bạn đang dùng để giảm alpha rồi trả pool)
     IEnumerator FadeAndRelease(SpriteRenderer sr, GameObject go, Color baseColor, float lifeSeconds)
     {
         float t = 0f;
-        while (t < lifeSeconds)
+        float life = Mathf.Max(0.0001f, lifeSeconds);
+        sr.color = baseColor;
+
+        while (t < life)
         {
-            float a = alphaCurve.Evaluate(t / Mathf.Max(0.0001f, lifeSeconds));
+            if (!(freezeFadeOnPause && Time.timeScale == 0f))
+                t += Time.unscaledDeltaTime;       // dùng unscaled nhưng vẫn đứng khi pause
+
+            float k = Mathf.Clamp01(t / life);
+            float a = alphaCurve.Evaluate(k);
             sr.color = new Color(baseColor.r, baseColor.g, baseColor.b, baseColor.a * a);
-            t += Time.unscaledDeltaTime;
+
             yield return null;
         }
+
         pool.Release(go);
     }
 
