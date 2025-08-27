@@ -31,7 +31,6 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     [Header("Retry Settings")]
     [SerializeField] int maxRetries = 3;
     [SerializeField] float retryDelay = 2f;
-    [SerializeField] bool enableAutoRefresh = false; // Tắt để tránh double refresh với UI Binder
 
     [Header("Fetch Throttling")]
     [Tooltip("Khoảng cách tối thiểu giữa các lần fetch (giây) - ngăn spam request")]
@@ -40,9 +39,13 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     [Tooltip("Cập nhật timestamp khi PATCH tên (không chỉ khi tăng điểm)")]
     [SerializeField] bool updateTimestampOnNameChange = false;
 
+    [Header("Display Name Settings")]
+    [SerializeField, Range(2, 32)] int minNameLength = 2;
+    [SerializeField, Range(8, 64)] int maxNameLength = 20;
+
     [Header("Debug")]
     [SerializeField] bool logs = true;
-    [SerializeField, Range(5, 60)] int httpTimeoutSec = 15; // Tối ưu cho WebGL
+    [SerializeField, Range(5, 60)] int httpTimeoutSec = 15;
     [SerializeField] bool checkInternetConnection = false; // Tắt cho WebGL
 
     // Internal state
@@ -50,6 +53,7 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     string _uid;
     bool _fetching; // Chặn fetch chồng chéo
     long _lastFetchAt; // Cooldown cho FetchTop
+    List<Row> _lastResult; // Cache kết quả gần nhất
 
     public bool IsReady
         => !string.IsNullOrEmpty(databaseRootUrl) &&
@@ -70,6 +74,7 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
         // Sanitize URL - Tránh lỗi do nhập nhầm /
         databaseRootUrl = (databaseRootUrl ?? "").TrimEnd('/');
         tablePath = (tablePath ?? "").Trim('/');
+        _lastResult = new List<Row>();
 
         // Chỉ check connection nếu không phải WebGL
 #if !UNITY_WEBGL || UNITY_EDITOR
@@ -104,24 +109,19 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     }
 #endif
 
-    // ============== PUBLIC API ==============
-
-    // Alias cho backward compatibility - khuyến khích dùng SubmitScoreWithRetry
-    [System.Obsolete("Recommend using SubmitScoreWithRetry for better reliability")]
-    public IEnumerator SubmitScore(string displayName, int score, Action<bool> done = null)
-        => SubmitScoreOrUpdateName(displayName, score, done);
-
     // ============== MAIN SUBMIT WITH RETRY (recommended) ==============
     public IEnumerator SubmitScoreWithRetry(string displayName, int score, Action<bool> done = null)
     {
+        // Sanitize display name
+        displayName = SanitizeDisplayName(displayName);
+
         int attempts = 0;
         bool ok = false;
 
         do
         {
             attempts++;
-            bool finished = false;
-            yield return SubmitScoreOrUpdateName(displayName, score, r => { ok = r; finished = true; });
+            yield return SubmitScoreOrUpdateName(displayName, score, r => ok = r);
 
             if (ok) break;
 
@@ -136,28 +136,32 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
         if (logs) Debug.Log(ok ? $"[LB] Submit successful after {attempts} attempts"
                                : $"[LB] Submit failed after {maxRetries} attempts");
 
-        // REMOVED: auto-refresh logic để tránh double-refresh với LeaderboardUIBinder
-        // UI Binder sẽ tự động poll khi panel mở
         done?.Invoke(ok);
     }
 
     public IEnumerator FetchTop(int count, Action<List<Row>> done)
     {
-        // Cooldown check - ngăn spam request
+        // Cooldown check - ngăn spam request với tính toán thời gian minh bạch
         var now = NowUnixMillis();
-        if (now - _lastFetchAt < minFetchInterval * 1000)
+        long thresholdMs = (long)(minFetchInterval * 1000f);
+
+        if (now - _lastFetchAt < thresholdMs)
         {
-            if (logs) Debug.Log($"[LB] FetchTop throttled (cooldown: {minFetchInterval}s)");
-            done?.Invoke(new List<Row>());
+            if (logs) Debug.Log($"[LB] FetchTop throttled (cooldown: {minFetchInterval}s) - returning cached data");
+            // Trả về cache thay vì rỗng để UI không bị xóa
+            done?.Invoke(new List<Row>(_lastResult));
             yield break;
         }
 
         // Chặn fetch chồng chéo
         if (_fetching)
         {
-            if (logs) Debug.Log("[LB] FetchTop already running, skipping");
+            if (logs) Debug.Log("[LB] FetchTop already running - returning cached data");
+            // Nhất quán với trường hợp throttle
+            done?.Invoke(new List<Row>(_lastResult));
             yield break;
         }
+
         _fetching = true;
 
         try
@@ -189,10 +193,8 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
             var req = UnityWebRequest.Get(url);
             req.timeout = httpTimeoutSec;
 
-            // Headers tương thích WebGL + proxy
-            req.SetRequestHeader("Accept", "application/json");
-            req.SetRequestHeader("Cache-Control", "no-store, no-cache, max-age=0");
-            req.SetRequestHeader("Pragma", "no-cache");
+            // Set headers với helper
+            SetStandardHeaders(req);
 
             yield return req.SendWebRequest();
 
@@ -227,6 +229,9 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
                 result.Sort((a, b) => b.score.CompareTo(a.score));
             }
 
+            // Cache kết quả thành công
+            _lastResult = result;
+
             if (logs) Debug.Log($"[LB] FetchTop OK: {result.Count} rows (topScore={(result.Count > 0 ? result[0].score : 0)})");
             done?.Invoke(result);
         }
@@ -239,7 +244,6 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     }
 
     // ============== Auth (anonymous - optional) ==============
-
     public IEnumerator SignInAnonymous(Action<bool> done = null)
     {
         if (authMode != AuthMode.AnonymousAuth) { done?.Invoke(true); yield break; }
@@ -256,9 +260,10 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
         var req = new UnityWebRequest(url, "POST");
         req.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes("{}"));
         req.downloadHandler = new DownloadHandlerBuffer();
-        req.SetRequestHeader("Content-Type", "application/json");
-        req.SetRequestHeader("Accept", "application/json");
         req.timeout = httpTimeoutSec;
+
+        SetStandardHeaders(req);
+        req.SetRequestHeader("Content-Type", "application/json");
 
         yield return req.SendWebRequest();
 
@@ -286,7 +291,7 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     }
 
     // ============== CORE: Submit score OR update display name ====
-    public IEnumerator SubmitScoreOrUpdateName(string displayName, int score, Action<bool> done = null)
+    IEnumerator SubmitScoreOrUpdateName(string displayName, int score, Action<bool> done = null)
     {
         if (!CheckDbRoot(out var err)) { if (logs) Debug.LogError(err); done?.Invoke(false); yield break; }
         if (authMode == AuthMode.AnonymousAuth && !IsReady) yield return SignInAnonymous();
@@ -305,10 +310,7 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
         if (logs) Debug.Log("[LB] GET " + getUrl);
         var getReq = UnityWebRequest.Get(getUrl);
         getReq.timeout = httpTimeoutSec;
-        // Headers consistent
-        getReq.SetRequestHeader("Accept", "application/json");
-        getReq.SetRequestHeader("Cache-Control", "no-store, no-cache, max-age=0");
-        getReq.SetRequestHeader("Pragma", "no-cache");
+        SetStandardHeaders(getReq);
         yield return getReq.SendWebRequest();
 
         var nowTs = ts; // Reuse timestamp
@@ -328,10 +330,9 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
             var putReq = new UnityWebRequest(putUrl, "PUT");
             putReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(firstBody));
             putReq.downloadHandler = new DownloadHandlerBuffer();
-            putReq.SetRequestHeader("Content-Type", "application/json");
-            putReq.SetRequestHeader("Accept", "application/json");
-            putReq.SetRequestHeader("Cache-Control", "no-store");
             putReq.timeout = httpTimeoutSec;
+            SetStandardHeaders(putReq);
+            putReq.SetRequestHeader("Content-Type", "application/json");
             yield return putReq.SendWebRequest();
 
             bool ok0 = putReq.result == UnityWebRequest.Result.Success;
@@ -359,10 +360,9 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
             var putReq = new UnityWebRequest(putUrl, "PUT");
             putReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(body));
             putReq.downloadHandler = new DownloadHandlerBuffer();
-            putReq.SetRequestHeader("Content-Type", "application/json");
-            putReq.SetRequestHeader("Accept", "application/json");
-            putReq.SetRequestHeader("Cache-Control", "no-store");
             putReq.timeout = httpTimeoutSec;
+            SetStandardHeaders(putReq);
+            putReq.SetRequestHeader("Content-Type", "application/json");
             yield return putReq.SendWebRequest();
 
             bool ok = putReq.result == UnityWebRequest.Result.Success;
@@ -383,12 +383,12 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
             if (updateTimestampOnNameChange)
             {
                 // Update both name and timestamp
-                patch = $"{{\"{EscapeJson(nameKey)}\":\"{EscapeJson(string.IsNullOrEmpty(displayName) ? "Player" : displayName)}\",\"{EscapeJson(timestampKey)}\":{nowTs}}}";
+                patch = $"{{\"{EscapeJson(nameKey)}\":\"{EscapeJson(displayName)}\",\"{EscapeJson(timestampKey)}\":{nowTs}}}";
             }
             else
             {
                 // Update name only, keep old timestamp
-                patch = $"{{\"{EscapeJson(nameKey)}\":\"{EscapeJson(string.IsNullOrEmpty(displayName) ? "Player" : displayName)}\"}}";
+                patch = $"{{\"{EscapeJson(nameKey)}\":\"{EscapeJson(displayName)}\"}}";
             }
 
             string patchUrl = DbUrl(path, AuthQuery());
@@ -397,10 +397,9 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
             var patchReq = new UnityWebRequest(patchUrl, "PATCH");
             patchReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(patch));
             patchReq.downloadHandler = new DownloadHandlerBuffer();
-            patchReq.SetRequestHeader("Content-Type", "application/json");
-            patchReq.SetRequestHeader("Accept", "application/json");
-            patchReq.SetRequestHeader("Cache-Control", "no-store");
             patchReq.timeout = httpTimeoutSec;
+            SetStandardHeaders(patchReq);
+            patchReq.SetRequestHeader("Content-Type", "application/json");
             yield return patchReq.SendWebRequest();
 
             bool ok = patchReq.result == UnityWebRequest.Result.Success;
@@ -419,6 +418,37 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     }
 
     // ============== Helpers ==============
+    void SetStandardHeaders(UnityWebRequest req)
+    {
+        req.SetRequestHeader("Accept", "application/json");
+        req.SetRequestHeader("Cache-Control", "no-store, no-cache, max-age=0");
+        req.SetRequestHeader("Pragma", "no-cache");
+    }
+
+    string SanitizeDisplayName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return "Player";
+
+        // Trim và remove control characters
+        name = name.Trim();
+        var sb = new StringBuilder();
+        foreach (char c in name)
+        {
+            if (!char.IsControl(c))
+                sb.Append(c);
+        }
+
+        string cleaned = sb.ToString();
+
+        // Clamp length
+        if (cleaned.Length < minNameLength)
+            return "Player";
+        if (cleaned.Length > maxNameLength)
+            cleaned = cleaned.Substring(0, maxNameLength);
+
+        return cleaned;
+    }
 
     bool CheckDbRoot(out string error)
     {
@@ -459,7 +489,7 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     {
         var sb = new StringBuilder(128);
         sb.Append('{');
-        AppendKV(sb, nameKey, string.IsNullOrEmpty(displayName) ? "Player" : displayName); sb.Append(',');
+        AppendKV(sb, nameKey, displayName); sb.Append(',');
         AppendKV(sb, scoreKey, score); sb.Append(',');
         AppendKV(sb, timestampKey, ts);
         sb.Append('}');
@@ -644,4 +674,110 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
             }
         }
     }
+    public IEnumerator FetchMyRank(Action<int?> done)
+    {
+        if (!CheckDbRoot(out var err)) { if (logs) Debug.LogError(err); done?.Invoke(null); yield break; }
+        if (authMode == AuthMode.AnonymousAuth && !IsReady) yield return SignInAnonymous();
+        if (authMode == AuthMode.AnonymousAuth && !IsReady) { done?.Invoke(null); yield break; }
+
+        string uid = (authMode == AuthMode.PublicNoAuth) ? EnsureLocalUid() : _uid;
+        string path = CombinePath(tablePath, uid);
+
+        // 1) Lấy điểm hiện tại của tôi
+        long ts = NowUnixMillis();
+        string getMeQ = (authMode == AuthMode.AnonymousAuth) ? $"auth={_idToken}&__cb={ts}" : $"__cb={ts}";
+        string getMeUrl = DbUrl(path, getMeQ);
+
+        if (logs) Debug.Log("[LB] GET(me) " + getMeUrl);
+        var getMe = UnityWebRequest.Get(getMeUrl);
+        getMe.timeout = httpTimeoutSec;
+        SetStandardHeaders(getMe);
+        yield return getMe.SendWebRequest();
+
+        if (getMe.result != UnityWebRequest.Result.Success ||
+            string.IsNullOrEmpty(getMe.downloadHandler.text) ||
+            getMe.downloadHandler.text == "null")
+        {
+            if (logs) Debug.LogWarning($"[LB] FetchMyRank: user entry missing/err {(long)getMe.responseCode}: {getMe.error}");
+            done?.Invoke(null); yield break;
+        }
+
+        var meObj = MiniJson.Deserialize(getMe.downloadHandler.text) as Dictionary<string, object>;
+        int myScore = ReadInt(meObj, scoreKey);
+        if (myScore <= 0) { done?.Invoke(null); yield break; }
+
+        // 2) Đếm số người có điểm > myScore
+        long ts2 = NowUnixMillis();
+        string baseQ = $"orderBy=%22{scoreKey}%22&startAt={myScore + 1}&__cb={ts2}";
+        if (authMode == AuthMode.AnonymousAuth) baseQ += $"&auth={_idToken}";
+
+        int? rank = null;
+
+        // 2a) Thử shallow (nhẹ)
+        {
+            string q = baseQ + "&shallow=true";
+            string url = DbUrl(tablePath, q);
+            if (logs) Debug.Log("[LB] GET(countHigher:shallow) " + url);
+
+            var req = UnityWebRequest.Get(url);
+            req.timeout = httpTimeoutSec;
+            SetStandardHeaders(req);
+            yield return req.SendWebRequest();
+
+            if (req.result == UnityWebRequest.Result.Success)
+            {
+                if (!string.IsNullOrEmpty(req.downloadHandler.text) && req.downloadHandler.text != "null")
+                {
+                    var dict = MiniJson.Deserialize(req.downloadHandler.text) as Dictionary<string, object>;
+                    int higher = dict?.Count ?? 0;
+                    rank = higher + 1;
+                }
+                else
+                {
+                    // Không ai hơn điểm tôi → #1
+                    rank = 1;
+                }
+            }
+            else
+            {
+                if (logs) Debug.LogWarning($"[LB] shallow failed {(long)req.responseCode}: {req.error}");
+            }
+        }
+
+        // 2b) Fallback nếu shallow lỗi
+        if (!rank.HasValue)
+        {
+            string q = baseQ; // không shallow
+            string url2 = DbUrl(tablePath, q);
+            if (logs) Debug.Log("[LB] GET(countHigher:fallback) " + url2);
+
+            var req2 = UnityWebRequest.Get(url2);
+            req2.timeout = httpTimeoutSec;
+            SetStandardHeaders(req2);
+            yield return req2.SendWebRequest();
+
+            if (req2.result == UnityWebRequest.Result.Success &&
+                !string.IsNullOrEmpty(req2.downloadHandler.text) &&
+                req2.downloadHandler.text != "null")
+            {
+                var root = MiniJson.Deserialize(req2.downloadHandler.text) as Dictionary<string, object>;
+                int higher = root?.Count ?? 0;
+                rank = higher + 1;
+            }
+            else if (req2.result == UnityWebRequest.Result.Success && req2.downloadHandler.text == "null")
+            {
+                rank = 1; // fallback cũng xác nhận không ai hơn
+            }
+            else
+            {
+                if (logs) Debug.LogWarning($"[LB] fallback failed {(long)req2.responseCode}: {req2.error}");
+                rank = null; // KHÔNG gán #1 khi lỗi
+            }
+        }
+
+        if (logs && rank.HasValue) Debug.Log($"[LB] MyRank: score={myScore} -> #{rank.Value}");
+        done?.Invoke(rank);
+    }
+
+
 }

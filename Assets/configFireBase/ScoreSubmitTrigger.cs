@@ -20,20 +20,39 @@ public sealed class ScoreSubmitTrigger : MonoBehaviour
     [Tooltip("Khoảng cách tối thiểu giữa 2 lần submit để tránh spam.")]
     [SerializeField, Range(0f, 3f)] float minIntervalSeconds = 1.0f;
 
+    [Header("Anti-Spam")]
+    [Tooltip("Chỉ submit 1 lần cho mỗi round/session (reset khi game restart).")]
+    [SerializeField] bool oncePerRound = false;
+
     [Header("Debug")]
     [SerializeField] bool log = true;
 
     float _lastSubmitTime = -999f;
     int _lastSubmittedValue = int.MinValue;
+    bool _hasSubmittedThisRound = false; // Cho oncePerRound
 
     // === Gọi từ UnityEvent (Player die / Skeleton die) ===
     public void Submit() => StartCoroutine(SubmitCoro());
+
+    // Reset flag khi bắt đầu round mới
+    public void ResetRound()
+    {
+        _hasSubmittedThisRound = false;
+        if (log) Debug.Log("[ScoreSubmitTrigger] Round reset - can submit again");
+    }
 
     IEnumerator SubmitCoro()
     {
         if (submitter == null)
         {
             if (log) Debug.LogWarning("[ScoreSubmitTrigger] Missing LeaderboardSubmitter.");
+            yield break;
+        }
+
+        // Chặn nếu đã submit trong round này
+        if (oncePerRound && _hasSubmittedThisRound)
+        {
+            if (log) Debug.Log("[ScoreSubmitTrigger] Already submitted this round, skipping.");
             yield break;
         }
 
@@ -46,7 +65,9 @@ public sealed class ScoreSubmitTrigger : MonoBehaviour
             yield return new WaitForSecondsRealtime(readDelaySeconds);
 
         int score = ReadScoreSafe();
-        if (score < 0) score = 0;
+
+        // Clamp điểm âm về 0
+        score = Mathf.Max(0, score);
 
         // vẫn cho phép submit cùng giá trị giữa các thời điểm khác nhau,
         // chỉ bỏ qua nếu vừa submit cùng giá trị ngay trước đó
@@ -55,6 +76,7 @@ public sealed class ScoreSubmitTrigger : MonoBehaviour
 
         _lastSubmittedValue = score;
         _lastSubmitTime = Time.unscaledTime;
+        _hasSubmittedThisRound = true;
 
         if (log) Debug.Log($"[ScoreSubmitTrigger] Submit {score}");
         submitter.SubmitFinalScore(score);
@@ -70,7 +92,7 @@ public sealed class ScoreSubmitTrigger : MonoBehaviour
         {
             var t = scoreSystem.GetType();
             // property
-            foreach (var propName in new[] { "CurrentScore", "Score", "TotalScore" })
+            foreach (var propName in new[] { "CurrentScore", "Score", "TotalScore", "Points" })
             {
                 var pi = t.GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
                 if (pi != null && pi.PropertyType == typeof(int))

@@ -2979,7 +2979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585c120d370349040b97a3cf0b349391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 0.1
+  masterVolume: 0.3
 --- !u!114 &975837315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3792,7 +3792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -598, y: 128.027}
+  m_AnchoredPosition: {x: -611, y: 32}
   m_SizeDelta: {x: -1597.054, y: -630.992}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1323343715
@@ -3818,7 +3818,7 @@ MonoBehaviour:
   leaderboard: {fileID: 1860612195}
   contentRoot: {fileID: 268829418}
   rowPrefab: {fileID: 2402111473869889734, guid: 81150b27534aa7049b8e1131d2010cfe, type: 3}
-  scrollRect: {fileID: 0}
+  scrollRect: {fileID: 1669420831}
   topCount: 20
   refreshOnEnable: 1
   autoRefreshWhileVisible: 1
@@ -5910,8 +5910,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -532, y: 400}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -388.6662, y: 302.47302}
+  m_SizeDelta: {x: 512.668, y: 53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1833577906
 MonoBehaviour:
@@ -6022,10 +6022,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5144add040ca7349ba9d697df7f2b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leaderboard: {fileID: 1860612195}
   target: {fileID: 1833577906}
   prefix: 
   upperCase: 0
   hideWhenEmpty: 1
+  showRank: 1
+  rankFormat: '{NAME}(#{RANK})'
+  noRankFormat: '{NAME} '
+  refreshRankOnEnable: 1
+  autoRefreshIntervalSec: 10
 --- !u!114 &1837079558 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3467237052091016004, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
@@ -6160,8 +6166,15 @@ MonoBehaviour:
   authMode: 0
   webApiKey: 'AIzaSyACtYf0YF4g5WJmt9RsC1YnRhBnpwiFfmM '
   autoSignIn: 0
+  maxRetries: 3
+  retryDelay: 2
+  minFetchInterval: 1
+  updateTimestampOnNameChange: 0
+  minNameLength: 2
+  maxNameLength: 10
   logs: 1
   httpTimeoutSec: 20
+  checkInternetConnection: 0
 --- !u!114 &1860612196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6179,6 +6192,7 @@ MonoBehaviour:
   scoreText: {fileID: 1833577906}
   readDelaySeconds: 0.05
   minIntervalSeconds: 1
+  oncePerRound: 0
   log: 1
 --- !u!114 &1860612197
 MonoBehaviour:
@@ -6193,6 +6207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderboard: {fileID: 1860612195}
+  logs: 1
 --- !u!1 &1899057475
 GameObject:
   m_ObjectHideFlags: 0

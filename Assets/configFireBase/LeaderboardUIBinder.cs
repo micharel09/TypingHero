@@ -26,6 +26,7 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
 
     readonly List<LeaderboardRowView> pool = new List<LeaderboardRowView>();
     Coroutine _loop;
+    bool _refreshing; // Chống chồng chéo
 
     void OnEnable()
     {
@@ -37,7 +38,12 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
         if (_loop != null) { StopCoroutine(_loop); _loop = null; }
     }
 
-    public void ForceRefresh() => StartCoroutine(Refresh());
+    public void ForceRefresh()
+    {
+        // Chỉ refresh nếu không đang trong quá trình refresh khác
+        if (!_refreshing)
+            StartCoroutine(Refresh());
+    }
 
     IEnumerator AutoLoop()
     {
@@ -45,7 +51,10 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
         while (enabled && gameObject.activeInHierarchy)
         {
             yield return new WaitForSecondsRealtime(refreshIntervalSec);
-            yield return Refresh();
+
+            // Chỉ refresh nếu không đang refresh từ nguồn khác
+            if (!_refreshing)
+                yield return Refresh();
         }
     }
 
@@ -54,14 +63,28 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
         if (leaderboard == null) leaderboard = FindObjectOfType<FirebaseLeaderboard>();
         if (leaderboard == null || contentRoot == null || rowPrefab == null) yield break;
 
-        bool done = false;
-        List<FirebaseLeaderboard.Row> rows = null;
-        yield return leaderboard.FetchTop(topCount, r => { rows = r; done = true; });
-        if (!done || rows == null) yield break;
+        _refreshing = true;
+        try
+        {
+            bool done = false;
+            List<FirebaseLeaderboard.Row> rows = null;
+            yield return leaderboard.FetchTop(topCount, r => { rows = r; done = true; });
 
-        BuildRows(rows);
-        Canvas.ForceUpdateCanvases();
-        if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f;
+            if (!done) yield break;
+
+            // Nếu rows == null hoặc empty, có thể do throttle/đang fetch
+            // FirebaseLeaderboard đã trả về cache nên không cần xóa UI
+            if (rows != null && rows.Count >= 0) // Chấp nhận cả empty list
+            {
+                BuildRows(rows);
+                Canvas.ForceUpdateCanvases();
+                if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f;
+            }
+        }
+        finally
+        {
+            _refreshing = false;
+        }
     }
 
     void BuildRows(List<FirebaseLeaderboard.Row> rows)
