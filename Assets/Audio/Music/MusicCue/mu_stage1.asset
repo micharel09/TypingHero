@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: mu_stage1
   m_EditorClassIdentifier: 
   mode: 0
-  singleClip: {fileID: 8300000, guid: a47bb9f5eca2d8842a53ac678a18e503, type: 3}
+  singleClip: {fileID: 8300000, guid: 1d92eff685687dc4995df2b7b9bdc673, type: 3}
   introClip: {fileID: 0}
   loopClip: {fileID: 0}
   mixerGroup: {fileID: -7326359416598975299, guid: 5ddb3f7fc7ae14543af7b622e31d9ee3, type: 2}

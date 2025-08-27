@@ -28,12 +28,28 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
     [SerializeField] string webApiKey = "";
     [SerializeField] bool autoSignIn = false;
 
+    [Header("Retry Settings")]
+    [SerializeField] int maxRetries = 3;
+    [SerializeField] float retryDelay = 2f;
+    [SerializeField] bool enableAutoRefresh = false; // Tắt để tránh double refresh với UI Binder
+
+    [Header("Fetch Throttling")]
+    [Tooltip("Khoảng cách tối thiểu giữa các lần fetch (giây) - ngăn spam request")]
+    [SerializeField] float minFetchInterval = 1.0f;
+
+    [Tooltip("Cập nhật timestamp khi PATCH tên (không chỉ khi tăng điểm)")]
+    [SerializeField] bool updateTimestampOnNameChange = false;
+
     [Header("Debug")]
     [SerializeField] bool logs = true;
-    [SerializeField, Range(5, 60)] int httpTimeoutSec = 20;
+    [SerializeField, Range(5, 60)] int httpTimeoutSec = 15; // Tối ưu cho WebGL
+    [SerializeField] bool checkInternetConnection = false; // Tắt cho WebGL
 
+    // Internal state
     string _idToken;
     string _uid;
+    bool _fetching; // Chặn fetch chồng chéo
+    long _lastFetchAt; // Cooldown cho FetchTop
 
     public bool IsReady
         => !string.IsNullOrEmpty(databaseRootUrl) &&
@@ -51,114 +67,175 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
 
     void Start()
     {
+        // Sanitize URL - Tránh lỗi do nhập nhầm /
+        databaseRootUrl = (databaseRootUrl ?? "").TrimEnd('/');
+        tablePath = (tablePath ?? "").Trim('/');
+
+        // Chỉ check connection nếu không phải WebGL
+#if !UNITY_WEBGL || UNITY_EDITOR
+        if (checkInternetConnection)
+        {
+            StartCoroutine(CheckConnection());
+        }
+#endif
+
         if (authMode == AuthMode.AnonymousAuth && autoSignIn)
             StartCoroutine(SignInAnonymous());
         if (logs)
             Debug.Log($"[LB] Ready. Mode={authMode} Path={tablePath} Keys=({nameKey},{scoreKey},{timestampKey})");
     }
 
+    // ============== CONNECTION CHECK (chỉ cho non-WebGL) ==============
+#if !UNITY_WEBGL || UNITY_EDITOR
+    IEnumerator CheckConnection()
+    {
+        var req = UnityWebRequest.Get("https://www.google.com");
+        req.timeout = 5;
+        yield return req.SendWebRequest();
+
+        if (req.result != UnityWebRequest.Result.Success)
+        {
+            if (logs) Debug.LogWarning("[LB] No internet connection detected");
+        }
+        else
+        {
+            if (logs) Debug.Log("[LB] Internet connection OK");
+        }
+    }
+#endif
+
     // ============== PUBLIC API ==============
 
+    // Alias cho backward compatibility - khuyến khích dùng SubmitScoreWithRetry
+    [System.Obsolete("Recommend using SubmitScoreWithRetry for better reliability")]
     public IEnumerator SubmitScore(string displayName, int score, Action<bool> done = null)
+        => SubmitScoreOrUpdateName(displayName, score, done);
+
+    // ============== MAIN SUBMIT WITH RETRY (recommended) ==============
+    public IEnumerator SubmitScoreWithRetry(string displayName, int score, Action<bool> done = null)
     {
-        if (!CheckDbRoot(out var err)) { if (logs) Debug.LogError(err); done?.Invoke(false); yield break; }
-        if (authMode == AuthMode.AnonymousAuth && !IsReady) yield return SignInAnonymous();
-        if (authMode == AuthMode.AnonymousAuth && !IsReady) { done?.Invoke(false); yield break; }
+        int attempts = 0;
+        bool ok = false;
 
-        string uid = (authMode == AuthMode.PublicNoAuth) ? EnsureLocalUid() : _uid;
-
-        // read old
-        string path = CombinePath(tablePath, uid);
-        string getUrl = DbUrl(path, AuthQuery());
-        if (logs) Debug.Log("[LB] GET " + getUrl);
-        var getReq = UnityWebRequest.Get(getUrl);
-        getReq.timeout = httpTimeoutSec;
-        yield return getReq.SendWebRequest();
-
-        int oldScore = int.MinValue;
-        if (getReq.result == UnityWebRequest.Result.Success &&
-            !string.IsNullOrEmpty(getReq.downloadHandler.text) &&
-            getReq.downloadHandler.text != "null")
+        do
         {
-            var obj = MiniJson.Deserialize(getReq.downloadHandler.text) as Dictionary<string, object>;
-            if (obj != null) oldScore = ReadInt(obj, scoreKey);
-            if (logs) Debug.Log($"[LB] Old entry raw: {getReq.downloadHandler.text}");
+            attempts++;
+            bool finished = false;
+            yield return SubmitScoreOrUpdateName(displayName, score, r => { ok = r; finished = true; });
+
+            if (ok) break;
+
+            if (attempts < maxRetries)
+            {
+                if (logs) Debug.Log($"[LB] Retry attempt {attempts}/{maxRetries} in {retryDelay}s");
+                yield return new WaitForSecondsRealtime(retryDelay);
+            }
         }
+        while (attempts < maxRetries);
 
-        if (oldScore >= score)
-        {
-            if (logs) Debug.Log($"[LB] Keep old score {oldScore} >= {score}");
-            done?.Invoke(true);
-            yield break;
-        }
+        if (logs) Debug.Log(ok ? $"[LB] Submit successful after {attempts} attempts"
+                               : $"[LB] Submit failed after {maxRetries} attempts");
 
-        // write new
-        string putUrl = DbUrl(path, AuthQuery());
-        string body = BuildEntryJson(displayName, score, NowUnixMillis());
-        if (logs) Debug.Log("[LB] PUT " + putUrl + " body=" + body);
-        var putReq = new UnityWebRequest(putUrl, "PUT");
-        putReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(body));
-        putReq.downloadHandler = new DownloadHandlerBuffer();
-        putReq.SetRequestHeader("Content-Type", "application/json");
-        putReq.timeout = httpTimeoutSec;
-
-        yield return putReq.SendWebRequest();
-
-        bool ok = putReq.result == UnityWebRequest.Result.Success;
-        if (logs) Debug.Log(ok ? $"[LB] Submit OK: {putReq.downloadHandler.text}"
-                               : $"[LB] Submit FAIL: {putReq.error} {putReq.downloadHandler.text}");
+        // REMOVED: auto-refresh logic để tránh double-refresh với LeaderboardUIBinder
+        // UI Binder sẽ tự động poll khi panel mở
         done?.Invoke(ok);
     }
 
     public IEnumerator FetchTop(int count, Action<List<Row>> done)
     {
-        if (!CheckDbRoot(out var err)) { if (logs) Debug.LogError(err); done?.Invoke(new List<Row>()); yield break; }
-        if (authMode == AuthMode.AnonymousAuth && !IsReady) yield return SignInAnonymous();
-        if (authMode == AuthMode.AnonymousAuth && !IsReady) { done?.Invoke(new List<Row>()); yield break; }
-
-        count = Mathf.Max(1, count);
-
-        string q = $"orderBy=%22{scoreKey}%22&limitToLast={count}";
-        if (authMode == AuthMode.AnonymousAuth) q += $"&auth={_idToken}";
-        var url = DbUrl(tablePath, q);
-        if (logs) Debug.Log("[LB] GET " + url);
-
-        var req = UnityWebRequest.Get(url);
-        req.timeout = httpTimeoutSec;
-        yield return req.SendWebRequest();
-
-        var result = new List<Row>();
-        if (req.result != UnityWebRequest.Result.Success ||
-            string.IsNullOrEmpty(req.downloadHandler.text) ||
-            req.downloadHandler.text == "null")
+        // Cooldown check - ngăn spam request
+        var now = NowUnixMillis();
+        if (now - _lastFetchAt < minFetchInterval * 1000)
         {
-            if (logs) Debug.LogWarning($"[LB] FetchTop empty/err: {req.error} {req.downloadHandler.text}");
-            done?.Invoke(result);
+            if (logs) Debug.Log($"[LB] FetchTop throttled (cooldown: {minFetchInterval}s)");
+            done?.Invoke(new List<Row>());
             yield break;
         }
 
-        var root = MiniJson.Deserialize(req.downloadHandler.text) as Dictionary<string, object>;
-        if (root != null)
+        // Chặn fetch chồng chéo
+        if (_fetching)
         {
-            foreach (var kv in root)
-            {
-                var obj = kv.Value as Dictionary<string, object>;
-                if (obj == null) continue;
-
-                var row = new Row
-                {
-                    uid   = kv.Key,
-                    name  = ReadStr(obj, nameKey) ?? "Player",
-                    score = ReadInt(obj, scoreKey),
-                    ts    = ReadLong(obj, timestampKey)
-                };
-                result.Add(row);
-            }
-            result.Sort((a, b) => b.score.CompareTo(a.score));
+            if (logs) Debug.Log("[LB] FetchTop already running, skipping");
+            yield break;
         }
+        _fetching = true;
 
-        if (logs) Debug.Log($"[LB] FetchTop OK: {result.Count} rows (topScore={(result.Count>0 ? result[0].score : 0)})");
-        done?.Invoke(result);
+        try
+        {
+            if (!CheckDbRoot(out var err))
+            {
+                if (logs) Debug.LogError(err);
+                done?.Invoke(new List<Row>());
+                yield break;
+            }
+
+            if (authMode == AuthMode.AnonymousAuth && !IsReady) yield return SignInAnonymous();
+            if (authMode == AuthMode.AnonymousAuth && !IsReady)
+            {
+                done?.Invoke(new List<Row>());
+                yield break;
+            }
+
+            count = Mathf.Max(1, count);
+
+            // Cache-buster + query chuẩn
+            var ts = NowUnixMillis();
+            string q = $"orderBy=%22{scoreKey}%22&limitToLast={count}&__cb={ts}";
+            if (authMode == AuthMode.AnonymousAuth) q += $"&auth={_idToken}";
+
+            var url = DbUrl(tablePath, q);
+            if (logs) Debug.Log("[LB] GET " + url);
+
+            var req = UnityWebRequest.Get(url);
+            req.timeout = httpTimeoutSec;
+
+            // Headers tương thích WebGL + proxy
+            req.SetRequestHeader("Accept", "application/json");
+            req.SetRequestHeader("Cache-Control", "no-store, no-cache, max-age=0");
+            req.SetRequestHeader("Pragma", "no-cache");
+
+            yield return req.SendWebRequest();
+
+            var result = new List<Row>();
+            if (req.result != UnityWebRequest.Result.Success ||
+                string.IsNullOrEmpty(req.downloadHandler.text) ||
+                req.downloadHandler.text == "null")
+            {
+                // Log với responseCode để debug
+                if (logs) Debug.LogWarning($"[LB] FetchTop err {(long)req.responseCode}: {req.error} | {req.downloadHandler.text}");
+                done?.Invoke(result);
+                yield break;
+            }
+
+            var root = MiniJson.Deserialize(req.downloadHandler.text) as Dictionary<string, object>;
+            if (root != null)
+            {
+                foreach (var kv in root)
+                {
+                    var obj = kv.Value as Dictionary<string, object>;
+                    if (obj == null) continue;
+
+                    var row = new Row
+                    {
+                        uid = kv.Key,
+                        name = ReadStr(obj, nameKey) ?? "Player",
+                        score = ReadInt(obj, scoreKey),
+                        ts = ReadLong(obj, timestampKey)
+                    };
+                    result.Add(row);
+                }
+                result.Sort((a, b) => b.score.CompareTo(a.score));
+            }
+
+            if (logs) Debug.Log($"[LB] FetchTop OK: {result.Count} rows (topScore={(result.Count > 0 ? result[0].score : 0)})");
+            done?.Invoke(result);
+        }
+        finally
+        {
+            // Update cooldown timestamp
+            _lastFetchAt = NowUnixMillis();
+            _fetching = false;
+        }
     }
 
     // ============== Auth (anonymous - optional) ==============
@@ -180,6 +257,7 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
         req.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes("{}"));
         req.downloadHandler = new DownloadHandlerBuffer();
         req.SetRequestHeader("Content-Type", "application/json");
+        req.SetRequestHeader("Accept", "application/json");
         req.timeout = httpTimeoutSec;
 
         yield return req.SendWebRequest();
@@ -202,9 +280,142 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
         }
         else
         {
-            if (logs) Debug.LogError($"[LB] SignIn fail: {req.error} {req.downloadHandler.text}");
+            if (logs) Debug.LogError($"[LB] SignIn fail {(long)req.responseCode}: {req.error} | {req.downloadHandler.text}");
             done?.Invoke(false);
         }
+    }
+
+    // ============== CORE: Submit score OR update display name ====
+    public IEnumerator SubmitScoreOrUpdateName(string displayName, int score, Action<bool> done = null)
+    {
+        if (!CheckDbRoot(out var err)) { if (logs) Debug.LogError(err); done?.Invoke(false); yield break; }
+        if (authMode == AuthMode.AnonymousAuth && !IsReady) yield return SignInAnonymous();
+        if (authMode == AuthMode.AnonymousAuth && !IsReady) { done?.Invoke(false); yield break; }
+
+        string uid = (authMode == AuthMode.PublicNoAuth) ? EnsureLocalUid() : _uid;
+        string path = CombinePath(tablePath, uid);
+
+        // 1) Read current entry với cache-buster
+        var ts = NowUnixMillis();
+        string q = (authMode == AuthMode.AnonymousAuth)
+            ? $"auth={_idToken}&__cb={ts}"
+            : $"__cb={ts}";
+        string getUrl = DbUrl(path, q);
+
+        if (logs) Debug.Log("[LB] GET " + getUrl);
+        var getReq = UnityWebRequest.Get(getUrl);
+        getReq.timeout = httpTimeoutSec;
+        // Headers consistent
+        getReq.SetRequestHeader("Accept", "application/json");
+        getReq.SetRequestHeader("Cache-Control", "no-store, no-cache, max-age=0");
+        getReq.SetRequestHeader("Pragma", "no-cache");
+        yield return getReq.SendWebRequest();
+
+        var nowTs = ts; // Reuse timestamp
+
+        // No entry yet -> write full
+        if (getReq.result != UnityWebRequest.Result.Success ||
+            string.IsNullOrEmpty(getReq.downloadHandler.text) ||
+            getReq.downloadHandler.text == "null")
+        {
+            // Log rõ ràng: đây là decide-by-design, không phải bug
+            if (logs) Debug.Log($"[LB] No existing entry (GET {(long)getReq.responseCode}: {getReq.error}) -> Creating new");
+
+            string firstBody = BuildEntryJson(displayName, score, nowTs);
+            string putUrl = DbUrl(path, AuthQuery());
+            if (logs) Debug.Log("[LB] PUT " + putUrl + " body=" + firstBody);
+
+            var putReq = new UnityWebRequest(putUrl, "PUT");
+            putReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(firstBody));
+            putReq.downloadHandler = new DownloadHandlerBuffer();
+            putReq.SetRequestHeader("Content-Type", "application/json");
+            putReq.SetRequestHeader("Accept", "application/json");
+            putReq.SetRequestHeader("Cache-Control", "no-store");
+            putReq.timeout = httpTimeoutSec;
+            yield return putReq.SendWebRequest();
+
+            bool ok0 = putReq.result == UnityWebRequest.Result.Success;
+            if (logs)
+            {
+                if (ok0) Debug.Log("[LB] Created new entry");
+                else Debug.LogWarning($"[LB] Create FAIL {(long)putReq.responseCode}: {putReq.error} | {putReq.downloadHandler.text}");
+            }
+            done?.Invoke(ok0);
+            yield break;
+        }
+
+        // Has entry -> decide update
+        var obj = MiniJson.Deserialize(getReq.downloadHandler.text) as Dictionary<string, object>;
+        var oldName = ReadStr(obj, nameKey) ?? "Player";
+        var oldScore = ReadInt(obj, scoreKey);
+
+        if (score > oldScore)
+        {
+            // Score improved -> overwrite all
+            string body = BuildEntryJson(displayName, score, nowTs);
+            string putUrl = DbUrl(path, AuthQuery());
+            if (logs) Debug.Log("[LB] PUT " + putUrl + " body=" + body);
+
+            var putReq = new UnityWebRequest(putUrl, "PUT");
+            putReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(body));
+            putReq.downloadHandler = new DownloadHandlerBuffer();
+            putReq.SetRequestHeader("Content-Type", "application/json");
+            putReq.SetRequestHeader("Accept", "application/json");
+            putReq.SetRequestHeader("Cache-Control", "no-store");
+            putReq.timeout = httpTimeoutSec;
+            yield return putReq.SendWebRequest();
+
+            bool ok = putReq.result == UnityWebRequest.Result.Success;
+            if (logs)
+            {
+                if (ok) Debug.Log("[LB] Score improved and updated.");
+                else Debug.LogWarning($"[LB] PUT FAIL {(long)putReq.responseCode}: {putReq.error} | {putReq.downloadHandler.text}");
+            }
+            done?.Invoke(ok);
+            yield break;
+        }
+
+        // Score not improved -> update name only if changed
+        if (!string.Equals(oldName, displayName, StringComparison.Ordinal))
+        {
+            // PATCH name (+ optionally timestamp)
+            string patch;
+            if (updateTimestampOnNameChange)
+            {
+                // Update both name and timestamp
+                patch = $"{{\"{EscapeJson(nameKey)}\":\"{EscapeJson(string.IsNullOrEmpty(displayName) ? "Player" : displayName)}\",\"{EscapeJson(timestampKey)}\":{nowTs}}}";
+            }
+            else
+            {
+                // Update name only, keep old timestamp
+                patch = $"{{\"{EscapeJson(nameKey)}\":\"{EscapeJson(string.IsNullOrEmpty(displayName) ? "Player" : displayName)}\"}}";
+            }
+
+            string patchUrl = DbUrl(path, AuthQuery());
+            if (logs) Debug.Log("[LB] PATCH " + patchUrl + " body=" + patch);
+
+            var patchReq = new UnityWebRequest(patchUrl, "PATCH");
+            patchReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(patch));
+            patchReq.downloadHandler = new DownloadHandlerBuffer();
+            patchReq.SetRequestHeader("Content-Type", "application/json");
+            patchReq.SetRequestHeader("Accept", "application/json");
+            patchReq.SetRequestHeader("Cache-Control", "no-store");
+            patchReq.timeout = httpTimeoutSec;
+            yield return patchReq.SendWebRequest();
+
+            bool ok = patchReq.result == UnityWebRequest.Result.Success;
+            if (logs)
+            {
+                if (ok) Debug.Log("[LB] Name updated (score kept).");
+                else Debug.LogWarning($"[LB] PATCH FAIL {(long)patchReq.responseCode}: {patchReq.error} | {patchReq.downloadHandler.text}");
+            }
+            done?.Invoke(ok);
+            yield break;
+        }
+
+        // Nothing to update
+        if (logs) Debug.Log("[LB] No change (name same, score not higher).");
+        done?.Invoke(true);
     }
 
     // ============== Helpers ==============
@@ -433,88 +644,4 @@ public sealed class FirebaseLeaderboard : MonoBehaviour
             }
         }
     }
-    // ==== NEW: Submit score OR update display name even when score doesn't improve ====
-    public IEnumerator SubmitScoreOrUpdateName(string displayName, int score, Action<bool> done = null)
-    {
-        if (!CheckDbRoot(out var err)) { if (logs) Debug.LogError(err); done?.Invoke(false); yield break; }
-        if (authMode == AuthMode.AnonymousAuth && !IsReady) yield return SignInAnonymous();
-        if (authMode == AuthMode.AnonymousAuth && !IsReady) { done?.Invoke(false); yield break; }
-
-        string uid = (authMode == AuthMode.PublicNoAuth) ? EnsureLocalUid() : _uid;
-        string path = CombinePath(tablePath, uid);
-
-        // 1) Read current entry
-        string getUrl = DbUrl(path, AuthQuery());
-        if (logs) Debug.Log("[LB] GET " + getUrl);
-        var getReq = UnityWebRequest.Get(getUrl);
-        getReq.timeout = httpTimeoutSec;
-        yield return getReq.SendWebRequest();
-
-        var nowTs = NowUnixMillis();
-
-        // No entry yet -> write full
-        if (getReq.result != UnityWebRequest.Result.Success || string.IsNullOrEmpty(getReq.downloadHandler.text) || getReq.downloadHandler.text == "null")
-        {
-            string firstBody = BuildEntryJson(displayName, score, nowTs);
-            string putUrl = DbUrl(path, AuthQuery());
-            if (logs) Debug.Log("[LB] PUT " + putUrl + " body=" + firstBody);
-            var putReq = new UnityWebRequest(putUrl, "PUT");
-            putReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(firstBody));
-            putReq.downloadHandler = new DownloadHandlerBuffer();
-            putReq.SetRequestHeader("Content-Type", "application/json");
-            putReq.timeout = httpTimeoutSec;
-            yield return putReq.SendWebRequest();
-            bool ok0 = putReq.result == UnityWebRequest.Result.Success;
-            if (logs) Debug.Log(ok0 ? "[LB] Created new entry" : $"[LB] Create FAIL: {putReq.error} {putReq.downloadHandler.text}");
-            done?.Invoke(ok0);
-            yield break;
-        }
-
-        // Has entry -> decide update
-        var obj = MiniJson.Deserialize(getReq.downloadHandler.text) as Dictionary<string, object>;
-        var oldName = ReadStr(obj, nameKey) ?? "Player";
-        var oldScore = ReadInt(obj, scoreKey);
-
-        if (score > oldScore)
-        {
-            // Improve score -> overwrite all
-            string body = BuildEntryJson(displayName, score, nowTs);
-            string putUrl = DbUrl(path, AuthQuery());
-            if (logs) Debug.Log("[LB] PUT " + putUrl + " body=" + body);
-            var putReq = new UnityWebRequest(putUrl, "PUT");
-            putReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(body));
-            putReq.downloadHandler = new DownloadHandlerBuffer();
-            putReq.SetRequestHeader("Content-Type", "application/json");
-            putReq.timeout = httpTimeoutSec;
-            yield return putReq.SendWebRequest();
-            bool ok = putReq.result == UnityWebRequest.Result.Success;
-            if (logs) Debug.Log(ok ? "[LB] Score improved and updated." : $"[LB] PUT FAIL: {putReq.error} {putReq.downloadHandler.text}");
-            done?.Invoke(ok);
-            yield break;
-        }
-
-        // Score not improved -> update name only if changed
-        if (!string.Equals(oldName, displayName, StringComparison.Ordinal))
-        {
-            // PATCH {"nameKey": "..."} to keep bestScore
-            var patch = $"{{\"{EscapeJson(nameKey)}\":\"{EscapeJson(string.IsNullOrEmpty(displayName) ? "Player" : displayName)}\"}}";
-            string patchUrl = DbUrl(path, AuthQuery());
-            if (logs) Debug.Log("[LB] PATCH " + patchUrl + " body=" + patch);
-            var patchReq = new UnityWebRequest(patchUrl, "PATCH");
-            patchReq.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(patch));
-            patchReq.downloadHandler = new DownloadHandlerBuffer();
-            patchReq.SetRequestHeader("Content-Type", "application/json");
-            patchReq.timeout = httpTimeoutSec;
-            yield return patchReq.SendWebRequest();
-            bool ok = patchReq.result == UnityWebRequest.Result.Success;
-            if (logs) Debug.Log(ok ? "[LB] Name updated (score kept)." : $"[LB] PATCH FAIL: {patchReq.error} {patchReq.downloadHandler.text}");
-            done?.Invoke(ok);
-            yield break;
-        }
-
-        // Nothing to update
-        if (logs) Debug.Log("[LB] No change (name same, score not higher).");
-        done?.Invoke(true);
-    }
-
 }

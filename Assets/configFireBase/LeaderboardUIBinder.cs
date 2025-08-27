@@ -7,35 +7,47 @@ using UnityEngine.UI;
 public sealed class LeaderboardUIBinder : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] FirebaseLeaderboard leaderboard;     // Kéo _Services(FirebaseLeaderboard) vào
-    [SerializeField] RectTransform contentRoot;          // Kéo "Content" của ScrollView vào
-    [SerializeField] LeaderboardRowView rowPrefab;       // Kéo prefab LBRowView vào
+    [SerializeField] FirebaseLeaderboard leaderboard;
+    [SerializeField] RectTransform contentRoot;
+    [SerializeField] LeaderboardRowView rowPrefab;
+    [SerializeField] ScrollRect scrollRect; // kéo ScrollView vào slot này
 
     [Header("Behavior")]
     [SerializeField, Range(5, 100)] int topCount = 20;
     [SerializeField] bool refreshOnEnable = true;
-    [SerializeField] KeyCode manualRefreshKey = KeyCode.None;   // optional
+
+    [Tooltip("Tự fetch định kỳ khi panel đang mở (WebGL nên bật).")]
+    [SerializeField] bool autoRefreshWhileVisible = true;
+    [SerializeField, Range(2f, 60f)] float refreshIntervalSec = 8f;
 
     [Header("Style")]
     [SerializeField] Color rowOdd = new Color(1f, 1f, 1f, 0.06f);
     [SerializeField] Color rowEven = new Color(1f, 1f, 1f, 0.12f);
 
     readonly List<LeaderboardRowView> pool = new List<LeaderboardRowView>();
-
-    void Reset() { topCount = 20; refreshOnEnable = true; }
+    Coroutine _loop;
 
     void OnEnable()
     {
         if (refreshOnEnable) StartCoroutine(Refresh());
+        if (autoRefreshWhileVisible) _loop = StartCoroutine(AutoLoop());
     }
-
-    void Update()
+    void OnDisable()
     {
-        if (manualRefreshKey != KeyCode.None && Input.GetKeyDown(manualRefreshKey))
-            StartCoroutine(Refresh());
+        if (_loop != null) { StopCoroutine(_loop); _loop = null; }
     }
 
     public void ForceRefresh() => StartCoroutine(Refresh());
+
+    IEnumerator AutoLoop()
+    {
+        // làm realtime nhẹ nhàng
+        while (enabled && gameObject.activeInHierarchy)
+        {
+            yield return new WaitForSecondsRealtime(refreshIntervalSec);
+            yield return Refresh();
+        }
+    }
 
     IEnumerator Refresh()
     {
@@ -48,16 +60,16 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
         if (!done || rows == null) yield break;
 
         BuildRows(rows);
+        Canvas.ForceUpdateCanvases();
+        if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f;
     }
 
     void BuildRows(List<FirebaseLeaderboard.Row> rows)
     {
         EnsurePool(rows.Count);
 
-        // Ẩn hết trước
         for (int i = 0; i < pool.Count; i++) pool[i].gameObject.SetActive(false);
 
-        // Bind
         for (int i = 0; i < rows.Count; i++)
         {
             var item = pool[i];
@@ -66,9 +78,7 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
             item.SetBackground((i % 2 == 0) ? rowEven : rowOdd);
         }
 
-        // Rebuild layout cho chắc
         LayoutRebuilder.ForceRebuildLayoutImmediate(contentRoot);
-        Canvas.ForceUpdateCanvases();
     }
 
     void EnsurePool(int need)

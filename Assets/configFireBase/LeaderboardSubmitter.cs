@@ -5,6 +5,7 @@ using UnityEngine;
 public sealed class LeaderboardSubmitter : MonoBehaviour
 {
     [SerializeField] FirebaseLeaderboard leaderboard;
+    [SerializeField] bool logs = true;
 
     bool _busy;
 
@@ -30,7 +31,19 @@ public sealed class LeaderboardSubmitter : MonoBehaviour
         bool ok = false;
         yield return leaderboard.SubmitScoreOrUpdateName(name, score, r => { ok = r; done = true; });
         if (!done) yield break;
+
         Debug.Log(ok ? $"[LB_Submit] Uploaded: {name} -> {score}" : "[LB_Submit] Upload failed.");
+
+        // Refresh leaderboard ngay sau khi submit thành công
+        if (ok)
+        {
+            Debug.Log("[LB_Submit] Refreshing leaderboard...");
+            yield return leaderboard.FetchTop(10, rows =>
+            {
+                if (logs) Debug.Log($"[LB_Submit] Refreshed: {rows.Count} entries loaded");
+            });
+        }
+
         _busy = false;
     }
 }
