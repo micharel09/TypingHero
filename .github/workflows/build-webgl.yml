@@ -29,6 +29,38 @@ jobs:
           done
           exit "$missing"
 
+      - name: Verify Unity account login
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.request
+
+          payload = json.dumps({
+              "username": os.environ["UNITY_EMAIL"],
+              "password": os.environ["UNITY_PASSWORD"],
+              "grant_type": "password",
+          }).encode()
+          request = urllib.request.Request(
+              "https://core.cloud.unity3d.com/api/login",
+              data=payload,
+              headers={"Content-Type": "application/json"},
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  print(f"Unity account login HTTP {response.status}")
+          except urllib.error.HTTPError as error:
+              print(f"::error::Unity account login HTTP {error.code}; no credentials or response tokens logged.")
+              raise SystemExit(1)
+          except urllib.error.URLError:
+              print("::error::Unity account login could not reach Unity.")
+              raise SystemExit(1)
+          PY
+
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
