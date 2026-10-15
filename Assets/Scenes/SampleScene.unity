@@ -3819,7 +3819,7 @@ MonoBehaviour:
   contentRoot: {fileID: 268829418}
   rowPrefab: {fileID: 2402111473869889734, guid: 81150b27534aa7049b8e1131d2010cfe, type: 3}
   scrollRect: {fileID: 1669420831}
-  topCount: 20
+  topCount: 1000
   refreshOnEnable: 1
   autoRefreshWhileVisible: 1
   refreshIntervalSec: 8

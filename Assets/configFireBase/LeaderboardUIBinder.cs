@@ -13,7 +13,7 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
     [SerializeField] ScrollRect scrollRect; // kéo ScrollView vào slot này
 
     [Header("Behavior")]
-    [SerializeField, Range(5, 100)] int topCount = 20;
+    [SerializeField, Range(5, 1000)] int topCount = 1000;
     [SerializeField] bool refreshOnEnable = true;
 
     [Tooltip("Tự fetch định kỳ khi panel đang mở (WebGL nên bật).")]
