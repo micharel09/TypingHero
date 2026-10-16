@@ -2,6 +2,11 @@ name: Build WebGL
 
 on:
   workflow_dispatch:
+    inputs:
+      serialize_only:
+        description: Import and serialize pixel UI without rebuilding WebGL
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -79,8 +84,10 @@ jobs:
           buildName: WebGL
           buildsPath: build
           versioning: None
+          buildMethod: ${{ inputs.serialize_only && 'PixelUIBuild.SerializeOnly' || '' }}
 
       - name: Check playable build
+        if: ${{ !inputs.serialize_only }}
         run: |
           test -s build/WebGL/WebGL/index.html
           sudo cp Assets/Art/UI/Pixel/CREDITS.txt build/WebGL/WebGL/CREDITS.txt
@@ -97,7 +104,7 @@ jobs:
           retention-days: 3
 
       - name: Upload WebGL ZIP artifact
-        if: ${{ always() && steps.unity-build.outcome == 'success' }}
+        if: ${{ always() && !inputs.serialize_only && steps.unity-build.outcome == 'success' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: TypingHero-WebGL-${{ github.sha }}

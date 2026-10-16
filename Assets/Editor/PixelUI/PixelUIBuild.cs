@@ -12,6 +12,12 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
 
     public void OnPreprocessBuild(BuildReport report) => Apply();
 
+    public static void SerializeOnly()
+    {
+        Apply();
+        Debug.Log("Build succeeded!");
+    }
+
     [MenuItem("Typing Hero/Apply Pixel UI")]
     public static void Apply()
     {
@@ -26,7 +32,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");
             AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
-                PixelUIFactory.Generated, PixelUIFactory.Art }, "build/PixelUI/PixelUI.unitypackage",
+                PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/') }, "build/PixelUI/PixelUI.unitypackage",
                 ExportPackageOptions.Recurse);
             Debug.Log("Pixel UI migration and serialization complete");
         }
