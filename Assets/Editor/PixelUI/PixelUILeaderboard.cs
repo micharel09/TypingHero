@@ -23,11 +23,6 @@ internal static class PixelUILeaderboard
         content.anchorMin = new Vector2(0, 1); content.anchorMax = Vector2.one;
         content.pivot = new Vector2(.5f, 1); content.anchoredPosition = Vector2.zero;
         content.sizeDelta = Vector2.zero;
-        var layout = content.gameObject.AddComponent<VerticalLayoutGroup>();
-        layout.childControlWidth = true; layout.childControlHeight = true;
-        layout.childForceExpandWidth = true; layout.childForceExpandHeight = false;
-        var fitter = content.gameObject.AddComponent<ContentSizeFitter>();
-        fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         var track = Rect("Scrollbar", scrollRt); Box(track, scrollRt, 204, 0, 12, 404);
         Image(track, Ink).raycastTarget = true;
         var handle = Rect("Handle", track); Stretch(handle, track, 2);
@@ -51,6 +46,7 @@ internal static class PixelUILeaderboard
         Set(binder, "rowPrefab", prefab.GetComponent<LeaderboardRowView>());
         Value(binder, "rowEven", Hex("293F4D")); Value(binder, "rowOdd", Hex("223542"));
         Value(binder, "topCount", 1000);
+        Value(binder, "virtualizeRows", true);
         var empty = Label("EmptyLeaderboard", "NO SCORES YET", viewport, 8, 16, 184, 32, 22);
         empty.alignment = TextAlignmentOptions.Center; empty.color = Muted;
         empty.gameObject.SetActive(false); Set(binder, "emptyLabel", empty);

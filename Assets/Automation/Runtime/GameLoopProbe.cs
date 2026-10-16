@@ -83,6 +83,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             var board = FindObjectOfType<LeaderboardUIBinder>();
             var pool = Read<System.Collections.Generic.List<LeaderboardRowView>>(board, "pool");
             var scroll = Read<ScrollRect>(board, "scrollRect");
+            var dataRows = Read<System.Collections.Generic.List<FirebaseLeaderboard.Row>>(board, "_rows");
             var animator = Read<Animator>(enemy, "animator");
             var info = animator ? animator.GetCurrentAnimatorStateInfo(0) : default;
             var controls = FindObjectsOfType<Selectable>().Where(s => s.IsInteractable()).Select(s =>
@@ -117,7 +118,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 paused = Read(pause, "_paused", false), inputBlocked = GamePauseController.InputBlocked,
                 multiplier = ScoreSystem.I ? ScoreSystem.I.Multiplier : 0, timer = Read(typing, "timer", 0f), frameMs = Time.unscaledDeltaTime * 1000,
                 memory = Profiler.GetTotalAllocatedMemoryLong(), objects = Resources.FindObjectsOfTypeAll<GameObject>().Length,
-                rows = pool == null ? 0 : pool.Count(r => r && r.gameObject.activeInHierarchy),
+                rows = dataRows == null ? 0 : dataRows.Count,
                 pool = pool == null ? 0 : pool.Count, scroll = scroll ? scroll.verticalNormalizedPosition : -1,
                 controls = controls.ToArray()
             };
