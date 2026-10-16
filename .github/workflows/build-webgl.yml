@@ -80,7 +80,11 @@ jobs:
           versioning: None
 
       - name: Check playable build
-        run: test -s build/WebGL/WebGL/index.html
+        run: |
+          test -s build/WebGL/WebGL/index.html
+          cp Assets/Art/UI/Pixel/CREDITS.txt build/WebGL/WebGL/CREDITS.txt
+          mkdir -p build/WebGL/WebGL/Licenses
+          cp Assets/Art/UI/Pixel/*License.txt Assets/Art/UI/Pixel/VT323-OFL.txt build/WebGL/WebGL/Licenses/
 
       - name: Upload Unity serialized pixel UI
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

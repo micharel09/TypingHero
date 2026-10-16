@@ -10,7 +10,7 @@ internal static class PixelUILeaderboard
     {
         var panel = PanelAt("LeaderboardPanel", parent, 712, 16, 232, 508);
         Label("Title", "TOP 1000", panel, 16, 12, 200, 40, 32);
-        var header = Rect("Header", panel); Box(header, panel, 12, 60, 200, 28);
+        var header = Rect("Header", panel); Box(header, panel, 8, 60, 200, 28);
         Columns(header, true);
         var scrollRt = Rect("ScrollView", panel); Box(scrollRt, panel, 8, 92, 216, 404);
         Image(scrollRt, new Color(0, 0, 0, 0)).raycastTarget = true;

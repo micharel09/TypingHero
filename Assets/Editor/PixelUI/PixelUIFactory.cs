@@ -74,6 +74,15 @@ internal static class PixelUIFactory
         return c;
     }
 
+    internal static RectTransform DesignRoot(Canvas canvas)
+    {
+        var rt = Rect("Reference960x540", canvas.transform);
+        rt.anchorMin = rt.anchorMax = new Vector2(.5f, .5f);
+        rt.pivot = new Vector2(.5f, .5f);
+        rt.anchoredPosition = Vector2.zero; rt.sizeDelta = new Vector2(960, 540);
+        return rt;
+    }
+
     internal static Image Image(RectTransform rt, Color color, bool frame = false)
     {
         var img = rt.GetComponent<Image>() ?? rt.gameObject.AddComponent<Image>();
