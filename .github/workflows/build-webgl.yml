@@ -78,6 +78,7 @@ jobs:
           buildName: WebGL
           buildsPath: build
           versioning: None
+          buildMethod: PixelUIQACloud.Build
 
       - name: Check playable build
         run: test -s build/WebGL/WebGL/index.html
