@@ -169,6 +169,7 @@ public class TypingManager : MonoBehaviour
 
     void HandleTyping()
     {
+        if (GamePauseController.InputBlocked) return;
         var s = Input.inputString;
         for (int i = 0; i < s.Length; i++)
         {

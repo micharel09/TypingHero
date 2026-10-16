@@ -138,6 +138,7 @@ public class ParrySystem : MonoBehaviour
 
     void Update()
     {
+        if (GamePauseController.InputBlocked) return;
         if (!config) return;
 
         // gate từ PlayerInputGate: không cho mở parry nếu đang bị khoá (chết/khác)

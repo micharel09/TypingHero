@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [DisallowMultipleComponent]
 public sealed class LeaderboardUIBinder : MonoBehaviour
@@ -11,6 +12,7 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
     [SerializeField] RectTransform contentRoot;
     [SerializeField] LeaderboardRowView rowPrefab;
     [SerializeField] ScrollRect scrollRect; // kéo ScrollView vào slot này
+    [SerializeField] TMP_Text emptyLabel;
 
     [Header("Behavior")]
     [SerializeField, Range(5, 1000)] int topCount = 1000;
@@ -94,6 +96,7 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
 
     void BuildRows(List<FirebaseLeaderboard.Row> rows)
     {
+        if (emptyLabel) emptyLabel.gameObject.SetActive(rows.Count == 0);
         EnsurePool(rows.Count);
 
         for (int i = 0; i < pool.Count; i++) pool[i].gameObject.SetActive(false);

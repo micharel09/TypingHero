@@ -6,6 +6,7 @@ using TMPro;
 using Cinemachine;
 
 [DisallowMultipleComponent]
+[DefaultExecutionOrder(-100)]
 public sealed class GamePauseController : MonoBehaviour
 {
     [Header("Input")]
@@ -29,6 +30,7 @@ public sealed class GamePauseController : MonoBehaviour
     [SerializeField] TextMeshProUGUI pauseLabel;
     [SerializeField] TextMeshProUGUI restartHintLabel;
     [SerializeField] TextMeshProUGUI menuHintLabel;            // NEW
+    [SerializeField] Button resumeButton;
     [SerializeField] string pauseText = "PAUSE";
     [SerializeField] Color pauseTextColor = Color.green;
 
@@ -59,6 +61,10 @@ public sealed class GamePauseController : MonoBehaviour
     bool _brainSaved;
 
     public bool IsRestarting => _restarting;
+    public static bool InputBlocked { get; private set; }
+
+    public void Resume() => TogglePause(false);
+    public void Restart() => TryRestart();
 
     // ---- NEW: helper guard để tránh chạy logic trên instance đã destroy/disabled
     bool Usable()
@@ -78,6 +84,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     void Awake()
     {
+        InputBlocked = false;
         if (!targetCamera) targetCamera = Camera.main;
         if (!cinemachineBrain && targetCamera) cinemachineBrain = targetCamera.GetComponent<CinemachineBrain>();
 
@@ -93,6 +100,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     void OnDestroy()
     {
+        InputBlocked = false;
         if (autoGameOverOnPlayerDie && playerHealth)
             playerHealth.OnDied -= ShowGameOverAfterPlayerDie;
     }
@@ -192,6 +200,7 @@ public sealed class GamePauseController : MonoBehaviour
     // ===== OVERLAY HELPERS =====
     void ShowOverlay_PauseLabel(string text, Color color, bool showRestart)
     {
+        if (resumeButton) resumeButton.gameObject.SetActive(!_overlayLocked);
         if (uiRoot) uiRoot.gameObject.SetActive(false);
         if (pauseCanvas) pauseCanvas.enabled = true;
 
@@ -205,6 +214,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     void ShowOverlay_ThanksLabel(bool showRestart)
     {
+        if (resumeButton) resumeButton.gameObject.SetActive(false);
         if (uiRoot) uiRoot.gameObject.SetActive(false);
         if (pauseCanvas) pauseCanvas.enabled = true;
 
@@ -312,6 +322,8 @@ public sealed class GamePauseController : MonoBehaviour
 
     void Freeze(bool on)
     {
+        InputBlocked = on;
+        if (ScoreSystem.I) ScoreSystem.I.SetPaused(on);
         if (on) { Time.timeScale = 0f; if (pauseAudioListener) AudioListener.pause = true; }
         else { if (pauseAudioListener) AudioListener.pause = false; Time.timeScale = 1f; }
     }

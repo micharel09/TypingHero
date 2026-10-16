@@ -19,6 +19,7 @@ public sealed class MainMenuUI : MonoBehaviour
     [Header("Validation (expose để thống nhất với PlayerIdentity)")]
     [SerializeField, Range(3, 24)] int minLen = 3;
     [SerializeField, Range(3, 24)] int maxLen = 16;
+    bool loadingScene;
 
     void Reset()
     {
@@ -36,7 +37,6 @@ public sealed class MainMenuUI : MonoBehaviour
             nameInput.text = PlayerIdentity.Name ?? string.Empty;
             nameInput.onValueChanged.AddListener(OnNameChanged);
             nameInput.onSubmit.AddListener(OnSubmit);   // TMP có onSubmit
-            nameInput.onEndEdit.AddListener(OnSubmit);  // fallback (Editor/Platform khác)
         }
 
         if (playButton) playButton.onClick.AddListener(Play);
@@ -60,7 +60,6 @@ public sealed class MainMenuUI : MonoBehaviour
         {
             nameInput.onValueChanged.RemoveListener(OnNameChanged);
             nameInput.onSubmit.RemoveListener(OnSubmit);
-            nameInput.onEndEdit.RemoveListener(OnSubmit);
         }
         if (playButton) playButton.onClick.RemoveListener(Play);
     }
@@ -92,6 +91,7 @@ public sealed class MainMenuUI : MonoBehaviour
 
     void Play()
     {
+        if (loadingScene) return;
         if (!nameInput) return;
 
         if (!PlayerIdentity.TrySetName(nameInput.text, out string normalized, out string err))
@@ -119,6 +119,7 @@ public sealed class MainMenuUI : MonoBehaviour
         }
 
         // Load gameplay
+        loadingScene = true;
         SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
     }
 }

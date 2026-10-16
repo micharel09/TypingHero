@@ -82,6 +82,14 @@ jobs:
       - name: Check playable build
         run: test -s build/WebGL/WebGL/index.html
 
+      - name: Upload Unity serialized pixel UI
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: TypingHero-PixelUI-${{ github.sha }}
+          path: build/PixelUI/
+          if-no-files-found: error
+          retention-days: 3
+
       - name: Upload WebGL ZIP artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
