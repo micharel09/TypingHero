@@ -12,9 +12,9 @@ internal static class PixelUIFactory
     internal const string Art = "Assets/Art/UI/Pixel/";
     internal const string Generated = "Assets/Prefabs/PixelUI/";
     internal static readonly Color Ink = Hex("101820"), Panel = Hex("243746"),
-        Edge = Hex("4C6877"), Text = Hex("F4EEDA"), Muted = Hex("9AAFB9"),
+        Edge = Hex("4C6877"), Foreground = Hex("F4EEDA"), Muted = Hex("9AAFB9"),
         Teal = Hex("70E0CE"), Red = Hex("EB6570"), Gold = Hex("F2C66D");
-    internal static TMP_FontAsset Font;
+    internal static TMP_FontAsset Typeface;
     internal static Sprite Frame;
     internal static bool BuildingTemplates;
 
@@ -101,8 +101,8 @@ internal static class PixelUIFactory
 
     internal static void Style(TMP_Text label, float size)
     {
-        label.font = Font; label.fontSize = size; label.enableAutoSizing = false;
-        label.fontStyle = FontStyles.Normal; label.color = Text;
+        label.font = Typeface; label.fontSize = size; label.enableAutoSizing = false;
+        label.fontStyle = FontStyles.Normal; label.color = Foreground;
         label.enableWordWrapping = false; label.overflowMode = TextOverflowModes.Ellipsis;
         label.alignment = TextAlignmentOptions.MidlineLeft; label.raycastTarget = false;
         label.margin = Vector4.zero;

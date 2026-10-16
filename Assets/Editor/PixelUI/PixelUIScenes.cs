@@ -27,7 +27,7 @@ internal static class PixelUIScenes
         var inputImage = Image(input.GetComponent<RectTransform>(), Ink, true);
         inputImage.raycastTarget = true; input.targetGraphic = inputImage;
         foreach (var t in input.GetComponentsInChildren<TMP_Text>(true)) Style(t, 28);
-        input.textComponent.color = Text; input.caretColor = Teal; input.customCaretColor = true;
+        input.textComponent.color = Foreground; input.caretColor = Teal; input.customCaretColor = true;
         input.selectionColor = new Color(.2f, .6f, .6f, .5f);
         if (input.placeholder is TMP_Text hint) { hint.text = "Your name"; hint.color = Muted; }
         var error = Label("NameError", "", panel, 24, 174, 368, 28, 20);
@@ -36,7 +36,7 @@ internal static class PixelUIScenes
         var play = Button("Play", panel, 24, 224, 368, null);
         KeyIcon("key-enter", play.transform, 328, 8);
         Set(menu, "playButton", play); Set(menu, "errorLabel", error);
-        var credit = Label("Credits", "UI: Crusenho (CC BY 4.0)  /  Keys: Kenney (CC0)  /  Font: VT323 (OFL)",
+        var credit = Label("Credits", "UI: Crusenho (CC BY 4.0)  /  Keys: Kenney (CC0)  /  Typeface: VT323 (OFL)",
             canvas.transform, 16, 500, 928, 24, 18);
         credit.alignment = TextAlignmentOptions.Center; credit.color = Muted;
         foreach (var c in oldCanvases) DisableCanvas(c);
@@ -65,11 +65,10 @@ internal static class PixelUIScenes
         Label("ScoreLabel", "SCORE", hud, 240, 4, 208, 20, 18).color = Muted;
         var scoreLabel = Label("ScoreText", "0", hud, 240, 22, 144, 32, 32);
         Set(score, "scoreText", scoreLabel);
-        var combo = Get<ScoreUI_ComboHUD>(score, "comboHUD");
-        Box(combo.GetComponent<RectTransform>(), hud, 384, 22, 64, 32);
-        var multiplier = Get<TMP_Text>(combo, "multiplierText");
-        Style(multiplier, 24); Box(multiplier.rectTransform, combo.transform, 0, 0, 64, 32);
-        Set(combo, "followScore", null);
+        var comboRoot = Rect("ComboHUD", hud); Box(comboRoot, hud, 384, 22, 64, 32);
+        var combo = comboRoot.gameObject.AddComponent<ScoreUI_ComboHUD>();
+        var multiplier = Label("Multiplier", "x1.0", comboRoot, 0, 0, 64, 32, 24);
+        Set(combo, "multiplierText", multiplier); Set(score, "comboHUD", combo);
         var decay = Bar("ComboDecay", hud, 240, 64, 208, Teal);
         Set(combo, "decaySlider", decay);
         var enemyHp = Bar("EnemyHP", hud, 464, 32, 208, Red);
@@ -98,7 +97,7 @@ internal static class PixelUIScenes
             label.rectTransform.anchorMin = label.rectTransform.anchorMax = new Vector2(.5f, .5f);
             label.rectTransform.pivot = new Vector2(.5f, .5f);
             label.rectTransform.sizeDelta = new Vector2(300, 44);
-            label.color = key == "wordText" ? Teal : Text;
+            label.color = key == "wordText" ? Teal : Foreground;
         }
         Value(typing, "nextGapPixels", 20f); Value(typing, "nextIdleAlpha", .65f);
         Value(typing, "thirdIdleAlpha", .32f);
@@ -173,7 +172,7 @@ internal static class PixelUIScenes
         Set(pause, "pauseLabel", title); Set(pause, "thanksLabel", thanks);
         Set(pause, "restartHintLabel", null); Set(pause, "menuHintLabel", null);
         Set(pause, "resumeButton", resume);
-        Value(pause, "pauseTextColor", Text); Value(pause, "gameOverTextColor", Red);
+        Value(pause, "pauseTextColor", Foreground); Value(pause, "gameOverTextColor", Red);
         Value(pause, "thanksTextColor", Teal);
         Label("KeyHint", "R  RESTART    M  MAIN MENU", panel, 16, 280, 328, 24, 18).color = Muted;
     }
