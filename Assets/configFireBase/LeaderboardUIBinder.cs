@@ -27,6 +27,7 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
     readonly List<LeaderboardRowView> pool = new List<LeaderboardRowView>();
     Coroutine _loop;
     bool _refreshing; // Chống chồng chéo
+    bool _positionInitialized;
 
     void OnEnable()
     {
@@ -78,7 +79,11 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
             {
                 BuildRows(rows);
                 Canvas.ForceUpdateCanvases();
-                if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f;
+                if (!_positionInitialized && rows.Count > 0)
+                {
+                    if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f;
+                    _positionInitialized = true;
+                }
             }
         }
         finally
