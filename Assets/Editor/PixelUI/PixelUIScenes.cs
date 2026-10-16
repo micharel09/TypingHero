@@ -19,14 +19,22 @@ internal static class PixelUIScenes
         var oldCanvases = Object.FindObjectsOfType<Canvas>(true);
         var canvas = Canvas("PixelUI", 20);
         Image((RectTransform)canvas.transform, Ink);
-        var panel = PanelAt("MenuPanel", canvas.transform, 272, 114, 416, 312);
+        var root = DesignRoot(canvas);
+        var panel = PanelAt("MenuPanel", root, 272, 114, 416, 312);
         var title = Label("Title", "TYPING HERO", panel, 24, 20, 368, 64, 52);
         title.alignment = TextAlignmentOptions.Center; title.color = Teal;
         Label("NameLabel", "PLAYER NAME", panel, 24, 92, 368, 28, 22).color = Muted;
         Box(input.GetComponent<RectTransform>(), panel, 24, 124, 368, 44);
         var inputImage = Image(input.GetComponent<RectTransform>(), Ink, true);
         inputImage.raycastTarget = true; input.targetGraphic = inputImage;
+        input.colors = ColorBlock.defaultColorBlock;
+        input.fontAsset = Typeface; input.pointSize = 28;
+        Stretch(input.textViewport, input.transform, 8);
         foreach (var t in input.GetComponentsInChildren<TMP_Text>(true)) Style(t, 28);
+        Stretch(input.textComponent.rectTransform, input.textViewport);
+        input.textComponent.overflowMode = TextOverflowModes.Overflow;
+        if (input.placeholder is TMP_Text placeholder)
+            Stretch(placeholder.rectTransform, input.textViewport);
         input.textComponent.color = Foreground; input.caretColor = Teal; input.customCaretColor = true;
         input.selectionColor = new Color(.2f, .6f, .6f, .5f);
         if (input.placeholder is TMP_Text hint) { hint.text = "Your name"; hint.color = Muted; }
@@ -37,7 +45,7 @@ internal static class PixelUIScenes
         KeyIcon("key-enter", play.transform, 328, 8);
         Set(menu, "playButton", play); Set(menu, "errorLabel", error);
         var credit = Label("Credits", "UI: Crusenho (CC BY 4.0)  /  Keys: Kenney (CC0)  /  Typeface: VT323 (OFL)",
-            canvas.transform, 16, 500, 928, 24, 18);
+            root, 16, 500, 928, 24, 18);
         credit.alignment = TextAlignmentOptions.Center; credit.color = Muted;
         foreach (var c in oldCanvases) DisableCanvas(c);
         if (Camera.main) Camera.main.backgroundColor = Ink;
@@ -55,7 +63,8 @@ internal static class PixelUIScenes
         // Referenced text/rail objects are moved, preserving their identities and event owners.
         var rail = Get<RectTransform>(typing, "rail");
         var canvas = Canvas("PixelUI", 20);
-        var hud = PanelAt("HUD", canvas.transform, 16, 16, 688, 80);
+        var root = DesignRoot(canvas);
+        var hud = PanelAt("HUD", root, 16, 16, 688, 80);
         var hp = Bar("PlayerHP", hud, 16, 48, 208, Red);
         var health = hp.gameObject.AddComponent<HealthBarUI>();
         Set(health, "slider", hp); Value(health, "bindPlayer", true);
@@ -81,8 +90,8 @@ internal static class PixelUIScenes
         Set(staminaBinding, "target", Find<EnemyStamina>());
         foreach (var binder in Object.FindObjectsOfType<ScoreUI_SlayerBinder>(true))
             Object.DestroyImmediate(binder);
-        var combat = Rect("CombatViewport", canvas.transform);
-        Box(combat, canvas.transform, 16, 104, 688, 420);
+        var combat = Rect("CombatViewport", root);
+        Box(combat, root, 16, 104, 688, 420);
         combat.gameObject.AddComponent<RectMask2D>();
         var typingPanel = PanelAt("TypingPanel", combat, 16, 16, 656, 96);
         Box(rail, typingPanel, 0, 0, 656, 72);
@@ -119,7 +128,7 @@ internal static class PixelUIScenes
             PrefabUtility.UnloadPrefabContents(root);
             Set(score, "floatingPrefab", AssetDatabase.LoadAssetAtPath<FloatingScore>(Generated + "FloatingScore.prefab"));
         }
-        PixelUILeaderboard.Build(leaderboard, canvas.transform);
+        PixelUILeaderboard.Build(leaderboard, root);
         Overlay(pause);
         if (fx)
         {
@@ -156,8 +165,9 @@ internal static class PixelUIScenes
     static void Overlay(GamePauseController pause)
     {
         var canvas = Canvas("PixelOverlay", 40);
-        var bounds = Rect("CombatOverlay", canvas.transform);
-        Box(bounds, canvas.transform, 16, 104, 688, 420);
+        var root = DesignRoot(canvas);
+        var bounds = Rect("CombatOverlay", root);
+        Box(bounds, root, 16, 104, 688, 420);
         var shade = Image(bounds, new Color(.03f, .06f, .08f, .88f)); shade.raycastTarget = true;
         var panel = PanelAt("OverlayPanel", bounds, 164, 46, 360, 328);
         var title = Label("PauseLabel", "PAUSE", panel, 16, 24, 328, 64, 40);

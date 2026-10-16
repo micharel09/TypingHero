@@ -16,6 +16,8 @@ public sealed class GameLoopProbe : MonoBehaviour
     [Serializable] sealed class State
     {
         public string scene, current, next, playerName;
+        public bool inputBlocked;
+        public float multiplier, timer;
         public int frame, score, hp, enemyHp, words, chars, parries, errors, objects;
         public bool slayer, parryWindow, canParry, enemyAttacking, overlay, paused;
         public float enemyAnimationTime, frameMs, scroll;
@@ -112,7 +114,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 slayer = slayer && slayer.IsActive, parryWindow = parry && parry.IsWindowActive,
                 canParry = gate && gate.CanParry, enemyAttacking = Read(enemy, "_attacking", false),
                 enemyAnimationTime = info.normalizedTime, overlay = Read(pause, "_overlayLocked", false),
-                paused = Read(pause, "_paused", false), frameMs = Time.unscaledDeltaTime * 1000,
+                paused = Read(pause, "_paused", false), inputBlocked = GamePauseController.InputBlocked,
+                multiplier = ScoreSystem.I ? ScoreSystem.I.Multiplier : 0, timer = Read(typing, "timer", 0f), frameMs = Time.unscaledDeltaTime * 1000,
                 memory = Profiler.GetTotalAllocatedMemoryLong(), objects = Resources.FindObjectsOfTypeAll<GameObject>().Length,
                 rows = pool == null ? 0 : pool.Count(r => r && r.gameObject.activeInHierarchy),
                 pool = pool == null ? 0 : pool.Count, scroll = scroll ? scroll.verticalNormalizedPosition : -1,

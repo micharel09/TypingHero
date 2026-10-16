@@ -10,5 +10,6 @@ public static class PixelUIQACloud {
    extraScriptingDefines=new[]{"TYPINGHERO_AUTOMATION"}
   });
   if(report.summary.result!=BuildResult.Succeeded) throw new System.Exception("QA WebGL build failed");
+  UnityEngine.Debug.Log("Build succeeded!");
  }
 }
