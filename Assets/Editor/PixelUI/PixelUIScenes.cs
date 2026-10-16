@@ -122,10 +122,10 @@ internal static class PixelUIScenes
         if (prefab)
         {
             var path = AssetDatabase.GetAssetPath(prefab);
-            var root = PrefabUtility.LoadPrefabContents(path);
-            foreach (var text in root.GetComponentsInChildren<TMP_Text>(true)) Style(text, 24);
-            PrefabUtility.SaveAsPrefabAsset(root, Generated + "FloatingScore.prefab");
-            PrefabUtility.UnloadPrefabContents(root);
+            var prefabRoot = PrefabUtility.LoadPrefabContents(path);
+            foreach (var text in prefabRoot.GetComponentsInChildren<TMP_Text>(true)) Style(text, 24);
+            PrefabUtility.SaveAsPrefabAsset(prefabRoot, Generated + "FloatingScore.prefab");
+            PrefabUtility.UnloadPrefabContents(prefabRoot);
             Set(score, "floatingPrefab", AssetDatabase.LoadAssetAtPath<FloatingScore>(Generated + "FloatingScore.prefab"));
         }
         PixelUILeaderboard.Build(leaderboard, root);
