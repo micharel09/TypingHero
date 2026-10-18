@@ -62,7 +62,9 @@ def verify_xml(path):
 def main():
     profile, license_path, seconds = sys.argv[1:4]
     scenario = sys.argv[4] if len(sys.argv) > 4 else 'full'
-    if scenario not in ('full', 'skeleton-art', 'attack-sorting', 'score-layout') or (scenario != 'full' and profile != 'webgl'):
+    profile_allocations = len(sys.argv) > 5 and sys.argv[5] == '1'
+    if profile_allocations and profile != 'webgl': raise ValueError('Allocation profiling requires WebGL QA')
+    if scenario not in ('full', 'skeleton-art', 'attack-sorting', 'score-layout', 'pixel-sparks', 'pixel-sparks-parry') or (scenario != 'full' and profile != 'webgl'):
         raise ValueError('Unsupported browser scenario/profile')
     BASE.mkdir(parents=True, exist_ok=True)
     with (BASE / "runner.lock").open("w") as lock:
@@ -161,6 +163,7 @@ def main():
                   "-v", f"{BASE / build}:/output",
                   *(["-v", f"{license_file.resolve()}:/home/runner/.local/share/unity3d/Unity/Unity_lic.ulf:ro"] if license_file else []),
                   "-e", "TYPINGHERO_QA=" + ("1" if qa else "0"), "-e", "TYPINGHERO_BUILD_PATH=/output",
+                  "-e", "TYPINGHERO_PROFILE_ALLOCATIONS=" + ("1" if profile_allocations else "0"),
                   *modules, unity_reference,
                   "unity-editor", "-batchmode", "-nographics", "-projectPath", "/project",
                   "-logFile", "/results/unity.log", *extra], timeout=5400)
@@ -198,12 +201,28 @@ def main():
                     raise RuntimeError("QA bridge present in production JavaScript")
             print("PASS: normal WebGL build excludes QA bridge", flush=True)
             return
+        if scenario.startswith('pixel-sparks'):
+            # Preserve this exact player before releasing the shared runner lock.
+            # Native QA must not race another task replacing build-qa.
+            immutable = result / 'player'
+            shutil.copytree(build, immutable)
+            for relative in ('Assets/Scenes/MainMenu.unity', 'Assets/Scenes/SampleScene.unity',
+                             'Assets/Characters/Player/Player.prefab', 'Assets/Characters/Enermy/Skeleton.prefab',
+                             'Assets/Art/VFX/PixelSparks', 'Assets/Art/VFX/PixelSparks.meta'):
+                target = result / 'serialized' / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                if (SOURCE / relative).is_dir(): shutil.copytree(SOURCE / relative, target)
+                else: shutil.copy2(SOURCE / relative, target)
+            build = immutable
+            print(f"QA player preserved: {build}", flush=True)
         space(BASE, config["minimumFreeGiB"]["browser"])
         browser = (BASE / "browser-image.txt").read_text().strip()
         container(["--cpus", "2", "--memory", "8g", "--shm-size", config["browserSharedMemory"], "--network", "none",
               *(['-e', 'TYPINGHERO_SKELETON_ART_ONLY=1'] if scenario == 'skeleton-art' else []),
               *(['-e', 'TYPINGHERO_SCORE_LAYOUT_ONLY=1'] if scenario == 'score-layout' else []),
               *(['-e', 'TYPINGHERO_ATTACK_SORTING_ONLY=1'] if scenario == 'attack-sorting' else []),
+              *(['-e', 'TYPINGHERO_PIXEL_SPARKS_ONLY=1'] if scenario in ('pixel-sparks', 'pixel-sparks-parry') else []),
+              *(['-e', 'TYPINGHERO_PIXEL_PARRY_ONLY=1'] if scenario == 'pixel-sparks-parry' else []),
               "-v", f"{BASE / 'toolchain'}:/tools", "-v", f"{SOURCE / 'tools/game_loop'}:/runner:ro",
               "-v", f"{build}:/build:ro", "-v", f"{result}:/results", browser,
               "node", "/runner/browser.cjs", profile, seconds], timeout=int(seconds) + 900)

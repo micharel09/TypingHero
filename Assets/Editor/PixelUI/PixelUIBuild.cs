@@ -25,7 +25,8 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             "Assets/Audio/SFX/Events/Combat/Player/ev_impact_lethal.asset",
             "Assets/Audio/SFX/Events/Combat/Player/Parry/ev_parry_clang.asset" };
         paths = paths.Concat(Directory.GetFiles(CombatFeedbackAssets.Generated, "*", SearchOption.AllDirectories))
-            .Concat(Directory.GetFiles("Assets/Art/VFX/CodeManu", "*")).ToArray();
+            .Concat(Directory.GetFiles("Assets/Art/VFX/CodeManu", "*"))
+            .Concat(Directory.GetFiles(PixelSparkAssets.Root, "*", SearchOption.AllDirectories)).ToArray();
         paths = paths.Concat(Directory.GetFiles(ShogunEnvironment.Art, "*"))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyUI", "*"))
             .Concat(Directory.GetFiles(ShogunTheme.Events, "*")).ToArray();

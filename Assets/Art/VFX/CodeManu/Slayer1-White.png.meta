@@ -127,7 +127,7 @@ TextureImporter:
       spriteID: 3cc486b881cf44cb1ad5270c51e3da71
       internalID: 748596287
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -148,7 +148,7 @@ TextureImporter:
       spriteID: 7766a6ede95e55540832c97103aefb96
       internalID: 19481709
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -169,7 +169,7 @@ TextureImporter:
       spriteID: ea06b64e8a018fe0494b888ff5f20fe6
       internalID: 1691275285
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -190,7 +190,7 @@ TextureImporter:
       spriteID: f3c5121d3eb629f11945702a9dd126d4
       internalID: -1895582764
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -211,7 +211,7 @@ TextureImporter:
       spriteID: ee0797691bcd83a1bb4a702877de6dfd
       internalID: 745749303
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -232,7 +232,7 @@ TextureImporter:
       spriteID: 368057288c1947e5180cde1ee5438398
       internalID: 2081665348
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -253,7 +253,7 @@ TextureImporter:
       spriteID: a030423a77c34295a901446d884569e9
       internalID: 879950439
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -274,7 +274,7 @@ TextureImporter:
       spriteID: 308292d155866956db662a395125cbfb
       internalID: 295197214
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
@@ -283,7 +283,7 @@ TextureImporter:
     spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
-    indices: 
+    indices:
     edges: []
     weights: []
     secondaryTextures: []
@@ -296,8 +296,8 @@ TextureImporter:
       frame_5: 2081665348
       frame_6: 879950439
       frame_7: 295197214
-  mipmapLimitGroupName: 
+  mipmapLimitGroupName:
   pSDRemoveMatte: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:

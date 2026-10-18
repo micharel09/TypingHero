@@ -127,7 +127,7 @@ TextureImporter:
       spriteID: be51266102b3b915a8fa76f7c7bca572
       internalID: 89801609
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -148,7 +148,7 @@ TextureImporter:
       spriteID: 13f419128123b59a685c40be1b2f4fa1
       internalID: -570485174
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -169,7 +169,7 @@ TextureImporter:
       spriteID: 91ed7b1b5c1fc01c79439ec01ce2531b
       internalID: -954302998
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -190,7 +190,7 @@ TextureImporter:
       spriteID: 8e96d7ebb3529581ba7e15d56698a054
       internalID: 982604586
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -211,7 +211,7 @@ TextureImporter:
       spriteID: 60a9d601dc51cc1c0aad67311d026220
       internalID: 830476426
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -232,7 +232,7 @@ TextureImporter:
       spriteID: 93737ee7557242fdb83442a7634c7394
       internalID: -455255543
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -253,7 +253,7 @@ TextureImporter:
       spriteID: 6dc6e2e09ccfec0f085caa8a792bb4f5
       internalID: 1766281016
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -274,7 +274,7 @@ TextureImporter:
       spriteID: 47d2e722645b1d5a9b0ebab511e36795
       internalID: -644291274
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
@@ -283,7 +283,7 @@ TextureImporter:
     spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
-    indices: 
+    indices:
     edges: []
     weights: []
     secondaryTextures: []
@@ -296,8 +296,8 @@ TextureImporter:
       frame_5: -455255543
       frame_6: 1766281016
       frame_7: -644291274
-  mipmapLimitGroupName: 
+  mipmapLimitGroupName:
   pSDRemoveMatte: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:

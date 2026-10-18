@@ -793,6 +793,218 @@ task replaces those editor primitives; this task only replaces the final skin.
   feat/pixel-hit-sparks; implement parry first, then hit/Slayer/lethal, lifecycle,
   Quick and real-keyboard pixel-sparks WebGL checks. Merge only after acceptance.
 
+### Pixel sparks feature checkpoint
+
+- Base ff1c696873fb234b62a7b0524f97ecec32380387; target main; remote origin.
+- Orca child id e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/feat-pixel-hit-sparks,
+  parent e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/TypingHero.
+  Orca added a user prefix initially; renamed the one branch to feat/pixel-hit-sparks.
+- Parry prototype: two world ParticleSystems, explicit emission after placement,
+  16PPU integer sizes, unlit alpha material, gravity18 and damped collision plane.
+  Runtime/builder currently unverified. Lethal final burst must finish while earlier
+  effects clear at match finish; owner disable/unload always clears everything.
+- Remaining: generate assets, verify parry physics/playback, extend hit profiles,
+  meaningful lifecycle tests/QA scenario, visual/performance comparison, final review.
+
+### Pixel sparks acceptance retained from approved plan
+
+- Replace only normal/parry/Slayer/lethal impact bursts; keep slash, flash,
+  afterimages, SFX, shake, hitstop and all gameplay contracts. No player hurt,
+  bone destruction, character-animation, pipeline, plugin or purchased-asset changes.
+- One white binary-alpha Point texture, flat unlit alpha material, no soft/additive
+  trail or arbitrary bitmap rotation. Integer1x1/2x2 dots70%,3x1/1x3 streaks30%,
+  one source pixel=1/16world unit. Bright/main/dark stepped palette, then expire.
+- Normal24/.45-.65s orange; Slayer32/.35-.55s ivory/faster;
+  Parry40/.60-.85s pale blue; Lethal56/.75-.95s orange/widest.
+ 80% forward/20% reverse-up, horizontal3-7, vertical1-4, gravity18,
+  bounce.3-.45, dampening.35-.5, slow collision particles die early.
+- Two nonlooping World ParticleSystems/profile, no playOnAwake. Fixed collider-foot
+  plane assigned before explicit emission; order30. Attacker-to-target direction;
+  parry target context, mirror; lethal priority survives Slayer exit during damage.
+- At most8active bursts/owner; oldest recycled while confirmed-hit audio remains.
+  Clear/reset on reuse; release exactly once after both groups die. Unscaled
+  during hitstop; pause/tutorial reading freezes simulation/age, no re-emission.
+  Disable/restart/unload clears; Slayer exit leaves already-emitted profile intact.
+- Quick plus actual-keyboard pixel-sparks scenario at1280x720/640x360 and both camera
+  modes, fixtures/network isolation/read-only bridge retained. Same-device before/
+  after object/particle/allocation/frame-time samples. No stress/soak/release/push.
+- Inspect real playback and nearest4x details: crisp marks, no halo/pink/old burst
+  overlap or cue/pose/text obstruction, visible falling/bounce, bounded cleanup.
+- Before merge: final checks/diff review; update feature from newer main if needed,
+  main must be clean; local merge commit and integrated smoke, then Orca cleanup.
+- First prototype WebGL9c545631 built and repeat-builder passed, but old attack-sorting
+  driver timed out before its first hit after stale-word input (0correct letters).
+  This is not a VFX runtime PASS. Read-only probe now handles particle renderers.
+  First Quick92c4c91 compilation rejected NUnit Is.AnyOf; replaced with supported
+  EqualTo.Or.EqualTo. Retry2c08249 is running. No acceptance threshold changed.
+- Task temporary root E:/CodexTemp/TypingHero/pixel-hit-sparks. Native QA can reuse
+  existing Playwright1.58.2 at itch-shogun/pw158; use a fresh isolated Edge context.
+  Per-frame allocation counters require Development QA (Unity2022.3 Memory Profiler
+  docs); opt-in --profile-allocations leaves ordinary/production build flags intact.
+
+### Parry offline milestone
+
+- Quick56/56 PASS, snapshot766f56f59d40956d1eb01b410b05b42f767bb21699a1753c1bf85efec4140af4.
+  Actual generated Parry prefab:40particles,28dots/12streaks,32forward/8reverse,
+  integer16PPU sizes, mirror and context direction, real native particle gravity/
+  bounce/plane containment, pause reading/age, unscaled hitstop, exactly-once release,
+  clean reuse,20spawn calls bounded to8active and owner disable cleanup all pass.
+- Two initial test defects fixed: transform float equality now uses1e-6world-unit
+  precision, and reuse actually leases from ObjectPool before enabling (rather than
+  manually enabling an idle object). No runtime behavior/acceptance was weakened.
+- Parry-only Development WebGL now running with fixed particle-aware observer.
+  Native playback/captures remain unverified. Other hit profiles remain Pimen until
+  this parry milestone is inspected.
+- Main gained new art-task edits after the authorized baseline commit; preserve
+  these independent changes. Recheck main cleanliness/new commits at integration.
+
+### Parry playback corrections (in progress)
+
+- Development build b76d6f9141ef56875913d9d7c81fd89020dd8eeac01b9247848af48ca9e890ad
+  completed with repeat-builder. Software802checks reached parries at both sizes,
+  native Edge/Intel UHD D3D11 reached40particles at1280 and exact pause hold.
+  Both failed restart with NullReferenceException; neither is an acceptance PASS.
+- Cleanup now removes list entries before releasing and skips already-destroyed
+  instances (independent pool roots may die before the owner). Probe skips dying
+  renderers and records full exception traces. Added root-before-owner regression.
+- Actual video reviewed at play size and nearest4x: preserved parry pose/slash;
+  new sparks were too dark too early. Unity Fixed gradients select the next key
+  (https://docs.unity3d.com/kr/2022.2/ScriptReference/GradientMode.Fixed.html).
+  Corrected key endpoints to.15white/.7main/1dark; alpha remains solid. Added
+  palette-phase assertions. Live capture now precedes pause (menu covers the arena).
+- PixelSparkBurst order200 follows TutorialDirector100, before particle simulation;
+  added a same-frame reading-lock driver regression. Expanded lifecycle/profile
+  checks pending Quick and rebuilt parry playback. Hit profiles still not wired.
+- First Development build09b1edd4 hung in native asset collection/ALSA mixer.
+  Read-only gdb stack showed engine asset-GC waiting and native FMOD mixer spinning;
+  stopped only that task container. Retry b76d6f914 passed build; no engine/settings
+  workaround or gameplay change. First gdb attach required task-target sudo; disabled
+  automatic shared-library loading to avoid host BFD's ELF-loader error.
+- Same-observer baseline1be19ffc built from ff1c696 wiring overrides plus identical
+  QA/performance instrumentation; software driver missed its first normal word at
+  ~212ms/frame. Native baseline pending, never count this as WebGL profile PASS.
+  Immutable baseline/prototype players preserved only under task temp for comparison.
+
+### Pixel sparks current checkpoint (2026-10-18, before extending hit profiles)
+
+- Quick61/61 PASS, input8e211a2b147aba8a4ae47443621b1dedca543484369783cae005959daba4e55c,
+  results20261018T083158-quick. Includes all9PixelSparkTests then present: profile
+  config/palette phases, mirroring, gravity/bounce, pause/hitstop/reuse/release,
+  context/cap, order100reading-lock/same-frame freeze, Slayer exit/match finish,
+  pool-root-before-owner teardown and scene unload. No skips or errors.
+- BuilderRetainsInspectorTuningAndPrefabGuid was added AFTER that snapshot;
+  it is not covered by61/61. PixelSparkAssets now creates missing profiles only,
+  retaining Inspector tuning on existing assets. This needs the next Quick.
+- Parry tracking now uses one ordered List, recycles8new pixel bursts while
+  preserving legacy animated-prefab pool behavior, and removes dead handles safely.
+  Pixel bursts are always reparented to independent world pool roots before emission.
+- Baseline native copy was INVALID: copied shared build-qa after another task had
+  started replacing it (only loader present). It timed out with0checks; discard,
+  do not use as baseline/performance evidence. Runner now copies pixel-sparks
+  players into each result/player while holding its lock, even if browser fails.
+- Shared runner/library were occupied by another task's non-Development WebGL
+  (081946, snapshot2b5fd2a6); do not stop/delete it or its0831430Quick predecessor.
+  One overlapping queued WebGL attempt was rejected by the lock before unpacking.
+- To avoid cross-task Development/normal cache thrashing, task-only clients
+  E:/CodexTemp/TypingHero/pixel-hit-sparks/feature_run.py and baseline_run.py use
+  the unchanged standard runner/lock,2CPU/8GiB limits, with only the Library mount
+  redirected to /data/typinghero-game-loop/task-pixel-sparks/library. No project
+  dependency/version/render/build-resource setting changed. Shared Library remains.
+- Current parry-only Development build: exec24860, results20261018T083445-webgl,
+  inputa09bebb85e204a05a32c8c76ae6c73e9dd42fc4526ceb4925f73fa0ba3bc19ef.
+  Cold task Library import is underway. Use result/player for native copy, NOT
+  shared build-qa. C# includes cleanup guards/full error trace, corrected gradient,
+  order200 and Inspector-preserving builder. Latest driver-only edits deduplicate
+  frame samples, tag phases, and capture live AFTER resume; native may reuse this
+  unchanged player with the current driver and its independently recorded hash.
+- First native prototype artifact remains task-temp/parry-player; it has the OLD
+  gradient and restart exception. Video/nearest4x reviewed for diagnosis only.
+  The new parry milestone is NOT PASSED yet. Do not extend hit profiles until it is.
+- Next: wait24860; copy its immutable player + matching snapshot; native parry-only
+  two-size playback/pause/restart; inspect live/video/4x and fix remaining errors.
+  Then wire normal/Slayer/lethal, add hit-direction/priority/cap/reuse checks, Quick,
+  baseline/final native comparison and mirrored-actor QA fixture, final review,
+  recheck/merge clean main via merge commit, integrated smoke and owned cleanup.
+- Main has further independent art/runtime-generated edits after ff1c696; preserve
+  them. Feature is still uncommitted on feat/pixel-hit-sparks, baseff1c696.
+
+### Parry complete; all hit profiles wired
+
+- Parry forward native138checks PASS at1280x720/640x360, plus motion/release
+  extension151checks PASS. Inspected live full-size images, nearest4x640 details,
+  recorded fall/ground/bounce frames, flat blue rectangles and preserved slash/cue/UI.
+  Exact pause age/position holds; resume has no duplicate emission; restart no errors.
+  Inputa09bebb85e204a05a32c8c76ae6c73e9dd42fc4526ceb4925f73fa0ba3bc19ef.
+- Mirrored actor fixture native142checks PASS at both sizes, zero exceptions.
+  Force means -2.6764/-2.7063WU/s versus positive forward means; actual blue fan,
+  reversed parry pose and normal readable HUD inspected. Fixture changes only actor
+  xpositions/xscale via a disposable Editor hook; no runtime/bridge mutation.
+  Artifact091510-webgl, input7bd1158bfcf7f30a31e344e58a5b655b1edfa1f6f5ab4671fd7159882bd89b3a.
+- Initial mirror091106 failed builder groundY lookup because custom tar entries
+  all had timestamp0: Unity reused the baseline assembly when new source had the
+  same timestamp. Set per-run archive mtimes; rebuilt same bytes successfully.
+  Timestamp policy is in snapshot metadata. Do not use091106 as an artifact.
+- Quick62/62 PASS (622c4e318b1f6a37f71952d69f1db40862f698564f9156e85f464a4ee3823007),
+  including the Inspector-preserving builder test. Baseline valid player090104
+  is immutable and includes expected old animator/prefab wiring plus same observer.
+  Native measurement run3796checks completed both victories, zero exceptions;
+  second size's poll missed180ms lethal but per-render mask127 proves it rendered.
+  That run's status is failed capture assertion, NOT a full baseline profile PASS.
+  Data/video remain valid measurements; driver now uses render mask for baseline
+  transient lethal only. Final feature still requires live particles for all4roles.
+- After parry milestone, wired all profiles via CombatFeedbackBuild. Hitbox changes
+  only add target transform to internal VFX context; damage/timing/dedup unchanged.
+  Ordered hit pool caps8new bursts across profiles, reclaims oldest, keeps audio;
+  legacy animator consumers retain original tuning/cap behavior. Pixel spawn owns
+  identity scale/rotation/contact position and attacker-target force before emission.
+- Quick65/65 PASS, inputd85dc0f2ca47747637e1a6f36e717dcb64591f7e20a7fab14280a24025950cd2,
+  results092126-quick. Adds real-prefab hit selection/cross-profile cap/direction,
+  clean reuse/color/scale/contact, real hitbox duplicate colliders and captured
+  lethal Slayer exit/IgnoreHitstop. Full final WebGL is now running (exec follows).
+- Native artifacts now transfer as gzip tar from immutable result/player, verify
+  required nonempty files/QA marker, then extract into task temp. No shared build-qa
+  copy. Final runner also retains matching serialized product outputs under
+  result/serialized, needed to commit final scene/prefab references without races.
+
+### Final lifecycle correction and integration gate
+
+- First full native run092524 reached all four particle roles and a40/0HP victory,
+  but failed result cleanup: three lethal particles were frozen at age .941s by
+  the result overlay. Added internal read-only ResultOverlayVisible context from
+  GamePauseController; PixelSparkBurst clears on results while ordinary pause holds
+  lethal particles. Regression uses actual pause/results APIs, not a simulated flag.
+- Final Quick **66/66 PASS**, result20261018T093521-quick, input
+  `c6d86c7acee7b370d7185a9eeb1bfa11c8e7578df58706c921771876753a7837`.
+  Runner contracts8/8, JS syntax and diff whitespace checks PASS.
+- Final WebGL093620 build and repeated-builder byte checks PASS on that same input.
+  Its software browser failed before first hit at ~198ms/frame; this is NOT a full
+  software profile PASS. Native QA uses its immutable result/player plus snapshot.
+  Serialized scene/prefab outputs match committed-intent source except whitespace;
+  PixelSparks asset bytes/metas match exactly before trailing-whitespace cleanup,
+  with no duplicate or changed GUIDs. Staged review found Unity empty-field spaces
+  in new generated assets/metas; removed only trailing whitespace. Runtime/source
+  behavior and GUIDs are unchanged, so existing runtime evidence is reused.
+- Main remains ff1c696 with independent uncommitted skeleton-art and CodeManu impact
+  changes. A separate task reports CodeManu complete, but has not committed it.
+  Preserve all those changes. Asked user about conflicting impact intent and whether
+  the other task has stopped; no answer yet. Never merge into this dirty main or
+  commit another task's work by inference. Feature worktree/branch retained until
+  this gate is resolved and integrated smoke succeeds.
+
+- Final native feature-final-native **25,242 checks PASS**,196.756s, both viewports,
+  four live particle profiles, normal/Slayer camera, pause/resume,40/0HP victories,
+  results cleanup/restart and zero exceptions. Reviewed final captures/video and4x
+  crops: fall/bounce/flat colors/readable HUD and retained slash/flash/afterimages.
+  Detailed measurements/limits recorded in docs/game/verification.md. Frame p95
+  baseline32.840/32.395ms ? final31.825/32.000ms; bounded extra pooled objects,
+  particles maxima243/237, active burst max8, no significant allocation regression.
+- Feature implementation/art/lifecycle acceptance PASS on isolated source. Source
+  diff reviewed: no gameplay contract/dependency/pipeline/version changes, only
+  internal VFX context and QA instrumentation/build retention. No QA captures in repo.
+  Remaining: commit this feature, resolve clean-main/competing-impact intent gate,
+  incorporate any new main commit, affected checks, local no-ff merge, integrated
+  smoke and owned worktree/temp cleanup. Preserve child and final player for that.
+
 
 ## White CodeManu sparks ? accepted implementation (2026-10-18)
 
@@ -867,3 +1079,132 @@ SHA256 d706ff61b7b72ba444a76916f74d1549a5afec573594bf656661e4187d1f118e.
   hash checks. No owned browser remains. Shared Ubuntu source/Library/toolchain/
   builds and all other sessions/results preserved. No branch/worktree/commit/push
   created; no remaining acceptance blocker or task temp.
+
+### User-authorized integration and itch publication
+
+- User explicitly requested merge to main and upload to existing itch.io game.
+  Preserve the reviewed independent art/CodeManu foundation in main610352b, then
+  merge it into the feature. Source conflicts limited to repeated-builder asset
+  coverage; retain both legacy CodeManu and new PixelSparks coverage. Documentation
+  retains both historical receipts and the current physical pixel implementation.
+- Design full-pack stays outside Unity build inputs. A concurrent art task created
+  axe_reference.py after foundation snapshot; leave it intact and request a pause
+  in writes during integration. No fabricated art acceptance or runtime integration.
+- Re-run Quick and final QA build/native after reconciling new foundation; then
+  merge clean main using no-ff, integrated smoke, production QA-exclusion build,
+  exact production smoke and existing itch.io upload/save/CDN verification. No
+  GitHub push requested. Prior uploads stay hidden for rollback.
+
+- Post-foundation Quick66/66 PASS20261018T095638, input
+  39d1ff867e100a65ffafddc764561681ce8276372ac49b4c3e25d1302fbdcc44.
+  QA095748 immutable player complete; native two-size replay in progress.
+  Production queued with the same input and task-owned Library; temporary runner
+  waits on the shared lock and preserves the exact production player under results.
+- Main now has a separate active HUD/scoring change plus continuing design art;
+  do not commit or release those unfinished edits. Requested the other work pause.
+  BrowserSkill daemon starts and IPC doctor passes, but extension doctor fails:
+  zero browsers connected. Asked user to connect existing logged-in browser.
+  Feature remains isolated/clean apart from this checkpoint; no merge/publication
+  claim until main cleanliness and authenticated browser are resolved.
+
+- Native foundation-native PASS25,619checks/207.352s, both render sizes/all four
+  live profiles and both camera states, ordinary pause/resume, victory results
+  clear and restart; zero exceptions,37fixture reads/two mocked writes. Quick,
+  QA build and this native player all share input39d1ff867e100a65ffafddc764561681ce8276372ac49b4c3e25d1302fbdcc44.
+- Production095953 is still compiling. Task temp retains final/baseline comparison,
+  post-foundation native player/report and production-smoke driver under
+  E:/CodexTemp/TypingHero/pixel-hit-sparks for exact-HTML QA and pending integration.
+  No secrets, QA video/capture/report or release ZIP committed to the repository.
+
+### Release candidate ready; external integration blockers
+
+- Production20261018T095953 PASS on39d1ff867e100a65ffafddc764561681ce8276372ac49b4c3e25d1302fbdcc44.
+  MarkerQA=false; JS/WASM/data scans exclude typingHeroQA,TypingHeroQA_Publish,
+  GameLoopProbe. Immutable result/player preserved before runner-lock release.
+- Exact production HTML native smoke PASS: nameSparkQA, tutorialBLADE completion,
+  score10; skip into real combat, OCR-read word `it`, keyboard hit and orange
+  physical pixels visually checked; pause/resume,640x360 actual render, QAundefined,
+  11mocked fixture reads/zero writes, zero JS/Unity exceptions. Two optional URP
+  GPU-unsupported shaders were identified by full startup console; actual game/
+  pixel material unaffected. No dependency/pipeline workaround. OCR JSON C0 escape
+  fixed only in temporary QA driver. Persistent-context saveAs export failed after
+  close; inspected screenshots are valid, no finalized-video claim. Explicit
+  close/owned Node exit confirmed; shared BrowserSkill daemon kept as instructed.
+- Candidate `/data/typinghero-game-loop/releases/pixel-sparks-20261018/` holds
+  TypingHero-WebGL-PixelSparks-20261018.zip and release.json (code372b9f0).
+  ZIP29members/16,311,433bytes; CRC and local/server SHA256 match:
+  c58174cc5e84498e41151a3c006b853b528117a69dbff91a8c720a02c88eee08.
+  Local candidate/QA helpers/player/reports remain under
+  E:/CodexTemp/TypingHero/pixel-hit-sparks, needed for pending upload/integration.
+- STILL NOT merged to main or published. Main610352b now has active HUD/scoring,
+  SampleScene/prefab/QA tooling and design changes from other tasks, including
+  overlap with feature scene/probe/browser files. Preserve their WIP, never merge
+  over or release it without final checks. BrowserSkill doctor: IPC healthy, zero
+  browser extensions connected; no authenticated upload possible. User asked to
+  pause concurrent writes and connect existing logged-in browser. No pending own
+  build/native job; only shared daemon remains. All meaningful independent work done.
+- Resume: establish clean main (review/ch?t other completed work without losing
+  WIP), merge any new main commits into feature, resolve/check affected flows,
+  no-ff merge to main, integrated smoke, reuse candidate only if build inputs still
+  match39d1ff... otherwise rebuild. Then upload/save/playable/maximized settings
+  on existing itch game3857509, retain prior uploads hidden, verify public CDN
+  against manifest without production writes, record receipt and clean owned
+  child worktree/branch/temp. No GitHub push requested.
+
+### Retry: completed HUD foundation integrated, 2026-10-18
+
+- Retry verified parent build inputs equal the HUD task's final Quick53 hash
+  6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
+  HUD/art receipts complete; reviewed and preserved in main47f1830. Removed only
+  regenerated Python bytecode, no source/design output. Main tracked source clean.
+- Merged47f1830 into feature ated785c5, no conflicts; scene ground references,
+  particle observer and browser scenario guards retained beside latest HUD fields.
+  Combined Quick **67/67 PASS**20261018T130858, input
+  51e8c9ed54b26782faff346eb0b4f41cf3fcd864517fd646923c70c9d0d4198d.
+  QA131049 and production queued on same input. QA uses task Library; production
+  reuses the standard normal-build Library under the same exclusive runner lock,
+  avoiding Development/normal cache thrashing. No resource/checker changes.
+- Started shared BrowserSkill daemon, opened existing Chrome normally (the earlier
+  no-startup-window attempt did not connect), browser9c92c27f/fly now connected.
+  Owned sessionxkja reached itch login, not dashboard. One successfully registered
+  human sign-in request timed out after5m; do not repeat it or read credentials.
+  Re-observed and closed owned session per skill; preserve other sessionyzeq and
+  shared daemon. Browser connection resolved; authenticated sign-in remains needed.
+- Another HUD publication task is also active, with its own main-only source and
+  sessionyzeq. Preserve its files/processes and wait for its publication to finish
+  before uploading the final pixel build, to avoid the older upload replacing it.
+  Main may receive its documentation receipt; review/preserve that before no-ff.
+
+### Final combined acceptance before merge
+
+- Combined Quick67/67 PASS130858; QA131049 build and repeat-builder PASS;
+  production132059 PASS, QA=false and JS/WASM/data marker scans PASS. Build input
+  51e8c9ed54b26782faff346eb0b4f41cf3fcd864517fd646923c70c9d0d4198d.
+  Generated scene/player/pixel assets match local semantics/GUIDs (only Unity
+  trailing whitespace differs). No game source/config/dependency changes afterward:
+  git diff ed785c5 -- Assets Packages ProjectSettings is empty.
+- Two initial native attempts failed ONLY the640lethal observation, while1280passed
+  and late render mask135 confirmed a lethal root. Per-character observation did
+  not solve it and was reverted. Source inspection identified mixed timing:
+  Publish reads current Finished but cached sparks from previous LateUpdate. Driver
+  now waits for an actual live Lethal particle sample, records that exact sample,
+  and accepts the documented -1HP sentinel after enemy destruction. No mask-only
+  feature acceptance or relaxed particle budget/plane/profile checks.
+- Final integrated-presentation-native **24,212 checks PASS**,165.652s,1280x720 and
+  640x360, all four live profiles, pause/resume, victories/results clear/restart,
+  zero exceptions;4fixture reads/two mocked writes. Final driver SHA256
+  7db2d84408087a33f1abd0124fbdf07650b210c31e28a81ec969bed694f033d2.
+  Frame p50/p95:31.235/31.805ms and31.240/31.945ms; maxima232/220particles,
+  active burst maxima8/7. Reviewed new HUD+pixel normal/parry/Slayer/lethal frames;
+  text/cue/poses remain clear, no pink/halo. Prior two-direction bounce/playback
+  evidence applies because the particle/physics source is unchanged.
+- Production candidate releases/pixel-sparks-integrated-20261018:
+  TypingHero-WebGL-PixelSparks-Integrated-20261018.zip,29members/16,311,465bytes,
+  CRC PASS, SHA25691d422ce47437e225a4c186df4704c5b4223fb955a5f27fe9992723a5f5f8b4c.
+  Local/server hashes match; safely extracted exact ZIP for original-HTML smoke.
+- Existing Edge61a46c05 has authenticated micharel09 session. Owned BrowserSkill
+  jjqx verified dashboard and /game/edit/3857509; no credentials were read. Chrome
+  help timeout is superseded by this existing authenticated Edge session, without
+  another login request. Editor's five existing uploads/metadata/embed settings
+  recorded read-only before changes. No upload yet; main no-ff merge, post-merge
+  smoke, production smoke and native upload/save/CDN check remain next.

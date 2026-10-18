@@ -104,8 +104,9 @@ Change only behavior explicitly requested. Update this file after relevant verif
   multiple colliders still count as one target per attack.
 - Existing impact/parry pools now own separate scene roots and reclaim active/idle
   instances on disable/unload. PooledVFX resets Animator/color/scale/speed and guards
-  duplicate release events. Unscaled animation runs during hitstop and holds on pause;
-  its Update follows GamePauseController so the pause frame is held.
+  duplicate release events. Unscaled animation runs during hitstop and holds on pause.
+  PixelSparkBurst updates after pause/tutorial input locks and before particle simulation;
+  both groups must finish before release. Results, disable/restart and unload clear them.
 - Normal flash is ivory, .06 seconds and at least two render frames; pause holds its
   remaining duration. The existing Slayer silhouette/flash exclusion remains.
 - Afterimages retain source sprites/combo tint, with three images every .025 seconds,
@@ -115,23 +116,24 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - New Kenney impact events use the existing SFX pool/mixer/preferences independently
   of whoosh and parry: medium 000?002 at .65 normal / .45 Slayer, heavy 000?002 at .8
   lethal, +/- .5 semitone jitter. Existing clang uses +/- 1 semitone.
-- Current white sparks use CodeManu's CC0 Free VFX Asset Pack under
-  `Assets/Art/VFX/CodeManu`, with original30fps sheets/source/license/credits.
-  Normal SmallHit150ms/64px, Parry Impact180ms/72px, Lethal BigHit180ms/96px;
-  four SmallHit Slayer rotations0/90/180/270 degrees at100ms/56px (960x540).
-  Sizes measure the largest nonzero-alpha extent, not the128x128 cell. Builder
-  trims transparent ends, evenly samples8frames and fixes the first flash center
-  at pivot64. First frame20ms; the remaining time is split equally over7frames.
-  White RGB retains sampled author alpha; Point filtering/no compression.
-- The seven existing prefab/clip/controller paths and GUIDs remain under
-  `Assets/Art/VFX/Pimen/Generated` for serialized consumers. Spark order30,
-  42screen pixels/world unit and camera scaling remain. Original slash is unchanged.
-  Four obsolete generated Pimen white textures were removed; original Pimen art
-  and notices remain. CodeManu credit/license joins existing build packaging.
-- Quick52/52 (20261018T081430) verifies all7actual CodeManu prefabs' palette,
-  source,pivot,alpha size,timing,release event and pool reuse/reset. Native WebGL
-  8640checks passes960x540/640x360 normal/parry/all4Slayer/lethal,pause/restart;
-  see [combat-feedback checkpoint](../plans/combat-feedback.md).
+- Impacts use Inspector-editable `Assets/Art/VFX/PixelSparks` prefabs: orange Normal24
+  (.45–.65s), ivory Slayer32 (.35–.55s), pale-blue Parry40 (.6–.85s), orange Lethal56
+  (.75–.95s). Two world Particle Systems emit70% square dots and30% axis-aligned
+  streaks at16PPU, order30; a binary white texture and unlit straight-alpha material
+  keep flat stepped colors. Existing camera zoom scales them with characters.
+  Force follows attacker-to-target context, with80% forward; gravity18WU/s² and
+  fixed standing-foot collision planes give .4 bounce/.4 damping. Eight active bursts
+  per owner recycle oldest without suppressing confirmed-hit audio. Slayer exit
+  preserves the emitted profile; lethal wins over Slayer. Original Pimen assets,
+  licenses and slash animation remain; the old impact prefabs are no longer wired.
+  Legacy animated prefabs now use preserved CodeManu CC0 strips; their paths/GUIDs
+  remain for compatibility and notices remain packaged, without parallel emission.
+- Final combined Quick67/67 verifies physical profiles, real damage context,
+  pause/hitstop/pool cleanup, legacy animation compatibility and builder retention.
+  Native WebGL24,212checks passes1280x720/640x360 all four profiles, normal/Slayer,
+  pause/results/restart; two-direction bounce/playback was inspected separately.
+  Direct speaker listening remains unverified. Receipts and release state are in
+  [verification](verification.md) and [combat-feedback checkpoint](../plans/combat-feedback.md).
 
 ## Shogun presentation (2026-10-17)
 
@@ -142,7 +144,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Reference960x540: arena928x340; foot-local HUD and tray geometry are specified
   in the HUD layout section below. Camera
   ortho340/84 preserves42px/world unit; Slayer ortho retains.78 of normal.
-  CodeManu profiles use64/72/56/96px and100/150/180ms as documented above.
+  Impact pixels use the16PPU world scale documented above; camera framing is unchanged.
 - Top1000 is a modal in menu/pause, with the existing1000-row dataset,19-row
   visible pool,refresh and scroll retention. Close restores prior focus/screen;
   pause remains paused. Modal R/M/Escape cannot reach the previous screen.

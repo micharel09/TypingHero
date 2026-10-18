@@ -22,9 +22,10 @@ public class HitSparkSpawner : MonoBehaviour
     [SerializeField] Vector2 scaleRange = Vector2.one;
     [SerializeField] Vector2 verticalJitter = new(-.03f, .03f);
     [SerializeField] float minInterval = .02f;
+    [SerializeField] float groundY;
 
     readonly Dictionary<GameObject, ObjectPool<GameObject>> pools = new();
-    readonly HashSet<GameObject> active = new();
+    readonly List<GameObject> active = new(8);
     Transform poolRoot;
     float nextAt;
     int slayerIndex;
@@ -60,10 +61,10 @@ public class HitSparkSpawner : MonoBehaviour
     {
         if (Time.unscaledTime < nextAt) return;
         nextAt = Time.unscaledTime + minInterval;
-        SpawnPrefab(sparkPrefab, worldPoint, attacker);
+        SpawnPrefab(sparkPrefab, worldPoint, attacker, targetRoot);
     }
 
-    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal)
+    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null)
     {
         if (!isActiveAndEnabled || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         GameObject prefab = sparkPrefab;
@@ -71,17 +72,28 @@ public class HitSparkSpawner : MonoBehaviour
         if (lethal && lethalPrefab) prefab = lethalPrefab;
         else if (!lethal && wasSlayer && slayerPrefabs != null && slayerPrefabs.Length > 0)
             prefab = slayerPrefabs[slayerIndex++ % slayerPrefabs.Length];
-        SpawnPrefab(prefab, point, attacker);
+        SpawnPrefab(prefab, point, attacker, targetRoot);
         var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
         if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
         if (lethal && lethalImpulse) lethalImpulse.GenerateImpulse(.015f);
     }
 
-    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker)
+    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot)
     {
         if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
+        if (prefab.GetComponent<PixelSparkBurst>() && active.Count >= 8)
+            active[0].GetComponent<PooledVFX>().Release();
         var go = PoolFor(prefab).Get();
         var t = go.transform;
+        if (go.TryGetComponent<PixelSparkBurst>(out var burst))
+        {
+            t.SetParent(poolRoot, true);
+            float direction = attacker ? (targetRoot ? targetRoot.position.x : point.x) - attacker.position.x : 1f;
+            if (direction == 0) direction = attacker ? attacker.lossyScale.x : 1f;
+            burst.Emit((Vector3)point + worldOffset, direction, groundY);
+            return;
+        }
+        // Retain serialized tuning for legacy animated consumers.
         t.SetParent(parentUnderAttacker && attacker ? attacker : poolRoot, true);
         t.position = (Vector3)point + worldOffset + Vector3.up * Random.Range(verticalJitter.x, verticalJitter.y);
         float face = faceFromAttacker && attacker && attacker.lossyScale.x < 0 ? -1 : 1;
@@ -99,8 +111,12 @@ public class HitSparkSpawner : MonoBehaviour
 
     void OnDisable()
     {
-        foreach (var go in new List<GameObject>(active))
-            if (go) go.GetComponent<PooledVFX>().AnimEvent_Release();
+        while (active.Count > 0)
+        {
+            int last = active.Count - 1;
+            var go = active[last]; active.RemoveAt(last);
+            if (go) go.GetComponent<PooledVFX>().Release();
+        }
         nextAt = 0;
     }
     void OnDestroy()

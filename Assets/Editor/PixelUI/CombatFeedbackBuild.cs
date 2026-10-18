@@ -12,6 +12,7 @@ internal static class CombatFeedbackBuild
     internal static void Apply()
     {
         CombatFeedbackAssets.Prepare();
+        PixelSparkAssets.Prepare();
         var normal = ImpactEvent("ev_impact_normal", "medium", .65f);
         var slayer = ImpactEvent("ev_impact_slayer", "medium", .45f);
         var lethal = ImpactEvent("ev_impact_lethal", "heavy", .8f);
@@ -62,11 +63,12 @@ internal static class CombatFeedbackBuild
     {
         foreach (var spark in root.GetComponentsInChildren<HitSparkSpawner>(true))
         {
-            Set(spark, "sparkPrefab", CombatFeedbackAssets.Load("Normal"));
-            Set(spark, "lethalPrefab", CombatFeedbackAssets.Load("Lethal"));
+            Set(spark, "sparkPrefab", PixelSparkAssets.Load("Normal"));
+            Set(spark, "lethalPrefab", PixelSparkAssets.Load("Lethal"));
+            Value(spark, "groundY", Ground(root));
             var profiles = new SerializedObject(spark);
-            var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 4;
-            for (int i = 0; i < 4; i++) variants.GetArrayElementAtIndex(i).objectReferenceValue = CombatFeedbackAssets.Load("Slayer" + (i + 1));
+            var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 1;
+            variants.GetArrayElementAtIndex(0).objectReferenceValue = PixelSparkAssets.Load("Slayer");
             profiles.ApplyModifiedPropertiesWithoutUndo();
             Value(spark, "zRotationOffset", 0f); Vector(spark, "angleJitter", Vector2.zero);
             Set(spark, "normalImpact", normal); Set(spark, "slayerImpact", slayer); Set(spark, "lethalImpact", lethal);
@@ -88,7 +90,8 @@ internal static class CombatFeedbackBuild
         }
         foreach (var parry in root.GetComponentsInChildren<ParrySparkVFX_Pooled>(true))
         {
-            Set(parry, "sparkPrefab", CombatFeedbackAssets.Load("Parry"));
+            Set(parry, "sparkPrefab", PixelSparkAssets.Load("Parry"));
+            Value(parry, "groundY", Ground(root));
             var anchor = Get<Transform>(parry, "playerSparkAnchor");
             if (anchor)
             {
@@ -120,6 +123,12 @@ internal static class CombatFeedbackBuild
         if (p.propertyType == SerializedPropertyType.Vector2) p.vector2Value = value;
         else p.vector3Value = value;
         so.ApplyModifiedPropertiesWithoutUndo();
+    }
+    static float Ground(GameObject root)
+    {
+        var body = root.GetComponentInChildren<BoxCollider2D>();
+        // Same fixed standing-body landmark as CombatHUDLayout, independent of sprites.
+        return body.transform.TransformPoint(body.offset).y - body.size.y * Mathf.Abs(body.transform.lossyScale.y) * .5f + .12f;
     }
     static void Record(Object target)
     {

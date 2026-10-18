@@ -13,13 +13,14 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     [SerializeField] Vector2 offset;
     [SerializeField] bool flipTowardEnemy = true;
     [SerializeField] bool parentToAnchor = false;
+    [SerializeField] float groundY;
 
     [Header("Pool")]
     [SerializeField] int defaultCapacity = 8;
     [SerializeField] int maxSize = 32;
 
     IObjectPool<GameObject> _pool;
-    readonly HashSet<GameObject> active = new();
+    readonly List<GameObject> active = new(8);
     Transform poolRoot;
 
     void OnEnable()
@@ -31,8 +32,7 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     void OnDisable()
     {
         if (parrySystem) parrySystem.OnParrySuccess -= Spawn;
-        foreach (var go in new List<GameObject>(active))
-            if (go) go.GetComponent<PooledVFX>().AnimEvent_Release();
+        ClearActive();
     }
 
     void BuildPool()
@@ -73,7 +73,8 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     {
         // thu gọn trước khi cất vào pool
         active.Remove(go);
-        go.transform.SetParent(poolRoot, true);
+        if (!go) return;
+        if (poolRoot) go.transform.SetParent(poolRoot, true);
         go.SetActive(false);
     }
 
@@ -88,10 +89,23 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
         if (poolRoot) Destroy(poolRoot.gameObject);
     }
 
+    void Update() { if (CombatSession.Finished) ClearActive(); }
+    void ClearActive()
+    {
+        while (active.Count > 0)
+        {
+            int last = active.Count - 1;
+            var go = active[last]; active.RemoveAt(last);
+            // Independent scene roots can be destroyed before the owner's OnDisable.
+            if (go) go.GetComponent<PooledVFX>().Release();
+        }
+    }
+
     void Spawn(ParrySystem.ParryContext ctx)
     {
         if (_pool == null || sparkPrefab == null || !playerSparkAnchor || GamePauseController.InputBlocked || CombatSession.Finished || Time.timeScale == 0f) return;
 
+        if (sparkPrefab.GetComponent<PixelSparkBurst>() && active.Count >= 8) active[0].GetComponent<PooledVFX>().Release();
         var go = _pool.Get();
         var t = go.transform;
 
@@ -105,6 +119,11 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
             float dir = Mathf.Sign(ctx.targetRoot.position.x - playerSparkAnchor.position.x);
             var s = t.localScale;
             t.localScale = new Vector3(Mathf.Abs(s.x) * (dir == 0 ? 1 : dir), s.y, s.z);
+        }
+        if (go.TryGetComponent<PixelSparkBurst>(out var burst))
+        {
+            t.SetParent(poolRoot, true);
+            burst.Emit(t.position, ctx.targetRoot ? ctx.targetRoot.position.x - playerSparkAnchor.position.x : transform.lossyScale.x, groundY);
         }
     }
 }

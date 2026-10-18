@@ -1,5 +1,86 @@
 # Verification and performance memory
 
+## Pixel spark integration/release preparation (2026-10-18)
+
+- User authorized local main merge and itch.io update. Reviewed/preserved completed
+  design and legacy CodeManu foundation in main610352b, merged into the feature at
+  372b9f0; current rendering remains physical pixel sparks. Design-only assets are
+  excluded from WebGL snapshots and have no runtime links. Legacy notices retained.
+- Post-foundation Quick66/66 PASS20261018T095638, source input
+  `39d1ff867e100a65ffafddc764561681ce8276372ac49b4c3e25d1302fbdcc44`.
+  QA095748 build/repeated-builder PASS. Software browser again failed before first
+  hit due slow rendering; no full software profile PASS claimed.
+- Same immutable player, native Edge155/Intel UHD ANGLE D3D11: **25,619 checks PASS**,
+  207.352s,1280x720/640x360, all four live particle roles, normal/Slayer camera,
+  actual keyboard, pause/resume, lethal/results/restart.37fixture reads/two mocked
+  writes, zero JS/Unity exceptions. Reviewed final640lethal/normal and retained
+  previous art/motion evidence (runtime pixels/physics unchanged by legacy merge).
+- Production095953 PASS on that same input. QA=false; JS/WASM/data exclude all
+  three bridge markers. Exact original HTML smoke on native Edge155 passes name,
+  Enter/tutorial BLADE/ATTACK COMPLETE/score10, real battle word `it`, orange pixel
+  impact (visually reviewed, no pink material), pause/resume and actual640x360
+  canvas.11fixture reads/zero writes/zero JS or Unity exceptions. Startup logs
+  identify unsupported optional URP EASU/HDR-debug shaders on this GPU; the actual
+  game and pixel material render correctly. No pipeline change made for these.
+- ZIP29members/16,311,433bytes, local/server SHA256 and CRC PASS:
+  `c58174cc5e84498e41151a3c006b853b528117a69dbff91a8c720a02c88eee08`.
+  Candidate ZIP/manifest retained under server releases/pixel-sparks-20261018.
+  Existing score-hud release remains untouched. Production smoke tool corrected
+  OCR control-character JSON parsing; final explicit context shutdown and Node
+  exit confirmed. A saveAs after persistent-context close failed, so non-QA
+  evidence uses inspected native frames/screenshots, not a finalized export claim.
+- Publication is pending: main has further active HUD/scoring/art edits outside
+  this feature; do not commit or publish their unfinished source. BrowserSkill
+  daemon/IPC works, but extension doctor reports zero connected browsers. User was
+  asked to pause concurrent writes and connect the logged-in browser. No target
+  main merge or itch upload claimed. See combat-feedback checkpoint for resumption.
+
+## Physical pixel impacts (2026-10-18)
+
+- Final Quick **66/66 PASS**, result20261018T093521-quick, input
+  `c6d86c7acee7b370d7185a9eeb1bfa11c8e7578df58706c921771876753a7837`.
+  Covers four real prefabs, integer pixel sizes/contact/force, actual gravity/bounce,
+  hitbox collider dedup and lethal priority after Slayer exit, same-frame tutorial
+  lock, hitstop, pause/results distinction, single release, clean reuse, eight-burst
+  owner limits, disable/unload and Inspector tuning/GUID retention. Contracts8/8,
+  browser/driver syntax and diff whitespace checks PASS.
+- WebGL20261018T093620 build and repeated-builder checks PASS on the same input.
+  Serialized outputs match source semantically; all PixelSparks assets/metas matched
+  byte-for-byte before removing Unity-generated trailing whitespace for commit. Software input driver failed before first hit at ~198ms/frame;
+  this is not a full software WebGL profile PASS. No timing thresholds relaxed.
+- Native Edge155/Intel UHD ANGLE D3D11, existing Playwright1.58.2, QA Development
+  allocation counters and recorded video: **25,242 checks PASS**,196.756s, exact
+  1280x720 and640x360. Real keyboard Normal/Parry/Slayer/Lethal at both sizes,
+  ordinary and Slayer camera, pause age/position hold, resume, victory results
+  cleanup and restart. All four live particle roles observed; zero JS/Unity
+  exceptions,36fixture reads/two intercepted writes, external blocking retained.
+  Driver SHA256 `b3b07bf5904b60b0d00946871d7d67367a5c3d296ba2eb9bbee5db3e408fc2b1`.
+- Forward parry motion151checks and mirrored parry142checks PASS at both sizes.
+  Mirror fixture only changes actor positions/scales during disposable QA build;
+  observed negative mean force -2.6764/-2.7063WU/s, with readable normal HUD.
+  Actual live/video frames and nearest-neighbor4x crops reviewed: sharp flat
+  squares/streaks, blue/orange/ivory distinction, fall/bounce and natural release,
+  no halo/pink shader, no old animated impact stacked, preserved slash/flash/
+  afterimages and readable cues/poses/text. Direct speaker listening unverified.
+- Relative measurements on the same machine/Development flags and keyboard
+  sequence, unpaused distinct published frames (QA capture/transition spikes kept):
+
+  | Render | Frame ms p50/p95, before ? after | Allocation B/frame p50/p95, before ? after | Objects p50/p95, before ? after |
+  | --- | --- | --- | --- |
+  |1280x720|31.280/32.840 ?31.235/31.825|1618/12006 ?636/3980|233/238 ?274/280|
+  |640x360|31.260/32.395 ?31.255/32.000|588/11706 ?636/11818|233/239 ?272/279|
+
+  Final maxima243/237particles and8active bursts; no unbounded accumulation.
+  Extra objects are bounded pooled roots/two systems/plane per burst, versus one
+  animated object previously. Median memory rises ~226KB/231KB; no material frame
+  or allocation regression observed. These are instrumented headless recordings,
+  not a device-FPS promise. Baseline inputd1898611ff53e4c0c3ce7dd050bcb11961dcb42333fc8df76bcd18763e0263b0,
+  player090104: both victories/zero exceptions, but overall3796check status failed
+  because640poll missed its180ms legacy lethal (render mask127/video confirmed).
+  Its measurement samples remain valid; do not label baseline a full profile PASS.
+- No production build, push, release, stress or soak. Main integration remains
+  gated by independent uncommitted main edits; see [checkpoint](../plans/combat-feedback.md).
+
 ## White CodeManu sparks (2026-10-18)
 
 - Quick **52/52 PASS**, no failed/skipped tests, `20261018T081430-quick`,

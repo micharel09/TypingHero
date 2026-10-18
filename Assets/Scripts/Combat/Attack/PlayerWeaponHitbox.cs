@@ -106,7 +106,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
 
         // === HIT SPARK (tùy chọn) ===
-        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead);
+        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, root);
 
 
 

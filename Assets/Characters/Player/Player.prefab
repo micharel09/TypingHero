@@ -521,11 +521,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parrySystem: {fileID: 4700267102167904995}
-  sparkPrefab: {fileID: 6010085794818101636, guid: e579a325117bfbc4a90818ea613e661e, type: 3}
+  sparkPrefab: {fileID: 2345490875589463973, guid: 44c652bc1ef79dd36a79fe4425367393, type: 3}
   playerSparkAnchor: {fileID: 8595483995670857711}
   offset: {x: 0, y: 0}
   flipTowardEnemy: 1
   parentToAnchor: 0
+  groundY: -3.3325508
   defaultCapacity: 8
   maxSize: 32
 --- !u!114 &6140051893238759780
@@ -626,13 +627,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c45f11584dfbc8498ac9a341fc39fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sparkPrefab: {fileID: 3642628935308410425, guid: e43a8378e6381831f9b463313588afa2, type: 3}
+  sparkPrefab: {fileID: 5609067520509392328, guid: ae091eef5a437eb6c89f5f0d83be84c9, type: 3}
   slayerPrefabs:
-  - {fileID: 8877394848944784665, guid: c7781ca7e1a058a96ad977c5f2a9b1fe, type: 3}
-  - {fileID: 5330077582771544001, guid: 4c7c2cd28121a95e58e6e0c677ac04f0, type: 3}
-  - {fileID: 8208601289384894751, guid: f3d96355fb61e029ba8a62b0f4674090, type: 3}
-  - {fileID: 6461329284805525259, guid: d584537d99441e51bbdb1094dc34fe5c, type: 3}
-  lethalPrefab: {fileID: 8642875879769881067, guid: 10856b967bdbdfd9bb85dfe39f2b92b4, type: 3}
+  - {fileID: 2885035975186082736, guid: 20cead99e35bceea083f272300f59871, type: 3}
+  lethalPrefab: {fileID: 8425739679233439315, guid: a2017e715395d1576aa0843d0de9be64, type: 3}
   normalImpact: {fileID: 11400000, guid: 3bdeeb3a8d0f17dfa896e809d6451781, type: 2}
   slayerImpact: {fileID: 11400000, guid: 46c7a33bfe3f1b677a5d4d86f698bf9a, type: 2}
   lethalImpact: {fileID: 11400000, guid: d747ffb200bc9e9a3b24a764ed0c4b80, type: 2}
@@ -648,6 +646,7 @@ MonoBehaviour:
   scaleRange: {x: 1, y: 1}
   verticalJitter: {x: -0.03, y: 0.03}
   minInterval: 0.02
+  groundY: -3.3325508
 --- !u!114 &64795655636002657
 MonoBehaviour:
   m_ObjectHideFlags: 0
