@@ -1,0 +1,62 @@
+{
+  "layoutId": "shogun",
+  "revision": 1,
+  "platform": "web",
+  "owner": "Assets/Editor/PixelUI/ShogunTheme.cs",
+  "contract": "contract.md",
+  "variants": [
+    {
+      "id": "gameplay",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "gameplay.wireframe.json",
+      "preview": "gameplay.wireframe.html",
+      "capture": "gameplay.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "eb0f344407c008578ae7593785897a56951888cbb9f5ce450d0e5494cd2c2e1b",
+        "previewSha256": "5a6401394ce6a3c533f85b44ca19c9b4c11756b9638f00fa98dabe734f0df4e2",
+        "pngSha256": "ad81f3b3e91ac2c5ecb366d9d554eda7f1bc37d4f72224163532f18aae7c7c0c"
+      }
+    },
+    {
+      "id": "leaderboard",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "leaderboard.wireframe.json",
+      "preview": "leaderboard.wireframe.html",
+      "capture": "leaderboard.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "eb0f344407c008578ae7593785897a56951888cbb9f5ce450d0e5494cd2c2e1b",
+        "previewSha256": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
+        "pngSha256": "a54201af193756fd38a67de6484932c3ed28136c5976eb16b8f6c3d7b733de4e"
+      }
+    }
+  ],
+  "approval": {
+    "status": "approved",
+    "revision": 1,
+    "inputFingerprint": "eb0f344407c008578ae7593785897a56951888cbb9f5ce450d0e5494cd2c2e1b",
+    "evidence": "User 2026-10-17: Implement the plan in a fresh context. Plan explicitly approves Shogun reference,960x540 HUD60/arena928x340/tray672x88,Top1000 modal in menu/pause. Wireframes record those approved decisions; no new design approval is inferred.",
+    "approvedAt": "2026-10-17T07:06:51.505546+00:00",
+    "artifacts": {
+      "gameplay.png": "ad81f3b3e91ac2c5ecb366d9d554eda7f1bc37d4f72224163532f18aae7c7c0c",
+      "gameplay.wireframe.html": "5a6401394ce6a3c533f85b44ca19c9b4c11756b9638f00fa98dabe734f0df4e2",
+      "leaderboard.png": "a54201af193756fd38a67de6484932c3ed28136c5976eb16b8f6c3d7b733de4e",
+      "leaderboard.wireframe.html": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf"
+    }
+  },
+  "rendered": {
+    "revision": 1,
+    "inputFingerprint": "eb0f344407c008578ae7593785897a56951888cbb9f5ce450d0e5494cd2c2e1b",
+    "previews": {
+      "gameplay.wireframe.html": "5a6401394ce6a3c533f85b44ca19c9b4c11756b9638f00fa98dabe734f0df4e2",
+      "leaderboard.wireframe.html": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf"
+    }
+  }
+}

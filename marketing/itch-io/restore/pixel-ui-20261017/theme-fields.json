@@ -1,0 +1,163 @@
+[
+  {
+    "checked": false,
+    "name": "layout[bg_color]",
+    "tag": "INPUT",
+    "type": "text",
+    "value": "#4b0000"
+  },
+  {
+    "checked": false,
+    "name": "layout[bg2_color]",
+    "tag": "INPUT",
+    "type": "text",
+    "value": "#000000"
+  },
+  {
+    "checked": false,
+    "name": "layout[text_color]",
+    "tag": "INPUT",
+    "type": "text",
+    "value": "#ffffff"
+  },
+  {
+    "checked": false,
+    "name": "layout[link_color]",
+    "tag": "INPUT",
+    "type": "text",
+    "value": "#fa5c5c"
+  },
+  {
+    "checked": false,
+    "name": "layout[header_text_color]",
+    "tag": "INPUT",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "checked": false,
+    "name": "layout[button_color]",
+    "tag": "INPUT",
+    "type": "text",
+    "value": ""
+  },
+  {
+    "name": "layout[font_family]",
+    "options": [
+      {
+        "t": "Select Google Font...",
+        "v": "_select_google_font"
+      },
+      {
+        "t": "Serif",
+        "v": "serif"
+      },
+      {
+        "t": "Sans Serif",
+        "v": "sans_serif"
+      },
+      {
+        "t": "Pixel",
+        "v": "pixel"
+      },
+      {
+        "t": "Anonymous Pro",
+        "v": "anonymous_pro"
+      },
+      {
+        "t": "Lato",
+        "v": "lato"
+      }
+    ],
+    "tag": "SELECT",
+    "type": "select-one",
+    "value": "lato"
+  },
+  {
+    "name": "layout[font_size]",
+    "options": [
+      {
+        "t": "Small",
+        "v": "small"
+      },
+      {
+        "t": "Medium",
+        "v": "medium"
+      },
+      {
+        "t": "Large",
+        "v": "large"
+      },
+      {
+        "t": "Very Large",
+        "v": "very_large"
+      }
+    ],
+    "tag": "SELECT",
+    "type": "select-one",
+    "value": "large"
+  },
+  {
+    "name": "layout[header_font_family]",
+    "options": [
+      {
+        "t": "Default font",
+        "v": "_default"
+      },
+      {
+        "t": "Select Google Font...",
+        "v": "_select_google_font"
+      },
+      {
+        "t": "Serif",
+        "v": "serif"
+      },
+      {
+        "t": "Sans Serif",
+        "v": "sans_serif"
+      },
+      {
+        "t": "Pixel",
+        "v": "pixel"
+      },
+      {
+        "t": "Anonymous Pro",
+        "v": "anonymous_pro"
+      },
+      {
+        "t": "Lato",
+        "v": "lato"
+      }
+    ],
+    "tag": "SELECT",
+    "type": "select-one",
+    "value": "_default"
+  },
+  {
+    "name": "layout[screenshots_loc]",
+    "options": [
+      {
+        "t": "Auto (hidden)",
+        "v": ""
+      },
+      {
+        "t": "Sidebar",
+        "v": "sidebar"
+      },
+      {
+        "t": "Hidden",
+        "v": "hidden"
+      }
+    ],
+    "tag": "SELECT",
+    "type": "select-one",
+    "value": "sidebar"
+  },
+  {
+    "checked": false,
+    "name": "",
+    "tag": "INPUT",
+    "type": "text",
+    "value": ""
+  }
+]

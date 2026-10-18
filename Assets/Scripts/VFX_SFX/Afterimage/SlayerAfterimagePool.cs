@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -10,16 +10,16 @@ public class SlayerAfterimagePool : MonoBehaviour
     [SerializeField] SpriteRenderer source; // để trống -> tự lấy SR gần nhất
 
     [Header("Visual")]
-    [SerializeField] Color baseTint = new(1, 1, 1, 0.55f);
-    [SerializeField] float life = 0.18f;
+    [SerializeField] Color baseTint = new(1, 1, 1, 0.4f);
+    [SerializeField] float life = 0.12f;
     [SerializeField] AnimationCurve alphaCurve = AnimationCurve.Linear(0, 1, 1, 0);
     [SerializeField] int sortingOffset = -1;
 
     [Header("Burst")]
-    [SerializeField] int burstCount = 1;
-    [SerializeField] float burstInterval = 0f;
-    [SerializeField, Range(0f, 1f)] float alphaFalloff = 0.7f;
-    [SerializeField] float lifeStep = 0.03f;
+    [SerializeField] int burstCount = 3;
+    [SerializeField] float burstInterval = 0.025f;
+    [SerializeField, Range(0f, 1f)] float alphaFalloff = 0.6f;
+    [SerializeField] float lifeStep = 0.02f;
     [SerializeField] Vector2 stepLocalOffset = new(-0.05f, 0f);
 
     [Header("Combo Tint")]
@@ -42,6 +42,26 @@ public class SlayerAfterimagePool : MonoBehaviour
 
     [SerializeField] bool freezeFadeOnPause = true;
     IObjectPool<GameObject> pool;
+    Transform poolRoot;
+
+    readonly System.Collections.Generic.HashSet<GameObject> activeImages = new();
+
+    void OnEnable() => SlayerModeSignals.OnSetActive += OnSlayerChanged;
+    void OnSlayerChanged(bool active) { if (!active) CancelBurst(); }
+
+    void Update()
+    {
+        if (CombatSession.Finished) CancelBurst();
+    }
+
+    internal void CancelBurst()
+    {
+        StopAllCoroutines();
+        if (activeImages.Count == 0) return;
+        foreach (var image in new System.Collections.Generic.List<GameObject>(activeImages))
+            if (image) pool.Release(image);
+        activeImages.Clear();
+    }
 
     void Awake()
     {
@@ -54,6 +74,8 @@ public class SlayerAfterimagePool : MonoBehaviour
             if (sh) s_UnlitMat = new Material(sh) { name = "Afterimage_Unlit_Shared" };
         }
 
+        poolRoot = new GameObject("AfterimagePool").transform;
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(poolRoot.gameObject, gameObject.scene);
         pool = new ObjectPool<GameObject>(Create, OnGet, OnRelease, DestroyItem, false, defaultCapacity, maxSize);
     }
 
@@ -85,14 +107,14 @@ public class SlayerAfterimagePool : MonoBehaviour
         go.SetActive(false);
         return go;
     }
-    void OnGet(GameObject go) { go.transform.SetParent(transform, true); go.SetActive(true); }
-    void OnRelease(GameObject go) { if (go) { go.transform.SetParent(transform, true); go.SetActive(false); } }
+    void OnGet(GameObject go) { activeImages.Add(go); go.transform.SetParent(null, true); go.SetActive(true); }
+    void OnRelease(GameObject go) { activeImages.Remove(go); if (go) { go.transform.SetParent(poolRoot, true); go.SetActive(false); } }
     void DestroyItem(GameObject go) { if (go) Destroy(go); }
 
     // API
     public void SpawnBurstFromCurrentFrame(int combo = 0)
     {
-        if (Time.timeScale == 0f) return;
+        if (Time.timeScale == 0f || GamePauseController.InputBlocked || CombatSession.Finished) return;
         if (!isActiveAndEnabled || !gameObject.activeInHierarchy) return;
         if (!source || !source.sprite) return;
 
@@ -111,7 +133,16 @@ public class SlayerAfterimagePool : MonoBehaviour
             if (!isActiveAndEnabled || !gameObject.activeInHierarchy) yield break;
             SpawnOne(i, c, l);
             a *= alphaFalloff; c.a = a; l += lifeStep;
-            if (i < burstCount - 1 && burstInterval > 0f) yield return new WaitForSecondsRealtime(burstInterval);
+            if (i < burstCount - 1 && burstInterval > 0f)
+            {
+                float elapsed = 0f;
+                while (elapsed < burstInterval)
+                {
+                    yield return null;
+                    if (!GamePauseController.InputBlocked && Time.timeScale != 0f)
+                        elapsed += Time.unscaledDeltaTime;
+                }
+            }
         }
     }
 
@@ -120,7 +151,7 @@ public class SlayerAfterimagePool : MonoBehaviour
         Color col = useComboTint && comboGradient != null
             ? comboGradient.Evaluate(Mathf.Clamp01(combo / (float)comboMax))
             : baseTint;
-        col.a *= baseTint.a;
+        col.a = useComboTint && comboGradient != null ? col.a * baseTint.a : baseTint.a;
 
         if (useSaturationBoost)
         {
@@ -167,7 +198,7 @@ public class SlayerAfterimagePool : MonoBehaviour
 
         while (t < life)
         {
-            if (!(freezeFadeOnPause && Time.timeScale == 0f))
+            if (!(freezeFadeOnPause && (Time.timeScale == 0f || GamePauseController.InputBlocked)))
                 t += Time.unscaledDeltaTime;       // dùng unscaled nhưng vẫn đứng khi pause
 
             float k = Mathf.Clamp01(t / life);
@@ -182,14 +213,13 @@ public class SlayerAfterimagePool : MonoBehaviour
 
     void OnDisable()
     {
-        StopAllCoroutines();
-        for (int i = transform.childCount - 1; i >= 0; i--)
-        {
-            var c = transform.GetChild(i);
-            if (c && c.name == "Afterimage") pool.Release(c.gameObject);
-        }
-#if UNITY_2021_3_OR_NEWER
-        if (pool is ObjectPool<GameObject> op) op.Clear();
-#endif
+        SlayerModeSignals.OnSetActive -= OnSlayerChanged;
+        CancelBurst();
+    }
+
+    void OnDestroy()
+    {
+        if (pool is ObjectPool<GameObject> objects) objects.Clear();
+        if (poolRoot) Destroy(poolRoot.gameObject);
     }
 }

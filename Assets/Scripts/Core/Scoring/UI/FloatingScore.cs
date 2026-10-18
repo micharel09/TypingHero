@@ -1,23 +1,25 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 
+[DefaultExecutionOrder(1060)]
 public class FloatingScore : MonoBehaviour
 {
     [SerializeField] TMP_Text label;
-    [SerializeField] float riseDistance = 48f;
+    [SerializeField] float riseDistance = 12f;
     [SerializeField] float life = 0.6f;
     [SerializeField] float fadeDelay = 0.15f;
 
     RectTransform _rt;             // của chính popup
     Canvas _canvas;
     RectTransform _anchor;         // nơi bám (trên Canvas)
-    Vector2 _start;
-    Vector2 _end;
+    Vector2 _offset;
     float _t0;
 
-public void Setup(string text, Color color, Canvas canvas, RectTransform anchor, Vector2 offset)
+    public void Setup(string text, Color color, Canvas canvas, RectTransform anchor, Vector2 offset)
     {
         if (!_rt) _rt = GetComponent<RectTransform>();
+        _rt.anchorMin = _rt.anchorMax = ((RectTransform)canvas.transform).pivot;
+        _rt.pivot = new Vector2(0, .5f);
         _canvas = canvas;
         _anchor = anchor;
 
@@ -26,9 +28,8 @@ public void Setup(string text, Color color, Canvas canvas, RectTransform anchor,
         label.color = color;
 
         // lấy vị trí anchor
-        _start = ResolveAnchorPosition(_canvas, _anchor) + offset;
-        _end   = _start + new Vector2(0, riseDistance);
-        _rt.anchoredPosition = _start;
+        _offset = offset;
+        _rt.anchoredPosition = ResolveAnchorPosition(_canvas, _anchor) + _offset;
 
         _t0 = Time.unscaledTime;
         enabled = true;
@@ -41,10 +42,10 @@ public void Setup(string text, Color color, Canvas canvas, RectTransform anchor,
         if (!label) label = GetComponentInChildren<TMP_Text>(true);
     }
 
-    void Update()
+    void LateUpdate()
     {
         float t = Mathf.InverseLerp(_t0, _t0 + life, Time.unscaledTime);
-        _rt.anchoredPosition = Vector2.LerpUnclamped(_start, _end, t);
+        _rt.anchoredPosition = ResolveAnchorPosition(_canvas, _anchor) + _offset + Vector2.up * (riseDistance * t);
 
         var c = label.color;
         float fadeStart = fadeDelay / Mathf.Max(0.0001f, life);

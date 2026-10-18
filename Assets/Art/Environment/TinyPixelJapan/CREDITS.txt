@@ -1,0 +1,15 @@
+TypingHero - Shogun presentation
+
+Tiny Pixel Japan Parallax Background by LyniaDesign
+https://lyniadesign.itch.io/tiny-pixel-japan-parallax-background
+Original author ZIP, 13 PNG layers353x180; no promotional images used.
+Original ZIP SHA256: c268962fcbe98d43de1e7c2fd43cc669cc903e9a2a8635d5e272d5ae7fe86667
+Original layer bytes preserved. Palette is applied by Unity renderer tint.
+See TinyPixelJapan-License.txt (LICENSE.txt in Unity source).
+
+Visual direction: Shogun Showdown by Roboatino; reference only, no game assets used.
+https://store.steampowered.com/app/2084000/Shogun_Showdown/
+
+Input Prompts Pixel by Kenney (CC0) - https://kenney.nl/assets/input-prompts-pixel
+VT323 by Peter Hull (SIL OFL1.1) - https://github.com/google/fonts/tree/main/ofl/vt323
+Existing music retained. Character/skeleton animations retained from project.

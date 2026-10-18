@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Pool;
 
 public sealed class ParrySparkVFX_Pooled : MonoBehaviour
@@ -18,6 +19,8 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     [SerializeField] int maxSize = 32;
 
     IObjectPool<GameObject> _pool;
+    readonly HashSet<GameObject> active = new();
+    Transform poolRoot;
 
     void OnEnable()
     {
@@ -28,10 +31,14 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     void OnDisable()
     {
         if (parrySystem) parrySystem.OnParrySuccess -= Spawn;
+        foreach (var go in new List<GameObject>(active))
+            if (go) go.GetComponent<PooledVFX>().AnimEvent_Release();
     }
 
     void BuildPool()
     {
+        poolRoot = new GameObject("ParryImpactPool").transform;
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(poolRoot.gameObject, gameObject.scene);
         _pool = new ObjectPool<GameObject>(
             createFunc: CreateItem,
             actionOnGet: OnGet,
@@ -45,7 +52,7 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
 
     GameObject CreateItem()
     {
-        var go = Instantiate(sparkPrefab);
+        var go = Instantiate(sparkPrefab, poolRoot);
         go.SetActive(false);
 
         // gắn PooledVFX để animation-end có thể trả về pool
@@ -58,13 +65,15 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
 
     void OnGet(GameObject go)
     {
+        active.Add(go);
         go.SetActive(true);
     }
 
     void OnRelease(GameObject go)
     {
         // thu gọn trước khi cất vào pool
-        if (parentToAnchor == false) go.transform.SetParent(null);
+        active.Remove(go);
+        go.transform.SetParent(poolRoot, true);
         go.SetActive(false);
     }
 
@@ -73,9 +82,15 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
         if (go) Destroy(go);
     }
 
+    void OnDestroy()
+    {
+        if (_pool is ObjectPool<GameObject> pool) pool.Clear();
+        if (poolRoot) Destroy(poolRoot.gameObject);
+    }
+
     void Spawn(ParrySystem.ParryContext ctx)
     {
-        if (_pool == null || sparkPrefab == null || !playerSparkAnchor) return;
+        if (_pool == null || sparkPrefab == null || !playerSparkAnchor || GamePauseController.InputBlocked || CombatSession.Finished || Time.timeScale == 0f) return;
 
         var go = _pool.Get();
         var t = go.transform;

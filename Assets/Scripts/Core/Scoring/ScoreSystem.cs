@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 using System;
 
@@ -69,7 +69,7 @@ public class ScoreSystem : MonoBehaviour
 
     void Update()
     {
-        if (_paused && stopDecayWhilePaused) return;
+        if (CombatSession.Finished || (_paused && stopDecayWhilePaused)) return;
         if (Multiplier <= rules.startMultiplier && !_comboEnabled) { ComboRemain01 = 0f; return; }
 
         _windowRemain -= Time.unscaledDeltaTime;
@@ -127,6 +127,7 @@ public class ScoreSystem : MonoBehaviour
     // ===== Event handlers =====
     void OnParry(ParrySystem.ParryContext _)
     {
+        if (CombatSession.Finished || GamePauseController.InputBlocked) return;
         // Parry chỉ cộng điểm; CHỈ tăng multiplier nếu combo đã bật.
         AddScore(rules.parryPoint, countAsComboUnit: false, hitKind: HitKind.Parry);
     }
@@ -168,6 +169,7 @@ public class ScoreSystem : MonoBehaviour
 
     void AddScore(int basePoint, bool countAsComboUnit, HitKind hitKind)
     {
+        if (CombatSession.Finished || GamePauseController.InputBlocked) return;
         if (basePoint <= 0 || rules == null) return;
 
         // Nếu combo đã bật → mỗi hit gia hạn cửa sổ + tăng multiplier
@@ -187,6 +189,7 @@ public class ScoreSystem : MonoBehaviour
 
         SpawnFloating(delta, Multiplier, worldPos: null);
         UpdateUI();
+        ScoreUI_Flash.Do(scoreText, Multiplier);
         OnScored?.Invoke(delta, Multiplier);
     }
 
@@ -196,7 +199,6 @@ public class ScoreSystem : MonoBehaviour
         {
             scoreText.text = Score.ToString(rules.scoreFormat);
             scoreText.color = ColorByMultiplier(Multiplier);
-            ScoreUI_Flash.Do(scoreText, Multiplier);
         }
         if (comboHUD)
         {

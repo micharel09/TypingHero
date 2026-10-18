@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2600921510941095740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.04, y: 1.47, z: 0}
+  m_LocalPosition: {x: -0.55, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -190,7 +190,6 @@ MonoBehaviour:
   slayer: {fileID: 3027463112130235812}
   staminaOnHit: -1
   hitStunSeconds: 6
-  slayerFlashDuration: 0.08
   hitSpark: {fileID: 864069039669792717}
 --- !u!1 &5449769088092458507
 GameObject:
@@ -218,6 +217,7 @@ GameObject:
   - component: {fileID: 864069039669792717}
   - component: {fileID: 64795655636002657}
   - component: {fileID: 7791465751774669392}
+  - component: {fileID: 1630182305097442079}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -399,6 +399,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  onDied:
+    m_PersistentCalls:
+      m_Calls: []
   animator: {fileID: 2040951967068383774}
   hitStatePath: Base Layer.player_hit
   dieStatePath: Base Layer.player_die
@@ -406,6 +409,7 @@ MonoBehaviour:
   postHitIFrames: 0.05
   parry: {fileID: 4700267102167904995}
   gate: {fileID: 3897296489748599779}
+  dieWatchdogTimeout: 2
   logs: 1
 --- !u!114 &2863178931385098792
 MonoBehaviour:
@@ -439,7 +443,10 @@ MonoBehaviour:
   hitStopper: {fileID: 0}
   parrySuccessHitStop: 0.05
   successIFrame: 0.08
+  cancelEnemyStrikeTTL: 0.12
   gate: {fileID: 3897296489748599779}
+  strikeEarlyGrace: 0.02
+  strikeLateGrace: 0.02
   logs: 1
 --- !u!114 &8730069211892139167
 MonoBehaviour:
@@ -514,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parrySystem: {fileID: 4700267102167904995}
-  sparkPrefab: {fileID: 2444712665026297967, guid: fe39212b3806ce14680366535ae6dabb, type: 3}
+  sparkPrefab: {fileID: 6010085794818101636, guid: e579a325117bfbc4a90818ea613e661e, type: 3}
   playerSparkAnchor: {fileID: 8595483995670857711}
   offset: {x: 0, y: 0}
   flipTowardEnemy: 1
@@ -551,6 +558,7 @@ MonoBehaviour:
   animator: {fileID: 2040951967068383774}
   attackEvents: {fileID: 2863178931385098792}
   afterimage: {fileID: 64795655636002657}
+  enemy: {fileID: 0}
   slayerEnterStatePath: Base Layer.player_slayer
   enterCrossfade: 0.02
   slayerAttackStates:
@@ -560,12 +568,10 @@ MonoBehaviour:
   attackCrossfade: 0.02
   attackSpeedMultiplier: 1
   slayerMinOpenSeconds: 0
-  inputDebounce: 0.015
   ignoreHitstop: 1
   speedParam: AttackSpeedMul
   exitStatePath: Base Layer.player_idle
   exitCrossfade: 0.02
-  postWordCooldown: 0.08
   graceAfterStun: 0.08
   resetComboOnWord: 1
   comboDecay: 1
@@ -607,6 +613,7 @@ MonoBehaviour:
   autoPlayScreenFX: 1
   screenFX: {fileID: 0}
   silhouetteOnInSlayer: 1
+  disableDuringSlayer: []
 --- !u!114 &864069039669792717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,17 +626,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c45f11584dfbc8498ac9a341fc39fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sparkPrefab: {fileID: 5835100190033160735, guid: 53d087d2f79c98f48b265a280c13a6cb, type: 3}
-  parentUnderAttacker: 1
+  sparkPrefab: {fileID: 3642628935308410425, guid: e43a8378e6381831f9b463313588afa2, type: 3}
+  slayerPrefabs:
+  - {fileID: 8877394848944784665, guid: c7781ca7e1a058a96ad977c5f2a9b1fe, type: 3}
+  - {fileID: 5330077582771544001, guid: 4c7c2cd28121a95e58e6e0c677ac04f0, type: 3}
+  - {fileID: 8208601289384894751, guid: f3d96355fb61e029ba8a62b0f4674090, type: 3}
+  - {fileID: 6461329284805525259, guid: d584537d99441e51bbdb1094dc34fe5c, type: 3}
+  lethalPrefab: {fileID: 8642875879769881067, guid: 10856b967bdbdfd9bb85dfe39f2b92b4, type: 3}
+  normalImpact: {fileID: 11400000, guid: 3bdeeb3a8d0f17dfa896e809d6451781, type: 2}
+  slayerImpact: {fileID: 11400000, guid: 46c7a33bfe3f1b677a5d4d86f698bf9a, type: 2}
+  lethalImpact: {fileID: 11400000, guid: d747ffb200bc9e9a3b24a764ed0c4b80, type: 2}
+  lethalImpulse: {fileID: 6654075143805662134}
+  parentUnderAttacker: 0
   keepWorldScale: 1
-  worldOffset: {x: 1.2, y: 0.7, z: 0}
+  worldOffset: {x: 0, y: 0, z: 0}
   faceFromAttacker: 1
-  zRotationOffset: 20
-  angleJitter: {x: -0.5, y: 0.5}
+  zRotationOffset: 0
+  angleJitter: {x: 0, y: 0}
   flipXChance: 0.5
   flipYChance: 0
-  scaleRange: {x: 0.9, y: 1.1}
-  verticalJitter: {x: -0.5, y: 0.5}
+  scaleRange: {x: 1, y: 1}
+  verticalJitter: {x: -0.03, y: 0.03}
   minInterval: 0.02
 --- !u!114 &64795655636002657
 MonoBehaviour:
@@ -644,8 +661,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 7358457235006824576}
-  baseTint: {r: 1, g: 1, b: 1, a: 0.55}
-  life: 0.18
+  baseTint: {r: 1, g: 1, b: 1, a: 0.4}
+  life: 0.12
   alphaCurve:
     serializedVersion: 2
     m_Curve:
@@ -672,9 +689,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   sortingOffset: -1
   burstCount: 3
-  burstInterval: 1
-  alphaFalloff: 0.703
-  lifeStep: 0.1
+  burstInterval: 0.025
+  alphaFalloff: 0.6
+  lifeStep: 0.02
   stepLocalOffset: {x: -0.1, y: 0}
   useComboTint: 1
   comboMax: 20
@@ -737,6 +754,7 @@ MonoBehaviour:
   defaultCapacity: 8
   maxSize: 32
   forceUnlit: 1
+  freezeFadeOnPause: 1
 --- !u!114 &7791465751774669392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,3 +773,15 @@ MonoBehaviour:
   - Afterimage
   - HitSpark
   silhouetteColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &1630182305097442079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5449769088092458507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e57a030ede4ce78f2d19538ca5a2a1, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:

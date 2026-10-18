@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,6 +18,7 @@ public class EnemyStunController : MonoBehaviour
 
     AttackStrike _attack;
     SkeletonController _brain;
+    SkeletonController _health;
 
     [Header("Events")]
     public UnityEvent onStunStart;   // <-- NEW
@@ -33,11 +34,26 @@ public class EnemyStunController : MonoBehaviour
     {
         if (autoDisableAttackStrike) _attack = GetComponent<AttackStrike>();
         if (autoDisableSkeletonController) _brain = GetComponent<SkeletonController>();
+        _health = GetComponent<SkeletonController>();
+        if (_health) _health.OnDeathStarted += OnDeathStarted;
+    }
+
+    void OnDestroy()
+    {
+        if (_health) _health.OnDeathStarted -= OnDeathStarted;
+    }
+
+    void OnDeathStarted()
+    {
+        // Slayer disables this component while its coroutine is still running.
+        // Death must cancel the later return to idle without unlocking drivers.
+        StopAllCoroutines();
+        _isStunned = false;
     }
 
     public void TriggerStun(float seconds)
     {
-        if (seconds <= 0f) return;
+        if (seconds <= 0f || (_health && _health.IsDead)) return;
         StopAllCoroutines();
         StartCoroutine(StunRoutine(seconds));
     }
@@ -51,7 +67,11 @@ public class EnemyStunController : MonoBehaviour
         onStunStart?.Invoke(); // <-- NEW
         if (logs) Debug.Log($"[Stun] {name} START {seconds:0.00}s");
 
-        yield return new WaitForSecondsRealtime(seconds);
+        for (float elapsed = 0f; elapsed < seconds;)
+        {
+            if (!GamePauseController.InputBlocked) elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
 
         _isStunned = false;
         SetDisabled(false);

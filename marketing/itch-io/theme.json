@@ -1,0 +1,50 @@
+{
+  "game_id": 3857509,
+  "page_url": "https://micharel09.itch.io/typing-hero",
+  "reference_url": "https://roboatino.itch.io/shogunshowdown",
+  "layout": {
+    "bg_color": "#000000",
+    "bg2_color": "#000000",
+    "text_color": "#ffffff",
+    "link_color": "#ed4231",
+    "button_color": "#ed4231",
+    "font_family": "lato",
+    "font_size": "large",
+    "screenshots_loc": "hidden",
+    "banner_alignment": "align_center"
+  },
+  "banner": {
+    "file": "banner.png",
+    "width": 960,
+    "height": 394,
+    "image_id": 30983627
+  },
+  "cover": {
+    "file": "cover.png",
+    "width": 630,
+    "height": 500,
+    "image_id": 30983602
+  },
+  "embed": {
+    "embed_type": "maximized",
+    "preview_width": 640,
+    "preview_height": 360,
+    "mobile_friendly": false,
+    "fullscreen": true
+  },
+  "playable": {
+    "file": "TypingHero-WebGL-shogun-20261017.zip",
+    "upload_id": 19819691,
+    "sha256": "b5e56079314c73fac75e20495db47a4a2e77897fa793f46a81aab21ebced53b3",
+    "rollback_upload_id": 19793957
+  },
+  "description_gif_url": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMDk4Mjc5MC5naWY=/original/dgWSbt.gif",
+  "devlog": {
+    "id": 1712170,
+    "published": false
+  },
+  "social_image": {
+    "file": "banner.png",
+    "image_id": 30983638
+  }
+}

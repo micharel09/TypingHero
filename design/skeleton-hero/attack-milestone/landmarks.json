@@ -1,0 +1,244 @@
+[
+  {
+    "name": "idle-0",
+    "sha256": "6d530de1f486e7be874a5029478d2fe822944315a1617c73209c040595fa404b",
+    "components": [
+      574
+    ],
+    "bodyX": 43,
+    "headY": 21,
+    "elbow": [
+      54,
+      40
+    ],
+    "grip": [
+      58,
+      43
+    ],
+    "tip": [
+      69,
+      23
+    ],
+    "slash": 0
+  },
+  {
+    "name": "attack-0",
+    "sha256": "6d530de1f486e7be874a5029478d2fe822944315a1617c73209c040595fa404b",
+    "components": [
+      574
+    ],
+    "bodyX": 43,
+    "headY": 21,
+    "elbow": [
+      54,
+      40
+    ],
+    "grip": [
+      58,
+      43
+    ],
+    "tip": [
+      69,
+      23
+    ],
+    "slash": 0
+  },
+  {
+    "name": "attack-1",
+    "sha256": "c7f7d4c40cf56a25311c6ffcee8d3ebc599262d6256f5ea18ce597f8472a443d",
+    "components": [
+      509
+    ],
+    "bodyX": 42,
+    "headY": 22,
+    "elbow": [
+      51,
+      34
+    ],
+    "grip": [
+      47,
+      31
+    ],
+    "tip": [
+      27,
+      19
+    ],
+    "slash": 0
+  },
+  {
+    "name": "attack-2",
+    "sha256": "93876fdfa9c1280aa305268540c7b28002b6324d21ec057256f01d30086df775",
+    "components": [
+      525
+    ],
+    "bodyX": 40,
+    "headY": 23,
+    "elbow": [
+      48,
+      31
+    ],
+    "grip": [
+      39,
+      30
+    ],
+    "tip": [
+      17,
+      22
+    ],
+    "slash": 0
+  },
+  {
+    "name": "attack-3",
+    "sha256": "356caf8496008f694d898663cfec6d748198c4315b939c1656b4e12835cea7b0",
+    "components": [
+      529
+    ],
+    "bodyX": 40,
+    "headY": 23,
+    "elbow": [
+      48,
+      31
+    ],
+    "grip": [
+      38,
+      30
+    ],
+    "tip": [
+      16,
+      23
+    ],
+    "slash": 0
+  },
+  {
+    "name": "attack-4",
+    "sha256": "61ec5cc220d980dae800d3aeaae832015705c522e69475b76858fd724dabbbe1",
+    "components": [
+      572
+    ],
+    "bodyX": 43,
+    "headY": 22,
+    "elbow": [
+      53,
+      29
+    ],
+    "grip": [
+      51,
+      24
+    ],
+    "tip": [
+      40,
+      5
+    ],
+    "slash": 0
+  },
+  {
+    "name": "attack-5",
+    "sha256": "84f37a1f0d0e578e7d44460638715f7794a04e8b9c062adf000aa1296ffb42d1",
+    "components": [
+      775
+    ],
+    "bodyX": 51,
+    "headY": 21,
+    "elbow": [
+      63,
+      31
+    ],
+    "grip": [
+      67,
+      30
+    ],
+    "tip": [
+      92,
+      28
+    ],
+    "slash": 2
+  },
+  {
+    "name": "attack-6",
+    "sha256": "e729e0c2b58b47d8c834b3f3918ebdd08c7085ab3b51afd4e59f1e3808c1c9da",
+    "components": [
+      733
+    ],
+    "bodyX": 52,
+    "headY": 22,
+    "elbow": [
+      63,
+      40
+    ],
+    "grip": [
+      69,
+      44
+    ],
+    "tip": [
+      87,
+      52
+    ],
+    "slash": 1
+  },
+  {
+    "name": "attack-7",
+    "sha256": "9a650cae1e4a1725004a0718506016ca47e47cdab51355af73f14170383c3de8",
+    "components": [
+      576
+    ],
+    "bodyX": 48,
+    "headY": 23,
+    "elbow": [
+      58,
+      44
+    ],
+    "grip": [
+      61,
+      48
+    ],
+    "tip": [
+      78,
+      57
+    ],
+    "slash": 0
+  },
+  {
+    "name": "attack-8",
+    "sha256": "5175c145dac62856ea6190aedb30a33a78de4c4afc4620dc49802d38ba503092",
+    "components": [
+      570
+    ],
+    "bodyX": 45,
+    "headY": 22,
+    "elbow": [
+      56,
+      42
+    ],
+    "grip": [
+      60,
+      44
+    ],
+    "tip": [
+      78,
+      31
+    ],
+    "slash": 0
+  },
+  {
+    "name": "attack-9",
+    "sha256": "6d530de1f486e7be874a5029478d2fe822944315a1617c73209c040595fa404b",
+    "components": [
+      574
+    ],
+    "bodyX": 43,
+    "headY": 21,
+    "elbow": [
+      54,
+      40
+    ],
+    "grip": [
+      58,
+      43
+    ],
+    "tip": [
+      69,
+      23
+    ],
+    "slash": 0
+  }
+]

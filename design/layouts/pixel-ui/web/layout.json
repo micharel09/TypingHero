@@ -1,0 +1,100 @@
+{
+  "layoutId": "pixel-ui",
+  "revision": 1,
+  "platform": "web",
+  "owner": "Assets/Scripts/UI and UGUI scenes",
+  "contract": "contract.md",
+  "variants": [
+    {
+      "id": "menu",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "menu.wireframe.json",
+      "preview": "menu.wireframe.html",
+      "capture": "menu.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "8487f26f55d9be70aa5f9dbb4e49c84c6c27808b7cac8c7aa78a996a8b5ab664",
+        "previewSha256": "4325aed24daf621b90b85240e468688fa3dd2dbf0d74fac0dac6a13d655afbc9",
+        "pngSha256": "ed2548d794f42b29bc0d8139d97babdd18e18a775f1dbc57384e97ccfe7291ea"
+      }
+    },
+    {
+      "id": "gameplay",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "gameplay.wireframe.json",
+      "preview": "gameplay.wireframe.html",
+      "capture": "gameplay.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "8487f26f55d9be70aa5f9dbb4e49c84c6c27808b7cac8c7aa78a996a8b5ab664",
+        "previewSha256": "670c9f6defa216cbd4b97a292e1fd86ee8a0338cbb5716a13515455b6215137f",
+        "pngSha256": "54ded8aec151bdf77b9a4f20753116b9f39973a0365cb5d7329912be7ef937d8"
+      }
+    },
+    {
+      "id": "pause",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "pause.wireframe.json",
+      "preview": "pause.wireframe.html",
+      "capture": "pause.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "8487f26f55d9be70aa5f9dbb4e49c84c6c27808b7cac8c7aa78a996a8b5ab664",
+        "previewSha256": "d9867a086d1d9c5ef048633d871139777d503f15de6ad1e76cde8ee73a07066c",
+        "pngSha256": "d0fa330944de608c55aa63e18995794f5dca0cf08ff563f1147d0a514c3c760d"
+      }
+    },
+    {
+      "id": "small",
+      "viewport": {
+        "width": 640,
+        "height": 360
+      },
+      "wireframe": "small.wireframe.json",
+      "preview": "small.wireframe.html",
+      "capture": "small.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "8487f26f55d9be70aa5f9dbb4e49c84c6c27808b7cac8c7aa78a996a8b5ab664",
+        "previewSha256": "827317a5f929f9ac38830ef612c0d960e58569207ca418c8ddaa3aa9b3bf9840",
+        "pngSha256": "7f9e4ab4c7a66bfe2f5186f126a38a97ecf69fcc9281c9888d53ea48d953d77c"
+      }
+    }
+  ],
+  "approval": {
+    "status": "approved",
+    "revision": 1,
+    "inputFingerprint": "8487f26f55d9be70aa5f9dbb4e49c84c6c27808b7cac8c7aa78a996a8b5ab664",
+    "evidence": "User 2026-10-16: oke ap skin pixel vao cho hop, trien khai lien di (approval of previews in preceding response).",
+    "approvedAt": "2026-10-16T02:48:35.715887+00:00",
+    "artifacts": {
+      "menu.wireframe.html": "4325aed24daf621b90b85240e468688fa3dd2dbf0d74fac0dac6a13d655afbc9",
+      "menu.png": "ed2548d794f42b29bc0d8139d97babdd18e18a775f1dbc57384e97ccfe7291ea",
+      "gameplay.wireframe.html": "670c9f6defa216cbd4b97a292e1fd86ee8a0338cbb5716a13515455b6215137f",
+      "gameplay.png": "54ded8aec151bdf77b9a4f20753116b9f39973a0365cb5d7329912be7ef937d8",
+      "pause.wireframe.html": "d9867a086d1d9c5ef048633d871139777d503f15de6ad1e76cde8ee73a07066c",
+      "pause.png": "d0fa330944de608c55aa63e18995794f5dca0cf08ff563f1147d0a514c3c760d",
+      "small.wireframe.html": "827317a5f929f9ac38830ef612c0d960e58569207ca418c8ddaa3aa9b3bf9840",
+      "small.png": "7f9e4ab4c7a66bfe2f5186f126a38a97ecf69fcc9281c9888d53ea48d953d77c"
+    }
+  },
+  "rendered": {
+    "revision": 1,
+    "inputFingerprint": "8487f26f55d9be70aa5f9dbb4e49c84c6c27808b7cac8c7aa78a996a8b5ab664",
+    "previews": {
+      "menu.wireframe.html": "4325aed24daf621b90b85240e468688fa3dd2dbf0d74fac0dac6a13d655afbc9",
+      "gameplay.wireframe.html": "670c9f6defa216cbd4b97a292e1fd86ee8a0338cbb5716a13515455b6215137f",
+      "pause.wireframe.html": "d9867a086d1d9c5ef048633d871139777d503f15de6ad1e76cde8ee73a07066c",
+      "small.wireframe.html": "827317a5f929f9ac38830ef612c0d960e58569207ca418c8ddaa3aa9b3bf9840"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+Dark Ages UI v1.0 by Hypnobius
+https://hypnobius.itch.io/dark-ages-ui
+Used in TypingHero under the included DarkAges-License.txt.
+Original tilesheet sliced in Unity; Point filtering and 9-slice borders.
+
+Input Prompts Pixel by Kenney (CC0)
+https://kenney.nl/assets/input-prompts-pixel
+See Kenney-License.txt.
+
+VT323 by Peter Hull (SIL Open Font License 1.1)
+https://github.com/google/fonts/tree/main/ofl/vt323
+See VT323-OFL.txt.
+
+Legacy UI Essential Flat frame by Crusenho (CC BY 4.0)
+https://crusenho.itch.io/complete-ui-essential-pack
+Retained in disabled legacy UI; see Crusenho-License.txt.

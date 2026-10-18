@@ -1,4 +1,4 @@
-﻿// === AttackStrike.cs (drop-in) ===
+// === AttackStrike.cs (drop-in) ===
 using UnityEngine;
 
 public class AttackStrike : MonoBehaviour
@@ -17,7 +17,14 @@ public class AttackStrike : MonoBehaviour
     [SerializeField] bool logs;
 
     IDamageable _target;
+    bool spent = true;
+    public void BeginSwing() { spent = false; }
     float _parryLockUntilUnscaled = -1f;
+
+    void Update()
+    {
+        if (GamePauseController.InputBlocked) _parryLockUntilUnscaled += Time.unscaledDeltaTime;
+    }
 
     // ---------------- API ----------------
 
@@ -49,6 +56,12 @@ public class AttackStrike : MonoBehaviour
     // Animation Event gọi đúng frame va chạm
     public void Anim_DealDamage()
     {
+        if (!enabled || spent || GamePauseController.InputBlocked || CombatSession.Finished) return;
+        spent = true;
+        var skeleton = GetComponent<SkeletonController>();
+        if (skeleton) skeleton.HideCue();
+        var parryTarget = GetComponent<ParryTarget>();
+        if (parryTarget) parryTarget.Anim_StrikeFrame();
         // BỊ KHÓA DO PARRY → BỎ QUA
         if (IsParryLocked)
         {

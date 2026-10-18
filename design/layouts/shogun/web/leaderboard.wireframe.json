@@ -1,0 +1,65 @@
+{
+  "name": "Top 1000 modal",
+  "viewport": {
+    "width": 960,
+    "height": 540
+  },
+  "root": {
+    "name": "Opaque modal / previous screen input blocked",
+    "padding": 16,
+    "direction": "horizontal",
+    "justify": "center",
+    "gap": 24,
+    "children": [
+      {
+        "name": "Leaderboard",
+        "width": 232,
+        "height": 508,
+        "children": [
+          {
+            "name": "TOP 1000",
+            "type": "text",
+            "height": 40
+          },
+          {
+            "name": "Virtualized rows",
+            "type": "table",
+            "columns": [
+              {
+                "name": "#",
+                "width": 36
+              },
+              {
+                "name": "NAME",
+                "grow": true
+              },
+              {
+                "name": "SCORE",
+                "width": 64
+              }
+            ],
+            "rows": 12
+          }
+        ],
+        "direction": "vertical"
+      },
+      {
+        "name": "Actions",
+        "width": 160,
+        "children": [
+          {
+            "name": "Close",
+            "type": "button",
+            "height": 40
+          },
+          {
+            "name": "Refresh",
+            "type": "button",
+            "height": 40
+          }
+        ],
+        "direction": "vertical"
+      }
+    ]
+  }
+}

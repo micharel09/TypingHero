@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +9,7 @@ using UnityEditor;
 #endif
 
 [DisallowMultipleComponent]
+[DefaultExecutionOrder(1000)]
 public class SlayerScreenFX : MonoBehaviour
 {
     [Header("Refs")]
@@ -92,7 +93,65 @@ public class SlayerScreenFX : MonoBehaviour
     }
     // ---------- End Toggle Group ----------
 
+    [Header("Cinematic presentation")]
+    [SerializeField] Transform environment;
+    [SerializeField] BoxCollider2D playerBody, enemyBody;
+    [SerializeField] CombatHUDLayout hudLayout;
+    [SerializeField] RectTransform scoreRoot, typingTray, popupAnchor;
+    [SerializeField] Image hudPanel, typingPanel;
+    [SerializeField] GameObject scoreCaption;
+    bool _captionWasActive;
+    [SerializeField] float bodyPadding = 8f;
+    bool _cinematic, _environmentWasActive, _hudWasEnabled, _trayWasEnabled;
+    float _barReveal;
     Camera _main;
+
+    // Runs after Cinemachine and the viewport camera: use the actual rendered projection.
+    void LateUpdate()
+    {
+        if (!_cinematic || !_main || !hudLayout) return;
+        var viewport = _main.rect;
+        _main.rect = new Rect(0, viewport.y, 1, viewport.height);
+        var parent = topBar.parent as RectTransform;
+        var head = hudLayout.HighestHead;
+        var foot = hudLayout.LowestFoot;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
+            _main.WorldToScreenPoint(head), null, out var top);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
+            _main.WorldToScreenPoint(foot), null, out var bottom);
+        float topHeight = Mathf.Max(0, parent.rect.yMax - top.y - bodyPadding);
+        float bottomHeight = Mathf.Max(0, bottom.y - parent.rect.yMin - bodyPadding);
+        topBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, topHeight * _barReveal);
+        bottomBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, bottomHeight * _barReveal);
+
+    }
+
+    void BeginPresentation()
+    {
+        if (_cinematic || !scoreRoot || !typingTray) return;
+        _cinematic = true;
+        _environmentWasActive = environment && environment.gameObject.activeSelf;
+        if (environment) environment.gameObject.SetActive(false);
+        _captionWasActive = scoreCaption && scoreCaption.activeSelf;
+        if (scoreCaption) scoreCaption.SetActive(false);
+        _hudWasEnabled = hudPanel && hudPanel.enabled;
+        _trayWasEnabled = typingPanel && typingPanel.enabled;
+        if (hudPanel) hudPanel.enabled = false;
+        if (typingPanel) typingPanel.enabled = false;
+    }
+
+    void EndPresentation()
+    {
+        if (!_cinematic) return;
+        _cinematic = false;
+        if (environment) environment.gameObject.SetActive(_environmentWasActive);
+        if (scoreCaption) scoreCaption.SetActive(_captionWasActive);
+        if (hudPanel) hudPanel.enabled = _hudWasEnabled;
+        if (typingPanel) typingPanel.enabled = _trayWasEnabled;
+    }
+
+    void OnDisable() { StopAllCoroutines(); EndPresentation(); SetBarsInstant(0); SetRedInstant(0); SetZoomInstant(normalOrtho); }
+
 
     void Awake()
     {
@@ -108,6 +167,7 @@ public class SlayerScreenFX : MonoBehaviour
     // Public API
     public void EnterSlayerFX()
     {
+        BeginPresentation();
         if (autoShowOnEnter) SetGroup(true);
 
         StopAllCoroutines();
@@ -126,6 +186,7 @@ public class SlayerScreenFX : MonoBehaviour
 
     public void ExitSlayerFX()
     {
+        EndPresentation();
         StopAllCoroutines();
         StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, normalOrtho, zoomDuration, zoomCurve));
         StartCoroutine(CoBars(GetBarHeight(topBar), 0f, barDuration, barCurve));
@@ -191,6 +252,7 @@ public class SlayerScreenFX : MonoBehaviour
 
     void SetBarsInstant(float height)
     {
+        _barReveal = Mathf.Clamp01(height / Mathf.Max(.001f, barHeight));
         if (topBar) { var s = topBar.sizeDelta; s.y = height; topBar.sizeDelta = s; }
         if (bottomBar) { var s = bottomBar.sizeDelta; s.y = height; bottomBar.sizeDelta = s; }
     }

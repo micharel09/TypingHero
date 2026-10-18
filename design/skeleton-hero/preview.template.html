@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skeleton · đủ36 frame</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#14201f;color:#f2e7cf;font:15px/1.5 system-ui,sans-serif}main{max-width:1500px;margin:auto;padding:24px}h1{font-size:24px;margin:0 0 8px}p{max-width:1000px}button,select,input{font:inherit}button,select{background:#233b37;color:inherit;border:1px solid #668e83;border-radius:4px;padding:7px 12px}button{cursor:pointer}label{display:inline-flex;gap:7px;align-items:center}nav,.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0}button[aria-pressed=true]{background:#528d83;color:#fff}.scroll{overflow:auto;background:#0d1717;border:1px solid #52615a}canvas{display:block;image-rendering:pixelated}#status{font-variant-numeric:tabular-nums;min-height:28px;color:#ffdb91}input[type=range]{width:min(600px,80vw)}.muted{color:#b8bfb4}details{margin-top:20px}a{color:#9dd7cc}
+</style>
+<main>
+<h1>Skeleton — đủ36 frame theo mẫu đã duyệt</h1>
+<p><a href="weapon-milestone/review.html">Mẫu mới: rìu và thương · Idle0 + Attack10 cạnh hero và kiếm</a></p>
+<p>Đã tích hợp Idle8, Attack1 10, Hurt5 và Die13. Bộ mẫu Idle0 + Attack1 đã duyệt giữ nguyên byte. Cột thứ ba là bản chỉ đổi màu cho11 mẫu; với25 frame còn lại dùng originals và ghi rõ nhãn. Hurt1 giữ nguyên toàn bộ flash VFX gốc. Nền và bố cục tái dựng để soi art; không thay bằng chứng Unity/WebGL.</p>
+<nav aria-label="Mẫu"><button data-pose="idle" aria-pressed="true">Idle · frame 0</button><button data-pose="anticipation">Lấy đà · frame 3</button><button data-pose="contact">Impact · frame 5</button></nav>
+<div class="controls">
+<label>Tỷ lệ <select id="zoom"><option value="3.5">1280×720 · 3,5 px/texel*</option><option value="1.75">640×360 · 1,75 px/texel*</option><option value="1">1× pixel nguồn</option><option value="4">4× nearest</option><option value="8">8× nearest</option></select></label>
+<label><input id="overlay" type="checkbox">Overlay gốc 50%</label>
+<label><input id="diff" type="checkbox">Diff màu so với cột thứ ba</label>
+<label><input id="mask" type="checkbox">Mask khóa kiếm/grip/VFX</label>
+<label><input id="anchors" type="checkbox">Anchor</label>
+<label><input id="flip" type="checkbox">Skeleton quay trái như game</label>
+</div>
+<div class="scroll"><canvas id="view" aria-label="Hero, originals, chỉ đổi màu và chỉnh cụm pixel"></canvas></div>
+<div class="controls"><label>Clip <select id="clip"><option>Idle</option><option>Attack1</option><option>Hurt</option><option>Die</option><option>Stun</option><option>hitBySlayer</option></select></label><button id="play">Phát clip</button><label>Tốc độ <select id="speed"><option value="1">1×</option><option value="0.25">0,25×</option></select></label><button id="telegraph">0,7s · Telegraph</button><button id="impact">1,0s · Impact</button><button id="previous">−1 key</button><button id="next">+1 key</button></div>
+<label>Thời gian <input id="time" type="range" min="0" max="0.6" step="0.0001" value="0"><output id="timeLabel">0,0000s</output></label>
+<div id="status" role="status"></div>
+<p class="muted">* Kích thước chơi được tái dựng từ viewport 340/540 chiều cao, camera ortho 4,047619, PPU 16, transform scale 1. Đây là preview art; chưa phải bằng chứng chạy Unity/WebGL. Pivot skeleton vẫn (0,47; 0,41). Đường đất căn theo pixel chân; không thay transform runtime.</p>
+<details open><summary>Các cụm đã chỉnh</summary><p>Sọ: nối sáng trán/vòm và gò má, gom bóng hàm. Ngực: gom đầu sườn phía tối thành mặt lạnh liền, giữ khe tối phía sáng để vẫn đọc xương. Chậu và khớp: tách mặt sáng khỏi bóng; chân xa nối dải sáng theo đường xương từng pose. Highlight RGB250, không tăng độ dày chi. Tắt anchor khi đánh giá art.</p><p>Diff hiển thị màu đã đổi so với cột thứ ba trên nền originals mờ. Mask hồng hiển thị toàn vùng khóa bảo thủ, kể cả khoảng rỗng và xương gần kiếm. Alpha và RGBA vùng khóa được kiểm riêng từng pixel. Anchor: xanh ngọc = pivot, vàng = grip, xanh nhạt = mũi kiếm.</p><pre id="timing"></pre></details>
+</main>
+<script>
+'use strict';
+const payload=/*PAYLOAD*/;
+const $=id=>document.getElementById(id);
+const imageMap={};
+const tintedLayers={};
+const backgrounds={};
+let currentPose='idle',playing=false,t=0,last=0;
+const samples=payload.samples;
+const anchors=Object.fromEntries(payload.landmarks.map((p,i)=>[i?'attack'+(i-1):'idle',p]));
+const frameAt=(clip,time)=>payload.timelines[clip].keys.filter(k=>k.time<=time+1e-8).at(-1).frame;
+function stop(){playing=false;$('play').textContent='Phát clip';}
+function setTime(value){t=value;$('time').value=t;render();}
+function selectClip(name){$('clip').value=name;$('time').max=payload.timelines[name].duration;}
+function poseAt(){return samples[$('clip').value][frameAt($('clip').value,t)]||null;}
+function drawSkeleton(ctx,key,frame,x,y,scale){
+ ctx.save();ctx.translate(x,y);
+ if($('flip').checked){ctx.translate(96*scale,0);ctx.scale(-1,1);}
+ const image=imageMap[key];ctx.drawImage(image,frame*96,0,96,64,0,0,96*scale,64*scale);
+ ctx.restore();
+}
+function render(){
+ const clip=$('clip').value,frame=frameAt(clip,t),pose=poseAt(),s=Number($('zoom').value),gap=20;
+ const canvas=$('view'),game=s===3.5||s===1.75;
+ const width=game?(s===3.5?1280:640):Math.ceil(384*s+gap*5),height=game?(s===3.5?720:360):Math.ceil(64*s+70);
+ if(canvas.width!==width)canvas.width=width;if(canvas.height!==height)canvas.height=height;
+ const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+ ctx.fillStyle='#0d1717';ctx.fillRect(0,0,canvas.width,canvas.height);
+ const ground=game?canvas.height*.875:canvas.height-24,top=ground-64*s;
+ const layers=[['Sky','#A6C8DB'],['Clouds','#CCD5C3'],['Fuji','#638F91'],['Mountain_Back','#628E8B'],['Mountain_Middle','#496D69'],['Mountain_Front','#354D4C'],['BackgroundTrees','#346F61'],['House','#7C9F8F'],['Ground','#719382']];
+ const backgroundKey=width+'x'+height;
+ if(!backgrounds[backgroundKey]){
+  const background=document.createElement('canvas');background.width=width;background.height=height;
+  const bg=background.getContext('2d');bg.imageSmoothingEnabled=false;bg.fillStyle='#0d1717';bg.fillRect(0,0,width,height);
+  for(const [key,tint] of layers){
+   if(!tintedLayers[key]){const layer=document.createElement('canvas');layer.width=imageMap[key].width;layer.height=imageMap[key].height;const c=layer.getContext('2d');c.drawImage(imageMap[key],0,0);c.globalCompositeOperation='multiply';c.fillStyle=tint;c.fillRect(0,0,layer.width,layer.height);c.globalCompositeOperation='destination-in';c.drawImage(imageMap[key],0,0);tintedLayers[key]=layer;}
+   bg.drawImage(tintedLayers[key],0,0,width,height);
+  }
+  backgrounds[backgroundKey]=background;
+ }
+ ctx.drawImage(backgrounds[backgroundKey],0,0);
+ ctx.strokeStyle='#668e83';ctx.beginPath();ctx.moveTo(0,ground+.5);ctx.lineTo(canvas.width,ground+.5);ctx.stroke();
+ const xs=game?[0,.235*canvas.width,.47*canvas.width,.705*canvas.width]:[gap,96*s+2*gap,192*s+3*gap,288*s+4*gap];
+ ctx.font=(canvas.width===640?'11':'14')+'px system-ui';ctx.fillStyle='#fff';ctx.shadowColor='#14201f';ctx.shadowBlur=3;['Hero · gốc','Originals',payload.paletteAvailable.includes(pose)?'Chỉ đổi màu':'Gốc · không bản màu',pose?'Hoàn thiện · '+pose:'Frame '+frame].forEach((name,i)=>ctx.fillText(name,xs[i]+8,22));
+ // Hero source feet end at y80. Its source pivot x62.72 aligns with skeleton x45.12.
+ ctx.drawImage(imageMap.hero,xs[0]+(45.12-62.72)*s,ground-80*s,128*s,128*s);
+ ctx.shadowBlur=0;drawSkeleton(ctx,clip,frame,xs[1],top,s);
+ drawSkeleton(ctx,pose?'palette-'+pose:clip,pose?0:frame,xs[2],top,s);
+ if(pose&&$('diff').checked){ctx.globalAlpha=.25;drawSkeleton(ctx,clip,frame,xs[3],top,s);ctx.globalAlpha=1;drawSkeleton(ctx,'diff-'+pose,0,xs[3],top,s);}
+ else drawSkeleton(ctx,pose||clip,pose?0:frame,xs[3],top,s);
+ if(pose&&$('mask').checked){ctx.globalAlpha=.65;drawSkeleton(ctx,'mask-'+pose,0,xs[3],top,s);ctx.globalAlpha=1;}
+ if($('overlay').checked){ctx.globalAlpha=.5;drawSkeleton(ctx,clip,frame,xs[3],top,s);ctx.globalAlpha=1;}
+ if($('anchors').checked){
+  for(const x of [xs[3]]){const points=[{xy:[45.12,37.76],color:'#78ddc4'},...(anchors[pose]?[{xy:anchors[pose].grip,color:'#ffda80'},{xy:anchors[pose].tip,color:'#83c8ff'}]:[])];for(const p of points){const px=x+($('flip').checked?96-p.xy[0]:p.xy[0])*s,py=top+p.xy[1]*s;ctx.strokeStyle=p.color;ctx.beginPath();ctx.moveTo(px-4,py);ctx.lineTo(px+4,py);ctx.moveTo(px,py-4);ctx.lineTo(px,py+4);ctx.stroke();}}
+ }
+ $('timeLabel').textContent=t.toFixed(4)+'s';
+ $('status').textContent=`${clip} · frame ${frame} · ${pose==='hurt1'?'GIỮ FLASH VFX GỐC':pose?'HOÀN THIỆN — '+pose:'GỐC'}`+(clip==='Attack1'?(t>=1?' · impact đã phát':t>=.7?' · telegraph đã phát':''):'');
+ document.querySelectorAll('[data-pose]').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.pose==='idle'?'idle':b.dataset.pose==='anticipation'?'attack3':'attack5')===pose)));
+}
+document.querySelectorAll('[data-pose]').forEach(b=>b.onclick=()=>{stop();currentPose=b.dataset.pose;selectClip(currentPose==='idle'?'Idle':'Attack1');setTime(currentPose==='idle'?0:currentPose==='anticipation'?.7:1);});
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'Dừng':'Phát clip';last=performance.now();};
+$('clip').onchange=()=>{stop();selectClip($('clip').value);setTime(0);};
+$('time').oninput=()=>{stop();setTime(Number($('time').value));};
+for(const id of ['zoom','overlay','diff','mask','anchors','flip'])$(id).onchange=render;
+for(const [id,time] of [['telegraph',.7],['impact',1]])$(id).onclick=()=>{stop();selectClip('Attack1');setTime(time);};
+for(const [id,d] of [['previous',-1],['next',1]])$(id).onclick=()=>{stop();const keys=payload.timelines[$('clip').value].keys;let i=keys.findLastIndex(k=>k.time<=t+1e-8);setTime(keys[(i+d+keys.length)%keys.length].time);};
+// Orca's embedded page can stop dispatching RAF while still reporting visible.
+// Use elapsed wall time so review playback continues and retains clip timing.
+function tick(now){if(playing){t=(t+(now-last)/1000*Number($('speed').value))%payload.timelines[$('clip').value].duration;$('time').value=t;render();}last=now;}
+Promise.all(Object.entries(payload.images).map(([key,url])=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>{imageMap[key]=image;resolve();};image.onerror=reject;image.src=url;}))).then(()=>{$('timing').textContent=JSON.stringify(payload.timelines,null,2);render();last=performance.now();setInterval(()=>tick(performance.now()),1000/60);window.previewReady=true;});
+</script></html>

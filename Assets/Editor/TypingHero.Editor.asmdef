@@ -1,0 +1,5 @@
+{
+  "name": "TypingHero.Editor",
+  "references": ["TypingHero.Runtime", "Unity.TextMeshPro", "Unity.ugui", "Unity.2D.Sprite.Editor"],
+  "includePlatforms": ["Editor"]
+}

@@ -1,0 +1,170 @@
+{
+  "name": "Gameplay 640?360",
+  "viewport": {
+    "width": 640,
+    "height": 360
+  },
+  "root": {
+    "name": "Game canvas / 960×540 reference, uniform scale",
+    "direction": "horizontal",
+    "padding": 11,
+    "gap": 5,
+    "children": [
+      {
+        "name": "Combat column",
+        "grow": true,
+        "gap": 8,
+        "children": [
+          {
+            "name": "Fixed HUD",
+            "direction": "horizontal",
+            "height": 80,
+            "gap": 8,
+            "children": [
+              {
+                "name": "Player",
+                "grow": true,
+                "children": [
+                  {
+                    "name": "Nguyễn An / PLAYER HP",
+                    "type": "text",
+                    "height": 24,
+                    "variant": "caption"
+                  },
+                  {
+                    "name": "HP",
+                    "type": "divider"
+                  }
+                ],
+                "direction": "vertical"
+              },
+              {
+                "name": "Score / combo",
+                "width": 112,
+                "children": [
+                  {
+                    "name": "SCORE 128 450",
+                    "type": "text",
+                    "height": 24,
+                    "variant": "caption"
+                  },
+                  {
+                    "name": "COMBO x12.0",
+                    "type": "text",
+                    "height": 24,
+                    "variant": "caption"
+                  }
+                ],
+                "direction": "vertical"
+              },
+              {
+                "name": "Opponent",
+                "grow": true,
+                "children": [
+                  {
+                    "name": "SKELETON / ENEMY HP",
+                    "type": "text",
+                    "height": 24,
+                    "variant": "caption"
+                  },
+                  {
+                    "name": "HP",
+                    "type": "divider"
+                  },
+                  {
+                    "name": "ENEMY STAMINA",
+                    "type": "text",
+                    "height": 16,
+                    "variant": "caption"
+                  },
+                  {
+                    "name": "Stamina",
+                    "type": "divider"
+                  }
+                ],
+                "direction": "vertical"
+              }
+            ]
+          },
+          {
+            "name": "Existing arena + characters (preserved)",
+            "grow": true,
+            "justify": "center",
+            "gap": 12,
+            "children": [
+              {
+                "name": "Typing rail",
+                "direction": "horizontal",
+                "justify": "center",
+                "height": 40,
+                "gap": 24,
+                "children": [
+                  {
+                    "name": "strike",
+                    "type": "text",
+                    "height": 40
+                  },
+                  {
+                    "name": "shadow",
+                    "type": "text",
+                    "height": 40
+                  },
+                  {
+                    "name": "defend",
+                    "type": "text",
+                    "height": 40
+                  }
+                ]
+              },
+              {
+                "name": "Word timer",
+                "type": "divider"
+              },
+              {
+                "name": "Combat viewport / existing sprites and VFX",
+                "type": "image",
+                "grow": true
+              }
+            ],
+            "direction": "vertical"
+          }
+        ],
+        "direction": "vertical"
+      },
+      {
+        "name": "Leaderboard / separate column",
+        "width": 155,
+        "gap": 8,
+        "padding": 8,
+        "children": [
+          {
+            "name": "TOP 1000",
+            "type": "text",
+            "height": 32
+          },
+          {
+            "name": "Scrollable ranks / alternating rows + scrollbar",
+            "type": "table",
+            "grow": true,
+            "columns": [
+              {
+                "name": "#",
+                "width": 32
+              },
+              {
+                "name": "NAME",
+                "grow": true
+              },
+              {
+                "name": "SCORE",
+                "width": 64
+              }
+            ],
+            "rows": 3
+          }
+        ],
+        "direction": "vertical"
+      }
+    ]
+  }
+}

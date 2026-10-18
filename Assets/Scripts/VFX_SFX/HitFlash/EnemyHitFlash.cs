@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -58,6 +58,12 @@ public sealed class EnemyHitFlash : MonoBehaviour
     void Update()
     {
         if (!_active) return;
+        if (GamePauseController.InputBlocked || Time.timeScale == 0f)
+        {
+            _flashUntil += useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+            _flashFrameUntil++;
+            return;
+        }
 
         float now = useUnscaledTime ? Time.unscaledTime : Time.time;
         bool timePassed = now >= _flashUntil;

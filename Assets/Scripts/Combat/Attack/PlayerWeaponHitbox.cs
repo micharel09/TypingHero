@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -22,9 +22,6 @@ public class PlayerWeaponHitbox : MonoBehaviour
     [Header("Stamina drain (normal hit)")]
     [SerializeField] int staminaOnHit = -1;
     [SerializeField] float hitStunSeconds = 6f;
-    [Header("Hit Flash")]
-    [SerializeField, Tooltip("Tăng thời lượng flash khi đang Slayer để mắt kịp thấy.")]
-    float slayerFlashDuration = 0.08f;
     Collider2D col;
     readonly HashSet<IDamageable> hitTargets = new();
     bool active;
@@ -60,7 +57,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!active) return;
+        if (!isActiveAndEnabled || !active || GamePauseController.InputBlocked || CombatSession.Finished) return;
         if ((targetLayers.value & (1 << other.gameObject.layer)) == 0) return;
 
         var dmg = other.GetComponentInParent<IDamageable>();
@@ -71,8 +68,11 @@ public class PlayerWeaponHitbox : MonoBehaviour
         Vector2 p = other.ClosestPoint(transform.position);
         Transform root = other.transform.root;
 
+        bool wasSlayer = slayer && slayer.IsActive;
+        bool ignoreHitstop = wasSlayer && slayer.IgnoreHitstop;
+
         // === Reaction rules ===
-        if (slayer && slayer.IsActive)
+        if (wasSlayer)
         {
             // QUAN TRỌNG: KHÔNG reassert stun trong Slayer để nhường hit-pose
             if (root.TryGetComponent(out EnemyHitReactGate gate))
@@ -86,13 +86,13 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
         // === DAMAGE ===
         int applyDamage = damage;
-        if (slayer && slayer.IsActive)
+        if (wasSlayer)
         {
             float mul = Mathf.Max(0f, slayer.CurrentSlayerMultiplier);
             applyDamage = Mathf.RoundToInt(damage * mul);
         }
         dmg.TakeDamage(applyDamage, p);
-        if (slayer && slayer.IsActive && root.TryGetComponent(out EnemySlayerHitPose pose))
+        if (wasSlayer && !dmg.IsDead && root.TryGetComponent(out EnemySlayerHitPose pose))
         {
             pose.OnSlayerHit();
         }
@@ -102,12 +102,11 @@ public class PlayerWeaponHitbox : MonoBehaviour
         // === HIT FLASH (tùy chọn) ===
         if (root.TryGetComponent<EnemyHitFlash>(out var flash))
         {
-            float dur = (slayer && slayer.IsActive) ? Mathf.Max(0.06f, slayerFlashDuration) : -1f;
-            flash.Tick(dur);
+            if (!wasSlayer) flash.Tick();
         }
 
         // === HIT SPARK (tùy chọn) ===
-        if (hitSpark) hitSpark.Spawn(p, transform.root, root);
+        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead);
 
 
 
@@ -126,7 +125,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
             }
         }
 
-        if (hitStopper && !(slayer && slayer.IsActive && slayer.IgnoreHitstop))
+        if (hitStopper && !ignoreHitstop)
         {
             float pStop = (hitStopTarget == HitStopTarget.Player || hitStopTarget == HitStopTarget.Both) ? hitStopper.playerHitStop : 0f;
             float eStop = (hitStopTarget == HitStopTarget.Enemy || hitStopTarget == HitStopTarget.Both) ? hitStopper.enemyHitStop : 0f;

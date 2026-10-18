@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,7 @@ public class SfxPlayer : MonoBehaviour
     [SerializeField, Min(1)] int initialVoices = 8;
     [SerializeField, Min(1)] int maxVoices = 32;
 
+    public float TransitionGain { get; set; } = 1f;
     Transform _root;
 
     readonly Queue<AudioSource> _idle = new();
@@ -21,12 +22,18 @@ public class SfxPlayer : MonoBehaviour
         public Transform owner;
         public string channel;
         public bool fading;
+        public float gain;
         public Coroutine endCo;
         public Coroutine fadeCo;
     }
 
     readonly Dictionary<AudioSource, Active> _bySrc = new();
     readonly List<Active> _actives = new();
+
+    void LateUpdate()
+    {
+        foreach (var voice in _actives) if (voice.src) voice.src.volume = voice.gain * AudioPreferences.Sfx * TransitionGain;
+    }
 
     void Awake()
     {
@@ -77,6 +84,7 @@ public class SfxPlayer : MonoBehaviour
         s.transform.SetParent(_root, false);
         s.clip = null;
         s.outputAudioMixerGroup = null;
+        s.ignoreListenerPause = false;
         s.volume = 1f;
         s.pitch = 1f;
         _idle.Enqueue(s);
@@ -155,11 +163,12 @@ public class SfxPlayer : MonoBehaviour
             src.transform.position = pos;
         }
 
-        var a = new Active { src = src, ev = ev, owner = owner, channel = channel, fading = false };
+        var a = new Active { src = src, ev = ev, owner = owner, channel = channel, fading = false, gain = src.volume };
         _bySrc[src] = a;
         _actives.Add(a);
 
         ev.NotifyStart();
+        src.volume = a.gain * AudioPreferences.Sfx * TransitionGain;
         src.Play();
         a.endCo = StartCoroutine(ReturnWhenDone(a));
         return src;
@@ -189,11 +198,12 @@ public class SfxPlayer : MonoBehaviour
             src.transform.position = pos;
         }
 
-        var a = new Active { src = src, ev = ev, owner = owner, channel = channel, fading = false };
+        var a = new Active { src = src, ev = ev, owner = owner, channel = channel, fading = false, gain = src.volume };
         _bySrc[src] = a;
         _actives.Add(a);
 
         ev.NotifyStart();              // vẫn báo start để counter về sau giảm đúng
+        src.volume = a.gain * AudioPreferences.Sfx * TransitionGain;
         src.Play();
         a.endCo = StartCoroutine(ReturnWhenDone(a));
         return src;
@@ -205,8 +215,12 @@ public class SfxPlayer : MonoBehaviour
         float est = (s.clip ? s.clip.length / Mathf.Max(0.01f, s.pitch) : 0f) + 0.05f;
         float tEnd = Time.unscaledTime + est;
 
-        while (s && s.isPlaying && !a.fading && Time.unscaledTime < tEnd)
+        while (s && !a.fading)
+        {
+            if (AudioListener.pause && !s.ignoreListenerPause) { tEnd += Time.unscaledDeltaTime; yield return null; continue; }
+            if (!s.isPlaying || Time.unscaledTime >= tEnd) break;
             yield return null;
+        }
 
         if (s) Return(s);
     }
@@ -219,12 +233,12 @@ public class SfxPlayer : MonoBehaviour
 
         if (seconds <= 0f) { Return(s); yield break; }
 
-        float v0 = s.volume;
+        float v0 = a.gain;
         float t = 0f;
         while (t < seconds && s)
         {
             t += Time.unscaledDeltaTime;
-            s.volume = Mathf.Lerp(v0, 0f, t / seconds);
+            a.gain = Mathf.Lerp(v0, 0f, t / seconds);
             yield return null;
         }
         if (s) Return(s);

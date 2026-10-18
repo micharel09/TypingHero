@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// Trung gian gom tất cả “cờ khóa” input ở Player (hit/parry/dead…)
@@ -12,6 +12,11 @@ public sealed class PlayerInputGate : MonoBehaviour
     readonly HashSet<object> _parryPoseSources = new(); // nhiều nguồn cùng khóa parry pose
     float _parrySuccUntilUnscaled;                     // i-frame sau parry OK (unscaled)
     bool _deadLocked;                                  // khóa toàn phần khi chết
+
+    void Update()
+    {
+        if (GamePauseController.InputBlocked) _parrySuccUntilUnscaled += Time.unscaledDeltaTime;
+    }
 
     // ---- API set/clear từ các hệ khác ----
     public void SetHitLocked(bool v)

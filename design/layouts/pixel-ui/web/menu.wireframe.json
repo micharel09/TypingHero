@@ -1,0 +1,51 @@
+{
+  "name": "Main menu 960?540",
+  "viewport": {
+    "width": 960,
+    "height": 540
+  },
+  "root": {
+    "name": "Menu canvas",
+    "padding": 16,
+    "justify": "center",
+    "align": "center",
+    "children": [
+      {
+        "name": "Centered menu cluster",
+        "width": 384,
+        "gap": 16,
+        "padding": 24,
+        "children": [
+          {
+            "name": "TYPING HERO",
+            "type": "text",
+            "height": 56
+          },
+          {
+            "name": "PLAYER NAME",
+            "type": "text",
+            "height": 24
+          },
+          {
+            "name": "Nguyễn An",
+            "type": "input",
+            "height": 44,
+            "maxWidth": 336
+          },
+          {
+            "name": "Validation error (when invalid)",
+            "type": "text",
+            "height": 24
+          },
+          {
+            "name": "Play",
+            "type": "button",
+            "height": 40
+          }
+        ],
+        "direction": "vertical"
+      }
+    ],
+    "direction": "vertical"
+  }
+}

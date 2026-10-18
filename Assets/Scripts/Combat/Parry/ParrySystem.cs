@@ -1,6 +1,7 @@
-﻿using System.Linq;
+using System.Linq;
 using UnityEngine;
 
+[DefaultExecutionOrder(-50)]
 public class ParrySystem : MonoBehaviour
 {
     [Header("Config & Refs")]
@@ -38,12 +39,13 @@ public class ParrySystem : MonoBehaviour
     // ===============================================================
 
     bool windowOpen;
+    int poseRequestedFrame = -1;
     float successUntilUnscaled;
     float _lastOpenAt, _lastCloseAt;
 
     public bool IsWindowActive => windowOpen;
     public bool IsSuccessActive => Time.unscaledTime < successUntilUnscaled;
-    public bool PoseLocked => InParryOrSuccess();
+    public bool PoseLocked => poseRequestedFrame == Time.frameCount || InParryOrSuccess();
 
     void OnEnable()
     {
@@ -53,25 +55,26 @@ public class ParrySystem : MonoBehaviour
     void OnDisable()
     {
         if (enemy) enemy.OnStrike -= OnEnemyStrike;
+        if (gate) gate.PopParryPose(this);
+        poseRequestedFrame = -1;
+        windowOpen = false;
     }
 
-    bool InParryOrSuccess()
+    bool InAnimation(string path)
     {
-        if (!playerAnimator || !config) return false;
-
-        bool inPose = !string.IsNullOrEmpty(config.playerParryPoseStatePath) &&
-                      AnimatorUtil.IsInState(playerAnimator, config.playerParryPoseStatePath, out _);
-
-        bool inSucc = !string.IsNullOrEmpty(config.playerParrySuccessStatePath) &&
-                      AnimatorUtil.IsInState(playerAnimator, config.playerParrySuccessStatePath, out _);
-
-        return inPose || inSucc;
+        if (!playerAnimator || string.IsNullOrEmpty(path)) return false;
+        int hash = AnimatorUtil.Hash(path);
+        return playerAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash == hash ||
+               (playerAnimator.IsInTransition(0) && playerAnimator.GetNextAnimatorStateInfo(0).fullPathHash == hash);
     }
+
+    bool InParryOrSuccess() => config &&
+        (InAnimation(config.playerParryPoseStatePath) || InAnimation(config.playerParrySuccessStatePath));
 
     // ---------------- Animation Events ----------------
     public void Anim_ParryOpen()
     {
-        if (gate && gate.IsDeadLocked) return;    // chặn nếu đã chết
+        if (CombatSession.Finished || (gate && (gate.IsDeadLocked || gate.IsHitLocked))) return;    // chặn nếu đã chết
         windowOpen = true;
         successUntilUnscaled = 0f;
         _lastOpenAt = Time.unscaledTime;
@@ -80,7 +83,6 @@ public class ParrySystem : MonoBehaviour
 
     public void Anim_ParryClose()
     {
-        if (gate && gate.IsDeadLocked) return;    // chặn nếu đã chết
         windowOpen = false;
         _lastCloseAt = Time.unscaledTime;
         if (logs) Debug.Log("[PARRY] Pose closed");
@@ -136,20 +138,39 @@ public class ParrySystem : MonoBehaviour
     // biến ParrySuccess từ "obsolete" thành fallback thật sự
     public void ParrySuccess() => ForceSuccess(null);
 
+    internal bool TryBeginParry()
+    {
+        if (GamePauseController.InputBlocked || CombatSession.Finished || !config || !playerAnimator ||
+            string.IsNullOrEmpty(config.playerParryPoseStatePath) || (gate && !gate.CanParry) || PoseLocked) return false;
+        poseRequestedFrame = Time.frameCount;
+        if (gate) gate.PushParryPose(this);
+        AnimatorUtil.CrossFadePath(playerAnimator, config.playerParryPoseStatePath, config.playerParryPoseCrossfade, 0f);
+        return true;
+    }
+
     void Update()
     {
+        // Interrupted poses may never reach the clip's close event.
+        if (windowOpen && (CombatSession.Finished || (gate && (gate.IsHitLocked || gate.IsDeadLocked)) ||
+            (playerAnimator && config && !InAnimation(config.playerParryPoseStatePath))))
+            Anim_ParryClose();
+        if (gate)
+        {
+            if (PoseLocked && !CombatSession.Finished) gate.PushParryPose(this);
+            else gate.PopParryPose(this);
+        }
+        if (GamePauseController.InputBlocked)
+        {
+            successUntilUnscaled += Time.unscaledDeltaTime;
+            _lastOpenAt += Time.unscaledDeltaTime; _lastCloseAt += Time.unscaledDeltaTime;
+            return;
+        }
+        if (CombatSession.Finished) return;
         if (!config) return;
 
         // gate từ PlayerInputGate: không cho mở parry nếu đang bị khoá (chết/khác)
         if (gate && !gate.CanParry) return;
 
-        if (Input.GetKeyDown(config.parryKey))
-        {
-            if (InParryOrSuccess()) return;
-
-            if (playerAnimator && !string.IsNullOrEmpty(config.playerParryPoseStatePath))
-                AnimatorUtil.CrossFadePath(playerAnimator, config.playerParryPoseStatePath,
-                                           config.playerParryPoseCrossfade, 0f);
-        }
+        if (Input.GetKeyDown(config.parryKey)) TryBeginParry();
     }
 }

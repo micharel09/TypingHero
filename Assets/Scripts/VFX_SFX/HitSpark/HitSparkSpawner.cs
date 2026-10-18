@@ -1,109 +1,113 @@
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Pool;
+using Cinemachine;
 
 [DisallowMultipleComponent]
 public class HitSparkSpawner : MonoBehaviour
 {
-    [Header("Prefab")]
     [SerializeField] GameObject sparkPrefab;
-
-    [Header("Parenting")]
-    [SerializeField] bool parentUnderAttacker = true;
-    [Tooltip("Giữ kích thước trong world không đổi dù parent có scale.")]
+    [SerializeField] GameObject[] slayerPrefabs;
+    [SerializeField] GameObject lethalPrefab;
+    [SerializeField] SfxEvent normalImpact, slayerImpact, lethalImpact;
+    [SerializeField] CinemachineImpulseSource lethalImpulse;
+    [SerializeField] bool parentUnderAttacker;
     [SerializeField] bool keepWorldScale = true;
-
-    [Header("Placement")]
-    [SerializeField] Vector3 worldOffset = Vector3.zero;
+    [SerializeField] Vector3 worldOffset;
     [SerializeField] bool faceFromAttacker = true;
-    [SerializeField] float zRotationOffset = 0f;
-
-    [Header("Randomize")]
+    [SerializeField] float zRotationOffset;
     [SerializeField] Vector2 angleJitter = new(-2f, 2f);
-    [SerializeField, Range(0, 1)] float flipXChance = 0.5f;
-    [SerializeField, Range(0, 1)] float flipYChance = 0f;
-    [SerializeField] Vector2 scaleRange = new(0.9f, 1.1f);
-    [SerializeField] Vector2 verticalJitter = new(-0.08f, 0.08f);
+    [SerializeField, Range(0, 1)] float flipXChance = .5f;
+    [SerializeField, Range(0, 1)] float flipYChance;
+    [SerializeField] Vector2 scaleRange = Vector2.one;
+    [SerializeField] Vector2 verticalJitter = new(-.03f, .03f);
+    [SerializeField] float minInterval = .02f;
 
-    [Header("Limits")]
-    [SerializeField] float minInterval = 0.02f;
-
-    // pool
-    IObjectPool<GameObject> _pool;
-    Vector3 _prefabScale = Vector3.one;
-    float _nextAt;
+    readonly Dictionary<GameObject, ObjectPool<GameObject>> pools = new();
+    readonly HashSet<GameObject> active = new();
+    Transform poolRoot;
+    float nextAt;
+    int slayerIndex;
 
     void Awake()
     {
-        if (!sparkPrefab) enabled = false;
-
-        // lấy scale gốc của prefab để dùng lại mỗi lần spawn
-        _prefabScale = sparkPrefab.transform.localScale;
-
-        _pool = new ObjectPool<GameObject>(
-            Create, OnGet, OnRelease, OnDestroyItem,
-            collectionCheck: false, defaultCapacity: 8, maxSize: 32);
+        // Independent world transform: sparks neither inherit motion nor survive their owner.
+        poolRoot = new GameObject("CombatImpactPool").transform;
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(poolRoot.gameObject, gameObject.scene);
     }
 
-    GameObject Create()
+    ObjectPool<GameObject> PoolFor(GameObject prefab)
     {
-        var go = Instantiate(sparkPrefab);
-        // Đảm bảo scale khởi điểm đúng như prefab
-        go.transform.localScale = _prefabScale;
-        if (go.TryGetComponent<PooledVFX>(out var pvfx)) pvfx.Setup(_pool);
-        return go;
+        if (pools.TryGetValue(prefab, out var existing)) return existing;
+        ObjectPool<GameObject> pool = null;
+        pool = new ObjectPool<GameObject>(() =>
+        {
+            var go = Instantiate(prefab, poolRoot);
+            go.SetActive(false);
+            go.GetComponent<PooledVFX>().Setup(pool);
+            return go;
+        }, go => { active.Add(go); go.SetActive(true); }, go =>
+        {
+            active.Remove(go);
+            if (go) { go.SetActive(false); go.transform.SetParent(poolRoot, true); }
+        }, go => { if (go) Destroy(go); }, true, 8, 32);
+        pools.Add(prefab, pool);
+        return pool;
     }
 
-    void OnGet(GameObject go) { go.SetActive(true); }
-    void OnRelease(GameObject go) { if (go) go.SetActive(false); }
-    void OnDestroyItem(GameObject go) { if (go) Destroy(go); }
-
+    // Retain existing callers and their rate limit; confirmed impacts are already deduplicated by hitbox.
     public void Spawn(Vector2 worldPoint, Transform attacker, Transform targetRoot)
     {
-        if (Time.time < _nextAt || _pool == null) return;
-        _nextAt = Time.time + minInterval;
-
-        var go = _pool.Get();
-        var t = go.transform;
-
-        // --- vị trí ---
-        var pos = (Vector3)worldPoint + worldOffset;
-        pos.y += Random.Range(verticalJitter.x, verticalJitter.y);
-
-        // Parent trước để tính scale bù chính xác
-        if (parentUnderAttacker && attacker)
-            t.SetParent(attacker, worldPositionStays: true);
-        else
-            t.SetParent(null, worldPositionStays: true);
-
-        t.position = pos;
-
-        // --- hướng/rotation ---
-        float faceSign = 1f;
-        if (faceFromAttacker && attacker)
-            faceSign = (attacker.lossyScale.x < 0f) ? -1f : 1f;
-
-        float angle = Random.Range(angleJitter.x, angleJitter.y);
-        t.rotation = Quaternion.Euler(0, 0, zRotationOffset + angle * faceSign);
-
-        // --- scale tuyệt đối (KHÔNG cộng dồn) ---
-        float s = Random.Range(scaleRange.x, scaleRange.y);
-        Vector3 baseScale = _prefabScale * s;
-
-        if (parentUnderAttacker && keepWorldScale && attacker)
-        {
-            // bù parent để world-scale ổn định
-            Vector3 p = attacker.lossyScale;
-            baseScale = new Vector3(
-                SafeDiv(baseScale.x, p.x),
-                SafeDiv(baseScale.y, p.y),
-                SafeDiv(baseScale.z, p.z));
-        }
-        t.localScale = baseScale;
-
-        // Flip ngẫu nhiên (theo localScale)
-        if (Random.value < flipXChance) t.localScale = new Vector3(-t.localScale.x, t.localScale.y, t.localScale.z);
-        if (Random.value < flipYChance) t.localScale = new Vector3(t.localScale.x, -t.localScale.y, t.localScale.z);
+        if (Time.unscaledTime < nextAt) return;
+        nextAt = Time.unscaledTime + minInterval;
+        SpawnPrefab(sparkPrefab, worldPoint, attacker);
     }
 
-    static float SafeDiv(float a, float b) => a / (Mathf.Abs(b) < 1e-5f ? 1f : b);
+    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal)
+    {
+        if (!isActiveAndEnabled || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
+        GameObject prefab = sparkPrefab;
+        // Existing serialized consumers retain their spark until role prefabs are assigned.
+        if (lethal && lethalPrefab) prefab = lethalPrefab;
+        else if (!lethal && wasSlayer && slayerPrefabs != null && slayerPrefabs.Length > 0)
+            prefab = slayerPrefabs[slayerIndex++ % slayerPrefabs.Length];
+        SpawnPrefab(prefab, point, attacker);
+        var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
+        if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
+        if (lethal && lethalImpulse) lethalImpulse.GenerateImpulse(.015f);
+    }
+
+    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker)
+    {
+        if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
+        var go = PoolFor(prefab).Get();
+        var t = go.transform;
+        t.SetParent(parentUnderAttacker && attacker ? attacker : poolRoot, true);
+        t.position = (Vector3)point + worldOffset + Vector3.up * Random.Range(verticalJitter.x, verticalJitter.y);
+        float face = faceFromAttacker && attacker && attacker.lossyScale.x < 0 ? -1 : 1;
+        t.rotation = Quaternion.Euler(0, 0, zRotationOffset + Random.Range(angleJitter.x, angleJitter.y) * face);
+        Vector3 scale = prefab.transform.localScale * Random.Range(scaleRange.x, scaleRange.y);
+        if (parentUnderAttacker && keepWorldScale && attacker)
+        {
+            var p = attacker.lossyScale;
+            scale = new Vector3(SafeDiv(scale.x, p.x), SafeDiv(scale.y, p.y), SafeDiv(scale.z, p.z));
+        }
+        if (Random.value < flipXChance) scale.x *= -1;
+        if (Random.value < flipYChance) scale.y *= -1;
+        t.localScale = scale;
+    }
+
+    void OnDisable()
+    {
+        foreach (var go in new List<GameObject>(active))
+            if (go) go.GetComponent<PooledVFX>().AnimEvent_Release();
+        nextAt = 0;
+    }
+    void OnDestroy()
+    {
+        foreach (var pool in pools.Values) pool.Clear();
+        pools.Clear();
+        if (poolRoot) Destroy(poolRoot.gameObject);
+    }
+    static float SafeDiv(float a, float b) => a / (Mathf.Abs(b) < 1e-5f ? 1 : b);
 }

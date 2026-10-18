@@ -1,0 +1,96 @@
+{
+  "name": "TypingHero tutorial / approved below-HUD prompt",
+  "viewport": {
+    "width": 960,
+    "height": 540
+  },
+  "root": {
+    "name": "Existing Shogun arena / uniform scaling",
+    "padding": [
+      8,
+      16
+    ],
+    "gap": 8,
+    "children": [
+      {
+        "name": "Existing HUD / player HP, score, skeleton HP and stamina",
+        "height": 60,
+        "type": "image"
+      },
+      {
+        "name": "Arena / instruction above characters",
+        "height": 340,
+        "gap": 8,
+        "padding": [
+          4,
+          128
+        ],
+        "children": [
+          {
+            "name": "Tutorial prompt / 672 x 124",
+            "height": 124,
+            "gap": 2,
+            "padding": [
+              6,
+              16
+            ],
+            "children": [
+              {
+                "name": "1 / 6 · ATTACK",
+                "type": "text",
+                "height": 24
+              },
+              {
+                "name": "Type BLADE to attack.",
+                "type": "text",
+                "height": 50
+              },
+              {
+                "name": "Actions",
+                "direction": "horizontal",
+                "justify": "space-between",
+                "children": [
+                  {
+                    "name": "Practice · Enter",
+                    "type": "button",
+                    "height": 40
+                  },
+                  {
+                    "name": "Skip Tutorial",
+                    "type": "button",
+                    "height": 40
+                  }
+                ]
+              }
+            ],
+            "direction": "vertical"
+          },
+          {
+            "name": "Existing player / skeleton / animation / VFX",
+            "type": "image",
+            "grow": true
+          }
+        ],
+        "direction": "vertical"
+      },
+      {
+        "name": "Existing typing tray / gold highlight",
+        "height": 88,
+        "width": 672,
+        "children": [
+          {
+            "name": "BLADE     STEEL     FIRE",
+            "type": "text",
+            "height": 64
+          },
+          {
+            "name": "Word timer / held in first lesson",
+            "type": "divider"
+          }
+        ],
+        "direction": "vertical"
+      }
+    ],
+    "direction": "vertical"
+  }
+}

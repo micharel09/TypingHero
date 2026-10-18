@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;   // thêm dòng này ở đầu file
@@ -6,6 +6,7 @@ using TMPro;
 using Cinemachine;
 
 [DisallowMultipleComponent]
+[DefaultExecutionOrder(-100)]
 public sealed class GamePauseController : MonoBehaviour
 {
     [Header("Input")]
@@ -29,6 +30,7 @@ public sealed class GamePauseController : MonoBehaviour
     [SerializeField] TextMeshProUGUI pauseLabel;
     [SerializeField] TextMeshProUGUI restartHintLabel;
     [SerializeField] TextMeshProUGUI menuHintLabel;            // NEW
+    [SerializeField] Button resumeButton;
     [SerializeField] string pauseText = "PAUSE";
     [SerializeField] Color pauseTextColor = Color.green;
 
@@ -57,8 +59,39 @@ public sealed class GamePauseController : MonoBehaviour
     Vector3 _camPosSaved;
     float _orthoSaved;
     bool _brainSaved;
+    CanvasGroup pauseInteraction;
+
+    void SetPauseCanvasVisible(bool visible)
+    {
+        if (!pauseCanvas) return;
+        pauseCanvas.enabled = visible;
+        if (pauseInteraction) { pauseInteraction.interactable = visible; pauseInteraction.blocksRaycasts = visible; }
+        var events = UnityEngine.EventSystems.EventSystem.current;
+        if (!visible && events && events.currentSelectedGameObject &&
+            events.currentSelectedGameObject.transform.IsChildOf(pauseCanvas.transform))
+            events.SetSelectedGameObject(null);
+    }
 
     public bool IsRestarting => _restarting;
+    static bool pauseBlocked, readingBlocked;
+    public static bool InputBlocked => pauseBlocked || readingBlocked;
+    internal static bool IsPaused => pauseBlocked;
+
+    internal static void SetTutorialReading(bool reading)
+    {
+        readingBlocked = reading;
+        ApplyFreeze();
+    }
+
+    static void ApplyFreeze()
+    {
+        if (ScoreSystem.I) ScoreSystem.I.SetPaused(InputBlocked);
+        AudioListener.pause = InputBlocked;
+        Time.timeScale = InputBlocked ? 0f : 1f;
+    }
+
+    public void Resume() => TogglePause(false);
+    public void Restart() => TryRestart();
 
     // ---- NEW: helper guard để tránh chạy logic trên instance đã destroy/disabled
     bool Usable()
@@ -78,10 +111,12 @@ public sealed class GamePauseController : MonoBehaviour
 
     void Awake()
     {
+        pauseBlocked = readingBlocked = false;
         if (!targetCamera) targetCamera = Camera.main;
         if (!cinemachineBrain && targetCamera) cinemachineBrain = targetCamera.GetComponent<CinemachineBrain>();
 
-        if (pauseCanvas) pauseCanvas.enabled = false;
+        if (pauseCanvas) pauseInteraction = pauseCanvas.GetComponent<CanvasGroup>();
+        SetPauseCanvasVisible(false);
         if (pauseLabel) { pauseLabel.text = pauseText; pauseLabel.color = pauseTextColor; pauseLabel.gameObject.SetActive(false); }
         if (restartHintLabel) restartHintLabel.enabled = false;
         if (menuHintLabel) menuHintLabel.enabled = false;      // NEW
@@ -93,6 +128,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     void OnDestroy()
     {
+        pauseBlocked = false;
         if (autoGameOverOnPlayerDie && playerHealth)
             playerHealth.OnDied -= ShowGameOverAfterPlayerDie;
     }
@@ -106,6 +142,8 @@ public sealed class GamePauseController : MonoBehaviour
 
     void Update()
     {
+        // The modal processes Escape later; swallow all shortcuts for this frame.
+        if (LeaderboardModal.IsOpen) return;
         if (_overlayLocked)
         {
             if (Input.GetKeyDown(restartKey)) TryRestart();
@@ -150,7 +188,7 @@ public sealed class GamePauseController : MonoBehaviour
         ZoomOutThen(() =>
         {
             // khôi phục trạng thái như Restart
-            if (pauseCanvas) pauseCanvas.enabled = false;
+            SetPauseCanvasVisible(false);
             if (pauseAudioListener) AudioListener.pause = false;
             Time.timeScale = 1f;
             if (cinemachineBrain) cinemachineBrain.enabled = _brainSaved;
@@ -176,7 +214,7 @@ public sealed class GamePauseController : MonoBehaviour
             ZoomOutThen(() =>
             {
                 if (cinemachineBrain) cinemachineBrain.enabled = _brainSaved;
-                if (pauseCanvas) pauseCanvas.enabled = false;
+                SetPauseCanvasVisible(false);
                 if (uiRoot) uiRoot.gameObject.SetActive(true);
 
                 if (thanksLabel) thanksLabel.gameObject.SetActive(false);
@@ -184,16 +222,16 @@ public sealed class GamePauseController : MonoBehaviour
                 if (restartHintLabel) restartHintLabel.enabled = false;
                 if (menuHintLabel) menuHintLabel.enabled = false; // NEW
 
-                if (pauseAudioListener) AudioListener.pause = false;
-                Time.timeScale = 1f;
+                ApplyFreeze();
             });
     }
 
     // ===== OVERLAY HELPERS =====
     void ShowOverlay_PauseLabel(string text, Color color, bool showRestart)
     {
+        if (resumeButton) resumeButton.gameObject.SetActive(!_overlayLocked);
         if (uiRoot) uiRoot.gameObject.SetActive(false);
-        if (pauseCanvas) pauseCanvas.enabled = true;
+        SetPauseCanvasVisible(true);
 
         if (thanksLabel) thanksLabel.gameObject.SetActive(false);
         if (pauseLabel) { pauseLabel.text = text; pauseLabel.color = color; pauseLabel.gameObject.SetActive(true); }
@@ -205,8 +243,9 @@ public sealed class GamePauseController : MonoBehaviour
 
     void ShowOverlay_ThanksLabel(bool showRestart)
     {
+        if (resumeButton) resumeButton.gameObject.SetActive(false);
         if (uiRoot) uiRoot.gameObject.SetActive(false);
-        if (pauseCanvas) pauseCanvas.enabled = true;
+        SetPauseCanvasVisible(true);
 
         if (pauseLabel) pauseLabel.gameObject.SetActive(false);
         if (thanksLabel) { thanksLabel.text = thanksText; thanksLabel.color = thanksTextColor; thanksLabel.gameObject.SetActive(true); }
@@ -224,7 +263,7 @@ public sealed class GamePauseController : MonoBehaviour
 
         ZoomOutThen(() =>
         {
-            if (pauseCanvas) pauseCanvas.enabled = false;
+            SetPauseCanvasVisible(false);
             if (pauseAudioListener) AudioListener.pause = false;
 
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -268,6 +307,8 @@ public sealed class GamePauseController : MonoBehaviour
             {
                 t += Time.unscaledDeltaTime;
                 float k = 1f - Mathf.Clamp01(t / dur);
+                if (MusicPlayer.I) MusicPlayer.I.TransitionGain = k;
+                if (SfxPlayer.I) SfxPlayer.I.TransitionGain = k;
                 for (int i = 0; i < n; i++) if (sources[i]) sources[i].volume = vols[i] * k;
                 yield return null;
             }
@@ -279,6 +320,8 @@ public sealed class GamePauseController : MonoBehaviour
             sources[i].Stop();
             sources[i].volume = vols[i]; // trả về volume cũ để lần sau phát đúng mức
         }
+        if (MusicPlayer.I) MusicPlayer.I.TransitionGain = 1f;
+        if (SfxPlayer.I) SfxPlayer.I.TransitionGain = 1f;
     }
 
     void LoadMenuNow()
@@ -312,8 +355,10 @@ public sealed class GamePauseController : MonoBehaviour
 
     void Freeze(bool on)
     {
-        if (on) { Time.timeScale = 0f; if (pauseAudioListener) AudioListener.pause = true; }
-        else { if (pauseAudioListener) AudioListener.pause = false; Time.timeScale = 1f; }
+        pauseBlocked = on;
+        if (ScoreSystem.I) ScoreSystem.I.SetPaused(on);
+        Time.timeScale = InputBlocked ? 0f : 1f;
+        if (pauseAudioListener || readingBlocked) AudioListener.pause = InputBlocked;
     }
 
     void ZoomIn()

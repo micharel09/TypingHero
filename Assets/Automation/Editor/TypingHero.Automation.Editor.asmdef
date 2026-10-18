@@ -1,0 +1,5 @@
+{
+  "name": "TypingHero.Automation.Editor",
+  "references": ["TypingHero.Runtime"],
+  "includePlatforms": ["Editor"]
+}

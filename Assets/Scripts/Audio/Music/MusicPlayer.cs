@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -8,12 +8,17 @@ public class MusicPlayer : MonoBehaviour
 
     [SerializeField, Range(0f, 1f)] float masterVolume = 1f;   // Volume tổng của BGM (0..1)
 
+    readonly System.Collections.Generic.Dictionary<AudioSource, float> gains = new System.Collections.Generic.Dictionary<AudioSource, float>();
+    float Gain(AudioSource source) => gains.TryGetValue(source, out var v) ? v : 0f;
+    void SetGain(AudioSource source, float value) { gains[source] = value; source.volume = value * AudioPreferences.Music * TransitionGain; }
+    void LateUpdate() { foreach (var pair in gains) if (pair.Key) pair.Key.volume = pair.Value * AudioPreferences.Music * TransitionGain; }
     AudioSource _a, _b;                    // 2 voice: crossfade & intro→loop
     MusicCue _currentCue;                  // cue hiện tại (kể cả khi đang duck)
     Coroutine _xfadeCo;                    // crossfade/Play coroutine
     Coroutine _volCo;                      // fade volume coroutine
     float _resumeVolume01 = 1f;            // mức volume sẽ khôi phục sau khi duck
 
+    public float TransitionGain { get; set; } = 1f;
     public MusicCue CurrentCue => _currentCue;
     public float CurrentMasterVolume => masterVolume;
 
@@ -43,7 +48,7 @@ public class MusicPlayer : MonoBehaviour
     void SetupSourceForCue(AudioSource s, MusicCue cue)
     {
         s.outputAudioMixerGroup = cue.Group;
-        s.volume = 0f;                       // sẽ fade lên
+        SetGain(s, 0f);                       // sẽ fade lên
         s.pitch = cue.PitchScale;
         s.spatialBlend = 0f;
     }
@@ -69,15 +74,15 @@ public class MusicPlayer : MonoBehaviour
         // fade out nhạc cũ nếu có
         if (oldS.isPlaying && fadeOut > 0f)
         {
-            float v0 = oldS.volume;
+            float v0 = Gain(oldS);
             float t = 0f;
             while (t < fadeOut)
             {
                 t += Time.unscaledDeltaTime;
-                oldS.volume = Mathf.Lerp(v0, 0f, t / fadeOut);
+                SetGain(oldS, Mathf.Lerp(v0, 0f, t / fadeOut));
                 yield return null;
             }
-            oldS.volume = 0f;
+            SetGain(oldS, 0f);
         }
         oldS.Stop();
 
@@ -125,16 +130,17 @@ public class MusicPlayer : MonoBehaviour
             while (t < fadeIn)
             {
                 t += Time.unscaledDeltaTime;
-                float v = Mathf.Lerp(0f, target, t / fadeIn);
-                if (newS.isPlaying) newS.volume = v;
-                if (_a != newS && _a.isPlaying) _a.volume = v;
-                if (_b != newS && _b.isPlaying) _b.volume = v;
+                float v = Mathf.Lerp(0f, cue.Volume * masterVolume, t / fadeIn);
+                SetGain(newS, v);
+                if (_a != newS) SetGain(_a, v);
+                if (_b != newS) SetGain(_b, v);
                 yield return null;
             }
         }
 
-        if (_a.isPlaying) _a.volume = target;
-        if (_b.isPlaying) _b.volume = target;
+        target = cue.Volume * masterVolume;
+        SetGain(_a, target);
+        SetGain(_b, target);
     }
 
     // ----------------- DUCK / RESTORE (không pause) -----------------
@@ -184,7 +190,7 @@ public class MusicPlayer : MonoBehaviour
     {
         masterVolume = Mathf.Clamp01(v);
         float target = (_currentCue ? _currentCue.Volume : 1f) * masterVolume;
-        if (_a.isPlaying) _a.volume = target;
-        if (_b.isPlaying) _b.volume = target;
+        SetGain(_a, target);
+        SetGain(_b, target);
     }
 }
