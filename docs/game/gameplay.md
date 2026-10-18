@@ -126,6 +126,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
   per owner recycle oldest without suppressing confirmed-hit audio. Slayer exit
   preserves the emitted profile; lethal wins over Slayer. Original Pimen assets,
   licenses and slash animation remain; the old impact prefabs are no longer wired.
+  Legacy animated prefabs now use preserved CodeManu CC0 strips; their paths/GUIDs
+  remain for compatibility and notices remain packaged, without parallel emission.
 - Quick 35/35 includes all seven real Pimen prefab clips and pool reuse/reset.
   WebGL54/native Windows16 and production passed; direct speaker listening remains unverified. Details in [combat-feedback checkpoint](../plans/combat-feedback.md).
   The2026-10-18 size/parry-sorting continuation passed Quick52/52 and focused

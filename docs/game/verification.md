@@ -46,6 +46,49 @@
 - No production build, push, release, stress or soak. Main integration remains
   gated by independent uncommitted main edits; see [checkpoint](../plans/combat-feedback.md).
 
+## White CodeManu sparks (2026-10-18)
+
+- Quick **52/52 PASS**, no failed/skipped tests, `20261018T081430-quick`,
+  input `6122b54f59213aed994fde9bff82ac1b99970bf1a1ebe19fa3ba8cfe7792de00`.
+  EveryCodeManuProfileReleasesOnceAndResetsItsActualAnimation and actual pause/
+  hitstop animation-event tests executed and passed. All seven profiles verify
+  source, white RGB, alpha-derived size,128cell/pivot64,first20ms,clip/event/reuse.
+- Independent asset check confirms64/72/96/56px, exact quarter-turn permutations,
+  unchanged retained prefab/controller/clip metadata/GUIDs. Original archive SHA256
+  matches the accepted plan; CodeManu CC0 source/license/credits are retained.
+- QA WebGL `20261018T081946-webgl` PASS; input
+  `2b5fd2a683dbae905469418dbaf6e6c9304585ae0726caaf1c49185630ff648f`.
+  Repeat-builder PASS; every generated asset matches local checkout. This input
+  adds Unity-generated strips/metas/clips/prefabs and removes4unused Pimen strips
+  after Quick; relevant runtime/test source is unchanged. Packaged CodeManu notice
+  and license match source. A stale shared Library initially referenced the other
+  session's PixelSparkBurst.cs; Unity refreshed/recompiled and completed the build.
+- Focused native WebGL **8640checks PASS** in175.171s, exact960x540/640x360;
+  Edge155.0.4283.62, Intel UHD Graphics/ANGLE D3D11, Playwright1.63.0. Actual keys
+  reach normal/parry/all4Slayer/lethal at each size (mask127/127), fast combos,
+  active normal+Slayer spark pause/resume and clean restart. All observed leases
+  keep authored scale/order30; post-LateUpdate sorting has0mismatches (player
+  Attack/Parry1, skeleton0). Each restart restores40/850HP,score0,no active sparks.
+- Reviewed native25fps contact sequences and full frames at both sizes: white
+  flash/rays/dispersal at existing contact, Slayer spark above silhouette, gold
+  cue and typing words clear. All observed sprite rectangles avoid typing words.
+  Recording playbackRate1 advances at .999956x/.999967x over2s; no time stretching.
+  This is functional/visual evidence, not a device FPS benchmark or audio review.
+- Fixtures:34reads/2intercepted writes;0JS/Unity exceptions, error count0. Existing
+  harness blocks other external requests. No real leaderboard write. Final helper
+  SHA256 `dcb801b65f56c3ecc36e7b359d46476834111b68994466db646c5209ec2114d8` (temporary harness using
+  existing session/start/state/fixture helpers and real keyboard input).
+- Earlier native attempts:960covered all7profiles but driver expected enemyHp0
+  after destroyed enemy reports-1; another attempt sampled a spark near its end
+  before pause arrived. Driver now accepts the documented terminal sentinel with
+  finished/victory and retries missed pause contacts, requiring an actual held
+  lease before passing. Product/timing/acceptance unchanged; final both-size run
+  passes. No full WebGL/stress/soak/production build or itch publication claimed.
+- Final scoped diff/whitespace/path review PASS; task captures/videos/client/cache,
+  copied QA player and both owned server result folders removed after these
+  receipts. Shared source/Library/toolchain/builds and other sessions preserved.
+  No branch/worktree/commit/push; see combat-feedback checkpoint.
+
 ## Spark clarity and parry sorting (2026-10-18)
 
 - Doctor PASS. `python tools/game_loop/run.py quick` PASS **52/52**,

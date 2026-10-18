@@ -97,6 +97,8 @@ public static class GameLoopBuild
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Audio/SFX/Clips/KenneyUI/CREDITS.txt"));
         System.IO.File.Copy("Assets/Audio/SFX/Clips/KenneyUI/License.txt", output + "/Kenney-UI-License.txt", true);
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Art/VFX/Pimen/CREDITS.txt"));
+        System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Art/VFX/CodeManu/CREDITS.txt"));
+        System.IO.File.Copy("Assets/Art/VFX/CodeManu/LICENSE.txt", output + "/CodeManu-License.txt", true);
         foreach (var license in new[] { "HitSpark-License.txt", "BattleEffects-License.txt" })
             System.IO.File.Copy("Assets/Art/VFX/Pimen/" + license, output + "/Pimen-" + license, true);
     }

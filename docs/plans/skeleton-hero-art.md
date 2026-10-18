@@ -1,5 +1,48 @@
 # Skeleton lấy cảm hứng Shogun Showdown: art và chuyển động
 
+## Checkpoint trọn đòn rìu và recovery — 2026-10-18
+
+- Phạm vi đã triển khai: chỉ mẫu thiết kế. Dựng lại cel1–14 bằng landmark vai,
+  khuỷu, cổ tay, ngực, hông và gối; bỏ solver hai đoạn tay12px. Thorax theo trục
+  ngực–hông thay vì chuyển tức thời sang một hình gập riêng, trở về tạo hình
+  Idle ở cuối recovery. Giữ reference hàng hai, hình đầu rìu dùng chung, canvas96×64,
+  chân neo, cán32px/grip7–15px và cel0–9 timing gốc/contact1s.
+- Cel10 còn ghim đất và chuyển hông về; cel11 tách lưỡi; cel12 kéo gần thân;
+  cel13 dựng người; cel14 giảm tốc; cel15 trùng RGBA Idle0. Recovery bắt đầu
+  1.3333334s, duration100/120/140/140/120/100ms; tổng2.0533334s (native2053ms).
+  Native rìu17frame, Attack tag1–16, hai lớp Body/VFX. Thương vẫn11frame.
+- Đã sửa exporter, renderer, preview và browser checks. Timeline riêng cho rìu;
+  kiếm/thương giữ cel cuối trong recovery. Có nút ghim đất/hồi thế/về Idle;
+  scrub, step, playback dùng số cel thực tế. Overlay thêm trục cán, đường lưỡi,
+  vai–khuỷu–tay và đầu–ngực–hông. Smear chỉ cel4, dựng lại theo đường lưỡi mới.
+- Vòng sửa hình: lần đầu né cán bằng cách dịch sọ ra sau khiến cổ dài ở cel2–3;
+  đã thay bằng nâng cán và hai tay qua sọ, giữ đầu gần ngực. Đường quét mới có
+  mẫu trung gian chạm y0; sửa đường hạ tay trong sweep (không clamp/hạ check).
+  Cel14→15 từng đổi kiểu ribcage rõ; đưa cel13–14 về patch ribcage Idle để nối.
+- Export LibreSprite PASS28PNG, alpha/bounds/chân/cán/grip/timing/contact PASS;
+  roundtrip riêng Body, VFX và composite exact. Tag Attack bao gồm recovery;
+  toàn đầu rìu cố định cel5–10, không VFX recovery; Idle0/Attack0 giữ hash.
+  1132 file được guard trong lần export cuối, gồm Assets, complete, cluster, thương.
+- Browser Edge headless lần cuối: **72 checks PASS**, không page/console error;
+  1280×720/640×360 và nearest4×/8×. Scrub giải đúng cả16cel; timeline riêng,
+  giữ cuối/replay/pause/resume và giữ cel cuối kiếm/thương PASS. Tám lượt phát
+  đầy đủ (1×/0.25× × mirror bật/tắt × VFX bật/tắt) đều ghi nhận cel0–15, không
+  bỏ cel trong lần cuối; đo tốc độ1.00019× và0.24411×. Các lượt trước đôi lúc
+  không ghi nhận một cel; nguyên nhân stall chưa xác định. Kiểm mới quan sát
+  trực tiếp render, ghi rõ cel bị bỏ nếu có, tách khỏi kiểm resolve keyframe;
+  không thay timing để ép browser hiển thị. Không coi kết quả này là duyệt lực.
+  Python AST, JS syntax và git diff --check trong phạm vi task PASS.
+- Đã soi16cel không VFX và mirror, cặp chuyển tiếp3→4→5,9→10→11,
+  14→15→Idle; xem key pose Body/VFX/overlay/mirror từ canvas browser,
+  và contact ở1280×720/640×360. Hông thu về trước khi rìu rời đất, ngực nâng
+  dần trong recovery; không thấy đứt grip hoặc nhảy đầu rìu trong key pose.
+  Đây là đánh giá hình và chuỗi cel; **quan sát playback liên tục bằng mắt chưa
+  kiểm chứng**. Không suy kiểm tốc độ/thu thập frame tự động thành duyệt chuyển động.
+- Phản hồi tay/thân và cảm giác lực **chưa được user xác nhận đạt**; mẫu đầy đủ
+  tiếp tục chờ đánh giá cảm giác. Không tích hợp runtime, không Unity/WebGL/API;
+  giữ nguyên các thay đổi checkout của công việc khác. Tool LibreSprite portable
+  cũ được giữ cho lần sửa tiếp theo; capture/build QA của lượt này dọn sau kiểm tra.
+
 ## Lưu hướng dẫn animation cận chiến — 2026-10-18
 
 Trạng thái hiện hành: **mẫu rìu hiện tại chưa đạt theo phản hồi user** và vẫn chờ
@@ -467,6 +510,62 @@ Chưa có duyệt mẫu mới; chưa thay PNG runtime.
   `E:/CodexTemp/TypingHero/skeleton-hero-art/` (LibreSprite portable, script đầu
   vào và capture QA); dọn capture khi nghiệm thu, giữ nguồn thiết kế và originals.
 
+## Checkpoint sửa rìu theo chuỗi bổ — 2026-10-18
+
+- Yêu cầu mới: lấy chuỗi bổ hàng hai làm reference; cel1–3 nâng quá đầu,
+  cel4 vung nhanh với smear ngắn; cel5 cán gần ngang, tay thấp phía trước,
+  thân gập và gối khuỵu; cel6–9 nén rồi giữ mép cắt ghim y63. Grip cố định,
+  không bắt buộc trượt tay. Giữ Idle0 + Attack10, 96×64, cán32px và timing gốc.
+- Đã nhận và lưu nguyên Image #2 tại `design/skeleton-hero/references/axe-chop-user.png`
+  cùng bản mirror; blocker thiếu ảnh đã giải quyết. Hàng hai làm chuẩn, hàng ba
+  chỉ hỗ trợ chịu lực, không lấy đoạn nhấc rìu. Đã sửa cel1–9 theo mô tả trên,
+  vẽ thorax gập riêng, giữ grip7/15px và đầu rìu cố định từ contact đến cuối.
+- Đã sửa preview phát Attack một lần, giữ cuối và Play chạy lại từ đầu;
+  pause/resume giữa clip giữ thời gian. Đã xuất pose/PNG/native mới; không đổi Assets.
+- Kiểm chứng: exporter LibreSprite PASS22PNG, hai native11frame, exact body/
+  composite roundtrip và1113 input giữ hash, gồm12file thương. Mép cắt sáng thật
+  chạm y63 qua cel5–9; toàn đầu rìu cố định, cán ngang và không VFX sau contact.
+  Idle0/Attack0 rìu giữ nguyên, smear chỉ ở cel4. Cán32px sai số raster dưới1px.
+  Đối chiếu git hash riêng:1115file protected (Assets, complete, cluster, thương,
+  Idle0/Attack0 rìu) khớp HEAD; không chỉ so hash trong một lần export.
+- Playwright Edge headless:40 checks PASS, không browser error; 1280×720,
+  640×360, 4×/8×; giữ cuối/replay/pause/resume ở cả hai kích thước chơi.
+  Playback đo được1×≈0.9869 và0.25×≈0.2456. Python AST, JS syntax và whitespace PASS.
+- Đánh giá hình: đã soi10cel không VFX ở4×, anticipation/final mirror và contact
+  ở1280×720/640×360. Pose mới gập thấp, tay duỗi trước, chân giữ anchor, sọ giữ
+  kích thước và cán nằm phía trước thân. Đây là kiểm pose và playback tự động;
+  cảm giác chuyển động vẫn cần user đánh giá, không khẳng định đã được duyệt.
+- Giữ impact1s, tổng clip1.3333334s/native1333ms. Không chạy Unity/WebGL vì chưa
+  tích hợp runtime. Capture/build tạm dọn sau khi ghi kết quả; giữ tool LibreSprite
+  portable sẵn có để tiếp tục sửa nguồn khi cần.
+
+## Checkpoint cel4 bổ có lực — 2026-10-18
+
+- Phản hồi lượt trước: kỹ thuật PASS nhưng cel4 đứng và giữ tay cao, vệt chéo
+  mảnh đọc thành quét ngang; chuyển động chưa đạt, không coi checkpoint cũ là duyệt.
+- Đã dựng lại cel4 trong `prepare_weapons.py`: vai/chest y40, đầu y27,
+  hông y47, gối khuỵu; hai tay kéo xuống trước, cán từ (54,41) đến (85,49).
+  Dùng thorax gập, giữ lưỡi và grip7/15px. Lần soi đầu tiên phát hiện cán đi qua
+  phần dưới sọ; hạ cán/tay thêm6px trước khi xuất bản mẫu cuối.
+- `weapons-pixel.js`: thay vệt mảnh bằng mảng cung quạt rộng, mặt sáng H/L,
+  dải ngoài S theo palette có sẵn; chỉ cel4. Mép VFX thấp nhất y60, chưa chạm
+  đất y63; cel5–9 vẫn không smear, toàn đầu rìu ghim cố định và mép sáng chạm y63.
+  Giữ canvas96×64, số cel, cán32px, timing, contact và các pose khác.
+- Kỹ thuật: rebuild LibreSprite PASS22PNG, hai native11frame, body/composite
+  roundtrip exact, alpha/bounds/chân/grip/timing PASS;1118 input file giữ hash
+  trong lần export cuối. Bổ sung assert smear chỉ cel4 và không chạm đất.
+  Playwright Edge40checks PASS, không browser error;1280×720,640×360,4×/8×.
+  Playback đo1×=0.9968,0.25×=0.2494; lấy mẫu playback từ telegraph xác nhận
+  đi qua cel3→4→5 ở cả hai tốc độ; giữ cuối/replay/pause/resume PASS.
+- Nhận xét hình: so cel3→4→5 không VFX rồi có VFX, cả mirror, với hàng hai
+  reference cùng hướng. Cel4 hạ đầu/vai và gập thân rõ, cán trước thân dưới sọ;
+  cung rộng đi xuống sát nền, cel5 lộ contact. Soi nearest và capture browser
+  ở kích thước chơi. Đây là kiểm pose và playback lấy mẫu, chưa có user duyệt
+  cảm giác lực; giữ mẫu chờ đánh giá, không kết luận chuyển động đã đạt.
+- Không tích hợp runtime, không Unity/WebGL/API. Trong lúc làm có thay đổi
+  Assets và `docs/plans/combat-feedback.md` từ công việc khác; giữ nguyên.
+  Capture/build tạm được dọn sau khi ghi kết quả, giữ LibreSprite portable cũ.
+
 ## Phạm vi và acceptance
 
 Chỉnh tỷ lệ, nét và đổ bóng skeleton theo hero; giữ kiếm và chuyển động.
@@ -521,3 +620,43 @@ Không đổi API/leaderboard hay xuất bản lên itch.
 - Chưa triển khai bốn sheet: cần hoàn thiện mẫu có đúng hình học/kiếm/VFX,
   đối chiếu hero và phát timing gốc; sau đó duyệt tạo hình rồi mới mở rộng.
 - Không sửa hero, bốn texture runtime, metadata, animation, prefab hay gameplay.
+
+
+## Checkpoint h?nh h?c r?u v? chu?i pose b? ? 2026-10-18
+
+- Ba ph?n h?i tr??c (h?nh r?u/tr?c c?n, chu?i pose ch?u l?c, cung smear) **ch?a ??t theo user**; c?c checkpoint k? thu?t c? kh?ng ph?i duy?t chuy?n ??ng.
+- ?? d?ng m?t m?u blade/light/edge/socket cho cel1?9, bi?n ??i t?a ?? theo tr?c c?n th?c t? r?i raster; kh?ng xoay bitmap. Idle0/Attack0 gi? ngu?n c?. M?p c?t k?o t?i toe ? m?i g?c. Grip7/15px, c?n32px, contact cel5/y63 v? ??u r?u c? ??nh cel5?9 gi? nguy?n.
+- Landmark cel1?9 d?ng c?ng c?nh tay/c?ng tay12px; khu?u gi?i theo vai v? grip. Cel4 h? h?ng/ng?c/??u, tay k?o tr??c th?n; cel5?7 khu?u c?n g?p, h?ng v? g?i nh?n l?c; cel8?9 gi? ??t. Canvas, ch?n neo, s? cel v? timing kh?ng ??i.
+- Smear ch? cel4, n?i c?c m?p c?t trung gian t? cel3 t?i cel4; tr?c quay ?i c?ng butt/tay, c? nh?p h? tay cong trong kho?ng chuy?n ti?p ?? l??i kh?ng v??t ??nh canvas. Bi?n cu?i ch?nh l? edge cel4; to?n ???ng qu?t kh?ng th?p h?n toe cel4. B? cung v? s?n.
+- K? thu?t: rebuild LibreSprite PASS22PNG/hai native11frame, body/composite roundtrip exact, alpha/bounds/ch?n/grip/timing/contact PASS;1118 file input gi? hash trong l?n export. JS syntax v? git diff --check PASS. Playwright Edge40checks PASS, kh?ng browser error,1280?720/640?360/4?/8?; playback ?o1?=0.9977,0.25?=0.25005; cu?i/replay/pause/resume PASS.
+- Nh?n x?t h?nh: ?? soi to?n b? cel body v? smear ri?ng, overlay tr?c c?n/socket/???ng l??i cel3?4?5 ?4? v? mirror, ??i chi?u reference h?ng hai c?ng h??ng. Tr?c/socket li?n, v?t qu?t n?i ??ng cel4; chu?i h? th?n v? khu?u g?p ??c r? h?n. Browser x?c minh controls/t?c ??/k?ch th??c; ch?a ph?i quan s?t playback li?n t?c b?ng m?t ho?c QA runtime. Kh?ng d?ng k?t qu? n?y ?? tuy?n b? c?m gi?c l?c ??t: **m?u ti?p t?c ch? user ??nh gi?**, c? ba ph?n h?i ch?a ???c user x?c nh?n ?? gi?i quy?t.
+- Kh?ng ch?y Unity/WebGL; kh?ng s?a runtime/API/th??ng/hero/ki?m. Gi? c?c thay ??i checkout c? s?n c?a task kh?c. D?n output build/overlay t?m sau khi ghi checkpoint; tool LibreSprite portable c? v?n gi? cho s?a m?u ti?p.
+
+## Checkpoint full-pack — 2026-10-18
+
+- Phạm vi mới theo plan user: 72 sheet PNG (3 vũ khí × 2 màu × 6 animation × 2 VFX), 6 native hai lớp và preview chung tại `design/skeleton-hero/full-pack/`. Chỉ asset thiết kế; không tích hợp Assets, Unity/WebGL hoặc itch.io. Acceptance/timing/pose trong plan user giữ nguyên và thay phạm vi runtime cũ ở trên cho lượt này.
+- Đã xác minh nguồn Walk/Attack2 kiếm và Yellow trong pack; nguồn kiếm đã duyệt ở `complete/` và `cluster-milestone/` phải bảo toàn. Checkout dirty có sẵn của task khác được giữ nguyên.
+- Đã mở rộng `prepare_weapons.native(..., animation_tags=None)` nhận danh sách tag liên tiếp, không chồng lấn, phủ đủ timeline; kiểm duration uint16 và tên tag. Caller cũ giữ mặc định Idle/Attack. Đây là chuẩn bị exporter, chưa xuất full-pack.
+- Kiểm chứng bằng LibreSprite portable: roundtrip native cũ 3 cel và native thử 61 cel/6 tag Idle/Walk/Attack1/Attack2/Hurt/Die, đúng tag/duration/composite RGBA. Input thử dùng lặp Idle chỉ để kiểm đóng gói, KHÔNG là animation bàn giao. Reject tag thiếu/sai range/trùng tên; Python AST PASS. 1165 file Assets/nguồn/kiếm/milestone giữ hash trước và sau check. File thử được dọn tự động.
+- Thiếu nguồn bắt buộc: ảnh dáng nghỉ rìu mới mà plan gọi “ảnh vừa gửi” không có trong context hiện tại hoặc thư mục references. Đã xem `axe-blade-user.png`: chỉ có đầu rìu/cán, không có skeleton/tay/dáng nghỉ. Hai file còn lại là reference bổ cũ. Không tìm thấy ảnh PNG/JPG/WebP trong Downloads. Không thể dùng ảnh cũ làm bằng chứng cho tỷ lệ/cách cầm/dáng nghỉ mới.
+- Cần user đính kèm lại ảnh dáng nghỉ mới hoặc chỉ đường dẫn chính xác. Chưa dựng/sửa chuỗi rìu, chưa tạo 72 PNG/6 native/preview; chưa kiểm chuyển động. Bước tiếp: lưu reference chuẩn mới, đối chiếu toàn chuỗi rìu trước khi nhân Yellow/VFX, rồi hoàn thiện và QA toàn bộ bộ theo plan user. Không coi checkpoint kỹ thuật này là animation đã đạt.
+
+## Checkpoint nguồn MonoPixelArt — 2026-10-18
+
+- User chỉ định https://monopixelart.itch.io/skeletons-pack làm chuẩn và yêu cầu copy giống animation nguồn. Đã tải/xem GIF công khai; lưu nguyên byte tại `design/skeleton-hero/references/monopixelart-pack-overview.gif` (960×400, 9 frame) và `monopixelart-sword-preview.gif` (300×192, 55 frame). Đây là reference gốc, không phải sheet xuất hoặc bằng chứng toàn bộ animation rìu đã có.
+- GIF overview cung cấp dáng nghỉ rìu một tay: cán đứng, tay phụ thả. Blocker thiếu ảnh Idle mới ở checkpoint trước đã được giải quyết bằng nguồn user vừa chỉ định; không yêu cầu lại ảnh đó.
+- Overview cho thấy ba loại kiếm, rìu, kiếm+khiên; không thấy thương trong overview. Trang mô tả Free chỉ có kiếm; Premium gồm đủ ba skeleton và đang niêm yết từ $3. Workspace chỉ tìm thấy Skeletons_Free_Pack, không thấy ZIP skeleton trong Downloads. Không mua hoặc truy cập nội dung Premium.
+- GIF minh họa riêng chứa skeleton kiếm; GIF overview chỉ 9 frame Idle, không cung cấp trọn Attack/Hurt/Die/Walk rìu. Để sao đúng toàn bộ cel/timing/palette/alpha của rìu cần ZIP Premium do user cung cấp. Cần chốt loại thứ ba theo pack (kiếm+khiên) hay tiếp tục thương theo plan cũ. Chưa xuất full-pack hoặc thay đổi runtime.
+
+## Checkpoint bàn giao full-pack quan sát GIF — 2026-10-18
+
+- User xác nhận không có ZIP và yêu cầu tự quan sát/copy. Đã tiếp tục bằng GIF công khai và nguồn có sẵn, không còn đặt ZIP hoặc ảnh Idle làm điều kiện triển khai. Giữ thương theo plan ban đầu; không tự thay bằng kiếm+khiên.
+- Đã xuất `design/skeleton-hero/full-pack/`: 72 PNG theo vũ khí/màu/VFX/animation; 6 native LibreSprite, hai lớp Body + weapon/VFX, sáu tag đúng thứ tự; 342 cel tổng cộng. `review.html` có selector vũ khí/màu/clip, VFX/mirror/onion/overlay, timeline duration thực, replay/pause/resume/scrub/bước cel và bốn kích thước xem.
+- Nguồn mới: `full_pack_poses.py` sở hữu pose/hình học, `full-pack-pixel.js` vẽ trong LibreSprite bằng primitive dùng lại từ `weapons-pixel.js`, `prepare_full_pack.py` đóng gói/export/kiểm chứng; `full-pack-preview.template.html` và `verify_full_pack.cjs` sở hữu player/QA. README chính dẫn tới preview mới; README của full-pack mô tả nguồn và giới hạn.
+- Kiếm White Idle/Attack1/Hurt/Die composite khớp RGBA từng cel trong `complete/`; Walk10/Attack2 đâm9 theo nguồn gốc. Yellow đổi màu xương theo palette pack. VFX kiếm tách từ hai sheet nguồn; riêng Attack1 cel5 có một pixel (39,36) bị source VFX xóa, nên Body giữ alpha0 ở đó để composite không đổi. Không tuyên bố Without_VFX khớp từng pixel sheet gốc.
+- Rìu Idle một tay/cán đứng/tay phụ thả theo GIF; Walk có support/lift và sway nhẹ. Các Attack/Hurt/Die dựng lại toàn tay/thân/vũ khí. Cán32px cùng head/socket xuyên suốt; Attack1 cel5–10 đầu rìu ghim và mép sáng thật y63, smear chỉ cel4; cel14 thả tay phụ và cel15 khớp Idle0. Recovery100/120/140/140/120/100ms; giữ contact khoảng1s. Attack2 rìu quét ngang hai tay; thương đâm chính/đâm thấp. Hurt phản lực; Die buông và đặt vũ khí theo ngã, không khóa stance.
+- Kỹ thuật PASS: exporter LibreSprite kiểm toàn bộ 6 native/từng lớp/composite roundtrip exact; tag/duration, alpha0/255, canvas96×64, bounds, grip/cán, chân chống/neo theo trạng thái, mép sáng chạm đất, palette vật liệu vũ khí White/Yellow và silhouette/alpha tương ứng. 1165 file Assets/complete/cluster/originals/weapon-milestone giữ hash. `full-pack/verification.json` lưu hash và `manifest.json` lưu pose/timing/provenance.
+- Đã sửa hai lỗi phát hiện trong lúc kiểm: sọ Die vượt đáy ở cel7 (hạ vị trí đầu, không cắt pixel); cung smear rìu đi trên canvas (sửa quỹ đạo bàn tay trung gian, bỏ clamp). Kiếm Attack2 nguồn chủ ý dùng pixel x95, giữ đúng envelope nguồn; margin nghiêm ngặt chỉ áp dụng cel mới, không crop hoặc đổi pose nguồn để ép margin.
+- Edge headless PASS10418 checks/288 tổ hợp: cả hai màu, mọi clip/vũ khí, mirror/VFX và1×/.25×; reset, biên bước cel, scrub, pause/resume/replay, loop/giữ cuối, VFX trên swing, overlay/onion,1280×720/640×360/nearest4×/8×. Matrix dùng tick kiểm deterministic mọi tổ hợp; đo rAF thực riêng trên Attack1 rìu:1×≈0.99196,0.25×≈0.24890, pause/resume và giữ cuối PASS. Không browser error.
+- Đánh giá hình riêng: đã soi contact sheet mọi cel rìu/thương không VFX, Walk/Attack2 kiếm, Yellow thương, chuỗi bắt cán/contact/rời đất/thả tay; xem capture contact hai hướng ở kích thước chơi và nearest. Không nhận kết quả browser làm bằng chứng cảm giác lực đã được user duyệt. GIF công khai chỉ đủ dáng nghỉ rìu và động tác kiếm: các clip rìu ngoài Idle và toàn bộ thương là bản dựng theo plan/reference, không có bằng chứng khớp từng pixel Premium hoặc được quan sát playback liên tục bằng mắt.
+- Python AST, JS syntax, HTML script syntax và git diff --check PASS; đã review diff trong phạm vi. Không sửa Assets, không Unity/WebGL/itch.io, không mua pack, không push/commit gộp checkout dirty. Dọn thư mục build/capture tạm của lượt này sau kiểm; giữ tool LibreSprite portable sẵn có. Bản thiết kế có đủ đầu ra và kiểm chứng kỹ thuật; giới hạn nguồn/chuyển động được ghi rõ trong README và preview.

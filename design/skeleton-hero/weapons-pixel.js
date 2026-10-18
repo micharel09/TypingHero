@@ -40,9 +40,17 @@ if(layer==='vfx'){
  // Only the burst cel carries a trail. It never substitutes for the weapon.
  if(p.fx){
   if(p.kind==='axe'){
-   polygon([[52,5],[65,11],[78,24],[85,42],[81,56],[74,63],[70,62],[78,54],[80,42],[72,25],[61,13]],'L');
-   stroke([65,12],[76,24],'H',2);stroke([76,24],[83,41],'H',2);
-   stroke([83,41],[80,53],'H');stroke([80,53],[73,62],'H');
+   // Join successive cutting rims: hand translation is baked into the sweep.
+   // The final boundary is exactly the current blade, never below its toe.
+   var limit=Math.max.apply(null,p.edge.map(function(q){return q[1];}));
+   for(var step=1;step<p.sweep.length;step++){
+    var prev=p.sweep[step-1],next=p.sweep[step];
+    for(var k=1;k<next.length;k++){
+     var quad=[prev[k-1],prev[k],next[k],next[k-1]];
+     quad=quad.map(function(q){return [q[0],Math.min(q[1],limit)];});
+     polygon(quad,step<5?'S':step<12?'L':'H');
+    }
+   }
   }else{
    polygon([[68,33],[91,35],[69,37],[75,35]],'L');
    stroke([74,35],[91,35],'H');stroke([62,40],[73,40],'M');
@@ -55,13 +63,28 @@ if(layer==='vfx'){
  bone([p.hip[0],p.hip[1]+3],p.knees[0],false);bone(p.knees[0],[36,62],false);
  stroke([34,63],[39,63],'L');stroke([35,62],[38,62],'H');
  // Far arm is partly occluded by the thorax, with both wrists authored per cel.
- arm([p.chest[0]-3,p.chest[1]+2],p.elbows[1],p.hands[1],true);
+ arm(p.shoulders?p.shoulders[1]:[p.chest[0]-3,p.chest[1]+2],p.elbows[1],p.hands[1],true);
  patch('pelvis',p.hip[0]-3,p.hip[1]);
- bone([p.chest[0]+1,p.chest[1]+10],[p.hip[0]+1,p.hip[1]],true);
- patch('ribs',p.chest[0]-3,p.chest[1],p.lean);
+ if(p.torso){
+  // A continuous rib cage axis follows chest/pelvis rotation through recovery.
+  var cx=p.chest[0],cy=p.chest[1],dx=p.hip[0]-cx,dy=p.hip[1]-cy;
+  var len=Math.sqrt(dx*dx+dy*dy),ux=dx/len,uy=dy/len;
+  function ribPoint(across,along){return [Math.round(cx+uy*across+ux*along),Math.round(cy-ux*across+uy*along)];}
+  bone(ribPoint(0,9),[p.hip[0]+1,p.hip[1]],true);
+  polygon([ribPoint(-4,0),ribPoint(4,0),ribPoint(4,7),ribPoint(2,10),ribPoint(-3,10),ribPoint(-5,6)],'D');
+  bone(ribPoint(-4,0),ribPoint(4,0),false);
+  for(var r=2;r<=8;r+=3){
+   stroke(ribPoint(-4,r),ribPoint(0,r+1),'L');
+   stroke(ribPoint(0,r+1),ribPoint(4,r),'H');
+  }
+  stroke(ribPoint(0,1),ribPoint(0,9),'M');
+ }else{
+  bone([p.chest[0]+1,p.chest[1]+10],[p.hip[0]+1,p.hip[1]],true);
+  patch('ribs',p.chest[0]-3,p.chest[1],p.lean);
+ }
  bone([p.head[0]+4,p.head[1]+11],[p.chest[0]+1,p.chest[1]+1],true);
  patch('head',p.head[0],p.head[1]);
- arm([p.chest[0]+7,p.chest[1]+2],p.elbows[0],p.hands[0],false);
+ arm(p.shoulders?p.shoulders[0]:[p.chest[0]+7,p.chest[1]+2],p.elbows[0],p.hands[0],false);
  // Shaft geometry is independently rasterized for this pose. No image transform.
  stroke(p.butt,p.tip,'B',2);stroke(p.butt,p.tip,'W');
  polygon(p.blade,'M');polygon(p.light,'L');

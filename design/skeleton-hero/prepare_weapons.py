@@ -50,47 +50,86 @@ def pose(kind, body, butt, tip, elbows, knees, blade, light, edge, socket, fx=Fa
 
 
 def axe_poses():
-    # Broad cheek, flared toe and hooked beard follow references/axe-blade-user.png.
-    # Each silhouette, face, edge and socket is authored in cel coordinates.
+    # Preserve Idle0; overhead cels retain the approved bearded blade silhouette.
     poses = [
         pose('axe',[43,31,43,44],[48,48],[64,20],[[57,40],[38,34]],[[38,54],[51,54]],
              [[62,19],[64,19],[64,22],[64,26],[66,26],[69,25],[69,27],[69,30],[66,33],[62,35],[60,36],[61,34],[61,31],[60,28],[59,26],[60,23]],
              [[64,26],[66,26],[69,26],[68,29],[65,32],[62,34],[61,34],[61,31],[60,28]],
-             [[69,26],[68,29],[65,32],[61,35],[60,35]],[[63,20],[61,23],[62,24],[63,24],[65,20]]),
-        pose('axe',[42,32,42,45],[48,40],[52,8],[[56,32],[55,28]],[[38,55],[51,55]],
-             [[50,8],[52,7],[53,10],[54,13],[56,13],[59,11],[60,12],[60,15],[59,19],[56,23],[54,24],[54,22],[54,19],[52,17],[50,16],[49,13]],
-             [[54,13],[56,13],[59,12],[59,15],[58,19],[55,22],[54,22],[54,19],[52,17]],
-             [[59,12],[59,15],[58,19],[55,23],[54,23]],[[51,8],[51,12],[51,13],[52,12],[53,8]]),
-        pose('axe',[41,32,41,45],[54,25],[29,5],[[56,23],[30,24]],[[38,55],[50,55]],
-             [[28,7],[28,4],[31,5],[35,6],[35,4],[35,1],[36,1],[39,2],[42,5],[44,9],[44,12],[42,11],[39,10],[37,10],[35,11],[32,10]],
-             [[35,6],[35,4],[36,1],[39,3],[41,6],[42,9],[42,11],[39,10],[37,10]],
-             [[36,1],[39,3],[41,6],[43,10],[43,11]],[[28,6],[31,8],[33,8],[33,7],[30,4]]),
-        pose('axe',[40,33,40,46],[53,26],[28,6],[[55,24],[30,25]],[[38,56],[50,56]],
-             [[27,8],[27,5],[30,6],[34,7],[34,5],[34,2],[35,2],[38,3],[41,6],[43,10],[43,13],[41,12],[38,11],[36,11],[34,12],[31,11]],
-             [[34,7],[34,5],[35,2],[38,4],[40,7],[41,10],[41,12],[38,11],[36,11]],
-             [[35,2],[38,4],[40,7],[42,11],[42,12]],[[27,7],[30,9],[32,9],[32,8],[29,5]]),
-        pose('axe',[44,32,43,45],[52,32],[65,3],[[57,28],[41,25]],[[39,55],[52,55]],
-             [[63,2],[65,2],[65,5],[66,9],[68,9],[71,8],[71,9],[71,12],[68,15],[65,18],[62,19],[63,17],[63,14],[62,12],[61,10],[61,7]],
-             [[66,9],[68,9],[70,9],[70,12],[67,15],[64,17],[63,17],[63,14],[62,12]],
-             [[70,9],[70,12],[67,15],[64,18],[63,18]],[[64,3],[62,6],[63,8],[64,7],[66,3]]),
-        pose('axe',[49,35,46,48],[57,35],[77,60],[[62,40],[53,45]],[[42,57],[55,57]],
-             [[79,59],[78,61],[75,59],[72,58],[71,60],[70,63],[69,63],[66,61],[65,57],[64,53],[64,50],[65,52],[68,53],[71,54],[73,53],[75,55]],
-             [[72,58],[71,60],[70,62],[67,60],[65,57],[65,53],[65,52],[68,53],[71,54]],
-             [[70,62],[67,60],[65,57],[64,52],[65,51]],[[78,59],[75,56],[74,56],[74,58],[76,61]],True,
-             [1,1,1,1,0,0,0,0,0,-1,-1,-1,-1]),
-        pose('axe',[49,37,47,50],[58,33],[74,61],[[62,39],[54,45]],[[42,58],[55,58]],
-             [[76,60],[74,62],[72,60],[69,58],[68,60],[67,63],[66,62],[63,60],[62,56],[62,52],[63,49],[64,51],[66,53],[69,54],[71,54],[73,56]],
-             [[69,58],[68,60],[66,62],[64,60],[63,56],[63,52],[64,51],[66,53],[69,54]],
-             [[66,62],[64,60],[63,56],[63,51],[63,50]],[[75,61],[73,57],[72,57],[71,58],[73,61]],False,
-             [1,1,1,1,0,0,0,0,0,-1,-1,-1,-1]),
-        pose('axe',[48,36,46,49],[58,33],[74,61],[[62,39],[54,45]],[[42,57],[55,58]],
-             [[76,60],[74,62],[72,60],[69,58],[68,60],[67,63],[66,62],[63,60],[62,56],[62,52],[63,49],[64,51],[66,53],[69,54],[71,54],[73,56]],
-             [[69,58],[68,60],[66,62],[64,60],[63,56],[63,52],[64,51],[66,53],[69,54]],
-             [[66,62],[64,60],[63,56],[63,51],[63,50]],[[75,61],[73,57],[72,57],[71,58],[73,61]],False,
-             [1,1,1,1,0,0,0,0,0,-1,-1,-1,-1])
+             [[69,26],[68,29],[65,32],[61,35],[60,35]],[[63,20],[61,23],[62,24],[63,24],[65,20]])
     ]
-    # Hold the compression at6/7, settle at8, then end grounded at9.
-    return poses[:7]+[poses[6],poses[7],poses[7]]
+
+    # One local-space head/socket, transformed from the actual shaft axis.
+    source = poses[0]
+    source_length = math.dist(source['butt'], source['tip'])
+    ux, uy = [(source['tip'][i]-source['butt'][i])/source_length for i in range(2)]
+    def head_at(butt, tip):
+        length = math.dist(butt, tip)
+        vx, vy = [(tip[i]-butt[i])/length for i in range(2)]
+        result = []
+        for name in ['blade', 'light', 'edge', 'socket']:
+            points = []
+            for x, y in source[name]:
+                dx, dy = x-source['tip'][0], y-source['tip'][1]
+                along, across = dx*ux+dy*uy, -dx*uy+dy*ux
+                points.append([round(tip[0]+along*vx-across*vy),
+                               round(tip[1]+along*vy+across*vx)])
+            result.append(points)
+        # The cutting rim ends at the beard toe in every orientation.
+        toe = max(range(len(source['blade'])), key=lambda i:
+                  -(source['blade'][i][0]-source['tip'][0])*uy
+                  +(source['blade'][i][1]-source['tip'][1])*ux)
+        result[2].append(result[0][toe][:])
+        return result
+
+    ground_head = head_at([53, 0], [85, 0])
+    ground_y = 63-max(y for x, y in ground_head[2])
+    # Authored projected joints: shoulder elevation and torso rotation lead the hands.
+    # Occlusion/foreshortening varies per cel; equal limb segments are not a pose rule.
+    landmarks = [
+        ([42,30],[43,45],[34,17],[48,35],[44,3], [[48,27],[39,25]], [[53,28],[42,23]], [[38,55],[51,55]]),
+        ([41,29],[42,44],[37,16],[55,19],[25,8], [[46,26],[38,25]], [[53,20],[34,18]], [[37,55],[50,55]]),
+        ([40,30],[41,45],[36,17],[54,20],[24,9], [[45,27],[37,26]], [[52,21],[33,19]], [[37,55],[50,55]]),
+        ([47,36],[45,47],[47,23],[53,39],[84,47], [[51,36],[44,34]], [[52,46],[54,36]], [[39,56],[54,57]]),
+        ([50,40],[46,48],[51,27],[53,ground_y],[85,ground_y], [[54,40],[46,38]], [[54,50],[58,41]], [[40,57],[55,58]]),
+        ([51,42],[46,50],[52,29],[53,ground_y],[85,ground_y], [[55,42],[47,40]], [[55,51],[60,44]], [[40,58],[56,58]]),
+        ([50,42],[45,50],[51,29],[53,ground_y],[85,ground_y], [[54,42],[46,40]], [[54,51],[59,44]], [[39,58],[55,58]]),
+        ([50,41],[45,49],[51,28],[53,ground_y],[85,ground_y], [[54,41],[46,39]], [[54,50],[59,43]], [[39,57],[55,58]]),
+        ([50,41],[45,49],[51,28],[53,ground_y],[85,ground_y], [[54,41],[46,39]], [[54,50],[59,43]], [[39,57],[55,58]]),
+        # Brace through the hips while the cutting edge is still grounded.
+        ([49,40],[43,48],[50,27],[53,ground_y],[85,ground_y], [[53,40],[45,38]], [[53,50],[58,42]], [[38,57],[53,57]]),
+        ([48,38],[42,47],[48,25],[50,43],[82,43], [[52,38],[44,36]], [[52,47],[56,39]], [[38,56],[52,56]]),
+        ([46,35],[42,46],[44,22],[46,43],[76,32], [[50,35],[42,34]], [[51,44],[52,34]], [[38,55],[51,55]]),
+        ([44,32],[43,45],[41,19],[46,45],[69,23], [[49,33],[41,33]], [[54,41],[44,32]], [[38,54],[51,54]]),
+        ([43,31],[43,44],[40,18],[48,47],[65,20], [[50,33],[40,33]], [[56,40],[39,33]], [[38,54],[51,54]])
+    ]
+    poses = [source]
+    for i, (chest, hip, skull, butt, tip, shoulders, elbows, knees) in enumerate(landmarks, 1):
+        if i >= 11:
+            # Rasterize a constant 32px shaft before deriving head and grip positions.
+            length = math.dist(butt, tip)
+            tip = [round(butt[j]+(tip[j]-butt[j])*32/length) for j in range(2)]
+        p = pose('axe', [*chest,*hip], butt, tip, elbows, knees,
+                 *head_at(butt,tip), fx=i==4)
+        p.update(head=skull, shoulders=shoulders, torso=i<=12)
+        poses.append(p)
+    poses.append(dict(source))  # cel15 is exactly Idle0, including RGBA and grips.
+    # Sweep actual blade positions with translating hands, not a fixed fan.
+    start, end = poses[3], poses[4]
+    start_angle = math.atan2(start['tip'][1]-start['butt'][1], start['tip'][0]-start['butt'][0])
+    end_angle = math.atan2(end['tip'][1]-end['butt'][1], end['tip'][0]-end['butt'][0])
+    sweep = []
+    for step in range(17):
+        t = step/16
+        angle = start_angle+(end_angle-start_angle)*t
+        butt = [start['butt'][j]+(end['butt'][j]-start['butt'][j])*t for j in range(2)]
+        butt[1] += 12*math.sin(math.pi*t)
+        tip = [butt[0]+32*math.cos(angle), butt[1]+32*math.sin(angle)]
+        sweep.append(head_at(butt,tip)[2])
+    sweep[-1] = end['edge']
+    assert all(0 < y <= max(q[1] for q in end['edge'])
+               for rim in sweep for x,y in rim)
+    end['sweep'] = sweep
+    return poses
 
 
 def spear_poses():
@@ -151,16 +190,34 @@ def string(value):
     return struct.pack('<H',len(raw))+raw
 
 
-def native(path, frames, durations):
+def native(path, frames, durations, animation_tags=None):
     """Package two untransformed RGBA layers; LibreSprite then reads and resaves."""
+    if len(frames) != len(durations) or not frames:
+        raise ValueError('Each native cel needs one duration')
+    if any(not isinstance(duration, int) or not 0 < duration <= 65535
+           for duration in durations):
+        raise ValueError('Native durations must be positive uint16 milliseconds')
+    if animation_tags is None:
+        animation_tags = [(0, 0, 'Idle'), (1, len(frames)-1, 'Attack')]
+    names = set()
+    next_frame = 0
+    for start, end, name in animation_tags:
+        if start != next_frame or not start <= end < len(frames):
+            raise ValueError('Animation tags must cover consecutive, disjoint cels')
+        if not name or name in names:
+            raise ValueError('Animation tag names must be nonempty and unique')
+        names.add(name)
+        next_frame = end+1
+    if next_frame != len(frames):
+        raise ValueError('Animation tags must cover every native cel')
     encoded=[]
     for i,(body,fx) in enumerate(frames):
         chunks=[]
         if i==0:
             for name in ['Body + weapon','VFX']:
                 chunks.append(chunk(0x2004,struct.pack('<6HB3x',3,0,0,0,0,0,255)+string(name)))
-            tags=struct.pack('<H8x',2)
-            for start,end,name in [(0,0,'Idle'),(1,10,'Attack')]:
+            tags=struct.pack('<H8x',len(animation_tags))
+            for start,end,name in animation_tags:
                 tags+=struct.pack('<HHB8x3BB',start,end,0,100,180,180,0)+string(name)
             chunks.append(chunk(0x2018,tags))
         for layer,im in enumerate([body,fx]):
@@ -180,7 +237,8 @@ def main():
     args=parser.parse_args()
     OUT.mkdir(exist_ok=True)
     TEMP.mkdir(parents=True,exist_ok=True)
-    guard_paths=list((ROOT/'Assets').rglob('*'))+list((DESIGN/'complete').glob('*'))+list((DESIGN/'cluster-milestone').glob('*'))
+    guard_paths=(list((ROOT/'Assets').rglob('*'))+list((DESIGN/'complete').glob('*'))
+                 +list((DESIGN/'cluster-milestone').glob('*'))+list(OUT.glob('spear*'))+[OUT/'axe-idle-0.png', OUT/'axe-attack-0.png'])
     guard={p:sha(p) for p in guard_paths if p.is_file()}
     approved=Image.open(DESIGN/'complete/idle-0.png').convert('RGBA')
     patches={'head':patch(approved,(39,18,50,31)),
@@ -197,7 +255,15 @@ def main():
     for kind,poses in [('axe',axe_poses()),('spear',spear_poses())]:
         if kind=='spear':
             poses=poses+[poses[0]]
-        assert len(poses)==10
+        assert len(poses)==(16 if kind=='axe' else 10)
+        durations=[100]+[round(times[i+1]*1000)-round(times[i]*1000) for i in range(10)]
+        if kind=='axe':
+            durations += [100,120,140,140,120,100]
+            recovery_times=[clip['duration']]
+            for duration in durations[11:]:
+                recovery_times.append(recovery_times[-1]+duration/1000)
+            payload['axeTimeline']={'keys':clip['keys']+[{'time':time,'frame':i+10} for i,time in enumerate(recovery_times[:-1])], 'duration':recovery_times[-1]}
+        payload.setdefault('nativeDurationsByWeapon',{})[kind]=durations
         payload['poses'][kind]=poses
         frames=[]
         for index,p in enumerate([poses[0]]+poses):
@@ -221,13 +287,17 @@ def main():
         run(args.libresprite,destination,'--sheet',sheet,'--sheet-type','horizontal','--data',metadata,'--format','json-array','--list-layers','--list-tags')
         exported=Image.open(sheet).convert('RGBA')
         meta=json.loads(metadata.read_text())
-        assert exported.size==(1056,64)
+        assert exported.size==(len(frames)*96,64)
         assert [f['duration'] for f in meta['frames']]==durations
+        assert meta['meta']['frameTags'][1]['from']==1 and meta['meta']['frameTags'][1]['to']==len(frames)-1
         assert [tag['name'] for tag in meta['meta']['frameTags']]==['Idle','Attack']
         assert [layer['name'] for layer in meta['meta']['layers']]==['Body + weapon','VFX']
         body_sheet=TEMP/f'{kind}-body-roundtrip.png'
         run(args.libresprite,'--layer','Body + weapon',destination,'--sheet',body_sheet,'--sheet-type','horizontal')
         body_export=Image.open(body_sheet).convert('RGBA')
+        fx_sheet=TEMP/f'{kind}-vfx-roundtrip.png'
+        run(args.libresprite,'--layer','VFX',destination,'--sheet',fx_sheet,'--sheet-type','horizontal')
+        fx_export=Image.open(fx_sheet).convert('RGBA')
         payload['images'][kind]=[]
         payload['images'][kind+'-body']=[]
         bounds=[]
@@ -236,16 +306,27 @@ def main():
             got=exported.crop((index*96,0,(index+1)*96,64))
             assert got.tobytes()==merged.tobytes(),(kind,index,'Native roundtrip')
             assert body_export.crop((index*96,0,(index+1)*96,64)).tobytes()==body.tobytes(),(kind,index,'Body layer roundtrip')
+            assert fx_export.crop((index*96,0,(index+1)*96,64)).tobytes()==fx.tobytes(),(kind,index,'VFX layer roundtrip')
             bbox=got.getbbox()
-            assert bbox and bbox[0]>0 and bbox[1]>0 and bbox[2]<96
+            assert bbox and bbox[0]>0 and bbox[1]>0 and bbox[2]<96, (kind,index,bbox)
             feet=set(range(34,40))|set(range(51,57))
             ground={x for x in range(96) if body.getpixel((x,63))[3]}
             assert ground>=feet,(kind,index,'Planted feet')
-            if kind=='axe' and index>=6:
-                blade=poses[index-1]['blade']
+            if kind=='axe':
+                fx_bounds=fx.getbbox()
+                assert bool(fx_bounds)==(index==5),(index,'Smear only on swing cel4')
+                assert not fx_bounds or fx_bounds[3]<64,(index,'Smear cannot touch ground before contact')
+            if kind=='axe' and 6<=index<=11:
+                current=poses[index-1]
+                blade=current['blade']
                 assert max(q[1] for q in blade)==63
                 contact=ground-feet
                 assert contact and contact<={x for x in range(min(q[0] for q in blade),max(q[0] for q in blade)+1)},(index,'Grounded cutting edge')
+                edge_contact={x for x,y in current['edge'] if y==63}
+                assert edge_contact and all(body.getpixel((x,63))==(250,250,250,255) for x in edge_contact)
+                assert current['tip']==poses[5]['tip'] and current['edge']==poses[5]['edge']
+                assert current['butt'][1]==current['tip'][1] and not current['fx']
+                assert not fx.getbbox(),(index,'Smear must end before contact')
             else:
                 assert ground==feet,(kind,index,'Unexpected ground contact')
             name='idle-0' if index==0 else f'attack-{index-1}'
@@ -253,14 +334,17 @@ def main():
             payload['images'][kind].append(data(got))
             payload['images'][kind+'-body'].append(data(body))
             bounds.append(list(bbox))
-        if kind=='spear':
-            assert frames[0][0].tobytes()==frames[-1][0].tobytes()
-        else:
-            assert frames[-1][0].tobytes()==frames[-2][0].tobytes()
-            assert frames[-1][0].tobytes()!=frames[0][0].tobytes()
+        assert frames[0][0].tobytes()==frames[-1][0].tobytes()
         assert all(abs(math.dist(p['butt'],p['tip'])-(32 if kind=='axe' else 58))<1 for p in poses)
-        reports[kind]={'nativeSha256':sha(destination),'frames':11,'bounds':bounds,'durationsMs':durations,'nativeRoundTrip':True,'binaryAlpha':True,'plantedFeet':True}
-        reports[kind]['groundContactFrames']=list(range(5,10)) if kind=='axe' else []
+        if kind=='axe':
+            assert [i for i,p in enumerate(poses) if p['fx']]==[4]
+            for p in poses:
+                assert all(abs(math.dist(p['butt'],hand)-distance)<.8
+                           for hand,distance in zip(p['hands'],[7,15]))
+        reports[kind]={'nativeSha256':sha(destination),'frames':len(frames),'bounds':bounds,'durationsMs':durations,'nativeRoundTrip':True,'binaryAlpha':True,'plantedFeet':True}
+        reports[kind]['groundContactFrames']=list(range(5,11)) if kind=='axe' else []
+        if kind=='axe':
+            reports[kind].update(cuttingEdgeContact=True,pinnedHeadFrames=list(range(5,11)),fixedGrips=True,smearFrames=[4],recoveryFrames=list(range(10,16)),idleReturnExact=True,previewTimeline=payload['axeTimeline'])
     payload['images']['sword']=[data(Image.open(DESIGN/'complete'/('idle-0.png' if i==0 else f'attack1-{i-1}.png'))) for i in range(11)]
     payload['images']['hero']=[data(Image.open(ROOT/'Assets/Art/male_hero/individual_sheets/male_hero-idle.png').crop((0,0,128,128)))]
     (OUT/'review.html').write_text((DESIGN/'weapons-preview.template.html').read_text(encoding='utf8').replace('/*PAYLOAD*/',json.dumps(payload)),encoding='utf8')
@@ -268,8 +352,8 @@ def main():
     report={'inputFilesUnchanged':len(guard),'inputs':{str(p.relative_to(ROOT)):digest for p,digest in guard.items() if p.parent==DESIGN/'cluster-milestone'},'exports':reports,'timing':clip}
     (OUT/'verification.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8')
     (OUT/'poses.json').write_text(json.dumps(payload['poses'],indent=2)+'\n',encoding='utf8')
-    assert len(list(OUT.glob('*.png')))==22
-    print(f'PASS: 22 PNGs, two layered11-frame natives, exact roundtrips; {len(guard)} input files unchanged.')
+    assert len(list(OUT.glob('*.png')))==28
+    print(f'PASS: 28 PNGs, layered axe17/spear11-frame natives, exact roundtrips; {len(guard)} input files unchanged.')
 
 
 if __name__=='__main__':

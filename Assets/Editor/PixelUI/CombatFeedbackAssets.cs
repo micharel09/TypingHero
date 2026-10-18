@@ -16,39 +16,69 @@ internal static class CombatFeedbackAssets
     {
         Directory.CreateDirectory(Generated);
         AssetDatabase.Refresh();
-        foreach (var path in Directory.GetFiles(Root, "*.png", SearchOption.AllDirectories))
+        var small = Normalize("SmallHit", 532, 528, 0);
+        var impact = Normalize("Impact", 291, 301, 0);
+        var big = Normalize("BigHit", 557, 553, 0);
+        Effect("Normal", small.frames, .15f, 64, small.extent);
+        Effect("Parry", impact.frames, .18f, 72, impact.extent);
+        Effect("Lethal", big.frames, .18f, 96, big.extent);
+        for (int i = 0; i < 4; i++)
         {
-            var import = (TextureImporter)AssetImporter.GetAtPath(path.Replace('\\', '/'));
-            import.textureType = TextureImporterType.Sprite;
-            import.filterMode = FilterMode.Point; import.mipmapEnabled = false;
-            import.textureCompression = TextureImporterCompression.Uncompressed;
-            var web = import.GetPlatformTextureSettings("WebGL");
-            web.overridden = true; web.format = TextureImporterFormat.RGBA32; import.SetPlatformTextureSettings(web);
-            import.SaveAndReimport();
-        }
-        var orange = Sheet(Root + "HitSpark/Hit Effect 01/Hit Effect 01 1.png", 48, 48, 0, 7);
-        var blue = Sheet(Root + "HitSpark/Hit Effect 01/Hit Effect 01 2.png", 48, 48, 0, 7);
-        Effect("Normal", orange, .15f, 48, 45);
-        Effect("Parry", blue, .18f, 56, 45);
-        Effect("Lethal", orange, .18f, 64, 45);
-        for (int i = 1; i <= 4; i++)
-        {
-            string source = Root + $"BattleEffects/Effect {i} - Sprite Sheet.png";
-            string white = Generated + $"Slayer{i}-White.png";
-            // Preserve author alpha/shape and original sheets; only the Slayer palette changes.
-            var image = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-            image.LoadImage(File.ReadAllBytes(source));
-            var pixels = image.GetPixels32();
-            for (int p = 0; p < pixels.Length; p++) pixels[p] = new Color32(255, 255, 255, pixels[p].a);
-            image.SetPixels32(pixels);
-            var bytes = image.EncodeToPNG();
-            Object.DestroyImmediate(image);
-            if (!File.Exists(white) || !File.ReadAllBytes(white).SequenceEqual(bytes)) File.WriteAllBytes(white, bytes);
-            AssetDatabase.ImportAsset(white);
-            var frames = Sheet(white, i <= 2 ? 64 : 32, 32, i == 1 ? 1 : 0, 4);
-            Effect("Slayer" + i, frames, .1f, 28, i <= 2 ? 32 : i == 3 ? 31 : 26);
+            var variant = Normalize("SmallHit", 532, 528, i, "Slayer" + (i + 1));
+            Effect("Slayer" + (i + 1), variant.frames, .1f, 56, variant.extent);
         }
         AssetDatabase.SaveAssets();
+    }
+
+    // Source sheets have six columns, chronological rows from the top.
+    // One transform for the entire animation keeps the initial flash at contact.
+    static (Sprite[] frames, int extent) Normalize(string source, int width, int height, int turns, string name = null)
+    {
+        var image = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+        image.LoadImage(File.ReadAllBytes("Assets/Art/VFX/CodeManu/" + source + ".png"));
+        var input = image.GetPixels32();
+        var bounds = new RectInt[30];
+        for (int f = 0; f < 30; f++)
+        {
+            int minX = width, minY = height, maxX = -1, maxY = -1;
+            for (int y = 0; y < height; y++) for (int x = 0; x < width; x++)
+                if (input[((4 - f / 6) * height + y) * image.width + f % 6 * width + x].a > 0)
+                { minX = Mathf.Min(minX, x); minY = Mathf.Min(minY, y); maxX = Mathf.Max(maxX, x); maxY = Mathf.Max(maxY, y); }
+            bounds[f] = maxX < 0 ? new RectInt() : new RectInt(minX, minY, maxX - minX + 1, maxY - minY + 1);
+        }
+        int first = System.Array.FindIndex(bounds, b => b.width > 0);
+        int last = System.Array.FindLastIndex(bounds, b => b.width > 0);
+        var center = bounds[first].center;
+        var selected = Enumerable.Range(0, 8).Select(i => first + Mathf.RoundToInt((last - first) * i / 7f)).ToArray();
+        float radius = selected.Max(f => Mathf.Max(Mathf.Abs(bounds[f].xMin - center.x), Mathf.Abs(bounds[f].xMax - center.x),
+            Mathf.Abs(bounds[f].yMin - center.y), Mathf.Abs(bounds[f].yMax - center.y)));
+        float ratio = 62f / radius;
+        var output = new Color32[1024 * 128];
+        int extent = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            int minX = 128, minY = 128, maxX = -1, maxY = -1;
+            for (int y = 0; y < 128; y++) for (int x = 0; x < 128; x++)
+            {
+                var offset = new Vector2(x + .5f - 64, y + .5f - 64);
+                for (int t = 0; t < turns; t++) offset = new Vector2(offset.y, -offset.x);
+                int sx = Mathf.FloorToInt(center.x + offset.x / ratio), sy = Mathf.FloorToInt(center.y + offset.y / ratio);
+                byte alpha = sx < 0 || sx >= width || sy < 0 || sy >= height ? (byte)0 :
+                    input[((4 - selected[i] / 6) * height + sy) * image.width + selected[i] % 6 * width + sx].a;
+                output[y * 1024 + i * 128 + x] = new Color32(255, 255, 255, alpha);
+                if (alpha == 0) continue;
+                minX = Mathf.Min(minX, x); minY = Mathf.Min(minY, y); maxX = Mathf.Max(maxX, x); maxY = Mathf.Max(maxY, y);
+            }
+            extent = Mathf.Max(extent, maxX - minX + 1, maxY - minY + 1);
+        }
+        Object.DestroyImmediate(image);
+        var strip = new Texture2D(1024, 128, TextureFormat.RGBA32, false);
+        strip.SetPixels32(output);
+        var bytes = strip.EncodeToPNG(); Object.DestroyImmediate(strip);
+        string path = "Assets/Art/VFX/CodeManu/" + (name ?? source) + "-White.png";
+        if (!File.Exists(path) || !File.ReadAllBytes(path).SequenceEqual(bytes)) File.WriteAllBytes(path, bytes);
+        AssetDatabase.ImportAsset(path);
+        return (Sheet(path, 128, 128, 0, 8), extent);
     }
 
     static Sprite[] Sheet(string path, int width, int height, int first, int count)
@@ -66,6 +96,11 @@ internal static class CombatFeedbackAssets
         importer.SetPlatformTextureSettings(web);
         importer.GetSourceTextureWidthAndHeight(out int sheetWidth, out int sheetHeight);
         importer.npotScale = TextureImporterNPOTScale.None;
+        importer.alphaIsTransparency = false;
+        var textureSettings = new TextureImporterSettings();
+        importer.ReadTextureSettings(textureSettings);
+        textureSettings.spriteMeshType = SpriteMeshType.FullRect;
+        importer.SetTextureSettings(textureSettings);
         importer.SaveAndReimport();
         var factory = new SpriteDataProviderFactories(); factory.Init();
         var provider = factory.GetSpriteEditorDataProviderFromObject(importer);
@@ -99,7 +134,7 @@ internal static class CombatFeedbackAssets
         if (!clip) { clip = new AnimationClip(); AssetDatabase.CreateAsset(clip, path + ".anim"); }
         clip.frameRate = 1000;
         var keys = new ObjectReferenceKeyframe[frames.Length + 1];
-        for (int i = 0; i < frames.Length; i++) keys[i] = new ObjectReferenceKeyframe { time = duration * i / frames.Length, value = frames[i] };
+        for (int i = 0; i < frames.Length; i++) keys[i] = new ObjectReferenceKeyframe { time = i == 0 ? 0 : .02f + (duration - .02f) * (i - 1) / (frames.Length - 1), value = frames[i] };
         keys[frames.Length] = new ObjectReferenceKeyframe { time = duration - .00001f, value = frames[frames.Length - 1] };
         AnimationUtility.SetObjectReferenceCurve(clip, EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"), keys);
         AnimationUtility.SetAnimationEvents(clip, new[] { new AnimationEvent { time = duration, functionName = "AnimEvent_Release" } });

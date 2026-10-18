@@ -170,15 +170,38 @@ public sealed class CombatFeedbackTests
 #endif
     }
     [UnityTest, Category("Quick")]
-    public IEnumerator EveryPimenProfileReleasesOnceAndResetsItsActualAnimation()
+    public IEnumerator EveryCodeManuProfileReleasesOnceAndResetsItsActualAnimation()
     {
 #if UNITY_EDITOR
         foreach (var role in new[] { "Normal", "Parry", "Lethal", "Slayer1", "Slayer2", "Slayer3", "Slayer4" })
         {
             var prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/Pimen/Generated/" + role + ".prefab");
             Assert.That(prefab, Is.Not.Null, role);
-            float pixels = role == "Normal" ? 48 : role == "Parry" ? 56 : role == "Lethal" ? 64 : 28;
-            float extent = role == "Slayer3" ? 31 : role == "Slayer4" ? 26 : role.StartsWith("Slayer") ? 32 : 45;
+            float pixels = role == "Normal" ? 64 : role == "Parry" ? 72 : role == "Lethal" ? 96 : 56;
+            var spritePath = UnityEditor.AssetDatabase.GetAssetPath(prefab.GetComponent<SpriteRenderer>().sprite);
+            string sheetName = role == "Normal" ? "SmallHit" : role == "Parry" ? "Impact" : role == "Lethal" ? "BigHit" : role;
+            Assert.That(spritePath, Is.EqualTo("Assets/Art/VFX/CodeManu/" + sheetName + "-White.png"));
+            var texture = Own(new Texture2D(2, 2));
+            texture.LoadImage(System.IO.File.ReadAllBytes(spritePath));
+            Assert.That(texture.width, Is.EqualTo(1024)); Assert.That(texture.height, Is.EqualTo(128));
+            int extent = 0;
+            for (int f = 0; f < 8; f++)
+            {
+                int minX = 128, minY = 128, maxX = -1, maxY = -1;
+                bool white = true;
+                foreach (var pixel in texture.GetPixels(f * 128, 0, 128, 128))
+                    if (pixel.a > 0 && (pixel.r != 1 || pixel.g != 1 || pixel.b != 1)) white = false;
+                Assert.That(white, Is.True, role + " palette");
+                for (int y = 0; y < 128; y++) for (int x = 0; x < 128; x++)
+                {
+                    if (texture.GetPixel(f * 128 + x, y).a == 0) continue;
+                    minX = Mathf.Min(minX, x); minY = Mathf.Min(minY, y); maxX = Mathf.Max(maxX, x); maxY = Mathf.Max(maxY, y);
+                }
+                Assert.That(maxX, Is.GreaterThanOrEqualTo(minX), "no transparent end frames");
+                Assert.That(minX, Is.GreaterThan(0)); Assert.That(maxX, Is.LessThan(127));
+                Assert.That(minY, Is.GreaterThan(0)); Assert.That(maxY, Is.LessThan(127));
+                extent = Mathf.Max(extent, maxX - minX + 1, maxY - minY + 1);
+            }
             float expectedScale = pixels / 42f * 100f / extent;
             Assert.That(prefab.transform.localScale.x, Is.EqualTo(expectedScale).Within(.00001f), role);
             Assert.That(prefab.transform.localScale.y, Is.EqualTo(expectedScale).Within(.00001f), role);
@@ -187,6 +210,17 @@ public sealed class CombatFeedbackTests
             var clip = prefab.GetComponent<Animator>().runtimeAnimatorController.animationClips[0];
             float duration = role == "Normal" ? .15f : role.StartsWith("Slayer") ? .1f : .18f;
             Assert.That(clip.length, Is.EqualTo(duration).Within(.001f), role);
+            var keys = UnityEditor.AnimationUtility.GetObjectReferenceCurve(clip,
+                UnityEditor.EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"));
+            Assert.That(keys.Length, Is.EqualTo(9));
+            Assert.That(keys[1].time, Is.EqualTo(.02f).Within(.00001f));
+            for (int i = 0; i < 8; i++)
+            {
+                var frame = (Sprite)keys[i].value;
+                Assert.That(frame.rect.size, Is.EqualTo(new Vector2(128, 128)));
+                Assert.That(frame.pivot, Is.EqualTo(new Vector2(64, 64)));
+                if (i > 0) Assert.That(keys[i].time, Is.EqualTo(.02f + (duration - .02f) * (i - 1) / 7).Within(.00001f));
+            }
             var events = UnityEditor.AnimationUtility.GetAnimationEvents(clip);
             Assert.That(events.Length, Is.EqualTo(1)); Assert.That(events[0].functionName, Is.EqualTo("AnimEvent_Release"));
             Assert.That(events[0].time, Is.EqualTo(duration).Within(.001f));
@@ -212,7 +246,7 @@ public sealed class CombatFeedbackTests
             host.SetActive(false); Assert.That(Active(), Is.Empty);
         }
 #else
-        Assert.Fail("Actual Pimen prefabs require Editor PlayMode"); yield break;
+        Assert.Fail("Actual CodeManu prefabs require Editor PlayMode"); yield break;
 #endif
     }
 
