@@ -104,8 +104,9 @@ Change only behavior explicitly requested. Update this file after relevant verif
   multiple colliders still count as one target per attack.
 - Existing impact/parry pools now own separate scene roots and reclaim active/idle
   instances on disable/unload. PooledVFX resets Animator/color/scale/speed and guards
-  duplicate release events. Unscaled animation runs during hitstop and holds on pause;
-  its Update follows GamePauseController so the pause frame is held.
+  duplicate release events. Unscaled animation runs during hitstop and holds on pause.
+  PixelSparkBurst updates after pause/tutorial input locks and before particle simulation;
+  both groups must finish before release. Results, disable/restart and unload clear them.
 - Normal flash is ivory, .06 seconds and at least two render frames; pause holds its
   remaining duration. The existing Slayer silhouette/flash exclusion remains.
 - Afterimages retain source sprites/combo tint, with three images every .025 seconds,
@@ -115,12 +116,16 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - New Kenney impact events use the existing SFX pool/mixer/preferences independently
   of whoosh and parry: medium 000?002 at .65 normal / .45 Slayer, heavy 000?002 at .8
   lethal, +/- .5 semitone jitter. Existing clang uses +/- 1 semitone.
-- Original free Pimen sheets are imported under `Assets/Art/VFX/Pimen`, with
-  source/license/attribution retained. Unity generates normal orange 150ms/48px,
-  blue parry 180ms/56px, orange lethal 180ms/64px and four white Slayer variants
-  100ms/28px (clarity update2026-10-18, reference960x540). Spark order remains30.
-  Scale is uniform at42screen pixels/world unit; existing
-  camera zoom scales VFX with characters. Original slash animation is unchanged.
+- Impacts use Inspector-editable `Assets/Art/VFX/PixelSparks` prefabs: orange Normal24
+  (.45–.65s), ivory Slayer32 (.35–.55s), pale-blue Parry40 (.6–.85s), orange Lethal56
+  (.75–.95s). Two world Particle Systems emit70% square dots and30% axis-aligned
+  streaks at16PPU, order30; a binary white texture and unlit straight-alpha material
+  keep flat stepped colors. Existing camera zoom scales them with characters.
+  Force follows attacker-to-target context, with80% forward; gravity18WU/s² and
+  fixed standing-foot collision planes give .4 bounce/.4 damping. Eight active bursts
+  per owner recycle oldest without suppressing confirmed-hit audio. Slayer exit
+  preserves the emitted profile; lethal wins over Slayer. Original Pimen assets,
+  licenses and slash animation remain; the old impact prefabs are no longer wired.
 - Quick 35/35 includes all seven real Pimen prefab clips and pool reuse/reset.
   WebGL54/native Windows16 and production passed; direct speaker listening remains unverified. Details in [combat-feedback checkpoint](../plans/combat-feedback.md).
   The2026-10-18 size/parry-sorting continuation passed Quick52/52 and focused
@@ -136,7 +141,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Reference960x540: arena928x340; foot-local HUD and tray geometry are specified
   in the HUD layout section below. Camera
   ortho340/84 preserves42px/world unit; Slayer ortho retains.78 of normal.
-  Pimen profiles use48/56/28/64px and unchanged100/150/180ms as documented above.
+  Impact pixels use the16PPU world scale documented above; camera framing is unchanged.
 - Top1000 is a modal in menu/pause, with the existing1000-row dataset,19-row
   visible pool,refresh and scroll retention. Close restores prior focus/screen;
   pause remains paused. Modal R/M/Escape cannot reach the previous screen.

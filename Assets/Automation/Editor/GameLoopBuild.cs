@@ -68,7 +68,8 @@ public static class GameLoopBuild
                 scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
                 locationPathName = output,
                 target = BuildTarget.WebGL,
-                options = BuildOptions.None,
+                options = qa && Environment.GetEnvironmentVariable("TYPINGHERO_PROFILE_ALLOCATIONS") == "1"
+                    ? BuildOptions.Development : BuildOptions.None,
                 extraScriptingDefines = qa ? new[] { "TYPINGHERO_AUTOMATION" } : Array.Empty<string>()
             });
             if (report.summary.result != BuildResult.Succeeded)

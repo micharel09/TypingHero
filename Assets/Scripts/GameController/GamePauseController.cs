@@ -76,6 +76,7 @@ public sealed class GamePauseController : MonoBehaviour
     static bool pauseBlocked, readingBlocked;
     public static bool InputBlocked => pauseBlocked || readingBlocked;
     internal static bool IsPaused => pauseBlocked;
+    internal static bool ResultOverlayVisible { get; private set; }
 
     internal static void SetTutorialReading(bool reading)
     {
@@ -112,6 +113,7 @@ public sealed class GamePauseController : MonoBehaviour
     void Awake()
     {
         pauseBlocked = readingBlocked = false;
+        ResultOverlayVisible = false;
         if (!targetCamera) targetCamera = Camera.main;
         if (!cinemachineBrain && targetCamera) cinemachineBrain = targetCamera.GetComponent<CinemachineBrain>();
 
@@ -129,6 +131,7 @@ public sealed class GamePauseController : MonoBehaviour
     void OnDestroy()
     {
         pauseBlocked = false;
+        ResultOverlayVisible = false;
         if (autoGameOverOnPlayerDie && playerHealth)
             playerHealth.OnDied -= ShowGameOverAfterPlayerDie;
     }
@@ -283,6 +286,7 @@ public sealed class GamePauseController : MonoBehaviour
         Time.timeScale = 1f;
         _restarting = false;
         _overlayLocked = false;
+        ResultOverlayVisible = false;
         _paused = false;
         if (cinemachineBrain) cinemachineBrain.enabled = _brainSaved;
     }
@@ -356,6 +360,7 @@ public sealed class GamePauseController : MonoBehaviour
     void Freeze(bool on)
     {
         pauseBlocked = on;
+        ResultOverlayVisible = on && _overlayLocked;
         if (ScoreSystem.I) ScoreSystem.I.SetPaused(on);
         Time.timeScale = InputBlocked ? 0f : 1f;
         if (pauseAudioListener || readingBlocked) AudioListener.pause = InputBlocked;

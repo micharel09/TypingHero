@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Profiling;
+using Unity.Profiling;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -26,7 +27,11 @@ public sealed class GameLoopProbe : MonoBehaviour
         public int id, frame, order;
         public Vector3 position, scale;
         public Rect screenRect;
+        public int particles;
+        public float groundY, minY, maxY, maxAge, meanVelocityX;
     }
+    readonly ParticleSystem.Particle[] observedParticles = new ParticleSystem.Particle[56];
+    ProfilerRecorder frameAllocations;
     Animator sortingAnimator;
     SpriteRenderer sortingSprite, sortingEnemy;
     SortingFrame sortingFrame;
@@ -35,7 +40,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     static readonly string[] SortingStates = { "Base Layer.attack1", "Base Layer.player_slayer.attackS1",
         "Base Layer.player_slayer.attackS2", "Base Layer.player_slayer.attackS3",
         "Base Layer.player_parry", "Base Layer.player_parry_success" };
-    static readonly string[] SparkRoles = { "Normal", "Parry", "Lethal", "Slayer1", "Slayer2", "Slayer3", "Slayer4" };
+    static readonly string[] SparkRoles = { "Normal", "Parry", "Lethal", "Slayer1", "Slayer2", "Slayer3", "Slayer4", "Slayer" };
 
     void LateUpdate()
     {
@@ -63,20 +68,47 @@ public sealed class GameLoopProbe : MonoBehaviour
             string role = effect.name.Replace("(Clone)", "");
             int index = Array.IndexOf(SparkRoles, role);
             if (index >= 0) sparkMask |= 1 << index;
-            var bounds = effect.GetComponent<SpriteRenderer>().bounds;
+            var sprite = effect.GetComponent<SpriteRenderer>();
+            var particle = effect.GetComponentInChildren<ParticleSystemRenderer>();
+            if (!sprite && !particle) return null; // A renderer may already be gone during scene teardown.
+            var bounds = sprite ? sprite.bounds : particle.bounds;
+            var burst = effect.GetComponent<PixelSparkBurst>();
+            if (burst && (!burst.Systems[0] || !burst.Systems[1])) return null;
+            float minY = float.PositiveInfinity, maxY = float.NegativeInfinity, maxAge = 0;
+            float velocityX = 0; int observedCount = 0;
+            if (burst)
+                foreach (var ps in burst.Systems)
+                {
+                    var renderer = ps.GetComponent<ParticleSystemRenderer>();
+                    if (!renderer) continue;
+                    bounds.Encapsulate(renderer.bounds);
+                    int count = ps.GetParticles(observedParticles);
+                    observedCount += count;
+                    for (int p = 0; p < count; p++)
+                    {
+                        minY = Mathf.Min(minY, observedParticles[p].position.y);
+                        maxY = Mathf.Max(maxY, observedParticles[p].position.y);
+                        maxAge = Mathf.Max(maxAge, observedParticles[p].startLifetime - observedParticles[p].remainingLifetime);
+                        velocityX += observedParticles[p].velocity.x;
+                    }
+                }
             var min = camera ? camera.WorldToScreenPoint(bounds.min) : Vector3.zero;
             var max = camera ? camera.WorldToScreenPoint(bounds.max) : Vector3.zero;
             return new SparkFrame { role = role, id = effect.GetInstanceID(), frame = Time.frameCount,
-                order = effect.GetComponent<SpriteRenderer>().sortingOrder,
+                order = sprite ? sprite.sortingOrder : particle.sortingOrder,
                 position = effect.transform.position, scale = effect.transform.lossyScale,
+                particles = burst ? burst.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
+                minY = burst && burst.ParticleCount > 0 ? minY : 0, maxY = burst && burst.ParticleCount > 0 ? maxY : 0, maxAge = maxAge,
+                meanVelocityX = observedCount > 0 ? velocityX / observedCount : 0,
                 screenRect = Rect.MinMaxRect(min.x, min.y, max.x, max.y) };
-        }).ToArray();
+        }).Where(frame => frame != null).ToArray();
     }
     [Serializable] sealed class State
     {
         public SortingFrame playerSorting;
         public SparkFrame[] sparks;
         public int sparkMask;
+        public string lastError;
         public string scene, current, next, playerName;
         public int frame, score, hp, maxHp, enemyHp, words, chars, parries, errors, objects;
         public bool slayer, parryWindow, canParry, enemyAttacking, overlay, paused;
@@ -87,6 +119,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public string enemySprite, enemyTexture;
         public float enemyAnimationTime, frameMs, scroll, timeScale, wordTime;
         public long memory;
+        public long allocatedBytes;
+        public bool allocationCounterAvailable;
         public int rows, dataRows, pool, firstVisible, width, height;
         public bool virtualized;
         public bool leaderboardOpen;
@@ -127,6 +161,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     }
     [Serializable] sealed class Point { public string name, kind; public float x, y; }
     int words, chars, parries, errors;
+    string lastError;
     ParrySystem observedParry;
     static readonly BindingFlags Fields = BindingFlags.Instance | BindingFlags.NonPublic;
     static T Read<T>(object target, string field, T fallback = default)
@@ -137,12 +172,14 @@ public sealed class GameLoopProbe : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Install()
     {
+        Application.SetStackTraceLogType(LogType.Exception, StackTraceLogType.Full);
         var go = new GameObject("TypingHero QA observation");
         DontDestroyOnLoad(go);
         go.AddComponent<GameLoopProbe>();
     }
     void OnEnable()
     {
+        frameAllocations = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC Allocated In Frame");
         TypingManager.OnWordAdvanced += Word;
         TypingManager.OnCorrectChar += Char;
         Application.logMessageReceived += Log;
@@ -150,6 +187,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     }
     void OnDisable()
     {
+        frameAllocations.Dispose();
         TypingManager.OnWordAdvanced -= Word;
         TypingManager.OnCorrectChar -= Char;
         Application.logMessageReceived -= Log;
@@ -158,9 +196,10 @@ public sealed class GameLoopProbe : MonoBehaviour
     void Word() => words++;
     void Char(char _) => chars++;
     void Parry(ParrySystem.ParryContext _) => parries++;
-    void Log(string _, string trace, LogType type)
+    void Log(string message, string trace, LogType type)
     {
-        if (type == LogType.Error || type == LogType.Exception || type == LogType.Assert) errors++;
+        if (type == LogType.Error || type == LogType.Exception || type == LogType.Assert)
+        { errors++; lastError = message + "\n" + trace; }
     }
     IEnumerator Publish()
     {
@@ -245,7 +284,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             var state = new State
             {
                 playerSorting = sortingFrame,
-                sparks = sparks, sparkMask = sparkMask,
+                sparks = sparks, sparkMask = sparkMask, lastError = lastError,
                 popupRect = TextRect(awardLabel), popupAlpha = awardLabel ? awardLabel.color.a : 0,
                 popupFont = awardLabel ? awardLabel.fontSize : 0,
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
@@ -301,7 +340,9 @@ public sealed class GameLoopProbe : MonoBehaviour
                 enemyAnimationTime = info.normalizedTime, overlay = Read(pause, "_overlayLocked", false),
                 paused = Read(pause, "_paused", false), frameMs = Time.unscaledDeltaTime * 1000,
                 timeScale = Time.timeScale, wordTime = Read(typing, "timer", 0f),
-                memory = Profiler.GetTotalAllocatedMemoryLong(), objects = Resources.FindObjectsOfTypeAll<GameObject>().Length,
+                memory = Profiler.GetTotalAllocatedMemoryLong(), allocatedBytes = frameAllocations.Valid ? frameAllocations.LastValue : -1,
+                allocationCounterAvailable = frameAllocations.Valid,
+                objects = Resources.FindObjectsOfTypeAll<GameObject>().Length,
                 rows = pool == null ? 0 : pool.Count(r => r && r.gameObject.activeInHierarchy),
                 dataRows = data == null ? 0 : data.Count,
                 virtualized = Read(board, "virtualizeRows", false), firstVisible = Read(board, "_firstVisible", -1),

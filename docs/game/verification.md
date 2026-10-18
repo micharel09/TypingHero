@@ -1,5 +1,51 @@
 # Verification and performance memory
 
+## Physical pixel impacts (2026-10-18)
+
+- Final Quick **66/66 PASS**, result20261018T093521-quick, input
+  `c6d86c7acee7b370d7185a9eeb1bfa11c8e7578df58706c921771876753a7837`.
+  Covers four real prefabs, integer pixel sizes/contact/force, actual gravity/bounce,
+  hitbox collider dedup and lethal priority after Slayer exit, same-frame tutorial
+  lock, hitstop, pause/results distinction, single release, clean reuse, eight-burst
+  owner limits, disable/unload and Inspector tuning/GUID retention. Contracts8/8,
+  browser/driver syntax and diff whitespace checks PASS.
+- WebGL20261018T093620 build and repeated-builder checks PASS on the same input.
+  Serialized outputs match source semantically; all PixelSparks assets/metas matched
+  byte-for-byte before removing Unity-generated trailing whitespace for commit. Software input driver failed before first hit at ~198ms/frame;
+  this is not a full software WebGL profile PASS. No timing thresholds relaxed.
+- Native Edge155/Intel UHD ANGLE D3D11, existing Playwright1.58.2, QA Development
+  allocation counters and recorded video: **25,242 checks PASS**,196.756s, exact
+  1280x720 and640x360. Real keyboard Normal/Parry/Slayer/Lethal at both sizes,
+  ordinary and Slayer camera, pause age/position hold, resume, victory results
+  cleanup and restart. All four live particle roles observed; zero JS/Unity
+  exceptions,36fixture reads/two intercepted writes, external blocking retained.
+  Driver SHA256 `b3b07bf5904b60b0d00946871d7d67367a5c3d296ba2eb9bbee5db3e408fc2b1`.
+- Forward parry motion151checks and mirrored parry142checks PASS at both sizes.
+  Mirror fixture only changes actor positions/scales during disposable QA build;
+  observed negative mean force -2.6764/-2.7063WU/s, with readable normal HUD.
+  Actual live/video frames and nearest-neighbor4x crops reviewed: sharp flat
+  squares/streaks, blue/orange/ivory distinction, fall/bounce and natural release,
+  no halo/pink shader, no old animated impact stacked, preserved slash/flash/
+  afterimages and readable cues/poses/text. Direct speaker listening unverified.
+- Relative measurements on the same machine/Development flags and keyboard
+  sequence, unpaused distinct published frames (QA capture/transition spikes kept):
+
+  | Render | Frame ms p50/p95, before ? after | Allocation B/frame p50/p95, before ? after | Objects p50/p95, before ? after |
+  | --- | --- | --- | --- |
+  |1280x720|31.280/32.840 ?31.235/31.825|1618/12006 ?636/3980|233/238 ?274/280|
+  |640x360|31.260/32.395 ?31.255/32.000|588/11706 ?636/11818|233/239 ?272/279|
+
+  Final maxima243/237particles and8active bursts; no unbounded accumulation.
+  Extra objects are bounded pooled roots/two systems/plane per burst, versus one
+  animated object previously. Median memory rises ~226KB/231KB; no material frame
+  or allocation regression observed. These are instrumented headless recordings,
+  not a device-FPS promise. Baseline inputd1898611ff53e4c0c3ce7dd050bcb11961dcb42333fc8df76bcd18763e0263b0,
+  player090104: both victories/zero exceptions, but overall3796check status failed
+  because640poll missed its180ms legacy lethal (render mask127/video confirmed).
+  Its measurement samples remain valid; do not label baseline a full profile PASS.
+- No production build, push, release, stress or soak. Main integration remains
+  gated by independent uncommitted main edits; see [checkpoint](../plans/combat-feedback.md).
+
 ## Spark clarity and parry sorting (2026-10-18)
 
 - Doctor PASS. `python tools/game_loop/run.py quick` PASS **52/52**,

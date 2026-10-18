@@ -37,10 +37,13 @@ public sealed class PooledVFX : MonoBehaviour
     void Update() { if (_animator) _animator.speed = Paused ? 0f : 1f; }
 
     // The last animation frame owns release; duplicate events cannot return twice.
-    public void AnimEvent_Release()
+    public void AnimEvent_Release() => Release();
+
+    public void Release()
     {
         if (!_leased) return;
         _leased = false;
+        if (TryGetComponent<PixelSparkBurst>(out var burst)) burst.Clear();
         transform.localScale = _initial;
         if (_renderer) _renderer.color = _color;
         if (_animator) _animator.speed = 1f;
