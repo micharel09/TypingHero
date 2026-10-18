@@ -1174,3 +1174,37 @@ SHA256 d706ff61b7b72ba444a76916f74d1549a5afec573594bf656661e4187d1f118e.
   sessionyzeq. Preserve its files/processes and wait for its publication to finish
   before uploading the final pixel build, to avoid the older upload replacing it.
   Main may receive its documentation receipt; review/preserve that before no-ff.
+
+### Final combined acceptance before merge
+
+- Combined Quick67/67 PASS130858; QA131049 build and repeat-builder PASS;
+  production132059 PASS, QA=false and JS/WASM/data marker scans PASS. Build input
+  51e8c9ed54b26782faff346eb0b4f41cf3fcd864517fd646923c70c9d0d4198d.
+  Generated scene/player/pixel assets match local semantics/GUIDs (only Unity
+  trailing whitespace differs). No game source/config/dependency changes afterward:
+  git diff ed785c5 -- Assets Packages ProjectSettings is empty.
+- Two initial native attempts failed ONLY the640lethal observation, while1280passed
+  and late render mask135 confirmed a lethal root. Per-character observation did
+  not solve it and was reverted. Source inspection identified mixed timing:
+  Publish reads current Finished but cached sparks from previous LateUpdate. Driver
+  now waits for an actual live Lethal particle sample, records that exact sample,
+  and accepts the documented -1HP sentinel after enemy destruction. No mask-only
+  feature acceptance or relaxed particle budget/plane/profile checks.
+- Final integrated-presentation-native **24,212 checks PASS**,165.652s,1280x720 and
+  640x360, all four live profiles, pause/resume, victories/results clear/restart,
+  zero exceptions;4fixture reads/two mocked writes. Final driver SHA256
+  7db2d84408087a33f1abd0124fbdf07650b210c31e28a81ec969bed694f033d2.
+  Frame p50/p95:31.235/31.805ms and31.240/31.945ms; maxima232/220particles,
+  active burst maxima8/7. Reviewed new HUD+pixel normal/parry/Slayer/lethal frames;
+  text/cue/poses remain clear, no pink/halo. Prior two-direction bounce/playback
+  evidence applies because the particle/physics source is unchanged.
+- Production candidate releases/pixel-sparks-integrated-20261018:
+  TypingHero-WebGL-PixelSparks-Integrated-20261018.zip,29members/16,311,465bytes,
+  CRC PASS, SHA25691d422ce47437e225a4c186df4704c5b4223fb955a5f27fe9992723a5f5f8b4c.
+  Local/server hashes match; safely extracted exact ZIP for original-HTML smoke.
+- Existing Edge61a46c05 has authenticated micharel09 session. Owned BrowserSkill
+  jjqx verified dashboard and /game/edit/3857509; no credentials were read. Chrome
+  help timeout is superseded by this existing authenticated Edge session, without
+  another login request. Editor's five existing uploads/metadata/embed settings
+  recorded read-only before changes. No upload yet; main no-ff merge, post-merge
+  smoke, production smoke and native upload/save/CDN check remain next.

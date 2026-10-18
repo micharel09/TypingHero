@@ -10,8 +10,8 @@ module.exports=async function pixelSparks(api,browser){
     const {context,page}=await session(browser,{width,height},1000);
     const row={width,height,baseline,samples:[],roles:[],captures:[]}; report.pixelSparks.push(row);
     const seen=new Set(), pixelSeen=new Set();
-    const observe=async()=>{
-      const s=await state(page);
+    const observe=async supplied=>{
+      const s=supplied||await state(page);
       const roles=(s.sparks||[]).map(p=>p.role);
       const phase=s.finished?'lethal':roles.some(r=>r.startsWith('Slayer'))?'slayer':roles.includes('Parry')?'parry':roles.includes('Normal')?'normal':'idle';
       if(row.samples.at(-1)?.frame!==s.frame)row.samples.push({frame:s.frame,frameMs:s.frameMs,memory:s.memory,objects:s.objects,
@@ -69,6 +69,11 @@ module.exports=async function pixelSparks(api,browser){
       while(performance.now()<deadline){
         s=await observe();
         if(s.finished){
+          if(!baseline){
+            // Gameplay publishes before the cached LateUpdate presentation catches up.
+            s=await until(page,t=>t.sparks.some(p=>p.role==='Lethal'&&p.particles>0),2000);
+            await observe(s);
+          }
           if(s.sparks.some(p=>p.role==='Lethal')){
             await page.screenshot({path:path.join(report.outputDirectory,`pixel-${width}-lethal.png`)});
             row.captures.push({role:'lethal',sparks:s.sparks,ms:performance.now()-opened}); lethalCaptured=true;
@@ -79,7 +84,7 @@ module.exports=async function pixelSparks(api,browser){
             seen.add('Lethal');lethalCaptured=true;
             row.legacyLethalRenderedMask=s.sparkMask;
           }
-          check(s.enemyHp===0&&s.hp>0,'keyboard combat reaches lethal victory');
+          check((s.enemyHp===0||s.enemyHp===-1)&&s.hp>0,'keyboard combat reaches lethal victory (destroyed enemy uses -1 sentinel)');
           await until(page,t=>t.overlay&&t.sparks.length===0);break;
         }
         if(!parryCaptured&&s.sparks.some(p=>p.role==='Parry')){

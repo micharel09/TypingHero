@@ -128,11 +128,12 @@ Change only behavior explicitly requested. Update this file after relevant verif
   licenses and slash animation remain; the old impact prefabs are no longer wired.
   Legacy animated prefabs now use preserved CodeManu CC0 strips; their paths/GUIDs
   remain for compatibility and notices remain packaged, without parallel emission.
-- Quick 35/35 includes all seven real Pimen prefab clips and pool reuse/reset.
-  WebGL54/native Windows16 and production passed; direct speaker listening remains unverified. Details in [combat-feedback checkpoint](../plans/combat-feedback.md).
-  The2026-10-18 size/parry-sorting continuation passed Quick52/52 and focused
-  native WebGL5314checks at960x540/640x360, including actual contact frames,
-  Slayer/lethal, pause and restart; see [sorting checkpoint](../plans/player-attack-sorting.md).
+- Final combined Quick67/67 verifies physical profiles, real damage context,
+  pause/hitstop/pool cleanup, legacy animation compatibility and builder retention.
+  Native WebGL24,212checks passes1280x720/640x360 all four profiles, normal/Slayer,
+  pause/results/restart; two-direction bounce/playback was inspected separately.
+  Direct speaker listening remains unverified. Receipts and release state are in
+  [verification](verification.md) and [combat-feedback checkpoint](../plans/combat-feedback.md).
 
 ## Shogun presentation (2026-10-17)
 
