@@ -171,38 +171,38 @@ Change only behavior explicitly requested. Update this file after relevant verif
   sprite poses and VFX do not change those landmarks. CombatHUDLayout owns their
   projection for HUD and filmframe; typing/status sit on the lower bar and tutorial
   highlights follow their targets. Original red overlay/tint remains.
-- ScoreCluster restores camera-relative zoom without competing with the score
-  text pulse. Exit returns its base scale independently of the camera exit tween.
-  ScoreUI_Flash runs only after actual AddScore, never decay/reset UI refreshes.
-  ScoreRules still owns white/x2 yellow/x3 red, original points/rounding and x3 cap.
-  Multiplier follows the rendered score width; floating awards use the same tint
-  near the cluster. Their pivot now agrees with the canvas anchor coordinates.
+- ScoreCluster stays at screen scale1 in both modes; its camera scale binder is disabled.
+  ScoreUI_Flash retains the120ms award-only text pulse. ScoreRules still owns white/
+  x2 yellow/x3 red, original points/rounding and x3 cap. Combo sits below the total;
+  floating awards use the latest tier tint and the enemy-head anchor.
 - The SCORE caption and former corner labels stay hidden in both modes.
   Exit/disable restores saved environment and tray background. HUD positions
-  continuously follow the rendered camera through CombatHUDLayout.
+  for actors/tray follow the camera; the corner total remains screen-fixed.
   Final builder migrates existing scenes and protects black bars from theme tint.
 - Quick46/46 and browser acceptance cover these paths; four render sizes and x3
   exit frames were inspected. See verification and the slayer-restore checkpoint.
   No gameplay timing, damage, scoring formula, public API, GUID or package changes.
 
-## Combat HUD layout (2026-10-18)
+## Combat HUD layout (2026-10-18, revision4)
 
-- CombatHUDLayout is the only runtime position owner for player/enemy status,
-  score/multiplier/decay, popup anchor and typing tray. ShogunTheme reparents the
-  existing UGUI objects in place; HP/stamina sliders and their bindings are reused.
-- At960x540 each status is112px wide,12px below its own fixed body foot; name16px
-  auto-fits down to8px,HP6px at y18,enemy stamina4px at y26. Both groups are30px
-  high. Old long labels/panel are hidden. The same collider landmarks(.28/.12
-  world inset) drive Slayer framing; no sword/sprite/VFX bounds are measured.
-- Score/multiplier center on their actual preferred text widths including award
-  pulse and cluster zoom. In both modes the fixed48px score row starts8px below
-  the lowest status; score/multiplier font24,gap8,decay below. Scale/pulse/tint
-  retain their existing owners. Popup is12px right,font18,rise12; FloatingScore
-  resolves the live anchor after CombatHUDLayout each LateUpdate, preserving fade.
-- Tray672x56 is horizontally centered,8px below the fixed score row. Digits,
-  multiplier visibility and award pulse cannot move its vertical position. The
-  three existing word labels keep their typing order/animations; timer640x6 is at
-  y44. Error border and tutorial tray/stamina highlights follow the new geometry.
-- Approved r3 geometry/reference and preserved r1/r2:design/layouts/shogun/web/contract.md.
-  Four normal/Slayer render sizes and required keyboard paths have been verified;
-  receipts/limits are in verification.md and docs/plans/combat-hud.md.
+- CombatHUDLayout owns status, score/combo/decay, popup anchor and tray positions.
+  ShogunTheme migrates existing UGUI objects in place; GUIDs/slider bindings remain.
+- At960x540 each status is112px wide and12px below its fixed body foot. Both names
+  are hidden and PlayerNameHUD is disabled so rank refresh cannot reactivate the name.
+  HP6 stays red; enemy stamina4 uses Gold(#DCC47C) at y8. Player/enemy groups are6/12px.
+  Fixed collider landmarks(.28/.12 world inset) still drive Slayer framing.
+- The unframed total uses font24 at top/right24, including maximum award pulse.
+  Cluster scale stays1 through Slayer camera zoom. Font16 combo is right-aligned below
+  the total, hidden at x1, with the existing decay indicator. Total updates immediately;
+  ScoreUI_Flash keeps its120ms pulse and existing tier colors.
+- One active FloatingScore accumulates exact received deltas. Font18 popup follows
+  projected enemy head right24/up12 after layout, rises at most18px without restarting
+  its rise on awards, then holds150ms/fades450ms after the final award. An award during
+  fade restores alpha and adds to the same instance. Pause holds elapsed/rise; lethal
+  score freeze allows fade to finish, retaining the final anchor after enemy destruction.
+  ResetScore/restart clears the popup and accumulation. Score rules/OnScored are unchanged.
+- Tray672x56 is centered12px below the lowest status with no score-row reserve.
+  Three word labels/timer/error feedback and tutorial highlights retain their behavior.
+- Approved r4 reference/geometry and preserved r1-r3:design/layouts/shogun/web/contract.md.
+  Quick53/53, targeted WebGL198 checks, native Slayer50 checks and eight rendered layout
+  frames verify these paths. Receipts and limits are in verification.md/combat-hud plan.

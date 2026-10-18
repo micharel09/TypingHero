@@ -125,11 +125,12 @@ internal static class ShogunTheme
         var hud = root.Find("HUD");
         var cluster = hud.Find("ScoreCluster") as RectTransform;
         if (!cluster) cluster = Rect("ScoreCluster", hud);
-        Box(cluster, hud, 480, 388, 220, 48);
+        Box(cluster, hud, 792, 24, 144, 72);
         Box(hud.GetComponentsInChildren<RectTransform>(true).First(t => t.name == "ScoreText"), cluster, 0, 0, 144, 28);
         Box(hud.GetComponentsInChildren<RectTransform>(true).First(t => t.name == "ComboHUD"), cluster, 156, 0, 64, 28);
         var binder = Ensure<ScoreUI_SlayerBinder>(cluster.gameObject);
         Set(binder, "scoreUIRoot", cluster); Set(binder, "targetCam", Camera.main);
+        binder.enabled = false;
         var combo = cluster.GetComponentInChildren<ScoreUI_ComboHUD>(true);
         Set(combo, "followScore", null);
         var bars = Get<RectTransform>(fx, "topBar").parent as RectTransform;
@@ -168,27 +169,32 @@ internal static class ShogunTheme
         {
             var group = hud.Find(name) as RectTransform;
             if (!group) group = Rect(name, hud);
-            Box(group, hud, 0, 0, 112, 30);
+            Box(group, hud, 0, 0, 112, name == "PlayerStatus" ? 6 : 12);
             return group;
         }
         var player = Group("PlayerStatus"); var enemy = Group("EnemyStatus");
+        Object.FindObjectOfType<PlayerNameHUD>(true).enabled = false;
         // Preserve object IDs and slider bindings, including subsequent builder passes.
         RectTransform Item(string name) => hud.GetComponentsInChildren<RectTransform>(true).First(t => t.name == name);
         Box(Item("PlayerName"), player, 0, 0, 112, 16);
-        Box(Item("PlayerHP"), player, 0, 18, 112, 6);
+        Box(Item("PlayerHP"), player, 0, 0, 112, 6);
         Box(Item("EnemyHPLabel"), enemy, 0, 0, 112, 16);
         Item("EnemyHPLabel").GetComponent<TMP_Text>().text = "SKELETON";
-        Box(Item("EnemyHP"), enemy, 0, 18, 112, 6);
-        Box(Item("EnemyStamina"), enemy, 0, 26, 112, 4);
+        Box(Item("EnemyHP"), enemy, 0, 0, 112, 6);
+        Box(Item("EnemyStamina"), enemy, 0, 8, 112, 4);
+        var staminaFill = Item("EnemyStamina").GetComponent<Slider>().fillRect.GetComponent<Image>();
+        staminaFill.color = Gold;
+        PrefabUtility.RecordPrefabInstancePropertyModifications(staminaFill);
         foreach (var name in new[] { "PlayerName", "EnemyHPLabel" })
         {
+            Item(name).gameObject.SetActive(false);
             var text = Item(name).GetComponent<TMP_Text>();
             text.fontSize = 16; text.enableAutoSizing = true; text.fontSizeMin = 8; text.fontSizeMax = 16;
             text.alignment = TextAlignmentOptions.Center;
         }
         foreach (var name in new[] { "PlayerHPLabel", "EnemyStaminaLabel", "ScoreLabel" })
             Item(name).gameObject.SetActive(false);
-        Box(cluster, hud, 480, 388, 220, 48);
+        Box(cluster, hud, 792, 24, 144, 72);
         var score = Item("ScoreText").GetComponent<TMP_Text>();
         Box(score.rectTransform, cluster, 0, 0, 144, 24);
         score.fontSize = 24; score.enableAutoSizing = false;
@@ -197,12 +203,14 @@ internal static class ShogunTheme
         Set(combo, "followScore", null);
         var multiplier = Get<TMP_Text>(combo, "multiplierText");
         Box(multiplier.rectTransform, combo.transform, 0, 0, 64, 24);
-        multiplier.fontSize = 24; multiplier.enableAutoSizing = false;
+        multiplier.fontSize = 16; multiplier.enableAutoSizing = false;
         multiplier.alignment = TextAlignmentOptions.TopLeft; multiplier.overflowMode = TextOverflowModes.Overflow;
         Box(Item("ComboDecay"), hud, 424, 424, 112, 4);
         var popupPrefab = Get<FloatingScore>(Object.FindObjectOfType<ScoreSystem>(true), "floatingPrefab");
         popupPrefab.GetComponentInChildren<TMP_Text>(true).fontSize = 18;
-        Value(popupPrefab, "riseDistance", 12f);
+        Value(popupPrefab, "riseDistance", 18f);
+        Value(popupPrefab, "life", .6f);
+        Value(popupPrefab, "fadeDelay", .15f);
         EditorUtility.SetDirty(popupPrefab);
         var layout = Ensure<CombatHUDLayout>(root.gameObject);
         Set(layout, "targetCamera", Camera.main);

@@ -19,13 +19,14 @@
 <label>Thời gian <input id="time" type="range" min="0" max="1" step="0.001" value="0" aria-label="Thời gian animation"><output id="timeLabel"></output></label>
 <div id="status" role="status"></div><div class="scroll"><canvas id="view" aria-label="Preview animation skeleton"></canvas></div>
 <p id="provenance"></p>
+<div id="referencePanel" hidden><p>Rìu White Idle cùng cel/cùng tỷ lệ: bản xuất · GIF gốc · overlay silhouette (trắng: trùng; cyan: chỉ nguồn; magenta: chỉ bản xuất).</p><div class="scroll"><canvas id="comparison" aria-label="Đối chiếu Idle rìu với GIF"></canvas></div><output id="difference"></output></div>
 <details><summary>GIF reference gốc</summary><img src="../references/monopixelart-pack-overview.gif" alt="Ba skeleton trong GIF nguồn MonoPixelArt"><img src="../references/monopixelart-sword-preview.gif" alt="Các động tác kiếm trong GIF nguồn"></details>
 <p>Idle/Walk lặp; Attack/Hurt/Die phát một lượt rồi giữ cel cuối. Timeline dùng duration millisecond trong native. Kiếm giữ pose gốc; overlay kiếm đánh dấu vật liệu vũ khí. Rìu/thương có overlay khớp và grip theo từng cel. Đây là preview thiết kế, chưa tích hợp gameplay.</p>
 </main>
 <script>
 'use strict';
 const payload=/*PAYLOAD*/;
-const $=id=>document.getElementById(id),images={};
+const $=id=>document.getElementById(id),images={},referenceImages=[];
 let ready=false,playing=false,t=0,last=0;
 function key(){return [$('weapon').value,$('color').value,$('clip').value].join('/');}
 function info(){return payload.clips[key()];}
@@ -38,6 +39,32 @@ function draw(ctx,variant,cel,x,y,s,alpha=1){
  const image=images[key()][variant];ctx.save();ctx.globalAlpha=alpha;ctx.translate(x,y);
  if($('flip').checked){ctx.translate(96*s,0);ctx.scale(-1,1);}
  ctx.drawImage(image,cel*96,0,96,64,0,0,96*s,64*s);ctx.restore();
+}
+function compareReference(cel,s){
+ const active=$('weapon').value==='axe'&&$('clip').value==='Idle';
+ $('referencePanel').hidden=!active;if(!active)return;
+ const canvas=$('comparison');canvas.width=288*s;canvas.height=64*s;
+ const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+ ctx.fillStyle='#142927';ctx.fillRect(0,0,canvas.width,canvas.height);
+ const scratch=document.createElement('canvas');scratch.width=192;scratch.height=64;
+ const raw=scratch.getContext('2d');raw.drawImage(images['axe/White/Idle'].Without_VFX,cel*96,0,96,64,0,0,96,64);
+ raw.drawImage(referenceImages[cel],96,0);
+ const a=raw.getImageData(0,0,96,64),b=raw.getImageData(96,0,96,64),overlay=raw.createImageData(96,64);
+ let silhouette=0,rgb=0;
+ for(let i=0;i<a.data.length;i+=4){
+  const av=a.data[i+3],bv=b.data[i+3];
+  if(av!==bv)silhouette++;
+  if(a.data.slice(i,i+4).some((v,j)=>v!==b.data[i+j]))rgb++;
+  if(av||bv)overlay.data.set(av&&bv?[250,250,250,255]:av?[255,80,190,255]:[70,230,255,255],i);
+ }
+ const mask=document.createElement('canvas');mask.width=96;mask.height=64;mask.getContext('2d').putImageData(overlay,0,0);
+ for(let column=0;column<3;column++){
+  ctx.save();ctx.translate(column*96*s,0);if($('flip').checked){ctx.translate(96*s,0);ctx.scale(-1,1);}
+  if(column===0)ctx.drawImage(images['axe/White/Idle'].Without_VFX,cel*96,0,96,64,0,0,96*s,64*s);
+  else ctx.drawImage(column===1?referenceImages[cel]:mask,0,0,96*s,64*s);
+  ctx.restore();
+ }
+ $('difference').textContent=`White cel ${cel}: RGB/alpha lệch ${rgb} pixel; silhouette lệch ${silhouette} pixel. 9 × 100ms = 900ms. Yellow chỉ đổi vật liệu xương.`;
 }
 function render(){
  if(!ready)return;
@@ -66,6 +93,7 @@ function render(){
    }
   }
  }
+ compareReference(cel,s);
  $('time').max=total()/1000;$('time').value=t/1000;
  $('timeLabel').textContent=(t/1000).toFixed(3)+' / '+(total()/1000).toFixed(3)+'s';
  $('status').textContent=`${$('weapon').selectedOptions[0].text} · ${$('color').value} · ${$('clip').value} · Cel ${cel} / ${info().count-1} · ${info().durationsMs[cel]}ms · ${info().loop?'Lặp':t===total()?'Giữ cuối':'Một lượt'}`;
@@ -88,9 +116,9 @@ function tick(now){
  }
  last=now;requestAnimationFrame(tick);
 }
-Promise.all(Object.entries(payload.images).flatMap(([key,variants])=>{
+Promise.all([...payload.reference.images.map((url,i)=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>{referenceImages[i]=im;resolve();};im.onerror=reject;im.src=url;})),...Object.entries(payload.images).flatMap(([key,variants])=>{
  images[key]={};return Object.entries(variants).map(([variant,url])=>new Promise((resolve,reject)=>{
   const im=new Image();im.onload=()=>{images[key][variant]=im;resolve();};im.onerror=()=>reject(new Error('Image failed '+key+'/'+variant));im.src=url;
  }));
-})).then(()=>{ready=true;render();requestAnimationFrame(tick);}).catch(error=>{$('status').textContent=error.message;throw error;});
+})]).then(()=>{ready=true;render();requestAnimationFrame(tick);}).catch(error=>{$('status').textContent=error.message;throw error;});
 </script></html>

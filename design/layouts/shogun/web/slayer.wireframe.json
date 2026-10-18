@@ -8,74 +8,86 @@
     "name": "960 x 540 / uniform scale / red + full black bars, body gap 8",
     "direction": "vertical",
     "padding": [
-      32,
-      0
+      24,
+      24
     ],
-    "gap": 8,
+    "gap": 12,
     "children": [
       {
-        "name": "Fixed standing bodies / camera projection / weapons excluded",
+        "name": "Fixed screen corner / right24 top24 / no frame",
+        "direction": "horizontal",
+        "justify": "flex-end",
+        "height": 72,
+        "children": [
+          {
+            "name": "font24 total / font16 combo below / x1 hidden",
+            "width": 240,
+            "direction": "vertical",
+            "children": [
+              {
+                "name": "128450",
+                "type": "text",
+                "variant": "heading",
+                "height": 28
+              },
+              {
+                "name": "x2.5 / decay",
+                "type": "text",
+                "height": 20
+              }
+            ],
+            "align": "flex-end"
+          }
+        ]
+      },
+      {
+        "name": "Standing bodies + enemy-head award +18 / right24 up12 / rise18",
         "type": "image",
-        "height": 292
+        "height": 220
       },
       {
         "name": "Foot +12 / status follows each character",
         "direction": "horizontal",
         "justify": "center",
         "gap": 220,
-        "height": 30,
+        "height": 12,
         "children": [
           {
-            "name": "Player name + HP6",
+            "name": "Player HP6 / no name",
             "width": 112,
-            "height": 30,
+            "height": 12,
             "children": [
               {
-                "name": "Player name + HP6",
-                "type": "text",
-                "height": 30
+                "name": "HP red",
+                "type": "divider",
+                "height": 6
               }
             ],
             "direction": "vertical"
           },
           {
-            "name": "Skeleton + HP6 + stamina4",
+            "name": "Enemy HP6 + Gold stamina4 / no name",
             "width": 112,
-            "height": 30,
+            "height": 12,
             "children": [
               {
-                "name": "Skeleton + HP6 + stamina4",
-                "type": "text",
-                "height": 30
+                "name": "HP red",
+                "type": "divider",
+                "height": 6
+              },
+              {
+                "name": "stamina Gold",
+                "type": "divider",
+                "height": 4
               }
             ],
-            "direction": "vertical"
-          }
-        ]
-      },
-      {
-        "name": "Score row48 / status gap8 / font24 / decay below",
-        "direction": "vertical",
-        "align": "center",
-        "height": 48,
-        "children": [
-          {
-            "name": "Actual score + multiplier / zoom + pulse",
-            "width": 240,
-            "height": 48,
             "direction": "vertical",
-            "children": [
-              {
-                "name": "128450   x2.5     +18",
-                "type": "text",
-                "height": 48
-              }
-            ]
+            "gap": 2
           }
         ]
       },
       {
-        "name": "8 below fixed48 score row / centered672x56 tray",
+        "name": "12 below lowest status / centered672x56 tray",
         "align": "center",
         "children": [
           {

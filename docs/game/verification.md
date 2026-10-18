@@ -696,3 +696,37 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
   at `/data/typinghero-game-loop/releases/score-hud-20261018/` for rollback.
   Task captures/reports/results cleaned after written receipts; owned browser
   session closed,shared source/cache/toolchain/builds and browser daemon retained.
+
+
+## Compact Type Knight HUD (2026-10-18)
+
+- Quick20261018T102205 PASS53/53,0failed/skipped; input
+  `6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2`.
+  Layout covers0/6/10digits,x1/x2/x3,pulse1/1.2,normal/Slayer camera; popup tests cover
+  live anchor, accumulated deltas/fade interruption, pause, actual lethal Complete,
+  destroyed anchor, expiry and restart. Earlier52/52 preceded these final tests.
+- QA20261018T101114/repeat-builder PASS; input
+  `78e663f836356dddd5bfbf94889aa7965df9e5180af4679a761f54fe93815bf8`.
+  Generated scene664/664 and popup5/5 IDs/GUID sets preserved. Normalized serialized
+  scene SHA2568f6ec5eb22f8019518d920eda49603a9e31fc3ede0598e17f75ba6f75f443157;
+  popup4534fc479780ec79e7afaca9f88981317bb08997363f288181314853af6abe29.
+- Targeted score-layout PASS198checks/311.200s, real keyboard normal/parry/rapid
+  Slayer,x2yellow/x3red,exact deltas/single popup,pause/resume,lethal/restart and
+ 1000-row fixture leaderboard/scroll/refresh. All8normal/Slayer layout frames at
+ 640x360,960x540,1280x720,1920x1080 plus cue/popup/exit/victory reviewed. Top/right24px
+  (error<.0001reference pixels),tray gap12,names hidden,Gold stamina,score scale1.
+  Victory86.1s,score2499,accuracy100%,9parries. Chromium153.0.8010.12/SwiftShader,
+ 2CPU/8GiB/shm1GiB;7fixture reads/1intercepted write/0exceptions, external blocking on.
+- Same-player native Edge155.0.4283.62/Playwright1.64.1 Slayer PASS50checks/38.961s,
+  score275/x3red/scale1, accumulated popup/pause/restart;0fixture reads/writes/errors.
+ 37.24s recording and100ms frame sequences reviewed: rise/fade, interrupted accumulation,
+  tier tints,score pulse,cue/tray clearance. PlaybackRate1:2.012s/2.0121s elapsed,
+  ratio.9999503; no retiming. No device FPS or speaker-audio claim.
+- Bundle r4/preserved r3 check PASS; r4 fingerprint
+  `fa2062713e0aa8e844663fbaf35f372774d246fd8f8bf72d3a7a35c501445523`.
+  Runner contracts8/8 PASS on Ubuntu; JS syntax/scoped whitespace review PASS.
+  Sources, resolved runner queue/wrapper issue and cleanup receipt:combat-hud plan.
+  No production/release/publication,stress/soak or real Firebase writes by this task.
+- After written receipts, all task captures/videos/reports/downloaded player/native cache/
+  wrappers and3owned server results were removed. Shared source/Library/toolchain/QA
+  player and other tasks remain; no new branch/worktree/commit/push.

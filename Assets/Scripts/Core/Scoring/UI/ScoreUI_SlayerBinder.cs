@@ -23,6 +23,7 @@ public sealed class ScoreUI_SlayerBinder : MonoBehaviour
 
     void Awake()
     {
+        if (!enabled) return;
         if (!targetCam) targetCam = Camera.main;
         if (!slayer) slayer = FindObjectOfType<PlayerSlayerMode>(true);
         if (!scoreUIRoot) scoreUIRoot = transform as RectTransform;

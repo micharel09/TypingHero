@@ -1,0 +1,81 @@
+{
+  "layoutId": "shogun",
+  "revision": 3,
+  "platform": "web",
+  "owner": "Assets/Editor/PixelUI/ShogunTheme.cs",
+  "contract": "contract.md",
+  "variants": [
+    {
+      "id": "gameplay",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "gameplay.wireframe.json",
+      "preview": "gameplay.wireframe.html",
+      "capture": "gameplay.png",
+      "capturedFrom": {
+        "revision": 3,
+        "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
+        "previewSha256": "ddcb12bc10aa8651eb72dd50fc411b9cdf827a1a82dca263cda205a5d5b95406",
+        "pngSha256": "517776ee1284694f302958260864427393ec0c92872be26a9c9692ae01ea0ca4"
+      }
+    },
+    {
+      "id": "leaderboard",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "leaderboard.wireframe.json",
+      "preview": "leaderboard.wireframe.html",
+      "capture": "leaderboard.png",
+      "capturedFrom": {
+        "revision": 3,
+        "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
+        "previewSha256": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
+        "pngSha256": "3e5431efce9f0b6c097e7624731051762f3abdeb180707e2429e37742d51734b"
+      }
+    },
+    {
+      "id": "slayer",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "slayer.wireframe.json",
+      "preview": "slayer.wireframe.html",
+      "capture": "slayer.png",
+      "capturedFrom": {
+        "revision": 3,
+        "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
+        "previewSha256": "1df36059377d8b8f2e46248a6b4dee6d9aea85f4cdbe54500f20447a668938fd",
+        "pngSha256": "517776ee1284694f302958260864427393ec0c92872be26a9c9692ae01ea0ca4"
+      }
+    }
+  ],
+  "approval": {
+    "status": "approved",
+    "revision": 3,
+    "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
+    "evidence": "User 2026-10-18 explicitly requested implementation of the plan: both normal and Slayer status ->8px->fixed48px score row/font24 ->8px->672x56 tray; popup gap12/font18/rise12; preserve previous revision. This revision records that approved geometry.",
+    "approvedAt": "2026-10-18T06:30:51.702500+00:00",
+    "artifacts": {
+      "gameplay.wireframe.html": "ddcb12bc10aa8651eb72dd50fc411b9cdf827a1a82dca263cda205a5d5b95406",
+      "gameplay.png": "517776ee1284694f302958260864427393ec0c92872be26a9c9692ae01ea0ca4",
+      "leaderboard.wireframe.html": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
+      "leaderboard.png": "3e5431efce9f0b6c097e7624731051762f3abdeb180707e2429e37742d51734b",
+      "slayer.wireframe.html": "1df36059377d8b8f2e46248a6b4dee6d9aea85f4cdbe54500f20447a668938fd",
+      "slayer.png": "517776ee1284694f302958260864427393ec0c92872be26a9c9692ae01ea0ca4"
+    }
+  },
+  "rendered": {
+    "revision": 3,
+    "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
+    "previews": {
+      "gameplay.wireframe.html": "ddcb12bc10aa8651eb72dd50fc411b9cdf827a1a82dca263cda205a5d5b95406",
+      "leaderboard.wireframe.html": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
+      "slayer.wireframe.html": "1df36059377d8b8f2e46248a6b4dee6d9aea85f4cdbe54500f20447a668938fd"
+    }
+  }
+}

@@ -1,3 +1,9 @@
+## Full GIF source copy (58 frames)
+
+[Preview](gif-pack/review.html) / [Source, clip ranges and verification](gif-pack/README.md).
+New isolated set: sword, axe, sword + armor/shield; 18 PNG strips and three
+58-cel natives, 100ms per cel. Prior variants below remain preserved.
+
 # Skeleton / hero art
 
 Full design pack: [kiếm, rìu và thương — preview](full-pack/review.html),

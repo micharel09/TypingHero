@@ -1,8 +1,9 @@
 // Uses the native-pixel stroke/bone/polygon helpers from weapons-pixel.js.
 // Palette changes are scoped to anatomy; wood and steel keep their own colors.
+if(p.referenceWeapon){tones={H:[250,250,250],L:[191,203,214],M:[139,152,170],S:[103,108,134],D:[29,29,49],W:[112,39,7],B:[73,16,9]};}
 var steel=tones;
 var bonePalette={H:[252,247,215],L:[235,199,117],M:[177,130,79],S:[163,98,56],D:[36,30,23]};
-var boneMap={'250,250,250':'H','192,213,220':'L','160,172,197':'M','105,121,158':'S','58,42,61':'D'};
+var boneMap={'191,203,214':'L','139,152,170':'M','103,108,134':'S','29,29,49':'D','250,250,250':'H','192,213,220':'L','160,172,197':'M','105,121,158':'S','58,42,61':'D'};
 function anatomyPatch(name,x,y,angle){
  var source=patches[name],a=(angle||0)*Math.PI/180,co=Math.cos(a),si=Math.sin(a);
  // Inverse sampling preserves continuous opaque clusters during the death turn.
@@ -59,11 +60,13 @@ if(layer==='vfx'){
  anatomyPatch('head',p.head[0],p.head[1],p.headAngle);
  arm(shoulders[0],p.elbows[0],p.hands[0],false);
  tones=steel;
+ if(p.referenceWeapon){sourceWeapon();}else{
  stroke(p.butt,p.tip,'B',2);stroke(p.butt,p.tip,'W');
  polygon(p.blade,'M');polygon(p.light,'L');
  for(var j=0;j<p.blade.length;j++)stroke(p.blade[j],p.blade[(j+1)%p.blade.length],p.kind==='axe'?'D':'S');
  for(var j=1;j<p.edge.length;j++)stroke(p.edge[j-1],p.edge[j],'H');
  polygon(p.socket,'M');stroke(p.socket[0],p.socket[1],'L');
+ }
  // Only attached fingers cover the wood. Released hands are painted above.
  if(yellow)tones=bonePalette;
  for(var h=0;h<2;h++)if(p.grips[h]!==null){
@@ -72,4 +75,19 @@ if(layer==='vfx'){
   stroke([hand[0]-1,hand[1]+1],[hand[0]+1,hand[1]+1],h?'S':'L');
  }
  tones=steel;
+}
+
+function sourceWeapon(){
+ var len=Math.sqrt(Math.pow(p.tip[0]-p.butt[0],2)+Math.pow(p.tip[1]-p.butt[1],2));
+ var ux=(p.tip[0]-p.butt[0])/len,uy=(p.tip[1]-p.butt[1])/len;
+ var cu=3/Math.sqrt(2410),cv=-49/Math.sqrt(2410),lookup={};
+ for(var k=0;k<patches.weapon.length;k++){
+  var q=patches.weapon[k];lookup[q[0]+','+q[1]]=q.slice(2);
+ }
+ // Inverse nearest native sampling; throw if an authored pose loses any pixels.
+ for(var y=-20;y<84;y++)for(var x=-20;x<116;x++){
+  var dx=x-p.tip[0],dy=y-p.tip[1],a=dx*ux+dy*uy,b=-dx*uy+dy*ux;
+  var sx=Math.round(61+a*cu-b*cv),sy=Math.round(14+a*cv+b*cu);
+  var rgb=lookup[sx+','+sy];if(rgb)px(x,y,rgb);
+ }
 }

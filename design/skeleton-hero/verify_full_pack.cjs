@@ -24,8 +24,13 @@ const fs=require('node:fs');
     change('zoom','4');
     for(const kind of ['sword','axe','spear'])for(const color of ['White','Yellow'])for(const clip of ['Idle','Walk','Attack1','Attack2','Hurt','Die']){
      change('weapon',kind);change('color',color);change('clip',clip);
-     const n=kind==='axe'&&clip==='Attack1'?16:{Idle:8,Walk:10,Attack1:10,Attack2:9,Hurt:5,Die:13}[clip];
+     const n=kind==='axe'&&clip==='Idle'?9:kind==='axe'&&clip==='Attack1'?16:{Idle:8,Walk:10,Attack1:10,Attack2:9,Hurt:5,Die:13}[clip];
      check(info().count===n,key()+' cel count');
+     if(kind==='axe'&&clip==='Idle'){
+      check(total()===900&&info().durationsMs.every(d=>d===100),'source Idle timing');
+      for(let i=0;i<9;i++){setTime(starts()[i]);check($('difference').textContent.includes('RGB/alpha lệch 0 pixel; silhouette lệch 0 pixel'),'exact source comparison '+i);}
+      check(!$('referencePanel').hidden,'source comparison visible');
+     }else check($('referencePanel').hidden,'comparison only applies to Idle');
      for(const mirror of [false,true])for(const vfx of [false,true])for(const speed of ['1','0.25']){
       combinations++;set('flip',mirror);set('vfx',vfx);change('speed',speed);
       stop();setTime(0);check(index()===0,key()+' reset');

@@ -13,7 +13,7 @@ public sealed class ShogunPresentationTests
         .GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(target, value);
 
     [Test, Category("Quick")]
-    public void CombatLayoutTracksBodiesAndCentersZoomedPulsingScore()
+    public void CombatLayoutTracksBodiesAndKeepsPulsingScoreAtScreenCorner()
     {
         var root = new GameObject("layout", typeof(RectTransform));
         var cameraHost = new GameObject("camera", typeof(Camera));
@@ -33,13 +33,13 @@ public sealed class ShogunPresentationTests
             player.transform.position = new Vector3(-2, 0, 0); enemy.transform.position = new Vector3(2, -.4f, 0);
             Physics2D.SyncTransforms();
             var layout = root.AddComponent<CombatHUDLayout>(); layout.enabled = false;
-            var a = Box("player status", bounds, 112, 30); var b = Box("enemy status", bounds, 112, 30);
+            var a = Box("player status", bounds, 112, 6); var b = Box("enemy status", bounds, 112, 12);
             var tray = Box("tray", bounds, 672, 56); var cluster = Box("score", bounds, 220, 48);
             var score = Box("total", cluster, 144, 24).gameObject.AddComponent<TextMeshProUGUI>();
             var combo = Box("combo", cluster, 64, 28);
             var multiplier = Box("multiplier", combo, 64, 24).gameObject.AddComponent<TextMeshProUGUI>();
             score.text = "128450"; multiplier.text = "x3.0";
-            score.fontSize = 24; multiplier.fontSize = 24;
+            score.fontSize = 24; multiplier.fontSize = 16;
             Set(layout, "targetCamera", camera); Set(layout, "playerBody", player.GetComponent<BoxCollider2D>());
             Set(layout, "enemyBody", enemy.GetComponent<BoxCollider2D>());
             Set(layout, "playerStatus", a); Set(layout, "enemyStatus", b); Set(layout, "typingTray", tray);
@@ -60,13 +60,15 @@ public sealed class ShogunPresentationTests
                 var foot = camera.WorldToScreenPoint(layout.Foot(player.GetComponent<BoxCollider2D>()));
                 Assert.That(a.position.x + 56, Is.EqualTo(foot.x).Within(.001f));
                 Assert.That(a.position.y, Is.EqualTo(foot.y - 12).Within(.001f));
-                Assert.That(tray.position.y, Is.EqualTo(Mathf.Min(a.position.y, b.position.y) - 94).Within(.001f));
-                float width = (score.preferredWidth * pulse + (multiplier.gameObject.activeSelf ? 8 + multiplier.preferredWidth : 0)) * zoom;
-                Assert.That(cluster.position.x + width * .5f, Is.EqualTo(bounds.position.x).Within(.001f));
-                Assert.That(cluster.position.y, Is.EqualTo(Mathf.Min(a.position.y, b.position.y) - 38).Within(.001f));
-                Assert.That(decay.position.y, Is.LessThan(cluster.position.y - 24 * pulse * zoom));
-                Assert.That(decay.position.y - 4, Is.GreaterThan(tray.position.y + 8));
-                Assert.That(popup.position.x, Is.EqualTo(cluster.position.x + width + 12).Within(.001f));
+                Assert.That(tray.position.y, Is.EqualTo(Mathf.Min(a.position.y - 6, b.position.y - 12) - 12).Within(.001f));
+                Assert.That(cluster.localScale, Is.EqualTo(Vector3.one));
+                var local = bounds.InverseTransformPoint(cluster.position);
+                Assert.That(local.x + score.preferredWidth * pulse, Is.EqualTo(bounds.rect.xMax - 24).Within(.001f));
+                Assert.That(local.y, Is.EqualTo(bounds.rect.yMax - 24).Within(.001f));
+                var head = camera.WorldToScreenPoint(layout.Head(enemy.GetComponent<BoxCollider2D>()));
+                Assert.That(popup.position.x, Is.EqualTo(head.x + 24).Within(.001f));
+                Assert.That(popup.position.y, Is.EqualTo(head.y + 12).Within(.001f));
+                Assert.That(decay.gameObject.activeSelf, Is.EqualTo(tier != "x1.0"));
             }
         }
         finally
@@ -89,7 +91,8 @@ public sealed class ShogunPresentationTests
             var popup = popupHost.AddComponent<FloatingScore>();
             popup.Setup("+18", Color.yellow, canvas, anchor, new Vector2(3, 4));
             Set(popup, "life", 1f); Set(popup, "fadeDelay", 0f); Set(popup, "riseDistance", 0f);
-            Set(popup, "_t0", Time.unscaledTime - .5f);
+            Set(popup, "_elapsed", .5f);
+            popup.SetPaused(true);
             var update = typeof(FloatingScore).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic);
             update.Invoke(popup, null);
             var initial = popupHost.GetComponent<RectTransform>().anchoredPosition;
@@ -100,8 +103,73 @@ public sealed class ShogunPresentationTests
             Assert.That(moved.y, Is.EqualTo(-23).Within(.001f));
             Assert.That(popupHost.GetComponent<TMP_Text>().text, Is.EqualTo("+18"));
             Assert.That(popupHost.GetComponent<TMP_Text>().color.a, Is.EqualTo(.5f).Within(.01f));
+            popup.AddAward(18, "0", Color.yellow);
+            popup.AddAward(7, "0", Color.red);
+            Assert.That(popupHost.GetComponent<TMP_Text>().text, Is.EqualTo("+25"));
+            Assert.That(popupHost.GetComponent<TMP_Text>().color.a, Is.EqualTo(1));
+            Set(popup, "_elapsed", .5f);
+            update.Invoke(popup, null);
+            Assert.That(popupHost.GetComponent<TMP_Text>().color.a, Is.EqualTo(.5f).Within(.01f));
+            var last = popupHost.GetComponent<RectTransform>().anchoredPosition;
+            Object.DestroyImmediate(anchor.gameObject);
+            update.Invoke(popup, null);
+            Assert.That(popupHost.GetComponent<RectTransform>().anchoredPosition, Is.EqualTo(last));
         }
-        finally { Object.DestroyImmediate(popupHost); Object.DestroyImmediate(anchor.gameObject); Object.DestroyImmediate(canvasHost); }
+        finally { Object.DestroyImmediate(popupHost); if (anchor) Object.DestroyImmediate(anchor.gameObject); Object.DestroyImmediate(canvasHost); }
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator ScoreAwardsShareOnePopupPauseAndRestartClearIt()
+    {
+        var canvasHost = new GameObject("canvas", typeof(RectTransform), typeof(Canvas));
+        var prefab = new GameObject("award prefab", typeof(RectTransform), typeof(TextMeshProUGUI));
+        var scoreHost = new GameObject("score owner"); scoreHost.SetActive(false);
+        var rules = ScriptableObject.CreateInstance<ScoreRules>();
+        var matchHost = new GameObject("match");
+        var match = matchHost.AddComponent<CombatSession>();
+        var anchor = new GameObject("anchor", typeof(RectTransform)).GetComponent<RectTransform>();
+        try
+        {
+            var canvas = canvasHost.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            anchor.SetParent(canvas.transform, false);
+            var template = prefab.AddComponent<FloatingScore>(); template.enabled = false;
+            var system = scoreHost.AddComponent<ScoreSystem>();
+            Set(system, "rules", rules); Set(system, "floatingPrefab", template);
+            Set(system, "floatingCanvas", canvas); Set(system, "popupAnchor", anchor);
+            scoreHost.SetActive(true);
+            var spawn = typeof(ScoreSystem).GetMethod("SpawnFloating", BindingFlags.Instance | BindingFlags.NonPublic);
+            spawn.Invoke(system, new object[] { 10, 1f, null });
+            spawn.Invoke(system, new object[] { 30, 2f, null });
+            var popup = canvas.GetComponentInChildren<FloatingScore>();
+            Assert.That(canvas.GetComponentsInChildren<FloatingScore>().Length, Is.EqualTo(1));
+            Assert.That(popup.GetComponent<TMP_Text>().text, Is.EqualTo("+40"));
+            system.SetPaused(true);
+            yield return new WaitForSecondsRealtime(.7f);
+            Assert.That(popup, Is.Not.Null);
+            Assert.That(popup.GetComponent<TMP_Text>().color.a, Is.EqualTo(1));
+            system.SetPaused(false);
+            yield return new WaitForSecondsRealtime(.3f);
+            Assert.That(popup.GetComponent<TMP_Text>().color.a, Is.InRange(.1f, .9f));
+            spawn.Invoke(system, new object[] { 6, 3f, null });
+            Assert.That(canvas.GetComponentsInChildren<FloatingScore>().Length, Is.EqualTo(1));
+            Assert.That(popup.GetComponent<TMP_Text>().text, Is.EqualTo("+46"));
+            Assert.That(popup.GetComponent<TMP_Text>().color.a, Is.EqualTo(1));
+            system.ResetScore();
+            Assert.That(canvas.GetComponentsInChildren<FloatingScore>().Length, Is.EqualTo(0));
+            yield return null;
+            spawn.Invoke(system, new object[] { 10, 1f, null });
+            popup = canvas.GetComponentInChildren<FloatingScore>();
+            Assert.That(popup.GetComponent<TMP_Text>().text, Is.EqualTo("+10"));
+            match.Complete(true);
+            Object.DestroyImmediate(anchor.gameObject);
+            yield return new WaitForSecondsRealtime(.7f);
+            Assert.That(canvas.GetComponentsInChildren<FloatingScore>().Length, Is.EqualTo(0));
+        }
+        finally
+        {
+            Object.DestroyImmediate(matchHost); Object.DestroyImmediate(scoreHost); Object.DestroyImmediate(prefab);
+            Object.DestroyImmediate(canvasHost); Object.DestroyImmediate(rules);
+        }
     }
 
 #if UNITY_EDITOR

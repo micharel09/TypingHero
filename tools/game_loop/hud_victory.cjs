@@ -7,14 +7,16 @@ module.exports = async function hudVictory(api, page) {
   while(performance.now()<end){
     let s=await state(page);
     if(s.finished){
-      check(s.hp>0 && s.enemyHp===0,'HUD keyboard round wins against850HP');
+      check(s.hp>0 && s.enemyHp<=0,'HUD keyboard round wins against850HP');
       check(sawSlayer && sawStaminaChange,'real parry/typing drains stamina and enters Slayer before victory');
+      await until(page,t=>t.popupCount===0);
+      check((await state(page)).popupCount===0,'lethal popup completes fade despite score freeze');
       await until(page,t=>t.overlay);
       await page.screenshot({path:report.outputDirectory+'/hud-victory.png'});
       await page.keyboard.press('r',{delay:100});
       s=await until(page,t=>!t.overlay && t.hp===40 && t.enemyHp===850 && t.score===0);
       check(s.playerHpFill===1 && s.enemyHpFill===1 && s.staminaFill===1,'victory restart restores relocated bars');
-      check(!s.slayer && s.scoreZoom===1,'victory restart restores normal HUD');
+      check(!s.slayer && s.scoreZoom===1 && s.popupCount===0,'victory restart restores normal HUD and clears awards');
       return;
     }
     sawSlayer ||= s.slayer;

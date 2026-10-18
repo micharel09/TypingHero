@@ -103,7 +103,12 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Rect[] wordRects;
         public Rect popupRect, decayRect;
         public Vector2 popupPoint;
-        public float popupAlpha, popupFont;
+        public float popupAlpha, popupFont, popupElapsed;
+        public int popupCount, popupId;
+        public string popupText;
+        public Vector2 enemyHeadPoint;
+        public bool playerNameVisible, enemyNameVisible;
+        public Color staminaColor;
 
         public float rowHeight, viewportHeight;
         public int[] rowIds;
@@ -248,6 +253,14 @@ public sealed class GameLoopProbe : MonoBehaviour
                 sparks = sparks, sparkMask = sparkMask,
                 popupRect = TextRect(awardLabel), popupAlpha = awardLabel ? awardLabel.color.a : 0,
                 popupFont = awardLabel ? awardLabel.fontSize : 0,
+                popupElapsed = award ? Read<float>(award, "_elapsed") : 0,
+                popupCount = FindObjectsOfType<FloatingScore>().Length,
+                popupId = award ? award.GetInstanceID() : 0,
+                popupText = awardLabel ? awardLabel.text : "",
+                enemyHeadPoint = layout && bodyB ? (Vector2)Camera.main.WorldToScreenPoint(layout.Head(bodyB)) : default,
+                playerNameVisible = playerStatus && playerStatus.Find("PlayerName").gameObject.activeInHierarchy,
+                enemyNameVisible = enemyStatus && enemyStatus.Find("EnemyHPLabel").gameObject.activeInHierarchy,
+                staminaColor = staminaSlider ? staminaSlider.fillRect.GetComponent<Image>().color : default,
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
                 decayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
                 playerStatusRect = ScreenRect(playerStatus), enemyStatusRect = ScreenRect(enemyStatus),

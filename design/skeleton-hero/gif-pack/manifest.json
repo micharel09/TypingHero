@@ -1,0 +1,118 @@
+{
+  "source": "monopixelart-full.gif",
+  "sourceSHA256": "e41867a829ef06b3296e8778aa43739bc8c0605b9df77e4212dbd373c4ba522c",
+  "canvas": [
+    96,
+    64
+  ],
+  "frames": 58,
+  "durationMs": 100,
+  "origins": [
+    [
+      0,
+      18
+    ],
+    [
+      64,
+      18
+    ],
+    [
+      128,
+      18
+    ]
+  ],
+  "clips": {
+    "sword": {
+      "Idle": [
+        0,
+        7
+      ],
+      "Hurt": [
+        8,
+        12
+      ],
+      "Die": [
+        13,
+        25
+      ],
+      "Walk": [
+        26,
+        35
+      ],
+      "Attack1": [
+        36,
+        47
+      ],
+      "Attack2": [
+        48,
+        57
+      ]
+    },
+    "axe": {
+      "Idle": [
+        0,
+        7
+      ],
+      "Hurt": [
+        8,
+        12
+      ],
+      "Walk": [
+        13,
+        24
+      ],
+      "Die": [
+        25,
+        35
+      ],
+      "Attack1": [
+        36,
+        47
+      ],
+      "Attack2": [
+        48,
+        57
+      ]
+    },
+    "sword-shield": {
+      "Idle": [
+        0,
+        7
+      ],
+      "Hurt": [
+        8,
+        12
+      ],
+      "Die": [
+        13,
+        25
+      ],
+      "Walk": [
+        26,
+        35
+      ],
+      "Attack1": [
+        36,
+        47
+      ],
+      "Attack2": [
+        48,
+        57
+      ]
+    }
+  },
+  "occlusionFrames": [
+    41,
+    42,
+    50,
+    51,
+    52,
+    53,
+    54
+  ],
+  "layer": "Visible White composite + VFX",
+  "preservation": {
+    "files": 397,
+    "sha256": "97117102b907f5857b10ce339f48a751cf3bd1c87ad3d427b5a5ac9c126cba29"
+  }
+}

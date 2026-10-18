@@ -560,6 +560,12 @@ async function modalFlow(page, paused) {
         await require('./tutorial.cjs')({state,until,clickControl,check,report},page,{stopAfterSlayerLayout:true});
       } finally {await context.close();}
       await require('./slayer.cjs')({session,start,state,until,check,report},browser);
+      const victory=await session(browser,{width:960,height:540},1000);
+      try { await start(victory.page); await require('./hud_victory.cjs')({state,until,check,report},victory.page); }
+      finally { await victory.context.close(); }
+      const board=await session(browser,{width:960,height:540},1000);
+      try { await leaderboard(board.page,1000); } finally { await board.context.close(); }
+
     } else if (process.env.TYPINGHERO_ATTACK_SORTING_ONLY === '1') {
       report.scenario='attack-sorting';
       await require('./attack_sorting.cjs')({session,start,state,until,check,report},browser);

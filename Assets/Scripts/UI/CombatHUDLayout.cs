@@ -22,13 +22,21 @@ public sealed class CombatHUDLayout : MonoBehaviour
 
     void LateUpdate()
     {
+        var root = (RectTransform)transform;
+        LayoutScore(root);
+        if (targetCamera && enemyBody)
+        {
+            var parent = (RectTransform)popupAnchor.parent;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
+                targetCamera.WorldToScreenPoint(Head(enemyBody)), null, out var head);
+            popupAnchor.position = parent.TransformPoint(head + new Vector2(24, 12));
+        }
+        // Keep the last projected positions after lethal destroys either actor.
         if (!targetCamera || !playerBody || !enemyBody) return;
         PlaceBelowFoot(playerStatus, playerBody);
         PlaceBelowFoot(enemyStatus, enemyBody);
-        var root = (RectTransform)transform;
         float lowest = Mathf.Min(BottomIn(root, playerStatus), BottomIn(root, enemyStatus));
-        PlaceTopLeft(typingTray, root.TransformPoint(new Vector3(root.rect.center.x - 336, lowest - 8 - 48 - 8, 0)));
-        LayoutScore(root, lowest - 8);
+        PlaceTopLeft(typingTray, root.TransformPoint(new Vector3(root.rect.center.x - 336, lowest - 12, 0)));
     }
 
     void PlaceBelowFoot(RectTransform status, BoxCollider2D body)
@@ -48,25 +56,21 @@ public sealed class CombatHUDLayout : MonoBehaviour
         item.position = point;
     }
 
-    void LayoutScore(RectTransform root, float rowTop)
+    void LayoutScore(RectTransform root)
     {
-        float scoreWidth = scoreText.preferredWidth;
+        float width = scoreText.preferredWidth;
         float pulse = scoreText.transform.localScale.x;
-        bool showMultiplier = multiplierText.gameObject.activeSelf;
-        float multiplierWidth = showMultiplier ? multiplierText.preferredWidth : 0;
-        float total = scoreWidth * pulse + (showMultiplier ? 8 + multiplierWidth : 0);
-        scoreText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, scoreWidth);
+        float multiplierWidth = multiplierText.gameObject.activeSelf ? multiplierText.preferredWidth : 0;
+        scoreRoot.localScale = Vector3.one;
+        scoreText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        scoreRoot.position = root.TransformPoint(new Vector3(root.rect.xMax - 24 - width * pulse,
+            root.rect.yMax - 24, 0));
         comboRoot.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, multiplierWidth);
         multiplierText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, multiplierWidth);
-        comboRoot.anchoredPosition = new Vector2(scoreWidth * pulse + 8, 0);
-        scoreRoot.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, total);
-        float scale = scoreRoot.localScale.x;
-        // Include both the cluster zoom and the award pulse when centering visible text.
-        scoreRoot.position = root.TransformPoint(new Vector3(root.rect.center.x - total * scale * .5f,
-            rowTop, 0));
-        comboDecay.position = root.TransformPoint(new Vector3(root.rect.center.x - 56,
-            rowTop - Mathf.Max(24 * pulse, 24) * scale - 4, 0));
-        popupAnchor.position = root.TransformPoint(new Vector3(root.rect.center.x + total * scale * .5f + 12,
-            rowTop - 18, 0));
+        comboRoot.position = root.TransformPoint(new Vector3(root.rect.xMax - 24 - multiplierWidth,
+            root.rect.yMax - 24 - 24 * pulse - 4, 0));
+        comboDecay.gameObject.SetActive(multiplierText.gameObject.activeSelf);
+        comboDecay.position = root.TransformPoint(new Vector3(root.rect.xMax - 24 - 112,
+            root.InverseTransformPoint(comboRoot.position).y - 20, 0));
     }
 }

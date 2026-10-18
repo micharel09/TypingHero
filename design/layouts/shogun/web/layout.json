@@ -1,6 +1,6 @@
 {
   "layoutId": "shogun",
-  "revision": 3,
+  "revision": 4,
   "platform": "web",
   "owner": "Assets/Editor/PixelUI/ShogunTheme.cs",
   "contract": "contract.md",
@@ -15,10 +15,10 @@
       "preview": "gameplay.wireframe.html",
       "capture": "gameplay.png",
       "capturedFrom": {
-        "revision": 3,
-        "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
-        "previewSha256": "ddcb12bc10aa8651eb72dd50fc411b9cdf827a1a82dca263cda205a5d5b95406",
-        "pngSha256": "517776ee1284694f302958260864427393ec0c92872be26a9c9692ae01ea0ca4"
+        "revision": 4,
+        "inputFingerprint": "fa2062713e0aa8e844663fbaf35f372774d246fd8f8bf72d3a7a35c501445523",
+        "previewSha256": "e783ac965ed562e315fe76d6ae158e0eb40100bd7d891dcb090906b4902297f4",
+        "pngSha256": "83555af092597ea22e1f2d1aa56fe8a2ab461f253917312af3b49ecabc7f267a"
       }
     },
     {
@@ -31,10 +31,10 @@
       "preview": "leaderboard.wireframe.html",
       "capture": "leaderboard.png",
       "capturedFrom": {
-        "revision": 3,
-        "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
+        "revision": 4,
+        "inputFingerprint": "fa2062713e0aa8e844663fbaf35f372774d246fd8f8bf72d3a7a35c501445523",
         "previewSha256": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
-        "pngSha256": "3e5431efce9f0b6c097e7624731051762f3abdeb180707e2429e37742d51734b"
+        "pngSha256": "892ff4b00476b55e5579c7e1d454351c1d78d923b9fe0e21e43d5cf5a4f4845b"
       }
     },
     {
@@ -47,35 +47,35 @@
       "preview": "slayer.wireframe.html",
       "capture": "slayer.png",
       "capturedFrom": {
-        "revision": 3,
-        "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
-        "previewSha256": "1df36059377d8b8f2e46248a6b4dee6d9aea85f4cdbe54500f20447a668938fd",
-        "pngSha256": "517776ee1284694f302958260864427393ec0c92872be26a9c9692ae01ea0ca4"
+        "revision": 4,
+        "inputFingerprint": "fa2062713e0aa8e844663fbaf35f372774d246fd8f8bf72d3a7a35c501445523",
+        "previewSha256": "db47c9ef6d87e9ff7c1fe29d81a4f23fa91b326de9a658894113f861b9ca7b59",
+        "pngSha256": "83555af092597ea22e1f2d1aa56fe8a2ab461f253917312af3b49ecabc7f267a"
       }
     }
   ],
   "approval": {
     "status": "approved",
-    "revision": 3,
-    "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
-    "evidence": "User 2026-10-18 explicitly requested implementation of the plan: both normal and Slayer status ->8px->fixed48px score row/font24 ->8px->672x56 tray; popup gap12/font18/rise12; preserve previous revision. This revision records that approved geometry.",
-    "approvedAt": "2026-10-18T06:30:51.702500+00:00",
+    "revision": 4,
+    "inputFingerprint": "fa2062713e0aa8e844663fbaf35f372774d246fd8f8bf72d3a7a35c501445523",
+    "evidence": "User explicitly requested implementation of supplied compact Type Knight plan: normal/Slayer unframed corner total24px margins/font24, combo16 below, no names, Gold stamina, tray gap12, single accumulated enemy-head popup font18/right24/up12/rise18/150+450ms; pause/restart/lethal semantics. Prior revision preserved.",
+    "approvedAt": "2026-10-18T10:07:10.861083+00:00",
     "artifacts": {
-      "gameplay.wireframe.html": "ddcb12bc10aa8651eb72dd50fc411b9cdf827a1a82dca263cda205a5d5b95406",
-      "gameplay.png": "517776ee1284694f302958260864427393ec0c92872be26a9c9692ae01ea0ca4",
+      "gameplay.png": "83555af092597ea22e1f2d1aa56fe8a2ab461f253917312af3b49ecabc7f267a",
+      "gameplay.wireframe.html": "e783ac965ed562e315fe76d6ae158e0eb40100bd7d891dcb090906b4902297f4",
+      "leaderboard.png": "892ff4b00476b55e5579c7e1d454351c1d78d923b9fe0e21e43d5cf5a4f4845b",
       "leaderboard.wireframe.html": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
-      "leaderboard.png": "3e5431efce9f0b6c097e7624731051762f3abdeb180707e2429e37742d51734b",
-      "slayer.wireframe.html": "1df36059377d8b8f2e46248a6b4dee6d9aea85f4cdbe54500f20447a668938fd",
-      "slayer.png": "517776ee1284694f302958260864427393ec0c92872be26a9c9692ae01ea0ca4"
+      "slayer.png": "83555af092597ea22e1f2d1aa56fe8a2ab461f253917312af3b49ecabc7f267a",
+      "slayer.wireframe.html": "db47c9ef6d87e9ff7c1fe29d81a4f23fa91b326de9a658894113f861b9ca7b59"
     }
   },
   "rendered": {
-    "revision": 3,
-    "inputFingerprint": "49ad851305cd8144427738228e5136278d376a2644057e7d6a4b394ef0469df6",
+    "revision": 4,
+    "inputFingerprint": "fa2062713e0aa8e844663fbaf35f372774d246fd8f8bf72d3a7a35c501445523",
     "previews": {
-      "gameplay.wireframe.html": "ddcb12bc10aa8651eb72dd50fc411b9cdf827a1a82dca263cda205a5d5b95406",
+      "gameplay.wireframe.html": "e783ac965ed562e315fe76d6ae158e0eb40100bd7d891dcb090906b4902297f4",
       "leaderboard.wireframe.html": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
-      "slayer.wireframe.html": "1df36059377d8b8f2e46248a6b4dee6d9aea85f4cdbe54500f20447a668938fd"
+      "slayer.wireframe.html": "db47c9ef6d87e9ff7c1fe29d81a4f23fa91b326de9a658894113f861b9ca7b59"
     }
   }
 }
