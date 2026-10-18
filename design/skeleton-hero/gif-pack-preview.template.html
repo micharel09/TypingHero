@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skeleton — GIF nguồn 58 cel</title>
+<style>
+*{box-sizing:border-box}body{margin:16px;background:#20242b;color:#eee;font:15px system-ui}button,select,input{font:inherit}button,select{padding:5px}header,.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}main{display:flex;gap:16px;flex-wrap:wrap}figure{margin:0;max-width:100%;overflow:auto}canvas{image-rendering:pixelated;background:repeating-conic-gradient(#454954 0% 25%,#393d47 0% 50%) 0/16px 16px}figcaption{margin-bottom:6px}#scrub{width:min(650px,95vw)}p{max-width:900px}label{white-space:nowrap}
+</style>
+<header><strong>GIF nguồn · White composite</strong><label>Nhân vật <select id="kind"><option value="sword">Kiếm</option><option value="axe">Rìu</option><option value="sword-shield">Kiếm + giáp/khiên</option></select></label><label>Clip <select id="clip"><option value="Timeline">Timeline 5,8s</option><option>Idle</option><option>Hurt</option><option>Walk</option><option>Die</option><option>Attack1</option><option>Attack2</option></select></label></header>
+<div class="controls"><button id="play">Pause</button><button id="replay">Replay</button><button id="prev">← Cel</button><button id="next">Cel →</button><label>Tốc độ <select id="speed"><option value="1">1×</option><option value="0.25">0,25×</option></select></label><label>Zoom <select id="zoom"><option value="4">4×</option><option value="8">8×</option></select></label><label><input type="checkbox" id="mirror"> Mirror</label></div>
+<input id="scrub" type="range" min="0" max="57" value="0" step="1"><output id="status"></output>
+<main><figure><figcaption>Nguồn gốc — gồm pixel lân cận</figcaption><canvas id="source"></canvas></figure><figure><figcaption>Bản xuất — pixel sở hữu</figcaption><canvas id="export"></canvas></figure><figure><figcaption>Overlay — nguồn + bản xuất 50%</figcaption><canvas id="overlay"></canvas></figure></main>
+<p id="note">Mỗi cel 100ms. Chân y63; cùng phép tịnh tiến cho thân, vũ khí và VFX. Phần bị che trong GIF giữ thiếu; không dựng lại. Nguồn có khung ở mép phải và nhân vật lân cận, bản xuất dùng mask riêng theo cel.</p>
+<script>
+const data=__DATA__;
+const $=id=>document.getElementById(id);
+let frame=0,playing=true,elapsed=0,last=null,ready=false;
+const sprites={},sources=[];
+function load(url){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=url;});}
+function range(){return $('clip').value==='Timeline'?[0,57]:data.clips[$('kind').value][$('clip').value];}
+function render(){
+ const k=$('kind').value,index=data.kinds.indexOf(k),[ox,oy]=data.origins[index],z=+$('zoom').value;
+ const [start,end]=range();$('scrub').min=start;$('scrub').max=end;$('scrub').value=frame;
+ $('status').textContent=` Nguồn ${frame}/57 · clip ${frame-start+1}/${end-start+1} · ${(frame*100/1000).toFixed(1)}s`;
+ $('play').textContent=playing?'Pause':'Resume';
+ for(const id of ['source','export','overlay']){
+  const canvas=$(id);canvas.width=96*z;canvas.height=64*z;const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+  if($('mirror').checked){ctx.translate(canvas.width,0);ctx.scale(-1,1);}
+  if(id!=='export')ctx.drawImage(sources[frame],ox,oy,96,64,0,0,96*z,64*z);
+  if(id!=='source'){ctx.globalAlpha=id==='overlay'?.5:1;ctx.drawImage(sprites[k][frame],0,0,96*z,64*z);}
+ }
+}
+function reset(){frame=range()[0];elapsed=0;last=null;render();}
+function step(delta){playing=false;elapsed=0;frame=Math.max(range()[0],Math.min(range()[1],frame+delta));render();}
+$('play').onclick=()=>{playing=!playing;last=null;render();};
+$('replay').onclick=()=>{playing=true;reset();};
+$('prev').onclick=()=>step(-1);$('next').onclick=()=>step(1);
+$('scrub').oninput=()=>{playing=false;frame=+$('scrub').value;elapsed=0;render();};
+for(const id of ['kind','clip'])$(id).onchange=reset;
+for(const id of ['mirror','zoom'])$(id).onchange=render;
+$('speed').onchange=()=>{last=null;};
+function tick(time){if(last!==null&&playing){elapsed+=(time-last)*+$('speed').value;const n=Math.floor(elapsed/100);if(n){elapsed-=n*100;const [start,end]=range();frame=start+(frame-start+n)%(end-start+1);render();}}last=time;requestAnimationFrame(tick);}
+(async()=>{for(const kind of data.kinds)sprites[kind]=await Promise.all(data.frames[kind].map(load));sources.push(...await Promise.all(data.source.map(load)));ready=true;render();requestAnimationFrame(tick);})();
+</script></html>

@@ -38,6 +38,7 @@ public class ScoreSystem : MonoBehaviour
     float _windowRemain;
     bool _paused;
     Camera _cam;
+    FloatingScore _floating;
 
     void Awake()
     {
@@ -83,10 +84,20 @@ public class ScoreSystem : MonoBehaviour
     }
 
     // ==== Public ====
-    public void SetPaused(bool v) => _paused = v;
+    public void SetPaused(bool v)
+    {
+        _paused = v;
+        if (_floating) _floating.SetPaused(v && !CombatSession.Finished);
+    }
 
     public void ResetScore()
     {
+        if (_floating)
+        {
+            _floating.gameObject.SetActive(false);
+            Destroy(_floating.gameObject);
+            _floating = null;
+        }
         Score = 0;
         ResetComboOnly();
         UpdateUI(true);
@@ -220,11 +231,12 @@ public class ScoreSystem : MonoBehaviour
     {
         if (!floatingPrefab || !floatingCanvas) return;
 
-        var go = Instantiate(floatingPrefab, floatingCanvas.transform);
-        go.Setup("+" + delta.ToString(rules.scoreFormat),
-                 ColorByMultiplier(mul),
-                 floatingCanvas,
-                 popupAnchor,
-                 popupOffset);
+        if (!_floating)
+        {
+            _floating = Instantiate(floatingPrefab, floatingCanvas.transform);
+            _floating.Setup("", ColorByMultiplier(mul), floatingCanvas, popupAnchor, popupOffset);
+            _floating.SetPaused(_paused);
+        }
+        _floating.AddAward(delta, rules.scoreFormat, ColorByMultiplier(mul));
     }
 }

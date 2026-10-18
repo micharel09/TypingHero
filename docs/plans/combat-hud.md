@@ -42,3 +42,65 @@ User duyệt plan mới: normal/Slayer giữ status; hàng điểm cách status 
 - Memory cập nhật đúng phần HUD trong gameplay/systems/verification. Không production/Windows/release/itch/stress/soak; không claim FPS thiết bị hay audio. Doctor cuối input `e49808a9fe7f779d2bec93160e240e07362bdc002aadec015b3d30a7a56489db`: runtime/serialized UI giữ nguyên so với player đã kiểm; test/driver mới được đồng bộ.
 - Đã dọn task-temp/capture/report trên cả hai host và bốn thư mục result của task sau receipt/review. Không còn container kiểm thử của task. Source/Library/toolchain/QA player dùng chung giữ để tái sử dụng; không tạo branch/worktree/commit. Syntax, runner contracts và whitespace cuối PASS. Acceptance hoàn tất, không còn bước implementation/kiểm chứng cần làm.
 - User sau đó yêu cầu publish: bản production r3 đã lên itch.io, upload19840745, giữ bốn upload trước để rollback. Chi tiết build/checksum/smoke/CDN trong [itch-discovery](itch-discovery.md) và verification.md; không đổi runtime khi publish.
+
+
+## Revision 4 - compact Type Knight HUD (verified)
+
+Approved user plan/reference: https://chaikadev.itch.io/type-knight/devlog/70022/type-knight-demo-4
+Reference only, no source game assets/code copied. Existing font/palette/UGUI reused.
+Unframed total font24 at top/right24, screen scale1, immediate updates/120ms pulse;
+combo font16 below/hidden x1. Hide actor names and disable PlayerNameHUD refresh;
+red HP6, Gold(#DCC47C) stamina4/y8, player/enemy status heights6/12. Tray672x56,
+gap12 below lowest status, no score row. One accumulated +delta popup font18 at
+projected enemy head +(24,12), max rise18; hold150ms/fade450ms after last award,
+restore alpha/add on fade interruption. Pause holds time; lethal keeps last anchor/
+finishes fade; restart clears instance/accumulation. Rules/Score/OnScored unchanged.
+Owners: CombatHUDLayout positions; ShogunTheme bindings/serialization; ScoreSystem
+single presentation instance; FloatingScore lifetime/rise/alpha. No runtime dependency.
+
+- Preserved existing dirty VFX/skeleton work; no branch/worktree/commit/push created.
+- Bundle r3 retained/check PASS; r4 rendered/captured/reviewed in Edge with editor panel
+  closed, check PASS. Fingerprint fa2062713e0aa8e844663fbaf35f372774d246fd8f8bf72d3a7a35c501445523.
+  Body positions are schematic; contract geometry is explicitly user-specified.
+- QA WebGL20261018T101114 PASS, input78e663f836356dddd5bfbf94889aa7965df9e5180af4679a761f54fe93815bf8;
+  repeat-builder PASS. SampleScene664/664 and popup5/5 IDs retained, identical referenced
+  GUID sets. Local copies match generated serialization after trailing-whitespace cleanup.
+- Targeted score-layout PASS198 checks/311.200s: real keyboard hits/parries, reading/
+  pause locks, normal/Slayer at640x360,960x540,1280x720,1920x1080; all eight frames,
+  cue, popup, x3/pause, restored normal and victory frames reviewed. Top/right margins24px
+  at all sizes (largest error<.0001 reference pixels); status/tray gap12, Gold stamina,
+  names hidden, score scale1. Exact awards/capped multiplier, one accumulating popup,
+  held popup time/alpha during pause, Slayer exit and restart pass. Victory86.1s,
+  score2499/100% accuracy/9parries, lethal fade completes, restart restores all bars.
+  Fixture leaderboard1000 rows/scroll/refresh reuse PASS. Chromium153/SwiftShader,
+  2CPU/8GiB/shm1GiB;7fixture reads/1intercepted write/0exceptions; external network blocked.
+- Native Edge155.0.4283.62, Playwright1.64.1: Slayer PASS50 checks/38.961s, x2/yellow,
+  x3/red/score275/scale1, exact popup accumulation/pause/restart.0fixture reads/writes/
+  exceptions. Same QA player; no gameplay mutation. Reviewed real parry-to-fade and
+  rapid Slayer award sequences at100ms intervals, including yellow combo/popups and
+  continued rise. Recorded37.24s WebM; actual playbackRate1 advances2.012s over2.0121s
+  (ratio.9999503), no retiming. This is functional/visual evidence, not device FPS/audio.
+- Final Quick20261018T102205 PASS53/53, no failures/skips, input
+  6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
+  Tests explicitly cover0/6/10digits,x1/x2/x3,pulse1/1.2,camera normal/Slayer;
+  anchor movement, accumulation during fade/alpha restore, actual CombatSession.Complete,
+  pause, destroyed anchor, expiry and restart. Final Quick includes serialized UI and
+  observation-driver correction; product C# matches QA runtime.
+- Runner initially busy with another session. Nonblocking attempts safely refused;
+  task-temp wrapper queued on the existing exclusive lock. An ordering error in the
+  wrapper meant QA ran before Quick; corrected by running final Quick separately,
+  not by claiming the earlier52-test pass covered new tests. No repository runner/CI
+  change. Earlier task-owned waiting jobs were verified sleeping on the lock and stopped;
+  other jobs were preserved. The native recording initially lacked Playwright ffmpeg;
+  installed only that support binary in task-temp, then reran successfully.
+- Final receipts are also in docs/game/verification.md. Only QA built; no production,
+  Windows, ZIP/release, publication, stress/soak or real provider writes by this task.
+- Final scoped diff/secret/GUID/whitespace/path review PASS; no out-of-scope runtime
+  deltas or new dependencies. Runner contracts8/8 PASS on Ubuntu. Attempting that
+  Linux-only suite locally first failed importing fcntl; rerun in its intended Ubuntu
+  environment passed. JS syntax and current/preserved bundle checks PASS.
+- Written receipts recorded before capture cleanup. Shared server source/Library/
+  toolchain/QA build remain reusable; final product C# is unchanged after acceptance.
+  Task captures, downloaded QA player, temporary wrappers/native profile/cache and
+  three owned result directories were removed after receipts. Local task-temp no longer
+  exists; other sessions/results/artwork were preserved. Acceptance complete; no blocker.

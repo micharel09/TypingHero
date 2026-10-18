@@ -148,6 +148,6 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   label: {fileID: 7185030518433977446}
-  riseDistance: 12
+  riseDistance: 18
   life: 0.6
   fadeDelay: 0.15

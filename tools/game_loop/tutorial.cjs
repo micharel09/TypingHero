@@ -130,7 +130,7 @@ module.exports = async function tutorialFlow(api, page, options = {}) {
     require('./combat_hud.cjs')(frame,check,'Slayer '+width);
     (report.scoreGeometry ||= []).push({mode:'slayer',width,height,score:frame.scoreRect,tray:frame.trayRect,words:frame.wordRects});
     (report.slayerReadingSizes ||= []).push({width,height,topGap:(frame.barTopEdge.y-frame.bodyHead.y)/scale,bottomGap:(frame.bodyFoot.y-frame.barBottomEdge.y)/scale});
-    check(frame.scorePoint.y<frame.barBottomEdge.y && frame.trayPoint.y<frame.barBottomEdge.y,`${width}: score and typing sit on lower black bar`);
+    check(frame.scorePoint.y>frame.barTopEdge.y && frame.trayPoint.y<frame.barBottomEdge.y,`${width}: score on upper bar and typing on lower bar`);
     check(frame.slayer && !frame.environmentVisible && frame.redAlpha===1,`${width}: tutorial preserves cinematic red`);
     check(Math.abs(frame.barLeft)<1 && Math.abs(frame.barRight-width)<1,`${width}: tutorial bars span screen`);
     check(Math.abs((frame.barTopEdge.y-frame.bodyHead.y)/scale-8)<1.5 && Math.abs((frame.bodyFoot.y-frame.barBottomEdge.y)/scale-8)<1.5,

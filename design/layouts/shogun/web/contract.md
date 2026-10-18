@@ -5,23 +5,23 @@ Reference: https://store.steampowered.com/app/2084000/Shogun_Showdown/
 Use its Japanese layered environment, dark foreground, restrained UI and target-local feedback as visual direction. No source game code/art is copied.
 Assets: https://lyniadesign.itch.io/tiny-pixel-japan-parallax-background and https://kenney.nl/assets/ui-audio.
 
-Revision 3 moves score to the typing region; revision2 is preserved in revisions/r2.
-Geometry explicitly approved in user implementation plan2026-10-18: 960x540,
-arena928x340; status112px wide/top12px below foot, name16/HP6/stamina4.
-Score row top8px below the lowest status, fixed48px tall independent of text/pulse.
-Score/multiplier font24, gap8; decay below. Tray672x56 centered8px below row.
-Popup12px to the right, font18/rise12; existing lifetime/fade/tints/zoom preserved.
-Score and tray follow rendered camera; floating awards follow their current anchor.
-Normal and Slayer share this hierarchy; Slayer retains red/full-width black bars
-and8px body gaps. Wireframe body positions are illustrative; runtime projects the
-fixed collider landmarks through the rendered camera. Long names auto-fit within
-112px; no gameplay text is removed. All three words/timer/error feedback remain.
-Reference for grouping: https://goblinzstudio.com/wp-content/uploads/2022/12/Sho_1-768x430.jpg
-User explicitly approved both variants in the implementation plan.
-CombatHUDLayout owns group/tray/score/popup positions; SlayerScreenFX owns bars,
-red/environment and camera, sharing CombatHUDLayout standing-body landmarks.
-ScoreUI_SlayerBinder and ScoreUI_Flash keep scale ownership; existing sliders,
-font/colors and bindings are reused. Tutorial highlights follow relocated targets.
+Revision4 uses Type Knight as primary HUD reference:
+https://chaikadev.itch.io/type-knight/devlog/70022/type-knight-demo-4
+Approved user implementation plan2026-10-18; reference-only, existing project assets reused.
+Unframed total font24 top/right24 at960x540, fixed screen scale in normal/Slayer;
+combo font16 below, hidden x1, existing tiers/decay and120ms award pulse.
+Status112px wide/12 below foot: no names, HP6 red at top, stamina4 Gold(#DCC47C)
+with2px gap. Player status height6, enemy12; tray672x56 centered12px below lowest status.
+Single +delta popup font18 at projected enemy head right24/up12, max rise18;
+hold150ms/fade450ms after last award. New awards accumulate exact received delta,
+restore alpha without creating another instance. Pause holds time; lethal freezes
+last available anchor and lets fade complete; restart clears popup and accumulation.
+No changes to score rules/events/dependencies. Geometry above is user-specified;
+wireframe body positions are illustrative, not measured runtime coordinates.
+Normal/Slayer share hierarchy; existing red/full-width black bars/body gap8 remain.
+CombatHUDLayout owns positions; ShogunTheme migrates in place preserving bindings;
+ScoreUI_Flash owns award pulse. Camera scale binder is disabled for this HUD.
+FloatingScore owns elapsed/rise/alpha, ScoreSystem retains the single popup instance.
 Arena and tray have distinct regions; the leaderboard
 is absent from the combat HUD. Keep uniform centered scaling for 640x360,
 1280x720,1920x1080 and iframe/fullscreen; expand letterbox outside 16:9.

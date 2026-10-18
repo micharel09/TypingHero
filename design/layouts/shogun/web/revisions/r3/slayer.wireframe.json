@@ -1,0 +1,99 @@
+{
+  "name": "Slayer HUD",
+  "viewport": {
+    "width": 960,
+    "height": 540
+  },
+  "root": {
+    "name": "960 x 540 / uniform scale / red + full black bars, body gap 8",
+    "direction": "vertical",
+    "padding": [
+      32,
+      0
+    ],
+    "gap": 8,
+    "children": [
+      {
+        "name": "Fixed standing bodies / camera projection / weapons excluded",
+        "type": "image",
+        "height": 292
+      },
+      {
+        "name": "Foot +12 / status follows each character",
+        "direction": "horizontal",
+        "justify": "center",
+        "gap": 220,
+        "height": 30,
+        "children": [
+          {
+            "name": "Player name + HP6",
+            "width": 112,
+            "height": 30,
+            "children": [
+              {
+                "name": "Player name + HP6",
+                "type": "text",
+                "height": 30
+              }
+            ],
+            "direction": "vertical"
+          },
+          {
+            "name": "Skeleton + HP6 + stamina4",
+            "width": 112,
+            "height": 30,
+            "children": [
+              {
+                "name": "Skeleton + HP6 + stamina4",
+                "type": "text",
+                "height": 30
+              }
+            ],
+            "direction": "vertical"
+          }
+        ]
+      },
+      {
+        "name": "Score row48 / status gap8 / font24 / decay below",
+        "direction": "vertical",
+        "align": "center",
+        "height": 48,
+        "children": [
+          {
+            "name": "Actual score + multiplier / zoom + pulse",
+            "width": 240,
+            "height": 48,
+            "direction": "vertical",
+            "children": [
+              {
+                "name": "128450   x2.5     +18",
+                "type": "text",
+                "height": 48
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "8 below fixed48 score row / centered672x56 tray",
+        "align": "center",
+        "children": [
+          {
+            "name": "CURRENT     next     third / timer + error",
+            "width": 672,
+            "height": 56,
+            "children": [
+              {
+                "name": "CURRENT     next     third / timer + error",
+                "type": "text",
+                "height": 56
+              }
+            ],
+            "direction": "vertical"
+          }
+        ],
+        "direction": "vertical"
+      }
+    ]
+  }
+}

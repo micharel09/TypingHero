@@ -19,7 +19,7 @@ module.exports = async function slayerFlow(api, browser) {
       }
       await page.waitForTimeout(25);
     }
-    const entry=await until(page,s=>s.slayer && s.redAlpha>.99 && s.scoreZoom>1.2);
+    const entry=await until(page,s=>s.slayer && s.redAlpha>.99 && s.cameraOrtho<3.3 && s.scoreZoom===1);
     let sawYellow=false, sawPulse=false, sawPopup=false;
     const typingEnd=performance.now()+4000;
     while(performance.now()<typingEnd){
@@ -40,6 +40,11 @@ module.exports = async function slayerFlow(api, browser) {
       if(awarded.popupAlpha>0){
         const k=awarded.height/540;
         check(awarded.popupFont===18,'award font18');
+        check(awarded.popupCount===1,'one active award popup');
+        if(awarded.popupId===s.popupId && s.popupAlpha>0){
+          check(Number(awarded.popupText.slice(1))===Number(s.popupText.slice(1))+awarded.score-s.score,'same popup accumulates exact received score delta');
+        }
+        check(awarded.scoreZoom===1,'score remains fixed scale during Slayer');
         check(Math.abs((awarded.popupRect.x-awarded.popupPoint.x)/k)<1.5,'award follows live anchor horizontally');
         sawPopup=true;
         report.popupObserved={rect:awarded.popupRect,anchor:awarded.popupPoint,zoom:awarded.scoreZoom};
@@ -59,7 +64,15 @@ module.exports = async function slayerFlow(api, browser) {
       expected+=points-lower===.5 ? lower+(lower%2) : Math.round(points);
     }
     check(rewarded>=14 && s.score===expected,'real Slayer points match character awards and capped multiplier exactly');
+    await page.keyboard.press('Escape');
+    await until(page,t=>t.paused);
+    const popupHeld=await state(page);
+    check(popupHeld.popupCount===1,'pause captured an active popup');
     if(process.env.TYPINGHERO_SCORE_LAYOUT_ONLY==='1') await page.screenshot({path:report.outputDirectory+'/score-award-x3.png'});
+    await page.waitForTimeout(700);
+    const popupStill=await state(page);
+    check(popupStill.popupId===popupHeld.popupId && popupStill.popupElapsed===popupHeld.popupElapsed && popupStill.popupAlpha===popupHeld.popupAlpha,'pause holds popup instance and fade time');
+    await page.keyboard.press('Escape');await until(page,t=>!t.paused);
     await page.waitForTimeout(250);
     s=await state(page);
     check(s.scorePulse===1,'idle combo decay does not pulse score');
@@ -80,7 +93,7 @@ module.exports = async function slayerFlow(api, browser) {
     }
     await page.setViewportSize({width:960,height:540});
     await until(page,s=>s.width===960 && s.height===540);
-    await page.keyboard.press('Escape',{delay:80});await until(page,s=>!s.paused && s.scoreZoom>1.2 && s.scoreZoom<1.35);
+    await page.keyboard.press('Escape',{delay:80});await until(page,s=>!s.paused && s.cameraOrtho<3.3 && s.scoreZoom===1);
     await page.screenshot({path:report.outputDirectory+'/slayer-x3.png'});
     await until(page,s=>!s.paused && !s.slayer);
     await page.waitForTimeout(500);s=await state(page);
@@ -89,6 +102,6 @@ module.exports = async function slayerFlow(api, browser) {
     await page.keyboard.press('Escape',{delay:100});await until(page,s=>s.paused);
     await page.keyboard.press('r',{delay:100});
     s=await until(page,s=>!s.paused && s.score===0 && s.hp===40);
-    check(!s.slayer && s.environmentVisible && !s.hudPanelVisible && s.scoreZoom===1,'restart restores normal score presentation');
+    check(!s.slayer && s.environmentVisible && !s.hudPanelVisible && s.scoreZoom===1 && s.popupCount===0,'restart restores normal score presentation and clears popup');
   } finally { await context.close(); }
 };
