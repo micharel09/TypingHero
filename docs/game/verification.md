@@ -730,3 +730,17 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
 - After written receipts, all task captures/videos/reports/downloaded player/native cache/
   wrappers and3owned server results were removed. Shared source/Library/toolchain/QA
   player and other tasks remain; no new branch/worktree/commit/push.
+
+
+## Compact HUD production artifact (2026-10-18, not published)
+
+- User requested itch deployment. Production20261018T130348 PASS on the same final
+  Quick53 snapshot6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
+  qa=false; all JS/WASM/data exclude QA markers. Original-HTML Edge155 real name/
+  Enter/BLADE hit gives10 and enemy+10; pause/resume/640x360 reviewed,0JS exceptions/
+  Firebase writes. Build and runtime source match verified HUD.
+- Retained release compact-hud-r4-20261018:ZIP29members/15,984,116bytes/CRC5b3e086b,
+  SHA25631799c809a460e4b1eec86d6fb7eb1d26ba5b57904c2c2209d6cd05eb6648921.
+  Local/server hash and member CRC PASS. No upload/save/publication: authenticated
+  Orca edit page is ready but its detached native file picker needs user selection.
+  Exact blocker, owned tab/local ZIP and resume/cleanup conditions are in combat-hud plan.
