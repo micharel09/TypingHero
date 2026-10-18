@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skeleton — bộ kiếm, rìu và thương</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#14201f;color:#f2e7cf;font:15px/1.5 system-ui,sans-serif}main{max-width:1400px;margin:auto;padding:24px}h1{font-size:24px;margin:0 0 8px}p{max-width:1100px}button,select,input{font:inherit}button,select{background:#233b37;color:inherit;border:1px solid #668e83;border-radius:4px;padding:7px 12px}button{cursor:pointer}label{display:inline-flex;gap:7px;align-items:center}.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0}.scroll{overflow:auto;background:#0d1717;border:1px solid #52615a}canvas{display:block;image-rendering:pixelated}#status{font-variant-numeric:tabular-nums;min-height:28px;color:#ffdb91}input[type=range]{width:min(650px,75vw)}a{color:#9dd7cc}details img{max-width:100%;image-rendering:pixelated}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #ffdb91;outline-offset:3px}
+</style>
+<main>
+<h1>Skeleton — kiếm, rìu và thương</h1>
+<p>72 spritesheet · White/Yellow · 6 animation · có/không VFX. <a href="../review.html">Bộ kiếm đã duyệt</a> · <a href="https://monopixelart.itch.io/skeletons-pack">Reference MonoPixelArt</a></p>
+<div class="controls">
+<label>Vũ khí <select id="weapon"><option value="sword">Kiếm</option><option value="axe">Rìu</option><option value="spear">Thương</option></select></label>
+<label>Màu <select id="color"><option>White</option><option>Yellow</option></select></label>
+<label>Animation <select id="clip"><option>Idle</option><option>Walk</option><option>Attack1</option><option>Attack2</option><option>Hurt</option><option>Die</option></select></label>
+<label><input id="vfx" type="checkbox" checked>VFX</label><label><input id="flip" type="checkbox">Mirror</label><label><input id="onion" type="checkbox">Onion</label><label><input id="anchors" type="checkbox">Khớp / cán / grip / lưỡi</label>
+</div>
+<div class="controls"><button id="play">Phát</button><button id="replay">Phát lại</button><button id="previous">−1 cel</button><button id="next">+1 cel</button>
+<label>Tốc độ <select id="speed"><option value="1">1×</option><option value="0.25">0,25×</option></select></label>
+<label>Kích thước <select id="zoom"><option value="3.5">1280×720</option><option value="1.75">640×360</option><option value="4">4× nearest</option><option value="8">8× nearest</option></select></label></div>
+<label>Thời gian <input id="time" type="range" min="0" max="1" step="0.001" value="0" aria-label="Thời gian animation"><output id="timeLabel"></output></label>
+<div id="status" role="status"></div><div class="scroll"><canvas id="view" aria-label="Preview animation skeleton"></canvas></div>
+<p id="provenance"></p>
+<details><summary>GIF reference gốc</summary><img src="../references/monopixelart-pack-overview.gif" alt="Ba skeleton trong GIF nguồn MonoPixelArt"><img src="../references/monopixelart-sword-preview.gif" alt="Các động tác kiếm trong GIF nguồn"></details>
+<p>Idle/Walk lặp; Attack/Hurt/Die phát một lượt rồi giữ cel cuối. Timeline dùng duration millisecond trong native. Kiếm giữ pose gốc; overlay kiếm đánh dấu vật liệu vũ khí. Rìu/thương có overlay khớp và grip theo từng cel. Đây là preview thiết kế, chưa tích hợp gameplay.</p>
+</main>
+<script>
+'use strict';
+const payload=/*PAYLOAD*/;
+const $=id=>document.getElementById(id),images={};
+let ready=false,playing=false,t=0,last=0;
+function key(){return [$('weapon').value,$('color').value,$('clip').value].join('/');}
+function info(){return payload.clips[key()];}
+function total(){return info().durationsMs.reduce((a,b)=>a+b,0);}
+function starts(){let sum=0;return info().durationsMs.map(d=>{const start=sum;sum+=d;return start;});}
+function index(){let elapsed=0;for(let i=0;i<info().count;i++){elapsed+=info().durationsMs[i];if(t<elapsed)return i;}return info().count-1;}
+function stop(){playing=false;$('play').textContent='Phát';}
+function setTime(value){t=Math.max(0,Math.min(total(),value));$('time').value=t/1000;render();}
+function draw(ctx,variant,cel,x,y,s,alpha=1){
+ const image=images[key()][variant];ctx.save();ctx.globalAlpha=alpha;ctx.translate(x,y);
+ if($('flip').checked){ctx.translate(96*s,0);ctx.scale(-1,1);}
+ ctx.drawImage(image,cel*96,0,96,64,0,0,96*s,64*s);ctx.restore();
+}
+function render(){
+ if(!ready)return;
+ const canvas=$('view'),s=Number($('zoom').value),game=s===3.5||s===1.75;
+ const w=game?(s===3.5?1280:640):96*s+120,h=game?(s===3.5?720:360):64*s+90;
+ if(canvas.width!==w)canvas.width=w;if(canvas.height!==h)canvas.height=h;
+ const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+ ctx.fillStyle='#142927';ctx.fillRect(0,0,w,h);
+ const ground=game?h*.875:h-28,x=Math.round(w/2-48*s),y=Math.round(ground-64*s),cel=index();
+ ctx.fillStyle='#1b3731';ctx.fillRect(0,ground,w,h-ground);
+ ctx.strokeStyle='#668e83';ctx.beginPath();ctx.moveTo(0,ground+.5);ctx.lineTo(w,ground+.5);ctx.stroke();
+ if($('onion').checked&&cel>0)draw(ctx,'Without_VFX',cel-1,x,y,s,.25);
+ draw(ctx,$('vfx').checked?'With_VFX':'Without_VFX',cel,x,y,s);
+ if($('anchors').checked){
+  const p=payload.poses[key()][cel];
+  const project=q=>[x+($('flip').checked?95-q[0]:q[0])*s,y+q[1]*s];
+  const line=(points,color)=>{ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();points.forEach((q,i)=>{const [a,b]=project(q);i?ctx.lineTo(a,b):ctx.moveTo(a,b);});ctx.stroke();};
+  const dot=(q,color)=>{const [a,b]=project(q);ctx.fillStyle=color;ctx.fillRect(a-2,b-2,4,4);};
+  if(p){
+   line([p.butt,p.tip],'#ffc85f');line(p.edge,'#9edfff');p.hands.forEach(q=>dot(q,'#ff72c6'));
+   if(p.chest){
+    line([p.head,p.chest,p.hip],'#75ffd1');
+    const shoulders=p.shoulders||[[p.chest[0]+7,p.chest[1]+2],[p.chest[0]-3,p.chest[1]+2]];
+    p.elbows.forEach((q,i)=>line([shoulders[i],q,p.hands[i]],'#ff72c6'));
+    p.knees.forEach((q,i)=>line([p.hip,q,p.feet[i]],'#75ffd1'));
+   }
+  }
+ }
+ $('time').max=total()/1000;$('time').value=t/1000;
+ $('timeLabel').textContent=(t/1000).toFixed(3)+' / '+(total()/1000).toFixed(3)+'s';
+ $('status').textContent=`${$('weapon').selectedOptions[0].text} · ${$('color').value} · ${$('clip').value} · Cel ${cel} / ${info().count-1} · ${info().durationsMs[cel]}ms · ${info().loop?'Lặp':t===total()?'Giữ cuối':'Một lượt'}`;
+ $('provenance').textContent={sword:'Kiếm: giữ nguyên cel White đã duyệt; Walk/Attack2 theo pose nguồn.',axe:'Rìu: dáng nghỉ theo GIF; các clip khác dựng lại theo plan và reference động tác.',spear:'Thương: dựng theo plan; GIF nguồn không có skeleton thương.'}[$('weapon').value];
+}
+function play(restart=false){if(restart||t>=total())setTime(0);playing=true;last=performance.now();$('play').textContent='Tạm dừng';}
+$('play').onclick=()=>{if(playing)stop();else play();};
+$('replay').onclick=()=>play(true);
+$('previous').onclick=()=>{stop();setTime(starts()[Math.max(0,index()-1)]);};
+$('next').onclick=()=>{stop();setTime(starts()[Math.min(info().count-1,index()+1)]);};
+$('time').oninput=()=>{stop();setTime(Number($('time').value)*1000);};
+for(const id of ['weapon','color','clip'])$(id).onchange=()=>{stop();setTime(0);};
+for(const id of ['vfx','flip','onion','anchors','zoom'])$(id).onchange=render;
+$('speed').onchange=()=>{last=performance.now();};
+function tick(now){
+ if(ready&&playing){
+  t+=(now-last)*Number($('speed').value);
+  if(t>=total()){if(info().loop)t%=total();else{t=total();stop();}}
+  render();
+ }
+ last=now;requestAnimationFrame(tick);
+}
+Promise.all(Object.entries(payload.images).flatMap(([key,variants])=>{
+ images[key]={};return Object.entries(variants).map(([variant,url])=>new Promise((resolve,reject)=>{
+  const im=new Image();im.onload=()=>{images[key][variant]=im;resolve();};im.onerror=()=>reject(new Error('Image failed '+key+'/'+variant));im.src=url;
+ }));
+})).then(()=>{ready=true;render();requestAnimationFrame(tick);}).catch(error=>{$('status').textContent=error.message;throw error;});
+</script></html>

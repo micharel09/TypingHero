@@ -115,17 +115,23 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - New Kenney impact events use the existing SFX pool/mixer/preferences independently
   of whoosh and parry: medium 000?002 at .65 normal / .45 Slayer, heavy 000?002 at .8
   lethal, +/- .5 semitone jitter. Existing clang uses +/- 1 semitone.
-- Original free Pimen sheets are imported under `Assets/Art/VFX/Pimen`, with
-  source/license/attribution retained. Unity generates normal orange 150ms/48px,
-  blue parry 180ms/56px, orange lethal 180ms/64px and four white Slayer variants
-  100ms/28px (clarity update2026-10-18, reference960x540). Spark order remains30.
-  Scale is uniform at42screen pixels/world unit; existing
-  camera zoom scales VFX with characters. Original slash animation is unchanged.
-- Quick 35/35 includes all seven real Pimen prefab clips and pool reuse/reset.
-  WebGL54/native Windows16 and production passed; direct speaker listening remains unverified. Details in [combat-feedback checkpoint](../plans/combat-feedback.md).
-  The2026-10-18 size/parry-sorting continuation passed Quick52/52 and focused
-  native WebGL5314checks at960x540/640x360, including actual contact frames,
-  Slayer/lethal, pause and restart; see [sorting checkpoint](../plans/player-attack-sorting.md).
+- Current white sparks use CodeManu's CC0 Free VFX Asset Pack under
+  `Assets/Art/VFX/CodeManu`, with original30fps sheets/source/license/credits.
+  Normal SmallHit150ms/64px, Parry Impact180ms/72px, Lethal BigHit180ms/96px;
+  four SmallHit Slayer rotations0/90/180/270 degrees at100ms/56px (960x540).
+  Sizes measure the largest nonzero-alpha extent, not the128x128 cell. Builder
+  trims transparent ends, evenly samples8frames and fixes the first flash center
+  at pivot64. First frame20ms; the remaining time is split equally over7frames.
+  White RGB retains sampled author alpha; Point filtering/no compression.
+- The seven existing prefab/clip/controller paths and GUIDs remain under
+  `Assets/Art/VFX/Pimen/Generated` for serialized consumers. Spark order30,
+  42screen pixels/world unit and camera scaling remain. Original slash is unchanged.
+  Four obsolete generated Pimen white textures were removed; original Pimen art
+  and notices remain. CodeManu credit/license joins existing build packaging.
+- Quick52/52 (20261018T081430) verifies all7actual CodeManu prefabs' palette,
+  source,pivot,alpha size,timing,release event and pool reuse/reset. Native WebGL
+  8640checks passes960x540/640x360 normal/parry/all4Slayer/lethal,pause/restart;
+  see [combat-feedback checkpoint](../plans/combat-feedback.md).
 
 ## Shogun presentation (2026-10-17)
 
@@ -136,7 +142,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Reference960x540: arena928x340; foot-local HUD and tray geometry are specified
   in the HUD layout section below. Camera
   ortho340/84 preserves42px/world unit; Slayer ortho retains.78 of normal.
-  Pimen profiles use48/56/28/64px and unchanged100/150/180ms as documented above.
+  CodeManu profiles use64/72/56/96px and100/150/180ms as documented above.
 - Top1000 is a modal in menu/pause, with the existing1000-row dataset,19-row
   visible pool,refresh and scroll retention. Close restores prior focus/screen;
   pause remains paused. Modal R/M/Escape cannot reach the previous screen.

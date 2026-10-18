@@ -1,0 +1,6 @@
+Free VFX Asset Pack by CodeManu
+https://opengameart.org/content/free-vfx-asset-pack
+CC0 1.0 Universal; attribution optional.
+Source: vfx_free_pack.zip, SHA256 d706ff61b7b72ba444a76916f74d1549a5afec573594bf656661e4187d1f118e
+Unmodified 30fps SmallHit, Impact and BigHit sheets retained here.
+TypingHero: trim empty ends, evenly sample eight frames, white RGB with original alpha, nearest-neighbor 128x128 cells, fixed flash center, four quarter-turn SmallHit variants; retime and scale.
