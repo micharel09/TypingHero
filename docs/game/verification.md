@@ -1,5 +1,27 @@
 # Verification and performance memory
 
+## Pixel spark integration/release preparation (2026-10-18)
+
+- User authorized local main merge and itch.io update. Reviewed/preserved completed
+  design and legacy CodeManu foundation in main610352b, merged into the feature at
+  372b9f0; current rendering remains physical pixel sparks. Design-only assets are
+  excluded from WebGL snapshots and have no runtime links. Legacy notices retained.
+- Post-foundation Quick66/66 PASS20261018T095638, source input
+  `39d1ff867e100a65ffafddc764561681ce8276372ac49b4c3e25d1302fbdcc44`.
+  QA095748 build/repeated-builder PASS. Software browser again failed before first
+  hit due slow rendering; no full software profile PASS claimed.
+- Same immutable player, native Edge155/Intel UHD ANGLE D3D11: **25,619 checks PASS**,
+  207.352s,1280x720/640x360, all four live particle roles, normal/Slayer camera,
+  actual keyboard, pause/resume, lethal/results/restart.37fixture reads/two mocked
+  writes, zero JS/Unity exceptions. Reviewed final640lethal/normal and retained
+  previous art/motion evidence (runtime pixels/physics unchanged by legacy merge).
+- Production build095953 on that same input is preparing the exact non-QA player.
+  Publication is pending: main has further active HUD/scoring/art edits outside
+  this feature; do not commit or publish their unfinished source. BrowserSkill
+  daemon/IPC works, but extension doctor reports zero connected browsers. User was
+  asked to pause concurrent writes and connect the logged-in browser. No target
+  main merge or itch upload claimed. See combat-feedback checkpoint for resumption.
+
 ## Physical pixel impacts (2026-10-18)
 
 - Final Quick **66/66 PASS**, result20261018T093521-quick, input

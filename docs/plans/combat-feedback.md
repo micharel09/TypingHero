@@ -1094,3 +1094,24 @@ SHA256 d706ff61b7b72ba444a76916f74d1549a5afec573594bf656661e4187d1f118e.
   merge clean main using no-ff, integrated smoke, production QA-exclusion build,
   exact production smoke and existing itch.io upload/save/CDN verification. No
   GitHub push requested. Prior uploads stay hidden for rollback.
+
+- Post-foundation Quick66/66 PASS20261018T095638, input
+  39d1ff867e100a65ffafddc764561681ce8276372ac49b4c3e25d1302fbdcc44.
+  QA095748 immutable player complete; native two-size replay in progress.
+  Production queued with the same input and task-owned Library; temporary runner
+  waits on the shared lock and preserves the exact production player under results.
+- Main now has a separate active HUD/scoring change plus continuing design art;
+  do not commit or release those unfinished edits. Requested the other work pause.
+  BrowserSkill daemon starts and IPC doctor passes, but extension doctor fails:
+  zero browsers connected. Asked user to connect existing logged-in browser.
+  Feature remains isolated/clean apart from this checkpoint; no merge/publication
+  claim until main cleanliness and authenticated browser are resolved.
+
+- Native foundation-native PASS25,619checks/207.352s, both render sizes/all four
+  live profiles and both camera states, ordinary pause/resume, victory results
+  clear and restart; zero exceptions,37fixture reads/two mocked writes. Quick,
+  QA build and this native player all share input39d1ff867e100a65ffafddc764561681ce8276372ac49b4c3e25d1302fbdcc44.
+- Production095953 is still compiling. Task temp retains final/baseline comparison,
+  post-foundation native player/report and production-smoke driver under
+  E:/CodexTemp/TypingHero/pixel-hit-sparks for exact-HTML QA and pending integration.
+  No secrets, QA video/capture/report or release ZIP committed to the repository.
