@@ -1150,3 +1150,27 @@ SHA256 d706ff61b7b72ba444a76916f74d1549a5afec573594bf656661e4187d1f118e.
   on existing itch game3857509, retain prior uploads hidden, verify public CDN
   against manifest without production writes, record receipt and clean owned
   child worktree/branch/temp. No GitHub push requested.
+
+### Retry: completed HUD foundation integrated, 2026-10-18
+
+- Retry verified parent build inputs equal the HUD task's final Quick53 hash
+  6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
+  HUD/art receipts complete; reviewed and preserved in main47f1830. Removed only
+  regenerated Python bytecode, no source/design output. Main tracked source clean.
+- Merged47f1830 into feature ated785c5, no conflicts; scene ground references,
+  particle observer and browser scenario guards retained beside latest HUD fields.
+  Combined Quick **67/67 PASS**20261018T130858, input
+  51e8c9ed54b26782faff346eb0b4f41cf3fcd864517fd646923c70c9d0d4198d.
+  QA131049 and production queued on same input. QA uses task Library; production
+  reuses the standard normal-build Library under the same exclusive runner lock,
+  avoiding Development/normal cache thrashing. No resource/checker changes.
+- Started shared BrowserSkill daemon, opened existing Chrome normally (the earlier
+  no-startup-window attempt did not connect), browser9c92c27f/fly now connected.
+  Owned sessionxkja reached itch login, not dashboard. One successfully registered
+  human sign-in request timed out after5m; do not repeat it or read credentials.
+  Re-observed and closed owned session per skill; preserve other sessionyzeq and
+  shared daemon. Browser connection resolved; authenticated sign-in remains needed.
+- Another HUD publication task is also active, with its own main-only source and
+  sessionyzeq. Preserve its files/processes and wait for its publication to finish
+  before uploading the final pixel build, to avoid the older upload replacing it.
+  Main may receive its documentation receipt; review/preserve that before no-ff.
