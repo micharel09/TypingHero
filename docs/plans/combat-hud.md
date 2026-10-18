@@ -106,14 +106,36 @@ single presentation instance; FloatingScore lifetime/rise/alpha. No runtime depe
   exists; other sessions/results/artwork were preserved. Acceptance complete; no blocker.
 
 
-## Revision4 production publication (in progress)
+## Revision4 production publication (blocked at native file picker)
 
-User explicitly authorized itch.io deployment after acceptance. Reuse existing
-Quick53/WebGL198/native50; production snapshot is the same6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
-Target https://micharel09.itch.io/typing-hero, game3857509. Preserve prior uploads,
-storefront/settings/draft; new browser-playable production upload only.
-Build20261018T130348-production running; remaining QA-exclusion scan, original-HTML
-smoke with blocked/fixture Firebase, ZIP/manifest, upload/save and public CDN match.
-Task-temp E:/CodexTemp/TypingHero/compact-hud-publish. Orca owned page5520357b-67f9-4073-aa45-656fcd9f9665
-shows Cloudflare. BrowserSkill sessionyzeq/browser9c92c27f(fly) shows login; human
-sign-in requested via skill help, pending. No cookies/passwords extracted.
+User explicitly authorized itch.io deployment after acceptance. Target:
+https://micharel09.itch.io/typing-hero, game3857509. Preserve previous uploads/settings.
+- Production20261018T130348 PASS from verified Quick53 snapshot
+  6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
+  Runtime/builder hashes still match local verified source. JS/WASM/data all exclude
+  typingHeroQA/TypingHeroQA_Publish/GameLoopProbe markers; build qa=false.
+- Exact original production HTML native Edge155 smoke PASS: name/Enter, actual BLADE
+  hit/score10/enemy-head+10, hidden names/Gold stamina/corner score, pause/Resume button,
+ 640x360 canvas,0JS exceptions/0Firebase reads/writes. Unsupported shader console lines
+  were observed, with correct actual render and no managed exception. An initial helper
+  still pointed to a previous task's player; discarded that capture, corrected root and
+  used a new browser profile. All final smoke images show the current production build.
+- Release retained at /data/typinghero-game-loop/releases/compact-hud-r4-20261018/:
+  TypingHero-WebGL-compact-hud-r4-20261018.zip and release.json/per-file SHA256 manifest.
+  ZIP29members/15,984,116bytes, CRC32 5b3e086b, SHA256
+  31799c809a460e4b1eec86d6fb7eb1d26ba5b57904c2c2209d6cd05eb6648921.
+  Full archive CRC and local/server SHA256 match. No upload/save/publication occurred.
+- Orca task page5520357b-67f9-4073-aa45-656fcd9f9665 initially showed Cloudflare,
+  later cleared automatically into the authenticated edit page (micharel09/Typing Hero).
+  Existing5uploads/four hidden/ScoreHUD playable, public state and storefront preserved.
+  BrowserSkill sessionyzeq/browser9c92c27f(fly) instead showed login; requested human
+  login timed out, session stopped. Shared daemon/other sessionxkja preserved.
+- Actual blocker: Orca upload on Upload files(e61) returns Node is not a file input
+  element. Clicking that native button succeeds but document has no attached file input
+  or iframe, so its detached native picker cannot be populated by the supported CLI.
+  No JS form submission, token/cookie extraction or Computer Use. User must select ZIP
+  once in the open picker; then continue checkbox/save and anonymous CDN verification.
+- Local ZIP/manifest retained in E:/CodexTemp/TypingHero/compact-hud-publish for that
+  required user step. Keep the owned Orca edit tab open for continuation. Capture/client/
+  downloaded player/profile artifacts removed after written receipts; shared production
+  build/source/Library/toolchain and server release retained. No new build needed to resume.
