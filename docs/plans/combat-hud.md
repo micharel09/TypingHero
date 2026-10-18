@@ -104,3 +104,16 @@ single presentation instance; FloatingScore lifetime/rise/alpha. No runtime depe
   Task captures, downloaded QA player, temporary wrappers/native profile/cache and
   three owned result directories were removed after receipts. Local task-temp no longer
   exists; other sessions/results/artwork were preserved. Acceptance complete; no blocker.
+
+
+## Revision4 production publication (in progress)
+
+User explicitly authorized itch.io deployment after acceptance. Reuse existing
+Quick53/WebGL198/native50; production snapshot is the same6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
+Target https://micharel09.itch.io/typing-hero, game3857509. Preserve prior uploads,
+storefront/settings/draft; new browser-playable production upload only.
+Build20261018T130348-production running; remaining QA-exclusion scan, original-HTML
+smoke with blocked/fixture Firebase, ZIP/manifest, upload/save and public CDN match.
+Task-temp E:/CodexTemp/TypingHero/compact-hud-publish. Orca owned page5520357b-67f9-4073-aa45-656fcd9f9665
+shows Cloudflare. BrowserSkill sessionyzeq/browser9c92c27f(fly) shows login; human
+sign-in requested via skill help, pending. No cookies/passwords extracted.
