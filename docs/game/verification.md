@@ -15,8 +15,21 @@
   actual keyboard, pause/resume, lethal/results/restart.37fixture reads/two mocked
   writes, zero JS/Unity exceptions. Reviewed final640lethal/normal and retained
   previous art/motion evidence (runtime pixels/physics unchanged by legacy merge).
-- Production build095953 on that same input is preparing the exact non-QA player.
-  Publication is pending: main has further active HUD/scoring/art edits outside
+- Production095953 PASS on that same input. QA=false; JS/WASM/data exclude all
+  three bridge markers. Exact original HTML smoke on native Edge155 passes name,
+  Enter/tutorial BLADE/ATTACK COMPLETE/score10, real battle word `it`, orange pixel
+  impact (visually reviewed, no pink material), pause/resume and actual640x360
+  canvas.11fixture reads/zero writes/zero JS or Unity exceptions. Startup logs
+  identify unsupported optional URP EASU/HDR-debug shaders on this GPU; the actual
+  game and pixel material render correctly. No pipeline change made for these.
+- ZIP29members/16,311,433bytes, local/server SHA256 and CRC PASS:
+  `c58174cc5e84498e41151a3c006b853b528117a69dbff91a8c720a02c88eee08`.
+  Candidate ZIP/manifest retained under server releases/pixel-sparks-20261018.
+  Existing score-hud release remains untouched. Production smoke tool corrected
+  OCR control-character JSON parsing; final explicit context shutdown and Node
+  exit confirmed. A saveAs after persistent-context close failed, so non-QA
+  evidence uses inspected native frames/screenshots, not a finalized export claim.
+- Publication is pending: main has further active HUD/scoring/art edits outside
   this feature; do not commit or publish their unfinished source. BrowserSkill
   daemon/IPC works, but extension doctor reports zero connected browsers. User was
   asked to pause concurrent writes and connect the logged-in browser. No target

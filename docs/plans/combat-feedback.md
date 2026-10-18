@@ -1115,3 +1115,38 @@ SHA256 d706ff61b7b72ba444a76916f74d1549a5afec573594bf656661e4187d1f118e.
   post-foundation native player/report and production-smoke driver under
   E:/CodexTemp/TypingHero/pixel-hit-sparks for exact-HTML QA and pending integration.
   No secrets, QA video/capture/report or release ZIP committed to the repository.
+
+### Release candidate ready; external integration blockers
+
+- Production20261018T095953 PASS on39d1ff867e100a65ffafddc764561681ce8276372ac49b4c3e25d1302fbdcc44.
+  MarkerQA=false; JS/WASM/data scans exclude typingHeroQA,TypingHeroQA_Publish,
+  GameLoopProbe. Immutable result/player preserved before runner-lock release.
+- Exact production HTML native smoke PASS: nameSparkQA, tutorialBLADE completion,
+  score10; skip into real combat, OCR-read word `it`, keyboard hit and orange
+  physical pixels visually checked; pause/resume,640x360 actual render, QAundefined,
+  11mocked fixture reads/zero writes, zero JS/Unity exceptions. Two optional URP
+  GPU-unsupported shaders were identified by full startup console; actual game/
+  pixel material unaffected. No dependency/pipeline workaround. OCR JSON C0 escape
+  fixed only in temporary QA driver. Persistent-context saveAs export failed after
+  close; inspected screenshots are valid, no finalized-video claim. Explicit
+  close/owned Node exit confirmed; shared BrowserSkill daemon kept as instructed.
+- Candidate `/data/typinghero-game-loop/releases/pixel-sparks-20261018/` holds
+  TypingHero-WebGL-PixelSparks-20261018.zip and release.json (code372b9f0).
+  ZIP29members/16,311,433bytes; CRC and local/server SHA256 match:
+  c58174cc5e84498e41151a3c006b853b528117a69dbff91a8c720a02c88eee08.
+  Local candidate/QA helpers/player/reports remain under
+  E:/CodexTemp/TypingHero/pixel-hit-sparks, needed for pending upload/integration.
+- STILL NOT merged to main or published. Main610352b now has active HUD/scoring,
+  SampleScene/prefab/QA tooling and design changes from other tasks, including
+  overlap with feature scene/probe/browser files. Preserve their WIP, never merge
+  over or release it without final checks. BrowserSkill doctor: IPC healthy, zero
+  browser extensions connected; no authenticated upload possible. User asked to
+  pause concurrent writes and connect existing logged-in browser. No pending own
+  build/native job; only shared daemon remains. All meaningful independent work done.
+- Resume: establish clean main (review/ch?t other completed work without losing
+  WIP), merge any new main commits into feature, resolve/check affected flows,
+  no-ff merge to main, integrated smoke, reuse candidate only if build inputs still
+  match39d1ff... otherwise rebuild. Then upload/save/playable/maximized settings
+  on existing itch game3857509, retain prior uploads hidden, verify public CDN
+  against manifest without production writes, record receipt and clean owned
+  child worktree/branch/temp. No GitHub push requested.
