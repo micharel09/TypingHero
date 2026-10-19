@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -9,6 +9,7 @@ public sealed class MainMenuUI : MonoBehaviour
     [Header("UI Refs")]
     [SerializeField] TMP_InputField nameInput;
     [SerializeField] Button playButton;
+    [SerializeField] Button tutorialButton;
     [SerializeField] TextMeshProUGUI errorLabel;   // optional
 
     [Header("Flow")]
@@ -19,6 +20,8 @@ public sealed class MainMenuUI : MonoBehaviour
     [Header("Validation (expose để thống nhất với PlayerIdentity)")]
     [SerializeField, Range(3, 24)] int minLen = 3;
     [SerializeField, Range(3, 24)] int maxLen = 16;
+    bool loadingScene;
+    [SerializeField] HowToPlayPanel help;
 
     void Reset()
     {
@@ -28,6 +31,7 @@ public sealed class MainMenuUI : MonoBehaviour
 
     void Awake()
     {
+        TutorialRun.End();
         // Đảm bảo hệ nhận diện nạp sẵn tên lưu trước đó
         PlayerIdentity.EnsureLoaded();
 
@@ -36,7 +40,6 @@ public sealed class MainMenuUI : MonoBehaviour
             nameInput.text = PlayerIdentity.Name ?? string.Empty;
             nameInput.onValueChanged.AddListener(OnNameChanged);
             nameInput.onSubmit.AddListener(OnSubmit);   // TMP có onSubmit
-            nameInput.onEndEdit.AddListener(OnSubmit);  // fallback (Editor/Platform khác)
         }
 
         if (playButton) playButton.onClick.AddListener(Play);
@@ -60,7 +63,6 @@ public sealed class MainMenuUI : MonoBehaviour
         {
             nameInput.onValueChanged.RemoveListener(OnNameChanged);
             nameInput.onSubmit.RemoveListener(OnSubmit);
-            nameInput.onEndEdit.RemoveListener(OnSubmit);
         }
         if (playButton) playButton.onClick.RemoveListener(Play);
     }
@@ -83,6 +85,7 @@ public sealed class MainMenuUI : MonoBehaviour
         bool ok = PlayerIdentity.Validate(raw, minLen, maxLen, out _, out err);
 
         if (playButton) playButton.interactable = ok;
+        if (tutorialButton) tutorialButton.interactable = ok;
         if (errorLabel)
         {
             errorLabel.text = ok ? string.Empty : err;
@@ -90,8 +93,17 @@ public sealed class MainMenuUI : MonoBehaviour
         }
     }
 
+    void BeginGame() => SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
+    public void Tutorial() => Launch(true);
+
     void Play()
     {
+        Launch(false);
+    }
+
+    void Launch(bool replay)
+    {
+        if (loadingScene || LeaderboardModal.IsOpen || (help && help.IsOpen)) return;
         if (!nameInput) return;
 
         if (!PlayerIdentity.TrySetName(nameInput.text, out string normalized, out string err))
@@ -119,6 +131,9 @@ public sealed class MainMenuUI : MonoBehaviour
         }
 
         // Load gameplay
-        SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
+        loadingScene = true;
+        if (replay || TutorialRun.Status == TutorialRun.Progress.Unseen) TutorialRun.Begin();
+        else TutorialRun.End();
+        BeginGame();
     }
 }

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -90,11 +91,36 @@ public class TypingManager : MonoBehaviour
     public static event Action OnWordTimeout;
     public static event Action OnWordAdvanced;
     public static event Action<char> OnCorrectChar;
+    public static event Action<bool> OnInputResult;
+    string originalCurrent = "";
+    HashSet<int> rewardedCurrent = new HashSet<int>(), rewardedNext = new HashSet<int>();
+
+    void AcceptChar(char c, int position, HashSet<int> rewarded)
+    {
+        OnInputResult?.Invoke(true);
+        if (!MuteWordCorrect || rewarded.Add(position)) OnCorrectChar?.Invoke(c);
+    }
 
     // ===================== Runtime =====================
     bool isTransitioning, pendingAdvance;
     string current = "", next = "", third = "";
     float timer;
+    string[] practiceWords;
+    int practiceIndex;
+    bool practiceTimer = true, practiceInput = true;
+
+    internal void SetPractice(string[] words, bool timed, bool acceptsLetters)
+    {
+        StopAllCoroutines();
+        _advanceCo = _popCo = _spawn2Co = _spawn3Co = _errCoCur = _errCoNext = null;
+        _suspendFollowNext = _suspendFollowThird = false;
+        practiceWords = words;
+        practiceIndex = 0;
+        practiceTimer = timed;
+        practiceInput = acceptsLetters;
+        ForceInitial();
+        if (countdownSlider) countdownSlider.value = 1f;
+    }
 
     RectTransform _curRT, _nextRT, _thirdRT;
     CanvasGroup _curCG, _nextCG, _thirdCG;
@@ -115,7 +141,7 @@ public class TypingManager : MonoBehaviour
     Coroutine _advanceCo, _popCo, _spawn2Co, _spawn3Co;
     Coroutine _errCoCur, _errCoNext;
 
-    float DT => uiUseUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+    float DT => GamePauseController.InputBlocked ? 0f : (uiUseUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime);
 
     void Awake()
     {
@@ -148,7 +174,7 @@ public class TypingManager : MonoBehaviour
         // CHẠY LUÔN để type-ahead hoạt động cả khi promote/spawn
         HandleTyping();
 
-        if (!isTransitioning) HandleTimer();
+        if (practiceTimer && !isTransitioning && !GamePauseController.InputBlocked && !CombatSession.Finished) HandleTimer();
         if (!isTransitioning) FollowTargets();
     }
 
@@ -162,6 +188,8 @@ public class TypingManager : MonoBehaviour
         {
             pendingAdvance = true;
             OnWordTimeout?.Invoke();
+            current = "";
+            wordText.text = "";
             timer = attackTimeLimit;
             AdvanceToNext();
         }
@@ -169,9 +197,15 @@ public class TypingManager : MonoBehaviour
 
     void HandleTyping()
     {
-        var s = Input.inputString;
+        ProcessInput(Input.inputString);
+    }
+
+    internal void ProcessInput(string s)
+    {
+        if (!practiceInput || GamePauseController.InputBlocked || CombatSession.Finished) return;
         for (int i = 0; i < s.Length; i++)
         {
+            if (CombatSession.Finished) return;
             char c = s[i];
             if (!char.IsLetter(c)) continue;
 
@@ -180,7 +214,7 @@ public class TypingManager : MonoBehaviour
             {
                 if (char.ToLowerInvariant(c) == char.ToLowerInvariant(current[0]))
                 {
-                    OnCorrectChar?.Invoke(c);
+                    AcceptChar(c, originalCurrent.Length - current.Length, rewardedCurrent);
 
                     if (_popCo != null) StopCoroutine(_popCo);
                     _popCo = StartCoroutine(PunchScale(_curRT, _curBaseScale, charPopScale, charPopDuration));
@@ -201,6 +235,10 @@ public class TypingManager : MonoBehaviour
                 else
                 {
                     // Sai ký tự khi đang gõ current
+                    OnInputResult?.Invoke(false);
+                    current = originalCurrent;
+                    wordText.text = current;
+                    UpdateTargets();
                     TriggerErrorFlash(wordText, ref _errCoCur, _curBaseColor);
                 }
                 continue;
@@ -210,6 +248,11 @@ public class TypingManager : MonoBehaviour
             if (!TryConsumeTypeAhead(c))
             {
                 // Sai ký tự khi type-ahead next
+                OnInputResult?.Invoke(false);
+                if (allowTypeAhead && _typeAheadCount < next.Length)
+                {
+                    _typeAheadCount = 0;
+                }
                 TriggerErrorFlash(nextWordText, ref _errCoNext, _nextBaseColor);
             }
         }
@@ -226,7 +269,7 @@ public class TypingManager : MonoBehaviour
         if (char.ToLowerInvariant(c) == char.ToLowerInvariant(next[idx]))
         {
             _typeAheadCount++;
-            OnCorrectChar?.Invoke(c);
+            AcceptChar(c, idx, rewardedNext);
             return true;
         }
         return false;
@@ -237,6 +280,8 @@ public class TypingManager : MonoBehaviour
         pendingAdvance = isTransitioning = false;
 
         current = GetWord();
+        originalCurrent = current;
+        rewardedCurrent.Clear(); rewardedNext.Clear();
         next    = GetWord();
         third   = GetWord();
 
@@ -290,7 +335,7 @@ public class TypingManager : MonoBehaviour
         }
 
         // 2) HOLD nhẹ
-        if (promoteHold > 0f) yield return new WaitForSecondsRealtime(promoteHold);
+        for (float held = 0f; held < promoteHold; held += DT) yield return null;
 
         // 3) PROMOTE: next -> giữa; third -> vị trí next mới
         if (disableFollowDuringPromote) { _suspendFollowNext = true; _suspendFollowThird = true; }
@@ -331,6 +376,9 @@ public class TypingManager : MonoBehaviour
         _typeAheadCount = 0;
 
         current = next;
+        originalCurrent = current;
+        rewardedCurrent = rewardedNext;
+        rewardedNext = new HashSet<int>();
         next    = third;
         third   = GetWord();
 
@@ -516,6 +564,8 @@ public class TypingManager : MonoBehaviour
     // ===================== Helpers =====================
     string GetWord()
     {
+        if (practiceWords != null && practiceWords.Length > 0)
+            return practiceWords[practiceIndex++ % practiceWords.Length];
         string w = wordPool ? wordPool.GetRandomWord() : null;
         return string.IsNullOrEmpty(w) ? (string.IsNullOrEmpty(fallbackWord) ? "type" : fallbackWord) : w;
     }

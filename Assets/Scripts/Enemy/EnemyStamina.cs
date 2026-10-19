@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,7 +29,6 @@ public class EnemyStamina : MonoBehaviour
     public event Action<int, int> OnChanged;
     public int Current { get; private set; }
 
-    WaitForSecondsRealtime _waitDelay, _waitTick;
     Coroutine _regenCo;
     Coroutine _refillCo;
 
@@ -39,8 +38,6 @@ public class EnemyStamina : MonoBehaviour
     void Awake()
     {
         Current = max;
-        _waitDelay = new WaitForSecondsRealtime(regenDelaySeconds);
-        _waitTick = new WaitForSecondsRealtime(regenTickInterval);
         TryGetComponent(out _stun);
         NotifyChange();
     }
@@ -55,6 +52,12 @@ public class EnemyStamina : MonoBehaviour
     }
 
     void NotifyChange() => OnChanged?.Invoke(Current, max);
+
+    internal void PreparePractice(int current)
+    {
+        Current = Mathf.Clamp(current, 0, max);
+        NotifyChange();
+    }
 
     // --- gọi khi parry thành công ---
     public void ConsumeParry()
@@ -91,25 +94,33 @@ public class EnemyStamina : MonoBehaviour
     void StartRegenCountdown()
     {
         if (_regenCo != null) StopCoroutine(_regenCo);
-        _waitDelay = new WaitForSecondsRealtime(regenDelaySeconds); // nếu đổi số lúc runtime
         _regenCo = StartCoroutine(CoRegen());
+    }
+
+    IEnumerator WaitCombat(float seconds)
+    {
+        for (float elapsed = 0f; elapsed < seconds;)
+        {
+            if (!GamePauseController.InputBlocked && !CombatSession.Finished) elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
     }
 
     IEnumerator CoRegen()
     {
-        yield return _waitDelay;
+        yield return WaitCombat(regenDelaySeconds);
 
         while (Current < max)
         {
             if (!regenDuringStun && _stun && _stun.IsStunned)
             {
-                yield return _waitTick;
+                yield return WaitCombat(regenTickInterval);
                 continue;
             }
 
             Current = Mathf.Min(max, Current + regenPerTick);
             NotifyChange();
-            yield return _waitTick;
+            yield return WaitCombat(regenTickInterval);
         }
         _regenCo = null;
     }

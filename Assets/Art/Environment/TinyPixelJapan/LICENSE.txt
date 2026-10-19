@@ -1,0 +1,9 @@
+Tiny Pixel Japan Parallax Background by LyniaDesign
+License published on the author's product page, checked 2026-10-17:
+https://lyniadesign.itch.io/tiny-pixel-japan-parallax-background
+
+This asset pack can be used in any commercial or non-commercial project, you may modify the assets as you wish. This asset pack can't be resold or redistributed even if modified. Credit is not needed but appreciated.
+
+Use within the compiled TypingHero game. Do not publish/distribute the original
+or modified layers as standalone assets or as a public source asset package.
+The local source delivery is for the project owner; it is not a public asset release.

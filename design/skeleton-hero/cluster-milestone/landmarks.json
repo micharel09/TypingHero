@@ -1,0 +1,200 @@
+[
+  {
+    "name": "idle-0",
+    "sha256": "ba9bbb8462d59cc15375cc30f5346e6e753c3029487c4514f18a3091eef07293",
+    "grip": [
+      57,
+      43
+    ],
+    "tip": [
+      67,
+      23
+    ],
+    "changedPixels": 285,
+    "protectedPixels": 205,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-0",
+    "sha256": "ba9bbb8462d59cc15375cc30f5346e6e753c3029487c4514f18a3091eef07293",
+    "grip": [
+      57,
+      43
+    ],
+    "tip": [
+      67,
+      23
+    ],
+    "changedPixels": 285,
+    "protectedPixels": 205,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-1",
+    "sha256": "50999215093353905c34a4e93949a5abaef6430bc83faffc1b70005bdca84d49",
+    "grip": [
+      57,
+      42
+    ],
+    "tip": [
+      57,
+      36
+    ],
+    "changedPixels": 210,
+    "protectedPixels": 142,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-2",
+    "sha256": "3417e374947c07f6a32c4caf333c4f996b653f56f72ada72210bcd0622c56656",
+    "grip": [
+      38,
+      34
+    ],
+    "tip": [
+      21,
+      24
+    ],
+    "changedPixels": 205,
+    "protectedPixels": 198,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-3",
+    "sha256": "034540d4bb4817dc205855e03aeff7b8c556add78b180256ca508e3fc2cc3c6a",
+    "grip": [
+      38,
+      35
+    ],
+    "tip": [
+      20,
+      28
+    ],
+    "changedPixels": 221,
+    "protectedPixels": 156,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-4",
+    "sha256": "4329164ec276ef0d6208ebbb01038ae2d511edfd112181aed363b1b16cf00f59",
+    "grip": [
+      39,
+      36
+    ],
+    "tip": [
+      20,
+      28
+    ],
+    "changedPixels": 204,
+    "protectedPixels": 179,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-5",
+    "sha256": "d8c810dec6798884a08d6d31884ac75b5d994956f03f8e004f59d385cd070f94",
+    "grip": [
+      67,
+      30
+    ],
+    "tip": [
+      94,
+      26
+    ],
+    "changedPixels": 248,
+    "protectedPixels": 648,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-6",
+    "sha256": "9e534fcc7aadfb01e9eb8418f2ee54a06b2f34830dbb40778af68b5dbeb334c3",
+    "grip": [
+      66,
+      29
+    ],
+    "tip": [
+      93,
+      21
+    ],
+    "changedPixels": 284,
+    "protectedPixels": 442,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-7",
+    "sha256": "dfb38842bc0f3290f71710ea5a31c5384baf904f899fe025938867f69ce669d9",
+    "grip": [
+      63,
+      31
+    ],
+    "tip": [
+      91,
+      25
+    ],
+    "changedPixels": 280,
+    "protectedPixels": 304,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-8",
+    "sha256": "cbb62b05d03fe31d7a02e5d1618f69df062060060546bbd0d481cb06dee78378",
+    "grip": [
+      57,
+      39
+    ],
+    "tip": [
+      76,
+      24
+    ],
+    "changedPixels": 281,
+    "protectedPixels": 211,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  },
+  {
+    "name": "attack-9",
+    "sha256": "ba9bbb8462d59cc15375cc30f5346e6e753c3029487c4514f18a3091eef07293",
+    "grip": [
+      57,
+      43
+    ],
+    "tip": [
+      67,
+      23
+    ],
+    "changedPixels": 285,
+    "protectedPixels": 205,
+    "alphaIdentical": true,
+    "protectedIdentical": true,
+    "nativeRoundTrip": true,
+    "sourceColorPartitionChanged": true
+  }
+]

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 using System;
 
@@ -38,6 +38,7 @@ public class ScoreSystem : MonoBehaviour
     float _windowRemain;
     bool _paused;
     Camera _cam;
+    FloatingScore _floating;
 
     void Awake()
     {
@@ -69,7 +70,7 @@ public class ScoreSystem : MonoBehaviour
 
     void Update()
     {
-        if (_paused && stopDecayWhilePaused) return;
+        if (CombatSession.Finished || (_paused && stopDecayWhilePaused)) return;
         if (Multiplier <= rules.startMultiplier && !_comboEnabled) { ComboRemain01 = 0f; return; }
 
         _windowRemain -= Time.unscaledDeltaTime;
@@ -83,10 +84,20 @@ public class ScoreSystem : MonoBehaviour
     }
 
     // ==== Public ====
-    public void SetPaused(bool v) => _paused = v;
+    public void SetPaused(bool v)
+    {
+        _paused = v;
+        if (_floating) _floating.SetPaused(v && !CombatSession.Finished);
+    }
 
     public void ResetScore()
     {
+        if (_floating)
+        {
+            _floating.gameObject.SetActive(false);
+            Destroy(_floating.gameObject);
+            _floating = null;
+        }
         Score = 0;
         ResetComboOnly();
         UpdateUI(true);
@@ -127,6 +138,7 @@ public class ScoreSystem : MonoBehaviour
     // ===== Event handlers =====
     void OnParry(ParrySystem.ParryContext _)
     {
+        if (CombatSession.Finished || GamePauseController.InputBlocked) return;
         // Parry chỉ cộng điểm; CHỈ tăng multiplier nếu combo đã bật.
         AddScore(rules.parryPoint, countAsComboUnit: false, hitKind: HitKind.Parry);
     }
@@ -168,6 +180,7 @@ public class ScoreSystem : MonoBehaviour
 
     void AddScore(int basePoint, bool countAsComboUnit, HitKind hitKind)
     {
+        if (CombatSession.Finished || GamePauseController.InputBlocked) return;
         if (basePoint <= 0 || rules == null) return;
 
         // Nếu combo đã bật → mỗi hit gia hạn cửa sổ + tăng multiplier
@@ -187,6 +200,7 @@ public class ScoreSystem : MonoBehaviour
 
         SpawnFloating(delta, Multiplier, worldPos: null);
         UpdateUI();
+        ScoreUI_Flash.Do(scoreText, Multiplier);
         OnScored?.Invoke(delta, Multiplier);
     }
 
@@ -196,7 +210,6 @@ public class ScoreSystem : MonoBehaviour
         {
             scoreText.text = Score.ToString(rules.scoreFormat);
             scoreText.color = ColorByMultiplier(Multiplier);
-            ScoreUI_Flash.Do(scoreText, Multiplier);
         }
         if (comboHUD)
         {
@@ -218,11 +231,12 @@ public class ScoreSystem : MonoBehaviour
     {
         if (!floatingPrefab || !floatingCanvas) return;
 
-        var go = Instantiate(floatingPrefab, floatingCanvas.transform);
-        go.Setup("+" + delta.ToString(rules.scoreFormat),
-                 ColorByMultiplier(mul),
-                 floatingCanvas,
-                 popupAnchor,
-                 popupOffset);
+        if (!_floating)
+        {
+            _floating = Instantiate(floatingPrefab, floatingCanvas.transform);
+            _floating.Setup("", ColorByMultiplier(mul), floatingCanvas, popupAnchor, popupOffset);
+            _floating.SetPaused(_paused);
+        }
+        _floating.AddAward(delta, rules.scoreFormat, ColorByMultiplier(mul));
     }
 }

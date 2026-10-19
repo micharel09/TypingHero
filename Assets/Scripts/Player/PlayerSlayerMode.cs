@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;   // NEW
 using System.Reflection;
 using UnityEngine;
@@ -30,7 +30,6 @@ public class PlayerSlayerMode : MonoBehaviour
     [Header("Tuning")]
     [SerializeField] float attackSpeedMultiplier = 3.5f;
     [SerializeField] float slayerMinOpenSeconds = 0.035f;
-    [SerializeField] float inputDebounce = 0.015f;
 
     [Header("Combat Rules")]
     [SerializeField] bool ignoreHitstop = true;
@@ -42,8 +41,6 @@ public class PlayerSlayerMode : MonoBehaviour
     [SerializeField] string exitStatePath = "Base Layer.player_idle";
     [SerializeField, Range(0f, 0.2f)] float exitCrossfade = 0.02f;
 
-    [Header("Typing guards")]
-    [SerializeField] float postWordCooldown = 0.08f;
 
     [Header("Grace sau stun")]
     [SerializeField] float graceAfterStun = 0.08f;
@@ -91,7 +88,7 @@ public class PlayerSlayerMode : MonoBehaviour
     public bool IgnoreHitstop => ignoreHitstop;
 
     bool _active, _didFirstSwing;
-    float _remain, _lastTypedAt, _savedMinOpen, _savedSpeedMul, _blockUntil;
+    float _remain, _lastTypedAt, _savedMinOpen, _savedSpeedMul;
     Coroutine _co;
 
     EnemyStunController _followStun;
@@ -162,7 +159,6 @@ public class PlayerSlayerMode : MonoBehaviour
 
         _active = true;
         _didFirstSwing = false;
-        _blockUntil = 0f;
         _pendingExit = false;
         _windowOpen = false;
 
@@ -173,9 +169,7 @@ public class PlayerSlayerMode : MonoBehaviour
         animator.SetFloat(speedParam, attackSpeedMultiplier);
 
         TypingManager.OnCorrectChar -= OnCorrectChar;
-        TypingManager.OnWordCorrect -= OnWordCorrect;
         TypingManager.OnCorrectChar += OnCorrectChar;
-        TypingManager.OnWordCorrect += OnWordCorrect;
         TypingManager.MuteWordCorrect = true;
 
         TypingManager.OnWordAdvanced -= OnWordAdvanced;
@@ -241,9 +235,9 @@ public class PlayerSlayerMode : MonoBehaviour
     {
         if (!_active) return;
         _active = false;
+        if (afterimage) afterimage.CancelBurst();
 
         TypingManager.OnCorrectChar -= OnCorrectChar;
-        TypingManager.OnWordCorrect -= OnWordCorrect;
         TypingManager.OnWordAdvanced -= OnWordAdvanced;
         TypingManager.MuteWordCorrect = false;
 
@@ -277,16 +271,12 @@ public class PlayerSlayerMode : MonoBehaviour
 
     void OnFollowStunEnd() { }
 
-    void OnWordCorrect() => _blockUntil = Time.unscaledTime + postWordCooldown;
-
     void OnWordAdvanced() { if (resetComboOnWord) _comboF = 0f; }
 
     void OnCorrectChar(char _)
     {
-        if (Paused || !_active || _pendingExit) return;
+        if (Paused || GamePauseController.InputBlocked || CombatSession.Finished || !_active || _pendingExit) return;
         float now = Time.unscaledTime;
-        if (now < _blockUntil) return;
-        if (now - _lastTypedAt < inputDebounce) return;
         _lastTypedAt = now;
 
         _comboF += 1f;

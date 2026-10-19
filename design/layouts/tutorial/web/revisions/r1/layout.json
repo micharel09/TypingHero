@@ -1,0 +1,43 @@
+{
+  "layoutId": "tutorial",
+  "revision": 1,
+  "platform": "web",
+  "owner": "Assets/Editor/PixelUI/TutorialBuild.cs",
+  "contract": "contract.md",
+  "variants": [
+    {
+      "id": "tutorial",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "tutorial.wireframe.json",
+      "preview": "tutorial.wireframe.html",
+      "capture": "tutorial.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "4128e0ff438310c403f64ee01b81dcd76ff232c12de3fe412eaa736b9df04bf9",
+        "previewSha256": "41ad4ddc6511a3d319d2d62a2f3ea29ccbd4b0ae6b6d200db1d2c4be72d927f1",
+        "pngSha256": "7a1638c276e58ddaed0b47822ea649d9cdf071379cba0bdbf969a67f99cd1a4d"
+      }
+    }
+  ],
+  "approval": {
+    "status": "approved",
+    "revision": 1,
+    "inputFingerprint": "4128e0ff438310c403f64ee01b81dcd76ff232c12de3fe412eaa736b9df04bf9",
+    "evidence": "User 2026-10-17: Implement the supplied tutorial plan in a fresh context. The plan approves English short prompts below HUD, arena practice, current Shogun theme, targeted highlights and the six specified lessons. This wireframe records that composition; geometry is a routine implementation estimate.",
+    "approvedAt": "2026-10-17T10:35:01.496736+00:00",
+    "artifacts": {
+      "tutorial.wireframe.html": "41ad4ddc6511a3d319d2d62a2f3ea29ccbd4b0ae6b6d200db1d2c4be72d927f1",
+      "tutorial.png": "7a1638c276e58ddaed0b47822ea649d9cdf071379cba0bdbf969a67f99cd1a4d"
+    }
+  },
+  "rendered": {
+    "revision": 1,
+    "inputFingerprint": "4128e0ff438310c403f64ee01b81dcd76ff232c12de3fe412eaa736b9df04bf9",
+    "previews": {
+      "tutorial.wireframe.html": "41ad4ddc6511a3d319d2d62a2f3ea29ccbd4b0ae6b6d200db1d2c4be72d927f1"
+    }
+  }
+}

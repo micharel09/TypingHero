@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using UnityEngine.Events;
 
@@ -53,7 +53,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(int amount, Vector2 _)
     {
-        if (IsDead) return;
+        if (IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
 
         // Parry?
         if (parry && (parry.IsWindowActive || parry.IsSuccessActive))
@@ -75,6 +75,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             if (!dieFlowStarted)
             {
                 dieFlowStarted = true;
+                if (CombatSession.I) CombatSession.I.Complete(false);
                 if (gate) gate.SetDeadLocked(true);
                 if (animator && !string.IsNullOrEmpty(dieStatePath))
                     AnimatorUtil.CrossFadePath(animator, dieStatePath, hitCrossfade, 0f);
@@ -96,6 +97,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         // Dự phòng trường hợp thiếu Animation Event
         while (!diedNotified && t < dieWatchdogTimeout)
         {
+            if (GamePauseController.InputBlocked) { yield return null; continue; }
             if (animator && AnimatorUtil.IsInState(animator, dieStatePath, out var info) && info.normalizedTime >= 0.98f)
                 break;
             t += Time.unscaledDeltaTime;

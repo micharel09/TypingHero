@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class HitStopper : MonoBehaviour
@@ -23,11 +23,12 @@ public class HitStopper : MonoBehaviour
 
     bool active;
     float restoreAt;
+    float restoreTimeScale;
     Coroutine co;
 
     public void Stop(float seconds)
     {
-        if (seconds <= 0f) return;
+        if (seconds <= 0f || GamePauseController.InputBlocked) return;
         if (!allowStacking && active && Time.unscaledTime < restoreAt)
         {
             restoreAt = Time.unscaledTime + seconds;
@@ -49,14 +50,20 @@ public class HitStopper : MonoBehaviour
 
     IEnumerator CoHitstop(float seconds)
     {
-        float prev = Time.timeScale;
+        // A new strike may replace an expired coroutine before its continuation
+        // restores time. Preserve the original scale across that replacement.
+        if (!active) restoreTimeScale = Time.timeScale;
         active = true;
         restoreAt = Time.unscaledTime + seconds;
 
         Time.timeScale = Mathf.Max(0.000001f, frozenTimeScale);
-        while (Time.unscaledTime < restoreAt) yield return null;
+        while (Time.unscaledTime < restoreAt || GamePauseController.InputBlocked)
+        {
+            if (GamePauseController.InputBlocked) restoreAt += Time.unscaledDeltaTime;
+            yield return null;
+        }
 
-        Time.timeScale = prev;
+        Time.timeScale = restoreTimeScale;
         active = false;
         co = null;
     }

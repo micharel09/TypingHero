@@ -204,18 +204,23 @@ MonoBehaviour:
   animator: {fileID: 5902380356341294186}
   target: {fileID: 0}
   playerHealth: {fileID: 0}
-  health: 1000
+  gamePause: {fileID: 0}
+  onDied:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 500
   attackInterval: 2
-  useUnscaledClock: 1
   attackStatePath: Base Layer.skeleton_attack1
-  attackCrossfade: 0.02
-  attackStartTime: 10
   attackDamage: 5
   uninterruptibleDuringAttack: 1
   hitStatePath: Base Layer.skeleton_hit
   hitCrossfade: 0.02
   queueHitReactAfterAttack: 0
+  dieStatePath: Base Layer.skeleton_die
+  dieBoolParam: isDead
+  dieCrossfade: 0.02
   logs: 0
+  attackCue: {fileID: 0}
 --- !u!114 &1020424546824809957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +256,7 @@ MonoBehaviour:
   damageReceiver: {fileID: 0}
   damage: 5
   hitStopTarget: 1
+  logs: 0
 --- !u!114 &3379320643344464324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderers: []
-  flashColor: {r: 1, g: 0.55, b: 0.55, a: 1}
+  flashColor: {r: 1, g: 0.96, b: 0.85, a: 1}
   baseDuration: 0.06
   useUnscaledTime: 1
   minFrames: 2
@@ -297,6 +303,7 @@ MonoBehaviour:
   animator: {fileID: 5902380356341294186}
   stunController: {fileID: 6335462748226833986}
   hitReactGate: {fileID: 8121196955070503774}
+  skeleton: {fileID: 0}
   hitStatePath: Base Layer.skeleton_hitBySlayer
   stunStatePath: Base Layer.skeleton_stun
   hitClip: {fileID: 7400000, guid: a02f0f4e177e7024a83e16a9989e20a4, type: 2}

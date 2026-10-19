@@ -7,6 +7,7 @@ public sealed class LeaderboardRowView : MonoBehaviour
 {
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text scoreText;
+    [SerializeField] TMP_Text rankText;
     [SerializeField] Image background;
 
     [Header("Name Display")]
@@ -18,8 +19,10 @@ public sealed class LeaderboardRowView : MonoBehaviour
         {
             // Truncate tên dài để tránh vỡ layout
             string displayName = TruncateName(name);
-            nameText.text = $"{rank}. {displayName}";
+            nameText.text = rankText ? displayName : $"{rank}. {displayName}";
         }
+
+        if (rankText != null) rankText.text = rank.ToString();
 
         if (scoreText != null)
         {

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [DisallowMultipleComponent]
 public sealed class MusicOnSlayerMode : MonoBehaviour
@@ -17,6 +17,12 @@ public sealed class MusicOnSlayerMode : MonoBehaviour
     void Awake()
     {
         if (watchState && slayer != null) _lastActive = slayer.IsActive;
+    }
+
+    void OnDisable()
+    {
+        if (_lastActive) OnSlayerExit();
+        _lastActive = false;
     }
 
     void Update()

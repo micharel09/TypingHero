@@ -244,7 +244,9 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 4a6684a75496c6edcb7fbba0f99e9bf5, type: 3}
+      name: _NormalMap
     nameFileIdTable:
       male_hero-combo_2_0: -621818365
       male_hero-combo_2_1: 1625544416

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,12 +19,9 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
 
     [Header("Attack Clock")]
     [SerializeField] float attackInterval = 1.5f;
-    [SerializeField] bool useUnscaledClock = true;
 
     [Header("Attack Animation")]
     [SerializeField] string attackStatePath = "Base Layer.skeleton_attack_heavy";
-    [SerializeField, Range(0f, .2f)] float attackCrossfade = 0.02f;
-    [SerializeField] float attackStartTime = 0f;
 
     [Header("Damage")]
     [SerializeField] int attackDamage = 5;
@@ -51,20 +48,37 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     bool _queuedHitReact;
     bool _deathEventFired;
 
-    float Now => useUnscaledClock ? Time.unscaledTime : Time.time;
+    float Now => Time.time;
+    public bool IsAttacking => _attacking;
+    bool practiceIdle;
+    internal void HoldPracticeAttacks(bool hold)
+    {
+        practiceIdle = hold;
+        _nextAttackAt = Now + .5f;
+    }
+    [SerializeField] GameObject attackCue;
+    public void Anim_Telegraph()
+    {
+        if (!isActiveAndEnabled || !_attacking || IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
+        if (attackCue) attackCue.SetActive(true);
+        var sound = GetComponent<SfxOnEnemyAttack>();
+        if (sound) sound.Anim_EnemyAttackSfx();
+    }
+    public void HideCue() { if (attackCue) attackCue.SetActive(false); }
+    void OnDisable() { _attacking = false; HideCue(); }
 
     void Awake()
     {
         if (Current <= 0) Current = maxHealth;
     }
 
-    void OnEnable() { _nextAttackAt = Now + 0.5f; }
+    void OnEnable() { _attacking = false; _nextAttackAt = Now + 0.5f; }
 
     void Update()
     {
-        if (IsDead) return;
+        if (practiceIdle || IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
 
-        if (!_attacking && Now >= _nextAttackAt) StartAttack();
+        if (!_attacking && Now >= _nextAttackAt) { StartAttack(); return; }
 
         if (_attacking)
         {
@@ -78,12 +92,15 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         _attacking = true;
         _queuedHitReact = false;
         if (animator && !string.IsNullOrEmpty(attackStatePath))
-            AnimatorUtil.CrossFadePath(animator, attackStatePath, attackCrossfade, attackStartTime);
+            animator.Play(attackStatePath, 0, 0f);
+        var strike = GetComponent<AttackStrike>();
+        if (strike) strike.BeginSwing();
     }
 
     void EndAttack()
     {
         _attacking = false;
+        HideCue();
         _nextAttackAt = Now + attackInterval;
 
         if (_queuedHitReact && !IsDead && animator && !string.IsNullOrEmpty(hitStatePath))
@@ -95,7 +112,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int amount, Vector2 hitPoint)
     {
-        if (IsDead) return;
+        if (IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
 
         Current = Mathf.Max(0, Current - amount);
 
@@ -114,8 +131,10 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
 
     void Die()
     {
-        if (IsDead) return;
+        if (IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
         IsDead = true;
+        HideCue();
+        if (CombatSession.I) CombatSession.I.Complete(true);
         onDied?.Invoke();
         if (!string.IsNullOrEmpty(dieBoolParam) && animator) animator.SetBool(dieBoolParam, true);
         if (animator && !string.IsNullOrEmpty(dieStatePath))

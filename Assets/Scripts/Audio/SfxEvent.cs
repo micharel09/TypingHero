@@ -26,6 +26,7 @@ public class SfxEvent : ScriptableObject
 
     [Header("Routing")]
     [SerializeField] AudioMixerGroup mixerGroup;
+    [SerializeField] bool ignoreListenerPause;
 
     [Header("Limits")]
     [SerializeField, Min(0)] int maxVoices = 6;
@@ -58,6 +59,7 @@ public class SfxEvent : ScriptableObject
     {
         // ---- luôn 2D tuyệt đối ----
         src.outputAudioMixerGroup = mixerGroup;
+        src.ignoreListenerPause = ignoreListenerPause;
         src.spatialBlend = 0f;
         src.panStereo = 0f;
         src.dopplerLevel = 0f;                 // tránh méo cao độ vô tình

@@ -1,0 +1,9 @@
+{
+  "name": "TypingHero.Runtime",
+  "references": [
+    "Unity.TextMeshPro",
+    "Unity.ugui",
+    "Cinemachine",
+    "Unity.RenderPipelines.Universal.Runtime"
+  ]
+}

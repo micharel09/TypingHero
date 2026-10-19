@@ -1,0 +1,428 @@
+{
+  "inputFilesUnchanged": 1132,
+  "inputs": {
+    "design\\skeleton-hero\\cluster-milestone\\approval.json": "6d119868acc3e45cf9534c8df9fc6e7787cb24d73da9db685c593f3be43aa830",
+    "design\\skeleton-hero\\cluster-milestone\\attack-0-diff.png": "b7cb52d567b56aa7de22aa909ad56229cb9698d85befa6ff8c2ffb7aced9f6a2",
+    "design\\skeleton-hero\\cluster-milestone\\attack-0-protected.png": "b189c5379b35644340658f015805afac41b2dcf2b69075e34127346e70bf4648",
+    "design\\skeleton-hero\\cluster-milestone\\attack-0.aseprite": "16dbef07aa81fe4c08a47c2d81d602941dcf275ef441d1378e3a22693dde84f9",
+    "design\\skeleton-hero\\cluster-milestone\\attack-0.png": "ba9bbb8462d59cc15375cc30f5346e6e753c3029487c4514f18a3091eef07293",
+    "design\\skeleton-hero\\cluster-milestone\\attack-1-diff.png": "9726a62354094c0f1530a36b5dab3501e3053ed186177259e3ae30d3c2b1552d",
+    "design\\skeleton-hero\\cluster-milestone\\attack-1-protected.png": "04495f35d6542df2c8a38b9bdfb336033576715919e2ff0b6477cb4faa30607d",
+    "design\\skeleton-hero\\cluster-milestone\\attack-1.aseprite": "4fae199448c770355a71f902f2240e12183a118c98ca5f70c7b671463490425a",
+    "design\\skeleton-hero\\cluster-milestone\\attack-1.png": "50999215093353905c34a4e93949a5abaef6430bc83faffc1b70005bdca84d49",
+    "design\\skeleton-hero\\cluster-milestone\\attack-2-diff.png": "0a068a3393ed944054f6c2c45f121bb856f680d94d5d650c79a47a790188fb3e",
+    "design\\skeleton-hero\\cluster-milestone\\attack-2-protected.png": "03db76628563cc529d7e569522fd739df1dce56f54e6553f226ed9659d423446",
+    "design\\skeleton-hero\\cluster-milestone\\attack-2.aseprite": "2867f00faafc6773febc14a609d3c8bb5cfb7beb3addb2930b32b90473b7ec55",
+    "design\\skeleton-hero\\cluster-milestone\\attack-2.png": "3417e374947c07f6a32c4caf333c4f996b653f56f72ada72210bcd0622c56656",
+    "design\\skeleton-hero\\cluster-milestone\\attack-3-diff.png": "7ff7136e972bb5622f056256a62b053511c4e78f85bd9f4094985a59fae51828",
+    "design\\skeleton-hero\\cluster-milestone\\attack-3-protected.png": "04c2278bdeb455bf42154c212a79ad2049daaf9bb3e364ef7c9bbb0e844efb22",
+    "design\\skeleton-hero\\cluster-milestone\\attack-3.aseprite": "419ceadbc6a6eb25980fbcc9cacd2a2e53dcd841aca4e285d229dc60ea42e11d",
+    "design\\skeleton-hero\\cluster-milestone\\attack-3.png": "034540d4bb4817dc205855e03aeff7b8c556add78b180256ca508e3fc2cc3c6a",
+    "design\\skeleton-hero\\cluster-milestone\\attack-4-diff.png": "3342f0ee7975813baca02e7cc84bf7d85986b007aa75dbd7a0191a3d36c47dc9",
+    "design\\skeleton-hero\\cluster-milestone\\attack-4-protected.png": "643c926543caa41637c47cab8f557df4c9e5d1c94459d8a7341cf9f24c827399",
+    "design\\skeleton-hero\\cluster-milestone\\attack-4.aseprite": "6f5649e561c126186323c1f67a4233604108d5b2b6f521b1e067a74cfabc21fa",
+    "design\\skeleton-hero\\cluster-milestone\\attack-4.png": "4329164ec276ef0d6208ebbb01038ae2d511edfd112181aed363b1b16cf00f59",
+    "design\\skeleton-hero\\cluster-milestone\\attack-5-diff.png": "1bd93869073914b599b8f086cb400cc7946748bf8f827cb959c661df378a57fe",
+    "design\\skeleton-hero\\cluster-milestone\\attack-5-protected.png": "814d98d2926e2a8bf34743992e5b10234e8491a1874fbc8735d6136c67bc9c7e",
+    "design\\skeleton-hero\\cluster-milestone\\attack-5.aseprite": "40f8b4db140a7f95d9b46f18aa3afb96f226225e5d410ee809274d8ae331ebfa",
+    "design\\skeleton-hero\\cluster-milestone\\attack-5.png": "d8c810dec6798884a08d6d31884ac75b5d994956f03f8e004f59d385cd070f94",
+    "design\\skeleton-hero\\cluster-milestone\\attack-6-diff.png": "f1d9b74abfc2db1fbd99631d45c2924f113db2c3d3003cca1246ee5a1ae6320a",
+    "design\\skeleton-hero\\cluster-milestone\\attack-6-protected.png": "c0683c1939d9be82948db17ebe44a80dedeecc55128a36ad482b8957693dab8d",
+    "design\\skeleton-hero\\cluster-milestone\\attack-6.aseprite": "933b24663ffc90e86c121af18858073ff731a646b83cf7e99787e54d80461ac9",
+    "design\\skeleton-hero\\cluster-milestone\\attack-6.png": "9e534fcc7aadfb01e9eb8418f2ee54a06b2f34830dbb40778af68b5dbeb334c3",
+    "design\\skeleton-hero\\cluster-milestone\\attack-7-diff.png": "04066057d167c6f38f40aa2d579f85fbd022e83828562c95f54e12f5175a4550",
+    "design\\skeleton-hero\\cluster-milestone\\attack-7-protected.png": "879736903a244cf703594a706a9ecb68ba7922c8d29ae89bf44c06a2bc32017a",
+    "design\\skeleton-hero\\cluster-milestone\\attack-7.aseprite": "3d40a4aaff8e3c812d4055c2d1584e3c266d79f650db6dc3aec69d23f285269d",
+    "design\\skeleton-hero\\cluster-milestone\\attack-7.png": "dfb38842bc0f3290f71710ea5a31c5384baf904f899fe025938867f69ce669d9",
+    "design\\skeleton-hero\\cluster-milestone\\attack-8-diff.png": "c337b9bd750b78cf32c5757fc5305d413e70970769e6a3707a711dc2bf1dae84",
+    "design\\skeleton-hero\\cluster-milestone\\attack-8-protected.png": "c13837bffc1204e11cf0f1353e171aadacb680d3c13e79a8cd673d4ca04322dd",
+    "design\\skeleton-hero\\cluster-milestone\\attack-8.aseprite": "413853adfe3cbc0ee495d60adb120357a0c5c9d50c517ce2ce69326512f92147",
+    "design\\skeleton-hero\\cluster-milestone\\attack-8.png": "cbb62b05d03fe31d7a02e5d1618f69df062060060546bbd0d481cb06dee78378",
+    "design\\skeleton-hero\\cluster-milestone\\attack-9-diff.png": "b7cb52d567b56aa7de22aa909ad56229cb9698d85befa6ff8c2ffb7aced9f6a2",
+    "design\\skeleton-hero\\cluster-milestone\\attack-9-protected.png": "b189c5379b35644340658f015805afac41b2dcf2b69075e34127346e70bf4648",
+    "design\\skeleton-hero\\cluster-milestone\\attack-9.aseprite": "16dbef07aa81fe4c08a47c2d81d602941dcf275ef441d1378e3a22693dde84f9",
+    "design\\skeleton-hero\\cluster-milestone\\attack-9.png": "ba9bbb8462d59cc15375cc30f5346e6e753c3029487c4514f18a3091eef07293",
+    "design\\skeleton-hero\\cluster-milestone\\Attack1.aseprite": "93de57b0c32bc68f0a68fdce02848215afc393ebc76a41829ba87717fbf29fa0",
+    "design\\skeleton-hero\\cluster-milestone\\Attack1.png": "c4f23fc08ed377d3f6c3e18f591ad3199994a3ce2b5102dabba96d81b1c122aa",
+    "design\\skeleton-hero\\cluster-milestone\\idle-0-diff.png": "b7cb52d567b56aa7de22aa909ad56229cb9698d85befa6ff8c2ffb7aced9f6a2",
+    "design\\skeleton-hero\\cluster-milestone\\idle-0-protected.png": "b189c5379b35644340658f015805afac41b2dcf2b69075e34127346e70bf4648",
+    "design\\skeleton-hero\\cluster-milestone\\idle-0.aseprite": "16dbef07aa81fe4c08a47c2d81d602941dcf275ef441d1378e3a22693dde84f9",
+    "design\\skeleton-hero\\cluster-milestone\\idle-0.png": "ba9bbb8462d59cc15375cc30f5346e6e753c3029487c4514f18a3091eef07293",
+    "design\\skeleton-hero\\cluster-milestone\\landmarks.json": "8d933069f3462970a6c0d06a7224afd8bfbb33e613ba0439254dd79856ba7224"
+  },
+  "exports": {
+    "axe": {
+      "nativeSha256": "9bceece4f51a97e2bff6c6f6edfffda0b9abc9b0799c4555f0abf610a9f3dde1",
+      "frames": 17,
+      "bounds": [
+        [
+          34,
+          18,
+          70,
+          64
+        ],
+        [
+          34,
+          18,
+          70,
+          64
+        ],
+        [
+          34,
+          2,
+          57,
+          64
+        ],
+        [
+          24,
+          1,
+          57,
+          64
+        ],
+        [
+          23,
+          2,
+          57,
+          64
+        ],
+        [
+          29,
+          2,
+          86,
+          64
+        ],
+        [
+          34,
+          27,
+          87,
+          64
+        ],
+        [
+          34,
+          29,
+          87,
+          64
+        ],
+        [
+          34,
+          29,
+          87,
+          64
+        ],
+        [
+          34,
+          28,
+          87,
+          64
+        ],
+        [
+          34,
+          28,
+          87,
+          64
+        ],
+        [
+          34,
+          27,
+          87,
+          64
+        ],
+        [
+          34,
+          25,
+          84,
+          64
+        ],
+        [
+          34,
+          22,
+          78,
+          64
+        ],
+        [
+          34,
+          19,
+          73,
+          64
+        ],
+        [
+          34,
+          18,
+          71,
+          64
+        ],
+        [
+          34,
+          18,
+          70,
+          64
+        ]
+      ],
+      "durationsMs": [
+        100,
+        83,
+        84,
+        250,
+        500,
+        66,
+        100,
+        67,
+        100,
+        67,
+        16,
+        100,
+        120,
+        140,
+        140,
+        120,
+        100
+      ],
+      "nativeRoundTrip": true,
+      "binaryAlpha": true,
+      "plantedFeet": true,
+      "groundContactFrames": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "cuttingEdgeContact": true,
+      "pinnedHeadFrames": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "fixedGrips": true,
+      "smearFrames": [
+        4
+      ],
+      "recoveryFrames": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "idleReturnExact": true,
+      "previewTimeline": {
+        "keys": [
+          {
+            "time": 0.0,
+            "frame": 0
+          },
+          {
+            "time": 0.083333336,
+            "frame": 1
+          },
+          {
+            "time": 0.16666667,
+            "frame": 2
+          },
+          {
+            "time": 0.41666666,
+            "frame": 3
+          },
+          {
+            "time": 0.9166667,
+            "frame": 4
+          },
+          {
+            "time": 0.98333335,
+            "frame": 5
+          },
+          {
+            "time": 1.0833334,
+            "frame": 6
+          },
+          {
+            "time": 1.15,
+            "frame": 7
+          },
+          {
+            "time": 1.25,
+            "frame": 8
+          },
+          {
+            "time": 1.3166667,
+            "frame": 9
+          },
+          {
+            "time": 1.3333334,
+            "frame": 10
+          },
+          {
+            "time": 1.4333334,
+            "frame": 11
+          },
+          {
+            "time": 1.5533334,
+            "frame": 12
+          },
+          {
+            "time": 1.6933334000000002,
+            "frame": 13
+          },
+          {
+            "time": 1.8333334000000003,
+            "frame": 14
+          },
+          {
+            "time": 1.9533334000000004,
+            "frame": 15
+          }
+        ],
+        "duration": 2.0533334000000005
+      }
+    },
+    "spear": {
+      "nativeSha256": "16a90a5ca9be2205b68cbb999ad7c0c1fad11e18acbf8386628a06ef54e7d1ee",
+      "frames": 11,
+      "bounds": [
+        [
+          23,
+          18,
+          81,
+          64
+        ],
+        [
+          23,
+          18,
+          81,
+          64
+        ],
+        [
+          18,
+          18,
+          77,
+          64
+        ],
+        [
+          12,
+          19,
+          71,
+          64
+        ],
+        [
+          9,
+          19,
+          68,
+          64
+        ],
+        [
+          24,
+          18,
+          83,
+          64
+        ],
+        [
+          34,
+          18,
+          93,
+          64
+        ],
+        [
+          33,
+          19,
+          92,
+          64
+        ],
+        [
+          27,
+          19,
+          86,
+          64
+        ],
+        [
+          24,
+          18,
+          83,
+          64
+        ],
+        [
+          23,
+          18,
+          81,
+          64
+        ]
+      ],
+      "durationsMs": [
+        100,
+        83,
+        84,
+        250,
+        500,
+        66,
+        100,
+        67,
+        100,
+        67,
+        16
+      ],
+      "nativeRoundTrip": true,
+      "binaryAlpha": true,
+      "plantedFeet": true,
+      "groundContactFrames": []
+    }
+  },
+  "timing": {
+    "keys": [
+      {
+        "time": 0.0,
+        "frame": 0
+      },
+      {
+        "time": 0.083333336,
+        "frame": 1
+      },
+      {
+        "time": 0.16666667,
+        "frame": 2
+      },
+      {
+        "time": 0.41666666,
+        "frame": 3
+      },
+      {
+        "time": 0.9166667,
+        "frame": 4
+      },
+      {
+        "time": 0.98333335,
+        "frame": 5
+      },
+      {
+        "time": 1.0833334,
+        "frame": 6
+      },
+      {
+        "time": 1.15,
+        "frame": 7
+      },
+      {
+        "time": 1.25,
+        "frame": 8
+      },
+      {
+        "time": 1.3166667,
+        "frame": 9
+      }
+    ],
+    "duration": 1.3333334,
+    "events": [
+      {
+        "time": 0.7,
+        "name": "Anim_Telegraph"
+      },
+      {
+        "time": 1.0,
+        "name": "Anim_DealDamage"
+      }
+    ]
+  }
+}

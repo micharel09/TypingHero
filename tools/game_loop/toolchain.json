@@ -1,0 +1,11 @@
+{
+  "unity": "unityci/editor:ubuntu-2022.3.25f1-webgl-3@sha256:cff6700de0d94127031a428e17c8c8df6dfd5c77850febf677ce39858ad34e4d",
+  "playwright": "mcr.microsoft.com/playwright:v1.63.0-noble",
+  "playwrightPackage": "1.63.0",
+  "cpu": 2,
+  "memory": "8g",
+  "containerHostname": "typinghero-game-loop",
+  "containerMacAddress": "02:74:79:70:65:01",
+  "browserSharedMemory": "1g",
+  "minimumFreeGiB": {"setup": 3, "unity": 3, "browser": 3}
+}

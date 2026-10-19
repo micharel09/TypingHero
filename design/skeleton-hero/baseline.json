@@ -1,0 +1,619 @@
+{
+  "Assets\\Art\\Skeletons_Free_Pack\\Skeleton_Sword\\Skeleton_White\\Skeleton_With_VFX\\Skeleton_01_White_Idle.png": {
+    "sha256": "ab3bc75468ac1617239f77461b45f4690a1370ad7db22ff5fdb16b3fd9dcc26a",
+    "size": [
+      768,
+      64
+    ],
+    "frames": 8,
+    "guid": "fb5c7de69732e054bbea856089b9c6ee",
+    "sprites": [
+      "Skeleton_01_White_Idle_0",
+      "Skeleton_01_White_Idle_1",
+      "Skeleton_01_White_Idle_2",
+      "Skeleton_01_White_Idle_3",
+      "Skeleton_01_White_Idle_4",
+      "Skeleton_01_White_Idle_5",
+      "Skeleton_01_White_Idle_6",
+      "Skeleton_01_White_Idle_7"
+    ],
+    "spriteIDs": [
+      "e58b3b7067950054791099684dd64061",
+      "b630b5826f4d0d143988e17baaa886cd",
+      "619b06a337652a345babcbca04fcc129",
+      "0c335edb36e1461499aa7d5d667e1b12",
+      "f4344af3293dd48418e81e9631ea85b2",
+      "6c7e1c667ce620449865c9813ca91d5b",
+      "861a27e6278fedc4ab0f179995b92b4d",
+      "ffa1ad01414a964488a482e8cffd18c7",
+      "5e97eb03825dee720800000000000000"
+    ],
+    "internalIDs": [
+      "-1755233937",
+      "-1169528332",
+      "-2004213556",
+      "-1078706528",
+      "-1105176257",
+      "-527675185",
+      "237744625",
+      "-99755285",
+      "0"
+    ]
+  },
+  "Assets\\Art\\Skeletons_Free_Pack\\Skeleton_Sword\\Skeleton_White\\Skeleton_With_VFX\\Skeleton_01_White_Idle.png.meta": {
+    "sha256": "60fd1130c0d9a1f57bf1cd4656330eebcf98b4c975e107f16d966ebe7c0df705"
+  },
+  "Assets\\Art\\Skeletons_Free_Pack\\Skeleton_Sword\\Skeleton_White\\Skeleton_With_VFX\\Skeleton_01_White_Attack1.png": {
+    "sha256": "0f5f905671b6515f34a4798991cce3a12244b9ca6948efdee2e4e81ed9721b1b",
+    "size": [
+      960,
+      64
+    ],
+    "frames": 10,
+    "guid": "1a1b37ac36b89394492c859d829adbcd",
+    "sprites": [
+      "Skeleton_01_White_Attack1_0",
+      "Skeleton_01_White_Attack1_1",
+      "Skeleton_01_White_Attack1_2",
+      "Skeleton_01_White_Attack1_3",
+      "Skeleton_01_White_Attack1_4",
+      "Skeleton_01_White_Attack1_5",
+      "Skeleton_01_White_Attack1_6",
+      "Skeleton_01_White_Attack1_7",
+      "Skeleton_01_White_Attack1_8",
+      "Skeleton_01_White_Attack1_9"
+    ],
+    "spriteIDs": [
+      "6129668073480194bb729b2cdba62d26",
+      "b0a0d1e63b1836147bd37c5eb7bd294c",
+      "afe9e6571d0bcc4458bed3be9df263ba",
+      "6305085a1c5f23841ad9545713dcaf1d",
+      "3bcc9c8950600d840a7e6dc17a89ef7c",
+      "610b032e684d43f48ba01029c57c26b5",
+      "b8493336d838983438332fc522929777",
+      "41d670b098dd24c4ab151741ad50bab2",
+      "5a4169a25f0d6b443b8b4ad5b7c44eab",
+      "6b5d30c444c257241a701d79985e2cdf",
+      "5e97eb03825dee720800000000000000"
+    ],
+    "internalIDs": [
+      "-542790165",
+      "-661975036",
+      "-617104445",
+      "371670811",
+      "440837093",
+      "-2097475492",
+      "-1953612697",
+      "2139548333",
+      "1650818480",
+      "-1806675074",
+      "0"
+    ]
+  },
+  "Assets\\Art\\Skeletons_Free_Pack\\Skeleton_Sword\\Skeleton_White\\Skeleton_With_VFX\\Skeleton_01_White_Attack1.png.meta": {
+    "sha256": "3f873e16ea8d907d5c2777056f34dcb32b148223598c360827d5051cd2fe8a07"
+  },
+  "Assets\\Art\\Skeletons_Free_Pack\\Skeleton_Sword\\Skeleton_White\\Skeleton_With_VFX\\Skeleton_01_White_Hurt.png": {
+    "sha256": "19fd42b6a894dbcd7d64afaca10e441bfcec3ef9cbf8d38c93aff145af026de7",
+    "size": [
+      480,
+      64
+    ],
+    "frames": 5,
+    "guid": "7ec67ad34b59fcd418a1e7cf7aae7d13",
+    "sprites": [
+      "Skeleton_01_White_Hurt_0",
+      "Skeleton_01_White_Hurt_1",
+      "Skeleton_01_White_Hurt_2",
+      "Skeleton_01_White_Hurt_3",
+      "Skeleton_01_White_Hurt_4"
+    ],
+    "spriteIDs": [
+      "ffb807ac56dddaa498c168c555c45837",
+      "d698b46eafad59442ba438035e8b97ac",
+      "f3c9cd60892d6ef4b9997e7b8fe5cb0e",
+      "b795e86cc0a0d2f4f816e3d88656bb93",
+      "b9828875fabb22144a19a0575bf8e735",
+      "5e97eb03825dee720800000000000000"
+    ],
+    "internalIDs": [
+      "-1682580610",
+      "-428002748",
+      "1593274972",
+      "-2117652144",
+      "-736384975",
+      "0"
+    ]
+  },
+  "Assets\\Art\\Skeletons_Free_Pack\\Skeleton_Sword\\Skeleton_White\\Skeleton_With_VFX\\Skeleton_01_White_Hurt.png.meta": {
+    "sha256": "90ba26b1caf38ff9e6c5e44426118da2043a8077b30e2869c10af377a23de83f"
+  },
+  "Assets\\Art\\Skeletons_Free_Pack\\Skeleton_Sword\\Skeleton_White\\Skeleton_With_VFX\\Skeleton_01_White_Die.png": {
+    "sha256": "24713076c0294f96743ff5c8f49e1c7fc4692c119e571c588ff41350935ecd92",
+    "size": [
+      1248,
+      64
+    ],
+    "frames": 13,
+    "guid": "ac7553ba405f3f94d871eb4a3cb857dc",
+    "sprites": [
+      "Skeleton_01_White_Die_0",
+      "Skeleton_01_White_Die_1",
+      "Skeleton_01_White_Die_2",
+      "Skeleton_01_White_Die_3",
+      "Skeleton_01_White_Die_4",
+      "Skeleton_01_White_Die_5",
+      "Skeleton_01_White_Die_6",
+      "Skeleton_01_White_Die_7",
+      "Skeleton_01_White_Die_8",
+      "Skeleton_01_White_Die_9",
+      "Skeleton_01_White_Die_10",
+      "Skeleton_01_White_Die_11",
+      "Skeleton_01_White_Die_12"
+    ],
+    "spriteIDs": [
+      "f05f4a4a1ba62064eab9f670f395a4f1",
+      "f35cc57dcecf7704e8090750c99e9238",
+      "b164ff29c3fbdfe4c9e637c4b314c115",
+      "b54768e7ee08732479d614b4c9a502d4",
+      "93a2802e28f5c1f4cbeaead04cdb86ca",
+      "744842215f8f477439c4c801d2ce67db",
+      "e7469471573dba74691ff4a01c8df047",
+      "eddf0fe356fcffc4cab35e3bc9cfe8c6",
+      "6be2667c788079248bb43948b8a11a20",
+      "b484510fde7593c4ca9f89d340680427",
+      "42bfd4903b9cc34418f106e4b1fca171",
+      "27f1c04ba1d01624e9946a56af00e5d4",
+      "63cc178e71143ff448c8bdb7214cfc62",
+      "5e97eb03825dee720800000000000000"
+    ],
+    "internalIDs": [
+      "-891151701",
+      "-978640347",
+      "1513758564",
+      "424201918",
+      "-2016666721",
+      "-1237369492",
+      "905225260",
+      "1806081011",
+      "383808434",
+      "640154010",
+      "827493865",
+      "-2096704948",
+      "864875727",
+      "0"
+    ]
+  },
+  "Assets\\Art\\Skeletons_Free_Pack\\Skeleton_Sword\\Skeleton_White\\Skeleton_With_VFX\\Skeleton_01_White_Die.png.meta": {
+    "sha256": "74f6405698ed38dd77a217860ad68ce13ed189f3bb629ab93b1b4da2c575030d"
+  },
+  "Assets\\Scripts\\skeleton_attack_heavy.anim": {
+    "sha256": "79d0811c8499de273ab079256e7a9a64a30018e3fe891c6f82c71a90630ca8c7",
+    "yaml": "%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!74 &7400000\nAnimationClip:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_Name: skeleton_attack_heavy\n  serializedVersion: 7\n  m_Legacy: 0\n  m_Compressed: 0\n  m_UseHighQualityCurve: 1\n  m_RotationCurves: []\n  m_CompressedRotationCurves: []\n  m_EulerCurves: []\n  m_PositionCurves: []\n  m_ScaleCurves: []\n  m_FloatCurves: []\n  m_PPtrCurves:\n  - serializedVersion: 2\n    curve:\n    - time: 0\n      value: {fileID: -542790165, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 0.083333336\n      value: {fileID: -661975036, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 0.16666667\n      value: {fileID: -617104445, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 0.41666666\n      value: {fileID: 371670811, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 0.9166667\n      value: {fileID: 440837093, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 0.98333335\n      value: {fileID: -2097475492, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 1.0833334\n      value: {fileID: -1953612697, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 1.15\n      value: {fileID: 2139548333, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 1.25\n      value: {fileID: 1650818480, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - time: 1.3166667\n      value: {fileID: -1806675074, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    attribute: m_Sprite\n    path:\n    classID: 212\n    script: {fileID: 0}\n    flags: 2\n  m_SampleRate: 60\n  m_WrapMode: 0\n  m_Bounds:\n    m_Center: {x: 0, y: 0, z: 0}\n    m_Extent: {x: 0, y: 0, z: 0}\n  m_ClipBindingConstant:\n    genericBindings:\n    - serializedVersion: 2\n      path: 0\n      attribute: 0\n      script: {fileID: 0}\n      typeID: 212\n      customType: 23\n      isPPtrCurve: 1\n      isIntCurve: 0\n      isSerializeReferenceCurve: 0\n    pptrCurveMapping:\n    - {fileID: -542790165, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: -661975036, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: -617104445, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: 371670811, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: 440837093, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: -2097475492, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: -1953612697, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: 2139548333, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: 1650818480, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n    - {fileID: -1806675074, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}\n  m_AnimationClipSettings:\n    serializedVersion: 2\n    m_AdditiveReferencePoseClip: {fileID: 0}\n    m_AdditiveReferencePoseTime: 0\n    m_StartTime: 0\n    m_StopTime: 1.3333334\n    m_OrientationOffsetY: 0\n    m_Level: 0\n    m_CycleOffset: 0\n    m_HasAdditiveReferencePose: 0\n    m_LoopTime: 0\n    m_LoopBlend: 0\n    m_LoopBlendOrientation: 0\n    m_LoopBlendPositionY: 0\n    m_LoopBlendPositionXZ: 0\n    m_KeepOriginalOrientation: 0\n    m_KeepOriginalPositionY: 1\n    m_KeepOriginalPositionXZ: 0\n    m_HeightFromFeet: 0\n    m_Mirror: 0\n  m_EditorCurves: []\n  m_EulerEditorCurves: []\n  m_HasGenericRootTransform: 0\n  m_HasMotionFloatCurves: 0\n  m_Events:\n  - time: 0.7\n    functionName: Anim_Telegraph\n    data:\n    objectReferenceParameter: {fileID: 0}\n    floatParameter: 0\n    intParameter: 0\n    messageOptions: 0\n  - time: 1\n    functionName: Anim_DealDamage\n    data:\n    objectReferenceParameter: {fileID: 0}\n    floatParameter: 0\n    intParameter: 0\n    messageOptions: 0\n"
+  },
+  "Assets\\Scripts\\skeleton_die.anim": {
+    "sha256": "f5a612bc073058be54d91bd3c605e6010941e09722dc3b486ea347b9ad9cd914",
+    "yaml": "%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!74 &7400000\nAnimationClip:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_Name: skeleton_die\n  serializedVersion: 7\n  m_Legacy: 0\n  m_Compressed: 0\n  m_UseHighQualityCurve: 1\n  m_RotationCurves: []\n  m_CompressedRotationCurves: []\n  m_EulerCurves: []\n  m_PositionCurves: []\n  m_ScaleCurves: []\n  m_FloatCurves: []\n  m_PPtrCurves:\n  - serializedVersion: 2\n    curve:\n    - time: 0\n      value: {fileID: -891151701, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.06666667\n      value: {fileID: -978640347, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.13333334\n      value: {fileID: 1513758564, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.21666667\n      value: {fileID: 424201918, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.28333333\n      value: {fileID: -2016666721, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.35\n      value: {fileID: -1237369492, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.41666666\n      value: {fileID: 905225260, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.48333332\n      value: {fileID: 1806081011, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.55\n      value: {fileID: 383808434, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.6333333\n      value: {fileID: 640154010, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.7\n      value: {fileID: 827493865, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.76666665\n      value: {fileID: -2096704948, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - time: 0.8333333\n      value: {fileID: 864875727, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    attribute: m_Sprite\n    path: \n    classID: 212\n    script: {fileID: 0}\n    flags: 2\n  m_SampleRate: 60\n  m_WrapMode: 0\n  m_Bounds:\n    m_Center: {x: 0, y: 0, z: 0}\n    m_Extent: {x: 0, y: 0, z: 0}\n  m_ClipBindingConstant:\n    genericBindings:\n    - serializedVersion: 2\n      path: 0\n      attribute: 0\n      script: {fileID: 0}\n      typeID: 212\n      customType: 23\n      isPPtrCurve: 1\n      isIntCurve: 0\n      isSerializeReferenceCurve: 0\n    pptrCurveMapping:\n    - {fileID: -891151701, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: -978640347, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: 1513758564, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: 424201918, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: -2016666721, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: -1237369492, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: 905225260, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: 1806081011, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: 383808434, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: 640154010, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: 827493865, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: -2096704948, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n    - {fileID: 864875727, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}\n  m_AnimationClipSettings:\n    serializedVersion: 2\n    m_AdditiveReferencePoseClip: {fileID: 0}\n    m_AdditiveReferencePoseTime: 0\n    m_StartTime: 0\n    m_StopTime: 0.84999996\n    m_OrientationOffsetY: 0\n    m_Level: 0\n    m_CycleOffset: 0\n    m_HasAdditiveReferencePose: 0\n    m_LoopTime: 0\n    m_LoopBlend: 0\n    m_LoopBlendOrientation: 0\n    m_LoopBlendPositionY: 0\n    m_LoopBlendPositionXZ: 0\n    m_KeepOriginalOrientation: 0\n    m_KeepOriginalPositionY: 1\n    m_KeepOriginalPositionXZ: 0\n    m_HeightFromFeet: 0\n    m_Mirror: 0\n  m_EditorCurves: []\n  m_EulerEditorCurves: []\n  m_HasGenericRootTransform: 0\n  m_HasMotionFloatCurves: 0\n  m_Events:\n  - time: 0.8333333\n    functionName: Anim_DieCleanup\n    data: \n    objectReferenceParameter: {fileID: 0}\n    floatParameter: 0\n    intParameter: 0\n    messageOptions: 0\n"
+  },
+  "Assets\\Scripts\\skeleton_hit.anim": {
+    "sha256": "d9b57c2ead60fa1afad3260dc307f9eaf50e147d821351cecca92ea9c27127c0",
+    "yaml": "%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!74 &7400000\nAnimationClip:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_Name: skeleton_hit\n  serializedVersion: 7\n  m_Legacy: 0\n  m_Compressed: 0\n  m_UseHighQualityCurve: 1\n  m_RotationCurves: []\n  m_CompressedRotationCurves: []\n  m_EulerCurves: []\n  m_PositionCurves: []\n  m_ScaleCurves: []\n  m_FloatCurves: []\n  m_PPtrCurves:\n  - serializedVersion: 2\n    curve:\n    - time: 0\n      value: {fileID: -1682580610, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - time: 0.083333336\n      value: {fileID: -428002748, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - time: 0.18333334\n      value: {fileID: 1593274972, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - time: 0.28333333\n      value: {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - time: 0.36666667\n      value: {fileID: -736384975, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    attribute: m_Sprite\n    path: \n    classID: 212\n    script: {fileID: 0}\n    flags: 2\n  m_SampleRate: 60\n  m_WrapMode: 0\n  m_Bounds:\n    m_Center: {x: 0, y: 0, z: 0}\n    m_Extent: {x: 0, y: 0, z: 0}\n  m_ClipBindingConstant:\n    genericBindings:\n    - serializedVersion: 2\n      path: 0\n      attribute: 0\n      script: {fileID: 0}\n      typeID: 212\n      customType: 23\n      isPPtrCurve: 1\n      isIntCurve: 0\n      isSerializeReferenceCurve: 0\n    pptrCurveMapping:\n    - {fileID: -1682580610, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - {fileID: -428002748, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - {fileID: 1593274972, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - {fileID: -736384975, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n  m_AnimationClipSettings:\n    serializedVersion: 2\n    m_AdditiveReferencePoseClip: {fileID: 0}\n    m_AdditiveReferencePoseTime: 0\n    m_StartTime: 0\n    m_StopTime: 0.38333336\n    m_OrientationOffsetY: 0\n    m_Level: 0\n    m_CycleOffset: 0\n    m_HasAdditiveReferencePose: 0\n    m_LoopTime: 1\n    m_LoopBlend: 0\n    m_LoopBlendOrientation: 0\n    m_LoopBlendPositionY: 0\n    m_LoopBlendPositionXZ: 0\n    m_KeepOriginalOrientation: 0\n    m_KeepOriginalPositionY: 1\n    m_KeepOriginalPositionXZ: 0\n    m_HeightFromFeet: 0\n    m_Mirror: 0\n  m_EditorCurves: []\n  m_EulerEditorCurves: []\n  m_HasGenericRootTransform: 0\n  m_HasMotionFloatCurves: 0\n  m_Events: []\n"
+  },
+  "Assets\\Art\\VFX\\skeleton_hitBySlayer.anim": {
+    "sha256": "a3b3db4db16902b444d0a12c9f83cc1f2ca577d09fc3ab2d68c95405680580d4",
+    "yaml": "%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!74 &7400000\nAnimationClip:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_Name: skeleton_hitBySlayer\n  serializedVersion: 7\n  m_Legacy: 0\n  m_Compressed: 0\n  m_UseHighQualityCurve: 1\n  m_RotationCurves: []\n  m_CompressedRotationCurves: []\n  m_EulerCurves: []\n  m_PositionCurves: []\n  m_ScaleCurves: []\n  m_FloatCurves: []\n  m_PPtrCurves:\n  - serializedVersion: 2\n    curve:\n    - time: 0\n      value: {fileID: -428002748, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - time: 0.05\n      value: {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    attribute: m_Sprite\n    path: \n    classID: 212\n    script: {fileID: 0}\n    flags: 2\n  m_SampleRate: 60\n  m_WrapMode: 0\n  m_Bounds:\n    m_Center: {x: 0, y: 0, z: 0}\n    m_Extent: {x: 0, y: 0, z: 0}\n  m_ClipBindingConstant:\n    genericBindings:\n    - serializedVersion: 2\n      path: 0\n      attribute: 0\n      script: {fileID: 0}\n      typeID: 212\n      customType: 23\n      isPPtrCurve: 1\n      isIntCurve: 0\n      isSerializeReferenceCurve: 0\n    pptrCurveMapping:\n    - {fileID: -428002748, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n  m_AnimationClipSettings:\n    serializedVersion: 2\n    m_AdditiveReferencePoseClip: {fileID: 0}\n    m_AdditiveReferencePoseTime: 0\n    m_StartTime: 0\n    m_StopTime: 0.06666667\n    m_OrientationOffsetY: 0\n    m_Level: 0\n    m_CycleOffset: 0\n    m_HasAdditiveReferencePose: 0\n    m_LoopTime: 1\n    m_LoopBlend: 0\n    m_LoopBlendOrientation: 0\n    m_LoopBlendPositionY: 0\n    m_LoopBlendPositionXZ: 0\n    m_KeepOriginalOrientation: 0\n    m_KeepOriginalPositionY: 1\n    m_KeepOriginalPositionXZ: 0\n    m_HeightFromFeet: 0\n    m_Mirror: 0\n  m_EditorCurves: []\n  m_EulerEditorCurves: []\n  m_HasGenericRootTransform: 0\n  m_HasMotionFloatCurves: 0\n  m_Events: []\n"
+  },
+  "Assets\\Characters\\Enermy\\skeleton_idle.anim": {
+    "sha256": "af7522d518783ee3647ce901bd3cb8c573b3567fe4801ad02f73e905608c9672",
+    "yaml": "%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!74 &7400000\nAnimationClip:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_Name: skeleton_idle\n  serializedVersion: 7\n  m_Legacy: 0\n  m_Compressed: 0\n  m_UseHighQualityCurve: 1\n  m_RotationCurves: []\n  m_CompressedRotationCurves: []\n  m_EulerCurves: []\n  m_PositionCurves: []\n  m_ScaleCurves: []\n  m_FloatCurves: []\n  m_PPtrCurves:\n  - serializedVersion: 2\n    curve:\n    - time: 0\n      value: {fileID: -1755233937, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - time: 0.083333336\n      value: {fileID: -1169528332, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - time: 0.16666667\n      value: {fileID: -2004213556, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - time: 0.25\n      value: {fileID: -1078706528, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - time: 0.33333334\n      value: {fileID: -1105176257, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - time: 0.41666666\n      value: {fileID: -527675185, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - time: 0.5\n      value: {fileID: 237744625, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - time: 0.5833333\n      value: {fileID: -99755285, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    attribute: m_Sprite\n    path: \n    classID: 212\n    script: {fileID: 0}\n    flags: 2\n  m_SampleRate: 60\n  m_WrapMode: 0\n  m_Bounds:\n    m_Center: {x: 0, y: 0, z: 0}\n    m_Extent: {x: 0, y: 0, z: 0}\n  m_ClipBindingConstant:\n    genericBindings:\n    - serializedVersion: 2\n      path: 0\n      attribute: 0\n      script: {fileID: 0}\n      typeID: 212\n      customType: 23\n      isPPtrCurve: 1\n      isIntCurve: 0\n      isSerializeReferenceCurve: 0\n    pptrCurveMapping:\n    - {fileID: -1755233937, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - {fileID: -1169528332, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - {fileID: -2004213556, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - {fileID: -1078706528, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - {fileID: -1105176257, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - {fileID: -527675185, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - {fileID: 237744625, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n    - {fileID: -99755285, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}\n  m_AnimationClipSettings:\n    serializedVersion: 2\n    m_AdditiveReferencePoseClip: {fileID: 0}\n    m_AdditiveReferencePoseTime: 0\n    m_StartTime: 0\n    m_StopTime: 0.59999996\n    m_OrientationOffsetY: 0\n    m_Level: 0\n    m_CycleOffset: 0\n    m_HasAdditiveReferencePose: 0\n    m_LoopTime: 1\n    m_LoopBlend: 0\n    m_LoopBlendOrientation: 0\n    m_LoopBlendPositionY: 0\n    m_LoopBlendPositionXZ: 0\n    m_KeepOriginalOrientation: 0\n    m_KeepOriginalPositionY: 1\n    m_KeepOriginalPositionXZ: 0\n    m_HeightFromFeet: 0\n    m_Mirror: 0\n  m_EditorCurves: []\n  m_EulerEditorCurves: []\n  m_HasGenericRootTransform: 0\n  m_HasMotionFloatCurves: 0\n  m_Events: []\n"
+  },
+  "Assets\\Characters\\Enermy\\skeleton_stun.anim": {
+    "sha256": "9257920ffb6d3593c887a3f2e5eefcc9957a92173cd5f9d2d36df2659feab237",
+    "yaml": "%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!74 &7400000\nAnimationClip:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_Name: skeleton_stun\n  serializedVersion: 7\n  m_Legacy: 0\n  m_Compressed: 0\n  m_UseHighQualityCurve: 1\n  m_RotationCurves: []\n  m_CompressedRotationCurves: []\n  m_EulerCurves: []\n  m_PositionCurves: []\n  m_ScaleCurves: []\n  m_FloatCurves: []\n  m_PPtrCurves:\n  - serializedVersion: 2\n    curve:\n    - time: 0\n      value: {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - time: 0.35\n      value: {fileID: -736384975, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - time: 0.7\n      value: {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    attribute: m_Sprite\n    path: \n    classID: 212\n    script: {fileID: 0}\n    flags: 2\n  m_SampleRate: 60\n  m_WrapMode: 0\n  m_Bounds:\n    m_Center: {x: 0, y: 0, z: 0}\n    m_Extent: {x: 0, y: 0, z: 0}\n  m_ClipBindingConstant:\n    genericBindings:\n    - serializedVersion: 2\n      path: 0\n      attribute: 0\n      script: {fileID: 0}\n      typeID: 212\n      customType: 23\n      isPPtrCurve: 1\n      isIntCurve: 0\n      isSerializeReferenceCurve: 0\n    pptrCurveMapping:\n    - {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - {fileID: -736384975, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n    - {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}\n  m_AnimationClipSettings:\n    serializedVersion: 2\n    m_AdditiveReferencePoseClip: {fileID: 0}\n    m_AdditiveReferencePoseTime: 0\n    m_StartTime: 0\n    m_StopTime: 0.71666664\n    m_OrientationOffsetY: 0\n    m_Level: 0\n    m_CycleOffset: 0\n    m_HasAdditiveReferencePose: 0\n    m_LoopTime: 1\n    m_LoopBlend: 0\n    m_LoopBlendOrientation: 0\n    m_LoopBlendPositionY: 0\n    m_LoopBlendPositionXZ: 0\n    m_KeepOriginalOrientation: 0\n    m_KeepOriginalPositionY: 1\n    m_KeepOriginalPositionXZ: 0\n    m_HeightFromFeet: 0\n    m_Mirror: 0\n  m_EditorCurves: []\n  m_EulerEditorCurves: []\n  m_HasGenericRootTransform: 0\n  m_HasMotionFloatCurves: 0\n  m_Events: []\n"
+  },
+  "Assets\\Characters\\Enermy\\AC_Skeleton.controller": {
+    "sha256": "aad52bd6010a6fcc6b84d6257cf3784ac61566802c1bb0aaf229aa9142f5292e"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets.meta": {
+    "sha256": "b1d5d725d1b0d4de9680264260ff617eda7d99fc2ec02a26cf1be430b9578c78"
+  },
+  "Assets\\Art\\male_hero\\male_hero.png": {
+    "sha256": "22d979100940a56f506870ec90f3bf1a35cabfc373a8c5cc122892ca2fdf8362"
+  },
+  "Assets\\Art\\male_hero\\male_hero.png.meta": {
+    "sha256": "6f9e3fb757befd668790c9cade360948dcc563859b128f6757fa9f356c119a76"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_1.png": {
+    "sha256": "7cce3a75dcd4be85982c88aa6cc01c23fc8a68547d898c4a920e982d54fef8f8"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_1.png.meta": {
+    "sha256": "1143118210bc5e46fcf0e40461935d0bbbe1327995bea9d5535084722d00a153"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_1_end.png": {
+    "sha256": "5c5fc6c40ca9b9b7d1f7e9db191de1b6ef6595dceb3703c1a2344f0529bc32d7"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_1_end.png.meta": {
+    "sha256": "874582ee893a39a291fbd177d1418cbcb0ccc55cd9babbb01a414f368c14a03c"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_2.png": {
+    "sha256": "a37bc90d2e4c817320462488f02c5fca991b2a3f08657914de3561ff7a0371df"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_2.png.meta": {
+    "sha256": "1f5ed9c281cc6432ce1080e9c7e556fabd7595a78785afe87d6b14ac28a5e0b5"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_2_end.png": {
+    "sha256": "765e2d141c36c21b943e73a0061e135583b9061449c020af148d3e060a4f1768"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_2_end.png.meta": {
+    "sha256": "2e38b43f6a7cfe43600bdb1c89fcef5596899aae0db454183915352913e51d2b"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_3.png": {
+    "sha256": "94bb7aa8c4a326fa4b87571530fc642d4c605ed5f9a29aa24d0b38e9f21a295a"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_3.png.meta": {
+    "sha256": "e2011de0ef96fe0d7c338bd70a59469270cd839a5ab1b94fbbf96b9f251a803d"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_3_end.png": {
+    "sha256": "831c70c0d3835ea88446e62efadf5437923e8e542b1de00ab37ea88d29842448"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-combo_3_end.png.meta": {
+    "sha256": "3c5481b9a23ce75455af62c515ad05ad1009067ea2b1c25a58765e93f6a13ddf"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-dash.png": {
+    "sha256": "3168ddeb6721676531b4270eee34781ab496d5afd3a66d4203e7445ff184be32"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-dash.png.meta": {
+    "sha256": "d28a04725feef9cfad51a3eb1002b8186b82aa09263e9c64308fd2c3964e9cef"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-death.png": {
+    "sha256": "5c78ff07d7cc14e33be1bb8ac4464cbc40f3a23cd2120757155622cf40780b40"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-death.png.meta": {
+    "sha256": "3282ba1798e5622a14ea4c5ea6fb4186366dbfb7faf16d4a1032d6f87ad674c0"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-design.png": {
+    "sha256": "074c1db55287f50c3e0b74bd93efb2d0b68d643ea3016064d58d9a35914a050f"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-design.png.meta": {
+    "sha256": "f2d5a95cc6ef91286ee5291352167ba9acfe8247e46dba969f2a0883562419f3"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-fall.png": {
+    "sha256": "200ea67d437ed5824b2c5f66fe471e30d6f8007266383eba5dcc1b71742a8413"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-fall.png.meta": {
+    "sha256": "3960b9aa0769f129c012407abb8c4d81618e2592429f0ff53c6b08dd4072a537"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-fall_loop.png": {
+    "sha256": "96b43a2e4ac73d55943207bb836273bb33845520c7d34cbc337159a290325277"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-fall_loop.png.meta": {
+    "sha256": "ff1a36e1bccdbbc4f2e3de1267ae32331344a49faaa6ff64305aab090a750115"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-hurt.png": {
+    "sha256": "b8f8bbe7cfa35d037f2943cae4f5b3bf2905b06da7da8685b27907076196c0b1"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-hurt.png.meta": {
+    "sha256": "235a895c54e4a17e7651fa15a6c789915cca03e095807e700bb88d5618d97a79"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-idle.png": {
+    "sha256": "5e3b80a9dc6425f57121b0820e285b4580bdfa2ed944cfeedf2bd61d8a92aa8f"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-idle.png.meta": {
+    "sha256": "3206d488a4e73a267d6cb049665da47cb82f29833ad8003d74e1ea14477886d7"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-idle_turn.png": {
+    "sha256": "b7fa7431805dbfc53648cb1f595ae7937d5d76cd9b53b2e8dcbece6fea926eb9"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-idle_turn.png.meta": {
+    "sha256": "83b4692196d816e40002131d1896a2b1afe4f4472e03d2239c6737c52fc2a00a"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-jump.png": {
+    "sha256": "cf79ad07cf1dc84b9b83c753e76c01150182425e452c48d92e636c7b12ee956e"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-jump.png.meta": {
+    "sha256": "079a2a35caf1a88aa9abae9d8d437a2b1346dcde7560d6d79edaf2830d0a72b5"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-ledge_climb.png": {
+    "sha256": "cd7d67efca6540b4ecfe239f87b436eb17cb747c13bd6b6b19f9d0a48a845e90"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-ledge_climb.png.meta": {
+    "sha256": "8d0a8d7a159e84055f0dfe6e2000f941e1e4a87d6bd4ee7b554de90d63cf6052"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-ledge_hang.png": {
+    "sha256": "ebf5af4b69c547b86cec49471b12420be44f4ac7164b6d1d218e64d190deee6f"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-ledge_hang.png.meta": {
+    "sha256": "0211fe64649df1d836a1ea5506e20122a0f2aebfdb9a789c2a817bd705c32b32"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-run.png": {
+    "sha256": "35cdcc9ddd8b577d44c40cdcc8ff5e667cc32d78a713e5ba5470174644a07c9a"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-run.png.meta": {
+    "sha256": "d8a1b44e5eb45d9f26ec16a8ff0f4f5597ddda413dd78e5e91d2f2d062fdeab9"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-run_to_idle.png": {
+    "sha256": "478bf44dcc3631f96aafeb59aa9bdbfe4b186f31600f67d8aebbf2ae92867ef0"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-run_to_idle.png.meta": {
+    "sha256": "ce6ebdfa03f41742113afe1d50ae3db8d802da804df443d74198830219c75eaa"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-run_turn.png": {
+    "sha256": "cbc42aedf63b5abe86236a3c48ada2dce758930bc17d6224e2f25476d6fe8c30"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-run_turn.png.meta": {
+    "sha256": "108003040030f61674a56805b6ccae99c65122446022e660a33514f93fcffd7c"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-slide.png": {
+    "sha256": "e8dbf304003474743af4e94f1bf2aa0da8f1e75eb02828d8187729effbad0882"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-slide.png.meta": {
+    "sha256": "6ab8db6162466b249d28d1fbe6bd14a3a15052c04bd28f247082abbece441f07"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-walk.png": {
+    "sha256": "2a2e47a6a5f681402a973d8012fc1b8ab5255f7fada2ea28df8aaa892421fd0e"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-walk.png.meta": {
+    "sha256": "6f98966180d381dac6b7ea309ba8e784924079b2fadf4e14873f82c8eb190fe4"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-walk_turn.png": {
+    "sha256": "1354523986c77a15b9ac46e83e0c07ec36d9b6983fc432ea42f12517169122c7"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-walk_turn.png.meta": {
+    "sha256": "c416233584484814ecf1076ddc2b0d071c19a7c7efccea821e2ed90ff00349c7"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-wall_jump.png": {
+    "sha256": "94ad619ed1b7da50eb374f403c673a7875d02820808aa028924866a1ef53b3bb"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-wall_jump.png.meta": {
+    "sha256": "4186ea74f72a528d21926b265d5fab356ce8fb82bd96b1452f35e56cac7f5e1a"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-wall_slide.png": {
+    "sha256": "14db96aa13f07243841c30b15b66f9bc40404448903e1111a23747b98d6f8fe2"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\male_hero-wall_slide.png.meta": {
+    "sha256": "41e040ae328190611af06d5dfb808c6c157c368df2ad106286b0af545a4386d4"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\player_parry_success.anim": {
+    "sha256": "915cc6f54b02c10b4eac0b107d5335a611b0f0a5275381e1b87bf6c212821922"
+  },
+  "Assets\\Art\\male_hero\\individual_sheets\\player_parry_success.anim.meta": {
+    "sha256": "bbf26bc391b80ae105f478f09bc9e7d29377e6a57bfdcdf4bccd5b6deaf45640"
+  },
+  "Assets\\Characters\\Enermy\\Skeleton.prefab": {
+    "sha256": "718e62cff3451706e8a78aa00cc54500452e87b2b0b50b5a815129271412f1e1"
+  },
+  "Assets\\Characters\\Player\\Player.prefab": {
+    "sha256": "798a38894bf36d1cf88f9d59e56e9c952ec2af16446842dc0667d9c655de033f"
+  },
+  "Assets\\Scripts\\Audio\\AudioPreferences.cs": {
+    "sha256": "2abd1b3139fca4484123d1dd99eeaec4aecf41cf8276fccd16cc260b30b79811"
+  },
+  "Assets\\Scripts\\Audio\\SfxEvent.cs": {
+    "sha256": "d4864847f1685be013709c08992de9f884f7096d9b84579627b0ebbbb0417874"
+  },
+  "Assets\\Scripts\\Audio\\SfxPlayer.cs": {
+    "sha256": "a0dd9a7fdcedaec2bed74efe3d983467926d84f47aa6dec316dacd4663e9192a"
+  },
+  "Assets\\Scripts\\Combat\\Stun.cs": {
+    "sha256": "3a68ba4d13db23d929bfdda068b4182a6c27dea7863faf3d5ac4fafd912af791"
+  },
+  "Assets\\Scripts\\Enemy\\EnemySlayerHitPose.cs": {
+    "sha256": "8c4ae279b85a4af50cc8e4f4c39a0ce1cfb291b02e045e9b0c2b1812a4333395"
+  },
+  "Assets\\Scripts\\Enemy\\EnemyStamina.cs": {
+    "sha256": "ffeff80e3ef1420b1deb84f1946f0fdc65c49a987dbb3fa08f315b94b8d00282"
+  },
+  "Assets\\Scripts\\Enemy\\SkeletonController.cs": {
+    "sha256": "c783ec8d936bf48e57f635dde3bab389cf8539d9b6cb6f6bcd4f82d0dd61232f"
+  },
+  "Assets\\Scripts\\Enemy\\StaminaBarUI.cs": {
+    "sha256": "c456b359c7ecb56c8fa949a2025f8bae593d0e06235302345ca19e1148b5d5da"
+  },
+  "Assets\\Scripts\\GameController\\CombatSession.cs": {
+    "sha256": "9cf0fadff9b629addd6e96d397e74a3088e91e87f6cdb74916ce970452162dfe"
+  },
+  "Assets\\Scripts\\GameController\\GamePauseController.cs": {
+    "sha256": "c0ea86d7ea724758306a0e588e8c6baedafe1b2dd9c810342c6429cb88d1e4e3"
+  },
+  "Assets\\Scripts\\GameController\\TutorialDirector.cs": {
+    "sha256": "25cec5e00c75bf246c9129da24cf3b4667fba4933099bcd10a6e632aebc72ec7"
+  },
+  "Assets\\Scripts\\GameController\\TutorialRun.cs": {
+    "sha256": "23f7a4276c9bf3f63a61ac706fe8cbe0a2fe981debe8dd5c2c23cdd2f338535f"
+  },
+  "Assets\\Scripts\\Player\\PlayerController.cs": {
+    "sha256": "544397fc26a85c3aea0204069a8c770dde26fcf99181ff04a4b7c6c167e3440f"
+  },
+  "Assets\\Scripts\\Player\\PlayerHealth.cs": {
+    "sha256": "2b3ec102d4bf28f8c20d578bda47b978b54449617c4b320db8aae42dd84d738c"
+  },
+  "Assets\\Scripts\\Player\\PlayerSlayerMode.cs": {
+    "sha256": "3d68785e5b9239c8cc2575f7787722d8e63efe3a2678acfa6d348de8a2d2a061"
+  },
+  "Assets\\Scripts\\UI\\ArenaParallax.cs": {
+    "sha256": "7d6d88c90f0b65382b7e8e73ae23ede55cf58eae29ec634655b20fc80dc950d5"
+  },
+  "Assets\\Scripts\\UI\\CombatViewportCamera.cs": {
+    "sha256": "00041783a399c377660fb9a85304107f9f4019a5aa0ae15e7a8ed5b6496a7a83"
+  },
+  "Assets\\Scripts\\UI\\HealthBarUI.cs": {
+    "sha256": "2c475c564b6995026e7fdcabf8a32867682429db6fb9f9670c429ab39a1cabdc"
+  },
+  "Assets\\Scripts\\UI\\HowToPlayPanel.cs": {
+    "sha256": "bbe16a6353cff170dfcd354cd98cb4dc79a89b939af4ddf78e42ed299ee17a69"
+  },
+  "Assets\\Scripts\\UI\\LeaderboardModal.cs": {
+    "sha256": "80a413a2b03997d3a50ce2b0b1c2ac16069007d8d357bc77e09ccb10951a06ca"
+  },
+  "Assets\\Scripts\\UI\\MainMenuUI.cs": {
+    "sha256": "c2e1e9a6a91d95630b340c3a225d7356ab6054e5f8d3f0815fc51d6fc6d7b1b2"
+  },
+  "Assets\\Scripts\\UI\\PanelReveal.cs": {
+    "sha256": "3c6e424c74ab2043177e30ab141794c1d7aec7c1aa1246d4e957741a4e0b3dae"
+  },
+  "Assets\\Scripts\\UI\\PlayerIdentity.cs": {
+    "sha256": "c8ae69335a7d7e7e3fe909ad11d204dafe9f26cec159470fbdb5df68e85689a1"
+  },
+  "Assets\\Scripts\\UI\\PlayerNameHUD.cs": {
+    "sha256": "2d5701fb2bef23a038ba01214a29214bf2d19ddf5c53fe9db42c033d5a4a7847"
+  },
+  "Assets\\Scripts\\UI\\TutorialOverlay.cs": {
+    "sha256": "7e49090fb61c344026a764622accaf5f4250652d790b39f39097040697525573"
+  },
+  "Assets\\Scripts\\UI\\TypingPanelFeedback.cs": {
+    "sha256": "5629d648b221ff69076b6995fc388210b037f23cfa81e7eab9fefefeb0a61300"
+  },
+  "Assets\\Scripts\\UI\\UIButtonFeedback.cs": {
+    "sha256": "b8c5941d2f074c2291dd2282f97e23458366917d26552c304f231c448b3999a9"
+  },
+  "Assets\\Scripts\\VFX_SFX\\ParrySparkVFX_Pooled.cs": {
+    "sha256": "9d6d36b235ff5dd1dda51246f27b699ec4255501f7b2c6c8c02128bb4b0ba67a"
+  },
+  "Assets\\Scripts\\VFX_SFX\\PooledVFX.cs": {
+    "sha256": "99f94a4e6e42ff796ef4fc71aa1594fe327958a9ae782597bebbfb2fe8258cc3"
+  },
+  "Assets\\Scripts\\Audio\\Binders\\PlayerDamageSfx.cs": {
+    "sha256": "090f4b5d3c629de23540e060eec3435a7630c98ce540a9c560bca28f5a918544"
+  },
+  "Assets\\Scripts\\Audio\\Binders\\SfxOnAttackWindowOpen.cs": {
+    "sha256": "2dfba5cf9ab8624faf6b2cd602c86b894801c8889c8ac96e26b90319d5c50baa"
+  },
+  "Assets\\Scripts\\Audio\\Binders\\SfxOnEnemyAttack.cs": {
+    "sha256": "bae4a239069590379b1a50c7191f1b285159486aba931832560bfcb8d4484428"
+  },
+  "Assets\\Scripts\\Audio\\Binders\\SfxOnParryPose.cs": {
+    "sha256": "84d63ff16327ae347a2391f9ec49dd3000067fb465377b0a2572e0d038e83d32"
+  },
+  "Assets\\Scripts\\Audio\\Binders\\SfxOnParrySuccess.cs": {
+    "sha256": "b69ddd4e60d7ef2859044454c1f824d22e09f0a9f34969dc240020329650b0f9"
+  },
+  "Assets\\Scripts\\Audio\\Music\\MusicCue.cs": {
+    "sha256": "3c455c967f760053373cd8744abdc4417ec29ab2dfe05135fcdf32c5abb8ea4c"
+  },
+  "Assets\\Scripts\\Audio\\Music\\MusicOnSceneStart.cs": {
+    "sha256": "648aff095b4ad0e38b1b9fde111964174d24c169052f00a3c58f95ca385d314e"
+  },
+  "Assets\\Scripts\\Audio\\Music\\MusicOnSlayerMode.cs": {
+    "sha256": "648fa3911544d4009cccfb88589baf352d5d5321a97453ff96a66c5cbd81da8b"
+  },
+  "Assets\\Scripts\\Audio\\Music\\MusicPlayer.cs": {
+    "sha256": "496a1bc9863c70e98022bff2c75270447e16f8ee40dd1bb112640a2189b3e2b7"
+  },
+  "Assets\\Scripts\\Combat\\Attack\\AttackConfig.cs": {
+    "sha256": "7a9d3d18b7a2b4a55164cccf1e5f547a70dfa593a0fe5c0567a472408a4cafb6"
+  },
+  "Assets\\Scripts\\Combat\\Attack\\AttackStrike.cs": {
+    "sha256": "d04d7ee27ac09680086ea1ef15e5787d3a4a0fb1c1a97ae5caf257f745269378"
+  },
+  "Assets\\Scripts\\Combat\\Attack\\PlayerAttackEvents.cs": {
+    "sha256": "7b7923d65106fdec7850a9062b5f7718f2e64f89b12dd08548a0695c91195e88"
+  },
+  "Assets\\Scripts\\Combat\\Attack\\PlayerWeaponHitbox.cs": {
+    "sha256": "ffc628c28f4650b4e79d3c75480f693df6fe3110bdb3955b2ce598a3be43d713"
+  },
+  "Assets\\Scripts\\Combat\\Enemy\\ParryStaminaDrainBinder.cs": {
+    "sha256": "0ecf4dbf9c7e46555a589f9598ec9f83ffe7cab2a80d2ee04633fd3fb21acb69"
+  },
+  "Assets\\Scripts\\Combat\\Parry\\ParryBypassBinder.cs": {
+    "sha256": "cea58cf388d5c5a5745772e5f3ce661c462ac80942410e3cb983910635e2bd40"
+  },
+  "Assets\\Scripts\\Combat\\Parry\\ParryConfig.cs": {
+    "sha256": "fc40da017c80f5fe4d6a73761688e701d7a3bbbbc00b9a8dea05f447b1ac70d5"
+  },
+  "Assets\\Scripts\\Combat\\Parry\\ParrySystem.cs": {
+    "sha256": "5a7e1e734cbf5dd2456f86f634480610d2f62c5da70ef6f5dafc0f5d498e6d1e"
+  },
+  "Assets\\Scripts\\Combat\\Parry\\ParryTarget.cs": {
+    "sha256": "4b33fb0db88a5285b93604ae7fb78981dbff391b87b61c57abe9c7ea791ef59f"
+  },
+  "Assets\\Scripts\\Combat\\Reaction\\EnemyHitReactGate.cs": {
+    "sha256": "a42755baabd0febc0b2d49f8a04994b6f88f80b9a4b8c78a4644e864dc457440"
+  },
+  "Assets\\Scripts\\Combat\\Reaction\\EnemyStunController.cs": {
+    "sha256": "4d4d106cd382043fc0f9fb62f4b984524bc199f6f0f6073f289319417b395c00"
+  },
+  "Assets\\Scripts\\Combat\\Reaction\\UninterruptibleBypass.cs": {
+    "sha256": "71a021561408b2a3ec6f1a44de0579237a27c6ae51f19583e0e0c5d27b16692e"
+  },
+  "Assets\\Scripts\\Core\\Animation\\AnimatorUtil.cs": {
+    "sha256": "219eeef63628d8c1f494ddbb0003da6abcf7313ed9f6f422b025feef2dc4b8a2"
+  },
+  "Assets\\Scripts\\Core\\AnimBehaviours\\GateLockOnState.cs": {
+    "sha256": "af5e71b650ea2a9e92a6386644dd1ad5d98ed65122fadca91a2e15fc51249438"
+  },
+  "Assets\\Scripts\\Core\\Gate\\PlayerInputGate.cs": {
+    "sha256": "6c6515899a05a43d37819a16012f473fe006b1626661e86a16504d27785d18c9"
+  },
+  "Assets\\Scripts\\Core\\Interfaces\\IDamageable.cs": {
+    "sha256": "542e621803f2c01b5fafab8c3b6bd720dcc5b03e683f3db020856fe4a31560fd"
+  },
+  "Assets\\Scripts\\Core\\Interfaces\\IParryTarget.cs": {
+    "sha256": "eec3c20b1fe616e9565c99e3b768355c968e08703a071dbb10be0cb7969af98a"
+  },
+  "Assets\\Scripts\\Core\\Scoring\\ScoreBootstrap_ResetHooks.cs": {
+    "sha256": "f24e7f8603a6662095bde764612440e1c0b0425eaaba2a98b0698506ceeb33d5"
+  },
+  "Assets\\Scripts\\Core\\Scoring\\ScoreRules.cs": {
+    "sha256": "847e48b2e30847be796e08f42460cb8e600e7e6039d1acc9b465557dd1ea7909"
+  },
+  "Assets\\Scripts\\Core\\Scoring\\ScoreSystem.cs": {
+    "sha256": "f539dadeebb663407420a6b7dec4e81c7af4fb390643a4056351e11743bac3fa"
+  },
+  "Assets\\Scripts\\Core\\Time\\HitStopper.cs": {
+    "sha256": "8b5d32c5ac714be25247f688784700d0b69137d16b7183f901ca1bfd70beadba"
+  },
+  "Assets\\Scripts\\Core\\TypingManager\\TypingManager.cs": {
+    "sha256": "3d498c70670845a12577be08eeeacc7c4c04d5416999a11ac6459471f72ed7e3"
+  },
+  "Assets\\Scripts\\Core\\TypingManager\\WordPoolConfig.cs": {
+    "sha256": "7c86c418722e30bd2549fe9633fae418f02b9871b637cfdd9fb441325d8d8504"
+  },
+  "Assets\\Scripts\\Core\\Scoring\\UI\\FloatingScore.cs": {
+    "sha256": "dbdbdd58c1e460c9fcfcb3ea601ff82be5504b2e9be3a798caebc66f375456e1"
+  },
+  "Assets\\Scripts\\Core\\Scoring\\UI\\ScoreUI_ComboHUD.cs": {
+    "sha256": "ed6861e3add6911d73610c2abc5f7259e7b18c684ab532529822fff476b76ab8"
+  },
+  "Assets\\Scripts\\Core\\Scoring\\UI\\ScoreUI_Flash.cs": {
+    "sha256": "ddaa2d0cef6a96bbe1db7609b4edfcc70c2abf0811a8015fec8b649cf6d26e57"
+  },
+  "Assets\\Scripts\\Core\\Scoring\\UI\\ScoreUI_SlayerBinder.cs": {
+    "sha256": "7547c71064d12dfa7b69ed8a46372b271b061aed9f12c17eb682aa84f4670e6f"
+  },
+  "Assets\\Scripts\\VFX_SFX\\Afterimage\\SlayerAfterimagePool.cs": {
+    "sha256": "47a759d5b2f3ae7d805132de3906ce7247a8cde6f38f7cb513134338ef20a458"
+  },
+  "Assets\\Scripts\\VFX_SFX\\Afterimage\\SlayerModeSignals.cs": {
+    "sha256": "4c75f099f5d338de3867907acad50dd2226072edfac1bd06369687600721973c"
+  },
+  "Assets\\Scripts\\VFX_SFX\\Afterimage\\SlayerSilhouetteGroup.cs": {
+    "sha256": "b5bb8dfef6d31bfaddc8722a4be15464001bb74d4ff9507e3a115140f7ba651c"
+  },
+  "Assets\\Scripts\\VFX_SFX\\HitFlash\\DisableHitFlashOnSlayer.cs": {
+    "sha256": "0ebf3de38de22a919dc63829b299be71752ddc3a2009e47c7642ef9451055518"
+  },
+  "Assets\\Scripts\\VFX_SFX\\HitFlash\\EnemyHitFlash.cs": {
+    "sha256": "44cc99199a80569350778d4f3bdc7592120ff73317e71a07fc2b0659507b72d6"
+  },
+  "Assets\\Scripts\\VFX_SFX\\HitSpark\\HitSparkSpawner.cs": {
+    "sha256": "32ea70a67aa6e0bbfbe9fb137c2bb95e122b1bb203b15bce86d95ba67e229a3e"
+  },
+  "Assets\\Scripts\\VFX_SFX\\ScreenFx\\ExcludeFromSlayerTint.cs": {
+    "sha256": "308d7aadf9e553a8daa9daac8ab06f8f0a43b0f06c373c29966e134164d6926b"
+  },
+  "Assets\\Scripts\\VFX_SFX\\ScreenFx\\SlayerScreenFX.cs": {
+    "sha256": "7d3ecc515d8e136613fb88824ca5d3ffb973e2a7cfec4a3728e12e40d0fa6ff6"
+  },
+  "Assets\\Data\\Attack\\AC_Attack1.asset": {
+    "sha256": "b8d665a08eabeae256a6ccdf3a4724e0164d8559312d73905a735cf26450eddd"
+  },
+  "Assets\\Data\\Attack\\AC_Attack1.asset.meta": {
+    "sha256": "4b73b7768401972f89719ad47d8daae9dce96f7bc2f1649de121afae41177547"
+  },
+  "Assets\\Data\\Attack\\PC_Parry.asset": {
+    "sha256": "c8427bcd614565ddddd0ca81410da5732b2887a1229e16a519f53c01d334e855"
+  },
+  "Assets\\Data\\Attack\\PC_Parry.asset.meta": {
+    "sha256": "9f2953e875670aafb62f9e8b96dcd0dccd183e8d2fbd0ce3d1b0d581a78f2e7a"
+  }
+}

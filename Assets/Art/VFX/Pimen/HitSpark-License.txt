@@ -1,0 +1,4 @@
+Author: pimen
+Source: https://pimen.itch.io/battle-vfx-hit-spark
+License checked 2026-10-17 on author page. Original archive contains no license file.
+Author permits personal/commercial projects and modifications; credit optional. Author prohibits selling or redistributing the sprites separately. These files are included only as game project resources, not a standalone asset pack.

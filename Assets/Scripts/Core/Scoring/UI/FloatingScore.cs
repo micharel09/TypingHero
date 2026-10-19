@@ -1,23 +1,39 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 
+[DefaultExecutionOrder(1060)]
 public class FloatingScore : MonoBehaviour
 {
     [SerializeField] TMP_Text label;
-    [SerializeField] float riseDistance = 48f;
+    [SerializeField] float riseDistance = 18f;
     [SerializeField] float life = 0.6f;
     [SerializeField] float fadeDelay = 0.15f;
 
     RectTransform _rt;             // của chính popup
     Canvas _canvas;
     RectTransform _anchor;         // nơi bám (trên Canvas)
-    Vector2 _start;
-    Vector2 _end;
-    float _t0;
+    Vector2 _offset;
+    float _elapsed, _riseElapsed;
+    int _total;
+    bool _paused;
+    Vector2 _lastAnchor;
 
-public void Setup(string text, Color color, Canvas canvas, RectTransform anchor, Vector2 offset)
+    public void SetPaused(bool paused) => _paused = paused;
+
+    public void AddAward(int delta, string format, Color color)
+    {
+        _total += delta;
+        label.text = "+" + _total.ToString(format);
+        color.a = 1;
+        label.color = color;
+        _elapsed = 0;
+    }
+
+    public void Setup(string text, Color color, Canvas canvas, RectTransform anchor, Vector2 offset)
     {
         if (!_rt) _rt = GetComponent<RectTransform>();
+        _rt.anchorMin = _rt.anchorMax = ((RectTransform)canvas.transform).pivot;
+        _rt.pivot = new Vector2(0, .5f);
         _canvas = canvas;
         _anchor = anchor;
 
@@ -26,11 +42,12 @@ public void Setup(string text, Color color, Canvas canvas, RectTransform anchor,
         label.color = color;
 
         // lấy vị trí anchor
-        _start = ResolveAnchorPosition(_canvas, _anchor) + offset;
-        _end   = _start + new Vector2(0, riseDistance);
-        _rt.anchoredPosition = _start;
+        _offset = offset;
+        _rt.anchoredPosition = ResolveAnchorPosition(_canvas, _anchor) + _offset;
 
-        _t0 = Time.unscaledTime;
+        _elapsed = _riseElapsed = 0;
+        _total = 0;
+        _lastAnchor = ResolveAnchorPosition(_canvas, _anchor);
         enabled = true;
     }
 
@@ -41,10 +58,12 @@ public void Setup(string text, Color color, Canvas canvas, RectTransform anchor,
         if (!label) label = GetComponentInChildren<TMP_Text>(true);
     }
 
-    void Update()
+    void LateUpdate()
     {
-        float t = Mathf.InverseLerp(_t0, _t0 + life, Time.unscaledTime);
-        _rt.anchoredPosition = Vector2.LerpUnclamped(_start, _end, t);
+        if (!_paused) { _elapsed += Time.unscaledDeltaTime; _riseElapsed += Time.unscaledDeltaTime; }
+        float t = Mathf.Clamp01(_elapsed / life);
+        if (_anchor) _lastAnchor = ResolveAnchorPosition(_canvas, _anchor);
+        _rt.anchoredPosition = _lastAnchor + _offset + Vector2.up * (riseDistance * Mathf.Clamp01(_riseElapsed / life));
 
         var c = label.color;
         float fadeStart = fadeDelay / Mathf.Max(0.0001f, life);

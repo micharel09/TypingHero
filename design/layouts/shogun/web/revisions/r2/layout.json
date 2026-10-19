@@ -1,0 +1,81 @@
+{
+  "layoutId": "shogun",
+  "revision": 2,
+  "platform": "web",
+  "owner": "Assets/Editor/PixelUI/ShogunTheme.cs",
+  "contract": "contract.md",
+  "variants": [
+    {
+      "id": "gameplay",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "gameplay.wireframe.json",
+      "preview": "gameplay.wireframe.html",
+      "capture": "gameplay.png",
+      "capturedFrom": {
+        "revision": 2,
+        "inputFingerprint": "902c0ea39127ccbe8d51208f1bca6fd1c1656b9cdc58dc9172f2dcfa2e690c35",
+        "previewSha256": "f3a4279772513dcbd1d05e29339338dafb3c3ceffe90552633c3d85c103a6ab1",
+        "pngSha256": "63d9c8be0236c55370fa0856b5635d581b2e47401e1b5c979839c4d8264b244a"
+      }
+    },
+    {
+      "id": "leaderboard",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "leaderboard.wireframe.json",
+      "preview": "leaderboard.wireframe.html",
+      "capture": "leaderboard.png",
+      "capturedFrom": {
+        "revision": 2,
+        "inputFingerprint": "902c0ea39127ccbe8d51208f1bca6fd1c1656b9cdc58dc9172f2dcfa2e690c35",
+        "previewSha256": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
+        "pngSha256": "3e5431efce9f0b6c097e7624731051762f3abdeb180707e2429e37742d51734b"
+      }
+    },
+    {
+      "id": "slayer",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "slayer.wireframe.json",
+      "preview": "slayer.wireframe.html",
+      "capture": "slayer.png",
+      "capturedFrom": {
+        "revision": 2,
+        "inputFingerprint": "902c0ea39127ccbe8d51208f1bca6fd1c1656b9cdc58dc9172f2dcfa2e690c35",
+        "previewSha256": "8372d493510d9c02524b4af2ccb506c1efd37705b2e1d63d48381f0f8d3d1a60",
+        "pngSha256": "63d9c8be0236c55370fa0856b5635d581b2e47401e1b5c979839c4d8264b244a"
+      }
+    }
+  ],
+  "approval": {
+    "status": "approved",
+    "revision": 2,
+    "inputFingerprint": "902c0ea39127ccbe8d51208f1bca6fd1c1656b9cdc58dc9172f2dcfa2e690c35",
+    "evidence": "User 2026-10-18: Implement the approved HUD plan in a fresh context. Both normal and Slayer:112px foot-local status12px below feet, centered actual score/multiplier top32,tray672x56 12px below lowest status. Revision2 records this explicit layout decision and preserves r1; no new UX decision inferred.",
+    "approvedAt": "2026-10-18T04:18:11.157002+00:00",
+    "artifacts": {
+      "gameplay.png": "63d9c8be0236c55370fa0856b5635d581b2e47401e1b5c979839c4d8264b244a",
+      "gameplay.wireframe.html": "f3a4279772513dcbd1d05e29339338dafb3c3ceffe90552633c3d85c103a6ab1",
+      "leaderboard.png": "3e5431efce9f0b6c097e7624731051762f3abdeb180707e2429e37742d51734b",
+      "leaderboard.wireframe.html": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
+      "slayer.png": "63d9c8be0236c55370fa0856b5635d581b2e47401e1b5c979839c4d8264b244a",
+      "slayer.wireframe.html": "8372d493510d9c02524b4af2ccb506c1efd37705b2e1d63d48381f0f8d3d1a60"
+    }
+  },
+  "rendered": {
+    "revision": 2,
+    "inputFingerprint": "902c0ea39127ccbe8d51208f1bca6fd1c1656b9cdc58dc9172f2dcfa2e690c35",
+    "previews": {
+      "gameplay.wireframe.html": "f3a4279772513dcbd1d05e29339338dafb3c3ceffe90552633c3d85c103a6ab1",
+      "leaderboard.wireframe.html": "e2461c1d29d032ff730a050e3664e8ed6ad5468f29bed27fd7c7a4d3b2072bdf",
+      "slayer.wireframe.html": "8372d493510d9c02524b4af2ccb506c1efd37705b2e1d63d48381f0f8d3d1a60"
+    }
+  }
+}

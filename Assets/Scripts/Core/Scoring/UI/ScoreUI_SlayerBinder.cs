@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [DisallowMultipleComponent]
 public sealed class ScoreUI_SlayerBinder : MonoBehaviour
@@ -23,6 +23,7 @@ public sealed class ScoreUI_SlayerBinder : MonoBehaviour
 
     void Awake()
     {
+        if (!enabled) return;
         if (!targetCam) targetCam = Camera.main;
         if (!slayer) slayer = FindObjectOfType<PlayerSlayerMode>(true);
         if (!scoreUIRoot) scoreUIRoot = transform as RectTransform;
@@ -81,7 +82,7 @@ public sealed class ScoreUI_SlayerBinder : MonoBehaviour
 
     float CalcScaleNow()
     {
-        if (!targetCam) return 1f;
+        if (!_active || !targetCam) return 1f;
         float cur = Mathf.Max(0.0001f, targetCam.orthographicSize);
         // zoom in (orthographicSize giảm) → UI to ra; zoom out → UI nhỏ lại
         return (_baseOrtho / cur) * scaleMul;

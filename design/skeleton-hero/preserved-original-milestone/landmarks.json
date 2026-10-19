@@ -1,0 +1,178 @@
+[
+  {
+    "name": "idle-0",
+    "sha256": "08b6102bb671978a6c819ec13302fa42ee7380f3e6400b9f68e95b018335300d",
+    "grip": [
+      57,
+      43
+    ],
+    "tip": [
+      67,
+      23
+    ],
+    "changedPixels": 281,
+    "protectedPixels": 205,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-0",
+    "sha256": "08b6102bb671978a6c819ec13302fa42ee7380f3e6400b9f68e95b018335300d",
+    "grip": [
+      57,
+      43
+    ],
+    "tip": [
+      67,
+      23
+    ],
+    "changedPixels": 281,
+    "protectedPixels": 205,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-1",
+    "sha256": "887fd44eee95ba3107c0bf742fe1e0e47160c228e0b540b3d54475102bd105c0",
+    "grip": [
+      57,
+      42
+    ],
+    "tip": [
+      57,
+      36
+    ],
+    "changedPixels": 239,
+    "protectedPixels": 145,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-2",
+    "sha256": "6b1f6328f5d8169e24bdbbd0a187530be13a2966616c94409a013f20744e74f8",
+    "grip": [
+      38,
+      34
+    ],
+    "tip": [
+      21,
+      24
+    ],
+    "changedPixels": 204,
+    "protectedPixels": 198,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-3",
+    "sha256": "0f8fd9862ddc95c1b867e5609b0a2307f06d2926f54b34e2b8ab3d7a2f138d73",
+    "grip": [
+      38,
+      35
+    ],
+    "tip": [
+      20,
+      28
+    ],
+    "changedPixels": 220,
+    "protectedPixels": 156,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-4",
+    "sha256": "2f869fcf3562f3a954c122f631e2a0dc5f690a6e4b86a4af4913378b7817fa96",
+    "grip": [
+      39,
+      36
+    ],
+    "tip": [
+      20,
+      28
+    ],
+    "changedPixels": 203,
+    "protectedPixels": 179,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-5",
+    "sha256": "2eeb8fa996f621dc93eb0156532a8710326ff4f62f2a2e8d13729e34e229e6a9",
+    "grip": [
+      67,
+      30
+    ],
+    "tip": [
+      94,
+      26
+    ],
+    "changedPixels": 248,
+    "protectedPixels": 648,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-6",
+    "sha256": "a5a382a47002c55ba020a36cfa52d927f1773495696518392348f08442f0f4ec",
+    "grip": [
+      66,
+      29
+    ],
+    "tip": [
+      93,
+      21
+    ],
+    "changedPixels": 284,
+    "protectedPixels": 442,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-7",
+    "sha256": "b3b0ac2f20651ef2aa5b2c2a577bf8639df312b8f0fac3a022ce086dc14e62e8",
+    "grip": [
+      63,
+      31
+    ],
+    "tip": [
+      91,
+      25
+    ],
+    "changedPixels": 280,
+    "protectedPixels": 304,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-8",
+    "sha256": "b39d239f3ef0f78b9f9200eec4d635929ed0889809da8bfc036ac105c3da8729",
+    "grip": [
+      57,
+      39
+    ],
+    "tip": [
+      76,
+      24
+    ],
+    "changedPixels": 277,
+    "protectedPixels": 211,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  },
+  {
+    "name": "attack-9",
+    "sha256": "08b6102bb671978a6c819ec13302fa42ee7380f3e6400b9f68e95b018335300d",
+    "grip": [
+      57,
+      43
+    ],
+    "tip": [
+      67,
+      23
+    ],
+    "changedPixels": 281,
+    "protectedPixels": 205,
+    "alphaIdentical": true,
+    "protectedIdentical": true
+  }
+]

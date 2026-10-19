@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skeleton rìu / thương — mẫu duyệt</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#14201f;color:#f2e7cf;font:15px/1.5 system-ui,sans-serif}main{max-width:1500px;margin:auto;padding:24px}h1{font-size:24px;margin:0 0 8px}p{max-width:1000px}button,select,input{font:inherit}button,select{background:#233b37;color:inherit;border:1px solid #668e83;border-radius:4px;padding:7px 12px}button{cursor:pointer}label{display:inline-flex;gap:7px;align-items:center}nav,.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0}.scroll{overflow:auto;background:#0d1717;border:1px solid #52615a}canvas{display:block;image-rendering:pixelated}#status{font-variant-numeric:tabular-nums;min-height:28px;color:#ffdb91}input[type=range]{width:min(600px,80vw)}a{color:#9dd7cc}
+</style>
+<main>
+<h1>Skeleton rìu và thương — Rìu: Idle0 + Attack16 · Thương: Attack10</h1>
+<p>Rìu giữ <a href="../references/axe-blade-user.png">mẫu lưỡi đã chốt</a>. Động tác theo <a href="../references/axe-chop-user-mirrored.png">hàng hai của ảnh bổ rìu (mirror)</a>: nâng quá đầu, bổ nhanh rồi gập người thấp, duỗi tay ra trước và giữ cán ngang khi lưỡi ghim đất. Thương, hero và kiếm giữ nguyên. <a href="../review.html">Bộ kiếm đã duyệt</a>.</p>
+<nav aria-label="Pose"><button id="idle">Idle0</button><button id="telegraph">0,7s · Lấy đà</button><button id="impact">1,0s · Impact</button><button id="ground">Cel9 · ghim đất</button><button id="recovery">Cel10 · hồi thế</button><button id="returned">Cel15 · về Idle</button></nav>
+<div class="controls">
+<label>Tỷ lệ <select id="zoom"><option value="3.5">1280×720</option><option value="1.75">640×360</option><option value="4">4× nearest</option><option value="8">8× nearest</option></select></label>
+<label><input id="vfx" type="checkbox" checked>VFX</label>
+<label><input id="onion" type="checkbox">Onion skin · cel trước</label>
+<label><input id="flip" type="checkbox">Mirror skeleton</label>
+<label><input id="anchors" type="checkbox">Tay / cán / chân</label>
+</div>
+<div class="scroll"><canvas id="view" aria-label="Hero, skeleton kiếm, rìu và thương"></canvas></div>
+<div class="controls"><label>Clip <select id="clip"><option>Idle</option><option>Attack</option></select></label><button id="play">Phát clip</button><label>Tốc độ <select id="speed"><option value="1">1×</option><option value="0.25">0,25×</option></select></label><button id="previous">−1 cel</button><button id="next">+1 cel</button></div>
+<label>Thời gian <input id="time" type="range" min="0" max="1.3333334" step="0.0001" value="0"><output id="timeLabel"></output></label>
+<div id="status" role="status"></div>
+<p>Đường đất y63 chung cho ba skeleton; hero căn bàn chân theo nguồn. Preview dùng kích thước canvas thực, nearest sampling; không mô phỏng camera hoặc hitbox Unity. Hero hiển thị Idle0. Kiếm dùng clip đã duyệt, VFX kiếm đã baked nên công tắc VFX chỉ áp dụng hai mẫu mới. Onion skin dùng thân/vũ khí cel trước.</p>
+<p>Native lưu duration nguyên millisecond (rìu 2053ms, thương 1333ms); preview giữ thời gian float của clip gốc qua cel9. Rìu chạm đất ở cel5, nén ở cel6–7, ổn định ở cel8–9; cel10 chuẩn bị kéo, cel11 tách đất, cel12–14 hồi thế và cel15 trùng Idle0. Kiếm và thương giữ cel cuối trong lúc rìu hồi thế.</p>
+</main>
+<script>
+'use strict';
+const payload=/*PAYLOAD*/;
+const $=id=>document.getElementById(id),images={};
+$('time').max=payload.axeTimeline.duration;
+let t=0,playing=false,last=0,ready=false;
+function frameAt(time,kind='axe'){return (kind==='axe'?payload.axeTimeline:payload.timeline).keys.filter(k=>k.time<=time+1e-8).at(-1).frame;}
+function index(kind='axe'){return $('clip').value==='Idle'?0:frameAt(t,kind)+1;}
+function stop(){playing=false;$('play').textContent='Phát clip';}
+function setTime(time){t=time;$('time').value=t;render();}
+function draw(ctx,key,cel,x,y,s,mirror){
+ ctx.save();ctx.translate(x,y);if(mirror){ctx.translate(96*s,0);ctx.scale(-1,1);}
+ ctx.drawImage(images[key][cel],0,0,images[key][cel].width*s,images[key][cel].height*s);ctx.restore();
+}
+function render(){
+ if(!ready)return;
+ const s=Number($('zoom').value),game=s===3.5||s===1.75,canvas=$('view');
+ const w=game?(s===3.5?1280:640):Math.ceil(416*s+100),h=game?(s===3.5?720:360):64*s+90;
+ if(canvas.width!==w)canvas.width=w;if(canvas.height!==h)canvas.height=h;
+ const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+ ctx.fillStyle='#142927';ctx.fillRect(0,0,w,h);
+ const ground=game?h*.875:h-28,top=ground-64*s,cel=index(),mirror=$('flip').checked;
+ ctx.fillStyle='#1b3731';ctx.fillRect(0,ground,w,h-ground);
+ ctx.strokeStyle='#668e83';ctx.beginPath();ctx.moveTo(0,ground+.5);ctx.lineTo(w,ground+.5);ctx.stroke();
+ const centers=game?[w*.12,w*.36,w*.60,w*.84]:[64*s+20,176*s+40,272*s+60,368*s+80];
+ const positions=centers.map(x=>x-45*s);
+ ctx.fillStyle='#f2e7cf';ctx.font=(w===640?11:14)+'px system-ui';
+ ['Hero · Idle0','Kiếm · đã duyệt','Rìu · mẫu','Thương · mẫu'].forEach((name,i)=>ctx.fillText(name,centers[i]-45,24));
+ draw(ctx,'hero',0,centers[0]-62.72*s,ground-81*s,s,false);
+ draw(ctx,'sword',index('sword'),positions[1],top,s,mirror);
+ ['axe','spear'].forEach((kind,i)=>{
+  const x=positions[i+2],cel=index(kind);
+  if($('onion').checked&&cel>1){ctx.globalAlpha=.24;draw(ctx,kind+'-body',cel-1,x,top,s,mirror);ctx.globalAlpha=1;}
+  draw(ctx,kind+($('vfx').checked?'':'-body'),cel,x,top,s,mirror);
+  if($('anchors').checked){
+   const p=payload.poses[kind][Math.max(0,cel-1)];
+   const project=q=>[x+(mirror?95-q[0]:q[0])*s,top+q[1]*s];
+   const line=(points,color)=>{ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();points.forEach((q,i)=>{const [a,b]=project(q);i?ctx.lineTo(a,b):ctx.moveTo(a,b);});ctx.stroke();};
+   line([p.butt,p.tip],'#ffc85f');line(p.edge,'#9edfff');line([p.head,p.chest,p.hip],'#75ffd1');
+   p.elbows.forEach((q,h)=>line([p.shoulders?p.shoulders[h]:[p.chest[0]+(h?-3:7),p.chest[1]+2],q,p.hands[h]],'#ff72c6'));
+   for(const [point,color] of [[p.butt,'#ffc85f'],[p.tip,'#9edfff'],...p.hands.map(p=>[p,'#ff72c6']),[[36,63],'#75ffd1'],[[53,63],'#75ffd1']]){
+    const px=mirror?95-point[0]:point[0];ctx.fillStyle=color;ctx.fillRect(x+px*s,top+point[1]*s,Math.max(2,s),Math.max(2,s));
+   }
+  }
+ });
+ $('timeLabel').textContent=t.toFixed(4)+'s';
+ $('status').textContent=($('clip').value==='Idle'?'Idle0':'Attack · cel '+(cel-1))+' · '+t.toFixed(4)+'s · '+($('vfx').checked?'có VFX':'không VFX')+' · '+w+'×'+h;
+}
+$('idle').onclick=()=>{stop();$('clip').value='Idle';setTime(0);};
+for(const [id,time] of [['telegraph',.7],['impact',1]])$(id).onclick=()=>{stop();$('clip').value='Attack';setTime(time);};
+$('ground').onclick=()=>{stop();$('clip').value='Attack';setTime(payload.timeline.keys.at(-1).time);};
+$('recovery').onclick=()=>{stop();$('clip').value='Attack';setTime(payload.axeTimeline.keys[10].time);};
+$('returned').onclick=()=>{stop();$('clip').value='Attack';setTime(payload.axeTimeline.keys[15].time);};
+$('clip').onchange=()=>{stop();setTime(0);};
+$('time').oninput=e=>{stop();$('clip').value='Attack';setTime(Number(e.target.value));};
+function step(direction){stop();const wasIdle=$('clip').value==='Idle';$('clip').value='Attack';const f=wasIdle?0:frameAt(t);setTime(payload.axeTimeline.keys[(f+direction+payload.axeTimeline.keys.length)%payload.axeTimeline.keys.length].time);}
+$('previous').onclick=()=>step(-1);$('next').onclick=()=>step(1);
+for(const id of ['zoom','vfx','onion','flip','anchors'])$(id).onchange=render;
+$('play').onclick=()=>{
+ if(!playing&&$('clip').value==='Attack'&&t>=payload.axeTimeline.duration)setTime(0);
+ playing=!playing;last=performance.now();$('play').textContent=playing?'Dừng':'Phát clip';
+};
+setInterval(()=>{
+ const now=performance.now();
+ if(playing&&$('clip').value==='Attack'){
+  setTime(Math.min(payload.axeTimeline.duration,t+(now-last)/1000*Number($('speed').value)));
+  if(t>=payload.axeTimeline.duration)stop();
+ }
+ last=now;
+},1000/60);
+Promise.all(Object.entries(payload.images).map(async([key,urls])=>{images[key]=await Promise.all(urls.map(src=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src;})));})).then(()=>{ready=true;render();}).catch(error=>{$('status').textContent='Lỗi tải ảnh: '+error;});
+</script></html>

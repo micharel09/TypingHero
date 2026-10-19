@@ -1,0 +1,43 @@
+{
+  "layoutId": "tutorial",
+  "revision": 2,
+  "platform": "web",
+  "owner": "Assets/Editor/PixelUI/TutorialBuild.cs",
+  "contract": "contract.md",
+  "variants": [
+    {
+      "id": "tutorial",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "tutorial.wireframe.json",
+      "preview": "tutorial.wireframe.html",
+      "capture": "tutorial.png",
+      "capturedFrom": {
+        "revision": 2,
+        "inputFingerprint": "1e1148f8566a16a8172d1ec0cf8f9d8a71c408f3bed0c8292ef3962b2ec8afa0",
+        "previewSha256": "41ad4ddc6511a3d319d2d62a2f3ea29ccbd4b0ae6b6d200db1d2c4be72d927f1",
+        "pngSha256": "7a1638c276e58ddaed0b47822ea649d9cdf071379cba0bdbf969a67f99cd1a4d"
+      }
+    }
+  ],
+  "approval": {
+    "status": "approved",
+    "revision": 2,
+    "inputFingerprint": "1e1148f8566a16a8172d1ec0cf8f9d8a71c408f3bed0c8292ef3962b2ec8afa0",
+    "evidence": "User implementation plan approves below-HUD instructions and readable actual cue, using the existing Shogun layout. Revision2 corrects an observed opaque-background occlusion within that placement; no layout,flow,reference or timing decision changes.",
+    "approvedAt": "2026-10-17T10:51:31.155513+00:00",
+    "artifacts": {
+      "tutorial.wireframe.html": "41ad4ddc6511a3d319d2d62a2f3ea29ccbd4b0ae6b6d200db1d2c4be72d927f1",
+      "tutorial.png": "7a1638c276e58ddaed0b47822ea649d9cdf071379cba0bdbf969a67f99cd1a4d"
+    }
+  },
+  "rendered": {
+    "revision": 2,
+    "inputFingerprint": "1e1148f8566a16a8172d1ec0cf8f9d8a71c408f3bed0c8292ef3962b2ec8afa0",
+    "previews": {
+      "tutorial.wireframe.html": "41ad4ddc6511a3d319d2d62a2f3ea29ccbd4b0ae6b6d200db1d2c4be72d927f1"
+    }
+  }
+}

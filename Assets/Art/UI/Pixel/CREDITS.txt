@@ -1,0 +1,15 @@
+Complete UI Essential Pack — Free Flat theme by Crusenho
+https://crusenho.itch.io/complete-ui-essential-pack
+License: Creative Commons Attribution 4.0 International
+https://creativecommons.org/licenses/by/4.0/
+frame.png is UI_Flat_Frame01a.png, unchanged; tinted and 9-sliced in Unity.
+
+Input Prompts Pixel by Kenney
+https://kenney.nl/assets/input-prompts-pixel
+License: CC0 1.0 Universal
+https://creativecommons.org/publicdomain/zero/1.0/
+
+VT323 by Peter Hull, obtained from the Google Fonts repository
+https://github.com/google/fonts/tree/main/ofl/vt323
+License: SIL Open Font License 1.1, see VT323-OFL.txt.
+The Unity TextMeshPro atlas is generated from the original font.

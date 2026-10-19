@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -42,26 +42,25 @@ public sealed class ScoreUI_ComboHUD : MonoBehaviour
             decaySlider.value = Mathf.Clamp01(t01);
     }
 
+    void LateUpdate()
+    {
+        if (followScore && multiplierText && multiplierText.gameObject.activeSelf)
+            FollowRightOfScore(multiplierText.rectTransform, followScore, gapPx, extraOffset);
+    }
+
     // ========= Helpers =========
     static void FollowRightOfScore(RectTransform me, RectTransform score, float gap, Vector2 extra)
     {
-        // Chúng ta làm việc trong toạ độ local của PARENT chung
         var parent = me.parent as RectTransform;
-        if (parent == null) return;
-
-        // Lấy điểm RIGHT-CENTER của ScoreText trong local của parent
-        Vector3 rightCenterWorld = score.TransformPoint(new Vector3(score.rect.xMax, score.rect.center.y, 0f));
-        Vector2 rightCenterLocal = parent.InverseTransformPoint(rightCenterWorld);
-
-        // Lấy nửa chiều rộng của chính mình (dùng preferredWidth nếu rect.width chưa có)
-        float myHalfW = me.rect.width > 0.1f ? me.rect.width * 0.5f :
-                        (me.TryGetComponent(out TMP_Text tmp) ? tmp.preferredWidth * 0.5f : 40f);
-
-        // Đặt anchoredPosition: ngay phải của Score + gap + nửa width của mình
-        Vector2 target = rightCenterLocal + new Vector2(gap + myHalfW, 0f) + extra;
-        me.anchoredPosition = target;
-
-        // Căn dọc cùng hàng với Score
-        me.anchorMin = me.anchorMax = parent.pivot; // giữ anchor ổn định
+        if (!parent) return;
+        float right = score.rect.xMax;
+        if (score.TryGetComponent(out TMP_Text label))
+            right = Mathf.Min(right, score.rect.xMin + label.preferredWidth);
+        var point = score.TransformPoint(new Vector3(right, score.rect.center.y, 0));
+        var local = parent.InverseTransformPoint(point);
+        me.anchorMin = me.anchorMax = parent.pivot;
+        // Position the left edge, including scale/pulse of the score and this label's pivot.
+        me.localPosition = new Vector3(local.x + gap + me.pivot.x * me.rect.width + extra.x,
+            local.y + (me.pivot.y - .5f) * me.rect.height + extra.y, 0);
     }
 }
