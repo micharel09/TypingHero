@@ -149,6 +149,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Vector2 barTopEdge, barBottomEdge, scorePoint, trayPoint, bodyHead, bodyFoot;
         public float barLeft, barRight;
         public Rect scoreGlyphRect, comboGlyphRect, comboDecayRect;
+        public bool comboVisible, comboDecayVisible, comboUnderScore, comboDecayUnderScore;
+        public float comboDecayValue;
         public float scoreFont, comboFont, barReveal;
         public Rect playerStatusRect, enemyStatusRect, trayRect, scoreRect, multiplierRect, staminaRect;
         public Vector2 playerFootPoint, enemyFootPoint;
@@ -317,6 +319,8 @@ public sealed class GameLoopProbe : MonoBehaviour
             var playerStatus = Read<RectTransform>(layout, "playerStatus");
             var enemyStatus = Read<RectTransform>(layout, "enemyStatus");
             var multiplierLabel = Read<TMP_Text>(layout, "multiplierText");
+            var comboHUD = Read<ScoreUI_ComboHUD>(ScoreSystem.I, "comboHUD");
+            var comboDecay = Read<Slider>(comboHUD, "decaySlider");
             var playerHpSlider = playerStatus ? playerStatus.GetComponentInChildren<Slider>() : null;
             var enemyHpSlider = enemyStatus ? enemyStatus.Find("EnemyHP").GetComponent<Slider>() : null;
             var staminaSlider = enemyStatus ? enemyStatus.Find("EnemyStamina").GetComponent<Slider>() : null;
@@ -356,6 +360,11 @@ public sealed class GameLoopProbe : MonoBehaviour
                 playerStatusRect = ScreenRect(playerStatus), enemyStatusRect = ScreenRect(enemyStatus),
                 scoreGlyphRect = GlyphRect(scoreLabel), comboGlyphRect = GlyphRect(multiplierLabel),
                 comboDecayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
+                comboVisible = multiplierLabel && multiplierLabel.gameObject.activeInHierarchy,
+                comboDecayVisible = comboDecay && comboDecay.gameObject.activeInHierarchy,
+                comboUnderScore = comboHUD && scoreRoot && comboHUD.transform.IsChildOf(scoreRoot),
+                comboDecayUnderScore = comboDecay && scoreRoot && comboDecay.transform.IsChildOf(scoreRoot),
+                comboDecayValue = comboDecay ? comboDecay.value : 0,
                 scoreFont = scoreLabel ? scoreLabel.fontSize : 0,
                 comboFont = multiplierLabel ? multiplierLabel.fontSize : 0,
                 barReveal = fx ? fx.BarReveal : 0,

@@ -589,7 +589,10 @@ async function modalFlow(page, paused) {
       browser = context.browser();
     } else browser = await chromium.launch(options);
     report.chromium = browser.version();
-    if (process.env.TYPINGHERO_PARRY_CLASH_ONLY === '1') {
+    if (process.env.TYPINGHERO_SCORE_CLUSTER_ONLY === '1') {
+      report.scenario='score-cluster';
+      await require('./score_cluster.cjs')({session,start,state,until,clickControl,check,report},browser);
+    } else if (process.env.TYPINGHERO_PARRY_CLASH_ONLY === '1') {
       report.scenario='parry-clash';
       await require('./parry_clash.cjs')({session,start,state,until,check,report},browser);
     } else if (process.env.TYPINGHERO_HUD_R7_ONLY === '1') {
@@ -681,7 +684,7 @@ async function modalFlow(page, paused) {
       } finally { await context.close(); }
       if (profile === 'webgl') await require('./tutorial_embedding.cjs')({session, state, until, clickControl, check, report}, browser);
     }
-    if (profile === 'webgl' && process.env.TYPINGHERO_PARRY_CLASH_ONLY !== '1' && !['endless','endless-network','endless-ui','endless-typing-audio'].includes(report.scenario) && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
+    if (profile === 'webgl' && process.env.TYPINGHERO_PARRY_CLASH_ONLY !== '1' && !['endless','endless-network','endless-ui','endless-typing-audio','score-cluster'].includes(report.scenario) && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
     check(!report.pageError, 'no JavaScript exceptions');
     check(report.exceptions.length === 0, 'no startup or runtime exceptions in console');
     report.status = 'passed';

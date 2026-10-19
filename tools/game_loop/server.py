@@ -65,7 +65,7 @@ def main():
     scenario = sys.argv[4] if len(sys.argv) > 4 else 'full'
     profile_allocations = len(sys.argv) > 5 and sys.argv[5] == '1'
     if profile_allocations and profile != 'webgl': raise ValueError('Allocation profiling requires WebGL QA')
-    if scenario not in ('full', 'skeleton-art', 'attack-sorting', 'score-layout', 'pixel-sparks', 'pixel-sparks-parry', 'endless', 'combat-r7', 'parry-clash') or (scenario != 'full' and profile != 'webgl'):
+    if scenario not in ('full', 'skeleton-art', 'attack-sorting', 'score-layout', 'score-cluster', 'pixel-sparks', 'pixel-sparks-parry', 'endless', 'combat-r7', 'parry-clash') or (scenario != 'full' and profile != 'webgl'):
         raise ValueError('Unsupported browser scenario/profile')
     BASE.mkdir(parents=True, exist_ok=True)
     with (BASE / "runner.lock").open("w") as lock:
@@ -230,7 +230,7 @@ def main():
             shutil.copytree(build, result / 'player')
             print(f"Production player preserved: {result / 'player'}", flush=True)
             return
-        if scenario.startswith('pixel-sparks') or scenario in ('endless', 'combat-r7', 'parry-clash'):
+        if scenario.startswith('pixel-sparks') or scenario in ('endless', 'combat-r7', 'parry-clash', 'score-cluster'):
             # Preserve this exact player before releasing the shared runner lock.
             # Native QA must not race another task replacing build-qa.
             immutable = result / 'player'
@@ -259,6 +259,7 @@ def main():
               *(['-e', 'TYPINGHERO_ENDLESS_ONLY=1'] if scenario == 'endless' else []),
               *(['-e', 'TYPINGHERO_HUD_R7_ONLY=1'] if scenario == 'combat-r7' else []),
               *(['-e', 'TYPINGHERO_SCORE_LAYOUT_ONLY=1'] if scenario == 'score-layout' else []),
+              *(['-e', 'TYPINGHERO_SCORE_CLUSTER_ONLY=1'] if scenario == 'score-cluster' else []),
               *(['-e', 'TYPINGHERO_ATTACK_SORTING_ONLY=1'] if scenario == 'attack-sorting' else []),
               *(['-e', 'TYPINGHERO_PIXEL_SPARKS_ONLY=1'] if scenario in ('pixel-sparks', 'pixel-sparks-parry', 'parry-clash') else []),
               *(['-e', 'TYPINGHERO_PARRY_CLASH_ONLY=1'] if scenario == 'parry-clash' else []),

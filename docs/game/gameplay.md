@@ -5,6 +5,13 @@ identifiers remain unchanged by the rename. Native menu960x540/640x360 and
 same-artifact name reload verified. Public release: https://micharel09.itch.io/clackblade
 (upload19876564). Endless online reads still401; Firebase unchanged.
 
+## Unified score cluster (2026-10-19; local source)
+
+- CombatR7Build keeps the total at its existing center-top position. ScoreCluster now owns ComboHUD and its existing decay slider: total → multiplier → thin decay track. PlayerStatus contains name/HP only; its former combo frame/socket/icon remain inactive to preserve IDs. Enemy stamina is unchanged.
+- ScoreUI_ComboHUD hides both multiplier and decay at ×1 and reveals both above ×1. ScoreSystem, ScoreRules, thresholds, expiry/timeout, input, damage and providers are unchanged. CombatR7Status swaps only the grouped fill between normal and Slayer sprites.
+- At960×540, ComboHUD is(0,69,294,54) relative to ScoreCluster; multiplier occupies(0,0,294,30), decay(12,36,270,12). ROUND moves fromnative y38 to46 to clear the added row. Total position/pulse, names, HP and typing tray remain fixed.
+- Repeated builder and native209/209 scoped UI checks pass at320×180,640×360,1280×720,400×300, including real parry renewal, pause, expiry/timeout, restart and natural Slayer exit. See [verification](verification.md) and [checkpoint](../plans/score-hud-cluster.md). This change has not been published to itch.io.
+
 ## Endless Duel (2026-10-19)
 
 - SampleScene starts Endless except during the independently configured tutorial.
