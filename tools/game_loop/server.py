@@ -70,7 +70,7 @@ def main():
     BASE.mkdir(parents=True, exist_ok=True)
     with (BASE / "runner.lock").open("w") as lock:
         wait_seconds = int(sys.argv[6]) if len(sys.argv) > 6 else 0
-        if not 0 <= wait_seconds <= 600: raise ValueError('Invalid runner lock wait')
+        if not 0 <= wait_seconds <= 3600: raise ValueError('Invalid runner lock wait')
         if wait_seconds:
             def lock_timeout(signum, frame):
                 raise TimeoutError('Timed out waiting for shared runner lock')

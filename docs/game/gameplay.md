@@ -65,7 +65,10 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
   records are preserved and can rank above new six-defeat results.
   Modal filter defaults to run/menu level and ignores previous requests after a
   filter change or close. Classic contract stays unchanged.
-- Difficulty Quick99 passes config/persistence/run/recovery/combo/provider behavior.
+- Finite first-boss QA: current-snapshot Quick116/116, five-level matrix4413/30wins
+  and pending/tutorial86 pass; see verification and Endless checkpoint for exact input,
+  offline-test status and cleanup. No production change by this task.
+- Historical repeating-mode Quick99 passes config/persistence/run/recovery/combo/provider behavior.
   Native required-round coverage and final-candidate progress are recorded in
   docs/plans/endless-duel.md and verification.md. Five-level selectors, modal races,
   durable pending/reload, six tutorial lessons and both sizes have fixture coverage.

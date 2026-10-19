@@ -52,7 +52,8 @@ public sealed class EndlessOverlay : MonoBehaviour
 
     internal void ShowCombat(string title)
     {
-        prompt.anchoredPosition = new Vector2(144, -12);
+        // Keep the live duel label below the fixed r7 status and round strip.
+        prompt.anchoredPosition = new Vector2(144, -156);
         heading.text = title;
         instruction.gameObject.SetActive(false); background.SetActive(false); action.gameObject.SetActive(false);
         var events = UnityEngine.EventSystems.EventSystem.current;

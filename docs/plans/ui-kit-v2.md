@@ -1,5 +1,19 @@
 # Combat r7 Unity / itch release - checkpoint 2026-10-19
 
+## Full push and public release verified ? 2026-10-19
+
+User follow-up: ?push v? ??y full l?n itch io ?i?. Full existing feature/design sources committed, remote c1f4841 Parry/lighting changes merged without force push. Runtime/source publication commit b243545; later receipt commits do not change the player. See [release manifest](../../marketing/itch-io/full-release-20261019.json).
+
+- Final production102505 snapshot5a0a621a730dd828d6fc7a33004256ffbc67808cd0f4f132fb38b5e17b7b9454 PASS; immutable player preserved. JS/WASM/data all exclude typingHeroQA, TypingHeroQA_Publish and GameLoopProbe. ZIP30files/16,595,641bytes, CRC PASS; SHA256bbbafaeec38053c9f833fa8fb5a6f908d26cd3e69d959553b1ada741a7f88505.
+- Merged gameplay Quick101341 input70312dec1056ac27e3f5707a8ad005d646fb592c6e4fb36a7cfbadbc524742c5:116/116PASS,0skip. Same-input production101634 and strict builder repeat102201 PASS. Final code delta only moves the existing Endless duel label below the new HP HUD after actual smoke exposed overlap; gameplay and builder unchanged. Earlier software/focus failures below remain historical, not claimed full passes.
+- Native final production smoke:4automated checks PASS,0JS/managed exceptions/production writes. Visually verified Guest/menu, ReleaseQA name, tutorial skip, actual Endless Fight, HP40?35, unobscured HP/duel label and pause/resume. Earlier133native R7/tutorial checks remain an earlier frozen-input receipt; no new full difficulty/audio matrix or human WPM claim.
+- Generated menu367IDs retains all333prior IDs; combat834IDs retains all827prior IDs, including all706original task IDs. No prior GUID reference lost. Local committed scenes exactly match final build-generated SHA256 values in the manifest.
+- BrowserSkill fresh owner/game3857509 verified; old Orca form was stale and never saved. Published19872500, CLACKBLADE-Full-20261019.zip, at https://micharel09.itch.io/clackblade. Original typing-hero URL redirects there. Public Run game reaches actual menu;29/29non-HTML CDN hashes exactly match release, index loads production loader. Embed/theme/copy/pricing/devlogs retained.
+- Rollback: select19872290 as playable and hide19872500, Save and verify public payload.19872290 and prior19871730/19865461 remain hidden/retained, none deleted. No Firebase rules/auth/index changes; fresh read-only Classic200/Endless normal401. Full publication includes that known online limitation, not a backend remediation.
+- Artifact retained locally: Builds/CLACKBLADE-Full-20261019.zip. Final server result /data/typinghero-game-loop/results/20261019T102505-production retains player/ZIP/release.json and digest-verified source-final.tar.gz for rollback/reproduction; remove after a newer verified release replaces it. Shared caches/toolchain/daemon and other tasks untouched. Owned browser sessions/tests/builds have exited; task-temp captures/player copies and17owned obsolete server result folders removed after this written receipt. Shared historical091145 used by another release remains untouched.
+
+Earlier integration checkpoints follow; the verified publication receipt above is current.
+
 Publication update: final0fd source is now live as CLACKBLADE/upload19871730 at
 https://micharel09.itch.io/clackblade. Native focused133 and production smoke9PASS;
 see [release checkpoint](clackblade-rebrand.md) for exact scope, failed extra legacy
@@ -49,6 +63,14 @@ Handoff status (public NOT released):
 - Latest local public compatibility declarations and harness callback are not covered by a final Unity/WebGL PASS. Earlier Quick104/104 and strict serialize receipts remain valid only for their recorded inputs.
 - Firebase proposal approval remains unanswered. Five Endless paths deny production reads; no rules/publish/write performed. Release must wait for explicit source/backend scope decision and successful dependent-flow acceptance, then production build/ZIP and verified public payload. Existing playable19865461 remains the recorded rollback/current upload, not modified.
 - Owned native harnesses have exited; task player/screenshots/report retained at E:/CodexTemp/TypingHero/hud-r7-release/ for diagnosing failures and final rerun. Shared daemon and owner Orca editor retained, no shared cache/process cleanup. Remove task temp only after acceptance evidence is written and no longer needed. No commit/push/itch upload/save made.
+
+## Follow-up: full push and itch publication
+
+User explicitly requested push and full itch publication after the gated handoff. All existing dirty feature/design/product sources committed as b99ec3c, concurrent verification reconciled in e0169e8; remote c1f4841 Parry/lighting work merged in feeb85b. Scene conflicts retained authored HUD/Endless scenes and run remote WorldLightingBuild before CombatR7Build to regenerate additions without YAML ID collisions. Browser/runner scenario conflicts preserve both suites. Immutable production copy added in bf98c27. Git origin https://github.com/micharel09/TypingHero.git main verified equal bf98c272a7b9db9461e70441fb257ef1f5f14a21 after push. No force push.
+
+BrowserSkill owned xsep/Edge61a46c05 fresh owner editor confirms CLACKBLADE/game3857509, current playable19871730, previous19865461 retained hidden. Orca editor returned stale old title/upload after reload; do not save its form. Continue upload/selection with the freshly observed BrowserSkill editor, preserving theme/copy/pricing/slug. Full publication retains current known Endless online401 limitation; Firebase rules untouched.
+
+Pending final merged Quick and immutable production build, real-keyboard production smoke, ZIP/hash and public payload verification. No release completion claim yet.
 
 Temporary resources: E:/CodexTemp/TypingHero/hud-r7-release/ for task inventory/logs; retain while task active and remove after written receipts.
 

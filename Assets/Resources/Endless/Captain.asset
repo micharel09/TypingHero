@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   role: 5
   displayName: "CAPTAIN \xB7 BOSS"
-  hint: Singles, doubles, then triples as HP falls. Win to heal 10 HP.
+  hint: Singles, doubles, then triples as HP falls. Defeat the boss to win.
   health: 550
   damage: 5
   hitCost: 12
