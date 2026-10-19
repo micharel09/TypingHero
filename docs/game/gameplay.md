@@ -261,6 +261,19 @@ Full surface art, B/C and parent integration remain separate.
   bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
   Comparison clips remain review samples; BCompact24 is now used in production parries.
   Prior mirror p95 concerns remain separate and unresolved.
+- Compact contact revision reuses those two particles: white-gold .5WU core holds
+  alpha60ms then fades to zero200ms; orange pixel-edged ring grows .75->1.5WU
+  over90ms and fades out260ms. Dedicated CompactContact material uses the existing
+  pixel shader branch; independent manual unscaled contact age obeys pause and restores the
+  original renderer/material/modules on legacy preset reuse. Contact migration v1
+  adds only its material reference and Contact custom vertex streams, retaining
+  prefab GUID/IDs and all spark tuning. Frozen compact contact completion uses
+  particleCount, avoiding IsAlive on a stopped simulation clock.
+  Compact light peaks5, holds70ms, smoothstep-fades to0at280ms (half2.5at175ms).
+  Each of eight pulse states owns its timing/profile; mixed overlap takes strongest,
+  never sums. Legacy profiles keep140ms quadratic falloff and existing intensity cap;
+  light radius and world bloom are unchanged. Focused Quick18 and native default noF6/two-size/Slayer26checks pass;
+  sampled no-capture p95 delta stays below1%. Publication is pending; see combat-feedback.
 - Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
   prefabs and SampleScene. Existing hit SFX, lethal shake, slash, flash, afterimages
   and damage remain. Legacy PixelSparks/CodeManu/Pimen assets are retained unwired.
