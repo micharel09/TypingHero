@@ -32,7 +32,15 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
     [SerializeField] EndlessDifficultySelector difficultySelector;
     [SerializeField] GameObject difficultyControls;
     public EndlessDifficulty Difficulty { get; private set; } = EndlessDifficulty.Normal;
+    [SerializeField] Image[] modeFrames;
+    [SerializeField] Sprite activeModeFrame, inactiveModeFrame;
     int mode;
+    void PaintModes()
+    {
+        if (modeFrames == null) return;
+        for (int i = 0; i < modeFrames.Length; i++)
+            if (modeFrames[i]) modeFrames[i].sprite = i == mode ? activeModeFrame : inactiveModeFrame;
+    }
     int requestVersion;
     List<EndlessLeaderboard.Entry> endlessRows;
     public void ShowEndless() => SelectMode(0);
@@ -47,7 +55,7 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
     }
     void SelectMode(int value)
     {
-        mode = value; requestVersion++; ClearDisplayedRows();
+        mode = value; PaintModes(); requestVersion++; ClearDisplayedRows();
         StopAllCoroutines(); _refreshing = false;
         _positionInitialized = false;
         if (scrollRect) scrollRect.verticalNormalizedPosition = 1;
@@ -76,7 +84,7 @@ public sealed class LeaderboardUIBinder : MonoBehaviour
             _rowHeight = ((RectTransform)rowPrefab.transform).rect.height;
             scrollRect.onValueChanged.AddListener(OnScroll);
         }
-        mode = 0;
+        mode = 0; PaintModes();
         Difficulty = EndlessRun.Current != null ? EndlessRun.Current.Difficulty : EndlessDifficulties.Selected;
         if (difficultySelector) difficultySelector.Display(Difficulty);
         ClearDisplayedRows();

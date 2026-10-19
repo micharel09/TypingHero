@@ -184,7 +184,11 @@ def main():
 
         if profile == "serialize":
             unity(["-quit", "-buildTarget", "WebGL", "-executeMethod", "PixelUIBuild.SerializeOnly"], qa=True)
-            for relative in ('Assets/Scenes/SampleScene.unity', 'Assets/Art/UI/CombatR7', 'Assets/Art/UI/CombatR7.meta'):
+            for relative in ('Assets/Scenes/MainMenu.unity', 'Assets/Scenes/SampleScene.unity',
+                             'Assets/Art/UI/CombatR7', 'Assets/Art/UI/CombatR7.meta',
+                             'Assets/Art/UI/DungeonV2', 'Assets/Art/UI/DungeonV2.meta',
+                             'Assets/Prefabs/PixelUI/Panel.prefab', 'Assets/Prefabs/PixelUI/Button.prefab',
+                             'Assets/Prefabs/PixelUI/LeaderboardRow.prefab'):
                 target = result / 'serialized' / relative
                 target.parent.mkdir(parents=True, exist_ok=True)
                 if (SOURCE / relative).is_dir(): shutil.copytree(SOURCE / relative, target)
