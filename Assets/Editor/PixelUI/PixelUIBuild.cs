@@ -31,6 +31,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(WorldLightingBuild.Root, "*", SearchOption.AllDirectories)).ToArray();
         paths = paths.Concat(Directory.GetFiles(ShogunEnvironment.Art, "*"))
             .Concat(Directory.GetFiles(CombatR7Build.Art, "*"))
+            .Concat(Directory.GetFiles(DungeonUISkin.Art, "*"))
             .Concat(Directory.GetFiles("Assets/Art/EndlessSkeletons", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Resources/Endless", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyUI", "*"))
@@ -42,10 +43,10 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
         for (int i = 0; i < paths.Length; i++)
             if (!before[i].SequenceEqual(File.ReadAllBytes(paths[i])))
             {
-                if (paths[i] == "Assets/Scenes/SampleScene.unity")
+                if (paths[i].EndsWith(".unity") || paths[i].EndsWith(".prefab"))
                 {
-                    File.WriteAllBytes("/results/combat-r7-first.unity", before[i]);
-                    File.Copy(paths[i], "/results/combat-r7-second.unity", true);
+                    File.WriteAllBytes("/results/" + Path.GetFileNameWithoutExtension(paths[i]) + "-first" + Path.GetExtension(paths[i]), before[i]);
+                    File.Copy(paths[i], "/results/" + Path.GetFileNameWithoutExtension(paths[i]) + "-second" + Path.GetExtension(paths[i]), true);
                 }
                 throw new BuildFailedException("UI builder is not idempotent: " + paths[i]);
             }
@@ -75,12 +76,13 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             ShogunTheme.Apply();
             WorldLightingBuild.Apply();
             CombatR7Build.Apply();
+            DungeonUISkin.Apply();
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");
             AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
                 PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
-                CombatR7Build.Art.TrimEnd('/'),
+                CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'),
                 ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }, "build/PixelUI/PixelUI.unitypackage",
                 ExportPackageOptions.Recurse);
             Debug.Log("Pixel UI migration and serialization complete");

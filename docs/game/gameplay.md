@@ -283,8 +283,9 @@ Full surface art, B/C and parent integration remain separate.
   one Light2D, and immediately cancels a disabled/released owner.
 - WorldLightingBuild runs after ShogunTheme: lit actor/near-environment sprites,
   ambient/key/fill plus clash rig, fixed-body-foot contact shadows and thresholded
-  world bloom. Menu background sprites follow the original UI rectangles via
-  WorldMenuBackdrop; overlay HUD remains separate. Camera lens/zoom unchanged.
+  world bloom. The preserved WorldMenuBackdrop is disabled by the final dungeon
+  UI pass; the menu uses four original gameplay dungeon layers as UGUI images.
+  Overlay HUD remains separate. Camera lens/zoom unchanged.
 - Secondary _NormalMap textures preserve source GUIDs/rects/pivots/PPU. Current
   maps are draft alpha/material-region bevels, independent of painted luminance;
   anatomical/armor/roof authoring and complete frame/mirror review remain milestone B.
@@ -335,12 +336,14 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   Direct speaker listening remains unverified. Receipts and release state are in
   [verification](verification.md) and [combat-feedback checkpoint](../plans/combat-feedback.md).
 
-## Shogun presentation (2026-10-17)
+## UI presentation (dungeon skin 2026-10-19; legacy Shogun migration retained)
 
-- Final builder stage is ShogunTheme/ShogunEnvironment. Original Tiny Pixel Japan
-  layers retain their bytes/GUIDs; renderer tint provides jade/coal/ivory, parallax
-  follows the camera, dark edge-tree slices leave combat readable. Only old
-  environment renderers are disabled; physics/character animation stay intact.
+- Final builder order is ShogunTheme, WorldLightingBuild, CombatR7Build, then
+  DungeonUISkin for menu/help/Collection/tutorial/pause/results/Continue only.
+  Original Japan assets/objects remain preserved and disabled. The menu centers
+  its existing title/name/difficulty/actions/volumes group in the viewport, over
+  the same four purple dungeon layers as gameplay, with no decorative character.
+  Combat HUD, physics and character animation remain unchanged.
 - Reference960x540: arena928x340; foot-local HUD and tray geometry are specified
   in the HUD layout section below. Camera
   ortho340/84 preserves42px/world unit; Slayer ortho retains.78 of normal.
@@ -350,8 +353,14 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   pause remains paused. Modal R/M/Escape cannot reach the previous screen.
   Hidden pause controls are noninteractive and selection clears on resume,
   preventing WASD/Space from submitting a hidden Main Menu button.
-- Menu/help/pause/results/volumes share flat themed controls. Buttons have visible
-  hover/focus and1px label depression; panels reveal over120ms unscaled. Four tray
+- Non-combat panels/modal/keycaps use byte-identical v2 components; small controls
+  and rows use the original R7 secondary rim after its ten-pixel socket reserve,
+  with border2 and no new raster. Focus/selected states use the gold rim; runtime
+  validation/disabled tints, result colors, row tints and tab selection share the
+  coal/ivory/gold palette. Collection retains its four tabs and table/text lists.
+  The prompt background encloses both existing instruction lines through y80;
+  text/action/highlight and the corrected live duel-label positions stay intact.
+  Existing1px label depression and120ms unscaled panel reveal remain. Four tray
   edges flash180ms on incorrect input/timeout and hold on pause; text does not shake.
   Flat bars use zero fill inset so4px stamina/combo and6px HP/timer remain visible.
   Enemy cue is larger/bold gold; its animation-event timing is unchanged.
