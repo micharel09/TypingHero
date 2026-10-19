@@ -9,7 +9,7 @@ public sealed class ClashLightingRig : MonoBehaviour
     [SerializeField] float duration = .14f;
     [SerializeField] float maximumIntensity = 3f;
     // A fixed array bounds overlap without allocating in the combat loop.
-    struct PulseState { public ParryClashBurst owner; public Vector3 point; public float strength, age; }
+    struct PulseState { public ParryClashBurst owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; }
     readonly PulseState[] pulses = new PulseState[8];
     static readonly System.Collections.Generic.List<ClashLightingRig> rigs = new();
     void OnEnable() { rigs.Add(this); Clear(); }
@@ -36,7 +36,9 @@ public sealed class ClashLightingRig : MonoBehaviour
             if (!pulses[i].owner) { index = i; break; }
             if (pulses[i].age > pulses[index].age) index = i;
         }
-        pulses[index] = new PulseState { owner = owner, point = point, strength = strength };
+        pulses[index] = new PulseState { owner = owner, point = point, strength = strength, compact = owner.EmittedPreset == ParryClashBurst.Preset.BCompact,
+            duration = owner.EmittedPreset == ParryClashBurst.Preset.BCompact ? .28f : duration,
+            hold = owner.EmittedPreset == ParryClashBurst.Preset.BCompact ? .07f : 0 };
         Render();
     }
     void Update()
@@ -46,7 +48,7 @@ public sealed class ClashLightingRig : MonoBehaviour
         for (int i = 0; i < pulses.Length; i++) if (pulses[i].owner)
         {
             pulses[i].age += Time.unscaledDeltaTime;
-            if (pulses[i].age >= duration) pulses[i] = default;
+            if (pulses[i].age >= pulses[i].duration) pulses[i] = default;
         }
         Render();
     }
@@ -56,10 +58,12 @@ public sealed class ClashLightingRig : MonoBehaviour
         float strongest = 0; Vector3 point = transform.position;
         foreach (var pulse in pulses) if (pulse.owner)
         {
-            float intensity = pulse.strength * Mathf.Pow(1 - pulse.age / duration, 2);
+            float t = Mathf.Clamp01((pulse.age - pulse.hold) / (pulse.duration - pulse.hold));
+            float intensity = pulse.strength * (pulse.compact ? 1 - t * t * (3 - 2 * t) : Mathf.Pow(1 - t, 2));
+            intensity = Mathf.Min(pulse.compact ? 5f : maximumIntensity, intensity);
             if (intensity > strongest) { strongest = intensity; point = pulse.point; }
         }
         clashLight.transform.position = point;
-        clashLight.intensity = Mathf.Min(maximumIntensity, strongest);
+        clashLight.intensity = strongest;
     }
 }

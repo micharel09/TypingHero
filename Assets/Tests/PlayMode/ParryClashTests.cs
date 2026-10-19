@@ -550,6 +550,94 @@ public sealed class ParryClashTests
         Assert.That(Object.FindObjectsOfType<ParryClashBurst>().Length, Is.EqualTo(8));
         host.SetActive(false); Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
     }
+    [Test, Category("Quick")]
+    public void CompactContactAndPulseHaveReadableHoldAndBoundedFade()
+    {
+        var burst = Burst(); burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
+        var contact = burst.Systems[0];
+        var advance = typeof(ParryClashBurst).GetMethod("AdvanceContact", Flags);
+        var particles = new ParticleSystem.Particle[2];
+        foreach (float age in new[] { 0f, .06f, .09f, .14f, .2f, .22f, .26f, .28f })
+        {
+            advance.Invoke(burst, new object[] { age });
+            int count = contact.GetParticles(particles);
+            Assert.That(count, Is.EqualTo(age < .2f ? 2 : age < .26f ? 1 : 0));
+            if (age <= .06f) Assert.That(particles[0].startColor.a, Is.EqualTo(255));
+            if (age < .2f) Assert.That(particles[0].startSize, Is.EqualTo(.5f).Within(.001f));
+            if (age >= .09f && age < .26f) Assert.That(particles[count - 1].startSize, Is.EqualTo(1.5f).Within(.001f));
+        }
+        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.B);
+        Assert.That(contact.main.simulationSpeed, Is.GreaterThan(0));
+        Assert.That(contact.colorOverLifetime.enabled, Is.True);
+        Assert.That(contact.GetComponent<ParticleSystemRenderer>().sharedMaterial.name, Is.Not.EqualTo("CompactContact"));
+        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
+        Assert.That(contact.GetComponent<ParticleSystemRenderer>().sharedMaterial.name, Is.EqualTo("CompactContact"));
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator CompactContactClockIsIndependentOfCompletedSparkSimulation()
+    {
+        var burst = Burst(); int releases = 0;
+        var pool = new ObjectPool<GameObject>(() => null, null, go => { releases++; go.SetActive(false); });
+        burst.GetComponent<PooledVFX>().Setup(pool);
+        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
+        burst.AdvanceDebris(10); // Complete the spark simulation without advancing contact time.
+        yield return null;
+        Assert.That(releases, Is.Zero);
+        Assert.That(burst.Systems[0].particleCount, Is.EqualTo(2));
+        yield return new WaitForSecondsRealtime(.3f);
+        Assert.That(releases, Is.EqualTo(1));
+        Assert.That(burst.ParticleCount, Is.Zero);
+        pool.Clear();
+    }
+
+    [Test, Category("Quick")]
+    public void CompactPulseHolds70msHalfAt175AndExpires280AlongsideLegacy()
+    {
+        var lightType = System.Type.GetType("UnityEngine.Rendering.Universal.Light2D, Unity.RenderPipelines.Universal.Runtime");
+        var host = new GameObject("compact pulse rig"); host.SetActive(false); owned.Add(host);
+        var light = host.AddComponent(lightType);
+        var rig = host.AddComponent<ClashLightingRig>(); Set(rig, "clashLight", light); host.SetActive(true);
+        var burst = Burst(); burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
+        var pulses = (System.Array)typeof(ClashLightingRig).GetField("pulses", Flags).GetValue(rig);
+        var render = typeof(ClashLightingRig).GetMethod("Render", Flags);
+        var intensity = lightType.GetProperty("intensity");
+        foreach (var sample in new[] { new Vector2(0, 5), new Vector2(.07f, 5), new Vector2(.175f, 2.5f), new Vector2(.28f, 0) })
+        {
+            var pulse = pulses.GetValue(0);
+            pulse.GetType().GetField("age").SetValue(pulse, sample.x); pulses.SetValue(pulse, 0);
+            render.Invoke(rig, null);
+            Assert.That((float)intensity.GetValue(light), Is.EqualTo(sample.y).Within(.001f));
+        }
+        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
+        var legacy = Burst(); legacy.Emit(Vector3.right, 1, 0, ParryClashBurst.Preset.B);
+        Assert.That((float)intensity.GetValue(light), Is.EqualTo(5));
+        burst.gameObject.SetActive(false);
+        Assert.That((float)intensity.GetValue(light), Is.EqualTo(2.4f).Within(.001f));
+        host.SetActive(false); Assert.That((float)intensity.GetValue(light), Is.Zero);
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator CompactPulsePauseAndLeaseReuseRetainTheirOwnProfile()
+    {
+        var lightType = System.Type.GetType("UnityEngine.Rendering.Universal.Light2D, Unity.RenderPipelines.Universal.Runtime");
+        var host = new GameObject("paused compact light"); host.SetActive(false); owned.Add(host);
+        var light = host.AddComponent(lightType);
+        var rig = host.AddComponent<ClashLightingRig>(); Set(rig, "clashLight", light); host.SetActive(true);
+        var burst = Burst(); burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
+        var intensity = lightType.GetProperty("intensity");
+        GamePauseController.SetTutorialReading(true);
+        yield return new WaitForSecondsRealtime(.3f);
+        Assert.That((float)intensity.GetValue(light), Is.EqualTo(5));
+        GamePauseController.SetTutorialReading(false);
+        yield return new WaitForSecondsRealtime(.31f);
+        Assert.That((float)intensity.GetValue(light), Is.Zero);
+        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.B);
+        Assert.That((float)intensity.GetValue(light), Is.EqualTo(2.4f).Within(.001f));
+        yield return new WaitForSecondsRealtime(.16f);
+        Assert.That((float)intensity.GetValue(light), Is.Zero);
+    }
+
     [UnityTest, Category("Quick")]
     public IEnumerator PulseUsesStrongestOverlapHoldsOnPauseAndClearsWithOwner()
     {

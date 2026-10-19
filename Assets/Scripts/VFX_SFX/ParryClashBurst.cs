@@ -11,6 +11,10 @@ public sealed class ParryClashBurst : MonoBehaviour
     [SerializeField, HideInInspector] int lengthSupportVersion;
     [SerializeField, HideInInspector] int compactVersion;
     [SerializeField] Material compactMaterial;
+    [SerializeField] Material compactContactMaterial;
+    [SerializeField, HideInInspector] int contactVersion;
+    readonly ParticleSystem.Particle[] contactOutput = new ParticleSystem.Particle[2];
+    readonly ParticleSystem.Particle[] contactParticles = new ParticleSystem.Particle[2];
     [System.Serializable]
     sealed class CompactSettings
     {
@@ -37,7 +41,7 @@ public sealed class ParryClashBurst : MonoBehaviour
     readonly Debris[] debris = new Debris[22];
     readonly ParticleSystem.Particle[] debrisParticles = new ParticleSystem.Particle[10];
     Vector3 screenRight = Vector3.right, screenUp = Vector3.up;
-    float debrisAge;
+    float debrisAge, contactAge;
     int debrisCount;
     const float BrakeTime = .12f, LaunchDrag = 20f, CoastDrag = 2f, Gravity = 9.81f;
     Preset emittedPreset;
@@ -104,11 +108,11 @@ public sealed class ParryClashBurst : MonoBehaviour
 
     void ConfigurePreset()
     {
-        for (int i = 1; i < systems.Length; i++)
+        for (int i = 0; i < systems.Length; i++)
         {
             bool pixel = emittedPreset == Preset.BCompact;
             var ps = systems[i]; var renderer = ps.GetComponent<ParticleSystemRenderer>();
-            renderer.sharedMaterial = pixel ? compactMaterial : originalMaterials[i];
+            renderer.sharedMaterial = pixel ? (i == 0 ? compactContactMaterial : compactMaterial) : originalMaterials[i];
             renderer.renderMode = pixel ? ParticleSystemRenderMode.Billboard : originalModes[i];
             renderer.alignment = pixel ? ParticleSystemRenderSpace.View : originalAlignments[i];
             renderer.lengthScale = pixel ? 1 : originalLength[i]; renderer.velocityScale = pixel ? 0 : originalVelocity[i];
@@ -140,7 +144,17 @@ public sealed class ParryClashBurst : MonoBehaviour
         float energyRange = varied ? .15f : energyVariation;
         float energy = Random.Range(1 - energyRange, 1 + energyRange);
         EmitGroup(contact, contactSettings, direction, 0, 0, rotation, spread, energy);
-        if (emittedPreset == Preset.BCompact) EmitCompact(direction, rotation, energy, groundY);
+        if (emittedPreset == Preset.BCompact)
+        {
+            contact.GetParticles(contactParticles);
+            for (int i = 0; i < 2; i++)
+            {
+                var p = contactParticles[i]; p.position = point; p.velocity = Vector3.zero;
+                p.startLifetime = p.remainingLifetime = i == 0 ? .2f : .26f; contactParticles[i] = p;
+            }
+            AdvanceContact(0);
+            EmitCompact(direction, rotation, energy, groundY);
+        }
         else
         {
             EmitGroup(mainRays, mainSettings, direction, 1, -.15f, rotation, spread, energy);
@@ -150,7 +164,7 @@ public sealed class ParryClashBurst : MonoBehaviour
         }
         foreach (var ps in systems) ps.Play(false);
         playing = true;
-        ClashLightingRig.Pulse(gameObject.scene, point, pulseIntensity, this);
+        ClashLightingRig.Pulse(gameObject.scene, point, emittedPreset == Preset.BCompact ? 5f : pulseIntensity, this);
     }
 
     void EmitCompact(float direction, float rotation, float energy, float groundY)
@@ -212,6 +226,25 @@ public sealed class ParryClashBurst : MonoBehaviour
                 if (debris[i].group == group) debris[i].particle = debrisParticles[slot++];
         }
         AdvanceDebris(0);
+    }
+
+    void AdvanceContact(float age)
+    {
+        shapeData.Clear(); int count = 0;
+        for (int i = 0; i < 2; i++)
+        {
+            var p = contactParticles[i]; float life = i == 0 ? .2f : .26f;
+            if (age >= life) continue;
+            float size = i == 0 ? .5f : Mathf.Lerp(.75f, 1.5f, Mathf.Clamp01(age / .09f));
+            p.startSize3D = new Vector3(size, size, size);
+            Color tint = i == 0 ? new Color(1, .93f, .65f) : new Color(1, .32f, .035f);
+            tint.a = i == 0 ? 1 - Mathf.Clamp01((age - .06f) / .14f) : 1 - age / life;
+            p.startColor = tint; p.remainingLifetime = life - age;
+            contactOutput[count++] = p;
+            shapeData.Add(new Vector4(i, 0, Mathf.Round(size * 16), 0));
+        }
+        contact.SetParticles(contactOutput, count);
+        contact.SetCustomParticleData(shapeData, ParticleSystemCustomData.Custom1);
     }
 
     float ProjectedSpeed(Vector3 velocity) => new Vector2(Vector3.Dot(velocity, screenRight), Vector3.Dot(velocity, screenUp)).magnitude;
@@ -356,7 +389,12 @@ public sealed class ParryClashBurst : MonoBehaviour
         AdvanceDebris(Time.unscaledDeltaTime);
         if (emittedPreset == Preset.BCompact)
         {
-            if (debrisCount > 0 || contact.IsAlive(false)) return;
+            contactAge += Time.unscaledDeltaTime;
+            AdvanceContact(contactAge);
+        }
+        if (emittedPreset == Preset.BCompact)
+        {
+            if (debrisCount > 0 || contact.particleCount > 0) return;
         }
         else foreach (var ps in systems) if (ps.IsAlive(false)) return;
         lease.Release();
@@ -365,7 +403,7 @@ public sealed class ParryClashBurst : MonoBehaviour
     internal void Clear()
     {
         if (systems != null) foreach (var ps in systems) if (ps) ps.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
-        debrisAge = 0; debrisCount = 0;
+        debrisAge = contactAge = 0; debrisCount = 0;
         System.Array.Clear(debris, 0, debris.Length); System.Array.Clear(debrisParticles, 0, debrisParticles.Length);
         playing = paused = false;
         ClashLightingRig.Cancel(this);
