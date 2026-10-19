@@ -2385,3 +2385,46 @@ Secondary textures: https://docs.unity3d.com/Packages/com.unity.render-pipelines
 - Earlier production baseline real-keyboard parry succeeds(score30/40HP) but old
   Current tail is absent at falling sample. New production124717 is building from
   the same8ba1input; actual production/public parry images still required.
+
+
+### Physical parry default correction published (2026-10-19)
+
+- Root cause: prior default Current remained selected in production; earlier compact
+  tests used F6, and the first production/public smoke only proved menu/Fight/pause.
+  User's report was valid. Latest separate full release19872500 also used Current.
+  Preserved its main933dbbd fixes; owner default, serialized Player prefab and
+  CombatFeedbackBuild now all select BCompact4 without F6. Current stays explicit.
+- Focused Quick123645:14/14 PASS,0skips; QA123737 build/repeated-builder and native
+  default/r2:16checks PASS. Fresh/restarted game emits BCompact without selection;
+  20particles remain at300/550/800ms,12at1050ms, minY reaches-2.8713007 floor.
+  Initial10check native attempt failed on stale post-reload probe data, retained FAIL;
+  corrected observer waits3fresh frames/empty roots. No gameplay timing changes.
+- Production124717 PASS on the same8ba1dda11a10270a96b8f096c30df977ee6f4e7c085b0c1340196a52216400a2
+  input. qa=false/all JS/WASM/data scanned. Real-keyboard production parry smoke5
+  checks PASS,0JS exceptions/writes,1successful parry,0F6. Launch/fall458ms/
+  bounce704ms/rest966ms images visually verified. Current-baseline parry lacks tail.
+- Published playable19874589 at https://micharel09.itch.io/clackblade; old19872500
+  retained hidden. Public page points to that exact iframe;29non-HTML CDN hashes
+  match ZIP and HTML adds only expected itch wrapper. Same public CDN actual game
+  independently passes5checks/1real keyboard parry/0F6/0writes/0JS exceptions;
+  inspected launch,fall457ms,bounce703ms,rest964ms images show physical particles.
+  This directly verifies default public combat, not just a menu or QA-only preset.
+- ZIP CLACKBLADE-Physics24-20261019.zip:30members/16,596,608bytes,CRC PASS,SHA256
+ 541e806b5557e7091198b1d269f5104149f1135bf65d254c06a5cb545c907e1c.
+  Receipt marketing/itch-io/full-release-20261019.json, brand receipt reconciled;
+  ignored ZIP in Builds/. Storefront settings hashcb998ee631f065a1c43833b8836b490e6300ecc4ebfc0a8e304f3330bd9bab27
+  unchanged. No Firebase/schema/other gameplay changes; mirrored QA not requested.
+- Correction e79c185 pushed atomically to origin/main and feat/pixel-hit-sparks;
+  receipt commit follows. Parent local checkout/WIP untouched. Keep requested child,
+  compact-default-qa/production players, screenshots/reports, source input and all
+  earlier review clips under E:/CodexTemp/TypingHero/parry-clash-lighting; temporary
+  Edge caches cleaned after receipt. Browser session stopped after public check.
+  Prior mirror performance concerns remain unresolved; this correction changes routing,
+  not the already-reviewed24particle trajectory/appearance. No new broad performance claim.
+
+- Handoff:5completed compact-default Edge profiles removed; evidence/player/clips
+  retained. Automatic review rejected the combined cleanup/receipt push to main
+  because publication did not explicitly authorize that documentation update to the
+  default branch. No rejected command ran. Completed safe cleanup independently;
+  final receipt is committed/pushed only to the already-authorized feature branch.
+  Runtime correction e79c185 is already on main and public19874589 verified above.

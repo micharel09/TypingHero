@@ -3,7 +3,7 @@
 Current source brand: **CLACKBLADE**, slogan **TYPE TO SLASH**. Gameplay and stable technical
 identifiers remain unchanged by the rename. Native menu960x540/640x360 and
 same-artifact name reload verified. Public release: https://micharel09.itch.io/clackblade
-(upload19872290). Endless online reads still401; Firebase unchanged.
+(upload19874589). Endless online reads still401; Firebase unchanged.
 
 ## Endless Duel (2026-10-19)
 
