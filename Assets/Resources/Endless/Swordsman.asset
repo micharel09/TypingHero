@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   role: 0
   displayName: SWORDSMAN
-  hint: Read each cue. From round 2, watch for thrusts.
+  hint: Read each cue and parry the sword swing.
   health: 180
   damage: 5
   hitCost: 12

@@ -16,10 +16,31 @@ Offline regression covers repeated completion/death/Continue, six wins without
 healing and five-difficulty restart/best/pending. Browser driver now targets one
 boss and repeated Enter, Victory/table at both sizes, Restart/early death/Classic.
 
-Verification in progress: shared runner initially busy; queued Quick and a fresh
-QA snapshot. Previous QA receipts below do not certify this change. Current task
-temporary artifacts: E:/CodexTemp/TypingHero/first-boss; retain only until written
-verification/cleanup. No branch/worktree/commit/push created.
+Verification in progress:
+- Fresh QA20261019T092658-webgl/repeat-builder PASS, immutable input
+  01e664daea64b35d932b2badbed96796402ceceb8d613e066342209ff8ca121e.
+- Exact-input Quick20261019T093959:105/105 PASS,0failed/skipped,39.661s.
+  Includes terminal callback/Continue idempotency, six defeats/no heal, retained
+  old18-defeat best and all five difficulty restarts. Runner contracts8/8 PASS.
+- Native Edge155.0.4283.62/ANGLE D3D11/GTX1650Ti/Playwright1.58.2: pending/reload/
+  original-partition retry and six tutorial lessons85/85 PASS,99.883s.
+- Native five-level matrix4155/4155 PASS,30wins,633.236s; five intercepted
+  Endless writes, zero Classic writes/unhandled exceptions. All flows pass. Reviewed Victory960x540/640x360 and kills/score table at both sizes.
+- Software Chromium pilot failed at Heavy with2defeats/2007checks; no full software
+  PASS. Native initial selector observation raced input; fixed driver waits for
+  key release/updated selection, without game or acceptance changes.
+- Previous receipts below do not certify this change. Seven affected runtime/test
+  files still match the frozen QA byte-for-byte. Later concurrent input compatibility
+  fields, VFX/asset/importer/probe/editor changes are preserved and outside this
+  snapshot. Our later builder header copy matches the runtime binder already tested.
+- Final visual review caught outdated Swordsman round2 and Captain heal10 hints.
+  Corrected both assets and their existing builder, preserving GUIDs/stats. A new
+  current-checkout QA and Quick are queued after those copy corrections; earlier
+  matrix does not certify the later concurrent VFX/input checkout.
+- Task temp:E:/CodexTemp/TypingHero/first-boss. Owned server results:092658-webgl,
+  093959-quick under /data/typinghero-game-loop/results. Keep until written final
+  receipts and cleanup. Shared source/Library/toolchain/build-qa remain reusable.
+  No branch/worktree/commit/push/deploy/production Firebase mutation by this task.
 
 ---
 

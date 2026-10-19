@@ -120,5 +120,6 @@
   "pricing": {
     "min_price": "$0.00",
     "suggested_price": "$1.00"
-  }
+  },
+  "sourceScope": "Immutable0fd release freeze; subsequent lighting/parry-clash working-tree changes are preserved and not included"
 }

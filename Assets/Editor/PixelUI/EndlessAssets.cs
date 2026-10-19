@@ -42,12 +42,12 @@ internal static class EndlessAssets
             }
             EditorUtility.SetDirty(controller);
         }
-        Role(EndlessRole.Swordsman, "SWORDSMAN", "Read each cue. From round 2, watch for thrusts.", "sword", 180, 5, 1.7f, 12, new[] { 1 }, new[] { 2 });
+        Role(EndlessRole.Swordsman, "SWORDSMAN", "Read each cue and parry the sword swing.", "sword", 180, 5, 1.7f, 12, new[] { 1 }, new[] { 2 });
         Role(EndlessRole.DoubleStrike, "DOUBLE STRIKE", "Two attacks, two cues. Stay ready to parry again.", "sword", 200, 5, 1.7f, 12, new[] { 1, 2 }, new[] { 1, 2 });
         Role(EndlessRole.Heavy, "HEAVY", "Heavy axe, 8 damage. Parry, then type during the long recovery.", "axe", 240, 8, 2.5f, 12, new[] { 1 }, new[] { 1 });
         Role(EndlessRole.Berserker, "BERSERKER", "Three axe attacks. Parry every cue, punish the recovery.", "axe", 200, 5, 2.5f, 12, new[] { 2, 1, 2 }, new[] { 2, 1, 2 });
         Role(EndlessRole.Guard, "GUARD", "Typing deals full damage. Parry breaks shield stamina much faster.", "sword-shield", 200, 5, 1.7f, 4, new[] { 1 }, new[] { 2 });
-        Role(EndlessRole.Captain, "CAPTAIN · BOSS", "Singles, doubles, then triples as HP falls. Win to heal 10 HP.", "sword-shield", 550, 5, 1.7f, 12, new[] { 1 }, new[] { 1, 2 });
+        Role(EndlessRole.Captain, "CAPTAIN · BOSS", "Singles, doubles, then triples as HP falls. Defeat the boss to win.", "sword-shield", 550, 5, 1.7f, 12, new[] { 1 }, new[] { 1, 2 });
         AssetDatabase.SaveAssets();
     }
 

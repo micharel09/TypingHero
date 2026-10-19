@@ -50,6 +50,14 @@ Handoff status (public NOT released):
 - Firebase proposal approval remains unanswered. Five Endless paths deny production reads; no rules/publish/write performed. Release must wait for explicit source/backend scope decision and successful dependent-flow acceptance, then production build/ZIP and verified public payload. Existing playable19865461 remains the recorded rollback/current upload, not modified.
 - Owned native harnesses have exited; task player/screenshots/report retained at E:/CodexTemp/TypingHero/hud-r7-release/ for diagnosing failures and final rerun. Shared daemon and owner Orca editor retained, no shared cache/process cleanup. Remove task temp only after acceptance evidence is written and no longer needed. No commit/push/itch upload/save made.
 
+## Follow-up: full push and itch publication
+
+User explicitly requested push and full itch publication after the gated handoff. All existing dirty feature/design/product sources committed as b99ec3c, concurrent verification reconciled in e0169e8; remote c1f4841 Parry/lighting work merged in feeb85b. Scene conflicts retained authored HUD/Endless scenes and run remote WorldLightingBuild before CombatR7Build to regenerate additions without YAML ID collisions. Browser/runner scenario conflicts preserve both suites. Immutable production copy added in bf98c27. Git origin https://github.com/micharel09/TypingHero.git main verified equal bf98c272a7b9db9461e70441fb257ef1f5f14a21 after push. No force push.
+
+BrowserSkill owned xsep/Edge61a46c05 fresh owner editor confirms CLACKBLADE/game3857509, current playable19871730, previous19865461 retained hidden. Orca editor returned stale old title/upload after reload; do not save its form. Continue upload/selection with the freshly observed BrowserSkill editor, preserving theme/copy/pricing/slug. Full publication retains current known Endless online401 limitation; Firebase rules untouched.
+
+Pending final merged Quick and immutable production build, real-keyboard production smoke, ZIP/hash and public payload verification. No release completion claim yet.
+
 Temporary resources: E:/CodexTemp/TypingHero/hud-r7-release/ for task inventory/logs; retain while task active and remove after written receipts.
 
 ---
