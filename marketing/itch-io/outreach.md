@@ -1,28 +1,33 @@
 # International discovery — prepared copy and measurement
 
+Current campaign: [14-day manual schedule and prepared copy](discovery-14-days.md).
+The older drafts and media receipts below are historical. Use the current campaign
+for posting; its guest-name candidate is not yet published.
+
+
 ## Profile bio
 
-Making my first game, Typing Hero: type to slash, press Space to parry, and chase
+Making my first game, CLACKBLADE: type to slash, press Space to parry, and chase
 the high score. Play free in your desktop browser with a keyboard.
 
 ## Typing community pitch — draft, not posted
 
 Title: Can your typing speed win a sword duel?
 
-I'm making Typing Hero, a free browser game where completing words swings your
+I'm making CLACKBLADE, a free browser game where completing words swings your
 sword. Space parries the skeleton's attacks; breaking its stamina triggers Slayer
 mode, where correct keystrokes unleash rapid strikes.
 
 I'd love feedback from people who enjoy typing games: can you keep your accuracy
 while watching for the next attack? Try a run and share your best score.
 
-Desktop + keyboard: https://micharel09.itch.io/typing-hero
+Desktop + keyboard: https://micharel09.itch.io/clackblade
 
 Attach `gameplay-typing-parry-slayer.mp4` (or GIF when required).
 
 ## Indie community pitch — draft, not posted
 
-Title: Typing Hero — type to attack, Space to parry (free browser game)
+Title: CLACKBLADE — type to attack, Space to parry (free browser game)
 
 This is my first game: a pixel-art sword duel controlled by typing and parry timing.
 Finish words to attack, break enemy stamina for Slayer mode, and chase a place on
@@ -31,7 +36,7 @@ the Top 1000 leaderboard. The current browser build has a refreshed pixel UI.
 I'd appreciate feedback on whether the typing/parry rhythm is easy to understand
 on your first run. Best scores are welcome too.
 
-Play free on desktop with a keyboard: https://micharel09.itch.io/typing-hero
+Play free on desktop with a keyboard: https://micharel09.itch.io/clackblade
 
 Attach the same gameplay clip used for the typing community.
 

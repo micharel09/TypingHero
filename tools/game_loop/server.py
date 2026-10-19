@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import signal
 import subprocess
 import sys
 import tarfile
@@ -64,11 +65,24 @@ def main():
     scenario = sys.argv[4] if len(sys.argv) > 4 else 'full'
     profile_allocations = len(sys.argv) > 5 and sys.argv[5] == '1'
     if profile_allocations and profile != 'webgl': raise ValueError('Allocation profiling requires WebGL QA')
-    if scenario not in ('full', 'skeleton-art', 'attack-sorting', 'score-layout', 'pixel-sparks', 'pixel-sparks-parry', 'parry-clash') or (scenario != 'full' and profile != 'webgl'):
+    if scenario not in ('full', 'skeleton-art', 'attack-sorting', 'score-layout', 'pixel-sparks', 'pixel-sparks-parry', 'endless', 'combat-r7', 'parry-clash') or (scenario != 'full' and profile != 'webgl'):
         raise ValueError('Unsupported browser scenario/profile')
     BASE.mkdir(parents=True, exist_ok=True)
     with (BASE / "runner.lock").open("w") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        wait_seconds = int(sys.argv[6]) if len(sys.argv) > 6 else 0
+        if not 0 <= wait_seconds <= 600: raise ValueError('Invalid runner lock wait')
+        if wait_seconds:
+            def lock_timeout(signum, frame):
+                raise TimeoutError('Timed out waiting for shared runner lock')
+            previous_alarm = signal.signal(signal.SIGALRM, lock_timeout)
+            signal.alarm(wait_seconds)
+            print('Waiting for shared runner lock (existing jobs preserved)', flush=True)
+            try: fcntl.flock(lock, fcntl.LOCK_EX)
+            finally:
+                signal.alarm(0)
+                signal.signal(signal.SIGALRM, previous_alarm)
+        else:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         # The source directory is task-owned; replace source, retain Library and toolchain.
         staging = BASE / "incoming"
         if staging.exists(): shutil.rmtree(staging)
@@ -168,6 +182,15 @@ def main():
                   "unity-editor", "-batchmode", "-nographics", "-projectPath", "/project",
                   "-logFile", "/results/unity.log", *extra], timeout=5400)
 
+        if profile == "serialize":
+            unity(["-quit", "-buildTarget", "WebGL", "-executeMethod", "PixelUIBuild.SerializeOnly"], qa=True)
+            for relative in ('Assets/Scenes/SampleScene.unity', 'Assets/Art/UI/CombatR7', 'Assets/Art/UI/CombatR7.meta'):
+                target = result / 'serialized' / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                if (SOURCE / relative).is_dir(): shutil.copytree(SOURCE / relative, target)
+                else: shutil.copy2(SOURCE / relative, target)
+            print(f"PASS: repeat builder and serialized assets: {result}", flush=True)
+            return
         if profile == "windows":
             module = Path.home() / "typinghero-game-loop/toolchain/windows-mono-2022.3.25f1/WindowsStandaloneSupport"
             if not (module / "Variations/win64_player_nondevelopment_mono").is_dir():
@@ -175,9 +198,9 @@ def main():
             unity(["-quit", "-buildTarget", "Win64", "-executeMethod", "GameLoopBuild.Windows64"],
                   build="build-windows", modules=["-v", f"{module}:/opt/unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport:ro"])
             build = BASE / "build-windows"
-            for name in ["TypingHero.exe", "UnityPlayer.dll", "TypingHero_Data/Managed/TypingHero.Runtime.dll"]:
+            for name in ["CLACKBLADE.exe", "UnityPlayer.dll", "CLACKBLADE_Data/Managed/TypingHero.Runtime.dll"]:
                 if not (build / name).is_file(): raise RuntimeError("Windows build missing " + name)
-            assembly = (build / "TypingHero_Data/Managed/TypingHero.Runtime.dll").read_bytes()
+            assembly = (build / "CLACKBLADE_Data/Managed/TypingHero.Runtime.dll").read_bytes()
             if b"GameLoopProbe" in assembly: raise RuntimeError("QA probe present in Windows build")
             print("PASS: Windows64 build complete; QA probe excluded", flush=True)
             return
@@ -200,14 +223,17 @@ def main():
                 if "typingHeroQA" in path.read_text(errors="replace"):
                     raise RuntimeError("QA bridge present in production JavaScript")
             print("PASS: normal WebGL build excludes QA bridge", flush=True)
+            shutil.copytree(build, result / 'player')
+            print(f"Production player preserved: {result / 'player'}", flush=True)
             return
-        if scenario.startswith('pixel-sparks') or scenario == 'parry-clash':
+        if scenario.startswith('pixel-sparks') or scenario in ('endless', 'combat-r7', 'parry-clash'):
             # Preserve this exact player before releasing the shared runner lock.
             # Native QA must not race another task replacing build-qa.
             immutable = result / 'player'
             shutil.copytree(build, immutable)
             for relative in ('Assets/Scenes/MainMenu.unity', 'Assets/Scenes/SampleScene.unity',
                              'Assets/Characters/Player/Player.prefab', 'Assets/Characters/Enermy/Skeleton.prefab',
+                             'Assets/Art/UI/CombatR7', 'Assets/Art/UI/CombatR7.meta',
                              'Assets/Art/VFX/PixelSparks', 'Assets/Art/VFX/PixelSparks.meta',
                              'Assets/Art/Lighting', 'Assets/Art/Lighting.meta',
                              'Assets/Art/VFX/ParryClash', 'Assets/Art/VFX/ParryClash.meta'):
@@ -226,6 +252,8 @@ def main():
         browser = (BASE / "browser-image.txt").read_text().strip()
         container(["--cpus", "2", "--memory", "8g", "--shm-size", config["browserSharedMemory"], "--network", "none",
               *(['-e', 'TYPINGHERO_SKELETON_ART_ONLY=1'] if scenario == 'skeleton-art' else []),
+              *(['-e', 'TYPINGHERO_ENDLESS_ONLY=1'] if scenario == 'endless' else []),
+              *(['-e', 'TYPINGHERO_HUD_R7_ONLY=1'] if scenario == 'combat-r7' else []),
               *(['-e', 'TYPINGHERO_SCORE_LAYOUT_ONLY=1'] if scenario == 'score-layout' else []),
               *(['-e', 'TYPINGHERO_ATTACK_SORTING_ONLY=1'] if scenario == 'attack-sorting' else []),
               *(['-e', 'TYPINGHERO_PIXEL_SPARKS_ONLY=1'] if scenario in ('pixel-sparks', 'pixel-sparks-parry', 'parry-clash') else []),

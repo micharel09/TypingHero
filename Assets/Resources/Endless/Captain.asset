@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f915df9271c2dcaf8bded4be22671b56, type: 3}
+  m_Name: Captain
+  m_EditorClassIdentifier:
+  role: 5
+  displayName: "CAPTAIN \xB7 BOSS"
+  hint: Singles, doubles, then triples as HP falls. Win to heal 10 HP.
+  health: 550
+  damage: 5
+  hitCost: 12
+  recovery: 1.7
+  controller: {fileID: 9100000, guid: 177a47d3d3f82dc919036928bd2664fa, type: 2}
+  idle: {fileID: 4723107735738678597, guid: f2be2f415097b625d9a799fbd6a307cb, type: 3}
+  hurt: {fileID: 7400000, guid: 50b877542a1b467c48e5ba621414ad2c, type: 2}
+  opening: 01000000
+  alternate: 0100000002000000
+  triple: 020000000100000002000000

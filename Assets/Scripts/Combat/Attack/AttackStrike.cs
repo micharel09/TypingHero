@@ -18,7 +18,10 @@ public class AttackStrike : MonoBehaviour
 
     IDamageable _target;
     bool spent = true;
-    public void BeginSwing() { spent = false; }
+    int swingDamage;
+    public void BeginSwing() { spent = false; swingDamage = damage; }
+    internal void BeginSwing(int amount) { BeginSwing(); swingDamage = amount; }
+    internal void CancelSwing() { spent = true; }
     float _parryLockUntilUnscaled = -1f;
 
     void Update()
@@ -76,7 +79,7 @@ public class AttackStrike : MonoBehaviour
 
         // Gây damage
         Vector2 hitPoint2D = (Vector2)transform.position;
-        _target.TakeDamage(damage, hitPoint2D);
+        _target.TakeDamage(swingDamage, hitPoint2D);
 
         // Hitstop (nếu có)
         if (HitStopper.I != null)
@@ -85,7 +88,7 @@ public class AttackStrike : MonoBehaviour
             else if (hitStopTarget == HitStopWho.Enemy) HitStopper.I.StopEnemyHit();
         }
 
-        if (logs) Debug.Log($"[AttackStrike] DealDamage={damage} at {hitPoint2D}.");
+        if (logs) Debug.Log($"[AttackStrike] DealDamage={swingDamage} at {hitPoint2D}.");
     }
 
     // -------------- Helpers --------------

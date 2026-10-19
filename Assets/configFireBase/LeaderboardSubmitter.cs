@@ -16,7 +16,7 @@ public sealed class LeaderboardSubmitter : MonoBehaviour
 
     public void SubmitFinalScore(int finalScore)
     {
-        if (TutorialRun.Active) return;
+        if (TutorialRun.Active || EndlessDuel.I) return;
         if (leaderboard == null) leaderboard = FindObjectOfType<FirebaseLeaderboard>();
         if (leaderboard == null) { Debug.LogError("[LB_Submit] Missing FirebaseLeaderboard."); return; }
         if (_busy) return;

@@ -109,6 +109,17 @@ public sealed class GameLoopProbe : MonoBehaviour
     }
     [Serializable] sealed class State
     {
+        public bool endless, encounterReading;
+        public int endlessRound, endlessSlot, defeated;
+        public string opponent;
+        public string runDifficulty, menuDifficulty, tableDifficulty;
+        public float difficultyPace, recoverySeconds, comboWindowSeconds, comboRemaining, gameplayClock;
+        public float unscaledClock, enemyNextAttackAt;
+        public int enemyChainRemaining;
+        public bool hitLocked, deadLocked, typingMuted;
+        public int playerCurrentState, playerNextState;
+        public float playerAnimatorTime, playerAnimatorSpeed, playerStateSpeed;
+        public bool playerHitStateActive, playerAnimatorTransition, playerAnimatorEnabled;
         public SortingFrame playerSorting;
         public SparkFrame[] sparks;
         public int sparkMask;
@@ -121,13 +132,15 @@ public sealed class GameLoopProbe : MonoBehaviour
         public int inputLetters, inputCorrect, matchParries, finalScore, stamina, nextProgress;
         public string result;
         public string enemySprite, enemyTexture;
-        public float enemyAnimationTime, frameMs, scroll, timeScale, wordTime;
+        public float enemyAnimationTime, frameMs, scroll, timeScale, wordTime, rowError, rowSlide;
         public long memory;
         public long allocatedBytes;
         public bool allocationCounterAvailable;
         public int rows, dataRows, pool, firstVisible, width, height;
         public bool virtualized;
         public bool leaderboardOpen;
+        public int collectionMode;
+        public string collectionTitle, collectionDetails, collectionStatus, selectedControl, collectionFirstRow;
         public bool tutorial, tutorialPracticing, tutorialPassed, tutorialRetry, stunned;
         public int tutorialLesson, tutorialStatus;
         public float cameraOrtho, multiplier, scorePulse, scoreZoom, redAlpha;
@@ -135,10 +148,12 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool environmentVisible, hudPanelVisible;
         public Vector2 barTopEdge, barBottomEdge, scorePoint, trayPoint, bodyHead, bodyFoot;
         public float barLeft, barRight;
+        public Rect scoreGlyphRect, comboGlyphRect, comboDecayRect;
+        public float scoreFont, comboFont, barReveal;
         public Rect playerStatusRect, enemyStatusRect, trayRect, scoreRect, multiplierRect, staminaRect;
         public Vector2 playerFootPoint, enemyFootPoint;
         public float playerHpFill, enemyHpFill, staminaFill;
-        public Rect[] wordRects;
+        public Rect[] wordRects, wordGlyphRects;
         public Rect popupRect, decayRect;
         public Vector2 popupPoint;
         public float popupAlpha, popupFont, popupElapsed;
@@ -166,6 +181,24 @@ public sealed class GameLoopProbe : MonoBehaviour
         float offset = text.alignment == TextAlignmentOptions.Center ? (rt.rect.width - text.preferredWidth) * .5f : 0;
         var min = rt.TransformPoint(new Vector3(rt.rect.xMin + offset, rt.rect.yMin, 0));
         var max = rt.TransformPoint(new Vector3(rt.rect.xMin + offset + text.preferredWidth, rt.rect.yMax, 0));
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+    }
+    static Rect GlyphRect(TMP_Text text)
+    {
+        if (!text || !text.gameObject.activeInHierarchy) return default;
+        Vector2 min = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+        Vector2 max = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+        for (int i = 0; i < text.textInfo.characterCount; i++)
+        {
+            var c = text.textInfo.characterInfo[i];
+            if (!c.isVisible) continue;
+            var m = c.textElement.glyph.metrics;
+            var topLeft = text.transform.TransformPoint(new Vector3(
+                c.origin + m.horizontalBearingX * c.scale, c.baseLine + m.horizontalBearingY * c.scale, 0));
+            var bottomRight = topLeft + text.transform.TransformVector(new Vector3(m.width, -m.height, 0) * c.scale);
+            min = Vector2.Min(min, bottomRight); min = Vector2.Min(min, topLeft);
+            max = Vector2.Max(max, bottomRight); max = Vector2.Max(max, topLeft);
+        }
         return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
     }
     [Serializable] sealed class Point { public string name, kind; public float x, y; }
@@ -213,8 +246,10 @@ public sealed class GameLoopProbe : MonoBehaviour
     IEnumerator Publish()
     {
         var wait = new WaitForSecondsRealtime(.1f);
+        var rendered = new WaitForEndOfFrame();
         while (true)
         {
+            yield return rendered;
             var typing = FindObjectOfType<TypingManager>();
             var health = FindObjectOfType<PlayerHealth>();
             var enemy = FindObjectOfType<SkeletonController>();
@@ -255,6 +290,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                     y = 1f - p.y / Screen.height });
             }
             var match = CombatSession.I;
+            var endless = EndlessDuel.I ? EndlessDuel.I.Run : null;
             var help = FindObjectOfType<HowToPlayPanel>();
             var cue = Read<GameObject>(enemy, "attackCue");
             var controller = FindObjectOfType<PlayerController>();
@@ -290,9 +326,20 @@ public sealed class GameLoopProbe : MonoBehaviour
             var tray = Read<RectTransform>(fx, "typingTray");
             var award = FindObjectOfType<FloatingScore>();
             var awardLabel = award ? award.GetComponentInChildren<TMP_Text>() : null;
+            var playerInfo = sortingAnimator ? sortingAnimator.GetCurrentAnimatorStateInfo(0) : default;
+            bool playerTransition = sortingAnimator && sortingAnimator.IsInTransition(0);
+            int playerNext = playerTransition ? sortingAnimator.GetNextAnimatorStateInfo(0).fullPathHash : 0;
+            int hitState = health ? Animator.StringToHash(health.hitStatePath) : 0;
             var state = new State
             {
                 playerSorting = sortingFrame,
+                playerCurrentState = playerInfo.fullPathHash, playerNextState = playerNext,
+                playerAnimatorTime = playerInfo.normalizedTime,
+                playerAnimatorSpeed = sortingAnimator ? sortingAnimator.speed : 0,
+                playerStateSpeed = playerInfo.speed * playerInfo.speedMultiplier,
+                playerAnimatorTransition = playerTransition,
+                playerAnimatorEnabled = sortingAnimator && sortingAnimator.isActiveAndEnabled,
+                playerHitStateActive = hitState != 0 && (playerInfo.fullPathHash == hitState || playerNext == hitState),
                 sparks = sparks, sparkMask = sparkMask, lastError = lastError,
                 popupRect = TextRect(awardLabel), popupAlpha = awardLabel ? awardLabel.color.a : 0,
                 popupFont = awardLabel ? awardLabel.fontSize : 0,
@@ -307,6 +354,11 @@ public sealed class GameLoopProbe : MonoBehaviour
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
                 decayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
                 playerStatusRect = ScreenRect(playerStatus), enemyStatusRect = ScreenRect(enemyStatus),
+                scoreGlyphRect = GlyphRect(scoreLabel), comboGlyphRect = GlyphRect(multiplierLabel),
+                comboDecayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
+                scoreFont = scoreLabel ? scoreLabel.fontSize : 0,
+                comboFont = multiplierLabel ? multiplierLabel.fontSize : 0,
+                barReveal = fx ? fx.BarReveal : 0,
                 trayRect = ScreenRect(tray), scoreRect = TextRect(scoreLabel), multiplierRect = TextRect(multiplierLabel),
                 staminaRect = staminaSlider ? ScreenRect((RectTransform)staminaSlider.transform) : default,
                 playerFootPoint = layout && bodyA ? (Vector2)Camera.main.WorldToScreenPoint(layout.Foot(bodyA)) : default,
@@ -315,6 +367,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 enemyHpFill = enemyHpSlider ? enemyHpSlider.normalizedValue : -1,
                 staminaFill = staminaSlider ? staminaSlider.normalizedValue : -1,
                 wordRects = new[] { TextRect(Read<TMP_Text>(typing, "wordText")), TextRect(Read<TMP_Text>(typing, "nextWordText")), TextRect(Read<TMP_Text>(typing, "thirdWordText")) },
+                wordGlyphRects = new[] { GlyphRect(Read<TMP_Text>(typing, "wordText")), GlyphRect(Read<TMP_Text>(typing, "nextWordText")), GlyphRect(Read<TMP_Text>(typing, "thirdWordText")) },
                 multiplier = ScoreSystem.I ? ScoreSystem.I.Multiplier : 1,
                 scorePulse = scoreLabel ? scoreLabel.transform.localScale.x : 1,
                 scoreZoom = scoreRoot ? scoreRoot.localScale.x : 1,
@@ -336,6 +389,25 @@ public sealed class GameLoopProbe : MonoBehaviour
                 tutorialPassed = tutorial && tutorial.Passed,
                 stunned = enemy && enemy.GetComponent<EnemyStunController>() && enemy.GetComponent<EnemyStunController>().IsStunned,
                 scene = SceneManager.GetActiveScene().name, frame = Time.frameCount,
+                endless = endless != null,
+                encounterReading = GamePauseController.EncounterReading,
+                endlessRound = endless != null ? endless.Round : 0,
+                endlessSlot = endless != null ? endless.Slot : 0,
+                defeated = endless != null ? endless.Defeated : 0,
+                opponent = endless != null ? endless.Enemy.Name : "",
+                runDifficulty = endless != null ? endless.Difficulty.Id() : "",
+                menuDifficulty = EndlessDifficulties.Selected.Id(),
+                tableDifficulty = board ? board.Difficulty.Id() : "",
+                difficultyPace = endless != null ? endless.Difficulty.Pace() : 1f,
+                recoverySeconds = endless != null ? endless.Recovery : 0,
+                comboWindowSeconds = ScoreSystem.I ? ScoreSystem.I.ComboWindowSeconds : 0,
+                comboRemaining = Read(ScoreSystem.I, "_windowRemain", 0f),
+                gameplayClock = Time.time,
+                unscaledClock = Time.unscaledTime,
+                enemyNextAttackAt = Read(enemy, "_nextAttackAt", 0f),
+                enemyChainRemaining = Read(enemy, "remainingSwings", 0),
+                hitLocked = gate && gate.IsHitLocked, deadLocked = gate && gate.IsDeadLocked,
+                typingMuted = TypingManager.MuteWordCorrect,
                 finished = CombatSession.Finished, cue = cue && cue.activeInHierarchy,
                 pendingAttack = Read(controller, "pendingAttack", false), parryPose = gate && gate.IsParryPoseLocked,
                 helpOpen = help && help.IsOpen, helpSeen = HowToPlayPanel.Seen,
@@ -353,10 +425,11 @@ public sealed class GameLoopProbe : MonoBehaviour
                 enemyTexture = enemyRenderer && enemyRenderer.sprite ? enemyRenderer.sprite.texture.name : "",
                 words = words, chars = chars, parries = parries, errors = errors,
                 slayer = slayer && slayer.IsActive, parryWindow = parry && parry.IsWindowActive,
-                canParry = gate && gate.CanParry, enemyAttacking = attacking,
+                canParry = gate && gate.CanParry && (!parry || !parry.PoseLocked), enemyAttacking = attacking,
                 enemyAnimationTime = info.normalizedTime, overlay = Read(pause, "_overlayLocked", false),
                 paused = Read(pause, "_paused", false), frameMs = Time.unscaledDeltaTime * 1000,
                 timeScale = Time.timeScale, wordTime = Read(typing, "timer", 0f),
+                rowError = Read(typing, "errorRemaining", 0f), rowSlide = Read(typing, "slideRemaining", 0f),
                 memory = Profiler.GetTotalAllocatedMemoryLong(), allocatedBytes = frameAllocations.Valid ? frameAllocations.LastValue : -1,
                 allocationCounterAvailable = frameAllocations.Valid,
                 objects = Resources.FindObjectsOfTypeAll<GameObject>().Length,
@@ -364,6 +437,13 @@ public sealed class GameLoopProbe : MonoBehaviour
                 dataRows = data == null ? 0 : data.Count,
                 virtualized = Read(board, "virtualizeRows", false), firstVisible = Read(board, "_firstVisible", -1),
                 leaderboardOpen = LeaderboardModal.IsOpen, cameraOrtho = Camera.main ? Camera.main.orthographicSize : 0,
+                collectionMode = Read(board, "mode", -1),
+                collectionTitle = Read<TMP_Text>(board, "title")?.text ?? "",
+                collectionFirstRow = data != null && data.Count > 0 ? data[0].name : "",
+                collectionDetails = Read<TMP_Text>(board, "detailText")?.text ?? "",
+                collectionStatus = Read<TMP_Text>(board, "emptyLabel")?.text ?? "",
+                selectedControl = UnityEngine.EventSystems.EventSystem.current && UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject ?
+                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name : "",
                 rowHeight = Read(board, "_rowHeight", 0f), viewportHeight = scroll && scroll.viewport ? scroll.viewport.rect.height : 0f,
                 pool = pool == null ? 0 : pool.Count, scroll = scroll ? scroll.verticalNormalizedPosition : -1,
                 rowIds = pool == null ? Array.Empty<int>() : pool.Where(r => r).Select(r => r.GetInstanceID()).ToArray(),

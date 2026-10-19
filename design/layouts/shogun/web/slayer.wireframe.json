@@ -14,31 +14,33 @@
     "gap": 12,
     "children": [
       {
-        "name": "Fixed screen corner / right24 top24 / no frame",
+        "name": "Upper black frame / centered total+combo group / reveal220ms",
         "direction": "horizontal",
-        "justify": "flex-end",
-        "height": 72,
+        "justify": "center",
+        "height": 110,
         "children": [
           {
-            "name": "font24 total / font16 combo below / x1 hidden",
-            "width": 240,
+            "name": "Total48 / combo24 / gap4 / centered actual glyphs + pulse",
+            "width": 600,
             "direction": "vertical",
             "children": [
               {
                 "name": "128450",
                 "type": "text",
                 "variant": "heading",
-                "height": 28
+                "height": 48
               },
               {
                 "name": "x2.5 / decay",
                 "type": "text",
-                "height": 20
+                "height": 24
               }
             ],
-            "align": "flex-end"
+            "align": "center",
+            "gap": 4
           }
-        ]
+        ],
+        "align": "center"
       },
       {
         "name": "Standing bodies + enemy-head award +18 / right24 up12 / rise18",

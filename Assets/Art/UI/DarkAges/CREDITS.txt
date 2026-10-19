@@ -1,6 +1,6 @@
 Dark Ages UI v1.0 by Hypnobius
 https://hypnobius.itch.io/dark-ages-ui
-Used in TypingHero under the included DarkAges-License.txt.
+Used in CLACKBLADE under the included DarkAges-License.txt.
 Original tilesheet sliced in Unity; Point filtering and 9-slice borders.
 
 Input Prompts Pixel by Kenney (CC0)

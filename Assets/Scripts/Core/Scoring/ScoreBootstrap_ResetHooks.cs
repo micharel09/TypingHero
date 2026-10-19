@@ -18,7 +18,7 @@ public class ScoreBootstrap_ResetHooks : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(restartKey))
+        if (!EndlessDuel.I && Input.GetKeyDown(restartKey))
         {
             ScoreSystem.I?.ResetScore();
             // nếu bạn đã có code reload scene ở nơi khác thì bỏ dòng dưới

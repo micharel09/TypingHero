@@ -30,6 +30,12 @@ public sealed class LeaderboardRowView : MonoBehaviour
         }
     }
 
+    public void BindEndless(int rank, EndlessLeaderboard.Entry entry)
+    {
+        Bind(rank, entry.name, entry.score);
+        if (scoreText) scoreText.text = $"{entry.defeated} / {entry.score}";
+    }
+
     public void SetBackground(Color c)
     {
         if (background != null) background.color = c;

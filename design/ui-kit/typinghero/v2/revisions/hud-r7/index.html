@@ -1,0 +1,12 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HUD r7 — điểm đọc ổn định</title>
+<style>body{margin:16px;background:#14111e;color:#f2e7cf;font:15px system-ui}a{color:#dcc18a}button,input,select{font:inherit}label,button{margin:6px}main{display:flex;flex-wrap:wrap;gap:16px}figure{margin:0;max-width:100%;overflow:auto}canvas{display:block;image-rendering:pixelated}figcaption{margin:8px 0}p{max-width:950px;line-height:1.5}#controls{margin:16px 0}</style>
+<h1>HUD r7 — spacing cân</h1><p><a href="README.md">Nguồn và kiểm chứng</a> · <a href="contract.md">Contract</a> · <a href="../hud-r6/index.html">R6 gốc</a>. Hai khung cùng queue/input; giữ toàn từ, chỉ đổi màu tiến độ.</p>
+<div id="controls">
+<label>Chuỗi <select id="fixture"><option value="normal">Mẫu r4</option><option value="pool">Pool thật219</option><option value="long">Ba từ dài nhất</option><option value="short">Từ ngắn liên tiếp</option><option value="mixed">Ngắn–dài xen kẽ</option><option value="stress">Stress ngoài pool</option></select></label>
+<label><input id="slayer" type="checkbox">Slayer</label><label><input id="gray" type="checkbox">Grayscale</label><label><input id="reduced" type="checkbox">Giảm chuyển động</label>
+<label>Phóng <select id="scale"><option>1</option><option>2</option><option>4</option></select>×</label>
+<button id="order">Đảo thứ tự r6/r7</button><button id="reset">Replay từ đầu</button>
+<label>Gõ thử <input id="entry" autocomplete="off" autocapitalize="off" spellcheck="false"></label><button id="correct">Đúng một chữ</button><button id="wrong">Sai một chữ</button><output id="status" aria-live="polite"></output></div>
+<p id="notice"></p><main><figure id="r6"><figcaption>R6 · gap8 theo độ dài từ · handler r4</figcaption><canvas width="320" height="180" aria-label="HUD r6 tương tác"></canvas></figure><figure id="r7"><figcaption>R7 · ô58/gap8 · tâm94/160/226</figcaption><canvas width="320" height="180" aria-label="HUD r7 tương tác"></canvas></figure></main>
+<p>Gõ cùng chuỗi rồi đảo thứ tự trải nghiệm. Ghi nhận: tìm current nhanh không, có đọc nhầm preview không, khoảng cách có rời rạc không và nhịp chuyển có dễ theo không. Chưa có dữ liệu người chơi để kết luận WPM hoặc giảm phân tâm.</p>
+<script src="source/data.js"></script><script src="source/review.js"></script></html>

@@ -73,14 +73,21 @@ public sealed class GamePauseController : MonoBehaviour
     }
 
     public bool IsRestarting => _restarting;
-    static bool pauseBlocked, readingBlocked;
-    public static bool InputBlocked => pauseBlocked || readingBlocked;
+    static bool pauseBlocked, readingBlocked, encounterBlocked;
+    public static bool InputBlocked => pauseBlocked || readingBlocked || encounterBlocked;
     internal static bool IsPaused => pauseBlocked;
+    internal static bool EncounterReading => encounterBlocked;
     internal static bool ResultOverlayVisible { get; private set; }
 
     internal static void SetTutorialReading(bool reading)
     {
         readingBlocked = reading;
+        ApplyFreeze();
+    }
+
+    internal static void SetEncounterReading(bool reading)
+    {
+        encounterBlocked = reading;
         ApplyFreeze();
     }
 
@@ -112,7 +119,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     void Awake()
     {
-        pauseBlocked = readingBlocked = false;
+        pauseBlocked = readingBlocked = encounterBlocked = false;
         ResultOverlayVisible = false;
         if (!targetCamera) targetCamera = Camera.main;
         if (!cinemachineBrain && targetCamera) cinemachineBrain = targetCamera.GetComponent<CinemachineBrain>();
@@ -131,6 +138,7 @@ public sealed class GamePauseController : MonoBehaviour
     void OnDestroy()
     {
         pauseBlocked = false;
+        encounterBlocked = false;
         ResultOverlayVisible = false;
         if (autoGameOverOnPlayerDie && playerHealth)
             playerHealth.OnDied -= ShowGameOverAfterPlayerDie;
@@ -146,7 +154,7 @@ public sealed class GamePauseController : MonoBehaviour
     void Update()
     {
         // The modal processes Escape later; swallow all shortcuts for this frame.
-        if (LeaderboardModal.IsOpen) return;
+        if (LeaderboardModal.BlocksShortcuts) return;
         if (_overlayLocked)
         {
             if (Input.GetKeyDown(restartKey)) TryRestart();
@@ -174,6 +182,13 @@ public sealed class GamePauseController : MonoBehaviour
         ShowOverlay_PauseLabel(gameOverText, gameOverTextColor, showRestart: true);
     }
 
+    public void ShowVictory()
+    {
+        if (!Usable() || _overlayLocked || _restarting) return;
+        _overlayLocked = true;
+        ShowOverlay_PauseLabel("VICTORY", thanksTextColor, showRestart: true);
+    }
+
     public void ShowThanksSimple()
     {
         // ---- NEW GUARD ----
@@ -186,6 +201,7 @@ public sealed class GamePauseController : MonoBehaviour
     public void ReturnToMenu()
     {
         if (_restarting) return;         // dùng chung flag tránh spam
+        EndlessRun.Clear();
         _restarting = true;
 
         ZoomOutThen(() =>
@@ -262,6 +278,8 @@ public sealed class GamePauseController : MonoBehaviour
     void TryRestart()
     {
         if (_restarting) return;
+        if (!TutorialRun.Active && EndlessRun.Current != null) EndlessRun.Restart();
+        else EndlessRun.Clear();
         _restarting = true;
 
         ZoomOutThen(() =>
@@ -363,7 +381,7 @@ public sealed class GamePauseController : MonoBehaviour
         ResultOverlayVisible = on && _overlayLocked;
         if (ScoreSystem.I) ScoreSystem.I.SetPaused(on);
         Time.timeScale = InputBlocked ? 0f : 1f;
-        if (pauseAudioListener || readingBlocked) AudioListener.pause = InputBlocked;
+        if (pauseAudioListener || readingBlocked || encounterBlocked) AudioListener.pause = InputBlocked;
     }
 
     void ZoomIn()

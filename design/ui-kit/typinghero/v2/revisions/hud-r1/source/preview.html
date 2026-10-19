@@ -1,0 +1,40 @@
+<style>
+#review{margin:24px 0}#stage{position:relative;width:320px;height:180px;image-rendering:pixelated}#stage>img{position:absolute;inset:0;width:320px;height:180px;max-width:none}#typing{position:absolute;left:81px;top:146px;width:158px;height:30px}#typing img{position:absolute;left:0;top:0;width:158px;height:30px;max-width:none}#review button,#review input{margin:6px;padding:6px}#stage{max-width:100%}
+</style>
+<section id="review"><h2>Preview gõ — native 320×180</h2><p>Gõ “resolve” vào ô review. Sai ký tự đưa tiến độ về đầu. Điều khiển nằm ngoài HUD.</p>
+<div style="overflow:auto;max-width:100%"><div id="stage"><img src="artwork/preview-background.png" alt="HUD native"><div id="typing"><img id="frame" src="png/typing-frame.png" alt=""><img id="word" src="png/word-progress-0.png" alt="resolve"></div></div></div>
+<button id="correct" type="button">Đúng một chữ</button><button id="wrong" type="button">Sai một chữ</button><button id="reset" type="button">Reset</button><label><input id="reduced" type="checkbox">Giảm chuyển động</label><label>Gõ thử <input id="entry" autocomplete="off" aria-label="Gõ thử resolve"></label><output id="status" aria-live="polite"></output>
+</section>
+<script>
+(() => {
+ const target='resolve', typing=document.querySelector('#typing'), frame=document.querySelector('#frame'), word=document.querySelector('#word');
+ const reduced=document.querySelector('#reduced'), preference=matchMedia('(prefers-reduced-motion: reduce)');
+ reduced.checked=preference.matches;
+ let progress=0, wrong=null, started=-Infinity, raf=0;
+ function paint(now){
+   const elapsed=now-started, error=elapsed<180;
+   const offset=error && elapsed<120 && !reduced.checked ? [0,-1,1,-1,1,0][Math.min(5,Math.floor(elapsed/20))] : 0;
+   typing.style.transform=`translateX(${offset}px)`;
+   frame.src=error?'png/typing-frame-error.png':'png/typing-frame.png';
+   word.src=error ? `png/word-wrong-${wrong}.png` : `png/word-progress-${progress}.png`;
+   typing.dataset.offset=offset; typing.dataset.error=error; typing.dataset.progress=progress;
+   document.querySelector('#status').value=`${progress}/${target.length}`;
+   if(error) raf=requestAnimationFrame(paint);
+ }
+ function input(ch){
+   ch=ch.toLowerCase();
+   cancelAnimationFrame(raf);
+   if(progress===target.length) progress=0;
+   if(ch===target[progress]) {progress++; started=-Infinity; wrong=null;}
+   else {wrong=progress;progress=0;started=performance.now();}
+   paint(performance.now());
+ }
+ document.querySelector('#correct').onclick=()=>input(target[progress%target.length]);
+ document.querySelector('#wrong').onclick=()=>input('!');
+ document.querySelector('#reset').onclick=()=>{cancelAnimationFrame(raf);progress=0;wrong=null;started=-Infinity;paint(performance.now());};
+ document.querySelector('#entry').addEventListener('input',e=>{for(const ch of e.target.value) input(ch);e.target.value='';});
+ reduced.onchange=()=>{cancelAnimationFrame(raf);paint(performance.now());};
+ preference.addEventListener('change',e=>{reduced.checked=e.matches;reduced.onchange();});
+ paint(performance.now());
+})();
+</script>

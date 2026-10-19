@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-[CreateAssetMenu(fileName = "ScoreRules", menuName = "TypingHero/Score Rules", order = 0)]
+[CreateAssetMenu(fileName = "ScoreRules", menuName = "CLACKBLADE/Score Rules", order = 0)]
 public class ScoreRules : ScriptableObject
 {
     [Header("Base Points")]

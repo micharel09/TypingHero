@@ -1,0 +1,44 @@
+{
+  "title": "CLACKBLADE",
+  "slug": "clackblade",
+  "short_description": "Type to attack. Space to parry. Break stamina for Slayer. Free browser sword combat.",
+  "visibility": "Public",
+  "kind": "HTML",
+  "genre": "Action",
+  "release_status": "In development",
+  "tags": [
+    "2d",
+    "arcade",
+    "difficult",
+    "fast-paced",
+    "hack-and-slash",
+    "high-score",
+    "pixel-art",
+    "typing",
+    "word-game"
+  ],
+  "input": "Keyboard",
+  "players": [
+    1,
+    1
+  ],
+  "language": "English",
+  "average_session": "A few minutes",
+  "accessibility": [
+    "Interactive tutorial"
+  ],
+  "mobile_friendly": false,
+  "playable_upload": 19871730,
+  "embed": "maximized",
+  "pricing": "$0 or donate (unchanged)",
+  "recommended_cover": "../Thumbnails/clackblade-630x500.png",
+  "alternate_cover": null,
+  "trailer_url": "Leave empty until a real YouTube/Vimeo upload exists; MP4 files cannot be pasted into this URL field.",
+  "ai_disclosure": {
+    "status": "AI Assisted",
+    "types": [
+      "Text"
+    ],
+    "basis": "AI-assisted store-page copy; final imagery is genuine gameplay"
+  }
+}

@@ -7,6 +7,7 @@ using UnityEngine;
 public sealed class CombatHUDLayout : MonoBehaviour
 {
     [SerializeField] Camera targetCamera;
+    [SerializeField] SlayerScreenFX slayerFX;
     [SerializeField] BoxCollider2D playerBody, enemyBody;
     [SerializeField] Vector2 bodyVerticalInset = new Vector2(.28f, .12f);
     [SerializeField] RectTransform playerStatus, enemyStatus, typingTray, scoreRoot, popupAnchor;
@@ -23,7 +24,8 @@ public sealed class CombatHUDLayout : MonoBehaviour
     void LateUpdate()
     {
         var root = (RectTransform)transform;
-        LayoutScore(root);
+        // Fixed 320x180 HUD geometry is authored by CombatR7Build.
+        scoreRoot.localScale = Vector3.one;
         if (targetCamera && enemyBody)
         {
             var parent = (RectTransform)popupAnchor.parent;
@@ -31,46 +33,6 @@ public sealed class CombatHUDLayout : MonoBehaviour
                 targetCamera.WorldToScreenPoint(Head(enemyBody)), null, out var head);
             popupAnchor.position = parent.TransformPoint(head + new Vector2(24, 12));
         }
-        // Keep the last projected positions after lethal destroys either actor.
-        if (!targetCamera || !playerBody || !enemyBody) return;
-        PlaceBelowFoot(playerStatus, playerBody);
-        PlaceBelowFoot(enemyStatus, enemyBody);
-        float lowest = Mathf.Min(BottomIn(root, playerStatus), BottomIn(root, enemyStatus));
-        PlaceTopLeft(typingTray, root.TransformPoint(new Vector3(root.rect.center.x - 336, lowest - 12, 0)));
     }
 
-    void PlaceBelowFoot(RectTransform status, BoxCollider2D body)
-    {
-        var parent = (RectTransform)status.parent;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
-            targetCamera.WorldToScreenPoint(Foot(body)), null, out var foot);
-        PlaceTopLeft(status, parent.TransformPoint(new Vector3(foot.x - 56, foot.y - 12, 0)));
-    }
-
-    static float BottomIn(RectTransform root, RectTransform item) =>
-        root.InverseTransformPoint(item.TransformPoint(new Vector3(0, item.rect.yMin, 0))).y;
-
-    static void PlaceTopLeft(RectTransform item, Vector3 point)
-    {
-        // Builder uses a top-left pivot; keep scale ownership with the score effects.
-        item.position = point;
-    }
-
-    void LayoutScore(RectTransform root)
-    {
-        float width = scoreText.preferredWidth;
-        float pulse = scoreText.transform.localScale.x;
-        float multiplierWidth = multiplierText.gameObject.activeSelf ? multiplierText.preferredWidth : 0;
-        scoreRoot.localScale = Vector3.one;
-        scoreText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-        scoreRoot.position = root.TransformPoint(new Vector3(root.rect.xMax - 24 - width * pulse,
-            root.rect.yMax - 24, 0));
-        comboRoot.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, multiplierWidth);
-        multiplierText.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, multiplierWidth);
-        comboRoot.position = root.TransformPoint(new Vector3(root.rect.xMax - 24 - multiplierWidth,
-            root.rect.yMax - 24 - 24 * pulse - 4, 0));
-        comboDecay.gameObject.SetActive(multiplierText.gameObject.activeSelf);
-        comboDecay.position = root.TransformPoint(new Vector3(root.rect.xMax - 24 - 112,
-            root.InverseTransformPoint(comboRoot.position).y - 20, 0));
-    }
 }

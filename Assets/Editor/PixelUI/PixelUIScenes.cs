@@ -21,7 +21,7 @@ internal static class PixelUIScenes
         Image((RectTransform)canvas.transform, Ink);
         var root = DesignRoot(canvas);
         var panel = PanelAt("MenuPanel", root, 272, 114, 416, 312);
-        var title = Label("Title", "TYPING HERO", panel, 24, 20, 368, 64, 52);
+        var title = Label("Title", "CLACKBLADE", panel, 24, 20, 368, 64, 52);
         title.alignment = TextAlignmentOptions.Center; title.color = Teal;
         Label("NameLabel", "PLAYER NAME", panel, 24, 92, 368, 28, 22).color = Muted;
         Box(input.GetComponent<RectTransform>(), panel, 24, 124, 368, 44);
@@ -108,8 +108,6 @@ internal static class PixelUIScenes
             label.rectTransform.sizeDelta = new Vector2(300, 44);
             label.color = key == "wordText" ? Teal : Foreground;
         }
-        Value(typing, "nextGapPixels", 20f); Value(typing, "nextIdleAlpha", .65f);
-        Value(typing, "thirdIdleAlpha", .32f);
         var timer = Bar("WordTimer", typingPanel, 16, 76, 624, Teal);
         Set(typing, "countdownSlider", timer);
         // Keep floating combat scores inside the same masked region.

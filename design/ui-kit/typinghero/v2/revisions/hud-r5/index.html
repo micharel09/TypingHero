@@ -1,0 +1,13 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>HUD r5 — đề xuất</title>
+<style>body{background:#14111e;color:#f2e7cf;font:16px system-ui;margin:24px}a{color:#afa1b3}button,select{font:inherit}img.pixel{image-rendering:pixelated}figure{margin:0}figcaption{margin:8px 0}main{display:flex;gap:16px;flex-wrap:wrap}section{overflow:auto;margin-top:24px}p{max-width:900px}img{max-width:none}</style>
+<h1>Khung gõ r5 · đề xuất chờ chốt</h1><p>Thường: nền coal, viền rim mảnh1px. Slayer: ba từ trực tiếp trên dải đen dưới, không nền/viền riêng. Hai dải bám đầu/chân actor theo SlayerScreenFX. Giữ geometry chữ và hành vi r4. Đây là preview tĩnh; chưa có asset/gallery tương tác r5.</p>
+<p><a href="README.md">Nguồn, chọn/loại và mapping</a> · <a href="wireframe/contract.md">Contract draft</a> · <a href="wireframe/native.wireframe.html">Wireframe</a> · <a href="../hud-r4/index.html">R4 tương tác gốc</a></p>
+<label>Phóng <select id="scale"><option value="1">1× · 320×180</option><option value="2">2× · 640×360</option><option value="4">4× · 1280×720</option></select></label>
+<label>Trạng thái <select id="state"><option>normal</option><option>correct</option><option>error</option><option>slayer</option></select></label>
+<label><input type="checkbox" id="gray"> Grayscale</label>
+<main><figure><figcaption>Ảnh gameplay nguồn · letterbox</figcaption><img class="pixel compare" src="preview/source-320x180.png" width="320" height="180"></figure>
+<figure><figcaption>R4 · giữ nguyên</figcaption><img id="old" class="pixel compare" src="../hud-r4/screens/320x180/hud-normal.png" width="320" height="180"></figure>
+<figure><figcaption>R5 · adaptation đề xuất</figcaption><img id="new" class="pixel compare" src="preview/normal-320x180.png" width="320" height="180"></figure></main>
+<section><p>Crop nguồn: bảng đen, viền nhẹ, khoảng trống quanh chữ. Không lấy màu vàng hay texture.</p><img src="preview/source-frame.png" alt="Crop bảng chữ từ ảnh Overkill"></section>
+<section><p>Ảnh nguồn đầy đủ · SEGA / Modern Dream · <a href="references/sources.json">URL gốc</a></p><a href="references/overkill.jpg"><img src="references/overkill.jpg" width="864" alt="Overkill gameplay đầy đủ"></a></section>
+<script>function update(){let s=+scale.value;document.querySelectorAll('.compare').forEach(i=>{i.width=320*s;i.height=180*s;i.style.filter=gray.checked?'grayscale(1)':''});document.querySelector('#old').src='../hud-r4/screens/320x180/hud-'+state.value+'.png';document.querySelector('#new').src='preview/'+state.value+'-320x180.png'}document.querySelectorAll('select,input').forEach(e=>e.onchange=update);</script></html>

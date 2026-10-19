@@ -105,11 +105,24 @@ public class SlayerScreenFX : MonoBehaviour
     bool _cinematic, _environmentWasActive, _hudWasEnabled, _trayWasEnabled;
     float _barReveal;
     Camera _main;
+    float _topFrameHeight, _bottomFrameHeight;
+
+    public float BarReveal => _barReveal;
+    // Full destination frame in canvas coordinates, independent of the animated reveal.
+    public Rect TopFrame => new Rect(topBar.rect.xMin, -_topFrameHeight,
+        topBar.rect.width, _topFrameHeight);
+    public RectTransform TopBar => topBar;
 
     // Runs after Cinemachine and the viewport camera: use the actual rendered projection.
     void LateUpdate()
     {
-        if (!_cinematic || !_main || !hudLayout) return;
+        if ((!_cinematic && _barReveal <= 0) || !_main || !hudLayout) return;
+        if (!playerBody || !enemyBody)
+        {
+            // Lethal may remove actors during the closing tween; retain the last frame.
+            ApplyFrameHeights();
+            return;
+        }
         var viewport = _main.rect;
         _main.rect = new Rect(0, viewport.y, 1, viewport.height);
         var parent = topBar.parent as RectTransform;
@@ -120,10 +133,17 @@ public class SlayerScreenFX : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
             _main.WorldToScreenPoint(foot), null, out var bottom);
         float topHeight = Mathf.Max(0, parent.rect.yMax - top.y - bodyPadding);
+        _topFrameHeight = topHeight;
         float bottomHeight = Mathf.Max(0, bottom.y - parent.rect.yMin - bodyPadding);
-        topBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, topHeight * _barReveal);
-        bottomBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, bottomHeight * _barReveal);
+        _bottomFrameHeight = bottomHeight;
+        ApplyFrameHeights();
 
+    }
+
+    void ApplyFrameHeights()
+    {
+        topBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _topFrameHeight * _barReveal);
+        bottomBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _bottomFrameHeight * _barReveal);
     }
 
     void BeginPresentation()
@@ -172,7 +192,7 @@ public class SlayerScreenFX : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, slayerOrtho, zoomDuration, zoomCurve));
-        StartCoroutine(CoBars(GetBarHeight(topBar), barHeight, barDuration, barCurve));
+        StartCoroutine(CoBars(_barReveal * barHeight, barHeight, barDuration, barCurve));
         StartCoroutine(CoRed(GetRedAlpha(), redAlpha, redFade));
         if (enterShake) StartCoroutine(CoShake());
         if (logs) Debug.Log("[SlayerScreenFX] Enter");
@@ -189,7 +209,7 @@ public class SlayerScreenFX : MonoBehaviour
         EndPresentation();
         StopAllCoroutines();
         StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, normalOrtho, zoomDuration, zoomCurve));
-        StartCoroutine(CoBars(GetBarHeight(topBar), 0f, barDuration, barCurve));
+        StartCoroutine(CoBars(_barReveal * barHeight, 0f, barDuration, barCurve));
         StartCoroutine(CoRed(GetRedAlpha(), 0f, redFade));
         if (autoHideOnExit) StartCoroutine(CoDisableAfter(redFade));
         if (logs) Debug.Log("[SlayerScreenFX] Exit");
@@ -268,5 +288,4 @@ public class SlayerScreenFX : MonoBehaviour
         if (_main && _main.orthographic) _main.orthographicSize = ortho;
     }
     float GetRedAlpha() => redOverlay ? redOverlay.color.a : 0f;
-    float GetBarHeight(RectTransform rt) => rt ? rt.sizeDelta.y : 0f;
 }

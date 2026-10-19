@@ -1,0 +1,1306 @@
+[
+  {
+    "text": "HERO",
+    "size": "3x5",
+    "x": 5,
+    "y": 3,
+    "width": 15,
+    "limit": 58
+  },
+  {
+    "text": "85/100",
+    "size": "3x5",
+    "x": 73,
+    "y": 3,
+    "width": 23,
+    "limit": 31
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": "3x5",
+    "x": 217,
+    "y": 3,
+    "width": 35,
+    "limit": 64
+  },
+  {
+    "text": "80/100",
+    "size": "3x5",
+    "x": 281,
+    "y": 3,
+    "width": 23,
+    "limit": 36
+  },
+  {
+    "text": "SCORE",
+    "size": "3x5",
+    "x": 150,
+    "y": 3,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 82
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": "3x5",
+    "x": 134,
+    "y": 31,
+    "width": 51,
+    "limit": 82
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": "3x5",
+    "x": 126,
+    "y": 50,
+    "width": 67,
+    "limit": 102
+  },
+  {
+    "text": "PARRY",
+    "size": "3x5",
+    "x": 38,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": "3x5",
+    "x": 262,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": "3x5",
+    "x": 5,
+    "y": 3,
+    "width": 15,
+    "limit": 58
+  },
+  {
+    "text": "85/100",
+    "size": "3x5",
+    "x": 73,
+    "y": 3,
+    "width": 23,
+    "limit": 31
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": "3x5",
+    "x": 217,
+    "y": 3,
+    "width": 35,
+    "limit": 64
+  },
+  {
+    "text": "80/100",
+    "size": "3x5",
+    "x": 281,
+    "y": 3,
+    "width": 23,
+    "limit": 36
+  },
+  {
+    "text": "SCORE",
+    "size": "3x5",
+    "x": 150,
+    "y": 3,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 82
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": "3x5",
+    "x": 134,
+    "y": 31,
+    "width": 51,
+    "limit": 82
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": "3x5",
+    "x": 126,
+    "y": 50,
+    "width": 67,
+    "limit": 102
+  },
+  {
+    "text": "r",
+    "size": 16,
+    "x": 58,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 64,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "s",
+    "size": 16,
+    "x": 70,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 16,
+    "x": 76,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "l",
+    "size": 16,
+    "x": 82,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "v",
+    "size": 16,
+    "x": 88,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 94,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": "3x5",
+    "x": 38,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": "3x5",
+    "x": 262,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": "3x5",
+    "x": 5,
+    "y": 3,
+    "width": 15,
+    "limit": 58
+  },
+  {
+    "text": "85/100",
+    "size": "3x5",
+    "x": 73,
+    "y": 3,
+    "width": 23,
+    "limit": 31
+  },
+  {
+    "text": "ELITE SWORDSMAN",
+    "size": "3x5",
+    "x": 217,
+    "y": 3,
+    "width": 59,
+    "limit": 64
+  },
+  {
+    "text": "80/100",
+    "size": "3x5",
+    "x": 281,
+    "y": 3,
+    "width": 23,
+    "limit": 36
+  },
+  {
+    "text": "SCORE",
+    "size": "3x5",
+    "x": 150,
+    "y": 3,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 82
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": "3x5",
+    "x": 134,
+    "y": 31,
+    "width": 51,
+    "limit": 82
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": "3x5",
+    "x": 126,
+    "y": 50,
+    "width": 67,
+    "limit": 102
+  },
+  {
+    "text": "r",
+    "size": 16,
+    "x": 58,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 64,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "s",
+    "size": 16,
+    "x": 70,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 16,
+    "x": 76,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "l",
+    "size": 16,
+    "x": 82,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "v",
+    "size": 16,
+    "x": 88,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 94,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": "3x5",
+    "x": 38,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": "3x5",
+    "x": 262,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": "3x5",
+    "x": 5,
+    "y": 3,
+    "width": 15,
+    "limit": 58
+  },
+  {
+    "text": "85/100",
+    "size": "3x5",
+    "x": 73,
+    "y": 3,
+    "width": 23,
+    "limit": 31
+  },
+  {
+    "text": "CAPTAIN",
+    "size": "3x5",
+    "x": 217,
+    "y": 3,
+    "width": 27,
+    "limit": 64
+  },
+  {
+    "text": "200/550",
+    "size": "3x5",
+    "x": 281,
+    "y": 3,
+    "width": 27,
+    "limit": 36
+  },
+  {
+    "text": "SCORE",
+    "size": "3x5",
+    "x": 150,
+    "y": 3,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 82
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": "3x5",
+    "x": 134,
+    "y": 31,
+    "width": 51,
+    "limit": 82
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": "3x5",
+    "x": 126,
+    "y": 50,
+    "width": 67,
+    "limit": 102
+  },
+  {
+    "text": "r",
+    "size": 16,
+    "x": 58,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 64,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "s",
+    "size": 16,
+    "x": 70,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 16,
+    "x": 76,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "l",
+    "size": 16,
+    "x": 82,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "v",
+    "size": 16,
+    "x": 88,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 94,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": "3x5",
+    "x": 38,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": "3x5",
+    "x": 262,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": "3x5",
+    "x": 5,
+    "y": 3,
+    "width": 15,
+    "limit": 58
+  },
+  {
+    "text": "85/100",
+    "size": "3x5",
+    "x": 73,
+    "y": 3,
+    "width": 23,
+    "limit": 31
+  },
+  {
+    "text": "CAPTAIN",
+    "size": "3x5",
+    "x": 217,
+    "y": 3,
+    "width": 27,
+    "limit": 64
+  },
+  {
+    "text": "200/550",
+    "size": "3x5",
+    "x": 281,
+    "y": 3,
+    "width": 27,
+    "limit": 36
+  },
+  {
+    "text": "SCORE",
+    "size": "3x5",
+    "x": 150,
+    "y": 3,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 82
+  },
+  {
+    "text": "24 COMBO / x16",
+    "size": "3x5",
+    "x": 132,
+    "y": 31,
+    "width": 55,
+    "limit": 82
+  },
+  {
+    "text": "SLAYER / x16",
+    "size": "3x5",
+    "x": 136,
+    "y": 50,
+    "width": 47,
+    "limit": 102
+  },
+  {
+    "text": "r",
+    "size": 16,
+    "x": 58,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 64,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "s",
+    "size": 16,
+    "x": 70,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 16,
+    "x": 76,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "l",
+    "size": 16,
+    "x": 82,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "v",
+    "size": 16,
+    "x": 88,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 94,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": "3x5",
+    "x": 38,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": "3x5",
+    "x": 262,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "WWWWWWWWWW",
+    "size": "3x5",
+    "x": 5,
+    "y": 3,
+    "width": 39,
+    "limit": 58
+  },
+  {
+    "text": "1/100",
+    "size": "3x5",
+    "x": 73,
+    "y": 3,
+    "width": 19,
+    "limit": 31
+  },
+  {
+    "text": "CAPTAIN",
+    "size": "3x5",
+    "x": 217,
+    "y": 3,
+    "width": 27,
+    "limit": 64
+  },
+  {
+    "text": "200/550",
+    "size": "3x5",
+    "x": 281,
+    "y": 3,
+    "width": 27,
+    "limit": 36
+  },
+  {
+    "text": "SCORE",
+    "size": "3x5",
+    "x": 150,
+    "y": 3,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "2,147,483,647",
+    "size": 12,
+    "x": 128,
+    "y": 14,
+    "width": 65.0,
+    "limit": 82
+  },
+  {
+    "text": "999 / x16",
+    "size": "3x5",
+    "x": 142,
+    "y": 31,
+    "width": 35,
+    "limit": 82
+  },
+  {
+    "text": "SLAYER / x16",
+    "size": "3x5",
+    "x": 136,
+    "y": 50,
+    "width": 47,
+    "limit": 102
+  },
+  {
+    "text": "c",
+    "size": 12,
+    "x": 29,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 12,
+    "x": 34,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "u",
+    "size": 12,
+    "x": 39,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "n",
+    "size": 12,
+    "x": 44,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "t",
+    "size": 12,
+    "x": 49,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 12,
+    "x": 54,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "r",
+    "size": 12,
+    "x": 59,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "r",
+    "size": 12,
+    "x": 64,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 12,
+    "x": 69,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "v",
+    "size": 12,
+    "x": 74,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 12,
+    "x": 79,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "l",
+    "size": 12,
+    "x": 84,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "u",
+    "size": 12,
+    "x": 89,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "t",
+    "size": 12,
+    "x": 94,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "i",
+    "size": 12,
+    "x": 99,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 12,
+    "x": 104,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "n",
+    "size": 12,
+    "x": 109,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "a",
+    "size": 12,
+    "x": 114,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "r",
+    "size": 12,
+    "x": 119,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "y",
+    "size": 12,
+    "x": 124,
+    "y": 5,
+    "width": 5.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": "3x5",
+    "x": 38,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": "3x5",
+    "x": 262,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": "3x5",
+    "x": 5,
+    "y": 3,
+    "width": 15,
+    "limit": 58
+  },
+  {
+    "text": "85/100",
+    "size": "3x5",
+    "x": 73,
+    "y": 3,
+    "width": 23,
+    "limit": 31
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": "3x5",
+    "x": 217,
+    "y": 3,
+    "width": 35,
+    "limit": 64
+  },
+  {
+    "text": "80/100",
+    "size": "3x5",
+    "x": 281,
+    "y": 3,
+    "width": 23,
+    "limit": 36
+  },
+  {
+    "text": "SCORE",
+    "size": "3x5",
+    "x": 150,
+    "y": 3,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 82
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": "3x5",
+    "x": 134,
+    "y": 31,
+    "width": 51,
+    "limit": 82
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": "3x5",
+    "x": 126,
+    "y": 50,
+    "width": 67,
+    "limit": 102
+  },
+  {
+    "text": "r",
+    "size": 16,
+    "x": 58,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 64,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "s",
+    "size": 16,
+    "x": 70,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 16,
+    "x": 76,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "l",
+    "size": 16,
+    "x": 82,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "v",
+    "size": 16,
+    "x": 88,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 94,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": "3x5",
+    "x": 38,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": "3x5",
+    "x": 262,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": "3x5",
+    "x": 5,
+    "y": 3,
+    "width": 15,
+    "limit": 58
+  },
+  {
+    "text": "85/100",
+    "size": "3x5",
+    "x": 73,
+    "y": 3,
+    "width": 23,
+    "limit": 31
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": "3x5",
+    "x": 217,
+    "y": 3,
+    "width": 35,
+    "limit": 64
+  },
+  {
+    "text": "80/100",
+    "size": "3x5",
+    "x": 281,
+    "y": 3,
+    "width": 23,
+    "limit": 36
+  },
+  {
+    "text": "SCORE",
+    "size": "3x5",
+    "x": 150,
+    "y": 3,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 82
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": "3x5",
+    "x": 134,
+    "y": 31,
+    "width": 51,
+    "limit": 82
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": "3x5",
+    "x": 126,
+    "y": 50,
+    "width": 67,
+    "limit": 102
+  },
+  {
+    "text": "r",
+    "size": 16,
+    "x": 58,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 64,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "s",
+    "size": 16,
+    "x": 70,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "o",
+    "size": 16,
+    "x": 76,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "l",
+    "size": 16,
+    "x": 82,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "v",
+    "size": 16,
+    "x": 88,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "e",
+    "size": 16,
+    "x": 94,
+    "y": 5,
+    "width": 6.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": "3x5",
+    "x": 38,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": "3x5",
+    "x": 262,
+    "y": 148,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "hud-normal",
+    "size": 12,
+    "x": 5,
+    "y": 1,
+    "width": 50.0,
+    "limit": null
+  },
+  {
+    "text": "hud-elite",
+    "size": 12,
+    "x": 325,
+    "y": 1,
+    "width": 45.0,
+    "limit": null
+  },
+  {
+    "text": "hud-boss",
+    "size": 12,
+    "x": 645,
+    "y": 1,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "hud-slayer",
+    "size": 12,
+    "x": 5,
+    "y": 201,
+    "width": 50.0,
+    "limit": null
+  },
+  {
+    "text": "hud-stress-low-hp",
+    "size": 12,
+    "x": 325,
+    "y": 201,
+    "width": 85.0,
+    "limit": null
+  },
+  {
+    "text": "hud-correct",
+    "size": 12,
+    "x": 645,
+    "y": 201,
+    "width": 55.0,
+    "limit": null
+  },
+  {
+    "text": "hud-error",
+    "size": 12,
+    "x": 5,
+    "y": 401,
+    "width": 45.0,
+    "limit": null
+  },
+  {
+    "text": "HP 0%",
+    "size": 12,
+    "x": 8,
+    "y": 2,
+    "width": 25.0,
+    "limit": null
+  },
+  {
+    "text": "HP 1%",
+    "size": 12,
+    "x": 166,
+    "y": 2,
+    "width": 25.0,
+    "limit": null
+  },
+  {
+    "text": "HP 50%",
+    "size": 12,
+    "x": 324,
+    "y": 2,
+    "width": 30.0,
+    "limit": null
+  },
+  {
+    "text": "HP 100%",
+    "size": 12,
+    "x": 482,
+    "y": 2,
+    "width": 35.0,
+    "limit": null
+  },
+  {
+    "text": "resource-socket",
+    "size": 12,
+    "x": 8,
+    "y": 72,
+    "width": 75.0,
+    "limit": null
+  },
+  {
+    "text": "resource-frame",
+    "size": 12,
+    "x": 8,
+    "y": 120,
+    "width": 70.0,
+    "limit": null
+  },
+  {
+    "text": "resource-track",
+    "size": 12,
+    "x": 8,
+    "y": 168,
+    "width": 70.0,
+    "limit": null
+  },
+  {
+    "text": "hp-fill",
+    "size": 12,
+    "x": 8,
+    "y": 216,
+    "width": 35.0,
+    "limit": null
+  },
+  {
+    "text": "resource-decoration",
+    "size": 12,
+    "x": 8,
+    "y": 264,
+    "width": 95.0,
+    "limit": null
+  },
+  {
+    "text": "icon-hp",
+    "size": 12,
+    "x": 8,
+    "y": 312,
+    "width": 35.0,
+    "limit": null
+  },
+  {
+    "text": "9-SLICE / FIXED 8PX CORNERS",
+    "size": "3x5",
+    "x": 8,
+    "y": 370,
+    "width": 107,
+    "limit": null
+  },
+  {
+    "text": "NORMAL",
+    "size": "3x5",
+    "x": 8,
+    "y": 470,
+    "width": 23,
+    "limit": null
+  },
+  {
+    "text": "ELITE",
+    "size": "3x5",
+    "x": 8,
+    "y": 534,
+    "width": 19,
+    "limit": null
+  },
+  {
+    "text": "BOSS",
+    "size": "3x5",
+    "x": 8,
+    "y": 598,
+    "width": 15,
+    "limit": null
+  }
+]

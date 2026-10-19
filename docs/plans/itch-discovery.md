@@ -1,5 +1,110 @@
 # Typing Hero — itch.io discovery
 
+## Cover v2 — gameplay điện ảnh — 2026-10-19
+
+- Theo kế hoạch user giao: thay riêng cover bằng cảnh đấu kiếm tràn khung,
+  asset thật, logo TYPING HERO và TYPE TO SLASH. Hướng/reference đã chốt;
+  không sửa game, banner, copy, metadata hay upload playable.
+- Nguồn chỉnh sửa và provenance/rollback:
+  [cover-v2.html](../../marketing/ItchIO_Optimization/Thumbnails/cover-v2.html),
+  [hướng dẫn](../../marketing/ItchIO_Optimization/Thumbnails/cover-v2-README.md).
+  Xuất PNG 630×500, 315×250 và 158×125 cùng thư mục; A/B cũ giữ nguyên.
+- Đối chiếu screenshot production 01-type-to-attack và sprite gốc: hero combo1
+  cel đầu ×7, skeleton trắng sword Attack1 cel đầu mirror ×6, background Tiny
+  Pixel Japan ×3. Chỉ crop alpha bounds; giữ nguyên pose/weapon/palette sprite;
+  nền giảm sáng/chuyển tông xanh đen. Không AI, dependency mới hay sửa asset gốc.
+- Edge headless/Playwright có sẵn, viewport630×500/DPR1/font ready: đã xem ảnh
+  chính và hai bản nhỏ nearest-neighbor. Logo đọc được, hai nhân vật/khăn tím/
+  cung kiếm rõ, không HUD/viền/tutorial/footer; không kéo méo. Đã xem cạnh hình
+  nhận diện của ba reference trong vùng315×250, giữ tỷ lệ reference. Đây là
+  graphic quảng bá, không phải screenshot nguyên trạng hay kết quả thử CTR.
+- 8/8 đường dẫn asset/font tồn tại; ba PNG decode và kích thước đúng; không
+  trailing whitespace trong source/hướng dẫn. Không chạy Unity tests.
+- SHA256 PNG630: `d0df90e7f2366df283b16bdd6f8227ab48734d45265d8bfb6f33f821e6f2cf2f`;
+  PNG315: `125d412405d3f85886fc78fb1da22fc74103a461c6731b18836adb8488471be3`;
+  PNG158: `67e8c9a107585696e1a2489fa11f601516931d81424f145c372cffc2f0c10978`.
+- Publication chưa nghiệm thu: đã xác minh owner micharel09/game3857509.
+  Upload đầu tạo image31069803 và preview315×250 loaded, nhưng native Save gặp
+  lỗi CDP frame graph; fresh editor xác nhận vẫn cover31068886 và28 game fields
+  giống trước task. Phiên Edge mới pjsm upload lại, sau đó Save timeout với
+  `effect_state=unknown`; chưa kết luận lưu thành công. Đã gọi human help60s
+  theo browser-skill sau các lỗi thao tác, không suy timeout là quyền mới.
+- Còn lại: xác minh saved cover và search card; chỉ báo publish hoàn tất khi có
+  bằng chứng. Rollback về `cover-a-630x500.png` (cover31068886), không dùng mốc
+  before-cover cũ hơn. Không branch/worktree/commit/push; giữ dirty checkout.
+- Task temp `E:/CodexTemp/TypingHero/cover-v2`: giữ field receipts để đối chiếu
+  khi tiếp tục và render.cjs để tái xuất. Human help đã timeout, không có xác nhận
+  thao tác; publication/search card vẫn chưa kiểm chứng. Dừng phiên browser riêng;
+  dọn comparison/reference/capture tạm sau khi ghi kết luận, giữ bản PNG sản phẩm.
+
+## Guest-name and 14-day campaign ? 2026-10-19
+
+- Implemented: PlayerIdentity.EnsureLoaded saves valid GuestXXXX via TrySetName
+  only when no name exists. Existing names, validation, PlayerPrefs key, UID,
+  provider/schema, menu controls, six tutorial lessons/Skip and combat stay intact.
+  Existing dirty Endless/HUD/audio changes preserved; no branch/worktree/commit/push.
+- Final frozen input:
+  `d391738b0cb5fd9163c3e8b287810f7412c4a6e3927cfebbee8755393293cbe7`.
+  QA input24ab98cb3c87e0c96eba1f52ba26c0cdfd76ae1d9016375f4f1bfc501b3dd375
+  differs only in the corrected test expectation, not runtime/assets/config.
+  Current product inputs match; later edits to difficulty_ui.cjs/endless.cjs
+  are unrelated harness changes and remain untouched.
+- Unity Quick044730:96/97pass; only new test expected `New hero` instead of
+  existing `New Hero` normalization. Corrected test; final focused045715:4/4pass.
+  Reused93 other unchanged passing cases. No full-final-Quick pass claimed.
+- Native Edge155/D3D11,960x540: fresh guest/Enter/Play, first tutorial/Skip,
+  match restart/menu/reload, edited empty/short-name validation, custom name
+  persistence and replay verified. Final tutorial/restart/Skip/menu segment9checks
+  PASS. Guest7279/301 and NewHero/10 payloads observed in intercepted fixtures;
+  no real provider writes. Equal-best runs correctly need not write a new payload.
+  Failed driver attempts exposed timing assumptions: recording past Slayer,
+  result reveal before Menu, and stale pre-reload tutorial state. Corrected the
+  harness, without changing gameplay. Do not call those combined attempts passes.
+- Production050328 PASS; JS/WASM/data ASCII/UTF-16LE QA-marker scans PASS.
+  Original HTML guest/Enter/tutorial BLADE hit/score10 inspected; QA undefined,
+  zero exceptions/writes. Deliverable:
+  [WebGL ZIP](../../Builds/TypingHero-WebGL-Guest-20261019.zip),30files/16,457,704bytes.
+  SHA256 `061cc7f2e6af3236a5f0115e762c82c8486e4e9f49f796b9683f42bb4fd678d7`;
+  server/local SHA256 and ZIP CRC agree. Build metadata:Builds/guest-build.json.
+  Broader existing Endless/audio release limits remain in their own checkpoints;
+  no new balance/performance/audio-quality claim.
+- Three Shorts from one continuous35s native-keyboard run of the verified QA
+  runtime, not old storefront footage. Type cut0?12.48s; parry3?15.48s; Slayer
+  3.644?16.124s includes its real parry/stamina break around6.14s. Overlapping cuts
+  are intentional. Passive CDP full-frame JPEG capture,25fps resampling, silent
+  VP8 intermediate/H.264 final; no gameplay manipulation, synthetic action/audio
+  or score editing. Full frame plus enlarged unaltered tray detail; captions
+  outside HUD. Each1080?1920/yuv420p/312frames/12.48s; ffprobe/full decode PASS.
+- Clip SHA256:
+  - short-01-type.mp4:8bb2d81de6a7d73e41387e70cdf70a78852d85ac6b83cff6168f0fefe9fa60c3
+  - short-02-parry.mp4:608b33fce9001941d1fea29b736cf670cefec4afe9748b49b4478c5f54f6173f
+  - short-03-slayer.mp4:0bdb0114e835542798d726e72a9a0175cea53ed532f33222eb23c787818618db
+- [Campaign kit](../../marketing/itch-io/discovery-14-days.md): three English
+  titles/captions/desktop-keyboard CTAs, Get Feedback draft, day0/3/7/10/14 manual
+  schedule and measurement table. Local devlog now accurately describes the guest
+  candidate. Cover/layout untouched; no posts, creator contact, remote devlog
+  edit or itch upload. YouTube/Get Feedback guidance checked2026-10-19.
+- Supplied observation211Views/45BrowserPlays,29Facebook referrals/30days and no
+  ratings/collections/comments/followers retained, not freshly checked/day0.
+  First actual Short starts day0; learning target50non-QA visits/+10plays, not a
+  promise or unique-player/retention measurement. No14-day results invented.
+- All three final MP4s played from start to ended on native Edge at360?640;
+  each reports12.48s/1080?1920/error=null. Full FFmpeg decode passed; five timeline
+  frames per clip plus full-size/phone detail inspected: words/CTA readable,
+  typing/parry/Slayer match the game and captions do not cover HUD. Downloaded
+  MP4 hashes match server exports. No audio-quality claim (exports are silent).
+- Local `E:/CodexTemp/TypingHero/itch-discovery-14d` and server
+  `/data/typinghero-game-loop/task-temp/itch-discovery-14d` removed after receipts.
+  All task browser/processes exited. Build ZIP/manifest and product MP4s retained.
+- Auto-review rejected deleting broader test/production result records, including
+  a retry after inventory and escalation. The safer deletion of task-temp only
+  succeeded. Retain these four directories under `/data/typinghero-game-loop/results/`
+  until explicit user approval to delete their XML/log/snapshot/QA-player records:
+  `20261019T044730-quick`, `20261019T045130-webgl`, `20261019T045715-quick`,
+  `20261019T050328-production`. No captures were committed. Shared runner/cache,
+  other tasks, original checkout and all pre-existing dirty changes remain.
+  No deployment or community publication.
+
 ## Score-near-tray publication — 2026-10-18
 
 - User yêu cầu đẩy bản HUD r3 lên itch.io. Đích giữ nguyên https://micharel09.itch.io/typing-hero, game3857509; giữ mọi upload cũ để rollback, cấu hình maximized/copy/theme/pricing và devlog Draft.
@@ -321,3 +426,45 @@ position visibly show different GIF frames (typing attacks and Slayer), confirmi
 that the gallery renders the animation. New text changes pass whitespace checks.
 The reference comparison establishes presentation patterns, not causal evidence
 that these patterns increase discovery or plays.
+
+## 2026-10-19 - store discovery and conversion execution
+
+Latest user scope prioritizes actual discovery/store presentation and forbids
+unrelated gameplay changes. Earlier Guest/Endless code and candidate Shorts are
+preserved but were not published or represented as the currently playable build.
+
+Delivered `marketing/ItchIO_Optimization/`: two genuine-gameplay cover concepts
+(630x500 plus 315x250 checks and editable HTML), three current-production canvas
+screenshots, an actual BLADE-to-sword GIF, ready English store copy, accurate
+configuration, five hooks, three short-video concepts, Reddit/Get Feedback/devlog/
+creator drafts, Shorts/TikTok captions, audit and day 0/7/14 measurement worksheet.
+No community post, creator message or video-channel upload was performed. Three
+new finished MP4 Shorts are not part of this package; current Slayer footage must
+be captured before making the third concept into a new production-matched clip.
+
+Published through the authorized owner editor and verified on the public page:
+`Typing Hero: Type to Slash`, explicit typing/parry/stamina CTA, cover A image
+31068886, gallery 31068982/83/84/81 and inline real typing GIF. High Score replaces
+Indie; expected-session category is A few minutes and Interactive tutorial is
+selected. AI-assisted store text is disclosed as Text. Theme/banner, pricing and
+playable upload 19865461 remain in use. Public exact-name search showed the new
+cover/title/tagline; this does not establish improved ranking or CTR.
+
+Fresh dashboard observation: 211 Views, 45 Browser Plays, zero ratings/collections/
+comments. Referrer window September 20-October 19 shows 28 external Facebook-domain
+visits plus 1 self-referral with fbclid, correcting the earlier blanket 29-Facebook
+interpretation. Header totals are not confirmed as the same cohort/window as the
+referrer table. Impressions, itch CTR, unique players and retention remain unknown.
+The first loaded general typing search/browse cards did not include the target,
+while exact-name indexing worked. No growth uplift is claimed.
+
+Verification: exact published binary booted locally with keyboard/mouse controls
+and blocked/fixture leaderboard traffic; no production score writes. Actual word
+completion/hit captured; final GIF fully decoded, contact frames and both small
+covers visually reviewed. Published description/metadata/images/search card and
+unchanged iframe source checked. No gameplay scripts changed by this marketing
+task; no Unity suite was needed for copy/media edits. Full evidence, limitations,
+rollback and sources: `marketing/ItchIO_Optimization/StorePage/applied-and-rollback.md`
+and `MarketingPlan/audit.md` beneath that package. Next: take a fresh day-0 baseline
+before outbound posting and run the supplied 14-day experiment; no success claim
+until real external arrivals and matched-period starts are measured.

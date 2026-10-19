@@ -11,13 +11,23 @@ public sealed class CombatSession : MonoBehaviour
     float seconds;
     int letters, correct, parries, finalScore;
     ParrySystem parry;
+    internal bool RunWon { get; private set; }
     public float Seconds => seconds;
     public int Letters => letters;
     public int Correct => correct;
     public int Parries => parries;
     public int FinalScore => finalScore;
 
-    void Awake() { I = this; }
+    void Awake()
+    {
+        I = this;
+        if (!TutorialRun.Active && gameObject.scene.name == "SampleScene")
+            gameObject.AddComponent<EndlessDuel>();
+    }
+    internal void RestoreEndless(EndlessRun run)
+    {
+        seconds = run.Seconds; letters = run.Letters; correct = run.Correct; parries = run.Parries;
+    }
     void OnEnable()
     {
         TypingManager.OnInputResult += InputResult;
@@ -40,15 +50,38 @@ public sealed class CombatSession : MonoBehaviour
         letters++;
         if (hit) correct++;
     }
-    void Parried(ParrySystem.ParryContext _) { if (!finished) parries++; }
+    void Parried(ParrySystem.ParryContext _)
+    {
+        if (finished) return;
+        parries++;
+    }
     public void Complete(bool won)
     {
         if (finished) return;
         finished = true;
         finalScore = ScoreSystem.I ? ScoreSystem.I.Score : 0;
         if (ScoreSystem.I) ScoreSystem.I.SetPaused(true);
+        string survival = "";
+        if (EndlessDuel.I)
+        {
+            if (won)
+            {
+                EndlessDuel.I.EnemyDefeated();
+                RunWon = EndlessDuel.I.Run.Completed;
+                if (RunWon) survival = EndlessDuel.I.FinishRun(true) + "\n";
+            }
+            else survival = EndlessDuel.I.FinishRun() + "\n";
+        }
         string accuracy = letters == 0 ? "—" : (100f * correct / letters).ToString("0.0") + "%";
         if (resultLabel)
-            resultLabel.text = $"SCORE {finalScore}    TIME {seconds:0.0}s\nACCURACY {accuracy}    PARRIES {parries}";
+        {
+            if (EndlessDuel.I)
+            {
+                resultLabel.fontSize = 20;
+                // Results hide Resume, leaving its row available for run statistics.
+                resultLabel.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 120);
+            }
+            resultLabel.text = survival + $"SCORE {finalScore}    TIME {seconds:0.0}s\nACCURACY {accuracy}    PARRIES {parries}";
+        }
     }
 }

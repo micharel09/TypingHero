@@ -1,0 +1,624 @@
+{
+  "owner": "micharel09",
+  "gameId": 3857509,
+  "url": "https://micharel09.itch.io/typing-hero",
+  "title": "Typing Hero: Type to Slash by micharel09",
+  "playableUpload": 19865461,
+  "coverImageId": 31068886,
+  "bannerUrl": "https://img.itch.zone/aW1nLzMwOTgzNjI3LnBuZw==/original/HQXVkl.png",
+  "fields": [
+    {
+      "name": "q",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "game[title]",
+      "type": "text",
+      "value": "Typing Hero: Type to Slash"
+    },
+    {
+      "name": "game[slug]",
+      "type": "text",
+      "value": "typing-hero"
+    },
+    {
+      "name": "game[short_text]",
+      "type": "text",
+      "value": "Type to attack. Space to parry. Break stamina for Slayer. Free browser sword combat."
+    },
+    {
+      "name": "game[user_classification]",
+      "type": "select-one",
+      "value": "game"
+    },
+    {
+      "name": "",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "game[type]",
+      "type": "select-one",
+      "value": "html"
+    },
+    {
+      "name": "",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "game[release_status]",
+      "type": "select-one",
+      "value": "in_development"
+    },
+    {
+      "name": "",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "game[payment_mode]",
+      "type": "hidden",
+      "value": "free"
+    },
+    {
+      "name": "game[min_price]",
+      "type": "hidden",
+      "value": "$0.00"
+    },
+    {
+      "name": "game[suggested_price]",
+      "type": "text",
+      "value": "$1.00"
+    },
+    {
+      "name": "upload[19792304][position]",
+      "type": "hidden",
+      "value": "0"
+    },
+    {
+      "name": "upload[19792304][display_name]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "upload[19792304][type]",
+      "type": "select-one",
+      "value": "default"
+    },
+    {
+      "name": "upload[19792304][p_windows]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19792304][p_linux]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19792304][p_osx]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19792304][p_android]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19792304][hidden]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "upload[19793957][position]",
+      "type": "hidden",
+      "value": "1"
+    },
+    {
+      "name": "upload[19793957][display_name]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "upload[19793957][type]",
+      "type": "select-one",
+      "value": "default"
+    },
+    {
+      "name": "upload[19793957][p_windows]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19793957][p_linux]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19793957][p_osx]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19793957][p_android]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19793957][hidden]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "upload[19819691][position]",
+      "type": "hidden",
+      "value": "2"
+    },
+    {
+      "name": "upload[19819691][display_name]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "upload[19819691][type]",
+      "type": "select-one",
+      "value": "default"
+    },
+    {
+      "name": "upload[19819691][p_windows]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19819691][p_linux]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19819691][p_osx]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19819691][p_android]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19819691][hidden]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "upload[19839230][position]",
+      "type": "hidden",
+      "value": "3"
+    },
+    {
+      "name": "upload[19839230][display_name]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "upload[19839230][type]",
+      "type": "select-one",
+      "value": "default"
+    },
+    {
+      "name": "upload[19839230][p_windows]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19839230][p_linux]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19839230][p_osx]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19839230][p_android]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19839230][hidden]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "upload[19840745][position]",
+      "type": "hidden",
+      "value": "4"
+    },
+    {
+      "name": "upload[19840745][display_name]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "upload[19840745][type]",
+      "type": "select-one",
+      "value": "default"
+    },
+    {
+      "name": "upload[19840745][p_windows]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19840745][p_linux]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19840745][p_osx]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19840745][p_android]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19840745][hidden]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "upload[19847268][position]",
+      "type": "hidden",
+      "value": "5"
+    },
+    {
+      "name": "upload[19847268][display_name]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "upload[19847268][type]",
+      "type": "select-one",
+      "value": "default"
+    },
+    {
+      "name": "upload[19847268][p_windows]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19847268][p_linux]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19847268][p_osx]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19847268][p_android]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19847268][hidden]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "upload[19847423][position]",
+      "type": "hidden",
+      "value": "6"
+    },
+    {
+      "name": "upload[19847423][display_name]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "upload[19847423][type]",
+      "type": "select-one",
+      "value": "default"
+    },
+    {
+      "name": "upload[19847423][p_windows]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19847423][p_linux]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19847423][p_osx]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19847423][p_android]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "upload[19847423][hidden]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "upload[19865461][position]",
+      "type": "hidden",
+      "value": "7"
+    },
+    {
+      "name": "upload[19865461][display_name]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "upload[19865461][embed]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "embed[embed_type]",
+      "type": "select-one",
+      "value": "maximized"
+    },
+    {
+      "name": "embed[mobile_friendly]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "embed[scrollbars]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "embed[cdn_type]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "game[classname]",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "game[description]",
+      "type": "textarea",
+      "value": "<p><strong>TYPE TO ATTACK. SPACE TO PARRY. BREAK STAMINA TO UNLEASH&nbsp;SLAYER.</strong></p>\n<p>Finish the word before the skeleton's next swing. Watch its attack cue, time Space to parry, then turn the opening into another sword strike. Break enemy stamina and unleash Slayer: correct keystrokes become rapid attacks.</p>\n<p><strong>Play now:</strong> click <strong>Run game</strong> above. Free in your desktop browser, with a keyboard. No download required.</p>\n<p><img src=\"https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4MS5naWY=/original/nQ9RJP.gif\" alt=\"Real gameplay: finish BLADE to trigger a sword strike.\" width=\"640\" height=\"360\"></p>\n<h2>A sword duel played on your keyboard</h2>\n<ul>\n<li><strong>Type to attack:</strong> complete the highlighted word to swing your sword.</li>\n<li><strong>Space to parry:</strong> read the enemy's cue and time your defense while keeping up with the words.</li>\n<li><strong>Break stamina for Slayer:</strong> hits and parries build toward a burst of rapid strikes driven by correct keystrokes.</li>\n<li><strong>Chase a better run:</strong> keep your accuracy, build a combo, and compare scores on the global Top 1000.</li>\n</ul>\n<h2>Learn the rhythm</h2>\n<p>The interactive tutorial walks through attacking, accuracy, parrying and Slayer. You can skip it or replay it from the menu.</p>\n<p><strong>Controls:</strong> letters to attack, Space to parry, Esc to pause. Use R to restart or M to return to the menu from pause or results.</p>\n<h2>Try the first duel</h2>\n<p>Can you keep your eyes on the next swing while finishing the word? Click Run game and try it. If the controls are unclear, tell me the moment you got stuck and which browser you used.</p>\n<h2>Credits</h2>\n<ul>\n  <li><a href=\"https://lyniadesign.itch.io/tiny-pixel-japan-parallax-background\">Tiny Pixel Japan Parallax Background</a> by <strong>LyniaDesign</strong>, used under the author's license. Palette adapted for Typing Hero.</li>\n  <li><a href=\"https://pimen.itch.io/battle-vfx-hit-spark\">Hit Spark</a> and <a href=\"https://pimen.itch.io/pixel-battle-effects\">Battle Effects</a> by <strong>Pimen</strong>. Hit Spark uses the included author license; Battle Effects is <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>. Animation timing, pivots and scale adapted; Battle Effects converted to white for Slayer.</li>\n  <li><a href=\"https://kenney.nl/assets/input-prompts-pixel\">Input Prompts Pixel</a> by <strong>Kenney</strong> (CC0).</li>\n  <li><a href=\"https://kenney.nl/assets/impact-sounds\">Impact Sounds</a> and <a href=\"https://kenney.nl/assets/ui-audio\">UI Audio</a> by <strong>Kenney</strong> (CC0).</li>\n  <li><a href=\"https://github.com/google/fonts/tree/main/ofl/vt323\">VT323</a> by <strong>Peter Hull</strong> (SIL Open Font License 1.1).</li>\n<li><a href=\"https://opengameart.org/content/free-vfx-asset-pack\">Free VFX Asset Pack</a> by <strong>CodeManu</strong> (CC0); retained legacy sheets adapted by Typing Hero. Current impact particles are implemented in the project.</li>\n</ul>\n<p>Credits and licenses are included in the browser build. Attribution for the retained hero and skeleton assets and original music is still being verified.</p>"
+    },
+    {
+      "name": "",
+      "type": "textarea",
+      "value": ""
+    },
+    {
+      "name": "game[genre]",
+      "type": "select-one",
+      "value": "action"
+    },
+    {
+      "name": "",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "game[tags]",
+      "type": "text",
+      "value": "2d,arcade,difficult,fast-paced,hack-and-slash,high-score,pixel-art,typing,word-game"
+    },
+    {
+      "name": "",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "ai_disclosure[ai_generated]",
+      "type": "radio",
+      "value": true
+    },
+    {
+      "name": "ai_disclosure[ai_generated]",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "name": "ai_disclosure[ai_graphics]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "ai_disclosure[ai_audio]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "ai_disclosure[ai_text]",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "name": "ai_disclosure[ai_code]",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "name": "game[steam_url]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "game[app_store_url]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "game[google_play_url]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "game[amazon_appstore_url]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "game[windows_phone_url]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "game[noun]",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "game[instructions]",
+      "type": "textarea",
+      "value": ""
+    },
+    {
+      "name": "",
+      "type": "textarea",
+      "value": ""
+    },
+    {
+      "name": "game[community_type]",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "name": "game[community_type]",
+      "type": "radio",
+      "value": true
+    },
+    {
+      "name": "game[community_type]",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "name": "game[published]",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "name": "game[published]",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "name": "game[published]",
+      "type": "radio",
+      "value": true
+    },
+    {
+      "name": "game[cover_image_id]",
+      "type": "hidden",
+      "value": "31068886"
+    },
+    {
+      "name": "game[video_url]",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "screenshot[31068982][position]",
+      "type": "hidden",
+      "value": "0"
+    },
+    {
+      "name": "screenshot[31068983][position]",
+      "type": "hidden",
+      "value": "1"
+    },
+    {
+      "name": "screenshot[31068984][position]",
+      "type": "hidden",
+      "value": "2"
+    },
+    {
+      "name": "screenshot[31068981][position]",
+      "type": "hidden",
+      "value": "3"
+    }
+  ],
+  "images": [
+    {
+      "height": 394,
+      "src": "https://img.itch.zone/aW1nLzMwOTgzNjI3LnBuZw==/original/HQXVkl.png",
+      "width": 960
+    },
+    {
+      "height": 360,
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4MS5naWY=/original/nQ9RJP.gif",
+      "width": 640
+    },
+    {
+      "height": 195,
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4Mi5wbmc=/347x500/P5HMNJ.png",
+      "width": 347
+    },
+    {
+      "height": 195,
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4My5wbmc=/347x500/J6UtT7.png",
+      "width": 347
+    },
+    {
+      "height": 195,
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4NC5wbmc=/347x500/dXVXS6.png",
+      "width": 347
+    },
+    {
+      "height": 360,
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4MS5naWY=/original/nQ9RJP.gif",
+      "width": 640
+    }
+  ],
+  "changedRemotely": false
+}

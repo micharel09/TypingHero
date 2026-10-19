@@ -1,0 +1,7 @@
+# Credits / provenance
+
+- Concept `artwork/dungeon-concept-original.png`: ImageGen tích hợp, tạo mới ngày 19/10/2026. Prompt lưu tại `source/imagegen-prompts.json`. Background final là bản dựng geometry gốc 320×180 tại `source/build.py` và `source/dungeon.svg`, không phải ảnh concept giảm màu.
+- Frame/button/boss/badge/logo/background: sáng tác v2 bằng pixel/vector. Icon/keycap và primitive nhỏ kế thừa hình học v1 của project; snapshot tại `source/basis.json`. Không lấy asset UI bên thứ ba.
+- VT323: Peter Hull, SIL Open Font License, [license](fonts/VT323-OFL.txt), sao chép font có sẵn trong project.
+- Hero: frame 128×128 đầu của `Assets/Art/male_hero/individual_sheets/male_hero-idle.png`; skeleton: frame 96×64 đầu của `Assets/Art/EndlessSkeletons/sword/Idle.png`; Captain: cùng rect từ `sword-shield/Idle.png`. Crop alpha bounds giữ visible pixels, màu và tỷ lệ 1×. Không sửa pose/grip/animation. Quyền sprite theo asset hiện có của project; gói không bổ sung quyền cấp phép mới.
+- Hướng tham khảo do user chốt: ảnh 5–6 kim loại tối/vàng cũ; ảnh 2 icon + resource; The Druid cho boss; [Dungeon Thing pin](https://www.pinterest.com/pin/103371753929947386/) cho dungeon tím. Trong fresh context không có các ảnh đính kèm; mở pin bằng web tool trả lỗi không truy cập được. Đã dùng mô tả trong plan làm nguồn ý định, chưa đối chiếu trực tiếp ảnh. Không claim sao chép hoặc khớp chính xác reference.

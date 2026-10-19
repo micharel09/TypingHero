@@ -1,0 +1,82 @@
+{
+  "fields": [
+    {
+      "name": "layout[bg_color]",
+      "type": "text",
+      "value": "#000000"
+    },
+    {
+      "name": "layout[bg2_color]",
+      "type": "text",
+      "value": "#000000"
+    },
+    {
+      "name": "layout[text_color]",
+      "type": "text",
+      "value": "#ffffff"
+    },
+    {
+      "name": "layout[link_color]",
+      "type": "text",
+      "value": "#ed4231"
+    },
+    {
+      "name": "layout[header_text_color]",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "name": "layout[button_color]",
+      "type": "text",
+      "value": "#ed4231"
+    },
+    {
+      "name": "layout[bg2_alpha]",
+      "type": "hidden",
+      "value": "100"
+    },
+    {
+      "name": "layout[font_family]",
+      "type": "select-one",
+      "value": "lato"
+    },
+    {
+      "name": "layout[font_size]",
+      "type": "select-one",
+      "value": "large"
+    },
+    {
+      "name": "layout[header_font_family]",
+      "type": "select-one",
+      "value": "_default"
+    },
+    {
+      "name": "layout[screenshots_loc]",
+      "type": "select-one",
+      "value": "hidden"
+    },
+    {
+      "name": "layout[banner_image][image_id]",
+      "type": "hidden",
+      "value": "30983627"
+    },
+    {
+      "name": "layout[banner_image][position]",
+      "type": "select-one",
+      "value": "align_center"
+    },
+    {
+      "name": "layout[background_image][image_id]",
+      "type": "hidden",
+      "value": ""
+    },
+    {
+      "name": "layout[embed_background_image][image_id]",
+      "type": "hidden",
+      "value": ""
+    }
+  ],
+  "labels": [
+    "<label class=\"label\" for=\"image-uploader-0\">Banner</label>"
+  ]
+}

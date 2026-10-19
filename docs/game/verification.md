@@ -1,5 +1,269 @@
 # Verification and performance memory
 
+## CLACKBLADE public release (2026-10-19)
+
+Final input0fd9445887f60e2a7ba4c9e2578c22371f57e995079cc7c662bf9cfbd82c7a0b:
+production092049, QA exclusion/CRC/hash PASS, native focused combat-r7/tutorial133PASS,
+exact original production HTML smoke9PASS (name/reload/menu640/960, BLADE attack,
+pause/resume/menu/Classic fixtures, no probe/exceptions/score writes).
+Software combat-r7 run passed125 scoped checks then failed its extra legacy
+cinematic duel before Slayer; not claimed overallPASS. Task-local native focused
+run omits only that separate scenario and preserves all R7/tutorial Slayer checks.
+Public upload19871730 verified through Run game/menu and29matching non-HTML CDN
+hashes; index only adds standard itch.io htmlgame.js. Source has all current dirty
+Guest/Endless/HUD/audio inputs. No new full five-level/audio matrix claim.
+https://micharel09.itch.io/clackblade; typing-hero URL navigates there. Old upload
+19865461 hidden/retained. Theme/pricing/tags preserved; no social/devlog/Git push.
+Online Endless read still401; Firebase unchanged. User instructed publication
+with that limitation. Do not claim old public-browser data migration.
+See [release checkpoint](../plans/clackblade-rebrand.md) for receipt/rollback.
+
+## Combat HUD r7 integration (2026-10-19; earlier frozen candidate)
+
+- Component exporter27PNG PASS; pool219 unique, maximum54px in58px cell.
+- Quick085843 input5304b09b00eefb63ef67141a79df7fd3bcefeceadd4e09280b6a50892de64836:104/104PASS,0skip. Covers synchronous queue/input cadence, burst, reset/error, event/reward behavior, Point/Clamp sprites, bitmap gutter and actual HP0/1/50/100% fill.
+- Serialize090126 input2757a5420ca6a9b3ed3731a55e218d4fc9a9434d913f9c9943e243219f12948a: strict repeat-builder PASS. Scene827IDs retains706original IDs and original GUID references; component bytes/GUIDs preserved.
+- Latest compatibility declarations and native harness callback postdate these receipts. Final recheck attempts ended at shared runner lock timeout, so latest-source acceptance is pending.
+- Pilot091145 input0fd9445887f60e2a7ba4c9e2578c22371f57e995079cc7c662bf9cfbd82c7a0b:125checks then cinematic failure,0exceptions/0fixtureWrites. Native Edge headless61checks then six Parry retries; headed real Parry succeeds but focus/resume check times out after56checks. Tutorial/Slayer/Continue/restart are not accepted. Native320/1280 images visually confirm clean glyphs and dungeon composition; this does not prove complete flow.
+- Production Endless reads401; no backend changes/writes. No release build, ZIP, upload or public-payload verification completed. Exact pending decisions, receipts and retained failure artifacts: docs/plans/ui-kit-v2.md.
+
+
+## CLACKBLADE rename and audio headroom (2026-10-19; release gated)
+
+- Source/menu/product metadata/owned credits/current marketing use CLACKBLADE;
+  TYPE TO SLASH retained. Cover630x500/315x250/158x125 and banner960x394 exported
+  from existing HTML/assets and visually checked. GUIDs/assemblies/Firebase/save
+  keys preserved. Existing MP4 Shorts still need re-export after final source freeze.
+- Frozen brand Quick99/99; QA072050 player matches all30 files of QA071020.
+  Native brand11 and storage13 checks PASS: menu960x540/640x360, Guest/custom name
+  through play/menu/reload, Classic, compiled old/new products at one URL.
+  A different hosting directory creates a separate fresh preference scope and keeps
+  the old files. No claim of legacy public-browser data migration.
+- Existing same-player five-level matrix22063 checks/66wins PASS in Endless plan.
+  This does not certify the later concurrent CombatR7/TypingManager changes.
+- Actual pre-fix destination stereo peak1.43137753 reproduced. Rejected mixer-only
+  snapshot experiment had no WebGL payload/signal effect; mixer asset restored.
+  AudioPreferences before-scene initializer now sets AudioListener.volume=.5.
+  Event gains/clips/prefs/ratios/timing untouched. Frozen input
+  a3848574cdbcb9f6791b9b1e06a9ba98a988c9ab782057cfa1562d82c6e9feb7:
+  Quick99/99/0skip and QA075530/repeat-builder PASS.
+- Native Edge155/GTX1650Ti/ANGLE D3D11/Playwright1.62.1: focused15 PASS;
+  normal41470/tutorial18687 mute samples exactly0, full tick.0757400/error.0947887.
+  VeryHard six wins, nominal70ms/letter, actual Music1/SFX1:1511 checks PASS,
+  230.403s, stereo peak.79853839,22parries/3678points, death/best/restart/tables/menu.
+  Zero exceptions, one intercepted Endless fixture write, zero production writes.
+  A one-sample intermediate-volume pool transient remains below clipping; exact
+  peak-linearity is not claimed. Signal QA only, no speaker/human/FPS claim.
+- Production reads: Classic200; endless_v1 and endless_v2/very_easy401 Permission
+  denied. No Firebase configuration/auth/writes changed. Latest-source CombatR7
+  acceptance and backend decision are required before release. No production ZIP,
+  itch mutation or new slug claimed. Checkpoint/rollback/resources:
+  [CLACKBLADE plan](../plans/clackblade-rebrand.md).
+
+## Guest identity and discovery candidate (2026-10-19)
+
+- Final immutable input `d391738b0cb5fd9163c3e8b287810f7412c4a6e3927cfebbee8755393293cbe7`.
+  Unity2022.3.25f1, pinned GameCI image, Ubuntu fly-server,2CPU/8GiB.
+- Quick044730:97 cases,96pass/1fail/0skip. The only failure was a new test's
+  incorrect expectation of `New hero`; existing normalization returns `New Hero`.
+  Corrected expectation only; focused final Quick045715:4/4pass/0skip.
+  Other93 existing cases had passed and their inputs are unchanged.
+- QA045130 build/repeat-builder passed on input24ab98cb3c87e0c96eba1f52ba26c0cdfd76ae1d9016375f4f1bfc501b3dd375.
+  Per-file archive comparison proves the only difference from final input is that
+  test expectation; all runtime/config/assets are identical. Current checkout
+  runtime also matches; two later unrelated browser-driver edits are preserved.
+- Native Edge155.0.4283.62/ANGLE D3D11,960x540: valid fresh GuestXXXX,
+  Enter/Play, first tutorial, Skip, match restart, guest reload, invalid edited
+  names, custom name save/reload, tutorial replay, actual BLADE hit, tutorial
+  restart and menu checked with actual keyboard/mouse. Final targeted tutorial
+  segment9checks PASS. Earlier passing identity/fixture segments were reused;
+  failed combined attempts are not claimed as full-profile passes.
+- Fixtures observed Guest7279/score301 and NewHero/score10 payloads. External
+  traffic blocked; no production score writes. Equal-to-best score correctly
+  does not force a write; payload verification used a genuinely higher score.
+  Driver corrections: capture transitions continuously, wait for actual scene
+  restart rather than the old reading panel, allow result reveal before clicking
+  Menu. No game timing, leaderboard rules or gameplay changed to satisfy drivers.
+- Production050328 PASS on final input.30files/16,457,704-byte ZIP; local/server
+  SHA256 and CRC PASS:061cc7f2e6af3236a5f0115e762c82c8486e4e9f49f796b9683f42bb4fd678d7.
+  All JS/WASM/data exclude typingHeroQA/GameLoopProbe/TYPINGHERO_AUTOMATION in
+  ASCII and UTF-16LE. Original HTML native smoke: guest name, Enter, tutorial
+  BLADE actual hit/score10/ATTACK COMPLETE inspected; bridge undefined,
+  zero exceptions and zero writes. Build: `Builds/TypingHero-WebGL-Guest-20261019.zip`.
+- Build includes the pre-existing Endless/HUD/audio checkout. This task verifies
+  the identity/tutorial integration, not new balance/performance/audio acceptance;
+  earlier release limits remain in their existing checkpoints. No itch upload.
+- Clip/export receipts and task cleanup are tracked in docs/plans/itch-discovery.md.
+
+
+## Endless difficulty QA (2026-10-19)
+
+- Frozen QA071020/input
+  `956fec7a879998b7c018f0a0b21a71cc8d4932d0c03cc03ea2c834269decffa1`:
+  build/repeat-builder PASS; exact archived-input Quick081526 **99/99PASS**, no
+  failures/skips. Covers configs/persistence/run carry/reset, role/elite/boss/capped
+  recovery, combo renewal/boundaries/pause/tutorial, five local/provider partitions,
+  legacy Normal, ETag/conflict/read-error/pending and >1000-row boundary ties.
+- Same player native Edge155/ANGLE D3D11/GTX1650Ti/Playwright1.58.2: five-level
+  matrix **22063checks/66winsPASS**, rounds3/1/3/1/3 for VeryEasy/Easy/Normal/Hard/
+  VeryHard. Each actual death/best/Restart/table/filter-race/error/Classic flow
+  passed. Five fixture Endless writes, zero Classic writes/unhandled exceptions.
+- Same player pending503/reload/original-partition retry and six tutorial lessons
+  **129PASS**; five-level pointer/keyboard/focus/death/table/Restart **40PASS**;
+  tick/error versus reading/pause/mute audio routing **11PASS**. Menu, intro,
+  Slayer, results and tables inspected at960x540/640x360. Audio routing is not an
+  isolated loudness/clipping measurement. Fixtures block external Firebase traffic.
+- Combo samples721/794/834/240/248 and recovery samples9/9/8/2/4 in order
+  VeryHard/Normal/VeryEasy/Easy/Hard. Median frame13.36â€“13.38ms; largest combo
+  decay-minus-clock error <.00003s, recovery deadlines within sampled frames.
+  Per-win role/elite/boss/round formula, HP/stat carry and10HP boss heal checked.
+- Post-Slayer lock reproduced on QA054721: outgoing SlayerS2 frozen at state
+  speedMultiplier0 while Animator/timeScale/gameplay clock advance. Slayer saved
+  and restored the authored AttackSpeedMul default0. Changed neutral default to1;
+  active Slayer3.5/clips/contact/cue/parry unchanged. Actual lifecycle regression
+  fails on old0 and passes on1. Fixed full matrix includes positive state-speed
+  checks and deliberate hits. Latest optional-hit driver cancels observations at
+  encounter end: focused Normal6wins2476checksPASS, actual Heavy hit35â†’27.
+- Frozen source archive/player/reproduction commands:
+  `Builds/EndlessDifficulty-20261019/README.md` (ignored QA artifact).
+  `python harness/verify_frozen.py` reruns exact-input Quick through shared runner
+  lock. Standard source commands: `python tools/game_loop/run.py quick` and
+  `python tools/game_loop/run.py webgl --browser-scenario endless`.
+  Native harness flags and focused NETWORK/UI/AUDIO profiles are in artifact README.
+  Native keys acknowledge accepted letters and reread after parry/promotion;
+  probe is read-only. Latest harness bookkeeping change was independently checked.
+- Later concurrent TypingManager/UI edits remain preserved but are outside this
+  candidate. This task has not built production, uploaded itch, written production
+  scores or deployed rules/index. Source research and remaining measurement limits:
+  [Endless checkpoint](../plans/endless-duel.md). Agent operation is not a human
+  playtest; Wine/software rendering is not a real-device performance result.
+
+## Typing SFX release in progress (2026-10-18)
+
+- Binder/builder/two original Kenney Interface clips and packaged CC0 notices
+  integrated. Quick160418 **76/76 PASS**,0skips, input
+  `2291f5ad5e6a24ac31a1ee6d6f62aff110f6ac19a650a6c0f0d04f73ccdd1c8e`.
+- QA160520 build/repeat-builder PASS, input
+  `d516a72f34d6c5ba3914436e194819eab3cfda0f51c6433d95699aa132761c02`.
+  Scene retains664previous IDs/all GUID references and adds one binder75867774
+  with two event refs. No other non-whitespace scene delta. Inspected native
+  active normal HUD640x360/1280x720; prior four-size HUD receipt remains applicable.
+  Software browser stops at intro after6checks; no full software profile PASS.
+- Native Edge155/Playwright1.58.2, actual destination-node WebAudio tap with
+  original route retained: audio-only11checks PASS, muted normal window32255samples
+  exactly0, peak stereo.8942. Controlled tutorial tick at SFX.5/1 peaks
+  .0670586/.1341172, error.1878652. These are signal measurements, not speaker QA.
+- **Final native profile failed**,74checks executed before the audio gate failed
+  during Slayer: stereo pre-destination peak1.0988642. Maximum occurs at14.04696s,
+  before first typing buffer14.12063s; the14.12063â€“16.42177s typing/overlap window
+  peaks.9178221 with0samples>=1. This distinguishes existing combat mix from typing;
+  it does not establish an overall no-clipping PASS. x2/x3/exit behavior checks
+  completed, but clipping invalidates the combined acceptance. Controlled tutorial
+  mute-after-pause window additionally contains one nonzero sample(-.3772047),
+  not a strict silence PASS. A separate native six-duel run subsequently completes
+ 39behavior checks, Continue/round2/boss heal/death/restart/menu,0fixture writes/
+  exceptions,250.56s, but FAILS global audio peak1.4233700. Defeat6 carried30HP/
+ 4014points/22parries before boss heal. Captured201.27s of destination audio;
+  overall profile and final-source reload/mute verification remain unpassed.
+  Gain-node trace shows the first muted buffer briefly connects with the recycled
+  UI gain.45 before its replacement connects at0. Binder now skips voice creation
+  when SFX0, with regression added. Focused Quick16252533/33PASS,0skips, input
+  `377ded72b681b88407a43140e204f37899fdc1bb8f937f01fbcd3f0dc8ac4380`.
+  This is GameplayTests/TypingInputSfxTests only, not the required final full Quick.
+  WebGL mute correction remains unverified.
+  No authored volume/mix contract was changed.
+- Final Quick161133 executes78tests:75PASS/3FAIL/0skips. A concurrent source
+  migration changed EndlessRun to Resources before matching assets were present,
+  causing NullReference in roster/role/actual-scene tests. Reject snapshot
+  `23ebdb7bbc729eb9c2d927444b272fe23666cdd4c9feeff91bee2545abb93e4a`;
+  its QA161229 was stopped after verifying the owned container/result mount.
+  Concurrent edits preserved. Need a stable approved Endless baseline; new online
+  schema/provider/UI changes are outside this release plan.
+- No production build, ZIP, upload, public payload verification or release claim.
+  Orca default profile is stopped by Cloudflare before owner/upload verification.
+  Source decisions, failed harness approaches, retained temporary evidence and
+  next steps: [typing release checkpoint](../plans/typing-sfx-release.md).
+
+## Endless Duel representative loop (2026-10-18)
+
+- Final gameplay Quick74/74, no failures/skips, source
+  `6bf307dc0f686dd407084ecfe65470241147c53a64dc29f98ed6c4dd5a545d7b`.
+  Final result typography Quick74/74, source
+  `c65964ff9d500fe713121c04620f7bf1cc659a1c35bb47b7896366a858f7c200`.
+  Includes actual scene transition35HP/123points, fresh enemy/parry/Slayer, real
+  heavy8HP impact/cue240â€“400ms under frame sampling, hidden dead-enemy stamina,
+  boss-heal cap, bounded patterns and progress-before-score record ordering.
+- QA WebGL20261018T143344, source
+  `0b72b04665673ec594fb6dc0d7323a53a9f3deb9fa5370c5275ad13122cae822`:
+  build and repeat-builder pass. Native Edge155.0.4283.62, Playwright1.58.2,
+  NVIDIA GTX1650Ti/ANGLE D3D11: **41checks PASS**,217.24s. Real letters, Space,
+  mouse Continue, intro/pause locks, Slayer pause, six victories, boss heal35â†’40,
+  round2 death, restart, fresh zero-letter death retaining best6/4412, return menu.
+  Zero JS/managed exceptions and zero fixture writes; external blocking retained.
+- Inspected actual normal, blue double-strike, larger warm heavy, Slayer and
+  cleared-opponent frames; death result960x540 and640x360 shows all four lines
+  at font20 without overlapping Restart. Confirmed progressed result ROUND2/
+  DEFEATED6/4412points/100.0%/26parries, then fresh ROUND1/DEFEATED0/0points/
+  no-letter accuracy while best6/4412 remains. No old floating stamina after cleanup.
+- Automated reference cadence >=200ms/letter plus action time: normal duels
+  19.18/16.98/20.25/16.48s, elite26.16s, boss48.32s. Earlier software Chromium153/
+  SwiftShader40checks passed the same six-opponent loop with normals21â€“29s and
+  boss61.83s. These are controlled reference runs, not human WPM or replay-desire
+  evidence. Human recognition, preference and desire to retry still need playtest.
+- Final software attempt on143344 stopped at intro: its60ms key hold could fall
+  between ~94ms render frames. Not a software-profile PASS. Native final driver
+  holds action keys until two observed frames; gameplay timing/windows unchanged.
+  Driver SHA256 `8b3932374757be7474519303ed18317d12cb9affd02ed3acd7427092a28250fb`.
+  The only later product edit generalizes Swordsman hint wording so it remains
+  accurate after round3; no mechanics, numbers, layout or font change. Copy fits
+  the same label already checked with longer Heavy/Boss hints; no suite repeated
+  for that literal-only change.
+- Earlier failures: first native heavy cue was447ms after slow playback, beyond
+  the250ms parry window; delayed cue now retains300ms and measured scene test passes.
+  Initial scene test left persistent audio objects; fixture cleanup fixed it.
+  One editor hung in native asset GC; owned container stopped and fresh editor
+  passed. Concurrent HUD compile snapshots/runner contention were isolated by
+  preserving other edits and waiting on the existing exclusive runner lock.
+- Source/checkpoint: [Endless plan](../plans/endless-duel.md). Temporary local
+  artifacts,11 owned result folders and the server player copy were removed after
+  these receipts; shared source/cache and other tasks' results remain. No release.
+
+## Centered Slayer score, revision5 (2026-10-18)
+
+- Quick143053 **74/74 PASS**, input
+  `1f15e8ec15222e1f2e1b91f3906e7bac8efc5bac05c99c1606d3e60342918cde`.
+  Glyph-based0/6/10digits,x1/x2/x3,pulse1/1.2,zoom/restore and interrupted220ms
+  entry/exit, pause/unscaled completion and disable reset. Canvas fixture and
+  independent origin/baseline measurements avoid the earlier textBounds line-metric
+  error; actual glyph ink, not its advance/ascender box, determines the Slayer group.
+- QA143344 build/repeat-builder PASS, input
+  `0b72b04665673ec594fb6dc0d7323a53a9f3deb9fa5370c5275ad13122cae822`.
+  Reused a concurrent build after raw archive comparison:996/996 non-test product
+  inputs match current Assets/Packages/ProjectSettings. Pinned Unity2022.3.25f1,
+  QA=true; scene normalized match/664 IDs/GUID sets preserved. Duplicate queued
+  task build stopped only after verifying blocked FLOCK state. Other jobs preserved.
+- Software score-layout completed201 checks (four normal/Slayer sizes, input,
+  exact awards, tiers, pulse, popup, pause/resume/exit/restart), then failed waiting
+  for an Endless next-duel screen after a real lethal. Not a full profile PASS.
+  Remaining HUD/lethal path plus Slayer rerun **65 checks PASS/74.512s**, score772,
+  27.268combat seconds,HP40 vs180HP enemy; fade/closed frame/restored24+16 fonts,
+  destroyed actor and pause/R restart with full bars/zero score verified.
+  Chromium153.0.8010.12/SwiftShader,2CPU/8GiB/shm1GiB,0fixture IO/exceptions,
+  external network blocked. Next-duel progression remains outside HUD acceptance.
+- Same immutable player Edge155.0.4283.62: rapid Slayer **56 checks/25.629s PASS**,
+  score155/x3red/exact awards/48px centered during pulse/pause/restore/restart;
+  actual active Slayer640x360,960x540,1280x720,1920x1080 **25 checks/19.754s PASS**.
+  Both0provider IO/exceptions. Reviewed all active native sizes, eight software
+  normal/Slayer frames, cue/tray, lethal and100ms entry/exit/rapid-award frames.
+  Reading overlays obscure the underlying tutorial score; active native frames
+  separately prove actual gameplay visibility. No device-FPS/audio claim.
+- Independent960x540 screenshot pixels: visible glyph gap4, both centers480,
+  whole visible group center104 equals upper black frame208/2. Fonts48/24, normal
+ 24/16/margins24, canvas scale1; score rules/events/popup/tray unchanged by this task.
+- Wireframe r4 retained/check PASS, r5/check PASS, fingerprint
+  `75be18aa46b4bedddb86b186a079b53e7c64984f46d56c6cb60922b1366402c9`.
+  Source, failed approaches, scope and cleanup receipt:docs/plans/combat-hud.md.
+  QA only; no production/release/publication/stress/soak or real provider writes.
 
 ## BCompact 12-particle revision (2026-10-19, review sample; performance caveat)
 
@@ -610,7 +874,7 @@ HTML template. Leaderboard refresh checks actual row instance IDs and Top fetche
 as well as pool size and retained scroll position.
 Firebase reads/writes are fulfilled by fixtures; other external requests abort.
 Stress uses large pool/1,000 word/VFX tests and leaderboard fixtures 500/1,000 rows
-at 960×600 and 400×600. Soak defaults to 1,800 elapsed seconds, repeatedly completes
+at 960Ã—600 and 400Ã—600. Soak defaults to 1,800 elapsed seconds, repeatedly completes
 words and restarts rounds, checks progress deadlines and records frame time,
 memory and object count. Exceptions, missing state/results, timeouts and zero tests fail.
 Production builds without `TYPINGHERO_AUTOMATION` and the build hook checks exclusion.
@@ -618,7 +882,7 @@ Production builds without `TYPINGHERO_AUTOMATION` and the build hook checks excl
 The `windows` profile builds Windows x64 Mono using the existing Ubuntu editor
 and an official2022.3.25f1 Windows Mono module mounted read-only from
 `~/typinghero-game-loop/toolchain/windows-mono-2022.3.25f1/WindowsStandaloneSupport`.
-Output is `/data/typinghero-game-loop/build-windows/TypingHero.exe` with its Data,
+Output is `/data/typinghero-game-loop/build-windows/CLACKBLADE.exe` with its Data,
 DLL and MonoBleedingEdge directories. It uses production defines and verifies
 the runtime assembly excludes GameLoopProbe. Do not distribute the executable
 alone; ZIP the complete player directory with its credits/licenses.
@@ -742,15 +1006,15 @@ Final WebGL: 54 checks passed on snapshot
 `c0ecf7d502deb7718350596766730c74ffbb925609ccb0a3ee4441a948c45a5f`.
 Only enemy HP/editor serialization changed after the Quick runtime checks.
 Three actual keyboard rounds at850HP won in86.524/94.404/90.706 combat seconds,
-median90.706s,44.716–44.935WPM,94.334–95.266%accuracy,78.571–81.250%successful parries.
+median90.706s,44.716â€“44.935WPM,94.334â€“95.266%accuracy,78.571â€“81.250%successful parries.
 These are reference balance runs, not novice human playtests.
 
 Chromium153.0.8010.12/SwiftShader, 2CPU/8GiB, shm1GiB, network none;
 Firebase fixtures cover reads/writes. Read-only probe/frame sampling affects timings.
 Real focus loss was checked separately in headed Xvfb Chromium (7 checks passed);
 headless focus emulation is not evidence of real focus loss.
-Edge61a46c05/155 was inspected at960×540,1280×720,1920×1080,
-iframe960×600 and native iframe fullscreen1280×720. No stress/soak rerun for this task.
+Edge61a46c05/155 was inspected at960Ã—540,1280Ã—720,1920Ã—1080,
+iframe960Ã—600 and native iframe fullscreen1280Ã—720. No stress/soak rerun for this task.
 See [core-match checkpoint](../plans/core-match.md) for acceptance, fixes, HP selection,
 fixture incident/remediation and production artifact status.
 
@@ -771,13 +1035,13 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
   fixes; the final visual integration checks below verify those fixes.
 - Final visual/interaction profile:21 checks, QA source
   `6ff902abd1477b6266314f91b2343e3491f41f36a8cf2b951f965fa7c5dcedc3`.
-  Reviewed960×540,1280×720,1920×1080,640×360, quiet HUD/typing, native ornate
+  Reviewed960Ã—540,1280Ã—720,1920Ã—1080,640Ã—360, quiet HUD/typing, native ornate
   corners/tiled edges, button states, full/half/empty bars, help, defeat/victory,
-  restart/menu and actual Unicode keyboard entry/persistence of Nguyễn.
+  restart/menu and actual Unicode keyboard entry/persistence of Nguyá»…n.
   Visible-row pool19 for1,000 long-name fixtures; native wheel/thumb to rank1000,
   ellipsis, column alignment and refresh retaining scroll verified.
 - Supplementary iframe/fullscreen:5 checks on the same QA build; native name entry,
-  Enter/help/game/pause at960×540 and native fullscreen1280×720, images inspected.
+  Enter/help/game/pause at960Ã—540 and native fullscreen1280Ã—720, images inspected.
   Host fullscreen-button focus must be returned by a native canvas click so the
   iframe player resumes publishing actual render dimensions. An earlier splash
   capture and an earlier insertText-only attempt were rejected as visual/input evidence.
@@ -1155,7 +1419,60 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
   player and other tasks remain; no new branch/worktree/commit/push.
 
 
-## Compact HUD production artifact (2026-10-18, not published)
+## Expanded Endless Duel verification (2026-10-19, partial acceptance)
+
+- Quick20261018T164341:88/88 PASS on
+  da5b7eaa907fd9aee4cfa7e3f808f0c8df091dfa8649b8351b188dc2b887eb54.
+  Covers six real attack clips,300ms cue/pause/single impact, role scheduling/cap,
+  riposte recovery, continuation, modal shortcut isolation and local records.
+  Loopback HTTP fixtures cover >1000entries/boundary ties, read failures,
+  three-conflict limit, concurrent better records and pending-best retry.
+- QA20261018T164534-webgl compile/repeat-builder passes on that snapshot.
+  Production20261018T165155-production passes on
+  4afa1031b50e4a1daaffbf3f932a251ce8100a15250b462d37c40a594127f697;
+  ZIP33members,16,481,782bytes, integrity PASS, SHA256
+  6acf4d41e41c52dd137ee9500db0a54cf6d127f51e3b439c5eadaa3dc09b9327.
+  No QA bridge markers in player files. No production Firebase writes/config edits.
+- Native Edge155 real input clears18duels/3rounds with95parries; HP carry/boss heal,
+  death/restart/best/menu, profiles/achievements, Classic and network/error/empty/retry
+  at960x540/640x360 exercised. Report fails after8934checks only at the final
+  invalid fast-input comparison (stale word snapshots,129incorrect letters).
+  Corrected driver targeted comparison9checks PASS:12.725s versus17.726s,
+  correct input and no submit when abandoning after a win. No runtime code change.
+  Normal reference15.01-19.38s, elite25.21-26.54s, boss44.99-46.63s.
+- Prior post-Slayer idle failure remains unconfirmed; no reproduction in18wins.
+  These receipts do not claim a full-suite pass or resolve that observation.
+  See [Endless checkpoint](../plans/endless-duel.md) for exact receipts and limits.
+  Prepared build/evidence: Builds/EndlessDuel-20261019/, ignored from Git.
+- Three-person human recognition/balance/retry observations remain unverified.
+
+## Compact HUD production publication (2026-10-18)
+
+- Production20261018T130348 PASS on final Quick53 snapshot
+ 6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
+  qa=false; all JS/WASM/data exclude QA markers. Original HTML Edge155 real name/
+  Enter/BLADE hit gives10 and enemy+10; pause/Resume/640x360 reviewed,0JS exceptions/
+  Firebase writes. Runtime/builder match verified HUD. Existing unsupported-shader
+  console messages did not prevent actual correct render; no managed exception.
+- ZIP29members/15,984,116bytes/CRC5b3e086b, SHA256
+  `31799c809a460e4b1eec86d6fb7eb1d26ba5b57904c2c2209d6cd05eb6648921`.
+  Local/server hash and member CRC PASS. Retained release/manifest/published receipt:
+  `/data/typinghero-game-loop/releases/compact-hud-r4-20261018/`.
+- Published to https://micharel09.itch.io/typing-hero, game3857509, upload19847268.
+  Native Saved confirmation; new playable file and five hidden prior uploads verified.
+  Existing fullscreen/storefront/theme/pricing/gallery/draft preserved. Standard CDP
+  file chooser reached through documented Orca endpoint resolved detached-input upload;
+  focused Enter resolved pointer Save attempts with no effect. See combat-hud checkpoint.
+- Public page points to19847268?v=1792330953. Anonymous CDN verifies all28non-HTML
+  hashes; HTML adds only itch htmlgame.js. Fresh anonymous Edge155 loads actual menu,
+  QA undefined, Firebase blocked/no public gameplay/provider writes. Splash capture
+  rejected before actual menu; unversioned cached404 and headless Cloudflare responses
+  were not used as successful evidence. No new gameplay changes or broadened tests.
+- Written receipts recorded before cleanup; local task captures/ZIP/client and owned
+  production result removed. Owned browser tabs no longer remain; server release,
+  shared source/cache/toolchain/builds and other sessions preserved. Final whitespace PASS.
+
+## Remote branch historical verification receipts
 
 - User requested itch deployment. Production20261018T130348 PASS on the same final
   Quick53 snapshot6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.

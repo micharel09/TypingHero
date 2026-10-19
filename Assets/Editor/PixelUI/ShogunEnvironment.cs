@@ -61,7 +61,9 @@ internal static class ShogunEnvironment
         if (old) foreach (var renderer in old.GetComponentsInChildren<Renderer>(true)) renderer.enabled = false;
         var grid = Object.FindObjectOfType<UnityEngine.Tilemaps.TilemapRenderer>();
         if (grid) grid.enabled = false; // Preserve Tilemap/CompositeCollider/Rigidbody.
-        var root = GameObject.Find("ShogunEnvironment") ?? new GameObject("ShogunEnvironment");
+        var previous = Object.FindObjectsOfType<Transform>(true).FirstOrDefault(t => t.name == "ShogunEnvironment");
+        var root = previous ? previous.gameObject : new GameObject("ShogunEnvironment");
+        root.SetActive(true); // Final combat migration may have hidden this preserved root.
         Layer(root, "Sky", "Sky", -100, "A6C8DB", 1);
         Layer(root, "Clouds", "Clouds", -95, "CCD5C3", .95f);
         Layer(root, "Fuji", "Fuji", -90, "638F91", .85f);

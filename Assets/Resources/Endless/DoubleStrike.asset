@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f915df9271c2dcaf8bded4be22671b56, type: 3}
+  m_Name: DoubleStrike
+  m_EditorClassIdentifier:
+  role: 1
+  displayName: DOUBLE STRIKE
+  hint: Two attacks, two cues. Stay ready to parry again.
+  health: 200
+  damage: 5
+  hitCost: 12
+  recovery: 1.7
+  controller: {fileID: 9100000, guid: b5cca8c34d7f8e918bd61608a67c4795, type: 2}
+  idle: {fileID: 4723107735738678597, guid: 615add6621b5342cda7da77899a57075, type: 3}
+  hurt: {fileID: 7400000, guid: b2d106dae4fe4d11a8d0dcf2b36d6c60, type: 2}
+  opening: 0100000002000000
+  alternate: 0100000002000000
+  triple: 020000000100000002000000

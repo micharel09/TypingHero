@@ -12,11 +12,13 @@ public sealed class LeaderboardModal : MonoBehaviour
     [SerializeField] LeaderboardUIBinder binder;
     GameObject previousFocus;
     static LeaderboardModal current;
+    static int closedFrame = -1;
     public static bool IsOpen => current && current.panel && current.panel.activeInHierarchy;
+    public static bool BlocksShortcuts => IsOpen || closedFrame == Time.frameCount;
 
     public void Open()
     {
-        if (IsOpen) return;
+        if (BlocksShortcuts) return;
         var canvas = previousScreen ? previousScreen.GetComponentInParent<Canvas>() : null;
         if ((canvas && !canvas.isActiveAndEnabled) || (previousScreen && !previousScreen.interactable)) return;
         previousFocus = EventSystem.current ? EventSystem.current.currentSelectedGameObject : null;
@@ -29,6 +31,7 @@ public sealed class LeaderboardModal : MonoBehaviour
 
     public void Close()
     {
+        closedFrame = Time.frameCount;
         panel.SetActive(false);
         if (binder) binder.enabled = false;
         if (previousScreen) { previousScreen.interactable = true; previousScreen.blocksRaycasts = true; }

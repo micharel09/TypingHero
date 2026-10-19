@@ -106,36 +106,107 @@ single presentation instance; FloatingScore lifetime/rise/alpha. No runtime depe
   exists; other sessions/results/artwork were preserved. Acceptance complete; no blocker.
 
 
-## Revision4 production publication (blocked at native file picker)
+## Revision4 production publication (complete)
 
-User explicitly authorized itch.io deployment after acceptance. Target:
-https://micharel09.itch.io/typing-hero, game3857509. Preserve previous uploads/settings.
+User authorized itch.io deployment after acceptance, then explicitly requested the
+agent handle the remaining file-selection step. Published to
+https://micharel09.itch.io/typing-hero, game3857509, upload19847268.
+
 - Production20261018T130348 PASS from verified Quick53 snapshot
   6a6e68b810b1e7531268235820aff4f88a6e5364fe5532e8ebd75351114847e2.
-  Runtime/builder hashes still match local verified source. JS/WASM/data all exclude
+  Runtime/builder hashes match verified local source. All JS/WASM/data exclude
   typingHeroQA/TypingHeroQA_Publish/GameLoopProbe markers; build qa=false.
-- Exact original production HTML native Edge155 smoke PASS: name/Enter, actual BLADE
-  hit/score10/enemy-head+10, hidden names/Gold stamina/corner score, pause/Resume button,
- 640x360 canvas,0JS exceptions/0Firebase reads/writes. Unsupported shader console lines
-  were observed, with correct actual render and no managed exception. An initial helper
-  still pointed to a previous task's player; discarded that capture, corrected root and
-  used a new browser profile. All final smoke images show the current production build.
-- Release retained at /data/typinghero-game-loop/releases/compact-hud-r4-20261018/:
-  TypingHero-WebGL-compact-hud-r4-20261018.zip and release.json/per-file SHA256 manifest.
-  ZIP29members/15,984,116bytes, CRC32 5b3e086b, SHA256
+- Original production HTML Edge155 smoke: native name/Enter/BLADE hit/score10 and
+  enemy-head+10, hidden names/Gold stamina/corner score, pause/Resume/640x360 reviewed.
+ 0JS exceptions/0Firebase reads/writes. Unsupported shader console lines observed
+  with correct render/no managed exception. Initial smoke helper pointed to an older
+  player; discarded it, corrected root and used a fresh profile for final evidence.
+- ZIP29members/15,984,116bytes, CRC32 5b3e086b, SHA256
   31799c809a460e4b1eec86d6fb7eb1d26ba5b57904c2c2209d6cd05eb6648921.
-  Full archive CRC and local/server SHA256 match. No upload/save/publication occurred.
-- Orca task page5520357b-67f9-4073-aa45-656fcd9f9665 initially showed Cloudflare,
-  later cleared automatically into the authenticated edit page (micharel09/Typing Hero).
-  Existing5uploads/four hidden/ScoreHUD playable, public state and storefront preserved.
-  BrowserSkill sessionyzeq/browser9c92c27f(fly) instead showed login; requested human
-  login timed out, session stopped. Shared daemon/other sessionxkja preserved.
-- Actual blocker: Orca upload on Upload files(e61) returns Node is not a file input
-  element. Clicking that native button succeeds but document has no attached file input
-  or iframe, so its detached native picker cannot be populated by the supported CLI.
-  No JS form submission, token/cookie extraction or Computer Use. User must select ZIP
-  once in the open picker; then continue checkbox/save and anonymous CDN verification.
-- Local ZIP/manifest retained in E:/CodexTemp/TypingHero/compact-hud-publish for that
-  required user step. Keep the owned Orca edit tab open for continuation. Capture/client/
-  downloaded player/profile artifacts removed after written receipts; shared production
-  build/source/Library/toolchain and server release retained. No new build needed to resume.
+  All member CRC/local-server hash checks PASS. ZIP/release.json/per-file manifest/
+  published.json retained at /data/typinghero-game-loop/releases/compact-hud-r4-20261018/.
+- Orca authenticated edit page verified micharel09/game3857509. Detached input made
+  direct CLI upload fail without upload; BrowserSkill alternate login timed out and
+  its owned session was stopped. Orca later cleared Cloudflare. Native-window attempts
+  did not establish a useful picker state; used the documented Orca CLI `get cdp-url`
+  endpoint instead, with its exact scoped target, no endpoint scanning/cookie extraction.
+  Standard Page.fileChooserOpened + DOM.setFileInputFiles selected the verified ZIP.
+  No custom page JS submission or gameplay mutation. No second upload was created.
+- New upload Success -> browser-playable checked; previous ScoreHUD upload hidden.
+  Save via focused native Enter produced actual Saved confirmation. Earlier pointer
+  Save attempts had no Saved/POST evidence; public remained old, so they were not
+  treated as publication. Existing five uploads retained hidden; original fullscreen/
+  copy/theme/pricing/gallery/draft preserved. Public placeholder now19847268 with
+  version1792330953. Saved state and public target verified.
+- Anonymous CDN checks: all28non-HTML file hashes match release; hosted HTML matches
+  original after removing itch.io htmlgame.js and normalizing whitespace. Unversioned
+  index request hit a cached404 from before extraction; actual versioned public URL
+  returns the correct HTML. Anonymous Edge155 loads the actual menu, QA undefined,
+  Firebase blocked/no public gameplay/provider writes. Initial capture was still Unity
+  splash and rejected; later actual menu frame inspected. Public-page headless request
+  hit Cloudflare; configured public URL verified through existing Orca session, while
+  CDN payload/menu verification used a fresh anonymous browser.
+- Final receipt/diff/whitespace review PASS. Local ZIP/client/captures and owned
+  production result removed; server release/source/Library/toolchain/builds retained.
+  Public task tab closed; edit tab was already absent at cleanup. Other sessions,
+  artwork and prior uploads preserved. Publication acceptance complete.
+
+
+## Revision 5 - centered Slayer score (verified)
+
+Approved supplied user plan: Slayer total48/combo24, actual glyph-centered group in
+upper black frame, gap4, x1 hidden; existing tiers/pulse120ms. Normal restores
+corner top/right24 and fonts24/16. Position/fonts follow220ms bar reveal, canvas
+scale1; popup/tray/scoring/events unchanged. CombatHUDLayout owns geometry,
+SlayerScreenFX exposes reveal/full frame, ShogunTheme binds existing objects.
+
+- Final Quick143053 **74/74 PASS**, input
+  `1f15e8ec15222e1f2e1b91f3906e7bac8efc5bac05c99c1606d3e60342918cde`.
+  Covers0/6/10digits,x1/x2/x3,pulse1/1.2,normal/Slayer camera, repeated reveal and
+  restore, interrupted exit/re-entry, unscaled pause and disable reset.
+- QA143344 reused safely:996/996 raw non-test product inputs (Assets/Packages/
+  ProjectSettings) match current source, zero missing/different; input
+  `0b72b04665673ec594fb6dc0d7323a53a9f3deb9fa5370c5275ad13122cae822`.
+  Pinned Unity2022.3.25f1, QA=true and repeat-builder PASS. Scene normalized match,
+  664/664 IDs and all referenced GUIDs retained; scene SHA256
+  `1135e386c17c33a4208702dbdb5f87fd000a89158c41e70b04eb12eb5a23217f`.
+  Shared runner contention led to reuse of this identical concurrent build;
+  stopped only the task-owned duplicate while it was demonstrably blocked on
+  FLOCK (PID171407), without touching the lock holder or other queued work.
+- Software targeted run completed201 checks: normal/Slayer four sizes, real
+  parries/rapid typing,x2/x3/exact score,popup/pause/resume/exit/restart. Then failed
+  awaiting an unrelated Endless next-duel screen after lethal. NOT a full profile
+  PASS. Final narrower HUD/lethal plus Slayer rerun **65 checks PASS/74.512s**:
+  enemy180HP,score772,27.268combat seconds,HP40; fade completes after lethal,
+  frame closes/fonts24/16 restore even after actor destruction, pause/R restarts
+  with score0/full bars. Chromium153/SwiftShader,2CPU/8GiB/shm1GiB,0provider reads/
+  writes/exceptions; fixture/network blocking retained. Next-duel progression is
+  outside this HUD change and is not claimed verified.
+- Same final player, Edge155 native: rapid Slayer **56 checks PASS/25.629s**,
+  score155/x3red, exact awards/center during pulse, pause/resume/exit/restart;
+  active Slayer four-size capture **25 checks PASS/19.754s**, all0provider IO and
+  exceptions. Reviewed actual active640x360,960x540,1280x720,1920x1080 frames,
+  all eight software normal/Slayer frames, cue/typing, lethal, and100ms entry/exit/
+  rapid-award sequences. Tutorial reading panels obscure the underlying score;
+  separate active native frames establish visibility without those panels.
+- Independent screenshot pixel check960x540: visible gap exactly4px; score/combo
+  centers480px; visible whole-group center104px equals208px upper-frame center.
+  No clipping or score/tray/cue overlap in active gameplay. These are functional/
+  visual results, not device-FPS or speaker-audio claims.
+- Earlier failures: TMP fixture lacked Canvas; added it and the existing
+  Cinemachine test-assembly reference. Initial textBounds used font line metrics,
+  producing excessive visible gap despite matching its own bounds; replaced with
+  per-glyph metrics excluding quad padding. Tests/probe independently use origin/
+  baseline/bearings. Driver Skip/850HP assumptions were adapted to existing dirty
+  Endless180HP intro; wait until it is ready, use native Enter, and test lethal
+  restart through pause/R without changing gameplay or provider behavior.
+- Wireframe r4 preserved/check PASS; r5 rendered/captured with editor closed,
+  reviewed/check PASS. Fingerprint
+  `75be18aa46b4bedddb86b186a079b53e7c64984f46d56c6cb60922b1366402c9`.
+  Runtime/builders/GUIDs/diff/JS syntax/whitespace reviewed. Existing dirty Endless,
+  gameplay and runner work preserved; no branch/worktree/commit/push/publication.
+- Written receipts preceded cleanup. Removed local/server slayer-score task temp
+  and7 snapshot-verified owned result directories. No task container remains.
+  Other-session143344,shared source/Library/toolchain/builds and all other sessions
+  preserved. Final whitespace/JS/source/binding review PASS. HUD acceptance complete;
+  no production build/publication and no remaining HUD implementation/checks.

@@ -30,24 +30,35 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(ParryClashAssets.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(WorldLightingBuild.Root, "*", SearchOption.AllDirectories)).ToArray();
         paths = paths.Concat(Directory.GetFiles(ShogunEnvironment.Art, "*"))
+            .Concat(Directory.GetFiles(CombatR7Build.Art, "*"))
+            .Concat(Directory.GetFiles("Assets/Art/EndlessSkeletons", "*", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles("Assets/Resources/Endless", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyUI", "*"))
+            .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyInterface", "*"))
             .Concat(Directory.GetFiles(ShogunTheme.Events, "*")).ToArray();
         var before = System.Array.ConvertAll(paths, File.ReadAllBytes);
         try { Apply(); }
         catch (System.Exception error) { throw new BuildFailedException(error); }
         for (int i = 0; i < paths.Length; i++)
             if (!before[i].SequenceEqual(File.ReadAllBytes(paths[i])))
+            {
+                if (paths[i] == "Assets/Scenes/SampleScene.unity")
+                {
+                    File.WriteAllBytes("/results/combat-r7-first.unity", before[i]);
+                    File.Copy(paths[i], "/results/combat-r7-second.unity", true);
+                }
                 throw new BuildFailedException("UI builder is not idempotent: " + paths[i]);
+            }
         Debug.Log("Shogun repeat builder: serialized objects, references and listeners unchanged");
     }
 
     public static void SerializeOnly()
     {
-        Apply();
+        new PixelUIBuild().OnPreprocessBuild(null);
         Debug.Log("Build succeeded!");
     }
 
-    [MenuItem("Typing Hero/Apply Pixel UI")]
+    [MenuItem("CLACKBLADE/Apply Pixel UI")]
     public static void Apply()
     {
         var previousScene = EditorSceneManager.GetActiveScene().path;
@@ -58,15 +69,18 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             PixelUIScenes.Menu();
             PixelUIScenes.Game();
             CoreMatchBuild.Apply();
+            EndlessAssets.Prepare();
             CombatFeedbackBuild.Apply();
             TutorialBuild.Apply();
             ShogunTheme.Apply();
             WorldLightingBuild.Apply();
+            CombatR7Build.Apply();
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");
             AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
                 PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
+                CombatR7Build.Art.TrimEnd('/'),
                 ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }, "build/PixelUI/PixelUI.unitypackage",
                 ExportPackageOptions.Recurse);
             Debug.Log("Pixel UI migration and serialization complete");

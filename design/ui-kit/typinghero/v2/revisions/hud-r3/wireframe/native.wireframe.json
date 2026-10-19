@@ -1,0 +1,95 @@
+{
+  "name": "HUD r3 ? draft review / source 320?180 at 3?",
+  "viewport": {
+    "width": 960,
+    "height": 540
+  },
+  "root": {
+    "name": "Fixed screen HUD / scene moves independently",
+    "direction": "vertical",
+    "children": [
+      {
+        "name": "HP left / thin score / HP right",
+        "direction": "horizontal",
+        "justify": "space-between",
+        "height": 96,
+        "children": [
+          {
+            "name": "HP 102?21 @3,11",
+            "type": "image",
+            "width": 306,
+            "height": 63
+          },
+          {
+            "name": "Score 98?22 @111,3",
+            "type": "image",
+            "width": 294,
+            "height": 66
+          },
+          {
+            "name": "HP 102?21 @215,11",
+            "type": "image",
+            "width": 306,
+            "height": 63
+          }
+        ]
+      },
+      {
+        "name": "Secondary 102?13 / combo y28 / status y40",
+        "direction": "horizontal",
+        "justify": "space-between",
+        "height": 48,
+        "children": [
+          {
+            "name": "Combo socket13 / fill84?4",
+            "type": "image",
+            "width": 306,
+            "height": 39
+          },
+          {
+            "name": "999 COMBO / x16",
+            "type": "image",
+            "width": 294,
+            "height": 39
+          },
+          {
+            "name": "Stamina socket13 / fill84?4",
+            "type": "image",
+            "width": 306,
+            "height": 39
+          }
+        ]
+      },
+      {
+        "name": "Far ? mid ? floor ? actors ? edge foreground",
+        "type": "image",
+        "height": 270
+      },
+      {
+        "name": "Bottom fixed controls",
+        "direction": "horizontal",
+        "justify": "space-between",
+        "children": [
+          {
+            "name": "Parry / Space",
+            "type": "image",
+            "width": 210,
+            "height": 108
+          },
+          {
+            "name": "Current 16px / preview 12px; 158x36 @81,140",
+            "type": "image",
+            "width": 474,
+            "height": 108
+          },
+          {
+            "name": "Timer / Pause",
+            "type": "image",
+            "width": 210,
+            "height": 108
+          }
+        ]
+      }
+    ]
+  }
+}

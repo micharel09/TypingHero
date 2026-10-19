@@ -70,6 +70,7 @@ module.exports = async function tutorialFlow(api, page, options = {}) {
 
   const writes = report.fixtureWrites;
   let s = await state(page);
+  if (!options.freshTutorial) {
   check(s.scene === 'MainMenu' && s.tutorialStatus === 1, 'skipped preference returns to menu');
   await clickControl(page, 'PlayButton', 'button');
   s = await until(page, s => s.scene === 'SampleScene' && !s.tutorial && s.hp === 40);
@@ -77,12 +78,49 @@ module.exports = async function tutorialFlow(api, page, options = {}) {
   await page.keyboard.press('Escape', { delay: 120 }); await until(page, s => s.paused);
   await page.keyboard.press('m', { delay: 120 }); await until(page, s => s.scene === 'MainMenu');
   await clickControl(page, 'TutorialButton', 'button');
-  await reading(0); await practice(0); await finishWord();
+  }
+  await reading(0);
+  if(options.r7Input){
+    await clickControl(page,'PauseIconR7','button');
+    await until(page,t=>t.paused);
+    await clickControl(page,'ResumeButton','button');
+    await until(page,t=>!t.paused && t.timeScale===0 && !t.controls.some(c=>c.name==='ResumeButton'));
+    check(true,'r7: pause icon uses the real pause/resume owner and preserves tutorial reading');
+  }
+  await practice(0);
+  if(options.r7Input){
+    const original=await state(page), rect=original.wordRects[0];
+    const sameWordGeometry=t=>Math.abs(t.wordRects[0].x-rect.x)<1 && Math.abs(t.wordRects[0].width-rect.width)<1;
+    await page.keyboard.type('BL',{delay:150});
+    let typed=await until(page,t=>t.current==='ADE');
+    check(sameWordGeometry(typed),'r7: correct prefix colors retain the whole word geometry');
+    await page.screenshot({path:report.outputDirectory+'/r7-progress.png'});
+    await page.keyboard.type('z');
+    typed=await until(page,t=>t.current==='BLADE' && t.inputLetters>typed.inputLetters);
+    check(typed.rowError>0 && sameWordGeometry(typed),'r7: wrong input resets progress and holds red without moving the word');
+    await page.screenshot({path:report.outputDirectory+'/r7-error.png'});
+    const wrongCount=typed.inputLetters;
+    await page.keyboard.type('z');
+    typed=await until(page,t=>t.inputLetters>wrongCount);
+    check(typed.rowError>0 && typed.current==='BLADE','r7: repeated error restarts feedback without advancing queue');
+    await page.keyboard.type('B',{delay:60});
+    typed=await until(page,t=>t.current==='LADE');
+    check(typed.rowError===0 && sameWordGeometry(typed),'r7: next correct input clears error immediately');
+    await page.emulateMedia({reducedMotion:'reduce'});
+    check(await page.evaluate(()=>matchMedia('(prefers-reduced-motion: reduce)').matches),'r7: browser system reduced motion is active');
+    const wordCount=typed.words;
+    await finishWord();
+    typed=await until(page,t=>t.words>wordCount);
+    check(typed.rowSlide===0 && typed.current==='STEEL','r7: reduced motion promotes synchronously with no slide');
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    typed=await until(page,t=>t.frame>typed.frame+2);
+    check(typed.rowSlide===0,'r7: restoring motion never restarts an old promotion');
+  } else await finishWord();
   s = await until(page, s => s.tutorialPassed);
   check(s.enemyHp < 850, 'replay also requires a real attack hit');
 
   await next(1);
-  for (const size of [{width:960,height:540},{width:1280,height:720},{width:1920,height:1080},{width:640,height:360}]) {
+  for (const size of (options.viewports || [[960,540],[1280,720],[1920,1080],[640,360]]).map(([width,height])=>({width,height}))) {
     await page.setViewportSize(size);
     s = await until(page, s => s.width === size.width && s.height === size.height);
     await until(page,t=>t.frame>=s.frame+4); s=await state(page);
@@ -90,6 +128,11 @@ module.exports = async function tutorialFlow(api, page, options = {}) {
     (report.scoreGeometry ||= []).push({mode:'normal',width:s.width,height:s.height,score:s.scoreRect,tray:s.trayRect,words:s.wordRects});
     check(s.tutorialLesson === 1 && s.timeScale === 0 && s.hp === 40, 'tutorial reading at ' + size.width + 'x' + size.height);
     await page.screenshot({ path: report.outputDirectory + '/tutorial-' + size.width + 'x' + size.height + '.png' });
+    if(options.captureGrayscale){
+      await page.locator('#unity-canvas').evaluate(el=>el.style.filter='grayscale(1)');
+      await page.screenshot({path:report.outputDirectory+`/normal-gray-${size.width}x${size.height}.png`});
+      await page.locator('#unity-canvas').evaluate(el=>el.style.filter='');
+    }
   }
   await page.setViewportSize({width:960,height:600}); await until(page, s => s.width === 960 && s.height === 600);
   await practice(1); await page.keyboard.type('Bx', {delay:100});
@@ -122,20 +165,27 @@ module.exports = async function tutorialFlow(api, page, options = {}) {
   check(s.stamina === 0 && s.stunned && s.slayer, 'last real parry stuns and activates Slayer');
   await page.waitForTimeout(5500);
   check((await state(page)).slayer, 'reading preserves the real Slayer duration');
-  for(const [width,height] of [[960,540],[1280,720],[1920,1080],[640,360]]) {
+  for(const [width,height] of (options.viewports || [[960,540],[1280,720],[1920,1080],[640,360]])) {
     await page.setViewportSize({width,height});
     const resized=await until(page,s=>s.width===width && s.height===height);
     await until(page,s=>s.frame>=resized.frame+4);
-    const frame=await state(page), scale=height/540;
+    const frame=await state(page), scale=Math.min(width/960,height/540);
     require('./combat_hud.cjs')(frame,check,'Slayer '+width);
     (report.scoreGeometry ||= []).push({mode:'slayer',width,height,score:frame.scoreRect,tray:frame.trayRect,words:frame.wordRects});
     (report.slayerReadingSizes ||= []).push({width,height,topGap:(frame.barTopEdge.y-frame.bodyHead.y)/scale,bottomGap:(frame.bodyFoot.y-frame.barBottomEdge.y)/scale});
-    check(frame.scorePoint.y>frame.barTopEdge.y && frame.trayPoint.y<frame.barBottomEdge.y,`${width}: score on upper bar and typing on lower bar`);
+    check(frame.scorePoint.y>frame.barTopEdge.y && frame.wordGlyphRects.every(r=>r.y+r.height<=frame.barBottomEdge.y+1),`${width}: visible word glyphs lie on lower bar; fixed row geometry is unchanged`);
+    const originY=(height-540*scale)/2;
+    check(Math.abs((frame.bodyFoot.y-originY)/(scale*3)-42)<1.5,`${width}: real feet remain at native y138 through Slayer zoom`);
     check(frame.slayer && !frame.environmentVisible && frame.redAlpha===1,`${width}: tutorial preserves cinematic red`);
     check(Math.abs(frame.barLeft)<1 && Math.abs(frame.barRight-width)<1,`${width}: tutorial bars span screen`);
-    check(Math.abs((frame.barTopEdge.y-frame.bodyHead.y)/scale-8)<1.5 && Math.abs((frame.bodyFoot.y-frame.barBottomEdge.y)/scale-8)<1.5,
+    check(Math.abs((frame.barTopEdge.y-frame.bodyHead.y)/(scale*3)-8)<1.5 && Math.abs((frame.bodyFoot.y-frame.barBottomEdge.y)/(scale*3)-8)<1.5,
       `${width}: tutorial body framing keeps eight pixel padding`);
     await page.screenshot({path:report.outputDirectory+`/slayer-reading-${width}x${height}.png`});
+    if(options.captureGrayscale){
+      await page.locator('#unity-canvas').evaluate(el=>el.style.filter='grayscale(1)');
+      await page.screenshot({path:report.outputDirectory+`/slayer-gray-${width}x${height}.png`});
+      await page.locator('#unity-canvas').evaluate(el=>el.style.filter='');
+    }
   }
   if(options.stopAfterSlayerLayout) return;
   await page.setViewportSize({width:960,height:600});
@@ -168,8 +218,8 @@ module.exports = async function tutorialFlow(api, page, options = {}) {
   await page.screenshot({path:report.outputDirectory + '/tutorial-complete.png'});
   check(report.fixtureWrites === writes, 'all tutorial lessons and retries produce zero score writes');
   await clickControl(page, 'PracticeButton', 'button');
-  s = await until(page, s => !s.tutorial && s.scene === 'SampleScene' && s.hp === 40 && s.enemyHp === 850 && s.score === 0);
-  check(s.stamina === 250 && s.inputLetters === 0 && s.inputCorrect === 0 && s.matchParries === 0 &&
+  s = await until(page, s => !s.tutorial && s.scene === 'SampleScene' && s.hp === 40 && s.enemyHp === 180 && s.score === 0 && s.encounterReading);
+  check(s.stamina === 100 && s.inputLetters === 0 && s.inputCorrect === 0 && s.matchParries === 0 &&
     s.combatSeconds < 1 && s.finalScore === 0 && !s.slayer && !s.finished && !s.parryPose && !s.pendingAttack,
     'Start Battle loads fresh HP, stamina, score, statistics and combat lifecycle');
 

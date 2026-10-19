@@ -27,7 +27,7 @@ public static class GameLoopBuild
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
                 scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
-                locationPathName = output + "/TypingHero.exe",
+                locationPathName = output + "/CLACKBLADE.exe",
                 target = BuildTarget.StandaloneWindows64,
                 options = BuildOptions.None,
                 extraScriptingDefines = Array.Empty<string>()
@@ -37,10 +37,10 @@ public static class GameLoopBuild
             CopyCredits(output);
             System.IO.File.WriteAllText(output + "/game-loop-build.json", "{\"qa\":false,\"target\":\"Windows64\"}");
             System.IO.File.WriteAllText(output + "/README.txt",
-                "TypingHero - Windows 64-bit\r\n\r\nExtract the entire ZIP, then open TypingHero.exe.\r\n" +
+                "CLACKBLADE - Windows 64-bit\r\n\r\nExtract the entire ZIP, then open CLACKBLADE.exe.\r\n" +
                 "Keep the Data folder, MonoBleedingEdge and DLL files beside the executable.\r\n" +
                 "No Python, browser or Unity installation required.\r\nAlt+F4 closes the game.\r\n");
-            Debug.Log("TypingHero Windows64 build complete; QA=false");
+            Debug.Log("CLACKBLADE Windows64 build complete; QA=false");
         }
         finally
         {
@@ -79,7 +79,7 @@ public static class GameLoopBuild
             System.IO.File.WriteAllText(output + "/game-loop-build.json",
                 "{\"qa\":" + (qa ? "true" : "false") + "}");
             CopyCredits(output);
-            Debug.Log("TypingHero WebGL build complete; QA=" + qa);
+            Debug.Log("CLACKBLADE WebGL build complete; QA=" + qa);
         }
         finally { PlayerSettings.WebGL.compressionFormat = compression; }
     }
@@ -96,6 +96,8 @@ public static class GameLoopBuild
         System.IO.File.Copy("Assets/Audio/SFX/Clips/KenneyImpact/License.txt", output + "/Kenney-Impact-License.txt", true);
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Audio/SFX/Clips/KenneyUI/CREDITS.txt"));
         System.IO.File.Copy("Assets/Audio/SFX/Clips/KenneyUI/License.txt", output + "/Kenney-UI-License.txt", true);
+        System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Audio/SFX/Clips/KenneyInterface/CREDITS.txt"));
+        System.IO.File.Copy("Assets/Audio/SFX/Clips/KenneyInterface/License.txt", output + "/Kenney-Interface-License.txt", true);
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Art/VFX/Pimen/CREDITS.txt"));
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Art/VFX/CodeManu/CREDITS.txt"));
         System.IO.File.Copy("Assets/Art/VFX/CodeManu/LICENSE.txt", output + "/CodeManu-License.txt", true);

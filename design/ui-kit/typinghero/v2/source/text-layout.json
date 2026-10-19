@@ -1,0 +1,4810 @@
+[
+  {
+    "text": "PLAYER NAME",
+    "size": 8,
+    "x": 25,
+    "y": 57,
+    "width": 33.0,
+    "limit": null
+  },
+  {
+    "text": "Your name",
+    "size": 10,
+    "x": 32,
+    "y": 73,
+    "width": 36.0,
+    "limit": 125
+  },
+  {
+    "text": "Difficulty: < Normal >",
+    "size": 10,
+    "x": 25,
+    "y": 90,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "PLAY [ENTER]",
+    "size": 10,
+    "x": 71,
+    "y": 109,
+    "width": 48.0,
+    "limit": 129
+  },
+  {
+    "text": "Parry. Type during recovery.",
+    "size": 8,
+    "x": 25,
+    "y": 130,
+    "width": 84.0,
+    "limit": 141
+  },
+  {
+    "text": "How to Play",
+    "size": 10,
+    "x": 44,
+    "y": 157,
+    "width": 44.0,
+    "limit": 86
+  },
+  {
+    "text": "Tutorial",
+    "size": 10,
+    "x": 143,
+    "y": 157,
+    "width": 32.0,
+    "limit": 66
+  },
+  {
+    "text": "Collection",
+    "size": 10,
+    "x": 233,
+    "y": 157,
+    "width": 40.0,
+    "limit": 88
+  },
+  {
+    "text": "MUSIC  -----o---",
+    "size": 8,
+    "x": 190,
+    "y": 28,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "SFX    ------o--",
+    "size": 8,
+    "x": 190,
+    "y": 39,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "PLAYER NAME",
+    "size": 8,
+    "x": 25,
+    "y": 57,
+    "width": 33.0,
+    "limit": null
+  },
+  {
+    "text": "Your name",
+    "size": 10,
+    "x": 32,
+    "y": 73,
+    "width": 36.0,
+    "limit": 125
+  },
+  {
+    "text": "Difficulty: < Normal >",
+    "size": 10,
+    "x": 25,
+    "y": 90,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "PLAY [ENTER]",
+    "size": 10,
+    "x": 71,
+    "y": 109,
+    "width": 48.0,
+    "limit": 129
+  },
+  {
+    "text": "! Please enter your name",
+    "size": 8,
+    "x": 25,
+    "y": 127,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "(3-10 characters).",
+    "size": 8,
+    "x": 25,
+    "y": 136,
+    "width": 54.0,
+    "limit": null
+  },
+  {
+    "text": "How to Play",
+    "size": 10,
+    "x": 44,
+    "y": 157,
+    "width": 44.0,
+    "limit": 86
+  },
+  {
+    "text": "Tutorial",
+    "size": 10,
+    "x": 143,
+    "y": 157,
+    "width": 32.0,
+    "limit": 66
+  },
+  {
+    "text": "Collection",
+    "size": 10,
+    "x": 233,
+    "y": 157,
+    "width": 40.0,
+    "limit": 88
+  },
+  {
+    "text": "MUSIC  -----o---",
+    "size": 8,
+    "x": 190,
+    "y": 28,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "SFX    ------o--",
+    "size": 8,
+    "x": 190,
+    "y": 39,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "PLAYER NAME",
+    "size": 8,
+    "x": 25,
+    "y": 57,
+    "width": 33.0,
+    "limit": null
+  },
+  {
+    "text": "WWWWWWWWWW",
+    "size": 10,
+    "x": 32,
+    "y": 73,
+    "width": 40.0,
+    "limit": 125
+  },
+  {
+    "text": "Difficulty: < Normal >",
+    "size": 10,
+    "x": 25,
+    "y": 90,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "PLAY [ENTER]",
+    "size": 10,
+    "x": 71,
+    "y": 109,
+    "width": 48.0,
+    "limit": 129
+  },
+  {
+    "text": "Parry. Type during recovery.",
+    "size": 8,
+    "x": 25,
+    "y": 130,
+    "width": 84.0,
+    "limit": 141
+  },
+  {
+    "text": "How to Play",
+    "size": 10,
+    "x": 44,
+    "y": 157,
+    "width": 44.0,
+    "limit": 86
+  },
+  {
+    "text": "Tutorial",
+    "size": 10,
+    "x": 143,
+    "y": 157,
+    "width": 32.0,
+    "limit": 66
+  },
+  {
+    "text": "Collection",
+    "size": 10,
+    "x": 233,
+    "y": 157,
+    "width": 40.0,
+    "limit": 88
+  },
+  {
+    "text": "MUSIC  -----o---",
+    "size": 8,
+    "x": 190,
+    "y": 28,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "SFX    ------o--",
+    "size": 8,
+    "x": 190,
+    "y": 39,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "CAPTAIN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "200/550",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "CAPTAIN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "200/550",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "SLAYER / x16",
+    "size": 10,
+    "x": 136,
+    "y": 48,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "WWWWWWWWWW",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 30.0,
+    "limit": 63
+  },
+  {
+    "text": "1/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "CAPTAIN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "200/550",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "2,147,483,647",
+    "size": 12,
+    "x": 128,
+    "y": 14,
+    "width": 65.0,
+    "limit": 98
+  },
+  {
+    "text": "999 / x16",
+    "size": 8,
+    "x": 146,
+    "y": 29,
+    "width": 27.0,
+    "limit": 98
+  },
+  {
+    "text": "SLAYER / x16",
+    "size": 10,
+    "x": 136,
+    "y": 48,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "counterstrike",
+    "size": 16,
+    "x": 121,
+    "y": 150,
+    "width": 78.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "CORRECT",
+    "size": 8,
+    "x": 150,
+    "y": 141,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "! MISS / TRY AGAIN",
+    "size": 8,
+    "x": 133,
+    "y": 141,
+    "width": 54.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "PAUSED",
+    "size": 14,
+    "x": 142,
+    "y": 26,
+    "width": 36.0,
+    "limit": 196
+  },
+  {
+    "text": "Resume",
+    "size": 10,
+    "x": 148,
+    "y": 103,
+    "width": 24.0,
+    "limit": 174
+  },
+  {
+    "text": "Restart [R]",
+    "size": 10,
+    "x": 138,
+    "y": 124,
+    "width": 44.0,
+    "limit": 174
+  },
+  {
+    "text": "Main Menu [M]",
+    "size": 10,
+    "x": 134,
+    "y": 145,
+    "width": 52.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "DEFEAT",
+    "size": 14,
+    "x": 142,
+    "y": 26,
+    "width": 36.0,
+    "limit": 196
+  },
+  {
+    "text": "SCORE 2,147,483,647 / TIME 428.0s",
+    "size": 10,
+    "x": 94,
+    "y": 51,
+    "width": 132.0,
+    "limit": 207
+  },
+  {
+    "text": "ACCURACY 98.4% / PARRIES 128",
+    "size": 10,
+    "x": 104,
+    "y": 63,
+    "width": 112.0,
+    "limit": 207
+  },
+  {
+    "text": "NORMAL / CLEARED 24",
+    "size": 10,
+    "x": 122,
+    "y": 75,
+    "width": 76.0,
+    "limit": 207
+  },
+  {
+    "text": "Restart [R]",
+    "size": 10,
+    "x": 138,
+    "y": 103,
+    "width": 44.0,
+    "limit": 174
+  },
+  {
+    "text": "Main Menu [M]",
+    "size": 10,
+    "x": 134,
+    "y": 124,
+    "width": 52.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "THANKS FOR PLAYING",
+    "size": 14,
+    "x": 106,
+    "y": 26,
+    "width": 108.0,
+    "limit": 196
+  },
+  {
+    "text": "SCORE 012,840 / TIME 42.0s",
+    "size": 10,
+    "x": 108,
+    "y": 51,
+    "width": 104.0,
+    "limit": 207
+  },
+  {
+    "text": "ACCURACY 98.4% / PARRIES 12",
+    "size": 10,
+    "x": 106,
+    "y": 63,
+    "width": 108.0,
+    "limit": 207
+  },
+  {
+    "text": "Restart [R]",
+    "size": 10,
+    "x": 138,
+    "y": 103,
+    "width": 44.0,
+    "limit": 174
+  },
+  {
+    "text": "Main Menu [M]",
+    "size": 10,
+    "x": 134,
+    "y": 124,
+    "width": 52.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "ROUND CLEARED",
+    "size": 14,
+    "x": 121,
+    "y": 26,
+    "width": 78.0,
+    "limit": 196
+  },
+  {
+    "text": "NORMAL / CLEARED 12 / HP 85/100",
+    "size": 10,
+    "x": 98,
+    "y": 51,
+    "width": 124.0,
+    "limit": 207
+  },
+  {
+    "text": "NEXT ROUND 13 / SWORDSMAN",
+    "size": 10,
+    "x": 110,
+    "y": 63,
+    "width": 100.0,
+    "limit": 207
+  },
+  {
+    "text": "Read each cue. Watch for thrusts.",
+    "size": 10,
+    "x": 94,
+    "y": 75,
+    "width": 132.0,
+    "limit": 207
+  },
+  {
+    "text": "Continue [ENTER]",
+    "size": 10,
+    "x": 128,
+    "y": 103,
+    "width": 64.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "HOW TO PLAY",
+    "size": 14,
+    "x": 127,
+    "y": 26,
+    "width": 66.0,
+    "limit": 196
+  },
+  {
+    "text": "Type the word to attack.",
+    "size": 10,
+    "x": 112,
+    "y": 51,
+    "width": 96.0,
+    "limit": 207
+  },
+  {
+    "text": "Space: parry when the cue appears.",
+    "size": 10,
+    "x": 92,
+    "y": 63,
+    "width": 136.0,
+    "limit": 207
+  },
+  {
+    "text": "Type during enemy recovery.",
+    "size": 10,
+    "x": 106,
+    "y": 75,
+    "width": 108.0,
+    "limit": 207
+  },
+  {
+    "text": "Continue",
+    "size": 10,
+    "x": 144,
+    "y": 103,
+    "width": 32.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY / COMPLETE",
+    "size": 14,
+    "x": 112,
+    "y": 26,
+    "width": 96.0,
+    "limit": 196
+  },
+  {
+    "text": "Good timing. Next lesson is ready.",
+    "size": 10,
+    "x": 92,
+    "y": 51,
+    "width": 136.0,
+    "limit": 207
+  },
+  {
+    "text": "Next [ENTER]",
+    "size": 10,
+    "x": 136,
+    "y": 103,
+    "width": 48.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "TRAINING COMPLETE",
+    "size": 14,
+    "x": 109,
+    "y": 26,
+    "width": 102.0,
+    "limit": 196
+  },
+  {
+    "text": "Combine typing and parrying.",
+    "size": 10,
+    "x": 104,
+    "y": 51,
+    "width": 112.0,
+    "limit": 207
+  },
+  {
+    "text": "Start Battle",
+    "size": 10,
+    "x": 136,
+    "y": 103,
+    "width": 48.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "ACCURACY / TRY AGAIN",
+    "size": 14,
+    "x": 100,
+    "y": 26,
+    "width": 120.0,
+    "limit": 196
+  },
+  {
+    "text": "Mistakes reset the word.",
+    "size": 10,
+    "x": 112,
+    "y": 51,
+    "width": 96.0,
+    "limit": 207
+  },
+  {
+    "text": "Finish before time runs out.",
+    "size": 10,
+    "x": 104,
+    "y": 63,
+    "width": 112.0,
+    "limit": 207
+  },
+  {
+    "text": "Practice [ENTER]",
+    "size": 10,
+    "x": 128,
+    "y": 103,
+    "width": 64.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "1/6 / ATTACK",
+    "size": 14,
+    "x": 124,
+    "y": 26,
+    "width": 72.0,
+    "limit": 196
+  },
+  {
+    "text": "Type BLADE to attack.",
+    "size": 10,
+    "x": 118,
+    "y": 51,
+    "width": 84.0,
+    "limit": 207
+  },
+  {
+    "text": "Practice [ENTER]",
+    "size": 10,
+    "x": 128,
+    "y": 103,
+    "width": 64.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "2/6 / ACCURACY",
+    "size": 14,
+    "x": 118,
+    "y": 26,
+    "width": 84.0,
+    "limit": 196
+  },
+  {
+    "text": "Mistakes reset the word.",
+    "size": 10,
+    "x": 112,
+    "y": 51,
+    "width": 96.0,
+    "limit": 207
+  },
+  {
+    "text": "Practice [ENTER]",
+    "size": 10,
+    "x": 128,
+    "y": 103,
+    "width": 64.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "3/6 / PARRY",
+    "size": 14,
+    "x": 127,
+    "y": 26,
+    "width": 66.0,
+    "limit": 196
+  },
+  {
+    "text": "Press SPACE on the yellow cue.",
+    "size": 10,
+    "x": 100,
+    "y": 51,
+    "width": 120.0,
+    "limit": 207
+  },
+  {
+    "text": "Practice [ENTER]",
+    "size": 10,
+    "x": 128,
+    "y": 103,
+    "width": 64.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "4/6 / STAMINA",
+    "size": 14,
+    "x": 121,
+    "y": 26,
+    "width": 78.0,
+    "limit": 196
+  },
+  {
+    "text": "One more parry breaks its stamina.",
+    "size": 10,
+    "x": 92,
+    "y": 51,
+    "width": 136.0,
+    "limit": 207
+  },
+  {
+    "text": "Practice [ENTER]",
+    "size": 10,
+    "x": 128,
+    "y": 103,
+    "width": 64.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "5/6 / SLAYER",
+    "size": 14,
+    "x": 124,
+    "y": 26,
+    "width": 72.0,
+    "limit": 196
+  },
+  {
+    "text": "Each new letter strikes. Type FIRE.",
+    "size": 10,
+    "x": 90,
+    "y": 51,
+    "width": 140.0,
+    "limit": 207
+  },
+  {
+    "text": "Practice [ENTER]",
+    "size": 10,
+    "x": 128,
+    "y": 103,
+    "width": 64.0,
+    "limit": 174
+  },
+  {
+    "text": "HERO",
+    "size": 8,
+    "x": 9,
+    "y": 7,
+    "width": 12.0,
+    "limit": 63
+  },
+  {
+    "text": "85/100",
+    "size": 8,
+    "x": 76,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 8,
+    "x": 219,
+    "y": 7,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "80/100",
+    "size": 8,
+    "x": 279,
+    "y": 7,
+    "width": 18.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 152,
+    "y": 5,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "012,840",
+    "size": 12,
+    "x": 142,
+    "y": 14,
+    "width": 35.0,
+    "limit": 98
+  },
+  {
+    "text": "24 COMBO / x4",
+    "size": 8,
+    "x": 140,
+    "y": 29,
+    "width": 39.0,
+    "limit": 98
+  },
+  {
+    "text": "ROUND 12 / NORMAL",
+    "size": 10,
+    "x": 126,
+    "y": 48,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "TYPE / ATTACK",
+    "size": 8,
+    "x": 140,
+    "y": 141,
+    "width": 39.0,
+    "limit": null
+  },
+  {
+    "text": "resolve",
+    "size": 16,
+    "x": 139,
+    "y": 150,
+    "width": 42.0,
+    "limit": 140
+  },
+  {
+    "text": "NEXT courage / honor",
+    "size": 8,
+    "x": 130,
+    "y": 167,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "PARRY",
+    "size": 10,
+    "x": 37,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "00:42",
+    "size": 10,
+    "x": 262,
+    "y": 146,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "6/6 / COMBINE",
+    "size": 14,
+    "x": 121,
+    "y": 26,
+    "width": 78.0,
+    "limit": 196
+  },
+  {
+    "text": "Type. Watch the cue. Parry.",
+    "size": 10,
+    "x": 106,
+    "y": 51,
+    "width": 108.0,
+    "limit": 207
+  },
+  {
+    "text": "Practice [ENTER]",
+    "size": 10,
+    "x": 128,
+    "y": 103,
+    "width": 64.0,
+    "limit": 174
+  },
+  {
+    "text": "COLLECTION",
+    "size": 14,
+    "x": 130,
+    "y": 11,
+    "width": 60.0,
+    "limit": 130
+  },
+  {
+    "text": "X",
+    "size": 10,
+    "x": 300,
+    "y": 12,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Endless",
+    "size": 10,
+    "x": 34,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Classic",
+    "size": 10,
+    "x": 109,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Opponents",
+    "size": 10,
+    "x": 180,
+    "y": 38,
+    "width": 36.0,
+    "limit": 63
+  },
+  {
+    "text": "Achievements",
+    "size": 10,
+    "x": 249,
+    "y": 38,
+    "width": 48.0,
+    "limit": 63
+  },
+  {
+    "text": "DIFFICULTY < Normal >",
+    "size": 8,
+    "x": 16,
+    "y": 56,
+    "width": 63.0,
+    "limit": null
+  },
+  {
+    "text": "#  PLAYER",
+    "size": 8,
+    "x": 16,
+    "y": 69,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "ROUND/KILLS/SCORE",
+    "size": 8,
+    "x": 180,
+    "y": 69,
+    "width": 51.0,
+    "limit": null
+  },
+  {
+    "text": "1",
+    "size": 10,
+    "x": 19,
+    "y": 85,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Ronin",
+    "size": 10,
+    "x": 35,
+    "y": 85,
+    "width": 20.0,
+    "limit": 135
+  },
+  {
+    "text": "98/550/2,147,483,647",
+    "size": 8,
+    "x": 181,
+    "y": 86,
+    "width": 60.0,
+    "limit": 109
+  },
+  {
+    "text": "2",
+    "size": 10,
+    "x": 19,
+    "y": 104,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "WWWWWWWWWW",
+    "size": 10,
+    "x": 35,
+    "y": 104,
+    "width": 40.0,
+    "limit": 135
+  },
+  {
+    "text": "97/550/2,147,483,647",
+    "size": 8,
+    "x": 181,
+    "y": 105,
+    "width": 60.0,
+    "limit": 109
+  },
+  {
+    "text": "3",
+    "size": 10,
+    "x": 19,
+    "y": 123,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Ember",
+    "size": 10,
+    "x": 35,
+    "y": 123,
+    "width": 20.0,
+    "limit": 135
+  },
+  {
+    "text": "96/550/2,147,483,647",
+    "size": 8,
+    "x": 181,
+    "y": 124,
+    "width": 60.0,
+    "limit": 109
+  },
+  {
+    "text": "4",
+    "size": 10,
+    "x": 19,
+    "y": 142,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Ash",
+    "size": 10,
+    "x": 35,
+    "y": 142,
+    "width": 12.0,
+    "limit": 135
+  },
+  {
+    "text": "95/550/2,147,483,647",
+    "size": 8,
+    "x": 181,
+    "y": 143,
+    "width": 60.0,
+    "limit": 109
+  },
+  {
+    "text": "ESC CLOSE",
+    "size": 8,
+    "x": 16,
+    "y": 164,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "COLLECTION",
+    "size": 14,
+    "x": 130,
+    "y": 11,
+    "width": 60.0,
+    "limit": 130
+  },
+  {
+    "text": "X",
+    "size": 10,
+    "x": 300,
+    "y": 12,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Endless",
+    "size": 10,
+    "x": 34,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Classic",
+    "size": 10,
+    "x": 109,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Opponents",
+    "size": 10,
+    "x": 180,
+    "y": 38,
+    "width": 36.0,
+    "limit": 63
+  },
+  {
+    "text": "Achievements",
+    "size": 10,
+    "x": 249,
+    "y": 38,
+    "width": 48.0,
+    "limit": 63
+  },
+  {
+    "text": "#  PLAYER",
+    "size": 8,
+    "x": 16,
+    "y": 69,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "SCORE",
+    "size": 8,
+    "x": 180,
+    "y": 69,
+    "width": 15.0,
+    "limit": null
+  },
+  {
+    "text": "1",
+    "size": 10,
+    "x": 19,
+    "y": 85,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Ronin",
+    "size": 10,
+    "x": 35,
+    "y": 85,
+    "width": 20.0,
+    "limit": 135
+  },
+  {
+    "text": "2,147,483,647",
+    "size": 8,
+    "x": 181,
+    "y": 86,
+    "width": 39.0,
+    "limit": 109
+  },
+  {
+    "text": "2",
+    "size": 10,
+    "x": 19,
+    "y": 104,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "WWWWWWWWWW",
+    "size": 10,
+    "x": 35,
+    "y": 104,
+    "width": 40.0,
+    "limit": 135
+  },
+  {
+    "text": "2,147,483,647",
+    "size": 8,
+    "x": 181,
+    "y": 105,
+    "width": 39.0,
+    "limit": 109
+  },
+  {
+    "text": "3",
+    "size": 10,
+    "x": 19,
+    "y": 123,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Ember",
+    "size": 10,
+    "x": 35,
+    "y": 123,
+    "width": 20.0,
+    "limit": 135
+  },
+  {
+    "text": "2,147,483,647",
+    "size": 8,
+    "x": 181,
+    "y": 124,
+    "width": 39.0,
+    "limit": 109
+  },
+  {
+    "text": "4",
+    "size": 10,
+    "x": 19,
+    "y": 142,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Ash",
+    "size": 10,
+    "x": 35,
+    "y": 142,
+    "width": 12.0,
+    "limit": 135
+  },
+  {
+    "text": "2,147,483,647",
+    "size": 8,
+    "x": 181,
+    "y": 143,
+    "width": 39.0,
+    "limit": 109
+  },
+  {
+    "text": "ESC CLOSE",
+    "size": 8,
+    "x": 16,
+    "y": 164,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "COLLECTION",
+    "size": 14,
+    "x": 130,
+    "y": 11,
+    "width": 60.0,
+    "limit": 130
+  },
+  {
+    "text": "X",
+    "size": 10,
+    "x": 300,
+    "y": 12,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Endless",
+    "size": 10,
+    "x": 34,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Classic",
+    "size": 10,
+    "x": 109,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Opponents",
+    "size": 10,
+    "x": 180,
+    "y": 38,
+    "width": 36.0,
+    "limit": 63
+  },
+  {
+    "text": "Achievements",
+    "size": 10,
+    "x": 249,
+    "y": 38,
+    "width": 48.0,
+    "limit": 63
+  },
+  {
+    "text": "SWORDSMAN",
+    "size": 10,
+    "x": 20,
+    "y": 64,
+    "width": 36.0,
+    "limit": 82
+  },
+  {
+    "text": "SEEN 12",
+    "size": 8,
+    "x": 35,
+    "y": 80,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "DEFEATED 8",
+    "size": 8,
+    "x": 35,
+    "y": 90,
+    "width": 30.0,
+    "limit": null
+  },
+  {
+    "text": "DOUBLE STRIKE",
+    "size": 10,
+    "x": 119,
+    "y": 64,
+    "width": 52.0,
+    "limit": 82
+  },
+  {
+    "text": "SEEN 12",
+    "size": 8,
+    "x": 134,
+    "y": 80,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "DEFEATED 8",
+    "size": 8,
+    "x": 134,
+    "y": 90,
+    "width": 30.0,
+    "limit": null
+  },
+  {
+    "text": "HEAVY",
+    "size": 10,
+    "x": 218,
+    "y": 64,
+    "width": 20.0,
+    "limit": 82
+  },
+  {
+    "text": "SEEN 12",
+    "size": 8,
+    "x": 233,
+    "y": 80,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "DEFEATED 8",
+    "size": 8,
+    "x": 233,
+    "y": 90,
+    "width": 30.0,
+    "limit": null
+  },
+  {
+    "text": "BERSERKER",
+    "size": 10,
+    "x": 20,
+    "y": 116,
+    "width": 36.0,
+    "limit": 82
+  },
+  {
+    "text": "SEEN 12",
+    "size": 8,
+    "x": 35,
+    "y": 132,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "DEFEATED 8",
+    "size": 8,
+    "x": 35,
+    "y": 142,
+    "width": 30.0,
+    "limit": null
+  },
+  {
+    "text": "GUARD",
+    "size": 10,
+    "x": 119,
+    "y": 116,
+    "width": 20.0,
+    "limit": 82
+  },
+  {
+    "text": "SEEN 12",
+    "size": 8,
+    "x": 134,
+    "y": 132,
+    "width": 21.0,
+    "limit": null
+  },
+  {
+    "text": "DEFEATED 8",
+    "size": 8,
+    "x": 134,
+    "y": 142,
+    "width": 30.0,
+    "limit": null
+  },
+  {
+    "text": "???",
+    "size": 10,
+    "x": 218,
+    "y": 116,
+    "width": 12.0,
+    "limit": 82
+  },
+  {
+    "text": "NOT SEEN",
+    "size": 8,
+    "x": 233,
+    "y": 132,
+    "width": 24.0,
+    "limit": null
+  },
+  {
+    "text": "Discover",
+    "size": 8,
+    "x": 233,
+    "y": 142,
+    "width": 24.0,
+    "limit": null
+  },
+  {
+    "text": "ESC CLOSE",
+    "size": 8,
+    "x": 16,
+    "y": 164,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "COLLECTION",
+    "size": 14,
+    "x": 130,
+    "y": 11,
+    "width": 60.0,
+    "limit": 130
+  },
+  {
+    "text": "X",
+    "size": 10,
+    "x": 300,
+    "y": 12,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Endless",
+    "size": 10,
+    "x": 34,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Classic",
+    "size": 10,
+    "x": 109,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Opponents",
+    "size": 10,
+    "x": 180,
+    "y": 38,
+    "width": 36.0,
+    "limit": 63
+  },
+  {
+    "text": "Achievements",
+    "size": 10,
+    "x": 249,
+    "y": 38,
+    "width": 48.0,
+    "limit": 63
+  },
+  {
+    "text": "FIRST CAPTAIN",
+    "size": 10,
+    "x": 39,
+    "y": 62,
+    "width": 52.0,
+    "limit": null
+  },
+  {
+    "text": "Defeat your first boss.",
+    "size": 8,
+    "x": 39,
+    "y": 75,
+    "width": 69.0,
+    "limit": 256
+  },
+  {
+    "text": "THREE PARRIES",
+    "size": 10,
+    "x": 39,
+    "y": 96,
+    "width": 52.0,
+    "limit": null
+  },
+  {
+    "text": "Parry every strike in a triple chain.",
+    "size": 8,
+    "x": 39,
+    "y": 109,
+    "width": 111.0,
+    "limit": 256
+  },
+  {
+    "text": "UNTOUCHED",
+    "size": 10,
+    "x": 39,
+    "y": 130,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "Defeat a boss without losing HP.",
+    "size": 8,
+    "x": 39,
+    "y": 143,
+    "width": 96.0,
+    "limit": 256
+  },
+  {
+    "text": "ESC CLOSE",
+    "size": 8,
+    "x": 16,
+    "y": 164,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "COLLECTION",
+    "size": 14,
+    "x": 130,
+    "y": 11,
+    "width": 60.0,
+    "limit": 130
+  },
+  {
+    "text": "X",
+    "size": 10,
+    "x": 300,
+    "y": 12,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Endless",
+    "size": 10,
+    "x": 34,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Classic",
+    "size": 10,
+    "x": 109,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Opponents",
+    "size": 10,
+    "x": 180,
+    "y": 38,
+    "width": 36.0,
+    "limit": 63
+  },
+  {
+    "text": "Achievements",
+    "size": 10,
+    "x": 249,
+    "y": 38,
+    "width": 48.0,
+    "limit": 63
+  },
+  {
+    "text": "DIFFICULTY < Normal >",
+    "size": 8,
+    "x": 16,
+    "y": 56,
+    "width": 63.0,
+    "limit": null
+  },
+  {
+    "text": "Loading...",
+    "size": 12,
+    "x": 135,
+    "y": 88,
+    "width": 50.0,
+    "limit": 280
+  },
+  {
+    "text": "Fetching scores...",
+    "size": 8,
+    "x": 133,
+    "y": 109,
+    "width": 54.0,
+    "limit": 280
+  },
+  {
+    "text": "ESC CLOSE",
+    "size": 8,
+    "x": 16,
+    "y": 164,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "COLLECTION",
+    "size": 14,
+    "x": 130,
+    "y": 11,
+    "width": 60.0,
+    "limit": 130
+  },
+  {
+    "text": "X",
+    "size": 10,
+    "x": 300,
+    "y": 12,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Endless",
+    "size": 10,
+    "x": 34,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Classic",
+    "size": 10,
+    "x": 109,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Opponents",
+    "size": 10,
+    "x": 180,
+    "y": 38,
+    "width": 36.0,
+    "limit": 63
+  },
+  {
+    "text": "Achievements",
+    "size": 10,
+    "x": 249,
+    "y": 38,
+    "width": 48.0,
+    "limit": 63
+  },
+  {
+    "text": "DIFFICULTY < Normal >",
+    "size": 8,
+    "x": 16,
+    "y": 56,
+    "width": 63.0,
+    "limit": null
+  },
+  {
+    "text": "No scores yet.",
+    "size": 12,
+    "x": 125,
+    "y": 88,
+    "width": 70.0,
+    "limit": 280
+  },
+  {
+    "text": "Complete a run to submit your score.",
+    "size": 8,
+    "x": 106,
+    "y": 109,
+    "width": 108.0,
+    "limit": 280
+  },
+  {
+    "text": "ESC CLOSE",
+    "size": 8,
+    "x": 16,
+    "y": 164,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "COLLECTION",
+    "size": 14,
+    "x": 130,
+    "y": 11,
+    "width": 60.0,
+    "limit": 130
+  },
+  {
+    "text": "X",
+    "size": 10,
+    "x": 300,
+    "y": 12,
+    "width": 4.0,
+    "limit": null
+  },
+  {
+    "text": "Endless",
+    "size": 10,
+    "x": 34,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Classic",
+    "size": 10,
+    "x": 109,
+    "y": 38,
+    "width": 28.0,
+    "limit": 63
+  },
+  {
+    "text": "Opponents",
+    "size": 10,
+    "x": 180,
+    "y": 38,
+    "width": 36.0,
+    "limit": 63
+  },
+  {
+    "text": "Achievements",
+    "size": 10,
+    "x": 249,
+    "y": 38,
+    "width": 48.0,
+    "limit": 63
+  },
+  {
+    "text": "DIFFICULTY < Normal >",
+    "size": 8,
+    "x": 16,
+    "y": 56,
+    "width": 63.0,
+    "limit": null
+  },
+  {
+    "text": "! Could not load leaderboard.",
+    "size": 12,
+    "x": 88,
+    "y": 88,
+    "width": 145.0,
+    "limit": 280
+  },
+  {
+    "text": "Close and reopen Collection to retry.",
+    "size": 8,
+    "x": 104,
+    "y": 109,
+    "width": 111.0,
+    "limit": 280
+  },
+  {
+    "text": "ESC CLOSE",
+    "size": 8,
+    "x": 16,
+    "y": 164,
+    "width": 27.0,
+    "limit": null
+  },
+  {
+    "text": "button-primary-normal",
+    "size": 10,
+    "x": 4,
+    "y": 2,
+    "width": 84.0,
+    "limit": null
+  },
+  {
+    "text": "button-primary-hover",
+    "size": 10,
+    "x": 184,
+    "y": 2,
+    "width": 80.0,
+    "limit": null
+  },
+  {
+    "text": "button-primary-pressed",
+    "size": 10,
+    "x": 364,
+    "y": 2,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "button-primary-focus",
+    "size": 10,
+    "x": 544,
+    "y": 2,
+    "width": 80.0,
+    "limit": null
+  },
+  {
+    "text": "button-primary-disabled",
+    "size": 10,
+    "x": 724,
+    "y": 2,
+    "width": 92.0,
+    "limit": null
+  },
+  {
+    "text": "button-secondary-normal",
+    "size": 10,
+    "x": 4,
+    "y": 82,
+    "width": 92.0,
+    "limit": null
+  },
+  {
+    "text": "button-secondary-hover",
+    "size": 10,
+    "x": 184,
+    "y": 82,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "button-secondary-pressed",
+    "size": 10,
+    "x": 364,
+    "y": 82,
+    "width": 96.0,
+    "limit": null
+  },
+  {
+    "text": "button-secondary-focus",
+    "size": 10,
+    "x": 544,
+    "y": 82,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "button-secondary-disabled",
+    "size": 10,
+    "x": 724,
+    "y": 82,
+    "width": 100.0,
+    "limit": null
+  },
+  {
+    "text": "input-normal",
+    "size": 10,
+    "x": 4,
+    "y": 162,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "input-hover",
+    "size": 10,
+    "x": 184,
+    "y": 162,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "input-pressed",
+    "size": 10,
+    "x": 364,
+    "y": 162,
+    "width": 52.0,
+    "limit": null
+  },
+  {
+    "text": "input-focus",
+    "size": 10,
+    "x": 544,
+    "y": 162,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "input-disabled",
+    "size": 10,
+    "x": 724,
+    "y": 162,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "input-error",
+    "size": 10,
+    "x": 4,
+    "y": 242,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "tab-normal",
+    "size": 10,
+    "x": 184,
+    "y": 242,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "tab-hover",
+    "size": 10,
+    "x": 364,
+    "y": 242,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "tab-pressed",
+    "size": 10,
+    "x": 544,
+    "y": 242,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "tab-focus",
+    "size": 10,
+    "x": 724,
+    "y": 242,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "tab-disabled",
+    "size": 10,
+    "x": 4,
+    "y": 322,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "tab-selected",
+    "size": 10,
+    "x": 184,
+    "y": 322,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "panel-normal",
+    "size": 10,
+    "x": 364,
+    "y": 322,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "modal-normal",
+    "size": 10,
+    "x": 544,
+    "y": 322,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "tooltip-normal",
+    "size": 10,
+    "x": 724,
+    "y": 322,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "leaderboard-row-normal",
+    "size": 10,
+    "x": 4,
+    "y": 402,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "leaderboard-row-selected",
+    "size": 10,
+    "x": 184,
+    "y": 402,
+    "width": 96.0,
+    "limit": null
+  },
+  {
+    "text": "leaderboard-row-disabled",
+    "size": 10,
+    "x": 364,
+    "y": 402,
+    "width": 96.0,
+    "limit": null
+  },
+  {
+    "text": "opponent-card-normal",
+    "size": 10,
+    "x": 544,
+    "y": 402,
+    "width": 80.0,
+    "limit": null
+  },
+  {
+    "text": "opponent-card-selected",
+    "size": 10,
+    "x": 724,
+    "y": 402,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "opponent-card-disabled",
+    "size": 10,
+    "x": 4,
+    "y": 482,
+    "width": 88.0,
+    "limit": null
+  },
+  {
+    "text": "achievement-card-normal",
+    "size": 10,
+    "x": 184,
+    "y": 482,
+    "width": 92.0,
+    "limit": null
+  },
+  {
+    "text": "achievement-card-selected",
+    "size": 10,
+    "x": 364,
+    "y": 482,
+    "width": 100.0,
+    "limit": null
+  },
+  {
+    "text": "achievement-card-disabled",
+    "size": 10,
+    "x": 544,
+    "y": 482,
+    "width": 100.0,
+    "limit": null
+  },
+  {
+    "text": "typing-normal",
+    "size": 10,
+    "x": 724,
+    "y": 482,
+    "width": 52.0,
+    "limit": null
+  },
+  {
+    "text": "typing-error",
+    "size": 10,
+    "x": 4,
+    "y": 562,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "typing-selected",
+    "size": 10,
+    "x": 184,
+    "y": 562,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-off-disabled",
+    "size": 10,
+    "x": 364,
+    "y": 562,
+    "width": 84.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-off-focus",
+    "size": 10,
+    "x": 544,
+    "y": 562,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-off-hover",
+    "size": 10,
+    "x": 724,
+    "y": 562,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-off-normal",
+    "size": 10,
+    "x": 4,
+    "y": 642,
+    "width": 76.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-off-pressed",
+    "size": 10,
+    "x": 184,
+    "y": 642,
+    "width": 80.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-on-disabled",
+    "size": 10,
+    "x": 364,
+    "y": 642,
+    "width": 80.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-on-focus",
+    "size": 10,
+    "x": 544,
+    "y": 642,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-on-hover",
+    "size": 10,
+    "x": 724,
+    "y": 642,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-on-normal",
+    "size": 10,
+    "x": 4,
+    "y": 722,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "checkbox-on-pressed",
+    "size": 10,
+    "x": 184,
+    "y": 722,
+    "width": 76.0,
+    "limit": null
+  },
+  {
+    "text": "icon-audio-off",
+    "size": 10,
+    "x": 364,
+    "y": 722,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "icon-audio-on",
+    "size": 10,
+    "x": 544,
+    "y": 722,
+    "width": 52.0,
+    "limit": null
+  },
+  {
+    "text": "icon-axe",
+    "size": 10,
+    "x": 724,
+    "y": 722,
+    "width": 32.0,
+    "limit": null
+  },
+  {
+    "text": "icon-back",
+    "size": 10,
+    "x": 4,
+    "y": 802,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "icon-check",
+    "size": 10,
+    "x": 184,
+    "y": 802,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "icon-chevron-left",
+    "size": 10,
+    "x": 364,
+    "y": 802,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "icon-chevron-right",
+    "size": 10,
+    "x": 544,
+    "y": 802,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "icon-close",
+    "size": 10,
+    "x": 724,
+    "y": 802,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "icon-combo",
+    "size": 10,
+    "x": 4,
+    "y": 882,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "icon-continue",
+    "size": 10,
+    "x": 184,
+    "y": 882,
+    "width": 52.0,
+    "limit": null
+  },
+  {
+    "text": "icon-hp",
+    "size": 10,
+    "x": 364,
+    "y": 882,
+    "width": 28.0,
+    "limit": null
+  },
+  {
+    "text": "icon-lock",
+    "size": 10,
+    "x": 544,
+    "y": 882,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "icon-music",
+    "size": 10,
+    "x": 724,
+    "y": 882,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "icon-pause",
+    "size": 10,
+    "x": 4,
+    "y": 962,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "icon-restart",
+    "size": 10,
+    "x": 184,
+    "y": 962,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "icon-score",
+    "size": 10,
+    "x": 364,
+    "y": 962,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "icon-shield",
+    "size": 10,
+    "x": 544,
+    "y": 962,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "icon-slayer",
+    "size": 10,
+    "x": 724,
+    "y": 962,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "icon-stamina",
+    "size": 10,
+    "x": 4,
+    "y": 1042,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "icon-sword",
+    "size": 10,
+    "x": 184,
+    "y": 1042,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "icon-timer",
+    "size": 10,
+    "x": 364,
+    "y": 1042,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "icon-trophy",
+    "size": 10,
+    "x": 544,
+    "y": 1042,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "icon-warning",
+    "size": 10,
+    "x": 724,
+    "y": 1042,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "keycap-a",
+    "size": 10,
+    "x": 4,
+    "y": 1122,
+    "width": 32.0,
+    "limit": null
+  },
+  {
+    "text": "keycap-backspace",
+    "size": 10,
+    "x": 184,
+    "y": 1122,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "keycap-enter",
+    "size": 10,
+    "x": 364,
+    "y": 1122,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "keycap-esc",
+    "size": 10,
+    "x": 544,
+    "y": 1122,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "keycap-m",
+    "size": 10,
+    "x": 724,
+    "y": 1122,
+    "width": 32.0,
+    "limit": null
+  },
+  {
+    "text": "keycap-r",
+    "size": 10,
+    "x": 4,
+    "y": 1202,
+    "width": 32.0,
+    "limit": null
+  },
+  {
+    "text": "keycap-space",
+    "size": 10,
+    "x": 184,
+    "y": 1202,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "scrollbar-disabled",
+    "size": 10,
+    "x": 364,
+    "y": 1202,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "scrollbar-focus",
+    "size": 10,
+    "x": 544,
+    "y": 1202,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "scrollbar-hover",
+    "size": 10,
+    "x": 724,
+    "y": 1202,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "scrollbar-normal",
+    "size": 10,
+    "x": 4,
+    "y": 1282,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "scrollbar-pressed",
+    "size": 10,
+    "x": 184,
+    "y": 1282,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "slider-disabled",
+    "size": 10,
+    "x": 364,
+    "y": 1282,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "slider-focus",
+    "size": 10,
+    "x": 544,
+    "y": 1282,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "slider-hover",
+    "size": 10,
+    "x": 724,
+    "y": 1282,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "slider-normal",
+    "size": 10,
+    "x": 4,
+    "y": 1362,
+    "width": 52.0,
+    "limit": null
+  },
+  {
+    "text": "slider-pressed",
+    "size": 10,
+    "x": 184,
+    "y": 1362,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-off-disabled",
+    "size": 10,
+    "x": 364,
+    "y": 1362,
+    "width": 76.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-off-focus",
+    "size": 10,
+    "x": 544,
+    "y": 1362,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-off-hover",
+    "size": 10,
+    "x": 724,
+    "y": 1362,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-off-normal",
+    "size": 10,
+    "x": 4,
+    "y": 1442,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-off-pressed",
+    "size": 10,
+    "x": 184,
+    "y": 1442,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-on-disabled",
+    "size": 10,
+    "x": 364,
+    "y": 1442,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-on-focus",
+    "size": 10,
+    "x": 544,
+    "y": 1442,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-on-hover",
+    "size": 10,
+    "x": 724,
+    "y": 1442,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-on-normal",
+    "size": 10,
+    "x": 4,
+    "y": 1522,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "toggle-on-pressed",
+    "size": 10,
+    "x": 184,
+    "y": 1522,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "bar-hp-track",
+    "size": 10,
+    "x": 364,
+    "y": 1522,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "bar-hp-fill",
+    "size": 10,
+    "x": 544,
+    "y": 1522,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "bar-stamina-track",
+    "size": 10,
+    "x": 724,
+    "y": 1522,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "bar-stamina-fill",
+    "size": 10,
+    "x": 4,
+    "y": 1602,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "bar-combo-track",
+    "size": 10,
+    "x": 184,
+    "y": 1602,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "bar-combo-fill",
+    "size": 10,
+    "x": 364,
+    "y": 1602,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "bar-timer-track",
+    "size": 10,
+    "x": 544,
+    "y": 1602,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "bar-timer-fill",
+    "size": 10,
+    "x": 724,
+    "y": 1602,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "bar-slayer-track",
+    "size": 10,
+    "x": 4,
+    "y": 1682,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "bar-slayer-fill",
+    "size": 10,
+    "x": 184,
+    "y": 1682,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "boss-track",
+    "size": 10,
+    "x": 364,
+    "y": 1682,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "boss-fill",
+    "size": 10,
+    "x": 544,
+    "y": 1682,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "boss-ticks",
+    "size": 10,
+    "x": 724,
+    "y": 1682,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "captain-badge",
+    "size": 10,
+    "x": 4,
+    "y": 1762,
+    "width": 52.0,
+    "limit": null
+  },
+  {
+    "text": "slayer-badge",
+    "size": 10,
+    "x": 184,
+    "y": 1762,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "logo-main",
+    "size": 10,
+    "x": 364,
+    "y": 1762,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "logo-mono",
+    "size": 10,
+    "x": 544,
+    "y": 1762,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "logo-compact",
+    "size": 10,
+    "x": 724,
+    "y": 1762,
+    "width": 48.0,
+    "limit": null
+  },
+  {
+    "text": "game-icon",
+    "size": 10,
+    "x": 4,
+    "y": 1842,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "menu",
+    "size": 10,
+    "x": 4,
+    "y": 2,
+    "width": 16.0,
+    "limit": null
+  },
+  {
+    "text": "menu-name-error",
+    "size": 10,
+    "x": 324,
+    "y": 2,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "menu-long-name",
+    "size": 10,
+    "x": 644,
+    "y": 2,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "hud-normal",
+    "size": 10,
+    "x": 4,
+    "y": 202,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "hud-boss",
+    "size": 10,
+    "x": 324,
+    "y": 202,
+    "width": 32.0,
+    "limit": null
+  },
+  {
+    "text": "hud-slayer",
+    "size": 10,
+    "x": 644,
+    "y": 202,
+    "width": 40.0,
+    "limit": null
+  },
+  {
+    "text": "hud-stress-low-hp",
+    "size": 10,
+    "x": 4,
+    "y": 402,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "hud-correct",
+    "size": 10,
+    "x": 324,
+    "y": 402,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "hud-error",
+    "size": 10,
+    "x": 644,
+    "y": 402,
+    "width": 36.0,
+    "limit": null
+  },
+  {
+    "text": "pause",
+    "size": 10,
+    "x": 4,
+    "y": 602,
+    "width": 20.0,
+    "limit": null
+  },
+  {
+    "text": "results-defeat",
+    "size": 10,
+    "x": 324,
+    "y": 602,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "results-victory",
+    "size": 10,
+    "x": 644,
+    "y": 602,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "continue",
+    "size": 10,
+    "x": 4,
+    "y": 802,
+    "width": 32.0,
+    "limit": null
+  },
+  {
+    "text": "how-to-play",
+    "size": 10,
+    "x": 324,
+    "y": 802,
+    "width": 44.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-passed",
+    "size": 10,
+    "x": 644,
+    "y": 802,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-complete",
+    "size": 10,
+    "x": 4,
+    "y": 1002,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-retry",
+    "size": 10,
+    "x": 324,
+    "y": 1002,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-attack",
+    "size": 10,
+    "x": 644,
+    "y": 1002,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-accuracy",
+    "size": 10,
+    "x": 4,
+    "y": 1202,
+    "width": 68.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-parry",
+    "size": 10,
+    "x": 324,
+    "y": 1202,
+    "width": 56.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-stamina",
+    "size": 10,
+    "x": 644,
+    "y": 1202,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-slayer",
+    "size": 10,
+    "x": 4,
+    "y": 1402,
+    "width": 60.0,
+    "limit": null
+  },
+  {
+    "text": "tutorial-combine",
+    "size": 10,
+    "x": 324,
+    "y": 1402,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "collection-endless",
+    "size": 10,
+    "x": 644,
+    "y": 1402,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "collection-classic",
+    "size": 10,
+    "x": 4,
+    "y": 1602,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "collection-opponents",
+    "size": 10,
+    "x": 324,
+    "y": 1602,
+    "width": 80.0,
+    "limit": null
+  },
+  {
+    "text": "collection-achievements",
+    "size": 10,
+    "x": 644,
+    "y": 1602,
+    "width": 92.0,
+    "limit": null
+  },
+  {
+    "text": "collection-loading",
+    "size": 10,
+    "x": 4,
+    "y": 1802,
+    "width": 72.0,
+    "limit": null
+  },
+  {
+    "text": "collection-empty",
+    "size": 10,
+    "x": 324,
+    "y": 1802,
+    "width": 64.0,
+    "limit": null
+  },
+  {
+    "text": "collection-error",
+    "size": 10,
+    "x": 644,
+    "y": 1802,
+    "width": 64.0,
+    "limit": null
+  }
+]
