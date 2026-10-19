@@ -29,13 +29,13 @@ public sealed class ParryClashBurst : MonoBehaviour
     struct Debris
     {
         public Vector3 origin, launch, coastOrigin, coastVelocity, impactPosition, impactVelocity;
-        public float floor, flight, bounce, total, initialLength, initialSpeed, mask;
+        public float floor, flight, bounce, total, initialLength, initialSpeed, mask, launchDragX;
         public int group;
         public bool fast;
         public ParticleSystem.Particle particle;
     }
-    readonly Debris[] debris = new Debris[14];
-    readonly ParticleSystem.Particle[] debrisParticles = new ParticleSystem.Particle[6];
+    readonly Debris[] debris = new Debris[22];
+    readonly ParticleSystem.Particle[] debrisParticles = new ParticleSystem.Particle[10];
     Vector3 screenRight = Vector3.right, screenUp = Vector3.up;
     float debrisAge;
     int debrisCount;
@@ -158,24 +158,26 @@ public sealed class ParryClashBurst : MonoBehaviour
         var camera = Camera.main;
         screenRight = camera ? camera.transform.right : Vector3.right;
         screenUp = camera ? camera.transform.up : Vector3.up;
-        debrisCount = 14;
+        debrisCount = 22;
         for (int i = 0; i < debrisCount; i++)
         {
-            // Keep the original ten draws, then add two reverse sparks per depth layer.
+            // Keep the original ten draws, then add six reverse sparks per depth layer.
             // Reverse only X; mirror preserves Y and camera-relative Z.
             bool fast = i == 2 || i == 3;
             bool reverse = i >= 10;
-            int group = reverse ? (i < 12 ? 2 : 3) : (i < 2 ? 1 : (i < 6 ? 2 : 3));
+            int group = reverse ? (i < 16 ? 2 : 3) : (i < 2 ? 1 : (i < 6 ? 2 : 3));
             int fanSlot = reverse ? i - 10 : i;
             int cluster = i % 2;
-            float degrees = (cluster == 0 ? -16 : 45) + (fanSlot / 2 % 3 - 1) * 10 + Random.Range(-2f, 2f);
+            float degrees = (reverse ? Mathf.Lerp(-12f, 36f, fanSlot / 11f) :
+                (cluster == 0 ? -16 : 45) + (fanSlot / 2 % 3 - 1) * 10) + Random.Range(-2f, 2f);
             float angle = degrees * Mathf.Deg2Rad + rotation;
             var bounds = fast ? compact.nearPixels : (cluster == variationIndex % 2 ? compact.longPixels : compact.shortPixels);
             float velocity = Random.Range(speed.x, speed.y) * energy;
-            var launch = new Vector3(Mathf.Cos(angle) * direction * (reverse ? -1 : 1) * velocity, Mathf.Sin(angle) * velocity,
+            float velocityX = reverse ? Random.Range(32f, 44f) * energy : velocity;
+            var launch = new Vector3(Mathf.Cos(angle) * direction * (reverse ? -1 : 1) * velocityX, Mathf.Sin(angle) * velocity,
                 group == 2 ? -Random.Range(4f, 6f) : (group == 3 ? Random.Range(2f, 4f) : Random.Range(-1f, 1f)));
             var d = new Debris { origin = transform.position, launch = launch,
-                floor = groundY + 1f / 32, group = group, fast = fast,
+                floor = groundY + 1f / 32, group = group, fast = fast, launchDragX = reverse ? 10f : LaunchDrag,
                 initialLength = Random.Range(bounds.x, bounds.y + 1), mask = Random.Range(0, 3) };
             d.initialSpeed = ProjectedSpeed(launch);
             LaunchPath(d, BrakeTime, out d.coastOrigin, out d.coastVelocity);
@@ -219,6 +221,9 @@ public sealed class ParryClashBurst : MonoBehaviour
         float decay = Mathf.Exp(-LaunchDrag * t), travel = (1 - decay) / LaunchDrag;
         velocity = d.launch * decay + Vector3.down * (Gravity * travel);
         position = d.origin + d.launch * travel + Vector3.down * (Gravity / LaunchDrag * (t - travel));
+        float decayX = Mathf.Exp(-d.launchDragX * t);
+        velocity.x = d.launch.x * decayX;
+        position.x = d.origin.x + d.launch.x * (1 - decayX) / d.launchDragX;
     }
 
     static void FlightPath(Debris d, float t, out Vector3 position, out Vector3 velocity)

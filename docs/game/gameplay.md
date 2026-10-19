@@ -128,27 +128,30 @@ Full surface art, B/C and parent integration remain separate.
   presets with a label; emitted shapes remain unchanged. Separate length-support
   migration v1 reserves130% and compensates the shader crop, preserving Current.
 - BCompact remains value4; Current is the serialized default. Five existing systems
-  emit contact2/main2/front6/back6/embers0,16total/128over eight leases. Fourteen sparks
-  launch together from the sword contact in the -16/+45degree lobes,14-24speed
-  with existing15degree/15%burst variation. Keep10forward sparks and append4reverse-X
-  falling sparks (two Front/two Back); each depth layer has one long/one short reverse
-  ray. Reverse only horizontal travel; Y/Z remain independent. Mirror X only. Front Z is negative,
+  emit contact2/main2/front10/back10/embers0,24total/192over eight leases. Twenty-two sparks
+  launch together from the sword contact. Keep the original10forward spark draws in
+  -16/+45degree lobes at14-24speed; append12reverse-X falling sparks stratified
+  -12..36degrees with shared +/-15degree rotation and +/-2degree jitter. Reverse X
+  uses32-44speed times existing energy; Y uses14-24speed. Six reverse sparks per
+  depth layer include three long/three short rays. Reverse only horizontal travel; Y/Z remain independent. Mirror X only. Front Z is negative,
   Back positive; existing foreground/background actor sorting is preserved.
-  Two front fragments expire120-180ms; the other12remain the same particles through
+  Two front fragments expire120-180ms; the other20remain the same particles through
   launch braking120ms, gravity9.81fall, one22%vertical/55%X/Zbounce and180msrest.
-  Exponential launch drag20/s transitions continuously to X/Zdrag2/s and ballistic Y.
+  Exponential launch drag is20/s, except reverse X uses10/s; it transitions
+  continuously to X/Zdrag2/s and ballistic Y.
   Second ground contact stops all axes at groundY+1/32. Full trajectory sets lifetime;
   yellow/orange/dark-red cooling and alpha fade from first ground contact through rest.
   Projected speed sets integer16PPU lengths/widths down to1x1; depth scale is clamped
   .75-1.5before pixel rounding. Floor clearance limits silhouette; square1x1 masks
   remain visible. No replacement particles, blur, camera or gameplay changes.
-  Fixed14state/6particle buffers and reused custom data avoid per-frame allocation.
+  Fixed22state/10particle buffers and reused custom data avoid per-frame allocation.
   Compact groups disable automatic gravity/collision/velocity-limit/size/color and
   particle simulation; configuration restores on preset reuse. Manual completion
   ignores IsAlive for those frozen systems, preserving exactly-once lease return.
   Unscaled age obeys pause/reading; Clear/re-emission/disable/restart discard state.
-  Quick78/78 and native40keyboard clashes/two directions/two sizes verify this revision;
-  B<->compact pause/restart passes both directions. Version1migration, all prefab
+  Quick79/79 verifies24/192,20single-bounce paths and24seeds/two directions at300ms:
+  >=8reverse sparks travel>=2.5Xunits and>=6retain2pixel length. Native24particle QA
+  is pending; prior native40clashes/B<->compact receipts apply to16particles only. Version1migration, all prefab
   bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
   This is a review sample; prior mirror p95 concerns remain separate and unresolved.
 - Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
@@ -194,11 +197,11 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   of whoosh and parry: medium 000?002 at .65 normal / .45 Slayer, heavy 000?002 at .8
   lethal, +/- .5 semitone jitter. Existing clang uses +/- 1 semitone.
 - Impacts use Inspector-editable `Assets/Art/VFX/PixelSparks` prefabs: orange Normal24
-  (.45–.65s), ivory Slayer32 (.35–.55s), pale-blue Parry40 (.6–.85s), orange Lethal56
-  (.75–.95s). Two world Particle Systems emit70% square dots and30% axis-aligned
+  (.45â€“.65s), ivory Slayer32 (.35â€“.55s), pale-blue Parry40 (.6â€“.85s), orange Lethal56
+  (.75â€“.95s). Two world Particle Systems emit70% square dots and30% axis-aligned
   streaks at16PPU, order30; a binary white texture and unlit straight-alpha material
   keep flat stepped colors. Existing camera zoom scales them with characters.
-  Force follows attacker-to-target context, with80% forward; gravity18WU/s² and
+  Force follows attacker-to-target context, with80% forward; gravity18WU/sÂ² and
   fixed standing-foot collision planes give .4 bounce/.4 damping. Eight active bursts
   per owner recycle oldest without suppressing confirmed-hit audio. Slayer exit
   preserves the emitted profile; lethal wins over Slayer. Original Pimen assets,

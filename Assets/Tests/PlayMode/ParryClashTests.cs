@@ -274,30 +274,31 @@ public sealed class ParryClashTests
                 foreach (float direction in new[] { 1f, -1f })
                 {
                     Random.InitState(seed); burst.Emit(new Vector3(3, 2, 0), direction, 0, ParryClashBurst.Preset.BCompact, seed);
-                    Assert.That(burst.ParticleCount, Is.EqualTo(16));
-                    for (int g = 0; g < 5; g++) Assert.That(burst.Systems[g].particleCount, Is.EqualTo(new[] { 2, 2, 6, 6, 0 }[g]));
+                    Assert.That(burst.ParticleCount, Is.EqualTo(24));
+                    for (int g = 0; g < 5; g++) Assert.That(burst.Systems[g].particleCount, Is.EqualTo(new[] { 2, 2, 10, 10, 0 }[g]));
                     for (int g = 1; g < 5; g++)
                     {
                         var ps = burst.Systems[g];
                         Assert.That(ps.main.gravityModifier.constant, Is.Zero);
                         Assert.That(ps.main.simulationSpeed, Is.Zero);
                         Assert.That(ps.collision.enabled || ps.colorOverLifetime.enabled || ps.sizeOverLifetime.enabled || ps.limitVelocityOverLifetime.enabled, Is.False);
-                        var particles = new ParticleSystem.Particle[6]; int count = ps.GetParticles(particles);
+                        var particles = new ParticleSystem.Particle[10]; int count = ps.GetParticles(particles);
                         for (int i = 0; i < count; i++)
                         {
                             var p = particles[i];
                             bool reverse = (g == 2 || g == 3) && i >= 4;
-                            Assert.That(p.velocity.x * direction * (reverse ? -1 : 1), Is.GreaterThan(0), "four added sparks travel opposite the original fan");
-                            Assert.That(p.position, Is.EqualTo(new Vector3(3, 2, 0)), "all fourteen sparks begin at the contact in the same frame");
-                            Assert.That(new Vector2(p.velocity.x, p.velocity.y).magnitude, Is.InRange(14 * .85f, 24 * 1.15f));
+                            Assert.That(p.velocity.x * direction * (reverse ? -1 : 1), Is.GreaterThan(0), "twelve added sparks travel opposite the original fan");
+                            Assert.That(p.position, Is.EqualTo(new Vector3(3, 2, 0)), "all twenty-two sparks begin at the contact in the same frame");
+                            if (reverse) Assert.That(Mathf.Abs(p.velocity.x), Is.InRange(32 * .85f * Mathf.Cos(53 * Mathf.Deg2Rad), 44 * 1.15f));
+                            else Assert.That(new Vector2(p.velocity.x, p.velocity.y).magnitude, Is.InRange(14 * .85f, 24 * 1.15f));
                             if (g == 2) Assert.That(p.velocity.z, Is.InRange(-6, -4));
                             if (g == 3) Assert.That(p.velocity.z, Is.InRange(2, 4));
                             Assert.That(p.startSize3D.x * 16, Is.EqualTo(Mathf.Round(p.startSize3D.x * 16)));
                             Assert.That(p.startSize3D.y * 16, Is.EqualTo(Mathf.Round(p.startSize3D.y * 16)));
-                            if (direction > 0) forward.Add(g * 6 + i, p);
+                            if (direction > 0) forward.Add(g * 10 + i, p);
                             else
                             {
-                                var f = forward[g * 6 + i];
+                                var f = forward[g * 10 + i];
                                 Assert.That(p.velocity, Is.EqualTo(new Vector3(-f.velocity.x, f.velocity.y, f.velocity.z)));
                                 Assert.That(p.startLifetime, Is.EqualTo(f.startLifetime));
                                 Assert.That(p.startSize3D, Is.EqualTo(f.startSize3D));
@@ -305,7 +306,7 @@ public sealed class ParryClashTests
                         }
                     }
                     burst.AdvanceDebris(.2f);
-                    Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[3].particleCount, Is.EqualTo(12));
+                    Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[3].particleCount, Is.EqualTo(20));
                     burst.Emit(Vector3.one, direction, 0, ParryClashBurst.Preset.B);
                     Assert.That(burst.ParticleCount, Is.EqualTo(66));
                     for (int g = 1; g < 5; g++)
@@ -324,6 +325,51 @@ public sealed class ParryClashTests
     }
 
     [Test, Category("Quick")]
+    public void CompactReverseFanClearsPlayerAndRetainsVisibleStreaks()
+    {
+        var burst = Burst(); var saved = Random.state;
+        try
+        {
+            for (int seed = 0; seed < 24; seed++)
+            foreach (float direction in new[] { 1f, -1f })
+            {
+                Random.InitState(seed);
+                burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact, seed);
+                var reverse = new HashSet<uint>();
+                var particles = new ParticleSystem.Particle[10];
+                for (int g = 2; g <= 3; g++)
+                {
+                    int count = burst.Systems[g].GetParticles(particles);
+                    Assert.That(count, Is.EqualTo(10));
+                    int longCount = 0;
+                    for (int i = 4; i < count; i++)
+                    {
+                        reverse.Add(particles[i].randomSeed);
+                        if (particles[i].startSize3D.y * 16 >= 12) longCount++;
+                    }
+                    Assert.That(longCount, Is.EqualTo(3), "three long and three short reverse rays per depth layer");
+                }
+                burst.AdvanceDebris(.3f);
+                int beyond = 0, streaks = 0;
+                for (int g = 2; g <= 3; g++)
+                {
+                    int count = burst.Systems[g].GetParticles(particles);
+                    for (int i = 0; i < count; i++)
+                    {
+                        var p = particles[i];
+                        if (!reverse.Contains(p.randomSeed)) continue;
+                        if (-p.position.x * direction >= 2.5f) beyond++;
+                        if (p.startSize3D.y * 16 >= 2) streaks++;
+                    }
+                }
+                Assert.That(beyond, Is.GreaterThanOrEqualTo(8), "seed " + seed + " direction " + direction);
+                Assert.That(streaks, Is.GreaterThanOrEqualTo(6), "seed " + seed + " direction " + direction);
+            }
+        }
+        finally { Random.state = saved; }
+    }
+
+    [Test, Category("Quick")]
     public void CompactDebrisFallsBouncesOnceRestsFadesAndClearsOnReuse()
     {
         var burst = Burst(); var saved = Random.state;
@@ -334,7 +380,7 @@ public sealed class ParryClashTests
                 Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
                 var previous = new Dictionary<uint, ParticleSystem.Particle>();
                 var bounces = new HashSet<uint>(); var rests = new HashSet<uint>();
-                var buffer = new ParticleSystem.Particle[6];
+                var buffer = new ParticleSystem.Particle[10];
                 for (int step = 0; step <= 250; step++)
                 {
                     for (int g = 1; g <= 3; g++)
@@ -349,7 +395,7 @@ public sealed class ParryClashTests
                             Assert.That(p.startSize3D.y * 16, Is.EqualTo(Mathf.Round(p.startSize3D.y * 16)));
                             if (previous.TryGetValue(p.randomSeed, out var old))
                             {
-                                Assert.That(Vector3.Distance(p.position, old.position), Is.LessThan(.3f), "no replacement or discontinuous teleport");
+                                Assert.That(Vector3.Distance(p.position, old.position), Is.LessThan(.52f), "no replacement or discontinuous teleport");
                                 Assert.That(p.startColor.a, Is.LessThanOrEqualTo(old.startColor.a));
                                 if (!fast && old.velocity.y < 0 && p.velocity.y > 0)
                                     Assert.That(bounces.Add(p.randomSeed), Is.True, "only one bounce");
@@ -367,16 +413,16 @@ public sealed class ParryClashTests
                     }
                     burst.AdvanceDebris(.01f);
                 }
-                Assert.That(bounces.Count, Is.EqualTo(12)); Assert.That(rests.Count, Is.EqualTo(12)); Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[3].particleCount, Is.Zero);
+                Assert.That(bounces.Count, Is.EqualTo(20)); Assert.That(rests.Count, Is.EqualTo(20)); Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[3].particleCount, Is.Zero);
                 burst.Clear(); burst.AdvanceDebris(.1f); Assert.That(burst.ParticleCount, Is.Zero);
                 // Absolute-age integration must agree even across skipped contacts.
                 Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
                 burst.AdvanceDebris(1);
                 var single = new Dictionary<int, Vector3>();
-                for (int g = 1; g <= 3; g++) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) single.Add(g * 6 + i, buffer[i].position); }
+                for (int g = 1; g <= 3; g++) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) single.Add(g * 10 + i, buffer[i].position); }
                 Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
                 for (int n = 0; n < 100; n++) burst.AdvanceDebris(.01f);
-                for (int g = 1; g <= 3; g++) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) Assert.That(Vector3.Distance(buffer[i].position, single[g * 6 + i]), Is.LessThan(.00001f)); }
+                for (int g = 1; g <= 3; g++) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) Assert.That(Vector3.Distance(buffer[i].position, single[g * 10 + i]), Is.LessThan(.00001f)); }
             }
         }
         finally { Random.state = saved; }
@@ -416,7 +462,7 @@ public sealed class ParryClashTests
         Assert.That(releases, Is.EqualTo(1));
         burst.GetComponent<PooledVFX>().Release(); Assert.That(releases, Is.EqualTo(1));
         burst.gameObject.SetActive(true); Assert.That(burst.ParticleCount, Is.Zero);
-        burst.Emit(Vector3.one, -1, -10, ParryClashBurst.Preset.BCompact); Assert.That(burst.ParticleCount, Is.EqualTo(16));
+        burst.Emit(Vector3.one, -1, -10, ParryClashBurst.Preset.BCompact); Assert.That(burst.ParticleCount, Is.EqualTo(24));
         pool.Clear();
     }
     [Test, Category("Quick")]
@@ -445,12 +491,12 @@ public sealed class ParryClashTests
             parry.ParrySuccess();
             var active = (List<GameObject>)typeof(ParrySparkVFX_Pooled).GetField("active", Flags).GetValue(fx);
             var burst = active[active.Count - 1].GetComponent<ParryClashBurst>();
-            Assert.That(burst.ParticleCount, Is.EqualTo(16));
+            Assert.That(burst.ParticleCount, Is.EqualTo(24));
             var shapes = new List<Vector4>(); burst.Systems[1].GetCustomParticleData(shapes, ParticleSystemCustomData.Custom1);
             for (int i = 0; i < 2; i++) Assert.That(shapes[i].w >= 12, Is.EqualTo(i == sequence % 2));
             int live = 0;
             foreach (var go in active) live += go.GetComponent<ParryClashBurst>().ParticleCount;
-            if (sequence >= 7) Assert.That(live, Is.EqualTo(128));
+            if (sequence >= 7) Assert.That(live, Is.EqualTo(192));
         }
         Assert.That(Object.FindObjectsOfType<ParryClashBurst>().Length, Is.EqualTo(8));
         host.SetActive(false); Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);

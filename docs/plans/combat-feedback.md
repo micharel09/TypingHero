@@ -2248,3 +2248,40 @@ Secondary textures: https://docs.unity3d.com/Packages/com.unity.render-pipelines
   QA c8d34d84840756d629276ee8e012b43c056e0908dbbf40daa1461d5f498f6c03 exactly.
   No runtime edits since qualified verification; no repeated runtime suite required.
   Parent checkout/main and retained review artifacts remain untouched.
+
+
+## BCompact strong reverse fan ? 2026-10-19 (implementation; verification pending)
+
+- Continue existing Orca child e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/feat-pixel-hit-sparks,
+  parent C:/Users/ADMIN/orca/TypingHero; branch feat/pixel-hit-sparks, remote
+  https://github.com/micharel09/TypingHero.git, integration target main.
+  Clean child fast-forwarded 4f8b09c -> origin/main c1f4841 before edits;
+  parent checkout and its existing WIP untouched. No push/merge/deploy authorized by this revision.
+- Requested24/clash,192/eight leases: contact2/main2/front10/back10/embers0.
+  Preserve first10 moving spark random draws; append12 reverse sparks,6near/6far,
+  each3long/3short. Stratified -12..36degree fan plus existing shared +/-15degree
+  and +/-2degree jitter. Reverse X speed32..44 times energy; Y retains14..24 speed.
+  Launch X drag10/s only for reverse states; Y/Z20/s,120ms braking; coast X/Z2/s,
+  gravity9.81, single22%vertical/55%tangent bounce and180ms full-axis rest unchanged.
+  Fixed22states/10scratch slots. No prefab/shader/dependency/public API/default/camera/gameplay/itch changes.
+- Added24seed/two-direction1unit-high fixture acceptance at300ms: >=8/12 travel
+  >=2.5units reverse X, >=6 retain2pixel length. Updated count/mirror/bounce/reuse tests.
+  Unity Quick queued behind existing shared runner jobs; no passing runtime result yet.
+- Review artifacts/helpers use strong24-* under E:/CodexTemp/TypingHero/parry-clash-lighting.
+  reverse-normal/mirror-player are immutable16particle baselines; preserve prior clips.
+  Native art/lifecycle/floor QA, repeated-builder/serialized identity, 16->24clips,
+  matched no-capture p95 and conditionalABBA remain pending. Prior mirror performance
+  concerns remain separate. Retain child/player/clips for requested review.
+
+
+### BCompact24 Quick receipt (2026-10-19)
+
+- Unity2022.3.25f1 on fly-server: Quick20261019T093602 passes79/79 actual tests.
+  Immutable input fe4c72f5d87ef91a8fa511865f57fd95d778caba5b562745ae87598ed282ce23.
+ 24/192budget/groups, same-frame launch/mirror X/preserved Y/Z,20single bounces,
+  full-axis rest/fade/expiry, pause/reading/hitstop/reuse/module restoration pass.
+  New24seed/two-direction1unit-high fixture passes300ms >=8/12reverse particles
+  beyond2.5Xunits and>=6streaks at least2pixels. Repeated builder/tuning test passes.
+- Local623serialized/meta files match HEAD content after Git newline normalization;
+  SHA256 inventory retained in strong24-asset-identity.json. Native QA/build/clip/
+  performance acceptance remains pending; do not infer visual PASS from Quick.

@@ -1309,3 +1309,16 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
  614asset bytes and unrelated UTF-8 document prefixes verified unchanged; scoped
   whitespace checks PASS. Task QA listener8137 closed. Review reopen command:
   `powershell -NoProfile -File E:/CodexTemp/TypingHero/parry-clash-lighting/open_compact.ps1 -Name reverse-interactive -Player E:/CodexTemp/TypingHero/parry-clash-lighting/reverse-normal-player`.
+
+
+### BCompact24 Quick receipt (2026-10-19)
+
+- Unity2022.3.25f1 on fly-server: Quick20261019T093602 passes79/79 actual tests.
+  Immutable input fe4c72f5d87ef91a8fa511865f57fd95d778caba5b562745ae87598ed282ce23.
+ 24/192budget/groups, same-frame launch/mirror X/preserved Y/Z,20single bounces,
+  full-axis rest/fade/expiry, pause/reading/hitstop/reuse/module restoration pass.
+  New24seed/two-direction1unit-high fixture passes300ms >=8/12reverse particles
+  beyond2.5Xunits and>=6streaks at least2pixels. Repeated builder/tuning test passes.
+- Local623serialized/meta files match HEAD content after Git newline normalization;
+  SHA256 inventory retained in strong24-asset-identity.json. Native QA/build/clip/
+  performance acceptance remains pending; do not infer visual PASS from Quick.
