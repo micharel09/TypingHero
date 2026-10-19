@@ -251,8 +251,9 @@ Full surface art, B/C and parent integration remain separate.
   ignores IsAlive for those frozen systems, preserving exactly-once lease return.
   Unscaled age obeys pause/reading; Clear/re-emission/disable/restart discard state.
   Quick79/79 verifies24/192,20single-bounce paths and24seeds/two directions at300ms:
-  >=8reverse sparks travel>=2.5Xunits and>=6retain2pixel length. Native24particle QA
-  is pending; prior native40clashes/B<->compact receipts apply to16particles only. Version1migration, all prefab
+  >=8reverse sparks travel>=2.5Xunits and>=6retain2pixel length. Native24particle normal QA passes20keyboard clashes at640/1280 and B<->compact
+  pause/restart; mirrored native QA was canceled by user. Prior mirror receipts
+  cover16particles only. Version1migration, all prefab
   bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
   This is a review sample; prior mirror p95 concerns remain separate and unresolved.
 - Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
@@ -298,11 +299,11 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   of whoosh and parry: medium 000?002 at .65 normal / .45 Slayer, heavy 000?002 at .8
   lethal, +/- .5 semitone jitter. Existing clang uses +/- 1 semitone.
 - Impacts use Inspector-editable `Assets/Art/VFX/PixelSparks` prefabs: orange Normal24
-  (.45â€“.65s), ivory Slayer32 (.35â€“.55s), pale-blue Parry40 (.6â€“.85s), orange Lethal56
-  (.75â€“.95s). Two world Particle Systems emit70% square dots and30% axis-aligned
+  (.45Ã¢â‚¬â€œ.65s), ivory Slayer32 (.35Ã¢â‚¬â€œ.55s), pale-blue Parry40 (.6Ã¢â‚¬â€œ.85s), orange Lethal56
+  (.75Ã¢â‚¬â€œ.95s). Two world Particle Systems emit70% square dots and30% axis-aligned
   streaks at16PPU, order30; a binary white texture and unlit straight-alpha material
   keep flat stepped colors. Existing camera zoom scales them with characters.
-  Force follows attacker-to-target context, with80% forward; gravity18WU/sÂ² and
+  Force follows attacker-to-target context, with80% forward; gravity18WU/sÃ‚Â² and
   fixed standing-foot collision planes give .4 bounce/.4 damping. Eight active bursts
   per owner recycle oldest without suppressing confirmed-hit audio. Slayer exit
   preserves the emitted profile; lethal wins over Slayer. Original Pimen assets,

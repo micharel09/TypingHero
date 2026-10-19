@@ -1639,3 +1639,36 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
 - Local623serialized/meta files match HEAD content after Git newline normalization;
   SHA256 inventory retained in strong24-asset-identity.json. Native QA/build/clip/
   performance acceptance remains pending; do not infer visual PASS from Quick.
+
+
+### BCompact24 normal QA, performance and release steering (2026-10-19)
+
+- Normal immutable QA20261019T093707 build/repeated-builder PASS, same fe4c72f5 input
+  as Quick79. Edge155/Playwright1.58.2/GTX1650Ti ANGLE D3D11: art3336checks,
+ 20keyboard parries (10per640x360/1280x720), normal/Slayer; lifecycle967 and tail118
+  checks PASS. No exceptions/provider reads/writes; fixture/external blocking kept.
+  Recorded motion grids show reverse sparks beyond the player's rear silhouette,
+  readable contact and no observed floor penetration; sampled floor>=-2.8713007.
+- First71check art attempt failed after missed real-keyboard parry. QA-only harness
+  now holds Space until observed parryPose/window, rather than only a newer frame;
+  product timing unchanged. Failed attempt retained as failed.
+- Matched no-capture profiling-ON16->24 normal AB checks1936/2162 PASS;1280 live
+  p9517.305->19.670ms (+13.67%) triggered freshABBA. Four ordered runs pass
+  checks2078/1955/2209/2029, four keyboard clashes/size/run, focused visible tab.
+  All-state p95 A1/B1/B2/A2:1280=14.450/14.845/13.750/14.375ms;
+ 640=14.175/16.845/13.650/16.410ms. Means A->B14.4125->14.2975 (-0.80%) /
+ 15.2925->15.2475 (-0.29%). Live means14.2475->15.0825 (+5.86%) /
+ 15.185->14.720 (-3.06%). All sample counts99..103;live40..43 per run/size.
+  Means average per-run p95s, not pooled percentiles. No repeated increase>10%;
+  short sampled data does not establish GPU cause/equivalence/device FPS or resolve
+  previous mirror+31.16%/+20.53%/+15.95% concerns.
+- User explicitly canceled further mirrored QA and requested Git push plus itch.io
+  publication. Mirror build094745/repeated-builder already PASS (input8eee591e),
+  but running native mirror art/process tree was stopped; do not claim mirrorQA or
+  mirrorperformance PASS. Offline24seed/two-direction Quick evidence remains valid.
+  Clips now cover normal only at both sizes,1x/.25x full viewport; previous clips kept.
+- Remote main advanced tobf98c27 with approved HUDR7/Endless/full-release work while
+  this task ran. Committed spark changes e018961, merged latest origin/main cleanly
+  into feature child before release to preserve those features. Parent WIP untouched.
+  Integrated Quick and production build are queued; upload not yet performed.
+  Current remains the serialized default, as requested by original plan.
