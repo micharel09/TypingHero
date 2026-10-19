@@ -223,6 +223,8 @@ def main():
                 if "typingHeroQA" in path.read_text(errors="replace"):
                     raise RuntimeError("QA bridge present in production JavaScript")
             print("PASS: normal WebGL build excludes QA bridge", flush=True)
+            shutil.copytree(build, result / 'player')
+            print(f"Production player preserved: {result / 'player'}", flush=True)
             return
         if scenario.startswith('pixel-sparks') or scenario in ('endless', 'combat-r7', 'parry-clash'):
             # Preserve this exact player before releasing the shared runner lock.

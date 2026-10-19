@@ -55,44 +55,41 @@ reproduction. Task-only captures/drivers/expanded players are cleaned after rece
   link marketing theo URL thực tế. Giữ upload/media cũ để rollback, ghi receipt.
   Không social/devlog, không đổi Firebase, không push Git trong phạm vi hiện tại.
 
-## Bảng kiểm
+## Release checklist
 
-- [x] Đọc source, dirty inventory và checkpoint; không revert thay đổi có sẵn.
-- [x] Đổi hai nhãn scene menu, trình tạo UI, productName/description, menu editor,
-  tên executable/README build, log build, artifact CI và credits do dự án sở hữu.
-- [x] Đổi nội dung marketing hiện hành, metadata/alt/caption/draft; phân loại tên cũ.
-- [x] Xuất/xem cả ba cover và banner, kiểm font/dimension/decode/path/whitespace.
-- [x] Candidate đóng băng: Quick99/99; QA build và repeat-builder; menu native,
-  tên Guest/custom/reload và Classic; thử namespace lưu cùng/khác đường dẫn host.
-- [x] Tái hiện clipping thật; sửa output headroom; Quick99/99 và QA mới đạt.
-- [x] Chốt source cuối cùng sau CombatR7; kiểm đủ các consumer/flow trên source đó.
-- [x] Gate audio trên candidate đóng băng: focused15 và full-mix1511checksPASS.
-- [ ] Nghiệm thu cuối tên/UID/best/progress/tutorial/Classic/Endless/HUD/audio.
-- [x] Rà toàn bộ media; ba Shorts xác nhận còn TYPING HERO, cần quay/xuất lại.
-- [x] Production/QA exclusion/ZIP/hash/CRC/smoke đúng artifact sau các gate trên.
-- [ ] Lấy lại trạng thái editor/theme/uploads mới ngay trước mọi thao tác ghi.
-- [x] Publish build/name/cover/banner/slug; kiểm public/CDN/URL cũ/search card.
-- [x] Cập nhật link theo URL đã lưu; receipt/rollback và dọn tài nguyên task.
+- [x] Preserve dirty Guest/Endless/HUD/audio work and technical/save/Firebase IDs.
+- [x] Public/source brand CLACKBLADE, TYPE TO SLASH; owned credits/build labels.
+- [x] Cover three sizes/banner and all three current Shorts exported/inspected.
+- [x] Final source0fd frozen; Quick104 prior2757 and scoped native133PASS reconciled.
+- [x] Exact production QA exclusion, ZIP CRC/SHA256 and original HTML smoke9PASS.
+- [x] Fresh owner/editor/theme/profile/media rollback backup before writes.
+- [x] Upload19871730 selected and saved; previous19865461 hidden/retained.
+- [x] Public new/old URL, card, media, native menu and29CDN hashes verified.
+- [x] Actual marketing URLs, current config and receipt/rollback updated.
+- [x] Task-only resources cleaned after written receipt; final artifact/source retained.
+- [ ] Online Endless leaderboard readiness: still401; explicit instruction to publish
+  after disclosure. Firebase unchanged. Fixture PASS is not online readiness.
+- [ ] No repeat of the complete latest-source five-level/audio matrix; earlier
+  frozen candidate evidence remains separately identified.
+- [ ] Legacy public-browser UID/best/progress migration unproven; no promise made.
 
-## Thay đổi và asset hiện có
+## Current source and assets
 
-Menu scene và nguồn PixelUIScenes/ShogunTheme dùng CLACKBLADE. MainMenu đã xem
-ở960×540/640×360: vừa khung, không cần đổi font52 hay bố cục. MenuItem/editor
-asset-create menu và log build cũng đã đổi nhãn; không có consumer của menu path cũ.
-Windows build/README/checker đồng bộ CLACKBLADE.exe/CLACKBLADE_Data; chưa chạy
-Windows profile trong task WebGL này. TypingHero.Runtime.dll vẫn giữ tên assembly.
+MainMenu scene and PixelUIScenes/ShogunTheme use CLACKBLADE; the scene's existing
+font52 fits at960x540/640x360. Windows executable/README/checker now agree on
+CLACKBLADE.exe/CLACKBLADE_Data; Windows runtime was outside this WebGL release.
+Assembly TypingHero.Runtime and all infrastructure/save identifiers remain stable.
 
-- [Cover630×500](../../marketing/ItchIO_Optimization/Thumbnails/clackblade-630x500.png),
-  [315×250](../../marketing/ItchIO_Optimization/Thumbnails/clackblade-315x250.png),
-  [158×125](../../marketing/ItchIO_Optimization/Thumbnails/clackblade-158x125.png).
-  Nguồn: cover-v2.html. Chỉ thay chữ, giữ cel/grip/pose/tỷ lệ cũ; không ảnh AI.
-- [Banner960×394](../../marketing/itch-io/banner-clackblade.png), nguồn banner.html.
-- [Nguồn caption Shorts](../../marketing/itch-io/source/shorts-layout.html) giữ
-  bố cục video hiện có. Ba MP4 cũ chưa được thay; campaign/source README đã ghi rõ.
-- StorePage/description.html và marketing/itch-io/page.html lấy đúng description
-  public đã backup rồi chỉ đổi thương hiệu, không dùng lại copy storefront cũ hơn.
-- Các link vẫn là URL đang hoạt động `https://micharel09.itch.io/typing-hero` cho
-  tới khi slug mới được lưu/kiểm chứng; chưa thử và chưa tuyên bố slug mới khả dụng.
+Cover: marketing/ItchIO_Optimization/Thumbnails/clackblade-{630x500,315x250,158x125}.png,
+from cover-v2.html, same cinematic sprite composition. Banner960x394:
+marketing/itch-io/banner-clackblade.png, from banner.html. Saved thumbnail315 checked.
+Three MP4s under marketing/itch-io now use final R7 tutorial footage, CLACKBLADE and
+actual new URL. Old exports retained in restore; source/crop/export provenance in
+marketing/itch-io/source/README.md. No social/devlog posts.
+
+Current StorePage/description.html and marketing/itch-io/page.html preserve the
+actual live business copy with only owned brand text changed. Live copy matches.
+Publication/media IDs and per-file hashes are in clackblade-release-20261019.json.
 
 ## Audit tên cũ và dữ liệu
 
@@ -170,50 +167,28 @@ publish game3857509: header docs/plans/ui-kit-v2.md. Không lấy kết quả ca
 làm acceptance cho source đó, không revert họ, không dùng editor form stale để
 save đè upload mới. Cần chốt source và đọc lại live state trước khi ghi.
 
-## Publication/rollback và tài nguyên
+## Publication, rollback and resources
 
-Đã đọc đúng owner micharel09/game3857509. Backup baseline ở
-[pre-clackblade-20261019](../../marketing/itch-io/restore/pre-clackblade-20261019/README.md):
-116field không secret, description public thực tế, upload/media IDs. Playable19865461,
-cover31068886, banner30983627. Banner download khớp byte file cũ; SHA256
-689b88c541e9f57199671098a18a4f6a0aed436160393fd6212fbac4437c5183.
-Đã kiểm đường dẫn coverA630 và banner cũ tồn tại. Chưa chụp toàn bộ theme editor;
-lấy lại đầy đủ theme/current uploads trước thao tác ghi tương lai. Không có mutation
-itch.io, production build/ZIP/upload/slug mới trong task này tới checkpoint hiện tại.
+Owner micharel09/game3857509 authenticated again immediately before upload/save.
+Fresh editor/theme/description/profile/media backup is in restore/pre-clackblade-20261019.
+Published state: upload19871730; previous19865461 hidden, all older uploads retained.
+Cover31073302/banner31073353/social31073415; title/body/profile CLACKBLADE.
+Only expected shared form fields changed (title/slug/description), plus cover/upload
+selection. Full theme comparison differs only in banner ID. Pricing0-or-donate,
+suggested1USD and all tags match baseline.
 
-Rollback sau một release tương lai: giữ upload mới hidden, chọn lại19865461;
-khôi phục title/slug cũ nếu khả dụng, description và media theo backup. Save rồi
-kiểm public/playable/URL; không suy ra thành công chỉ từ click. Không xóa upload cũ.
+Rollback procedure and old files are in the backup README. Keep the new upload
+hidden if rolling back; choose19865461, restore original media/title/description/
+slug if available and verify public URLs/CDN. Do not delete either upload.
 
-Repo/branch/worktree giữ nguyên, không commit/push. Orca CLI không có trong PATH;
-BrowserSkill Edge61a46c05 đọc owner/public thành công. Stop sessionaqjq báo not_registered,
-list session mới rỗng: không còn session task, không có tab user đã borrow.
+No branch/worktree/commit/push. BrowserSkill owned sessions only; no borrowed user
+tabs. All task-created processes complete, sessions closed after verification.
+Task-only local E:/CodexTemp/TypingHero/clackblade and owned server candidate/QA
+captures/logs/expanded players are removed after written receipt. No other task's
+resources/shared Library/toolchain/source are cleaned. Keep the final server
+release ZIP/release.json/source-final.tar.gz for rollback and reproduction;
+Builds/CLACKBLADE-WebGL-20261019.zip and product media/restore remain local.
 
-Temp chỉ dưới E:/CodexTemp/TypingHero/clackblade. Giữ input archive, player/driver và
-metric cần resume trong lúc còn gate; dọn capture sau khi ghi kết luận. Archivebase
-candidate.tar.gz và candidate-audio.tar.gz **không có CombatR7 mới**, không phải bản
-release latest-source đã duyệt. Recipe production cũ và wrappers đã chạy xong được
-xóa để tránh build nhầm. Chỉ một build dư của chính task bị SIGINT sau kiểm PID/marker,
-runner finally dọn container; không đụng job/container của tác vụ khác.
-
-QA audio mới nằm ở server results/20261019T075530-webgl/player. Full-mix job exec27174 đã kết thúcPASS1511checks, output audio-outputgain-fullmix,
-VeryHard/1round/Music1/SFX1/nominal70ms mỗi ký tự. Không còn test/build process
-của task đang chạy. Giữ một video từ candidate này cho trường hợp dùng làm nguồn
-media sau khi user chốt mốc; không coi nó là footage CombatR7 mới.
-Đã dọn11folder capture/profile/player giải nén chỉ thuộc task sau khi ghi kết luận;
-kiểm path tuyệt đối và toàn bộ reparse point trước khi xóa. Không dọn dữ liệu khác.
-Không còn process của task; BrowserSkill session list rỗng. Phần giữ lại khoảng53MB:
-- candidate.tar.gz/candidate.json: baseline thương hiệu không có CombatR7.
-- candidate-audio.tar.gz/candidate-audio.json: input a384... có listener headroom.
-- outputgain-player.tar.gz: player QA a384..., có QA bridge, **không dùng để publish**.
-- driver/, audio-profile.cjs/audio-tap.js và script render: tái hiện/hoàn thiện phần còn lại.
-- candidate-a384-gameplay.webm: một nguồn video có thể dùng nếu user chọn baseline này;
-  không phải footage CombatR7. SHA2567ad7fa2d7d8cade36cd54581fac08f61021f179a5ded97ec23a0b02b5aa897e8.
-Mọi mục trên ở E:/CodexTemp/TypingHero/clackblade; giữ vì đang chờ source/backend.
-Dọn sau khi nguồn cuối được chốt và media/build mới thay thế chúng. Shared server
-source/Library/toolchain và kết quả tác vụ khác giữ nguyên. QA candidate server
-075530 và baseline/experiment072050/073917 vẫn giữ để đối chiếu cho lần tiếp tục;
-không nhầm chúng với release production/rollback playable live19865461.
 ## Final focused native acceptance
 
 Final0fd input: native Edge155/GTX1650Ti/ANGLE D3D11,133checksPASS,105.265s,
@@ -224,3 +199,12 @@ then its legacy extra cinematic duel ended before Slayer; overall software run
 remains FAIL. Task-local native harness excludes that separate legacy scenario,
 retaining all targeted tutorial/Slayer assertions. No game assertion weakened or
 runtime changed. Final production092049 uses the same0fd immutable input.
+
+## Changes after release freeze
+
+Checkout continued receiving a separate world-lighting/parry-clash implementation
+after0fd release freeze: environment/hero texture metadata, player prefab, editor
+lighting/parry builders, feedback runtime/tests and runner changes. These are
+preserved in the working tree and are not in uploaded19871730. Do not claim the
+published artifact matches the later moving checkout; do not fold unverified
+subsequent work into this verified release. The final source archive0fd is retained.

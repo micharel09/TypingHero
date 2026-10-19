@@ -1,21 +1,21 @@
 # Type to slash. Press Space to parry.
 
-**CLACKBLADE rebrand pending:** the three existing MP4 files still contain the old
-brand in their pixels. Keep them as reference only until fresh source exports and
-the release URL are verified. New editable caption source: `source/shorts-layout.html`.
-
+**CLACKBLADE released:** https://micharel09.itch.io/clackblade, playable19871730.
+Three MP4s now use final R7 footage and new brand/URL. Older versions are in restore.
+Editable caption source: source/shorts-layout.html. No posts have been sent.
 
 Prepared for manual posting only. Budget: $0; operator time: 2–3 hours/week.
 Audience: international action players on desktop with a keyboard.
-Do not announce the guest-name change as live until the matching build is published.
+Matching Guest/Endless/HUD/audio source is now published; online Endless leaderboard
+remains unavailable (401), so do not claim that service works.
 Keep the current cover and storefront layout for this experiment.
 
 ## Three Shorts
 
 The three exports use vertical MP4 (1080×1920, 25fps, H.264/yuv420p), about
-12.5 seconds each. The complete game frame remains visible, with an enlarged
+3,4.5 and2.5 seconds respectively. The complete game frame remains visible, with an enlarged
 unaltered typing-tray detail and English captions outside the gameplay frame.
-Footage comes from the verified guest-name runtime snapshot. Older storefront
+Footage comes from the final0fd native R7 tutorial run; no retiming. Older storefront
 footage is reference only. No upload has been performed.
 
 | File | Title | On-screen text | Caption |
