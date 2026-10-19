@@ -1,7 +1,7 @@
 # CLACKBLADE — itch.io marketing package
 
 Current public brand: **CLACKBLADE**, slogan **TYPE TO SLASH**.
-Page: https://micharel09.itch.io/clackblade. Production playable upload is in progress.
+Page: https://micharel09.itch.io/clackblade. Playable upload19871730 is live and CDN hashes verified.
 Approved cover composition: [source](Thumbnails/cover-v2.html),
 [630x500](Thumbnails/clackblade-630x500.png),
 [315x250](Thumbnails/clackblade-315x250.png),

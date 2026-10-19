@@ -1,5 +1,11 @@
 # Combat r7 Unity / itch release - checkpoint 2026-10-19
 
+Publication update: final0fd source is now live as CLACKBLADE/upload19871730 at
+https://micharel09.itch.io/clackblade. Native focused133 and production smoke9PASS;
+see [release checkpoint](clackblade-rebrand.md) for exact scope, failed extra legacy
+cinematic helper, known online Endless401 limitation and rollback. The earlier
+in-progress notes below remain historical evidence, not the final release status.
+
 Task user: integrate r6 metal components, r7 fixed three-word row and purple dungeon into combat only, verify and publish game3857509 at https://micharel09.itch.io/typing-hero. Preserve menu/tutorial/Collection/pause/results and all dirty work.
 
 Working in existing checkout C:/Users/ADMIN/orca/TypingHero; no branch/worktree/commit created. Initial dirty inventory retained temporarily at E:/CodexTemp/TypingHero/hud-r7-release/initial-status.txt. Existing changes include Endless roles/difficulty/provider/Collection, Guest identity, typing SFX, combat fixes, serialized scenes and project settings; they are release inputs, not newly authored HUD changes. No existing change discarded.

@@ -35,6 +35,7 @@ module.exports = async function endless(api, browser) {
     await page.keyboard.down(k);
     try { await page.waitForTimeout(Math.max(40,before.frameMs*2)); await acknowledged(s=>s.frame>=frame); }
     finally { await page.keyboard.up(k); }
+    await page.waitForTimeout(80); // Observe released input and the updated selector before the next action.
   };
   const capture = name => page.screenshot({path:path.join(report.outputDirectory,difficulty+'-'+name+'.png')});
   const typeWordKeys=async(input,delay)=>{
@@ -90,7 +91,8 @@ module.exports = async function endless(api, browser) {
     let steps=0;
     while(menu.menuDifficulty!==difficulty){
       check(steps++<5,'difficulty selector cycles through exactly five levels');
-      await key('ArrowRight'); menu=await state(page);
+      const before=menu.menuDifficulty;
+      await key('ArrowRight'); menu=await until(page,t=>t.menuDifficulty!==before);
     }
     check(ids.includes(menu.menuDifficulty) && menu.scene==='MainMenu','selector arrows keep the menu open');
     await page.setViewportSize({width:640,height:360}); await until(page,t=>t.width===640);

@@ -1,6 +1,24 @@
 # Verification and performance memory
 
-## Combat HUD r7 integration (2026-10-19; release gated)
+## CLACKBLADE public release (2026-10-19)
+
+Final input0fd9445887f60e2a7ba4c9e2578c22371f57e995079cc7c662bf9cfbd82c7a0b:
+production092049, QA exclusion/CRC/hash PASS, native focused combat-r7/tutorial133PASS,
+exact original production HTML smoke9PASS (name/reload/menu640/960, BLADE attack,
+pause/resume/menu/Classic fixtures, no probe/exceptions/score writes).
+Software combat-r7 run passed125 scoped checks then failed its extra legacy
+cinematic duel before Slayer; not claimed overallPASS. Task-local native focused
+run omits only that separate scenario and preserves all R7/tutorial Slayer checks.
+Public upload19871730 verified through Run game/menu and29matching non-HTML CDN
+hashes; index only adds standard itch.io htmlgame.js. Source has all current dirty
+Guest/Endless/HUD/audio inputs. No new full five-level/audio matrix claim.
+https://micharel09.itch.io/clackblade; typing-hero URL navigates there. Old upload
+19865461 hidden/retained. Theme/pricing/tags preserved; no social/devlog/Git push.
+Online Endless read still401; Firebase unchanged. User instructed publication
+with that limitation. Do not claim old public-browser data migration.
+See [release checkpoint](../plans/clackblade-rebrand.md) for receipt/rollback.
+
+## Combat HUD r7 integration (2026-10-19; earlier frozen candidate)
 
 - Component exporter27PNG PASS; pool219 unique, maximum54px in58px cell.
 - Quick085843 input5304b09b00eefb63ef67141a79df7fd3bcefeceadd4e09280b6a50892de64836:104/104PASS,0skip. Covers synchronous queue/input cadence, burst, reset/error, event/reward behavior, Point/Clamp sprites, bitmap gutter and actual HP0/1/50/100% fill.

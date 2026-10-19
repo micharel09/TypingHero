@@ -1,28 +1,38 @@
 # CLACKBLADE — đổi thương hiệu và phát hành
 
-## Trạng thái hiện tại
+## Published 2026-10-19
 
-Đã đổi tên trong source/nội dung hiện hành và xuất cover/banner. **Chưa phát hành**.
-Hai vướng mắc thực tế: source CombatR7/TypingManager đang tiếp tục được tác vụ khác
-thay đổi; backend Endless production trả401. Đã hỏi user bất đồng bộ về mốc source
-và việc bàn giao bản chờ phát hành hay chuẩn bị riêng bản sửa Firebase để duyệt.
-Chưa có câu trả lời; mặc định giữ yêu cầu source mới nhất và không đổi Firebase.
-Không suy ra quyền từ im lặng. Tác vụ này chưa ghi thay đổi lên itch.io.
+Public: https://micharel09.itch.io/clackblade (owner micharel09; game3857509).
+Old typing-hero URL navigates to clackblade. Saved playable19871730, previous
+19865461 retained hidden. Cover31073302, banner31073353, social preview31073415.
+Title/body credits/profile bio now CLACKBLADE; theme except banner, pricing and
+tags verified unchanged. No social/devlog posts, Git push or Firebase changes.
 
-## Release continuation (2026-10-19)
+Final immutable input0fd9445887f60e2a7ba4c9e2578c22371f57e995079cc7c662bf9cfbd82c7a0b.
+Quick104/104 on prior2757 differs only by the final generated pause-button scene;
+all runtime code/test inputs otherwise identical. Native focused HUD133PASS;
+exact production092049 QA exclusion/ZIP CRC/hash and original-HTML smoke9PASS.
+Public Run game renders CLACKBLADE; CDN29non-HTML files match ZIP hashes, HTML
+only appends itch.io htmlgame.js. ZIP30files/16464054bytes:
+2194dec22388162d41b2b6882b03a37511b4be28aa013d2e096916bfb64b5b93.
 
-User confirmed the preceding work finished and explicitly requested publishing everything
-to itch.io. Proceed without asking again. Snapshot2757 Quick104/104PASS,
-production090524PASS; source then imported final corrected pause-button serialization.
-Final input0fd9445887f60e2a7ba4c9e2578c22371f57e995079cc7c662bf9cfbd82c7a0b
-is in QA091145 and queued production. Only SampleScene differs: pause click/SFX,
-label positions/color. Runtime code remains identical. Old candidate is not final.
-Read-only production global200/endless_v1/very_easy401; Firebase remains unchanged
-and the limitation was reported before proceeding with user's new release instruction.
-Saved/public name CLACKBLADE, slugclackblade, cover31073302, banner31073353,
-social preview31073415. Old typing-hero URL navigates to clackblade.
-Fresh non-secret editor/theme backups are in restore/pre-clackblade-20261019.
-Final playable upload and artifact smoke are pending.
+User explicitly requested publication after being told the online limitation:
+read-only production Classic200, Endless401. Firebase untouched; online Endless
+leaderboard remains a known limitation, not fixed or proven by fixtures. Latest
+HUD/tutorial and artifact smoke passed; the earlier full five-level/audio matrix
+belongs to the previously frozen candidate. No new complete latest-source matrix
+or old public-browser UID/best/progress migration claim.
+
+All three current Shorts replaced from final native footage with CLACKBLADE and
+actual new URL; old exports kept in restore.1080x1920/H.264/25fps/silent, durations
+3/4.5/2.5s. Full decode/contact sheets inspected, no clipped glyphs/stretch/old logo.
+
+Receipt/hash manifest: [release receipt](../../marketing/itch-io/clackblade-release-20261019.json).
+Rollback: [pre-release backup](../../marketing/itch-io/restore/pre-clackblade-20261019/README.md).
+Production ZIP: Builds/CLACKBLADE-WebGL-20261019.zip (ignored artifact).
+Server final ZIP/manifest/source snapshot retained in
+/data/typinghero-game-loop/releases/clackblade-20261019-final/ for rollback and
+reproduction. Task-only captures/drivers/expanded players are cleaned after receipt.
 
 ## Acceptance phải giữ
 
@@ -55,14 +65,14 @@ Final playable upload and artifact smoke are pending.
 - [x] Candidate đóng băng: Quick99/99; QA build và repeat-builder; menu native,
   tên Guest/custom/reload và Classic; thử namespace lưu cùng/khác đường dẫn host.
 - [x] Tái hiện clipping thật; sửa output headroom; Quick99/99 và QA mới đạt.
-- [ ] Chốt source cuối cùng sau CombatR7; kiểm đủ các consumer/flow trên source đó.
+- [x] Chốt source cuối cùng sau CombatR7; kiểm đủ các consumer/flow trên source đó.
 - [x] Gate audio trên candidate đóng băng: focused15 và full-mix1511checksPASS.
 - [ ] Nghiệm thu cuối tên/UID/best/progress/tutorial/Classic/Endless/HUD/audio.
-- [ ] Rà toàn bộ media; ba Shorts xác nhận còn TYPING HERO, cần quay/xuất lại.
-- [ ] Production/QA exclusion/ZIP/hash/CRC/smoke đúng artifact sau các gate trên.
+- [x] Rà toàn bộ media; ba Shorts xác nhận còn TYPING HERO, cần quay/xuất lại.
+- [x] Production/QA exclusion/ZIP/hash/CRC/smoke đúng artifact sau các gate trên.
 - [ ] Lấy lại trạng thái editor/theme/uploads mới ngay trước mọi thao tác ghi.
-- [ ] Publish build/name/cover/banner/slug; kiểm public/CDN/URL cũ/search card.
-- [ ] Cập nhật link theo URL đã lưu; receipt/rollback và dọn tài nguyên task.
+- [x] Publish build/name/cover/banner/slug; kiểm public/CDN/URL cũ/search card.
+- [x] Cập nhật link theo URL đã lưu; receipt/rollback và dọn tài nguyên task.
 
 ## Thay đổi và asset hiện có
 

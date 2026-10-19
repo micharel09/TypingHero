@@ -15,3 +15,15 @@ only after checking it still matches image31068886. Backed-up `banner.png`
 is the old banner; check960x394 before replacing. Restore theme/pricing/tags only
 if the saved receipt proves they changed. Save and verify the public page, actual
 playable upload and old/new URLs; a successful click is insufficient.
+
+## Applied release / rollback
+
+Released CLACKBLADE at /clackblade, upload19871730. Previous upload19865461 remains
+hidden, not deleted. Cover31073302, banner31073353, social image31073415.
+To roll back: select19865461 playable, unhide it if necessary, hide the newer
+upload, restore original title/description/cover/banner and social image30983638.
+Restore original slugtyping-hero if available, then verify both URLs/public CDN.
+Profile-bio.json and old three MP4s are also preserved here. Existing old remote
+media URLs remain available. Theme comparison proves only banner image ID changed;
+pricing remains0-or-donate/suggested1USD and tags remain unchanged.
+Full applied manifest: ../../clackblade-release-20261019.json.
