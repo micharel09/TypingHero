@@ -19,6 +19,11 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     [SerializeField] int defaultCapacity = 8;
     [SerializeField] int maxSize = 32;
 
+    [SerializeField] ParryClashBurst.Preset sparkPreset;
+    readonly int[] variationSequences = new int[5];
+#if TYPINGHERO_AUTOMATION
+    void OnGUI() => GUI.Label(new Rect(12, 12, 300, 28), "F6 Spark: " + sparkPreset);
+#endif
     IObjectPool<GameObject> _pool;
     readonly List<GameObject> active = new(8);
     Transform poolRoot;
@@ -89,7 +94,13 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
         if (poolRoot) Destroy(poolRoot.gameObject);
     }
 
-    void Update() { if (CombatSession.Finished) ClearActive(); }
+    void Update()
+    {
+#if TYPINGHERO_AUTOMATION
+        if (Input.GetKeyDown(KeyCode.F6)) sparkPreset = (ParryClashBurst.Preset)(((int)sparkPreset + 1) % 5);
+#endif
+        if (CombatSession.Finished) ClearActive();
+    }
     void ClearActive()
     {
         while (active.Count > 0)
@@ -105,7 +116,7 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     {
         if (_pool == null || sparkPrefab == null || !playerSparkAnchor || GamePauseController.InputBlocked || CombatSession.Finished || Time.timeScale == 0f) return;
 
-        if (sparkPrefab.GetComponent<PixelSparkBurst>() && active.Count >= 8) active[0].GetComponent<PooledVFX>().Release();
+        if ((sparkPrefab.GetComponent<PixelSparkBurst>() || sparkPrefab.GetComponent<ParryClashBurst>()) && active.Count >= 8) active[0].GetComponent<PooledVFX>().Release();
         var go = _pool.Get();
         var t = go.transform;
 
@@ -120,7 +131,12 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
             var s = t.localScale;
             t.localScale = new Vector3(Mathf.Abs(s.x) * (dir == 0 ? 1 : dir), s.y, s.z);
         }
-        if (go.TryGetComponent<PixelSparkBurst>(out var burst))
+        if (go.TryGetComponent<ParryClashBurst>(out var clash))
+        {
+            t.SetParent(poolRoot, true);
+            clash.Emit(t.position, ctx.targetRoot ? ctx.targetRoot.position.x - playerSparkAnchor.position.x : transform.lossyScale.x, groundY, sparkPreset, variationSequences[(int)sparkPreset]++);
+        }
+        else if (go.TryGetComponent<PixelSparkBurst>(out var burst))
         {
             t.SetParent(poolRoot, true);
             burst.Emit(t.position, ctx.targetRoot ? ctx.targetRoot.position.x - playerSparkAnchor.position.x : transform.lossyScale.x, groundY);

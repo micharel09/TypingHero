@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parrySystem: {fileID: 4700267102167904995}
-  sparkPrefab: {fileID: 2345490875589463973, guid: 44c652bc1ef79dd36a79fe4425367393, type: 3}
+  sparkPrefab: {fileID: 6713487999085554968, guid: 449d773a8c868d0f2b51dd70a5da1de9, type: 3}
   playerSparkAnchor: {fileID: 8595483995670857711}
   offset: {x: 0, y: 0}
   flipTowardEnemy: 1
@@ -627,10 +627,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c45f11584dfbc8498ac9a341fc39fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sparkPrefab: {fileID: 5609067520509392328, guid: ae091eef5a437eb6c89f5f0d83be84c9, type: 3}
-  slayerPrefabs:
-  - {fileID: 2885035975186082736, guid: 20cead99e35bceea083f272300f59871, type: 3}
-  lethalPrefab: {fileID: 8425739679233439315, guid: a2017e715395d1576aa0843d0de9be64, type: 3}
+  sparkPrefab: {fileID: 0}
+  slayerPrefabs: []
+  lethalPrefab: {fileID: 0}
   normalImpact: {fileID: 11400000, guid: 3bdeeb3a8d0f17dfa896e809d6451781, type: 2}
   slayerImpact: {fileID: 11400000, guid: 46c7a33bfe3f1b677a5d4d86f698bf9a, type: 2}
   lethalImpact: {fileID: 11400000, guid: d747ffb200bc9e9a3b24a764ed0c4b80, type: 2}

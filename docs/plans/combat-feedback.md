@@ -1,8 +1,13 @@
 # Combat feedback — implementation checkpoint
 
-Current task: Windows x64 portable build implemented and verified; final ZIP in Downloads.
-See the Windows continuation below; earlier checkpoints
-describe the preserved combat-feedback baseline and resolved intermediate issues.
+Current task: BCompact continuous 3D pixel sparks in child `feat/pixel-hit-sparks`.
+Implementation, Quick78, repeated builders, two-direction/two-size native art and
+lifecycle checks pass. Matched-configuration performance verification is complete;
+see the final volume receipt for measured limits and retained review resources. Current/default and the earlier
+published prototype remain unchanged. Keep review players/clips; integration and
+publication are separate from this request.
+Earlier intent/checkpoints are historical; preserve their source/license/release
+receipts and use the latest approved BCompact volume requirements for this task.
 
 ## Intent and acceptance
 
@@ -1208,3 +1213,1038 @@ SHA256 d706ff61b7b72ba444a76916f74d1549a5afec573594bf656661e4187d1f118e.
   another login request. Editor's five existing uploads/metadata/embed settings
   recorded read-only before changes. No upload yet; main no-ff merge, post-merge
   smoke, production smoke and native upload/save/CDN check remain next.
+
+
+## 2026-10-18 ? approved 2.5D lighting / Rising parry replacement
+
+Supersedes four pixel impact profiles, flat colors and no-glow restrictions.
+Only successful parry emits sparks. Normal/Slayer/lethal retain audio, slash,
+hit flash, hitstop, camera and afterimages. Gameplay/public ParryContext unchanged.
+Reference: https://www.platinumgames.com/official-blog/article/4717
+Secondary textures: https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@14.0/manual/SecondaryTextures.html
+
+- Reused Orca child feat/pixel-hit-sparks at
+  C:/Users/ADMIN/orca/workspaces/TypingHero/feat-pixel-hit-sparks; clean before work,
+  fast-forwarded from 92da0d2 to committed main 701830b. Parent remains dirty with
+  independent Endless/HUD/QA work, untouched. No agents started.
+- Milestone A in progress: explicit four-group ParryClashBurst, pooled eight-clash
+  cap, one scene pulse light with bounded strongest pulse, post-environment lighting
+  builder and Inspector-preserving asset creation. No emission on enable.
+- Still required before A acceptance: compile/tests, normal maps with frame-aligned
+  authored surfaces, fixed-foot shadows, bloom isolation and menu world backdrop,
+  real keyboard QA/1280x720+640x360 clips (idle, two directions, slow motion,
+  close-up, normal/Slayer), visual review and user art approval.
+- B after art approval: complete surfaces/variants, lifecycle/repeated-builder,
+  C performance comparison and all affected runtime flows. Merge/itch only after
+  approval + verified integration, preserve main WIP and rollback build; no GitHub push.
+- Existing pixel assets/licenses remain until reference audit. No visual acceptance,
+  GPU performance, release or completed implementation claimed at this checkpoint.
+
+
+### Prototype implementation checkpoint (awaiting new runtime checks)
+
+- Added ParryClashBurst / ClashLightingRig / WorldMenuBackdrop, ParryClashAssets,
+  SurfaceNormalAssets and WorldLightingBuild. Four particle groups emit only from
+  successful parry after placement; unscaled simulation freezes on tutorial/pause,
+  owner clear cancels pulse immediately, bounded strongest-pulse light, ember
+  collision consumes particles. Built-in release still guards exactly-once return.
+- Builder removes all three hit particle assignments and binds the new clash,
+  then applies world materials/rig after ShogunEnvironment. Existing legacy assets
+  retained for now; SFX/shake path remains outside optional particle spawn.
+- Prototype normal maps use alpha/material-region bevels, never color luminance.
+  These are draft surfaces for milestone A; they do not establish acceptance for
+  authored anatomical/armor/roof forms or frame/mirror stability. No art claim yet.
+- Added fixed-collider-foot shadows, thresholded world bloom and menu background
+  world sprites mapped to existing RectTransforms. HUD remains overlay. No camera
+  lens/zoom/gameplay values changed.
+- First compile failed on read-only URP Light2D normal settings; fixed with the
+  package's serialized m_NormalMapQuality/m_NormalMapDistance fields. Follow-up
+  Quick67/67 passed input66209dc02ee35e160f3bfccb1f51e55c090bc71d084662e92db88444f1e8ff50.
+  This predates new tests and subsequent prototype code; not final verification.
+- New tests cover explicit emit/direction/depth, eight leases, unscaled/pause age
+  and position, release/reuse, pulse overlap/cancel/hold and scene unload. Added
+  parry-clash keyboard browser scenario with existing fixtures/network isolation,
+  both render sizes, normal-no-burst / real parry / Slayer coverage and video.
+- Shared runner was occupied by a separate WebGL job. Owned wrapper under
+  E:/CodexTemp/TypingHero/parry-clash-lighting waits on its existing lock instead
+  of failing busy; no other task process/container/source was interrupted.
+  Queued checks use immutable invocation snapshots; rerun affected checks after
+  the final prototype inputs are stable. No clip or milestone A completion yet.
+
+
+- Final prototype Quick **73/73 PASS**, input
+  6497f5556fb2d31df68cefca478f49488ef3fc09715094c1fcee32936c1da100.
+  One earlier new test exposed default ParticleSystem duration5s holding a lease
+  after all particles died. Set authored one-shot duration10ms, then verified
+  release exactly once, clean reuse and all new lifecycle/pulse checks. Other
+  queued intermediate snapshots are superseded; do not reuse their failure as
+  final state. WebGL parry-clash + allocation build now queued on stable inputs.
+
+
+- Correction: shared result143344-webgl hash0b72b046... belongs to another job,
+  not this feature. Its repeat-builder log must not be used as lighting evidence.
+  The pending parry-clash job179067 was verified by exact argv/no child process
+  and stopped before lock acquisition; other tasks were preserved (a different
+  score-layout PID was rejected by the ownership guard and not signalled).
+- Own isolated source/output root now /data/typinghero-game-loop/task-parry-clash-lighting;
+  reuse previously owned /data/typinghero-game-loop/task-pixel-sparks/library.
+  143702-webgl inputaf7fab18a7d3bb936cf911f906c723174b82e79ec465a9edd475fcecfbc64a03
+  failed before import: concurrent editor reported no active license. No activation
+  changes made. Own isolated runner now takes the shared global lock, so Unity
+  remains serial while source/output identities stay separate. Latest WebGL pending.
+  af7fab... differs from Quick6497... only by removal of generated Python bytecode;
+  game/editor/test source is unchanged. No builder acceptance is claimed yet.
+
+
+### Builder verification in progress
+
+- Own143702/144003 license failures were caused by the temporary isolated wrapper
+  mounting an empty task HOME; fixed the mount to the standard activated HOME.
+  This was not evidence of a concurrent-license limitation. Kept shared lock.
+- Own144042 was stopped after no stage progress; temporary diagnostic markers
+  live only in snapshot builder code. Own144513 identified editor fake-null
+  component handling in ContactShadow (also fixed menu component creation), and
+  ambient registration while the legacy global was active. Moved rig creation
+  after legacy-light disable. Superseded144627 build was stopped before IL2CPP
+  completion, after verifying its exact owned container/results mount.
+- Own **144811-webgl**, diagnostic input
+  94ac9c144bf1045008b98934a6b69c52ae256a59eaece1b18796f6df3e04c263:
+  repeated builder PASS, scene/prefab/material/normal/lighting data unchanged on
+  second apply; no duplicate-global or MissingComponent errors. IL2CPP compiling.
+  Not a completed WebGL/runtime/art acceptance result yet.
+- Runner contracts8/8 and JS syntax PASS. Keyboard scenario now reuses the
+  existing verified attack-time calculation to press Space before impact;
+  player parryWindow is an input-owned state, not an enemy attack cue.
+- Normal draft still needs visual/frame/mirror review, especially the large
+  death atlas and anatomical/armor forms. Full authoring is milestone B.
+
+
+### Milestone A ? review clips ready; stop at approved art gate
+
+- Normal QA144811 build/repeated-builder PASS; software art scenario failed on a
+  missed defensive input, not an exception. Its source/output identities were
+  verified before retaining the player after the parry-clash retention guard
+  was added to the existing runner. The own isolated source was not replaced
+  between that build and retention; snapshot/marker/no active mount verified.
+- Native first attempt failed because the initial idle/normal case had already
+  taken a hit. Harness now uses real Escape/R restart between normal and parry
+  cases and checks clean40/850HP/score0/no sparks before the latter. No game change.
+- Forward native **1767checks PASS**,70.047s; mirrored **2223checks PASS**,67.548s,
+ 1280x720 and640x360 each. Actual GPU Intel UHD/Edge155/D3D11, read-only bridge,
+  isolated fixture routes/external blocking, zero JS/Unity exceptions or real
+  provider writes. Mirrored actual particles have negative mean X force at both
+  sizes; the fixture changes only actor positions/scales in its disposable build.
+- After importing69 Unity-serialized files, every retained asset GUID matched.
+  All16 changed original PNG metadata files differ ONLY by secondary _NormalMap
+  bindings; sprite IDs/rects/pivots/PPU/import settings unchanged. New text lines
+  normalized with original matching-line whitespace preserved; semantics intact.
+- Final Quick **73/73 PASS**, own20261018T145948-quick, input
+  c352ac1237c8e406dbd994289484254555e1d6dce8b2e983239258ad1753d183.
+  This includes the imported real prefab/material data. Subsequent edits only
+  normalize new-line whitespace or update documentation. Runner8/8 and JS syntax
+  checks PASS. Final source/diff/GUID review complete; no diagnostic/mirror fixture
+  source included in product checkout. No owned active server containers remain.
+- Reviewed full frames and contact-frame sequences: idle/menu, two clash directions,
+  both render sizes, visible white-gold pulse on actors, thin directed rays,
+  retained slash/Slayer silhouette and readable HUD/cue. No pink material. Draft
+  normal surfaces still need authoring/review in B; not final lighting acceptance.
+- Review artifacts (silent actual25fps footage,1x and0.25x without interpolation):
+  E:/CodexTemp/TypingHero/parry-clash-lighting/ParryClash-Lighting-1280.mp4
+  (12s,1838287bytes,SHA256563b5ccb642844ad37dd38e8c40611275a2d1759b0f644858cba01df9e47d85e)
+  and ParryClash-Lighting-640.mp4
+  (1394364bytes,SHA256f44eec2c50b16808f3c48b6d88b77fb79d23fe7cab80edce6e0bc9119726f113).
+  640render is nearest-neighbor enlarged in the review export; product render sizes
+  were verified directly. QA driver SHA256
+  d95d8e478e9481ce0100ebf50b693546ecf77b1d3e282bd2c056015cf312c6c0.
+- Keep child feat/pixel-hit-sparks, product changes and necessary review/player/
+  receipts/helpers under E:/CodexTemp/TypingHero/parry-clash-lighting and
+  /data/typinghero-game-loop/task-parry-clash-lighting for user review/continuation.
+  Remove redundant failed captures/browser profiles/intermediate review images;
+  retain requested clips until review/release is complete, then clean task resources
+  after written receipts and verified integration/publication per the approved plan.
+- Next depends on art approval: B authored normals/all animation/scene variants,
+  complete Inspector tuning and lifecycle/transition/restart/tutorial integration;
+  C same-device baseline/p95/allocation tests and full affected runtime acceptance.
+  Then clean-main reconciliation/no-ff merge/integrated smoke/production QA exclusion/
+  existing itch3857509 rollback-safe upload/public verification. No GitHub push.
+  Do not include parent Endless/HUD/QA WIP or treat this prototype as release-ready.
+
+
+- Cleanup verified: removed owned failed local capture/profile directory, completed
+  browser profiles, duplicate transfer archives and intermediate review stills;
+  removed isolated failed build results143702/144003/144042/144513/144627 and
+  redundant server review/transfer files after written receipts. Preserved requested
+  clips, passing native raw evidence/reports, normal/mirror immutable players,
+  final Quick/build results and required helpers/cache for art feedback/B continuation.
+  Child branch/worktree remains intentionally; clean it only after final verified
+  integration/publication. Parent and all other task resources remain untouched.
+
+## Pixel parry ray revision (2026-10-18, implementation in progress)
+
+- Approved intent: pixel-edged main/secondary rays, soft contact retained, small hot
+  heads only. Keep world lighting/normals/camera/gameplay and all other hits unchanged.
+- Reuse child feat/pixel-hit-sparks and existing isolated runner/native fixtures;
+  no additional agent, merge or publication. Parent WIP preserved.
+- Five systems: contact2, main12 (.125WU), front28 (.0625WU), back16 (.03125WU),
+  ember8. Total66; same lifetime/force/depth/lease/pulse paths. Layer count/width/
+  lifetime/brightness editable in Inspector. One-time in-place prefab migration
+  detects assigned main system; subsequent builder runs retain tuning and GUIDs.
+- Implemented local-UV stepped ray mask, distinct contact/ray/ember materials and
+  width hold through65% lifetime followed by one step. Pending actual compilation,
+  migration serialization, repeated-builder/tuning tests, Quick, forward/mirrored
+  keyboard QA at1280x720/640x360, UV-head playback and same-device performance.
+- Keep old clips/raw baseline and task helpers at
+  E:/CodexTemp/TypingHero/parry-clash-lighting for before/after art review.
+
+- First revision Quick73 passed; QA155431 build/repeat-builder passed. Software
+  browser missed defensive input (80 checks, damage), not a product exception.
+  Native screenshot showed wide/hot sections near the origin with thin points
+  outward: initial assumed UV0 head was reversed. Flip local longitudinal UV,
+  increase cross-mask raster to8 bins so tail actually narrows below the body.
+  Rebuild and verify playback both directions; first build is superseded for art.
+
+### Pixel-ray revision verification ? art review ready
+
+- Implemented five systems/66particles, role materials/pixel UV mask, width hold,
+  per-layer Inspector settings and one-time in-place migration. No gameplay API,
+  lighting strength, normal map, animation or camera change. Existing22prefab IDs
+  and GUIDs retained; new4IDs represent exactly one child system.
+- Quick74/74 PASS160100; normal QA155853/repeat-builder PASS, same final input
+  50d2b168619477d87596fd32ffcc5b441b7a5d763c612354e30d3aea5cfa46bd.
+  Mirror160147/repeat-builder PASS654d8f6e25ed5cef6eb7976e1214619ec75f457f8708b12a53805826d75ababa,
+  disposable mirror fixture only. Native normal2304/mirror2330checks PASS, both
+  sizes,0exceptions/writes. Software drivers missed parry (120/62checks), so no
+  full software profile PASS claimed. See verification memory for measurements.
+- Fresh baseline2134checks PASS; p95 normal1280 33.280?33.465ms and640
+  33.585?33.380ms. Median allocation582B/frame unchanged; objects227?229 from
+  added prefab/live child. Budget remains66/clash/eight leases/one pulse light.
+  This is the requested ray-revision comparison, not full milestone C acceptance.
+- Actual25fps before/after comparisons exported at both native render sizes,
+  both directions,1x and0.25x close-up with nearest-neighbor scaling, no
+  interpolation. Reviewed contact sequences: leading hot head stays forward
+  in both directions; main rays read beside slash at640, no pink/wide halo.
+- Retain child and E:/CodexTemp/TypingHero/parry-clash-lighting review clips,
+  baseline/current immutable players, source-before migration and native receipts
+  for art feedback. Old ParryClash-Lighting clips remain byte-identical. No merge,
+  release or itch upload. Next: user art review, then approved B/C work.
+- Additional same-player keyboard live-clash pause/restart PASS313checks/20.937s,
+  both sizes: counts/age/world bounds hold, restart clears roots, new parry works;
+  no exceptions/writes. First supplemental wrapper used a non-normalized Windows
+  require.cache key and reran the ordinary art scenario; corrected via require.resolve
+  before the actual313-check lifecycle run. No product change was needed.
+
+- Same immutable normal player: supplemental real-keyboard live-clash pause120ms,
+  held particle count/age/world bounds, restart removes roots and new parry works,
+  both1280x720/640x360:313checks PASS20.937s,0exceptions/provider writes.
+- Input identity reconciliation PASS: raw checkout build inputs
+  46f55c0090cfc4411cc8e8b49269d562afe9b4472fa7bb6b7a9cf96e6da461be;
+  existing isolated wrapper adds only editor stage-log statements, yielding the
+  verified50d2b168... Quick/normal marker. Adding only the disposable mirror editor
+  fixture to raw inputs yields654d8f6e..., matching mirror marker exactly. No
+  diagnostic or mirror fixture was added to product source.
+- Both side-by-side exports decode cleanly,25fps/7.040s/2560x720; each half shows
+  the labeled native render size enlarged with nearest-neighbor when needed.
+  1280 clip1941603bytes SHA256204f58e2f5f27c77ce4f06ceb16394c07acda4da7db078c7052fce2c774703b2;
+  640 clip1599056bytes SHA25698e6b5d9b9b738b91600dcfd21863ac4fdaa68ccce70ac0f311199eaffa71995.
+  Local/server hashes match. Prior two review MP4 hashes remain unchanged.
+
+- Cleanup verified after receipts: removed27owned local superseded captures/player,
+  profiles/downloads/traces and transfer/archive targets; removed17owned server
+  superseded result/archive/intermediate targets. No owned active server container.
+  Retain final normal/mirror/restart native receipts/raw videos, baseline repeat,
+  old+new review MP4s, old/current immutable players and migration-before bytes
+  under E:/CodexTemp/TypingHero/parry-clash-lighting for pending art review/B/C.
+  Server final Quick160100, normal155853 and mirror160147 results/players plus
+  established source/cache/helpers remain reusable. Clean after approved verified
+  integration/publication; parent WIP and original clips/players were preserved.
+- Final scoped source/asset/GUID/whitespace and JS syntax review PASS. Raw/diagnostic/
+  mirror input identity reconciliation matches all retained final result markers.
+  Art review is the only next gate for this revision; do not start B/C or merge.
+
+## Reviewed prototype publication (2026-10-19)
+
+- User explicitly requested itch.io deployment after the pixel-ray review sample.
+  Publish exactly the verified child snapshot, exclude parent Endless/HUD/provider
+  WIP; do not broaden into B/C, normal authoring or main reconciliation.
+- Production runner queued on prior verified50d2b168... diagnostic input; raw child
+  remains46f55c00... . Existing Quick74/native normal+mirror/restart receipts reused
+  because product source/assets/settings/dependencies are unchanged.
+- Target remains game3857509 at https://micharel09.itch.io/typing-hero. Own Orca
+  manager page cba58fb8-bbb7-446d-a006-bcc0609610d3 is Cloudflare-blocked; user was
+  asked asynchronously to complete it. No upload/storefront change yet. Continue
+  production/QA-exclusion/package/native smoke while external access is pending.
+
+## Parry pixel prototype publication (2026-10-19)
+
+- User explicitly requested publishing the reviewed ray revision. Shipped the
+  verified child prototype; B/C normal authoring and parent integration remain
+  separate. Parent Endless/HUD/provider WIP was excluded, no merge/push.
+- Production20261019T015346 PASS, same verified diagnostic input
+  50d2b168619477d87596fd32ffcc5b441b7a5d763c612354e30d3aea5cfa46bd;
+  raw child46f55c0090cfc4411cc8e8b49269d562afe9b4472fa7bb6b7a9cf96e6da461be.
+  All JS/WASM/data lack typingHeroQA/TypingHeroQA_Publish/GameLoopProbe.
+- ZIP29members/16,398,742bytes, local/server SHA256 and member CRC PASS:
+  06415cfd0d002d60e526d994124ac35ea83388a822bfdac03458d39ebde23f6a.
+- Exact production HTML, native Edge155/Intel UHD D3D11: real name/Enter,
+  BLADE score10/ATTACK COMPLETE, accuracy2/2, cue-timed parry2/2/COMPLETE,
+  visible clash material/light, pause and native Resume after640x360 resize.
+  Independently inspected resumed640 frame. QA undefined,0JS exceptions/provider
+  writes. Initial blind Space/full-frame delayed cue attempts missed the lesson;
+  final cropped visual-cue capture pressed immediately and succeeded. No product
+  timing/threshold/input or test expectation changed.
+- Native helper corrections: first HTTP load preceded completed ZIP extraction
+  and got404; rerun only after hash/CRC/extraction passed. A screenshot/OCR helper
+  returned500 after two successful parry inputs; a fresh actual-canvas OCR read
+  and images confirmed2/2 COMPLETE. Initial Escape after resize did not resume;
+  corrected QA uses the actual Resume button and asserts overlay disappearance.
+  Existing video.path-before-close helper replaced a hanging saveAs-after-close.
+  These were harness issues; final independent behavior checks pass.
+- Initial Orca manager hit Cloudflare. Restored existing BrowserSkill daemon with
+  original OS user/default home, reused verified Edge61a46c05 login, own Agent
+  Window only. No credentials/cookies exported or browser settings changed.
+  Idle session expired before upload; re-bound Edge and verified account, same
+  seven old uploads and unchanged settings before publishing.
+- Saved new playable upload19865461 to https://micharel09.itch.io/typing-hero,
+  game3857509. Seven prior uploads retained hidden, including previous playable
+  19847423. Storefront/embed/pricing/gallery settings hash unchanged:
+  1fabaea4decac5ab34647f4249f96700ea29cbd34bd6a7b6a561b844062d445f.
+- Public page reports the new ZIP and Run game. Anonymous CDN28non-HTML hashes
+  match release; HTML differs only by itch htmlgame.js integration. New iframe:
+  https://html-classic.itch.zone/html/19865461/index.html?v=1792376251.
+  Same hosted payload menu visually verified1280x720 after Unity splash, QA absent,
+  external/provider routes blocked/fixtured,0exceptions/writes. No public gameplay
+  or real leaderboard writes. Earlier one-second hosted capture was splash only;
+  discarded after waiting past the splash and checking the actual menu.
+- Release ZIP/release.json/published.json retained for rollback under
+  /data/typinghero-game-loop/releases/parry-pixel-20261019/. Prior release retained.
+  Child feat/pixel-hit-sparks and pre-existing review artifacts remain for B/C and
+  later verified parent integration; remove child only after that work is complete.
+
+- Publication cleanup verified: stopped the owned BrowserSkill session and closed
+  only this task's Orca tab;0local QA HTTP listeners and0owned server containers.
+  Removed18owned local release QA/player/profile/capture/helper/archive targets
+  and3owned server production build/temp/result targets after written receipts.
+  Actual release ZIP/manifest/publication receipt remain in the release directory;
+  existing review clips, QA baseline/current players, source/cache/toolchain and
+  child remain for unfinished B/C and parent integration. Shared BrowserSkill
+  daemon remains available with its original configuration; no user/other-task
+  browser tabs or parent WIP were changed. Final source identity/diff check PASS.
+
+
+## Thicker varied rays / camera fragments (2026-10-19)
+
+- Approved continuation: same child `feat/pixel-hit-sparks`, parent
+  `C:/Users/ADMIN/orca/TypingHero`; Orca id
+  `e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/feat-pixel-hit-sparks`.
+  Parent WIP preserved. Art-review sample only; no merge/push/itch update.
+- Implemented Custom1 mask/body ratio/head pixels/visible length, 50/30/20
+  stable silhouettes, stratified fan ?6deg/90?110%/energy ?8%, length ?15%.
+  Main head/body/tail 3/2/1 source pixels (16PPU); front head/body .09375/.0625WU.
+  Three existing main particles become near-camera fragments: 4/3 pixel head/body,
+  shortened .55?.70 multiplier and negative Z4?6WU/s. Back Z2?4WU/s.
+- Versioned in-place migration, UV+UV2+Custom1 streams, no new materials/systems;
+  budgets remain five systems/66particles/eight leases/one light. Contact, bloom,
+  lighting, camera, normals, gameplay API and lifecycle retained.
+- Quick20261019T024026 **75/75 PASS**, final diagnostic input
+  `ed929399dd2986bee5ac5fcb1af8d17401ae7988153cc0e4ba5ca4c1d9eb9d24`.
+  Includes 32 seeded mirrored bursts, stratified angle/energy/length bounds,
+  exactly three camera fragments/back depth, custom data stable during simulation,
+  reuse, forced migration and two reruns preserving Inspector tuning/references.
+- QA20261019T024122 queued/running on same input. Pending serialized asset copy,
+  repeated-builder outcome, actual keyboard ten clashes/direction at640x360 and
+  1280x720, 1x/0.25x art review, pause/restart and same-device baseline p95.
+  Existing baseline players/clips and retained helpers remain under
+  `E:/CodexTemp/TypingHero/parry-clash-lighting`; keep for requested comparison.
+
+### Thicker-ray sample verification complete; art review pending
+
+- Final lifetime/compaction Quick02552475/75PASS; normal/mirror build and repeated
+  builder PASS. Software parry drivers each fail94checks from timed-input HP loss;
+  no software profile PASS claimed. Exact native players pass2197normal/2412mirror
+  checks, ten clashes/direction/size at1280x720 and640x360; repeat2369 and real live
+  pause/restart256checks also PASS,0exceptions/provider writes. See verification
+  memory for source hashes, measurements, limits and export receipts.
+- Migration retained26object IDs, every ordered GUID reference and identical meta.
+  Copied only generated ParryClash.prefab back; semantic match after empty-field
+  whitespace cleanup. No other generated scene, camera, normal or prefab copied.
+- p95 repeat versus fresh same-device baseline: normal+1.8%/+0.5%, mirror+1.2%/-1.3%.
+  First normal1280+17.7% did not repeat; investigation found idle samples elevated
+  too. Median allocation582B/frame unchanged. No performance tuning outside scope.
+- Review sample: `E:/CodexTemp/TypingHero/parry-clash-lighting/ParrySpark-Thicker-BeforeAfter-640.mp4`
+  and `ParrySpark-Thicker-BeforeAfter-1280.mp4`, both28.8s/25fps; each includes both
+  directions at1x and0.25x. Direct PNG/contact/comparison frame review confirms
+  readable body, forward hot head and short brighter near fragments; human art
+  approval still pending. Same camera/state-driven input scenario, RNG not locked.
+- Retain existing child (unintegrated foundation/B/C), old clips/player and current
+  normal/mirror player/native receipts/review MP4s until art approval and later
+  verified integration. No production build/release/itch change for this revision.
+
+- Final source identity reconciliation PASS: raw input `5ab127945686531a133dd13468e57daae9bee628a98cf71defeb2d4635af341c`;
+  restoring only pre-migration prefab bytes and diagnostic stage logging reproduces
+  final Quick e216a12e... exactly. Generated prefab semantic/ID/meta comparison PASS.
+
+- Cleanup verified: removed own superseded7-clash baseline run, local/player
+  transfer archives and inspected image/prefab intermediates; removed server
+  export/upload intermediates, transfer archives and two superseded Quick results.
+  Final Quick025524, normal024122/mirror025210 immutable results/players and local
+  ten-clash native receipts/raw videos/new review MP4s remain for pending art review.
+  Old two review MP4 hashes remain byte-identical. No owned active browser/HTTP
+  listener or server container remains; other tasks/services/cache preserved.
+  Current sample is ready for user art review; approval/publication not inferred.
+
+
+## Three spark variants review (2026-10-19, delivered for art review)
+
+- Continue the existing Orca child `feat/pixel-hit-sparks`, full identity and parent
+  as recorded above; parent WIP preserved. No publication or integration authorized.
+- Current remains default. Inspector selects Current/A/B/C on the emitting owner;
+  automation-only F6 cycles that selection and labels it. Selection applies to the
+  next emission. Per-preset sequences live on the owner across eight pooled leases.
+- A alternates narrow/wide fans; B alternates dominant offset clusters; C rotates
+  three long rays among nine ordinary main rays. All retain three near-camera
+  fragments, five systems, 66 particles, eight leases and the single pulse light.
+- Independent length-support migration expands renderer/shader support to 130%,
+  preserving the previous rendered length and Inspector tuning after migration.
+- First existing-suite Quick 20261019T031342:75/75 PASS. Expanded preset tests and
+  final observer snapshot are running separately; no new browser/art/performance
+  acceptance claimed yet.
+- Reuse `E:/CodexTemp/TypingHero/parry-clash-lighting` and isolated server task root
+  `/data/typinghero-game-loop/task-parry-clash-lighting`. Keep old review clips and
+  players intact. New task helpers:variants_clash.cjs,variants_runner.cjs,
+  run_variants.ps1. Retain until requested comparison/interactive QA is delivered;
+  remove task artifacts after art review and verified integration.
+
+
+### Three-variant acceptance receipts (2026-10-19)
+
+- Final Quick20261019T032249: **76/76 PASS**, snapshot
+  `8ac5244b36c022e077329936b6fa8487847271e248a6972bdde68a90145f6ab7`.
+  Includes72seeded A/B/C bursts mirrored with stable Custom1 throughout lifetime,
+  and owner-local C sequence assertions across12emissions/eight recycled leases.
+  Existing lifecycle/light/budget and two-run Inspector-preserving migration pass.
+- Normal QA031618 snapshot04df09be928225ace2fad8f88ee39e50e7ef20b77620a95f4b8091238a0b1ecb;
+  mirror QA032014 snapshot6a196212a5e791a15f45bbcd23459a81d33585938c0272b3e6c6f70e1d10ec17.
+  Build/repeated-builder pass. Normal native **9068checks PASS /349.646s**;
+  mirror **10501checks PASS**. Each has10real keyboard clashes/preset/direction/size:
+  160total across Current/A/B/C and1280x720/640x360. Normal and Slayer hits retain
+  no burst. Both reports have0exceptions/0provider writes, fixture/blocking retained.
+- Native F6/lifecycle **1718checks PASS** across all4presets/both sizes: F6 while
+  paused preserves each existing lease's emitted preset/age/position, the next
+  clash uses the newly selected preset; restart clears roots and new parry works.
+- Windows Edge155.0.4283.62/Playwright1.58.2; actual native renderer is NVIDIA
+  GeForce GTX1650Ti/D3D11. First software browser profiles failed114/129checks
+  from missed parry/HP loss; no software profile PASS claimed. Initial native
+  headless acceptance timed out after27checks; final headed runs above pass.
+  Port8123 was occupied; task harness uses8137, leaving its owner untouched.
+- Initial headed p95 comparisons triggered investigation (>10% in several rows).
+  C1280's27samples above50ms all occurred without live particles. A diagnostic
+  repeat had Current p95 **1006.005ms**, so it is invalid as a comparative baseline.
+  Earlier diagnostic harnesses also hit video.path-after-close hanging and browser
+  shutdown between contexts; final benchmark uses one tab, no recording/screenshots,
+  real canvas click/focus, visibility observation and disabled background throttling.
+  A later headed diagnostic missed its fourth C640parry; it is not a profile PASS.
+- Controlled native headless normal benchmark **3789checks PASS**; all8rows record
+  visible/focused tab, four real keyboard clashes each. Overall p95 (1280/640ms):
+  Current18.685/14.230; A13.705/14.335; B13.500/14.945; C14.115/14.525.
+  Largest positive change+5.03%. These are short sampled QA frame times, not GPU
+  timings or a device-FPS guarantee; smaller1280numbers are not an optimization claim.
+  Mirror controlled repeat2689checks PASS: Current30.105/27.280,
+  A21.640/31.715,B20.265/21.365,C28.580/26.970ms. Mirror A640+16.26% triggered
+  a separate order-balanced Current/A/A/Current repeat:1862checks PASS,8clashes
+  per preset, Current208samples p9515.160ms versus A207samples14.645ms(-3.40%).
+  Live-particle p95 Current15.845/A14.030ms; idle14.845/14.385ms. It did not repeat.
+  Active-only samples are sparse: normal C64021.370ms versus Current15.035ms
+  came from13live samples each; mirror C64017.910ms versus24.010ms did not repeat
+  that increase. No stable >10% regression established; this is not proof of
+  uniformly flat frame time or an absence of spikes. No product performance tuning.
+- Normal build032354 PASS on final Quick snapshot; qa=false and all JS/WASM/data
+  exclude the bridge markers and F6 label (UTF8/UTF16 scan). No ZIP/upload/itch change.
+  All6changed C# / shader inputs match that verified server source byte-for-byte.
+  Generated prefab normalized SHA256
+  `9a7d954cc829d892a2f7838b2a8017b4b6997ab028b46d31328112080dd719c1`;
+  all26object IDs/ordered GUID references and prefab meta preserved. Local prefab
+  matches normal-build generated serialization after empty-field whitespace cleanup.
+- Final review MP4s: ParrySpark-ABC-640.mp4 (9329102bytes, SHA256
+  583b059723db4705cdd2c268c7a9bc610a3df834ee17a0d0d63e3e7b6e752b19)
+  and ParrySpark-ABC-1280.mp4 (22785078bytes, SHA256
+  c88e86d247e00c18a1109645d6b8a78789108acac1d8c5612b0bb7ae306e04b4).
+  Both44.8s/25fps,20s1x+2.4s0.25x per direction; four native-size panes make output
+  1280x720/2560x1440 respectively. Full decode and local/server hashes PASS.
+  Initial close-up picked the cue in A/B and was rejected; final ROI detects
+  the actual sword contact. Body frames at640normal/1280mirror inspected: B offset
+  clusters, C short/long split, A fan and near fragments remain readable. Different
+  RNG contacts, not a deterministic replay. Art choice remains with the user.
+
+
+### Interactive QA and retention
+
+- Edge QA is open at1280x720, paused, Current selected; actual ready frame inspected.
+  Click Resume then use F6:Current -> A -> B -> C -> Current. F6 changes the next
+  clash only. Inspector selection is on ParrySparkVFX_Pooled; runtime default remains
+  Current. No changes to itch.io, parent WIP, animation/camera/normal/contact/bloom.
+- QA loopback host8138: PowerShell PID4488, Node PID24816. Own fresh Edge profile
+  and unchanged Firebase interception/external blocking; bridge observation-only.
+  Closing the actual game window resolves the helper and closes its host/browser.
+- Reopen after closing that window, from PowerShell:
+  `& 'E:/CodexTemp/TypingHero/parry-clash-lighting/open_variants.ps1' -Name variants-interactive -Player 'E:/CodexTemp/TypingHero/parry-clash-lighting/variants-normal-player'`
+  Keep the named result directory's snapshot.json; the immutable player, wrapper,
+  existing Playwright path and child checkout are dependencies of this command.
+- Retain local final normal/mirror immutable players, passed native/lifecycle/
+  benchmark reports, raw review recordings and both ParrySpark-ABC MP4s under
+  E:/CodexTemp/TypingHero/parry-clash-lighting for requested art review/re-export.
+  Keep active interactive profile/log/ready frame while the user is trying it.
+  Existing earlier clips/players and child remain untouched. Cleanup is due after
+  art choice and verified integration; child removal also requires the earlier
+  unintegrated foundation/B/C work to be resolved and authorization for integration.
+- Discarded diagnostic folders/transfer archives/intermediate frame exports may be
+  removed after the written receipts above; no diagnostic failure is a profile PASS.
+  Shared source/Library/toolchain and reusable build output remain on Ubuntu.
+
+- Cleanup verified after recording receipts:18owned local diagnostic/transfer/profile
+  targets and31server transfer/segment/frame/superseded Quick targets removed.
+  Only interactive Node24816/PowerShell4488 remains for this task; no benchmark
+  host remains. Final players, passed reports, raw review videos and MP4s retained;
+  all earlier review artifacts and parent checkout preserved.
+
+
+## BCompact implementation (2026-10-19, ready for art review)
+
+- User-approved plan: retain B as comparison; append BCompact enum value4.
+  Current remains normal default; no itch publication/integration requested.
+- Reuse child e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/feat-pixel-hit-sparks,
+  parent e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/TypingHero,
+  branch feat/pixel-hit-sparks, base main701830b. Existing dirty foundation,
+  parent WIP and all prior review players/clips are preserved.
+- Compact emits contact2/main6/Front0/Back0/embers2; main contains four
+  3/2/1pixel rays and two4/3/1pixel camera fragments. Integer local dimensions
+  use16PPU, billboard rotation leads XY velocity, no velocity stretch/lifetime
+  shrink. Two lobes -16/+45deg, paired -6/+6deg with2deg jitter; dominant
+  12-16pixel lobe alternates against6-9pixels via owner sequence. Near4-6pixels,
+  Z toward camera; lifetimes .14-.22/.12-.18. World movement stays continuous.
+- Per-lease renderer/material/module restoration follows clear; independent
+  compact migration v1 adds a separate pixel material and preserves old material
+  tuning. F6 now cycles five presets, with unchanged next-emission semantics.
+- Initial Quick20261019T042847 passed77/77 on188231b6703d105a636447c367a3bd6b5af64ab461dbc54c32c1c0cae45f3388.
+  Expanded compact Inspector/80particle/lifecycle assertions are included in
+  the final full Quick below.
+- Task helpers/players/reports live under E:/CodexTemp/TypingHero/parry-clash-lighting;
+  isolated server root /data/typinghero-game-loop/task-parry-clash-lighting.
+  First Quick used the shared runner lock/source/cache; subsequent build uses
+  existing isolated task source/cache. Final runtime/browser/art/performance receipts
+  for this revision follow below. Retain resources for review and later
+  verified integration; do not clean previous delivered artifacts.
+
+
+### BCompact final acceptance and delivery receipts
+
+- Final Quick050959:77/77 PASS, c40ca3d7188dacc63a7718d61629946d4725de2506db391d1638ae9b10a8538c.
+  Previous050224 was76/77 because the compact lifecycle test still read empty
+  Front; fixed to MainRays. Reverting that single test selector reproduces the
+  normal QA input3da8b6d3b176dcc40b2e4799efb77715cf2db27267830cf82056a431988961d8
+  exactly (both local/remote digest checks). Runtime/editor/shader/material inputs
+  are identical; final test-only correction needs no player rebuild.
+- Normal044126/mirror044505 build/repeated-builder PASS; mirror input
+  f5f6c1a4ce5b886ca226890aef6035a575f9d51a3631803f8844d519a13c053d adds only
+  the existing disposable actor-mirroring build fixture. Both immutable players
+  are retained under compact-normal-player and compact-mirror-player.
+- Normal native3424checks PASS/189.047s, each B/BCompact10clashes per size.
+  Mirror qualified rows: compact-native-mirror-r2 B1280/64010each (overall failed
+  later at compact1280); compact-native-mirror-compact-r2 compact1280=10 (overall
+  failed later at640); compact-native-mirror-640-r2 PASS806/51.720s, compact640=10.
+  Those reports are partial/full exactly as stated;80qualified art clashes total.
+  Each selected row passed ordinary/Slayer particle exclusion checks; no exceptions
+  or provider writes. Fixture/blocking retained, bridge observation-only.
+- Lifecycle qualified rows: compact-lifecycle-r5 B1280/640 (overall373checks,
+  later failed on a missed parry); compact-lifecycle-compact compact1280 (overall
+ 205checks, later paused640after its short particles had expired); compact-lifecycle-
+  compact-640 PASS170/19.514s. Both preset directions/sizes preserve paused
+  particle preset/count/age/Y bounds; next clash uses the new choice and restart
+  clears roots/restores Current. Real canvas focus after resume and5ms transient
+  observation resolve setup/short-lifetime capture; product timing unchanged.
+- Controlled performance compact-perf-normal1506/compact-perf-mirror1569 PASS:
+  four keyboard parries per row, one focused/visible tab, no video/screenshots.
+  B/compact p95 ms1280/640: normal17.710/18.670 and15.360/14.575;
+  mirror17.975/15.550 and16.685/14.735. Sample counts97/97,99/97,100/100,98/98.
+  Largest positive+5.42%; live-only maximum+3.51% with only5-13samples per row.
+  No >10% positive result triggered ABBA. These short QA-observer delta samples
+  are not GPU timings, device FPS or a no-spike guarantee; no stress/soak.
+- Windows Edge155.0.4283.62/Playwright1.58.2, actual NVIDIA GTX1650Ti/ANGLE D3D11.
+  Ubuntu Unity2022.3.25f1 pinned digest,2CPU/8GiB. Software browser timing misses
+ 112/128/143checks are not PASS. Native timing/setup retries also remain failed.
+  Earlier helper preflight flags/scenario/SSH EOF ran0tests; final Quick uses
+  an archive file as stdin. Only verified own stalled wrapper was terminated;
+  other jobs/services/runner cache were preserved. Browser/video finalization
+  and a busy owned8137listener were cleaned only by verified task process/profile.
+- Two final review MP4s retained in E:/CodexTemp/TypingHero/parry-clash-lighting:
+  ParrySpark-BCompact-640.mp4:4,218,450bytes,
+  SHA25665aaa80afeb0a16805170d48536106b46a25b60d8abc0928007c5bffe79897cb.
+  ParrySpark-BCompact-1280.mp4:9,927,814bytes,
+  SHA256125ecb3364c2ac1fe5a55c38defff8378c09d08fa1df708d046ba1835537270d.
+  Both44.8s/25fps/1120frames, B66versus compact10, both directions,1x plus0.25x
+  nearest-neighbor close-ups. Output1280x360/2560x720 keeps each pane at native
+ 640x360/1280x720. Full decode/hash PASS; all four delivery close-ups inspected.
+  Golden-pixel ROI excludes the white slash/cue when locating contacts. Individual
+ 640compact17.88/.92/.96s frames show clear lobes/leading hot head and held block
+  fading, with less dust. Full motion is not deterministic RNG or human art approval.
+- Current stays normal default; no production build, upload, itch change, commit,
+  merge or push. Child and parent WIP/old review players/clips remain intact.
+  Keep this child until all earlier foundation/A/B/C plus compact changes are
+  reviewed and explicitly integrated/verified on the intended target branch.
+
+
+### BCompact interactive QA and retention
+
+- Separate Edge QA is open at1280x720, paused, BCompact selected, score0 and clean
+ 40/850HP reset. Actual interactive-ready.png inspected. Click Resume to play;
+  F6 cycles Current -> A -> B -> C -> BCompact -> Current, next emission only.
+  Normal serialized default remains Current. This is a local QA host, not itch.
+- Owned loopback host127.0.0.1:8139, PowerShell20368/Node21328. Fresh profile,
+  Firebase interception/external blocking and read-only bridge are unchanged.
+  Leave this window/profile/host alive for user review; close only these owned
+  processes after review, checking current PID/command/profile ownership first.
+- Reopen after the existing window/host has closed, from PowerShell:
+  `& 'E:/CodexTemp/TypingHero/parry-clash-lighting/open_compact.ps1' -Name compact-interactive -Player 'E:/CodexTemp/TypingHero/parry-clash-lighting/compact-normal-player'`
+  Player, adjacent compact-normal/snapshot.json, wrappers and existing Playwright
+  path are dependencies. The script resets via real UI, pauses and selects compact.
+- Retain E:/CodexTemp/TypingHero/parry-clash-lighting: two final BCompact MP4s,
+  compact-normal/mirror-player plus snapshot folders; qualified native/lifecycle/
+  performance reports and raw recordings, compact-frames, final helpers,
+  interactive profile/log/ready image; compact-original.prefab/identity and final
+  compact-quick-input.tar.gz for recovery/reproduction of uncommitted source.
+  Preserve all pre-existing Current/A/B/C/earlier clips/players and parent WIP.
+- Server retention: final results044126-webgl/044505-webgl/050959-quick and
+  compact-review raw WebMs/export script/delivery manifest under the existing
+  isolated task root. Source/library/toolchain/private Unity HOME/cache stay.
+  Remove these task review resources after art review and verified integration;
+  child cleanup additionally requires the earlier foundation/A/B/C work resolved.
+- Cleanup targets now authorized/verified as this revision's disposable diagnostics:
+  failed unqualified compact native/lifecycle profiles, duplicate transfer archives,
+  generated-prefab duplicate, initial043006warmup player, initial shared042847Quick,
+  failed050224Quick and encoded segment/preview intermediates. Written failure,
+  hash/identity/measurement receipts above supersede them. Qualified partial
+  reports are retained with their actual failed status, not relabeled or erased.
+
+- Cleanup verified:16own local diagnostic/duplicate targets and37server obsolete/
+  transfer/segment/preview targets removed after the receipts above; path boundaries,
+  links and source snapshot ownership checked. Only compact interactive Node21328/
+  PowerShell20368/Edge profile remains;8137has no listener and0noninteractive compact
+  test Nodes remain. Final MP4s/players/qualified partial reports/frames/recovery
+  archive are retained intentionally for art review. Four prior ABC/thicker review
+  MP4 hashes still match their earlier receipts. Shared tooling/source/cache,
+  unrelated jobs and all earlier review artifacts remain intact.
+- Final scoped source/docs whitespace/path/new checkpoint-anchor checks PASS;
+  Orca child is in-review with final Quick77/80clash/F6/p95/clip/QA status recorded.
+  Ready frame confirms BCompact label/paused clean reset. Human art choice and
+  authorized parent integration remain future actions; default/publication unchanged.
+
+
+## BCompact 12 particles (2026-10-19, review sample; performance caveat)
+
+- Continue in the existing child feat/pixel-hit-sparks and preserve all earlier
+  dirty foundation, parent WIP and delivered 10-particle comparison clips/players.
+- MainRays now emits six main rays (three per -16/+45 degree cluster, offsets
+  -10/0/+10 with +/-2 degree jitter) and two toward-camera fragments. Together
+  with two contact particles and two embers:12 per clash,96 over eight leases.
+  Three long rays alternate clusters by owner sequence. Existing pixel dimensions,
+  lifetime, palette, motion, camera, default Current and public API are preserved.
+- Updated compact tests cover12 emissions, mirror X/preserved Y/Z, main/near Z,
+  dimensions/lifetime/custom data, B restoration and eight-lease96-particle reuse.
+- Quick archive b1fe9f0210bdcbd9fb1967e438b04660b3d8aa0fceba4a36cfd84d44b62f74a7
+  is queued behind another task's shared runner lock; no unrelated job interrupted.
+  New helpers/archive use compact12 names under
+  E:/CodexTemp/TypingHero/parry-clash-lighting. Runtime/art/performance acceptance
+  remains unverified until the new player is built and exercised.
+
+- Final strengthened Quick055443 PASS77/77 (0failed/skipped), input
+  dd83bea99d6378e96deffb4c3cffd832db008e885584292ba535b4a452c2b6e5.
+  The original queued snapshot never executed; its own waiting wrapper was
+  stopped before replacement. New layout assertion limits shared-rotation
+  residual range to4degrees across all eight rays/fragments.
+- Ten-particle performance baseline PASS: compact12-baseline-normal659checks,
+  compact12-baseline-mirror650checks. All-state p95 milliseconds1280/640:
+  normal16.500/17.450 (96/96samples), mirror16.450/15.445 (95/94samples).
+  Four keyboard parries per row, one visible/focused tab, no video/screenshots.
+- Normal QA build055551 has the exact final Quick input; mirror build queued.
+
+- Normal QA055551 and mirror055822 builds PASS; immutable players downloaded
+  to compact12-normal-player/compact12-mirror-player. Mirror snapshot
+  324beb2e094f683af0e0f71a281bafbc3091f41d3f41c58b5be49d38b7a3385a
+  adds only the existing disposable editor actor-mirror fixture.
+- compact12-art-normal PASS1602checks,10keyboard parries per size, no exceptions
+  or fixture writes; Edge155.0.4283.62, GTX1650Ti/ANGLE D3D11.
+- compact12-art-mirror failed430checks at1280 after a missed keyboard parry
+  caused player damage; no PASS claimed. Retry keeps product/input timing and
+  acceptance unchanged.
+
+- compact12-art-mirror-r2 failed149checks after a second missed parry. Final
+  compact12-art-mirror-r3 PASS1782checks,10parries per size. Task-local capture
+  helper now polls5ms and sends keyboard40ms earlier to accommodate100ms bridge
+  publication; gameplay timing and acceptance unchanged. Original failure reports
+  remain failures. Normal1602 plus mirror1782 gives40qualified art parries.
+- Inspected native peak and four successive40ms crop frames at both sizes/directions:
+  two clusters separate on flight, long/short lengths and head/body pixels remain,
+  contact has brief overlapping light but sword edge remains readable. At640,
+  individual short rays are less distinct during initial contact than after travel.
+  These are recorded samples, not deterministic RNG or human art approval.
+- ParrySpark-BCompact-10vs12-640.mp4 and1280.mp4 exported under the task temp root.
+  Both44.8s/25fps/1120frames, two directions,1x and0.25x nearest-neighbor closeups;
+  side-by-side native-size panes1280x360/2560x720. Full decode PASS. SHA256:
+  640=05338a817be9cc52cdb512e929dd4435fa06b6967b9fc13c3d740356ed54ce01;
+  1280=34a2186f968b5bb70aa8bec90b8941cf71fc105c71e4c38caac76b7ef9f45205.
+- First12-particle performance runs PASS587/671checks (normal/mirror); p95ms
+  normal1280/64022.235/18.460, mirror20.200/15.955. Initial1280 increases exceed10%;
+  ordered10/12/12/10 runs are in progress for both directions and sizes.
+
+- Final lifecycle compact12-lifecycle PASS1241checks: B->compact and compact->B
+  at1280/640; paused preset/count/age/Y bounds held, next emission changed,
+  restart cleared leases and restored Current.
+- Ordered ABBA all eight runs PASS: normal a1/b1/b2/a2 checks663/684/643/647;
+  mirror760/616/640/680. Four real keyboard parries per row; same observer,
+  visible/focused single tab, no video/screenshots. Per-run p95ms in order10/12/12/10:
+
+  | Direction/size | p95 sequence | Sample counts | Mean p95 10 ->12 | Delta |
+  |---|---|---|---|---|
+  | normal1280 |15.930/14.825/19.030/16.705|97/96/98/94|16.3175->16.9275|+3.74%|
+  | normal640 |16.585/15.015/16.305/15.080|96/97/97/98|15.8325->15.6600|-1.09%|
+  | mirror1280 |15.000/19.105/20.900/15.500|99/96/95/96|15.2500->20.0025|+31.16%|
+  | mirror640 |15.020/20.190/15.800/14.840|101/95/95/99|14.9300->17.9950|+20.53%|
+
+- Performance caveat remains: mirror repeat p95 exceeds10%; no equivalence or
+  no-spike claim. Values are mean of the two per-run p95s, not pooled p95.
+  Only5-7live-clash frames per row; active medians12.8-14.5ms and idle medians
+ 13.2-13.7ms do not explain tail variation. These observer samples cannot assign
+  the tail increase to GPU particle cost. No stress/soak or unrelated optimization.
+  Runtime and art checks passed; this revision remains a review sample with
+  the measured performance concern, not a performance-approved release.
+
+- Interactive12-particle QA is open/paused at1280x720 with BCompact selected,
+  clean real-UI reset (score0,40/850HP). Ready screenshot inspected. Owned
+  PowerShell18504/Node17856, loopback8139; old21328/20368 processes and old8139
+  listener were absent before launch. Keep compact12-interactive profile/window
+  for user review; Resume plays, F6 cycles next-emission presets. Reopen using
+  existing open_compact.ps1 -Name compact12-interactive -Player
+  E:/CodexTemp/TypingHero/parry-clash-lighting/compact12-normal-player.
+- Retain new compact12 players/snapshots, final Quick recovery archive, mirror
+  input fixture archive, raw qualified art videos, failed-run receipts, lifecycle/
+  performance JSON, measurement summary, inspected frames, final helpers and two
+ 10vs12 MP4s under the existing task temp root for art review/performance audit.
+  Server retains final055443Quick/055551normal/055822mirror results and
+  compact12-review raw videos/frames/final MP4s. Remove after review, concern
+  disposition and verified integration; keep earlier review resources unchanged.
+- Cleanup verified:17completed compact12 Edge profile caches,3redundant local
+  transfer archives and13remote transfer/encoded-segment/concat files removed.
+  Final reports, players/clips, interactive profile and shared caches preserved.
+  Scoped source/docs trailing whitespace and Git diff checks PASS; Quick XML
+  confirms77total/77passed/0failed/0skipped. No commit/push/merge/deploy.
+
+
+## BCompact debris tail (2026-10-19, functional PASS; performance caveat)
+
+- Reuse Orca child `e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/feat-pixel-hit-sparks`,
+  parent `C:/Users/ADMIN/orca/TypingHero`, branch `feat/pixel-hit-sparks`, base/main701830b.
+  Existing dirty art/scenes/builders/QA and all prior review clips preserved. No release requested.
+- Keep12particles (contact2/main8/embers2), six fast rays and two camera fragments unchanged.
+  Only compact embers use analytical two-flight trajectory: horizontal1.2-2.2 mirrored,
+  upward.6-1.4, gravity9.81, center groundY+1/32. First contact retains vertical22%
+  and horizontal55%; second contact stops. Rest180ms, fixed1x1 at16PPU,
+  yellow/orange/dark-red cooling and alpha fade from first contact through rest.
+- Ember gravity/collision/color modules disabled only for compact and restored on preset reuse.
+  State cleared on Clear/disable/re-emission; unscaled updates respect existing pause/reading locks.
+  No collider/Rigidbody, new preset/public API, camera/gameplay/default or itch changes.
+- Intermediate Quick77/77 PASS; final Quick78/78 PASS on snapshot
+  `63171dbeb36002ddd417fc7b37fdb8830ecc2f807f6d97cb48515aebd4b09efb`,
+  `/data/typinghero-game-loop/results/20261019T063719-quick`.
+  New deterministic test covers both directions, single bounce, floor clamp, stationary rest,
+  fixed size, monotonic alpha/cooling, expiry/Clear and module restoration.
+  Existing real-time pause/hitstop/release/reuse test now allows2.5s for deep-floor tail;
+  pool regression still asserts96particles/eight leases. Final test count78,0fail/skip.
+- Required WebGL/native keyboard QA, clips and no-video performance/ABBA are completed
+  in the final receipts below. Functional acceptance passes; performance caveat remains.
+  Earlier mirror p95+31.16%/+20.53% remains unresolved; this tail change does not resolve it.
+- Preserve `E:/CodexTemp/TypingHero/parry-clash-lighting` and prior server review resources
+  for the requested comparisons; cleanup after review and verified integration.
+
+
+### Debris-tail final native receipts
+
+- Immutable normal QA063931 uses final Quick snapshot63171dbeb36002ddd417fc7b37fdb8830ecc2f807f6d97cb48515aebd4b09efb;
+  mirror QA064919 input6bfd9a00d9e206b1694019411f8f44a97cdc5cc5bc71caed91d6049e2ceb9336
+  adds only the retained editor mirror fixture. Build/repeated builder pass both.
+  Full software browser fails106/111checks after missed parries, not a profile PASS.
+- Edge155.0.4283.62/GTX1650Ti/ANGLE D3D11: art normal3475/mirror2867 PASS,
+  ten real keyboard clashes per size/direction (40total), normal/Slayer.
+  B/BCompact lifecycle normal789/mirror685 PASS, pause/restart/F6 next emission.
+  Tail screenshots normal100/mirror120 PASS, ages.55/.75/.95/1.1s at both sizes;
+  inspected arc/low bounce/rest/fade, fixed1pixel geometry and sword clearance.
+  Rest floor center-2.8713007, no undershoot in sampled tail states.
+  All reports0fixture reads/writes/exceptions; networking blocked.
+- Performance measured separately without video/screenshots, visible/focused tab,
+  four real parries per size/run. Nearest-rank p95; A=before12/B=after12:
+
+  | Side/size | A1/B1/B2/A2 p95ms | Samples | Mean A ->B | Delta |
+  |---|---|---|---|---|
+  | normal1280 |21.600/19.385 (AB only)|92/94|21.600 ->19.385|-10.25%|
+  | normal640 |25.310/17.050 (AB only)|92/99|25.310 ->17.050|-32.64%|
+  | mirror1280 |21.855/19.155/16.745/14.675|95/94/99/97|18.265 ->17.950|-1.72%|
+  | mirror640 |16.650/21.810/14.030/14.260|98/92/101/102|15.455 ->17.920|+15.95%|
+
+  Mirror640 first increased30.99%, triggering the required B2/A2 repeat.
+  The repeated mean still exceeds10%; no no-regression/performance approval claim.
+  This does not establish causation or resolve the earlier10vs12 mirror concern.
+- Task temp clips (49.6s each, both directions,1x and.25x; old clips untouched):
+  `ParrySpark-BCompact-Tail-BeforeAfter-640.mp4`, SHA256
+  53a0f0518d3b2a8eba211215868495a61db09357c3e4bff756f930a536e19c06;
+  `ParrySpark-BCompact-Tail-BeforeAfter-1280.mp4`, SHA256
+  56ac9bfb0fa936d70ff0cf6e490bea8a134ab92a62e511e460155cf6e3a4f4fc.
+  Export uses nearest-neighbor close-up with preserved aspect, inspected labels/frame;
+  source videos and before12clips retained for comparison. No generated capture committed.
+- Final task temp root remains E:/CodexTemp/TypingHero/parry-clash-lighting;
+  new tail-* reports/players/helpers, two clips and server tail-review retained for review
+  and the unresolved performance concern. Reuse existing child; no new worktree/agent.
+  Current/default/camera/gameplay/itch unchanged. No commit/push/merge/deploy.
+
+- Final cleanup/QA: removed12completed tail Edge profile caches after all processes exited;
+  retained tail-interactive profile only. Fresh PowerShell29660/Node20664 hosts loopback8139,
+  ready screenshot inspected:1280x720, paused, BCompact, score0/clean restart.
+  Resume plays; F6 cycles five presets for next emission. Reopen via existing open_compact.ps1
+  -Name tail-interactive -Player E:/CodexTemp/TypingHero/parry-clash-lighting/tail-normal-player.
+  Shared caches, earlier review clips and parent/child checkout remain. Cleanup of retained
+  task resources waits for review/performance disposition and verified integration.
+  Final runtime snapshot still matches Quick78/native player input; scoped whitespace PASS.
+
+
+## BCompact volume and continuous spark flight (2026-10-19, in progress)
+
+- Requested plan: 12 total (contact2/middle2/front4/back4/embers0), eight continuous
+  falling sparks and two fast camera fragments; 96 over eight leases. Current,
+  camera, gameplay and itch unchanged. Reuse existing child/parent/base above.
+- Runtime now evaluates ten fixed spark states by absolute unscaled age, with
+  exponential launch drag over120ms then gravity9.81/coast drag; analytical
+  single bounce retains22% vertical and55% X/Z, second contact stops, rest180ms.
+  Pixel silhouette follows projected speed and bounded depth scale.
+- Full Quick, immutable native players/repeated builder, keyboard QA at both sizes
+  and directions, before/after clips and separate no-video p95 remain pending.
+  Do not infer acceptance from implementation. Earlier mirror performance concerns
+  remain unresolved. Retain volume-* resources under existing task temp root.
+
+### Volume implementation verification checkpoint
+
+- First Quick072346 input3736d668:75/78. Fixed cross-emission test seed matching
+  and real compact lease completion (zero simulationSpeed keeps IsAlive true
+  after particle removal; completion now uses manual state plus contact).
+- Quick073018 input8621b782:77/78; only pool fixture failed because its contact
+  was exactly at ground0, deliberately reducing initial ray lengths to1pixel.
+  Fixture now sets groundY=-2; runtime remains unchanged. Final Quick queued.
+- Final local input28e395dab45e1ac3e6c05d2779a47e7b56ccf97878ecf0f5da4322ecd10339de.
+  Removing only that fixture line exactly reproduces player input8621b782006105dd031ccd25328836cc0f39899faf63ff279143b5c645ca3f06.
+- Obsolete QA072457 was canceled by stopping only its owned Docker container;
+  no result PASS claimed. Normal QA073121 has repeated-builder PASS, compilation
+  in progress. Mirror/final Quick wrappers remain queued on the common lock.
+- Native no-video baseline A1 PASS:normal1198/mirror977checks,4keyboard parries
+  per size; Edge155.0.4283.62/NVIDIA GTX1650Ti ANGLE D3D11. Nearest-rank p95ms
+  normal1280/640=14.420/14.585, mirror=15.145/19.250 (100/101/100/96samples).
+  New volume-baseline.json/source-hashes.json/build/fetch/native/export helpers
+  are under the retained task temp root. After measurements/art acceptance pending.
+
+### Volume native / performance continuation
+
+- Final Quick073726 PASS78/78,0failed/skipped, input28e395dab45e1ac3e6c05d2779a47e7b56ccf97878ecf0f5da4322ecd10339de.
+- QA073121normal/073528mirror build/repeated-builder PASS. Prefab and meta are
+  byte-identical locally/generated, including all IDs/ordered GUID references.
+  Normal input8621b782 differs from final Quick only by the ground fixture line;
+  mirror57872d58 adds only the retained editor mirror fixture to that normal input.
+- Native art normal3318/mirror4034checks PASS,10parries per size/direction,40total.
+  Lifecycle normal1062/mirror1139 PASS; reports additionally confirm restart roots
+  empty and new emitted preset Current. Native tail normal117 PASS; mirror1280
+  completed all4ages in the failed57check full run (missed640parry),640retry48 PASS.
+  All native reports0fixture reads/writes/exceptions. Floors sampled no lower than
+  -2.8713007, matching scene groundY-2.9025507 plus1/32.
+- Interactive Edge19476PowerShell/6772Node, loopback8139,1280x720, paused BCompact
+  score0/clean restart. Ready PNG inspected. Reopen using open_compact.ps1 -Name
+  volume-interactive -Player E:/CodexTemp/TypingHero/parry-clash-lighting/volume-normal-player.
+- Normal first performance/ABBA results are DIAGNOSTIC ONLY: the old normal player
+  lacks allocation profiling (allocatedBytes=-1), while the new normal art player
+  enables it (median1002). They cannot establish the revision's performance delta.
+  A fresh normal --no-profile build is queued behind another task's shared runner
+  lock. Do not interrupt the unrelated job. Fetch it as volume-normal-perf-player,
+  then run volume_matched_perf.py (ordered fresh A1/B1/B2/A2, asserts all counters-1).
+- Mirror A/B already use matching allocation-enabled builds: p95ms1280/640
+  15.145/19.250 ->14.135/14.200,100/96 ->100/100samples,977/1307checks PASS.
+  Initial mirror increases stay below10%, so no mirror ABBA required. Earlier mirror
+  concerns remain unresolved; these short samples do not demonstrate a fix.
+- New clips are being aligned to the first score30 parry using actual HUD glyphs
+  (generic brightness/score-change selectors can accidentally pick normal hit10).
+  Two54.4s outputs include both directions,1x and full-flight0.25x. Retain older clips.
+
+### Volume final receipt ? implementation and verification complete
+
+- All requested technical/keyboard/native/media checks are completed above. Final
+  source remains Quick28e395dab45e1ac3e6c05d2779a47e7b56ccf97878ecf0f5da4322ecd10339de.
+  Normal art/player8621b782 and mirror57872d58 have the same product runtime; only
+  the final test fixture line/editor mirror fixture differ. Normal performance
+  player080156 is the exact final Quick input, with matching non-development flags.
+- Matched no-video/no-screenshot performance is complete. A=previous12particle tail,
+  B=continuous8falling sparks. Four keyboard clashes/size/run, visible/focused tab,
+  same observer/machine. Normal uses allocation profiling OFF on both players
+  (every sample allocatedBytes=-1); mirror uses profiling ON on both players.
+  Initial normal profiling-mismatched diagnostics are excluded from conclusions.
+  Final normal QA080156 uses final Quick input28e395da with --no-profile; build and
+  repeated-builder PASS. Fresh ordered normal ABBA checks1275/1388/1428/1259 PASS;
+  mirror A/B checks977/1307 PASS. Nearest-rank sampled frame p95ms:
+
+  | Side/size | A1/B1/B2/A2 p95ms | Samples | Mean A ->B | Delta |
+  |---|---|---|---|---|
+  | normal1280 |14.050/14.175/13.925/15.520|101/101/102/99|14.785 ->14.050|-4.97%|
+  | normal640 |14.385/14.500/13.670/13.785|102/101/102/102|14.085 ->14.085|0.00%|
+  | mirror1280 |15.145/14.135 (AB only)|100/100|15.145 ->14.135|-6.67%|
+  | mirror640 |19.250/14.200 (AB only)|96/100|19.250 ->14.200|-26.23%|
+
+  Normal means are means of the two per-run p95s, not a pooled percentile. Live
+  samples/row:normal34-45,mirror33-42. Matched normal live-only mean p95 changes
+  15.1625->13.7175ms at1280 and14.3975->14.2275ms at640; mirror15.955->14.795 /
+  16.265->13.730ms. No matched increase exceeds10%. Short sampled QA deltas include
+  observer/idle/background overhead; they do not establish GPU cause, no spikes,
+  whole-device FPS or a fix for the earlier mirror+31.16%/+20.53%/+15.95% concerns.
+
+- Final clips in E:/CodexTemp/TypingHero/parry-clash-lighting:
+  `ParrySpark-BCompact-Volume-BeforeAfter-640.mp4`,4,521,299bytes,SHA256
+  9baafa820f6687ff3215b5765e28414f60d48eb34b18a8b979f758e334d89ec7;
+  `ParrySpark-BCompact-Volume-BeforeAfter-1280.mp4`,11,358,828bytes,SHA256
+  ebdd51988b556fe937e8c1d3d38b5f7dc04a22a5515791e9ad157992eb2686b0.
+  Both54.4s/25fps/1360frames, both directions,1x/.25x, nearest-neighbor close-up,
+  score30 parry onset alignment. Full decode and local/server hashes PASS; output
+  labels/aspect/contact and native trajectory grids/PNGs inspected. No deterministic
+  RNG replay or human art approval claimed. Earlier clips/players remain intact.
+- Edge review19476PowerShell/6772Node opened paused at1280x720 on loopback8139,
+  BCompact selected, clean score0/40-850HP; ready PNG inspected. It closed normally
+  at08:07UTC (passed5checks), before the matched normal ABBA. Both PIDs and the8139
+  listener are absent at final verification. Keep ready PNG/launcher/reports,
+  volume-normal/mirror players and volume-normal-perf player, all qualified/failed
+  receipts, raw videos/frames, final clips and helpers under the existing task temp
+  root. Server retains QA073121/073528/080156, Quick073726 and volume-review.
+  Reopen command is recorded above. Cleanup after review/performance disposition
+  and verified integration; no merge/push/deploy/production build was performed.
+- Cleanup verified:20completed volume Edge caches and4duplicate local archives
+  removed;14duplicate remote transfer/encoded-segment/concat files removed.
+  Interactive profile, source/worktree, shared toolchain/Library, players, raw
+  evidence and all old/new final clips retained as requested. Current/default,
+  camera/gameplay and itch remain unchanged. Source/docs whitespace checks pass.
+
+## BCompact reverse sparks - 2026-10-19 (verified, ready for review)
+
+- User approved16particles/clash and128over8leases, superseding12/96 for BCompact.
+  Keep the existing10moving sparks/contact2; append4reverse-X falling sparks,
+  two near and two far. Counts2/2/6/6/0;14fixed states and6particle scratch slots.
+  Same launch/brake/fall/one-bounce/rest/color/pixel path; X mirrors, Y/Z preserved.
+- Child remains feat/pixel-hit-sparks at
+  C:/Users/ADMIN/orca/workspaces/TypingHero/feat-pixel-hit-sparks; parent/main and
+  preexisting dirty assets untouched. Current/default, camera/gameplay/itch unchanged.
+- Runtime and compact tests updated; Quick and normal QA build submitted. Browser,
+  performance and clips are pending, not yet verified. No merge/push/deploy.
+- Existing volume-normal/mirror(-perf) players are immutable12particle baselines.
+  New reverse-* helpers/artifacts and reverse-source-before backup are under
+  E:/CodexTemp/TypingHero/parry-clash-lighting. Keep old clips/players for review.
+  Earlier interactive Edge cache was removed after viewer exit; the previous
+  cleanup paragraph saying its profile was retained is superseded here.
+
+- Preflight diff found an unintended reverse variable in the generic emitter; fixed
+  before verification. Three queued stale snapshots were canceled before acquiring
+  Unity lock (no test/build result); corrected normal/Quick/mirror snapshots queued.
+  No other task job/container was stopped. All prefab/scene/meta bytes unchanged.
+
+- Verified checkpoint: Quick20261019T084732 passes78/78,0failed/skipped; normal
+  QA20261019T083644 build/repeated-builder PASS. Both inputc8d34d84840756d629276ee8e012b43c056e0908dbbf40daa1461d5f498f6c03.
+  Mirror QA20261019T084910 build/repeated-builder PASS; input7eea5996085debd8da4f7249e75ff61d1aed962bdb9da777cc03ed447012b1ed
+  adds only disposable editor actor mirror fixture. No product fixture edits.
+- Native normal art6274checks/20keyboard parries, lifecycle1274, tail135 PASS.
+  Native motion grids640/1280 inspected; reverse branches separate, sword contact
+  remains readable. Tail center >=-2.8713007 at sampled ages. Mirror QA pending.
+- Matched profiling-ON normal12->16 no-capture p95ms:1280 13.575->13.560 (-0.11%),
+  n101/99;640 13.760->14.060 (+2.18%),n100/100. Live-only n41/43,44/40;
+  p95 14.355->13.920 /13.640->13.710ms. Checks1420/1386 PASS; no >10% trigger.
+  Actual counters verified>=0 on both players; old marker predates profile flag,
+  so baseline identity is checked by exact prior build hash instead. Short sampled
+  deltas do not prove GPU cause or resolve prior mirror performance concerns.
+
+- Mirror retry art5608checks/20parries, lifecycle1179, tail146 PASS. First mirror
+  art58check run failed on missed keyboard timing after one parry; retained failed,
+  no product timing/threshold changes. Combined qualified art40parries at640/1280,
+  two directions, normal/Slayer. All native reports0exceptions/fixture reads/writes.
+- Initial mirror AB checks1377/1365 PASS. All-state1280 p95 16.065->16.055ms,
+  n101/101;640 15.110->15.430ms,n99/101. Live-only640 13.845->15.700ms (+13.40%),
+  n42/44 triggered fresh mirror ABBA despite all-state deltas staying below10%.
+  ABBA is pending. Normal/Slayer exclusion, post-restart Current and floor sample
+  bounds are independently checked in reverse-native-summary.json.
+- New final clips decode and local/server SHA256 PASS; old clips untouched.
+  reverse-check640/1280 labels/aspect/contact inspected. Two54.4s/25fps/1360frame
+  side-by-side12->16clips include both directions and1x/.25x nearest-neighbor crop.
+  Onsets align by first score30 parry; RNG and exact animation phase are not locked.
+
+## BCompact reverse sparks (2026-10-19, verified 16-particle review revision)
+
+- Approved16/clash,128over8leases supersedes12/96: groups2/2/6/6/0; original10moving
+  sparks plus4reverse-X falling sparks, two near/two far. Fourteen fixed states,
+  six-particle scratch;12fall/one-bounce/rest180ms paths plus2fast front fragments.
+  No shader/prefab/public API/default/camera/gameplay/itch changes.
+- Quick20261019T084732:78/78 PASS,0failed/skipped. NormalQA20261019T083644 build/
+  repeated-builder PASS; both inputc8d34d84840756d629276ee8e012b43c056e0908dbbf40daa1461d5f498f6c03.
+  MirrorQA20261019T084910 PASS, input7eea5996085debd8da4f7249e75ff61d1aed962bdb9da777cc03ed447012b1ed
+  adds only disposable editor actor mirror fixture. All13serialized parry assets
+  retain identical bytes/IDs/ordered GUID references;614local prefab/scene/meta bytes unchanged.
+- Edge155.0.4283.62/Playwright1.58.2/GTX1650Ti ANGLE D3D11: normal6274/mirror retry5608
+  checks PASS,40keyboard parries (10per640x360/1280x720/direction), normal/Slayer hit
+  exclusion. First mirror58check run missed keyboard timing after1parry; retained FAIL.
+  B<->compact pause/restart normal1274/mirror1179 and tail135/146 PASS. Postchecks
+  confirm restart clears roots/restores Current, sampled centerY>=-2.8713007 at
+  ages.55/.75/.95/1.1. Motion grids at both sizes/directions show both branches,
+  pixel shrink/fall/cooling and readable sword contact, no observed ground penetration,
+  blur or pink. Quick covers12single bounces, X/Y/Z rest/fade, spawn/mirror and128cap.
+  All native reports0exceptions/provider reads/writes; external blocking and read-only
+  bridge preserved. Sampled visuals are not every RNG outcome, sub-frame proof or human approval.
+- Matched12->16 no-video/no-screenshot p95, focused visible tab,4parries/size/run,
+  profiling ON both players, actual counters>=0. Legacy baseline marker predates
+  profile flag; exact prior volume input hashes checked instead. Normal AB1420/1386
+  PASS. Initial mirror AB1377/1365 PASS:640live p95+13.40% triggered fresh ABBA,
+  checks1392/1393/1422/1497 PASS. ABBA means below average per-run p95s, not pooled p95.
+
+| Direction/size | All-state p95 A -> B (ms) | Change | Live p95 A -> B (ms) | Change |
+|---|---|---|---|---|
+|normal1280 AB|13.5750 -> 13.5600|-0.11%|14.3550 -> 13.9200|-3.03%|
+|normal640 AB|13.7600 -> 14.0600|+2.18%|13.6400 -> 13.7100|+0.51%|
+|mirror1280 ABBA|13.6925 -> 14.5950|+6.59%|13.6700 -> 15.0050|+9.77%|
+|mirror640 ABBA|14.2050 -> 13.7450|-3.24%|14.6125 -> 13.6800|-6.38%|
+
+- Normal all/live n1280=101/99 and41/43;640=100/100 and44/40. Mirror ABBA
+  A1/B1/B2/A2 all1280 p95=13.685/15.380/13.810/13.700ms,n100/102/100/103;
+ 640=14.780/13.755/13.735/13.630ms,n100/100/101/101; live n1280=43/41/42/43,
+ 640=40/43/43/44. Repeat means below10%; live1280+9.77% is close to threshold.
+  Short sampled deltas include observer/idle overhead, not GPU cause/device FPS/
+  no-spike/equivalence evidence. Prior mirror+31.16%/+20.53%/+15.95% concerns remain unresolved.
+- Two new12->16 clips, both directions,1x and.25x nearest-neighbor closeups;
+  54.4s/25fps/1360frames each. Full decode and local/server SHA256 PASS; labels,
+  aspect/contact inspected. First score30parry aligns onset; RNG/animation phase not locked.
+  `ParrySpark-BCompact-Reverse-BeforeAfter-640.mp4`: 4682308bytes, SHA25654f4b35918a7b9a66f0fd47f4710bed47035653371547e383bdccb11d45d1719.
+  `ParrySpark-BCompact-Reverse-BeforeAfter-1280.mp4`: 11606552bytes, SHA256c21e984af3b67d27560d2d09cb5afe17890a8c93d9ce521ff6767dff1df1a0a6.
+- Review resources retained at E:/CodexTemp/TypingHero/parry-clash-lighting:
+  reverse-normal/mirror-player, raw captures, qualified/failed reports, source backup,
+  helpers and all old/new clips. Completed reverse QA profiles15 and duplicate local
+  archives3 removed (18targets verified); no persistent Edge viewer retained.
+  Keep child feat/pixel-hit-sparks until review and verified integration; no commit/push/merge/deploy.
+
+- Final cleanup also removed12duplicate remote transfer/segment/concat files; final
+  clips/raw videos/players remain. Code hashes match qualified Quick/QA snapshot,
+ 614asset bytes and unrelated UTF-8 document prefixes verified unchanged; scoped
+  whitespace checks PASS. Task QA listener8137 closed. Review reopen command:
+  `powershell -NoProfile -File E:/CodexTemp/TypingHero/parry-clash-lighting/open_compact.ps1 -Name reverse-interactive -Player E:/CodexTemp/TypingHero/parry-clash-lighting/reverse-normal-player`.
+
+### GitHub push approved (2026-10-19)
+
+- User approved pushing the reviewed child. Target origin=https://github.com/micharel09/TypingHero.git,
+  branch feat/pixel-hit-sparks (remote branch absent before push); no main merge or deploy.
+- Include the existing uncommitted parry/lighting foundation recorded in the prototype
+  checkpoint: builders, world materials/normals/scenes, lifecycle/QA wiring and docs,
+  together with final16particle BCompact. All belong to the verified player snapshot.
+- Recomputed full Assets/Packages/ProjectSettings/runner input matches final Quick/normal
+  QA c8d34d84840756d629276ee8e012b43c056e0908dbbf40daa1461d5f498f6c03 exactly.
+  No runtime edits since qualified verification; no repeated runtime suite required.
+  Parent checkout/main and retained review artifacts remain untouched.
