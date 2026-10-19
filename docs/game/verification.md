@@ -1,5 +1,38 @@
 # Verification and performance memory
 
+## Full merged HUD/Endless public release (2026-10-19)
+
+- Main source/publication commit b243545; final production102505 input5a0a621a730dd828d6fc7a33004256ffbc67808cd0f4f132fb38b5e17b7b9454. ZIP30files/16,595,641bytes, CRC/hash/JS-WASM-data QA exclusion PASS. Artifact hash and payload hashes: [release manifest](../../marketing/itch-io/full-release-20261019.json).
+- Gameplay Quick101341 input70312dec:116/116PASS,0skip; strict builder repeat102201 PASS. Final delta is only the Endless combat-label position, corrected after smoke found overlap with r7 HP. Both scenes retain every prior ID/GUID and committed bytes equal build-generated scenes.
+- Native final production:4automated checks,0JS/managed exceptions,0production writes. Actual menu/name, tutorial skip?Endless Fight, HP40?35, label clearance and pause/resume visually inspected. Earlier133checks certify their frozen R7/tutorial input; no new full difficulty/audio or human-WPM result inferred.
+- Published upload19872500 at https://micharel09.itch.io/clackblade; typing-hero redirects there. Public actual menu loads and29non-HTML CDN files match final ZIP exactly. Previous19872290 hidden/retained for rollback. Fresh read-only Classic200/Endless normal401; Firebase untouched. See [release checkpoint](../plans/ui-kit-v2.md) for scope/resources/rollback.
+
+## First-boss finite run (2026-10-19)
+
+- Fresh QA094932/repeat-builder PASS on
+  ca6cf60cdb52fb54a53a9c1710dd40885ac6b57dd8837424c48fbec7f952fc54.
+  Entire current Assets/Packages/ProjectSettings matches this frozen input after QA.
+- Native Edge155/GTX1650Ti/ANGLE D3D11/Playwright1.58.2: five-level matrix
+  4413/4413 PASS,30wins,603.107s. Victory after boss death, repeated Enter/no duel7,
+  no healing (35HP retained), final defeated6/exact-score payload, frozen stats,
+  same-level Restart40HP/zero stats, early death/best retention, tables/Classic and
+  error/filter/empty/retry pass. All20 result/table captures have the requested
+  960x540/640x360 sizes; actual images/hints reviewed, no round column or heal copy.
+- Same-player pending503/reload/original-partition retry and six tutorial lessons
+  86/86 PASS,98.299s. Five matrix fixture writes/zero Classic writes;0exceptions,
+  external blocking on, zero production Firebase writes. Functional QA only.
+- Exact-input Quick101506:116/116 PASS,0failed/skipped,46.073s. Includes final
+  terminal/callback/restart/best/pending regressions and shared UI/VFX consumers.
+  Previous Quick105/native4155/pending85 receipts are superseded.
+  Software pilots died early; no software-profile PASS. Driver input-observation
+  race was fixed without changing game behavior or thresholds. Runner8/8 PASS.
+- Task temporary captures/reports/players and four owned server results removed
+  after written receipts; QA listeners closed, shared source/cache/build-qa retained.
+  Details in [Endless checkpoint](../plans/endless-duel.md). No production
+  build, release, Firebase config change or fixes to the two deferred issues by
+  this task. Current QA preserves concurrent UI/input/VFX changes.
+
+
 ## CLACKBLADE public release (2026-10-19)
 
 Final input0fd9445887f60e2a7ba4c9e2578c22371f57e995079cc7c662bf9cfbd82c7a0b:

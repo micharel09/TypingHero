@@ -1,0 +1,87 @@
+{
+  "filename": "CLACKBLADE-Full-20261019.zip",
+  "sha256": "bbbafaeec38053c9f833fa8fb5a6f908d26cd3e69d959553b1ada741a7f88505",
+  "bytes": 16595641,
+  "members": 30,
+  "qa": false,
+  "files": {
+    "Build/output.data": "052a2c638e3f64813c8d7a221ef83cfc5c824e51370ac65396611ccec7ef3607",
+    "Build/output.framework.js": "d657e43c553171eae9495a1ca19b87930eb0df1e53eca3ad00e5221b7cdf4cd3",
+    "Build/output.loader.js": "1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76",
+    "Build/output.wasm": "8c2094aa792cb099e8774da3d7624038cfeed531320e2d344a6e45f4b424b134",
+    "CREDITS.txt": "50a044fa6ef8cbc5626c5074b82db9c8e15768fcfc5e7ac604cb1599f2c95ec6",
+    "CodeManu-License.txt": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+    "Crusenho-License.txt": "25404f33d70ae10f6c699b150031fdcd4071c2a5bd99976bb022a3788dba94af",
+    "DarkAges-License.txt": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+    "Kenney-Impact-License.txt": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+    "Kenney-Interface-License.txt": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+    "Kenney-License.txt": "835e21526eada764d2f20203895352b8c72a8f04e105073ed4bee2b517479ac0",
+    "Kenney-UI-License.txt": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
+    "Pimen-BattleEffects-License.txt": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+    "Pimen-HitSpark-License.txt": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
+    "ServiceWorker.js": "a1410ab9ff483270351ed1dc5ee30cdd0d50911d83f4a24f3e6f04b387b52cdb",
+    "TemplateData/favicon.ico": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+    "TemplateData/icons/unity-logo-dark.png": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
+    "TemplateData/icons/unity-logo-light.png": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
+    "TemplateData/progress-bar-empty-dark.png": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+    "TemplateData/progress-bar-empty-light.png": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+    "TemplateData/progress-bar-full-dark.png": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
+    "TemplateData/progress-bar-full-light.png": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+    "TemplateData/style.css": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
+    "TemplateData/unity-logo-dark.png": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+    "TemplateData/unity-logo-light.png": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
+    "TinyPixelJapan-License.txt": "6b3a9395300c20e0d5a8a1d1c5f4c57b5e09d718964e6186694dea55a22d160a",
+    "VT323-OFL.txt": "27d9af34210253e7ca1251fbace86c6f65b40031d6ce1a75493a1b2093631298",
+    "game-loop-build.json": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+    "index.html": "3a18f3f3b8b3b23ec6535864cb573a314aa6752ffa36a78611b295027c90cf4e",
+    "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486"
+  },
+  "owner": "micharel09",
+  "gameId": 3857509,
+  "url": "https://micharel09.itch.io/clackblade",
+  "uploadId": 19872500,
+  "previousUploadId": 19872290,
+  "priorFullUploadId": 19871730,
+  "baselineUploadId": 19865461,
+  "cdnBase": "https://html-classic.itch.zone/html/19872500/",
+  "cdnExactNonHtmlFiles": 29,
+  "oldUrlBehavior": "typing-hero redirects to clackblade",
+  "snapshot": "5a0a621a730dd828d6fc7a33004256ffbc67808cd0f4f132fb38b5e17b7b9454",
+  "sourceCommit": "b2435450487629ee277de5176dacd5b037095d6c",
+  "firebaseChanged": false,
+  "productionEndlessRead": "401 known limitation",
+  "quick": {
+    "snapshot": "70312dec1056ac27e3f5707a8ad005d646fb592c6e4fb36a7cfbadbc524742c5",
+    "passed": 116,
+    "failed": 0,
+    "skipped": 0,
+    "finalDelta": "Endless combat label position only; unchanged gameplay and builder"
+  },
+  "repeatBuilder": {
+    "snapshot": "70312dec1056ac27e3f5707a8ad005d646fb592c6e4fb36a7cfbadbc524742c5",
+    "status": "passed",
+    "result": "20261019T102201-serialize"
+  },
+  "productionSmoke": {
+    "automatedChecks": 4,
+    "jsExceptions": 0,
+    "managedExceptions": 0,
+    "productionWrites": 0,
+    "visualVerified": [
+      "menu and persisted ReleaseQA name",
+      "tutorial skip to Endless encounter",
+      "real Fight input and HP40 to35",
+      "combat label below fixed HP HUD",
+      "pause and resume"
+    ]
+  },
+  "publicMenuVerified": true,
+  "leaderboardReads": {
+    "global": 200,
+    "endless_v2/normal": 401
+  },
+  "sceneHashes": {
+    "MainMenu.unity": "2c8b07eb93cd2d2b91bf35fd089204623cbfef86b033506b6e284d59d7d14879",
+    "SampleScene.unity": "b2f30fb01ada0aaf7742fb3b273a4781e9fdff032a5b4054f3770eb08a28ae48"
+  }
+}

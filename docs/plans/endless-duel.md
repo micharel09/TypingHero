@@ -16,33 +16,51 @@ Offline regression covers repeated completion/death/Continue, six wins without
 healing and five-difficulty restart/best/pending. Browser driver now targets one
 boss and repeated Enter, Victory/table at both sizes, Restart/early death/Classic.
 
-Verification in progress:
-- Fresh QA20261019T092658-webgl/repeat-builder PASS, immutable input
-  01e664daea64b35d932b2badbed96796402ceceb8d613e066342209ff8ca121e.
-- Exact-input Quick20261019T093959:105/105 PASS,0failed/skipped,39.661s.
-  Includes terminal callback/Continue idempotency, six defeats/no heal, retained
-  old18-defeat best and all five difficulty restarts. Runner contracts8/8 PASS.
-- Native Edge155.0.4283.62/ANGLE D3D11/GTX1650Ti/Playwright1.58.2: pending/reload/
-  original-partition retry and six tutorial lessons85/85 PASS,99.883s.
-- Native five-level matrix4155/4155 PASS,30wins,633.236s; five intercepted
-  Endless writes, zero Classic writes/unhandled exceptions. All flows pass. Reviewed Victory960x540/640x360 and kills/score table at both sizes.
-- Software Chromium pilot failed at Heavy with2defeats/2007checks; no full software
-  PASS. Native initial selector observation raced input; fixed driver waits for
-  key release/updated selection, without game or acceptance changes.
-- Previous receipts below do not certify this change. Seven affected runtime/test
-  files still match the frozen QA byte-for-byte. Later concurrent input compatibility
-  fields, VFX/asset/importer/probe/editor changes are preserved and outside this
-  snapshot. Our later builder header copy matches the runtime binder already tested.
-- Final visual review caught outdated Swordsman round2 and Captain heal10 hints.
-  Corrected both assets and their existing builder, preserving GUIDs/stats. A new
-  current-checkout QA and Quick are queued after those copy corrections; earlier
-  matrix does not certify the later concurrent VFX/input checkout.
-- Task temp:E:/CodexTemp/TypingHero/first-boss. Owned server results:092658-webgl,
-  093959-quick under /data/typinghero-game-loop/results. Keep until written final
-  receipts and cleanup. Shared source/Library/toolchain/build-qa remain reusable.
-  No branch/worktree/commit/push/deploy/production Firebase mutation by this task.
+Final verification: passed
+
+- QA20261019T094932-webgl/repeat-builder PASS, immutable input
+  ca6cf60cdb52fb54a53a9c1710dd40885ac6b57dd8837424c48fbec7f952fc54.
+  Includes the corrected role hints, current UI/input/VFX checkout and original
+  serialized references. Full Assets/Packages/ProjectSettings byte comparison to
+  the checkout passed after final Quick and native QA; no product-input drift.
+- Final native Edge155.0.4283.62/ANGLE D3D11/GTX1650Ti/Playwright1.58.2:
+  matrix4413/4413 PASS,30wins,603.107s. Each level clears six opponents, waits for
+  boss death cleanup, rejects Enter during/after death, freezes score/statistics,
+  submits defeated6 and the exact final score, opens the correct table, restarts
+  at40HP/zero stats on the same difficulty, loses early and retains best6, then
+  exercises Menu/Classic/filter races/error/empty/retry. All bosses ended35HP,
+  confirming retained visible HP after the deliberately received first hit.
+- Final per-level score/time/parries: VeryEasy2957/59.514s/9;
+  Easy2916/49.331s/9; Normal3308/52.701s/11; Hard3010/51.044s/11;
+  VeryHard3208/54.900s/14. Pilot40ms/letter is functional QA, not balance timing.
+- Result/table captures cover all five levels at960x540 and640x360 (20 correct
+  image dimensions); actual intro, corrected Captain hint, victory, retained-best
+  defeat and tables reviewed. No Continue/new-round/healing message at terminal
+  victory; kills/score rows retain old12-defeat fixtures without derived round.
+  Concurrent F6 spark observer label belongs to this QA player, not this change.
+- Final pending503/reload/original-Hard-partition retry and six tutorial lessons
+  86/86 PASS,98.299s. Matrix5intercepted Endless writes,0Classic writes; both
+  profiles0unhandled exceptions, fixtures/external blocking retained throughout.
+  No real Firebase writes. No device-FPS/audio/human balance claim.
+- Exact-input Quick20261019T101506:116/116 PASS,0failed/skipped,46.073s.
+  Covers terminal callback/Continue idempotency, six defeats/no healing, retained
+  old18-defeat best, all five restart partitions and shared gameplay/provider/UI/
+  VFX regressions. Runner contracts8/8 PASS rerun on this final input. Earlier
+  input01e664da... Quick105/105, matrix4155/30wins and pending85 were superseded.
+- Software pilots failed (first:Heavy2defeats/2007checks; final:Swordsman0/901).
+  No software profile PASS. Initial native selector observation raced input;
+  waiting for released input/updated selection fixed the driver without changing
+  game code, timing, fixtures or acceptance.
+- Cleanup complete: removed E:/CodexTemp/TypingHero/first-boss and the four owned
+  server result directories092658-webgl/093959-quick/094932-webgl/101506-quick
+  after snapshot/containment/link checks and recording these receipts. QA listeners
+  closed. Shared source/Library/toolchain and normal build-qa remain reusable;
+  diff -qr proved build-qa identical to the final immutable player before cleanup.
+  No branch/worktree/commit/push/deploy or production Firebase mutation by this task.
 
 ---
+
+Historical repeating-mode receipts below are superseded by the current finite scope.
 
 # Endless Duel - approved completion plan (2026-10-18)
 
