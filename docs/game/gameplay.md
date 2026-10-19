@@ -203,7 +203,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 ## World lighting / parry clash prototype (2026-10-18)
 
 Earlier pixel-ray prototype published to itch.io at user request2026-10-19; not merged.
-Current/A/B/C and BCompact comparison clips remain art-review samples. BCompact24 code is published in the 2026-10-19 release; Current stays the serialized default.
+Current/A/B/C and BCompact comparison clips remain art-review samples. BCompact24 code is published in the 2026-10-19 release; BCompact24 is selected by the production parry owner after the default-selection correction.
 Full surface art, B/C and parent integration remain separate.
 
 - Successful OnParrySuccess emits ParryClash at ParrySparkAnchor: contact2,
@@ -231,7 +231,8 @@ Full surface art, B/C and parent integration remain separate.
   Owner-local per-preset sequences survive lease reuse. Automation-only F6 cycles
   presets with a label; emitted shapes remain unchanged. Separate length-support
   migration v1 reserves130% and compensates the shader crop, preserving Current.
-- BCompact remains value4; Current is the serialized default. Five existing systems
+- BCompact remains value4 and is now the production parry owner default; the builder
+  pins player/scene owners to it. Current remains an explicit legacy variant. Five existing systems
   emit contact2/main2/front10/back10/embers0,24total/192over eight leases. Twenty-two sparks
   launch together from the sword contact. Keep the original10forward spark draws in
   -16/+45degree lobes at14-24speed; append12reverse-X falling sparks stratified
@@ -258,7 +259,8 @@ Full surface art, B/C and parent integration remain separate.
   pause/restart; mirrored native QA was canceled by user. Prior mirror receipts
   cover16particles only. Version1migration, all prefab
   bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
-  This is a review sample; prior mirror p95 concerns remain separate and unresolved.
+  Comparison clips remain review samples; BCompact24 is now used in production parries.
+  Prior mirror p95 concerns remain separate and unresolved.
 - Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
   prefabs and SampleScene. Existing hit SFX, lethal shake, slash, flash, afterimages
   and damage remain. Legacy PixelSparks/CodeManu/Pimen assets are retained unwired.

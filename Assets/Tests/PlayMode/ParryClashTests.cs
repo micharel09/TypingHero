@@ -465,6 +465,55 @@ public sealed class ParryClashTests
         burst.Emit(Vector3.one, -1, -10, ParryClashBurst.Preset.BCompact); Assert.That(burst.ParticleCount, Is.EqualTo(24));
         pool.Clear();
     }
+#if UNITY_EDITOR
+    [Test, Category("Quick")]
+    public void ProductionBuilderSelectsCompactForExistingSerializedCurrentOwner()
+    {
+        var host = new GameObject("serialized parry owner"); host.SetActive(false); owned.Add(host);
+        host.AddComponent<BoxCollider2D>();
+        var fx = host.AddComponent<ParrySparkVFX_Pooled>();
+        Set(fx, "sparkPreset", ParryClashBurst.Preset.Current);
+        foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies())
+        {
+            var builder = assembly.GetType("CombatFeedbackBuild");
+            if (builder == null) continue;
+            var configure = builder.GetMethod("Configure", BindingFlags.Static | BindingFlags.NonPublic);
+            for (int repeat = 0; repeat < 2; repeat++)
+            {
+                configure.Invoke(null, new object[] { host, null, null, null });
+                var selected = typeof(ParrySparkVFX_Pooled).GetField("sparkPreset", Flags).GetValue(fx);
+                Assert.That(selected, Is.EqualTo(ParryClashBurst.Preset.BCompact));
+            }
+            return;
+        }
+        Assert.Fail("CombatFeedbackBuild was not found");
+    }
+#endif
+
+    [Test, Category("Quick")]
+    public void DefaultParryEmitsCompactPhysicsWithoutPresetSelectionAndAfterOwnerReuse()
+    {
+        var host = new GameObject("default parry owner"); host.SetActive(false); owned.Add(host);
+        host.transform.position = Vector3.up;
+        var parry = host.AddComponent<ParrySystem>(); parry.logs = false;
+        var fx = host.AddComponent<ParrySparkVFX_Pooled>();
+        Set(fx, "parrySystem", parry); Set(fx, "sparkPrefab", Prefab());
+        Set(fx, "playerSparkAnchor", host.transform); Set(fx, "groundY", 0f);
+        for (int emission = 0; emission < 2; emission++)
+        {
+            host.SetActive(true); parry.ParrySuccess();
+            var active = (List<GameObject>)typeof(ParrySparkVFX_Pooled).GetField("active", Flags).GetValue(fx);
+            Assert.That(active.Count, Is.EqualTo(1));
+            var burst = active[0].GetComponent<ParryClashBurst>();
+            Assert.That(burst.EmittedPreset, Is.EqualTo(ParryClashBurst.Preset.BCompact));
+            Assert.That(burst.ParticleCount, Is.EqualTo(24));
+            burst.AdvanceDebris(.3f);
+            Assert.That(burst.Systems[2].particleCount + burst.Systems[3].particleCount, Is.EqualTo(18));
+            host.SetActive(false);
+            Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
+        }
+    }
+
     [Test, Category("Quick")]
     public void SuccessfulParryUsesEightLeasesAndOwnerDisableClearsThem()
     {

@@ -90,6 +90,7 @@ internal static class CombatFeedbackBuild
         foreach (var parry in root.GetComponentsInChildren<ParrySparkVFX_Pooled>(true))
         {
             Set(parry, "sparkPrefab", ParryClashAssets.Load());
+            Value(parry, "sparkPreset", (int)ParryClashBurst.Preset.BCompact);
             Value(parry, "groundY", Ground(root));
             var anchor = Get<Transform>(parry, "playerSparkAnchor");
             if (anchor)

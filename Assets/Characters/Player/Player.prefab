@@ -529,6 +529,7 @@ MonoBehaviour:
   groundY: -3.3325508
   defaultCapacity: 8
   maxSize: 32
+  sparkPreset: 4
 --- !u!114 &6140051893238759780
 MonoBehaviour:
   m_ObjectHideFlags: 0

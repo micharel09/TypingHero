@@ -19,7 +19,7 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     [SerializeField] int defaultCapacity = 8;
     [SerializeField] int maxSize = 32;
 
-    [SerializeField] ParryClashBurst.Preset sparkPreset;
+    [SerializeField] ParryClashBurst.Preset sparkPreset = ParryClashBurst.Preset.BCompact;
     readonly int[] variationSequences = new int[5];
 #if TYPINGHERO_AUTOMATION
     void OnGUI() => GUI.Label(new Rect(12, 12, 300, 28), "F6 Spark: " + sparkPreset);

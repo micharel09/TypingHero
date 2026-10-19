@@ -2352,3 +2352,36 @@ Secondary textures: https://docs.unity3d.com/Packages/com.unity.render-pipelines
   Feature is published from its pushed branch, not integrated into main; retain child
   until requested review and verified integration. Authenticated browser session is
   stopped after public verification. No devlog/social posts or unrelated changes.
+
+
+## Physical spark release correction (2026-10-19, active)
+
+- User reports missing physical falling sparks on public. Prior release explicitly
+  retained Current; production smoke only proved menu/Fight/pause, not a successful
+  parry using compact physics. Original BCompact QA used F6 and did not prove the
+  default production route. This is a release-selection verification gap.
+- Public now points to full release19872500 after the separate latest main release;
+  merged origin/main933dbbd into child to preserve all current fixes before correction.
+  Resolve system map using compact VFX row plus newest other owners; current release
+  receipt uses newest main receipt until new publication, preserving prior history.
+- Change production owner default and builder to BCompact; serialize player prefab4.
+  Current/A/B/C remain selectable legacy variants. Add no-F6 owner/reuse regression
+  and builder regression that converts serialized Current to compact on two runs.
+  Native normal QA must use default from fresh game/restart with no F6; final
+  production/public check must capture actual successful parry and falling particles.
+  No mirrored QA requested. Tests/builds use compact-default-* artifacts in existing
+  E:/CodexTemp/TypingHero/parry-clash-lighting. Publication remains pending.
+
+- Focused Quick123645 passes14/14 ParryClashTests, including the two new default
+  selection regressions and existing24seed/two-direction trajectory/lifecycle tests.
+  Input8ba1dda11a10270a96b8f096c30df977ee6f4e7c085b0c1340196a52216400a2.
+- QA123737 build/repeated-builder PASS, generated player prefab has sparkPreset4.
+  Native Edge default test r2 passes16checks, noF6, two keyboard parries separated
+  by restart. Actual BCompact samples:20particles at300/550/800ms and12at1050ms;
+  qualified r2 minimumY descends -2.16464 -> -2.83872 -> floor-2.87130. Launch/fall/rest frames
+  inspected on current R7/Endless scene. First10check attempt failed on stale
+  one-frame spark snapshot immediately after scene reload; retained FAIL. Harness
+  waits>=3fresh frames and empty roots before asserting restart, without runtime changes.
+- Earlier production baseline real-keyboard parry succeeds(score30/40HP) but old
+  Current tail is absent at falling sample. New production124717 is building from
+  the same8ba1input; actual production/public parry images still required.
