@@ -2318,3 +2318,37 @@ Secondary textures: https://docs.unity3d.com/Packages/com.unity.render-pipelines
   into feature child before release to preserve those features. Parent WIP untouched.
   Integrated Quick and production build are queued; upload not yet performed.
   Current remains the serialized default, as requested by original plan.
+
+
+### BCompact24 published ? 2026-10-19
+
+- User canceled mirrored native QA/performance and authorized push plus itch.io.
+  Integrated Quick20261019T095939:117/117 PASS,0failed/skipped. Production100117
+  PASS on the same63e6532d5a2c69a00e43af0e4544943bd3c34731b06681d2559baafb703f0c43
+  input; qa=false, all JS/WASM/data exclude bridge markers. Original-HTML native
+  smoke3checks PASS,0exceptions/requests/writes; menu/Fight/pause/resume screenshots
+  inspected. This scoped production smoke does not replace prior full-mode QA.
+- Published https://micharel09.itch.io/clackblade, game3857509, new playable19872290.
+  Saved previous19871730 hidden; other uploads/settings/gallery/pricing unchanged
+  (settings SHA25602f423e4de577aa9926d0f7fa8e4757d228a6cb6109264a2b9593f477a4a4a90).
+  Public Run game renders CLACKBLADE;29non-HTML CDN files match the ZIP exactly,
+  index.html contains original HTML plus expected itch wrapper. No Firebase change.
+- ZIP CLACKBLADE-WebGL-BCompact24-20261019.zip:30members/16,595,759bytes, CRC PASS,
+  SHA256e50893f0081ac5715f1215c8a76d27938c0b4276ff80c9a3ed09f96a4512b0d1.
+  Canonical receipt marketing/itch-io/clackblade-release-20261019.json; ignored ZIP
+  under Builds/. Source pushed to origin/feat/pixel-hit-sparks at93f8eb7 before upload;
+  final receipt/doc commit follows. No push to main; parent checkout/WIP preserved.
+- Review clips normal only (mirrored continuation canceled):640/1280,27.2s each,
+ 16->24 at1x/.25x full viewport. Full decode/hash/labels/aspect checked; RNG/contact
+  animation phase are not locked.640 SHA2565ff54e05fec76103dad202934cdfe5a7d2e591ec7933ce867f9af480fd6fb100;
+ 1280 SHA25670df40579895bf543eef8ac265c00bb75725de01d8d3842f15584a64f87486a9.
+  Old clips retained. New files ParrySpark-BCompact-Strong24-BeforeAfter-640.mp4 and
+  -1280.mp4 under E:/CodexTemp/TypingHero/parry-clash-lighting.
+- Keep child feat/pixel-hit-sparks, strong24-normal/mirror/production-player, clips,
+  qualified/failed reports and immutable source inputs for requested review and
+  reproduction.14completed task Edge profiles already removed; production-smoke
+  profiles are cleaned at final handoff. Mirror native process tree stopped on request.
+  Earlier mirror performance concerns remain separate/unresolved. Current stays default.
+  Feature is published from its pushed branch, not integrated into main; retain child
+  until requested review and verified integration. Authenticated browser session is
+  stopped after public verification. No devlog/social posts or unrelated changes.

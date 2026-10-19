@@ -1,6 +1,17 @@
 # CLACKBLADE — đổi thương hiệu và phát hành
 
-## Published 2026-10-19
+## Current public build - BCompact24 (2026-10-19)
+
+Playable19872290 now serves CLACKBLADE-WebGL-BCompact24-20261019.zip;
+previous19871730 retained hidden. Integrated Quick117/117 and production100117
+pass on63e6532d input. ZIP30files/16,595,759bytes, SHA256
+e50893f0081ac5715f1215c8a76d27938c0b4276ff80c9a3ed09f96a4512b0d1.
+Public menu and29non-HTML CDN hashes verified; storefront/brand/pricing unchanged.
+Current remains default; BCompact24 adds the stronger12reverse spark branch.
+Mirror native QA canceled by user. See combat-feedback checkpoint and canonical
+release receipt for scoped normal QA/performance, retained clips and source branch.
+
+## Earlier brand release 2026-10-19
 
 Public: https://micharel09.itch.io/clackblade (owner micharel09; game3857509).
 Old typing-hero URL navigates to clackblade. Saved playable19871730, previous

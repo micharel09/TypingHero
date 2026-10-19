@@ -3,7 +3,7 @@
 Current source brand: **CLACKBLADE**, slogan **TYPE TO SLASH**. Gameplay and stable technical
 identifiers remain unchanged by the rename. Native menu960x540/640x360 and
 same-artifact name reload verified. Public release: https://micharel09.itch.io/clackblade
-(upload19871730). Endless online reads still401; Firebase unchanged.
+(upload19872290). Endless online reads still401; Firebase unchanged.
 
 ## Endless Duel (2026-10-19)
 
@@ -200,7 +200,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 ## World lighting / parry clash prototype (2026-10-18)
 
 Earlier pixel-ray prototype published to itch.io at user request2026-10-19; not merged.
-Current thicker-ray revision, Current/A/B/C comparison and BCompact are separate art-review samples and are not published.
+Current/A/B/C and BCompact comparison clips remain art-review samples. BCompact24 code is published in the 2026-10-19 release; Current stays the serialized default.
 Full surface art, B/C and parent integration remain separate.
 
 - Successful OnParrySuccess emits ParryClash at ParrySparkAnchor: contact2,
@@ -250,7 +250,7 @@ Full surface art, B/C and parent integration remain separate.
   particle simulation; configuration restores on preset reuse. Manual completion
   ignores IsAlive for those frozen systems, preserving exactly-once lease return.
   Unscaled age obeys pause/reading; Clear/re-emission/disable/restart discard state.
-  Quick79/79 verifies24/192,20single-bounce paths and24seeds/two directions at300ms:
+  Integrated Quick117/117 verifies24/192,20single-bounce paths and24seeds/two directions at300ms:
   >=8reverse sparks travel>=2.5Xunits and>=6retain2pixel length. Native24particle normal QA passes20keyboard clashes at640/1280 and B<->compact
   pause/restart; mirrored native QA was canceled by user. Prior mirror receipts
   cover16particles only. Version1migration, all prefab
@@ -299,11 +299,11 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   of whoosh and parry: medium 000?002 at .65 normal / .45 Slayer, heavy 000?002 at .8
   lethal, +/- .5 semitone jitter. Existing clang uses +/- 1 semitone.
 - Impacts use Inspector-editable `Assets/Art/VFX/PixelSparks` prefabs: orange Normal24
-  (.45Ã¢â‚¬â€œ.65s), ivory Slayer32 (.35Ã¢â‚¬â€œ.55s), pale-blue Parry40 (.6Ã¢â‚¬â€œ.85s), orange Lethal56
-  (.75Ã¢â‚¬â€œ.95s). Two world Particle Systems emit70% square dots and30% axis-aligned
+  (.45–.65s), ivory Slayer32 (.35–.55s), pale-blue Parry40 (.6–.85s), orange Lethal56
+  (.75–.95s). Two world Particle Systems emit70% square dots and30% axis-aligned
   streaks at16PPU, order30; a binary white texture and unlit straight-alpha material
   keep flat stepped colors. Existing camera zoom scales them with characters.
-  Force follows attacker-to-target context, with80% forward; gravity18WU/sÃ‚Â² and
+  Force follows attacker-to-target context, with80% forward; gravity18WU/s² and
   fixed standing-foot collision planes give .4 bounce/.4 damping. Eight active bursts
   per owner recycle oldest without suppressing confirmed-hit audio. Slayer exit
   preserves the emitted profile; lethal wins over Slayer. Original Pimen assets,
