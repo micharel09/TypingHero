@@ -1,4 +1,14 @@
-# Đồng bộ skin ngoài combat
+# Đồng bộ skin ngoài combat — đã phát hành
+
+- Hoàn tất skin v2/R7 đúng phạm vi; giữ layout, runtime, binding và HUD gameplay.
+- Source commit `1bedcfff57d2b1fd47d3f3dbe5b232ff57a05dbc` đã push main.
+- Public: https://micharel09.itch.io/clackblade, game3857509/upload19876564. Bản19874589 ẩn và giữ để rollback; cấu hình trang không đổi.
+- Final input `781c881452f74d06b79ee7f47efb4efe4e6f09f46e3078ee613c94a88cf6e8a0`: builder lặp PASS, contract8/8, native81/81, modal-size6/6, production smoke2/2; bốn viewport đạt. Không có exception hoặc ghi Firebase production. Không chạy lại balance suite.
+- ZIP30tệp/16,575,624byte, SHA256 `5907f752234508235aa17e13a4468e82a1329f6eb0f9cde4a8f2ed0c9288a212`. Public29/29 payload hashes khớp; HTML chỉ thêm wrapper itch, QA bridge undefined.
+- [Biên bản phát hành](../../marketing/itch-io/ui-dungeon-release-20261019.json), [kiểm chứng](../game/verification.md). Endless401 ngoài phạm vi.
+- Giữ ZIP trong parent `Builds/CLACKBLADE-DungeonUI-20261019.zip` và canonical `/data/typinghero-game-loop/results/20261019T142518-production` (player, ZIP, manifest, source archive) tới release thay thế. Đã dọn capture/temp và15 thư mục server trung gian của task. Child sẽ xóa sau khi biên bản được push và fast-forward vào parent; không đụng tài nguyên task khác.
+
+## Nhật ký triển khai trước phát hành
 
 - Scope: skin v2/R7, giữ layout, dữ liệu, listener và HUD combat; menu giữa viewport.
 - Repo: micharel09/typinghero; base main 933dbbd; remote origin.
