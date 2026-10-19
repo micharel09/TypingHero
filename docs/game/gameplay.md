@@ -1,5 +1,86 @@
 # Current gameplay
 
+Current source brand: **CLACKBLADE**, slogan **TYPE TO SLASH**. Gameplay and stable technical
+identifiers remain unchanged by the rename. Native menu960x540/640x360 and
+same-artifact name reload verified; itch.io publication is still pending.
+
+## Endless Duel (2026-10-19)
+
+- SampleScene starts Endless except during the independently configured tutorial.
+  Player starts40HP; power, words and scoring remain unchanged. Each run has
+  four normals, elite300HP/150stamina and captain550HP/200stamina; normals100stamina.
+- Role assets in Assets/Resources/Endless own stats/forms/attack arrays. Swordsman180HP
+  usesAttack1 and alternatesAttack2 from round2; DoubleStrike200HP uses1->2;
+  Heavy240HP usesaxe1/8damage; Berserker200HP usesaxe2->1->2/5damage;
+  Guard200HP alternates shield singles, takes full typing damage but only4stamina/hit
+  versus25/parry. Other roles preserve12stamina/hit. No full-body role tint or scale.
+- Current run: swordsman,double,heavy,guard,elite swordsman,captain, then victory.
+  Internal RepeatAfterBoss=false disables repeat and boss healing. Dormant Round2:
+  berserker,double,guard,heavy,elite heavy,captain. Round3+ rotates four consecutive
+  roles and elite through the five-role list. Elite uses its known base attacks.
+  Captain selects singles/doubles above70%HP, adds triples at70% and below, rotates
+  order by round below35%. Phase is sampled only when starting a complete pattern.
+- Endless menu selects Very Easy/Easy/Normal/Hard/Very Hard, default Normal; local
+  preference snapshots before combat. Pace factors are .6/.8/1/1.25/1.5. Intro, run
+  and results show the level. Continue and Restart retain the run level; only menu
+  changes a new run. Tutorial remains independent.
+- Recovery1.7s or2.5s for axe roles; elite subtracts200ms. Each round subtracts120ms
+  for at most8steps, floor700ms, then divide by difficulty pace. Combo window is the
+  immutable ScoreRules base1.5s divided by the same factor:2.5/1.875/1.5/1.2/1s.
+  Renewal, expiry and HUD share that value; animation/contact/chain/parry windows
+  and Time.timeScale are unchanged. Enemy HP, damage and300ms cues do not scale.
+  Chains keep120ms between clips. Riposte Hurt preserves the original swing-end
+  clock instead of accelerating the next strike into the player's success pose.
+  Stun, Slayer and death cancel remaining strikes; recovery starts a fresh pattern.
+- All18 approved gif-pack strips are imported unchanged:96x64 cels,100ms/cel,
+  Point/16PPU/uncompressedRGBA32. Sword/shield contact cels5/2; axe6/4 (zero-based).
+  Early sword/shield thrust holds pose0 for100ms before playback to retain300ms cue.
+  Each form owns Idle/Walk/Attack1/Attack2/Hurt/Die; stun/Slayer reuse that form's Hurt.
+  The original skeleton controller/GUIDs remain for the tutorial configuration.
+- Initial Fight only. Continue after the first five death animations loads AND starts the
+  next opponent once. Carry only HP/score/combat time/letter counts/parries/progress;
+  scene reload resets combo, queues, stamina, cue, stun, Slayer and effect bindings.
+  Boss victory ends the run without healing or a seventh opponent. After the death
+  animation, VICTORY / BOSS DEFEATED shows the final statistics with Restart, Menu
+  and leaderboard; Enter/Continue cannot resume it. Intro/HUD show DUEL x/6.
+  Death shows killer/attack and defeated,
+  score, accuracy, parries, combat time and local best. Restart clears statistics
+  while retaining difficulty; menu clears the run.
+- Local best partitions by difficulty (progress before score). Normal retains
+  EndlessBestDefeated_v1/EndlessBestScore_v1; other levels append /{difficulty ID}.
+  EndlessProfile_v1_ stores base-role/elite encounters/kills and first-boss,
+  triple-chain-parry and undamaged-boss achievements. They add no player power.
+- The existing modal lists community Endless by default, Classic separately, plus
+  opponent profiles and achievements. Closing consumes that frame's shortcuts.
+  Normal contract is leaderboards/endless_v1/{LB_LocalUID}; four other levels use
+  leaderboards/endless_v2/{difficulty}/{uid}. Payload stays name,defeated,
+  score,updatedAt, ordered progress DESC/score DESC/time ASC/uid ASC. Fetch completes
+  the1000th-place progress tie before sorting/trimming; best writes use ETag with
+  at most3conflicts. Read errors never become empty records. Local best is saved
+  before terminal victory/death networking; EndlessPending_v1 retains the best unsent result
+  per difficulty (Normal retains its legacy key, others append /{ID}). Retry on
+  table open/another completed run uses the saved partition, regardless of menu selection.
+  Community rows show defeated/score, without derived round. Existing multi-round
+  records are preserved and can rank above new six-defeat results.
+  Modal filter defaults to run/menu level and ignores previous requests after a
+  filter change or close. Classic contract stays unchanged.
+- Difficulty Quick99 passes config/persistence/run/recovery/combo/provider behavior.
+  Native required-round coverage and final-candidate progress are recorded in
+  docs/plans/endless-duel.md and verification.md. Five-level selectors, modal races,
+  durable pending/reload, six tutorial lessons and both sizes have fixture coverage.
+  A WebGL trace reproduced post-Slayer idle/hit lock with a frozen outgoing Slayer
+  state: AttackSpeedMul's authored default0 was saved/restored on Slayer exit.
+  Its neutral default is now1; active Slayer remains3.5 and clips/contact are intact.
+  Actual lifecycle regression has negative/positive receipts. On the same fixed
+  archived input, Quick99/99 and native matrix22063checks/66wins pass.
+  Pending/tutorial129, selector/focus40 and audio11 also pass on that player.
+  Later concurrent UI/input edits are outside this frozen candidate.
+  HP/recovery values remain playtest tuning. Automated reference targets are
+  normals15-30s/boss45-75s at200ms/letter; three-person recognition/retry evidence
+  remains explicitly unverified. No production Firebase change or publication.
+
+## Previous single-duel baseline
+
 Source-backed inventory, 2026-10-16. Quick and browser flow have runtime evidence;
 see verification for profile status. These are current behaviors, not new requirements.
 
@@ -7,17 +88,36 @@ see verification for profile status. These are current behaviors, not new requir
   MainMenuUI auto-focuses name input; Enter or Play validates and loads SampleScene.
   PlayerIdentity persists the name via PlayerPrefs, normalizes allowed characters,
   and clamps to 10 characters (menu validation defaults differ; inspect serialized values).
-- TypingManager displays current/next/third words. Letters compare case-insensitively;
-  nonletters are ignored. An incorrect letter restores the original word without
-  refilling the timer, hurting HP or breaking combo. Incomplete type-ahead resets
-  independently; completed next words stay completed.
-  Finishing current emits correct-word and advance events, then promotes next.
-  Type-ahead consumes next characters during promotion and carries them into current.
-  Scene attackTimeLimit is 3 seconds; timeout advances and breaks score combo.
-  UI tween time is unscaled, word timer uses scaled delta time; both hold on pause.
-  ProcessInput emits OnInputResult for each letter attempt, including retyping.
-  Slayer rewards each position only once per word occurrence, carrying that
-  progress through promotion. A new occurrence starts with new reward progress.
+  With no saved name, EnsureLoaded creates and saves `Guest` plus four uppercase
+  hex characters through TrySetName. Existing names stay unchanged; the menu's
+  existing field supports immediate Enter/Play or an edited name with the same validation.
+- TypingManager keeps current/next/third in a synchronous queue. ProcessInput is
+  the only letter path: comparison ignores case and nonletters are ignored.
+  Completing a word emits the existing correct/advance events once, then promotes
+  the queue in the same call. Input continues during presentation; a multiword
+  burst in one frame paints the final queue without stacking slides. A single
+  completion presents the new queue at+66native pixels and settles over100ms
+  cubic-out. No fade/hold/spawn delays or separate type-ahead queue remain.
+- The current word stays fully visible, with accepted positions colored in place.
+  Wrong input resets its progress, retains next/third and the remaining timer,
+  and holds red180ms. Another error restarts the feedback; the next correct input
+  clears it. SetPractice resets queue, rewards, feedback, slide and burst state.
+  The three58px cells/gap8 have native centers94/160/226; whole-word raster
+  advance determines integer alignment, never the remaining suffix. VT32316 uses
+  a static Point bitmap atlas with1px blank gutter for TMP's bitmap quad padding.
+  Whole-row masking contains slides; no outside-pool per-cell clipping rule exists.
+- Scene attackTimeLimit remains3seconds. Timeout promotes immediately and breaks
+  combo without awarding a completed word. The word clock uses scaled delta time;
+  presentation/error clocks use unscaled time. Pause/reading/end locks stop input
+  and clocks. Browser system prefers-reduced-motion cancels slides immediately
+  while retaining error colors, with no new setting. OnInputResult remains one
+  event per letter attempt, including retyping; TypingInputSfx keeps the existing
+  Kenney tick_002/error_004 path, gain/cooldown/voice limits and muted-voice guard.
+- Slayer rewards a character position once per current-word occurrence; mistakes
+  preserve reward history and promotion starts a new occurrence. Tutorial rewards
+  cannot be farmed by retyping. Quick104/104 passes the input/event/SFX/reward and
+  imported-font/pool/HP-fill checks. Final r7 WebGL/release acceptance remains
+  pending in docs/plans/ui-kit-v2.md; this is not a publication or WPM claim.
 - WordPoolConfig splits lines, trims, lowercases and removes duplicates by default.
   Empty pools return null; TypingManager falls back to `type`.
 - PlayerInputGate combines hit, dead and multiple parry-pose locks; dead/hit/pose
@@ -179,13 +279,14 @@ Change only behavior explicitly requested. Update this file after relevant verif
   floating awards use the latest tier tint and the enemy-head anchor.
 - The SCORE caption and former corner labels stay hidden in both modes.
   Exit/disable restores saved environment and tray background. HUD positions
-  for actors/tray follow the camera; the corner total remains screen-fixed.
+  for actors/tray follow the camera; the total keeps canvas scale1 and uses the
+  upper-frame layout during Slayer (revision5 below).
   Final builder migrates existing scenes and protects black bars from theme tint.
 - Quick46/46 and browser acceptance cover these paths; four render sizes and x3
   exit frames were inspected. See verification and the slayer-restore checkpoint.
   No gameplay timing, damage, scoring formula, public API, GUID or package changes.
 
-## Combat HUD layout (2026-10-18, revision4)
+## Combat HUD layout (2026-10-18, revision5)
 
 - CombatHUDLayout owns status, score/combo/decay, popup anchor and tray positions.
   ShogunTheme migrates existing UGUI objects in place; GUIDs/slider bindings remain.
@@ -193,10 +294,15 @@ Change only behavior explicitly requested. Update this file after relevant verif
   are hidden and PlayerNameHUD is disabled so rank refresh cannot reactivate the name.
   HP6 stays red; enemy stamina4 uses Gold(#DCC47C) at y8. Player/enemy groups are6/12px.
   Fixed collider landmarks(.28/.12 world inset) still drive Slayer framing.
-- The unframed total uses font24 at top/right24, including maximum award pulse.
-  Cluster scale stays1 through Slayer camera zoom. Font16 combo is right-aligned below
-  the total, hidden at x1, with the existing decay indicator. Total updates immediately;
-  ScoreUI_Flash keeps its120ms pulse and existing tier colors.
+- Normal: unframed total font24 at top/right24, including maximum award pulse;
+  combo16 right-aligned below, hidden at x1. Slayer: total48/combo24 with glyph gap4,
+  total/combo/decay centered horizontally; the whole visible group is vertically
+  centered in the upper black frame, including the actual120ms award pulse bounds.
+  Position/font sizes follow SlayerScreenFX's220ms bar reveal; interrupted entry/exit
+  uses the existing reveal, normal restores24/16/margins24. Last frame geometry is
+  retained if lethal removes actors during close. CombatHUDLayout owns layout and
+  canvas scale1 independently of camera zoom. Immediate updates, tier colors and
+  ScoreUI_Flash pulse duration remain unchanged.
 - One active FloatingScore accumulates exact received deltas. Font18 popup follows
   projected enemy head right24/up12 after layout, rises at most18px without restarting
   its rise on awards, then holds150ms/fades450ms after the final award. An award during
@@ -205,6 +311,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
   ResetScore/restart clears the popup and accumulation. Score rules/OnScored are unchanged.
 - Tray672x56 is centered12px below the lowest status with no score-row reserve.
   Three word labels/timer/error feedback and tutorial highlights retain their behavior.
-- Approved r4 reference/geometry and preserved r1-r3:design/layouts/shogun/web/contract.md.
-  Quick53/53, targeted WebGL198 checks, native Slayer50 checks and eight rendered layout
-  frames verify these paths. Receipts and limits are in verification.md/combat-hud plan.
+- Approved r5 Slayer exception/reference/geometry and preserved r1-r4:design/layouts/shogun/web/contract.md.
+  Revision5 Quick74/74 plus targeted QA/native checks cover four sizes, real rapid
+  Slayer, pause/resume/lethal/restart; pixel capture confirms visible gap4 and exact
+  group center. Receipts, staged browser results and limits are in verification.md
+  and combat-hud plan. Tutorial reading panels retain their existing overlay behavior.

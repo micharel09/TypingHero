@@ -1,28 +1,26 @@
-# Type to slash: the current Typing Hero browser update
+# Jump straight into the duel with a guest name
 
-Typing Hero combines typing with a pixel-art sword duel. Finish a word to attack,
-press Space to parry, and break the skeleton's stamina to trigger Slayer mode.
-During Slayer, correct keystrokes unleash rapid strikes.
+Type to slash. Press Space to parry.
 
-The new browser build brings the duel to a layered Japanese mountain and shrine
-setting. Player and enemy health, enemy stamina and score sit above the fight,
-with a separate typing tray below. Open the global Top 1000 leaderboard from the
-menu or pause screen, then close it to return. Pause, restart and menu controls
-remain available.
+CLACKBLADE is a free desktop browser action game: finish a word to swing your
+sword, time Space to parry, and break enemy stamina to trigger Slayer. During
+Slayer, correct keystrokes unleash rapid strikes.
 
-The game page now pairs a new banner and cover with footage from this browser
-build. The preview shows real typing attacks, parries and Slayer strikes.
+This candidate update fills the existing name field with a guest name such as
+GuestA12F when you have no saved name. Press Play or Enter immediately, or edit
+the name first. Your saved name stays yours, and a name you change is remembered
+when you return in the same browser storage.
 
-Play free in your desktop browser with a keyboard:
-https://micharel09.itch.io/typing-hero
+The six-lesson tutorial and Skip remain available. This change keeps combat,
+scoring and leaderboard behavior as they are in the candidate snapshot.
 
-Try a run and tell me your best score. Did you rely more on typing speed or parry
-timing? If you hit a problem, please include your browser and what happened.
+Play free on desktop with a keyboard:
+https://micharel09.itch.io/clackblade
 
-Thanks for playing and helping shape my first game.
+On your first try, was it clear how to attack and when to parry? If you got stuck,
+please tell me where, whether you used or skipped the tutorial, and your browser.
 
-<!-- Draft only. Owner preview:
-https://micharel09.itch.io/typing-hero/devlog/1712170/type-to-slash-the-current-typing-hero-browser-update
-Media: gameplay-typing-parry-slayer.gif and the three current-build screenshots.
-MP4 is prepared locally. This draft describes TypingHero-WebGL-shogun-20261017.zip;
-keep Draft and attach the matching playable upload and refreshed media. -->
+<!-- LOCAL DRAFT ONLY. Not uploaded or published. The guest-name change is a
+candidate, not a claim about the currently public build. Before publication,
+verify/upload the matching build and replace ?candidate update? with ?update?.
+Existing remote devlog 1712170 remains untouched. Attach matching verified footage. -->

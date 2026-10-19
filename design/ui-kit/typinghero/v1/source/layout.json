@@ -1,0 +1,33 @@
+{
+  "status": "review mockups, not Unity implementation",
+  "intent_source": "User handoff plan: new pixel-fantasy asset kit v1; full-kit review before Unity integration",
+  "canvas": [640, 360],
+  "scales": [1, 2],
+  "coordinate_origin": "top-left",
+  "menu": {
+    "logo": [29, 24, 290, 90],
+    "form": [32, 126, 254, 150],
+    "name_input": [44, 154, 230, 32],
+    "difficulty_text": [46, 188],
+    "play": [44, 213, 230, 30],
+    "secondary_buttons": [[32, 287, 116, 30], [154, 287, 90, 30], [250, 287, 110, 30]],
+    "audio": [390, 323, 224, 26]
+  },
+  "hud": {
+    "hero_resources": [10, 8, 204, 75],
+    "score_combo": [228, 8, 184, 75],
+    "enemy_resources": [426, 8, 204, 75],
+    "typing": [162, 252, 316, 92],
+    "combat_clear_region": [16, 150, 608, 100],
+    "slayer": "same layout; gold frame, label, icon and multiplier; no new resources"
+  },
+  "modal": [147, 38, 346, 286],
+  "collection": {
+    "shell": [20, 16, 600, 328],
+    "tabs": ["Endless", "Classic", "Opponents", "Achievements"],
+    "difficulty_visible_only_on": "Endless",
+    "rows": [34, 158, 563, 29],
+    "row_stride": 31
+  },
+  "dynamic_text": "All player names, scores, typing words, health, statistics and labels are separate mockup overlays; bind existing sources during a future approved integration"
+}

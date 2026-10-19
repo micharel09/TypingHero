@@ -1,6 +1,6 @@
 {
   "game_id": 3857509,
-  "page_url": "https://micharel09.itch.io/typing-hero",
+  "page_url": "https://micharel09.itch.io/clackblade",
   "reference_url": "https://roboatino.itch.io/shogunshowdown",
   "layout": {
     "bg_color": "#000000",
@@ -14,16 +14,16 @@
     "banner_alignment": "align_center"
   },
   "banner": {
-    "file": "banner.png",
+    "file": "banner-clackblade.png",
     "width": 960,
     "height": 394,
-    "image_id": 30983627
+    "image_id": 31073353
   },
   "cover": {
-    "file": "cover.png",
+    "file": "../ItchIO_Optimization/Thumbnails/clackblade-630x500.png",
     "width": 630,
     "height": 500,
-    "image_id": 30983602
+    "image_id": 31073302
   },
   "embed": {
     "embed_type": "maximized",
@@ -33,10 +33,10 @@
     "fullscreen": true
   },
   "playable": {
-    "file": "TypingHero-WebGL-shogun-20261017.zip",
-    "upload_id": 19819691,
-    "sha256": "b5e56079314c73fac75e20495db47a4a2e77897fa793f46a81aab21ebced53b3",
-    "rollback_upload_id": 19793957
+    "file": "CLACKBLADE-WebGL-20261019.zip",
+    "upload_id": 19871730,
+    "sha256": "2194dec22388162d41b2b6882b03a37511b4be28aa013d2e096916bfb64b5b93",
+    "rollback_upload_id": 19865461
   },
   "description_gif_url": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMDk4Mjc5MC5naWY=/original/dgWSbt.gif",
   "devlog": {
@@ -44,7 +44,7 @@
     "published": false
   },
   "social_image": {
-    "file": "banner.png",
-    "image_id": 30983638
+    "file": "banner-clackblade.png",
+    "image_id": 31073415
   }
 }

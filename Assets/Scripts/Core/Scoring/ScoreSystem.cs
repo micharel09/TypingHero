@@ -37,6 +37,8 @@ public class ScoreSystem : MonoBehaviour
 
     float _windowRemain;
     bool _paused;
+    internal float ComboWindowSeconds => rules.comboWindowSeconds /
+        (!TutorialRun.Active && EndlessRun.Current != null ? EndlessRun.Current.Difficulty.Pace() : 1f);
     Camera _cam;
     FloatingScore _floating;
 
@@ -79,7 +81,7 @@ public class ScoreSystem : MonoBehaviour
             // Hết cửa sổ → rơi về trạng thái trước combo: reset multiplier & streak
             ResetComboOnly();
         }
-        ComboRemain01 = Mathf.Clamp01(_windowRemain / Mathf.Max(0.001f, rules.comboWindowSeconds));
+        ComboRemain01 = Mathf.Clamp01(_windowRemain / Mathf.Max(0.001f, ComboWindowSeconds));
         UpdateUI();
     }
 
@@ -109,6 +111,13 @@ public class ScoreSystem : MonoBehaviour
         UpdateUI();
     }
 
+    internal void RestoreRunScore(int score)
+    {
+        Score = score;
+        ResetComboOnly();
+        UpdateUI(true);
+    }
+
     // ==== Internals ====
     void ResetAllInternal()
     {
@@ -132,7 +141,7 @@ public class ScoreSystem : MonoBehaviour
 
     void BumpComboWindow()
     {
-        _windowRemain = rules.comboWindowSeconds;
+        _windowRemain = ComboWindowSeconds;
     }
 
     // ===== Event handlers =====

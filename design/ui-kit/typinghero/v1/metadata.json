@@ -1,0 +1,4074 @@
+{
+  "version": 1,
+  "logical_canvas": [
+    640,
+    360
+  ],
+  "preview_scales": [
+    1,
+    2
+  ],
+  "coordinate_system": "PNG/atlas rects top-left; border uses Unity left,bottom,right,top; normalized pivot bottom-left",
+  "palette": {
+    "coal": "#111b20",
+    "deep": "#192b2c",
+    "jade": "#528d83",
+    "light": "#8ab5a5",
+    "ivory": "#f2e7cf",
+    "muted": "#a6b2a6",
+    "vermilion": "#c65140",
+    "error": "#ff685c",
+    "slayer": "#dfb965",
+    "disabled": "#536160",
+    "shadow": "#090f14"
+  },
+  "assets": [
+    {
+      "id": "button-secondary-normal",
+      "group": "controls",
+      "png": "png/button-secondary-normal.png",
+      "svg": "svg/button-secondary-normal.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          4,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-hover",
+      "group": "controls",
+      "png": "png/button-secondary-hover.png",
+      "svg": "svg/button-secondary-hover.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          132,
+          4,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-pressed",
+      "group": "controls",
+      "png": "png/button-secondary-pressed.png",
+      "svg": "svg/button-secondary-pressed.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          260,
+          4,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-focus",
+      "group": "controls",
+      "png": "png/button-secondary-focus.png",
+      "svg": "svg/button-secondary-focus.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          388,
+          4,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-disabled",
+      "group": "controls",
+      "png": "png/button-secondary-disabled.png",
+      "svg": "svg/button-secondary-disabled.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          516,
+          4,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-normal",
+      "group": "controls",
+      "png": "png/button-primary-normal.png",
+      "svg": "svg/button-primary-normal.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          644,
+          4,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-hover",
+      "group": "controls",
+      "png": "png/button-primary-hover.png",
+      "svg": "svg/button-primary-hover.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          772,
+          4,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-pressed",
+      "group": "controls",
+      "png": "png/button-primary-pressed.png",
+      "svg": "svg/button-primary-pressed.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          44,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-focus",
+      "group": "controls",
+      "png": "png/button-primary-focus.png",
+      "svg": "svg/button-primary-focus.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          132,
+          44,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-disabled",
+      "group": "controls",
+      "png": "png/button-primary-disabled.png",
+      "svg": "svg/button-primary-disabled.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          260,
+          44,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-normal",
+      "group": "controls",
+      "png": "png/input-normal.png",
+      "svg": "svg/input-normal.svg",
+      "size": [
+        220,
+        34
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          388,
+          44,
+          220,
+          34
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-hover",
+      "group": "controls",
+      "png": "png/input-hover.png",
+      "svg": "svg/input-hover.svg",
+      "size": [
+        220,
+        34
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          616,
+          44,
+          220,
+          34
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-pressed",
+      "group": "controls",
+      "png": "png/input-pressed.png",
+      "svg": "svg/input-pressed.svg",
+      "size": [
+        220,
+        34
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          86,
+          220,
+          34
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-focus",
+      "group": "controls",
+      "png": "png/input-focus.png",
+      "svg": "svg/input-focus.svg",
+      "size": [
+        220,
+        34
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          232,
+          86,
+          220,
+          34
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-disabled",
+      "group": "controls",
+      "png": "png/input-disabled.png",
+      "svg": "svg/input-disabled.svg",
+      "size": [
+        220,
+        34
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          460,
+          86,
+          220,
+          34
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-error",
+      "group": "controls",
+      "png": "png/input-error.png",
+      "svg": "svg/input-error.svg",
+      "size": [
+        220,
+        34
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          688,
+          86,
+          220,
+          34
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-normal",
+      "group": "controls",
+      "png": "png/tab-normal.png",
+      "svg": "svg/tab-normal.svg",
+      "size": [
+        112,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          128,
+          112,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-hover",
+      "group": "controls",
+      "png": "png/tab-hover.png",
+      "svg": "svg/tab-hover.svg",
+      "size": [
+        112,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          124,
+          128,
+          112,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-pressed",
+      "group": "controls",
+      "png": "png/tab-pressed.png",
+      "svg": "svg/tab-pressed.svg",
+      "size": [
+        112,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          244,
+          128,
+          112,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-focus",
+      "group": "controls",
+      "png": "png/tab-focus.png",
+      "svg": "svg/tab-focus.svg",
+      "size": [
+        112,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          364,
+          128,
+          112,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-disabled",
+      "group": "controls",
+      "png": "png/tab-disabled.png",
+      "svg": "svg/tab-disabled.svg",
+      "size": [
+        112,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          484,
+          128,
+          112,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-selected",
+      "group": "controls",
+      "png": "png/tab-selected.png",
+      "svg": "svg/tab-selected.svg",
+      "size": [
+        112,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          604,
+          128,
+          112,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "panel-normal",
+      "group": "frames",
+      "png": "png/panel-normal.png",
+      "svg": "svg/panel-normal.svg",
+      "size": [
+        96,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          724,
+          128,
+          96,
+          64
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "modal-normal",
+      "group": "frames",
+      "png": "png/modal-normal.png",
+      "svg": "svg/modal-normal.svg",
+      "size": [
+        128,
+        96
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          828,
+          128,
+          128,
+          96
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tooltip-normal",
+      "group": "frames",
+      "png": "png/tooltip-normal.png",
+      "svg": "svg/tooltip-normal.svg",
+      "size": [
+        96,
+        40
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          232,
+          96,
+          40
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "leaderboard-row-normal",
+      "group": "frames",
+      "png": "png/leaderboard-row-normal.png",
+      "svg": "svg/leaderboard-row-normal.svg",
+      "size": [
+        160,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          108,
+          232,
+          160,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "leaderboard-row-selected",
+      "group": "frames",
+      "png": "png/leaderboard-row-selected.png",
+      "svg": "svg/leaderboard-row-selected.svg",
+      "size": [
+        160,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          276,
+          232,
+          160,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "leaderboard-row-disabled",
+      "group": "frames",
+      "png": "png/leaderboard-row-disabled.png",
+      "svg": "svg/leaderboard-row-disabled.svg",
+      "size": [
+        160,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          444,
+          232,
+          160,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "opponent-card-normal",
+      "group": "frames",
+      "png": "png/opponent-card-normal.png",
+      "svg": "svg/opponent-card-normal.svg",
+      "size": [
+        112,
+        72
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          612,
+          232,
+          112,
+          72
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "opponent-card-selected",
+      "group": "frames",
+      "png": "png/opponent-card-selected.png",
+      "svg": "svg/opponent-card-selected.svg",
+      "size": [
+        112,
+        72
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          732,
+          232,
+          112,
+          72
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "opponent-card-disabled",
+      "group": "frames",
+      "png": "png/opponent-card-disabled.png",
+      "svg": "svg/opponent-card-disabled.svg",
+      "size": [
+        112,
+        72
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          852,
+          232,
+          112,
+          72
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "achievement-card-normal",
+      "group": "frames",
+      "png": "png/achievement-card-normal.png",
+      "svg": "svg/achievement-card-normal.svg",
+      "size": [
+        160,
+        56
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          312,
+          160,
+          56
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "achievement-card-selected",
+      "group": "frames",
+      "png": "png/achievement-card-selected.png",
+      "svg": "svg/achievement-card-selected.svg",
+      "size": [
+        160,
+        56
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          172,
+          312,
+          160,
+          56
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "achievement-card-disabled",
+      "group": "frames",
+      "png": "png/achievement-card-disabled.png",
+      "svg": "svg/achievement-card-disabled.svg",
+      "size": [
+        160,
+        56
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          340,
+          312,
+          160,
+          56
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-normal",
+      "group": "controls",
+      "png": "png/slider-normal.png",
+      "svg": "svg/slider-normal.svg",
+      "size": [
+        120,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          508,
+          312,
+          120,
+          16
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-hover",
+      "group": "controls",
+      "png": "png/slider-hover.png",
+      "svg": "svg/slider-hover.svg",
+      "size": [
+        120,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          636,
+          312,
+          120,
+          16
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-pressed",
+      "group": "controls",
+      "png": "png/slider-pressed.png",
+      "svg": "svg/slider-pressed.svg",
+      "size": [
+        120,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          764,
+          312,
+          120,
+          16
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-focus",
+      "group": "controls",
+      "png": "png/slider-focus.png",
+      "svg": "svg/slider-focus.svg",
+      "size": [
+        120,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          892,
+          312,
+          120,
+          16
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-disabled",
+      "group": "controls",
+      "png": "png/slider-disabled.png",
+      "svg": "svg/slider-disabled.svg",
+      "size": [
+        120,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          376,
+          120,
+          16
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-normal",
+      "group": "controls",
+      "png": "png/scrollbar-normal.png",
+      "svg": "svg/scrollbar-normal.svg",
+      "size": [
+        12,
+        80
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          132,
+          376,
+          12,
+          80
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-hover",
+      "group": "controls",
+      "png": "png/scrollbar-hover.png",
+      "svg": "svg/scrollbar-hover.svg",
+      "size": [
+        12,
+        80
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          152,
+          376,
+          12,
+          80
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-pressed",
+      "group": "controls",
+      "png": "png/scrollbar-pressed.png",
+      "svg": "svg/scrollbar-pressed.svg",
+      "size": [
+        12,
+        80
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          172,
+          376,
+          12,
+          80
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-focus",
+      "group": "controls",
+      "png": "png/scrollbar-focus.png",
+      "svg": "svg/scrollbar-focus.svg",
+      "size": [
+        12,
+        80
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          192,
+          376,
+          12,
+          80
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-disabled",
+      "group": "controls",
+      "png": "png/scrollbar-disabled.png",
+      "svg": "svg/scrollbar-disabled.svg",
+      "size": [
+        12,
+        80
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          212,
+          376,
+          12,
+          80
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-normal",
+      "group": "controls",
+      "png": "png/checkbox-off-normal.png",
+      "svg": "svg/checkbox-off-normal.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          232,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-hover",
+      "group": "controls",
+      "png": "png/checkbox-off-hover.png",
+      "svg": "svg/checkbox-off-hover.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          260,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-pressed",
+      "group": "controls",
+      "png": "png/checkbox-off-pressed.png",
+      "svg": "svg/checkbox-off-pressed.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          288,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-focus",
+      "group": "controls",
+      "png": "png/checkbox-off-focus.png",
+      "svg": "svg/checkbox-off-focus.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          316,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-disabled",
+      "group": "controls",
+      "png": "png/checkbox-off-disabled.png",
+      "svg": "svg/checkbox-off-disabled.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          344,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-normal",
+      "group": "controls",
+      "png": "png/checkbox-on-normal.png",
+      "svg": "svg/checkbox-on-normal.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          372,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-hover",
+      "group": "controls",
+      "png": "png/checkbox-on-hover.png",
+      "svg": "svg/checkbox-on-hover.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          400,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-pressed",
+      "group": "controls",
+      "png": "png/checkbox-on-pressed.png",
+      "svg": "svg/checkbox-on-pressed.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          428,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-focus",
+      "group": "controls",
+      "png": "png/checkbox-on-focus.png",
+      "svg": "svg/checkbox-on-focus.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          456,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-disabled",
+      "group": "controls",
+      "png": "png/checkbox-on-disabled.png",
+      "svg": "svg/checkbox-on-disabled.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          484,
+          376,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-normal",
+      "group": "controls",
+      "png": "png/toggle-off-normal.png",
+      "svg": "svg/toggle-off-normal.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          512,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-hover",
+      "group": "controls",
+      "png": "png/toggle-off-hover.png",
+      "svg": "svg/toggle-off-hover.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          556,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-pressed",
+      "group": "controls",
+      "png": "png/toggle-off-pressed.png",
+      "svg": "svg/toggle-off-pressed.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          600,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-focus",
+      "group": "controls",
+      "png": "png/toggle-off-focus.png",
+      "svg": "svg/toggle-off-focus.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          644,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-disabled",
+      "group": "controls",
+      "png": "png/toggle-off-disabled.png",
+      "svg": "svg/toggle-off-disabled.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          688,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-normal",
+      "group": "controls",
+      "png": "png/toggle-on-normal.png",
+      "svg": "svg/toggle-on-normal.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          732,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-hover",
+      "group": "controls",
+      "png": "png/toggle-on-hover.png",
+      "svg": "svg/toggle-on-hover.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          776,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-pressed",
+      "group": "controls",
+      "png": "png/toggle-on-pressed.png",
+      "svg": "svg/toggle-on-pressed.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          820,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-focus",
+      "group": "controls",
+      "png": "png/toggle-on-focus.png",
+      "svg": "svg/toggle-on-focus.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          864,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-disabled",
+      "group": "controls",
+      "png": "png/toggle-on-disabled.png",
+      "svg": "svg/toggle-on-disabled.svg",
+      "size": [
+        36,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          908,
+          376,
+          36,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-hp-track",
+      "group": "hud",
+      "png": "png/bar-hp-track.png",
+      "svg": "svg/bar-hp-track.svg",
+      "size": [
+        180,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          464,
+          180,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-hp-fill",
+      "group": "hud",
+      "png": "png/bar-hp-fill.png",
+      "svg": "svg/bar-hp-fill.svg",
+      "size": [
+        176,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          192,
+          464,
+          176,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-stamina-track",
+      "group": "hud",
+      "png": "png/bar-stamina-track.png",
+      "svg": "svg/bar-stamina-track.svg",
+      "size": [
+        180,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          376,
+          464,
+          180,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-stamina-fill",
+      "group": "hud",
+      "png": "png/bar-stamina-fill.png",
+      "svg": "svg/bar-stamina-fill.svg",
+      "size": [
+        176,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          564,
+          464,
+          176,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-combo-track",
+      "group": "hud",
+      "png": "png/bar-combo-track.png",
+      "svg": "svg/bar-combo-track.svg",
+      "size": [
+        180,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          748,
+          464,
+          180,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-combo-fill",
+      "group": "hud",
+      "png": "png/bar-combo-fill.png",
+      "svg": "svg/bar-combo-fill.svg",
+      "size": [
+        176,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          484,
+          176,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-timer-track",
+      "group": "hud",
+      "png": "png/bar-timer-track.png",
+      "svg": "svg/bar-timer-track.svg",
+      "size": [
+        180,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          188,
+          484,
+          180,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-timer-fill",
+      "group": "hud",
+      "png": "png/bar-timer-fill.png",
+      "svg": "svg/bar-timer-fill.svg",
+      "size": [
+        176,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          376,
+          484,
+          176,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-slayer-track",
+      "group": "hud",
+      "png": "png/bar-slayer-track.png",
+      "svg": "svg/bar-slayer-track.svg",
+      "size": [
+        180,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          560,
+          484,
+          180,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-slayer-fill",
+      "group": "hud",
+      "png": "png/bar-slayer-fill.png",
+      "svg": "svg/bar-slayer-fill.svg",
+      "size": [
+        176,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          748,
+          484,
+          176,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "typing-frame",
+      "group": "hud",
+      "png": "png/typing-frame.png",
+      "svg": "svg/typing-frame.svg",
+      "size": [
+        160,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          504,
+          160,
+          64
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "typing-correct-frame",
+      "group": "hud",
+      "png": "png/typing-correct-frame.png",
+      "svg": "svg/typing-correct-frame.svg",
+      "size": [
+        160,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          172,
+          504,
+          160,
+          64
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "typing-error-frame",
+      "group": "hud",
+      "png": "png/typing-error-frame.png",
+      "svg": "svg/typing-error-frame.svg",
+      "size": [
+        160,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          340,
+          504,
+          160,
+          64
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slayer-frame",
+      "group": "hud",
+      "png": "png/slayer-frame.png",
+      "svg": "svg/slayer-frame.svg",
+      "size": [
+        160,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          508,
+          504,
+          160,
+          64
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "cue-frame",
+      "group": "hud",
+      "png": "png/cue-frame.png",
+      "svg": "svg/cue-frame.svg",
+      "size": [
+        160,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Stretch only central region; preserve corner pixel grid.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          676,
+          504,
+          160,
+          64
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-hp",
+      "group": "icons",
+      "png": "png/icon-hp.png",
+      "svg": "svg/icon-hp.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          844,
+          504,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-stamina",
+      "group": "icons",
+      "png": "png/icon-stamina.png",
+      "svg": "svg/icon-stamina.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          872,
+          504,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-score",
+      "group": "icons",
+      "png": "png/icon-score.png",
+      "svg": "svg/icon-score.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          900,
+          504,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-combo",
+      "group": "icons",
+      "png": "png/icon-combo.png",
+      "svg": "svg/icon-combo.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          928,
+          504,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-audio-on",
+      "group": "icons",
+      "png": "png/icon-audio-on.png",
+      "svg": "svg/icon-audio-on.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          956,
+          504,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-audio-off",
+      "group": "icons",
+      "png": "png/icon-audio-off.png",
+      "svg": "svg/icon-audio-off.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          984,
+          504,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-music",
+      "group": "icons",
+      "png": "png/icon-music.png",
+      "svg": "svg/icon-music.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-pause",
+      "group": "icons",
+      "png": "png/icon-pause.png",
+      "svg": "svg/icon-pause.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          32,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-restart",
+      "group": "icons",
+      "png": "png/icon-restart.png",
+      "svg": "svg/icon-restart.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          60,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-continue",
+      "group": "icons",
+      "png": "png/icon-continue.png",
+      "svg": "svg/icon-continue.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          88,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-close",
+      "group": "icons",
+      "png": "png/icon-close.png",
+      "svg": "svg/icon-close.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          116,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-back",
+      "group": "icons",
+      "png": "png/icon-back.png",
+      "svg": "svg/icon-back.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          144,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-check",
+      "group": "icons",
+      "png": "png/icon-check.png",
+      "svg": "svg/icon-check.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          172,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-warning",
+      "group": "icons",
+      "png": "png/icon-warning.png",
+      "svg": "svg/icon-warning.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          200,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-slayer",
+      "group": "icons",
+      "png": "png/icon-slayer.png",
+      "svg": "svg/icon-slayer.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          228,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-trophy",
+      "group": "icons",
+      "png": "png/icon-trophy.png",
+      "svg": "svg/icon-trophy.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          256,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-lock",
+      "group": "icons",
+      "png": "png/icon-lock.png",
+      "svg": "svg/icon-lock.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          284,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-sword",
+      "group": "icons",
+      "png": "png/icon-sword.png",
+      "svg": "svg/icon-sword.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          312,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-shield",
+      "group": "icons",
+      "png": "png/icon-shield.png",
+      "svg": "svg/icon-shield.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          340,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-axe",
+      "group": "icons",
+      "png": "png/icon-axe.png",
+      "svg": "svg/icon-axe.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          368,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-timer",
+      "group": "icons",
+      "png": "png/icon-timer.png",
+      "svg": "svg/icon-timer.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          396,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-chevron-left",
+      "group": "icons",
+      "png": "png/icon-chevron-left.png",
+      "svg": "svg/icon-chevron-left.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          424,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-chevron-right",
+      "group": "icons",
+      "png": "png/icon-chevron-right.png",
+      "svg": "svg/icon-chevron-right.svg",
+      "size": [
+        20,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          452,
+          576,
+          20,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-enter",
+      "group": "icons",
+      "png": "png/keycap-enter.png",
+      "svg": "svg/keycap-enter.svg",
+      "size": [
+        48,
+        24
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Static physical key symbol; never use as the typing word.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          480,
+          576,
+          48,
+          24
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-esc",
+      "group": "icons",
+      "png": "png/keycap-esc.png",
+      "svg": "svg/keycap-esc.svg",
+      "size": [
+        28,
+        24
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Static physical key symbol; never use as the typing word.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          536,
+          576,
+          28,
+          24
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-space",
+      "group": "icons",
+      "png": "png/keycap-space.png",
+      "svg": "svg/keycap-space.svg",
+      "size": [
+        48,
+        24
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Static physical key symbol; never use as the typing word.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          572,
+          576,
+          48,
+          24
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-r",
+      "group": "icons",
+      "png": "png/keycap-r.png",
+      "svg": "svg/keycap-r.svg",
+      "size": [
+        28,
+        24
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Static physical key symbol; never use as the typing word.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          628,
+          576,
+          28,
+          24
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-m",
+      "group": "icons",
+      "png": "png/keycap-m.png",
+      "svg": "svg/keycap-m.svg",
+      "size": [
+        28,
+        24
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Static physical key symbol; never use as the typing word.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          664,
+          576,
+          28,
+          24
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-a",
+      "group": "icons",
+      "png": "png/keycap-a.png",
+      "svg": "svg/keycap-a.svg",
+      "size": [
+        28,
+        24
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Static physical key symbol; never use as the typing word.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          700,
+          576,
+          28,
+          24
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-backspace",
+      "group": "icons",
+      "png": "png/keycap-backspace.png",
+      "svg": "svg/keycap-backspace.svg",
+      "size": [
+        48,
+        24
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "Static physical key symbol; never use as the typing word.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          736,
+          576,
+          48,
+          24
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "logo-main",
+      "group": "brand",
+      "png": "png/logo-main.png",
+      "svg": "svg/logo-main.svg",
+      "size": [
+        290,
+        90
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          4,
+          608,
+          290,
+          90
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "logo-mono",
+      "group": "brand",
+      "png": "png/logo-mono.png",
+      "svg": "svg/logo-mono.svg",
+      "size": [
+        290,
+        90
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          302,
+          608,
+          290,
+          90
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "logo-compact",
+      "group": "brand",
+      "png": "png/logo-compact.png",
+      "svg": "svg/logo-compact.svg",
+      "size": [
+        224,
+        34
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          600,
+          608,
+          224,
+          34
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "game-icon",
+      "group": "brand",
+      "png": "png/game-icon.png",
+      "svg": "svg/game-icon.svg",
+      "size": [
+        64,
+        64
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "alpha": "straight RGBA; transparent RGB zero",
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          832,
+          608,
+          64,
+          64
+        ],
+        "extrude": 2
+      }
+    }
+  ],
+  "screens": [
+    "menu",
+    "menu-name-error",
+    "menu-long-name",
+    "hud-normal",
+    "hud-slayer",
+    "hud-stress-low-hp",
+    "hud-correct",
+    "hud-error",
+    "pause",
+    "results-defeat",
+    "results-victory",
+    "continue",
+    "how-to-play",
+    "tutorial",
+    "tutorial-passed",
+    "tutorial-complete",
+    "collection-endless",
+    "collection-classic",
+    "collection-opponents",
+    "collection-achievements",
+    "tutorial-attack",
+    "tutorial-accuracy",
+    "tutorial-parry",
+    "tutorial-stamina",
+    "tutorial-slayer",
+    "tutorial-combine",
+    "tutorial-retry",
+    "collection-loading",
+    "collection-empty",
+    "collection-error"
+  ],
+  "text_limit": 10,
+  "artwork_layers": [
+    {
+      "file": "artwork/01-backdrop.png",
+      "size": [
+        640,
+        360
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "order": 0
+    },
+    {
+      "file": "artwork/02-character.png",
+      "size": [
+        640,
+        360
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "order": 1
+    },
+    {
+      "file": "artwork/03-foreground.png",
+      "size": [
+        640,
+        360
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "filter": "Point",
+      "order": 2
+    }
+  ]
+}

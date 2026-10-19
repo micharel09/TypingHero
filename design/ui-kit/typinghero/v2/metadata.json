@@ -1,0 +1,3672 @@
+{
+  "version": 2,
+  "logical_canvas": [
+    320,
+    180
+  ],
+  "preview_scales": [
+    1,
+    2,
+    4
+  ],
+  "palette": {
+    "shadow": "#090811",
+    "coal": "#14111e",
+    "deep": "#211c2d",
+    "steel": "#494153",
+    "edge": "#77677f",
+    "gold": "#a3844d",
+    "light": "#dcc18a",
+    "ivory": "#f2e7cf",
+    "muted": "#afa1b3",
+    "red": "#a6354c",
+    "error": "#f16b67",
+    "jade": "#588b8c",
+    "disabled": "#58515f"
+  },
+  "assets": [
+    {
+      "id": "button-primary-normal",
+      "group": "controls",
+      "png": "png/button-primary-normal.png",
+      "svg": "svg/button-primary-normal.svg",
+      "size": [
+        100,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          3,
+          3,
+          100,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-hover",
+      "group": "controls",
+      "png": "png/button-primary-hover.png",
+      "svg": "svg/button-primary-hover.svg",
+      "size": [
+        100,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          109,
+          3,
+          100,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-pressed",
+      "group": "controls",
+      "png": "png/button-primary-pressed.png",
+      "svg": "svg/button-primary-pressed.svg",
+      "size": [
+        100,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          215,
+          3,
+          100,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-focus",
+      "group": "controls",
+      "png": "png/button-primary-focus.png",
+      "svg": "svg/button-primary-focus.svg",
+      "size": [
+        100,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          321,
+          3,
+          100,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-primary-disabled",
+      "group": "controls",
+      "png": "png/button-primary-disabled.png",
+      "svg": "svg/button-primary-disabled.svg",
+      "size": [
+        100,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          427,
+          3,
+          100,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-normal",
+      "group": "controls",
+      "png": "png/button-secondary-normal.png",
+      "svg": "svg/button-secondary-normal.svg",
+      "size": [
+        80,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          533,
+          3,
+          80,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-hover",
+      "group": "controls",
+      "png": "png/button-secondary-hover.png",
+      "svg": "svg/button-secondary-hover.svg",
+      "size": [
+        80,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          619,
+          3,
+          80,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-pressed",
+      "group": "controls",
+      "png": "png/button-secondary-pressed.png",
+      "svg": "svg/button-secondary-pressed.svg",
+      "size": [
+        80,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          705,
+          3,
+          80,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-focus",
+      "group": "controls",
+      "png": "png/button-secondary-focus.png",
+      "svg": "svg/button-secondary-focus.svg",
+      "size": [
+        80,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          791,
+          3,
+          80,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "button-secondary-disabled",
+      "group": "controls",
+      "png": "png/button-secondary-disabled.png",
+      "svg": "svg/button-secondary-disabled.svg",
+      "size": [
+        80,
+        19
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          877,
+          3,
+          80,
+          19
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-normal",
+      "group": "controls",
+      "png": "png/input-normal.png",
+      "svg": "svg/input-normal.svg",
+      "size": [
+        112,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          3,
+          28,
+          112,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-hover",
+      "group": "controls",
+      "png": "png/input-hover.png",
+      "svg": "svg/input-hover.svg",
+      "size": [
+        112,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          121,
+          28,
+          112,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-pressed",
+      "group": "controls",
+      "png": "png/input-pressed.png",
+      "svg": "svg/input-pressed.svg",
+      "size": [
+        112,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          239,
+          28,
+          112,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-focus",
+      "group": "controls",
+      "png": "png/input-focus.png",
+      "svg": "svg/input-focus.svg",
+      "size": [
+        112,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          357,
+          28,
+          112,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-disabled",
+      "group": "controls",
+      "png": "png/input-disabled.png",
+      "svg": "svg/input-disabled.svg",
+      "size": [
+        112,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          475,
+          28,
+          112,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "input-error",
+      "group": "controls",
+      "png": "png/input-error.png",
+      "svg": "svg/input-error.svg",
+      "size": [
+        112,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          593,
+          28,
+          112,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-normal",
+      "group": "controls",
+      "png": "png/tab-normal.png",
+      "svg": "svg/tab-normal.svg",
+      "size": [
+        70,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          711,
+          28,
+          70,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-hover",
+      "group": "controls",
+      "png": "png/tab-hover.png",
+      "svg": "svg/tab-hover.svg",
+      "size": [
+        70,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          787,
+          28,
+          70,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-pressed",
+      "group": "controls",
+      "png": "png/tab-pressed.png",
+      "svg": "svg/tab-pressed.svg",
+      "size": [
+        70,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          863,
+          28,
+          70,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-focus",
+      "group": "controls",
+      "png": "png/tab-focus.png",
+      "svg": "svg/tab-focus.svg",
+      "size": [
+        70,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          939,
+          28,
+          70,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-disabled",
+      "group": "controls",
+      "png": "png/tab-disabled.png",
+      "svg": "svg/tab-disabled.svg",
+      "size": [
+        70,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          3,
+          54,
+          70,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tab-selected",
+      "group": "controls",
+      "png": "png/tab-selected.png",
+      "svg": "svg/tab-selected.svg",
+      "size": [
+        70,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          79,
+          54,
+          70,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "panel-normal",
+      "group": "frames",
+      "png": "png/panel-normal.png",
+      "svg": "svg/panel-normal.svg",
+      "size": [
+        80,
+        48
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          155,
+          54,
+          80,
+          48
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "modal-normal",
+      "group": "frames",
+      "png": "png/modal-normal.png",
+      "svg": "svg/modal-normal.svg",
+      "size": [
+        120,
+        90
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          241,
+          54,
+          120,
+          90
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "tooltip-normal",
+      "group": "frames",
+      "png": "png/tooltip-normal.png",
+      "svg": "svg/tooltip-normal.svg",
+      "size": [
+        90,
+        28
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          367,
+          54,
+          90,
+          28
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "leaderboard-row-normal",
+      "group": "frames",
+      "png": "png/leaderboard-row-normal.png",
+      "svg": "svg/leaderboard-row-normal.svg",
+      "size": [
+        120,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          463,
+          54,
+          120,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "leaderboard-row-selected",
+      "group": "frames",
+      "png": "png/leaderboard-row-selected.png",
+      "svg": "svg/leaderboard-row-selected.svg",
+      "size": [
+        120,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          589,
+          54,
+          120,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "leaderboard-row-disabled",
+      "group": "frames",
+      "png": "png/leaderboard-row-disabled.png",
+      "svg": "svg/leaderboard-row-disabled.svg",
+      "size": [
+        120,
+        18
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          715,
+          54,
+          120,
+          18
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "opponent-card-normal",
+      "group": "frames",
+      "png": "png/opponent-card-normal.png",
+      "svg": "svg/opponent-card-normal.svg",
+      "size": [
+        90,
+        46
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          841,
+          54,
+          90,
+          46
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "opponent-card-selected",
+      "group": "frames",
+      "png": "png/opponent-card-selected.png",
+      "svg": "svg/opponent-card-selected.svg",
+      "size": [
+        90,
+        46
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          3,
+          150,
+          90,
+          46
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "opponent-card-disabled",
+      "group": "frames",
+      "png": "png/opponent-card-disabled.png",
+      "svg": "svg/opponent-card-disabled.svg",
+      "size": [
+        90,
+        46
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          99,
+          150,
+          90,
+          46
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "achievement-card-normal",
+      "group": "frames",
+      "png": "png/achievement-card-normal.png",
+      "svg": "svg/achievement-card-normal.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          195,
+          150,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "achievement-card-selected",
+      "group": "frames",
+      "png": "png/achievement-card-selected.png",
+      "svg": "svg/achievement-card-selected.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          321,
+          150,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "achievement-card-disabled",
+      "group": "frames",
+      "png": "png/achievement-card-disabled.png",
+      "svg": "svg/achievement-card-disabled.svg",
+      "size": [
+        120,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          447,
+          150,
+          120,
+          32
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "typing-normal",
+      "group": "frames",
+      "png": "png/typing-normal.png",
+      "svg": "svg/typing-normal.svg",
+      "size": [
+        140,
+        44
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          573,
+          150,
+          140,
+          44
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "typing-error",
+      "group": "frames",
+      "png": "png/typing-error.png",
+      "svg": "svg/typing-error.svg",
+      "size": [
+        140,
+        44
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          719,
+          150,
+          140,
+          44
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "typing-selected",
+      "group": "frames",
+      "png": "png/typing-selected.png",
+      "svg": "svg/typing-selected.svg",
+      "size": [
+        140,
+        44
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "notes": "Corner rivets stay in 6px fixed border; no center ornaments.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          865,
+          150,
+          140,
+          44
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-disabled",
+      "group": "controls",
+      "png": "png/checkbox-off-disabled.png",
+      "svg": "svg/checkbox-off-disabled.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          1011,
+          150,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-focus",
+      "group": "controls",
+      "png": "png/checkbox-off-focus.png",
+      "svg": "svg/checkbox-off-focus.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          3,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-hover",
+      "group": "controls",
+      "png": "png/checkbox-off-hover.png",
+      "svg": "svg/checkbox-off-hover.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          19,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-normal",
+      "group": "controls",
+      "png": "png/checkbox-off-normal.png",
+      "svg": "svg/checkbox-off-normal.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          35,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-off-pressed",
+      "group": "controls",
+      "png": "png/checkbox-off-pressed.png",
+      "svg": "svg/checkbox-off-pressed.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          51,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-disabled",
+      "group": "controls",
+      "png": "png/checkbox-on-disabled.png",
+      "svg": "svg/checkbox-on-disabled.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          67,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-focus",
+      "group": "controls",
+      "png": "png/checkbox-on-focus.png",
+      "svg": "svg/checkbox-on-focus.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          83,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-hover",
+      "group": "controls",
+      "png": "png/checkbox-on-hover.png",
+      "svg": "svg/checkbox-on-hover.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          99,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-normal",
+      "group": "controls",
+      "png": "png/checkbox-on-normal.png",
+      "svg": "svg/checkbox-on-normal.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          115,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "checkbox-on-pressed",
+      "group": "controls",
+      "png": "png/checkbox-on-pressed.png",
+      "svg": "svg/checkbox-on-pressed.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          131,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-audio-off",
+      "group": "icons",
+      "png": "png/icon-audio-off.png",
+      "svg": "svg/icon-audio-off.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          147,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-audio-on",
+      "group": "icons",
+      "png": "png/icon-audio-on.png",
+      "svg": "svg/icon-audio-on.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          163,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-axe",
+      "group": "icons",
+      "png": "png/icon-axe.png",
+      "svg": "svg/icon-axe.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          179,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-back",
+      "group": "icons",
+      "png": "png/icon-back.png",
+      "svg": "svg/icon-back.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          195,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-check",
+      "group": "icons",
+      "png": "png/icon-check.png",
+      "svg": "svg/icon-check.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          211,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-chevron-left",
+      "group": "icons",
+      "png": "png/icon-chevron-left.png",
+      "svg": "svg/icon-chevron-left.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          227,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-chevron-right",
+      "group": "icons",
+      "png": "png/icon-chevron-right.png",
+      "svg": "svg/icon-chevron-right.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          243,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-close",
+      "group": "icons",
+      "png": "png/icon-close.png",
+      "svg": "svg/icon-close.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          259,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-combo",
+      "group": "icons",
+      "png": "png/icon-combo.png",
+      "svg": "svg/icon-combo.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          275,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-continue",
+      "group": "icons",
+      "png": "png/icon-continue.png",
+      "svg": "svg/icon-continue.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          291,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-hp",
+      "group": "icons",
+      "png": "png/icon-hp.png",
+      "svg": "svg/icon-hp.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          307,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-lock",
+      "group": "icons",
+      "png": "png/icon-lock.png",
+      "svg": "svg/icon-lock.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          323,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-music",
+      "group": "icons",
+      "png": "png/icon-music.png",
+      "svg": "svg/icon-music.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          339,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-pause",
+      "group": "icons",
+      "png": "png/icon-pause.png",
+      "svg": "svg/icon-pause.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          355,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-restart",
+      "group": "icons",
+      "png": "png/icon-restart.png",
+      "svg": "svg/icon-restart.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          371,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-score",
+      "group": "icons",
+      "png": "png/icon-score.png",
+      "svg": "svg/icon-score.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          387,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-shield",
+      "group": "icons",
+      "png": "png/icon-shield.png",
+      "svg": "svg/icon-shield.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          403,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-slayer",
+      "group": "icons",
+      "png": "png/icon-slayer.png",
+      "svg": "svg/icon-slayer.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          419,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-stamina",
+      "group": "icons",
+      "png": "png/icon-stamina.png",
+      "svg": "svg/icon-stamina.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          435,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-sword",
+      "group": "icons",
+      "png": "png/icon-sword.png",
+      "svg": "svg/icon-sword.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          451,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-timer",
+      "group": "icons",
+      "png": "png/icon-timer.png",
+      "svg": "svg/icon-timer.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          467,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-trophy",
+      "group": "icons",
+      "png": "png/icon-trophy.png",
+      "svg": "svg/icon-trophy.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          483,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "icon-warning",
+      "group": "icons",
+      "png": "png/icon-warning.png",
+      "svg": "svg/icon-warning.svg",
+      "size": [
+        10,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          499,
+          202,
+          10,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-a",
+      "group": "icons",
+      "png": "png/keycap-a.png",
+      "svg": "svg/keycap-a.svg",
+      "size": [
+        14,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          515,
+          202,
+          14,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-backspace",
+      "group": "icons",
+      "png": "png/keycap-backspace.png",
+      "svg": "svg/keycap-backspace.svg",
+      "size": [
+        24,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          535,
+          202,
+          24,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-enter",
+      "group": "icons",
+      "png": "png/keycap-enter.png",
+      "svg": "svg/keycap-enter.svg",
+      "size": [
+        24,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          565,
+          202,
+          24,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-esc",
+      "group": "icons",
+      "png": "png/keycap-esc.png",
+      "svg": "svg/keycap-esc.svg",
+      "size": [
+        14,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          595,
+          202,
+          14,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-m",
+      "group": "icons",
+      "png": "png/keycap-m.png",
+      "svg": "svg/keycap-m.svg",
+      "size": [
+        14,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          615,
+          202,
+          14,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-r",
+      "group": "icons",
+      "png": "png/keycap-r.png",
+      "svg": "svg/keycap-r.svg",
+      "size": [
+        14,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          635,
+          202,
+          14,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "keycap-space",
+      "group": "icons",
+      "png": "png/keycap-space.png",
+      "svg": "svg/keycap-space.svg",
+      "size": [
+        24,
+        12
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          655,
+          202,
+          24,
+          12
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-disabled",
+      "group": "controls",
+      "png": "png/scrollbar-disabled.png",
+      "svg": "svg/scrollbar-disabled.svg",
+      "size": [
+        6,
+        40
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          685,
+          202,
+          6,
+          40
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-focus",
+      "group": "controls",
+      "png": "png/scrollbar-focus.png",
+      "svg": "svg/scrollbar-focus.svg",
+      "size": [
+        6,
+        40
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          697,
+          202,
+          6,
+          40
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-hover",
+      "group": "controls",
+      "png": "png/scrollbar-hover.png",
+      "svg": "svg/scrollbar-hover.svg",
+      "size": [
+        6,
+        40
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          709,
+          202,
+          6,
+          40
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-normal",
+      "group": "controls",
+      "png": "png/scrollbar-normal.png",
+      "svg": "svg/scrollbar-normal.svg",
+      "size": [
+        6,
+        40
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          721,
+          202,
+          6,
+          40
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "scrollbar-pressed",
+      "group": "controls",
+      "png": "png/scrollbar-pressed.png",
+      "svg": "svg/scrollbar-pressed.svg",
+      "size": [
+        6,
+        40
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          733,
+          202,
+          6,
+          40
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-disabled",
+      "group": "controls",
+      "png": "png/slider-disabled.png",
+      "svg": "svg/slider-disabled.svg",
+      "size": [
+        60,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          745,
+          202,
+          60,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-focus",
+      "group": "controls",
+      "png": "png/slider-focus.png",
+      "svg": "svg/slider-focus.svg",
+      "size": [
+        60,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          811,
+          202,
+          60,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-hover",
+      "group": "controls",
+      "png": "png/slider-hover.png",
+      "svg": "svg/slider-hover.svg",
+      "size": [
+        60,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          877,
+          202,
+          60,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-normal",
+      "group": "controls",
+      "png": "png/slider-normal.png",
+      "svg": "svg/slider-normal.svg",
+      "size": [
+        60,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          943,
+          202,
+          60,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slider-pressed",
+      "group": "controls",
+      "png": "png/slider-pressed.png",
+      "svg": "svg/slider-pressed.svg",
+      "size": [
+        60,
+        8
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          3,
+          248,
+          60,
+          8
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-disabled",
+      "group": "controls",
+      "png": "png/toggle-off-disabled.png",
+      "svg": "svg/toggle-off-disabled.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          69,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-focus",
+      "group": "controls",
+      "png": "png/toggle-off-focus.png",
+      "svg": "svg/toggle-off-focus.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          93,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-hover",
+      "group": "controls",
+      "png": "png/toggle-off-hover.png",
+      "svg": "svg/toggle-off-hover.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          117,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-normal",
+      "group": "controls",
+      "png": "png/toggle-off-normal.png",
+      "svg": "svg/toggle-off-normal.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          141,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-off-pressed",
+      "group": "controls",
+      "png": "png/toggle-off-pressed.png",
+      "svg": "svg/toggle-off-pressed.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          165,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-disabled",
+      "group": "controls",
+      "png": "png/toggle-on-disabled.png",
+      "svg": "svg/toggle-on-disabled.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          189,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-focus",
+      "group": "controls",
+      "png": "png/toggle-on-focus.png",
+      "svg": "svg/toggle-on-focus.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          213,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-hover",
+      "group": "controls",
+      "png": "png/toggle-on-hover.png",
+      "svg": "svg/toggle-on-hover.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          237,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-normal",
+      "group": "controls",
+      "png": "png/toggle-on-normal.png",
+      "svg": "svg/toggle-on-normal.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          261,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "toggle-on-pressed",
+      "group": "controls",
+      "png": "png/toggle-on-pressed.png",
+      "svg": "svg/toggle-on-pressed.svg",
+      "size": [
+        18,
+        10
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          285,
+          248,
+          18,
+          10
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-hp-track",
+      "group": "hud",
+      "png": "png/bar-hp-track.png",
+      "svg": "svg/bar-hp-track.svg",
+      "size": [
+        84,
+        7
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          309,
+          248,
+          84,
+          7
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-hp-fill",
+      "group": "hud",
+      "png": "png/bar-hp-fill.png",
+      "svg": "svg/bar-hp-fill.svg",
+      "size": [
+        80,
+        3
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          399,
+          248,
+          80,
+          3
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-stamina-track",
+      "group": "hud",
+      "png": "png/bar-stamina-track.png",
+      "svg": "svg/bar-stamina-track.svg",
+      "size": [
+        84,
+        7
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          485,
+          248,
+          84,
+          7
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-stamina-fill",
+      "group": "hud",
+      "png": "png/bar-stamina-fill.png",
+      "svg": "svg/bar-stamina-fill.svg",
+      "size": [
+        80,
+        3
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          575,
+          248,
+          80,
+          3
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-combo-track",
+      "group": "hud",
+      "png": "png/bar-combo-track.png",
+      "svg": "svg/bar-combo-track.svg",
+      "size": [
+        84,
+        7
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          661,
+          248,
+          84,
+          7
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-combo-fill",
+      "group": "hud",
+      "png": "png/bar-combo-fill.png",
+      "svg": "svg/bar-combo-fill.svg",
+      "size": [
+        80,
+        3
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          751,
+          248,
+          80,
+          3
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-timer-track",
+      "group": "hud",
+      "png": "png/bar-timer-track.png",
+      "svg": "svg/bar-timer-track.svg",
+      "size": [
+        84,
+        7
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          837,
+          248,
+          84,
+          7
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-timer-fill",
+      "group": "hud",
+      "png": "png/bar-timer-fill.png",
+      "svg": "svg/bar-timer-fill.svg",
+      "size": [
+        80,
+        3
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          927,
+          248,
+          80,
+          3
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-slayer-track",
+      "group": "hud",
+      "png": "png/bar-slayer-track.png",
+      "svg": "svg/bar-slayer-track.svg",
+      "size": [
+        84,
+        7
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          3,
+          264,
+          84,
+          7
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "bar-slayer-fill",
+      "group": "hud",
+      "png": "png/bar-slayer-fill.png",
+      "svg": "svg/bar-slayer-fill.svg",
+      "size": [
+        80,
+        3
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          93,
+          264,
+          80,
+          3
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "boss-track",
+      "group": "hud",
+      "png": "png/boss-track.png",
+      "svg": "svg/boss-track.svg",
+      "size": [
+        94,
+        16
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "Fixed carved endcaps and separate badge. Do not nine-slice; crop fill continuously at [13,7,68,3].",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          179,
+          264,
+          94,
+          16
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "boss-fill",
+      "group": "hud",
+      "png": "png/boss-fill.png",
+      "svg": "svg/boss-fill.svg",
+      "size": [
+        68,
+        3
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          279,
+          264,
+          68,
+          3
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "boss-ticks",
+      "group": "hud",
+      "png": "png/boss-ticks.png",
+      "svg": "svg/boss-ticks.svg",
+      "size": [
+        68,
+        3
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "Decorative overlay only, never quantize HP.",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          353,
+          264,
+          68,
+          3
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "captain-badge",
+      "group": "hud",
+      "png": "png/captain-badge.png",
+      "svg": "svg/captain-badge.svg",
+      "size": [
+        15,
+        17
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          427,
+          264,
+          15,
+          17
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "slayer-badge",
+      "group": "hud",
+      "png": "png/slayer-badge.png",
+      "svg": "svg/slayer-badge.svg",
+      "size": [
+        15,
+        17
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          448,
+          264,
+          15,
+          17
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "logo-main",
+      "group": "brand",
+      "png": "png/logo-main.png",
+      "svg": "svg/logo-main.svg",
+      "size": [
+        142,
+        39
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          469,
+          264,
+          142,
+          39
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "logo-mono",
+      "group": "brand",
+      "png": "png/logo-mono.png",
+      "svg": "svg/logo-mono.svg",
+      "size": [
+        142,
+        39
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          617,
+          264,
+          142,
+          39
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "logo-compact",
+      "group": "brand",
+      "png": "png/logo-compact.png",
+      "svg": "svg/logo-compact.svg",
+      "size": [
+        142,
+        20
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          765,
+          264,
+          142,
+          20
+        ],
+        "extrude": 2
+      }
+    },
+    {
+      "id": "game-icon",
+      "group": "brand",
+      "png": "png/game-icon.png",
+      "svg": "svg/game-icon.svg",
+      "size": [
+        32,
+        32
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "notes": "",
+      "atlas": {
+        "file": "sheets/ui-atlas.png",
+        "rect_top_left": [
+          913,
+          264,
+          32,
+          32
+        ],
+        "extrude": 2
+      }
+    }
+  ],
+  "screens": [
+    "menu",
+    "menu-name-error",
+    "menu-long-name",
+    "hud-normal",
+    "hud-boss",
+    "hud-slayer",
+    "hud-stress-low-hp",
+    "hud-correct",
+    "hud-error",
+    "pause",
+    "results-defeat",
+    "results-victory",
+    "continue",
+    "how-to-play",
+    "tutorial-passed",
+    "tutorial-complete",
+    "tutorial-retry",
+    "tutorial-attack",
+    "tutorial-accuracy",
+    "tutorial-parry",
+    "tutorial-stamina",
+    "tutorial-slayer",
+    "tutorial-combine",
+    "collection-endless",
+    "collection-classic",
+    "collection-opponents",
+    "collection-achievements",
+    "collection-loading",
+    "collection-empty",
+    "collection-error"
+  ],
+  "filter": "Point",
+  "mipmaps": false,
+  "wrap": "Clamp",
+  "coordinate_system": "Atlas top-left; borders Unity left,bottom,right,top; pivot normalized",
+  "boss_fill": {
+    "rect": [
+      13,
+      7,
+      68,
+      3
+    ],
+    "mode": "continuous crop",
+    "ticks": "decorative overlay"
+  },
+  "intro_duration_ms": 2400
+}

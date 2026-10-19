@@ -1,0 +1,111 @@
+{
+  "name": "Slayer HUD",
+  "viewport": {
+    "width": 960,
+    "height": 540
+  },
+  "root": {
+    "name": "960 x 540 / uniform scale / red + full black bars, body gap 8",
+    "direction": "vertical",
+    "padding": [
+      24,
+      24
+    ],
+    "gap": 12,
+    "children": [
+      {
+        "name": "Fixed screen corner / right24 top24 / no frame",
+        "direction": "horizontal",
+        "justify": "flex-end",
+        "height": 72,
+        "children": [
+          {
+            "name": "font24 total / font16 combo below / x1 hidden",
+            "width": 240,
+            "direction": "vertical",
+            "children": [
+              {
+                "name": "128450",
+                "type": "text",
+                "variant": "heading",
+                "height": 28
+              },
+              {
+                "name": "x2.5 / decay",
+                "type": "text",
+                "height": 20
+              }
+            ],
+            "align": "flex-end"
+          }
+        ]
+      },
+      {
+        "name": "Standing bodies + enemy-head award +18 / right24 up12 / rise18",
+        "type": "image",
+        "height": 220
+      },
+      {
+        "name": "Foot +12 / status follows each character",
+        "direction": "horizontal",
+        "justify": "center",
+        "gap": 220,
+        "height": 12,
+        "children": [
+          {
+            "name": "Player HP6 / no name",
+            "width": 112,
+            "height": 12,
+            "children": [
+              {
+                "name": "HP red",
+                "type": "divider",
+                "height": 6
+              }
+            ],
+            "direction": "vertical"
+          },
+          {
+            "name": "Enemy HP6 + Gold stamina4 / no name",
+            "width": 112,
+            "height": 12,
+            "children": [
+              {
+                "name": "HP red",
+                "type": "divider",
+                "height": 6
+              },
+              {
+                "name": "stamina Gold",
+                "type": "divider",
+                "height": 4
+              }
+            ],
+            "direction": "vertical",
+            "gap": 2
+          }
+        ]
+      },
+      {
+        "name": "12 below lowest status / centered672x56 tray",
+        "align": "center",
+        "children": [
+          {
+            "name": "CURRENT     next     third / timer + error",
+            "width": 672,
+            "height": 56,
+            "children": [
+              {
+                "name": "CURRENT     next     third / timer + error",
+                "type": "text",
+                "height": 56
+              }
+            ],
+            "direction": "vertical"
+          }
+        ],
+        "direction": "vertical"
+      }
+    ]
+  }
+}

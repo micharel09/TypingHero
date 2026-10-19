@@ -1,4 +1,4 @@
-# TypingHero
+# CLACKBLADE
 
 For gameplay, balance, typing, combat, scoring, or performance work, read and apply
 [typinghero-game-loop](.agents/skills/typinghero-game-loop/SKILL.md).

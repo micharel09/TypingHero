@@ -1,0 +1,6 @@
+{
+  "mode": "built-in imagegen",
+  "use_case": "stylized-concept",
+  "prompt": "Use case: stylized-concept. Original concept artwork for TypingHero purple dungeon background, landscape 16:9. Pixel art art direction: low resolution 320x180 logical grid, deliberately broad pixel clusters, restrained contrast. Side view stone dungeon arena: massive violet masonry blocks, thick square columns at sides, hanging chains, two dim amber torches, broad dark central recess and flat flagstone floor at lower quarter. Keep middle very dark and spacious for small existing game characters, no characters, no interface, no words, no Japanese architecture, no fine noisy texture, no painterly gradients. Purple charcoal steel palette with small old gold highlights. Clearly built blocky silhouettes, upper left lighting.",
+  "final": "Native grid reconstruction in build.py, not a reduced-color downsample."
+}

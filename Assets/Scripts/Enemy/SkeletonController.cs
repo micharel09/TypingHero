@@ -47,6 +47,43 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     bool _attacking;
     bool _queuedHitReact;
     bool _deathEventFired;
+    EndlessRun endless;
+    int pattern, remainingSwings, swingIndex;
+    int[] chain;
+    float prepareUntil = -1;
+    bool preparing;
+    float swingEndsAt;
+    float attackOneLength, attackTwoLength;
+    int chainParries;
+    internal string LastAttack { get; private set; } = "Attack1";
+    EndlessOpponent definition;
+
+    internal void ConfigureEndless(EndlessRun run)
+    {
+        endless = run;
+        maxHealth = Current = run.Enemy.Health;
+        attackInterval = run.Recovery;
+        var stamina = GetComponent<EnemyStamina>();
+        if (stamina) { stamina.max = run.Enemy.Stamina; stamina.PreparePractice(stamina.max); }
+        definition = run.Definition;
+        if (stamina) { stamina.hitCost = definition.hitCost; stamina.parryCost = 25; }
+        var sprite = GetComponent<SpriteRenderer>();
+        if (sprite) { sprite.color = Color.white; sprite.sprite = definition.idle; }
+        animator.runtimeAnimatorController = definition.controller;
+        foreach (var clip in definition.controller.animationClips)
+        {
+            if (clip.name == "Attack1") attackOneLength = clip.length;
+            if (clip.name == "Attack2") attackTwoLength = clip.length;
+        }
+        animator.speed = 1;
+        animator.Play("Base Layer.skeleton_idle", 0, 0);
+        animator.Update(0);
+        var slayerPose = GetComponent<EnemySlayerHitPose>();
+        if (slayerPose) slayerPose.ConfigureHurt(definition.hurt);
+        pattern = remainingSwings = 0; preparing = false;
+        _attacking = false; _nextAttackAt = Now + .5f;
+
+    }
 
     float Now => Time.time;
     public bool IsAttacking => _attacking;
@@ -60,12 +97,23 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     public void Anim_Telegraph()
     {
         if (!isActiveAndEnabled || !_attacking || IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
+        RevealCue();
+    }
+    void RevealCue()
+    {
         if (attackCue) attackCue.SetActive(true);
         var sound = GetComponent<SfxOnEnemyAttack>();
         if (sound) sound.Anim_EnemyAttackSfx();
     }
     public void HideCue() { if (attackCue) attackCue.SetActive(false); }
-    void OnDisable() { _attacking = false; HideCue(); }
+    void OnDisable()
+    {
+        _attacking = false; remainingSwings = 0; preparing = false;
+        var strike = GetComponent<AttackStrike>();
+        if (strike) strike.CancelSwing();
+        if (animator && endless != null) animator.speed = 1;
+        HideCue();
+    }
 
     void Awake()
     {
@@ -77,31 +125,85 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     void Update()
     {
         if (practiceIdle || IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
+        if (preparing)
+        {
+            if (Now < prepareUntil) return;
+            preparing = false; animator.speed = 1;
+        }
 
         if (!_attacking && Now >= _nextAttackAt) { StartAttack(); return; }
 
         if (_attacking)
         {
-            if (!AnimatorUtil.IsInState(animator, attackStatePath, out var info) || info.normalizedTime >= 0.98f)
+            bool inAttack = AnimatorUtil.IsInState(animator, attackStatePath, out var info);
+            if (!inAttack && endless != null)
+            {
+                // A parry riposte may play Hurt. It must not accelerate the next
+                // strike into the player's still-locked success pose.
+                HideCue();
+                var strike = GetComponent<AttackStrike>();
+                if (strike) strike.CancelSwing();
+                if (Now < swingEndsAt) return;
+            }
+            if (!inAttack || info.normalizedTime >= (endless != null ? 1f : .98f))
                 EndAttack();
         }
     }
 
     void StartAttack()
     {
+        if (endless != null)
+        {
+            if (remainingSwings == 0)
+            {
+                chain = definition.Pattern(pattern++, endless.Round, (float)Current / maxHealth);
+                remainingSwings = chain.Length; swingIndex = 0; chainParries = 0;
+            }
+            int attack = chain[swingIndex++];
+            attackStatePath = attack == 1 ? "Base Layer.skeleton_attack_heavy" : "Base Layer.skeleton_attack2";
+            LastAttack = "Attack" + attack;
+        }
         _attacking = true;
         _queuedHitReact = false;
         if (animator && !string.IsNullOrEmpty(attackStatePath))
+        {
+            animator.speed = 1;
             animator.Play(attackStatePath, 0, 0f);
+            if (endless != null) swingEndsAt = Now + (LastAttack == "Attack1" ? attackOneLength : attackTwoLength);
+            if (endless != null && LastAttack == "Attack2" && definition.role != EndlessRole.Heavy && definition.role != EndlessRole.Berserker)
+            {
+                animator.Update(0); animator.speed = 0;
+                preparing = true; prepareUntil = Now + .1f;
+                swingEndsAt += .1f;
+                RevealCue();
+            }
+        }
         var strike = GetComponent<AttackStrike>();
-        if (strike) strike.BeginSwing();
+        if (strike)
+        {
+            if (endless != null) strike.BeginSwing(definition.damage);
+            else strike.BeginSwing();
+        }
+    }
+
+    internal void RecordParry()
+    {
+        if (endless == null || chain == null || !_attacking) return;
+        chainParries++;
+        if (chain.Length == 3 && chainParries == 3) EndlessProfile.Unlock(EndlessProfile.TripleParry);
     }
 
     void EndAttack()
     {
         _attacking = false;
         HideCue();
-        _nextAttackAt = Now + attackInterval;
+        if (endless != null)
+        {
+            remainingSwings = Mathf.Max(0, remainingSwings - 1);
+            if (animator) animator.speed = 1;
+        }
+        _nextAttackAt = Now + (remainingSwings > 0 ? .12f : attackInterval);
+        if (endless != null && animator) animator.Play("Base Layer.skeleton_idle", 0, 0);
 
         if (_queuedHitReact && !IsDead && animator && !string.IsNullOrEmpty(hitStatePath))
         {
@@ -133,6 +235,10 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     {
         if (IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
         IsDead = true;
+        remainingSwings = 0; preparing = false;
+        var strike = GetComponent<AttackStrike>();
+        if (strike) strike.CancelSwing();
+        if (animator && endless != null) animator.speed = 1;
         HideCue();
         if (CombatSession.I) CombatSession.I.Complete(true);
         onDied?.Invoke();
@@ -149,7 +255,8 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         if (_deathEventFired) return;
         _deathEventFired = true;
 
-        if (gamePause && !gamePause.IsRestarting)
+        if (EndlessDuel.I) EndlessDuel.I.EnemyDeathFinished();
+        else if (gamePause && !gamePause.IsRestarting)
             gamePause.ShowThanksSimple();
 
         OnDeathFinished?.Invoke();

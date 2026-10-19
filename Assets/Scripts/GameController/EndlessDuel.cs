@@ -1,0 +1,114 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+[DefaultExecutionOrder(200)]
+public sealed class EndlessDuel : MonoBehaviour
+{
+    internal static EndlessDuel I { get; private set; }
+    internal EndlessRun Run { get; private set; }
+    EndlessOverlay overlay;
+    GamePauseController pause;
+    PlayerHealth player;
+    bool ready, loading, enemyDefeated, resultSaved;
+    string resultSummary;
+    int encounterStartHp;
+
+    void Awake() { I = this; }
+    void Start()
+    {
+        bool continuing = EndlessRun.Continuing;
+        Run = EndlessRun.EnterScene();
+        player = FindObjectOfType<PlayerHealth>();
+        pause = FindObjectOfType<GamePauseController>();
+        var enemy = FindObjectOfType<SkeletonController>();
+        enemy.ConfigureEndless(Run);
+        if (Run.Health > 0) player.RestoreEncounterHealth(Run.Health);
+        else Run.Health = player.Current;
+        CombatSession.I.RestoreEndless(Run);
+        if (ScoreSystem.I) ScoreSystem.I.RestoreRunScore(Run.Score);
+        overlay = EndlessOverlay.Create();
+        GamePauseController.SetEncounterReading(true);
+        ready = true;
+        EndlessProfile.Encounter(Run.Role, Run.Slot == 4);
+        encounterStartHp = player.Current;
+        if (continuing) Continue(); else RenderIntro();
+    }
+
+    void RenderIntro()
+    {
+        if (overlay) overlay.Show($"{Run.Difficulty.Label()} · DUEL {Run.Slot + 1}/6 · {Run.Enemy.Name}",
+            Run.Enemy.Hint, "Fight · Enter", Continue);
+    }
+
+    void Update()
+    {
+        if (!ready || loading || Run.Completed || GamePauseController.IsPaused || LeaderboardModal.BlocksShortcuts ||
+            (pause && pause.IsRestarting)) return;
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) Continue();
+    }
+
+    public void Continue()
+    {
+        if (!ready || loading || Run.Completed || GamePauseController.IsPaused || LeaderboardModal.BlocksShortcuts ||
+            (pause && pause.IsRestarting)) return;
+        if (CombatSession.Finished)
+        {
+            if (!player || player.IsDead) return;
+            loading = true;
+            EndlessRun.Continuing = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
+        }
+        ready = false;
+        GamePauseController.SetEncounterReading(false);
+        if (overlay) overlay.ShowCombat($"{Run.Difficulty.Label()} · DUEL {Run.Slot + 1}/6 · {Run.Enemy.Name}");
+    }
+
+    internal void EnemyDefeated()
+    {
+        if (enemyDefeated || Run.Completed) return;
+        enemyDefeated = true;
+        Run.Capture(CombatSession.I, player.Current);
+        EndlessProfile.Defeat(Run.Role, Run.Slot == 4);
+        if (Run.Slot == 5)
+        {
+            EndlessProfile.Unlock(EndlessProfile.FirstBoss);
+            if (player.Current == encounterStartHp) EndlessProfile.Unlock(EndlessProfile.PerfectBoss);
+        }
+        Run.Win(player.maxHealth);
+    }
+
+    internal void EnemyDeathFinished()
+    {
+        if (!player || player.IsDead) return;
+        foreach (var bar in FindObjectsOfType<StaminaBarUI>()) bar.gameObject.SetActive(false);
+        if (Run.Completed)
+        {
+            ready = false;
+            if (overlay) overlay.gameObject.SetActive(false);
+            if (pause && !pause.IsRestarting) pause.ShowVictory();
+            return;
+        }
+        ready = true;
+        if (overlay) overlay.Show($"{Run.Difficulty.Label()} · CLEARED {Run.Defeated} · HP {Run.Health}/{player.maxHealth}",
+            $"NEXT: DUEL {Run.Slot + 1}/6 \u00b7 {Run.Enemy.Name}\n{Run.Enemy.Hint}", "Continue · Enter", Continue);
+    }
+
+    internal string FinishRun(bool won = false)
+    {
+        if (resultSaved) return resultSummary;
+        resultSaved = true;
+        Run.Capture(CombatSession.I, won ? player.Current : 0);
+        bool best = Run.SaveBest();
+        var killer = FindObjectOfType<SkeletonController>();
+        string cause = Run.Enemy.Name + " / " + (killer ? killer.LastAttack : "Attack");
+        EndlessLeaderboard.Queue(Run.Defeated, Run.Score, Run.Difficulty);
+        if (overlay) overlay.gameObject.SetActive(false);
+        int cleared = PlayerPrefs.GetInt(EndlessDifficulties.StorageKey(Run.Difficulty, EndlessRun.BestDefeatedKey), 0);
+        int score = PlayerPrefs.GetInt(EndlessDifficulties.StorageKey(Run.Difficulty, EndlessRun.BestScoreKey), 0);
+        string outcome = won ? "BOSS DEFEATED" : "FELL TO " + cause;
+        return resultSummary = $"{Run.Difficulty.Label()} · {outcome}\nDEFEATED {Run.Defeated}\n{(best ? "NEW BEST" : "BEST")} {cleared} DEFEATED · {score} POINTS";
+    }
+
+    void OnDestroy() { if (I == this) I = null; }
+}

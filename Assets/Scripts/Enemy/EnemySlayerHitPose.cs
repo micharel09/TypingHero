@@ -85,6 +85,11 @@ public class EnemySlayerHitPose : MonoBehaviour
     }
 
     // ======= internals =======
+    internal void ConfigureHurt(AnimationClip clip)
+    {
+        hitClip = clip; clipSteps = 5; BuildFrameTimes();
+    }
+
     void BuildFrameTimes()
     {
         _frameTimes.Clear();

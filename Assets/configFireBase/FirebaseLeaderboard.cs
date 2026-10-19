@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 [DisallowMultipleComponent]
-public sealed class FirebaseLeaderboard : MonoBehaviour
+public sealed partial class FirebaseLeaderboard : MonoBehaviour
 {
     public enum AuthMode { PublicNoAuth, AnonymousAuth }
 

@@ -1,6 +1,6 @@
 {
   "name": "TypingHero.Tests",
-  "references": ["TypingHero.Runtime", "Unity.TextMeshPro", "Unity.ugui"],
+  "references": ["TypingHero.Runtime", "Unity.TextMeshPro", "Unity.ugui", "Cinemachine"],
   "optionalUnityReferences": ["TestAssemblies"],
   "defineConstraints": ["UNITY_INCLUDE_TESTS"]
 }

@@ -8,7 +8,7 @@ const profile = process.argv[2];
 const seconds = Number(process.argv[3] || 1800);
 const report = { status: 'failed', profile, checks: 0, samples: [], rounds: 0, externalBlocked: 0, fixtureReads: 0, fixtureTopReads: 0, fixtureWrites: 0, exceptions: [] };
 report.outputDirectory = process.env.TYPINGHERO_RESULTS_ROOT || '/results';
-report.origin = process.env.TYPINGHERO_REMOTE_QA_HOST || 'http://127.0.0.1:8123';
+report.origin = process.env.TYPINGHERO_REMOTE_QA_HOST || `http://127.0.0.1:${process.env.TYPINGHERO_QA_PORT || 8123}`;
 report.toolchain = JSON.parse(fs.readFileSync(path.join(process.env.TYPINGHERO_RUNNER_ROOT || '/runner', 'toolchain.json'), 'utf8'));
 report.snapshot = JSON.parse(fs.readFileSync(path.join(report.outputDirectory, 'snapshot.json'), 'utf8'));
 report.viewport = profile === 'stress' ? '960x600 and 400x600' : '960x600';
@@ -146,7 +146,8 @@ async function tutorialPilot(page) {
 }
 async function session(browser, viewport, rows, embedded = false) {
   const context = await browser.newContext({ viewport, serviceWorkers: 'block',
-    ...(process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1' ? {recordVideo:{dir:report.outputDirectory,size:viewport}} : {}) });
+    ...((process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1' || process.env.TYPINGHERO_ENDLESS_ONLY === '1' || process.env.TYPINGHERO_ENDLESS_NETWORK_ONLY === '1' || process.env.TYPINGHERO_HUD_R7_ONLY === '1') ? {recordVideo:{dir:report.outputDirectory,size:viewport}} : {}) });
+  const endlessEntries = new Map();
   await context.route('**/*', async route => {
     const req = route.request();
     const url = new URL(req.url());
@@ -166,10 +167,37 @@ async function session(browser, viewport, rows, embedded = false) {
       } else { report.fixtureWrites++; body = req.postData() || '{}'; }
       return route.fulfill({ status: 200, contentType: 'application/json', headers, body });
     }
+    if (url.hostname === 'typinghero-41b29-default-rtdb.asia-southeast1.firebasedatabase.app' && /^\/leaderboards\/endless_v[12](?:[/.])/.test(url.pathname)) {
+      headers['access-control-expose-headers']='ETag'; headers.ETag='"fixture-v1"';
+      if(req.method()==='OPTIONS') return route.fulfill({status:204,headers});
+      let body='null';
+      report.endlessPaths ||= [];
+      report.endlessPaths.push({method:req.method(),path:url.pathname});
+      if(req.method()==='GET') {
+        report.endlessReads=(report.endlessReads||0)+1;
+        if(/^\/leaderboards\/(?:endless_v1|endless_v2\/(?:very_easy|easy|hard|very_hard))\.json$/.test(url.pathname)) {
+          const level=url.pathname.includes('endless_v1')?'normal':url.pathname.split('/').at(-1).replace('.json','');
+          const entries=Array.from({length:2100},(_,i)=>['endless'+i,{name:level+' Duelist'+i,defeated:i<900?12:6,score:i,updatedAt:1700000000000+i}]);
+          const boundary=url.searchParams.has('equalTo');
+          body=JSON.stringify(Object.fromEntries(boundary?entries.slice(900):[...entries.slice(0,900),...entries.slice(-100)]));
+        } else body=JSON.stringify(endlessEntries.get(url.pathname)||null);
+      } else if(req.method()==='PUT') {
+        report.endlessWrites=(report.endlessWrites||0)+1;
+        body=req.postData(); endlessEntries.set(url.pathname,JSON.parse(body));
+        (report.endlessPayloads ||= []).push({path:url.pathname,...JSON.parse(body)});
+      } else throw new Error('Unexpected Endless fixture method '+req.method());
+      return route.fulfill({status:200,headers,contentType:'application/json',body});
+    }
     report.externalBlocked++;
     await route.abort('blockedbyclient');
   });
   const page = await context.newPage();
+  if(Number(process.env.TYPINGHERO_CPU_THROTTLE || 1)>1){
+    const timingSession=await context.newCDPSession(page);
+    const rate=Number(process.env.TYPINGHERO_CPU_THROTTLE);
+    await timingSession.send('Emulation.setCPUThrottlingRate',{rate});
+    report.cpuThrottlingRate=rate;
+  }
   // Observe publication time without changing any value exposed by the game.
   await page.addInitScript(() => {
     let latest;
@@ -177,6 +205,14 @@ async function session(browser, viewport, rows, embedded = false) {
       configurable: true, get: () => latest,
       set: value => { latest = value; window.typingHeroQAPublishedAt = performance.now(); }
     });
+  });
+  if(process.env.TYPINGHERO_ENDLESS_AUDIO_ONLY==='1') await page.addInitScript(()=>{
+    window.difficultyAudioStarts=[];
+    const original=AudioBufferSourceNode.prototype.start;
+    AudioBufferSourceNode.prototype.start=function(...args){
+      if(this.buffer) window.difficultyAudioStarts.push({at:performance.now(),duration:this.buffer.duration});
+      return original.apply(this,args);
+    };
   });
   page.on('pageerror', error => { report.pageError = String(error); });
   page.on('console', message => {
@@ -539,7 +575,7 @@ async function modalFlow(page, paused) {
 
 (async () => {
   if (!process.env.TYPINGHERO_REMOTE_QA_HOST)
-    await new Promise(resolve => server.listen(8123, '127.0.0.1', resolve));
+    await new Promise(resolve => server.listen(Number(new URL(report.origin).port), '127.0.0.1', resolve));
   let browser;
   try {
     const native = process.env.TYPINGHERO_NATIVE === '1';
@@ -553,7 +589,34 @@ async function modalFlow(page, paused) {
       browser = context.browser();
     } else browser = await chromium.launch(options);
     report.chromium = browser.version();
-    if (process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1') {
+    if (process.env.TYPINGHERO_HUD_R7_ONLY === '1') {
+      report.scenario='combat-r7';
+      const {context,page}=await session(browser,{width:960,height:540},1000);
+      try {
+        await page.emulateMedia({reducedMotion:process.env.TYPINGHERO_REDUCED_MOTION==='1'?'reduce':'no-preference'});
+        await start(page,false);
+        await require('./tutorial.cjs')({state,until,clickControl,check,report,
+          focus:(p,reading)=>require('./tutorial_focus.cjs')({state,until,check,report},p,reading)},page,{
+          freshTutorial:true,viewports:[[320,180],[640,360],[1280,720],[400,300]],captureGrayscale:true,r7Input:true
+        });
+      } finally {await context.close();}
+    } else if (process.env.TYPINGHERO_ENDLESS_AUDIO_ONLY === '1') {
+      report.scenario='endless-typing-audio';
+      await require('./difficulty_audio.cjs')({session,start,state,until,clickControl,check,report},browser);
+    } else if (process.env.TYPINGHERO_ENDLESS_UI_ONLY === '1') {
+      report.scenario='endless-ui';
+      await require('./difficulty_ui.cjs')({session,start,state,until,clickControl,check,report},browser);
+    } else if (process.env.TYPINGHERO_ENDLESS_NETWORK_ONLY === '1') {
+      report.scenario='endless-network';
+      report.difficultyNetworkDriverSha256=require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(__dirname,'difficulty_network.cjs'))).digest('hex');
+      await require('./difficulty_network.cjs')({session,start,state,until,clickControl,check,report},browser);
+    } else if (process.env.TYPINGHERO_ENDLESS_ONLY === '1' ||
+        (profile === 'webgl' && !Object.keys(process.env).some(k => k.startsWith('TYPINGHERO_') && k.endsWith('_ONLY') && process.env[k] === '1'))) {
+      report.scenario='endless';
+      report.viewport='960x540; intro resize640x360';
+      report.endlessDriverSha256=require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(__dirname,'endless.cjs'))).digest('hex');
+      await require('./endless.cjs')({session,start,state,until,clickControl,check,report},browser);
+    } else if (process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1') {
       report.scenario='pixel-sparks'; report.viewport='1280x720 and 640x360';
       report.pixelSparksDriverSha256=require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(__dirname,'pixel_sparks.cjs'))).digest('hex');
       await require('./pixel_sparks.cjs')({session,start,state,until,check,report},browser);
@@ -561,8 +624,8 @@ async function modalFlow(page, paused) {
       report.scenario='score-layout';
       const {context,page}=await session(browser,{width:960,height:600},1000);
       try {
-        await tutorialPilot(page);
-        await require('./tutorial.cjs')({state,until,clickControl,check,report},page,{stopAfterSlayerLayout:true});
+        await start(page, false);
+        await require('./tutorial.cjs')({state,until,clickControl,check,report},page,{stopAfterSlayerLayout:true,freshTutorial:true});
       } finally {await context.close();}
       await require('./slayer.cjs')({session,start,state,until,check,report},browser);
       const victory=await session(browser,{width:960,height:540},1000);
@@ -615,7 +678,7 @@ async function modalFlow(page, paused) {
       } finally { await context.close(); }
       if (profile === 'webgl') await require('./tutorial_embedding.cjs')({session, state, until, clickControl, check, report}, browser);
     }
-    if (profile === 'webgl' && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
+    if (profile === 'webgl' && !['endless','endless-network','endless-ui','endless-typing-audio'].includes(report.scenario) && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
     check(!report.pageError, 'no JavaScript exceptions');
     check(report.exceptions.length === 0, 'no startup or runtime exceptions in console');
     report.status = 'passed';

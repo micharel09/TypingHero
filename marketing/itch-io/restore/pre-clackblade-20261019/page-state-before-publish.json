@@ -1,0 +1,483 @@
+{
+  "url": "https://itch.io/game/edit/3857509",
+  "fields": [
+    {
+      "name": "q",
+      "value": "",
+      "checked": false,
+      "type": "text"
+    },
+    {
+      "name": "game[title]",
+      "value": "Typing Hero: Type to Slash",
+      "checked": false,
+      "type": "text"
+    },
+    {
+      "name": "game[slug]",
+      "value": "typing-hero",
+      "checked": false,
+      "type": "text"
+    },
+    {
+      "name": "game[short_text]",
+      "value": "Type to attack. Space to parry. Break stamina for Slayer. Free browser sword combat.",
+      "checked": false,
+      "type": "text"
+    },
+    {
+      "name": "game[user_classification]",
+      "value": "game",
+      "type": "select-one"
+    },
+    {
+      "name": "game[type]",
+      "value": "html",
+      "type": "select-one"
+    },
+    {
+      "name": "game[release_status]",
+      "value": "in_development",
+      "type": "select-one"
+    },
+    {
+      "name": "game[suggested_price]",
+      "value": "$1.00",
+      "checked": false,
+      "type": "text"
+    },
+    {
+      "name": "upload[19792304][type]",
+      "value": "default",
+      "type": "select-one"
+    },
+    {
+      "name": "upload[19792304][p_windows]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19792304][p_linux]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19792304][p_osx]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19792304][p_android]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19792304][hidden]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19793957][type]",
+      "value": "default",
+      "type": "select-one"
+    },
+    {
+      "name": "upload[19793957][p_windows]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19793957][p_linux]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19793957][p_osx]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19793957][p_android]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19793957][hidden]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19819691][type]",
+      "value": "default",
+      "type": "select-one"
+    },
+    {
+      "name": "upload[19819691][p_windows]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19819691][p_linux]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19819691][p_osx]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19819691][p_android]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19819691][hidden]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19839230][type]",
+      "value": "default",
+      "type": "select-one"
+    },
+    {
+      "name": "upload[19839230][p_windows]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19839230][p_linux]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19839230][p_osx]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19839230][p_android]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19839230][hidden]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19840745][type]",
+      "value": "default",
+      "type": "select-one"
+    },
+    {
+      "name": "upload[19840745][p_windows]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19840745][p_linux]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19840745][p_osx]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19840745][p_android]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19840745][hidden]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847268][type]",
+      "value": "default",
+      "type": "select-one"
+    },
+    {
+      "name": "upload[19847268][p_windows]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847268][p_linux]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847268][p_osx]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847268][p_android]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847268][hidden]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847423][type]",
+      "value": "default",
+      "type": "select-one"
+    },
+    {
+      "name": "upload[19847423][p_windows]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847423][p_linux]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847423][p_osx]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847423][p_android]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19847423][hidden]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "upload[19865461][embed]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "embed[embed_type]",
+      "value": "maximized",
+      "type": "select-one"
+    },
+    {
+      "name": "embed[mobile_friendly]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "embed[scrollbars]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "embed[cdn_type]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "game[classname]",
+      "value": "",
+      "checked": false,
+      "type": "text"
+    },
+    {
+      "name": "game[description]",
+      "value": "<p><strong>TYPE TO ATTACK. SPACE TO PARRY. BREAK STAMINA TO UNLEASH&nbsp;SLAYER.</strong></p>\n<p>Finish the word before the skeleton's next swing. Watch its attack cue, time Space to parry, then turn the opening into another sword strike. Break enemy stamina and unleash Slayer: correct keystrokes become rapid attacks.</p>\n<p><strong>Play now:</strong> click <strong>Run game</strong> above. Free in your desktop browser, with a keyboard. No download required.</p>\n<p><img src=\"https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4MS5naWY=/original/nQ9RJP.gif\" alt=\"Real gameplay: finish BLADE to trigger a sword strike.\" width=\"640\" height=\"360\"></p>\n<h2>A sword duel played on your keyboard</h2>\n<ul>\n<li><strong>Type to attack:</strong> complete the highlighted word to swing your sword.</li>\n<li><strong>Space to parry:</strong> read the enemy's cue and time your defense while keeping up with the words.</li>\n<li><strong>Break stamina for Slayer:</strong> hits and parries build toward a burst of rapid strikes driven by correct keystrokes.</li>\n<li><strong>Chase a better run:</strong> keep your accuracy, build a combo, and compare scores on the global Top 1000.</li>\n</ul>\n<h2>Learn the rhythm</h2>\n<p>The interactive tutorial walks through attacking, accuracy, parrying and Slayer. You can skip it or replay it from the menu.</p>\n<p><strong>Controls:</strong> letters to attack, Space to parry, Esc to pause. Use R to restart or M to return to the menu from pause or results.</p>\n<h2>Try the first duel</h2>\n<p>Can you keep your eyes on the next swing while finishing the word? Click Run game and try it. If the controls are unclear, tell me the moment you got stuck and which browser you used.</p>\n<h2>Credits</h2>\n<ul>\n  <li><a href=\"https://lyniadesign.itch.io/tiny-pixel-japan-parallax-background\">Tiny Pixel Japan Parallax Background</a> by <strong>LyniaDesign</strong>, used under the author's license. Palette adapted for Typing Hero.</li>\n  <li><a href=\"https://pimen.itch.io/battle-vfx-hit-spark\">Hit Spark</a> and <a href=\"https://pimen.itch.io/pixel-battle-effects\">Battle Effects</a> by <strong>Pimen</strong>. Hit Spark uses the included author license; Battle Effects is <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>. Animation timing, pivots and scale adapted; Battle Effects converted to white for Slayer.</li>\n  <li><a href=\"https://kenney.nl/assets/input-prompts-pixel\">Input Prompts Pixel</a> by <strong>Kenney</strong> (CC0).</li>\n  <li><a href=\"https://kenney.nl/assets/impact-sounds\">Impact Sounds</a> and <a href=\"https://kenney.nl/assets/ui-audio\">UI Audio</a> by <strong>Kenney</strong> (CC0).</li>\n  <li><a href=\"https://github.com/google/fonts/tree/main/ofl/vt323\">VT323</a> by <strong>Peter Hull</strong> (SIL Open Font License 1.1).</li>\n<li><a href=\"https://opengameart.org/content/free-vfx-asset-pack\">Free VFX Asset Pack</a> by <strong>CodeManu</strong> (CC0); retained legacy sheets adapted by Typing Hero. Current impact particles are implemented in the project.</li>\n</ul>\n<p>Credits and licenses are included in the browser build. Attribution for the retained hero and skeleton assets and original music is still being verified.</p>",
+      "type": "textarea"
+    },
+    {
+      "name": "game[genre]",
+      "value": "action",
+      "type": "select-one"
+    },
+    {
+      "name": "game[tags]",
+      "value": "2d,arcade,difficult,fast-paced,hack-and-slash,high-score,pixel-art,typing,word-game",
+      "checked": false,
+      "type": "text"
+    },
+    {
+      "name": "ai_disclosure[ai_generated]",
+      "value": "yes",
+      "checked": true,
+      "type": "radio"
+    },
+    {
+      "name": "ai_disclosure[ai_generated]",
+      "value": "no",
+      "checked": false,
+      "type": "radio"
+    },
+    {
+      "name": "ai_disclosure[ai_graphics]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "ai_disclosure[ai_audio]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "ai_disclosure[ai_text]",
+      "value": "on",
+      "checked": true,
+      "type": "checkbox"
+    },
+    {
+      "name": "ai_disclosure[ai_code]",
+      "value": "on",
+      "checked": false,
+      "type": "checkbox"
+    },
+    {
+      "name": "game[noun]",
+      "value": "",
+      "checked": false,
+      "type": "text"
+    },
+    {
+      "name": "game[instructions]",
+      "value": "",
+      "type": "textarea"
+    },
+    {
+      "name": "game[community_type]",
+      "value": "none",
+      "checked": false,
+      "type": "radio"
+    },
+    {
+      "name": "game[community_type]",
+      "value": "topic",
+      "checked": true,
+      "type": "radio"
+    },
+    {
+      "name": "game[community_type]",
+      "value": "category",
+      "checked": false,
+      "type": "radio"
+    },
+    {
+      "name": "game[published]",
+      "value": "draft",
+      "checked": false,
+      "type": "radio"
+    },
+    {
+      "name": "game[published]",
+      "value": "restricted",
+      "checked": false,
+      "type": "radio"
+    },
+    {
+      "name": "game[published]",
+      "value": "published",
+      "checked": true,
+      "type": "radio"
+    },
+    {
+      "name": "game[video_url]",
+      "value": "",
+      "checked": false,
+      "type": "text"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://static.itch.io/images/logo-black-new.svg",
+      "alt": "itch.io logo & title"
+    },
+    {
+      "src": "https://static.itch.io/images/itchio-textless-black.svg",
+      "alt": "itch.io logo"
+    },
+    {
+      "src": "https://itch.io/static/images/frog-blue.png",
+      "alt": ""
+    },
+    {
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4MS5naWY=/original/nQ9RJP.gif",
+      "alt": "Real gameplay: finish BLADE to trigger a sword strike."
+    },
+    {
+      "src": "https://img.itch.zone/aW1nLzMxMDY4ODg2LnBuZw==/315x250%23c/9QGG%2Fo.png",
+      "alt": ""
+    },
+    {
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4Mi5wbmc=/250x600/iuH%2F06.png",
+      "alt": ""
+    },
+    {
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4My5wbmc=/250x600/rXfFOj.png",
+      "alt": ""
+    },
+    {
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4NC5wbmc=/250x600/FJ3VHu.png",
+      "alt": ""
+    },
+    {
+      "src": "https://img.itch.zone/aW1hZ2UvMzg1NzUwOS8zMTA2ODk4MS5naWY=/original/nQ9RJP.gif",
+      "alt": ""
+    }
+  ],
+  "links": [
+    {
+      "text": "View page",
+      "url": "https://micharel09.itch.io/typing-hero"
+    },
+    {
+      "text": "View page",
+      "url": "https://micharel09.itch.io/typing-hero"
+    }
+  ]
+}

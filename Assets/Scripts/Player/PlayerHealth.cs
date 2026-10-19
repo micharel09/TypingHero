@@ -51,6 +51,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (gate) gate.SetDeadLocked(false);
     }
 
+    internal void RestoreEncounterHealth(int health) => Current = Mathf.Clamp(health, 1, maxHealth);
+
     public void TakeDamage(int amount, Vector2 _)
     {
         if (IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;

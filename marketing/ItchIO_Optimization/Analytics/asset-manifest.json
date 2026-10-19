@@ -1,0 +1,83 @@
+[
+  {
+    "file": "Screenshots/01-type-to-attack.png",
+    "sha256": "bafe151bb10df935af9a8ed9ea19e92a4ce53ad66f10b2d79c920b2ff2fb95d4",
+    "bytes": 92596,
+    "width": 960,
+    "height": 540,
+    "frames": 1,
+    "duration_ms": null
+  },
+  {
+    "file": "Screenshots/02-space-to-parry.png",
+    "sha256": "322f6b1097a2ca3e78ee3098d3b1ab0cffdfcc34d1d09354c660722f8124dcbe",
+    "bytes": 95809,
+    "width": 960,
+    "height": 540,
+    "frames": 1,
+    "duration_ms": null
+  },
+  {
+    "file": "Screenshots/03-learn-the-controls.png",
+    "sha256": "394f8b5cdd3df0a39afa03909591c1f359b77f98b35e15ebd0106c791f2b77b1",
+    "bytes": 91830,
+    "width": 960,
+    "height": 540,
+    "frames": 1,
+    "duration_ms": null
+  },
+  {
+    "file": "SocialMedia/typing-live-preview.gif",
+    "sha256": "84f5483e6482cca9cbe8c3ccac69fdd0619bfdfec4de3773c7311e251550fe8b",
+    "bytes": 477105,
+    "width": 640,
+    "height": 360,
+    "frames": 17,
+    "duration_ms": 2520
+  },
+  {
+    "file": "StorePage/before-cover.png",
+    "sha256": "812f11deef92650ab5e237a0016480de1a84fdb8d61bf41e9cf8f6c399987418",
+    "bytes": 76537,
+    "width": 630,
+    "height": 500,
+    "frames": 1,
+    "duration_ms": null
+  },
+  {
+    "file": "Thumbnails/cover-a-315x250.png",
+    "sha256": "27a35d162bdb637345b41f8f40e485d56bb5365c9dd5e1ed7e443f721cc197e6",
+    "bytes": 22753,
+    "width": 315,
+    "height": 250,
+    "frames": 1,
+    "duration_ms": null
+  },
+  {
+    "file": "Thumbnails/cover-a-630x500.png",
+    "sha256": "e8b5def026d2f11e935c0abc8957805f6eb8ac09d4ca06258b12bf208b1fad19",
+    "bytes": 46096,
+    "width": 630,
+    "height": 500,
+    "frames": 1,
+    "duration_ms": null
+  },
+  {
+    "file": "Thumbnails/cover-b-315x250.png",
+    "sha256": "8aa981809c3c9171d7893525389e630cbdb178bef53854d2e763efb7dcc92078",
+    "bytes": 20221,
+    "width": 315,
+    "height": 250,
+    "frames": 1,
+    "duration_ms": null
+  },
+  {
+    "file": "Thumbnails/cover-b-630x500.png",
+    "sha256": "2177a4f6a0093bc2dc11288a99b0793e7ee5fd419343f9279cf65cc4a09ca800",
+    "bytes": 37855,
+    "width": 630,
+    "height": 500,
+    "frames": 1,
+    "duration_ms": null
+  }
+]

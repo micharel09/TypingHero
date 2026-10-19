@@ -4,6 +4,9 @@ module.exports = async function slayerFlow(api, browser) {
   const {context,page} = await session(browser,{width:960,height:540},1000);
   try {
     await start(page);
+    await until(page,s=>s.endless && s.encounterReading);
+    await page.keyboard.press('Enter',{delay:60});
+    await until(page,s=>!s.encounterReading && s.timeScale===1);
     let lastPress = -Infinity;
     const deadline = performance.now()+90000;
     while (performance.now()<deadline) {
@@ -19,7 +22,7 @@ module.exports = async function slayerFlow(api, browser) {
       }
       await page.waitForTimeout(25);
     }
-    const entry=await until(page,s=>s.slayer && s.redAlpha>.99 && s.cameraOrtho<3.3 && s.scoreZoom===1);
+    const entry=await until(page,s=>s.slayer && s.redAlpha>.99 && s.cameraOrtho<4.5 && s.scoreZoom===1);
     let sawYellow=false, sawPulse=false, sawPopup=false;
     const typingEnd=performance.now()+4000;
     while(performance.now()<typingEnd){
@@ -37,6 +40,10 @@ module.exports = async function slayerFlow(api, browser) {
       await page.keyboard.type(s.current,{delay:10});
       const awarded=await until(page,t=>t.inputLetters>before);
       sawPulse ||= awarded.scorePulse>1.001;
+      if(awarded.barReveal>.999){
+        const glyph=awarded.scoreGlyphRect;
+        check(awarded.scoreFont===36 && Math.abs(glyph.x+glyph.width/2-awarded.width/2)<1.5,'rapid Slayer award keeps12px native glyphs centered during pulse');
+      }
       if(awarded.popupAlpha>0){
         const k=awarded.height/540;
         check(awarded.popupFont===18,'award font18');
@@ -93,10 +100,11 @@ module.exports = async function slayerFlow(api, browser) {
     }
     await page.setViewportSize({width:960,height:540});
     await until(page,s=>s.width===960 && s.height===540);
-    await page.keyboard.press('Escape',{delay:80});await until(page,s=>!s.paused && s.cameraOrtho<3.3 && s.scoreZoom===1);
+    await page.keyboard.press('Escape',{delay:80});await until(page,s=>!s.paused && s.cameraOrtho<4.5 && s.scoreZoom===1 && !s.controls.some(c=>c.name==='ResumeButton'));
     await page.screenshot({path:report.outputDirectory+'/slayer-x3.png'});
     await until(page,s=>!s.paused && !s.slayer);
     await page.waitForTimeout(500);s=await state(page);
+    check(s.scoreFont===36 && s.comboFont===24 && s.barReveal===0,'exit restores normal font sizes with closed bars');
     check(s.environmentVisible && !s.hudPanelVisible && s.redAlpha===0 && Math.abs(s.scoreZoom-1)<.001,'Slayer exit restores environment, panels and red overlay');
     await page.screenshot({path:report.outputDirectory+'/slayer-exit.png'});
     await page.keyboard.press('Escape',{delay:100});await until(page,s=>s.paused);

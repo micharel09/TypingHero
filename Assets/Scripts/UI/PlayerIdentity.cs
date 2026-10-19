@@ -12,6 +12,8 @@ public static class PlayerIdentity
         if (_loaded) return;
         _loaded = true;
         Name = PlayerPrefs.GetString(PrefKey, string.Empty);
+        if (!HasName)
+            TrySetName("Guest" + Guid.NewGuid().ToString("N").Substring(0, 4).ToUpperInvariant(), out _, out _);
     }
     public static bool HasName => !string.IsNullOrWhiteSpace(Name);
     /// <summary>

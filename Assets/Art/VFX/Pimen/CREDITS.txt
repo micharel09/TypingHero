@@ -3,4 +3,4 @@ Hit Spark: https://pimen.itch.io/battle-vfx-hit-spark
 Original free Hit Effect 01.rar; custom author license (see HitSpark-License.txt).
 Battle Effects: https://pimen.itch.io/pixel-battle-effects
 Original free Effects.rar; CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
-Changes by TypingHero: animation timing, centered pivots, uniform scale; Battle Effects converted to white for Slayer. Original sheets retained.
+Changes by CLACKBLADE: animation timing, centered pivots, uniform scale; Battle Effects converted to white for Slayer. Original sheets retained.

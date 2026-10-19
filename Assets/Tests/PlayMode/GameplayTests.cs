@@ -73,6 +73,143 @@ public sealed class GameplayTests
         Assert.That(UnityEngine.Object.FindObjectsOfType<ScoreSystem>(), Is.Empty);
     }
 
+    [UnityTest, Category("Quick")]
+    public IEnumerator FixedRowAccepts15010060MsInputAndCompletionDuringSlide()
+    {
+        foreach (float cadence in new[] { .15f, .1f, .06f })
+        {
+            typing.SetPractice(new[] { "at", "in", "to" }, false, true);
+            int startWords = words, startChars = chars;
+            typing.enabled = true;
+            foreach (char c in "atinto")
+            {
+                typing.ProcessInput(c.ToString());
+                yield return new WaitForSecondsRealtime(cadence);
+            }
+            typing.enabled = false;
+            Assert.That(words - startWords, Is.EqualTo(3));
+            Assert.That(chars - startChars, Is.EqualTo(6));
+            Assert.That(Get<string>(typing, "current"), Is.EqualTo("at"));
+        }
+        typing.SetPractice(new[] { "a", "i", "to" }, false, true);
+        int before = words;
+        typing.ProcessInput("a");
+        Assert.That(Get<float>(typing, "slideRemaining"), Is.GreaterThan(0));
+        typing.ProcessInput("i");
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("to"));
+        typing.ProcessInput("toaito");
+        Assert.That(words - before, Is.EqualTo(6));
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("a"));
+        Assert.That(Get<float>(typing, "slideRemaining"), Is.Zero, "burst paints final queue without stacked animation");
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator ErrorRestarts180MsAndCorrectInputClearsItWithoutMovingWord()
+    {
+        Set(typing, "enableErrorFlash", true);
+        typing.SetPractice(new[] { "resolve", "honor", "courage" }, false, true);
+        typing.enabled = true;
+        yield return new WaitForSecondsRealtime(.12f);
+        var label = Get<TextMeshProUGUI>(typing, "wordText");
+        var origin = label.rectTransform.anchoredPosition;
+        typing.ProcessInput("res");
+        Assert.That(label.rectTransform.anchoredPosition, Is.EqualTo(origin));
+        typing.ProcessInput("z");
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("resolve"));
+        yield return new WaitForSecondsRealtime(.12f);
+        typing.ProcessInput("z");
+        yield return new WaitForSecondsRealtime(.1f);
+        Assert.That(Get<float>(typing, "errorRemaining"), Is.GreaterThan(0));
+        typing.ProcessInput("r");
+        Assert.That(Get<float>(typing, "errorRemaining"), Is.Zero);
+        Assert.That(label.rectTransform.anchoredPosition, Is.EqualTo(origin));
+        typing.ProcessInput("z");
+        yield return new WaitForSecondsRealtime(.21f);
+        Assert.That(Get<float>(typing, "errorRemaining"), Is.Zero);
+        typing.enabled = false;
+    }
+
+    [Test, Category("Quick")]
+    public void TypingSfxFollowsActualAttemptsAndUnsubscribesAcrossEnableCycles()
+    {
+        var player = Own(new GameObject("typing audio fixture")).AddComponent<SfxPlayer>();
+        var correct = Own(ScriptableObject.CreateInstance<SfxEvent>());
+        var error = Own(ScriptableObject.CreateInstance<SfxEvent>());
+        var clip = Own(AudioClip.Create("long test voice", 44100, 1, 44100, false));
+        foreach (var ev in new[] { correct, error })
+        {
+            Set(ev, "clips", new[] { clip }); Set(ev, "maxVoices", 32);
+            Set(ev, "volumeJitter", 0f); Set(ev, "pitchJitterSemitone", 0f);
+        }
+        var binder = root.AddComponent<TypingInputSfx>();
+        Set(binder, "correct", correct); Set(binder, "error", error);
+        TypingManager.MuteWordCorrect = true;
+        typing.ProcessInput("TYztypeNE");
+        Assert.That(Get<int>(correct, "_voicesNow"), Is.EqualTo(8));
+        Assert.That(Get<int>(error, "_voicesNow"), Is.EqualTo(1));
+        Assert.That(chars, Is.EqualTo(6)); // Retyped positions sound without extra rewards.
+        typing.ProcessInput("1! ");
+        GamePauseController.SetTutorialReading(true);
+        try { typing.ProcessInput("zzz"); }
+        finally { GamePauseController.SetTutorialReading(false); }
+        Assert.That(Get<int>(error, "_voicesNow"), Is.EqualTo(1));
+        binder.enabled = false;
+        typing.ProcessInput("z");
+        Assert.That(Get<int>(error, "_voicesNow"), Is.EqualTo(1));
+        for (int i = 0; i < 3; i++) { binder.enabled = true; binder.enabled = false; }
+        binder.enabled = true;
+        typing.ProcessInput("z");
+        Assert.That(Get<int>(error, "_voicesNow"), Is.EqualTo(2));
+        bool hadSfx = PlayerPrefs.HasKey("SfxVolume");
+        float previousSfx = AudioPreferences.Sfx;
+        try
+        {
+            PlayerPrefs.SetFloat("SfxVolume", 0f);
+            typing.ProcessInput("z");
+            Assert.That(Get<int>(error, "_voicesNow"), Is.EqualTo(2), "Muted input must not start a WebGL voice");
+        }
+        finally
+        {
+            if (hadSfx) PlayerPrefs.SetFloat("SfxVolume", previousSfx);
+            else PlayerPrefs.DeleteKey("SfxVolume");
+        }
+        var session = root.AddComponent<CombatSession>(); session.Complete(false);
+        typing.ProcessInput("z");
+        Assert.That(Get<int>(error, "_voicesNow"), Is.EqualTo(2));
+        foreach (var src in player.GetComponentsInChildren<AudioSource>())
+        {
+            Assert.That(src.spatialBlend, Is.Zero);
+            Assert.That(src.ignoreListenerPause, Is.False);
+        }
+    }
+
+    [Test, Category("Quick")]
+    public void TypingVoiceLimitsAndMixRespectExistingPreferences()
+    {
+        var player = Own(new GameObject("typing mix fixture")).AddComponent<SfxPlayer>();
+        var ev = Own(ScriptableObject.CreateInstance<SfxEvent>());
+        Set(ev, "clips", new[] { Own(AudioClip.Create("tick", 44100, 1, 44100, false)) });
+        Set(ev, "volume", .16f); Set(ev, "volumeJitter", 0f);
+        Set(ev, "pitchJitterSemitone", 0f); Set(ev, "maxVoices", 4);
+        var first = player.Play(ev, Vector3.zero);
+        Assert.That(first, Is.Not.Null);
+        Assert.That(first.volume, Is.EqualTo(.16f * AudioPreferences.Sfx).Within(.0001f));
+        Assert.That(first.pitch, Is.EqualTo(1f));
+        Assert.That(first.ignoreListenerPause, Is.False);
+        for (int i = 0; i < 3; i++) Assert.That(player.Play(ev, Vector3.zero), Is.Not.Null);
+        Assert.That(player.Play(ev, Vector3.zero), Is.Null);
+        Assert.That(Get<int>(ev, "_voicesNow"), Is.EqualTo(4));
+        var error = Own(ScriptableObject.CreateInstance<SfxEvent>());
+        Set(error, "clips", new[] { first.clip }); Set(error, "maxVoices", 1);
+        Set(error, "cooldown", .12f); Set(error, "_lastPlayRealtime", -1f);
+        Assert.That(player.Play(error, Vector3.zero), Is.Not.Null);
+        Assert.That(player.Play(error, Vector3.zero), Is.Null);
+        error.NotifyEnd();
+        Assert.That(error.CanPlayNow(), Is.False, "Cooldown survives voice completion");
+        Set(error, "_lastPlayRealtime", Time.unscaledTime - .121f);
+        Assert.That(error.CanPlayNow(), Is.True);
+    }
+
     [Test, Category("Quick")]
     public void LettersCompareIgnoringCaseAndWrongCharactersDoNotAdvance()
     {
@@ -94,11 +231,11 @@ public sealed class GameplayTests
     }
 
     [Test, Category("Quick")]
-    public void DisabledTypeAheadDoesNotConsumeNext()
+    public void CompletionPromotesQueueSynchronouslyWithoutATypeAheadGate()
     {
-        Set(typing, "allowTypeAhead", false);
         typing.ProcessInput("typen");
-        Assert.That(chars, Is.EqualTo(4));
+        Assert.That(chars, Is.EqualTo(5));
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("ext"));
         Assert.That(Get<int>(typing, "_typeAheadCount"), Is.Zero);
     }
 
@@ -118,7 +255,8 @@ public sealed class GameplayTests
         Assert.That(Get<string>(typing, "current"), Is.EqualTo("BLADE"));
         typing.ProcessInput("blade");
         Assert.That(words, Is.EqualTo(1));
-        Assert.That(Get<string>(typing, "next"), Is.EqualTo("STEEL"));
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("STEEL"));
+        Assert.That(Get<string>(typing, "next"), Is.EqualTo("FIRE"));
     }
 
     [UnityTest, Category("Quick")]
@@ -132,15 +270,18 @@ public sealed class GameplayTests
         Assert.That(chars, Is.EqualTo(accepted)); Assert.That(words, Is.EqualTo(completed));
         Assert.That(Get<string>(typing, "current"), Is.EqualTo("FIRE"));
         Assert.That(Get<bool>(typing, "isTransitioning"), Is.False);
+        typing.SetPractice(new[] { "a" }, false, true);
+        typing.ProcessInput("a");
+        Assert.That(Get<float>(typing, "slideRemaining"), Is.GreaterThan(0), "A new practice occurrence does not inherit an old burst counter");
     }
 
     [Test, Category("Quick")]
-    public void TimeoutEmitsOnceWhileAdvancePending()
+    public void TimeoutAdvancesImmediatelyAndResetsTimer()
     {
         Set(typing, "timer", -1f);
         Call(typing, "HandleTimer");
-        Set(typing, "timer", -1f);
         Call(typing, "HandleTimer");
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("next"));
         Assert.That(timeouts, Is.EqualTo(1));
         Assert.That(words, Is.Zero);
     }
@@ -162,7 +303,7 @@ public sealed class GameplayTests
     {
         TypingManager.MuteWordCorrect = true;
         typing.ProcessInput("typenexzn");
-        Assert.That(Get<int>(typing, "_typeAheadCount"), Is.EqualTo(1));
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("ext"));
         Assert.That(chars, Is.EqualTo(7));
         yield return new WaitForSecondsRealtime(.4f);
         Assert.That(Get<string>(typing, "current"), Is.EqualTo("ext"));
@@ -254,7 +395,7 @@ public sealed class GameplayTests
         float before = session.Seconds;
         yield return new WaitForSecondsRealtime(.45f);
         Assert.That(Get<bool>(controller, "pendingAttack"), Is.True);
-        Assert.That(Get<string>(typing, "current"), Is.Empty);
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("next"));
         Assert.That(session.Letters, Is.EqualTo(4));
         Assert.That(session.Seconds, Is.EqualTo(before));
         controller.animator = null;
@@ -402,7 +543,7 @@ public sealed class GameplayTests
         try { typing.ProcessInput("typenextz"); }
         finally { TypingManager.OnInputResult -= result; }
         Assert.That(total, Is.EqualTo(9));
-        Assert.That(Get<int>(typing, "_typeAheadCount"), Is.EqualTo(4));
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("third"));
         yield return new WaitForSecondsRealtime(.7f);
         Assert.That(words, Is.EqualTo(2));
     }
@@ -561,6 +702,45 @@ public sealed class GameplayTests
     }
 
     [UnityTest, Category("Quick")]
+    public IEnumerator DifficultyComboUsesAssetBaseAcrossRenewalPauseExpiryResetAndTutorial()
+    {
+        var host = Own(new GameObject("difficulty combo")); host.SetActive(false);
+        var score = host.AddComponent<ScoreSystem>();
+        var rules = Own(ScriptableObject.CreateInstance<ScoreRules>());
+        rules.comboWindowSeconds = 1.5f; rules.minWordsForCombo = 1;
+        Set(score, "rules", rules); host.SetActive(true); score.enabled = false;
+        try
+        {
+            foreach (var difficulty in EndlessDifficulties.All)
+            {
+                EndlessRun.Begin(difficulty); score.ResetScore();
+                Call(score, "OnWordCorrect");
+                float expected = 1.5f / difficulty.Pace();
+                Assert.That(Get<float>(score, "_windowRemain"), Is.EqualTo(expected));
+                Assert.That(rules.comboWindowSeconds, Is.EqualTo(1.5f), "Shared asset must stay immutable");
+                Set(score, "_windowRemain", .001f);
+                score.SetPaused(true); Call(score, "Update");
+                Assert.That(Get<float>(score, "_windowRemain"), Is.EqualTo(.001f));
+                score.SetPaused(false);
+                Call(score, "OnWordCorrect");
+                Assert.That(Get<float>(score, "_windowRemain"), Is.EqualTo(expected));
+                Set(score, "_windowRemain", Time.unscaledDeltaTime + .001f);
+                Call(score, "Update");
+                Assert.That(score.Multiplier, Is.GreaterThan(1));
+                Assert.That(score.ComboRemain01, Is.EqualTo(.001f / expected).Within(.0001f));
+                Set(score, "_windowRemain", - .001f); Call(score, "Update");
+                Assert.That(score.Multiplier, Is.EqualTo(1)); Assert.That(score.ComboRemain01, Is.Zero);
+                Call(score, "OnWordCorrect"); score.ResetScore();
+                Assert.That(Get<float>(score, "_windowRemain"), Is.Zero);
+            }
+            EndlessRun.Begin(EndlessDifficulty.VeryHard); TutorialRun.Begin();
+            Assert.That(score.ComboWindowSeconds, Is.EqualTo(1.5f));
+            yield return null;
+        }
+        finally { TutorialRun.End(); EndlessRun.Clear(); }
+    }
+
+    [UnityTest, Category("Quick")]
     public IEnumerator HitstopRestartBeforeExpiredCoroutineResumesRestoresOriginalScale()
     {
         var hitstop = Own(new GameObject("hitstop")).AddComponent<HitStopper>();
@@ -667,8 +847,7 @@ public sealed class GameplayTests
     [UnityTest, Category("Stress")]
     public IEnumerator ThousandWordsCompleteThroughProductionInput()
     {
-        Set(typing, "currentFadeOut", .001f); Set(typing, "promoteHold", 0f);
-        Set(typing, "promoteDuration", .001f); Set(typing, "fallbackWord", "type");
+        Set(typing, "fallbackWord", "type");
         Set(typing, "next", "type"); Set(typing, "third", "type");
         for (int i = 0; i < 1000; i++)
         {

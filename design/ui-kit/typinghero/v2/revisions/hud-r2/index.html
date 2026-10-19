@@ -1,0 +1,74 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TypingHero — HUD r2 draft review</title>
+<style>
+body{margin:16px;background:#14111e;color:#f2e7cf;font:15px system-ui}a{color:#dcc18a}p{max-width:960px;line-height:1.6}main{display:flex;flex-wrap:wrap;gap:20px}article{max-width:100%}img{image-rendering:pixelated;max-width:100%;height:auto}h2{font-size:17px}button,input,select{font:inherit}button,select{padding:7px}#controls{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;align-items:center}label{display:inline-flex;align-items:center;gap:5px}#entry{width:140px;min-width:0}#viewport{width:320px;height:180px;max-width:100%;overflow:hidden;background:#211c2d}#stage{position:relative;width:320px;height:180px;transform-origin:0 0;image-rendering:pixelated;overflow:hidden}#stage img{position:absolute;max-width:none;image-rendering:pixelated}#stage>.layer,#hud{left:0;top:0;width:320px;height:180px}#typing{position:absolute;left:81px;top:146px;width:158px;height:30px}#typing img{left:0;top:0;width:158px;height:30px}#enemy{transform:scaleX(-1)}#gray:checked~*{filter:none}.comparison{display:flex;flex-wrap:wrap;gap:16px}.comparison img{width:320px}
+@media(max-width:351px){body{margin:0}}
+</style>
+<h1>HUD r2 — draft review</h1><p>Khung kim loại tối gọn hơn: từ gõ → hành động đối thủ → HP → combo/score. Cảnh chiều sâu minh họa giữ sprite hiện có. Chưa tích hợp hoặc nghiệm thu Unity.</p>
+<p><a href="README.md">Nguồn / kết quả kiểm</a> · <a href="wireframe/native.wireframe.html">Wireframe</a> · <a href="contact-sheet.png">10 màn</a> · <a href="../hud-r1/index.html">Gallery r1</a></p>
+<section id="review"><h2>Preview tương tác — HUD cố định</h2>
+<div id="viewport"><div id="stage" role="img" aria-label="HUD r2 trên cảnh chiều sâu">
+<img class="layer" id="far" src="artwork/scene-far.png" alt=""><img class="layer" id="mid" src="artwork/scene-mid.png" alt=""><img class="layer" id="floor" src="artwork/scene-floor.png" alt="">
+<img id="hero" src="artwork/hero-existing.png" alt=""><img id="enemy" src="artwork/opponent-existing.png" alt="">
+<img class="layer" id="foreground" src="artwork/scene-foreground.png" alt=""><img id="hud" src="artwork/hud-normal-0-0-100.png" alt="HP / score / combo">
+<div id="typing"><img id="frame" src="png/typing-frame.png" alt=""><img id="word" src="png/word-normal-progress-0.png" alt="resolve"></div>
+</div></div>
+<div id="controls">
+<button id="camera" type="button" aria-pressed="false">Phát camera</button>
+<label>Cấp <select id="rank"><option value="normal">Thường</option><option value="elite">Elite</option><option value="boss">Boss</option></select></label>
+<label><input id="slayer" type="checkbox">Slayer</label>
+<label>HP hai bên <select id="hp"><option value="0">0%</option><option value="1">1%</option><option value="50">50%</option><option value="100" selected>100%</option></select></label>
+<label><input id="gray" type="checkbox">Grayscale</label><label><input id="stress" type="checkbox">Nội dung stress</label>
+<label><input id="reduced" type="checkbox">Giảm chuyển động</label>
+<label>Tỷ lệ <select id="scale"><option value="1">320×180</option><option value="2">640×360</option><option value="4">1280×720</option></select></label>
+<label>Gõ thử <input id="entry" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Gõ từ trong HUD"></label>
+<button id="correct" type="button">Đúng một chữ</button><button id="wrong" type="button">Sai một chữ</button><button id="reset" type="button">Reset từ</button><output id="status" aria-live="polite"></output>
+</div><p>Camera mặc định dừng; chu kỳ 4 giây, biên độ 1/2/4 pixel nguyên. Giảm chuyển động qua checkbox hoặc hệ thống dừng camera và bỏ rung; phản hồi đỏ vẫn giữ 180ms. Gõ sai reset tiến độ, lỗi tiếp theo bắt đầu lại phản hồi.</p></section>
+<h2>So sánh native r1 / r2</h2><div class="comparison"><img src="../hud-r1/screens/320x180/hud-normal.png" alt="r1"><img src="screens/320x180/hud-normal.png" alt="r2"></div>
+<main><article><h2>hud-normal</h2><img width="640" height="360" src="screens/640x360/hud-normal.png" alt="hud-normal"><p><a href="screens/320x180/hud-normal.png">320x180</a> · <a href="screens/640x360/hud-normal.png">640x360</a> · <a href="screens/1280x720/hud-normal.png">1280x720</a></p></article><article><h2>hud-elite</h2><img width="640" height="360" src="screens/640x360/hud-elite.png" alt="hud-elite"><p><a href="screens/320x180/hud-elite.png">320x180</a> · <a href="screens/640x360/hud-elite.png">640x360</a> · <a href="screens/1280x720/hud-elite.png">1280x720</a></p></article><article><h2>hud-boss</h2><img width="640" height="360" src="screens/640x360/hud-boss.png" alt="hud-boss"><p><a href="screens/320x180/hud-boss.png">320x180</a> · <a href="screens/640x360/hud-boss.png">640x360</a> · <a href="screens/1280x720/hud-boss.png">1280x720</a></p></article><article><h2>hud-slayer</h2><img width="640" height="360" src="screens/640x360/hud-slayer.png" alt="hud-slayer"><p><a href="screens/320x180/hud-slayer.png">320x180</a> · <a href="screens/640x360/hud-slayer.png">640x360</a> · <a href="screens/1280x720/hud-slayer.png">1280x720</a></p></article><article><h2>hud-stress-low-hp</h2><img width="640" height="360" src="screens/640x360/hud-stress-low-hp.png" alt="hud-stress-low-hp"><p><a href="screens/320x180/hud-stress-low-hp.png">320x180</a> · <a href="screens/640x360/hud-stress-low-hp.png">640x360</a> · <a href="screens/1280x720/hud-stress-low-hp.png">1280x720</a></p></article><article><h2>hud-correct</h2><img width="640" height="360" src="screens/640x360/hud-correct.png" alt="hud-correct"><p><a href="screens/320x180/hud-correct.png">320x180</a> · <a href="screens/640x360/hud-correct.png">640x360</a> · <a href="screens/1280x720/hud-correct.png">1280x720</a></p></article><article><h2>hud-error</h2><img width="640" height="360" src="screens/640x360/hud-error.png" alt="hud-error"><p><a href="screens/320x180/hud-error.png">320x180</a> · <a href="screens/640x360/hud-error.png">640x360</a> · <a href="screens/1280x720/hud-error.png">1280x720</a></p></article><article><h2>depth-normal</h2><img width="640" height="360" src="screens/640x360/depth-normal.png" alt="depth-normal"><p><a href="screens/320x180/depth-normal.png">320x180</a> · <a href="screens/640x360/depth-normal.png">640x360</a> · <a href="screens/1280x720/depth-normal.png">1280x720</a></p></article><article><h2>depth-elite</h2><img width="640" height="360" src="screens/640x360/depth-elite.png" alt="depth-elite"><p><a href="screens/320x180/depth-elite.png">320x180</a> · <a href="screens/640x360/depth-elite.png">640x360</a> · <a href="screens/1280x720/depth-elite.png">1280x720</a></p></article><article><h2>depth-boss</h2><img width="640" height="360" src="screens/640x360/depth-boss.png" alt="depth-boss"><p><a href="screens/320x180/depth-boss.png">320x180</a> · <a href="screens/640x360/depth-boss.png">640x360</a> · <a href="screens/1280x720/depth-boss.png">1280x720</a></p></article></main>
+<script>
+(() => {
+ const $=s=>document.querySelector(s), typing=$('#typing'), preference=matchMedia('(prefers-reduced-motion: reduce)');
+ const state={progress:0,wrong:null,started:-Infinity,playing:false,phase:0,last:null};
+ const reduced=()=>$('#reduced').checked||preference.matches;
+ const target=()=>$('#stress').checked?'counterrevolutionary':'resolve';
+ let raf=0;
+ const cache=[];
+ // Preload native word layers so a short error state never waits on a first decode.
+ for(const [tag,n] of [['normal',7],['stress',20]]) for(const mode of ['progress','wrong']) for(let i=0;i<n+(mode==='progress');i++){const im=new Image();im.src=`png/word-${tag}-${mode}-${i}.png`;cache.push(im);}
+ for(const name of ['typing-frame','typing-frame-error']){const im=new Image();im.src=`png/${name}.png`;cache.push(im);}
+ function image(el,src){if(el.getAttribute('src')!==src)el.src=src;}
+ function move(id,offset){const el=$('#'+id);el.style.left=`${offset}px`;el.dataset.offset=offset;}
+ function fit(){const scale=Math.min(Number($('#scale').value),innerWidth-32>=1280?4:innerWidth-32>=640?2:1);$('#viewport').style.width=320*scale+'px';$('#viewport').style.height=180*scale+'px';$('#stage').style.transform=`scale(${scale})`;}
+ function paint(now){
+  const elapsed=now-state.started,error=elapsed<180;
+  const offset=error&&elapsed<120&&!reduced()?[0,-1,1,-1,1,0][Math.min(5,Math.floor(elapsed/20))]:0;
+  typing.style.transform=`translateX(${offset}px)`;
+  Object.assign(typing.dataset,{offset,error,progress:state.progress,wrong:state.wrong??'',started:state.started,paintedAt:now});
+  image($('#frame'),`png/typing-frame${error?'-error':''}.png`);
+  const tag=$('#stress').checked?'stress':'normal';
+  image($('#word'),`png/word-${tag}-${error?'wrong-'+state.wrong:'progress-'+state.progress}.png`);$('#word').alt=target();
+  $('#status').value=`${state.progress}/${target().length}`;
+  if(state.playing&&!reduced()&&state.last!==null)state.phase=(state.phase+now-state.last)%4000;
+  state.last=now;
+  const wave=reduced()?0:Math.sin(state.phase/4000*Math.PI*2);
+  for(const [id,amplitude] of [['far',1],['mid',2],['floor',4],['foreground',4]])move(id,Math.round(wave*amplitude));
+  const actorOffset=Math.round(wave*2);
+  $('#hero').style.left=90+actorOffset+'px';$('#enemy').style.left=203+actorOffset+'px';
+  $('#hero').dataset.offset=$('#enemy').dataset.offset=actorOffset;
+  $('#camera').disabled=reduced();$('#camera').textContent=state.playing?'Dừng camera':'Phát camera';$('#camera').setAttribute('aria-pressed',state.playing);
+  cancelAnimationFrame(raf);if(error||state.playing&&!reduced())raf=requestAnimationFrame(paint);
+ }
+ function input(ch){if(state.progress===target().length)state.progress=0;if(ch.toLowerCase()===target()[state.progress]){state.progress++;state.started=-Infinity;state.wrong=null;}else{state.wrong=state.progress;state.progress=0;state.started=performance.now();}paint(performance.now());}
+ function reset(){state.progress=0;state.wrong=null;state.started=-Infinity;paint(performance.now());}
+ function actorLayout(){for(const id of ['hero','enemy']){const im=$('#'+id);if(im.complete)im.style.top=138-im.naturalHeight+'px';else im.onload=()=>im.style.top=138-im.naturalHeight+'px';}}
+ function configure(){image($('#hud'),`artwork/hud-${$('#rank').value}-${+$('#slayer').checked}-${+$('#stress').checked}-${$('#hp').value}.png`);image($('#enemy'),`artwork/${$('#rank').value==='boss'?'captain':'opponent'}-existing.png`);actorLayout();$('#stage').style.filter=$('#gray').checked?'grayscale(1)':'none';reset();}
+ $('#camera').onclick=()=>{state.playing=!state.playing;state.last=null;paint(performance.now());};
+ $('#entry').addEventListener('input',e=>{for(const ch of e.target.value)input(ch);e.target.value='';});
+ $('#correct').onclick=()=>input(target()[state.progress%target().length]);$('#wrong').onclick=()=>input('!');$('#reset').onclick=reset;
+ for(const id of ['rank','slayer','hp','gray','stress'])$('#'+id).onchange=configure;
+ function reduce(){if(reduced()){state.playing=false;state.phase=0;state.last=null;}paint(performance.now());}
+ $('#reduced').onchange=reduce;preference.addEventListener('change',reduce);
+ $('#scale').onchange=fit;addEventListener('resize',fit);
+ configure();fit();reduce();
+})();
+</script></html>

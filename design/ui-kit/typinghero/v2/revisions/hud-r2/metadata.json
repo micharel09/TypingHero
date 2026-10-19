@@ -1,0 +1,853 @@
+{
+  "revision": "hud-r2",
+  "status": "draft review",
+  "canvas": [
+    320,
+    180
+  ],
+  "filter": "Point",
+  "wrap": "Clamp",
+  "mipmaps": false,
+  "scales": [
+    1,
+    2,
+    4
+  ],
+  "palette": {
+    "shadow": "#090811",
+    "coal": "#14111e",
+    "deep": "#211c2d",
+    "steel": "#494153",
+    "edge": "#77677f",
+    "gold": "#a3844d",
+    "light": "#dcc18a",
+    "ivory": "#f2e7cf",
+    "muted": "#afa1b3",
+    "red": "#a6354c",
+    "error": "#f16b67",
+    "jade": "#588b8c",
+    "rim": "#b5acb8",
+    "metal": "#827789",
+    "bevel": "#5e536a",
+    "inner": "#282231"
+  },
+  "assets": {
+    "resource-frame": {
+      "size": [
+        102,
+        21
+      ],
+      "role": "Fixed socket neck and stepped endcap. Never stretch.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-frame.png",
+      "svg": "svg/resource-frame.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        3,
+        3,
+        102,
+        21
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "resource-socket": {
+      "size": [
+        21,
+        21
+      ],
+      "role": "Fixed multilayer circular pixel socket.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-socket.png",
+      "svg": "svg/resource-socket.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        111,
+        3,
+        21,
+        21
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "resource-track": {
+      "size": [
+        77,
+        6
+      ],
+      "role": "Fixed HP track",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-track.png",
+      "svg": "svg/resource-track.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        138,
+        3,
+        77,
+        6
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "hp-fill": {
+      "size": [
+        77,
+        6
+      ],
+      "role": "Horizontal continuous crop",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/hp-fill.png",
+      "svg": "svg/hp-fill.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        221,
+        3,
+        77,
+        6
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "icon-hp": {
+      "size": [
+        10,
+        10
+      ],
+      "role": "Semantic artwork snapshot from r1/v2",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/icon-hp.png",
+      "svg": "svg/icon-hp.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        304,
+        3,
+        10,
+        10
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "captain-badge": {
+      "size": [
+        15,
+        17
+      ],
+      "role": "Semantic artwork snapshot from r1/v2",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/captain-badge.png",
+      "svg": "svg/captain-badge.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        320,
+        3,
+        15,
+        17
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "icon-pause": {
+      "size": [
+        10,
+        10
+      ],
+      "role": "Semantic artwork snapshot from r1/v2",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/icon-pause.png",
+      "svg": "svg/icon-pause.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        341,
+        3,
+        10,
+        10
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "keycap-space": {
+      "size": [
+        24,
+        12
+      ],
+      "role": "Semantic artwork snapshot from r1/v2",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/keycap-space.png",
+      "svg": "svg/keycap-space.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        357,
+        3,
+        24,
+        12
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "small-icon-combo": {
+      "size": [
+        7,
+        7
+      ],
+      "role": "7x7 native silhouette",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/small-icon-combo.png",
+      "svg": "svg/small-icon-combo.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        387,
+        3,
+        7,
+        7
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "small-icon-stamina": {
+      "size": [
+        7,
+        7
+      ],
+      "role": "7x7 native silhouette",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/small-icon-stamina.png",
+      "svg": "svg/small-icon-stamina.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        400,
+        3,
+        7,
+        7
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "secondary-frame": {
+      "size": [
+        102,
+        13
+      ],
+      "role": "No corner reinforcement or glints; fixed endcap",
+      "border_LBRT": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "png": "png/secondary-frame.png",
+      "svg": "svg/secondary-frame.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        3,
+        30,
+        102,
+        13
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "secondary-socket": {
+      "size": [
+        13,
+        13
+      ],
+      "role": "Fixed 13px socket",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/secondary-socket.png",
+      "svg": "svg/secondary-socket.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        111,
+        30,
+        13,
+        13
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "secondary-frame-gold": {
+      "size": [
+        102,
+        13
+      ],
+      "role": "No corner reinforcement or glints; fixed endcap",
+      "border_LBRT": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "png": "png/secondary-frame-gold.png",
+      "svg": "svg/secondary-frame-gold.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        130,
+        30,
+        102,
+        13
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "secondary-socket-gold": {
+      "size": [
+        13,
+        13
+      ],
+      "role": "Fixed 13px socket",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/secondary-socket-gold.png",
+      "svg": "svg/secondary-socket-gold.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        238,
+        30,
+        13,
+        13
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "secondary-track": {
+      "size": [
+        84,
+        4
+      ],
+      "role": "Secondary track at [14,4,84,4]",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/secondary-track.png",
+      "svg": "svg/secondary-track.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        257,
+        30,
+        84,
+        4
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "combo-fill": {
+      "size": [
+        84,
+        4
+      ],
+      "role": "Continuous secondary fill",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/combo-fill.png",
+      "svg": "svg/combo-fill.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        347,
+        30,
+        84,
+        4
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "combo-gold-fill": {
+      "size": [
+        84,
+        4
+      ],
+      "role": "Continuous secondary fill",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/combo-gold-fill.png",
+      "svg": "svg/combo-gold-fill.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        3,
+        49,
+        84,
+        4
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "stamina-fill": {
+      "size": [
+        84,
+        4
+      ],
+      "role": "Continuous secondary fill",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/stamina-fill.png",
+      "svg": "svg/stamina-fill.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        93,
+        49,
+        84,
+        4
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "score-frame": {
+      "size": [
+        98,
+        22
+      ],
+      "role": "Thin dark score board; no label or bright corner studs",
+      "border_LBRT": [
+        3,
+        4,
+        3,
+        3
+      ],
+      "png": "png/score-frame.png",
+      "svg": "svg/score-frame.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        183,
+        49,
+        98,
+        22
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "typing-frame": {
+      "size": [
+        158,
+        30
+      ],
+      "role": "Dark inset board with reinforced corners.",
+      "border_LBRT": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "png": "png/typing-frame.png",
+      "svg": "svg/typing-frame.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        287,
+        49,
+        158,
+        30
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "typing-frame-error": {
+      "size": [
+        158,
+        30
+      ],
+      "role": "Dark inset board with reinforced corners.",
+      "border_LBRT": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "png": "png/typing-frame-error.png",
+      "svg": "svg/typing-frame-error.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        3,
+        85,
+        158,
+        30
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "elite-socket": {
+      "size": [
+        21,
+        24
+      ],
+      "role": "Socket anchor [0,3]; rank rises 2/3px",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/elite-socket.png",
+      "svg": "svg/elite-socket.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        167,
+        85,
+        21,
+        24
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "boss-socket": {
+      "size": [
+        21,
+        24
+      ],
+      "role": "Socket anchor [0,3]; rank rises 2/3px",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/boss-socket.png",
+      "svg": "svg/boss-socket.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        194,
+        85,
+        21,
+        24
+      ],
+      "anchor": "top-left; fixed source pixels"
+    },
+    "elite-badge": {
+      "size": [
+        10,
+        10
+      ],
+      "role": "Two solid separated chevrons",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/elite-badge.png",
+      "svg": "svg/elite-badge.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        221,
+        85,
+        10,
+        10
+      ],
+      "anchor": "top-left; fixed source pixels"
+    }
+  },
+  "atlas": {
+    "size": [
+      512,
+      512
+    ],
+    "origin": "top-left",
+    "padding": 6,
+    "extrusion": 2
+  },
+  "hp": {
+    "rects": [
+      [
+        3,
+        11,
+        102,
+        21
+      ],
+      [
+        215,
+        11,
+        102,
+        21
+      ]
+    ],
+    "fill_xywh": [
+      20,
+      7,
+      77,
+      6
+    ],
+    "columns_at_0_1_50_100": [
+      0,
+      1,
+      38,
+      77
+    ]
+  },
+  "secondary": {
+    "rects": [
+      [
+        3,
+        34,
+        102,
+        13
+      ],
+      [
+        215,
+        34,
+        102,
+        13
+      ]
+    ],
+    "fill_xywh": [
+      14,
+      4,
+      84,
+      4
+    ],
+    "socket": [
+      13,
+      13
+    ],
+    "columns_at_0_1_50_100": [
+      0,
+      1,
+      42,
+      84
+    ]
+  },
+  "score": {
+    "rect": [
+      111,
+      3,
+      98,
+      22
+    ],
+    "font": "VT323",
+    "font_px": 12,
+    "combo_y": 28,
+    "status_y": 40
+  },
+  "typing": {
+    "rect": [
+      81,
+      146,
+      158,
+      30
+    ],
+    "anchor": [
+      81,
+      146
+    ],
+    "error_ms": 180,
+    "shake_ms": 120,
+    "max_offset": 1,
+    "reset_on_error": true,
+    "restart_on_repeated_error": true,
+    "reduced_motion": "system OR checkbox: color only; stop camera"
+  },
+  "scene": {
+    "layers": [
+      "far",
+      "mid",
+      "floor",
+      "foreground"
+    ],
+    "files": {
+      "far": "artwork/scene-far.png",
+      "mid": "artwork/scene-mid.png",
+      "floor": "artwork/scene-floor.png",
+      "foreground": "artwork/scene-foreground.png"
+    },
+    "layer_rect": [
+      0,
+      0,
+      320,
+      180
+    ],
+    "layer_anchor": [
+      0,
+      0
+    ],
+    "actors": {
+      "hero": {
+        "file": "artwork/hero-existing.png",
+        "size": [
+          32,
+          37
+        ],
+        "anchor": "bottom-left",
+        "feet": [
+          90,
+          138
+        ]
+      },
+      "opponent": {
+        "file": "artwork/opponent-existing.png",
+        "size": [
+          34,
+          46
+        ],
+        "anchor": "bottom-left",
+        "feet": [
+          203,
+          138
+        ]
+      },
+      "captain": {
+        "file": "artwork/captain-existing.png",
+        "size": [
+          39,
+          48
+        ],
+        "anchor": "bottom-left",
+        "feet": [
+          203,
+          138
+        ]
+      }
+    },
+    "actor_feet_y": 138,
+    "floor_y": [
+      112,
+      145
+    ],
+    "vanishing_point": [
+      160,
+      80
+    ],
+    "camera_ms": 4000,
+    "amplitudes": {
+      "far": 1,
+      "mid": 2,
+      "actors": 2,
+      "floor": 4,
+      "foreground": 4
+    },
+    "default_playing": false,
+    "integer_pixels": true
+  },
+  "screens": [
+    "hud-normal",
+    "hud-elite",
+    "hud-boss",
+    "hud-slayer",
+    "hud-stress-low-hp",
+    "hud-correct",
+    "hud-error",
+    "depth-normal",
+    "depth-elite",
+    "depth-boss"
+  ],
+  "unity_integration": false
+}

@@ -1,0 +1,35 @@
+{
+  "layoutId": "hud-r5",
+  "revision": 1,
+  "platform": "web",
+  "owner": "Static HUD proposal; no Unity",
+  "contract": "contract.md",
+  "variants": [
+    {
+      "id": "native",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "native.wireframe.json",
+      "preview": "native.wireframe.html",
+      "capture": "native.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "3ecfe047e0bc9f72cbf32cf29de0c5edd7546b11df24d21266095f58f49801b9",
+        "previewSha256": "fc919a5b7d7cdfc49a67e4d929ad6a934de31b60ff65dd424150bab18944145a",
+        "pngSha256": "03a3290880ee81aba06382c5aae45d6069fcc32eadc0598bd494cc608af48974"
+      }
+    }
+  ],
+  "approval": {
+    "status": "draft"
+  },
+  "rendered": {
+    "revision": 1,
+    "inputFingerprint": "3ecfe047e0bc9f72cbf32cf29de0c5edd7546b11df24d21266095f58f49801b9",
+    "previews": {
+      "native.wireframe.html": "fc919a5b7d7cdfc49a67e4d929ad6a934de31b60ff65dd424150bab18944145a"
+    }
+  }
+}

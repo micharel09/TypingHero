@@ -1,0 +1,35 @@
+{
+  "layoutId": "hud-r2",
+  "revision": 1,
+  "platform": "web",
+  "owner": "HUD review Python/Pillow + offline gallery; no Unity",
+  "contract": "contract.md",
+  "variants": [
+    {
+      "id": "native",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "wireframe": "native.wireframe.json",
+      "preview": "native.wireframe.html",
+      "capture": "native.png",
+      "capturedFrom": {
+        "revision": 1,
+        "inputFingerprint": "7750198cf4ffc9a1cdb505f521f6888a13bc5816ea6a38425cf5ccc01ba01b69",
+        "previewSha256": "6fda752c764fa218b8debfe0a02318042348f21bd626f1a279a9e1acada87e62",
+        "pngSha256": "b37877a3468c642d9b2824a518059318d9f87a0e0c9955917d1a7430adb1470b"
+      }
+    }
+  ],
+  "approval": {
+    "status": "draft"
+  },
+  "rendered": {
+    "revision": 1,
+    "inputFingerprint": "7750198cf4ffc9a1cdb505f521f6888a13bc5816ea6a38425cf5ccc01ba01b69",
+    "previews": {
+      "native.wireframe.html": "6fda752c764fa218b8debfe0a02318042348f21bd626f1a279a9e1acada87e62"
+    }
+  }
+}

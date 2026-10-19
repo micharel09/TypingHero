@@ -37,7 +37,14 @@ internal static class ShogunTheme
             foreach (var canvas in Object.FindObjectsOfType<Canvas>(true).Where(c =>
                 c.name == "PixelUI" || c.name == "PixelOverlay" || c.name == "HowToPlay" || c.name == "LeaderboardModal"))
                 Skin(canvas.gameObject, confirm, back);
-            if (scene == "SampleScene") SlayerPresentation(root);
+            if (scene == "SampleScene")
+            {
+                SlayerPresentation(root);
+                var typing = Object.FindObjectOfType<TypingManager>(true);
+                var binder = Ensure<TypingInputSfx>(typing.gameObject);
+                Set(binder, "correct", TypingSound("TypingCorrect", "tick_002.ogg", .16f, 0f, 4));
+                Set(binder, "error", TypingSound("TypingError", "error_004.ogg", .22f, .12f, 1));
+            }
             EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
         }
         foreach (var name in new[] { "Panel", "Button", "StatBar", "LeaderboardRow" })
@@ -60,6 +67,7 @@ internal static class ShogunTheme
             var rect = At(root, "MenuPanel/" + path); var size = rect.sizeDelta;
             size.x = 384; rect.sizeDelta = size;
         }
+        root.Find("MenuPanel/Title").GetComponent<TMP_Text>().text = "CLACKBLADE";
         var menu = Object.FindObjectOfType<MainMenuUI>(true);
         var input = Get<TMP_InputField>(menu, "nameInput").GetComponent<RectTransform>();
         input.sizeDelta = new Vector2(384, input.sizeDelta.y);
@@ -68,6 +76,7 @@ internal static class ShogunTheme
         Place(root, "AudioPreferences/SFXVolume", 162, 44, 270, 12);
         var credits = root.Find("Credits").GetComponent<TMP_Text>();
         credits.gameObject.SetActive(false); // credits ship alongside the game
+        EndlessDifficultyBuild.Menu(root, menu);
     }
 
     static void Game(Transform root)
@@ -214,6 +223,7 @@ internal static class ShogunTheme
         EditorUtility.SetDirty(popupPrefab);
         var layout = Ensure<CombatHUDLayout>(root.gameObject);
         Set(layout, "targetCamera", Camera.main);
+        Set(layout, "slayerFX", fx);
         Set(layout, "playerBody", Get<BoxCollider2D>(fx, "playerBody"));
         Set(layout, "enemyBody", Get<BoxCollider2D>(fx, "enemyBody"));
         Set(layout, "playerStatus", player); Set(layout, "enemyStatus", enemy);
@@ -243,12 +253,14 @@ internal static class ShogunTheme
             PixelUILeaderboard.Build(binder, bounds);
         }
         var panel = Get<ScrollRect>(binder, "scrollRect").transform.parent as RectTransform;
-        Box(panel, bounds, 364, 16, 232, 508);
+        EndlessCollectionBuild.Apply(binder, bounds, panel);
         if (!bounds.Find("CloseButton"))
         {
-            var close = Button("Close", bounds, 620, 16, 160, modal.Close); Set(modal, "closeButton", close);
-            Button("Refresh", bounds, 620, 64, 160, binder.ForceRefresh);
+            var close = Button("Close", bounds, 800, 16, 144, modal.Close); Set(modal, "closeButton", close);
+            Button("Refresh", bounds, 800, 64, 144, binder.ForceRefresh);
         }
+        Box(bounds.Find("CloseButton").GetComponent<RectTransform>(), bounds, 800, 16, 144, 40);
+        Box(bounds.Find("RefreshButton").GetComponent<RectTransform>(), bounds, 800, 64, 144, 40);
         var previous = game ? GameObject.Find("PixelOverlay/Reference960x540/CombatOverlay/OverlayPanel").transform : root;
         var group = Ensure<CanvasGroup>(previous.gameObject);
         Set(modal, "previousScreen", group); Set(modal, "panel", bounds.gameObject); Set(modal, "binder", binder);
@@ -258,13 +270,25 @@ internal static class ShogunTheme
         Value(binder, "rowEven", Hex("1A302D")); Value(binder, "rowOdd", Hex("203C36"));
     }
 
-    static SfxEvent Sound(string name, string clip)
+    static SfxEvent TypingSound(string name, string clip, float volume, float cooldown, int voices)
+    {
+        var ev = Sound(name, clip, "Assets/Audio/SFX/Clips/KenneyInterface/");
+        Value(ev, "volume", volume);
+        Value(ev, "cooldown", cooldown);
+        Value(ev, "maxVoices", voices);
+        Value(ev, "pitchMode", (int)SfxEvent.PitchRandomMode.JitterAroundBase);
+        Value(ev, "pitchSemitone", 0f);
+        Value(ev, "ignoreListenerPause", false);
+        return ev;
+    }
+
+    static SfxEvent Sound(string name, string clip, string folder = Audio)
     {
         var path = Events + name + ".asset";
         var ev = AssetDatabase.LoadAssetAtPath<SfxEvent>(path);
         if (!ev) { ev = ScriptableObject.CreateInstance<SfxEvent>(); AssetDatabase.CreateAsset(ev, path); }
         var so = new SerializedObject(ev); var clips = so.FindProperty("clips"); clips.arraySize = 1;
-        clips.GetArrayElementAtIndex(0).objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>(Audio + clip);
+        clips.GetArrayElementAtIndex(0).objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>(folder + clip);
         var combat = AssetDatabase.LoadAssetAtPath<SfxEvent>("Assets/Audio/SFX/Events/Combat/Player/ev_impact_normal.asset");
         so.FindProperty("mixerGroup").objectReferenceValue = Get<UnityEngine.Audio.AudioMixerGroup>(combat, "mixerGroup");
         so.ApplyModifiedPropertiesWithoutUndo();

@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "leaderboards": {
+      "endless_v1": {
+        ".indexOn": ["defeated"]
+      },
+      "endless_v2": {
+        "very_easy": { ".indexOn": ["defeated"] },
+        "easy": { ".indexOn": ["defeated"] },
+        "hard": { ".indexOn": ["defeated"] },
+        "very_hard": { ".indexOn": ["defeated"] }
+      }
+    }
+  }
+}

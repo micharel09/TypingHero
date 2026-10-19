@@ -113,6 +113,8 @@ public class ParrySystem : MonoBehaviour
                                        config.playerParrySuccessCrossfade, 0f);
 
         Transform targetRoot = enemyComp ? enemyComp.transform.root : null;
+        var skeleton = enemyComp ? enemyComp.GetComponentInParent<SkeletonController>() : null;
+        if (skeleton) skeleton.RecordParry();
         OnParrySuccess?.Invoke(new ParryContext { targetRoot = targetRoot });
 
         if (logs) Debug.Log($"[PARRY] OK (t={Time.unscaledTime:0.000})");

@@ -1,0 +1,16 @@
+{
+  "mode": "built-in image_gen.imagegen, no CLI/API fallback",
+  "date": "2026-10-19",
+  "prompts": [
+    {
+      "output": "artwork/title-original.png",
+      "transparent_background": false,
+      "prompt": "Use case: stylized-concept. Create original production background artwork for TypingHero pixel fantasy game. Wide 16:9 1280x720 composition, crisp pixel art at effective 640x360 pixel grid, no blur or antialias. A deserted feudal fantasy forest duel arena at night: layered charcoal jade mountain silhouettes, ruined timber shrine at far right, ivory moon behind drifting horizontal clouds near upper right, vermilion leaves, weathered stone path along bottom quarter. Strong graphic silhouettes, dark coal #111b20, muted jade #528d83, ivory #f2e7cf, restrained vermilion #c65140. Keep left half and center top calm and dark for separate UI overlay. Rich atmospheric depth but limited detailed clusters. No characters, no people, no text, no letters, no UI, no logos, no borders. Original art, do not reproduce Shogun Showdown assets. Subject world has a small brown-haired swordsman with purple scarf, but DO NOT draw that character; environment only. Deliver clean single landscape background."
+    },
+    {
+      "output": "artwork/foreground-original.png",
+      "transparent_background": true,
+      "prompt": "Create one original transparent foreground overlay asset for a 16:9 pixel fantasy game title screen. Canvas landscape wide. Actual transparent alpha, no background. Only an irregular narrow band occupying bottom 15 percent: dark charcoal jagged mossy stone ledge, sparse vermilion maple leaves, three small jade grasses at corners. Top 85 percent entirely transparent, nothing there. Crisp pixel art no soft edges, no shadows outside silhouette, no gradient, no text no characters. Coal #111b20 and #192b2c, jade #528d83 and ivory #f2e7cf very sparingly, vermilion #c65140 small leaf accents. Restrained and elegant. Match a night forest shrine world. This is a single foreground layer for parallax over a separate background. No frame, no UI."
+    }
+  ]
+}

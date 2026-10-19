@@ -1,0 +1,33 @@
+{
+  "observed_at_date": "2026-10-19",
+  "timezone": "Asia/Saigon",
+  "source": "Authenticated itch.io owner analytics, game 3857509",
+  "header_views": 211,
+  "header_browser_plays": 45,
+  "header_scope": "Not established as identical to selected chart/referrer window",
+  "downloads": 0,
+  "ratings": 0,
+  "collections": 0,
+  "comments": 0,
+  "referrer_window": {
+    "from": "2026-09-20",
+    "to": "2026-10-19",
+    "display": "30 days"
+  },
+  "external_referrer_rows": {
+    "l.facebook.com": 19,
+    "m.facebook.com": 5,
+    "facebook.com": 2,
+    "www.facebook.com": 1,
+    "lm.facebook.com": 1
+  },
+  "external_facebook_sum": 28,
+  "self_referral_with_fbclid": 1,
+  "all_shown_referrer_sum": 29,
+  "itch_impressions": null,
+  "itch_ctr": null,
+  "unique_players": null,
+  "retention": null,
+  "qa_contribution_to_dashboard": null,
+  "note": "Historical baseline before final publication checks. Take a fresh day-0 baseline before first outbound post; this task generated page inspections. No live game starts for final publication verification."
+}

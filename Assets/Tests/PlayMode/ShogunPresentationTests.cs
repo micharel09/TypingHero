@@ -12,10 +12,29 @@ public sealed class ShogunPresentationTests
     static void Set(object target, string name, object value) => target.GetType()
         .GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(target, value);
 
-    [Test, Category("Quick")]
-    public void CombatLayoutTracksBodiesAndKeepsPulsingScoreAtScreenCorner()
+    static Bounds VisibleGlyphs(TMP_Text text)
     {
-        var root = new GameObject("layout", typeof(RectTransform));
+        Bounds result = default;
+        bool first = true;
+        for (int i = 0; i < text.textInfo.characterCount; i++)
+        {
+            var c = text.textInfo.characterInfo[i];
+            if (!c.isVisible) continue;
+            var m = c.textElement.glyph.metrics;
+            var topLeft = new Vector3(c.origin + m.horizontalBearingX * c.scale,
+                c.baseLine + m.horizontalBearingY * c.scale, 0);
+            var bottomRight = topLeft + new Vector3(m.width, -m.height, 0) * c.scale;
+            if (first) { result = new Bounds(topLeft, Vector3.zero); first = false; }
+            result.Encapsulate(topLeft); result.Encapsulate(bottomRight);
+        }
+        return result;
+    }
+
+    [Test, Category("Quick")]
+    public void CombatLayoutKeepsAuthoredHudFixedAndTracksOnlyWorldPopup()
+    {
+        var root = new GameObject("layout", typeof(RectTransform), typeof(Canvas));
+        root.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         var cameraHost = new GameObject("camera", typeof(Camera));
         var player = new GameObject("player", typeof(BoxCollider2D));
         var enemy = new GameObject("enemy", typeof(BoxCollider2D));
@@ -47,34 +66,80 @@ public sealed class ShogunPresentationTests
             var decay = Box("decay", bounds, 112, 4); var popup = Box("popup", bounds, 1, 1);
             Set(layout, "comboRoot", combo); Set(layout, "comboDecay", decay);
             Set(layout, "popupAnchor", popup);
+            var fx = root.AddComponent<SlayerScreenFX>(); fx.enabled = false;
+            var bar = Box("top bar", bounds, 960, 160);
+            Set(fx, "topBar", bar); Set(fx, "_topFrameHeight", 160f);
+            Set(layout, "slayerFX", fx);
+            foreach (float reveal in new[] { 0f, .5f, 1f, .5f, 0f, 1f, 0f })
             foreach (string digits in new[] { "0", "128450", "2147483647" })
             foreach (string tier in new[] { "x1.0", "x2.0", "x3.0" })
             foreach (float pulse in new[] { 1f, 1.2f })
             foreach (float zoom in new[] { 1f, 1.282051f })
             {
+                Set(fx, "_barReveal", reveal);
                 score.text = digits; multiplier.text = tier;
                 multiplier.gameObject.SetActive(tier != "x1.0");
                 camera.orthographicSize = 5 / zoom; cluster.localScale = Vector3.one * zoom;
                 score.transform.localScale = Vector3.one * pulse;
                 typeof(CombatHUDLayout).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(layout, null);
-                var foot = camera.WorldToScreenPoint(layout.Foot(player.GetComponent<BoxCollider2D>()));
-                Assert.That(a.position.x + 56, Is.EqualTo(foot.x).Within(.001f));
-                Assert.That(a.position.y, Is.EqualTo(foot.y - 12).Within(.001f));
-                Assert.That(tray.position.y, Is.EqualTo(Mathf.Min(a.position.y - 6, b.position.y - 12) - 12).Within(.001f));
+                Assert.That(a.anchoredPosition, Is.EqualTo(Vector2.zero), "HUD stays fixed when actors/camera move");
+                Assert.That(b.anchoredPosition, Is.EqualTo(Vector2.zero));
+                Assert.That(tray.anchoredPosition, Is.EqualTo(Vector2.zero));
                 Assert.That(cluster.localScale, Is.EqualTo(Vector3.one));
-                var local = bounds.InverseTransformPoint(cluster.position);
-                Assert.That(local.x + score.preferredWidth * pulse, Is.EqualTo(bounds.rect.xMax - 24).Within(.001f));
-                Assert.That(local.y, Is.EqualTo(bounds.rect.yMax - 24).Within(.001f));
+                Assert.That(score.fontSize, Is.EqualTo(24));
+                Assert.That(multiplier.fontSize, Is.EqualTo(16));
                 var head = camera.WorldToScreenPoint(layout.Head(enemy.GetComponent<BoxCollider2D>()));
                 Assert.That(popup.position.x, Is.EqualTo(head.x + 24).Within(.001f));
                 Assert.That(popup.position.y, Is.EqualTo(head.y + 12).Within(.001f));
-                Assert.That(decay.gameObject.activeSelf, Is.EqualTo(tier != "x1.0"));
             }
         }
         finally
         {
             Object.DestroyImmediate(root); Object.DestroyImmediate(cameraHost);
             Object.DestroyImmediate(player); Object.DestroyImmediate(enemy);
+        }
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator SlayerBarRevealSurvivesInterruptedExitPauseAndDisable()
+    {
+        var host = new GameObject("screen FX"); host.SetActive(false);
+        var camera = host.AddComponent<Cinemachine.CinemachineVirtualCamera>();
+        var fx = host.AddComponent<SlayerScreenFX>();
+        var top = new GameObject("top", typeof(RectTransform)).GetComponent<RectTransform>();
+        var bottom = new GameObject("bottom", typeof(RectTransform)).GetComponent<RectTransform>();
+        Set(fx, "vcam", camera); Set(fx, "topBar", top); Set(fx, "bottomBar", bottom);
+        try
+        {
+            host.SetActive(true);
+            fx.EnterSlayerFX();
+            yield return new WaitForSecondsRealtime(.06f);
+            float partial = fx.BarReveal;
+            Assert.That(partial, Is.InRange(.001f, .99f));
+            // The projected frame can be much taller than serialized barHeight64.
+            top.sizeDelta = new Vector2(960, 180);
+            fx.ExitSlayerFX();
+            Assert.That(fx.BarReveal, Is.LessThanOrEqualTo(partial), "exit must start at reveal, not projected pixels");
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(.3f);
+            Assert.That(fx.BarReveal, Is.Zero);
+            fx.EnterSlayerFX();
+            yield return new WaitForSecondsRealtime(.3f);
+            Assert.That(fx.BarReveal, Is.EqualTo(1));
+            fx.ExitSlayerFX();
+            yield return new WaitForSecondsRealtime(.06f);
+            partial = fx.BarReveal;
+            fx.EnterSlayerFX();
+            Assert.That(fx.BarReveal, Is.GreaterThanOrEqualTo(partial));
+            yield return new WaitForSecondsRealtime(.3f);
+            Assert.That(fx.BarReveal, Is.EqualTo(1));
+            fx.enabled = false;
+            Assert.That(fx.BarReveal, Is.Zero);
+        }
+        finally
+        {
+            Time.timeScale = 1;
+            Object.DestroyImmediate(host); Object.DestroyImmediate(top.gameObject); Object.DestroyImmediate(bottom.gameObject);
         }
     }
 
@@ -265,6 +330,9 @@ public sealed class ShogunPresentationTests
         Assert.That(EventSystem.current.currentSelectedGameObject, Is.EqualTo(close));
         Assert.That(previous.GetComponent<CanvasGroup>().interactable, Is.False);
         modal.Close();
+        Assert.That(LeaderboardModal.BlocksShortcuts, Is.True, "Closing a modal must consume the current frame's shortcuts");
+        yield return null;
+        Assert.That(LeaderboardModal.BlocksShortcuts, Is.False);
         Assert.That(LeaderboardModal.IsOpen, Is.False);
         Assert.That(EventSystem.current.currentSelectedGameObject, Is.EqualTo(previous));
         Assert.That(previous.GetComponent<CanvasGroup>().blocksRaycasts, Is.True);

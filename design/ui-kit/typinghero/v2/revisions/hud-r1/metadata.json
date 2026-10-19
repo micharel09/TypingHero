@@ -1,0 +1,730 @@
+{
+  "revision": "hud-r1",
+  "canvas": [
+    320,
+    180
+  ],
+  "filter": "Point",
+  "wrap": "Clamp",
+  "mipmaps": false,
+  "scales": [
+    1,
+    2,
+    4
+  ],
+  "palette": {
+    "shadow": "#090811",
+    "coal": "#14111e",
+    "deep": "#211c2d",
+    "steel": "#494153",
+    "edge": "#77677f",
+    "gold": "#a3844d",
+    "light": "#dcc18a",
+    "ivory": "#f2e7cf",
+    "muted": "#afa1b3",
+    "red": "#a6354c",
+    "error": "#f16b67",
+    "jade": "#588b8c",
+    "rim": "#b5acb8",
+    "metal": "#827789",
+    "bevel": "#5e536a",
+    "inner": "#282231"
+  },
+  "assets": {
+    "resource-frame": {
+      "size": [
+        102,
+        21
+      ],
+      "role": "Fixed socket neck and stepped endcap. Never stretch.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-frame.png",
+      "svg": "svg/resource-frame.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        3,
+        3,
+        102,
+        21
+      ]
+    },
+    "resource-socket": {
+      "size": [
+        21,
+        21
+      ],
+      "role": "Fixed multilayer circular pixel socket.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-socket.png",
+      "svg": "svg/resource-socket.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        111,
+        3,
+        21,
+        21
+      ]
+    },
+    "resource-frame-gold": {
+      "size": [
+        102,
+        21
+      ],
+      "role": "Fixed socket neck and stepped endcap. Never stretch.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-frame-gold.png",
+      "svg": "svg/resource-frame-gold.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        138,
+        3,
+        102,
+        21
+      ]
+    },
+    "resource-socket-gold": {
+      "size": [
+        21,
+        21
+      ],
+      "role": "Fixed multilayer circular pixel socket.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-socket-gold.png",
+      "svg": "svg/resource-socket-gold.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        246,
+        3,
+        21,
+        21
+      ]
+    },
+    "resource-track": {
+      "size": [
+        77,
+        6
+      ],
+      "role": "Recess visible at zero HP; not part of fill.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-track.png",
+      "svg": "svg/resource-track.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        273,
+        3,
+        77,
+        6
+      ]
+    },
+    "hp-fill": {
+      "size": [
+        77,
+        6
+      ],
+      "role": "Continuous horizontal crop, no quantized segments.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/hp-fill.png",
+      "svg": "svg/hp-fill.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        356,
+        3,
+        77,
+        6
+      ]
+    },
+    "combo-fill": {
+      "size": [
+        77,
+        6
+      ],
+      "role": "Continuous horizontal crop, no quantized segments.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/combo-fill.png",
+      "svg": "svg/combo-fill.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        3,
+        30,
+        77,
+        6
+      ]
+    },
+    "stamina-fill": {
+      "size": [
+        77,
+        6
+      ],
+      "role": "Continuous horizontal crop, no quantized segments.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/stamina-fill.png",
+      "svg": "svg/stamina-fill.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        86,
+        30,
+        77,
+        6
+      ]
+    },
+    "resource-decoration": {
+      "size": [
+        77,
+        6
+      ],
+      "role": "Top glints only. Never control fill amount.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/resource-decoration.png",
+      "svg": "svg/resource-decoration.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        169,
+        30,
+        77,
+        6
+      ]
+    },
+    "icon-hp": {
+      "size": [
+        10,
+        10
+      ],
+      "role": "Reused v2 semantic artwork; fixed size.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/icon-hp.png",
+      "svg": "svg/icon-hp.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        252,
+        30,
+        10,
+        10
+      ]
+    },
+    "icon-combo": {
+      "size": [
+        10,
+        10
+      ],
+      "role": "Reused v2 semantic artwork; fixed size.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/icon-combo.png",
+      "svg": "svg/icon-combo.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        268,
+        30,
+        10,
+        10
+      ]
+    },
+    "icon-stamina": {
+      "size": [
+        10,
+        10
+      ],
+      "role": "Reused v2 semantic artwork; fixed size.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/icon-stamina.png",
+      "svg": "svg/icon-stamina.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        284,
+        30,
+        10,
+        10
+      ]
+    },
+    "captain-badge": {
+      "size": [
+        15,
+        17
+      ],
+      "role": "Reused v2 semantic artwork; fixed size.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/captain-badge.png",
+      "svg": "svg/captain-badge.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        300,
+        30,
+        15,
+        17
+      ]
+    },
+    "icon-pause": {
+      "size": [
+        10,
+        10
+      ],
+      "role": "Reused v2 semantic artwork; fixed size.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/icon-pause.png",
+      "svg": "svg/icon-pause.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        321,
+        30,
+        10,
+        10
+      ]
+    },
+    "keycap-space": {
+      "size": [
+        24,
+        12
+      ],
+      "role": "Reused v2 semantic artwork; fixed size.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/keycap-space.png",
+      "svg": "svg/keycap-space.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        337,
+        30,
+        24,
+        12
+      ]
+    },
+    "score-frame": {
+      "size": [
+        98,
+        43
+      ],
+      "role": "Dark inset board with reinforced corners.",
+      "border_LBRT": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "png": "png/score-frame.png",
+      "svg": "svg/score-frame.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        367,
+        30,
+        98,
+        43
+      ]
+    },
+    "score-frame-gold": {
+      "size": [
+        98,
+        43
+      ],
+      "role": "Dark inset board with reinforced corners.",
+      "border_LBRT": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "png": "png/score-frame-gold.png",
+      "svg": "svg/score-frame-gold.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        3,
+        79,
+        98,
+        43
+      ]
+    },
+    "typing-frame": {
+      "size": [
+        158,
+        30
+      ],
+      "role": "Dark inset board with reinforced corners.",
+      "border_LBRT": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "png": "png/typing-frame.png",
+      "svg": "svg/typing-frame.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        107,
+        79,
+        158,
+        30
+      ]
+    },
+    "typing-frame-gold": {
+      "size": [
+        158,
+        30
+      ],
+      "role": "Dark inset board with reinforced corners.",
+      "border_LBRT": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "png": "png/typing-frame-gold.png",
+      "svg": "svg/typing-frame-gold.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        271,
+        79,
+        158,
+        30
+      ]
+    },
+    "typing-frame-error": {
+      "size": [
+        158,
+        30
+      ],
+      "role": "Dark inset board with reinforced corners.",
+      "border_LBRT": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "png": "png/typing-frame-error.png",
+      "svg": "svg/typing-frame-error.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        3,
+        128,
+        158,
+        30
+      ]
+    },
+    "label-frame": {
+      "size": [
+        96,
+        13
+      ],
+      "role": "Separate thin label; fixed 4px corners.",
+      "border_LBRT": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "png": "png/label-frame.png",
+      "svg": "svg/label-frame.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        167,
+        128,
+        96,
+        13
+      ]
+    },
+    "elite-socket": {
+      "size": [
+        21,
+        24
+      ],
+      "role": "Fixed rank silhouette; socket origin at y=3.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/elite-socket.png",
+      "svg": "svg/elite-socket.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        269,
+        128,
+        21,
+        24
+      ]
+    },
+    "boss-socket": {
+      "size": [
+        21,
+        24
+      ],
+      "role": "Fixed rank silhouette; socket origin at y=3.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/boss-socket.png",
+      "svg": "svg/boss-socket.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        296,
+        128,
+        21,
+        24
+      ]
+    },
+    "elite-socket-gold": {
+      "size": [
+        21,
+        24
+      ],
+      "role": "Fixed rank silhouette; socket origin at y=3.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/elite-socket-gold.png",
+      "svg": "svg/elite-socket-gold.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        323,
+        128,
+        21,
+        24
+      ]
+    },
+    "boss-socket-gold": {
+      "size": [
+        21,
+        24
+      ],
+      "role": "Fixed rank silhouette; socket origin at y=3.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/boss-socket-gold.png",
+      "svg": "svg/boss-socket-gold.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        350,
+        128,
+        21,
+        24
+      ]
+    },
+    "elite-badge": {
+      "size": [
+        10,
+        10
+      ],
+      "role": "Two chevrons inside HP socket, never on fill.",
+      "border_LBRT": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "png": "png/elite-badge.png",
+      "svg": "svg/elite-badge.svg",
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "atlas_xywh": [
+        377,
+        128,
+        10,
+        10
+      ]
+    }
+  },
+  "atlas": {
+    "size": [
+      512,
+      256
+    ],
+    "origin": "top-left",
+    "padding": 6,
+    "extrusion": 2
+  },
+  "resource": {
+    "size": [
+      102,
+      21
+    ],
+    "fill_xywh": [
+      20,
+      7,
+      77,
+      6
+    ],
+    "mode": "continuous crop; zero HP draws zero fill pixels",
+    "stretch": "fixed socket, neck and cap; regenerate native length, never stretch composite"
+  },
+  "typing": {
+    "rect": [
+      81,
+      146,
+      158,
+      30
+    ],
+    "error_ms": 180,
+    "shake_ms": 120,
+    "max_offset": 1,
+    "reset_on_error": true
+  },
+  "screens": [
+    "hud-normal",
+    "hud-elite",
+    "hud-boss",
+    "hud-slayer",
+    "hud-stress-low-hp",
+    "hud-correct",
+    "hud-error"
+  ],
+  "unity_integration": false
+}

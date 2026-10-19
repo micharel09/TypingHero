@@ -10,6 +10,7 @@ public sealed class MainMenuUI : MonoBehaviour
     [SerializeField] TMP_InputField nameInput;
     [SerializeField] Button playButton;
     [SerializeField] Button tutorialButton;
+    [SerializeField] EndlessDifficultySelector difficultySelector;
     [SerializeField] TextMeshProUGUI errorLabel;   // optional
 
     [Header("Flow")]
@@ -32,6 +33,7 @@ public sealed class MainMenuUI : MonoBehaviour
     void Awake()
     {
         TutorialRun.End();
+        EndlessRun.Clear();
         // Đảm bảo hệ nhận diện nạp sẵn tên lưu trước đó
         PlayerIdentity.EnsureLoaded();
 
@@ -54,6 +56,22 @@ public sealed class MainMenuUI : MonoBehaviour
             nameInput.Select();
             nameInput.ActivateInputField();
             nameInput.caretPosition = nameInput.text.Length;
+        }
+    }
+
+    void Update()
+    {
+        if (!Input.GetKeyDown(KeyCode.Tab) || LeaderboardModal.BlocksShortcuts || (help && help.IsOpen)) return;
+        var events = UnityEngine.EventSystems.EventSystem.current;
+        if (!events || !difficultySelector) return;
+        var targets = new UnityEngine.UI.Selectable[] { nameInput, difficultySelector, playButton, tutorialButton };
+        int current = System.Array.FindIndex(targets, item => item && item.gameObject == events.currentSelectedGameObject);
+        int direction = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? -1 : 1;
+        for (int i = 0; i < targets.Length; i++)
+        {
+            current = (current + direction + targets.Length) % targets.Length;
+            if (targets[current] && targets[current].IsInteractable() && targets[current].gameObject.activeInHierarchy)
+            { targets[current].Select(); break; }
         }
     }
 
@@ -103,7 +121,7 @@ public sealed class MainMenuUI : MonoBehaviour
 
     void Launch(bool replay)
     {
-        if (loadingScene || LeaderboardModal.IsOpen || (help && help.IsOpen)) return;
+        if (loadingScene || LeaderboardModal.BlocksShortcuts || (help && help.IsOpen)) return;
         if (!nameInput) return;
 
         if (!PlayerIdentity.TrySetName(nameInput.text, out string normalized, out string err))
@@ -134,6 +152,7 @@ public sealed class MainMenuUI : MonoBehaviour
         loadingScene = true;
         if (replay || TutorialRun.Status == TutorialRun.Progress.Unseen) TutorialRun.Begin();
         else TutorialRun.End();
+        if (!TutorialRun.Active) EndlessRun.Prepare();
         BeginGame();
     }
 }
