@@ -23,12 +23,12 @@ public sealed class GameLoopProbe : MonoBehaviour
     }
     [Serializable] sealed class SparkFrame
     {
-        public string role;
+        public string role, preset;
         public int id, frame, order;
         public Vector3 position, scale;
         public Rect screenRect;
         public int particles;
-        public float groundY, minY, maxY, maxAge, meanVelocityX;
+        public float groundY, minY, maxY, maxAge, meanVelocityX, meanDepthSpeed;
     }
     readonly ParticleSystem.Particle[] observedParticles = new ParticleSystem.Particle[56];
     ProfilerRecorder frameAllocations;
@@ -73,11 +73,13 @@ public sealed class GameLoopProbe : MonoBehaviour
             if (!sprite && !particle) return null; // A renderer may already be gone during scene teardown.
             var bounds = sprite ? sprite.bounds : particle.bounds;
             var burst = effect.GetComponent<PixelSparkBurst>();
+            var clash = effect.GetComponent<ParryClashBurst>();
             if (burst && (!burst.Systems[0] || !burst.Systems[1])) return null;
             float minY = float.PositiveInfinity, maxY = float.NegativeInfinity, maxAge = 0;
-            float velocityX = 0; int observedCount = 0;
-            if (burst)
-                foreach (var ps in burst.Systems)
+            float velocityX = 0, depthSpeed = 0; int observedCount = 0;
+            var systems = burst ? burst.Systems : clash ? clash.Systems : null;
+            if (systems != null)
+                foreach (var ps in systems)
                 {
                     var renderer = ps.GetComponent<ParticleSystemRenderer>();
                     if (!renderer) continue;
@@ -90,16 +92,18 @@ public sealed class GameLoopProbe : MonoBehaviour
                         maxY = Mathf.Max(maxY, observedParticles[p].position.y);
                         maxAge = Mathf.Max(maxAge, observedParticles[p].startLifetime - observedParticles[p].remainingLifetime);
                         velocityX += observedParticles[p].velocity.x;
+                        depthSpeed += Mathf.Abs(observedParticles[p].velocity.z);
                     }
                 }
             var min = camera ? camera.WorldToScreenPoint(bounds.min) : Vector3.zero;
             var max = camera ? camera.WorldToScreenPoint(bounds.max) : Vector3.zero;
-            return new SparkFrame { role = role, id = effect.GetInstanceID(), frame = Time.frameCount,
+            return new SparkFrame { role = role, preset = clash ? clash.EmittedPreset.ToString() : "", id = effect.GetInstanceID(), frame = Time.frameCount,
                 order = sprite ? sprite.sortingOrder : particle.sortingOrder,
                 position = effect.transform.position, scale = effect.transform.lossyScale,
-                particles = burst ? burst.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
-                minY = burst && burst.ParticleCount > 0 ? minY : 0, maxY = burst && burst.ParticleCount > 0 ? maxY : 0, maxAge = maxAge,
+                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
+                minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = maxAge,
                 meanVelocityX = observedCount > 0 ? velocityX / observedCount : 0,
+                meanDepthSpeed = observedCount > 0 ? depthSpeed / observedCount : 0,
                 screenRect = Rect.MinMaxRect(min.x, min.y, max.x, max.y) };
         }).Where(frame => frame != null).ToArray();
     }

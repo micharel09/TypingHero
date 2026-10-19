@@ -44,6 +44,7 @@ public sealed class PooledVFX : MonoBehaviour
         if (!_leased) return;
         _leased = false;
         if (TryGetComponent<PixelSparkBurst>(out var burst)) burst.Clear();
+        if (TryGetComponent<ParryClashBurst>(out var clash)) clash.Clear();
         transform.localScale = _initial;
         if (_renderer) _renderer.color = _color;
         if (_animator) _animator.speed = 1f;

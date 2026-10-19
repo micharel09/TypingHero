@@ -146,7 +146,7 @@ async function tutorialPilot(page) {
 }
 async function session(browser, viewport, rows, embedded = false) {
   const context = await browser.newContext({ viewport, serviceWorkers: 'block',
-    ...(process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1' ? {recordVideo:{dir:report.outputDirectory,size:viewport}} : {}) });
+    ...((process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1' || process.env.TYPINGHERO_PARRY_CLASH_ONLY === '1') ? {recordVideo:{dir:report.outputDirectory,size:viewport}} : {}) });
   await context.route('**/*', async route => {
     const req = route.request();
     const url = new URL(req.url());
@@ -553,7 +553,10 @@ async function modalFlow(page, paused) {
       browser = context.browser();
     } else browser = await chromium.launch(options);
     report.chromium = browser.version();
-    if (process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1') {
+    if (process.env.TYPINGHERO_PARRY_CLASH_ONLY === '1') {
+      report.scenario='parry-clash';
+      await require('./parry_clash.cjs')({session,start,state,until,check,report},browser);
+    } else if (process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1') {
       report.scenario='pixel-sparks'; report.viewport='1280x720 and 640x360';
       report.pixelSparksDriverSha256=require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(__dirname,'pixel_sparks.cjs'))).digest('hex');
       await require('./pixel_sparks.cjs')({session,start,state,until,check,report},browser);
@@ -615,7 +618,7 @@ async function modalFlow(page, paused) {
       } finally { await context.close(); }
       if (profile === 'webgl') await require('./tutorial_embedding.cjs')({session, state, until, clickControl, check, report}, browser);
     }
-    if (profile === 'webgl' && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
+    if (profile === 'webgl' && process.env.TYPINGHERO_PARRY_CLASH_ONLY !== '1' && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
     check(!report.pageError, 'no JavaScript exceptions');
     check(report.exceptions.length === 0, 'no startup or runtime exceptions in console');
     report.status = 'passed';

@@ -12,7 +12,7 @@ internal static class CombatFeedbackBuild
     internal static void Apply()
     {
         CombatFeedbackAssets.Prepare();
-        PixelSparkAssets.Prepare();
+        ParryClashAssets.Prepare();
         var normal = ImpactEvent("ev_impact_normal", "medium", .65f);
         var slayer = ImpactEvent("ev_impact_slayer", "medium", .45f);
         var lethal = ImpactEvent("ev_impact_lethal", "heavy", .8f);
@@ -63,12 +63,11 @@ internal static class CombatFeedbackBuild
     {
         foreach (var spark in root.GetComponentsInChildren<HitSparkSpawner>(true))
         {
-            Set(spark, "sparkPrefab", PixelSparkAssets.Load("Normal"));
-            Set(spark, "lethalPrefab", PixelSparkAssets.Load("Lethal"));
+            Set(spark, "sparkPrefab", null);
+            Set(spark, "lethalPrefab", null);
             Value(spark, "groundY", Ground(root));
             var profiles = new SerializedObject(spark);
-            var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 1;
-            variants.GetArrayElementAtIndex(0).objectReferenceValue = PixelSparkAssets.Load("Slayer");
+            var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 0;
             profiles.ApplyModifiedPropertiesWithoutUndo();
             Value(spark, "zRotationOffset", 0f); Vector(spark, "angleJitter", Vector2.zero);
             Set(spark, "normalImpact", normal); Set(spark, "slayerImpact", slayer); Set(spark, "lethalImpact", lethal);
@@ -90,7 +89,7 @@ internal static class CombatFeedbackBuild
         }
         foreach (var parry in root.GetComponentsInChildren<ParrySparkVFX_Pooled>(true))
         {
-            Set(parry, "sparkPrefab", PixelSparkAssets.Load("Parry"));
+            Set(parry, "sparkPrefab", ParryClashAssets.Load());
             Value(parry, "groundY", Ground(root));
             var anchor = Get<Transform>(parry, "playerSparkAnchor");
             if (anchor)

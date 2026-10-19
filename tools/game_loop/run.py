@@ -21,7 +21,7 @@ def main():
     parser.add_argument("--license", help="Optional existing server ULF; default uses the activated private Unity HOME")
     parser.add_argument("--seconds", type=int, default=1800)
     parser.add_argument("--profile-allocations", action="store_true", help="Development QA player with per-frame allocation counters (WebGL only)")
-    parser.add_argument("--browser-scenario", choices=["skeleton-art", "attack-sorting", "score-layout", "pixel-sparks", "pixel-sparks-parry"], help="Targeted WebGL acceptance using the existing isolated harness")
+    parser.add_argument("--browser-scenario", choices=["skeleton-art", "attack-sorting", "score-layout", "pixel-sparks", "pixel-sparks-parry", "parry-clash"], help="Targeted WebGL acceptance using the existing isolated harness")
     args = parser.parse_args()
     if args.browser_scenario and args.profile != 'webgl':
         parser.error('--browser-scenario requires webgl')

@@ -96,7 +96,84 @@ Change only behavior explicitly requested. Update this file after relevant verif
   See the tutorial continuation in combat-feedback and verification for actual
   profile and release receipts.
 
-## Combat feedback implementation (2026-10-17)
+## World lighting / parry clash prototype (2026-10-18)
+
+Earlier pixel-ray prototype published to itch.io at user request2026-10-19; not merged.
+Current thicker-ray revision, Current/A/B/C comparison and BCompact are separate art-review samples and are not published.
+Full surface art, B/C and parent integration remain separate.
+
+- Successful OnParrySuccess emits ParryClash at ParrySparkAnchor: contact2,
+  main12/front28/back16/embers8 (66 total, five systems). At16PPU main hot head/
+  body/tail are .1875/.125/.0625WU; front head/body .09375/.0625WU; back remains
+  .03125WU at the head, darker and behind actors. Count/head-width/lifetime/
+  brightness remain editable per layer. Hard UV masks are selected once50/30/20
+  (bevel/offset/short tail), with a hot leading head and sub-bloom body. Width
+  holds through65% then steps down once. No world-position snapping.
+- Burst fan rotation ?6deg, spread90?110%, energy ?8%; angles jitter within strata.
+  Custom1 carries mask/body ratio/head source pixels/independent length ?15%.
+  Three of the12main rays use4/3pixel head/body, short55?70% length multiplier
+  and Z toward camera4?6WU/s; distinct XY strata keep these fragments separate.
+  Back Z goes away2?4WU/s. Mirror changes only X. Lifetime and placement remain.
+  Inspector groups expose fan and camera-fragment settings. Shape migration v1
+  updates the same prefab/vertex streams once, preserving later tuning, all26
+  object IDs and GUID references; no extra systems/materials. Contact flash,
+  world bloom/light strength and consuming ember plane remain unchanged.
+- Spark Inspector presets Current/A/B/C keep Current as default. A alternates
+  55?75%/115?135% spread with 65?130% ray lengths. B uses -16/+45 degree
+  clusters with ?8 degree jitter, alternating 95?130%/45?80% dominant lengths.
+  C rotates three 110?130% long rays among nine ordinary main rays; the other
+  six use45?75%, front uses40?75%. A/B/C use ?15 degree burst rotation and
+  ?15% velocity energy. Near-camera widths/depth/masks and all budgets stay fixed.
+  Owner-local per-preset sequences survive lease reuse. Automation-only F6 cycles
+  presets with a label; emitted shapes remain unchanged. Separate length-support
+  migration v1 reserves130% and compensates the shader crop, preserving Current.
+- BCompact remains value4; Current is the serialized default. Five existing systems
+  emit contact2/main2/front6/back6/embers0,16total/128over eight leases. Fourteen sparks
+  launch together from the sword contact in the -16/+45degree lobes,14-24speed
+  with existing15degree/15%burst variation. Keep10forward sparks and append4reverse-X
+  falling sparks (two Front/two Back); each depth layer has one long/one short reverse
+  ray. Reverse only horizontal travel; Y/Z remain independent. Mirror X only. Front Z is negative,
+  Back positive; existing foreground/background actor sorting is preserved.
+  Two front fragments expire120-180ms; the other12remain the same particles through
+  launch braking120ms, gravity9.81fall, one22%vertical/55%X/Zbounce and180msrest.
+  Exponential launch drag20/s transitions continuously to X/Zdrag2/s and ballistic Y.
+  Second ground contact stops all axes at groundY+1/32. Full trajectory sets lifetime;
+  yellow/orange/dark-red cooling and alpha fade from first ground contact through rest.
+  Projected speed sets integer16PPU lengths/widths down to1x1; depth scale is clamped
+  .75-1.5before pixel rounding. Floor clearance limits silhouette; square1x1 masks
+  remain visible. No replacement particles, blur, camera or gameplay changes.
+  Fixed14state/6particle buffers and reused custom data avoid per-frame allocation.
+  Compact groups disable automatic gravity/collision/velocity-limit/size/color and
+  particle simulation; configuration restores on preset reuse. Manual completion
+  ignores IsAlive for those frozen systems, preserving exactly-once lease return.
+  Unscaled age obeys pause/reading; Clear/re-emission/disable/restart discard state.
+  Quick78/78 and native40keyboard clashes/two directions/two sizes verify this revision;
+  B<->compact pause/restart passes both directions. Version1migration, all prefab
+  bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
+  This is a review sample; prior mirror p95 concerns remain separate and unresolved.
+- Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
+  prefabs and SampleScene. Existing hit SFX, lethal shake, slash, flash, afterimages
+  and damage remain. Legacy PixelSparks/CodeManu/Pimen assets are retained unwired.
+- ParryClashBurst owns unscaled simulation, pause/tutorial hold, clear and completion;
+  PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.
+  ClashLightingRig holds eight pulse states, renders strongest capped pulse through
+  one Light2D, and immediately cancels a disabled/released owner.
+- WorldLightingBuild runs after ShogunTheme: lit actor/near-environment sprites,
+  ambient/key/fill plus clash rig, fixed-body-foot contact shadows and thresholded
+  world bloom. Menu background sprites follow the original UI rectangles via
+  WorldMenuBackdrop; overlay HUD remains separate. Camera lens/zoom unchanged.
+- Secondary _NormalMap textures preserve source GUIDs/rects/pivots/PPU. Current
+  maps are draft alpha/material-region bevels, independent of painted luminance;
+  anatomical/armor/roof authoring and complete frame/mirror review remain milestone B.
+- Quick75, repeated builder and real-keyboard native ten-clash/direction/two-size sample
+  pass; see verification and the combat-feedback plan. This is prototype evidence,
+  not full tutorial/result/transition/performance/release acceptance.
+
+## Retained combat-feedback baseline (2026-10-17)
+
+The four particle profiles below describe retained legacy assets, superseded by the
+prototype bindings above. Nonparticle feedback and gameplay contracts remain.
+
 
 - PlayerWeaponHitbox captures Slayer/IgnoreHitstop before damage and chooses impact
   after damage, including a lethal hit that immediately exits Slayer. Closed/disabled

@@ -64,7 +64,7 @@ def main():
     scenario = sys.argv[4] if len(sys.argv) > 4 else 'full'
     profile_allocations = len(sys.argv) > 5 and sys.argv[5] == '1'
     if profile_allocations and profile != 'webgl': raise ValueError('Allocation profiling requires WebGL QA')
-    if scenario not in ('full', 'skeleton-art', 'attack-sorting', 'score-layout', 'pixel-sparks', 'pixel-sparks-parry') or (scenario != 'full' and profile != 'webgl'):
+    if scenario not in ('full', 'skeleton-art', 'attack-sorting', 'score-layout', 'pixel-sparks', 'pixel-sparks-parry', 'parry-clash') or (scenario != 'full' and profile != 'webgl'):
         raise ValueError('Unsupported browser scenario/profile')
     BASE.mkdir(parents=True, exist_ok=True)
     with (BASE / "runner.lock").open("w") as lock:
@@ -201,18 +201,25 @@ def main():
                     raise RuntimeError("QA bridge present in production JavaScript")
             print("PASS: normal WebGL build excludes QA bridge", flush=True)
             return
-        if scenario.startswith('pixel-sparks'):
+        if scenario.startswith('pixel-sparks') or scenario == 'parry-clash':
             # Preserve this exact player before releasing the shared runner lock.
             # Native QA must not race another task replacing build-qa.
             immutable = result / 'player'
             shutil.copytree(build, immutable)
             for relative in ('Assets/Scenes/MainMenu.unity', 'Assets/Scenes/SampleScene.unity',
                              'Assets/Characters/Player/Player.prefab', 'Assets/Characters/Enermy/Skeleton.prefab',
-                             'Assets/Art/VFX/PixelSparks', 'Assets/Art/VFX/PixelSparks.meta'):
+                             'Assets/Art/VFX/PixelSparks', 'Assets/Art/VFX/PixelSparks.meta',
+                             'Assets/Art/Lighting', 'Assets/Art/Lighting.meta',
+                             'Assets/Art/VFX/ParryClash', 'Assets/Art/VFX/ParryClash.meta'):
                 target = result / 'serialized' / relative
                 target.parent.mkdir(parents=True, exist_ok=True)
                 if (SOURCE / relative).is_dir(): shutil.copytree(SOURCE / relative, target)
                 else: shutil.copy2(SOURCE / relative, target)
+            for meta in (SOURCE / 'Assets/Art').rglob('*.png.meta'):
+                if b'_NormalMap' in meta.read_bytes():
+                    target = result / 'serialized' / meta.relative_to(SOURCE)
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(meta, target)
             build = immutable
             print(f"QA player preserved: {build}", flush=True)
         space(BASE, config["minimumFreeGiB"]["browser"])
@@ -221,7 +228,8 @@ def main():
               *(['-e', 'TYPINGHERO_SKELETON_ART_ONLY=1'] if scenario == 'skeleton-art' else []),
               *(['-e', 'TYPINGHERO_SCORE_LAYOUT_ONLY=1'] if scenario == 'score-layout' else []),
               *(['-e', 'TYPINGHERO_ATTACK_SORTING_ONLY=1'] if scenario == 'attack-sorting' else []),
-              *(['-e', 'TYPINGHERO_PIXEL_SPARKS_ONLY=1'] if scenario in ('pixel-sparks', 'pixel-sparks-parry') else []),
+              *(['-e', 'TYPINGHERO_PIXEL_SPARKS_ONLY=1'] if scenario in ('pixel-sparks', 'pixel-sparks-parry', 'parry-clash') else []),
+              *(['-e', 'TYPINGHERO_PARRY_CLASH_ONLY=1'] if scenario == 'parry-clash' else []),
               *(['-e', 'TYPINGHERO_PIXEL_PARRY_ONLY=1'] if scenario == 'pixel-sparks-parry' else []),
               "-v", f"{BASE / 'toolchain'}:/tools", "-v", f"{SOURCE / 'tools/game_loop'}:/runner:ro",
               "-v", f"{build}:/build:ro", "-v", f"{result}:/results", browser,
