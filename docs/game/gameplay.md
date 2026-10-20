@@ -10,15 +10,15 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
 - CombatR7Build keeps the total at its existing center-top position. ScoreCluster now owns ComboHUD and its existing decay slider: total → multiplier → thin decay track. PlayerStatus contains name/HP only; its former combo frame/socket/icon remain inactive to preserve IDs. Enemy stamina is unchanged.
 - ScoreUI_ComboHUD hides both multiplier and decay at ×1 and reveals both above ×1. ScoreSystem, ScoreRules, thresholds, expiry/timeout, input, damage and providers are unchanged. CombatR7Status swaps only the grouped fill between normal and Slayer sprites.
 - At960×540, ComboHUD is(0,69,294,54) relative to ScoreCluster; multiplier occupies(0,0,294,30), decay(12,36,270,12). ROUND moves fromnative y38 to46 to clear the added row. Total position/pulse, names, HP and typing tray remain fixed.
-- Repeated builder and native209/209 scoped UI checks pass at320×180,640×360,1280×720,400×300, including real parry renewal, pause, expiry/timeout, restart and natural Slayer exit. See [verification](verification.md) and [checkpoint](../plans/score-hud-cluster.md). This change has not been published to itch.io.
+- Repeated builder and native209/209 scoped UI checks pass at320×180,640×360,1280×720,400×300, including real parry renewal, pause, expiry/timeout, restart and natural Slayer exit. See [verification](verification.md) and [checkpoint](../plans/score-hud-cluster.md). Published with the HUD release on 2026-10-20, upload19892576.
 
-## Combat HUD feedback (2026-10-20; local source)
+## Combat HUD feedback (2026-10-20)
 
-- D?ng gi?a d??i score cluster hi?n th? difficulty c?a run v? DUEL n/6; Tutorial d?ng TUTORIAL. Slayer gi? nguy?n d?ng. InputBlocked/results ?n d?ng; intro/Continue gi? heading/prompt ri?ng trong EndlessOverlay.
-- CombatHUDFeedback quan s?t combat: Space s?ng khi c?ng predicate TryBeginParry cho ph?p, gi?m s?ng khi hit/pose/modal kh?a, v?ng theo cue th?t khi ready ho?c window ?ang m?, xanh ng?c120ms t? OnParrySuccess. Success iframe serialized80ms, input/window/grace/SFX kh?ng ??i.
-- Enemy stamina d?ng icon shield v2 nguy?n b?n10?10; ch? cost th?t>0?0 k?m stun s?ng m?i ??i warning. H?t stun tr? l?i shield. GUARD BREAK ch? l?n ??u m?i duel, font8native d??i thanh, hold720/fade180ms. Setup/regen/death kh?ng ph?t notice; pause gi? th?i gian, Continue/restart reset, results/death clear.
-- S? HP s?ng?25% ??; vi?n flash ?? v? m?u g?c180ms ch? t? damage th?t, hit m?i reset. Init/carry/restore kh?ng ph?t damage event. Theo quy?t ??nh user20/10, HUD kh?ng c? nh?nh x? l? reduced-motion ri?ng. Component h?y event/reset khi disable; stamina/HP/scoring logic gi? nguy?n.
-- Scoped Unity4/4 v? native2353 checks PASS tr??c khi b? nh?nh reduced-motion; normal/Slayer ? b?n k?ch th??c, gi?10HP t?i victory v? death. Nh?nh m?u/interpolation normal ?? ki?m gi? nguy?n. Software tutorial driver v?n timeout; kh?ng full balance/performance/release claim. Xem [HUD checkpoint](../plans/score-hud-cluster.md).
+- Dòng dưới score cluster hiển thị difficulty của run và DUEL n/6; Tutorial dùng TUTORIAL. Slayer giữ dòng, InputBlocked/results ẩn dòng; EndlessOverlay giữ intro/Continue riêng.
+- CombatHUDFeedback quan sát combat: Space sáng khi cùng predicate TryBeginParry cho phép, giảm sáng khi khóa, vàng theo cue thật khi ready hoặc window đang mở, xanh ngọc120ms từ OnParrySuccess. Success iframe80ms, input/window/grace/SFX không đổi.
+- Stamina dùng shield v2 nguyên bản10×10; cost thật>0→0 kèm stun sống mới đổi warning. Hết stun trả shield. GUARD BREAK chỉ lần đầu mỗi duel, font8native, hold720/fade180ms. Setup/regen/death không báo; pause giữ thời gian, Continue/restart reset, results/death clear.
+- Số HP sống≤25% đỏ; viền Lerp đỏ về màu gốc180ms từ damage thật, hit mới reset. Init/carry/restore không phát damage event. Theo quyết định user, HUD không có xử lý reduced-motion riêng; không đổi motion cũ ở typing/UI khác. Component hủy event/reset khi disable; logic stamina/HP/scoring giữ nguyên.
+- Local source751de45: scoped Unity4/4 và native2353 PASS trên normal path giữ nguyên; xem [checkpoint](../plans/score-hud-cluster.md) cho provenance, các lượt không đạt và giới hạn. Release child uses the approved palette/public UI64de5b3a baseline. Published upload19892576 on 2026-10-20; production/CDN/native receipts are in verification.md.
 
 ## Endless Duel (2026-10-19)
 
