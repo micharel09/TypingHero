@@ -2,61 +2,118 @@
   "status": "published",
   "target": "https://micharel09.itch.io/clackblade",
   "game": 3857509,
-  "sourceCommit": "6e626f5",
+  "sourceCommit": "e3d61e4c905800ca0df200c242be75872329763e",
   "hudCommits": [
     "b260470",
-    "751de45"
+    "751de45",
+    "e3d61e4"
   ],
   "publicBaselineInput": "64de5b3ad3a3df3bc79ff56c159713ba777cd1ab25ffa0f08a81834ba7d6fcd7",
-  "productionInput": "1f2550f0a8a0d4f226417dc926801c0eba4983146500a238b106ded8fb43134c",
-  "productionResult": "20261020T031135-production",
-  "serializedResult": "20261020T030558-serialize",
+  "productionInput": "c156dca188c61db60603c42f539c95033b64852683f066f3e6f3bb28a326cb24",
+  "productionResult": "20261020T035935-production",
   "qaBridge": "excluded-ascii-and-utf16",
   "zip": {
-    "path": "Builds/CLACKBLADE-WebGL-HUD-20261020.zip",
-    "bytes": 16491939,
-    "sha256": "7333b9de781abb84606769dcee8580c6c453452962005b22ce045bd29449f679",
+    "path": "Builds/CLACKBLADE-WebGL-HUD-20261020-no-guard-break.zip",
+    "bytes": 16541407,
+    "sha256": "370db43dff3b0a3e85b3adb19090828d13d6b975ad81bc1de591b7a63f8dce19",
     "members": {
-      "Build/output.data": "0f2bda0fb9c507af11f5038636715231004a1363b57cc6fde915bee868983828",
-      "Build/output.framework.js": "fc2f9b2bfa58b57b7aabaa6d43b950ae708f583a9d432f0eeca3b2966acc2b7a",
-      "Build/output.loader.js": "1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76",
-      "Build/output.wasm": "ce9306f2ff4d5fb0236aeecd760449b7e1bb12356766c52faa10b9ed2c680a59",
-      "CREDITS.txt": "50a044fa6ef8cbc5626c5074b82db9c8e15768fcfc5e7ac604cb1599f2c95ec6",
-      "CodeManu-License.txt": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
-      "Crusenho-License.txt": "25404f33d70ae10f6c699b150031fdcd4071c2a5bd99976bb022a3788dba94af",
-      "DarkAges-License.txt": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
-      "Kenney-Impact-License.txt": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
-      "Kenney-Interface-License.txt": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
-      "Kenney-License.txt": "835e21526eada764d2f20203895352b8c72a8f04e105073ed4bee2b517479ac0",
-      "Kenney-UI-License.txt": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
-      "Pimen-BattleEffects-License.txt": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
       "Pimen-HitSpark-License.txt": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
-      "ServiceWorker.js": "a1410ab9ff483270351ed1dc5ee30cdd0d50911d83f4a24f3e6f04b387b52cdb",
+      "TemplateData/unity-logo-dark.png": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+      "TemplateData/progress-bar-empty-dark.png": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+      "TemplateData/unity-logo-light.png": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
       "TemplateData/favicon.ico": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+      "TemplateData/progress-bar-empty-light.png": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+      "TemplateData/progress-bar-full-light.png": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+      "TemplateData/progress-bar-full-dark.png": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
       "TemplateData/icons/unity-logo-dark.png": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
       "TemplateData/icons/unity-logo-light.png": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
-      "TemplateData/progress-bar-empty-dark.png": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
-      "TemplateData/progress-bar-empty-light.png": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
-      "TemplateData/progress-bar-full-dark.png": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
-      "TemplateData/progress-bar-full-light.png": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
       "TemplateData/style.css": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
-      "TemplateData/unity-logo-dark.png": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
-      "TemplateData/unity-logo-light.png": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
-      "TinyPixelJapan-License.txt": "6b3a9395300c20e0d5a8a1d1c5f4c57b5e09d718964e6186694dea55a22d160a",
+      "Kenney-License.txt": "835e21526eada764d2f20203895352b8c72a8f04e105073ed4bee2b517479ac0",
+      "CodeManu-License.txt": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+      "Kenney-Impact-License.txt": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+      "Kenney-UI-License.txt": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
       "VT323-OFL.txt": "27d9af34210253e7ca1251fbace86c6f65b40031d6ce1a75493a1b2093631298",
       "game-loop-build.json": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+      "Kenney-Interface-License.txt": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+      "Crusenho-License.txt": "25404f33d70ae10f6c699b150031fdcd4071c2a5bd99976bb022a3788dba94af",
+      "Pimen-BattleEffects-License.txt": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+      "CREDITS.txt": "50a044fa6ef8cbc5626c5074b82db9c8e15768fcfc5e7ac604cb1599f2c95ec6",
+      "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486",
+      "DarkAges-License.txt": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+      "TinyPixelJapan-License.txt": "6b3a9395300c20e0d5a8a1d1c5f4c57b5e09d718964e6186694dea55a22d160a",
       "index.html": "3a18f3f3b8b3b23ec6535864cb573a314aa6752ffa36a78611b295027c90cf4e",
-      "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486"
+      "Build/output.loader.js": "1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76",
+      "Build/output.wasm": "4b65a6b4739dbfe6cc12bba52daffe75463c296f62b29edea33d4f7b744829c6",
+      "Build/output.framework.js": "fc2f9b2bfa58b57b7aabaa6d43b950ae708f583a9d432f0eeca3b2966acc2b7a",
+      "Build/output.data": "c2b7867d7f97d174782b41c2d2654a81aa73d99f7ec6f526f10eb2a866f4aee3",
+      "ServiceWorker.js": "a1410ab9ff483270351ed1dc5ee30cdd0d50911d83f4a24f3e6f04b387b52cdb"
     },
     "crc": "passed"
   },
-  "sourceArchive": "/data/typinghero-game-loop/releases/hud-feedback-20261020/source-input.tar.gz",
-  "previousPlayableObserved": 19891356,
+  "previousPlayableObserved": 19892576,
   "rollback": "Reselect the previous playable upload, hide the new upload and Save; preserve unrelated page settings.",
-  "publishedUpload": 19892576,
+  "publishedUpload": 19893288,
   "previousPlayableHidden": true,
   "nonUploadFieldsUnchanged": 31,
-  "nativeProductionSmoke": {
+  "cdnVerification": {
+    "base": "https://html-classic.itch.zone/html/19893288/",
+    "matchingNonHtmlFiles": 4,
+    "verified": [
+      "Build/output.loader.js",
+      "Build/output.framework.js",
+      "Build/output.data",
+      "Build/output.wasm"
+    ],
+    "html": "Published iframe loads successfully; platform-injected wrapper not hash-compared"
+  },
+  "editorVerification": {
+    "persistedAfterReload": true,
+    "nonUploadFieldsUnchanged": 31,
+    "unrelatedUploadInputsUnchanged": 17,
+    "unrelatedUploads": 15,
+    "previousPlayableHidden": true,
+    "previousPlayable": 19892576,
+    "newPlayable": 19893288
+  },
+  "cleanup": {
+    "localReleaseZip": "retained",
+    "previousPlayableUpload": "retained-hidden-as-rollback",
+    "serverCanonicalRelease": "/data/typinghero-game-loop/releases/hud-feedback-20261020/",
+    "productionResult": "retained-for-review",
+    "temporaryCaptures": "remove-after-commit",
+    "browserSession": "aeou stop after publication verification"
+  },
+  "previousSourceArchive": {
+    "path": "/data/typinghero-game-loop/releases/hud-feedback-20261020/source-input.tar.gz",
+    "sourceCommit": "6e626f5",
+    "note": "Retained archive from the prior public baseline; this release source is the git commit above."
+  },
+  "focusedVerification": {
+    "input": "c156dca188c61db60603c42f539c95033b64852683f066f3e6f3bb28a326cb24",
+    "playModePassed": 4,
+    "playModeFailed": 0,
+    "tests": [
+      "ActualDamageRestoreStunAndPauseRespectPresentationLifecycle",
+      "ActualPoolFitsFixedCellsUsingTheImported16PixelFont",
+      "EveryCombatComponentImportsAsAnActualPointClampSprite",
+      "SerializedCombatHpTracksFillZeroOneFiftyAndOneHundredPercent"
+    ],
+    "repeatedSerializeOnly": "passed",
+    "sceneCompare": "text-identical",
+    "productionBuild": "passed",
+    "zipRootIndex": "passed",
+    "qaBridge": "absent-ascii-and-utf16"
+  },
+  "publishedPublicSmoke": {
+    "browser": "Edge155",
+    "iframe": "https://html-classic.itch.zone/html/19893288/index.html",
+    "menuLoaded": true,
+    "menuVisuallyInspected": true,
+    "newUploadListedOnPublicPage": true,
+    "consoleErrorsAfterGameLoad": 0,
+    "checks": "public page launched the newly selected WebGL build to its menu"
+  },
+  "previousNativeProductionSmoke": {
     "checks": 2,
     "exceptions": 0,
     "providerWrites": 0,
@@ -73,19 +130,10 @@
     "limits": [
       "Initial local menu capture was Unity splash; public menu subsequently verified",
       "Guard break notice not captured in this smoke; prior scoped QA covers it"
-    ]
+    ],
+    "verifiedAgainstUpload": 19892576
   },
-  "cdnVerification": {
-    "base": "https://html-classic.itch.zone/html/19892576/",
-    "matchingNonHtmlFiles": 29,
-    "html": "Only added line is the standard static.itch.io/htmlgame.js script"
-  },
-  "editorVerification": {
-    "persistedAfterReload": true,
-    "nonUploadFieldsUnchanged": 31,
-    "unrelatedUploadsUnchanged": 15
-  },
-  "publicNativeSmoke": {
+  "previousPublicNativeSmoke": {
     "browser": "Edge155 / ANGLE D3D11",
     "menuVisuallyInspected": true,
     "exceptions": 0,
@@ -94,15 +142,7 @@
     "blocked": [
       "itch.io/html-callback POST (platform telemetry)"
     ],
-    "pilot": "Initial script misclassified blocked itch callback as provider write; corrected provider host predicate and reran successfully"
-  },
-  "cleanup": {
-    "taskTempRemoved": "E:/CodexTemp/TypingHero/hud-release",
-    "ownedServerResultsRemoved": [
-      "20261020T030558-serialize",
-      "20261020T031135-production"
-    ],
-    "browserSession": "qegv stopped",
-    "retained": "Release ZIP/source/manifest and both unmerged task worktrees; retain until integrated into main"
+    "pilot": "Initial script misclassified blocked itch callback as provider write; corrected provider host predicate and reran successfully",
+    "verifiedAgainstUpload": 19892576
   }
 }
