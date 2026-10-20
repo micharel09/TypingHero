@@ -32,11 +32,14 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
         paths = paths.Concat(Directory.GetFiles(ShogunEnvironment.Art, "*"))
             .Concat(Directory.GetFiles(CombatR7Build.Art, "*"))
             .Concat(Directory.GetFiles(DungeonUISkin.Art, "*"))
+            .Concat(Directory.GetFiles(BlackletterTitleBuild.Art, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Art/EndlessSkeletons", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Resources/Endless", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyUI", "*"))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyInterface", "*"))
             .Concat(Directory.GetFiles(ShogunTheme.Events, "*")).ToArray();
+        paths = paths.Concat(AssetDatabase.FindAssets("t:Prefab", new[] { "Assets" })
+            .Select(AssetDatabase.GUIDToAssetPath)).Distinct().ToArray();
         var before = System.Array.ConvertAll(paths, File.ReadAllBytes);
         try { Apply(); }
         catch (System.Exception error) { throw new BuildFailedException(error); }
@@ -77,12 +80,13 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             WorldLightingBuild.Apply();
             CombatR7Build.Apply();
             DungeonUISkin.Apply();
+            BlackletterTitleBuild.Apply();
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");
             AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
                 PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
-                CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'),
+                CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'), BlackletterTitleBuild.Art.TrimEnd('/'),
                 ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }, "build/PixelUI/PixelUI.unitypackage",
                 ExportPackageOptions.Recurse);
             Debug.Log("Pixel UI migration and serialization complete");
