@@ -164,6 +164,11 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Vector2 enemyHeadPoint;
         public bool playerNameVisible, enemyNameVisible;
         public Color staminaColor;
+        public string encounterText, staminaIconName;
+        public bool encounterVisible, guardBreakVisible, combatHeadingVisible;
+        public Color parryKeyColor, hpNumberColor, hpFrameColor, guardBreakColor;
+        public float hudHitRemaining, hudSuccessRemaining, hudBreakRemaining;
+        public Rect guardBreakRect, encounterRect;
 
         public float rowHeight, viewportHeight;
         public int[] rowIds;
@@ -324,6 +329,11 @@ public sealed class GameLoopProbe : MonoBehaviour
             var playerHpSlider = playerStatus ? playerStatus.GetComponentInChildren<Slider>() : null;
             var enemyHpSlider = enemyStatus ? enemyStatus.Find("EnemyHP").GetComponent<Slider>() : null;
             var staminaSlider = enemyStatus ? enemyStatus.Find("EnemyStamina").GetComponent<Slider>() : null;
+            var hudFeedback = FindObjectOfType<CombatHUDFeedback>();
+            var hudRound = Read<TMP_Text>(FindObjectOfType<CombatR7Status>(), "round");
+            var guardLabel = Read<TMP_Text>(hudFeedback, "guardBreak");
+            var guardIcon = Read<Image>(hudFeedback, "staminaIcon");
+            var combatHeading = Read<TMP_Text>(FindObjectOfType<EndlessOverlay>(), "heading");
             var env = Read<Transform>(fx, "environment");
             var red = Read<SpriteRenderer>(fx, "redOverlay");
             var hudImage = Read<Image>(fx, "hudPanel");
@@ -354,6 +364,19 @@ public sealed class GameLoopProbe : MonoBehaviour
                 enemyHeadPoint = layout && bodyB ? (Vector2)Camera.main.WorldToScreenPoint(layout.Head(bodyB)) : default,
                 playerNameVisible = playerStatus && playerStatus.Find("PlayerName").gameObject.activeInHierarchy,
                 enemyNameVisible = enemyStatus && enemyStatus.Find("EnemyHPLabel").gameObject.activeInHierarchy,
+                encounterText = hudRound ? hudRound.text : "",
+                encounterVisible = hudRound && hudRound.enabled && hudRound.gameObject.activeInHierarchy,
+                encounterRect = TextRect(hudRound), guardBreakRect = TextRect(guardLabel),
+                combatHeadingVisible = combatHeading && combatHeading.gameObject.activeInHierarchy,
+                staminaIconName = guardIcon && guardIcon.sprite ? guardIcon.sprite.name : "",
+                guardBreakVisible = guardLabel && guardLabel.enabled,
+                guardBreakColor = guardLabel ? guardLabel.color : default,
+                parryKeyColor = Read<Image>(hudFeedback, "parryKey") ? Read<Image>(hudFeedback, "parryKey").color : default,
+                hpNumberColor = Read<TMP_Text>(hudFeedback, "playerHp") ? Read<TMP_Text>(hudFeedback, "playerHp").color : default,
+                hpFrameColor = Read<Image>(hudFeedback, "hpFrame") ? Read<Image>(hudFeedback, "hpFrame").color : default,
+                hudHitRemaining = Read<float>(hudFeedback, "hitRemaining"),
+                hudSuccessRemaining = Read<float>(hudFeedback, "successRemaining"),
+                hudBreakRemaining = Read<float>(hudFeedback, "breakRemaining"),
                 staminaColor = staminaSlider ? staminaSlider.fillRect.GetComponent<Image>().color : default,
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
                 decayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),

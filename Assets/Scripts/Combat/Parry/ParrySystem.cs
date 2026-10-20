@@ -140,10 +140,12 @@ public class ParrySystem : MonoBehaviour
     // biến ParrySuccess từ "obsolete" thành fallback thật sự
     public void ParrySuccess() => ForceSuccess(null);
 
+    internal bool CanBeginParry => !GamePauseController.InputBlocked && !CombatSession.Finished && config && playerAnimator &&
+        !string.IsNullOrEmpty(config.playerParryPoseStatePath) && (!gate || gate.CanParry) && !PoseLocked;
+
     internal bool TryBeginParry()
     {
-        if (GamePauseController.InputBlocked || CombatSession.Finished || !config || !playerAnimator ||
-            string.IsNullOrEmpty(config.playerParryPoseStatePath) || (gate && !gate.CanParry) || PoseLocked) return false;
+        if (!CanBeginParry) return false;
         poseRequestedFrame = Time.frameCount;
         if (gate) gate.PushParryPose(this);
         AnimatorUtil.CrossFadePath(playerAnimator, config.playerParryPoseStatePath, config.playerParryPoseCrossfade, 0f);

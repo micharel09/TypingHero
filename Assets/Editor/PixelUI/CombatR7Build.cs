@@ -185,6 +185,16 @@ internal static class CombatR7Build
         Set(status, "enemyIcon", enemy.Find("IconHP").GetComponent<Image>());
         Set(status, "normalSocket", Sprite("resource-socket")); Set(status, "eliteSocket", Sprite("elite-socket")); Set(status, "bossSocket", Sprite("boss-socket"));
         Set(status, "normalIcon", Sprite("icon-hp")); Set(status, "eliteIcon", Sprite("elite-badge")); Set(status, "bossIcon", Sprite("captain-badge"));
+        var hudFeedback = root.GetComponent<CombatHUDFeedback>();
+        if (!hudFeedback) hudFeedback = root.gameObject.AddComponent<CombatHUDFeedback>();
+        Set(hudFeedback, "parryKey", root.Find("ParryKeyR7").GetComponent<Image>());
+        Set(hudFeedback, "hpFrame", player.Find("FrameHP").GetComponent<Image>());
+        Set(hudFeedback, "playerHp", playerHp);
+        Set(hudFeedback, "staminaIcon", Picture(enemy, "IconSecondary", "icon-shield", 1, 24, 10, 10));
+        Set(hudFeedback, "shield", Sprite("icon-shield")); Set(hudFeedback, "warning", Sprite("icon-warning"));
+        Set(hudFeedback, "guardBreak", LabelOnce(enemy, "GuardBreakR7", "GUARD BREAK", 0, 37, 102, 11, 8));
+        Value(hudFeedback, "red", Hex("f16b67")); Value(hudFeedback, "gold", Hex("dcc18a"));
+        Value(hudFeedback, "success", Hex("588b8c"));
         var combat = root.Find("CombatViewport") as RectTransform; Box(combat, root, 0, 0, 960, 540);
         // 48 reference pixels/world unit = 16 native pixels/unit for the existing 16PPU actors.
         // Reframe the camera, never the actor transforms/colliders or attack spacing.

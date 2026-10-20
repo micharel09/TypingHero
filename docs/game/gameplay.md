@@ -12,6 +12,14 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
 - At960×540, ComboHUD is(0,69,294,54) relative to ScoreCluster; multiplier occupies(0,0,294,30), decay(12,36,270,12). ROUND moves fromnative y38 to46 to clear the added row. Total position/pulse, names, HP and typing tray remain fixed.
 - Repeated builder and native209/209 scoped UI checks pass at320×180,640×360,1280×720,400×300, including real parry renewal, pause, expiry/timeout, restart and natural Slayer exit. See [verification](verification.md) and [checkpoint](../plans/score-hud-cluster.md). This change has not been published to itch.io.
 
+## Combat HUD feedback (2026-10-20; local source)
+
+- D?ng gi?a d??i score cluster hi?n th? difficulty c?a run v? DUEL n/6; Tutorial d?ng TUTORIAL. Slayer gi? nguy?n d?ng. InputBlocked/results ?n d?ng; intro/Continue gi? heading/prompt ri?ng trong EndlessOverlay.
+- CombatHUDFeedback quan s?t combat: Space s?ng khi c?ng predicate TryBeginParry cho ph?p, gi?m s?ng khi hit/pose/modal kh?a, v?ng theo cue th?t khi ready ho?c window ?ang m?, xanh ng?c120ms t? OnParrySuccess. Success iframe serialized80ms, input/window/grace/SFX kh?ng ??i.
+- Enemy stamina d?ng icon shield v2 nguy?n b?n10?10; ch? cost th?t>0?0 k?m stun s?ng m?i ??i warning. H?t stun tr? l?i shield. GUARD BREAK ch? l?n ??u m?i duel, font8native d??i thanh, hold720/fade180ms. Setup/regen/death kh?ng ph?t notice; pause gi? th?i gian, Continue/restart reset, results/death clear.
+- S? HP s?ng?25% ??; vi?n flash ?? v? m?u g?c180ms ch? t? damage th?t, hit m?i reset. Init/carry/restore kh?ng ph?t damage event. Theo quy?t ??nh user20/10, HUD kh?ng c? nh?nh x? l? reduced-motion ri?ng. Component h?y event/reset khi disable; stamina/HP/scoring logic gi? nguy?n.
+- Scoped Unity4/4 v? native2353 checks PASS tr??c khi b? nh?nh reduced-motion; normal/Slayer ? b?n k?ch th??c, gi?10HP t?i victory v? death. Nh?nh m?u/interpolation normal ?? ki?m gi? nguy?n. Software tutorial driver v?n timeout; kh?ng full balance/performance/release claim. Xem [HUD checkpoint](../plans/score-hud-cluster.md).
+
 ## Endless Duel (2026-10-19)
 
 - SampleScene starts Endless except during the independently configured tutorial.

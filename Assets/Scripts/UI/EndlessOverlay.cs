@@ -41,6 +41,7 @@ public sealed class EndlessOverlay : MonoBehaviour
     internal void Show(string title, string message, string caption, UnityEngine.Events.UnityAction next)
     {
         prompt.anchoredPosition = new Vector2(144, -80);
+        heading.gameObject.SetActive(true);
         heading.text = title; instruction.text = message;
         instruction.gameObject.SetActive(true); background.SetActive(true);
         action.gameObject.SetActive(true);
@@ -52,9 +53,9 @@ public sealed class EndlessOverlay : MonoBehaviour
 
     internal void ShowCombat(string title)
     {
-        // Keep the live duel label below the fixed r7 status and round strip.
+        // The fixed HUD owns difficulty/duel during combat.
         prompt.anchoredPosition = new Vector2(144, -156);
-        heading.text = title;
+        heading.gameObject.SetActive(false);
         instruction.gameObject.SetActive(false); background.SetActive(false); action.gameObject.SetActive(false);
         var events = UnityEngine.EventSystems.EventSystem.current;
         if (events) events.SetSelectedGameObject(null);

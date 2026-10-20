@@ -589,7 +589,10 @@ async function modalFlow(page, paused) {
       browser = context.browser();
     } else browser = await chromium.launch(options);
     report.chromium = browser.version();
-    if (process.env.TYPINGHERO_SCORE_CLUSTER_ONLY === '1') {
+    if (process.env.TYPINGHERO_HUD_FEEDBACK_ONLY === '1') {
+      report.scenario='score-cluster';
+      await require('./combat_hud_feedback.cjs')({session,start,state,until,clickControl,check,report},browser);
+    } else if (process.env.TYPINGHERO_SCORE_CLUSTER_ONLY === '1') {
       report.scenario='score-cluster';
       await require('./score_cluster.cjs')({session,start,state,until,clickControl,check,report},browser);
     } else if (process.env.TYPINGHERO_PARRY_CLASH_ONLY === '1') {

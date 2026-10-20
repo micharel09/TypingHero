@@ -34,6 +34,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     // Cho hệ khác nếu muốn nghe
     public event Action OnDied;
+    internal event Action OnDamaged;
 
     void Awake()
     {
@@ -68,7 +69,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         // i-frames
         if (Time.time < iFramesUntil) return;
 
+        int before = Current;
         Current = Mathf.Max(0, Current - amount);
+        if (Current < before) OnDamaged?.Invoke();
         if (logs) Debug.Log($"[DMG] player took {amount}, HP: {Current}");
         iFramesUntil = Time.time + postHitIFrames;
 
