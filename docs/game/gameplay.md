@@ -202,24 +202,29 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## World lighting / parry clash
 
-### Current cinematic pixel candidate (2026-10-20, local preview)
+### Approved Pimen flash with restored physics (2026-10-20, local preview ready)
 
 - Default BCompact now reuses the licensed free Pimen Hit Effect01 already in the
   project. A fixed-pivot white-gold core and five orange outer cels replace voxel
-  contacts; Point-filtered rays/embers use stock 3D ParticleSystem motion and floor
-  collision. Budget remains24 per clash/192 across8leases:2contacts,14main rays,
-  4reflected rays and4embers. Every particle starts at one captured weapon contact;
-  only direction/speed/lifetime vary. No radial spawn around the actor.
+  contacts. Flash cels/material/pivot/size/color/timing are preserved from c12c3de;
+  the uncommitted48-particle revision is discarded. Budget24/clash,192/8leases:
+  core1/main2/front10/outer1/embers10, using the same five ParticleSystems.
+  Every particle starts at the captured weapon contact. Existing Compact material
+  supplies the22 billboard sparks; real Z motion and depth tests provide depth.
 - ParryContactLibrary v4 measures existing blade pixels in the actual cel's
   pivot/PPU/flip/transform, captures before success/Hurt, and holds existing clean
   contact cels70ms. Six weapon crops copy original RGBA exactly. The parried enemy's
   SlashVolume alone is suppressed200ms, with its prior state restored on expiry,
   disable/results or another parry. Animator events, hitboxes and50ms hitstop stay.
-- Rays launch4-7m/s, last140-260ms, drag1.5; embers1.5-3m/s,800-1400ms, drag.6.
-  Standing player collider height maps to1.75m; gravity9.81m/s², floor bounce.18
-  and dampen.6 use that metric without changing global gravity. Local xorshift and
-  ParticleSystem seeds do not consume gameplay random. Pause/reading freeze age;
-  clear/release/disable reset particles and restore legacy materials/modules.
+- Twenty falling particles reuse cc06385 launch/brake120ms/gravity9.81 paths,
+  one22%vertical/55%tangent bounce and180ms rest/fade. Their lifetime derives from
+  the complete trajectory. Two short fragments end120-180ms; no replacement
+  particles. Length/width follow projected velocity and shrink to small pixels.
+  The old physics Back group now uses Embers, reserving Back for Pimen outer cels.
+  Local xorshift/ParticleSystem seeds do not consume gameplay random. Fixed22state/
+  10particle buffers and reused Custom1 data avoid per-frame allocation. Pause/
+  reading freeze age; clear/release/disable reset state and restore legacy modules.
+  Completion waits for both contact particles and the full falling tail.
 - Core alpha holds70ms and ends200ms; the outer authored sequence ends200ms.
   Dedicated Point light peaks5, holds70ms and smoothstep-fades to0at280ms
   (2.5at175ms), range3m. Pulses take the strongest, never sum; legacy140ms remains.
@@ -228,9 +233,10 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Dedicated Cinemachine channel2 recoils at most one world-render pixel after
   hitstop and returns100ms; no lens/zoom change. Existing parry1 clip retains gain,
   jitter narrows to.03volume/.35semitone and player_hand ducks80ms. Other impact
-  audio/shake/trails remain. Quick26, strict repeated build and native66scoped
-  checks pass; actual sound videos at1x/.25x and matched p95 are recorded in
-  [verification](verification.md). Local candidate only; visual approval is pending.
+  audio/shake/trails remain. Current focused Quick30/30, strict repeated build and
+  native83checks pass, including sword/axe/Slayer at640/1280, pause and Continue.
+  Actual sound clips cover the full flight at1x/.25x. Short native p95 is13.455/
+  13.540ms; see [verification](verification.md). Local visual review remains open.
 
 ### Historical parry iterations (superseded by the candidate above)
 
@@ -330,7 +336,8 @@ Full surface art, B/C and parent integration remain separate.
   Prior focused27/shared native70 receipts describe these unchanged consumers;
   current parry native66 includes normal/received/Slayer/lethal smoke. Visual
   direction still awaits user review.
-- ParryClashBurst owns stock unscaled simulation, pause/tutorial hold, clear and completion;
+- ParryClashBurst owns the stock contact clock and analytical unscaled debris clock,
+  pause/tutorial hold, clear and completion;
   PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.
   ClashLightingRig holds eight pulse states, renders strongest capped pulse through
   the active scene's Light2D or3D combat spotlight. In the3D arena a winning compact

@@ -92,7 +92,7 @@ public sealed partial class ParryClashBurst : MonoBehaviour
         transform.localScale = Vector3.one;
         if (ground) ground.SetPositionAndRotation(new Vector3(point.x, groundY, 0), Quaternion.identity);
         direction = direction < 0 ? -1 : 1;
-        if (emittedPreset == Preset.BCompact) EmitPixel(direction, visual);
+        if (emittedPreset == Preset.BCompact) EmitPixel(direction, groundY, visual);
         else
         {
             bool varied = emittedPreset != Preset.Current;
@@ -175,13 +175,22 @@ public sealed partial class ParryClashBurst : MonoBehaviour
             foreach (var ps in systems) { if (hold) ps.Pause(false); else ps.Play(false); }
         }
         if (hold) return;
-        foreach (var ps in systems) if (ps.IsAlive(false)) return;
+        AdvanceDebris(Time.unscaledDeltaTime);
+        // A lease owns both the authored contact and the complete falling trajectories.
+        if (emittedPreset == Preset.BCompact)
+        {
+            if (debrisCount > 0 || contact.particleCount > 0 || back.particleCount > 0) return;
+        }
+        else foreach (var ps in systems) if (ps.IsAlive(false)) return;
         lease.Release();
     }
 
     internal void Clear()
     {
         if (systems != null) foreach (var ps in systems) if (ps) ps.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+        debrisAge = 0; debrisCount = 0;
+        System.Array.Clear(debris, 0, debris.Length);
+        System.Array.Clear(debrisParticles, 0, debrisParticles.Length);
         playing = paused = false;
         Visual = default;
         ClashLightingRig.Cancel(this);

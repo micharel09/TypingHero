@@ -1,8 +1,52 @@
 # Verification and performance memory
 
-## Cinematic pixel parry (2026-10-20, local preview ready)
+## Approved flash with restored physics (2026-10-20, local preview ready)
 
-- Current input `2158fcdf07c678134da9bc716996019c855294d2e1be57fe996ebf8a6327410a`,
+- Frozen source552f67ad130a6e5c988122fad484fb3bcecd2b18625f2340f39136062c0d03fd.
+  c12c3de Pimen flash/material/pivot/size/color/timing, Point5/70/280 and recoil1px/
+  100ms unchanged; cc06385 analytical launch/brake/fall/one-bounce/rest180ms paths
+  restored. Existing Compact masks and real Z/depth tests;24/192, systems1/2/10/1/10.
+  Uncommitted48 revision discarded.1356protected asset/package/project files match
+  c12c3de after newline normalization; all27old MP4 hashes remain unchanged.
+- Unity2022.3.25f1 on fly-server: WebGL082208 build/strict repeated-builder PASS;
+  focused Quick083302 PASS30/30,0failed/skipped,14.18s on the same input. Includes
+  common origin/local random,20continuous single-bounce/rest/expiry paths, fixed
+  buffer zero managed allocations in100updates, pause/reading/hitstop/reuse/disable,
+  192cap, full legacy restoration, exact200ms contact and completion of both clocks.
+- Native qa-r2 PASS83/97.185s: Edge155/Playwright1.58.2/GTX1650Ti ANGLE D3D11,
+  keyboard/defaultBCompact/noF6.18real parries across Swordsman/DoubleStrike/Heavy
+  at1280x720/640x360; DoubleStrike is the required intervening duel to reach axe.
+  Sword/axe contact/tail and Slayer at both sizes, pause holds state, Continue clears
+  roots, sampled Y>=-2.896402 (dungeon floor-2.9275508 plus half pixel1/32).
+  Zero JS/managed exceptions/provider reads/writes/external requests; observation-
+  only bridge and network fixtures retained. First qa attempt failed5checks on a
+  capture-helper variable shadowing/TDZ; renamed only that helper variable, retained
+  failed report, no gameplay change or product rebuild.
+- Separate no-video/no-screenshot perf PASS14. All-state p95ms:1280=13.455(n636),
+  640=13.540(n636); live13.520(n340)/13.575(n344). Approved baseline PASS14:
+  13.505(n630)/13.560(n646), live13.515(n307)/13.575(n304). Same native flags,
+  profiling OFF; restored-physics run had the interactive review window open.
+  These short RAF samples are not a controlled equivalence/GPU/device-FPS claim.
+  No deep/stress/soak/mirrored QA was added.
+- Two42.021328s clips, native25fps H264/yuv420p plus AAC48k stereo, full decode PASS:
+  sword,axe,and axe-Slayer, each at1x then0.25x with actual game PCM (no microphone).
+  Raw PCM peaks.557749/.587604. Each segment retains400ms nominal lead and2.4s
+  after the observed onset; full launch-to-expiry is present. Onset age estimates
+  are not frame-perfect video sync: first visible flashes inspected around10.000s
+  (1280) and7.36s(640),40ms sampling. Compared with approved flash source2158 and
+  the retained Strong24 physics reference; different RNG/pose phases, no pixel-
+  identical replay claim. Contact cels/properties are proven by unchanged inputs
+  and offline assertions. Small ray-to-pixel/floor/bounce/rest fade inspected; no
+  observed floor penetration/pink/voxel parry blocks in these samples.
+- Interactive1280 preview opened before remaining native/AV/perf checks, per user
+  steering. Keep child micharel09/parry-contact-flash and task temp
+  E:/CodexTemp/TypingHero/parry-clash-lighting/physics-pixel24 for visual review.
+  Launcher open-preview.ps1, player/, clips and receipts remain; closing the Edge
+  page ends its helper/server. Legacy approved/physics clips remain untouched.
+
+## Cinematic pixel parry (2026-10-20, approved flash baseline)
+
+- Approved baseline input `2158fcdf07c678134da9bc716996019c855294d2e1be57fe996ebf8a6327410a`,
   child `micharel09/parry-contact-flash`. Quick20261020T063136 PASS26/26;
   WebGL063220 build and strict repeated-builder PASS. Pixel material/module
   restoration,24/192budget, common origin/isolated random, stock fall/collision,

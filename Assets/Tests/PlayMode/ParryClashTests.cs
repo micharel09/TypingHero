@@ -288,7 +288,8 @@ public sealed partial class ParryClashTests
             }
         }
         GamePauseController.SetTutorialReading(false); Time.timeScale = 1;
-        yield return new WaitForSecondsRealtime(3f);
+        float deadline = Time.realtimeSinceStartup + 5;
+        while (releases == 0 && Time.realtimeSinceStartup < deadline) yield return null;
         Assert.That(releases, Is.EqualTo(1));
         burst.GetComponent<PooledVFX>().Release(); Assert.That(releases, Is.EqualTo(1));
         burst.gameObject.SetActive(true); Assert.That(burst.ParticleCount, Is.Zero);
@@ -337,8 +338,8 @@ public sealed partial class ParryClashTests
             var burst = active[0].GetComponent<ParryClashBurst>();
             Assert.That(burst.EmittedPreset, Is.EqualTo(ParryClashBurst.Preset.BCompact));
             Assert.That(burst.ParticleCount, Is.EqualTo(24));
-            foreach (var ps in burst.Systems) ps.Simulate(.3f, false, false, false);
-            Assert.That(burst.Systems[4].particleCount, Is.EqualTo(4));
+            burst.AdvanceDebris(.3f);
+            Assert.That(burst.Systems[4].particleCount, Is.EqualTo(10));
             host.SetActive(false);
             Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
         }
@@ -371,7 +372,7 @@ public sealed partial class ParryClashTests
             var active = (List<GameObject>)typeof(ParrySparkVFX_Pooled).GetField("active", Flags).GetValue(fx);
             var burst = active[active.Count - 1].GetComponent<ParryClashBurst>();
             Assert.That(burst.ParticleCount, Is.EqualTo(24));
-            Assert.That(burst.Systems[1].particleCount, Is.EqualTo(14));
+            Assert.That(burst.Systems[1].particleCount, Is.EqualTo(2));
             int live = 0;
             foreach (var go in active) live += go.GetComponent<ParryClashBurst>().ParticleCount;
             if (sequence >= 7) Assert.That(live, Is.EqualTo(192));
