@@ -24,7 +24,8 @@ internal static class ParryClashAssets
                 var serialized = new SerializedObject(existing.GetComponent<ParryClashBurst>());
                 if (serialized.FindProperty("mainRays").objectReferenceValue)
                 {
-                    bool migrated = MigrateContact(serialized);
+                    bool migrated = MigrateVoxel(serialized);
+                    migrated = MigrateContact(serialized) || migrated;
                     migrated = MigrateRayShape(existing, serialized) || migrated;
                     migrated = MigrateCompact(existing, serialized) || migrated;
                     if (MigrateLengthSupport(existing, serialized) || migrated)
@@ -47,6 +48,7 @@ internal static class ParryClashAssets
                 MigrateLengthSupport(existing, serialized);
                 MigrateCompact(existing, serialized);
                 MigrateContact(serialized);
+                MigrateVoxel(serialized);
                 PrefabUtility.SaveAsPrefabAsset(existing, Root + "ParryClash.prefab");
             }
             finally { PrefabUtility.UnloadPrefabContents(existing); }
@@ -81,6 +83,7 @@ internal static class ParryClashAssets
             MigrateLengthSupport(root, so);
             MigrateCompact(root, so);
             MigrateContact(so);
+            MigrateVoxel(so);
             PrefabUtility.SaveAsPrefabAsset(root, Root + "ParryClash.prefab");
         }
         finally { Object.DestroyImmediate(root); }
@@ -97,6 +100,33 @@ internal static class ParryClashAssets
                 ParticleSystemVertexStream.Position, ParticleSystemVertexStream.Color,
                 ParticleSystemVertexStream.UV, ParticleSystemVertexStream.UV2, ParticleSystemVertexStream.Custom1XYZW });
         so.FindProperty("contactVersion").intValue = 1;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return true;
+    }
+    static bool MigrateVoxel(SerializedObject so)
+    {
+        if (so.FindProperty("voxelVersion").intValue >= 1) return false;
+        var mesh = AssetDatabase.LoadAssetAtPath<Mesh>(Root + "CompactVoxel.asset");
+        if (!mesh)
+        {
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                mesh = Object.Instantiate(cube.GetComponent<MeshFilter>().sharedMesh);
+                mesh.name = "CompactVoxel";
+                AssetDatabase.CreateAsset(mesh, Root + "CompactVoxel.asset");
+            }
+            finally { Object.DestroyImmediate(cube); }
+        }
+        var material = AssetDatabase.LoadAssetAtPath<Material>(Root + "CompactVoxel.mat");
+        if (!material)
+        {
+            material = new Material(Shader.Find("TypingHero/ParryVoxel"));
+            AssetDatabase.CreateAsset(material, Root + "CompactVoxel.mat");
+        }
+        so.FindProperty("compactVoxelMesh").objectReferenceValue = mesh;
+        so.FindProperty("compactVoxelMaterial").objectReferenceValue = material;
+        so.FindProperty("voxelVersion").intValue = 1;
         so.ApplyModifiedPropertiesWithoutUndo();
         return true;
     }

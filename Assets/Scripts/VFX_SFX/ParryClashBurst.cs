@@ -13,6 +13,9 @@ public sealed class ParryClashBurst : MonoBehaviour
     [SerializeField] Material compactMaterial;
     [SerializeField] Material compactContactMaterial;
     [SerializeField, HideInInspector] int contactVersion;
+    [SerializeField] Mesh compactVoxelMesh;
+    [SerializeField] Material compactVoxelMaterial;
+    [SerializeField, HideInInspector] int voxelVersion;
     readonly ParticleSystem.Particle[] contactOutput = new ParticleSystem.Particle[2];
     readonly ParticleSystem.Particle[] contactParticles = new ParticleSystem.Particle[2];
     [System.Serializable]
@@ -23,7 +26,10 @@ public sealed class ParryClashBurst : MonoBehaviour
     }
     [SerializeField] CompactSettings compact = new CompactSettings();
     Material[] originalMaterials;
+    Mesh[] originalMeshes;
+    List<ParticleSystemVertexStream>[] originalStreams;
     bool[] originalSizeEnabled, originalSize3D;
+    bool[] originalRotation3D;
     ParticleSystemRenderMode[] originalModes;
     ParticleSystemRenderSpace[] originalAlignments;
     float[] originalLength, originalVelocity;
@@ -76,6 +82,9 @@ public sealed class ParryClashBurst : MonoBehaviour
     [SerializeField] Vector2 cameraRayLength = new Vector2(.55f, .70f);
     [SerializeField] Vector2 cameraRaySpeed = new Vector2(4, 6);
     readonly List<Vector4> shapeData = new List<Vector4>(64);
+    static readonly List<ParticleSystemVertexStream> voxelStreams = new List<ParticleSystemVertexStream> {
+        ParticleSystemVertexStream.Position, ParticleSystemVertexStream.Normal,
+        ParticleSystemVertexStream.Color, ParticleSystemVertexStream.UV };
     ParticleSystem[] systems;
     PooledVFX lease;
     bool playing, paused;
@@ -89,6 +98,8 @@ public sealed class ParryClashBurst : MonoBehaviour
         originalGravity = new ParticleSystem.MinMaxCurve[5]; originalCollision = new bool[5];
         originalColor = new bool[5]; originalLimit = new bool[5]; originalSimulationSpeed = new float[5];
         originalMaterials = new Material[5]; originalSizeEnabled = new bool[5]; originalSize3D = new bool[5];
+        originalMeshes = new Mesh[5]; originalStreams = new List<ParticleSystemVertexStream>[5];
+        originalRotation3D = new bool[5];
         originalModes = new ParticleSystemRenderMode[5]; originalAlignments = new ParticleSystemRenderSpace[5];
         originalLength = new float[5]; originalVelocity = new float[5];
         for (int i = 0; i < systems.Length; i++)
@@ -100,6 +111,10 @@ public sealed class ParryClashBurst : MonoBehaviour
             originalLimit[i] = systems[i].limitVelocityOverLifetime.enabled;
             var renderer = systems[i].GetComponent<ParticleSystemRenderer>();
             originalMaterials[i] = renderer.sharedMaterial; originalModes[i] = renderer.renderMode;
+            originalMeshes[i] = renderer.mesh;
+            originalStreams[i] = new List<ParticleSystemVertexStream>();
+            renderer.GetActiveVertexStreams(originalStreams[i]);
+            originalRotation3D[i] = systems[i].main.startRotation3D;
             originalAlignments[i] = renderer.alignment;
             originalLength[i] = renderer.lengthScale; originalVelocity[i] = renderer.velocityScale;
             originalSizeEnabled[i] = systems[i].sizeOverLifetime.enabled; originalSize3D[i] = systems[i].main.startSize3D;
@@ -112,12 +127,15 @@ public sealed class ParryClashBurst : MonoBehaviour
         {
             bool pixel = emittedPreset == Preset.BCompact;
             var ps = systems[i]; var renderer = ps.GetComponent<ParticleSystemRenderer>();
-            renderer.sharedMaterial = pixel ? (i == 0 ? compactContactMaterial : compactMaterial) : originalMaterials[i];
-            renderer.renderMode = pixel ? ParticleSystemRenderMode.Billboard : originalModes[i];
-            renderer.alignment = pixel ? ParticleSystemRenderSpace.View : originalAlignments[i];
+            renderer.sharedMaterial = pixel ? compactVoxelMaterial : originalMaterials[i];
+            renderer.renderMode = pixel ? ParticleSystemRenderMode.Mesh : originalModes[i];
+            renderer.mesh = pixel ? compactVoxelMesh : originalMeshes[i];
+            renderer.SetActiveVertexStreams(pixel ? voxelStreams : originalStreams[i]);
+            renderer.alignment = pixel ? ParticleSystemRenderSpace.World : originalAlignments[i];
             renderer.lengthScale = pixel ? 1 : originalLength[i]; renderer.velocityScale = pixel ? 0 : originalVelocity[i];
             var size = ps.sizeOverLifetime; size.enabled = pixel ? false : originalSizeEnabled[i];
             var main = ps.main; main.startSize3D = pixel || originalSize3D[i];
+            main.startRotation3D = pixel || originalRotation3D[i];
             main.gravityModifier = pixel ? new ParticleSystem.MinMaxCurve(0) : originalGravity[i];
             // The same analytical path supplies position, velocity and visible orientation.
             main.simulationSpeed = pixel ? 0 : originalSimulationSpeed[i];
@@ -150,7 +168,7 @@ public sealed class ParryClashBurst : MonoBehaviour
             for (int i = 0; i < 2; i++)
             {
                 var p = contactParticles[i]; p.position = point; p.velocity = Vector3.zero;
-                p.startLifetime = p.remainingLifetime = i == 0 ? .2f : .26f; contactParticles[i] = p;
+                p.startLifetime = p.remainingLifetime = .2f; contactParticles[i] = p;
             }
             AdvanceContact(0);
             EmitCompact(direction, rotation, energy, groundY);
@@ -233,12 +251,14 @@ public sealed class ParryClashBurst : MonoBehaviour
         shapeData.Clear(); int count = 0;
         for (int i = 0; i < 2; i++)
         {
-            var p = contactParticles[i]; float life = i == 0 ? .2f : .26f;
+            var p = contactParticles[i]; float life = .2f;
             if (age >= life) continue;
-            float size = i == 0 ? .5f : Mathf.Lerp(.75f, 1.5f, Mathf.Clamp01(age / .09f));
-            p.startSize3D = new Vector3(size, size, size);
-            Color tint = i == 0 ? new Color(1, .93f, .65f) : new Color(1, .32f, .035f);
-            tint.a = i == 0 ? 1 - Mathf.Clamp01((age - .06f) / .14f) : 1 - age / life;
+            float size = i == 0 ? .3125f : .25f;
+            p.startSize3D = new Vector3(size, i == 0 ? .5f : .375f, size);
+            p.rotation3D = new Vector3(30 + i * 45 + age * 180, 35 - i * 60 + age * 240, i * 70 - 25 + age * 90);
+            p.position += new Vector3(i == 0 ? -.0625f : .0625f, 0, i == 0 ? -.0625f : .0625f);
+            Color tint = Color.Lerp(new Color(1, .93f, .65f), new Color(.85f, .28f, .025f), age / life);
+            tint.a = 1 - Mathf.Clamp01((age - .06f) / .14f);
             p.startColor = tint; p.remainingLifetime = life - age;
             contactOutput[count++] = p;
             shapeData.Add(new Vector4(i, 0, Mathf.Round(size * 16), 0));
@@ -359,8 +379,21 @@ public sealed class ParryClashBurst : MonoBehaviour
                     length = Mathf.Min(length, clearance); width = Mathf.Min(width, clearance);
                 }
                 p.position = position; p.velocity = velocity;
-                p.startSize3D = new Vector3(width / 16f, length / 16f, 1);
-                p.rotation = width == 1 && length == 1 ? 0 : 90 - Mathf.Atan2(Vector3.Dot(velocity, screenUp), Vector3.Dot(velocity, screenRight)) * Mathf.Rad2Deg;
+                // Mesh volume stays readable while its analytical centre follows the original path.
+                float edge = (2 + i % 2) / 16f;
+                p.startSize3D = new Vector3(edge, edge * (i % 3 == 0 ? 2 : 1), edge);
+                float spinAge = d.fast ? t : Mathf.Min(t, d.flight + d.bounce);
+                var spin = new Vector3(190 + i * 17, 270 - i * 9, 130 + i * 13);
+                var airborne = new Vector3(25 + i * 37, 35 + i * 53, i * 29) + spin * spinAge;
+                float settle = d.fast ? 0 : Mathf.SmoothStep(0, 1, Mathf.Clamp01((t - d.flight) / Mathf.Max(.001f, d.bounce)));
+                p.rotation3D = Vector3.Lerp(airborne, new Vector3(0, airborne.y, 0), settle);
+                // Lift the mesh around the unchanged centre path; rotated corners never penetrate the floor.
+                var orientation = Quaternion.Euler(p.rotation3D);
+                Vector3 half = p.startSize3D * .5f;
+                float support = Mathf.Abs((orientation * Vector3.right).y) * half.x +
+                    Mathf.Abs((orientation * Vector3.up).y) * half.y + Mathf.Abs((orientation * Vector3.forward).y) * half.z;
+                if (!d.fast) position.y = Mathf.Max(position.y, d.floor - 1f / 32 + support);
+                p.position = position;
                 float heat = Mathf.Clamp01(t / (d.fast ? d.total : d.flight + d.bounce));
                 Color tint = heat < .5f ? Color.Lerp(new Color(1, .8667f, .5f), new Color(.8f, .25f, .03f), heat * 2) :
                     Color.Lerp(new Color(.8f, .25f, .03f), new Color(.18f, .015f, 0), heat * 2 - 1);

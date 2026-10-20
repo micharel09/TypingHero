@@ -1785,9 +1785,15 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
   not the already-reviewed24particle trajectory/appearance. No new broad performance claim.
 
 
-## BCompact contact flash (2026-10-19, QA passed; publication pending)
+## BCompact flat contact flash (2026-10-19, historical technical QA; visual rejected)
 
 - Final focused Quick13595918/18PASS,0skip. QA140934 build/repeat PASS; both input c594476614434566fda7309073d7b78ce88a550c99f0a3b5923be10dd6229db3. Core60/200ms, ring90/260ms, pulse70/175/280ms, strongest mixed overlap, pause/disable/reuse, independent contact clock, legacy140ms, material/modules and24/192 budgets covered. Local source commit725b5ad. Earlier17test snapshot is superseded.
 - Edge155/Playwright1.58.2/Intel UHD0x9BC4 ANGLE D3D11 final-after26PASS,6real default noF6 parries at640/1280, Slayer/restart,0exceptions/provider reads/writes. Native25fps frames and comparison clips inspected: readable white-gold point/stepped orange ring, local fading light, intact face/sword/silhouette and falling sparks. Sampling40ms is not precise endpoint evidence. No mirror or human-art approval claim.
 - Matched no-capture A2/B2 each20PASS,3parries/size, same visible/focused tab and allocation profiling.1280 all/live p95=33.500->31.940ms(-4.657%,n57/60)/33.425->31.640(-5.340%,n26/25);640 all/live33.340->33.595(+.765%,n57/57)/33.340->33.170(-.510%,n25/26). No10% threshold crossing; ABBA unnecessary. Sampled observations are not GPU/FPS/equivalence proof or an asserted speedup; prior mirror concerns remain unresolved.
 - Final15.2s1x/.25x comparison clips decode/hash PASS; old physics clips retained. Full receipts, corrected observer/export attempts and pending production/public acceptance in combat-feedback checkpoint. Parent Ronin9sprites/8normals are excluded (separate task, no publication requested there).
+
+## BCompact voxel preview (2026-10-19, visual review pending)
+
+- Focused ParryClashTests Quick20261019T152205:19/19PASS. QA WebGL20261019T152304 build PASS; source input8470def229e035afaf4bd833c139d3c103d4c32689a8909f921e5b611f7f1da8. Mesh bounds/normals, three-axis spin, floor/rest rotation, legacy renderer/streams/modules reuse, pause, 24/192 counts and existing trajectory lifecycle covered. LaunchPath/FlightPath are byte-identical to prior source.
+- Edge155.0.4283.62 preview12checks PASS: one real keyboard parry each1280x720/640x360, BCompact default/noF6, pause,0exceptions/fixture reads/writes. Impact/flight images inspected at both sizes: closed voxel forms have distinct lit/dark faces, no expanding ring; normal live control remains available. This is a focused preview, not human art approval, deep QA or a p95 measurement.
+- Copied only generated CompactVoxel mesh/material+metas and ParryClash prefab from this build. Prefab diff verified to contain exactly two new asset references plus voxelVersion1; all prior IDs/GUID refs/tuning are unchanged. YAML trailing whitespace normalized without behavior changes. No itch publication; keep older physics clips. Temporary preview player/helper/captures retained under E:/CodexTemp/TypingHero/parry-clash-lighting while visual review continues.

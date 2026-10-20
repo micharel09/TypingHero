@@ -246,7 +246,7 @@ Full surface art, B/C and parent integration remain separate.
   continuously to X/Zdrag2/s and ballistic Y.
   Second ground contact stops all axes at groundY+1/32. Full trajectory sets lifetime;
   yellow/orange/dark-red cooling and alpha fade from first ground contact through rest.
-  Projected speed sets integer16PPU lengths/widths down to1x1; depth scale is clamped
+  Before the voxel preview revision, projected speed sets integer16PPU lengths/widths down to1x1; depth scale is clamped
   .75-1.5before pixel rounding. Floor clearance limits silhouette; square1x1 masks
   remain visible. No replacement particles, blur, camera or gameplay changes.
   Fixed22state/10particle buffers and reused custom data avoid per-frame allocation.
@@ -261,19 +261,26 @@ Full surface art, B/C and parent integration remain separate.
   bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
   Comparison clips remain review samples; BCompact24 is now used in production parries.
   Prior mirror p95 concerns remain separate and unresolved.
-- Compact contact revision reuses those two particles: white-gold .5WU core holds
-  alpha60ms then fades to zero200ms; orange pixel-edged ring grows .75->1.5WU
-  over90ms and fades out260ms. Dedicated CompactContact material uses the existing
-  pixel shader branch; independent manual unscaled contact age obeys pause and restores the
-  original renderer/material/modules on legacy preset reuse. Contact migration v1
-  adds only its material reference and Contact custom vertex streams, retaining
-  prefab GUID/IDs and all spark tuning. Frozen compact contact completion uses
-  particleCount, avoiding IsAlive on a stopped simulation clock.
+- Voxel preview revision replaces BCompact's flat core/ring and billboard sparks
+  with one shared closed cube mesh/material. Two offset contact cuboids (maximum
+  edge .5WU) hold alpha60ms and expire200ms; no expanding ring. Twenty-two fragments
+  use 2-3source-pixel edges, 1:1:1 or1:2:1 proportions, three-axis rotation and
+  hard-normal face shading with cooling emission. Analytical launch/fall/bounce
+  timing and RNG draws remain unchanged; renderer floor support accounts for mesh
+  volume and settles rotation onto a flat face by the end of the existing bounce.
+  Manual unscaled ages obey pause; reuse restores legacy mesh/material/vertex
+  streams, render alignment and size/rotation/simulation modules. Voxel migration1
+  preserves existing GUIDs/tuning and creates only its shared mesh/material refs.
+  Frozen compact contact completion uses particleCount, avoiding IsAlive on a
+  stopped simulation clock. Earlier flat-ring art was rejected by the user;
+  its technical receipts do not qualify the voxel appearance.
   Compact light peaks5, holds70ms, smoothstep-fades to0at280ms (half2.5at175ms).
   Each of eight pulse states owns its timing/profile; mixed overlap takes strongest,
   never sums. Legacy profiles keep140ms quadratic falloff and existing intensity cap;
-  light radius and world bloom are unchanged. Focused Quick18 and native default noF6/two-size/Slayer26checks pass;
-  sampled no-capture p95 delta stays below1%. Publication is pending; see combat-feedback.
+  light radius and world bloom are unchanged. Voxel focused Quick19 passes;
+  WebGL build and Edge155 preview pass12checks (two real noF6 parries at1280/640, no exceptions/provider writes); voxel faces were inspected at both sizes. Earlier flat-ring native/performance
+  receipts are historical, not voxel validation. Publication is deferred until
+  visual review; see combat-feedback.
 - Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
   prefabs and SampleScene. Existing hit SFX, lethal shake, slash, flash, afterimages
   and damage remain. Legacy PixelSparks/CodeManu/Pimen assets are retained unwired.

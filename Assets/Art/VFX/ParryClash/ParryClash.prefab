@@ -19457,6 +19457,9 @@ MonoBehaviour:
   compactMaterial: {fileID: 2100000, guid: f0969adfcc4e17fc2995a56e734f0cf7, type: 2}
   compactContactMaterial: {fileID: 2100000, guid: e9d911a29d80a1789a7bf277a040315e, type: 2}
   contactVersion: 1
+  compactVoxelMesh: {fileID: 4300000, guid: c3a3d45fbff817c8b8edc94f6af279b5, type: 2}
+  compactVoxelMaterial: {fileID: 2100000, guid: 68743a7dfaaa37545bb309d4735624ff, type: 2}
+  voxelVersion: 1
   compact:
     longPixels: {x: 12, y: 16}
     shortPixels: {x: 6, y: 9}

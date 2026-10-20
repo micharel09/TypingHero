@@ -325,7 +325,7 @@ public sealed class ParryClashTests
     }
 
     [Test, Category("Quick")]
-    public void CompactReverseFanClearsPlayerAndRetainsVisibleStreaks()
+    public void CompactReverseFanClearsPlayerAndRetainsVisibleVoxels()
     {
         var burst = Burst(); var saved = Random.state;
         try
@@ -341,13 +341,11 @@ public sealed class ParryClashTests
                 {
                     int count = burst.Systems[g].GetParticles(particles);
                     Assert.That(count, Is.EqualTo(10));
-                    int longCount = 0;
                     for (int i = 4; i < count; i++)
                     {
                         reverse.Add(particles[i].randomSeed);
-                        if (particles[i].startSize3D.y * 16 >= 12) longCount++;
+                        Assert.That(particles[i].startSize3D.z, Is.InRange(2f / 16, 3f / 16));
                     }
-                    Assert.That(longCount, Is.EqualTo(3), "three long and three short reverse rays per depth layer");
                 }
                 burst.AdvanceDebris(.3f);
                 int beyond = 0, streaks = 0;
@@ -399,13 +397,17 @@ public sealed class ParryClashTests
                                 Assert.That(p.startColor.a, Is.LessThanOrEqualTo(old.startColor.a));
                                 if (!fast && old.velocity.y < 0 && p.velocity.y > 0)
                                     Assert.That(bounces.Add(p.randomSeed), Is.True, "only one bounce");
-                                if (rests.Contains(p.randomSeed)) Assert.That(p.position, Is.EqualTo(old.position), "rest stops X/Y/Z");
+                                if (rests.Contains(p.randomSeed))
+                                {
+                                    Assert.That(p.position, Is.EqualTo(old.position), "rest stops X/Y/Z");
+                                    Assert.That(p.rotation3D, Is.EqualTo(old.rotation3D), "rest stops all mesh rotation");
+                                }
                             }
                             if (!fast && p.velocity == Vector3.zero)
                             {
                                 rests.Add(p.randomSeed);
-                                Assert.That(p.position.y, Is.EqualTo(1f / 32).Within(.000001f));
-                                Assert.That(p.startSize3D.x, Is.EqualTo(1f / 16)); Assert.That(p.startSize3D.y, Is.EqualTo(1f / 16));
+                                Assert.That(p.position.y, Is.EqualTo(p.startSize3D.y * .5f).Within(.000001f), "voxel rests on its lower face");
+                                Assert.That(p.startSize3D.x, Is.InRange(2f / 16, 3f / 16));
                                 Assert.That(p.startColor.r, Is.LessThan(60));
                             }
                             previous[p.randomSeed] = p;
@@ -551,6 +553,44 @@ public sealed class ParryClashTests
         host.SetActive(false); Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
     }
     [Test, Category("Quick")]
+    public void CompactVoxelMeshHasHardFacesAndRestoresLegacyRenderer()
+    {
+        var burst = Burst();
+        var modes = new ParticleSystemRenderMode[5]; var meshes = new Mesh[5];
+        var streams = new List<ParticleSystemVertexStream>[5];
+        for (int i = 0; i < 5; i++)
+        {
+            var renderer = burst.Systems[i].GetComponent<ParticleSystemRenderer>();
+            modes[i] = renderer.renderMode; meshes[i] = renderer.mesh;
+            streams[i] = new List<ParticleSystemVertexStream>(); renderer.GetActiveVertexStreams(streams[i]);
+        }
+        for (int reuse = 0; reuse < 3; reuse++)
+        {
+            burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
+            foreach (var ps in burst.Systems)
+            {
+                var renderer = ps.GetComponent<ParticleSystemRenderer>();
+                Assert.That(renderer.renderMode, Is.EqualTo(ParticleSystemRenderMode.Mesh));
+                Assert.That(renderer.mesh.bounds.size, Is.EqualTo(Vector3.one));
+                Assert.That(renderer.mesh.normals.Length, Is.EqualTo(24), "six independently shaded faces");
+                Assert.That(ps.main.startRotation3D, Is.True);
+            }
+            var particles = new ParticleSystem.Particle[10];
+            burst.Systems[2].GetParticles(particles); var rotation = particles[0].rotation3D;
+            burst.AdvanceDebris(.04f); burst.Systems[2].GetParticles(particles);
+            Assert.That(particles[0].rotation3D, Is.Not.EqualTo(rotation));
+            burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.B);
+            for (int i = 0; i < 5; i++)
+            {
+                var renderer = burst.Systems[i].GetComponent<ParticleSystemRenderer>();
+                Assert.That(renderer.renderMode, Is.EqualTo(modes[i])); Assert.That(renderer.mesh, Is.SameAs(meshes[i]));
+                var restored = new List<ParticleSystemVertexStream>(); renderer.GetActiveVertexStreams(restored);
+                Assert.That(restored, Is.EqualTo(streams[i])); Assert.That(burst.Systems[i].main.startRotation3D, Is.False);
+            }
+        }
+    }
+
+    [Test, Category("Quick")]
     public void CompactContactAndPulseHaveReadableHoldAndBoundedFade()
     {
         var burst = Burst(); burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
@@ -561,17 +601,20 @@ public sealed class ParryClashTests
         {
             advance.Invoke(burst, new object[] { age });
             int count = contact.GetParticles(particles);
-            Assert.That(count, Is.EqualTo(age < .2f ? 2 : age < .26f ? 1 : 0));
+            Assert.That(count, Is.EqualTo(age < .2f ? 2 : 0));
             if (age <= .06f) Assert.That(particles[0].startColor.a, Is.EqualTo(255));
-            if (age < .2f) Assert.That(particles[0].startSize, Is.EqualTo(.5f).Within(.001f));
-            if (age >= .09f && age < .26f) Assert.That(particles[count - 1].startSize, Is.EqualTo(1.5f).Within(.001f));
+            if (age < .2f)
+            {
+                Assert.That(particles[0].startSize3D.y, Is.EqualTo(.5f).Within(.001f));
+                Assert.That(particles[1].startSize3D.y, Is.EqualTo(.375f).Within(.001f));
+            }
         }
         burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.B);
         Assert.That(contact.main.simulationSpeed, Is.GreaterThan(0));
         Assert.That(contact.colorOverLifetime.enabled, Is.True);
         Assert.That(contact.GetComponent<ParticleSystemRenderer>().sharedMaterial.name, Is.Not.EqualTo("CompactContact"));
         burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
-        Assert.That(contact.GetComponent<ParticleSystemRenderer>().sharedMaterial.name, Is.EqualTo("CompactContact"));
+        Assert.That(contact.GetComponent<ParticleSystemRenderer>().sharedMaterial.name, Is.EqualTo("CompactVoxel"));
     }
 
     [UnityTest, Category("Quick")]
