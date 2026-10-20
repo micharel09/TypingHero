@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 6335462748226833986}
   - component: {fileID: 8121196955070503774}
   - component: {fileID: 660688279820089180}
+  - component: {fileID: 8834135786078280039}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Enemy
@@ -184,7 +185,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -199,8 +200,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67ecccfeeb31a71468f2fba5c697c7aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   animator: {fileID: 5902380356341294186}
   target: {fileID: 0}
   playerHealth: {fileID: 0}
@@ -231,8 +232,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f89edd0807ebe0e4f9bc23e93c97474b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   max: 200
   parryCost: 25
   hitCost: 12
@@ -251,8 +252,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faf8554ef4250ea4fa8adf74b7104bc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   damageReceiver: {fileID: 0}
   damage: 5
   hitStopTarget: 1
@@ -267,8 +268,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 469e07650159b4d40b6befcd5710d6f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   renderers: []
   flashColor: {r: 1, g: 0.96, b: 0.85, a: 1}
   baseDuration: 0.06
@@ -284,8 +285,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80ce84a511d8391409dc661142b93c06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   targets:
   - {fileID: 3379320643344464324}
 --- !u!114 &4213450842822451045
@@ -298,8 +299,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a96c9ee2ff254b14cb1e323c80d457f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   animator: {fileID: 5902380356341294186}
   stunController: {fileID: 6335462748226833986}
   hitReactGate: {fileID: 8121196955070503774}
@@ -324,8 +325,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f95c69203c049f8498e332bdff36bcad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   animator: {fileID: 5902380356341294186}
   stunStatePath: Base Layer.skeleton_stun
   stunCrossfade: 0.02
@@ -350,8 +351,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca6cc5a65bbf2ce499c48e93ff7bb702, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   animator: {fileID: 5902380356341294186}
   hitStatePath: Base Layer.skeleton_hit
   hitCrossfade: 0.02
@@ -370,11 +371,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4df27e6d302a5143ab5a72c181d503f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   excludeUnlitShaders: 1
   includeDynamicChildren: 1
   ignoreNameContains:
   - Afterimage
   - HitSpark
   silhouetteColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &8834135786078280039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212155499661164206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221ae9f852094ff69011c4ff74210dcd, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  source: {fileID: 3278272914554389335}
+  library: {fileID: 11400000, guid: 4720ef884b3923ec593c8cf695ad14af, type: 2}

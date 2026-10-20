@@ -1,0 +1,58 @@
+{
+  "author": "Kay Lousberg",
+  "version": "Dungeon Remastered 1.1 FREE subset",
+  "license": "CC0-1.0",
+  "source": "https://kaylousberg.itch.io/kaykit-dungeon-pack",
+  "mirror": "GeorgeQLe/assets-kaykit-3d-environments",
+  "revision": "d5e6c73284e9385a389ac7181dec3d0dc9e9021d",
+  "files": [
+    {
+      "file": "barrel_large.fbx",
+      "sha256": "5e647c4ed8c7bb1d71a83ced85de379fabefa303d566c3d2be4a551a1e0e0fbc"
+    },
+    {
+      "file": "column.fbx",
+      "sha256": "3d8f9a1c74f11594348bd32a4fadef27985eb1afac6788707e86cf140fa200d7"
+    },
+    {
+      "file": "floor_tile_large.fbx",
+      "sha256": "419b611a099fe6f83f86d078314227d152a0b70c1161de38543d8b85f74d17b1"
+    },
+    {
+      "file": "pillar.fbx",
+      "sha256": "a3c99c81f9aab73578a180fb1252ad2947bc685de95a00bd1e7baca866a1af19"
+    },
+    {
+      "file": "rubble_large.fbx",
+      "sha256": "53d45c697321b91956945e35693b54f896abeb1f80a835d9c87f4e9d2795be5a"
+    },
+    {
+      "file": "torch_lit.fbx",
+      "sha256": "a24ba9dcd61266f7240da0bbd28110d12d279e64b2ff400638de06a70213d2c3"
+    },
+    {
+      "file": "torch_mounted.fbx",
+      "sha256": "f3f37bdd56dcf24690aafb9358b6ea00d38fca0b6f42a56643c4459f64db909f"
+    },
+    {
+      "file": "wall.fbx",
+      "sha256": "5217ff9fcbc263c9e0c2954bc73b46d9f4c67819e32fdd797616d23b8762b299"
+    },
+    {
+      "file": "wall_arched.fbx",
+      "sha256": "39fbdc14ec56396124fc42e439772e7dbcb2b6b310063ab3ae166c8acee1d890"
+    },
+    {
+      "file": "wall_archedwindow_gated.fbx",
+      "sha256": "8bf540185c26a9b1b80a2c79ae55ca2068f8bc6337298944b96ca75e4fa87fb8"
+    },
+    {
+      "file": "wall_doorway.fbx",
+      "sha256": "9f806b0d78edcc34400f927598c4964e1861e1db1bcdd1dfd69ef991ebb51f2d"
+    },
+    {
+      "file": "dungeon_texture.png",
+      "sha256": "ceb331d6ed53273da5e26808560bca8496f8f6ebc12d83b570c0e317560f1d03"
+    }
+  ]
+}

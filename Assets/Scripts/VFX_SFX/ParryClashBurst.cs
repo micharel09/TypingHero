@@ -84,7 +84,8 @@ public sealed class ParryClashBurst : MonoBehaviour
     readonly List<Vector4> shapeData = new List<Vector4>(64);
     static readonly List<ParticleSystemVertexStream> voxelStreams = new List<ParticleSystemVertexStream> {
         ParticleSystemVertexStream.Position, ParticleSystemVertexStream.Normal,
-        ParticleSystemVertexStream.Color, ParticleSystemVertexStream.UV };
+        ParticleSystemVertexStream.Color, ParticleSystemVertexStream.UV, ParticleSystemVertexStream.UV2,
+        ParticleSystemVertexStream.Custom1XYZW };
     ParticleSystem[] systems;
     PooledVFX lease;
     bool playing, paused;
@@ -261,7 +262,7 @@ public sealed class ParryClashBurst : MonoBehaviour
             tint.a = 1 - Mathf.Clamp01((age - .06f) / .14f);
             p.startColor = tint; p.remainingLifetime = life - age;
             contactOutput[count++] = p;
-            shapeData.Add(new Vector4(i, 0, Mathf.Round(size * 16), 0));
+            shapeData.Add(new Vector4(1 - age / life, 0, Mathf.Round(size * 16), 0));
         }
         contact.SetParticles(contactOutput, count);
         contact.SetCustomParticleData(shapeData, ParticleSystemCustomData.Custom1);
@@ -400,7 +401,7 @@ public sealed class ParryClashBurst : MonoBehaviour
                 tint.a = d.fast ? 1 - t / d.total : 1 - Mathf.Clamp01((t - d.flight) / (d.bounce + .18f));
                 p.startColor = tint; p.remainingLifetime = d.total - t + .1f;
                 debrisParticles[count++] = p;
-                shapeData.Add(new Vector4(d.mask, 2f / 3f, width, length));
+                shapeData.Add(new Vector4(1 - heat, 2f / 3f, width, length));
             }
             systems[group].SetParticles(debrisParticles, count);
             systems[group].SetCustomParticleData(shapeData, ParticleSystemCustomData.Custom1);

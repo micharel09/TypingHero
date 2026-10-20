@@ -1,0 +1,40 @@
+{
+  "sources": [
+    {
+      "texture": "Assets/Art/male_hero/individual_sheets/male_hero-combo_1.png",
+      "layer": "hero-male_hero-combo_1.png"
+    },
+    {
+      "texture": "Assets/Art/male_hero/individual_sheets/male_hero-combo_2.png",
+      "layer": "hero-male_hero-combo_2.png"
+    },
+    {
+      "texture": "Assets/Art/male_hero/individual_sheets/male_hero-combo_3.png",
+      "layer": "hero-male_hero-combo_3.png"
+    },
+    {
+      "texture": "Assets/Art/EndlessSkeletons/sword/Attack1.png",
+      "layer": "sword-Attack1.png"
+    },
+    {
+      "texture": "Assets/Art/EndlessSkeletons/sword/Attack2.png",
+      "layer": "sword-Attack2.png"
+    },
+    {
+      "texture": "Assets/Art/EndlessSkeletons/sword-shield/Attack1.png",
+      "layer": "sword-shield-Attack1.png"
+    },
+    {
+      "texture": "Assets/Art/EndlessSkeletons/sword-shield/Attack2.png",
+      "layer": "sword-shield-Attack2.png"
+    },
+    {
+      "texture": "Assets/Art/EndlessSkeletons/axe/Attack1.png",
+      "layer": "axe-Attack1.png"
+    },
+    {
+      "texture": "Assets/Art/EndlessSkeletons/axe/Attack2.png",
+      "layer": "axe-Attack2.png"
+    }
+  ]
+}

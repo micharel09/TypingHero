@@ -74,10 +74,11 @@ public sealed class GameLoopProbe : MonoBehaviour
             var bounds = sprite ? sprite.bounds : particle.bounds;
             var burst = effect.GetComponent<PixelSparkBurst>();
             var clash = effect.GetComponent<ParryClashBurst>();
+            var voxel = effect.GetComponent<VoxelImpactBurst>();
             if (burst && (!burst.Systems[0] || !burst.Systems[1])) return null;
             float minY = float.PositiveInfinity, maxY = float.NegativeInfinity, maxAge = 0;
             float velocityX = 0, depthSpeed = 0; int observedCount = 0;
-            var systems = burst ? burst.Systems : clash ? clash.Systems : null;
+            var systems = burst ? burst.Systems : clash ? clash.Systems : voxel ? voxel.Systems : null;
             if (systems != null)
                 foreach (var ps in systems)
                 {
@@ -100,7 +101,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             return new SparkFrame { role = role, preset = clash ? clash.EmittedPreset.ToString() : "", id = effect.GetInstanceID(), frame = Time.frameCount,
                 order = sprite ? sprite.sortingOrder : particle.sortingOrder,
                 position = effect.transform.position, scale = effect.transform.lossyScale,
-                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
+                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : voxel ? voxel.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
                 minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = maxAge,
                 meanVelocityX = observedCount > 0 ? velocityX / observedCount : 0,
                 meanDepthSpeed = observedCount > 0 ? depthSpeed / observedCount : 0,
@@ -133,6 +134,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public string result;
         public string enemySprite, enemyTexture;
         public float enemyAnimationTime, frameMs, scroll, timeScale, wordTime, rowError, rowSlide;
+        public float enemyContactIn, enemyAnimationSpeed;
+        public int activeSlashParts;
         public long memory;
         public long allocatedBytes;
         public bool allocationCounterAvailable;
@@ -270,6 +273,12 @@ public sealed class GameLoopProbe : MonoBehaviour
             var animator = Read<Animator>(enemy, "animator");
             var info = animator ? animator.GetCurrentAnimatorStateInfo(0) : default;
             bool attacking = animator && info.fullPathHash == Animator.StringToHash(Read(enemy, "attackStatePath", ""));
+            float contactIn = -1, animationSpeed = animator ? animator.speed * info.speed * info.speedMultiplier : 0;
+            if (attacking)
+                foreach (var clip in animator.GetCurrentAnimatorClipInfo(0))
+                    foreach (var marker in clip.clip.events)
+                        if (marker.functionName == "Anim_DealDamage")
+                            contactIn = (marker.time - (info.normalizedTime % 1) * clip.clip.length) / Mathf.Max(.001f, animationSpeed);
             var controls = FindObjectsOfType<Selectable>().Where(s => s.IsInteractable()).Select(s =>
             {
                 var canvas = s.GetComponentInParent<Canvas>();
@@ -427,6 +436,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 slayer = slayer && slayer.IsActive, parryWindow = parry && parry.IsWindowActive,
                 canParry = gate && gate.CanParry && (!parry || !parry.PoseLocked), enemyAttacking = attacking,
                 enemyAnimationTime = info.normalizedTime, overlay = Read(pause, "_overlayLocked", false),
+                enemyContactIn = contactIn, enemyAnimationSpeed = animationSpeed,
+                activeSlashParts = FindObjectsOfType<MeshRenderer>().Count(r => r.enabled && r.name.StartsWith("Slash")),
                 paused = Read(pause, "_paused", false), frameMs = Time.unscaledDeltaTime * 1000,
                 timeScale = Time.timeScale, wordTime = Read(typing, "timer", 0f),
                 rowError = Read(typing, "errorRemaining", 0f), rowSlide = Read(typing, "slideRemaining", 0f),

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.TestTools;
 
-public sealed class ParryClashTests
+public sealed partial class ParryClashTests
 {
     readonly List<GameObject> owned = new();
     const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic;

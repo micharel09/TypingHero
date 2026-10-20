@@ -122,6 +122,7 @@ internal static class ParryClashAssets
         if (!material)
         {
             material = new Material(Shader.Find("TypingHero/ParryVoxel"));
+            material.SetFloat("_Thermal", 1); material.SetFloat("_Emission", .08f);
             AssetDatabase.CreateAsset(material, Root + "CompactVoxel.mat");
         }
         so.FindProperty("compactVoxelMesh").objectReferenceValue = mesh;

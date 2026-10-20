@@ -13,6 +13,8 @@ internal static class CombatFeedbackBuild
     {
         CombatFeedbackAssets.Prepare();
         ParryClashAssets.Prepare();
+        CombatVoxelAssets.Prepare();
+        SlashVolumeAssets.Prepare();
         var normal = ImpactEvent("ev_impact_normal", "medium", .65f);
         var slayer = ImpactEvent("ev_impact_slayer", "medium", .45f);
         var lethal = ImpactEvent("ev_impact_lethal", "heavy", .8f);
@@ -63,11 +65,13 @@ internal static class CombatFeedbackBuild
     {
         foreach (var spark in root.GetComponentsInChildren<HitSparkSpawner>(true))
         {
-            Set(spark, "sparkPrefab", null);
-            Set(spark, "lethalPrefab", null);
+            if (spark.name == "ReceivedImpact") continue;
+            Set(spark, "sparkPrefab", CombatVoxelAssets.Load("Normal"));
+            Set(spark, "lethalPrefab", CombatVoxelAssets.Load("Lethal"));
             Value(spark, "groundY", Ground(root));
             var profiles = new SerializedObject(spark);
-            var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 0;
+            var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 1;
+            variants.GetArrayElementAtIndex(0).objectReferenceValue = CombatVoxelAssets.Load("Slayer");
             profiles.ApplyModifiedPropertiesWithoutUndo();
             Value(spark, "zRotationOffset", 0f); Vector(spark, "angleJitter", Vector2.zero);
             Set(spark, "normalImpact", normal); Set(spark, "slayerImpact", slayer); Set(spark, "lethalImpact", lethal);
@@ -115,6 +119,25 @@ internal static class CombatFeedbackBuild
             Value(flash, "flashColor", new Color(1f, .96f, .85f, 1));
             Value(flash, "baseDuration", .06f); Value(flash, "minFrames", 2); Value(flash, "useUnscaledTime", true);
             Record(flash);
+        }
+        var actor = root.GetComponentInChildren<PlayerHealth>(true);
+        if (actor)
+        {
+            var child = actor.transform.Find("ReceivedImpact");
+            if (!child) { child = new GameObject("ReceivedImpact").transform; child.SetParent(actor.transform, false); }
+            var received = child.GetComponent<HitSparkSpawner>(); if (!received) received = child.gameObject.AddComponent<HitSparkSpawner>();
+            Set(received, "sparkPrefab", CombatVoxelAssets.Load("Received")); Set(received, "lethalPrefab", CombatVoxelAssets.Load("ReceivedLethal"));
+            Value(received, "groundY", Ground(root));
+            var damage = actor.GetComponent<PlayerDamageVoxel>(); if (!damage) damage = actor.gameObject.AddComponent<PlayerDamageVoxel>();
+            Set(damage, "health", actor); Set(damage, "emitter", received); Set(damage, "body", actor.GetComponent<BoxCollider2D>());
+            Record(received); Record(damage);
+        }
+        foreach (var renderer in root.GetComponentsInChildren<SpriteRenderer>(true))
+        {
+            if (!renderer.GetComponent<Animator>()) continue;
+            if (!renderer.GetComponent<PlayerHealth>() && !renderer.GetComponent<SkeletonController>()) continue;
+            var slash = renderer.GetComponent<SlashVolume>(); if (!slash) slash = renderer.gameObject.AddComponent<SlashVolume>();
+            Set(slash, "source", renderer); Set(slash, "library", SlashVolumeAssets.Library()); Record(slash);
         }
     }
     static void Vector(Object target, string name, Vector3 value)

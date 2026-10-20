@@ -281,13 +281,30 @@ Full surface art, B/C and parent integration remain separate.
   WebGL build and Edge155 preview pass12checks (two real noF6 parries at1280/640, no exceptions/provider writes); voxel faces were inspected at both sizes. Earlier flat-ring native/performance
   receipts are historical, not voxel validation. Publication is deferred until
   visual review; see combat-feedback.
-- Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
-  prefabs and SampleScene. Existing hit SFX, lethal shake, slash, flash, afterimages
-  and damage remain. Legacy PixelSparks/CodeManu/Pimen assets are retained unwired.
+- Full 2.5D conversion source now wires Normal6/Slayer8/Lethal14 closed-mesh impacts,
+  plus received4/received-lethal6 on accepted player HP loss. Slayer tint is captured
+  before damage can exit the mode; normal lethal has no Slayer emission. New impact
+  random is isolated from gameplay random. Eight active leases per emitter bound
+  impact particles to112outgoing+48received, alongside192parry particles.
+  SlashVolume follows the actual source Sprite cel through SlashLibrary;9atlases
+  have slash-only RGBA separated into durable layers and thin closed meshes.
+  Actor pixels outside the authored masks, sprite metadata and clip events/timing
+  are preserved. Screen flash/cues/HUD remain2D; afterimages retain3sprite snapshots,
+  120/140/160ms lifetimes and25ms cadence, with shallow Z offsets and12active cap.
+  Existing hit SFX, lethal shake and damage remain. Legacy PixelSparks/CodeManu/Pimen
+  assets are retained unwired. Focused27/27 and final build/repeat pass; native70scoped
+  checks cover four opponents at1280 and a640Slayer sample. Playable preview is ready;
+  visual direction still awaits user review.
 - ParryClashBurst owns unscaled simulation, pause/tutorial hold, clear and completion;
   PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.
   ClashLightingRig holds eight pulse states, renders strongest capped pulse through
-  one Light2D, and immediately cancels a disabled/released owner.
+  the active scene's Light2D or3D combat light, and immediately cancels a disabled/released owner.
+- The current candidate incorporates the sibling dungeon-3d environment source:
+  Forward-rendered KayKit room, shallow10degree camera and its shared3D lights.
+  VFX uses actual room lighting and the visible mesh floor. DungeonCombatLighting
+  stays outside the geometry group hidden by Slayer, keeping mesh shading and
+  combat pulses alive during the red cinematic. Scoped build/native preview checks
+  pass; this does not qualify the sibling's broader room/performance acceptance.
 - WorldLightingBuild runs after ShogunTheme: lit actor/near-environment sprites,
   ambient/key/fill plus clash rig, fixed-body-foot contact shadows and thresholded
   world bloom. The preserved WorldMenuBackdrop is disabled by the final dungeon
