@@ -211,6 +211,11 @@ Change only behavior explicitly requested. Update this file after relevant verif
   core1/main2/front10/outer1/embers10, using the same five ParticleSystems.
   Every particle starts at the captured weapon contact. Existing Compact material
   supplies the22 billboard sparks; real Z motion and depth tests provide depth.
+- The birth frame renders all24particles at contact without advancing debris or
+  native contact time. If the first following frame exceeds33.3ms, debris takes
+  one16.7ms step so a cold render cannot skip its visible launch. That initial
+  presentation delay is discarded; subsequent frames use full unscaled delta.
+  Long travel, velocity/path/bounce/rest and gameplay clocks remain unchanged.
 - ParryContactLibrary v4 measures existing blade pixels in the actual cel's
   pivot/PPU/flip/transform, captures before success/Hurt, and holds existing clean
   contact cels70ms. Six weapon crops copy original RGBA exactly. The parried enemy's
@@ -233,10 +238,12 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Dedicated Cinemachine channel2 recoils at most one world-render pixel after
   hitstop and returns100ms; no lens/zoom change. Existing parry1 clip retains gain,
   jitter narrows to.03volume/.35semitone and player_hand ducks80ms. Other impact
-  audio/shake/trails remain. Current focused Quick30/30, strict repeated build and
-  native83checks pass, including sword/axe/Slayer at640/1280, pause and Continue.
-  Actual sound clips cover the full flight at1x/.25x. Short native p95 is13.455/
-  13.540ms; see [verification](verification.md). Local visual review remains open.
+  audio/shake/trails remain. Latest contact-origin correction passes focused
+  Quick31/31, strict repeated build and native86checks, including sword/axe/Slayer
+  at640/1280, pause and Continue. Direct rendered frames supplement the25fps sound
+  clips covering the full flight at1x/.25x. Previous-source short native p95 was
+  13.455/13.540ms; this timing-only correction has no new performance claim.
+  See [verification](verification.md). Local visual review remains open.
 
 ### Historical parry iterations (superseded by the candidate above)
 

@@ -2617,3 +2617,88 @@ Local integration adds the final arena builder pass, uses its actual Forward lig
   while user visual review remains active; clean the review resources after that
   and retain the branch until verified integration. Old reference clips stay.
   Local commit contains only this task; no push/merge/publication.
+
+### Contact-origin correction — 2026-10-20 (verified, preview open)
+
+- User rejected sparks appearing as a detached cluster away from the blade clash,
+  then explicitly chose to keep their long travel. Preserve all24 particles,
+  approved c12c3de flash, Compact masks, velocity/flight/bounce/rest and real Z.
+- ParrySystem executes at-50 and emits before ParryClashBurst.Update at200.
+  The old Update consumed the entire current unscaled delta before the birth
+  position could render. Record the emission frame and advance debris only on
+  subsequent frames; Clear/disable/reuse reset the marker. Native contacts pause
+  for their birth frame, then resume the unchanged200ms authored sequence. Other
+  presets remain unchanged; no API, asset, dependency, module or allocation change.
+- Added an early-Update emitter/LateUpdate observation test with an actual100ms
+  preceding stall and disable/reuse. It must see24particles at contact/age0 on
+  the emission frame and flight on the following frame. Existing long-distance,
+  pause and trajectory tests remain required.
+- QA publication is100ms; its earliest observed age cannot establish the actual
+  birth render. Prior25fps clips also do not prove that frame. New temporary
+  browser capture copies the actual canvas immediately after consecutive render
+  callbacks; it observes only, retains fixtures/external blocking and uses no
+  gameplay commands. Keep new evidence under physics-pixel24/contact-origin;
+  old reference/player/clips remain untouched.
+- Focused31-case source and QA build queued on the isolated task mutex/resource
+  gate. First-frame captures, sword/axe/Slayer two-size smoke, sound clips1x/.25x,
+  reopened preview and local commit remain pending; no final acceptance yet.
+- First focused run090708, sourceadf1b750, passed30/31. The new slow-frame test
+  correctly found only22particles on the birth frame: the two native contacts had
+  also consumed time preceding Emit and expired. Added the birth-frame native
+  Pause/next-frame Play correction rather than reducing the expected24. Latest
+  frozen sourcec7fc481f736fd39d9c61dc897b07eef0053d4872497529d052cb40965e8528dc
+  is queued for the same31checks and final QA build. Intermediateadf player is
+  not qualified for final preview; retained old552f before-player capture passed
+  8harness checks and visibly reproduces the detached-cluster frame.
+- Further source inspection corrects the initial execution-order inference:
+  production success comes from ParryTarget.Anim_StrikeFrame, after Update.
+  The early-Update guard is still needed for that supported emission timing, but
+  it alone cannot fix the user's observed path. The direct before-capture showed
+  a roughly130ms first-render interval followed by the remote cluster. Readback
+  capture can itself contribute to the stall; its cause is not isolated.
+- For BCompact only, if the first frame after birth exceeds33.3ms, advance the
+  debris by16.7ms once rather than skipping its fast launch. Discard that initial
+  presentation delay; do not catch it up later. Subsequent frames use their full
+  unscaled delta, and analytical velocity/trajectory/far distance/bounce/rest
+  remain unchanged. Extend the same test with a100ms post-birth stall and require
+  first movement to remain within1WU of contact. This is VFX timing only.
+- Canceled only the owned obsoleteadf andc7fc WebGL containers after verifying
+  their exact /results and /project mounts. Reports090807/091323 are unqualified;
+  other task containers untouched. Final source checks run before rebuilding.
+- Final WebGL092035 PASS, frozenec52436251fc2a7766d9dc33a4b77f9f5783e00c767ca3f6aadaf6460ef354d4;
+  strict repeated builder reports unchanged serialized objects/references/listeners.
+  Focused Quick092648 PASS31/31,0failed/skipped,14.7551432s, frozenf2a2145f.
+  Archive comparison proves every executable/test/asset/package/project input is
+  byte-identical; build differs only in one explanatory comment correcting the
+  event-order inference. The new real-Update/LateUpdate test covers100ms before
+  and after birth, all24at contact, bounded first movement and disable/reuse.
+- Refreshed1280 preview opened on loopback8152, paused/default24, node38096 and
+  hidden launcher31792. New player/launcher/evidence live in contact-origin;
+  old preview/player/reference clips preserved. Esc resumes, Space parries.
+- Native r2 stopped25checks when a finished intervening DoubleStrike duel had
+  only its lethal effect, but the helper still demanded a parry effect. r3 stopped
+  11checks after a real input missed its cue under capture stalls. Neither is a
+  PASS; both have0managed/JS exceptions. Updated only the temporary driver:
+  acknowledge against the immediate pre-Space counter, handle finished utility
+  duels, allow at most2logged cue retries and avoid screenshots during direct
+  frame capture. Required sword/axe/Slayer and accepted-parry damage gates stay.
+  Final r4 receipt follows; no product change or rebuild for these driver fixes.
+- Final r4 PASS86/106.2375723s, sword/axe/Slayer at1280 and640, pause/Continue,
+  default24/noF6. Zero JS/managed exceptions/provider reads/writes/external
+  requests. One logged1280cue miss (40->35HP) was retried; all accepted-parry
+  damage checks pass. Inspected direct birth/first motion/far travel plus floor
+  tail and Slayer; readback captures are not a performance measurement.
+- Two42.021328s actual-sound H264/AAC48k stereo exports at1x/.25x fully decode.
+  ContactOrigin1280:2650989bytes, SHA256 a3bdd8628238331d4ed4ef4117ff9c8fb2780b0ff74590c13d03f896f163b7bc.
+  ContactOrigin640:1204612bytes, SHA256 6374266022160c2219f940bafeb2cae72dbc967fdd5411c1b06fbad7f8db6e02.
+  Audio peaks.548333/.535968; no microphone. Final export samples inspected;
+  video25fps remains supplementary to direct render frames and the slow-frame
+  test. All1535current frozen input files match the final build archive exactly;
+  all29previous reference clips pass their original SHA256s.
+- Cleaned36obsolete capture/profile/transfer items locally and7remote transfer
+  archives, retaining failed JSON/XML receipts and written failure reasons. Closed
+  QA profiles removed; live interactive profile/player/launcher/final clips/direct
+  frames and source archives remain under contact-origin for user visual review.
+  Existing unmerged Orca child remains for review/integration; clean these review
+  resources after that. No push/merge/deploy, broad QA or new performance claim.
+  Implementation and scoped verification complete; local task-only commit follows.

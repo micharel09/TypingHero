@@ -1,5 +1,47 @@
 # Verification and performance memory
 
+## Contact-origin frame correction (2026-10-20, local preview ready)
+
+- WebGL092035 sourceec52436251fc2a7766d9dc33a4b77f9f5783e00c767ca3f6aadaf6460ef354d4
+  built with pinned Unity2022.3.25f1; strict repeated builder reports serialized
+  objects/references/listeners unchanged. Only runtime change is the birth/first
+  flight clock in ParryClashBurst. No physics/material/asset/GUID/API/package change.
+- Focused Quick092648 PASS31/31,0failed/skipped,14.7551432s. Its frozenf2a2145f
+  archive matches every build executable/test/asset/package/project input byte;
+  only one explanatory comment differs. New early-Update/LateUpdate test stalls
+  100ms before and after birth:24particles remain at contact/age0, first movement
+  stays within1WU, and disable/reuse repeats correctly. Existing pause/hitstop,
+  24/192, long travel,20floor/bounce/rest/expiry, no allocation, preset restoration
+  and contact+tail completion tests pass.
+- Native r4 PASS86/106.2375723s: Edge155/Playwright1.58.2, GTX1650Ti ANGLE D3D11,
+  defaultBCompact/noF6, sword/axe/Slayer at1280x720 and640x360, intervening Double
+  Strike, pause and Continue. Zero JS/managed exceptions/provider reads/writes/
+  external requests. One logged automation cue miss at1280 (40->35HP) was retried;
+  accepted-parry damage checks pass. This is scoped visual/integration QA, not an
+  all-input timing or performance guarantee. No additional perf/deep/mirror run.
+- Direct post-render canvas captures show contact birth followed by outward
+  motion and the original far travel. Inspected both sizes, axe smooth-frame
+  progression, cold sword first-step handling, floor tail and Slayer. Readback
+  can itself cause stalls; this capture is not used to measure frame performance.
+  QA publication100ms and native video25fps cannot prove the birth frame alone.
+- Both actual-sound exports are42.021328s, H264/yuv420p25fps plus AAC48k stereo,
+  full decode PASS. Sword,axe and axe-Slayer at1x/.25x, with full flight/bounce/
+  expiry; PCM peaks.548333/.535968, no microphone. Nominal onset uses observed
+  particle age and400ms lead, not frame-perfect synchronization or locked RNG.
+  CLACKBLADE-Parry-ContactOrigin-1280.mp4 SHA256 a3bdd8628238331d4ed4ef4117ff9c8fb2780b0ff74590c13d03f896f163b7bc;
+  640 SHA256 6374266022160c2219f940bafeb2cae72dbc967fdd5411c1b06fbad7f8db6e02.
+  Previous approved/physics clips remain unchanged.
+- Intermediateadf run passed30/31 and exposed native contact expiry on the birth
+  frame; fixed without relaxing24. Obsoleteadf/c7fc WebGL jobs were canceled.
+  Native r2 failed25checks on demanding a parry effect after an intervening duel
+  had finished; r3 failed11 on a cue miss under capture. These remain failed.
+  Temporary-driver corrections only; final player was not rebuilt for them.
+- Headed1280 preview opened paused on loopback8152 from contact-origin/player.
+  Keep the existing child and E:/CodexTemp/TypingHero/parry-clash-lighting/
+  physics-pixel24/contact-origin player, launcher, clips and receipts for visual
+  review. Esc resumes; Space parries; closing the page ends its helper/server.
+  No push/merge/publication. Earlier552f p95 below belongs to that earlier source.
+
 ## Approved flash with restored physics (2026-10-20, local preview ready)
 
 - Frozen source552f67ad130a6e5c988122fad484fb3bcecd2b18625f2340f39136062c0d03fd.

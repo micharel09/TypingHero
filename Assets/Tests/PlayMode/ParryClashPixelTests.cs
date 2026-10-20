@@ -5,8 +5,75 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.TestTools;
 
+[DefaultExecutionOrder(-60)]
+public sealed class ParryClashEmissionProbe : MonoBehaviour
+{
+    internal ParryClashBurst burst;
+    internal Vector3 point;
+    internal bool pending;
+    internal int frame = -1, birthCount;
+    internal float birthDelta, birthAge, nextDelta, nextAge = -1, nextDisplacement;
+    internal readonly Vector3[] birthPositions = new Vector3[24];
+    readonly ParticleSystem.Particle[] particles = new ParticleSystem.Particle[10];
+    static readonly System.Reflection.FieldInfo Age = typeof(ParryClashBurst).GetField("debrisAge",
+        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+    void Update()
+    {
+        if (!pending) return;
+        pending = false; frame = Time.frameCount; birthDelta = Time.unscaledDeltaTime;
+        burst.Emit(point, 1, 0, ParryClashBurst.Preset.BCompact, 7);
+    }
+    void LateUpdate()
+    {
+        if (frame < 0 || nextAge >= 0) return;
+        if (Time.frameCount == frame)
+        {
+            birthAge = (float)Age.GetValue(burst); birthCount = 0;
+            foreach (var ps in burst.Systems)
+                for (int i = 0, count = ps.GetParticles(particles); i < count; i++)
+                    birthPositions[birthCount++] = particles[i].position;
+            // Reproduce a cold first render stalling before the following frame.
+            System.Threading.Thread.Sleep(100);
+        }
+        else
+        {
+            nextDelta = Time.unscaledDeltaTime;
+            nextAge = (float)Age.GetValue(burst); nextDisplacement = 0;
+            foreach (var ps in burst.Systems)
+                for (int i = 0, count = ps.GetParticles(particles); i < count; i++)
+                    nextDisplacement = Mathf.Max(nextDisplacement, Vector3.Distance(particles[i].position, point));
+        }
+    }
+}
+
 public sealed partial class ParryClashTests
 {
+    [UnityTest, Category("Quick")]
+    public IEnumerator EarlyUpdateEmissionRendersAtContactBeforeFlightEvenAfterSlowFrameAndReuse()
+    {
+        var burst = Burst();
+        var host = new GameObject("early parry emission"); owned.Add(host);
+        var probe = host.AddComponent<ParryClashEmissionProbe>(); probe.burst = burst;
+        foreach (bool reuse in new[] { false, true })
+        {
+            if (reuse) { burst.gameObject.SetActive(false); burst.gameObject.SetActive(true); }
+            probe.point = reuse ? new Vector3(-3, 2, -.1f) : new Vector3(3, 2, .1f);
+            probe.frame = -1; probe.nextAge = -1; probe.pending = true;
+            // The next Update receives elapsed time that happened before emission.
+            System.Threading.Thread.Sleep(100);
+            while (probe.nextAge < 0) yield return null;
+            Assert.That(probe.birthDelta, Is.GreaterThan(.08f), "exercise a genuinely slow emission frame");
+            Assert.That(probe.birthAge, Is.Zero, "pre-emission time must not move a newborn particle");
+            Assert.That(probe.birthCount, Is.EqualTo(24));
+            foreach (var position in probe.birthPositions) Assert.That(position, Is.EqualTo(probe.point));
+            Assert.That(probe.nextAge, Is.GreaterThan(0), "flight starts on the following rendered frame");
+            Assert.That(probe.nextDisplacement, Is.GreaterThan(0));
+            Assert.That(probe.nextDelta, Is.GreaterThan(.08f), "exercise a stall after the birth render too");
+            Assert.That(probe.nextDisplacement, Is.LessThanOrEqualTo(1),
+                "the first visible flight step must stay in the contact footprint despite a cold-render stall");
+        }
+    }
+
     [Test, Category("Quick")]
     public void ParryPointAndLegacySpotUseOneWinningPulseAndClearTogether()
     {

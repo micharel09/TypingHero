@@ -63,6 +63,7 @@ public sealed partial class ParryClashBurst : MonoBehaviour
     ParticleSystem[] systems;
     PooledVFX lease;
     bool playing, paused;
+    int debrisEmissionFrame = -1;
     public int ParticleCount { get { int count = 0; foreach (var ps in systems) count += ps.particleCount; return count; } }
 
     internal Preset EmittedPreset => emittedPreset;
@@ -84,6 +85,7 @@ public sealed partial class ParryClashBurst : MonoBehaviour
     internal void Emit(Vector3 point, float direction, float groundY = -10f, Preset? selection = null, int sequence = 0, ParryContactSnapshot? visual = null)
     {
         Clear();
+        debrisEmissionFrame = Time.frameCount;
         emittedPreset = selection ?? preset;
         variationIndex = sequence;
         Visual = visual.GetValueOrDefault();
@@ -109,6 +111,7 @@ public sealed partial class ParryClashBurst : MonoBehaviour
             EmitGroup(embers, emberSettings, direction, .24f, 0, rotation, spread, energy);
         }
         foreach (var ps in systems) ps.Play(false);
+        if (emittedPreset == Preset.BCompact) { contact.Pause(false); back.Pause(false); }
         playing = true;
         ClashLightingRig.Pulse(gameObject.scene, point, emittedPreset == Preset.BCompact ? 5f : pulseIntensity, this);
     }
@@ -175,7 +178,21 @@ public sealed partial class ParryClashBurst : MonoBehaviour
             foreach (var ps in systems) { if (hold) ps.Pause(false); else ps.Play(false); }
         }
         if (hold) return;
-        AdvanceDebris(Time.unscaledDeltaTime);
+        // Emission can precede this Update. Its frame delta predates the clash;
+        // render the birth position before advancing its analytical trajectory.
+        if (Time.frameCount != debrisEmissionFrame)
+        {
+            float delta = Time.unscaledDeltaTime;
+            if (debrisEmissionFrame >= 0 && emittedPreset == Preset.BCompact)
+            {
+                contact.Play(false); back.Play(false);
+                // A cold first render can stall. Keep the first visible flight step
+                // near the blades instead of skipping the entire launch in one draw.
+                if (delta > 1f / 30) delta = 1f / 60;
+            }
+            debrisEmissionFrame = -1;
+            AdvanceDebris(delta);
+        }
         // A lease owns both the authored contact and the complete falling trajectories.
         if (emittedPreset == Preset.BCompact)
         {
@@ -189,6 +206,7 @@ public sealed partial class ParryClashBurst : MonoBehaviour
     {
         if (systems != null) foreach (var ps in systems) if (ps) ps.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
         debrisAge = 0; debrisCount = 0;
+        debrisEmissionFrame = -1;
         System.Array.Clear(debris, 0, debris.Length);
         System.Array.Clear(debrisParticles, 0, debrisParticles.Length);
         playing = paused = false;
