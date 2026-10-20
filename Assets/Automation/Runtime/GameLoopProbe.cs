@@ -29,6 +29,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Rect screenRect;
         public int particles;
         public float groundY, minY, maxY, maxAge, meanVelocityX, meanDepthSpeed;
+        public float contactGap;
+        public string defenseCel, attackCel;
     }
     readonly ParticleSystem.Particle[] observedParticles = new ParticleSystem.Particle[56];
     ProfilerRecorder frameAllocations;
@@ -101,6 +103,9 @@ public sealed class GameLoopProbe : MonoBehaviour
             return new SparkFrame { role = role, preset = clash ? clash.EmittedPreset.ToString() : "", id = effect.GetInstanceID(), frame = Time.frameCount,
                 order = sprite ? sprite.sortingOrder : particle.sortingOrder,
                 position = effect.transform.position, scale = effect.transform.lossyScale,
+                contactGap = clash ? clash.Visual.separation : 0,
+                defenseCel = clash && clash.Visual.defenseCel ? clash.Visual.defenseCel.name : "",
+                attackCel = clash && clash.Visual.attackCel ? clash.Visual.attackCel.name : "",
                 particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : voxel ? voxel.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
                 minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = maxAge,
                 meanVelocityX = observedCount > 0 ? velocityX / observedCount : 0,

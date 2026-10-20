@@ -24,7 +24,8 @@ internal static class ParryClashAssets
                 var serialized = new SerializedObject(existing.GetComponent<ParryClashBurst>());
                 if (serialized.FindProperty("mainRays").objectReferenceValue)
                 {
-                    bool migrated = MigrateVoxel(serialized);
+                    bool migrated = ParryPixelAssets.Migrate(serialized);
+                    migrated = MigrateVoxel(serialized) || migrated;
                     migrated = MigrateContact(serialized) || migrated;
                     migrated = MigrateRayShape(existing, serialized) || migrated;
                     migrated = MigrateCompact(existing, serialized) || migrated;
@@ -49,6 +50,7 @@ internal static class ParryClashAssets
                 MigrateCompact(existing, serialized);
                 MigrateContact(serialized);
                 MigrateVoxel(serialized);
+                ParryPixelAssets.Migrate(serialized);
                 PrefabUtility.SaveAsPrefabAsset(existing, Root + "ParryClash.prefab");
             }
             finally { PrefabUtility.UnloadPrefabContents(existing); }
@@ -84,6 +86,7 @@ internal static class ParryClashAssets
             MigrateCompact(root, so);
             MigrateContact(so);
             MigrateVoxel(so);
+            ParryPixelAssets.Migrate(so);
             PrefabUtility.SaveAsPrefabAsset(root, Root + "ParryClash.prefab");
         }
         finally { Object.DestroyImmediate(root); }

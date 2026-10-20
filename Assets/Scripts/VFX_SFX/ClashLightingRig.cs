@@ -7,6 +7,7 @@ public sealed class ClashLightingRig : MonoBehaviour
 {
     [SerializeField] Light2D clashLight;
     [SerializeField] Light combatLight;
+    [SerializeField] Light parryLight;
     [SerializeField] float duration = .14f;
     [SerializeField] float maximumIntensity = 3f;
     // A fixed array bounds overlap without allocating in the combat loop.
@@ -30,6 +31,7 @@ public sealed class ClashLightingRig : MonoBehaviour
         System.Array.Clear(pulses, 0, pulses.Length);
         if (clashLight) clashLight.intensity = 0;
         if (combatLight) combatLight.intensity = 0;
+        if (parryLight) parryLight.intensity = 0;
     }
     internal static void Pulse(Scene scene, Vector3 point, float strength, ParryClashBurst owner)
     {
@@ -86,18 +88,26 @@ public sealed class ClashLightingRig : MonoBehaviour
     }
     void Render()
     {
-        if (!clashLight && !combatLight) return;
-        float strongest = 0; Vector3 point = transform.position;
+        if (!clashLight && !combatLight && !parryLight) return;
+        float strongest = 0; Vector3 point = transform.position; ParryClashBurst parry = null;
         foreach (var pulse in pulses) if (pulse.owner)
         {
             float intensity = Intensity(pulse);
-            if (intensity > strongest) { strongest = intensity; point = pulse.point; }
+            if (intensity > strongest) { strongest = intensity; point = pulse.point;
+                parry = pulse.compact ? pulse.owner as ParryClashBurst : null; }
         }
         if (clashLight) { clashLight.transform.position = point; clashLight.intensity = strongest; }
         if (combatLight)
         {
             combatLight.transform.position = point + new Vector3(0, 2, -4);
-            combatLight.intensity = strongest;
+            combatLight.intensity = parry && parryLight ? 0 : strongest;
+        }
+        if (parryLight)
+        {
+            var camera = Camera.main;
+            float units = parry ? parry.PixelUnitsPerMeter : 1.25f;
+            parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (.15f * units);
+            parryLight.range = 3 * units; parryLight.intensity = parry ? strongest : 0;
         }
     }
     void LateUpdate()

@@ -1,5 +1,48 @@
 # Verification and performance memory
 
+## Cinematic pixel parry (2026-10-20, local preview ready)
+
+- Current input `2158fcdf07c678134da9bc716996019c855294d2e1be57fe996ebf8a6327410a`,
+  child `micharel09/parry-contact-flash`. Quick20261020T063136 PASS26/26;
+  WebGL063220 build and strict repeated-builder PASS. Pixel material/module
+  restoration,24/192budget, common origin/isolated random, stock fall/collision,
+  contact snapshot, pulse timing/overlap/pause/disable/reuse and mixed Point/Spot
+  arbitration covered. Generated GUIDs preserved; no duplicate asset GUIDs,
+  missing new metas, actor source PNG/importer/clip changes or package changes.
+- Native `parry-cinematic-final-qa` PASS66: Edge155.0.4283.62, Playwright1.58.2,
+  ANGLE NVIDIA GTX1650Ti/D3D11. Actual keyboard/defaultBCompact/noF6;
+  Swordsman/DoubleStrike/Heavy/Guard at1280x720,640x360Slayer; normal/received/
+  Slayer/lethal smoke, pause and Continue cleanup. Zero JS/managed exceptions,
+  fixture writes or external requests. Read-only QA/network fixtures retained.
+  All6 clean weapon cels equal original RGBA crops. Blade centerline gaps sampled
+  sword1=0,sword2=.084WU,axe1=.071WU,shield~0, within visible blade thickness.
+- No-capture `parry-cinematic-final-perf` PASS14 on the same native configuration:
+  1280 p95 13.435→13.485ms(n646→633), live13.420→13.520(n341→309);
+  640 p95 13.510→13.505(n640→646), live13.515→13.505(n350→314).
+  Baseline is the prior757f20fb voxel player. Short RAF samples, no performance
+  guarantee; no increase above10%, so no ABBA run.
+- Actual AV `parry-cinematic-final-audio` PASS12, native25fps1280x720 plus
+  stereo48k game PCM, peak.516182; no microphone. MP4 H264/yuv420p+AAC fully
+  decodes. `CLACKBLADE-Parry-Pixel-Cinematic.mp4` shows three real parries at1x
+  then a0.25x replay; `CLACKBLADE-Parry-Pixel-BeforeAfter.mp4` compares the prior
+  voxel appearance with the final pixel hybrid at both speeds, with actual sound.
+  Files/receipt and interactive launcher are under
+  `E:/CodexTemp/TypingHero/parry-clash-lighting`. Visual onset alignment uses
+  native40ms samples, not deterministic or RNG-locked replay. Reviewed onset,
+  40/80/140/220/280ms and falling-tail frames; this is not human art approval.
+  Final cinematic SHA256 `ac9b996339e30ea230306283d3074b47564fc625f738f4ffdf71b7d60bc5475a`;
+  comparison `f4392f7151ba6521d59825a9e4a0b6958681299a693e3dd5bb3d53415e169629`.
+- Temporary BakeMesh UV diagnostic Quick065007, unique immutable input6bf8d739,
+  executes1case and confirms normalized startFrame1/6 starts at tile1;0starts
+  tile0 and.9999starts tile5. Earlier tile-index1 interpretation was wrong and
+  its98f7986f player failed25/26; never use it as the candidate. Diagnostic code
+  stays outside the repository. Previous empty/silent AV attempts are unqualified.
+- Preview only: no stress/soak/mirrored QA, production build/publication/CDN check,
+  push or merge requested. Keep final player/clips/reports and launcher while
+  review is active; close preview to stop its helper/server. Prior physics clips
+  remain byte-identical. Historical voxel receipts below qualify their technical
+  behavior only; the user rejected that visual direction.
+
 ## Full VFX with concurrent3D arena (2026-10-20, scoped preview ready)
 
 - Focused Quick030739:27/27PASS, zero failed/skipped, input `cddebed9d46c512da9204e9272c4173d844a7e029cba3d209fe7cd22bc7879a1`. Includes existing BCompact/legacy/pause/material/lease checks, all five impact profiles/local-random/floor support, accepted damage/iframe/lethal ordering, captured Slayer tint, afterimage generations/cap, actual-cel slash mapping and shared real3D-light timing/disable. No broad gameplay suite, stress/soak or new performance measurement.

@@ -7,6 +7,7 @@ public class ParrySystem : MonoBehaviour
     [Header("Config & Refs")]
     public ParryConfig config;
     public Animator playerAnimator;
+    [SerializeField] ParryContactLibrary contactLibrary;
     public ParryTarget enemy;                  // enemy hiện tại (đã có OnStrike)
 
     [Header("Hitstop (parry success)")]
@@ -34,6 +35,7 @@ public class ParrySystem : MonoBehaviour
     public struct ParryContext
     {
         public Transform targetRoot;          // dùng để xoay spark/sfx về phía enemy (có thể null)
+        internal ParryContactSnapshot contact;
     }
     public event System.Action<ParryContext> OnParrySuccess;
     // ===============================================================
@@ -42,6 +44,13 @@ public class ParrySystem : MonoBehaviour
     int poseRequestedFrame = -1;
     float successUntilUnscaled;
     float _lastOpenAt, _lastCloseAt;
+    SpriteRenderer contactPlayer, contactEnemy;
+    Sprite heldPlayer, heldEnemy, resumePlayer, resumeEnemy;
+    bool showingContact;
+    float contactPoseAge;
+    SlashVolume enemyTrail;
+    bool enemyTrailEnabled;
+    float enemyTrailHold;
 
     public bool IsWindowActive => windowOpen;
     public bool IsSuccessActive => Time.unscaledTime < successUntilUnscaled;
@@ -54,6 +63,8 @@ public class ParrySystem : MonoBehaviour
 
     void OnDisable()
     {
+        ClearContactPose();
+        RestoreEnemyTrail();
         if (enemy) enemy.OnStrike -= OnEnemyStrike;
         if (gate) gate.PopParryPose(this);
         poseRequestedFrame = -1;
@@ -92,6 +103,27 @@ public class ParrySystem : MonoBehaviour
     // gom logic chốt parry-success vào 1 chỗ
     void ForceSuccess(Component enemyComp = null)
     {
+        Transform targetRoot = enemyComp ? enemyComp.transform.root : null;
+        var skeleton = enemyComp ? enemyComp.GetComponentInParent<SkeletonController>() : null;
+        var playerSprite = playerAnimator ? playerAnimator.GetComponent<SpriteRenderer>() : null;
+        var enemySprite = skeleton ? skeleton.GetComponent<SpriteRenderer>() : (targetRoot ? targetRoot.GetComponentInChildren<SpriteRenderer>() : null);
+        var visual = contactLibrary ? contactLibrary.Capture(
+            playerSprite, enemySprite, Camera.main) : default;
+        ClearContactPose();
+        RestoreEnemyTrail();
+        if (visual.valid)
+        {
+            contactPlayer = playerSprite; contactEnemy = enemySprite;
+            heldPlayer = visual.defenseCel; heldEnemy = visual.attackCel;
+            resumePlayer = playerSprite ? playerSprite.sprite : null; resumeEnemy = enemySprite ? enemySprite.sprite : null;
+            showingContact = true; contactPoseAge = 0;
+            enemyTrail = enemySprite ? enemySprite.GetComponent<SlashVolume>() : null;
+            if (enemyTrail)
+            {
+                enemyTrailEnabled = enemyTrail.enabled; enemyTrail.enabled = false;
+                enemyTrailHold = .2f;
+            }
+        }
         // i-frame cho player như cũ
         successUntilUnscaled = Time.unscaledTime + successIFrame;
         windowOpen = false;
@@ -112,10 +144,8 @@ public class ParrySystem : MonoBehaviour
             AnimatorUtil.CrossFadePath(playerAnimator, config.playerParrySuccessStatePath,
                                        config.playerParrySuccessCrossfade, 0f);
 
-        Transform targetRoot = enemyComp ? enemyComp.transform.root : null;
-        var skeleton = enemyComp ? enemyComp.GetComponentInParent<SkeletonController>() : null;
         if (skeleton) skeleton.RecordParry();
-        OnParrySuccess?.Invoke(new ParryContext { targetRoot = targetRoot });
+        OnParrySuccess?.Invoke(new ParryContext { targetRoot = targetRoot, contact = visual });
 
         if (logs) Debug.Log($"[PARRY] OK (t={Time.unscaledTime:0.000})");
     }
@@ -139,6 +169,40 @@ public class ParrySystem : MonoBehaviour
 
     // biến ParrySuccess từ "obsolete" thành fallback thật sự
     public void ParrySuccess() => ForceSuccess(null);
+
+    // Reuse the authored impact cels briefly. Animator states, events and hitboxes keep running.
+    // Events arrive before SpriteRenderer curves are applied, so sampling only renderer.sprite
+    // would capture the previous wind-up cel and Hurt could replace contact before it is drawn.
+    void LateUpdate()
+    {
+        if (enemyTrail)
+        {
+            if (!GamePauseController.InputBlocked && Time.timeScale != 0) enemyTrailHold -= Time.unscaledDeltaTime;
+            if (CombatSession.Finished || enemyTrailHold <= 0) RestoreEnemyTrail();
+        }
+        if (!showingContact) return;
+        if (CombatSession.Finished) { ClearContactPose(); return; }
+        if (contactPlayer && contactPlayer.sprite != heldPlayer) resumePlayer = contactPlayer.sprite;
+        if (contactEnemy && contactEnemy.sprite != heldEnemy) resumeEnemy = contactEnemy.sprite;
+        if (contactPoseAge >= .07f) { ClearContactPose(); return; }
+        if (contactPlayer && heldPlayer) contactPlayer.sprite = heldPlayer;
+        if (contactEnemy && heldEnemy) contactEnemy.sprite = heldEnemy;
+        if (!GamePauseController.InputBlocked && Time.timeScale != 0) contactPoseAge += Time.unscaledDeltaTime;
+    }
+    void ClearContactPose()
+    {
+        if (!showingContact) return;
+        if (contactPlayer && contactPlayer.sprite == heldPlayer) contactPlayer.sprite = resumePlayer;
+        if (contactEnemy && contactEnemy.sprite == heldEnemy) contactEnemy.sprite = resumeEnemy;
+        showingContact = false;
+        contactPlayer = contactEnemy = null;
+        heldPlayer = heldEnemy = resumePlayer = resumeEnemy = null;
+    }
+    void RestoreEnemyTrail()
+    {
+        if (enemyTrail) enemyTrail.enabled = enemyTrailEnabled;
+        enemyTrail = null; enemyTrailHold = 0;
+    }
 
     internal bool TryBeginParry()
     {

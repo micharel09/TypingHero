@@ -252,183 +252,11 @@ public sealed partial class ParryClashTests
         }
         finally { Random.state = saved; }
     }
-    [Test, Category("Quick")]
-    public void CompactPixelBudgetMirrorLifetimeAndPresetRestoration()
-    {
-        var burst = Burst(); var saved = Random.state;
-        var original = new Material[5]; var gravity = new float[5];
-        var collision = new bool[5]; var color = new bool[5]; var limit = new bool[5];
-        var size = new bool[5]; var simulation = new float[5];
-        for (int g = 1; g < 5; g++)
-        {
-            var ps = burst.Systems[g]; original[g] = ps.GetComponent<ParticleSystemRenderer>().sharedMaterial;
-            gravity[g] = ps.main.gravityModifier.constant; collision[g] = ps.collision.enabled;
-            color[g] = ps.colorOverLifetime.enabled; limit[g] = ps.limitVelocityOverLifetime.enabled;
-            size[g] = ps.sizeOverLifetime.enabled; simulation[g] = ps.main.simulationSpeed;
-        }
-        try
-        {
-            for (int seed = 0; seed < 24; seed++)
-            {
-                var forward = new Dictionary<int, ParticleSystem.Particle>();
-                foreach (float direction in new[] { 1f, -1f })
-                {
-                    Random.InitState(seed); burst.Emit(new Vector3(3, 2, 0), direction, 0, ParryClashBurst.Preset.BCompact, seed);
-                    Assert.That(burst.ParticleCount, Is.EqualTo(24));
-                    for (int g = 0; g < 5; g++) Assert.That(burst.Systems[g].particleCount, Is.EqualTo(new[] { 2, 2, 10, 10, 0 }[g]));
-                    for (int g = 1; g < 5; g++)
-                    {
-                        var ps = burst.Systems[g];
-                        Assert.That(ps.main.gravityModifier.constant, Is.Zero);
-                        Assert.That(ps.main.simulationSpeed, Is.Zero);
-                        Assert.That(ps.collision.enabled || ps.colorOverLifetime.enabled || ps.sizeOverLifetime.enabled || ps.limitVelocityOverLifetime.enabled, Is.False);
-                        var particles = new ParticleSystem.Particle[10]; int count = ps.GetParticles(particles);
-                        for (int i = 0; i < count; i++)
-                        {
-                            var p = particles[i];
-                            bool reverse = (g == 2 || g == 3) && i >= 4;
-                            Assert.That(p.velocity.x * direction * (reverse ? -1 : 1), Is.GreaterThan(0), "twelve added sparks travel opposite the original fan");
-                            Assert.That(p.position, Is.EqualTo(new Vector3(3, 2, 0)), "all twenty-two sparks begin at the contact in the same frame");
-                            if (reverse) Assert.That(Mathf.Abs(p.velocity.x), Is.InRange(32 * .85f * Mathf.Cos(53 * Mathf.Deg2Rad), 44 * 1.15f));
-                            else Assert.That(new Vector2(p.velocity.x, p.velocity.y).magnitude, Is.InRange(14 * .85f, 24 * 1.15f));
-                            if (g == 2) Assert.That(p.velocity.z, Is.InRange(-6, -4));
-                            if (g == 3) Assert.That(p.velocity.z, Is.InRange(2, 4));
-                            Assert.That(p.startSize3D.x * 16, Is.EqualTo(Mathf.Round(p.startSize3D.x * 16)));
-                            Assert.That(p.startSize3D.y * 16, Is.EqualTo(Mathf.Round(p.startSize3D.y * 16)));
-                            if (direction > 0) forward.Add(g * 10 + i, p);
-                            else
-                            {
-                                var f = forward[g * 10 + i];
-                                Assert.That(p.velocity, Is.EqualTo(new Vector3(-f.velocity.x, f.velocity.y, f.velocity.z)));
-                                Assert.That(p.startLifetime, Is.EqualTo(f.startLifetime));
-                                Assert.That(p.startSize3D, Is.EqualTo(f.startSize3D));
-                            }
-                        }
-                    }
-                    burst.AdvanceDebris(.2f);
-                    Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[3].particleCount, Is.EqualTo(20));
-                    burst.Emit(Vector3.one, direction, 0, ParryClashBurst.Preset.B);
-                    Assert.That(burst.ParticleCount, Is.EqualTo(66));
-                    for (int g = 1; g < 5; g++)
-                    {
-                        var ps = burst.Systems[g];
-                        Assert.That(ps.GetComponent<ParticleSystemRenderer>().sharedMaterial, Is.SameAs(original[g]));
-                        Assert.That(ps.main.gravityModifier.constant, Is.EqualTo(gravity[g]));
-                        Assert.That(ps.main.simulationSpeed, Is.EqualTo(simulation[g]));
-                        Assert.That(ps.collision.enabled, Is.EqualTo(collision[g])); Assert.That(ps.colorOverLifetime.enabled, Is.EqualTo(color[g]));
-                        Assert.That(ps.sizeOverLifetime.enabled, Is.EqualTo(size[g])); Assert.That(ps.limitVelocityOverLifetime.enabled, Is.EqualTo(limit[g]));
-                    }
-                }
-            }
-        }
-        finally { Random.state = saved; }
-    }
 
-    [Test, Category("Quick")]
-    public void CompactReverseFanClearsPlayerAndRetainsVisibleVoxels()
-    {
-        var burst = Burst(); var saved = Random.state;
-        try
-        {
-            for (int seed = 0; seed < 24; seed++)
-            foreach (float direction in new[] { 1f, -1f })
-            {
-                Random.InitState(seed);
-                burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact, seed);
-                var reverse = new HashSet<uint>();
-                var particles = new ParticleSystem.Particle[10];
-                for (int g = 2; g <= 3; g++)
-                {
-                    int count = burst.Systems[g].GetParticles(particles);
-                    Assert.That(count, Is.EqualTo(10));
-                    for (int i = 4; i < count; i++)
-                    {
-                        reverse.Add(particles[i].randomSeed);
-                        Assert.That(particles[i].startSize3D.z, Is.InRange(2f / 16, 3f / 16));
-                    }
-                }
-                burst.AdvanceDebris(.3f);
-                int beyond = 0, streaks = 0;
-                for (int g = 2; g <= 3; g++)
-                {
-                    int count = burst.Systems[g].GetParticles(particles);
-                    for (int i = 0; i < count; i++)
-                    {
-                        var p = particles[i];
-                        if (!reverse.Contains(p.randomSeed)) continue;
-                        if (-p.position.x * direction >= 2.5f) beyond++;
-                        if (p.startSize3D.y * 16 >= 2) streaks++;
-                    }
-                }
-                Assert.That(beyond, Is.GreaterThanOrEqualTo(8), "seed " + seed + " direction " + direction);
-                Assert.That(streaks, Is.GreaterThanOrEqualTo(6), "seed " + seed + " direction " + direction);
-            }
-        }
-        finally { Random.state = saved; }
-    }
 
-    [Test, Category("Quick")]
-    public void CompactDebrisFallsBouncesOnceRestsFadesAndClearsOnReuse()
-    {
-        var burst = Burst(); var saved = Random.state;
-        try
-        {
-            foreach (float direction in new[] { 1f, -1f })
-            {
-                Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
-                var previous = new Dictionary<uint, ParticleSystem.Particle>();
-                var bounces = new HashSet<uint>(); var rests = new HashSet<uint>();
-                var buffer = new ParticleSystem.Particle[10];
-                for (int step = 0; step <= 250; step++)
-                {
-                    for (int g = 1; g <= 3; g++)
-                    {
-                        int count = burst.Systems[g].GetParticles(buffer);
-                        for (int i = 0; i < count; i++)
-                        {
-                            var p = buffer[i]; bool fast = p.startLifetime < .3f;
-                            Assert.That(p.position.y, Is.GreaterThanOrEqualTo(1f / 32 - .000001f));
-                            Assert.That(p.startSize3D.x * 16, Is.GreaterThanOrEqualTo(1));
-                            Assert.That(p.startSize3D.y * 16, Is.GreaterThanOrEqualTo(1));
-                            Assert.That(p.startSize3D.y * 16, Is.EqualTo(Mathf.Round(p.startSize3D.y * 16)));
-                            if (previous.TryGetValue(p.randomSeed, out var old))
-                            {
-                                Assert.That(Vector3.Distance(p.position, old.position), Is.LessThan(.52f), "no replacement or discontinuous teleport");
-                                Assert.That(p.startColor.a, Is.LessThanOrEqualTo(old.startColor.a));
-                                if (!fast && old.velocity.y < 0 && p.velocity.y > 0)
-                                    Assert.That(bounces.Add(p.randomSeed), Is.True, "only one bounce");
-                                if (rests.Contains(p.randomSeed))
-                                {
-                                    Assert.That(p.position, Is.EqualTo(old.position), "rest stops X/Y/Z");
-                                    Assert.That(p.rotation3D, Is.EqualTo(old.rotation3D), "rest stops all mesh rotation");
-                                }
-                            }
-                            if (!fast && p.velocity == Vector3.zero)
-                            {
-                                rests.Add(p.randomSeed);
-                                Assert.That(p.position.y, Is.EqualTo(p.startSize3D.y * .5f).Within(.000001f), "voxel rests on its lower face");
-                                Assert.That(p.startSize3D.x, Is.InRange(2f / 16, 3f / 16));
-                                Assert.That(p.startColor.r, Is.LessThan(60));
-                            }
-                            previous[p.randomSeed] = p;
-                        }
-                    }
-                    burst.AdvanceDebris(.01f);
-                }
-                Assert.That(bounces.Count, Is.EqualTo(20)); Assert.That(rests.Count, Is.EqualTo(20)); Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[3].particleCount, Is.Zero);
-                burst.Clear(); burst.AdvanceDebris(.1f); Assert.That(burst.ParticleCount, Is.Zero);
-                // Absolute-age integration must agree even across skipped contacts.
-                Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
-                burst.AdvanceDebris(1);
-                var single = new Dictionary<int, Vector3>();
-                for (int g = 1; g <= 3; g++) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) single.Add(g * 10 + i, buffer[i].position); }
-                Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
-                for (int n = 0; n < 100; n++) burst.AdvanceDebris(.01f);
-                for (int g = 1; g <= 3; g++) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) Assert.That(Vector3.Distance(buffer[i].position, single[g * 10 + i]), Is.LessThan(.00001f)); }
-            }
-        }
-        finally { Random.state = saved; }
-    }
+
+
+
 
     [UnityTest, Category("Quick")]
     public IEnumerator PauseHoldsAgeAndPositionWhileHitstopContinuesAndReleaseIsSingle()
@@ -509,8 +337,8 @@ public sealed partial class ParryClashTests
             var burst = active[0].GetComponent<ParryClashBurst>();
             Assert.That(burst.EmittedPreset, Is.EqualTo(ParryClashBurst.Preset.BCompact));
             Assert.That(burst.ParticleCount, Is.EqualTo(24));
-            burst.AdvanceDebris(.3f);
-            Assert.That(burst.Systems[2].particleCount + burst.Systems[3].particleCount, Is.EqualTo(18));
+            foreach (var ps in burst.Systems) ps.Simulate(.3f, false, false, false);
+            Assert.That(burst.Systems[4].particleCount, Is.EqualTo(4));
             host.SetActive(false);
             Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
         }
@@ -543,8 +371,7 @@ public sealed partial class ParryClashTests
             var active = (List<GameObject>)typeof(ParrySparkVFX_Pooled).GetField("active", Flags).GetValue(fx);
             var burst = active[active.Count - 1].GetComponent<ParryClashBurst>();
             Assert.That(burst.ParticleCount, Is.EqualTo(24));
-            var shapes = new List<Vector4>(); burst.Systems[1].GetCustomParticleData(shapes, ParticleSystemCustomData.Custom1);
-            for (int i = 0; i < 2; i++) Assert.That(shapes[i].w >= 12, Is.EqualTo(i == sequence % 2));
+            Assert.That(burst.Systems[1].particleCount, Is.EqualTo(14));
             int live = 0;
             foreach (var go in active) live += go.GetComponent<ParryClashBurst>().ParticleCount;
             if (sequence >= 7) Assert.That(live, Is.EqualTo(192));
@@ -552,87 +379,11 @@ public sealed partial class ParryClashTests
         Assert.That(Object.FindObjectsOfType<ParryClashBurst>().Length, Is.EqualTo(8));
         host.SetActive(false); Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
     }
-    [Test, Category("Quick")]
-    public void CompactVoxelMeshHasHardFacesAndRestoresLegacyRenderer()
-    {
-        var burst = Burst();
-        var modes = new ParticleSystemRenderMode[5]; var meshes = new Mesh[5];
-        var streams = new List<ParticleSystemVertexStream>[5];
-        for (int i = 0; i < 5; i++)
-        {
-            var renderer = burst.Systems[i].GetComponent<ParticleSystemRenderer>();
-            modes[i] = renderer.renderMode; meshes[i] = renderer.mesh;
-            streams[i] = new List<ParticleSystemVertexStream>(); renderer.GetActiveVertexStreams(streams[i]);
-        }
-        for (int reuse = 0; reuse < 3; reuse++)
-        {
-            burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
-            foreach (var ps in burst.Systems)
-            {
-                var renderer = ps.GetComponent<ParticleSystemRenderer>();
-                Assert.That(renderer.renderMode, Is.EqualTo(ParticleSystemRenderMode.Mesh));
-                Assert.That(renderer.mesh.bounds.size, Is.EqualTo(Vector3.one));
-                Assert.That(renderer.mesh.normals.Length, Is.EqualTo(24), "six independently shaded faces");
-                Assert.That(ps.main.startRotation3D, Is.True);
-            }
-            var particles = new ParticleSystem.Particle[10];
-            burst.Systems[2].GetParticles(particles); var rotation = particles[0].rotation3D;
-            burst.AdvanceDebris(.04f); burst.Systems[2].GetParticles(particles);
-            Assert.That(particles[0].rotation3D, Is.Not.EqualTo(rotation));
-            burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.B);
-            for (int i = 0; i < 5; i++)
-            {
-                var renderer = burst.Systems[i].GetComponent<ParticleSystemRenderer>();
-                Assert.That(renderer.renderMode, Is.EqualTo(modes[i])); Assert.That(renderer.mesh, Is.SameAs(meshes[i]));
-                var restored = new List<ParticleSystemVertexStream>(); renderer.GetActiveVertexStreams(restored);
-                Assert.That(restored, Is.EqualTo(streams[i])); Assert.That(burst.Systems[i].main.startRotation3D, Is.False);
-            }
-        }
-    }
 
-    [Test, Category("Quick")]
-    public void CompactContactAndPulseHaveReadableHoldAndBoundedFade()
-    {
-        var burst = Burst(); burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
-        var contact = burst.Systems[0];
-        var advance = typeof(ParryClashBurst).GetMethod("AdvanceContact", Flags);
-        var particles = new ParticleSystem.Particle[2];
-        foreach (float age in new[] { 0f, .06f, .09f, .14f, .2f, .22f, .26f, .28f })
-        {
-            advance.Invoke(burst, new object[] { age });
-            int count = contact.GetParticles(particles);
-            Assert.That(count, Is.EqualTo(age < .2f ? 2 : 0));
-            if (age <= .06f) Assert.That(particles[0].startColor.a, Is.EqualTo(255));
-            if (age < .2f)
-            {
-                Assert.That(particles[0].startSize3D.y, Is.EqualTo(.5f).Within(.001f));
-                Assert.That(particles[1].startSize3D.y, Is.EqualTo(.375f).Within(.001f));
-            }
-        }
-        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.B);
-        Assert.That(contact.main.simulationSpeed, Is.GreaterThan(0));
-        Assert.That(contact.colorOverLifetime.enabled, Is.True);
-        Assert.That(contact.GetComponent<ParticleSystemRenderer>().sharedMaterial.name, Is.Not.EqualTo("CompactContact"));
-        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
-        Assert.That(contact.GetComponent<ParticleSystemRenderer>().sharedMaterial.name, Is.EqualTo("CompactVoxel"));
-    }
 
-    [UnityTest, Category("Quick")]
-    public IEnumerator CompactContactClockIsIndependentOfCompletedSparkSimulation()
-    {
-        var burst = Burst(); int releases = 0;
-        var pool = new ObjectPool<GameObject>(() => null, null, go => { releases++; go.SetActive(false); });
-        burst.GetComponent<PooledVFX>().Setup(pool);
-        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
-        burst.AdvanceDebris(10); // Complete the spark simulation without advancing contact time.
-        yield return null;
-        Assert.That(releases, Is.Zero);
-        Assert.That(burst.Systems[0].particleCount, Is.EqualTo(2));
-        yield return new WaitForSecondsRealtime(.3f);
-        Assert.That(releases, Is.EqualTo(1));
-        Assert.That(burst.ParticleCount, Is.Zero);
-        pool.Clear();
-    }
+
+
+
 
     [Test, Category("Quick")]
     public void CompactPulseHolds70msHalfAt175AndExpires280AlongsideLegacy()

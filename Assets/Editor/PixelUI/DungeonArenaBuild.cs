@@ -16,6 +16,15 @@ internal static class DungeonArenaBuild
         const string rendererPath = "Assets/Settings/DungeonForward.asset";
         var forward = AssetDatabase.LoadAssetAtPath<UniversalRendererData>(rendererPath);
         if (!forward) { forward = ScriptableObject.CreateInstance<UniversalRendererData>(); AssetDatabase.CreateAsset(forward, rendererPath); }
+        var forwardSettings = new SerializedObject(forward);
+        var postData = forwardSettings.FindProperty("postProcessData");
+        if (!postData.objectReferenceValue)
+        {
+            postData.objectReferenceValue = AssetDatabase.LoadAssetAtPath<PostProcessData>(
+                "Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.asset");
+            if (!postData.objectReferenceValue) throw new System.InvalidOperationException("Dungeon renderer requires URP post-process data for the parry bloom.");
+            forwardSettings.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(forward);
+        }
         var settings = new SerializedObject(pipeline);
         var renderers = settings.FindProperty("m_RendererDataList");
         if (renderers.arraySize < 2) renderers.arraySize = 2;
@@ -78,6 +87,9 @@ internal static class DungeonArenaBuild
         var pulse=Light(lighting,"CombatPulse",LightType.Spot,new Color(1,.62f,.24f),0,Vector3.zero); pulse.range=12; pulse.spotAngle=115; pulse.innerSpotAngle=75; pulse.shadows=LightShadows.Hard; pulse.shadowBias=.015f; pulse.shadowNormalBias=.01f; pulse.transform.rotation=Quaternion.Euler(20,0,0);
         var rig=lighting.GetComponent<ClashLightingRig>(); if(!rig)rig=lighting.AddComponent<ClashLightingRig>();
         Set(rig,"combatLight",pulse);
+        var parryLight=Light(lighting,"ParryContactLight",LightType.Point,new Color(1,.67f,.28f),0,Vector3.zero);
+        parryLight.range=3.75f; parryLight.shadows=LightShadows.None;
+        Set(rig,"parryLight",parryLight);
         foreach(var other in Object.FindObjectsOfType<ClashLightingRig>(true)) if(other!=rig)
         {
             foreach(var legacy in other.GetComponentsInChildren<Light2D>(true))
@@ -87,7 +99,21 @@ internal static class DungeonArenaBuild
         }
         RenderSettings.ambientMode=AmbientMode.Flat; RenderSettings.ambientLight=new Color(.16f,.20f,.28f);
         var camera=Camera.main; camera.GetUniversalAdditionalCameraData().SetRenderer(1);
-        camera.allowMSAA=false; camera.allowHDR=false; camera.GetUniversalAdditionalCameraData().renderPostProcessing=false;
+        // Dungeon Sprite evaluates additional lights per fragment, including the parry point.
+        var lightSettings=new SerializedObject(pipeline);
+        lightSettings.FindProperty("m_AdditionalLightsRenderingMode").intValue=(int)LightRenderingMode.PerPixel;
+        lightSettings.ApplyModifiedPropertiesWithoutUndo();
+        camera.allowMSAA=false; camera.allowHDR=true; camera.GetUniversalAdditionalCameraData().renderPostProcessing=true;
+        string bloomPath=ParryClashAssets.Root+"ParryBloom.asset";
+        var profile=AssetDatabase.LoadAssetAtPath<VolumeProfile>(bloomPath);
+        if(!profile)
+        {
+            profile=ScriptableObject.CreateInstance<VolumeProfile>(); AssetDatabase.CreateAsset(profile,bloomPath);
+            var bloom=profile.Add<Bloom>(); bloom.threshold.Override(4); bloom.intensity.Override(.2f); bloom.scatter.Override(.3f);
+            AssetDatabase.AddObjectToAsset(bloom,profile); EditorUtility.SetDirty(profile);
+        }
+        var volume=lighting.GetComponent<Volume>(); if(!volume)volume=lighting.AddComponent<Volume>();
+        volume.isGlobal=true; volume.sharedProfile=profile;
         camera.backgroundColor=new Color(.012f,.017f,.026f); camera.clearFlags=CameraClearFlags.SolidColor;
         var driver=camera.GetComponent<DungeonArenaCamera>(); if(!driver)driver=camera.gameObject.AddComponent<DungeonArenaCamera>();
         var player=Object.FindObjectOfType<PlayerHealth>(); var enemy=Object.FindObjectOfType<SkeletonController>();
@@ -96,7 +122,16 @@ internal static class DungeonArenaBuild
         float y=layout.LowestFoot.y+(3+Mathf.Sin(10*Mathf.Deg2Rad)*-camera.transform.position.z)/Mathf.Cos(10*Mathf.Deg2Rad);
         var cameraPosition=camera.transform.position;cameraPosition.y=y;camera.transform.position=cameraPosition;camera.transform.rotation=Quaternion.Euler(10,0,0);
         foreach(var vcam in Object.FindObjectsOfType<Cinemachine.CinemachineVirtualCamera>())
-        { var pos=vcam.transform.position;pos.y=y;vcam.transform.position=pos;vcam.transform.rotation=camera.transform.rotation; }
+        {
+            var pos=vcam.transform.position;pos.y=y;vcam.transform.position=pos;vcam.transform.rotation=camera.transform.rotation;
+            var listener=vcam.GetComponents<Cinemachine.CinemachineImpulseListener>().FirstOrDefault(l=>l.m_ChannelMask==2);
+            if(!listener)
+            {
+                listener=vcam.gameObject.AddComponent<Cinemachine.CinemachineImpulseListener>();
+                listener.m_ChannelMask=2; listener.m_Gain=1; listener.m_UseCameraSpace=false;
+                listener.m_ReactionSettings.m_AmplitudeGain=0;
+            }
+        }
         foreach(var actor in new[]{player.gameObject,enemy.gameObject})
         foreach(var renderer in actor.GetComponentsInChildren<SpriteRenderer>(true))
         {

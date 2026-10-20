@@ -19460,6 +19460,17 @@ MonoBehaviour:
   compactVoxelMesh: {fileID: 4300000, guid: c3a3d45fbff817c8b8edc94f6af279b5, type: 2}
   compactVoxelMaterial: {fileID: 2100000, guid: 68743a7dfaaa37545bb309d4735624ff, type: 2}
   voxelVersion: 1
+  pixelVersion: 1
+  pixelContactMaterial: {fileID: 2100000, guid: aa4654d53860adccda1809ea52d38ae6, type: 2}
+  pixelRayMaterial: {fileID: 2100000, guid: fbaabd4a1fc8aa750bd4a9640ca299eb, type: 2}
+  pixelEmberMaterial: {fileID: 2100000, guid: 59ba8ddd2616a7c96bd509e88dd9de71, type: 2}
+  pixelCore: {fileID: 3998199248569125672, guid: 17dc20e7fdc725d35bf88f95f16ab705, type: 3}
+  pixelBurst:
+  - {fileID: -7106272837895779335, guid: 17dc20e7fdc725d35bf88f95f16ab705, type: 3}
+  - {fileID: -6504063574588263979, guid: 17dc20e7fdc725d35bf88f95f16ab705, type: 3}
+  - {fileID: -4255383495223142860, guid: 17dc20e7fdc725d35bf88f95f16ab705, type: 3}
+  - {fileID: -4862228366141398403, guid: 17dc20e7fdc725d35bf88f95f16ab705, type: 3}
+  - {fileID: -1978266714684338811, guid: 17dc20e7fdc725d35bf88f95f16ab705, type: 3}
   compact:
     longPixels: {x: 12, y: 16}
     shortPixels: {x: 6, y: 9}

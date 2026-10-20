@@ -200,7 +200,39 @@ Change only behavior explicitly requested. Update this file after relevant verif
   See the tutorial continuation in combat-feedback and verification for actual
   profile and release receipts.
 
-## World lighting / parry clash prototype (2026-10-18)
+## World lighting / parry clash
+
+### Current cinematic pixel candidate (2026-10-20, local preview)
+
+- Default BCompact now reuses the licensed free Pimen Hit Effect01 already in the
+  project. A fixed-pivot white-gold core and five orange outer cels replace voxel
+  contacts; Point-filtered rays/embers use stock 3D ParticleSystem motion and floor
+  collision. Budget remains24 per clash/192 across8leases:2contacts,14main rays,
+  4reflected rays and4embers. Every particle starts at one captured weapon contact;
+  only direction/speed/lifetime vary. No radial spawn around the actor.
+- ParryContactLibrary v4 measures existing blade pixels in the actual cel's
+  pivot/PPU/flip/transform, captures before success/Hurt, and holds existing clean
+  contact cels70ms. Six weapon crops copy original RGBA exactly. The parried enemy's
+  SlashVolume alone is suppressed200ms, with its prior state restored on expiry,
+  disable/results or another parry. Animator events, hitboxes and50ms hitstop stay.
+- Rays launch4-7m/s, last140-260ms, drag1.5; embers1.5-3m/s,800-1400ms, drag.6.
+  Standing player collider height maps to1.75m; gravity9.81m/s², floor bounce.18
+  and dampen.6 use that metric without changing global gravity. Local xorshift and
+  ParticleSystem seeds do not consume gameplay random. Pause/reading freeze age;
+  clear/release/disable reset particles and restore legacy materials/modules.
+- Core alpha holds70ms and ends200ms; the outer authored sequence ends200ms.
+  Dedicated Point light peaks5, holds70ms and smoothstep-fades to0at280ms
+  (2.5at175ms), range3m. Pulses take the strongest, never sum; legacy140ms remains.
+  DungeonForward now binds URP PostProcessData, enabling bloom-only threshold4,
+  intensity.2/scatter.3, HDR contact8. The320-wide Point world and full-res HUD stay.
+- Dedicated Cinemachine channel2 recoils at most one world-render pixel after
+  hitstop and returns100ms; no lens/zoom change. Existing parry1 clip retains gain,
+  jitter narrows to.03volume/.35semitone and player_hand ducks80ms. Other impact
+  audio/shake/trails remain. Quick26, strict repeated build and native66scoped
+  checks pass; actual sound videos at1x/.25x and matched p95 are recorded in
+  [verification](verification.md). Local candidate only; visual approval is pending.
+
+### Historical parry iterations (superseded by the candidate above)
 
 Earlier pixel-ray prototype published to itch.io at user request2026-10-19; not merged.
 Current/A/B/C and BCompact comparison clips remain art-review samples. BCompact24 code is published in the 2026-10-19 release; BCompact24 is selected by the production parry owner after the default-selection correction.
@@ -261,7 +293,7 @@ Full surface art, B/C and parent integration remain separate.
   bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
   Comparison clips remain review samples; BCompact24 is now used in production parries.
   Prior mirror p95 concerns remain separate and unresolved.
-- Voxel preview revision replaces BCompact's flat core/ring and billboard sparks
+- Historical voxel preview replaced BCompact's flat core/ring and billboard sparks
   with one shared closed cube mesh/material. Two offset contact cuboids (maximum
   edge .5WU) hold alpha60ms and expire200ms; no expanding ring. Twenty-two fragments
   use 2-3source-pixel edges, 1:1:1 or1:2:1 proportions, three-axis rotation and
@@ -281,7 +313,9 @@ Full surface art, B/C and parent integration remain separate.
   WebGL build and Edge155 preview pass12checks (two real noF6 parries at1280/640, no exceptions/provider writes); voxel faces were inspected at both sizes. Earlier flat-ring native/performance
   receipts are historical, not voxel validation. Publication is deferred until
   visual review; see combat-feedback.
-- Full 2.5D conversion source now wires Normal6/Slayer8/Lethal14 closed-mesh impacts,
+### Shared 2.5D presentation
+
+- Full 2.5D conversion source wires Normal6/Slayer8/Lethal14 closed-mesh impacts,
   plus received4/received-lethal6 on accepted player HP loss. Slayer tint is captured
   before damage can exit the mode; normal lethal has no Slayer emission. New impact
   random is isolated from gameplay random. Eight active leases per emitter bound
@@ -291,14 +325,17 @@ Full surface art, B/C and parent integration remain separate.
   Actor pixels outside the authored masks, sprite metadata and clip events/timing
   are preserved. Screen flash/cues/HUD remain2D; afterimages retain3sprite snapshots,
   120/140/160ms lifetimes and25ms cadence, with shallow Z offsets and12active cap.
-  Existing hit SFX, lethal shake and damage remain. Legacy PixelSparks/CodeManu/Pimen
-  assets are retained unwired. Focused27/27 and final build/repeat pass; native70scoped
-  checks cover four opponents at1280 and a640Slayer sample. Playable preview is ready;
-  visual direction still awaits user review.
-- ParryClashBurst owns unscaled simulation, pause/tutorial hold, clear and completion;
+  Existing hit SFX, lethal shake and damage remain. Legacy PixelSparks/CodeManu and
+  unused Pimen prefabs remain unwired; original Pimen01 supplies the current parry.
+  Prior focused27/shared native70 receipts describe these unchanged consumers;
+  current parry native66 includes normal/received/Slayer/lethal smoke. Visual
+  direction still awaits user review.
+- ParryClashBurst owns stock unscaled simulation, pause/tutorial hold, clear and completion;
   PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.
   ClashLightingRig holds eight pulse states, renders strongest capped pulse through
-  the active scene's Light2D or3D combat light, and immediately cancels a disabled/released owner.
+  the active scene's Light2D or3D combat spotlight. In the3D arena a winning compact
+  parry uses its dedicated Point light and mutes the combat spotlight. Disabled or
+  released owners cancel immediately.
 - The current candidate incorporates the sibling dungeon-3d environment source:
   Forward-rendered KayKit room, shallow10degree camera and its shared3D lights.
   VFX uses actual room lighting and the visible mesh floor. DungeonCombatLighting
