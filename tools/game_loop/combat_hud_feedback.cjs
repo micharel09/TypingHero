@@ -15,6 +15,7 @@ module.exports = async function combatHUD(api,browser) {
     const s=await state(page);
     if(s.scene!=='SampleScene'||s.frame===lastFrame) return s;
     lastFrame=s.frame;
+    check(s.encounterBackgroundVisible===s.encounterVisible,'difficulty backplate visibility matches its label');
     if(wasFinished&&!s.finished){
       check(s.hudHitRemaining===0&&s.hudSuccessRemaining===0&&!s.guardBreakVisible&&s.staminaIconName==='icon-shield','Continue resets feedback without treating carried HP as a hit');
       seen.continue=true;
@@ -47,7 +48,8 @@ module.exports = async function combatHUD(api,browser) {
     for(const [width,height] of sizes){
       await page.setViewportSize({width,height});await until(page,t=>t.width===width&&t.height===height);
       await page.keyboard.press('Escape',{delay:10});
-      s=await until(page,t=>!t.paused&&t.timeScale===1);
+      s=await until(page,t=>!t.paused&&t.timeScale===1&&!t.controls.some(c=>c.name==='ResumeButton'));
+      check(s.encounterVisible&&s.encounterBackgroundVisible,'live four-size capture shows difficulty and its backplate');
       await page.screenshot({path:report.outputDirectory+'/'+label+'-'+width+'x'+height+'.png'});
       await page.keyboard.press('Escape',{delay:10});await until(page,t=>t.paused);
     }
@@ -62,7 +64,7 @@ module.exports = async function combatHUD(api,browser) {
       let s=await state(page),steps=0;
       while(s.menuDifficulty!==level){check(steps++<6,'difficulty selection progresses');await clickControl(page,'>Button','button');s=await state(page);}
       await start(page,true);s=await until(page,t=>t.encounterReading);
-      check(!s.encounterVisible&&s.combatHeadingVisible,'intro owns the complete prompt');
+      check(!s.encounterVisible&&!s.encounterBackgroundVisible&&s.combatHeadingVisible,'intro owns the complete prompt and hides the HUD backplate');
       check(s.hudHitRemaining===0&&!s.guardBreakVisible,'new encounter has no false feedback');
       await page.keyboard.press('Enter',{delay:20});
       s=await until(page,t=>!t.encounterReading&&t.timeScale===1);
@@ -107,12 +109,12 @@ module.exports = async function combatHUD(api,browser) {
   const {context,page}=await session(browser,{width:640,height:360},1000);
   try{
     await start(page,true);await until(page,t=>t.encounterReading);
-    await page.keyboard.press('Escape',{delay:10});await until(page,t=>t.paused);
-    await page.keyboard.press('r',{delay:10});s=await until(page,t=>t.encounterReading&&t.hp===40);
-    check(s.hudHitRemaining===0&&s.hudSuccessRemaining===0&&!s.guardBreakVisible,'restart clears all feedback');
-    await page.keyboard.press('Enter',{delay:10});await until(page,t=>!t.encounterReading);
+    await page.keyboard.press('Escape',{delay:25});await until(page,t=>t.paused);
+    await page.keyboard.press('r',{delay:25});s=await until(page,t=>t.encounterReading&&t.hp===40&&!t.paused&&!t.controls.some(c=>c.name==='ResumeButton'));
+    check(s.hudHitRemaining===0&&s.hudSuccessRemaining===0&&!s.guardBreakVisible&&!s.encounterVisible&&!s.encounterBackgroundVisible,'restart clears feedback and hides difficulty during intro');
+    await page.keyboard.press('Enter',{delay:70});await until(page,t=>!t.encounterReading);
     s=await until(page,t=>t.finished&&t.hp===0,60000);
-    check(!s.guardBreakVisible&&s.hudHitRemaining===0&&s.hudSuccessRemaining===0&&dim(s.parryKeyColor),'death clears feedback and locks keycap');
+    check(!s.guardBreakVisible&&s.hudHitRemaining===0&&s.hudSuccessRemaining===0&&dim(s.parryKeyColor)&&!s.encounterVisible&&!s.encounterBackgroundVisible,'death clears feedback, locks keycap and hides difficulty backplate');
     check(!red(s.hpNumberColor),'zero HP does not show the living low-HP state');
 
   }finally{await context.close();}

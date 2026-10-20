@@ -7,7 +7,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TextCore.LowLevel;
 
-// Final UI typography pass. TypingManager owns the three excluded word labels.
+// Final branding pass; typing and combat readouts retain their owner-authored fonts.
 internal static class BlackletterTitleBuild
 {
     internal const string Art = "Assets/Art/UI/Branding/";
@@ -64,13 +64,13 @@ internal static class BlackletterTitleBuild
         {
             var scene = EditorSceneManager.OpenScene(path);
             var roots = scene.GetRootGameObjects();
-            var words = TypingLabels(roots);
+            var words = ProtectedLabels(roots);
             var original = words.Where(word => word).Select(word =>
                 (label: word, font: word.font, material: word.fontSharedMaterial)).ToArray();
             foreach (var root in roots) ApplyLabels(root, font, words);
             foreach (var word in original)
                 if (word.label.font != word.font || word.label.fontSharedMaterial != word.material)
-                    throw new System.InvalidOperationException("Typing font/material changed: " + word.label.name);
+                    throw new System.InvalidOperationException("Protected HUD font/material changed: " + word.label.name);
             EditorSceneManager.SaveScene(scene);
         }
         EditorSceneManager.OpenScene("Assets/Scenes/MainMenu.unity");
@@ -90,7 +90,7 @@ internal static class BlackletterTitleBuild
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 
-    static HashSet<TMP_Text> TypingLabels(IEnumerable<GameObject> roots)
+    static HashSet<TMP_Text> ProtectedLabels(IEnumerable<GameObject> roots)
     {
         var words = new HashSet<TMP_Text>();
         foreach (var typing in roots.SelectMany(root => root.GetComponentsInChildren<TypingManager>(true)))
@@ -99,12 +99,24 @@ internal static class BlackletterTitleBuild
             foreach (var field in new[] { "wordText", "nextWordText", "thirdWordText" })
                 words.Add(serialized.FindProperty(field).objectReferenceValue as TMP_Text);
         }
+        foreach (var status in roots.SelectMany(root => root.GetComponentsInChildren<CombatR7Status>(true)))
+        {
+            var serialized = new SerializedObject(status);
+            foreach (var field in new[] { "clock", "playerHp", "enemyHp", "round" })
+                words.Add(serialized.FindProperty(field).objectReferenceValue as TMP_Text);
+        }
+        foreach (var layout in roots.SelectMany(root => root.GetComponentsInChildren<CombatHUDLayout>(true)))
+        {
+            var serialized = new SerializedObject(layout);
+            foreach (var field in new[] { "scoreText", "multiplierText" })
+                words.Add(serialized.FindProperty(field).objectReferenceValue as TMP_Text);
+        }
         return words;
     }
 
     static void ApplyLabels(GameObject root, TMP_FontAsset font, HashSet<TMP_Text> words = null)
     {
-        words = words ?? TypingLabels(new[] { root });
+        words = words ?? ProtectedLabels(new[] { root });
         foreach (var input in root.GetComponentsInChildren<TMP_InputField>(true))
         {
             if (words.Contains(input.textComponent)) continue;

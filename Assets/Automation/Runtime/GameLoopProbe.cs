@@ -165,7 +165,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool playerNameVisible, enemyNameVisible;
         public Color staminaColor;
         public string encounterText, staminaIconName;
-        public bool encounterVisible, guardBreakVisible, combatHeadingVisible;
+        public bool encounterVisible, encounterBackgroundVisible, guardBreakVisible, combatHeadingVisible;
         public Color parryKeyColor, hpNumberColor, hpFrameColor, guardBreakColor;
         public float hudHitRemaining, hudSuccessRemaining;
         public Rect guardBreakRect, encounterRect;
@@ -331,6 +331,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             var staminaSlider = enemyStatus ? enemyStatus.Find("EnemyStamina").GetComponent<Slider>() : null;
             var hudFeedback = FindObjectOfType<CombatHUDFeedback>();
             var hudRound = Read<TMP_Text>(FindObjectOfType<CombatR7Status>(), "round");
+            var hudBackground = Read<Image>(FindObjectOfType<CombatR7Status>(), "roundBackground");
             var guardLabel = Read<TMP_Text>(hudFeedback, "guardBreak");
             var guardIcon = Read<Image>(hudFeedback, "staminaIcon");
             var combatHeading = Read<TMP_Text>(FindObjectOfType<EndlessOverlay>(), "heading");
@@ -366,6 +367,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 enemyNameVisible = enemyStatus && enemyStatus.Find("EnemyHPLabel").gameObject.activeInHierarchy,
                 encounterText = hudRound ? hudRound.text : "",
                 encounterVisible = hudRound && hudRound.enabled && hudRound.gameObject.activeInHierarchy,
+                encounterBackgroundVisible = hudBackground && hudBackground.enabled && hudBackground.gameObject.activeInHierarchy,
                 encounterRect = TextRect(hudRound), guardBreakRect = TextRect(guardLabel),
                 combatHeadingVisible = combatHeading && combatHeading.gameObject.activeInHierarchy,
                 staminaIconName = guardIcon && guardIcon.sprite ? guardIcon.sprite.name : "",

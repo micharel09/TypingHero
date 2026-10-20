@@ -10,6 +10,7 @@ public sealed class CombatR7Status : MonoBehaviour
     [SerializeField] Sprite normalSocket, eliteSocket, bossSocket, normalIcon, eliteIcon, bossIcon;
     [SerializeField] TMP_Text playerHp, enemyHp, round;
     [SerializeField] Image comboFill;
+    [SerializeField] Image roundBackground;
     [SerializeField] Sprite normalFill, goldFill;
     PlayerHealth player;
     SkeletonController enemy;
@@ -41,6 +42,7 @@ public sealed class CombatR7Status : MonoBehaviour
         bool slayer = TypingManager.MuteWordCorrect;
         round.text = encounter;
         round.enabled = !GamePauseController.InputBlocked && !CombatSession.Finished;
+        roundBackground.enabled = round.enabled;
         comboFill.sprite = slayer ? goldFill : normalFill;
         float seconds = CombatSession.I ? CombatSession.I.Seconds : 0;
         clock.text = $"{(int)seconds / 60:00}:{(int)seconds % 60:00}";

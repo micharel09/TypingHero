@@ -5,6 +5,12 @@ identifiers remain unchanged by the rename. Native menu960x540/640x360 and
 same-artifact name reload verified. Public release: https://micharel09.itch.io/clackblade
 (upload19876564). Endless online reads still401; Firebase unchanged.
 
+## Combat HUD readability (2026-10-20)
+
+- CombatR7Build keeps existing geometry and supplies VT323 static bitmap atlases at native8 for HP/difficulty-duel/multiplier,10 for clock and12 for total score. Point/Clamp, one-pixel gutter; no autosize/wrap. BlackletterTitleBuild protects the concrete TypingManager, CombatR7Status and CombatHUDLayout bindings. Names, PARRY, decorative/menu/modal text and all three complete typing text components retain their previous treatment.
+- Four flat non-raycast backplates use #14111E/.88 at native player(3,0,102,11), enemy(215,0,102,11), difficulty(108,45,104,13), clock(256,145,32,14). They render before HUD/tray/labels; CombatR7Status synchronizes the difficulty Image with its label. Score-frame alone is tinted(.75,.75,.75,1); score text/pulse, Slayer colors, HP/parry/stamina feedback remain unchanged.
+- Strict two-pass serialization, actual atlas pixels/settings, fixed-font content/bounds and existing IDs/typing-component preservation verified. Same-player native feedback, focused restart/death25/25 and score-cluster209/209 cover current-scene lifecycle and four sizes; see checkpoint for the full feedback driver timeout and qualified rerun coverage. HUD stays screen space; existing floor native y138/tray y146, camera, cue and popup mechanisms are unchanged. Representative2.5D lighting/parallax/foreground occlusion remains unverified. [Checkpoint](../plans/score-hud-cluster.md).
+
 ## Unified score cluster (2026-10-19; local source)
 
 - CombatR7Build keeps the total at its existing center-top position. ScoreCluster now owns ComboHUD and its existing decay slider: total → multiplier → thin decay track. PlayerStatus contains name/HP only; its former combo frame/socket/icon remain inactive to preserve IDs. Enemy stamina is unchanged.

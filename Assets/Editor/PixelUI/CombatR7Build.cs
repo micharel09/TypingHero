@@ -70,6 +70,9 @@ internal static class CombatR7Build
             }
             EditorUtility.SetDirty(font);
         }
+        var font8 = CombatFont(8);
+        var font10 = CombatFont(10);
+        var font12 = CombatFont(12);
         foreach (var file in Directory.GetFiles(Art, "*.png"))
         {
             var importer = (TextureImporter)AssetImporter.GetAtPath(file.Replace('\\', '/'));
@@ -124,6 +127,7 @@ internal static class CombatR7Build
             if (player.Find(name)) player.Find(name).gameObject.SetActive(false);
         var cluster = Item("ScoreCluster"); Box(cluster, hud, 333, 9, 294, 66);
         var scoreBoard = Picture(cluster, "Metal", "score-frame", 0, 0, 98, 22); scoreBoard.transform.SetAsFirstSibling();
+        scoreBoard.color = new Color(.75f, .75f, .75f, 1f);
         var score = Item("ScoreText").GetComponent<TMP_Text>();
         Box(score.rectTransform, cluster, 12, 0, 270, 60); Style(score, 36); score.alignment = TextAlignmentOptions.Center;
         score.rectTransform.pivot = new Vector2(.5f, .5f);
@@ -156,6 +160,12 @@ internal static class CombatR7Build
         var playerHp = LabelOnce(root, "PlayerHpR7", "", 73, 0, 31, 11, 8);
         var enemyHp = LabelOnce(root, "EnemyHpR7", "", 281, 0, 36, 11, 8);
         var round = LabelOnce(root, "RoundR7", "", 109, 46, 102, 11, 8);
+        CombatLabel(playerHp, font8); CombatLabel(enemyHp, font8); CombatLabel(round, font8);
+        CombatLabel(mult, font8); CombatLabel(clock, font10); CombatLabel(score, font12);
+        Backplate(root, "PlayerReadabilityR7", 3, 0, 102, 11);
+        Backplate(root, "EnemyReadabilityR7", 215, 0, 102, 11);
+        var roundBackground = Backplate(root, "RoundReadabilityR7", 108, 45, 104, 13);
+        Backplate(root, "ClockReadabilityR7", 256, 145, 32, 14);
         var pauseIcon = Picture(root, "PauseIconR7", "icon-pause", 267, 163, 10, 10);
         pauseIcon.raycastTarget = true;
         var pauseButton = pauseIcon.GetComponent<Button>();
@@ -178,6 +188,7 @@ internal static class CombatR7Build
         if (!status) status = root.gameObject.AddComponent<CombatR7Status>();
         Set(status, "enemyLabel", enemyName); Set(status, "clock", clock);
         Set(status, "playerHp", playerHp); Set(status, "enemyHp", enemyHp); Set(status, "round", round);
+        Set(status, "roundBackground", roundBackground);
         Set(status, "comboFill", decayFill);
         Set(status, "normalFill", Sprite("combo-fill")); Set(status, "goldFill", Sprite("combo-gold-fill"));
         Set(Find<TutorialOverlay>(), "staminaTarget", enemy.Find("FrameSecondary"));
@@ -250,6 +261,51 @@ internal static class CombatR7Build
             if (child) child.SetAsLastSibling();
         }
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+    }
+
+    static TMP_FontAsset CombatFont(int size)
+    {
+        string path = Art + "VT323Pixel" + size + ".asset";
+        var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(path);
+        if (font) return font;
+        var source = AssetDatabase.LoadAssetAtPath<Font>(PixelUIFactory.Art + "VT323-Regular.ttf");
+        font = TMP_FontAsset.CreateFontAsset(source, size, 1, GlyphRenderMode.RASTER_HINTED,
+            512, 512, AtlasPopulationMode.Dynamic, false);
+        font.name = "VT323Pixel" + size;
+        AssetDatabase.CreateAsset(font, path);
+        string characters = string.Concat(Enumerable.Range(32, 95).Select(c => (char)c)) + "\u00b7\u00d7";
+        if (!font.TryAddCharacters(characters, out string missing))
+            throw new System.InvalidOperationException("Combat font missing glyphs: " + missing);
+        font.atlasPopulationMode = AtlasPopulationMode.Static;
+        AssetDatabase.AddObjectToAsset(font.material, font);
+        foreach (var atlas in font.atlasTextures)
+        {
+            atlas.filterMode = FilterMode.Point; atlas.wrapMode = TextureWrapMode.Clamp;
+            AssetDatabase.AddObjectToAsset(atlas, font);
+        }
+        EditorUtility.SetDirty(font);
+        return font;
+    }
+
+    static void CombatLabel(TMP_Text label, TMP_FontAsset font)
+    {
+        label.font = font; label.fontSharedMaterial = font.material;
+        label.enableAutoSizing = false; label.enableWordWrapping = false;
+        if (PrefabUtility.IsPartOfPrefabInstance(label))
+            PrefabUtility.RecordPrefabInstancePropertyModifications(label);
+    }
+
+    static Image Backplate(Transform root, string name, float x, float y, float w, float h)
+    {
+        var rt = Node(root, name); Box(rt, root, x * 3, y * 3, w * 3, h * 3);
+        var image = Image(rt, new Color(20f / 255, 17f / 255, 30f / 255, .88f));
+        image.sprite = null; image.type = UnityEngine.UI.Image.Type.Simple;
+        image.raycastTarget = false;
+        // Root siblings precede HUD/tray/labels; overlapping typing-frame pixels stay on top.
+        int index = root.Find("HUD").GetSiblingIndex();
+        if (rt.GetSiblingIndex() < index) index--;
+        rt.SetSiblingIndex(index);
+        return image;
     }
 
     static TMP_Text LabelOnce(Transform parent, string name, string text, float x, float y, float w, float h, float size)
