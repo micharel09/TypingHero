@@ -192,7 +192,10 @@ internal static class CombatR7Build
         Set(hudFeedback, "playerHp", playerHp);
         Set(hudFeedback, "staminaIcon", Picture(enemy, "IconSecondary", "icon-shield", 1, 24, 10, 10));
         Set(hudFeedback, "shield", Sprite("icon-shield")); Set(hudFeedback, "warning", Sprite("icon-warning"));
-        Set(hudFeedback, "guardBreak", LabelOnce(enemy, "GuardBreakR7", "GUARD BREAK", 0, 37, 102, 11, 8));
+        // Preserve the serialized node/binding; Slayer already announces the break.
+        var guardBreak = LabelOnce(enemy, "GuardBreakR7", "", 0, 37, 102, 11, 8);
+        guardBreak.enabled = false;
+        Set(hudFeedback, "guardBreak", guardBreak);
         Value(hudFeedback, "red", Hex("f16b67")); Value(hudFeedback, "gold", Hex("dcc18a"));
         Value(hudFeedback, "success", Hex("588b8c"));
         var combat = root.Find("CombatViewport") as RectTransform; Box(combat, root, 0, 0, 960, 540);

@@ -1775,3 +1775,11 @@ Published https://micharel09.itch.io/clackblade, game3857509, upload19892576. So
 - Release manifest: [hud-release-20261020.json](../../marketing/itch-io/hud-release-20261020.json). Retained product ZIP in release child Builds/CLACKBLADE-WebGL-HUD-20261020.zip; canonical ZIP/source-input.tar.gz/receipt under fly-server /data/typinghero-game-loop/releases/hud-feedback-20261020/. Rollback reselects19891356, hides19892576 and saves.
 
 - Cleanup complete: task captures/profiles/helpers removed, browser session qegv stopped and owned server results20261020T030558-serialize/20261020T031135-production removed after canonical artifact verification. Shared cache/builds/other jobs preserved. Keep both task worktrees for source review/integration into main; remove only after integration. No Git push/merge performed.
+
+## Remove GUARD BREAK text (2026-10-20, local follow-up)
+
+User removed the redundant text because Slayer already communicates guard break. Label node/IDs/binding remain, but text is empty and disabled; announcement timer/first-break flag are removed. Shield/warning and combat rules remain unchanged.
+
+- Unity2022.3.25f1/fly-server result20261020T034519-quick, inputc156dca188c61db60603c42f539c95033b64852683f066f3e6f3bb28a326cb24: strict repeated SerializeOnly PASS; generated SampleScene equals checkout, all scene IDs retained. Scoped HUDFeedback PlayMode4/4 PASS (actual damage/parry/pause/first and repeated real break/icon recovery/disable lifecycle, plus three existing asset/fill checks). Existing browser driver syntax, source/docs whitespace and relative links PASS. The old QA timer reflection was removed alongside the timer.
+- No geometry/font/combat changes and no new WebGL/browser matrix or itch.io publication in this follow-up. Previously published upload19892576 remains unchanged; branch holds this local follow-up for review/integration.
+- Cleanup complete: removed owned result20261020T034519-quick and task helpers/XML/scene copies under E:/CodexTemp/TypingHero/remove-guard-break. Shared runner/cache and unrelated jobs preserved; retained existing child because changes are not integrated into main.

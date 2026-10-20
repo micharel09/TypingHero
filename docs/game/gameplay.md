@@ -16,7 +16,7 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
 
 - Dòng dưới score cluster hiển thị difficulty của run và DUEL n/6; Tutorial dùng TUTORIAL. Slayer giữ dòng, InputBlocked/results ẩn dòng; EndlessOverlay giữ intro/Continue riêng.
 - CombatHUDFeedback quan sát combat: Space sáng khi cùng predicate TryBeginParry cho phép, giảm sáng khi khóa, vàng theo cue thật khi ready hoặc window đang mở, xanh ngọc120ms từ OnParrySuccess. Success iframe80ms, input/window/grace/SFX không đổi.
-- Stamina dùng shield v2 nguyên bản10×10; cost thật>0→0 kèm stun sống mới đổi warning. Hết stun trả shield. GUARD BREAK chỉ lần đầu mỗi duel, font8native, hold720/fade180ms. Setup/regen/death không báo; pause giữ thời gian, Continue/restart reset, results/death clear.
+- Stamina dùng shield v2 nguyên bản10×10; cost thật>0→0 kèm stun sống mới đổi warning. Hết stun trả shield. Theo quyết định mới, không hiện chữ GUARD BREAK vì Slayer đã báo trạng thái. Node cũ giữ ID/binding, để trống và disable; không còn timer/first-break flag. Icon vẫn đổi theo stamina/stun thật, pause giữ trạng thái.
 - Số HP sống≤25% đỏ; viền Lerp đỏ về màu gốc180ms từ damage thật, hit mới reset. Init/carry/restore không phát damage event. Theo quyết định user, HUD không có xử lý reduced-motion riêng; không đổi motion cũ ở typing/UI khác. Component hủy event/reset khi disable; logic stamina/HP/scoring giữ nguyên.
 - Local source751de45: scoped Unity4/4 và native2353 PASS trên normal path giữ nguyên; xem [checkpoint](../plans/score-hud-cluster.md) cho provenance, các lượt không đạt và giới hạn. Release child uses the approved palette/public UI64de5b3a baseline. Published upload19892576 on 2026-10-20; production/CDN/native receipts are in verification.md.
 

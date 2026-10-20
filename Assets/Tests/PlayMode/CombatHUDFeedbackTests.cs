@@ -91,11 +91,11 @@ public sealed class CombatHUDFeedbackTests
             Assert.That(label.enabled, Is.False, "zero stamina needs an actual stun");
             stun.TriggerStun(.12f); Tick(hud);
             Assert.That(icon.sprite.name, Is.EqualTo("icon-warning"));
-            Assert.That(label.enabled, Is.True);
+            Assert.That(label.enabled, Is.False, "Slayer replaces the guard-break announcement");
             GamePauseController.SetTutorialReading(true);
-            remaining = Get<float>(hud, "breakRemaining");
             yield return new WaitForSecondsRealtime(.22f);
-            Assert.That(Get<float>(hud, "breakRemaining"), Is.EqualTo(remaining));
+            Assert.That(icon.sprite.name, Is.EqualTo("icon-warning"));
+            Assert.That(label.enabled, Is.False);
             Assert.That(stun.IsStunned, Is.True);
             GamePauseController.SetTutorialReading(false);
             yield return new WaitForSecondsRealtime(.95f);
@@ -108,8 +108,7 @@ public sealed class CombatHUDFeedbackTests
             hud.enabled = false;
             Assert.That(icon.sprite.name, Is.EqualTo("icon-shield"));
             hud.enabled = true;
-            Assert.That(Get<float>(hud, "breakRemaining"), Is.Zero);
-            Assert.That(Get<bool>(hud, "announced"), Is.False);
+            Assert.That(label.enabled, Is.False);
         }
         finally
         {

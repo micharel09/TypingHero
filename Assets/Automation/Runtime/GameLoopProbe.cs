@@ -167,7 +167,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public string encounterText, staminaIconName;
         public bool encounterVisible, guardBreakVisible, combatHeadingVisible;
         public Color parryKeyColor, hpNumberColor, hpFrameColor, guardBreakColor;
-        public float hudHitRemaining, hudSuccessRemaining, hudBreakRemaining;
+        public float hudHitRemaining, hudSuccessRemaining;
         public Rect guardBreakRect, encounterRect;
 
         public float rowHeight, viewportHeight;
@@ -376,7 +376,6 @@ public sealed class GameLoopProbe : MonoBehaviour
                 hpFrameColor = Read<Image>(hudFeedback, "hpFrame") ? Read<Image>(hudFeedback, "hpFrame").color : default,
                 hudHitRemaining = Read<float>(hudFeedback, "hitRemaining"),
                 hudSuccessRemaining = Read<float>(hudFeedback, "successRemaining"),
-                hudBreakRemaining = Read<float>(hudFeedback, "breakRemaining"),
                 staminaColor = staminaSlider ? staminaSlider.fillRect.GetComponent<Image>().color : default,
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
                 decayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),

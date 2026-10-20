@@ -10,7 +10,7 @@ module.exports = async function combatHUD(api,browser) {
   const labels={very_easy:'VERY EASY',easy:'EASY',normal:'NORMAL',hard:'HARD',very_hard:'VERY HARD'};
   report.hudSeen={};
   const seen=report.hudSeen;
-  let lastFrame=-1, lastSlot=-1, announcements=0, wasAnnounced=false, wasFinished=false;
+  let lastFrame=-1, wasFinished=false;
   const observe=async page=>{
     const s=await state(page);
     if(s.scene!=='SampleScene'||s.frame===lastFrame) return s;
@@ -35,9 +35,7 @@ module.exports = async function combatHUD(api,browser) {
       else {check(near(s.parryKeyColor.r,1),'ready keycap uses original brightness');seen.ready=true;}
       if(s.slayer) seen.slayer=true;
     }
-    if(s.endlessSlot!==lastSlot){lastSlot=s.endlessSlot;announcements=0;wasAnnounced=false;}
-    if(s.guardBreakVisible&&!wasAnnounced){announcements++;check(announcements===1,'only first guard break announces in a duel');seen.break=true;}
-    wasAnnounced=s.guardBreakVisible;
+    check(!s.guardBreakVisible,'Slayer replaces the guard-break announcement');
     if(s.staminaIconName==='icon-warning'){check(s.stunned,'warning icon follows actual stun');seen.warning=true;}
     if(s.staminaIconName==='icon-shield'&&!s.stunned) seen.shield=true;
     if(s.finished){check(!s.guardBreakVisible&&s.hudHitRemaining===0&&s.hudSuccessRemaining===0,'results clears transient feedback');seen.results=true;}
@@ -90,20 +88,20 @@ module.exports = async function combatHUD(api,browser) {
       await captureSizes(page,'hud-low-normal');
     },
     observeHUD:async(page,s)=>{
-      if(!s.paused&&!s.finished&&((s.hudSuccessRemaining>.04&&!pausedSuccess)||(s.guardBreakVisible&&!pausedBreak))){
+      if(!s.paused&&!s.finished&&((s.hudSuccessRemaining>.04&&!pausedSuccess)||(s.staminaIconName==='icon-warning'&&!pausedBreak))){
         await page.keyboard.press('Escape',{delay:10});
         const held=await until(page,t=>t.paused);
         await page.waitForTimeout(320);const after=await state(page);
-        check(after.hudSuccessRemaining===held.hudSuccessRemaining&&after.hudBreakRemaining===held.hudBreakRemaining,'pause holds success and guard-break feedback');
+        check(after.hudSuccessRemaining===held.hudSuccessRemaining&&after.staminaIconName===held.staminaIconName,'pause holds success and stun icon feedback');
         if(held.hudSuccessRemaining>0) pausedSuccess=true;
-        if(held.guardBreakVisible){pausedBreak=true;await page.screenshot({path:report.outputDirectory+'/hud-guard-break-paused.png'});}
+        if(held.staminaIconName==='icon-warning') pausedBreak=true;
         await page.keyboard.press('Escape',{delay:10});await until(page,t=>!t.paused&&t.timeScale===1&&!t.controls.some(c=>c.name==='ResumeButton'));
       }
       if(s.slayer&&!capturedSlayer){capturedSlayer=true;await captureSizes(page,'hud-slayer');}
     }
   },browser);
-  check(pausedSuccess&&pausedBreak,'real success and guard-break were paused mid-feedback');
-  for(const key of ['low','success','window','cue','lock','ready','slayer','break','warning','shield','results','continue'])
+  check(pausedSuccess&&pausedBreak,'real success and stamina warning were paused mid-feedback');
+  for(const key of ['low','success','window','cue','lock','ready','slayer','warning','shield','results','continue'])
     check(seen[key],'observed HUD state '+key);
   // Restart and death use the standard HUD presentation.
   const {context,page}=await session(browser,{width:640,height:360},1000);

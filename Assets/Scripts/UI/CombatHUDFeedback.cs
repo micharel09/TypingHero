@@ -16,9 +16,9 @@ public sealed class CombatHUDFeedback : MonoBehaviour
     EnemyStamina stamina;
     EnemyStunController stun;
     Color keyIdle, frameIdle, hpIdle;
-    float hitRemaining, successRemaining, breakRemaining;
-    int depletedFrame = -1, hitFrame = -1, successFrame = -1, breakFrame = -1;
-    bool announced, broken, bound;
+    float hitRemaining, successRemaining;
+    int depletedFrame = -1, hitFrame = -1, successFrame = -1;
+    bool broken, bound;
 
     void Start() => Bind();
     void OnEnable() { if (player) Bind(); }
@@ -51,8 +51,8 @@ public sealed class CombatHUDFeedback : MonoBehaviour
     }
     void ResetFeedback()
     {
-        hitRemaining = successRemaining = breakRemaining = 0;
-        depletedFrame = -1; announced = broken = false;
+        hitRemaining = successRemaining = 0;
+        depletedFrame = -1; broken = false;
         staminaIcon.sprite = shield;
         guardBreak.enabled = false;
     }
@@ -77,7 +77,6 @@ public sealed class CombatHUDFeedback : MonoBehaviour
             !stun.IsStunned || GamePauseController.InputBlocked) return;
         depletedFrame = -1;
         broken = true;
-        if (!announced) { announced = true; breakRemaining = .9f; breakFrame = Time.frameCount; }
     }
     void LateUpdate()
     {
@@ -85,7 +84,7 @@ public sealed class CombatHUDFeedback : MonoBehaviour
         bool blocked = GamePauseController.InputBlocked;
         if (!Live)
         {
-            hitRemaining = successRemaining = breakRemaining = 0;
+            hitRemaining = successRemaining = 0;
             broken = false;
         }
         playerHp.color = player && player.Current > 0 && player.Current <= player.maxHealth * .25f ? red : hpIdle;
@@ -95,7 +94,6 @@ public sealed class CombatHUDFeedback : MonoBehaviour
             // Events start now; do not charge the preceding frame's time to a new flash.
             if (hitFrame != Time.frameCount) hitRemaining = Mathf.Max(0, hitRemaining - dt);
             if (successFrame != Time.frameCount) successRemaining = Mathf.Max(0, successRemaining - dt);
-            if (breakFrame != Time.frameCount) breakRemaining = Mathf.Max(0, breakRemaining - dt);
         }
         hpFrame.color = Color.Lerp(frameIdle, red, hitRemaining / .18f);
         bool ready = Live && parry && parry.isActiveAndEnabled && parry.CanBeginParry;
@@ -105,9 +103,5 @@ public sealed class CombatHUDFeedback : MonoBehaviour
             ready ? keyIdle : keyIdle * new Color(.4f, .4f, .4f, 1);
         if (!stun || !stun.IsStunned) broken = false;
         staminaIcon.sprite = broken ? warning : shield;
-        guardBreak.enabled = Live && breakRemaining > 0;
-        var color = gold;
-        color.a = Mathf.Clamp01(breakRemaining / .18f);
-        guardBreak.color = color;
     }
 }
