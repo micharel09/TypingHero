@@ -492,9 +492,13 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
 
 - Final builder order is ShogunTheme, WorldLightingBuild, CombatR7Build, then
   DungeonUISkin for menu/help/Collection/tutorial/pause/results/Continue only.
-  Original Japan assets/objects remain preserved and disabled. The menu centers
-  its existing title/name/difficulty/actions/volumes group in the viewport, over
-  the same four purple dungeon layers as gameplay, with no decorative character.
+  Original Japan assets/objects remain preserved and disabled. The final
+  BlackletterUILayout/DungeonMainMenuBuild pass presents a static320x180 dungeon
+  background, brand logo56 at top left, and five unboxed Cobblestone30 menu items
+  at bottom right. Play/Tutorial open a centered420x320 preparation card using
+  the existing name/difficulty/validation and Start dispatch. Initial focus is
+  Play; arrows/Tab navigate, Enter opens, Back/Escape restores the opener. Only
+  Start depends on name validity. Settings/Top1000 retain their compact modals.
   Combat HUD, physics and character animation remain unchanged.
 - Reference960x540: arena928x340; foot-local HUD and tray geometry are specified
   in the HUD layout section below. Camera

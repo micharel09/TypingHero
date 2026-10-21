@@ -88,6 +88,19 @@ Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, 
 
 # Verification and performance memory
 
+## Dungeon main menu — 2026-10-21
+
+Cached Unity2022.3.25f1 WebGL153008 and strict repeat-builder PASS on input
+`b2b63f11963989f3e233cdbd4da8c43faddf1952287260c2a6f5069b9f37b020`.
+Native Edge155/ANGLE D3D11:83/83 scoped checks PASS at1280x720 and640x360 in29.777s,
+zero JS/managed exceptions/provider writes. Final menu/background/preparation and
+unchanged Settings/Top1000/help visually inspected at both sizes. Real mouse and
+keyboard, invalid/valid names, saved name/difficulty, blocking and opener focus,
+Play/Tutorial dispatch and existing Unseen/Skipped rule verified. No six-lesson,
+full gameplay/performance suite or itch deployment. Tutorial WIP/head overlap
+remains unresolved. Asset prompt, mapping, corrections, evidence and preview:
+[checkpoint](../plans/dungeon-main-menu.md).
+
 ## Final thin-glass lantern candidate ? 2026-10-21
 
 - QA110751/input046160c165646a5c3788e3b9cf90e90cfb9736e63224afcff7ee2ee742997e34,
