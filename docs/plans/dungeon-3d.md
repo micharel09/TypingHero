@@ -1045,3 +1045,38 @@ Final isolated QA candidate153315/player0ecd1b6a6c221b30:
 - origin/main advanced to f7bfc67 with dungeon menu,compact pause/settings and parry
   physics. Integrate those changes normally and recheck affected native flows before
   any main push. Parent dirty checkout remains untouched. No task commit/push yet.
+
+Integration checkpoint (2026-10-21, after isolated visual review):
+- Task implementation committed9c8fc1e; main f7bfc67 integrated in87eb373.
+  Scene merge preserved1907 main records plus21 lighting additions (1928 total),
+  all intended task/main object changes; systems memory preserves both VFX rows.
+- Full isolated native recording0.000-29.760s:744/744 frames and743/743 pairs
+  directly inspected at native320x180 world resolution, including held/repeated
+  frames. Hit,attack,parry,pause,Slayer hide/restore and menu return observed;
+  no visual claim for real-time playback. gameplay-video-scope.json records scope.
+- Integrated input47af0723 WebGL/strict builder and scoped DungeonRenderTests
+  are running under the existing server lock. New menu/pause/parry flows will
+  be checked on this player before pushing; main integration remains pending.
+
+Integrated candidate results:
+- QA160528/input47af072343bca6e35d522935fc088383497ff8c3d818a498956c0d71987d8bd5:
+  strict builder twice, serialized object/reference/listener stability and WebGL PASS.
+  Player2ac005eb7f4b60d3; native16checks PASS,zero runtime exceptions/provider effects.
+  Play->preparation,attack,received hit,parry,compact pause/resume,complete Slayer,
+  normal FOV35 restore and main-menu return verified with real input. Final seven
+  gameplay/state images directly inspected. Reflection uses UniversalRenderer;
+  Slayer releases its target,menu leaves zero owned world/reflection/camera objects.
+- Quick162136/input1272a6a75dcdc482374a7f809486f083481825fa06c5fb25ec15eb9fad9a03ec:
+  DungeonRenderTests4/4PASS,including exact pause/hide particle state and cloth anchor.
+- Integrated generated501files retained separately. Scene1928/MainMenu482objects
+  have no semantic changes from committed merge; only final scene blank line differs.
+  No generated reimport needed. GUID audit scoped to Unity Assets passes; color art,
+  frame timing,atlas slicing/pivot and source GUID contracts remain unchanged.
+- Evidence: candidate7-render-audit.json,integrated-tests.xml,
+  integrated-scene-builder-diff.json,integrated-guid-audit.json; review.html now links
+  integrated native video d36973b39b19b304719e9e014ae30b1b.webm. Older744frame visual
+  record remains clearly separate; no claim to have inspected every integrated-video
+  frame. Unchanged lighting diagnostic/frame/camera evidence reused.
+- Remaining acceptance: perceived normal/slow playback (async user review pending).
+  Available image tools show static frames only. No full visual PASS/main integration
+  claimed. Retain task worktree until that gap is resolved; evidence retained on E:.

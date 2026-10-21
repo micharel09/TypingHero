@@ -18,7 +18,12 @@
   same GTX1650Ti,Edge155,1280x720,input driver. Draws266.8->331.4; triangles~12421->14417.
   Browser wrappers are observable submitted load,not GPU timings. No universal FPS claim.
 - Evidence and review.html retained under E:/CodexTemp/TypingHero/dungeon-full-lighting.
-  No game publication. Latest-main menu/physics integration and final acceptance pending.
+  No game publication. Integrated main f7bfc67 in87eb373; QA160528/input47af0723,
+  player2ac005eb7f4b60d3: repeat builder/WebGL PASS,16native checks PASS,
+  zero exceptions/provider effects, newer Play/preparation and compact pause verified.
+  Focused Unity162136/input1272a6a7:4/4PASS. Scene1928objects and main menu482objects
+  unchanged by builder (only trailing blank line differs). Real-time playback and
+  remote-main integration remain pending; task branch is a verified technical candidate.
 
 ## Dungeon and thin-glass lantern integrated (2026-10-21)
 
