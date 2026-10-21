@@ -196,15 +196,15 @@ internal static class BlackletterTitleBuild
         }
         EditorSceneManager.OpenScene("Assets/Scenes/MainMenu.unity");
         font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
-        var title = GameObject.Find("PixelUI/Reference960x540/MenuPanel/Title")
+        var title = GameObject.Find("PixelUI/Reference960x540/Logo")
             .GetComponent<TMP_Text>();
         title.text = "Clackblade";
         title.font = font;
         title.fontSharedMaterial = font.material;
-        title.fontSize = title.fontSizeMin = title.fontSizeMax = 64;
+        title.fontSize = title.fontSizeMin = title.fontSizeMax = 56;
         title.enableAutoSizing = false;
         title.enableWordWrapping = false;
-        title.alignment = TextAlignmentOptions.Midline;
+        title.alignment = TextAlignmentOptions.MidlineLeft;
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
         foreach (var path in new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity" })
         {
@@ -220,8 +220,8 @@ internal static class BlackletterTitleBuild
             {
                 var expected = label == title ? font : uiFont;
                 // The title reference belongs to the previous scene instance.
-                if (path.EndsWith("MainMenu.unity") && label.name == "Title" &&
-                    label.transform.parent.name == "MenuPanel") expected = font;
+                if (path.EndsWith("MainMenu.unity") && label.name == "Logo" &&
+                    label.transform.parent.name == "Reference960x540") expected = font;
                 if (label.font != expected || label.fontSharedMaterial != expected.material ||
                     expected.material.mainTexture != expected.atlasTexture)
                     throw new System.InvalidOperationException("Unexpected saved UI font/material: " + path + "/" + label.name);

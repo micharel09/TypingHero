@@ -47,6 +47,7 @@ internal static class BlackletterUILayout
             if (!design) continue;
             if (root.name == "PixelUI" && design.Find("MenuPanel")) Menu(design);
             if (root.name == "HowToPlay") Help(design);
+            if (root.name == "SettingsModal") CompactMenusBuild.Style(design);
             if (root.name == "LeaderboardModal") Collection(design);
             if (root.name == "Tutorial") Tutorial(design);
             if (root.name == "PixelOverlay") Results(design);
@@ -74,39 +75,7 @@ internal static class BlackletterUILayout
 
     static void Menu(Transform design)
     {
-        Place(design, "MenuPanel", 48, 0, 864, 398);
-        var panel = design.Find("MenuPanel");
-        Place(panel, "Title", 24, 4, 816, 52);
-        Place(panel, "NameLabel", 24, 56, 816, 38);
-        Size(panel.Find("NameLabel").GetComponent<TMP_Text>(), BodySize);
-        var input = panel.GetComponentInChildren<TMP_InputField>(true);
-        Box(input.GetComponent<RectTransform>(), panel, 24, 94, 816, 104);
-        input.pointSize = BodySize;
-        Size(input.textComponent, BodySize);
-        input.textComponent.alignment = TextAlignmentOptions.MidlineLeft;
-        if (input.placeholder is TMP_Text hint) Size(hint, BodySize);
-        // The existing viewport/caret performs horizontal scrolling for long input.
-        input.textComponent.overflowMode = TextOverflowModes.Overflow;
-        Place(panel, "NameError", 24, 198, 816, 48);
-        Size(panel.Find("NameError").GetComponent<TMP_Text>(), BodySize);
-        Difficulty(panel, 24, 246, 816);
-        Place(panel, "DifficultyHint", 24, 294, 816, 48);
-        Size(panel.Find("DifficultyHint").GetComponent<TMP_Text>(), CompactSize);
-        ButtonAt(panel, "PlayButton", 24, 342, 816, 52);
-        Place(panel, "PlayButton/key-enter", 776, 14, 24, 24);
-        ButtonAt(design, "How to PlayButton", 102, 402, 246, 48);
-        ButtonAt(design, "TutorialButton", 357, 402, 246, 48);
-        ButtonAt(design, "Top 1000Button", 612, 402, 246, 48);
-        Place(design, "AudioPreferences", 120, 454, 720, 76);
-        var audio = design.Find("AudioPreferences");
-        Place(audio, "MusicVolume", 312, 6, 408, 12);
-        Place(audio, "SFXVolume", 312, 44, 408, 12);
-        foreach (var label in design.Find("AudioPreferences").GetComponentsInChildren<TMP_Text>(true))
-        {
-            Size(label, BodySize);
-            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 300);
-            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 38);
-        }
+        DungeonMainMenuBuild.Apply(design);
     }
 
     static void Help(Transform design)
@@ -128,26 +97,45 @@ internal static class BlackletterUILayout
         var so = new SerializedObject(binder);
         var list = (ScrollRect)so.FindProperty("scrollRect").objectReferenceValue;
         var panel = (RectTransform)list.transform.parent;
-        Box(panel, design, 48, 0, 600, 540);
-        Place(panel, "Title", 16, 8, 568, 52);
-        Size(panel.Find("Title").GetComponent<TMP_Text>(), HeadingSize);
-        Difficulty(panel, 16, 64, 568);
-        Place(panel, "Header", 8, 116, 568, 96);
+        // One centered 840x444 composition, retaining the existing modal input shield.
+        Box(panel, design, 60, 48, 640, 444);
+        Place(panel, "Title", 16, 8, 608, 38);
+        Size(panel.Find("Title").GetComponent<TMP_Text>(), 30);
+        Difficulty(panel, 16, 48, 608);
+        var difficulty = panel.Find("Difficulty");
+        Box((RectTransform)difficulty, panel, 16, 48, 608, 36);
+        Place(difficulty, "Caption", 0, 0, 180, 36);
+        ButtonAt(difficulty, "<Button", 180, 0, 36, 36, 24);
+        ButtonAt(difficulty, ">Button", 572, 0, 36, 36, 24);
+        var selector = difficulty.GetComponentInChildren<EndlessDifficultySelector>(true);
+        Box((RectTransform)selector.transform, difficulty, 216, 0, 356, 36);
+        foreach (var text in difficulty.GetComponentsInChildren<TMP_Text>(true)) Size(text, 24);
+        var caption = selector.GetComponentInChildren<TMP_Text>(true);
+        Box(caption.rectTransform, selector.transform, 8, 0, 340, 36);
+        Place(panel, "Header", 16, 88, 608, 36);
         var header = panel.Find("Header");
-        Place(header, "Rank", 0, 0, 96, 96);
-        Place(header, "Name", 104, 0, 216, 96);
-        Place(header, "Score", 324, 0, 240, 96);
-        foreach (var label in header.GetComponentsInChildren<TMP_Text>(true)) Size(label, BodySize, true);
-        Box(list.GetComponent<RectTransform>(), panel, 8, 216, 584, 316);
-        Box(list.viewport, list.transform, 0, 0, 568, 316);
-        Place(list.transform, "Scrollbar", 572, 0, 12, 316);
+        Place(header, "Rank", 0, 0, 72, 36);
+        Place(header, "Name", 80, 0, 344, 36);
+        Place(header, "Score", 432, 0, 176, 36);
+        foreach (var label in header.GetComponentsInChildren<TMP_Text>(true)) Size(label, 24);
+        header.Find("Score").GetComponent<TMP_Text>().alignment = TextAlignmentOptions.MidlineRight;
+        Box(list.GetComponent<RectTransform>(), panel, 16, 132, 608, 288);
+        Box(list.viewport, list.transform, 0, 0, 592, 288);
+        Place(list.transform, "Scrollbar", 596, 0, 12, 288);
         var detail = (TMP_Text)so.FindProperty("detailText").objectReferenceValue;
-        Size(detail, BodySize, true);
+        Size(detail, 27, true);
         var empty = (TMP_Text)so.FindProperty("emptyLabel").objectReferenceValue;
-        Size(empty, BodySize, true);
+        Size(empty, 27, true);
         empty.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 160);
         var names = new[] { "CloseButton", "RefreshButton", "EndlessButton", "ClassicButton", "OpponentsButton", "AchievementsButton" };
-        for (int i = 0; i < names.Length; i++) ButtonAt(design, names[i], 672, 16 + i * 60, 272, 52);
+        for (int i = 0; i < names.Length; i++) ButtonAt(design, names[i], 724, 64 + i * 52, 176, 36, 24);
+        CompactMenusBuild.Skin(design);
+        so.FindProperty("activeModeFrame").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(CombatR7Build.Art + "DarkFantasy/secondary-frame-gold.asset");
+        so.FindProperty("inactiveModeFrame").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(CombatR7Build.Art + "DarkFantasy/secondary-frame.asset");
+        so.FindProperty("rowEven").colorValue = Color.white;
+        so.FindProperty("rowOdd").colorValue = Hex("c5b9a7");
+        so.ApplyModifiedPropertiesWithoutUndo();
+
     }
 
     internal static void Prefab(GameObject root)
@@ -155,14 +143,19 @@ internal static class BlackletterUILayout
         if (!root.GetComponent<LeaderboardRowView>()) return;
         var rect = root.GetComponent<RectTransform>();
         if (!rect || !root.transform.Find("Name") || !root.transform.Find("Score")) return;
-        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 224);
+        CompactMenusBuild.Skin(root.transform);
+        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 36);
         var layout = root.GetComponent<LayoutElement>();
-        if (layout) layout.preferredHeight = 224;
-        Place(root.transform, "Rank", 0, 0, 96, 224);
-        Place(root.transform, "Name", 104, 0, 216, 224);
-        Place(root.transform, "Score", 324, 0, 240, 224);
+        if (layout) layout.preferredHeight = 36;
+        Place(root.transform, "Rank", 0, 0, 72, 36);
+        Place(root.transform, "Name", 80, 0, 336, 36);
+        Place(root.transform, "Score", 424, 0, 168, 36);
         foreach (var label in root.GetComponentsInChildren<TMP_Text>(true))
-            Size(label, BodySize, label.name != "Rank");
+        {
+            Size(label, 24);
+            label.overflowMode = TextOverflowModes.Ellipsis;
+            label.alignment = label.name == "Score" ? TextAlignmentOptions.MidlineRight : TextAlignmentOptions.MidlineLeft;
+        }
     }
 
     static void Tutorial(Transform design)
@@ -214,6 +207,7 @@ internal static class BlackletterUILayout
         ButtonAt(panel, "Top 1000Button", 24, 448, 816, 48);
         Place(panel, "KeyHint", 24, 502, 816, 34);
         Size(panel.Find("KeyHint").GetComponent<TMP_Text>(), CompactSize);
+        CompactMenusBuild.Settings(design, panel, true);
     }
 
     static void Combat(Transform design)

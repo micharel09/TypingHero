@@ -1,0 +1,132 @@
+using UnityEngine;
+
+// Presentation-independent, absolute-age trajectories. One floor contact and one optional bounce.
+internal sealed class PhysicalParticleSimulation
+{
+    internal struct State
+    {
+        internal Vector3 origin, launch, coastOrigin, coastVelocity, impactPosition, impactVelocity;
+        internal float floor, flight, bounce, total, length, mask;
+        internal int channel, width;
+        internal bool small;
+        internal PhysicalParticleProfile.PhysicsSettings physics;
+    }
+    internal struct Sample
+    {
+        internal Vector3 position, velocity;
+        internal bool alive;
+    }
+    readonly State[] states;
+    uint random;
+    internal int Count { get; private set; }
+    internal State this[int index] => states[index];
+
+    internal PhysicalParticleSimulation(int capacity) => states = new State[capacity];
+
+    float Range(float min, float max)
+    {
+        random ^= random << 13; random ^= random >> 17; random ^= random << 5;
+        return Mathf.Lerp(min, max, (random & 0xffffff) / 16777216f);
+    }
+
+    internal void Emit(PhysicalParticleProfile profile, Vector3 point, float attackerDirection,
+        float playerDirection, float floor, int seed)
+    {
+        Clear();
+        random = unchecked((uint)(seed + 1) * 747796405u + 2891336453u);
+        if (random == 0) random = 1;
+        attackerDirection = attackerDirection < 0 ? -1 : 1;
+        playerDirection = playerDirection == 0 ? -attackerDirection : Mathf.Sign(playerDirection);
+        foreach (var group in profile.groups)
+        for (int i = 0; i < group.count && Count < states.Length; i++)
+        {
+            float direction = group.towardPlayer ? playerDirection : attackerDirection;
+            float angle = (Mathf.Lerp(group.angles.x, group.angles.y, (i + .5f) / group.count)
+                + Range(-group.angleJitter, group.angleJitter)) * Mathf.Deg2Rad;
+            float velocity = Range(group.speed.x, group.speed.y);
+            var origin = point;
+            if (group.spawnRadius > 0)
+            {
+                float radius = Mathf.Sqrt(Range(0, 1)) * group.spawnRadius;
+                float phi = Range(0, Mathf.PI * 2);
+                origin += new Vector3(Mathf.Cos(phi) * direction * radius, Mathf.Sin(phi) * radius, 0);
+            }
+            origin.x += playerDirection * group.playerOffset;
+            var pixels = i % 2 == (seed & 1) ? group.longPixels : group.shortPixels;
+            var state = new State {
+                origin = origin, floor = floor, channel = group.channel, small = group.small,
+                launch = new Vector3(Mathf.Cos(angle) * direction * velocity, Mathf.Sin(angle) * velocity,
+                    Range(group.depthSpeed.x, group.depthSpeed.y)),
+                length = Mathf.Floor(Range(pixels.x, pixels.y + 1)), width = group.widthPixels,
+                total = Range(group.lifetime.x, group.lifetime.y), mask = Mathf.Floor(Range(0, 3)),
+                physics = group.physics, flight = float.PositiveInfinity
+            };
+            if (state.physics.collideWithFloor) state.origin.y = Mathf.Max(state.origin.y, floor);
+            Launch(state, state.physics.launchDuration, out state.coastOrigin, out state.coastVelocity);
+            if (state.physics.collideWithFloor)
+            {
+                // Starting on the floor with an upward launch must first reach its apex.
+                float lo = 0, hi = state.total;
+                Flight(state, hi, out var end, out _);
+                if (end.y <= floor)
+                {
+                    if (state.origin.y <= floor && state.launch.y <= 0) hi = 0;
+                    for (int n = 0; n < 28; n++)
+                    {
+                        float mid = (lo + hi) * .5f;
+                        Flight(state, mid, out var position, out _);
+                        if (position.y > floor) lo = mid; else hi = mid;
+                    }
+                    state.flight = (lo + hi) * .5f;
+                    Flight(state, state.flight, out state.impactPosition, out state.impactVelocity);
+                    state.impactPosition.y = floor;
+                    state.bounce = state.physics.gravity > 0 ? Mathf.Max(0,
+                        -2 * state.impactVelocity.y * state.physics.restitution / state.physics.gravity) : 0;
+                    state.total = Mathf.Min(state.total, state.flight + state.bounce + state.physics.restDuration);
+                }
+            }
+            states[Count++] = state;
+        }
+    }
+
+    static float Travel(float drag, float t) => drag > 0 ? (1 - Mathf.Exp(-drag * t)) / drag : t;
+
+    static void Launch(State d, float t, out Vector3 position, out Vector3 velocity)
+    {
+        float drag = d.physics.launchDrag, travel = Travel(drag, t);
+        velocity = d.launch * Mathf.Exp(-drag * t) + Vector3.down * (d.physics.gravity * travel);
+        float fall = drag > 0 ? (t - travel) / drag : .5f * t * t;
+        position = d.origin + d.launch * travel + Vector3.down * (d.physics.gravity * fall);
+    }
+
+    static void Flight(State d, float t, out Vector3 position, out Vector3 velocity)
+    {
+        if (t <= d.physics.launchDuration) { Launch(d, t, out position, out velocity); return; }
+        t -= d.physics.launchDuration;
+        float decay = Mathf.Exp(-d.physics.flightDrag * t), travel = Travel(d.physics.flightDrag, t);
+        velocity = new Vector3(d.coastVelocity.x * decay, d.coastVelocity.y - d.physics.gravity * t, d.coastVelocity.z * decay);
+        position = d.coastOrigin + new Vector3(d.coastVelocity.x * travel,
+            d.coastVelocity.y * t - .5f * d.physics.gravity * t * t, d.coastVelocity.z * travel);
+    }
+
+    internal Sample Evaluate(int index, float age)
+    {
+        var d = states[index];
+        if (age >= d.total) return default;
+        Flight(d, age, out var position, out var velocity);
+        if (age >= d.flight)
+        {
+            float t = Mathf.Clamp(age - d.flight, 0, d.bounce);
+            float travel = Travel(d.physics.flightDrag, t);
+            position = d.impactPosition + new Vector3(d.impactVelocity.x * d.physics.tangentRetention * travel,
+                .5f * d.physics.gravity * t * (d.bounce - t), d.impactVelocity.z * d.physics.tangentRetention * travel);
+            velocity = age >= d.flight + d.bounce ? Vector3.zero : new Vector3(
+                d.impactVelocity.x * d.physics.tangentRetention * Mathf.Exp(-d.physics.flightDrag * t),
+                -d.impactVelocity.y * d.physics.restitution - d.physics.gravity * t,
+                d.impactVelocity.z * d.physics.tangentRetention * Mathf.Exp(-d.physics.flightDrag * t));
+        }
+        return new Sample { position = position, velocity = velocity, alive = true };
+    }
+
+    internal void Clear() { System.Array.Clear(states, 0, states.Length); Count = 0; }
+}

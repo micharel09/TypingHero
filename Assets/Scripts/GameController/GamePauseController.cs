@@ -154,7 +154,7 @@ public sealed class GamePauseController : MonoBehaviour
     void Update()
     {
         // The modal processes Escape later; swallow all shortcuts for this frame.
-        if (LeaderboardModal.BlocksShortcuts) return;
+        if ((LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts)) return;
         if (_overlayLocked)
         {
             if (Input.GetKeyDown(restartKey)) TryRestart();
@@ -227,6 +227,7 @@ public sealed class GamePauseController : MonoBehaviour
         if (_paused == pause) return;
 
         _paused = pause;
+        if (pauseLabel) pauseLabel.GetComponentInParent<CompactPauseLayout>()?.Apply(pause);
         if (pause)
             ShowOverlay_PauseLabel(pauseText, pauseTextColor, showRestart: true);
         else

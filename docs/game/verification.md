@@ -110,6 +110,19 @@ Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, 
 
 # Verification and performance memory
 
+## Dungeon main menu — 2026-10-21
+
+Cached Unity2022.3.25f1 WebGL153008 and strict repeat-builder PASS on input
+`b2b63f11963989f3e233cdbd4da8c43faddf1952287260c2a6f5069b9f37b020`.
+Native Edge155/ANGLE D3D11:83/83 scoped checks PASS at1280x720 and640x360 in29.777s,
+zero JS/managed exceptions/provider writes. Final menu/background/preparation and
+unchanged Settings/Top1000/help visually inspected at both sizes. Real mouse and
+keyboard, invalid/valid names, saved name/difficulty, blocking and opener focus,
+Play/Tutorial dispatch and existing Unseen/Skipped rule verified. No six-lesson,
+full gameplay/performance suite or itch deployment. Tutorial WIP/head overlap
+remains unresolved. Asset prompt, mapping, corrections, evidence and preview:
+[checkpoint](../plans/dungeon-main-menu.md).
+
 ## Final thin-glass lantern candidate ? 2026-10-21
 
 - QA110751/input046160c165646a5c3788e3b9cf90e90cfb9736e63224afcff7ee2ee742997e34,
@@ -2217,3 +2230,41 @@ images inspected: HP/score/tray remain readable. Original animation review is
 reused because VFX/art are unchanged. Imported main builder's existing resource
 frame border21/0/3/0. CRLF-only failed build and stale-restart pilot are excluded;
 see [combat checkpoint](../plans/combat-feedback.md). No itch.io deployment.
+
+
+## Attacker-facing parry and reusable floor particles (2026-10-21)
+
+- Orca task micharel09/parry-physical-particles from origin/main edfc3b6; parent
+  dirty checkout preserved. Canonical input8dfc8fc887f21b993b5cbbfaa8aa81841c123391479b0a1373a5208eb2a7d360,
+  Unity2022.3.25f1 run20261021T145852-webgl: scoped37/37 PASS,0failed/skipped,
+  13.2257312s; QA build/strict repeated builder PASS on the same snapshot.
+  ParryClash.prefab and ParryPhysics.asset match generated Unity bytes after LF
+  normalization. External runner adapter selects the existing test filter and LF
+  normalization; repository runner/toolchain/packages unchanged.
+- Mirror run20261021T150937-webgl builds/repeats PASS, inputa7b17ae6293b1e452d8de7a41a78837442b3e28d8ac2563744727879e0c978ed.
+  Every canonical build input matches; only disposable editor fixture mirrors
+  actor positions/facing. No fixture in committed product source.
+- Native Edge155.0.4283.62/Playwright1.58.2/Intel UHD ANGLE D3D11,1280x720:
+  normal-battle-r3 and mirror-battle each15/15 PASS. Real Space, attacker-directed
+  flight,24cap, complete expiry, unchanged HP, pause and second-parry cleanup.
+  Zero JS/managed exceptions, provider reads/writes or external requests.
+  Additional normal-native-r2 tutorial15checks PASS; tutorial overlay occluded
+  the upper fan, so final visual acceptance uses the unobstructed battle captures.
+- Directly inspected every frame/consecutive transition: right55/55 and54/54,
+  left55/55 and54/54, including held frames, birth, spread, fall and dark floor
+  tail. No observed long reverse rays, visible floor penetration or residue.
+  Readback/probe timing is limited to captured frames; no every-engine-frame,
+  performance/FPS, new balance/stress/soak or publication claim.
+- Startup missing snapshot, missed second cue from fixed2.2s driver wait, pending
+  encounter intro, and a too-narrow10Hz observation window were harness pilots;
+  their overall runs are not PASS. Only harness timing/setup changed; same game
+  source/build reused. Exact sources, per-frame evidence, retained clips and
+  resource cleanup are in [checkpoint](../plans/parry-physical-particles.md).
+
+- Integration after ee5bd8f compact menus/pause: run20261021T154930-quick,
+  input66299c77545a38c5508e4f14765b7c207d32e7450fd6459acc1ba77e12986566,
+  five focused cases PASS/0skip in4.4420984s, including actual TogglePause/Resume,
+  particle/pulse pause/reuse, attacker context and profile binding. Subsequent
+  1611145 dungeon MainMenu merge leaves all37 relevant runtime/config/test inputs
+  identical; scoped results reused. No integrated menu redesign or publication
+  claim by this task. Final resource/provenance record is in the physics checkpoint.
