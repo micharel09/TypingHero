@@ -2,6 +2,20 @@
 
 ## Current checkpoint ? 2026-10-21
 
+Remote integration verified at `f1ab52b70eac8b2441abc1926b7dc0ec2d2d1e03`.
+Both task303eeaa and latest main e36b02d are ancestors of remote main. Task branch
+matches remote main. Parent dirty checkout remains untouched. No game publication.
+
+Cleanup:28Unity logs/snapshots/XML archived in
+`E:/CodexTemp/TypingHero/combat-hanging-light/lowpoly/rework/glass-final/integrated/retained-unity-receipts.tgz`.
+Removed `/data/typinghero-game-loop/task-combat-hanging-light` only after acquiring
+its exclusive lock and confirming0active owned containers; shared unity-home and
+toolchain symlink targets remain. No task8217/8237preview listener remains. Keep
+local players, images, selected video/frames and audit JSONs for review/reproduction.
+The clean restored task worktree and its unused auxiliary restored branch are
+removed after this receipt is verified on remote. The pre-existing task branch
+and remote branch remain; their history is preserved on main.
+
 This checkpoint supersedes historical candidates below. User approved thin glass,
 one additional QA WebGL and integration into main; no game publication.
 

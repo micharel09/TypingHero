@@ -1,3 +1,27 @@
+## Dungeon and thin-glass lantern integrated (2026-10-21)
+
+- Remote main verified at f1ab52b, retaining latest main gameplay/HUD/Pimen systems
+  with the task's full dungeon3D/camera/lighting/lantern. No game publication.
+- QA114427/input9a9081df02bf07286e197c4cf9ec1e5c3f0c49008fbc838b46fc8d47455dbc97,
+  playerfdc8253ed7a62b1f: WebGL and strict twice-run builder PASS.
+- Edge155/Intel UHD/D3D11/headed1280x720:25real-input checks PASS; actual attack,
+  hit/parry,pause,Slayer/restore, three steady sources, glass fixed emission and
+  hide/restore. MainMenu return releases all owned3D RT/presentation cameras.
+  Seven state/menu images inspected;0exceptions/provider reads/writes.
+- Six selected offline contracts PASS: world RT/projection lifecycle, fixed key,
+  bounded rear phase/emission, parry pulse, HUD lifecycle and HP fills0/1/50/100%.
+  Initial HP test expected obsolete231-unit rail; corrected to main's approved171,
+  preserving exact size/fill assertions, then rerun PASS. Failure XML retained.
+- Main gameplay/UI/data/prefab/MainMenu files remain identical to main; UI source
+  changes only camera-coordinate adapters. All existing main GUIDs retained.
+  Final serialized scene/actor/UI/VFX outputs match source after whitespace
+  canonicalization; no runtime input difference after the final main merge.
+- Prior isolated glass HDR7stills/9camera poses/163frames162transitions and20s
+  timing remain scoped evidence, with source-identity proof. They are not an
+  integrated performance/FPS claim. No full suite or production build.
+-28Unity receipts archived locally before deleting the isolated remote task cache;
+  shared Unity home/toolchain preserved. [Checkpoint](../plans/combat-hanging-light.md).
+
 ## HUD integration with current main (2026-10-21)
 
 Merged HUD8179a0c with maindbe663f (approved3D arena/parry/combat). Two conflicts

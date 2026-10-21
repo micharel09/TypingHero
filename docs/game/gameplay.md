@@ -580,7 +580,7 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
 
 ## Integrated dungeon and lantern
 
-Hanging combat lantern verified2026-10-21 on isolated branch
+Hanging combat lantern integrated2026-10-21 from branch
 `micharel09/combat-hanging-light`:
   Original KayKit FBX472triangles unchanged; derived frame446 plus thin glass40,
   total486submitted lantern triangles. Chamber center3.37WU above floor; actual
@@ -588,8 +588,9 @@ Hanging combat lantern verified2026-10-21 on isolated branch
   Main24/range16/flicker0, rear16/range15/+/-2percent. Private fire material;
   iron/wood emission0. Glass URP Lit black/alpha.12/emission(1,.38,.08),
   no specular, ZWrite off, no cast/receive shadow. Environment child follows
-  Slayer hide/restore, excluded from flame flicker. Camera/floor/post/API unchanged.
-  Final QA110751 strict twice-run builder and native22gameplay/9camera checks PASS;
+  Slayer hide/restore, excluded from flame flicker. Within the task dungeon baseline,
+  camera/floor/post/API receive no further lantern tuning.
+  Isolated QA110751 strict twice-run builder and native22gameplay/9camera checks PASS;
   reused lighting lifecycle2/2. All9camera endpoints plus163frames/162transitions
   in selected complete pan reviewed; no observed alpha pop or large floor outline.
   One20s run per player, same Intel UHD/D3D11/1280x720: p9533.225->32.575ms;
