@@ -23,5 +23,9 @@
   "scorePixelsIdentical": true,
   "sceneIDs": 1545,
   "mainArenaObjectsPreserved": 671,
-  "scope": "Main 3D arena plus approved scaled HUD; no full suite rerun"
+  "scope": "Main 3D arena plus approved scaled HUD; no full suite rerun",
+  "integrationCommit": "215ab927969d925511d8b1a1fad981186efa8300",
+  "originMainVerified": true,
+  "taskCommitAndMainParentAncestryVerified": true,
+  "localMainWipUntouched": true
 }

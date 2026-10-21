@@ -133,7 +133,7 @@ preserved. Superseded task-owned queued builds were stopped; none remain active.
   `/data/typinghero-game-loop/results/20261021T075801-production`.
   No full suite/tutorial/difficulty matrix.
 
-## Approved main integration (in progress)
+## Approved main integration (verified)
 
 - User explicitly approved pushing this work into main. Task commit8179a0c is
   pushed to `origin/micharel09/cobblestone-itch-release`.
@@ -159,3 +159,8 @@ preserved. Superseded task-owned queued builds were stopped; none remain active.
   main integration has its own receipt so the new arena is not misreported as
   a HUD regression. Existing local8245 player remains the approved2D HUD preview;
   merged3D artifact is preserved in the integration result and task temp folder.
+
+- Published merge215ab927969d925511d8b1a1fad981186efa8300 to both task branch
+  and origin/main by fast-forward. Fresh fetch verified8179a0c, dbe663f and215ab92
+  are ancestors of origin/main. Task worktree clean; dirty local main untouched.
+  No itch upload or additional full suite. This final closure changes docs only.
