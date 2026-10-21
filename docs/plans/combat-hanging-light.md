@@ -95,7 +95,12 @@ one additional QA WebGL and integration into main; no game publication.
 - Latest gameplay/main parry presentation retained, including its transient
   ParryContactLight; the steady lantern/rear lighting remains task-owned.
   No production build, itch upload or game publication.
-- Integration commit/push/remote verification and cleanup follow these checks.
+- Integrated source committedc58beed, latest main e36b02d merged as1fa5ee2.
+  Automatic merge added a duplicate, identical groundY prefab override; kept the
+  already-verified single override. Runtime/build input diff c58beed..1fa5ee2 is0;
+  only documentation changed, so passing QA is reused. Final diff versus main
+  has0unexpected gameplay/UI paths and passes whitespace checks. Push/remote
+  verification and task-resource cleanup follow these checks.
 
 ## Historical checkpoint (superseded)
 

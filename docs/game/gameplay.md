@@ -421,15 +421,17 @@ Full surface art, B/C and parent integration remain separate.
   pause/tutorial hold, clear and completion;
   PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.
   ClashLightingRig holds eight pulse states, renders strongest capped pulse through
-  the active scene's Light2D or3D combat spotlight. In the3D arena a winning compact
-  parry uses its dedicated Point light and mutes the combat spotlight. Disabled or
+  the active scene's Light2D or3D combat Point light. In the3D arena a winning compact
+  parry uses its dedicated contact Point light and mutes the other combat pulse. Disabled or
   released owners cancel immediately.
-- The current candidate incorporates the sibling dungeon-3d environment source:
-  Forward-rendered KayKit room, shallow10degree camera and its shared3D lights.
-  VFX uses actual room lighting and the visible mesh floor. DungeonCombatLighting
-  stays outside the geometry group hidden by Slayer, keeping mesh shading and
-  combat pulses alive during the red cinematic. Scoped build/native preview checks
-  pass; this does not qualify the sibling's broader room/performance acceptance.
+- The integrated dungeon uses the task's full3D environment: pixel-stone room,
+  5degree/FOV35 perspective, owned320x180HDR Point world RT and presentation camera.
+  Three steady fire-centered sources plus the latest main transient combat/parry
+  pulses shade actors and floor. Slayer hides the room, steady sources and their
+  rig together, then restores them and the camera; standalone sparks remain owned
+  by the latest gameplay/VFX systems. Final QA114427/native25 and6targeted offline
+  checks pass. No integrated performance/FPS or publication claim.
+
 - WorldLightingBuild runs after ShogunTheme: lit actor/near-environment sprites,
   ambient/key/fill plus clash rig, fixed-body-foot contact shadows and thresholded
   world bloom. The preserved WorldMenuBackdrop is disabled by the final dungeon
