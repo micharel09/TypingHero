@@ -2238,3 +2238,11 @@ see [combat checkpoint](../plans/combat-feedback.md). No itch.io deployment.
   their overall runs are not PASS. Only harness timing/setup changed; same game
   source/build reused. Exact sources, per-frame evidence, retained clips and
   resource cleanup are in [checkpoint](../plans/parry-physical-particles.md).
+
+- Integration after ee5bd8f compact menus/pause: run20261021T154930-quick,
+  input66299c77545a38c5508e4f14765b7c207d32e7450fd6459acc1ba77e12986566,
+  five focused cases PASS/0skip in4.4420984s, including actual TogglePause/Resume,
+  particle/pulse pause/reuse, attacker context and profile binding. Subsequent
+  1611145 dungeon MainMenu merge leaves all37 relevant runtime/config/test inputs
+  identical; scoped results reused. No integrated menu redesign or publication
+  claim by this task. Final resource/provenance record is in the physics checkpoint.
