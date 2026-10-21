@@ -3311,3 +3311,19 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
 - Evidence root E:/CodexTemp/TypingHero/combat-strike-effects/: integration-tests/,
   integration-build/, integration-native[-r2]/, original pimen-review/ and videos/.
   Remote integration/cleanup confirmation follows after verified push.
+
+- Remote verification: f16ca373c15a9943aff5719f16f1386dc7ca4388 is on both
+  origin/main and origin/micharel09/combat-strike-effects; all three task commits
+  are ancestors of origin/main. No deployment. Closure receipt commit follows.
+- Preview and task native processes exited (Windows process scan empty). Removed
+  task-only local player folders/Edge profiles/downloads/traces and remote task
+  source/build/player/cache directories. Shared runner/cache/license/other jobs
+  and parent dirty checkout preserved. Remote result logs/serialized evidence,
+  reference frames and exports retained under
+  /data/typinghero-game-loop/task-combat-strike-effects/ for provenance.
+- Retain local E:/CodexTemp/TypingHero/combat-strike-effects/videos/ (comparison
+  page pimen.html), original frame reviews/captures, input archives and receipts;
+  integration-retained-receipts.tar.gz contains3656 retained evidence entries.
+  These are acceptance evidence, retained until the owner no longer needs review.
+  Delete only the clean task child/local branch after this closure commit is
+  verified on origin/main; keep remote branch. No unrelated resources removed.
