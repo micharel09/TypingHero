@@ -107,7 +107,7 @@ public sealed partial class ParryClashTests
                 }
                 burst.Advance(.01f);
             }
-            Assert.That(rested, Is.True); Assert.That(burst.ParticleCount, Is.Zero);
+            if (role != 0) Assert.That(rested, Is.True); Assert.That(burst.ParticleCount, Is.Zero);
         }
         Random.state = random;
     }

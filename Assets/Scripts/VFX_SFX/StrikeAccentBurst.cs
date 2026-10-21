@@ -14,7 +14,7 @@ public sealed class StrikeAccentBurst : MonoBehaviour
     internal float Age => age;
     internal int ParticleCount => particles.particleCount;
     internal bool IsDust => dust;
-    internal float Duration => dust ? .18f : .04f;
+    internal float Duration => dust ? .18f : .06f;
 
     void Awake() => lease = GetComponent<PooledVFX>();
     internal void Emit(Vector3 point, float facing)
@@ -34,8 +34,8 @@ public sealed class StrikeAccentBurst : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             // Dimensions are native world pixels (16 PPU), independent of actor scale.
-            float width = dust ? (3 - i * .5f) / 16f : 4f / 16f;
-            float height = dust ? (i == 0 ? 2 : 1) / 16f : 4f / 16f;
+            float width = dust ? (3 - i * .5f) / 16f : 8f / 16f;
+            float height = dust ? (i == 0 ? 2 : 1) / 16f : 8f / 16f;
             Vector3 position = origin;
             if (dust)
             {
@@ -44,7 +44,7 @@ public sealed class StrikeAccentBurst : MonoBehaviour
             }
             buffer[i] = new ParticleSystem.Particle {
                 position = position, startSize3D = new Vector3(width, height, 1),
-                startColor = dust ? new Color(.48f, .48f, .46f, 1 - t) : new Color(1, .96f, .82f, 1),
+                startColor = dust ? new Color(.48f, .48f, .46f, 1 - t) : new Color(1, .96f, .82f, Mathf.Clamp01((Duration - age) / .02f)),
                 startLifetime = Duration, remainingLifetime = Duration - age + .1f,
                 randomSeed = (uint)(i + 1)
             };

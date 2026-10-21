@@ -7,6 +7,7 @@ public sealed class SlashVolume : MonoBehaviour
 {
     [SerializeField] SpriteRenderer source;
     [SerializeField] SlashLibrary library;
+    [SerializeField] Material normalPlayerMaterial;
     readonly Dictionary<Sprite, SlashLibrary.Frame> lookup = new();
     MeshFilter front, back;
     MeshRenderer frontRenderer, backRenderer;
@@ -26,6 +27,8 @@ public sealed class SlashVolume : MonoBehaviour
     {
         if (!source || !source.enabled || CombatSession.Finished || !source.sprite || !lookup.TryGetValue(source.sprite, out var frame))
         { Hide(); return; }
+        var material = normalPlayerMaterial && !SlayerModeSignals.Active ? normalPlayerMaterial : library.material;
+        frontRenderer.sharedMaterial = backRenderer.sharedMaterial = material;
         front.sharedMesh = frame.front; back.sharedMesh = frame.back;
         frontRenderer.enabled = frame.front; backRenderer.enabled = frame.back;
         frontRenderer.sortingLayerID = backRenderer.sortingLayerID = source.sortingLayerID;

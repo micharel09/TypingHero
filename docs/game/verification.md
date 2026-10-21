@@ -2034,3 +2034,16 @@ User removed the redundant text because Slayer already communicates guard break.
 - Preview/local commit only; no new performance, full-profile, production or
   publication claim. Detailed receipts, rejected fixture/harness attempts,
   per-frame evidence paths and resource retention: [combat checkpoint](../plans/combat-feedback.md).
+
+
+## Large golden normal impact (2026-10-21, verified local preview)
+
+Scoped Unity2022.3.25f1 run20261021T085852-quick:12/12PASS,0fail/skip.
+Clean WebGL20261021T092100 passes build and builder twice; same runtime source.
+`large-impact-final-native`:18keyboard checks PASS at1280x720,0exceptions/provider
+reads/writes. Normal110frames109pairs and two-hit178frames177pairs all directly
+reviewed; four1x/0.25x clips play to ended. Miss10checks/95frames94pairs reused
+because miss-route inputs are unchanged.272protected sprite/clip/controller/audio/
+attack-hitstop files match5bf8629. Reference research, failed incremental startup,
+clean-build adapter, source provenance, per-frame CSVs and preview are recorded in
+`docs/plans/combat-feedback.md`. Local-only handoff, without push/deploy.

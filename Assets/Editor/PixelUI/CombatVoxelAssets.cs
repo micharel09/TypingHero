@@ -31,6 +31,43 @@ internal static class CombatVoxelAssets
             }
             finally { Object.DestroyImmediate(go); }
         }
+        PrepareNormalRays();
+    }
+    static void PrepareNormalRays()
+    {
+        var mesh = AssetDatabase.LoadAssetAtPath<Mesh>(Root + "NormalRay.asset");
+        if (!mesh)
+        {
+            mesh = new Mesh { name = "Normal pointed ray", vertices = new[] {
+                new Vector3(-.5f, 0, 0), new Vector3(-.25f, .5f, 0),
+                new Vector3(.5f, 0, 0), new Vector3(-.25f, -.5f, 0) },
+                triangles = new[] { 0, 1, 2, 0, 2, 3 },
+                uv = new[] { Vector2.zero, Vector2.up, Vector2.one, Vector2.right } };
+            mesh.RecalculateNormals(); mesh.RecalculateBounds();
+            AssetDatabase.CreateAsset(mesh, Root + "NormalRay.asset");
+        }
+        var material = AssetDatabase.LoadAssetAtPath<Material>(Root + "NormalImpact.mat");
+        if (!material)
+        {
+            material = new Material(Shader.Find("TypingHero/NormalImpact"));
+            AssetDatabase.CreateAsset(material, Root + "NormalImpact.mat");
+        }
+        var shader = Shader.Find("TypingHero/NormalImpact");
+        if (material.shader != shader) { material.shader = shader; EditorUtility.SetDirty(material); }
+        string path = Root + "Normal.prefab";
+        var root = PrefabUtility.LoadPrefabContents(path);
+        try
+        {
+            bool changed = false;
+            foreach (var renderer in root.GetComponentsInChildren<ParticleSystemRenderer>(true))
+            {
+                // PlayerAttackSorting raises the player to1, so its front trail is2.
+                if (renderer.mesh == mesh && renderer.sharedMaterial == material && renderer.sortingOrder == 3) continue;
+                renderer.mesh = mesh; renderer.sharedMaterial = material; renderer.sortingOrder = 3; changed = true;
+            }
+            if (changed) PrefabUtility.SaveAsPrefabAsset(root, path);
+        }
+        finally { PrefabUtility.UnloadPrefabContents(root); }
     }
     static ParticleSystem Group(GameObject owner, string name, Material material, int order)
     {

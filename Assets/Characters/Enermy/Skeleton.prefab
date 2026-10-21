@@ -393,3 +393,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 3278272914554389335}
   library: {fileID: 11400000, guid: 4720ef884b3923ec593c8cf695ad14af, type: 2}
+  normalPlayerMaterial: {fileID: 0}

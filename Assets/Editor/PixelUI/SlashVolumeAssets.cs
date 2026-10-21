@@ -10,8 +10,18 @@ internal static class SlashVolumeAssets
     [System.Serializable] sealed class Source { public string texture, layer; }
     [System.Serializable] sealed class Manifest { public Source[] sources; }
     internal static SlashLibrary Library() => AssetDatabase.LoadAssetAtPath<SlashLibrary>(Root + "SlashLibrary.asset");
+    internal static Material NormalPlayerMaterial() => AssetDatabase.LoadAssetAtPath<Material>(Root + "NormalPlayerSlash.mat");
     internal static void Prepare()
     {
+        var normal = NormalPlayerMaterial();
+        if (!normal)
+        {
+            normal = new Material(Shader.Find("TypingHero/NormalPlayerSlash"));
+            AssetDatabase.CreateAsset(normal, Root + "NormalPlayerSlash.mat");
+        }
+        normal.SetFloat("_Emission", .05f);
+        normal.SetVector("_Tint", new Vector4(.75f, .75f, .75f, .55f));
+        EditorUtility.SetDirty(normal);
         if (Library()) return;
         var manifest = JsonUtility.FromJson<Manifest>(File.ReadAllText(Root + "sources.json"));
         var library = ScriptableObject.CreateInstance<SlashLibrary>();

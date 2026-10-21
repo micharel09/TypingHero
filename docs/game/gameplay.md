@@ -376,8 +376,13 @@ Full surface art, B/C and parent integration remain separate.
   three-cluster gray dust burst, even on a miss. Its stable body-foot anchor is
   one native world pixel behind the actor center; the builder supplies floor Y.
   Dust moves backward, stays low, and fades over180ms. No sprite/event timing changes.
-- Confirmed nonlethal normal impacts add a cream4pixel core for40ms at the supplied
-  impact point plus the existing world offset. Existing fragments remain; Slayer,
+- Confirmed nonlethal normal impacts add a cream8pixel core (40ms full,20ms fade)
+  at the supplied contact plus the existing world offset. Six pointed gold rays
+  span roughly32x24pixels, hold40ms, then travel straight2.5WU/s
+  without spin, shorten to25%, and fade in their final40ms; lives100-160ms.
+  Dedicated NormalImpact shader uses ZTest Always, rays order3/core4 above trail2.
+  Normal player trail RGBx.75/alphax.55/emission.05 preserves cel shape/timing
+  for misses, hits and lethal swings. Slayer,
   lethal, parry, red Hurt and the removed received route are unchanged. No new
   lighting, shake, audio or gameplay changes. Sizes use16PPU world units.
 - Accents share the existing owner pool, with a separate bounded lease budget.

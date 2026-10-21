@@ -16,7 +16,21 @@ internal static class StrikeAccentAssets
         }
         foreach (bool dust in new[] { true, false })
         {
-            if (Load(dust)) continue;
+            if (Load(dust))
+            {
+                if (!dust)
+                {
+                    string corePath = CombatVoxelAssets.Root + "StrikeCore.prefab";
+                    var core = PrefabUtility.LoadPrefabContents(corePath);
+                    try
+                    {
+                        var renderer = core.GetComponent<ParticleSystemRenderer>();
+                        if (renderer.sortingOrder != 4) { renderer.sortingOrder = 4; PrefabUtility.SaveAsPrefabAsset(core, corePath); }
+                    }
+                    finally { PrefabUtility.UnloadPrefabContents(core); }
+                }
+                continue;
+            }
             var go = new GameObject(dust ? "StrikeDust" : "StrikeCore"); go.SetActive(false);
             try
             {
@@ -31,7 +45,7 @@ internal static class StrikeAccentAssets
                 var shape = ps.shape; shape.enabled = false;
                 var renderer = ps.GetComponent<ParticleSystemRenderer>();
                 renderer.renderMode = ParticleSystemRenderMode.Billboard;
-                renderer.sharedMaterial = material; renderer.sortingOrder = dust ? 0 : 3;
+                renderer.sharedMaterial = material; renderer.sortingOrder = dust ? 0 : 4;
                 var so = new SerializedObject(burst);
                 so.FindProperty("dust").boolValue = dust;
                 so.FindProperty("particles").objectReferenceValue = ps;

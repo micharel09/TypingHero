@@ -74,11 +74,14 @@ public sealed class NormalStrikeEffectsTests
         emitter.SpawnImpact(point, emitter.transform, false, false);
         Assert.That(Live(emitter).Count, Is.EqualTo(2));
         var core = Live(emitter)[1].GetComponent<StrikeAccentBurst>();
+        Assert.That(core.GetComponent<ParticleSystemRenderer>().sortingOrder, Is.EqualTo(4));
         var p = new ParticleSystem.Particle[1]; core.GetComponent<ParticleSystem>().GetParticles(p);
         Assert.That(p[0].position, Is.EqualTo((Vector3)point));
-        Assert.That(p[0].startSize3D.x, Is.EqualTo(4f/16));
+        Assert.That(p[0].startSize3D.x, Is.EqualTo(8f/16));
         core.Advance(.039f); Assert.That(core.ParticleCount, Is.EqualTo(1));
-        core.Advance(.002f); Assert.That(core.ParticleCount, Is.Zero);
+        core.Advance(.011f); core.GetComponent<ParticleSystem>().GetParticles(p);
+        Assert.That(p[0].startColor.a / 255f, Is.EqualTo(.5f).Within(.005f));
+        core.Advance(.011f); Assert.That(core.ParticleCount, Is.Zero);
         emitter.ClearAccents();
         emitter.SpawnImpact(point, emitter.transform, true, false);
         emitter.SpawnImpact(point, emitter.transform, false, true);
@@ -102,6 +105,90 @@ public sealed class NormalStrikeEffectsTests
         Assert.That(Live(emitter)[1], Is.EqualTo(core.gameObject)); Assert.That(core.Age, Is.Zero);
         emitter.enabled = false; Assert.That(Live(emitter), Is.Empty);
     }
+    [TestCase(-1f), TestCase(1f)]
+    public void NormalRaysHoldAtContactThenSeparateShrinkAndExpire(float direction)
+    {
+        var go = Object.Instantiate(Load("Normal")); owned.Add(go); go.SetActive(true);
+        var burst = go.GetComponent<VoxelImpactBurst>();
+        var point = new Vector3(2, 3, 0);
+        burst.Emit(point, direction, 0, 7, Color.clear);
+        var p = new ParticleSystem.Particle[14];
+        var initial = new ParticleSystem.Particle[6];
+        for (int group = 0; group < 2; group++)
+        {
+            var system = burst.Systems[group];
+            int n = system.GetParticles(p);
+            Assert.That(n, Is.EqualTo(3));
+            for (int j = 0; j < n; j++)
+            {
+                int ray = group + j * 2;
+                initial[ray] = p[j];
+                float length = ray == 2 ? 20 : ray == 5 ? 12 : 14;
+                float width = ray == 0 || ray == 4 ? 2 : 3;
+                float angle = (ray < 5 ? -50 + ray * 25 : 180) * Mathf.Deg2Rad;
+                var axis = new Vector3(direction * Mathf.Cos(angle), Mathf.Sin(angle), 0);
+                Assert.That(p[j].startSize3D, Is.EqualTo(new Vector3(length / 16f, width / 16, 1f / 16)));
+                Assert.That(Vector3.Distance(p[j].position - axis * (length / 32f), point), Is.LessThan(.0001f), "all ray bases meet at the supplied contact");
+                Assert.That(p[j].velocity, Is.EqualTo(Vector3.zero), "peak is held for 40ms");
+            }
+        }
+        burst.Advance(.039f);
+        for (int group = 0; group < 2; group++)
+        {
+            burst.Systems[group].GetParticles(p);
+            for (int j = 0; j < 3; j++)
+            {
+                var peak = initial[group + j * 2];
+                Assert.That(p[j].position, Is.EqualTo(peak.position));
+                Assert.That(p[j].startSize3D, Is.EqualTo(peak.startSize3D));
+            }
+        }
+        burst.Advance(.021f);
+        for (int group = 0; group < 2; group++)
+        {
+            burst.Systems[group].GetParticles(p);
+            for (int j = 0; j < 3; j++)
+            {
+                var peak = initial[group + j * 2];
+                Assert.That(p[j].velocity.magnitude, Is.EqualTo(2.5f).Within(.0001f));
+                Assert.That(Vector3.Distance(p[j].position, peak.position + p[j].velocity * .02f), Is.LessThan(.0001f));
+                Assert.That(p[j].rotation3D, Is.EqualTo(peak.rotation3D));
+                Assert.That(p[j].startSize3D.x, Is.LessThan(peak.startSize3D.x));
+            }
+        }
+        burst.Advance(.02f); burst.Systems[0].GetParticles(p);
+        Assert.That(p[0].startColor.a / 255f, Is.EqualTo(.5f).Within(.005f));
+        burst.Advance(.021f); Assert.That(burst.ParticleCount, Is.EqualTo(4));
+        burst.Advance(.02f); Assert.That(burst.ParticleCount, Is.EqualTo(2));
+        burst.Advance(.02f); Assert.That(burst.ParticleCount, Is.EqualTo(1));
+        burst.Advance(.02f); Assert.That(burst.ParticleCount, Is.Zero);
+    }
+    [UnityTest] public IEnumerator SlashKeepsCelMeshesAndRestoresMaterialAcrossSlayer()
+    {
+#if UNITY_EDITOR
+        Call("SlashVolumeAssets", "Prepare");
+        var library = UnityEditor.AssetDatabase.LoadAssetAtPath<SlashLibrary>("Assets/Art/VFX/SlashVolume/SlashLibrary.asset");
+        var material = (Material)Call("SlashVolumeAssets", "NormalPlayerMaterial");
+        var go = new GameObject("normal player slash"); go.SetActive(false); owned.Add(go);
+        var source = go.AddComponent<SpriteRenderer>(); source.sprite = library.frames[0].sprite;
+        var slash = go.AddComponent<SlashVolume>(); Set(slash,"source",source); Set(slash,"library",library); Set(slash,"normalPlayerMaterial",material);
+        go.SetActive(true); yield return null;
+        var meshes = go.GetComponentsInChildren<MeshFilter>();
+        Assert.That(meshes[0].sharedMesh, Is.EqualTo(library.frames[0].front));
+        Assert.That(meshes[1].sharedMesh, Is.EqualTo(library.frames[0].back));
+        foreach (bool active in new[] { false, true, false })
+        {
+            SlayerModeSignals.SetActive(active); yield return null;
+            foreach (var renderer in go.GetComponentsInChildren<MeshRenderer>())
+                Assert.That(renderer.sharedMaterial, Is.EqualTo(active ? library.material : material));
+        }
+        Set(slash,"normalPlayerMaterial",null); yield return null;
+        foreach (var renderer in go.GetComponentsInChildren<MeshRenderer>())
+            Assert.That(renderer.sharedMaterial, Is.EqualTo(library.material), "enemy retains the shared material");
+#else
+        yield return null;
+#endif
+    }
     [Test] public void IndependentLeaseCapsKeepExistingImpactBudget()
     {
         var emitter = Emitter();
@@ -116,11 +203,32 @@ public sealed class NormalStrikeEffectsTests
     [Test] public void BuilderTwiceBindsOneListenerAndMissStillEmitsDust()
     {
 #if UNITY_EDITOR
+        for (int i = 0; i < 2; i++) Call("CombatVoxelAssets", "Prepare");
+        var rayMesh = UnityEditor.AssetDatabase.LoadAssetAtPath<Mesh>("Assets/Art/VFX/CombatVoxel/NormalRay.asset");
+        var rayMaterial = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/VFX/CombatVoxel/NormalImpact.mat");
+        Assert.That(rayMesh, Is.Not.Null);
+        Assert.That(rayMaterial.shader.name, Is.EqualTo("TypingHero/NormalImpact"));
+        foreach (var renderer in Load("Normal").GetComponentsInChildren<ParticleSystemRenderer>(true))
+        {
+            Assert.That(renderer.mesh, Is.EqualTo(rayMesh));
+            Assert.That(renderer.sharedMaterial, Is.EqualTo(rayMaterial));
+            Assert.That(renderer.sortingOrder, Is.EqualTo(3), "the impact must draw above the active attack trail at order2");
+        }
+        foreach (string role in new[] { "Slayer", "Lethal" })
+            foreach (var renderer in Load(role).GetComponentsInChildren<ParticleSystemRenderer>(true))
+                Assert.That(renderer.sharedMaterial, Is.Not.EqualTo(rayMaterial));
         var root = UnityEditor.PrefabUtility.LoadPrefabContents("Assets/Characters/Player/Player.prefab");
         try
         {
             for (int i = 0; i < 2; i++) Call("CombatFeedbackBuild", "Configure", root, null, null, null);
             Assert.That(root.GetComponentsInChildren<NormalStrikeEffects>(true).Length, Is.EqualTo(1));
+            var slash = root.GetComponentInChildren<SlashVolume>(true);
+            var slashData = new UnityEditor.SerializedObject(slash);
+            var normal = (Material)slashData.FindProperty("normalPlayerMaterial").objectReferenceValue;
+            Assert.That(normal, Is.Not.Null);
+            Assert.That(normal.GetVector("_Tint"), Is.EqualTo(new Vector4(.75f,.75f,.75f,.55f)));
+            Assert.That(normal.GetFloat("_Emission"), Is.EqualTo(.05f));
+            Assert.That(normal.shader.name, Is.EqualTo("TypingHero/NormalPlayerSlash"));
             var binder = root.GetComponentInChildren<NormalStrikeEffects>(true);
             var so = new UnityEditor.SerializedObject(binder);
             foreach (string field in new[] { "attackEvents", "slayer", "emitter", "body", "dustPrefab" })

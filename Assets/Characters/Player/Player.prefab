@@ -804,6 +804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 7358457235006824576}
   library: {fileID: 11400000, guid: 4720ef884b3923ec593c8cf695ad14af, type: 2}
+  normalPlayerMaterial: {fileID: 2100000, guid: 5015ee6739614ab2ab0e706d583dea75, type: 2}
 --- !u!114 &1855362292372411693
 MonoBehaviour:
   m_ObjectHideFlags: 0

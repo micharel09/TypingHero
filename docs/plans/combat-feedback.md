@@ -1,6 +1,130 @@
-# Combat feedback â€” implementation checkpoint
+# Combat feedback - implementation checkpoint
 
-Current task closed with user approval on 2026-10-21. Implementation commit
+## Large golden normal impact (2026-10-21, verified local preview)
+
+- Current request supersedes the small REPLACED-derived contact: user rejected the
+  4-pixel core as too weak and selected a large golden-white burst inspired by
+  Blasphemous. Continue child `combat-strike-effects`, branch
+  `micharel09/combat-strike-effects`, baseline `5bf8629`; preserve all earlier WIP.
+  This task ends with local preview and local commit only; no push/deploy.
+- Reference: official Blasphemous Launch Trailer on
+  https://store.steampowered.com/app/774361/Blasphemous/ ; original media
+  https://cdn.akamai.steamstatic.com/steam/apps/256761817/movie_max.webm .
+  1920x1080 VP8, 30000/1001fps. Segment selected before frame review:37.5-41.0s,
+  to examine preparation/contact/needle breakup/clearance/recovery and the next hit.
+  Actual PTS37.507-40.977s:105/105frames and104/104consecutive transitions directly
+  inspected, including held poses and four hard cuts. Full frame sheets plus
+  contact-region sheets viewed. Exports preserve105frames at1x/0.25x; both play
+  to ended (3.5035/14.014s), with separate playback receipt.
+- Coverage: standing approach and windup F70-77, instant large golden contact and
+  separate sword arc/target flash F78-82, contraction and breakup F83-86, no gold
+  impact and body reset F87-88, second hit F89-96. The shot cuts before the second
+  recovery; do not infer recovery across the cut or claim full-game coverage.
+  Airborne cage flame/red rings and boss floor sparks are distinct outcome/attack
+  effects, excluded from the ordinary-hit template. Images support large pointed
+  silhouettes with open gaps and a brief hold followed by short separate pieces;
+  numeric CLACKBLADE parameters below are trial values, not reference measurements.
+- Reference artifacts: `E:/CodexTemp/TypingHero/combat-strike-effects/blasphemous-research/`
+  contains the original, selection JSON, exact source PTS,105 ordered PNGs,
+  `reference-frame-review.csv` (one observation and next-transition entry/frame),
+  full/contact sheets. Playback receipt and both clips are under sibling `videos/`.
+  Previous REPLACED evidence remains historical, not the new visual acceptance.
+- Implemented candidate: cream8px core, full40ms then20ms fade. Six pointed rays
+  at[-50,-25,0,25,50,180]degrees, lengths[14,14,20,14,14,12]px and widths[2,3,3,3,2,3]px,
+  giving roughly32x24px peak. Golden/amber material belongs only to Normal. Rays
+  hold40ms with their bases at the exact contact, then move straight at2.5WU/s,
+  shrink to25%, and fade in their final40ms. Lives[100,120,140,120,100,160]ms.
+  Existing renderer groups, six-ray/one-core counts, pools/caps and pause/clear retained.
+  Builder upgrades existing Normal prefab bindings in place; GUIDs preserved.
+- Retain the dedicated normal-player slash tint RGBx.75/alphax.55/emission.05,
+  source cel meshes/transforms/timing, dust3/180ms, parry/Slayer/lethal, sprite
+  flash/Hurt, audio/hitstop, public APIs, damage/hitboxes/attack windows.
+- Unity2022.3.25f1 scoped run20261021T082738-quick PASS12/12,0failed/skipped,
+  4.5088327s; frozen input `c81475896279539e57c0acf643caa6bc8d450fde91dd36d87f01869289df5e06`.
+  Includes both directions, exact contact/hold/travel/shrink/fade/expiry, core
+  route, dust, lease caps, pause/reuse/Slayer and repeated binding.272protected
+  sprite/image/clip/controller/audio/attack-hitstop source files match5bf8629.
+- Unaffected miss coverage reused under the project test-scope rule: native
+  `rays-miss-vector-native` PASS10, no damage/core/impact on an out-of-range target,
+  with three dust clusters and expiry. All95/95render frames and94/94transitions
+  now directly reviewed against the baseline miss; both exported speeds play to
+  ended. SlashVolume/NormalStrikeEffects/attack-hitbox/events, trail material/shader
+  and trail builder match the captured source exactly after newline normalization
+  (seven paths verified in `large-impact-miss-reuse.json`). Only confirmed-impact
+  geometry/lifetime and its prefab mesh/material differ; this route is not entered
+  by a miss. Preserve the existing build-only enemy+10WU fixture and read-only QA.
+- First large candidate build20261021T084011-webgl PASS build/repeat on the same
+  c8147589 input. Native keyboard PASS18,0exceptions/provider reads/writes;
+  captures normal114frames and pair188frames. All1559final checkout input files
+  match that generated source after text-only newline/end-whitespace normalization;
+  binaries match raw hashes. Imported four new mesh/material assets and exactly
+  four Normal renderer bindings; no actor/clip edits. Initial hash helper omitted
+  anim/controller/final-newline normalization; inspected diffs showed whitespace
+  only and corrected comparison passed, not a game-source fix.
+- This build is visually UNQUALIFIED: directly reviewed normalF0-79/114 only;
+  the contact rays are washed behind the attack trail. PlayerAttackSorting raises
+  the player to1 and SlashFront to2, colliding with Normal Front2; rear-1 is also
+  behind the trail/body. Do not count the remaining34normal frames or188pair frames
+  as reviewed or claim acceptance from the technical18checks. Retain this diagnostic.
+- Corrective candidate: dedicated NormalImpact unlit shader with ZTest Always,
+  both existing Normal ray renderers at3 above the active trail2, core at4 above
+  rays. Keep existing front/back groups and counts; other profiles/materials and
+  dust ordering remain unchanged. Builder upgrades both existing prefab bindings
+  in place. Added runtime asset contract assertions for this ordering and shader.
+  Sizes, origin, clocks, six-ray/one-core budgets and pause/clear are unchanged.
+- Corrective layer candidate scoped run20261021T085852-quick PASS12/12,0fail/skip,
+  4.0119209s, input `2fd667d5e6ae4ccb73b0f4c271bf020dcfd3a1ce5cf7130abb84ea34456b35ab`.
+  WebGL20261021T090035 build/repeat also PASS.1561checkout inputs match generated
+  source with text whitespace normalization; settings comparison was completed
+  after the build restored its temporary QA/compression state. Do not copy QA flags.
+- That player is runtime UNQUALIFIED: `large-impact-front-native` and fresh-profile
+  `large-impact-front-r2-native` both fail before the first QA frame,0checks, with
+  RangeError maximum call stack in invoke_iii / WASM functions1579/1595/1403/1288/
+  77904. R2 stores the full JS/WASM stack and startup logs. Downloaded .wasm,
+  .framework.js and .data match immutable server hashes, excluding a mixed local
+  transfer. Browser fixture interception and read-only QA remain in place.
+- Run `large-impact-front-clean` uses the same final source plus an external
+  snapshot-only GameLoopBuild adapter selecting BuildOptions.CleanBuildCache;
+  repo runner/build settings are unchanged. Purpose: eliminate stale compiled
+  player/IL2CPP cache after reproducible startup failure; cache cause is not yet
+  established. Unity2022.3 documents this full-rebuild option:
+  https://docs.unity3d.com/2022.3/Documentation/ScriptReference/BuildOptions.CleanBuildCache.html .
+  Frozen adapter input `f3ccee33a63d621ee9b8a0db5975b1072971520ba630e75f2741fa0cdbc20c2b`.
+- Final clean build20261021T092100-webgl PASS, including builder twice. Runtime
+  source/assets match the corrective12/12 test run. Final provenance compares1588
+  archived inputs (1561game inputs plus runner/support),0checkout differences,
+  and confirms CleanBuildCache as the sole source adapter; snapshot metadata excluded.
+- First clean native starts but times out after restart/tutorial input,10checks;
+  retain `large-impact-front-clean-native` as failed evidence. External harness
+  brings its page forward before setup clicks and disables native window occlusion/
+  background throttling. No game logic or assertions changed. Same clean player
+  rerun `large-impact-final-native` PASS18 in43.524547s,0managed/JS exceptions and
+  0provider reads/writes. Actual Edge155.0.4283.62, local Playwright1.58.2, GTX1650Ti
+  ANGLE D3D11 at1280x720. Report container metadata lists1.63/960x600; actual PNGs
+  and session override these. Clean build resolves startup empirically; original
+  cache cause remains unproven.
+- Final visual acceptance: normal110/110frames109/109pairs; two strikes178/178frames
+  177/177pairs directly inspected in source order, including holds and reset tail.
+  Each segment has `frame-review.csv`, exact PTS, full PNGs and native contact crops.
+  NormalF54-55 cream core/gold fan dominates gray trail;56-60 contracts/fades,
+  61gold gone. PairF27-30 and61-64 peaks,35-37 and69-70 last ray,71onward gold gone,
+  85warning cue clear. Body edges/ribs read around the brief contact flash; no
+  HUD/word/cue overlap. Compared against fully reviewed5bf8629 and small-core WIP.
+  Miss95frames94pairs reused above. Offline contracts prove exact simulation expiry
+  by160ms, both directions/dust; native proves pause/restart and Slayer transitions.
+- `videos/large-impact-final`: four actual-timing clips at1x/0.25x, with one explicit
+  terminal hold frame; ffprobe/PTS/full decode PASS, all four play to ended.
+  `videos/playback-large-impact-final.json` records playback. Callback counts are
+  not a zero-drop guarantee and do not replace the complete frame review.
+- Preview uses the same clean player at http://127.0.0.1:8159 . Accuracy reading:
+  Enter, then BLADE for full fade. Worktree and evidence remain for review; close
+  preview to release browser/server. Remove artifacts only after review no longer
+  needs them. Local commit records the verified result;5bf8629 remains an ancestor.
+  No push/deploy.
+
+## Historical integrated task
+
+Previous task closed with user approval on 2026-10-21. Implementation commit
 `8e840a0e1d2930a9ba597bf4bb24453fb257c35a` was pushed by fast-forward to
 `origin/main` and verified against the remote. Scoped tests/build and keyboard
 acceptance passed. Task preview, clips and helpers were removed after acceptance;
@@ -3009,3 +3133,68 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
   Cleanup condition: after review no longer needs the preview/reproduction data;
   preserve requested comparison videos and commit before removing disposable
   task-only artifacts. No push, merge or deployment is part of this handoff.
+
+
+## Normal strike contact readability ? follow-up (2026-10-21, in progress)
+
+- User plan supersedes previous fragment retention: baseline `5bf8629`, same child,
+  local commit/preview only. Preserve sprite/cels/animation events, attack contracts,
+  sound/hitstop, dust/core, parry/Slayer/lethal/received-removal behavior.
+- Checklist: preparation/swing, contact, ray fade, recovery; normal miss/hit/pair
+  at1280x720, both flight directions/lifetimes, pause/restart, Slayer enter/exit,
+  builder twice and unchanged animation/audio/hitstop input files.
+- Implementation candidate: dedicated NormalPlayerSlash shader/material, RGB*.75,
+  alpha*.55/emission.05, selected only on player outside Slayer using existing cels.
+  Existing ParryVoxel shader and enemy/Slayer library material remain untouched.
+  Profile0 rays: six simultaneous births, 1pixel width/alternating2?3pixel length,
+  five angles -35/-17.5/0/17.5/35 toward target and one180degree reverse, speed2.5WU/s,
+  fixed rotation/no gravity/bounce,60/80/100/120/140/160ms and40ms terminal fade.
+  Numbers are CLACKBLADE trial tuning, not measurements from REPLACED.
+- Reference source before extraction: retained IGN demo2024 `EimYM1xxBys`, local
+  `E:/CodexTemp/TypingHero/pixel-effects-comparison-20261021/replaced-demo-2024.mp4`.
+  Requested430?436seconds selected for preparation/contact/fade/recovery, plus
+ 436?437seconds context to inspect follow-through at the boundary.29.970fps,
+ 1280x720. Evidence folder remains `E:/CodexTemp/TypingHero/combat-strike-effects/`.
+- Direct reference review: sheets01?30 (all179frames/178adjacent pairs), plus native
+  combat crops detail09?30. Frames1?50 contain the black transition/IGN watermark;
+  fade-in then a low close attack, brief localized white contact, recoil/stance,
+  and successive close strikes. No broad persistent sword arc obscures the bodies;
+  bright furnace/backlight is separate from contact. Recovery context30frames
+  on recovery01?05 also directly inspected, including held poses. This is reference
+  video evidence, not output sprite review or a measured match. Exact PTS/coverage
+  and final candidate receipts follow after verification.
+- Baseline capture `rays-baseline-native` failed14checks at two-hit assertion:
+  HP850->840 then tutorial retry850; do not count as two hits. Pair moved to the
+  Accuracy lesson with450ms gap for both sides, using actual keyboard. R2 browser
+  was closed during pause/restart (5checks); neither run is complete acceptance.
+  Shared Unity runner remains occupied by another task; queued jobs preserve it.
+
+- Reference final coverage:209/209 decoded frames and208/208 consecutive pairs,
+  actual PTS430.029600?436.969867 (179frames in430?436,30 in436?437). Every
+  frame/hold inspected on full-view sheets01?30 and native combat crops; context
+  recovery01?05 extends the requested boundary. Per-frame notes:
+  `reference-0710-review.csv`; original file remains at the prior reference path.
+  Required preparation, contact, fade and return-to-stance cycles are visible;
+  later chained actions are retained as context, not claimed as a full-game audit.
+- New baseline `rays-baseline-r5-native`:18checks PASS; miss baseline
+  `rays-miss-baseline-native`:10checks PASS. Actual Edge155/GTX1650Ti D3D11,
+ 1280x720; input BLADE100ms/key, pair BLADE20ms/key/250ms gap/STEEL20ms/key,
+ 1600ms capture tail in lesson5. Both hits occur before the preserved counter-hit
+  and tutorial retry. Accuracy freezes on completed second word before damage,
+  so r4 is rejected for the pair; the final pair returned to lesson5. R3 missed
+  the post-pause UI click; final driver waits500ms for that existing transition.
+- Baseline input archive `final-input.tar.gz`:1551 Assets/Packages/ProjectSettings
+  members match baseline5bf8629 after newline normalization, no differences.
+  Protected5597 sprite/clip/controller/audio/hitstop/attack file names have no diff.
+- Baseline direct review: normal59/58, pair80/79, miss59/58; total198frames and
+ 195pairs inspected, with `visual-review.csv` per segment. Broad bright slash
+  occludes ribs/torso; chunks remain after recovery. Miss has no impact/core.
+  Six baseline exports preserve every timestamp/held frame plus a terminal hold;
+  decode/count/PTS PASS. Eight reference/baseline1x/.25x videos played to end in
+  Edge; corrected slow reference also replayed with all209 frames retained.
+- Initial rays-only snapshot9599ef72:8Unity checks PASS (intermediate). Final
+  snapshot switches tint to Vector/SetVector so .75 is a raw RGB multiplier in
+  Linear color space. Three superseded waiting jobs were terminated only after
+  exact task-root identity and no-child checks; no running editor/job was stopped.
+  Final scoped filter includes NormalStrikeEffectsTests plus the existing two
+  builder cases and profile/settling/RNG regression. Final receipts remain pending.

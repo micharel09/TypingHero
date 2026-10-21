@@ -167,7 +167,8 @@ internal static class CombatFeedbackBuild
             if (!renderer.GetComponent<Animator>()) continue;
             if (!renderer.GetComponent<PlayerHealth>() && !renderer.GetComponent<SkeletonController>()) continue;
             var slash = renderer.GetComponent<SlashVolume>(); if (!slash) slash = renderer.gameObject.AddComponent<SlashVolume>();
-            Set(slash, "source", renderer); Set(slash, "library", SlashVolumeAssets.Library()); Record(slash);
+            Set(slash, "source", renderer); Set(slash, "library", SlashVolumeAssets.Library());
+            Set(slash, "normalPlayerMaterial", renderer.GetComponent<PlayerHealth>() ? SlashVolumeAssets.NormalPlayerMaterial() : null); Record(slash);
         }
     }
     static void Vector(Object target, string name, Vector3 value)

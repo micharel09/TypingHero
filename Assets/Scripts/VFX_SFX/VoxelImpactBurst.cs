@@ -58,6 +58,19 @@ public sealed class VoxelImpactBurst : MonoBehaviour
             d.impact = d.origin + d.launch * d.flight + Vector3.down * (4.905f * d.flight * d.flight); d.impact.y = y;
             d.bounce = Mathf.Max(0, (9.81f * d.flight - d.launch.y) * .36f / 9.81f);
             d.life = d.flight + d.bounce + .14f;
+            if (profile == 0)
+            {
+                float angle = (i < 5 ? Mathf.Lerp(-50, 50, i / 4f) : 180) * Mathf.Deg2Rad;
+                d.launch = new Vector3(direction * Mathf.Cos(angle), Mathf.Sin(angle), 0) * 2.5f;
+                float length = i == 2 ? 20 : i == 5 ? 12 : 14;
+                d.size = new Vector3(length / 16f, (i == 0 || i == 4 ? 2f : 3f) / 16, 1f / 16);
+                // Each pointed mesh starts at the contact; its centre is halfway along the ray.
+                d.origin = point + d.launch.normalized * (d.size.x * .5f);
+                d.orientation = new Vector3(0, 0, Mathf.Atan2(d.launch.y, d.launch.x) * Mathf.Rad2Deg);
+                d.spin = Vector3.zero;
+                d.life = i == 5 ? .16f : .10f + (2 - Mathf.Abs(i - 2)) * .02f;
+                d.color = i % 2 == 0 ? new Color32(255, 228, 119, 255) : new Color32(244, 172, 70, 255);
+            }
             Systems[i % 2].Emit(new ParticleSystem.EmitParams {position = point, startSize3D = d.size,
                 startLifetime = d.life + .1f, startColor = d.color}, 1);
             states[i] = d;
@@ -98,9 +111,23 @@ public sealed class VoxelImpactBurst : MonoBehaviour
                 var q = Quaternion.Euler(rotation); Vector3 half = d.size * .5f;
                 float support = Mathf.Abs((q * Vector3.right).y) * half.x + Mathf.Abs((q * Vector3.up).y) * half.y + Mathf.Abs((q * Vector3.forward).y) * half.z;
                 position.y = Mathf.Max(position.y, floor + support);
+                if (profile == 0)
+                {
+                    float travel = Mathf.Max(0, age - .04f);
+                    position = d.origin + d.launch * travel;
+                    velocity = age < .04f ? Vector3.zero : d.launch;
+                    rotation = d.orientation;
+                }
                 p.position = position; p.velocity = velocity; p.rotation3D = rotation; p.startSize3D = d.size;
+                if (profile == 0)
+                    p.startSize3D = new Vector3(d.size.x * Mathf.Lerp(1, .25f, Mathf.Clamp01((age - .04f) / (d.life - .04f))), d.size.y, d.size.z);
                 Color tint = Color.Lerp(d.color, d.color * .42f, Mathf.Clamp01(age / d.life));
                 tint.a = 1 - Mathf.Clamp01((age - d.flight - d.bounce) / .14f);
+                if (profile == 0)
+                {
+                    tint = d.color;
+                    tint.a = Mathf.Clamp01((d.life - age) / .04f);
+                }
                 p.startColor = tint; p.remainingLifetime = d.life - age + .1f;
                 output[live++] = p; heatData.Add(new Vector4(d.accent ? (1 - age / d.life) * .35f : 0, 0, 0, 0));
             }
