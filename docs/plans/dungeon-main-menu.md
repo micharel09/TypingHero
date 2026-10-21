@@ -88,9 +88,26 @@ Fixture interception/external blocking stayed enabled. The inherited tutorial
 card/enemy-head overlap remains outside this task and unresolved.
 
 Preview http://127.0.0.1:8240, local final player/driver/report under
-`E:/CodexTemp/TypingHero/compact-tutorial/dungeon-final-build`, `driver/dungeon_*`,
-and `dungeon-qa/browser.json`. Remote immutable player/log/snapshot:
+`E:/CodexTemp/TypingHero/compact-tutorial/dungeon-final-build` and `driver/dungeon_*`.
+QA/hover captures, browser profiles and reports were removed after recording
+the results above. Remote immutable player/log/snapshot:
 `/data/typinghero-game-loop/task-compact-tutorial/results/20261021T153008-webgl`.
 Retain the preview/player and existing worktree for user review and tutorial WIP;
 close/remove these task resources after review. Earlier menu/tutorial resources
-are not owned by this task. Remote integration verification follows below.
+are not owned by this task.
+
+## Integration and cleanup
+
+Implementation `d9be2c8` pushed to `origin/micharel09/compact-tutorial` and
+fast-forwarded into `origin/main`; fetched remote SHA equals the task commit and
+ancestry verification passes. The original seven tutorial WIP files remain dirty,
+including only the original tutorial hunk in BlackletterUILayout; SampleScene
+still has its original806 added/42 removed lines. No tutorial changes entered
+the menu commit. No itch deployment.
+
+Removed the task's six failed/superseded remote result directories and local
+superseded white-background player/captures/reports. Retained final immutable
+153008 player/log/snapshot, final local player, task preview on8240 and its driver.
+Keep the pre-existing worktree/branch for the user's review and unfinished
+tutorial work; remove the task preview/player only after review. Shared cache,
+toolchain, source, earlier menu previews and other agents' jobs remain untouched.
