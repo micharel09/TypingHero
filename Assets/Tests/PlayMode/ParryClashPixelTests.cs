@@ -14,7 +14,7 @@ public sealed class ParryClashEmissionProbe : MonoBehaviour
     internal int frame = -1, birthCount;
     internal float birthDelta, birthAge, nextDelta, nextAge = -1, nextDisplacement;
     internal readonly Vector3[] birthPositions = new Vector3[24];
-    readonly ParticleSystem.Particle[] particles = new ParticleSystem.Particle[10];
+    readonly ParticleSystem.Particle[] particles = new ParticleSystem.Particle[22];
     static readonly System.Reflection.FieldInfo Age = typeof(ParryClashBurst).GetField("debrisAge",
         System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
     void Update()
@@ -65,7 +65,9 @@ public sealed partial class ParryClashTests
             Assert.That(probe.birthDelta, Is.GreaterThan(.08f), "exercise a genuinely slow emission frame");
             Assert.That(probe.birthAge, Is.Zero, "pre-emission time must not move a newborn particle");
             Assert.That(probe.birthCount, Is.EqualTo(24));
-            foreach (var position in probe.birthPositions) Assert.That(position, Is.EqualTo(probe.point));
+            foreach (var position in probe.birthPositions)
+                Assert.That(Vector3.Distance(position, probe.point), Is.LessThanOrEqualTo(.2f),
+                    "only four player specks may start inside the configured contact region");
             Assert.That(probe.nextAge, Is.GreaterThan(0), "flight starts on the following rendered frame");
             Assert.That(probe.nextDisplacement, Is.GreaterThan(0));
             Assert.That(probe.nextDelta, Is.GreaterThan(.08f), "exercise a stall after the birth render too");
@@ -99,7 +101,7 @@ public sealed partial class ParryClashTests
         burst.Emit(point, 1, 0, ParryClashBurst.Preset.BCompact, 7);
         Assert.That(Random.state, Is.EqualTo(saved), "presentation must not consume gameplay randomness");
         Assert.That(burst.ParticleCount, Is.EqualTo(24));
-        int[] expected = { 1, 2, 10, 1, 10 };
+        int[] expected = { 1, 2, 12, 1, 8 };
         bool near = false, far = false;
         for (int g = 0; g < 5; g++)
         {
@@ -109,7 +111,7 @@ public sealed partial class ParryClashTests
             var particles = new ParticleSystem.Particle[32]; int count = ps.GetParticles(particles);
             for (int i = 0; i < count; i++)
             {
-                Assert.That(particles[i].position, Is.EqualTo(point));
+                Assert.That(Vector3.Distance(particles[i].position, point), Is.LessThanOrEqualTo(.2f));
                 if (g == 0 || g == 3) continue;
                 Assert.That(ps.GetComponent<ParticleSystemRenderer>().sharedMaterial.name, Is.EqualTo("Compact"));
                 Assert.That(ps.main.gravityModifier.constant, Is.Zero);
@@ -143,54 +145,71 @@ public sealed partial class ParryClashTests
             ps.Simulate(.1311f, false, false, false);
             Assert.That(ps.particleCount, Is.Zero);
         }
-        burst.AdvanceDebris(.42f);
+        burst.AdvanceDebris(.46f);
         Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[4].particleCount,
-            Is.EqualTo(20), "falling particles must survive the discarded 220-420ms ray lifetimes");
+            Is.EqualTo(16), "main rays survive while short fragments and 450ms player specks expire");
     }
 
     [Test, Category("Quick")]
-    public void CompactReverseFanClearsPlayerAndRetainsVisibleStreaks()
+    public void CompactFanFacesAttackerWithOnlyFourSmallPlayerSpecksAndMirrorsExactly()
     {
-        var burst = Burst(); var saved = Random.state;
-        try
+        var burst = Burst();
+        var buffer = new ParticleSystem.Particle[22];
+        for (int seed = 0; seed < 24; seed++)
         {
-            for (int seed = 0; seed < 24; seed++)
+            var right = new Dictionary<uint, ParticleSystem.Particle>();
             foreach (float direction in new[] { 1f, -1f })
             {
-                Random.InitState(seed);
-                burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact, seed);
-                var reverse = new HashSet<uint>();
-                var particles = new ParticleSystem.Particle[10];
-                foreach (int g in new[] { 2, 4 })
+                burst.Emit(Vector3.up, direction, 0, ParryClashBurst.Preset.BCompact, seed);
+                int rays = 0, specks = 0;
+                foreach (int group in new[] { 1, 2, 4 })
+                for (int i = 0, count = burst.Systems[group].GetParticles(buffer); i < count; i++)
                 {
-                    int count = burst.Systems[g].GetParticles(particles);
-                    Assert.That(count, Is.EqualTo(10));
-                    int longCount = 0;
-                    for (int i = 4; i < count; i++)
+                    var p = buffer[i];
+                    if (p.randomSeed <= 18)
                     {
-                        reverse.Add(particles[i].randomSeed);
-                        if (particles[i].startSize3D.y * 16 >= 12) longCount++;
+                        rays++;
+                        Assert.That(p.position, Is.EqualTo(Vector3.up));
+                        Assert.That(p.velocity.x * direction, Is.GreaterThan(0));
+                        float angle = Mathf.Atan2(p.velocity.y, p.velocity.x * direction) * Mathf.Rad2Deg;
+                        Assert.That(angle, Is.InRange(-23f, 53f));
                     }
-                    Assert.That(longCount, Is.EqualTo(3), "three long and three short reverse rays per depth layer");
+                    else
+                    {
+                        specks++;
+                        Assert.That(p.startSize3D.x * 16, Is.InRange(1, 2));
+                        Assert.That(p.startSize3D.y * 16, Is.InRange(1, 2));
+                        Assert.That(p.startLifetime, Is.LessThanOrEqualTo(.550001f));
+                        Assert.That(Mathf.Abs(p.position.x + direction * .08f), Is.LessThanOrEqualTo(.12f));
+                    }
+                    if (direction > 0) right.Add(p.randomSeed, p);
+                    else
+                    {
+                        var other = right[p.randomSeed];
+                        Assert.That(p.position.x, Is.EqualTo(-other.position.x).Within(.000001f));
+                        Assert.That(p.position.y, Is.EqualTo(other.position.y).Within(.000001f));
+                        Assert.That(p.velocity.x, Is.EqualTo(-other.velocity.x).Within(.000001f));
+                        Assert.That(p.velocity.y, Is.EqualTo(other.velocity.y));
+                        Assert.That(p.velocity.z, Is.EqualTo(other.velocity.z));
+                    }
                 }
-                burst.AdvanceDebris(.3f);
-                int beyond = 0, streaks = 0;
-                foreach (int g in new[] { 2, 4 })
+                Assert.That(rays, Is.EqualTo(18)); Assert.That(specks, Is.EqualTo(4));
+                // Across the entire speck lifetime, not just a selected pose.
+                for (int step = 0; step < 46; step++)
                 {
-                    int count = burst.Systems[g].GetParticles(particles);
-                    for (int i = 0; i < count; i++)
+                    foreach (int group in new[] { 2, 4 })
+                    for (int i = 0, count = burst.Systems[group].GetParticles(buffer); i < count; i++)
                     {
-                        var p = particles[i];
-                        if (!reverse.Contains(p.randomSeed)) continue;
-                        if (-p.position.x * direction >= 2.5f) beyond++;
-                        if (p.startSize3D.y * 16 >= 2) streaks++;
+                        var p = buffer[i];
+                        if (p.randomSeed <= 18) continue;
+                        Assert.That(Mathf.Abs(p.position.x - right[p.randomSeed].position.x * direction), Is.LessThan(.6f));
+                        Assert.That(p.startSize3D.x * 16, Is.InRange(1, 2));
+                        Assert.That(p.startSize3D.y * 16, Is.InRange(1, 2));
                     }
+                    burst.AdvanceDebris(.01f);
                 }
-                Assert.That(beyond, Is.GreaterThanOrEqualTo(8), "seed " + seed + " direction " + direction);
-                Assert.That(streaks, Is.GreaterThanOrEqualTo(6), "seed " + seed + " direction " + direction);
             }
         }
-        finally { Random.state = saved; }
     }
 
     [Test, Category("Quick")]
@@ -204,7 +223,7 @@ public sealed partial class ParryClashTests
                 Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
                 var previous = new Dictionary<uint, ParticleSystem.Particle>();
                 var bounces = new HashSet<uint>(); var rests = new HashSet<uint>();
-                var buffer = new ParticleSystem.Particle[10];
+                var buffer = new ParticleSystem.Particle[22];
                 for (int step = 0; step <= 250; step++)
                 {
                     foreach (int g in new[] { 1, 2, 4 })
@@ -212,7 +231,7 @@ public sealed partial class ParryClashTests
                         int count = burst.Systems[g].GetParticles(buffer);
                         for (int i = 0; i < count; i++)
                         {
-                            var p = buffer[i]; bool fast = p.startLifetime < .3f;
+                            var p = buffer[i]; bool fast = p.randomSeed <= 2 || p.randomSeed >= 19;
                             Assert.That(p.position.y, Is.GreaterThanOrEqualTo(1f / 32 - .000001f));
                             Assert.That(p.startSize3D.x * 16, Is.GreaterThanOrEqualTo(1));
                             Assert.That(p.startSize3D.y * 16, Is.GreaterThanOrEqualTo(1));
@@ -237,16 +256,16 @@ public sealed partial class ParryClashTests
                     }
                     burst.AdvanceDebris(.01f);
                 }
-                Assert.That(bounces.Count, Is.EqualTo(20)); Assert.That(rests.Count, Is.EqualTo(20)); Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[4].particleCount, Is.Zero);
+                Assert.That(bounces.Count, Is.EqualTo(16)); Assert.That(rests.Count, Is.EqualTo(16)); Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[4].particleCount, Is.Zero);
                 burst.Clear(); burst.AdvanceDebris(.1f); Assert.That(burst.ParticleCount, Is.Zero);
                 // Absolute-age integration must agree even across skipped contacts.
                 Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
                 burst.AdvanceDebris(1);
                 var single = new Dictionary<int, Vector3>();
-                foreach (int g in new[] { 1, 2, 4 }) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) single.Add(g * 10 + i, buffer[i].position); }
+                foreach (int g in new[] { 1, 2, 4 }) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) single.Add(g * 22 + i, buffer[i].position); }
                 Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
                 for (int n = 0; n < 100; n++) burst.AdvanceDebris(.01f);
-                foreach (int g in new[] { 1, 2, 4 }) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) Assert.That(Vector3.Distance(buffer[i].position, single[g * 10 + i]), Is.LessThan(.00001f)); }
+                foreach (int g in new[] { 1, 2, 4 }) { int n = burst.Systems[g].GetParticles(buffer); for (int i = 0; i < n; i++) Assert.That(Vector3.Distance(buffer[i].position, single[g * 22 + i]), Is.LessThan(.00001f)); }
             }
         }
         finally { Random.state = saved; }
@@ -261,6 +280,40 @@ public sealed partial class ParryClashTests
         for (int i = 0; i < 100; i++) burst.AdvanceDebris(.001f);
         long allocated = System.GC.GetAllocatedBytesForCurrentThread() - before;
         Assert.That(allocated, Is.Zero);
+    }
+
+    [Test, Category("Quick")]
+    public void SuccessfulParrySnapshotsAttackerSideAndSpecksStayOnPlayerSide()
+    {
+        var host = new GameObject("parry physics owner"); host.SetActive(false); owned.Add(host);
+        var parry = host.AddComponent<ParrySystem>(); parry.logs = false;
+        var fx = host.AddComponent<ParrySparkVFX_Pooled>();
+        var anchor = new GameObject("contact anchor"); anchor.transform.SetParent(host.transform);
+        var attacker = new GameObject("real attacker context"); owned.Add(attacker);
+        Set(fx, "parrySystem", parry); Set(fx, "sparkPrefab", Prefab());
+        Set(fx, "playerSparkAnchor", anchor.transform); Set(fx, "groundY", 0f);
+        var particles = new ParticleSystem.Particle[22];
+        foreach (float direction in new[] { -1f, 1f })
+        {
+            host.transform.localScale = new Vector3(-direction, 1, 1); // Facing scale must not own the direction.
+            anchor.transform.position = new Vector3(direction, 2, 0);
+            attacker.transform.position = new Vector3(direction * 3, 0, 0);
+            host.SetActive(true);
+            typeof(ParrySystem).GetMethod("ForceSuccess", Flags).Invoke(parry, new object[] { attacker.transform });
+            var burst = Object.FindObjectOfType<ParryClashBurst>();
+            int count = burst.Systems[2].GetParticles(particles);
+            for (int i = 0; i < count; i++)
+            {
+                if (particles[i].randomSeed <= 18) Assert.That(particles[i].velocity.x * direction, Is.GreaterThan(0));
+                else Assert.That(Mathf.Abs(particles[i].position.x - (direction - direction * .08f)), Is.LessThanOrEqualTo(.12f));
+            }
+            attacker.transform.position *= -1; host.transform.position += Vector3.right * 20;
+            burst.AdvanceDebris(.05f);
+            count = burst.Systems[4].GetParticles(particles);
+            for (int i = 0; i < count; i++) Assert.That(particles[i].velocity.x * direction, Is.GreaterThan(0),
+                "moving actors cannot redirect particles already in flight");
+            host.SetActive(false); host.transform.position = Vector3.zero;
+        }
     }
 
     [UnityTest, Category("Quick")]

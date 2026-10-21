@@ -2195,3 +2195,33 @@ images inspected: HP/score/tray remain readable. Original animation review is
 reused because VFX/art are unchanged. Imported main builder's existing resource
 frame border21/0/3/0. CRLF-only failed build and stale-restart pilot are excluded;
 see [combat checkpoint](../plans/combat-feedback.md). No itch.io deployment.
+
+
+## Attacker-facing parry and reusable floor particles (2026-10-21)
+
+- Orca task micharel09/parry-physical-particles from origin/main edfc3b6; parent
+  dirty checkout preserved. Canonical input8dfc8fc887f21b993b5cbbfaa8aa81841c123391479b0a1373a5208eb2a7d360,
+  Unity2022.3.25f1 run20261021T145852-webgl: scoped37/37 PASS,0failed/skipped,
+  13.2257312s; QA build/strict repeated builder PASS on the same snapshot.
+  ParryClash.prefab and ParryPhysics.asset match generated Unity bytes after LF
+  normalization. External runner adapter selects the existing test filter and LF
+  normalization; repository runner/toolchain/packages unchanged.
+- Mirror run20261021T150937-webgl builds/repeats PASS, inputa7b17ae6293b1e452d8de7a41a78837442b3e28d8ac2563744727879e0c978ed.
+  Every canonical build input matches; only disposable editor fixture mirrors
+  actor positions/facing. No fixture in committed product source.
+- Native Edge155.0.4283.62/Playwright1.58.2/Intel UHD ANGLE D3D11,1280x720:
+  normal-battle-r3 and mirror-battle each15/15 PASS. Real Space, attacker-directed
+  flight,24cap, complete expiry, unchanged HP, pause and second-parry cleanup.
+  Zero JS/managed exceptions, provider reads/writes or external requests.
+  Additional normal-native-r2 tutorial15checks PASS; tutorial overlay occluded
+  the upper fan, so final visual acceptance uses the unobstructed battle captures.
+- Directly inspected every frame/consecutive transition: right55/55 and54/54,
+  left55/55 and54/54, including held frames, birth, spread, fall and dark floor
+  tail. No observed long reverse rays, visible floor penetration or residue.
+  Readback/probe timing is limited to captured frames; no every-engine-frame,
+  performance/FPS, new balance/stress/soak or publication claim.
+- Startup missing snapshot, missed second cue from fixed2.2s driver wait, pending
+  encounter intro, and a too-narrow10Hz observation window were harness pilots;
+  their overall runs are not PASS. Only harness timing/setup changed; same game
+  source/build reused. Exact sources, per-frame evidence, retained clips and
+  resource cleanup are in [checkpoint](../plans/parry-physical-particles.md).

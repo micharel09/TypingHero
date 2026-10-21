@@ -24,7 +24,8 @@ internal static class ParryClashAssets
                 var serialized = new SerializedObject(existing.GetComponent<ParryClashBurst>());
                 if (serialized.FindProperty("mainRays").objectReferenceValue)
                 {
-                    bool migrated = ParryPixelAssets.Migrate(serialized);
+                    bool migrated = BindPhysics(serialized);
+                    migrated = ParryPixelAssets.Migrate(serialized) || migrated;
                     migrated = MigrateVoxel(serialized) || migrated;
                     migrated = MigrateContact(serialized) || migrated;
                     migrated = MigrateRayShape(existing, serialized) || migrated;
@@ -51,6 +52,7 @@ internal static class ParryClashAssets
                 MigrateContact(serialized);
                 MigrateVoxel(serialized);
                 ParryPixelAssets.Migrate(serialized);
+                BindPhysics(serialized);
                 PrefabUtility.SaveAsPrefabAsset(existing, Root + "ParryClash.prefab");
             }
             finally { PrefabUtility.UnloadPrefabContents(existing); }
@@ -87,6 +89,7 @@ internal static class ParryClashAssets
             MigrateContact(so);
             MigrateVoxel(so);
             ParryPixelAssets.Migrate(so);
+            BindPhysics(so);
             PrefabUtility.SaveAsPrefabAsset(root, Root + "ParryClash.prefab");
         }
         finally { Object.DestroyImmediate(root); }
@@ -134,6 +137,17 @@ internal static class ParryClashAssets
         so.ApplyModifiedPropertiesWithoutUndo();
         return true;
     }
+    static bool BindPhysics(SerializedObject so)
+    {
+        var reference = so.FindProperty("physicalProfile");
+        if (reference.objectReferenceValue) return false;
+        var profile = AssetDatabase.LoadAssetAtPath<PhysicalParticleProfile>(Root + "ParryPhysics.asset");
+        if (!profile) throw new System.InvalidOperationException("Missing parry physical particle profile");
+        reference.objectReferenceValue = profile;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return true;
+    }
+
     static bool MigrateCompact(GameObject root, SerializedObject so)
     {
         if (so.FindProperty("compactVersion").intValue >= 1) return false;
