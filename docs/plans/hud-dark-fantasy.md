@@ -184,3 +184,29 @@ preserved. Superseded task-owned queued builds were stopped; none remain active.
 - Closure verification is limited to resource absence, scoped document review,
   `git diff --check`, clean task status, and remote commit integration. Existing
   passing HUD evidence is reused; no gameplay/build/full-suite rerun is needed.
+
+
+## Remove name backplates (2026-10-21)
+
+- User requested removal of the two offset solid backgrounds behind player/enemy
+  names. Based on origin/main3669597 in isolated hud-remove-name-backgrounds.
+  fdff6da disables only PlayerReadabilityR7/EnemyReadabilityR7 Images in builder
+  and scene; retains nodes/layout references, text/font/HP/stamina/score/tray,
+  debug F6 overlay and VFX. No public API change. Verified on origin/main.
+- Unity2022.3.25f1/fly-server20261021T124104-webgl, source
+  a17c88d3bb9b48ecadc19f26c2e9c296c02c0013934cbacb925555557ecf0d11:
+  build/strict twice-run builder PASS. Generated scene matches checkout after
+  newline normalization; scene diff contains only two Image enabled flags.
+- Native Edge155/Playwright1.58.2,1280x720:22/22 real keyboard checks PASS,
+  normal/two-hit/pause/restart/Slayer, zero JS/managed exceptions/provider reads/
+  writes/external requests. Direct normal-hit/0023.png and slayer/0020.png review:
+  both name backgrounds absent; labels and HP rails retain original position.
+  No animation changes or new frame-by-frame animation/performance claim.
+- Evidence/player/helpers: E:/CodexTemp/TypingHero/hud-remove-name-backgrounds/.
+  Preview http://127.0.0.1:8160 starts normal gameplay paused; Esc resumes.
+  Retain child C:/Users/ADMIN/orca/workspaces/TypingHero/hud-remove-name-backgrounds
+  and local player while user reviews; cleanup after review. Graceful stop: create
+  preview/stop under evidence root. Prior preview8159 and parent WIP untouched.
+  No itch.io deployment or broader test profiles. Remote disposable source/build
+  and duplicate player are removed after local artifact verification; shared
+  runner/cache/license are preserved.

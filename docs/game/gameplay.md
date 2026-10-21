@@ -13,8 +13,9 @@ isolated coal/bronze modal and button rims. Shared menu art is unchanged.
 User follow-up: health/status rails are82 native pixels wide instead of102
 (19.6% shorter), retain their height and crisp sliced borders, and stay in their
 outer corners. Latest follow-up scales both side status groups (names, HP, icons,
-stamina and name backplates) to80%: effective HP width65.6px. Both player/enemy HP
-digits and the difficulty/DUEL line/background are hidden. Score/combo and typing
+stamina) to80%: effective HP width65.6px. Both player/enemy HP
+digits and the difficulty/DUEL line/background are hidden. The two name
+backplate Images are disabled; names remain visible over the arena. Score/combo and typing
 tray keep their original scale/geometry; stamina tutorial highlight follows80%.
 Name content, Cobblestone source sizes56/48/42, Blackbit title only, other geometry, three typing cells,
 hidden PARRY/Space/clock, bindings and feedback timing remain unchanged. No gameplay math
