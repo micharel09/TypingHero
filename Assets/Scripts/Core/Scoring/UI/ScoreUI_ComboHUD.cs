@@ -17,10 +17,12 @@ public sealed class ScoreUI_ComboHUD : MonoBehaviour
     // ========= Public API từ ScoreSystem =========
     public void SetMultiplier(float mul, float maxMul, Color tint)
     {
+        bool show = mul > 1.0001f;
+        if (decaySlider && decaySlider.gameObject.activeSelf != show)
+            decaySlider.gameObject.SetActive(show);
         if (multiplierText)
         {
             // 1) Ẩn khi x1.0
-            bool show = mul > 1.0001f;
             if (multiplierText.gameObject.activeSelf != show)
                 multiplierText.gameObject.SetActive(show);
 

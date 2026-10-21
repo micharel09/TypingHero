@@ -30,6 +30,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Rect screenRect;
         public int particles;
         public float groundY, minY, maxY, maxAge, meanVelocityX, meanDepthSpeed;
+        public float contactGap;
+        public string defenseCel, attackCel;
     }
     readonly ParticleSystem.Particle[] observedParticles = new ParticleSystem.Particle[56];
     ProfilerRecorder frameAllocations;
@@ -75,10 +77,12 @@ public sealed class GameLoopProbe : MonoBehaviour
             var bounds = sprite ? sprite.bounds : particle.bounds;
             var burst = effect.GetComponent<PixelSparkBurst>();
             var clash = effect.GetComponent<ParryClashBurst>();
+            var voxel = effect.GetComponent<VoxelImpactBurst>();
+            var accent = effect.GetComponent<StrikeAccentBurst>();
             if (burst && (!burst.Systems[0] || !burst.Systems[1])) return null;
             float minY = float.PositiveInfinity, maxY = float.NegativeInfinity, maxAge = 0;
             float velocityX = 0, depthSpeed = 0; int observedCount = 0;
-            var systems = burst ? burst.Systems : clash ? clash.Systems : null;
+            var systems = burst ? burst.Systems : clash ? clash.Systems : voxel ? voxel.Systems : null;
             if (systems != null)
                 foreach (var ps in systems)
                 {
@@ -101,8 +105,11 @@ public sealed class GameLoopProbe : MonoBehaviour
             return new SparkFrame { role = role, preset = clash ? clash.EmittedPreset.ToString() : "", id = effect.GetInstanceID(), frame = Time.frameCount,
                 order = sprite ? sprite.sortingOrder : particle.sortingOrder,
                 position = effect.transform.position, scale = effect.transform.lossyScale,
-                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
-                minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = maxAge,
+                contactGap = clash ? clash.Visual.separation : 0,
+                defenseCel = clash && clash.Visual.defenseCel ? clash.Visual.defenseCel.name : "",
+                attackCel = clash && clash.Visual.attackCel ? clash.Visual.attackCel.name : "",
+                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : voxel ? voxel.ParticleCount : accent ? accent.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
+                minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = accent ? accent.Age : maxAge,
                 meanVelocityX = observedCount > 0 ? velocityX / observedCount : 0,
                 meanDepthSpeed = observedCount > 0 ? depthSpeed / observedCount : 0,
                 screenRect = Rect.MinMaxRect(min.x, min.y, max.x, max.y) };
@@ -134,6 +141,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public string result;
         public string enemySprite, enemyTexture;
         public float enemyAnimationTime, frameMs, scroll, timeScale, wordTime, rowError, rowSlide;
+        public float enemyContactIn, enemyAnimationSpeed;
+        public int activeSlashParts;
         public long memory;
         public long allocatedBytes;
         public bool allocationCounterAvailable;
@@ -158,7 +167,10 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool environmentVisible, hudPanelVisible;
         public Vector2 barTopEdge, barBottomEdge, scorePoint, trayPoint, bodyHead, bodyFoot, bodyCenter;
         public float barLeft, barRight;
+        public FontObservation[] typography;
         public Rect scoreGlyphRect, comboGlyphRect, comboDecayRect;
+        public bool comboVisible, comboDecayVisible, comboUnderScore, comboDecayUnderScore;
+        public float comboDecayValue;
         public float scoreFont, comboFont, barReveal;
         public Rect playerStatusRect, enemyStatusRect, trayRect, scoreRect, multiplierRect, staminaRect;
         public Vector2 playerFootPoint, enemyFootPoint;
@@ -170,14 +182,89 @@ public sealed class GameLoopProbe : MonoBehaviour
         public int popupCount, popupId;
         public string popupText;
         public Vector2 enemyHeadPoint;
-        public Vector2 cuePoint;
-        public Rect cueHighlightRect;
         public bool playerNameVisible, enemyNameVisible;
         public Color staminaColor;
+        public string encounterText, staminaIconName;
+        public bool encounterVisible, encounterBackgroundVisible, guardBreakVisible, combatHeadingVisible;
+        public Color parryKeyColor, hpNumberColor, hpFrameColor, guardBreakColor;
+        public float hudHitRemaining, hudSuccessRemaining;
+        public Rect guardBreakRect, encounterRect;
 
         public float rowHeight, viewportHeight;
         public int[] rowIds;
         public Point[] controls;
+    }
+    [Serializable] sealed class FontObservation
+    {
+        public string path, text, font, shader;
+        public float size, minimum, maximum, scale;
+        public bool autosize, truncated;
+        public Rect bounds, glyphBounds;
+        public string[] renderedFonts;
+    }
+    static FontObservation[] ObserveTypography()
+    {
+        return FindObjectsOfType<TMP_Text>().Where(t => t.isActiveAndEnabled).Select(t =>
+        {
+            var names = new System.Collections.Generic.List<string>();
+            for (var node = t.transform; node; node = node.parent) names.Add(node.name);
+            names.Reverse();
+            var info = t.textInfo;
+            return new FontObservation {
+                path = string.Join("/", names), text = t.text, font = t.font ? t.font.name : "",
+                shader = t.fontSharedMaterial ? t.fontSharedMaterial.shader.name : "",
+                size = t.fontSize, minimum = t.fontSizeMin, maximum = t.fontSizeMax,
+                scale = t.transform.lossyScale.y, autosize = t.enableAutoSizing,
+                truncated = t.isTextTruncated, bounds = FontScreenRect(t.rectTransform, !(t is TextMeshProUGUI)),
+                glyphBounds = info.characterInfo.Take(info.characterCount).Any(c => c.isVisible) ? FontGlyphRect(t) : default,
+                renderedFonts = info.characterInfo.Take(info.characterCount).Where(c => c.isVisible && c.fontAsset)
+                    .Select(c => c.fontAsset.name).Distinct().ToArray()
+            };
+        }).ToArray();
+    }
+    static Rect FontScreenRect(RectTransform rt, bool worldSpace = false)
+    {
+        if (!rt) return default;
+        var min = rt.TransformPoint(new Vector3(rt.rect.xMin, rt.rect.yMin, 0));
+        var max = rt.TransformPoint(new Vector3(rt.rect.xMax, rt.rect.yMax, 0));
+        if (worldSpace && Camera.main)
+        {
+            min = CombatViewportCamera.WorldToScreenPoint(Camera.main, min);
+            max = CombatViewportCamera.WorldToScreenPoint(Camera.main, max);
+        }
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+    }
+    static Rect FontTextRect(TMP_Text text)
+    {
+        if (!text || !text.gameObject.activeInHierarchy) return default;
+        var rt = text.rectTransform;
+        float offset = text.alignment == TextAlignmentOptions.Center ? (rt.rect.width - text.preferredWidth) * .5f : 0;
+        var min = rt.TransformPoint(new Vector3(rt.rect.xMin + offset, rt.rect.yMin, 0));
+        var max = rt.TransformPoint(new Vector3(rt.rect.xMin + offset + text.preferredWidth, rt.rect.yMax, 0));
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+    }
+    static Rect FontGlyphRect(TMP_Text text)
+    {
+        if (!text || !text.gameObject.activeInHierarchy) return default;
+        Vector2 min = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+        Vector2 max = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+        for (int i = 0; i < text.textInfo.characterCount; i++)
+        {
+            var c = text.textInfo.characterInfo[i];
+            if (!c.isVisible) continue;
+            var m = c.textElement.glyph.metrics;
+            var topLeft = text.transform.TransformPoint(new Vector3(
+                c.origin + m.horizontalBearingX * c.scale, c.baseLine + m.horizontalBearingY * c.scale, 0));
+            var bottomRight = topLeft + text.transform.TransformVector(new Vector3(m.width, -m.height, 0) * c.scale);
+            if (!(text is TextMeshProUGUI) && Camera.main)
+            {
+                topLeft = CombatViewportCamera.WorldToScreenPoint(Camera.main, topLeft);
+                bottomRight = CombatViewportCamera.WorldToScreenPoint(Camera.main, bottomRight);
+            }
+            min = Vector2.Min(min, bottomRight); min = Vector2.Min(min, topLeft);
+            max = Vector2.Max(max, bottomRight); max = Vector2.Max(max, topLeft);
+        }
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
     }
     static Rect ScreenRect(RectTransform rt)
     {
@@ -282,6 +369,12 @@ public sealed class GameLoopProbe : MonoBehaviour
             var animator = Read<Animator>(enemy, "animator");
             var info = animator ? animator.GetCurrentAnimatorStateInfo(0) : default;
             bool attacking = animator && info.fullPathHash == Animator.StringToHash(Read(enemy, "attackStatePath", ""));
+            float contactIn = -1, animationSpeed = animator ? animator.speed * info.speed * info.speedMultiplier : 0;
+            if (attacking)
+                foreach (var clip in animator.GetCurrentAnimatorClipInfo(0))
+                    foreach (var marker in clip.clip.events)
+                        if (marker.functionName == "Anim_DealDamage")
+                            contactIn = (marker.time - (info.normalizedTime % 1) * clip.clip.length) / Mathf.Max(.001f, animationSpeed);
             var controls = FindObjectsOfType<Selectable>().Where(s => s.IsInteractable()).Select(s =>
             {
                 var canvas = s.GetComponentInParent<Canvas>();
@@ -317,9 +410,6 @@ public sealed class GameLoopProbe : MonoBehaviour
             var stamina = FindObjectOfType<EnemyStamina>();
             var resultLabel = Read<TMP_Text>(match, "resultLabel");
             var tutorial = FindObjectOfType<TutorialDirector>();
-            var tutorialOverlay = FindObjectOfType<TutorialOverlay>();
-            var tutorialCue = Read<Transform>(tutorialOverlay, "cue");
-            var cueHighlight = Read<RectTransform>(tutorialOverlay, "cueHighlight");
             var fx = FindObjectOfType<SlayerScreenFX>();
             var scoreLabel = Read<TMP_Text>(ScoreSystem.I, "scoreText");
             var scoreRoot = Read<RectTransform>(fx, "scoreRoot");
@@ -332,9 +422,17 @@ public sealed class GameLoopProbe : MonoBehaviour
             var playerStatus = Read<RectTransform>(layout, "playerStatus");
             var enemyStatus = Read<RectTransform>(layout, "enemyStatus");
             var multiplierLabel = Read<TMP_Text>(layout, "multiplierText");
+            var comboHUD = Read<ScoreUI_ComboHUD>(ScoreSystem.I, "comboHUD");
+            var comboDecay = Read<Slider>(comboHUD, "decaySlider");
             var playerHpSlider = playerStatus ? playerStatus.GetComponentInChildren<Slider>() : null;
             var enemyHpSlider = enemyStatus ? enemyStatus.Find("EnemyHP").GetComponent<Slider>() : null;
             var staminaSlider = enemyStatus ? enemyStatus.Find("EnemyStamina").GetComponent<Slider>() : null;
+            var hudFeedback = FindObjectOfType<CombatHUDFeedback>();
+            var hudRound = Read<TMP_Text>(FindObjectOfType<CombatR7Status>(), "round");
+            var hudBackground = Read<Image>(FindObjectOfType<CombatR7Status>(), "roundBackground");
+            var guardLabel = Read<TMP_Text>(hudFeedback, "guardBreak");
+            var guardIcon = Read<Image>(hudFeedback, "staminaIcon");
+            var combatHeading = Read<TMP_Text>(FindObjectOfType<EndlessOverlay>(), "heading");
             var env = Read<Transform>(fx, "environment");
             var arena = Camera.main ? Camera.main.GetComponent<DungeonArenaCamera>() : null;
             var arenaPulse = env ? env.Find("CombatPulse")?.GetComponent<Light>() : null;
@@ -365,16 +463,33 @@ public sealed class GameLoopProbe : MonoBehaviour
                 popupId = award ? award.GetInstanceID() : 0,
                 popupText = awardLabel ? awardLabel.text : "",
                 enemyHeadPoint = layout && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.Head(bodyB)) : default,
-                cuePoint = tutorialCue ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, tutorialCue.position) : default,
-                cueHighlightRect = cueHighlight && cueHighlight.gameObject.activeInHierarchy ? ScreenRect(cueHighlight) : default,
                 playerNameVisible = playerStatus && playerStatus.Find("PlayerName").gameObject.activeInHierarchy,
                 enemyNameVisible = enemyStatus && enemyStatus.Find("EnemyHPLabel").gameObject.activeInHierarchy,
+                encounterText = hudRound ? hudRound.text : "",
+                encounterVisible = hudRound && hudRound.enabled && hudRound.gameObject.activeInHierarchy,
+                encounterBackgroundVisible = hudBackground && hudBackground.enabled && hudBackground.gameObject.activeInHierarchy,
+                encounterRect = TextRect(hudRound), guardBreakRect = TextRect(guardLabel),
+                combatHeadingVisible = combatHeading && combatHeading.gameObject.activeInHierarchy,
+                staminaIconName = guardIcon && guardIcon.sprite ? guardIcon.sprite.name : "",
+                guardBreakVisible = guardLabel && guardLabel.enabled,
+                guardBreakColor = guardLabel ? guardLabel.color : default,
+                parryKeyColor = Read<Image>(hudFeedback, "parryKey") ? Read<Image>(hudFeedback, "parryKey").color : default,
+                hpNumberColor = Read<TMP_Text>(hudFeedback, "playerHp") ? Read<TMP_Text>(hudFeedback, "playerHp").color : default,
+                hpFrameColor = Read<Image>(hudFeedback, "hpFrame") ? Read<Image>(hudFeedback, "hpFrame").color : default,
+                hudHitRemaining = Read<float>(hudFeedback, "hitRemaining"),
+                hudSuccessRemaining = Read<float>(hudFeedback, "successRemaining"),
                 staminaColor = staminaSlider ? staminaSlider.fillRect.GetComponent<Image>().color : default,
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
                 decayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
                 playerStatusRect = ScreenRect(playerStatus), enemyStatusRect = ScreenRect(enemyStatus),
+                typography = ObserveTypography(),
                 scoreGlyphRect = GlyphRect(scoreLabel), comboGlyphRect = GlyphRect(multiplierLabel),
                 comboDecayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
+                comboVisible = multiplierLabel && multiplierLabel.gameObject.activeInHierarchy,
+                comboDecayVisible = comboDecay && comboDecay.gameObject.activeInHierarchy,
+                comboUnderScore = comboHUD && scoreRoot && comboHUD.transform.IsChildOf(scoreRoot),
+                comboDecayUnderScore = comboDecay && scoreRoot && comboDecay.transform.IsChildOf(scoreRoot),
+                comboDecayValue = comboDecay ? comboDecay.value : 0,
                 scoreFont = scoreLabel ? scoreLabel.fontSize : 0,
                 comboFont = multiplierLabel ? multiplierLabel.fontSize : 0,
                 barReveal = fx ? fx.BarReveal : 0,
@@ -447,6 +562,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 slayer = slayer && slayer.IsActive, parryWindow = parry && parry.IsWindowActive,
                 canParry = gate && gate.CanParry && (!parry || !parry.PoseLocked), enemyAttacking = attacking,
                 enemyAnimationTime = info.normalizedTime, overlay = Read(pause, "_overlayLocked", false),
+                enemyContactIn = contactIn, enemyAnimationSpeed = animationSpeed,
+                activeSlashParts = FindObjectsOfType<MeshRenderer>().Count(r => r.enabled && r.name.StartsWith("Slash")),
                 paused = Read(pause, "_paused", false), frameMs = Time.unscaledDeltaTime * 1000,
                 timeScale = Time.timeScale, wordTime = Read(typing, "timer", 0f),
                 rowError = Read(typing, "errorRemaining", 0f), rowSlide = Read(typing, "slideRemaining", 0f),

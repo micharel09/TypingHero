@@ -1,5 +1,16 @@
 # CLACKBLADE — đổi thương hiệu và phát hành
 
+
+## Historical public build - physical parry default correction
+
+Playable19874589 serves CLACKBLADE-Physics24-20261019.zip. Production parry now
+selects BCompact24 automatically in the owner/prefab/builder; Current is legacy.
+Focused Quick14 and default native16 pass. Actual production AND public-CDN
+keyboard parry5checks each, noF6/QA bridge, launch/falling/bounce/rest images
+verified. CDN29non-HTML hashes exact. Previous19872500 retained hidden.
+This supersedes earlier default-Current publication statements below; see
+combat-feedback checkpoint and full-release-20261019.json for exact receipts.
+
 ## Current public build - BCompact24 (2026-10-19)
 
 Playable19872290 now serves CLACKBLADE-WebGL-BCompact24-20261019.zip;

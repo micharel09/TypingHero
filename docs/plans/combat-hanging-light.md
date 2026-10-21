@@ -17,7 +17,8 @@ one additional QA WebGL and integration into main; no game publication.
 - Key24/range16/flicker0; rear16/range15/+/-2percent. Iron/wood emission0.
   No camera/floor/post/gameplay/public API tuning in the lantern change.
 - Correct HDR PlayMode contract: actual camera/presenter, 320x180 HDR Point world RT,
-  1280x720, active Volume. Final glass image/effect review in progress.
+  1280x720, active Volume. Final glass7stills reviewed on110516/inputbfa57a81;
+  settled off/on0changed pixels outside590,140..690,275cage ROI.
   First recovery pilot found Unity import removing emission and enabling premultiply;
   builder now fixes GI flags and PreserveSpecular. First pilot is not acceptance.
 - QA110751/input046160c165646a5c3788e3b9cf90e90cfb9736e63224afcff7ee2ee742997e34
@@ -43,9 +44,58 @@ one additional QA WebGL and integration into main; no game publication.
 - Evidence root: `E:/CodexTemp/TypingHero/combat-hanging-light/lowpoly/rework/glass-final`.
   Remote task cache: `/data/typinghero-game-loop/task-combat-hanging-light`.
   Preserve evidence; remove only task-owned cache after verified integration.
-- Integration audit: baseline snapshot fc1bbfd includes unrelated obsolete UI/gameplay
-  compared with current main. Preserve current main UI/gameplay. User clarification
-  pending on carrying the existing dungeon baseline versus adapting only the lamp.
+- User integration decision: latest main owns gameplay/UI; this task owns the full
+  dungeon3D/camera/lighting/lantern. Preserve newest parry/impact systems, HUD/font,
+  score rules and typing snapshots. Keep only camera-coordinate adapters in UI.
+- Integration boundary: main f16ca37 plus subsequent1004724 documentation; world
+  from303eeaa. Main nonworld scene blocks preserved, including stripped prefab
+  records. Replace only old3D roots/cameras/global3D lighting, then run the main UI
+  builder plus task dungeon pass. Keep main transient ParryContactLight binding
+  because newest parry presentation consumes it; three steady sources unchanged.
+- Integration source requires existing URP Core Runtime/Universal Editor assembly
+  references from the dungeon baseline. Initial compile failures found omitted
+  assembly refs; corrected. No new package dependency.
+- Strict builder113353PASS, then final QA114427 strict builder PASS on
+  input9a9081df02bf07286e197c4cf9ec1e5c3f0c49008fbc838b46fc8d47455dbc97.
+  Snapshot canonicalizes YAML/shader CRLF to Git/Linux LF; font protection unchanged.
+  Five existing main GUIDs preserved and seven serialized references updated.
+  Earlier114008QA attempt was deliberately stopped before completion for this fix.
+- Targeted offline results:1136554/4PASS (camera/RT lifecycle, fixed main, bounded
+  rear and parry pulse),113808HUD lifecycle PASS but HP old231-width expectation
+  failed against the approved171-unit rail. Main CombatR7Build explicitly owns171;
+  updated only that exact width expectation, retaining0/1/50/100percent fill checks.
+  Corrected HP rerun1/1PASS. Six distinct scoped checks PASS, no full-suite claim.
+- Run strict full builder, targeted3dungeon lifecycle/projection tests and one
+  integrated QA native camera/gameplay/HUD/projection smoke. Prior final material,
+  163frame pan and20s timing remain evidence for the original isolated candidate;
+  do not relabel them as final merged-source evidence without identity checks.
+
+
+
+## Final integrated verification
+
+- QA114427/input9a9081df02bf07286e197c4cf9ec1e5c3f0c49008fbc838b46fc8d47455dbc97,
+  playerfdc8253ed7a62b1f: strict twice-run builder and WebGL build PASS.
+- Edge155.0.4283.62/Intel UHD/ANGLE D3D11/headed1280x720:25real-input checks PASS,
+  0exceptions/provider reads/writes. Attack/hit/parry, pause, Slayer/restore,
+  three steady sources, fixed glass emission and glass hide/restore verified.
+  Returning through the actual pause/MainMenu button releases all owned3D RTs
+  and presentation cameras. Seven native state/menu stills directly inspected.
+- Final scene, actor prefabs, UI/VFX outputs match actual QA serialized output
+  after newline/trailing-whitespace canonicalization;0semantic differences.
+  Existing main asset GUID changes0. Gameplay/UI/data/prefab/MainMenu paths match
+  latest main exactly; only viewport/projection adapters change UI source.
+- Main advanced during QA with documentation-only commits through e36b02d;
+  preserve those receipts. No gameplay/render input change since QA.
+- Reuse final glass material/pan evidence: active3D assets/settings/render code
+  match303eeaa after GUID preservation and whitespace canonicalization, except
+  sub6e-8legacy _Color round-trip values (URP uses unchanged _BaseColor).
+  Root/camera/lantern transforms are exact matches. Prior163frame pan and20s
+  timing remain isolated-candidate evidence; no integrated performance claim.
+- Latest gameplay/main parry presentation retained, including its transient
+  ParryContactLight; the steady lantern/rear lighting remains task-owned.
+  No production build, itch upload or game publication.
+- Integration commit/push/remote verification and cleanup follow these checks.
 
 ## Historical checkpoint (superseded)
 

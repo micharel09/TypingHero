@@ -1,0 +1,32 @@
+{
+  "productionSnapshot": {
+    "sha256": "0f97006d4ef6441866c1b4e6390b5d0f3ed6ec91311c8c53875cd725f1bc2c0e"
+  },
+  "qaSnapshot": {
+    "sha256": "72528e3526fbe77904642b84b97dc950b85f37471bad3052c9c950238348b1f8"
+  },
+  "qaMarkersExcludedPayloads": 5,
+  "strictRepeatBuilder": true,
+  "zip": "Builds\\clackblade-hud-dark-fantasy-local.zip",
+  "zipMembers": 30,
+  "zipBytes": 16983712,
+  "zipSha256": "7adb8b5931622875938a2bac16fc035582cfbef023f1cbd0bc506f8484fb6c81",
+  "localRoot": "C:\\Users\\ADMIN\\orca\\workspaces\\TypingHero\\cobblestone-itch-release\\Builds\\hud-dark-fantasy",
+  "uploaded": false,
+  "localServerPid": 22600,
+  "gameUrl": "http://127.0.0.1:8245/",
+  "reviewUrl": "http://127.0.0.1:8245/review/compact.html",
+  "servedGameBootAndReviewSelectors": "passed",
+  "sourceBranch": "micharel09/cobblestone-itch-release",
+  "previousProductionSnapshot": {
+    "sha256": "77f90925defb3936963e5d49d12f7e9679ee2c529b40560033638abb60245d3c"
+  },
+  "compactHealthBarWidth": 65.6,
+  "enemyHpDigitsHidden": true,
+  "encounterLineHidden": true,
+  "compactSmoke": "6 combat/damage captures at320/640/400x300 DPR1; no errors; visually inspected",
+  "sideHudScale": 0.8,
+  "playerHpDigitsHidden": true,
+  "scoreClusterScale": 1,
+  "scorePixelsIdenticalAt320And640": true
+}

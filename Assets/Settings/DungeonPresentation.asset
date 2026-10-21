@@ -11,13 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
   m_Name: DungeonPresentation
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   debugShaders:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: 1995335168104083213}
-  m_RendererFeatureMap: 
+  m_RendererFeatureMap:
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -67,6 +67,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13538d4a86734f838f48f9f0427a91e9, type: 3}
   m_Name: Dungeon Point presentation
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   m_Active: 1
   pointShader: {fileID: 4800000, guid: 138faf3be9254150b033e3e488224e68, type: 3}

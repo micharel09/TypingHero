@@ -13,12 +13,17 @@ internal static class CombatFeedbackBuild
     {
         CombatFeedbackAssets.Prepare();
         ParryClashAssets.Prepare();
+        CombatVoxelAssets.Prepare();
+        StrikeAccentAssets.Prepare();
+        NormalHitSparkAssets.Prepare();
+        SlashVolumeAssets.Prepare();
         var normal = ImpactEvent("ev_impact_normal", "medium", .65f);
         var slayer = ImpactEvent("ev_impact_slayer", "medium", .45f);
         var lethal = ImpactEvent("ev_impact_lethal", "heavy", .8f);
         var clang = AssetDatabase.LoadAssetAtPath<SfxEvent>(Events + "Parry/ev_parry_clang.asset");
         Value(clang, "pitchMode", 0); Value(clang, "pitchSemitone", 0f);
-        Value(clang, "pitchJitterSemitone", 1f);
+        Value(clang, "pitchJitterSemitone", .35f);
+        Value(clang, "volumeJitter", .03f);
         Vector(clang, "pitchSemitoneRange", new Vector2(-1, 1));
 
         foreach (var path in new[] { "Assets/Characters/Player/Player.prefab", "Assets/Characters/Enermy/Skeleton.prefab" })
@@ -61,35 +66,76 @@ internal static class CombatFeedbackBuild
 
     static void Configure(GameObject root, SfxEvent normal, SfxEvent slayer, SfxEvent lethal)
     {
+        // Remove the retired damage route before configuring the outgoing hit spawners.
+        foreach (var damage in root.GetComponentsInChildren<PlayerDamageVoxel>(true))
+            Object.DestroyImmediate(damage);
+        foreach (var actor in root.GetComponentsInChildren<PlayerHealth>(true))
+        {
+            var received = actor.transform.Find("ReceivedImpact");
+            if (received) Object.DestroyImmediate(received.gameObject);
+        }
+        var shake = root.GetComponentInChildren<ParryCameraShake>(true);
+        var previousImpulse = shake ? Get<Cinemachine.CinemachineImpulseSource>(shake, "impulseSource") : null;
+        if (shake)
+        {
+            var child = shake.transform.Find("ParryRecoil");
+            if (!child)
+            {
+                child = new GameObject("ParryRecoil").transform; child.SetParent(shake.transform, false);
+                var source = child.gameObject.AddComponent<Cinemachine.CinemachineImpulseSource>();
+                source.m_ImpulseDefinition.m_ImpulseChannel = 2;
+                source.m_ImpulseDefinition.m_ImpulseType = Cinemachine.CinemachineImpulseDefinition.ImpulseTypes.Uniform;
+                source.m_ImpulseDefinition.m_ImpulseDuration = .1f;
+                source.m_ImpulseDefinition.m_ImpulseShape = (Cinemachine.CinemachineImpulseDefinition.ImpulseShapes)0;
+                source.m_ImpulseDefinition.m_CustomImpulseShape = new AnimationCurve(
+                    new Keyframe(0, 0), new Keyframe(.2f, 1), new Keyframe(1, 0));
+                Set(shake, "impulseSource", source); Value(shake, "power", 1f); Record(shake);
+            }
+            Set(shake, "impulseSource", child.GetComponent<Cinemachine.CinemachineImpulseSource>()); Record(shake);
+        }
         foreach (var spark in root.GetComponentsInChildren<HitSparkSpawner>(true))
         {
-            Set(spark, "sparkPrefab", null);
-            Set(spark, "lethalPrefab", null);
+            Set(spark, "sparkPrefab", NormalHitSparkAssets.Load());
+            Set(spark, "lethalPrefab", CombatVoxelAssets.Load("Lethal"));
             Value(spark, "groundY", Ground(root));
             var profiles = new SerializedObject(spark);
-            var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 0;
+            var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 1;
+            variants.GetArrayElementAtIndex(0).objectReferenceValue = CombatVoxelAssets.Load("Slayer");
             profiles.ApplyModifiedPropertiesWithoutUndo();
             Value(spark, "zRotationOffset", 0f); Vector(spark, "angleJitter", Vector2.zero);
             Set(spark, "normalImpact", normal); Set(spark, "slayerImpact", slayer); Set(spark, "lethalImpact", lethal);
             Value(spark, "parentUnderAttacker", false);
             Vector(spark, "worldOffset", Vector3.zero); Vector(spark, "verticalJitter", new Vector2(-.03f, .03f));
             Vector(spark, "scaleRange", Vector2.one);
-            var shake = root.GetComponentInChildren<ParryCameraShake>(true);
-            var impulse = shake ? Get<Component>(shake, "impulseSource") : null;
-            if (impulse)
+            var impulse = Get<Cinemachine.CinemachineImpulseSource>(spark, "lethalImpulse");
+            if (!impulse && previousImpulse && previousImpulse.name != "ParryRecoil") impulse = previousImpulse;
+            if (impulse && impulse.name != "ParryRecoil")
             {
                 var impulseSettings = new SerializedObject(impulse);
                 impulseSettings.FindProperty("m_ImpulseDefinition.m_ImpulseDuration").floatValue = .1f;
                 impulseSettings.ApplyModifiedPropertiesWithoutUndo();
                 EditorUtility.SetDirty(impulse); Set(spark, "lethalImpulse", impulse);
-                Value(shake, "power", .01f);
-                Record(impulse); Record(shake);
+                Record(impulse);
             }
             Record(spark);
+        }
+        foreach (var actor in root.GetComponentsInChildren<PlayerHealth>(true))
+        {
+            var accent = actor.GetComponent<NormalStrikeEffects>();
+            if (!accent) accent = actor.gameObject.AddComponent<NormalStrikeEffects>();
+            Set(accent, "attackEvents", actor.GetComponentInChildren<PlayerAttackEvents>(true));
+            Set(accent, "slayer", actor.GetComponentInChildren<PlayerSlayerMode>(true));
+            Set(accent, "emitter", actor.GetComponentInChildren<HitSparkSpawner>(true));
+            Set(accent, "body", actor.GetComponent<BoxCollider2D>());
+            Set(accent, "dustPrefab", StrikeAccentAssets.Load(true));
+            Value(accent, "groundY", Ground(actor.gameObject)); Record(accent);
         }
         foreach (var parry in root.GetComponentsInChildren<ParrySparkVFX_Pooled>(true))
         {
             Set(parry, "sparkPrefab", ParryClashAssets.Load());
+            var system = Get<ParrySystem>(parry, "parrySystem");
+            if (system) { Set(system, "contactLibrary", ParryPixelAssets.Contacts()); Record(system); }
+            foreach (var audio in parry.GetComponentsInParent<SfxOnParrySuccess>(true)) { Value(audio, "duckSeconds", .08f); Record(audio); }
             Value(parry, "sparkPreset", (int)ParryClashBurst.Preset.BCompact);
             Value(parry, "groundY", Ground(root));
             var anchor = Get<Transform>(parry, "playerSparkAnchor");
@@ -115,6 +161,14 @@ internal static class CombatFeedbackBuild
             Value(flash, "flashColor", new Color(1f, .96f, .85f, 1));
             Value(flash, "baseDuration", .06f); Value(flash, "minFrames", 2); Value(flash, "useUnscaledTime", true);
             Record(flash);
+        }
+        foreach (var renderer in root.GetComponentsInChildren<SpriteRenderer>(true))
+        {
+            if (!renderer.GetComponent<Animator>()) continue;
+            if (!renderer.GetComponent<PlayerHealth>() && !renderer.GetComponent<SkeletonController>()) continue;
+            var slash = renderer.GetComponent<SlashVolume>(); if (!slash) slash = renderer.gameObject.AddComponent<SlashVolume>();
+            Set(slash, "source", renderer); Set(slash, "library", SlashVolumeAssets.Library());
+            Set(slash, "normalPlayerMaterial", renderer.GetComponent<PlayerHealth>() ? SlashVolumeAssets.NormalPlayerMaterial() : null); Record(slash);
         }
     }
     static void Vector(Object target, string name, Vector3 value)

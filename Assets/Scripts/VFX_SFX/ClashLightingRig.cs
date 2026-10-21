@@ -7,24 +7,42 @@ public sealed class ClashLightingRig : MonoBehaviour
 {
     [SerializeField] Light2D clashLight;
     [SerializeField] Light combatLight;
+    [SerializeField] Light parryLight;
     [SerializeField] float duration = .14f;
     [SerializeField] float maximumIntensity = 3f;
     // A fixed array bounds overlap without allocating in the combat loop.
-    struct PulseState { public bool active; public ParryClashBurst owner; public Vector3 point; public float strength, age; }
+    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; }
     readonly PulseState[] pulses = new PulseState[8];
     static readonly System.Collections.Generic.List<ClashLightingRig> rigs = new();
-    void OnEnable() { rigs.Add(this); Clear(); }
-    void OnDisable() { rigs.Remove(this); Clear(); }
-    void Clear() { System.Array.Clear(pulses, 0, pulses.Length); if (clashLight) clashLight.intensity = 0; if (combatLight) { combatLight.intensity = 0; combatLight.enabled = false; } }
+    Light2D key, fill, ambient;
+    void OnEnable()
+    {
+        rigs.Add(this); Clear();
+        foreach (var light in GetComponentsInChildren<Light2D>())
+        {
+            if (light.name == "Key") key = light;
+            else if (light.name == "Fill") fill = light;
+            else if (light.name == "Ambient") ambient = light;
+        }
+    }
+    void OnDisable() { rigs.Remove(this); Clear(); if (combatLight) Shader.SetGlobalFloat("_VoxelWorld3D", 0); }
+    void Clear()
+    {
+        System.Array.Clear(pulses, 0, pulses.Length);
+        if (clashLight) clashLight.intensity = 0;
+        if (combatLight) combatLight.intensity = 0;
+        if (parryLight) parryLight.intensity = 0;
+    }
     internal static void Pulse(Scene scene, Vector3 point, float strength, ParryClashBurst owner)
     {
         foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, strength, owner);
     }
-    internal static void Impact(Scene scene, Vector3 point)
+    internal static void Impact(Scene scene, Vector3 point, float strength, float hold, float seconds, VoxelImpactBurst owner)
     {
-        foreach (var rig in rigs) if (rig.gameObject.scene == scene && rig.combatLight) rig.Add(point, .9f, null);
+        foreach (var rig in rigs) if (rig.gameObject.scene == scene)
+            rig.AddProfile(new PulseState {owner = owner, point = point, strength = strength, duration = seconds, hold = hold, compact = true});
     }
-    internal static void Cancel(ParryClashBurst owner)
+    internal static void Cancel(Component owner)
     {
         foreach (var rig in rigs)
         {
@@ -35,40 +53,72 @@ public sealed class ClashLightingRig : MonoBehaviour
     }
     void Add(Vector3 point, float strength, ParryClashBurst owner)
     {
+        AddProfile(new PulseState { owner = owner, point = point, strength = strength, compact = owner.EmittedPreset == ParryClashBurst.Preset.BCompact,
+            duration = owner.EmittedPreset == ParryClashBurst.Preset.BCompact ? .28f : duration,
+            hold = owner.EmittedPreset == ParryClashBurst.Preset.BCompact ? .07f : 0 });
+    }
+    float Intensity(PulseState p)
+    {
+        float t = Mathf.Clamp01((p.age - p.hold) / (p.duration - p.hold));
+        return Mathf.Min(p.compact ? 5f : maximumIntensity, p.strength * (p.compact ? 1 - t * t * (3 - 2 * t) : Mathf.Pow(1 - t, 2)));
+    }
+    void AddProfile(PulseState pulse)
+    {
         int index = 0;
         for (int i = 0; i < pulses.Length; i++)
         {
-            if (!pulses[i].active) { index = i; break; }
-            if (pulses[i].age > pulses[index].age) index = i;
+            if (!pulses[i].owner) { index = i; break; }
+            if (Intensity(pulses[i]) < Intensity(pulses[index])) index = i;
         }
-        pulses[index] = new PulseState { active = true, owner = owner, point = point, strength = strength };
+        if (pulses[index].owner && Intensity(pulses[index]) > pulse.strength) return;
+        pulses[index] = pulse;
         Render();
     }
     void Update()
     {
-        if (CombatSession.Finished) { Clear(); return; }
+        if (GamePauseController.ResultOverlayVisible) { Clear(); return; }
         if (GamePauseController.InputBlocked || Time.timeScale == 0f) return;
-        for (int i = 0; i < pulses.Length; i++) if (pulses[i].active)
+        for (int i = 0; i < pulses.Length; i++) if (pulses[i].owner)
         {
+            if (CombatSession.Finished && !(pulses[i].owner is VoxelImpactBurst impact && impact.Lethal)) { pulses[i] = default; continue; }
             pulses[i].age += Time.unscaledDeltaTime;
-            if (pulses[i].age >= duration) pulses[i] = default;
+            if (pulses[i].age >= pulses[i].duration) pulses[i] = default;
         }
         Render();
     }
     void Render()
     {
-        if (!clashLight && !combatLight) return;
-        float strongest = 0; Vector3 point = transform.position;
-        foreach (var pulse in pulses) if (pulse.active)
+        if (!clashLight && !combatLight && !parryLight) return;
+        float strongest = 0; Vector3 point = transform.position; ParryClashBurst parry = null;
+        foreach (var pulse in pulses) if (pulse.owner)
         {
-            float intensity = pulse.strength * Mathf.Pow(1 - pulse.age / duration, 2);
-            if (intensity > strongest) { strongest = intensity; point = pulse.point; }
+            float intensity = Intensity(pulse);
+            if (intensity > strongest) { strongest = intensity; point = pulse.point;
+                parry = pulse.compact ? pulse.owner as ParryClashBurst : null; }
         }
-        if (clashLight) { clashLight.transform.position = point; clashLight.intensity = Mathf.Min(maximumIntensity, strongest); }
+        if (clashLight) { clashLight.transform.position = point; clashLight.intensity = strongest; }
         if (combatLight)
         {
-            combatLight.transform.position = point;
-            combatLight.intensity = Mathf.Min(maximumIntensity, strongest); combatLight.enabled = strongest > 0;
+            combatLight.transform.position = point + new Vector3(0, 2, -4);
+            combatLight.intensity = parry && parryLight ? 0 : strongest;
         }
+        if (parryLight)
+        {
+            var camera = Camera.main;
+            float units = parry ? parry.PixelUnitsPerMeter : 1.25f;
+            parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (.15f * units);
+            parryLight.range = 3 * units; parryLight.intensity = parry ? strongest : 0;
+        }
+    }
+    void LateUpdate()
+    {
+        // Forward-rendered arena meshes use the same actual lights as the actors and floor.
+        Shader.SetGlobalFloat("_VoxelWorld3D", combatLight ? 1 : 0);
+        if (combatLight) return;
+        // Preserve the shared light bridge for the legacy 2D renderer and menu.
+        if (key) { Shader.SetGlobalVector("_VoxelKeyPosition", key.transform.position + Vector3.back * 3); Shader.SetGlobalColor("_VoxelKeyColor", key.color * key.intensity); }
+        if (fill) { Shader.SetGlobalVector("_VoxelFillPosition", fill.transform.position + Vector3.back * 2); Shader.SetGlobalColor("_VoxelFillColor", fill.color * fill.intensity); }
+        if (ambient) Shader.SetGlobalColor("_VoxelAmbient", ambient.color * ambient.intensity);
+        if (clashLight) { Shader.SetGlobalVector("_VoxelPulsePosition", clashLight.transform.position + Vector3.back); Shader.SetGlobalColor("_VoxelPulseColor", clashLight.color * clashLight.intensity); }
     }
 }

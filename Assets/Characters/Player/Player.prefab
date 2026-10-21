@@ -218,6 +218,8 @@ GameObject:
   - component: {fileID: 64795655636002657}
   - component: {fileID: 7791465751774669392}
   - component: {fileID: 1630182305097442079}
+  - component: {fileID: 5405204207461019563}
+  - component: {fileID: 1855362292372411693}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -239,6 +241,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 758658474508336435}
+  - {fileID: 6397263003968068073}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7358457235006824576
@@ -439,6 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 1d9701ce38b5b674fa1804c99e8662b1, type: 2}
   playerAnimator: {fileID: 2040951967068383774}
+  contactLibrary: {fileID: 11400000, guid: 6ee50749e4ded40d0b66944649e5e87f, type: 2}
   enemy: {fileID: 0}
   hitStopper: {fileID: 0}
   parrySuccessHitStop: 0.05
@@ -543,8 +547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parrySystem: {fileID: 4700267102167904995}
-  impulseSource: {fileID: 6654075143805662134}
-  power: 0.01
+  impulseSource: {fileID: 6649342182655876260}
+  power: 1
 --- !u!114 &3027463112130235812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,9 +632,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c45f11584dfbc8498ac9a341fc39fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sparkPrefab: {fileID: 0}
-  slayerPrefabs: []
-  lethalPrefab: {fileID: 0}
+  sparkPrefab: {fileID: 1311458191187710406, guid: ea26fa231183c5127a39df3b0f3e19cd, type: 3}
+  slayerPrefabs:
+  - {fileID: 7891126384301360098, guid: 0a51096ad0ab3f627ae6c98c27c0fcf0, type: 3}
+  lethalPrefab: {fileID: 8781548728332810565, guid: a18096b9c01fe0741856b2a15afdb8aa, type: 3}
   normalImpact: {fileID: 11400000, guid: 3bdeeb3a8d0f17dfa896e809d6451781, type: 2}
   slayerImpact: {fileID: 11400000, guid: 46c7a33bfe3f1b677a5d4d86f698bf9a, type: 2}
   lethalImpact: {fileID: 11400000, guid: d747ffb200bc9e9a3b24a764ed0c4b80, type: 2}
@@ -782,5 +787,150 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2e57a030ede4ce78f2d19538ca5a2a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5405204207461019563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5449769088092458507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221ae9f852094ff69011c4ff74210dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 7358457235006824576}
+  library: {fileID: 11400000, guid: 4720ef884b3923ec593c8cf695ad14af, type: 2}
+  normalPlayerMaterial: {fileID: 2100000, guid: 5015ee6739614ab2ab0e706d583dea75, type: 2}
+--- !u!114 &1855362292372411693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5449769088092458507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc28e2b1560346509051b64f6e835bcf, type: 3}
   m_Name:
   m_EditorClassIdentifier:
+  attackEvents: {fileID: 2863178931385098792}
+  slayer: {fileID: 3027463112130235812}
+  emitter: {fileID: 864069039669792717}
+  body: {fileID: 7270377225842179987}
+  dustPrefab: {fileID: 651817990799810875, guid: a4246a0a36f46eb5383e888eb1ff53a9, type: 3}
+  groundY: -3.3325508
+--- !u!1 &6092192329710406595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6397263003968068073}
+  - component: {fileID: 6649342182655876260}
+  m_Layer: 0
+  m_Name: ParryRecoil
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6397263003968068073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6092192329710406595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3327866199189979277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6649342182655876260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6092192329710406595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 2
+    m_ImpulseShape: 0
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.2
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.1
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}

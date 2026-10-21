@@ -4,7 +4,7 @@ module.exports = function combatHUD(s, check, label) {
   const ox=(s.width-960*k)/2, oy=(s.height-540*k)/2;
   const near=(a,b)=>Math.abs(a-b)<1.5;
   const rect=(r,x,y,w,h,name)=>check(near((r.x-ox)/px,x)&&near((s.height-oy-r.y-r.height)/px,y)&&near(r.width/px,w)&&near(r.height/px,h),`${label}: ${name} approved fixed geometry`);
-  rect(s.playerStatusRect,3,11,102,36,'player status');
+  rect(s.playerStatusRect,3,11,102,21,'player status');
   rect(s.enemyStatusRect,215,11,102,36,'enemy status');
   rect(s.trayRect,61,146,198,30,'typing row');
   check(s.playerNameVisible && s.enemyNameVisible,`${label}: live names visible`);

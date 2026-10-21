@@ -27,6 +27,7 @@ public class EnemyStamina : MonoBehaviour
     [SerializeField] bool refillToMaxOnStunEnd = true;
 
     public event Action<int, int> OnChanged;
+    internal event Action OnDepleted;
     public int Current { get; private set; }
 
     Coroutine _regenCo;
@@ -79,6 +80,7 @@ public class EnemyStamina : MonoBehaviour
         int before = Current;
         Current = Mathf.Max(0, Current - cost);
         if (Current != before) NotifyChange();
+        if (before > 0 && Current == 0) OnDepleted?.Invoke();
 
         // nếu vừa tụt về 0 -> chờ hết stun để refill
         if (refillToMaxOnStunEnd && Current == 0)

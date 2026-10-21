@@ -20,6 +20,7 @@ public sealed class CombatHUDLayout : MonoBehaviour
         body.bounds.min.y + bodyVerticalInset.y, body.bounds.center.z);
     public Vector3 HighestHead => Head(playerBody).y >= Head(enemyBody).y ? Head(playerBody) : Head(enemyBody);
     public Vector3 LowestFoot => Foot(playerBody).y <= Foot(enemyBody).y ? Foot(playerBody) : Foot(enemyBody);
+
     // Collider landmarks stay stable across attack frames and weapon trails.
     public Vector3 BodyCenter => new Vector3(
         (Mathf.Min(playerBody.bounds.min.x, enemyBody.bounds.min.x) + Mathf.Max(playerBody.bounds.max.x, enemyBody.bounds.max.x)) * .5f,

@@ -1,18 +1,54 @@
 # Current gameplay
 
+## Dark fantasy HUD — local candidate (2026-10-21)
+
+The latest local presentation supersedes older palette/font notes below. Combat HUD
+uses coal `#121014`, iron `#302B2B`, antique bronze `#A17B4F/#D1AD73`, ivory
+`#F2E7CF`, blood HP `#C34B55/#ED8080`, teal stamina/typing `#73B6AA` and gold
+combo/parry `#E5BE72`; error/damage stays `#F16B67`. Score total/popup use configured
+ivory/gold tiers; the visible multiplier is gold from its first tier. HP glyphs
+retain their original face with a hard coal underlay for contrast. Pause uses
+isolated coal/bronze modal and button rims. Shared menu art is unchanged.
+
+User follow-up: health/status rails are82 native pixels wide instead of102
+(19.6% shorter), retain their height and crisp sliced borders, and stay in their
+outer corners. Latest follow-up scales both side status groups (names, HP, icons,
+stamina and name backplates) to80%: effective HP width65.6px. Both player/enemy HP
+digits and the difficulty/DUEL line/background are hidden. Score/combo and typing
+tray keep their original scale/geometry; stamina tutorial highlight follows80%.
+Name content, Cobblestone source sizes56/48/42, Blackbit title only, other geometry, three typing cells,
+hidden PARRY/Space/clock, bindings and feedback timing remain unchanged. No gameplay math
+or input changes. Native focused HUD11 checks and production combat/pause smoke
+passed at320/640 DPR1. Compact follow-up production combat/damage4 captures also
+passed and were visually inspected. Latest scale follow-up: six combat/damage
+captures at320/640/400x300 pass; score region pixel-identical at320/640.
+No full suite rerun or upload. [Evidence and local handoff](../plans/hud-dark-fantasy.md).
+
 Current source brand: **CLACKBLADE**, slogan **TYPE TO SLASH**. Gameplay and stable technical
 identifiers remain unchanged by the rename. Native menu960x540/640x360 and
 same-artifact name reload verified. Public release: https://micharel09.itch.io/clackblade
 (upload19876564). Endless online reads still401; Firebase unchanged.
 
-## Player palette (2026-10-19; integrated, publication pending)
+## Combat HUD readability (2026-10-20)
 
-- All25 player strips/166cels and master atlas use approved charcoal hair, ivory scarf
-  and dark clothes/boots. Original skin/eyes, sword/slash VFX, alpha and pose remain.
-  GUIDs, normal maps, pivots and animation timing are unchanged.
-- Unity production154825 and native original-HTML palette/attack/pause smoke pass.
-  itch upload is pending Cloudflare verification after403; do not claim publication.
-  Sources/rollback and release state: [player palette](../plans/player-palette.md).
+- CombatR7Build keeps existing geometry and supplies VT323 static bitmap atlases at native8 for HP/difficulty-duel/multiplier,10 for clock and12 for total score. Point/Clamp, one-pixel gutter; no autosize/wrap. BlackletterTitleBuild protects the concrete TypingManager, CombatR7Status and CombatHUDLayout bindings. Names, PARRY, decorative/menu/modal text and all three complete typing text components retain their previous treatment.
+- Four flat non-raycast backplates use #14111E/.88 at native player(3,0,102,11), enemy(215,0,102,11), difficulty(108,45,104,13), clock(256,145,32,14). They render before HUD/tray/labels; CombatR7Status synchronizes the difficulty Image with its label. Score-frame alone is tinted(.75,.75,.75,1); score text/pulse, Slayer colors, HP/parry/stamina feedback remain unchanged.
+- Strict two-pass serialization, actual atlas pixels/settings, fixed-font content/bounds and existing IDs/typing-component preservation verified. Same-player native feedback, focused restart/death25/25 and score-cluster209/209 cover current-scene lifecycle and four sizes; see checkpoint for the full feedback driver timeout and qualified rerun coverage. HUD stays screen space; existing floor native y138/tray y146, camera, cue and popup mechanisms are unchanged. Representative2.5D lighting/parallax/foreground occlusion remains unverified. [Checkpoint](../plans/score-hud-cluster.md).
+
+## Unified score cluster (2026-10-19; local source)
+
+- CombatR7Build keeps the total at its existing center-top position. ScoreCluster now owns ComboHUD and its existing decay slider: total → multiplier → thin decay track. PlayerStatus contains name/HP only; its former combo frame/socket/icon remain inactive to preserve IDs. Enemy stamina is unchanged.
+- ScoreUI_ComboHUD hides both multiplier and decay at ×1 and reveals both above ×1. ScoreSystem, ScoreRules, thresholds, expiry/timeout, input, damage and providers are unchanged. CombatR7Status swaps only the grouped fill between normal and Slayer sprites.
+- At960×540, ComboHUD is(0,69,294,54) relative to ScoreCluster; multiplier occupies(0,0,294,30), decay(12,36,270,12). ROUND moves fromnative y38 to46 to clear the added row. Total position/pulse, names, HP and typing tray remain fixed.
+- Repeated builder and native209/209 scoped UI checks pass at320×180,640×360,1280×720,400×300, including real parry renewal, pause, expiry/timeout, restart and natural Slayer exit. See [verification](verification.md) and [checkpoint](../plans/score-hud-cluster.md). Published with the HUD release on 2026-10-20, upload19892576.
+
+## Combat HUD feedback (2026-10-20)
+
+- Dòng dưới score cluster hiển thị difficulty của run và DUEL n/6; Tutorial dùng TUTORIAL. Slayer giữ dòng, InputBlocked/results ẩn dòng; EndlessOverlay giữ intro/Continue riêng.
+- CombatHUDFeedback quan sát combat: Space sáng khi cùng predicate TryBeginParry cho phép, giảm sáng khi khóa, vàng theo cue thật khi ready hoặc window đang mở, xanh ngọc120ms từ OnParrySuccess. Success iframe80ms, input/window/grace/SFX không đổi.
+- Stamina dùng shield v2 nguyên bản10×10; cost thật>0→0 kèm stun sống mới đổi warning. Hết stun trả shield. Theo quyết định mới, không hiện chữ GUARD BREAK vì Slayer đã báo trạng thái. Node cũ giữ ID/binding, để trống và disable; không còn timer/first-break flag. Icon vẫn đổi theo stamina/stun thật, pause giữ trạng thái.
+- Số HP sống≤25% đỏ; viền Lerp đỏ về màu gốc180ms từ damage thật, hit mới reset. Init/carry/restore không phát damage event. Theo quyết định user, HUD không có xử lý reduced-motion riêng; không đổi motion cũ ở typing/UI khác. Component hủy event/reset khi disable; logic stamina/HP/scoring giữ nguyên.
+- Local source751de45: scoped Unity4/4 và native2353 PASS trên normal path giữ nguyên; xem [checkpoint](../plans/score-hud-cluster.md) cho provenance, các lượt không đạt và giới hạn. Release child uses the approved palette/public UI64de5b3a baseline. Published upload19892576 on 2026-10-20; production/CDN/native receipts are in verification.md.
 
 ## Endless Duel (2026-10-19)
 
@@ -209,7 +245,52 @@ Change only behavior explicitly requested. Update this file after relevant verif
   See the tutorial continuation in combat-feedback and verification for actual
   profile and release receipts.
 
-## World lighting / parry clash prototype (2026-10-18)
+## World lighting / parry clash
+
+### Approved Pimen flash with restored physics (approved and merged 2026-10-21)
+
+- Default BCompact now reuses the licensed free Pimen Hit Effect01 already in the
+  project. A fixed-pivot white-gold core and five orange outer cels replace voxel
+  contacts. Flash cels/material/pivot/size/color/timing are preserved from c12c3de;
+  the uncommitted48-particle revision is discarded. Budget24/clash,192/8leases:
+  core1/main2/front10/outer1/embers10, using the same five ParticleSystems.
+  Every particle starts at the captured weapon contact. Existing Compact material
+  supplies the22 billboard sparks; real Z motion and depth tests provide depth.
+- The birth frame renders all24particles at contact without advancing debris or
+  native contact time. If the first following frame exceeds33.3ms, debris takes
+  one16.7ms step so a cold render cannot skip its visible launch. That initial
+  presentation delay is discarded; subsequent frames use full unscaled delta.
+  Long travel, velocity/path/bounce/rest and gameplay clocks remain unchanged.
+- ParryContactLibrary v4 measures existing blade pixels in the actual cel's
+  pivot/PPU/flip/transform, captures before success/Hurt, and holds existing clean
+  contact cels70ms. Six weapon crops copy original RGBA exactly. The parried enemy's
+  SlashVolume alone is suppressed200ms, with its prior state restored on expiry,
+  disable/results or another parry. Animator events, hitboxes and50ms hitstop stay.
+- Twenty falling particles reuse cc06385 launch/brake120ms/gravity9.81 paths,
+  one22%vertical/55%tangent bounce and180ms rest/fade. Their lifetime derives from
+  the complete trajectory. Two short fragments end120-180ms; no replacement
+  particles. Length/width follow projected velocity and shrink to small pixels.
+  The old physics Back group now uses Embers, reserving Back for Pimen outer cels.
+  Local xorshift/ParticleSystem seeds do not consume gameplay random. Fixed22state/
+  10particle buffers and reused Custom1 data avoid per-frame allocation. Pause/
+  reading freeze age; clear/release/disable reset state and restore legacy modules.
+  Completion waits for both contact particles and the full falling tail.
+- Core alpha holds70ms and ends200ms; the outer authored sequence ends200ms.
+  Dedicated Point light peaks5, holds70ms and smoothstep-fades to0at280ms
+  (2.5at175ms), range3m. Pulses take the strongest, never sum; legacy140ms remains.
+  DungeonForward now binds URP PostProcessData, enabling bloom-only threshold4,
+  intensity.2/scatter.3, HDR contact8. The320-wide Point world and full-res HUD stay.
+- Dedicated Cinemachine channel2 recoils at most one world-render pixel after
+  hitstop and returns100ms; no lens/zoom change. Existing parry1 clip retains gain,
+  jitter narrows to.03volume/.35semitone and player_hand ducks80ms. Other impact
+  audio/shake/trails remain. Latest contact-origin correction passes focused
+  Quick31/31, strict repeated build and native86checks, including sword/axe/Slayer
+  at640/1280, pause and Continue. Direct rendered frames supplement the25fps sound
+  clips covering the full flight at1x/.25x. Previous-source short native p95 was
+  13.455/13.540ms; this timing-only correction has no new performance claim.
+  See [verification](verification.md). Local visual review remains open.
+
+### Historical parry iterations (superseded by the candidate above)
 
 Earlier pixel-ray prototype published to itch.io at user request2026-10-19; not merged.
 Current/A/B/C and BCompact comparison clips remain art-review samples. BCompact24 code is published in the 2026-10-19 release; BCompact24 is selected by the production parry owner after the default-selection correction.
@@ -255,7 +336,7 @@ Full surface art, B/C and parent integration remain separate.
   continuously to X/Zdrag2/s and ballistic Y.
   Second ground contact stops all axes at groundY+1/32. Full trajectory sets lifetime;
   yellow/orange/dark-red cooling and alpha fade from first ground contact through rest.
-  Projected speed sets integer16PPU lengths/widths down to1x1; depth scale is clamped
+  Before the voxel preview revision, projected speed sets integer16PPU lengths/widths down to1x1; depth scale is clamped
   .75-1.5before pixel rounding. Floor clearance limits silhouette; square1x1 masks
   remain visible. No replacement particles, blur, camera or gameplay changes.
   Fixed22state/10particle buffers and reused custom data avoid per-frame allocation.
@@ -270,13 +351,85 @@ Full surface art, B/C and parent integration remain separate.
   bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
   Comparison clips remain review samples; BCompact24 is now used in production parries.
   Prior mirror p95 concerns remain separate and unresolved.
-- Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
-  prefabs and SampleScene. Existing hit SFX, lethal shake, slash, flash, afterimages
-  and damage remain. Legacy PixelSparks/CodeManu/Pimen assets are retained unwired.
-- ParryClashBurst owns unscaled simulation, pause/tutorial hold, clear and completion;
+- Historical voxel preview replaced BCompact's flat core/ring and billboard sparks
+  with one shared closed cube mesh/material. Two offset contact cuboids (maximum
+  edge .5WU) hold alpha60ms and expire200ms; no expanding ring. Twenty-two fragments
+  use 2-3source-pixel edges, 1:1:1 or1:2:1 proportions, three-axis rotation and
+  hard-normal face shading with cooling emission. Analytical launch/fall/bounce
+  timing and RNG draws remain unchanged; renderer floor support accounts for mesh
+  volume and settles rotation onto a flat face by the end of the existing bounce.
+  Manual unscaled ages obey pause; reuse restores legacy mesh/material/vertex
+  streams, render alignment and size/rotation/simulation modules. Voxel migration1
+  preserves existing GUIDs/tuning and creates only its shared mesh/material refs.
+  Frozen compact contact completion uses particleCount, avoiding IsAlive on a
+  stopped simulation clock. Earlier flat-ring art was rejected by the user;
+  its technical receipts do not qualify the voxel appearance.
+  Compact light peaks5, holds70ms, smoothstep-fades to0at280ms (half2.5at175ms).
+  Each of eight pulse states owns its timing/profile; mixed overlap takes strongest,
+  never sums. Legacy profiles keep140ms quadratic falloff and existing intensity cap;
+  light radius and world bloom are unchanged. Voxel focused Quick19 passes;
+  WebGL build and Edge155 preview pass12checks (two real noF6 parries at1280/640, no exceptions/provider writes); voxel faces were inspected at both sizes. Earlier flat-ring native/performance
+  receipts are historical, not voxel validation. Publication is deferred until
+  visual review; see combat-feedback.
+### Shared 2.5D presentation
+
+- Full 2.5D conversion source wires Normal6/Slayer8/Lethal14 closed-mesh impacts.
+  Player received4/received-lethal6 and their light pulses are removed (2026-10-21);
+  PlayerDamageVoxel/ReceivedImpact stay detached after repeated builder runs.
+  Their scripts/assets/GUIDs remain for compatibility. Red Hurt, HP/SFX and the
+  white sprite death remain unchanged. Slayer tint is captured
+  before damage can exit the mode; normal lethal has no Slayer emission. New impact
+  random is isolated from gameplay random. Eight active leases per emitter bound
+  impact particles to112outgoing, alongside192parry particles. Normal-strike
+  accents have a separate eight-lease cap (at most24particles), for328total.
+  SlashVolume follows the actual source Sprite cel through SlashLibrary;9atlases
+  have slash-only RGBA separated into durable layers and thin closed meshes.
+  Actor pixels outside the authored masks, sprite metadata and clip events/timing
+  are preserved. Screen flash/cues/HUD remain2D; afterimages retain3sprite snapshots,
+  120/140/160ms lifetimes and25ms cadence, with shallow Z offsets and12active cap.
+  Existing hit SFX, lethal shake and damage remain. Legacy PixelSparks/CodeManu and
+  unused Pimen prefabs remain unwired; original Pimen01 supplies the current parry.
+  Prior focused27/shared native70 receipts describe these unchanged consumers;
+  earlier parry native66 includes historical received smoke. Particle removal
+  passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
+  Existing broader visual direction remains with its original review.
+
+### Normal strike accents (local preview, 2026-10-21)
+
+- `NormalStrikeEffects` listens to the existing attack-window opening: one
+  three-cluster gray dust burst, even on a miss. Its stable body-foot anchor is
+  one native world pixel behind the actor center; the builder supplies floor Y.
+  Dust moves backward, stays low, and fades over180ms. No sprite/event timing changes.
+- Confirmed nonlethal normal hits use dedicated NormalHitSpark.prefab, original
+  Pimen `Hit Effect 01 1.png` Sprite subassets0..6, equal160/7ms holds, once only.
+  Existing Pixel.mat is unlit, white renderer color, sorting order3 above trail2.
+  Fixed48x48canvas/center pivot and a single8.333333scale preserve original art:
+  widest36source pixels at100PPU becomes3world units=48pixels at16PPU.
+  Source F6 is transparent; art disappears at137.142857ms, lease returns at160ms.
+  Contact/world offset and horizontal facing are retained; no jitter/core/code rays.
+  Source PNG/importer and parry/Slayer/lethal assets remain unchanged.
+  Normal player trail RGBx.75/alphax.55/emission.05 preserves cel shape/timing;
+  gray foot dust remains180ms. No event, damage, audio or hitstop changes.
+- Normal sprites share the existing eight-impact cap; dust has a separate eight-lease
+  budget in the existing owner pool.
+  Pause/tutorial reading freeze age; results, owner disable/restart/scene unload
+  and Slayer activation clear them. Builder preparation reuses assets and binds
+  a single component. Duration is simulation age; visible endpoints are quantized
+  to render frames and pause/reading can hold them. Evidence and local-only
+  handoff status are in `docs/plans/combat-feedback.md`.
+- ParryClashBurst owns the stock contact clock and analytical unscaled debris clock,
+  pause/tutorial hold, clear and completion;
   PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.
   ClashLightingRig holds eight pulse states, renders strongest capped pulse through
-  one Light2D, and immediately cancels a disabled/released owner.
+  the active scene's Light2D or3D combat spotlight. In the3D arena a winning compact
+  parry uses its dedicated Point light and mutes the combat spotlight. Disabled or
+  released owners cancel immediately.
+- The current candidate incorporates the sibling dungeon-3d environment source:
+  Forward-rendered KayKit room, shallow10degree camera and its shared3D lights.
+  VFX uses actual room lighting and the visible mesh floor. DungeonCombatLighting
+  stays outside the geometry group hidden by Slayer, keeping mesh shading and
+  combat pulses alive during the red cinematic. Scoped build/native preview checks
+  pass; this does not qualify the sibling's broader room/performance acceptance.
 - WorldLightingBuild runs after ShogunTheme: lit actor/near-environment sprites,
   ambient/key/fill plus clash rig, fixed-body-foot contact shadows and thresholded
   world bloom. The preserved WorldMenuBackdrop is disabled by the final dungeon
@@ -288,103 +441,6 @@ Full surface art, B/C and parent integration remain separate.
 - Quick75, repeated builder and real-keyboard native ten-clash/direction/two-size sample
   pass; see verification and the combat-feedback plan. This is prototype evidence,
   not full tutorial/result/transition/performance/release acceptance.
-
-## Isolated pixel dungeon preview (2026-10-20; visual review pending)
-
-Hanging combat lantern verified2026-10-21 on isolated branch
-`micharel09/combat-hanging-light`:
-  Original KayKit FBX472triangles unchanged; derived frame446 plus thin glass40,
-  total486submitted lantern triangles. Chamber center3.37WU above floor; actual
-  fire/light center3.405WU, centered horizontally and2WU in front of combat.
-  Main24/range16/flicker0, rear16/range15/+/-2percent. Private fire material;
-  iron/wood emission0. Glass URP Lit black/alpha.12/emission(1,.38,.08),
-  no specular, ZWrite off, no cast/receive shadow. Environment child follows
-  Slayer hide/restore, excluded from flame flicker. Camera/floor/post/API unchanged.
-  Final QA110751 strict twice-run builder and native22gameplay/9camera checks PASS;
-  reused lighting lifecycle2/2. All9camera endpoints plus163frames/162transitions
-  in selected complete pan reviewed; no observed alpha pop or large floor outline.
-  One20s run per player, same Intel UHD/D3D11/1280x720: p9533.225->32.575ms;
-  not isolated GPU cost/equivalence/FPS evidence. No publication. Main integration
-  pending scope reconciliation with newer main; see [checkpoint](../plans/combat-hanging-light.md).
-
-GroundSurface retains one mesh/eight material groups and1x1WU tiles, deterministic
-~25percent variants, Stone tint/metallic0/smoothness.02/Point/no-mips/no PBR links.
-Fixed missing variant normals;5824final vertices all face up. Offscreen backing
-covers reviewed+/-2WU horizontal pan and FOV25..45 without changing room composition.
-Final QA041655/strict repeat and native1280x720 camera11/source-review8checks PASS;
-targeted Unity041500 has3passes. Per-source isolation/all-off RGB0 and actual point
-occluder comparisons verify source attribution and sprite/floor shadows. Nine
-pan/zoom PNGs inspected; bounded consecutive motion windows reviewed (not full clip).
-Headless p95 deltas: fixed-render+0.37percent, combat+0.94percent; no GPU-only/FPS claim.
-Preview8207/player17b60d80687e332f. [Checkpoint](../plans/dungeon-3d.md) records exact
-coverage, timing limitations and retained review resources; no public release.
-
-### Previous centered pixel-room preview (historical runtime verification)
-
-Current room replaces the clay-like KayKit architecture with simple thick3D
-walls/piers/stone arch and original0x72DungeonTileset II v1.7 pixel tiles (CC0).
-The wood door stays CLOSED, recessed behind its arch; no corridor. KayKit torch
-meshes and all existing actor art/animation/gameplay are retained. Point/no-mip
-uncompressed individual tiles use per-face UVs. Real-time key/two warm shadowless
-torches and32cap dust replace the old bake/probes/reflection. Environment blur is0,
-so only one owned world texture is allocated; presentation/HUD/Slayer contracts
-remain the same. The latest centered-atmosphere revision retains pitch5deg,
-normal ortho5.625 and Slayer3.3/restored5.625. Stable collider body landmarks now
-center the pair on the full screen; the arena's old floor-at-y0.2333 zoom anchor
-is disabled. Orthographic distance72 and extended floor preserve sprite scale
-while filling foreground; clip/shadow/fog distances follow the new camera pose.
-Rear architecture remains3.5WU deeper with a closed recessed door and angled
-foreground piers. A shadowless combat pool, stronger warm torches and soft
-depth-tested mesh shafts/haze replace the thin rays; bloom remains source-limited.
-Sprite shader, input, scoring and combat timing are unchanged. Read-only QA adds
-the projected body center for framing checks. Latest QA093538/native04c0bc4240ec373e
-passes9checks at1280x720,0exceptions/provider reads/writes. Center measured(640,360)
-at idle/attack/Slayer/restored, with pause/resume also passing8px tolerance.
-Validation/preview receipts are linked in the checkpoint; visual approval remains pending.
-
-Earlier wide-room QA091716/native11e640408dd5282c passed7checks at1280x720;
-that receipt used the superseded low foot anchor and earlier lighting.
-
-Earlier room QA083448/native7b5dce6def6e2b15: real hit/score,6parries, Slayer restoration,
-pause, three sizes/popup projection, restart/menu release pass; visible three-size
-room and a25sclip reviewed. The local preview is QA with a read-only bridge and
-external network blocked. Production084219 builds/QA exclusion pass but browser
-smoke is unverified; user requested no additional testing before visual feedback.
-No new bake, mirror/full animation suite or60FPS acceptance. See the
-[current checkpoint](../plans/dungeon-3d.md). Not integrated or published.
-
-### Previous cinematic room (historical verification)
-
-The dungeon-3d child uses original KayKit Dungeon1.1 FREE meshes/atlas (CC0) and
-unchanged actor sprites. DungeonArenaBuild owns the four-layer room, materials,
-original hinged doorway, baked architecture GI/AO,45light probes and a64px baked
-reflection. Small props receive probes. One1024hard-shadow key/one cascade, two
-shadowless torches, one512spot shared by strongest hit/parry pulse; idle spot is off.
-Sparse dust has48max particles. Existing eight pulse/lease ownership is preserved.
-
-DungeonArenaCamera owns320x180 ARGBHalf/24bit-depth Point/no-MSAA/no-mip output and
-the blur scratch. DungeonWorldRender applies bounded(.75world-pixel) orthographic
-depth Gaussian to environment, then the alpha/depth/shadow-consistent DungeonActor
-sprite pass, then existing transparent combat VFX. DungeonPresentationRender samples
-the explicit owned texture before native-resolution Bloom/ACES/grading/vignette;
-overlay HUD stays native. No per-frame renderScale/internal-RT filter mutations.
-CombatViewportCamera maps world points through the real16:9presentation rectangle
-for popup, tutorial cue and Slayer bands.10degree tilt/.5follow/.35s damping retain
-brain/zoom/impulse/pause ownership. Slayer hides room/lights and disables arena PP,
-then restores the previous state. Scene exit releases both owned targets/presenter.
-NullGfx does not receive an offscreen target, avoiding Unity2022's native line-render
-crash while preserving offline logic/projection tests. Input/damage/scoring/timing,
-packages, original textures/models and actor metadata remain unchanged.
-
-Verified final input2d9e567e: strict repeated builder, Quick121/121(runtime identical
-before final builder-only lighting/bake), native arena2112checks and tutorial94checks.
-Real hit/parry, all three Slayer attacks, pause, three sizes, death/restart/opponent
-carry and menu resource release pass. Normal production excludes the QA bridge and
-runs BLADE/score/HP/pause smoke. Mirror is a render-only fixture with original physics.
-Matched before-after and48s clip are ready for user review. Stable desktop ABBA and
-60FPS acceptance remain unverified; headless shadow diagnostics do not establish FPS.
-See the [checkpoint](../plans/dungeon-3d.md) for actual figures/resources. Not integrated
-or published; visual approval is pending.
 
 ## Retained combat-feedback baseline (2026-10-17)
 
@@ -520,4 +576,20 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   and combat-hud plan. Tutorial reading panels retain their existing overlay behavior.
 
 
-Release status 2026-10-20: full player palette is integrated and published at https://micharel09.itch.io/clackblade (upload19891315). All29 non-HTML CDN hashes match the verified production ZIP; public menu rendered. Earlier pending/Cloudflare status is superseded.
+## Integrated dungeon and lantern
+
+Hanging combat lantern verified2026-10-21 on isolated branch
+`micharel09/combat-hanging-light`:
+  Original KayKit FBX472triangles unchanged; derived frame446 plus thin glass40,
+  total486submitted lantern triangles. Chamber center3.37WU above floor; actual
+  fire/light center3.405WU, centered horizontally and2WU in front of combat.
+  Main24/range16/flicker0, rear16/range15/+/-2percent. Private fire material;
+  iron/wood emission0. Glass URP Lit black/alpha.12/emission(1,.38,.08),
+  no specular, ZWrite off, no cast/receive shadow. Environment child follows
+  Slayer hide/restore, excluded from flame flicker. Camera/floor/post/API unchanged.
+  Final QA110751 strict twice-run builder and native22gameplay/9camera checks PASS;
+  reused lighting lifecycle2/2. All9camera endpoints plus163frames/162transitions
+  in selected complete pan reviewed; no observed alpha pop or large floor outline.
+  One20s run per player, same Intel UHD/D3D11/1280x720: p9533.225->32.575ms;
+  not isolated GPU cost/equivalence/FPS evidence. No publication. Integrated verification: final QA114427/playerfdc8253ed7a62b1f,25native checks
+  and6scoped offline checks PASS; see [checkpoint](../plans/combat-hanging-light.md).

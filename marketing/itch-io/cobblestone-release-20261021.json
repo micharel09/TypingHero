@@ -1,0 +1,237 @@
+{
+  "status": "published_verified",
+  "projectId": 3857509,
+  "url": "https://micharel09.itch.io/clackblade",
+  "baseCommit": "b36b55a67c753310808531d0ee4b6ab110265a69",
+  "branch": "micharel09/cobblestone-itch-release",
+  "sourceSnapshot": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540",
+  "fontSHA256": "e9d8bcb7947fb467a86448317b5ede989bf985c5d5989944450e243e43f070e8",
+  "scope": "Blackbit brand title only. Cobblestone all other UI and all three typing labels. Hide ParryR7,ParryKeyR7,ClockR7,ClockReadabilityR7. Preserve current main score cluster, feedback, readability, input and palette.",
+  "rollbackUpload": 19893288,
+  "supersededCandidate": {
+    "uploadId": 19915267,
+    "status": "hidden_not_published",
+    "reason": "Old e20 base would revert current HUD; never saved."
+  },
+  "verification": {
+    "sourceFontExact": true,
+    "unityQA": "passed strict repeat builder and complete typing component guard",
+    "production": {
+      "status": "passed",
+      "originalHTML": true,
+      "cases": 48,
+      "DPR": [
+        1,
+        2,
+        1.25
+      ],
+      "pageErrors": 0,
+      "shaderErrors": 0,
+      "qaBridge": false
+    },
+    "public": {
+      "status": "passed",
+      "nativeRunGameMenu": true,
+      "anonymousCDNCombatCases": 8,
+      "realSpacePose": true,
+      "nonHTMLHashesMatched": 29,
+      "HTML": "Exact original plus standard itch htmlgame.js tag",
+      "pageErrors": 0,
+      "shaderErrors": 0,
+      "providerWrites": 0
+    },
+    "nativeQA": {
+      "checks": 633,
+      "reports": [
+        {
+          "scenario": "font-menu",
+          "checks": 18,
+          "snapshot": {
+            "sha256": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540"
+          },
+          "chromium": "155.0.4283.62",
+          "graphics": {
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "exceptions": [],
+          "fixtureWrites": 0,
+          "endlessWrites": null,
+          "externalBlocked": 0,
+          "durationSeconds": null
+        },
+        {
+          "scenario": "font-smoke",
+          "checks": 7,
+          "snapshot": {
+            "sha256": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540"
+          },
+          "chromium": "155.0.4283.62",
+          "graphics": {
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "exceptions": [],
+          "fixtureWrites": 0,
+          "endlessWrites": 1,
+          "externalBlocked": 0,
+          "durationSeconds": null
+        },
+        {
+          "scenario": "font-tutorial",
+          "checks": 124,
+          "snapshot": {
+            "sha256": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540"
+          },
+          "chromium": "155.0.4283.62",
+          "graphics": {
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "exceptions": [],
+          "fixtureWrites": 0,
+          "endlessWrites": null,
+          "externalBlocked": 0,
+          "durationSeconds": null
+        },
+        {
+          "scenario": "font-run",
+          "checks": 261,
+          "snapshot": {
+            "sha256": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540"
+          },
+          "chromium": "155.0.4283.62",
+          "graphics": {
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "exceptions": [],
+          "fixtureWrites": 0,
+          "endlessWrites": null,
+          "externalBlocked": 0,
+          "durationSeconds": null
+        },
+        {
+          "scenario": "score-cluster",
+          "checks": 209,
+          "snapshot": {
+            "sha256": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540"
+          },
+          "chromium": "155.0.4283.62",
+          "graphics": {
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "exceptions": [],
+          "fixtureWrites": 0,
+          "endlessWrites": null,
+          "externalBlocked": 0,
+          "durationSeconds": null
+        },
+        {
+          "scenario": "font-smoke",
+          "checks": 7,
+          "snapshot": {
+            "sha256": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540"
+          },
+          "chromium": "155.0.4283.62",
+          "graphics": {
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "exceptions": [],
+          "fixtureWrites": 0,
+          "endlessWrites": 1,
+          "externalBlocked": 0,
+          "durationSeconds": null
+        },
+        {
+          "scenario": "font-smoke",
+          "checks": 7,
+          "snapshot": {
+            "sha256": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540"
+          },
+          "chromium": "155.0.4283.62",
+          "graphics": {
+            "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+          },
+          "exceptions": [],
+          "fixtureWrites": 0,
+          "endlessWrites": 1,
+          "externalBlocked": 0,
+          "durationSeconds": null
+        }
+      ],
+      "viewports": [
+        "320x180",
+        "640x360",
+        "1280x720",
+        "400x300"
+      ],
+      "DPR": [
+        1,
+        2,
+        1.25
+      ],
+      "realProviderWrites": 0
+    },
+    "savedEditor": {
+      "playable": 19915823,
+      "previousHiddenRetained": [
+        19893288,
+        19915267
+      ],
+      "nonUploadFieldsUnchanged": true
+    }
+  },
+  "zip": {
+    "path": "Builds/clackblade-cobblestone-current-hud-640a9871-20261021.zip",
+    "sha256": "5af7dd9d1141e650207ed55f5392c475fbed33472d97269c98e2561963ca4d64",
+    "bytes": 16982812,
+    "members": {
+      "Build/output.data": "9b077018a882e349f65ce74e05b9e771a23ab18cd325a9b9e107d576961db9b1",
+      "Build/output.framework.js": "fbeb13b1886d8480f04044a331cea1c98c4e3506e71bf907f07844b50064fc26",
+      "Build/output.loader.js": "1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76",
+      "Build/output.wasm": "6ad8d626c55fea197b691b2ac4ce497e58cd063cf72f5ec22029935459bfcf94",
+      "CodeManu-License.txt": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+      "CREDITS.txt": "21864990261bbe5679e5cf53c49abb091c55ac42d3f2f802421a3b5c372cbf5c",
+      "Crusenho-License.txt": "967e02d313d6aad874db979e832596e624c3c177c6c887da95bd914c82168ba9",
+      "DarkAges-License.txt": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+      "game-loop-build.json": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+      "index.html": "3a18f3f3b8b3b23ec6535864cb573a314aa6752ffa36a78611b295027c90cf4e",
+      "Kenney-Impact-License.txt": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+      "Kenney-Interface-License.txt": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+      "Kenney-License.txt": "8723305f6eeda9b2ab11e3f642657744cfbed98d08abce3ccdf710c74ecc329e",
+      "Kenney-UI-License.txt": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
+      "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486",
+      "Pimen-BattleEffects-License.txt": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+      "Pimen-HitSpark-License.txt": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
+      "ServiceWorker.js": "a1410ab9ff483270351ed1dc5ee30cdd0d50911d83f4a24f3e6f04b387b52cdb",
+      "TemplateData/favicon.ico": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+      "TemplateData/icons/unity-logo-dark.png": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
+      "TemplateData/icons/unity-logo-light.png": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
+      "TemplateData/progress-bar-empty-dark.png": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+      "TemplateData/progress-bar-empty-light.png": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+      "TemplateData/progress-bar-full-dark.png": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
+      "TemplateData/progress-bar-full-light.png": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+      "TemplateData/style.css": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
+      "TemplateData/unity-logo-dark.png": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+      "TemplateData/unity-logo-light.png": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
+      "TinyPixelJapan-License.txt": "9467cd1a0f711963a85addf2d90a4a67f1ec0b3d6ccd39753d0c03894b46ae1f",
+      "VT323-OFL.txt": "e9703da7abe97795a41be19905323706502723a1eec104608c24f858e352f9a8"
+    }
+  },
+  "productionSnapshot": "640a9871799d4246eda5dd8b73e18a97dd15aa3d56b173a69107b6db4e665540",
+  "qaMarkerScans": [
+    "ServiceWorker.js",
+    "Build\\output.data",
+    "Build\\output.framework.js",
+    "Build\\output.loader.js",
+    "Build\\output.wasm"
+  ],
+  "uploadId": 19915823,
+  "productionResult": "20261021T021408-production",
+  "qaResult": "20261021T020049-webgl",
+  "rollback": "Native editor: select playable19893288, unhide it, hide19915823, Save. Prior upload is a verified previous release, not a Cobblestone font-quality baseline.",
+  "renderConfig": {
+    "title": "Blackbit specimen, SDF32/100 point/hard-edge title material",
+    "UIAndTyping": "Cobblestone SDF32/64 point/8 padding/1024 atlas, stock TMP Mobile Distance Field, Bilinear/Clamp/no mipmaps",
+    "fallback": "dedicated VT323, native scale1"
+  },
+  "generatedScenesQAProductionEqual": true,
+  "cleanup": "Current release capture/player directories cleaned after receipt. Product ZIP, editor backups and source kept. Earlier reconstruction temp/resources remain with the unintegrated old child and undecided tutorial draft. Automatic approval rejected broader cleanup over backup/preview/product artifact risk, so those files remain. Both children retained until integration; parent/shared runner/cache/daemon untouched. Own browser session stopped."
+}

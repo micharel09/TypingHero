@@ -1,0 +1,7 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><title>HUD gọn</title>
+<style>body{background:#121014;color:#f2e7cf;font:16px system-ui;margin:24px}select{font:inherit}img{display:block;image-rendering:pixelated}figure{margin:16px 0;overflow:auto}a{color:#e5be72}</style>
+<h1>HUD gọn</h1><p>Trái: bản trước. Phải: bản mới — bỏ số HP cả hai bên, cụm HUD hai bên scale 80%. Bảng điểm/combo và khay gõ giữ nguyên; dòng độ khó/DUEL tiếp tục ẩn.</p>
+<label>Kích thước <select><option value="320x180">320×180</option><option value="640x360">640×360</option><option value="nearest-3x">320×180 — nearest 3×</option></select></label>
+<figure><img id="pair" src="compact-320x180.png" alt="HUD trước và sau thu gọn"></figure>
+<p>Hai lượt chơi thật; frame và từ gõ có thể khác. <a href="compact-receipt.json">Nguồn ảnh</a> · <a href="index.html">Preview màu trước đó</a></p>
+<script>document.querySelector('select').onchange=e=>document.querySelector('#pair').src='compact-'+e.target.value+'.png'</script></html>

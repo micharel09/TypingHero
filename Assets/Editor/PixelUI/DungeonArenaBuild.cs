@@ -110,6 +110,9 @@ internal static class DungeonArenaBuild
         pulse.shadowBias=.015f;pulse.shadowNormalBias=.01f;pulse.lightmapBakeType=LightmapBakeType.Realtime;
         var rig=root.GetComponent<ClashLightingRig>(); if(!rig)rig=root.AddComponent<ClashLightingRig>();
         Set(rig,"combatLight",pulse);
+        var parryLight=Light(root,"ParryContactLight",LightType.Point,new Color(1,.67f,.28f),0,Vector3.zero);
+        parryLight.range=3.75f; parryLight.shadows=LightShadows.None;
+        Set(rig,"parryLight",parryLight);
         foreach(var other in Object.FindObjectsOfType<ClashLightingRig>(true)) if(other!=rig)
         {
             foreach(var legacy in other.GetComponentsInChildren<Light2D>(true))

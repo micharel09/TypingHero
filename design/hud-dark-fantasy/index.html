@@ -1,0 +1,9 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><title>HUD dark fantasy</title>
+<style>body{background:#121014;color:#f2e7cf;font:16px system-ui;margin:24px}select{font:inherit}img{display:block;image-rendering:pixelated;max-width:none}figure{margin:16px 0;overflow:auto}a{color:#e5be72}</style>
+<p><a href="compact.html">HUD gọn mới nhất</a></p>
+<h1>HUD dark fantasy — local review</h1><p>Trái: Cobblestone gốc. Phải: HUD đồng cổ. Hai lượt chơi thật trong cùng dungeon; frame nhân vật có thể khác.</p>
+<label>Trạng thái <select id="state"><option value="normal-production">Bình thường — production</option><option value="normal">Bình thường — QA</option><option value="low-hp">HP thấp</option><option value="combo">Combo</option></select></label>
+<label>Kích thước <select id="size"><option>320x180</option><option>640x360</option><option value="nearest-3x">320x180 — nearest 3×</option></select></label>
+<p>Ảnh QA có nhãn debug Spark sẵn có; player production không hiển thị nhãn này.</p>
+<figure><img id="pair" alt="Trước và sau thay màu HUD"></figure><p><a href="pause-production.png">Pause production</a> · <a href="preview-receipt.json">Nguồn ảnh và hash</a> · <a href="contrast.json">Tương phản</a></p>
+<script>function update(){document.querySelector('#pair').src='preview/'+document.querySelector('#state').value+'-'+document.querySelector('#size').value+'.png'}document.querySelectorAll('select').forEach(e=>e.onchange=update);update()</script></html>

@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
+[Category("HUDFeedback")]
 public sealed class CombatR7AssetTests
 {
     const string Art = "Assets/Art/UI/CombatR7/";
@@ -18,7 +19,7 @@ public sealed class CombatR7AssetTests
     public void EveryCombatComponentImportsAsAnActualPointClampSprite()
     {
         var paths = Directory.GetFiles(Art, "*.png");
-        Assert.That(paths.Length, Is.EqualTo(27));
+        Assert.That(paths.Length, Is.EqualTo(29));
         foreach (var path in paths)
         {
             var asset = path.Replace('\\', '/');
@@ -78,7 +79,8 @@ public sealed class CombatR7AssetTests
             {
                 var original = root.Find(path).GetComponent<Slider>();
                 Assert.That(original.fillRect.parent, Is.EqualTo(original.transform));
-                Assert.That(((RectTransform)original.transform).rect.size, Is.EqualTo(new Vector2(231, 18)));
+                // The approved compact status rails retain a 171-unit HP track.
+                Assert.That(((RectTransform)original.transform).rect.size, Is.EqualTo(new Vector2(171, 18)));
                 var clone = Object.Instantiate(original.gameObject, root);
                 try
                 {
@@ -92,7 +94,7 @@ public sealed class CombatR7AssetTests
                     {
                         slider.value = value;
                         Canvas.ForceUpdateCanvases();
-                        Assert.That(slider.fillRect.rect.width, Is.EqualTo(231 * value).Within(.01f), path + " / " + value);
+                        Assert.That(slider.fillRect.rect.width, Is.EqualTo(171 * value).Within(.01f), path + " / " + value);
                         Assert.That(slider.fillRect.rect.height, Is.EqualTo(18).Within(.01f));
                     }
                 }

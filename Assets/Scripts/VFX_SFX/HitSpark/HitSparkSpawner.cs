@@ -29,6 +29,7 @@ public class HitSparkSpawner : MonoBehaviour
     Transform poolRoot;
     float nextAt;
     int slayerIndex;
+    int voxelSequence;
 
     void Awake()
     {
@@ -64,28 +65,48 @@ public class HitSparkSpawner : MonoBehaviour
         SpawnPrefab(sparkPrefab, worldPoint, attacker, targetRoot);
     }
 
-    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null)
+    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null)
     {
         if (!isActiveAndEnabled || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
-        ClashLightingRig.Impact(gameObject.scene, point);
         GameObject prefab = sparkPrefab;
         // Existing serialized consumers retain their spark until role prefabs are assigned.
         if (lethal && lethalPrefab) prefab = lethalPrefab;
         else if (!lethal && wasSlayer && slayerPrefabs != null && slayerPrefabs.Length > 0)
             prefab = slayerPrefabs[slayerIndex++ % slayerPrefabs.Length];
-        SpawnPrefab(prefab, point, attacker, targetRoot);
+        var images = wasSlayer && attacker ? attacker.GetComponentInChildren<SlayerAfterimagePool>() : null;
+        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, images ? images.CurrentTint : Color.clear);
         var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
         if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
         if (lethal && lethalImpulse) lethalImpulse.GenerateImpulse(.015f);
     }
 
-    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot)
+    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null)
     {
         if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
-        if (prefab.GetComponent<PixelSparkBurst>() && active.Count >= 8)
-            active[0].GetComponent<PooledVFX>().Release();
+        if (prefab.GetComponent<NormalHitSpark>() || prefab.GetComponent<PixelSparkBurst>() || prefab.GetComponent<VoxelImpactBurst>())
+        {
+            int count = 0; GameObject oldest = null;
+            foreach (var item in active)
+                if (!item.GetComponent<StrikeAccentBurst>()) { count++; if (!oldest) oldest = item; }
+            if (count >= 8) oldest.GetComponent<PooledVFX>().Release();
+        }
         var go = PoolFor(prefab).Get();
         var t = go.transform;
+        if (go.TryGetComponent<NormalHitSpark>(out var normal))
+        {
+            t.SetParent(poolRoot, true);
+            float direction = directionOverride ?? (attacker ? (targetRoot ? targetRoot.position.x : point.x) - attacker.position.x : 1);
+            if (direction == 0) direction = attacker ? attacker.lossyScale.x : 1;
+            normal.Emit((Vector3)point + worldOffset, direction);
+            return;
+        }
+        if (go.TryGetComponent<VoxelImpactBurst>(out var voxel))
+        {
+            t.SetParent(poolRoot, true);
+            float direction = directionOverride ?? (attacker ? (targetRoot ? targetRoot.position.x : point.x) - attacker.position.x : -1);
+            voxel.Emit((Vector3)point + worldOffset, direction, groundY, voxelSequence++, impactTint ?? Color.clear);
+            return;
+        }
         if (go.TryGetComponent<PixelSparkBurst>(out var burst))
         {
             t.SetParent(poolRoot, true);
@@ -110,6 +131,21 @@ public class HitSparkSpawner : MonoBehaviour
         t.localScale = scale;
     }
 
+    internal void SpawnAccent(GameObject prefab, Vector3 point, float direction)
+    {
+        if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
+        int count = 0;
+        GameObject oldest = null;
+        foreach (var item in active)
+            if (item.GetComponent<StrikeAccentBurst>()) { count++; if (!oldest) oldest = item; }
+        if (count >= 8) oldest.GetComponent<PooledVFX>().Release();
+        PoolFor(prefab).Get().GetComponent<StrikeAccentBurst>().Emit(point, direction);
+    }
+    internal void ClearAccents()
+    {
+        for (int i = active.Count - 1; i >= 0; i--)
+            if (active[i] && (active[i].GetComponent<StrikeAccentBurst>() || active[i].GetComponent<NormalHitSpark>())) active[i].GetComponent<PooledVFX>().Release();
+    }
     void OnDisable()
     {
         while (active.Count > 0)
