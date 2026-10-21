@@ -164,3 +164,23 @@ preserved. Superseded task-owned queued builds were stopped; none remain active.
   and origin/main by fast-forward. Fresh fetch verified8179a0c, dbe663f and215ab92
   are ancestors of origin/main. Task worktree clean; dirty local main untouched.
   No itch upload or additional full suite. This final closure changes docs only.
+
+## Cleanup and task closure — 2026-10-21
+
+- User accepted the HUD and requested cleanup/closure. The local review session
+  is finished: verified task-owned Node PID22600 was stopped; port8245 preview
+  links above are historical and no longer served.
+- Removed only `E:/CodexTemp/TypingHero/hud-dark-fantasy`, the source worktree's
+  `Builds/hud-dark-fantasy`, and `Builds/clackblade-hud-dark-fantasy-local.zip`.
+  Local player/ZIP paths and temporary helper references above are historical.
+- Tracked previews/receipts remain in `design/hud-dark-fantasy`; immutable remote
+  integration result `/data/typinghero-game-loop/results/20261021T082906-production`
+  remains available for reproducibility. Shared runner resources were untouched.
+- Retained the pre-existing worktree
+  `C:/Users/ADMIN/orca/workspaces/TypingHero/cobblestone-itch-release` and local
+  branch `micharel09/cobblestone-itch-release` for release reuse; remove when that
+  release workspace is no longer needed. Remote branches and dirty local main
+  are preserved. The Orca workspace is to be marked completed after publication.
+- Closure verification is limited to resource absence, scoped document review,
+  `git diff --check`, clean task status, and remote commit integration. Existing
+  passing HUD evidence is reused; no gameplay/build/full-suite rerun is needed.
