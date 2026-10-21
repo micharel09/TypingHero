@@ -1,4 +1,4 @@
-# Combat feedback — implementation checkpoint
+# Combat feedback â€” implementation checkpoint
 
 Current task: BCompact continuous 3D pixel sparks in child `feat/pixel-hit-sparks`.
 Implementation, Quick78, repeated builders, two-direction/two-size native art and
@@ -40,8 +40,8 @@ No stress/soak and no itch.io publish.
 - Afterimages: three per burst, 25 ms interval; life .12 + index*.02 seconds;
   initial alpha .4 with .6 falloff. Preserve sprite/combo tint. Pause schedule/fade;
   exit Slayer, death, disable and scene change cancel pending bursts and reclaim images.
-- Kenney Impact Sounds CC0: impactWood_medium_000–002 for normal/Slayer,
-  impactWood_heavy_000–002 for lethal. Separate SfxEvents with .65/.45/.8 volume,
+- Kenney Impact Sounds CC0: impactWood_medium_000â€“002 for normal/Slayer,
+  impactWood_heavy_000â€“002 for lethal. Separate SfxEvents with .65/.45/.8 volume,
   small pitch jitter; existing pool/mixer/preferences, independent of whoosh/parry.
   Existing parry clang pitch narrowed to +/- 1 semitone.
 - Extend current pools; VFX real time during hitstop, frozen on pause; reset Animator,
@@ -73,7 +73,7 @@ E. Once acceptance and checks pass, run production; new ZIP with credits/license
    QA bridge exclusion, CRC and SHA-256. Update affected docs/game memory only with
    verified changes. Review diff and preserve pre-existing changes.
 
-## 2026-10-17 checkpoint — A blocked on original assets
+## 2026-10-17 checkpoint â€” A blocked on original assets
 
 - Repository root confirmed; Unity 2022.3.25f1. Existing checkout has substantial
   staged/unstaged/untracked Dark Ages, core-match, test and automation work.
@@ -531,13 +531,13 @@ task replaces those editor primitives; this task only replaces the final skin.
 - First Play enters tutorial independently of HowToPlaySeen; menu replays it and
   retains quick help. Separate Unseen/Skipped/Completed preference. Skip and
   Start Battle load a clean 40/850HP,250 stamina,zero-stat match. No score writes.
-- Mapping: existing Shogun theme/UGUI factory, gold cue and gameplay layout →
+- Mapping: existing Shogun theme/UGUI factory, gold cue and gameplay layout â†’
   TutorialBuild/Overlay below-HUD prompt and targeted highlights. Selected short
   instruction / live arena practice reference is the user-supplied Shogun Showdown
   opening URL. Fetch failed (cache miss); exact flow is specified by the plan.
   Wireframe records approved placement and routine theme composition.
 - Implementation decision: scene reloads isolate ordinary lesson transitions and
-  retries while TutorialRun retains the in-session checkpoint. Stamina-break →
+  retries while TutorialRun retains the in-session checkpoint. Stamina-break â†’
   Slayer stays in the live scene, including its real stun and timer. Reading lock
   is separate from pause; Enter/click continues, SPACE remains Parry.
 - Baseline dirty checkout preserved; no branch/worktree/commit created. Doctor
@@ -783,7 +783,7 @@ task replaces those editor primitives; this task only replaces the final skin.
   evidence limits are direct speaker listening and real Windows hardware execution,
   as recorded above; no runtime acceptance blocker remains.
 
-## Pixel physics sparks — foundation checkpoint (2026-10-18)
+## Pixel physics sparks â€” foundation checkpoint (2026-10-18)
 
 - User approved reviewing, verifying and committing the existing foundation on main
   before creating the feature child worktree. Existing presentation/tutorial/art,
@@ -2385,3 +2385,376 @@ Secondary textures: https://docs.unity3d.com/Packages/com.unity.render-pipelines
 - Earlier production baseline real-keyboard parry succeeds(score30/40HP) but old
   Current tail is absent at falling sample. New production124717 is building from
   the same8ba1input; actual production/public parry images still required.
+
+
+### Physical parry default correction published (2026-10-19)
+
+- Root cause: prior default Current remained selected in production; earlier compact
+  tests used F6, and the first production/public smoke only proved menu/Fight/pause.
+  User's report was valid. Latest separate full release19872500 also used Current.
+  Preserved its main933dbbd fixes; owner default, serialized Player prefab and
+  CombatFeedbackBuild now all select BCompact4 without F6. Current stays explicit.
+- Focused Quick123645:14/14 PASS,0skips; QA123737 build/repeated-builder and native
+  default/r2:16checks PASS. Fresh/restarted game emits BCompact without selection;
+  20particles remain at300/550/800ms,12at1050ms, minY reaches-2.8713007 floor.
+  Initial10check native attempt failed on stale post-reload probe data, retained FAIL;
+  corrected observer waits3fresh frames/empty roots. No gameplay timing changes.
+- Production124717 PASS on the same8ba1dda11a10270a96b8f096c30df977ee6f4e7c085b0c1340196a52216400a2
+  input. qa=false/all JS/WASM/data scanned. Real-keyboard production parry smoke5
+  checks PASS,0JS exceptions/writes,1successful parry,0F6. Launch/fall458ms/
+  bounce704ms/rest966ms images visually verified. Current-baseline parry lacks tail.
+- Published playable19874589 at https://micharel09.itch.io/clackblade; old19872500
+  retained hidden. Public page points to that exact iframe;29non-HTML CDN hashes
+  match ZIP and HTML adds only expected itch wrapper. Same public CDN actual game
+  independently passes5checks/1real keyboard parry/0F6/0writes/0JS exceptions;
+  inspected launch,fall457ms,bounce703ms,rest964ms images show physical particles.
+  This directly verifies default public combat, not just a menu or QA-only preset.
+- ZIP CLACKBLADE-Physics24-20261019.zip:30members/16,596,608bytes,CRC PASS,SHA256
+ 541e806b5557e7091198b1d269f5104149f1135bf65d254c06a5cb545c907e1c.
+  Receipt marketing/itch-io/full-release-20261019.json, brand receipt reconciled;
+  ignored ZIP in Builds/. Storefront settings hashcb998ee631f065a1c43833b8836b490e6300ecc4ebfc0a8e304f3330bd9bab27
+  unchanged. No Firebase/schema/other gameplay changes; mirrored QA not requested.
+- Correction e79c185 pushed atomically to origin/main and feat/pixel-hit-sparks;
+  receipt commit follows. Parent local checkout/WIP untouched. Keep requested child,
+  compact-default-qa/production players, screenshots/reports, source input and all
+  earlier review clips under E:/CodexTemp/TypingHero/parry-clash-lighting; temporary
+  Edge caches cleaned after receipt. Browser session stopped after public check.
+  Prior mirror performance concerns remain unresolved; this correction changes routing,
+  not the already-reviewed24particle trajectory/appearance. No new broad performance claim.
+
+- Handoff:5completed compact-default Edge profiles removed; evidence/player/clips
+  retained. Automatic review rejected the combined cleanup/receipt push to main
+  because publication did not explicitly authorize that documentation update to the
+  default branch. No rejected command ran. Completed safe cleanup independently;
+  final receipt is committed/pushed only to the already-authorized feature branch.
+  Runtime correction e79c185 is already on main and public19874589 verified above.
+
+
+## Contact flash / Sekiro direction (2026-10-19, implementation in progress)
+
+- Authorized plan: preserve released24/192 physics and default BCompact; replace only two contacts with .5WU white-gold core (60ms hold/200ms end), .75->1.5WU pixel orange ring (90ms growth/260ms end), compact light5 (70ms hold/280ms smoothstep end). Legacy140ms quadratic pulse and radius/bloom unchanged. No mirrored QA.
+- Parent e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/TypingHero remains untouched with marketing/art WIP. Child e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/parry-contact-flash, branch micharel09/parry-contact-flash. Base main933dbbd was stale16particle input; fast-forwarded child to existing verified/released feature b86e4fa (24/default correction). Remote origin github.com/micharel09/TypingHero.git. No push/merge requested for source; itch publication authorized after acceptance.
+- Runtime implementation plus focused tests underway. Retain task contact-flash-* helpers/input/results under E:/CodexTemp/TypingHero/parry-clash-lighting until verification completes; preserve all old physics clips.
+- Pending: focused final Quick, repeat builder, normal/Slayer noF6 Edge640/1280 and0/70/140/220/280ms visuals, clips1x/.25x, matched no-capture p95/ABBA if>10%, production actual parry/no bridge, itch payload/CDN verification, final receipts. No acceptance claimed yet.
+
+- Final focused Quick20261019T133029:17/17PASS,0failed/skipped; input cae5ad525fef5884c6f060cb7f0f0a5881733b15fd19754034b95db7e911d6c5. Exact hold/fade, strongest mixed overlap, compact pause/reuse, legacy140ms, contact endpoints/modules/material restoration,24/192 budget and repeated-builder covered. Earlier Quick132019 failed pool return because frozen contact IsAlive stayed true after particles ended; completion now checks manual contact particleCount. Quick13280616/16passed before final compact-pulse pause test was added; no acceptance assigned to failed run.
+- Baseline Edge155.0.4283.62, noF6: contact-flash-before-r3 PASS22checks/two sizes, three parries per size and Slayer, restart. Earlier r1/r2 driver failures retained (insufficient parry count; Slayer transition during cue wait); fixed observation only. Baseline no-capture perf-a1 PASS16checks, three parries/size. Driver/raw video/report retained in task temp for comparison; no product changes to satisfy driver.
+
+- QA20261019T133110 build/repeated serialization PASS on same cae5ad input. Production134644 input cf10f42b34c40229079654df0108f8bd83521f5f2571b9d6d1985d4886662404 is building; archive comparison proves the only delta is four whitespace-only prefab fields (token-identical). All runtime/tests/material/shader/config inputs identical.
+- Native Edge155.0.4283.62/Playwright1.58.2/Intel UHD0x9BC4 ANGLE D3D11: contact-flash-after PASS22checks, default noF6,3real keyboard parries per640x360/1280x720, Slayer and restart.0exceptions/provider reads/writes; fixtures/network blocking retained. Native before-r3 also22PASS; no mirrored QA performed. First sequential1280 screenshots arrived late; visual timing acceptance uses raw25fps video frames aligned to first score0->30 transition (up to40ms sampling uncertainty, distinct RNG/animation phases). Offline tests establish precise endpoints, not the video.
+- Inspected native0/70/140/220/280ms frames, normal/Slayer silhouettes,800ms falling particles and before/after comparison frames: white-gold sword contact, bounded stepped orange ring, local light that fades without scene fog; sword/face/body remain readable, no observed pink/blur. Existing white sword slash is retained. No human art approval or all-RNG/subframe claim.
+- Matched no-video/no-screenshot performance A1/B1 each PASS16checks,3parries/size, same QA profiling enabled.1280 all p95=33.820->33.805ms(-.044%,n57/57), live33.875->33.460(-1.225%,n26/25).640 all33.215->33.280(+.196%,n58/57), live33.070->33.280(+.635%,n25/26). No>10% increase, no ABBA needed. Short observed samples include browser/idle overhead; no device-FPS/equivalence/GPU-causality claim. Earlier mirror concerns remain unresolved.
+- Two final clips under task temp/contact-flash-review: Parry-Contact-BeforeAfter-640.mp4 (975593bytes,SHA256245e5245e9efd9759b534009c8527767f0aba2a09c1bc388a04d3f71b3f62d35) and1280.mp4 (1738384bytes,SHA256c3c41cf817f208b2ee72e1237ed23d7c44c18b936b8da63b1a67e142ef795736). Each15.2s/25fps/380frames, side-by-side8s1x+7.2s.25x; full decode/local-server hashes PASS. Labels/aspect/native contact frames inspected. Earlier Physics24 clips remain untouched.
+- Browser-skill own session rhyc confirms public still19874589 before publication. Another task's unsg editor session was inspected read-only for overlap, never controlled; storefront fields must be snapshotted fresh immediately before upload. No new upload yet. Remaining: production actual parry/no bridge, ZIP, itch update, fresh public actual parry/CDN hashes, final receipt/cleanup.
+
+- Lifecycle follow-up before publication: contact now owns contactAge, independent of debrisAge, so completing the spark simulation cannot truncate/freeze the260ms contact. Clear resets both. Added a18th test completing spark simulation via AdvanceDebris(10) then asserting contact survives the next frame and returns its lease after300ms. Normal-frame math is identical while sparks live; no changes to the four byte-identical physics methods.
+- One queued Quick and one queued final-production helper were canceled while still holding no children/containers, so their obsolete inputs did not execute. Earlier production134644 completed bridge exclusion but is superseded and will not be published. Final18test Quick/new QA and production are required before release; earlier17/native/perf/clip receipts describe the pre-independent-clock snapshot.
+- Browser-skill rhyc session was automatically unregistered after idle; session list is empty and instance61a46c05 remains connected. Open a fresh task session on that same instance at publication, verify game3857509 and capture current settings. No source push/merge/public mutation yet.
+
+- Independent-clock final Quick20261019T135959 PASS18/18,0failed/skipped. Final frozen input c594476614434566fda7309073d7b78ce88a550c99f0a3b5923be10dd6229db3. Runtime/tests/assets remain frozen. Native/player acceptance must now use the final QA build. Live tool sessions at this checkpoint:25341 final QA build-only,19516 final production, both queued behind shared global runner; obsolete production134644 is completed, do not publish it. Correct final helper is contact_flash_final_run.py under task temp. New final QA result path is not created yet. Source parent/WIP untouched.
+
+- Source implementation committed locally as725b5ad on micharel09/parry-contact-flash (8scoped files). No push/merge. Full final input remains c594476614434566fda7309073d7b78ce88a550c99f0a3b5923be10dd6229db3; documentation changes are outside the input archive.
+- Final QA20261019T140934 build/repeated-builder PASS on c5944766, native contact-flash-final-after26checks PASS (six noF6 real parries,3per640/1280, Slayer/pause/restart, same visible/focused tab and allocation profiling),0exceptions/provider reads/writes. This supersedes the17test/22native contact snapshot. Final Quick13595918/18/0skip and this QA match exactly.
+- Final matched no-capture A2/B2 each20checks PASS,3real parries per size, identical Edge155/Intel UHD0x9BC4 ANGLE D3D11, profiling enabled and visible/focused.1280 all p95=33.500->31.940ms(-4.657%,n57/60), live33.425->31.640(-5.340%,n26/25);640 all33.340->33.595(+.765%,n57/57), live33.340->33.170(-.510%,n25/26). No>10% regression, so ABBA not triggered. These sampled observations supersede A1/B1; no claim of a performance improvement or complete frame distribution.
+- Final clip export is replacing only the new task comparison clips with raw final-after videos, preserving all older Physics24 clips. Production final tool session19516 remains queued behind global runner jobs. Do not use obsolete production134644. Parent Ronin task explicitly says no publication; its new9sprites/8normals remain only in parent dirty checkout and are excluded from this Physics24-based release.
+
+- Final native frames and clips visually rechecked after independent-clock build:0/70/140/220/280ms, Slayer,800ms tail at both sizes retain crisp contact/ring and sword/face/silhouette. Initial final1280 export falsely matched name-entry glyphs; exporter now gates score0->30 detection on the red combat HP fill, removing menu false positives. This only changed artifact extraction. Correct first onsets:before6407.60s/after6407.12s,before12808.28s/after12807.44s.25fps samples are within40ms, not deterministic replay.
+- Qualified final comparison clips supersede earlier contact clip hashes:6401000942bytes,SHA25684fdbd6d4dcaf3d7a9900b750d3b21c4ad9e7defc2fc7e3d23567166c893cbd6;12801681863bytes,SHA25630025a297680c36debc30f4bee0c80d8547043db37b5ce56743375ff2bbfe6f0. Each15.2s/25fps/380frames,8s1x+7.2s.25x, correct hstack aspect/labels/native images reviewed; full decode and local/server hashes PASS. Old Strong24 comparison hashes remain6405ff54e05fec76103dad202934cdfe5a7d2e591ec7933ce867f9af480fd6fb100 and128070df40579895bf543eef8ac265c00bb75725de01d8d3842f15584a64f87486a9.
+
+
+### Preserve the newer public DungeonUI release before uploading
+
+- Fresh itch form at publication showed DungeonUI19876564 now embedded, Physics2419874589 hidden. No parry ZIP was uploaded/saved. This supersedes the earlier assumed public target. The already-built c594 production and its5check smoke remain valid pre-UI receipts but must not be published because doing so would revert the newer public UI.
+- Published DungeonUI source is clean committed1bedcff, based on e79c185 (already default BCompact24). Upstream source input781c881452f74d06b79ee7f47efb4efe4e6f09f46e3078ee613c94a88cf6e8a0, production142518, ZIP SHA2565907f752234508235aa17e13a4468e82a1329f6eb0f9cde4a8f2ed0c9288a212,30files/16575624bytes. Its own public-payload.json verifies29files and iframe19876564; source/UI receipts81native+6modal-size+1172victory are reused for byte-identical published UI handlers/geometry. No redesign or new UI decision.
+- Saved qualified pre-integration parry docs locally as a32c63c, merged exact1bedcff into task branch without conflicts, committed local merge cc0638558269ce4ca7e376f40fea05fc3dfc75b6. No push/default-branch merge. Diff against1bedcff under Assets/Packages/ProjectSettings is exactly the8parry files from725b5ad; all published UI changes are retained, parent Ronin WIP excluded. Parent/source scopes remain intact.
+- Final combined frozen input48780cca238ebdfff564cb21927eb052de661cc6ae60e331016ca3f401fa5d06. Combined focused Quick PASS18/18. Combined QA tool session42402 currently builds; production9145 is queued from the exact same input. Correct helper contact_flash_dungeon_run.py uses QA profiling flag0 to match the existing public-UI QA baseline, not the older flag1 parry comparison.
+- Preserved independent baseline copy contact-flash-dungeon-baseline-player (all30files SHA256-verified against upstream player-pixel-final) plus snapshot781c from global QA141923, so upstream task cleanup cannot remove the baseline mid-test. Baseline driver contact-flash-dungeon-before PASS24checks,6default noF6 parries/two sizes, Slayer/pause/restart. Counters are recorded, not forced ON; final matched performance must assert equal actual availability/config between these flag0 players.
+- Owned bsk session xpyg was stopped after discovering the public change. Before-upload form hash0fcd9eb74423a2969c57c50e89170fbe0c5fd33a4d761f75712cfcf2708c72b9 describes DungeonUI stage but must be refreshed again before final upload. No public mutation by this task yet. Final clips/performance must use DungeonUI baseline and combined player; keep all old physics clips.
+
+### Preview handoff â€” 2026-10-19
+User requested no deeper QA and immediate preview. Opened headed Edge using combined DungeonUI + contact-flash QA player (input 48780cca238ebdfff564cb21927eb052de661cc6ae60e331016ca3f401fa5d06), BCompact default, no F6. Preview ready paused; keyboard/mouse only, fixture interception retained. Helper PID 12748; artifacts E:/CodexTemp/TypingHero/parry-clash-lighting/contact-flash-preview-ready. Keep helper/player while preview is in use; close browser to end. No itch upload performed; publication and public payload verification remain pending. Combined quick passed 18/18; no further deep QA launched after user steering.
+
+### Voxel revision after visual rejection â€” 2026-10-19
+User rejected the flat disk/ring and selected actual 3D voxel blocks (not thin metallic shavings). Implemented shared closed cube mesh with hard face normals, three-axis spin, 2-3pixel edges, compact offset contact cuboids with no ring, and floor-volume support/rest rotation. Kept launch/flight equations, RNG draws, pulse timing, 24/192 budgets, legacy presets and DungeonUI. No public API/dependency. Current focused Quick20261019T152205 passed19/19 on source8470def229e035afaf4bd833c139d3c103d4c32689a8909f921e5b611f7f1da8; prior attempt failed compilation (struct property assignment), fixed before passing. QA WebGL20261019T152304 building same input. Only two real default noF6 parries/1280+640 and immediate headed preview planned; no deep QA/performance/publication for this revision. Old physics clips retained.
+
+- Voxel QA WebGL152304 PASS. Headed Edge155 preview is ready (helper PID18684, port8141), source8470def2. Native12checks PASS/two real default noF6 parries1280+640;0exceptions/provider reads/writes. Impact/flight images inspected: explicit shaded cube faces and volume, no ring. Keep 1280 window paused for user; Esc resumes, Space parries. Current player voxel-parry-preview-player; artifacts voxel-parry-interactive under task temp. Copied only built voxel mesh/material+metas and prefab; verified prefab equals prior bytes after removing just the three new serialized fields (asset refs/version), with whitespace normalized. No source behavior changed after qualified build. No publication/performance/deep QA claimed. Source branch/worktree retained for visual feedback, not merged or pushed; retain preview helper/player/captures until review ends, then close browser/clean task resources as appropriate. Old physics clips untouched.
+
+### Full 2.5D conversion implementation - 2026-10-20
+Approved plan: use prior voxel source/worktree; separate slash-only RGBA into durable layers and closed thin meshes, add Normal6/Slayer8/Lethal14 and received4/lethal6 mesh impacts, keep screen/flash/cues2D. Keep pose/clip/hit/gameplay/audio/camera contracts and old physics clips; no deep/mirror QA/perf/itch publication. Baseline voxel source saved locally as70d789d. Nine source atlases split with cel regions/weapon guards; exact outside-mask RGBA and recomposition checked, source PNG metadata/clip files not changed. Runtime mesh follows actual Sprite cel, not hit window. New impact PRNG is isolated from Unity random; volume support/rest,8leases per emitter,12afterimage cap with generation guards, shared rig normals/heat channel and strongest pulse arbitration implemented. Initial focused24/24 passed; front/back impact sort and received direction then adjusted; focused final rerun queued. New code/art only in child; parent Ronin WIP excluded. Keep task temp E:/CodexTemp/TypingHero/parry-clash-lighting until preview review completes.
+
+- Full source frozen for QA build input9572dd6b7c150c5f5ee651648241835eae3f58ce66d2423a1b9558207b86f6a7 (pending tool session78952). Final focused26case run pending64943; earlier25case run88c5 passed. Delta includes captured Slayer tint across synchronous death reset, suppressing Slayer glow for normal lethal, and a torso contact point because AttackStrike reports attacker root. Body/sprite metadata content verified unchanged after CRLF normalization; the initial raw-byte assertion compared checkout CRLF to Git LF and was corrected to content comparison. Obsolete queued builds/tests were canceled only while sleeping on this task's global lock; no Unity process or other task was stopped. Shared global runner is currently held by another main webgl job; frozen jobs remain queued. Native driver full_voxel_preview.cjs prepared: actual keyboard/mouse, noF6, readonly QA, fixtures/external blocking, four short duels for sword/axe/shield and one640 sample, then a fresh1280 paused preview.
+
+- Focused26/26 PASS on86d1b16bb6f197fd52b1079efc0d2dae82c536e40b8abfc294367c828d221c4e, including lethal tint across synchronous Slayer exit and normal-lethal no emission. Initial final QA023116 on9572 failed the strict builder repeat check: CompactVoxel.mat lazily persisted new shader default _Emission on the second pass. Fixed explicit complete shader property initialization in existing/new materials, persisted current hot material fields, and added CombatVoxel/SlashVolume roots to existing repeat fingerprint (no checks bypassed). Runtime gameplay/geometry did not change after focused tests except received torso-only presentation point. Retrying QA via tool24848; output not yet qualified.
+
+- Retry frozen input55fa1d2284bf42271949119dcab6a9cf29231d19bfa8f8871f10e5228fd70acd via24848 is queued behind shared main jobs. No more runtime edits planned before native evidence. Focused26 PASS is source86d1; final deltas are received torso position and complete shader-default serialization/repeat coverage. Local helpers full_voxel_run.py (ownBASE, shared cache/global lock, preserves new VFX dirs), volume_fetch.py, full_voxel_preview.cjs/open_full_voxel_preview.ps1 all under task temp. New preview uses port8142; no process launched yet. Once build passes: fetch immutable player, copy generated CombatVoxel/SlashVolume plus changed actor prefabs/scenes/hot material only, preserving GUIDs and original texture metadata; run headed driver; inspect captures; reconcile docs; keep1280 preview open. No production/public work.
+
+### Follow the concurrent 3D environment â€” 2026-10-20
+
+User explicitly asked to continue against their new 3D environment. Read sibling `dungeon-3d` WIP on e20c4ab9 and froze only its36 environment source/model/shader/camera files into this child, preserving GUIDs. Sibling and parent remain untouched; unrelated palette/branding WIP is excluded. Imported arena authoring source is `Assets/Editor/PixelUI/DungeonArenaBuild.cs`, original KayKit assets under `Assets/Art/Environment/KayKitDungeon` with SOURCE.json/license, and `Assets/Scripts/Rendering`. This is a scoped preview integration, not acceptance or a main-branch merge of the sibling task.
+
+Local integration adds the final arena builder pass, uses its actual Forward lights for VFX face shading and the same strongest per-pulse profiles for its combat spotlight, and aligns scene emitters to its visible floor. Legacy2D/menu lighting remains supported. New focused real3D-light timing/disable test added. Own obsolete24848 was canceled while waiting on `locks_lock_inode_wait` before creating a Unity child; no other task stopped. Rebuild and immediate actual-input preview are pending; no deep/performance/publication work.
+
+- Current frozen QA source `b79020b658e14bbc93c68a0bc3310d869e37f2aae20f7e7026658438e9cdf7a2`; own tool60223 waits on the shared global lock. Focused27-case tool82975 is queued ahead of it from5f8562c3, with unchanged runtime/tests; final presentation deltas seal adjacent slash-mesh thickness corners, initialize hot-material defaults only at creation to preserve tuning, and include the sibling's latest floor/framing/legacy-light override and Forward-compatible red-overlay fixes. DungeonCombatLighting stays outside the Slayer-hidden geometry group. Static verification: zero duplicate asset GUIDs, all12 KayKit original model/atlas hashes match SOURCE.json, all9 source sprite metadata files match70d789d by content. Parent and sibling WIP remain untouched.
+
+- Quick025745 and QA025824 stopped at compilation, zero tests executed: imported DungeonArenaBuild directly references Cinemachine but the editor asmdef lacked its existing package reference. Added the same `Cinemachine` reference now present in the sibling's editor asmdef, with no package/version change. Prior26 passing VFX tests remain historical; final27/combined WebGL are retried. No visual acceptance assigned to these failed builds.
+
+- Active final jobs: focused27 tool85389 on `cddebed9d46c512da9204e9272c4173d844a7e029cba3d209fe7cd22bc7879a1`, WebGL build-only tool73006 on `c639e3d9eaca0c146d847ac0dfe6e454a5e0adc1f0a4eaa08f90f93e55c20d79`. The sole input delta is the sibling's stone tint `.11/.12/.13` (presentation builder only). Old tool52938 was canceled only while queued. Both final jobs wait behind global serialize after main production025919; no running job from another task was interrupted. Ready-to-use helpers: volume_fetch.py, fetch_full_voxel_assets.py, open_full_voxel_preview.ps1/full_voxel_preview.cjs. The browser driver now waits for the real hurt lock to end before typing its first normal hit, then leaves a fresh1280 fight paused for review.
+
+- Quick030739 PASS27/27 on cddebed9. QA030935 failed strict repeat at DungeonStone.mat. Diagnostic-only serialize031638 (`e7b4dbc6ae9659571457dd01622560ae95ec0608f7f54606379f2690e0a7811e`) dumped both material passes: the only difference was legacy `_Color` white becoming the Lit `_BaseColor` via URP import validation. Fixed explicit `_Color = GetColor(_BaseColor)`, `_MainTex` alias and material dirty persistence; strict checks remain enabled, with .mat dumps added for diagnosis. QA032020 (`094aba33607b7178a478a0effc956e2654b323cfac1cce3d1c97773ee1013e01`, tool35360) passed repeat and is creating its player. A stale first Bee compile reported VoxelImpactBurst missing, then reevaluated/recompiled and proceeded to IL2CPP; only final status counts.
+
+- Detected a separate imported-environment defect before visual acceptance: generated stone BaseMap/MainTex references were null while the original valid1024x1024 PNG decoded correctly. Original atlas metadata contained only its GUID. Added explicit Texture2D/sRGB/Point/Clamp/no-mips import metadata using the existing Unity-generated importer format, preserving GUID54fcf6fd51724a4b8c2776ebeb709ffd and original PNG bytes, and an editor error if atlas import is absent. Final QA tool47416 is queued from `757f20fb2074ae8641221db06b80fd410ff9a18b913190c87b81a3acb47988f2`; runtime/tests unchanged from passing27. Do not qualify/publish032020's untextured scene. After final PASS, verify actual non-null atlas binding, fetch player/serialized assets and run the short native preview driver. Parent/sibling still untouched.
+
+- QA032020 completed build/repeat successfully but remains superseded/untextured. Final QA033055 is linking from757f20fb: strict repeat PASS, no missing-atlas editor error, actual BaseMap fileID2800000/GUID54fcf6fd51724a4b8c2776ebeb709ffd confirmed in generated DungeonStone.mat. Only final tool47416/player is for native visual review. Full generated assets must be copied with fetch_full_voxel_assets.py after success, preserving generated GUID pairs; then native preview output/player should use distinct `full-voxel-dungeon-*` names on port8142. No new runtime tests, deep QA or production steps needed for these editor/import-only fixes.
+
+### Full conversion preview ready â€” 2026-10-20
+
+- Final QA033055 build/strict repeat PASS on757f20fb; immutable player fetched as `E:/CodexTemp/TypingHero/parry-clash-lighting/full-voxel-dungeon-preview-player`. Copied112generated asset files with GUID checks. Source retains all407original menu/853combat IDs,24slash mappings and original9sprite metadata; zero duplicate GUIDs. MainMenu generated changes were only trailing whitespace, so restored its exact baseline bytes. Package/project version and gameplay/audio/clip contracts remain.
+- Edge155/Playwright1.58.2 `full-voxel-dungeon-interactive-r4`:70scoped checks passed, preview-ready, zero exceptions/fixture writes/F6 keys. Four real opponents Swordsman/DoubleStrike/Heavy/Guard at1280, accepted-hit/normal/parry/Slayer/lethal particles, held pause ages/positions, Continue cleanup and640Slayer. Contact/chunks/slash pose, axe grip/trail, lethal tint, silhouettes and640 sample inspected. No human visual approval, deep/mirror/performance/publication claim.
+- Earlier native r1-r3 each reached17checks then failed driver assumptions at Continue. Source shows Run.Win advances the label before Continue; reloaded continuing scenes auto-start combat. Spark records cache the previous frame, observed p.frame1766/state.frame1767 on r3. Driver now waits for nonfinished/live HP and two fresh frames before checking empty effects. R4 completes with no product edits between native attempts.
+- Review window is a fresh1280fight paused; Esc resumes, type words to attack, Space parries. Wrapper PID32008, port8142. Retain current preview helper/player, `full-voxel-dungeon-interactive-r4` screenshots/progress/summary and old physics clips until user review completes. Keep child `micharel09/parry-contact-flash` unmerged for source review; parent/sibling untouched. No further acceptance work is required for this requested immediate-preview iteration; visual feedback drives any next change.
+
+- Interactive review page closed at10:51local after a136s paused review window; final R4 report is PASS72/72 (70behavior checks plus2harness postconditions),0exceptions/fixture reads/writes/external requests,250.243s total. Wrapper32008 and server8142 exited normally; they are no longer live preview resources. Keep final player/screenshots and `open_full_voxel_preview.ps1` launcher/driver for any requested reopen. Old Strong24 clips rehashed and match original6405ff54e05fec76103dad202934cdfe5a7d2e591ec7933ce867f9af480fd6fb100 /128070df40579895bf543eef8ac265c00bb75725de01d8d3842f15584a64f87486a9. Source remains a reviewed local candidate, not published or merged; final visual approval remains with user.
+
+- User-requested video follow-up (2026-10-20): exported `E:/CodexTemp/TypingHero/parry-clash-lighting/CLACKBLADE-VFX3D-Dungeon-Preview.mp4`, 29.68s/1280x720/25fps/H.264/yuv420p, 2994682bytes, SHA256 `d560c11aba2ff7ac41a1bf3db74f8329b9ea45b8578290045c6e9edd081df03e`. Existing qualified player/input757f20fb at runtime source ebdd386; no rebuild or runtime edit. One real keyboard/mouse Swordsman duel shows received/normal/default BCompact parry/Slayer/lethal, followed by0.25x replay of the first parry and falling fragments. Native headless Edge155.0.4283.62, ANGLE GTX1650Ti/D3D11, isolated provider fixtures/read-only bridge,13capture checks passed and0exceptions/writes/external requests. First headed take passed behavior but had gray recording corruption at its end and was excluded. Final export fully decodes; inspected normal/parry/Slayer/lethal/slow falling frames have full frame, readable labels/silhouettes and no gray capture corruption. Video is silent; no new deep QA/performance/publication claim. Retain final MP4, lightweight provenance/clip receipt and recording/export helpers under task temp for user review; closed recording profiles, discarded first take, raw WebM and contact sheets can be removed. Prior physics clips remain unchanged. No human visual acceptance claimed.
+
+
+### Cinematic pixel parry implementation â€” 2026-10-20 (ready for visual review)
+
+- User approved the detailed hybrid parry plan: use the licensed free Pimen01 already present, pixel flipbook + stock 3D ParticleSystem motion/collision + local light, restrained camera/audio. Parry only; preserve normal/received/Slayer/lethal art and gameplay timings. Local preview with sound requested; no push/merge/itch publication. Prior voxel visuals were rejected, irrespective of passing historical checks.
+- Reusing child micharel09/parry-contact-flash at C:/Users/ADMIN/orca/workspaces/TypingHero/parry-contact-flash, base ddad604. Parent/sibling environment WIP untouched. Replaced analytical voxel BCompact path with 14 main +4 reflected rays +4 embers +2 fixed-pivot Pimen contact particles; authored contact data snapshots before Hurt/success. Added HDR/bloom4/.2/.3 and a parry Point light, separate impulse channel2 after existing50ms hitstop; parry clang jitter .03/.35 semitone and80ms hand duck. Source art/importers remain unchanged.
+- First Quick051633 stopped at compile: Cinemachine2.9.7 Cancel requires(time,bool), corrected using installed package source. Quick051811 executed25 cases,10pass/15fail: all failures came from trying to AddSprite(null) while restoring the disabled legacy flipbook placeholder. Changed contacts to grid animation and restore tile/curve fields without touching the original sprite list. New focused Quick and representative WebGL/repeat build are queued behind the shared runner; no acceptance assigned yet.
+- Baseline headless native Edge155/GTX1650Ti/D3D11, Playwright1.58.2, existing qualified757f20fb player: actual keyboard Swordsman duel captured with canvas30fps + game WebAudio (no microphone),13checks passed; source MP4 from the old iteration remains untouched. New raw is task temp/pixel-parry-before-video/game-audio.webm. No-capture baseline1280 p95=13.435ms,n646/live341 p95=13.420;640 p95=13.510,n640/live350 p95=13.515. These are short RAF observations, not a device performance guarantee.
+- Retain E:/CodexTemp/TypingHero/parry-clash-lighting helpers/players/reference clips and all original Strong24 physics clips for review. Pending: new runtime/build qualification, actual contact gap/pose and glow checks on sword/shield/axe, pause/reuse/shared consumer smoke, matched p95, continuous audio MP4 at1x/.25x and final receipts. No deep/stress/soak/mirrored QA.
+
+- Grid restoration Quick052747 (input4ff89cec) PASS25/25. Representative QA052927 (d673400c) build/strict repeat PASS; fetched immutable pixel-parry-stage1 player and24 generated files with GUID checks. Native sample shows a real presentation defect: animation events see Attack1_4 before its contact cel is applied; the success/Hurt poses replace weapon contact immediately. Fixed by explicit authored contact-cel mapping and70ms reuse of existing contact sprites in ParrySystem.LateUpdate; gameplay animator states/events/50ms hitstop continue unchanged and pause/disable restore the actual animation sprite. No source pixels/clip timings were edited.
+- Additional corrections from that sample: velocity-facing billboard rays could be edge-on, now use stock Stretched Billboard; HDR8 did not clear URP bloom's gamma threshold4, contact multiplier raised to32 while retaining threshold4/intensity.2/scatter.3. The additional-light enum diagnosis was initially wrong: installed URP source confirms PerPixel=1 and PerVertex=2. Existing mode1 is already correct; builder now explicitly retains PerPixel. Actual missing dependency is DungeonForward.postProcessData=null; it now binds the installed URP Runtime/Data/PostProcessData.asset so Bloom can execute. HDR32 was premature and is reverted to the planned8 for the first correctly configured post-process preview. Shared normal/lethal smoke is required on final player. First native sample reached15 checks then a driver assertion compared HP from before a long cue wait; the driver now compares HP immediately before Space. No art acceptance assigned to stage1.
+- Audio capture failure resolved: Unity disconnects/reconnects destination nodes; a WeakSet dedup guard prevented reconnecting the parallel capture route. Removed that guard following existing typing-sfx audio-tap behavior. Qualified baseline native capture pixel-parry-before-audio-r3:12checks, real stereo48k PCM peak.489592, native25fps1280x720; muxed pixel-parry-before-with-audio.mp4 has H264+AAC. Failed empty/silent MediaRecorder/PCM takes are unqualified and will be cleaned. Final uses the proven silent-output PCM tap plus Playwright video, not the unsuccessful combined MediaRecorder route; no microphone or production change.
+- Current final source adds explicit Point-vs-Spot strongest-winner coverage (26 focused cases). New Quick/build jobs launched via parry_cinematic_run.py after source/data fixes; final geometry/physics/light/camera/audio preview and matched no-capture p95 remain pending. Retain stage1 screenshots only until the correction is reviewed; no publication.
+
+- Stage1 native-r2 reached47 checks, confirmed sword1 gap0, sword2 centerline gap.207WU, axe1 sampled-shaft gap.341WU; stopped during Guard because the old driver waited for a normal effect after a short word/lowHP. Updated driver to smoke normal/received only once, parry other roles immediately and type Slayer letters faster. Use immediate post-Space HP rather than pre-cue HP. No accepted result for the failed run.
+- Authored contact library v3 uses existing lower guard cel1 for horizontal Attack2, and axe1's actual metal cutting edge pixels(78,11)->(83,6) rather than the shaft-side line. This avoids new drawing and closes the visible contact without altering clip/frame timing. Contact poses are held70ms for presentation only. All actor/source image bytes stay unchanged.
+- Canceled own queued obsolete snapshots after these discoveries. One Quick055105 had just started when the TERM arrived; its owned orphan container typinghero-loop-1487163-1792475465583994444 was then explicitly removed and absence confirmed. That run is unqualified. Other jobs/containers remain untouched. Final current Quick/build are tools58738/16608; wait for their frozen receipts. No further source edits before their result unless a concrete failure requires it.
+
+- Quick055203 PASS26/26 on95dc7692, including v3 contact snapshot, stock physics/pause/pool/preset restoration, mixed point/spot arbitration and all legacy consumers. Corrected another concrete texture timing issue from Unity2022.3 API docs: startFrame is a tile index (1), whereas frameOverTime remains normalized(5/6); the earlier1/6 delayed the outer sequence. Runtime/test delta is this literal plus its comment/assert. Final Quick46187 and QA75999 are queued on that corrected source; no more edits before evidence. QA055327 on95dc is the representative pose/post-process player and remains running (tool16608), useful for shared weapon/light smoke; it is superseded for final flipbook timing.
+
+- Important correction: Quick060043 on98f7986f ran25/26; the failed assertion shows the native startFrame setter clamps1 to.9999. The API example's tile-index interpretation was wrong. Reconstructed exact95dc bytes from98f archive by reverting only that literal/comment/assert, and restored the exact passing runtime/tests. No tolerance widening. QA060130 on98f is a negative-control/unqualified player, never use it for preview. A temporary BakeMesh UV diagnostic is queued with a unique hash-named input to verify actual cell UVs, not just settings. Its earlier wrapper1536418 actually completed before the cancel attempt; it ran0filtered cases because the shared quick input path had been overwritten by the newer queued snapshot. That result is unqualified. Requeued the diagnostic with its own immutable hash-named archive.
+- Native source95dc final-qa PASS64/64 after driver corrections: four opponents Swordsman/Double/Heavy/Guard at1280, defaultBCompact/noF6, accepted normal/Slayer/lethal, pause and Continue cleanup, plus640Slayer. Failure root cause in previous finish loops: typing only current[0] in Slayer repeatedly reset a longer word and cannot farm already rewarded positions. Driver now types each complete current word; gameplay was not modified to satisfy automation. Native scoped checks stop after this acceptance set, no deep/mirror/stress work.
+- No-capture95dc same Edge155/GTX1650Ti/D3D11/Playwright1.58.2:1280 p95 13.435->13.445ms(n646->642), live13.420->13.450(n341->316);64013.510->13.470(n640->647), live13.515->13.445(n350->316). No>10% regression, no ABBA. Short RAF observations only, not a hardware guarantee.
+- Actual audio+video intermediate exported as task-temp/CLACKBLADE-Parry-Pixel-Preview-WIP.mp4 (normal1x +.25x), shared for user preview. Source pixel-parry-after-audio-stage2 passed12capture checks, actual stereo PCM and native25fps video; no microphone. This source is95dc, before the final trail cleanup below.
+- Visual review found the original enemy slash sweep obscures the player during axe parry. Final implementation reuses finished clean weapon cels (lossless crops; sword from existing free Without_VFX sheets, shield/axe from clean follow-through cels) in PixelWeaponContacts.png, library version4. Separate sprite identities naturally avoid SlashLibrary's attack sweeps; ParrySystem also suppresses only the parried enemy's SlashVolume for200ms and restores its prior enabled state after that, on disable/results or before another parry. Normal/Slayer attack trails and all animator/event/gameplay timing stay. No original actor pixels, metadata or clips edited.
+- Final v4/trail source Quick65592 and WebGL97588 are queued; prior v4-before-trail wrappers56865/78593 were canceled with INT while queued. Current UV diagnostic was requeued separately with immutable hash filename. Final generated assets/player, native follow-up, AV clip/before-after export, p95 and receipt still pending. Keep WIP clip/player for review until final qualifies. Do not publish/merge/push.
+
+- Final clean-contact source2158fcdf07c678134da9bc716996019c855294d2e1be57fe996ebf8a6327410a: Quick063136 PASS26/26; WebGL063220 build/strict repeat PASS. Fetched immutable parry-cinematic-final player and10generated files, preserving GUIDs. All6 PixelWeaponContacts cells match their original RGBA crops exactly; profilev4 confirmed. No original actor PNG/metadata/animation change.
+- Native parry-cinematic-final-qa: PASS66checks, same Edge155/GTX1650Ti/D3D11/Playwright1.58.2, actual keyboard only/defaultBCompact/noF6, four opponents, normal/Slayer/lethal/received smoke, pause/Continue cleanup,640Slayer. Zero exceptions/provider mutations observed; fixtures/external blocking retained. Actual contact targets are ParryWeaponContact0/1/4/2/3; measured centerline gaps sword1=0,sword2=.084WU,axe1=.071WU,shield1/2~0 (within visible blade thickness). Inspected final axe contact sample: original large enemy sweep no longer covers the player; existing player's success-counter trail remains. Human aesthetic approval still belongs to the user.
+- Final no-capture `parry-cinematic-final-perf` PASS14, same Edge155/GTX1650Ti/D3D11/Playwright1.58.2:1280 p95 13.435â†’13.485ms(n646â†’633), live13.420â†’13.520(n341â†’309);64013.510â†’13.505(n640â†’646), live13.515â†’13.505(n350â†’314). Short RAF observations only; no>10% increase, no ABBA. Final `parry-cinematic-final-audio` PASS12, actual stereo48k PCM peak.516182 and native25fps video. Three real parries at1x plus0.25x replay exported to `CLACKBLADE-Parry-Pixel-Cinematic.mp4`, H264/yuv420p+AAC, full decode PASS. Final glow/contact/tail frames inspected; sampled visual onset9.964s, not the late driver marker10.204s. No runtime changes after qualification.
+- Optional UV diagnostic96282 completed Quick065007 on unique6bf8d739 snapshot,1executed case. BakeMesh minU confirms startFrame1/6 begins tile1 and advances through the outer sequence;0begins coretile0, .9999begins tile5/wraps. Final normalized1/6 is retained. Temporary diagnostic is not in source. WIP95dc and failed98f are historical; use2158/player for preview.
+- Final before/after `CLACKBLADE-Parry-Pixel-BeforeAfter.mp4`:20.021328s,1280x720/25fps,H264/yuv420p+AAC48k stereo,1295591bytes,SHA256 `f4392f7151ba6521d59825a9e4a0b6958681299a693e3dd5bb3d53415e169629`. Prior757f20fb voxel and final2158 raw frames aligned at sampled visual onset9.418/9.964s, not delayed driver marks; before/after1x then before/after.25x. Full decode and full-scene frame/label/aspect review PASS; separate actual runs, not RNG-locked. Main final `CLACKBLADE-Parry-Pixel-Cinematic.mp4`:16.501328s,same codecs,1113280bytes,SHA256 `ac9b996339e30ea230306283d3074b47564fc625f738f4ffdf71b7d60bc5475a`. Metadata at task-temp/parry-cinematic-comparison/receipt.json. AV capture scope descriptions corrected from the old multi-impact template to the actual three parries/tail; event records/checks unchanged.
+- Headed native1280 interactive preview ready paused on source2158/defaultBCompact/noF6: `http://127.0.0.1:8142`, wrapperPID25836/node13812. Esc resumes, Space parries, type the current word to attack. Launcher `E:/CodexTemp/TypingHero/parry-clash-lighting/open_parry_cinematic_preview.ps1`, state/screenshot in `parry-cinematic-interactive`. Closing the review page ends its browser/server; retain the final player, current clips/reports/launcher and original physics clips while review remains active. Nine known failed-capture/closed-profile directories removed after path/reparse checks; no user/toolchain/other-task resources touched. Source stays in child `micharel09/parry-contact-flash` for review, unmerged/unpushed; parent/sibling untouched. Visual acceptance is still the user's decision.
+- Final static review:49scoped files, no package/project/actor-source/clip edits, no duplicate GUID or missing new meta. Whitespace trimmed only in four new Unity script metas (GUIDs/settings unchanged); staged diff whitespace and affected local provenance/document links pass. Runtime/build receipts are reused because only documentation and nonsemantic meta whitespace changed after them. Local commit contains the verified source/generated assets and reconciled memory, with preview artifacts kept outside Git.
+
+### Restore approved flash and continuous physics - 2026-10-20 (verified local preview)
+
+- Reuse Orca child e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/parry-contact-flash;
+  parent C:/Users/ADMIN/orca/TypingHero, branch micharel09/parry-contact-flash,
+  integration target main, remote https://github.com/micharel09/TypingHero.git.
+  HEAD c12c3de is the approved pixel flash. The uncommitted cinematic48 revision is
+  explicitly discarded; its patch and all prior review clips remain in task temp.
+  Parent/sibling WIP and 3D dungeon/other combat effects are preserved.
+- Restore exact c12c3de Pimen cels/material/pivot/size/alpha/200ms timeline,
+  Point5/70ms hold/280ms end, recoil1pixel/100ms, existing sound and hitstop.
+  Transplant cc06385 analytical launch/brake/fall/single-bounce/rest180ms paths.
+  Five systems now emit1/2/10/1/10,24total/192over8leases. Old Back goes to Embers;
+  the Back system is reserved for the approved Pimen outer sequence. Existing
+  Compact material/pixel masks and real Z/character/environment depth tests remain.
+  Local PRNG replaces Unity random; no asset/dependency/GUID/public API changes.
+- Lifetime of20falling particles derives from the trajectory, bounce and rest;
+  two short fragments retain120-180ms. Fixed22states/10scratch/reused Custom1 data.
+  Completion waits for both contacts and debris, ignoring IsAlive on frozen systems.
+- Focused offline tests and one QA build are pending behind another task's runner
+  lock. A superseded queued snapshot a02e418d was canceled before Unity started;
+  final fixtures use a2WU-high contact for the420ms survivor assertion.
+  Scoped native sword/axe+Slayer at640/1280, short p95, actual sound1x/.25x clips
+  and reopened preview remain. No mirrored/deep/stress/soak/publication scope.
+  Keep E:/CodexTemp/TypingHero/parry-clash-lighting/physics-pixel24 and existing
+  baseline players/clips while visual review remains active. Local commit follows
+  verified implementation; no push/merge/deploy.
+
+- User requested faster preview before the remaining checks. Cancel the queued
+  focused Quick552f job while it is blocked on the global lock; prioritize the
+  already-queued QA build552f, then open a headed1280 review window immediately.
+  Do not wait for the complete sword/axe capture or p95 comparison before preview.
+  Initial1356protected serialized/art/package/project files match c12c3de;
+  27prior clips fingerprinted for preservation. Native baseline p95 passed14checks.
+
+- Final552f build: WebGL082208 and strict repeated-builder PASS; focused
+  Quick08330230/30PASS,0failed/skipped. Preview was opened immediately after build
+  at1280/paused/default24, before the native/capture/performance checks. Launcher
+  physics-pixel24/open-preview.ps1; loopback8152, wrapper19156/node13728 at launch.
+  Esc resumes, Space parries, typing attacks. Closing the page ends its helper.
+- Runner remained scoped to task source/cache and the existing isolated pixel
+  Library after verifying other Unity mounts. The global queue was replaced only
+  in the temporary helper by its original task mutex and a resource gate (max two
+  observed active Unity containers, at least8GiB available); task stages stayed
+  sequential. No repository runner/service/toolchain changes; other jobs untouched.
+- Native qa-r2 PASS83/97.185s,18keyboard parries, sword/axe/Slayer at640/1280,
+  pause and Continue cleanup; zero exceptions/provider reads/writes/requests.
+  Failed first capture5checks is a helper variable TDZ, retained as failed; fixed
+  only that script, no product changes after the qualified build. Raw game PCM
+  peaks.557749/.587604; no microphone. Separate perf14PASS:1280/640 all-state
+  p9513.455/13.540ms, live13.520/13.575. Baseline13.505/13.560 and13.515/13.575;
+  review window was open during the new run, so no strict equivalence claim.
+- Inspected actual full contact-to-floor/bounce/rest/expiry and Slayer at both
+  sizes. Approved flash visual source2158/c12c3de and Strong24 physics reference
+  were compared; exact flash properties/assets remain source- and test-backed.
+  Video is native25fps/40ms sampling and separate RNG/pose phases, not exact replay.
+  Two42.021328s actual-sound clips contain sword,axe and axe-Slayer at1x/.25x,
+  H264/yuv420p+AAC48k stereo; full decode PASS. All27prior clip hashes preserved;
+  1356protected input contents match c12c3de after newline normalization.
+- `CLACKBLADE-Parry-Physics24-1280.mp4`: 2848849bytes, SHA256 `80d46079022ab8ecc5185f05c0f3364368633b2bca7320be66c9af701136b147`.
+- `CLACKBLADE-Parry-Physics24-640.mp4`: 1206212bytes, SHA256 `ac5beeaa33344112e45125df3dae055eecb3c84347f79fbf05aa3fca17497e4e`.
+- Implementation, scoped verification and requested clips are complete. Keep
+  the existing unmerged child and physics-pixel24 player/launcher/clips/receipts
+  while user visual review remains active; clean the review resources after that
+  and retain the branch until verified integration. Old reference clips stay.
+  Local commit contains only this task; no push/merge/publication.
+
+### Contact-origin correction — 2026-10-20 (verified, preview open)
+
+- User rejected sparks appearing as a detached cluster away from the blade clash,
+  then explicitly chose to keep their long travel. Preserve all24 particles,
+  approved c12c3de flash, Compact masks, velocity/flight/bounce/rest and real Z.
+- ParrySystem executes at-50 and emits before ParryClashBurst.Update at200.
+  The old Update consumed the entire current unscaled delta before the birth
+  position could render. Record the emission frame and advance debris only on
+  subsequent frames; Clear/disable/reuse reset the marker. Native contacts pause
+  for their birth frame, then resume the unchanged200ms authored sequence. Other
+  presets remain unchanged; no API, asset, dependency, module or allocation change.
+- Added an early-Update emitter/LateUpdate observation test with an actual100ms
+  preceding stall and disable/reuse. It must see24particles at contact/age0 on
+  the emission frame and flight on the following frame. Existing long-distance,
+  pause and trajectory tests remain required.
+- QA publication is100ms; its earliest observed age cannot establish the actual
+  birth render. Prior25fps clips also do not prove that frame. New temporary
+  browser capture copies the actual canvas immediately after consecutive render
+  callbacks; it observes only, retains fixtures/external blocking and uses no
+  gameplay commands. Keep new evidence under physics-pixel24/contact-origin;
+  old reference/player/clips remain untouched.
+- Focused31-case source and QA build queued on the isolated task mutex/resource
+  gate. First-frame captures, sword/axe/Slayer two-size smoke, sound clips1x/.25x,
+  reopened preview and local commit remain pending; no final acceptance yet.
+- First focused run090708, sourceadf1b750, passed30/31. The new slow-frame test
+  correctly found only22particles on the birth frame: the two native contacts had
+  also consumed time preceding Emit and expired. Added the birth-frame native
+  Pause/next-frame Play correction rather than reducing the expected24. Latest
+  frozen sourcec7fc481f736fd39d9c61dc897b07eef0053d4872497529d052cb40965e8528dc
+  is queued for the same31checks and final QA build. Intermediateadf player is
+  not qualified for final preview; retained old552f before-player capture passed
+  8harness checks and visibly reproduces the detached-cluster frame.
+- Further source inspection corrects the initial execution-order inference:
+  production success comes from ParryTarget.Anim_StrikeFrame, after Update.
+  The early-Update guard is still needed for that supported emission timing, but
+  it alone cannot fix the user's observed path. The direct before-capture showed
+  a roughly130ms first-render interval followed by the remote cluster. Readback
+  capture can itself contribute to the stall; its cause is not isolated.
+- For BCompact only, if the first frame after birth exceeds33.3ms, advance the
+  debris by16.7ms once rather than skipping its fast launch. Discard that initial
+  presentation delay; do not catch it up later. Subsequent frames use their full
+  unscaled delta, and analytical velocity/trajectory/far distance/bounce/rest
+  remain unchanged. Extend the same test with a100ms post-birth stall and require
+  first movement to remain within1WU of contact. This is VFX timing only.
+- Canceled only the owned obsoleteadf andc7fc WebGL containers after verifying
+  their exact /results and /project mounts. Reports090807/091323 are unqualified;
+  other task containers untouched. Final source checks run before rebuilding.
+- Final WebGL092035 PASS, frozenec52436251fc2a7766d9dc33a4b77f9f5783e00c767ca3f6aadaf6460ef354d4;
+  strict repeated builder reports unchanged serialized objects/references/listeners.
+  Focused Quick092648 PASS31/31,0failed/skipped,14.7551432s, frozenf2a2145f.
+  Archive comparison proves every executable/test/asset/package/project input is
+  byte-identical; build differs only in one explanatory comment correcting the
+  event-order inference. The new real-Update/LateUpdate test covers100ms before
+  and after birth, all24at contact, bounded first movement and disable/reuse.
+- Refreshed1280 preview opened on loopback8152, paused/default24, node38096 and
+  hidden launcher31792. New player/launcher/evidence live in contact-origin;
+  old preview/player/reference clips preserved. Esc resumes, Space parries.
+- Native r2 stopped25checks when a finished intervening DoubleStrike duel had
+  only its lethal effect, but the helper still demanded a parry effect. r3 stopped
+  11checks after a real input missed its cue under capture stalls. Neither is a
+  PASS; both have0managed/JS exceptions. Updated only the temporary driver:
+  acknowledge against the immediate pre-Space counter, handle finished utility
+  duels, allow at most2logged cue retries and avoid screenshots during direct
+  frame capture. Required sword/axe/Slayer and accepted-parry damage gates stay.
+  Final r4 receipt follows; no product change or rebuild for these driver fixes.
+- Final r4 PASS86/106.2375723s, sword/axe/Slayer at1280 and640, pause/Continue,
+  default24/noF6. Zero JS/managed exceptions/provider reads/writes/external
+  requests. One logged1280cue miss (40->35HP) was retried; all accepted-parry
+  damage checks pass. Inspected direct birth/first motion/far travel plus floor
+  tail and Slayer; readback captures are not a performance measurement.
+- Two42.021328s actual-sound H264/AAC48k stereo exports at1x/.25x fully decode.
+  ContactOrigin1280:2650989bytes, SHA256 a3bdd8628238331d4ed4ef4117ff9c8fb2780b0ff74590c13d03f896f163b7bc.
+  ContactOrigin640:1204612bytes, SHA256 6374266022160c2219f940bafeb2cae72dbc967fdd5411c1b06fbad7f8db6e02.
+  Audio peaks.548333/.535968; no microphone. Final export samples inspected;
+  video25fps remains supplementary to direct render frames and the slow-frame
+  test. All1535current frozen input files match the final build archive exactly;
+  all29previous reference clips pass their original SHA256s.
+- Cleaned36obsolete capture/profile/transfer items locally and7remote transfer
+  archives, retaining failed JSON/XML receipts and written failure reasons. Closed
+  QA profiles removed; live interactive profile/player/launcher/final clips/direct
+  frames and source archives remain under contact-origin for user visual review.
+  Existing unmerged Orca child remains for review/integration; clean these review
+  resources after that. No push/merge/deploy, broad QA or new performance claim.
+  Implementation and scoped verification complete; local task-only commit follows.
+
+
+## Approved main integration (2026-10-21)
+
+- User approved the loopback8152 preview explicitly identified as d866c5b and requested push to main and close. Integrate that approved contact-origin implementation and its 3D arena; exclude the subsequent unbuilt near/middle/far launch candidate.
+- Parent main b36b55a contains newer HUD readability, feedback and player palette. Integration child: `micharel09/parry-main-integration`, Orca parent `C:/Users/ADMIN/orca/TypingHero`, path `C:/Users/ADMIN/orca/workspaces/TypingHero/parry-main-integration`, target origin/main at https://github.com/micharel09/TypingHero.git. Parent dirty files stay untouched.
+- Scene merged per Unity object ID:1545 unique records, zero per-record conflicts and zero unresolved scene-local references. Both BlackletterTitleBuild and DungeonArenaBuild run. Preserve main CanBeginParry/HUD damage notification alongside approved contact pose/trail hold and damage VFX notification.
+- Preserve main player palette and apply precisely the approved slash extraction masks:880/988/4885 removed pixels across combo1/2/3; alpha before extraction matches the common baseline. Every surviving pixel equals main, every removed pixel equals d866c5b. No frame geometry, import metadata, animation sequence or timing edits.
+- Visual comparison at native and nearest2x against d866c5b: combo1 F0-F2 low recovery blade progressively settles; combo2 F0-F2 draws inward and F3-F5 recovers above shoulder; combo3 F0-F2 winds/dips, F3-F5 rises then extends, F6-F8 passes overhead/down/up, F9-F11 repeats overhead/down/up. Each frame preserves the approved silhouette, hand/blade connection and foot placement; every consecutive transition preserves its source poses. Existing white accents on combo3 F6/F7/F9/F10 are retained. This is integration/palette verification, not a redesigned animation or new all-direction art acceptance.
+- Unverified excluded candidate preserved for recovery at `E:/CodexTemp/TypingHero/parry-clash-lighting/physics-pixel24/contact-origin/distributed-launch/excluded-candidate.patch` and frozen source archive `physics-pixel24-quick-d3b7e14549d02fac-input.tar.gz` (SHA256 marker d3b7e14549d02fac97ecb203259c2a0c773effa3a00ef9edd0493e157e5fc798). Neither belongs to the shipped implementation. Keep these source recovery artifacts until explicitly discarded; keep requested final clips and old reference clips.
+- Approved parry implementation/tests equal d866c5b after newline normalization. Prior31 Unity and86 native checks qualify that version; fresh integration checks are recorded below. No itch upload/deployment or new performance claim.
+
+
+Palette integration frame notes (reference: same-index d866c5b cel; 128px canvas,
+unchanged .meta pivot/PPU/import rects and .anim duration/events). Native/nearest2x
+comparisons cover every changed cel; runtime playback remains the scoped keyboard
+check below. Original/mirrored redesign QA stays outside the user's requested scope.
+
+| Sheet | Cel | Duration/reference | Observed shape and grip | Next transition | Result |
+|---|---|---|---|---|---|
+| combo1 | F0 | unchanged / d866 F0 | Low extended blade, feet planted | F1 lowers tip | matches pose, main palette |
+| combo1 | F1 | unchanged / d866 F1 | Blade settles, scarf arcs behind | F2 settles further | matches pose, main palette |
+| combo1 | F2 | unchanged / d866 F2 | Low recovery, hand stays at hilt | Existing end clip retained | matches pose, main palette |
+| combo2 | F0 | unchanged / d866 F0 | Forward/up blade, split stance | F1 draws blade inward | matches pose, main palette |
+| combo2 | F1 | unchanged / d866 F1 | Compact guard, scarf behind | F2 turns torso | matches pose, main palette |
+| combo2 | F2 | unchanged / d866 F2 | Torso turn, near hand held forward | F3 sweeps behind shoulder | matches pose, main palette |
+| combo2 | F3 | unchanged / d866 F3 | Blade extends left behind shoulder | F4 lifts hilt | matches pose, main palette |
+| combo2 | F4 | unchanged / d866 F4 | Level upper blade, planted leading foot | F5 raises diagonal | matches pose, main palette |
+| combo2 | F5 | unchanged / d866 F5 | Diagonal windup behind head | Existing end clip retained | matches pose, main palette |
+| combo3 | F0 | unchanged / d866 F0 | Raised rear diagonal blade | F1 dips toward low sweep | matches pose, main palette |
+| combo3 | F1 | unchanged / d866 F1 | Low left blade, torso leans forward | F2 follows low arc | matches pose, main palette |
+| combo3 | F2 | unchanged / d866 F2 | Low right blade, extended stance | F3 recovers upright blade | matches pose, main palette |
+| combo3 | F3 | unchanged / d866 F3 | Upright blade, near wrist aligned | F4 extends down/right | matches pose, main palette |
+| combo3 | F4 | unchanged / d866 F4 | Down/right follow-through; existing white accent | F5 rises diagonal | matches pose, main palette |
+| combo3 | F5 | unchanged / d866 F5 | Long up/right blade, forward hand attached | F6 carries overhead | matches pose, main palette |
+| combo3 | F6 | unchanged / d866 F6 | Overhead pose and existing white accents | F7 sweeps down/right | matches pose, main palette |
+| combo3 | F7 | unchanged / d866 F7 | Down/right blade, white accent retained | F8 rises diagonal | matches pose, main palette |
+| combo3 | F8 | unchanged / d866 F8 | Up/right blade, stable split stance | F9 carries overhead | matches pose, main palette |
+| combo3 | F9 | unchanged / d866 F9 | Overhead blade/white accent preserved | F10 drops blade | matches pose, main palette |
+| combo3 | F10 | unchanged / d866 F10 | Near-vertical low blade/white accent retained | F11 rises diagonal | matches pose, main palette |
+| combo3 | F11 | unchanged / d866 F11 | Extended up/right recovery | Existing end clip retained | matches pose, main palette |
+
+Final reviewed sheet versions (same-index cells are the frame evidence):
+
+- [combo1](../../Assets/Art/male_hero/individual_sheets/male_hero-combo_1.png) SHA256 `b0b3c2969b7ba69cef2a7ad4b03c8466d07857df2a461661c88acf60cdccfe52`; reference same path at d866c5b.
+- [combo2](../../Assets/Art/male_hero/individual_sheets/male_hero-combo_2.png) SHA256 `e3b79c0d29ffcee9d7ce8e1a3e36ed123945b1a0c951881af91c82c8a9de9599`; reference same path at d866c5b.
+- [combo3](../../Assets/Art/male_hero/individual_sheets/male_hero-combo_3.png) SHA256 `d6d4ad43a3f1973abe3b86b6742990f915cc5507eae4f40878e1745e4b388d34`; reference same path at d866c5b.
+
+
+- Main integration checks: Quick20261021T020553 sourceab200ec6 PASS31/31,0failed/skipped,14.5207376s. Build input9fea41dc differs from that1564-file snapshot only in scene newline/blank-line normalization; all other inputs match exactly.
+- First WebGL020742 reports repeat-builder unchanged and successful final build, but contains an intermediate CS0246 importing the previously absent CombatHUDFeedback type. Native run stopped41checks at the new damage-HUD observation after1280sword/axe/Slayer/pause/Continue checks; no JS/managed exception. A focused read-only capture confirms HP40->35 without a published HUD timer, so this artifact is not accepted as the final integration player.
+- Copied only five Unity-generated scene/prefab/material/settings files back into the clean integration child, preserving GUIDs. Four HUDFeedback/CombatR7AssetTests PASS on canonical source4dc0cbfe, result20261021T021953,0failed/skipped,7.3230306s. Rebuilt canonical source022158 without intermediate C# errors; no gameplay or approved VFX parameter change for this investigation. Native confirmation follows below.
+
+- Final WebGL20261021T022158 PASS, canonical source4dc0cbfe2fa75c97394e7aa5ec95d12f25be9d320ca65f23f3b8073909da854d; repeated builder unchanged, zero C# errors. All1564 checkout build inputs match the frozen source byte-for-byte; final generated assets already match checkout. Final1545 Unity IDs are unique with no unresolved local references.
+- Canonical player HUD confirmation PASS6checks, actual HP40->35 and observed damage timer>0. Final integration native PASS93checks/98.9857342s, real keyboard sword/axe/Slayer at1280x720 and640x360, default24/noF6, contact-to-floor expiry, pause and Continue cleanup. Both sizes observe actual damage and parry HUD pulses. Zero JS/managed exceptions and provider writes. Logged cue retries: []. Inspected new contact/initial motion and complete HUD at both sizes. Earlier41-check artifact remains unqualified; no gameplay/VFX parameter change was used to pass the checks.
+- User-approved parry source d866c5b and current main HUD/palette are integrated; the distributed-launch candidate remains excluded. Existing29 protected reference clips and both ContactOrigin1x/.25x audio exports pass their original hashes. No new p95/stress/soak/mirror or itch publication claim. Push to verified origin/main and resource closure follow this local merge commit.

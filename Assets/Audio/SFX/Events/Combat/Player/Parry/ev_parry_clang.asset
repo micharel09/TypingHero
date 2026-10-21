@@ -15,10 +15,10 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: dd08c460fc4321248bbee4ae5b6918f5, type: 3}
   volume: 1
-  volumeJitter: 0.1
+  volumeJitter: 0.03
   pitchMode: 0
   pitchSemitone: 0
-  pitchJitterSemitone: 1
+  pitchJitterSemitone: 0.35
   pitchSemitoneRange: {x: -1, y: 1}
   mixerGroup: {fileID: 6381627121891708292, guid: 5ddb3f7fc7ae14543af7b622e31d9ee3, type: 2}
   maxVoices: 4
