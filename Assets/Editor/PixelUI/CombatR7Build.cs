@@ -166,8 +166,8 @@ internal static class CombatR7Build
         var round = LabelOnce(root, "RoundR7", "", 109, 46, 102, 11, 8);
         CombatLabel(playerHp, font8); CombatLabel(enemyHp, font8); CombatLabel(round, font8);
         CombatLabel(mult, font8); CombatLabel(clock, font10); CombatLabel(score, font12);
-        Backplate(root, "PlayerReadabilityR7", 3, 0, 102, 11);
-        Backplate(root, "EnemyReadabilityR7", 215, 0, 102, 11);
+        Backplate(root, "PlayerReadabilityR7", 3, 0, 102, 11).enabled = false;
+        Backplate(root, "EnemyReadabilityR7", 215, 0, 102, 11).enabled = false;
         var roundBackground = Backplate(root, "RoundReadabilityR7", 108, 45, 104, 13);
         Backplate(root, "ClockReadabilityR7", 256, 145, 32, 14);
         foreach (string name in new[] { "ParryR7", "ParryKeyR7", "ClockR7", "ClockReadabilityR7" })
