@@ -70,9 +70,6 @@ internal static class CombatR7Build
             }
             EditorUtility.SetDirty(font);
         }
-        var font8 = CombatFont(8);
-        var font10 = CombatFont(10);
-        var font12 = CombatFont(12);
         foreach (var file in Directory.GetFiles(Art, "*.png"))
         {
             var importer = (TextureImporter)AssetImporter.GetAtPath(file.Replace('\\', '/'));
@@ -117,40 +114,21 @@ internal static class CombatR7Build
         Value(typing, "referencePixel", 3f);
         Value(typing, "completedColor", Hex("588b8c"));
         Value(typing, "errorFlashColor", Hex("f16b67"));
-        var player = Item("PlayerStatus"); Box(player, hud, 9, 33, 306, 63);
+        var player = Item("PlayerStatus"); Box(player, hud, 9, 33, 306, 108);
         var enemy = Item("EnemyStatus"); Box(enemy, hud, 645, 33, 306, 108);
         Bar(Item("PlayerHP").GetComponent<Slider>(), player, "hp", false);
         Bar(Item("EnemyHP").GetComponent<Slider>(), enemy, "hp", false);
         Bar(Item("EnemyStamina").GetComponent<Slider>(), enemy, "stamina", true);
-        // Preserve the old status decorations' IDs without presenting score as a player resource.
-        foreach (string name in new[] { "FrameSecondary", "SocketSecondary", "IconSecondary" })
-            if (player.Find(name)) player.Find(name).gameObject.SetActive(false);
+        Bar(Item("ComboDecay").GetComponent<Slider>(), player, "combo", true);
         var cluster = Item("ScoreCluster"); Box(cluster, hud, 333, 9, 294, 66);
         var scoreBoard = Picture(cluster, "Metal", "score-frame", 0, 0, 98, 22); scoreBoard.transform.SetAsFirstSibling();
-        scoreBoard.color = new Color(.75f, .75f, .75f, 1f);
         var score = Item("ScoreText").GetComponent<TMP_Text>();
         Box(score.rectTransform, cluster, 12, 0, 270, 60); Style(score, 36); score.alignment = TextAlignmentOptions.Center;
         score.rectTransform.pivot = new Vector2(.5f, .5f);
         score.rectTransform.anchoredPosition = new Vector2(147, -30);
-        var combo = Item("ComboHUD"); Box(combo, cluster, 0, 69, 294, 54);
+        var combo = Item("ComboHUD"); Box(combo, hud, 333, 78, 294, 30);
         var mult = combo.GetComponentInChildren<TMP_Text>(true);
         Box(mult.rectTransform, combo, 0, 0, 294, 30); Style(mult, 24); mult.alignment = TextAlignmentOptions.Center;
-        var decay = Item("ComboDecay").GetComponent<Slider>();
-        Box(decay.GetComponent<RectTransform>(), combo, 12, 36, 270, 12);
-        foreach (var image in decay.GetComponentsInChildren<Image>(true)) image.enabled = image.transform == decay.fillRect;
-        decay.GetComponent<Image>().enabled = false;
-        decay.interactable = false;
-        decay.navigation = new Navigation { mode = Navigation.Mode.None };
-        decay.fillRect.offsetMin = decay.fillRect.offsetMax = Vector2.zero;
-        var decayFill = decay.fillRect.GetComponent<Image>();
-        decayFill.enabled = true; decayFill.sprite = Sprite("combo-fill"); decayFill.color = Color.white;
-        decayFill.type = UnityEngine.UI.Image.Type.Simple;
-        var decayTrack = Picture(decay.transform, "TrackR7", "secondary-track", 0, 0, 90, 4);
-        decayTrack.transform.SetAsFirstSibling();
-        PrefabUtility.RecordPrefabInstancePropertyModifications(decay);
-        PrefabUtility.RecordPrefabInstancePropertyModifications(decay.GetComponent<Image>());
-        PrefabUtility.RecordPrefabInstancePropertyModifications(decayFill);
-        PrefabUtility.RecordPrefabInstancePropertyModifications(decay.fillRect);
         var timer = Get<Slider>(typing, "countdownSlider");
         Box(timer.GetComponent<RectTransform>(), tray, 12, 78, 570, 6);
         foreach (var img in timer.GetComponentsInChildren<Image>(true)) img.sprite = null;
@@ -159,13 +137,7 @@ internal static class CombatR7Build
         var clock = LabelOnce(root, "ClockR7", "00:00", 257, 146, 30, 12, 10);
         var playerHp = LabelOnce(root, "PlayerHpR7", "", 73, 0, 31, 11, 8);
         var enemyHp = LabelOnce(root, "EnemyHpR7", "", 281, 0, 36, 11, 8);
-        var round = LabelOnce(root, "RoundR7", "", 109, 46, 102, 11, 8);
-        CombatLabel(playerHp, font8); CombatLabel(enemyHp, font8); CombatLabel(round, font8);
-        CombatLabel(mult, font8); CombatLabel(clock, font10); CombatLabel(score, font12);
-        Backplate(root, "PlayerReadabilityR7", 3, 0, 102, 11);
-        Backplate(root, "EnemyReadabilityR7", 215, 0, 102, 11);
-        var roundBackground = Backplate(root, "RoundReadabilityR7", 108, 45, 104, 13);
-        Backplate(root, "ClockReadabilityR7", 256, 145, 32, 14);
+        var round = LabelOnce(root, "RoundR7", "", 109, 38, 102, 11, 8);
         var pauseIcon = Picture(root, "PauseIconR7", "icon-pause", 267, 163, 10, 10);
         pauseIcon.raycastTarget = true;
         var pauseButton = pauseIcon.GetComponent<Button>();
@@ -188,27 +160,17 @@ internal static class CombatR7Build
         if (!status) status = root.gameObject.AddComponent<CombatR7Status>();
         Set(status, "enemyLabel", enemyName); Set(status, "clock", clock);
         Set(status, "playerHp", playerHp); Set(status, "enemyHp", enemyHp); Set(status, "round", round);
-        Set(status, "roundBackground", roundBackground);
-        Set(status, "comboFill", decayFill);
+        Set(status, "comboFrame", player.Find("FrameSecondary").GetComponent<Image>());
+        Set(status, "comboSocket", player.Find("SocketSecondary").GetComponent<Image>());
+        Set(status, "comboFill", Item("ComboDecay").GetComponent<Slider>().fillRect.GetComponent<Image>());
+        Set(status, "normalFrame", Sprite("secondary-frame")); Set(status, "goldFrame", Sprite("secondary-frame-gold"));
+        Set(status, "normalComboSocket", Sprite("secondary-socket")); Set(status, "goldComboSocket", Sprite("secondary-socket-gold"));
         Set(status, "normalFill", Sprite("combo-fill")); Set(status, "goldFill", Sprite("combo-gold-fill"));
         Set(Find<TutorialOverlay>(), "staminaTarget", enemy.Find("FrameSecondary"));
         Set(status, "enemySocket", enemy.Find("SocketHP").GetComponent<Image>());
         Set(status, "enemyIcon", enemy.Find("IconHP").GetComponent<Image>());
         Set(status, "normalSocket", Sprite("resource-socket")); Set(status, "eliteSocket", Sprite("elite-socket")); Set(status, "bossSocket", Sprite("boss-socket"));
         Set(status, "normalIcon", Sprite("icon-hp")); Set(status, "eliteIcon", Sprite("elite-badge")); Set(status, "bossIcon", Sprite("captain-badge"));
-        var hudFeedback = root.GetComponent<CombatHUDFeedback>();
-        if (!hudFeedback) hudFeedback = root.gameObject.AddComponent<CombatHUDFeedback>();
-        Set(hudFeedback, "parryKey", root.Find("ParryKeyR7").GetComponent<Image>());
-        Set(hudFeedback, "hpFrame", player.Find("FrameHP").GetComponent<Image>());
-        Set(hudFeedback, "playerHp", playerHp);
-        Set(hudFeedback, "staminaIcon", Picture(enemy, "IconSecondary", "icon-shield", 1, 24, 10, 10));
-        Set(hudFeedback, "shield", Sprite("icon-shield")); Set(hudFeedback, "warning", Sprite("icon-warning"));
-        // Preserve the serialized node/binding; Slayer already announces the break.
-        var guardBreak = LabelOnce(enemy, "GuardBreakR7", "", 0, 37, 102, 11, 8);
-        guardBreak.enabled = false;
-        Set(hudFeedback, "guardBreak", guardBreak);
-        Value(hudFeedback, "red", Hex("f16b67")); Value(hudFeedback, "gold", Hex("dcc18a"));
-        Value(hudFeedback, "success", Hex("588b8c"));
         var combat = root.Find("CombatViewport") as RectTransform; Box(combat, root, 0, 0, 960, 540);
         // 48 reference pixels/world unit = 16 native pixels/unit for the existing 16PPU actors.
         // Reframe the camera, never the actor transforms/colliders or attack spacing.
@@ -261,51 +223,6 @@ internal static class CombatR7Build
             if (child) child.SetAsLastSibling();
         }
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-    }
-
-    static TMP_FontAsset CombatFont(int size)
-    {
-        string path = Art + "VT323Pixel" + size + ".asset";
-        var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(path);
-        if (font) return font;
-        var source = AssetDatabase.LoadAssetAtPath<Font>(PixelUIFactory.Art + "VT323-Regular.ttf");
-        font = TMP_FontAsset.CreateFontAsset(source, size, 1, GlyphRenderMode.RASTER_HINTED,
-            512, 512, AtlasPopulationMode.Dynamic, false);
-        font.name = "VT323Pixel" + size;
-        AssetDatabase.CreateAsset(font, path);
-        string characters = string.Concat(Enumerable.Range(32, 95).Select(c => (char)c)) + "\u00b7\u00d7";
-        if (!font.TryAddCharacters(characters, out string missing))
-            throw new System.InvalidOperationException("Combat font missing glyphs: " + missing);
-        font.atlasPopulationMode = AtlasPopulationMode.Static;
-        AssetDatabase.AddObjectToAsset(font.material, font);
-        foreach (var atlas in font.atlasTextures)
-        {
-            atlas.filterMode = FilterMode.Point; atlas.wrapMode = TextureWrapMode.Clamp;
-            AssetDatabase.AddObjectToAsset(atlas, font);
-        }
-        EditorUtility.SetDirty(font);
-        return font;
-    }
-
-    static void CombatLabel(TMP_Text label, TMP_FontAsset font)
-    {
-        label.font = font; label.fontSharedMaterial = font.material;
-        label.enableAutoSizing = false; label.enableWordWrapping = false;
-        if (PrefabUtility.IsPartOfPrefabInstance(label))
-            PrefabUtility.RecordPrefabInstancePropertyModifications(label);
-    }
-
-    static Image Backplate(Transform root, string name, float x, float y, float w, float h)
-    {
-        var rt = Node(root, name); Box(rt, root, x * 3, y * 3, w * 3, h * 3);
-        var image = Image(rt, new Color(20f / 255, 17f / 255, 30f / 255, .88f));
-        image.sprite = null; image.type = UnityEngine.UI.Image.Type.Simple;
-        image.raycastTarget = false;
-        // Root siblings precede HUD/tray/labels; overlapping typing-frame pixels stay on top.
-        int index = root.Find("HUD").GetSiblingIndex();
-        if (rt.GetSiblingIndex() < index) index--;
-        rt.SetSiblingIndex(index);
-        return image;
     }
 
     static TMP_Text LabelOnce(Transform parent, string name, string text, float x, float y, float w, float h, float size)

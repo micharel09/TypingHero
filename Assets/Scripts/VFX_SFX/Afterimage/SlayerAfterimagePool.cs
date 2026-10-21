@@ -45,10 +45,6 @@ public class SlayerAfterimagePool : MonoBehaviour
     Transform poolRoot;
 
     readonly System.Collections.Generic.HashSet<GameObject> activeImages = new();
-    readonly System.Collections.Generic.Dictionary<GameObject, int> generations = new();
-    int generation;
-    internal Color CurrentTint { get; private set; } = Color.white;
-    internal void CaptureImpactTint(int combo) => CurrentTint = Tint(combo);
 
     void OnEnable() => SlayerModeSignals.OnSetActive += OnSlayerChanged;
     void OnSlayerChanged(bool active) { if (!active) CancelBurst(); }
@@ -111,7 +107,7 @@ public class SlayerAfterimagePool : MonoBehaviour
         go.SetActive(false);
         return go;
     }
-    void OnGet(GameObject go) { activeImages.Add(go); generations[go] = ++generation; go.transform.SetParent(null, true); go.SetActive(true); }
+    void OnGet(GameObject go) { activeImages.Add(go); go.transform.SetParent(null, true); go.SetActive(true); }
     void OnRelease(GameObject go) { activeImages.Remove(go); if (go) { go.transform.SetParent(poolRoot, true); go.SetActive(false); } }
     void DestroyItem(GameObject go) { if (go) Destroy(go); }
 
@@ -170,19 +166,12 @@ public class SlayerAfterimagePool : MonoBehaviour
 
     void SpawnOne(int index, Color tint, float lifeSeconds)
     {
-        if (activeImages.Count >= 12)
-        {
-            GameObject oldest = null;
-            foreach (var image in activeImages) if (!oldest || generations[image] < generations[oldest]) oldest = image;
-            pool.Release(oldest);
-        }
         var go = pool.Get();
         var t = go.transform;
 
         float dirX = (source && source.flipX) ? -1f : 1f;
         Vector3 local = new(stepLocalOffset.x * dirX, stepLocalOffset.y, 0f);
         t.position   = source.transform.position + local * index;
-        t.position += source.transform.forward * (.04f * (index + 1));
         t.rotation   = source.transform.rotation;
         t.localScale = source.transform.lossyScale;
 
@@ -197,11 +186,11 @@ public class SlayerAfterimagePool : MonoBehaviour
         sr.sharedMaterial = (forceUnlit && s_UnlitMat) ? s_UnlitMat : source.sharedMaterial;
 
         sr.color = tint;
-        StartCoroutine(FadeAndRelease(sr, go, tint, lifeSeconds, generations[go]));
+        StartCoroutine(FadeAndRelease(sr, go, tint, lifeSeconds));
     }
 
     // sửa coroutine fade (đúng hàm bạn đang dùng để giảm alpha rồi trả pool)
-    IEnumerator FadeAndRelease(SpriteRenderer sr, GameObject go, Color baseColor, float lifeSeconds, int version)
+    IEnumerator FadeAndRelease(SpriteRenderer sr, GameObject go, Color baseColor, float lifeSeconds)
     {
         float t = 0f;
         float life = Mathf.Max(0.0001f, lifeSeconds);
@@ -209,7 +198,6 @@ public class SlayerAfterimagePool : MonoBehaviour
 
         while (t < life)
         {
-            if (generations[go] != version) yield break;
             if (!(freezeFadeOnPause && (Time.timeScale == 0f || GamePauseController.InputBlocked)))
                 t += Time.unscaledDeltaTime;       // dùng unscaled nhưng vẫn đứng khi pause
 
@@ -220,7 +208,7 @@ public class SlayerAfterimagePool : MonoBehaviour
             yield return null;
         }
 
-        if (generations[go] == version) pool.Release(go);
+        pool.Release(go);
     }
 
     void OnDisable()

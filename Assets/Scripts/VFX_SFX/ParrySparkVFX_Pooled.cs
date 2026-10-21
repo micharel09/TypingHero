@@ -121,7 +121,7 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
         var t = go.transform;
 
         // đặt vị trí
-        t.position = ctx.contact.valid ? ctx.contact.point : playerSparkAnchor.position + (Vector3)offset;
+        t.position = (Vector2)playerSparkAnchor.position + offset;
         if (parentToAnchor) t.SetParent(playerSparkAnchor, worldPositionStays: true);
 
         // lật hướng về enemy cho đẹp (tuỳ chọn)
@@ -134,7 +134,7 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
         if (go.TryGetComponent<ParryClashBurst>(out var clash))
         {
             t.SetParent(poolRoot, true);
-            clash.Emit(t.position, ctx.targetRoot ? ctx.targetRoot.position.x - playerSparkAnchor.position.x : transform.lossyScale.x, groundY, sparkPreset, variationSequences[(int)sparkPreset]++, ctx.contact);
+            clash.Emit(t.position, ctx.targetRoot ? ctx.targetRoot.position.x - playerSparkAnchor.position.x : transform.lossyScale.x, groundY, sparkPreset, variationSequences[(int)sparkPreset]++);
         }
         else if (go.TryGetComponent<PixelSparkBurst>(out var burst))
         {

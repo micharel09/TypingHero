@@ -28,11 +28,10 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles("Assets/Art/VFX/CodeManu", "*"))
             .Concat(Directory.GetFiles(PixelSparkAssets.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(ParryClashAssets.Root, "*", SearchOption.AllDirectories))
-            .Concat(Directory.GetFiles(CombatVoxelAssets.Root, "*", SearchOption.AllDirectories))
-            .Concat(Directory.GetFiles("Assets/Art/VFX/SlashVolume", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(WorldLightingBuild.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(DungeonArenaBuild.Art, "*", SearchOption.AllDirectories))
-            .Concat(new[] { "Assets/Settings/UniversalRP.asset", "Assets/Settings/DungeonForward.asset" }).ToArray();
+            .Concat(Directory.GetFiles(DungeonPixelRoomBuild.Art, "*", SearchOption.AllDirectories))
+            .Concat(new[] { "Assets/Settings/UniversalRP.asset", "Assets/Settings/DungeonForward.asset", "Assets/Settings/DungeonPresentation.asset" }).ToArray();
         paths = paths.Concat(Directory.GetFiles(ShogunEnvironment.Art, "*"))
             .Concat(Directory.GetFiles(CombatR7Build.Art, "*"))
             .Concat(Directory.GetFiles(DungeonUISkin.Art, "*"))
@@ -44,13 +43,14 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(ShogunTheme.Events, "*")).ToArray();
         paths = paths.Concat(AssetDatabase.FindAssets("t:Prefab", new[] { "Assets" })
             .Select(AssetDatabase.GUIDToAssetPath)).Distinct().ToArray();
+        if (Directory.Exists("Assets/Scenes/SampleScene")) paths = paths.Concat(Directory.GetFiles("Assets/Scenes/SampleScene")).ToArray();
         var before = System.Array.ConvertAll(paths, File.ReadAllBytes);
         try { Apply(); }
         catch (System.Exception error) { throw new BuildFailedException(error); }
         for (int i = 0; i < paths.Length; i++)
             if (!before[i].SequenceEqual(File.ReadAllBytes(paths[i])))
             {
-                if (paths[i].EndsWith(".unity") || paths[i].EndsWith(".prefab") || paths[i].EndsWith(".mat"))
+                if (paths[i].EndsWith(".unity") || paths[i].EndsWith(".prefab"))
                 {
                     File.WriteAllBytes("/results/" + Path.GetFileNameWithoutExtension(paths[i]) + "-first" + Path.GetExtension(paths[i]), before[i]);
                     File.Copy(paths[i], "/results/" + Path.GetFileNameWithoutExtension(paths[i]) + "-second" + Path.GetExtension(paths[i]), true);
@@ -92,9 +92,11 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
                 PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
                 CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'), BlackletterTitleBuild.Art.TrimEnd('/'),
-                DungeonArenaBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings",
+                DungeonArenaBuild.Art.TrimEnd('/'), DungeonPixelRoomBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings",
                 ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }, "build/PixelUI/PixelUI.unitypackage",
                 ExportPackageOptions.Recurse);
+            if (Directory.Exists("Assets/Scenes/SampleScene"))
+                AssetDatabase.ExportPackage("Assets/Scenes/SampleScene", "build/PixelUI/DungeonLighting.unitypackage", ExportPackageOptions.Recurse);
             Debug.Log("Pixel UI migration and serialization complete");
         }
         finally

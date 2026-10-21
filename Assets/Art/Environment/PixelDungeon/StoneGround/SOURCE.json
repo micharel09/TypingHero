@@ -1,0 +1,42 @@
+{
+  "asset": "Cobblestone Floor 08",
+  "author": "Rob Tuytel / Poly Haven",
+  "source": "https://polyhaven.com/a/cobblestone_floor_08",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "resolution": "1K",
+  "files": [
+    {
+      "file": "cobblestone_floor_08_diff_1k.png",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/cobblestone_floor_08/cobblestone_floor_08_diff_1k.png",
+      "sha256": "b59d5660021f7adfc303b2924f5351aa80c5c36fc73fe378a204f7f739602b0a",
+      "role": "Diffuse"
+    },
+    {
+      "file": "cobblestone_floor_08_nor_gl_1k.png",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/cobblestone_floor_08/cobblestone_floor_08_nor_gl_1k.png",
+      "sha256": "0a6d3f1205c76ce64b01d04f22b570d239fd82b24df3be29791451f741ee4abb",
+      "role": "nor_gl"
+    },
+    {
+      "file": "cobblestone_floor_08_rough_1k.png",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/cobblestone_floor_08/cobblestone_floor_08_rough_1k.png",
+      "sha256": "c44f6bc7b7280c36fe51c7c892d8413b09b61ae929df2169642e6c227429c93e",
+      "role": "Rough"
+    },
+    {
+      "file": "cobblestone_floor_08_ao_1k.png",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/cobblestone_floor_08/cobblestone_floor_08_ao_1k.png",
+      "sha256": "585a62fe2c5fd54c6257c8ff5f8046571e70b3155ab1d05fd14e66f2fa6bd074",
+      "role": "AO"
+    }
+  ],
+  "derived": [
+    {
+      "file": "GroundMetalSmoothness.png",
+      "source": "cobblestone_floor_08_rough_1k.png",
+      "operation": "R=G=B=0 (metallic); A=255-source.R (smoothness); no painted/generated artwork",
+      "sha256": "60e311063ae991eb52cbeda7b42b609c8ba0c021b3453ad76cfbffeb90b09574"
+    }
+  ]
+}

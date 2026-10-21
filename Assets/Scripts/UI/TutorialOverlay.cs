@@ -29,7 +29,7 @@ public sealed class TutorialOverlay : MonoBehaviour
         staminaHighlight.SetActive(focus == Focus.Stamina);
         cueHighlight.gameObject.SetActive(cueVisible && (focus == Focus.Cue || focus == Focus.Combine));
         if (!cueHighlight.gameObject.activeSelf) return;
-        var point = RectTransformUtility.WorldToScreenPoint(Camera.main, cue.position);
+        var point = CombatViewportCamera.WorldToScreenPoint(Camera.main, cue.position);
         RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)cueHighlight.parent, point, null, out var local);
         cueHighlight.anchoredPosition = local;
     }

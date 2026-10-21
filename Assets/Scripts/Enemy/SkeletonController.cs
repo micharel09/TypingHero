@@ -105,7 +105,6 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         var sound = GetComponent<SfxOnEnemyAttack>();
         if (sound) sound.Anim_EnemyAttackSfx();
     }
-    internal bool CueActive => attackCue && attackCue.activeInHierarchy;
     public void HideCue() { if (attackCue) attackCue.SetActive(false); }
     void OnDisable()
     {

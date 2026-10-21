@@ -20,6 +20,11 @@ public sealed class CombatHUDLayout : MonoBehaviour
         body.bounds.min.y + bodyVerticalInset.y, body.bounds.center.z);
     public Vector3 HighestHead => Head(playerBody).y >= Head(enemyBody).y ? Head(playerBody) : Head(enemyBody);
     public Vector3 LowestFoot => Foot(playerBody).y <= Foot(enemyBody).y ? Foot(playerBody) : Foot(enemyBody);
+    // Collider landmarks stay stable across attack frames and weapon trails.
+    public Vector3 BodyCenter => new Vector3(
+        (Mathf.Min(playerBody.bounds.min.x, enemyBody.bounds.min.x) + Mathf.Max(playerBody.bounds.max.x, enemyBody.bounds.max.x)) * .5f,
+        (HighestHead.y + LowestFoot.y) * .5f,
+        (playerBody.bounds.center.z + enemyBody.bounds.center.z) * .5f);
 
     void LateUpdate()
     {
@@ -30,7 +35,7 @@ public sealed class CombatHUDLayout : MonoBehaviour
         {
             var parent = (RectTransform)popupAnchor.parent;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
-                targetCamera.WorldToScreenPoint(Head(enemyBody)), null, out var head);
+                CombatViewportCamera.WorldToScreenPoint(targetCamera, Head(enemyBody)), null, out var head);
             popupAnchor.position = parent.TransformPoint(head + new Vector2(24, 12));
         }
     }

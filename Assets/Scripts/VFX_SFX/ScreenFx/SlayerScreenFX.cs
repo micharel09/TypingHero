@@ -123,15 +123,15 @@ public class SlayerScreenFX : MonoBehaviour
             ApplyFrameHeights();
             return;
         }
-        var viewport = _main.rect;
-        _main.rect = new Rect(0, viewport.y, 1, viewport.height);
+        var viewport = CombatViewportCamera.Viewport(_main);
+        CombatViewportCamera.SetViewport(_main, new Rect(0, viewport.y, 1, viewport.height));
         var parent = topBar.parent as RectTransform;
         var head = hudLayout.HighestHead;
         var foot = hudLayout.LowestFoot;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
-            _main.WorldToScreenPoint(head), null, out var top);
+            CombatViewportCamera.WorldToScreenPoint(_main, head), null, out var top);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
-            _main.WorldToScreenPoint(foot), null, out var bottom);
+            CombatViewportCamera.WorldToScreenPoint(_main, foot), null, out var bottom);
         float topHeight = Mathf.Max(0, parent.rect.yMax - top.y - bodyPadding);
         _topFrameHeight = topHeight;
         float bottomHeight = Mathf.Max(0, bottom.y - parent.rect.yMin - bodyPadding);
@@ -150,6 +150,7 @@ public class SlayerScreenFX : MonoBehaviour
     {
         if (_cinematic || !scoreRoot || !typingTray) return;
         _cinematic = true;
+        if (_main && _main.TryGetComponent<DungeonArenaCamera>(out var arena)) arena.SetCinematic(true);
         _environmentWasActive = environment && environment.gameObject.activeSelf;
         if (environment) environment.gameObject.SetActive(false);
         _captionWasActive = scoreCaption && scoreCaption.activeSelf;
@@ -164,6 +165,7 @@ public class SlayerScreenFX : MonoBehaviour
     {
         if (!_cinematic) return;
         _cinematic = false;
+        if (_main && _main.TryGetComponent<DungeonArenaCamera>(out var arena)) arena.SetCinematic(false);
         if (environment) environment.gameObject.SetActive(_environmentWasActive);
         if (scoreCaption) scoreCaption.SetActive(_captionWasActive);
         if (hudPanel) hudPanel.enabled = _hudWasEnabled;

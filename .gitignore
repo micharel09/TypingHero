@@ -112,6 +112,10 @@ UpgradeLog*.log
 /[Aa]ssets/**/Lightmap-*
 /[Aa]ssets/**/ReflectionProbe-*
 
+# Authored dungeon GI is a reproducible player input, including the probe data.
+!/Assets/Scenes/SampleScene/LightingData.asset
+!/Assets/Scenes/SampleScene/Lightmap-*
+
 # Cache GI data
 /[Gg]I*/
 

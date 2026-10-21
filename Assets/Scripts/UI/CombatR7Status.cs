@@ -9,20 +9,19 @@ public sealed class CombatR7Status : MonoBehaviour
     [SerializeField] Image enemySocket, enemyIcon;
     [SerializeField] Sprite normalSocket, eliteSocket, bossSocket, normalIcon, eliteIcon, bossIcon;
     [SerializeField] TMP_Text playerHp, enemyHp, round;
-    [SerializeField] Image comboFill;
-    [SerializeField] Image roundBackground;
-    [SerializeField] Sprite normalFill, goldFill;
+    [SerializeField] Image comboFrame, comboSocket, comboFill;
+    [SerializeField] Sprite normalFrame, goldFrame, normalComboSocket, goldComboSocket, normalFill, goldFill;
     PlayerHealth player;
     SkeletonController enemy;
     string opponent;
-    string encounter;
+    int encounterRound;
     bool boss, elite;
     void Start()
     {
         player = FindObjectOfType<PlayerHealth>(); enemy = FindObjectOfType<SkeletonController>();
         var run = EndlessDuel.I ? EndlessDuel.I.Run : null;
         boss = run != null && run.Slot == 5; elite = run != null && run.Slot == 4;
-        encounter = run == null ? "TUTORIAL" : $"{run.Difficulty.Label().ToUpperInvariant()} \u00b7 DUEL {run.Slot + 1}/6";
+        encounterRound = run == null ? 0 : run.Round;
         opponent = run == null ? "SKELETON" : run.Enemy.Name.ToUpperInvariant();
     }
     void LateUpdate()
@@ -40,9 +39,9 @@ public sealed class CombatR7Status : MonoBehaviour
         if (player) playerHp.text = $"{player.Current}/{player.maxHealth}";
         if (enemy) enemyHp.text = $"{enemy.Current}/{enemy.maxHealth}";
         bool slayer = TypingManager.MuteWordCorrect;
-        round.text = encounter;
-        round.enabled = !GamePauseController.InputBlocked && !CombatSession.Finished;
-        roundBackground.enabled = round.enabled;
+        round.text = slayer ? "SLAYER" : encounterRound == 0 ? "TUTORIAL" : $"ROUND {encounterRound} / {(boss ? "BOSS" : elite ? "ELITE" : "NORMAL")}";
+        comboFrame.sprite = slayer ? goldFrame : normalFrame;
+        comboSocket.sprite = slayer ? goldComboSocket : normalComboSocket;
         comboFill.sprite = slayer ? goldFill : normalFill;
         float seconds = CombatSession.I ? CombatSession.I.Seconds : 0;
         clock.text = $"{(int)seconds / 60:00}:{(int)seconds % 60:00}";

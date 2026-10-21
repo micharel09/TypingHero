@@ -1,0 +1,734 @@
+{
+  "sheets": [
+    {
+      "name": "combo_1",
+      "frames": 3,
+      "changed": [
+        341,
+        318,
+        312
+      ],
+      "sourceSha256": "7cce3a75dcd4be85982c88aa6cc01c23fc8a68547d898c4a920e982d54fef8f8"
+    },
+    {
+      "name": "combo_1_end",
+      "frames": 4,
+      "changed": [
+        251,
+        297,
+        329,
+        344
+      ],
+      "sourceSha256": "5c5fc6c40ca9b9b7d1f7e9db191de1b6ef6595dceb3703c1a2344f0529bc32d7"
+    },
+    {
+      "name": "combo_2",
+      "frames": 6,
+      "changed": [
+        299,
+        293,
+        289,
+        315,
+        326,
+        345
+      ],
+      "sourceSha256": "a37bc90d2e4c817320462488f02c5fca991b2a3f08657914de3561ff7a0371df"
+    },
+    {
+      "name": "combo_2_end",
+      "frames": 4,
+      "changed": [
+        347,
+        335,
+        334,
+        344
+      ],
+      "sourceSha256": "765e2d141c36c21b943e73a0061e135583b9061449c020af148d3e060a4f1768"
+    },
+    {
+      "name": "combo_3",
+      "frames": 12,
+      "changed": [
+        319,
+        307,
+        311,
+        330,
+        332,
+        327,
+        299,
+        283,
+        286,
+        311,
+        301,
+        313
+      ],
+      "sourceSha256": "94bb7aa8c4a326fa4b87571530fc642d4c605ed5f9a29aa24d0b38e9f21a295a"
+    },
+    {
+      "name": "combo_3_end",
+      "frames": 6,
+      "changed": [
+        310,
+        315,
+        281,
+        289,
+        318,
+        327
+      ],
+      "sourceSha256": "831c70c0d3835ea88446e62efadf5437923e8e542b1de00ab37ea88d29842448"
+    },
+    {
+      "name": "dash",
+      "frames": 5,
+      "changed": [
+        394,
+        405,
+        394,
+        383,
+        374
+      ],
+      "sourceSha256": "3168ddeb6721676531b4270eee34781ab496d5afd3a66d4203e7445ff184be32"
+    },
+    {
+      "name": "death",
+      "frames": 23,
+      "changed": [
+        279,
+        271,
+        238,
+        222,
+        230,
+        230,
+        245,
+        252,
+        275,
+        289,
+        282,
+        281,
+        273,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sourceSha256": "5c78ff07d7cc14e33be1bb8ac4464cbc40f3a23cd2120757155622cf40780b40"
+    },
+    {
+      "name": "design",
+      "frames": 1,
+      "changed": [
+        339
+      ],
+      "sourceSha256": "074c1db55287f50c3e0b74bd93efb2d0b68d643ea3016064d58d9a35914a050f"
+    },
+    {
+      "name": "fall",
+      "frames": 4,
+      "changed": [
+        316,
+        330,
+        308,
+        320
+      ],
+      "sourceSha256": "200ea67d437ed5824b2c5f66fe471e30d6f8007266383eba5dcc1b71742a8413"
+    },
+    {
+      "name": "fall_loop",
+      "frames": 3,
+      "changed": [
+        325,
+        319,
+        321
+      ],
+      "sourceSha256": "96b43a2e4ac73d55943207bb836273bb33845520c7d34cbc337159a290325277"
+    },
+    {
+      "name": "hurt",
+      "frames": 6,
+      "changed": [
+        350,
+        355,
+        380,
+        357,
+        282,
+        330
+      ],
+      "sourceSha256": "b8f8bbe7cfa35d037f2943cae4f5b3bf2905b06da7da8685b27907076196c0b1"
+    },
+    {
+      "name": "idle",
+      "frames": 10,
+      "changed": [
+        327,
+        333,
+        340,
+        344,
+        349,
+        353,
+        339,
+        335,
+        331,
+        331
+      ],
+      "sourceSha256": "5e3b80a9dc6425f57121b0820e285b4580bdfa2ed944cfeedf2bd61d8a92aa8f"
+    },
+    {
+      "name": "idle_turn",
+      "frames": 4,
+      "changed": [
+        302,
+        269,
+        280,
+        327
+      ],
+      "sourceSha256": "b7fa7431805dbfc53648cb1f595ae7937d5d76cd9b53b2e8dcbece6fea926eb9"
+    },
+    {
+      "name": "jump",
+      "frames": 6,
+      "changed": [
+        309,
+        299,
+        349,
+        311,
+        282,
+        279
+      ],
+      "sourceSha256": "cf79ad07cf1dc84b9b83c753e76c01150182425e452c48d92e636c7b12ee956e"
+    },
+    {
+      "name": "ledge_climb",
+      "frames": 11,
+      "changed": [
+        258,
+        283,
+        324,
+        302,
+        326,
+        323,
+        314,
+        318,
+        295,
+        325,
+        343
+      ],
+      "sourceSha256": "cd7d67efca6540b4ecfe239f87b436eb17cb747c13bd6b6b19f9d0a48a845e90"
+    },
+    {
+      "name": "ledge_hang",
+      "frames": 7,
+      "changed": [
+        337,
+        359,
+        347,
+        296,
+        263,
+        260,
+        252
+      ],
+      "sourceSha256": "ebf5af4b69c547b86cec49471b12420be44f4ac7164b6d1d218e64d190deee6f"
+    },
+    {
+      "name": "run",
+      "frames": 10,
+      "changed": [
+        358,
+        356,
+        330,
+        356,
+        342,
+        347,
+        351,
+        299,
+        360,
+        333
+      ],
+      "sourceSha256": "35cdcc9ddd8b577d44c40cdcc8ff5e667cc32d78a713e5ba5470174644a07c9a"
+    },
+    {
+      "name": "run_to_idle",
+      "frames": 7,
+      "changed": [
+        269,
+        282,
+        269,
+        260,
+        261,
+        308,
+        331
+      ],
+      "sourceSha256": "478bf44dcc3631f96aafeb59aa9bdbfe4b186f31600f67d8aebbf2ae92867ef0"
+    },
+    {
+      "name": "run_turn",
+      "frames": 4,
+      "changed": [
+        264,
+        311,
+        281,
+        281
+      ],
+      "sourceSha256": "cbc42aedf63b5abe86236a3c48ada2dce758930bc17d6224e2f25476d6fe8c30"
+    },
+    {
+      "name": "slide",
+      "frames": 8,
+      "changed": [
+        288,
+        309,
+        347,
+        325,
+        338,
+        337,
+        317,
+        315
+      ],
+      "sourceSha256": "e8dbf304003474743af4e94f1bf2aa0da8f1e75eb02828d8187729effbad0882"
+    },
+    {
+      "name": "walk",
+      "frames": 10,
+      "changed": [
+        323,
+        287,
+        280,
+        310,
+        314,
+        324,
+        268,
+        262,
+        317,
+        321
+      ],
+      "sourceSha256": "2a2e47a6a5f681402a973d8012fc1b8ab5255f7fada2ea28df8aaa892421fd0e"
+    },
+    {
+      "name": "walk_turn",
+      "frames": 4,
+      "changed": [
+        289,
+        288,
+        273,
+        291
+      ],
+      "sourceSha256": "1354523986c77a15b9ac46e83e0c07ec36d9b6983fc432ea42f12517169122c7"
+    },
+    {
+      "name": "wall_jump",
+      "frames": 4,
+      "changed": [
+        244,
+        329,
+        326,
+        316
+      ],
+      "sourceSha256": "94ad619ed1b7da50eb374f403c673a7875d02820808aa028924866a1ef53b3bb"
+    },
+    {
+      "name": "wall_slide",
+      "frames": 4,
+      "changed": [
+        324,
+        325,
+        317,
+        321
+      ],
+      "sourceSha256": "14db96aa13f07243841c30b15b66f9bc40404448903e1111a23747b98d6f8fe2"
+    }
+  ],
+  "sheetCount": 25,
+  "frameCount": 166,
+  "changedPixels": 48615,
+  "approvedIdleIdentical": true,
+  "alphaAndUnmaskedPixelsIdentical": true,
+  "clips": [
+    {
+      "name": "attack1",
+      "source": "Assets/Characters/Player/attack1.anim",
+      "frames": [
+        [
+          "combo_1",
+          0
+        ],
+        [
+          "combo_1",
+          1
+        ],
+        [
+          "combo_1",
+          2
+        ],
+        [
+          "combo_1_end",
+          0
+        ],
+        [
+          "combo_1_end",
+          1
+        ],
+        [
+          "combo_1_end",
+          2
+        ],
+        [
+          "combo_1_end",
+          3
+        ]
+      ],
+      "durations": [
+        166.66666999999998,
+        66.66666000000002,
+        49.999999999999986,
+        83.33333999999998,
+        100.00000000000003,
+        83.33333000000003,
+        16.666659999999943
+      ],
+      "loop": false
+    },
+    {
+      "name": "player_die",
+      "source": "Assets/Characters/Player/player_die.anim",
+      "frames": [
+        [
+          "death",
+          0
+        ],
+        [
+          "death",
+          1
+        ],
+        [
+          "death",
+          2
+        ],
+        [
+          "death",
+          3
+        ],
+        [
+          "death",
+          4
+        ],
+        [
+          "death",
+          5
+        ],
+        [
+          "death",
+          6
+        ],
+        [
+          "death",
+          7
+        ],
+        [
+          "death",
+          8
+        ],
+        [
+          "death",
+          9
+        ],
+        [
+          "death",
+          10
+        ],
+        [
+          "death",
+          11
+        ],
+        [
+          "death",
+          12
+        ],
+        [
+          "death",
+          13
+        ],
+        [
+          "death",
+          14
+        ],
+        [
+          "death",
+          15
+        ],
+        [
+          "death",
+          16
+        ],
+        [
+          "death",
+          17
+        ],
+        [
+          "death",
+          18
+        ],
+        [
+          "death",
+          19
+        ],
+        [
+          "death",
+          20
+        ],
+        [
+          "death",
+          21
+        ],
+        [
+          "death",
+          22
+        ]
+      ],
+      "durations": [
+        66.66667,
+        83.33333,
+        66.66667000000001,
+        83.33332999999999,
+        33.33333999999999,
+        116.66666000000004,
+        49.999999999999986,
+        83.33330000000005,
+        49.999999999999936,
+        100.00005,
+        50.00000999999998,
+        66.66664,
+        99.99999999999997,
+        50.00000000000004,
+        83.3333999999999,
+        49.99990000000021,
+        116.6666999999999,
+        33.33330000000001,
+        83.3333999999999,
+        66.66660000000002,
+        83.33340000000011,
+        66.66669999999985,
+        16.666600000000198
+      ],
+      "loop": false
+    },
+    {
+      "name": "player_hit",
+      "source": "Assets/Characters/Player/player_hit.anim",
+      "frames": [
+        [
+          "hurt",
+          0
+        ],
+        [
+          "hurt",
+          1
+        ],
+        [
+          "hurt",
+          2
+        ],
+        [
+          "hurt",
+          3
+        ],
+        [
+          "hurt",
+          4
+        ],
+        [
+          "hurt",
+          5
+        ]
+      ],
+      "durations": [
+        83.33333599999999,
+        83.333334,
+        100.00001,
+        83.33331999999999,
+        83.33334000000004,
+        16.66667999999999
+      ],
+      "loop": false
+    },
+    {
+      "name": "player_idle",
+      "source": "Assets/Characters/Player/player_idle.anim",
+      "frames": [
+        [
+          "idle",
+          0
+        ],
+        [
+          "idle",
+          1
+        ],
+        [
+          "idle",
+          2
+        ],
+        [
+          "idle",
+          3
+        ],
+        [
+          "idle",
+          4
+        ],
+        [
+          "idle",
+          5
+        ],
+        [
+          "idle",
+          6
+        ],
+        [
+          "idle",
+          7
+        ],
+        [
+          "idle",
+          8
+        ],
+        [
+          "idle",
+          9
+        ]
+      ],
+      "durations": [
+        66.66667,
+        50.0,
+        49.999999999999986,
+        50.000000000000014,
+        66.66666,
+        50.00000999999998,
+        49.99999000000005,
+        50.00000999999998,
+        66.66666,
+        16.666650000000004
+      ],
+      "loop": true
+    },
+    {
+      "name": "player_parry",
+      "source": "Assets/Characters/Player/player_parry.anim",
+      "frames": [
+        [
+          "combo_3_end",
+          0
+        ],
+        [
+          "combo_3_end",
+          1
+        ],
+        [
+          "combo_3_end",
+          2
+        ],
+        [
+          "combo_3_end",
+          3
+        ],
+        [
+          "combo_3_end",
+          4
+        ],
+        [
+          "combo_3_end",
+          5
+        ]
+      ],
+      "durations": [
+        250.0,
+        66.66666,
+        83.33334000000004,
+        66.66666999999998,
+        66.66668999999997,
+        16.666640000000065
+      ],
+      "loop": false
+    },
+    {
+      "name": "attackS1",
+      "source": "Assets/Characters/Player/player_slayer/attackS1.anim",
+      "frames": [
+        [
+          "combo_1",
+          0
+        ],
+        [
+          "combo_1",
+          1
+        ]
+      ],
+      "durations": [
+        100.0,
+        16.666669999999996
+      ],
+      "loop": false
+    },
+    {
+      "name": "attackS2",
+      "source": "Assets/Characters/Player/player_slayer/attackS2.anim",
+      "frames": [
+        [
+          "combo_2",
+          0
+        ],
+        [
+          "combo_2",
+          1
+        ],
+        [
+          "combo_2",
+          2
+        ],
+        [
+          "combo_2",
+          3
+        ]
+      ],
+      "durations": [
+        16.666667999999998,
+        33.333332000000006,
+        50.0,
+        16.666669999999996
+      ],
+      "loop": false
+    },
+    {
+      "name": "attackS3",
+      "source": "Assets/Characters/Player/player_slayer/attackS3.anim",
+      "frames": [
+        [
+          "combo_3",
+          0
+        ],
+        [
+          "combo_3",
+          1
+        ],
+        [
+          "combo_3",
+          2
+        ],
+        [
+          "combo_3",
+          3
+        ]
+      ],
+      "durations": [
+        33.333335,
+        33.333335,
+        33.33333000000001,
+        16.666669999999996
+      ],
+      "loop": false
+    }
+  ]
+}

@@ -1,0 +1,900 @@
+{
+  "combo_1_end/03": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_2/03": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3/06": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3_end/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3_end/03": {
+    "boots": [
+      1,
+      2
+    ]
+  },
+  "dash/01": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "dash/02": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "dash/03": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "dash/04": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "dash/05": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "death/01": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "death/02": {
+    "boots": [],
+    "bootRects": [
+      [
+        59,
+        70,
+        65,
+        77
+      ],
+      [
+        66,
+        71,
+        70,
+        77
+      ]
+    ]
+  },
+  "death/03": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "death/04": {
+    "boots": [],
+    "bootRects": [
+      [
+        59,
+        69,
+        70,
+        75
+      ]
+    ]
+  },
+  "death/05": {
+    "boots": [],
+    "bootRects": [
+      [
+        59,
+        69,
+        70,
+        75
+      ]
+    ]
+  },
+  "death/06": {
+    "boots": [],
+    "bootRects": [
+      [
+        59,
+        69,
+        70,
+        75
+      ]
+    ]
+  },
+  "death/07": {
+    "boots": [],
+    "bootRects": [
+      [
+        59,
+        69,
+        70,
+        75
+      ]
+    ]
+  },
+  "death/08": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "death/09": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "death/10": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "death/11": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "death/12": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "death/13": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "ledge_climb/01": {
+    "boots": [
+      2
+    ]
+  },
+  "ledge_climb/02": {
+    "boots": [
+      2
+    ]
+  },
+  "ledge_climb/03": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "ledge_climb/04": {
+    "boots": [
+      3,
+      6,
+      7
+    ]
+  },
+  "ledge_climb/05": {
+    "boots": [
+      1,
+      4
+    ]
+  },
+  "ledge_climb/06": {
+    "boots": [
+      1,
+      4
+    ]
+  },
+  "ledge_climb/07": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "ledge_climb/08": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "ledge_climb/09": {
+    "boots": [
+      1,
+      2
+    ]
+  },
+  "ledge_climb/10": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "ledge_climb/11": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "ledge_hang/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "ledge_hang/02": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "ledge_hang/03": {
+    "boots": [
+      2
+    ]
+  },
+  "ledge_hang/04": {
+    "boots": [
+      3
+    ]
+  },
+  "ledge_hang/05": {
+    "boots": [
+      2
+    ]
+  },
+  "ledge_hang/06": {
+    "boots": [
+      2
+    ]
+  },
+  "ledge_hang/07": {
+    "boots": [
+      2
+    ]
+  },
+  "run/08": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "slide/01": {
+    "boots": [
+      7,
+      8
+    ]
+  },
+  "slide/02": {
+    "boots": [
+      6,
+      7
+    ]
+  },
+  "slide/03": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "slide/04": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "slide/05": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "slide/06": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "slide/07": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "slide/08": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "walk/02": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "walk/07": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_1/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_1/02": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_1/03": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "combo_1_end/01": {
+    "boots": [
+      2,
+      3,
+      4
+    ]
+  },
+  "combo_1_end/02": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_2/01": {
+    "boots": [
+      1,
+      2
+    ]
+  },
+  "combo_2/06": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_2_end/02": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "combo_3/01": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "combo_3/02": {
+    "boots": [
+      1,
+      2
+    ]
+  },
+  "combo_3/03": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "combo_3/04": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "combo_3/07": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3/10": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "combo_3/12": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "hurt/01": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "hurt/02": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "hurt/06": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "idle_turn/02": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "jump/03": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "jump/04": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "run/04": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "run/06": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "run/09": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "run/10": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "run_to_idle/03": {
+    "boots": [
+      6,
+      7
+    ]
+  },
+  "run_to_idle/04": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "run_to_idle/05": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "run_to_idle/06": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "run_turn/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "run_turn/02": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "run_turn/03": {
+    "boots": [
+      6,
+      7
+    ]
+  },
+  "walk/01": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "walk/03": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "walk/04": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "walk/05": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "walk/06": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "walk/09": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "walk/10": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "walk_turn/01": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "walk_turn/02": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "walk_turn/03": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "wall_jump/01": {
+    "boots": [
+      3
+    ]
+  },
+  "wall_jump/02": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "wall_jump/03": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "wall_jump/04": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "run_to_idle/01": {
+    "boots": [
+      6,
+      7
+    ]
+  },
+  "run_to_idle/02": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "combo_1_end/04": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_2/02": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_2/04": {
+    "boots": [
+      4,
+      5
+    ]
+  },
+  "combo_2/05": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_2_end/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_2_end/03": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_2_end/04": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3/05": {
+    "boots": [
+      1,
+      2
+    ]
+  },
+  "combo_3/08": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3/09": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3/11": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3_end/02": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "combo_3_end/04": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "combo_3_end/05": {
+    "boots": [
+      1,
+      2
+    ]
+  },
+  "combo_3_end/06": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "design/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "fall/01": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "fall/02": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "fall/03": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "fall/04": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "fall_loop/01": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "fall_loop/02": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "fall_loop/03": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "hurt/03": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "hurt/04": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "hurt/05": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "idle_turn/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "idle_turn/03": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "idle_turn/04": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "jump/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "jump/02": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "jump/05": {
+    "boots": [
+      5,
+      6
+    ]
+  },
+  "jump/06": {
+    "boots": [
+      5,
+      6,
+      7
+    ]
+  },
+  "run/01": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "run/02": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "run/03": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "run/05": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "run/07": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "run_to_idle/07": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "run_turn/04": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "walk/08": {
+    "boots": [
+      2,
+      3
+    ]
+  },
+  "walk_turn/04": {
+    "boots": [
+      3,
+      4
+    ]
+  },
+  "wall_slide/01": {
+    "boots": [
+      2
+    ]
+  },
+  "wall_slide/02": {
+    "boots": [
+      2
+    ]
+  },
+  "wall_slide/03": {
+    "boots": [
+      2
+    ]
+  },
+  "wall_slide/04": {
+    "boots": [
+      2
+    ]
+  }
+}

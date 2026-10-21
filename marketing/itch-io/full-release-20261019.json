@@ -1,25 +1,22 @@
 {
-  "filename": "CLACKBLADE-Physics24-20261019.zip",
-  "sha256": "541e806b5557e7091198b1d269f5104149f1135bf65d254c06a5cb545c907e1c",
-  "bytes": 16596608,
+  "filename": "CLACKBLADE-Full-20261019.zip",
+  "sha256": "bbbafaeec38053c9f833fa8fb5a6f908d26cd3e69d959553b1ada741a7f88505",
+  "bytes": 16595641,
   "members": 30,
   "qa": false,
   "files": {
-    "Build/output.data": "ab9b6efe336ef02f11198db3a245afbbe13403a693d75671f61c12d734f21635",
-    "Build/output.framework.js": "6768c81a2e9cb2fb8eab6343a9981446059f65a6d46926211fece0ee85219a9d",
+    "Build/output.data": "052a2c638e3f64813c8d7a221ef83cfc5c824e51370ac65396611ccec7ef3607",
+    "Build/output.framework.js": "d657e43c553171eae9495a1ca19b87930eb0df1e53eca3ad00e5221b7cdf4cd3",
     "Build/output.loader.js": "1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76",
-    "Build/output.wasm": "1d9cba32aed7f6e08bcb780cf5f9c963029fedeb09407d0776193a79736661d1",
+    "Build/output.wasm": "8c2094aa792cb099e8774da3d7624038cfeed531320e2d344a6e45f4b424b134",
+    "CREDITS.txt": "50a044fa6ef8cbc5626c5074b82db9c8e15768fcfc5e7ac604cb1599f2c95ec6",
     "CodeManu-License.txt": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
-    "CREDITS.txt": "21864990261bbe5679e5cf53c49abb091c55ac42d3f2f802421a3b5c372cbf5c",
-    "Crusenho-License.txt": "967e02d313d6aad874db979e832596e624c3c177c6c887da95bd914c82168ba9",
+    "Crusenho-License.txt": "25404f33d70ae10f6c699b150031fdcd4071c2a5bd99976bb022a3788dba94af",
     "DarkAges-License.txt": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
-    "game-loop-build.json": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
-    "index.html": "3a18f3f3b8b3b23ec6535864cb573a314aa6752ffa36a78611b295027c90cf4e",
     "Kenney-Impact-License.txt": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
     "Kenney-Interface-License.txt": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
-    "Kenney-License.txt": "8723305f6eeda9b2ab11e3f642657744cfbed98d08abce3ccdf710c74ecc329e",
+    "Kenney-License.txt": "835e21526eada764d2f20203895352b8c72a8f04e105073ed4bee2b517479ac0",
     "Kenney-UI-License.txt": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
-    "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486",
     "Pimen-BattleEffects-License.txt": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
     "Pimen-HitSpark-License.txt": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
     "ServiceWorker.js": "a1410ab9ff483270351ed1dc5ee30cdd0d50911d83f4a24f3e6f04b387b52cdb",
@@ -33,29 +30,32 @@
     "TemplateData/style.css": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
     "TemplateData/unity-logo-dark.png": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
     "TemplateData/unity-logo-light.png": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
-    "TinyPixelJapan-License.txt": "9467cd1a0f711963a85addf2d90a4a67f1ec0b3d6ccd39753d0c03894b46ae1f",
-    "VT323-OFL.txt": "e9703da7abe97795a41be19905323706502723a1eec104608c24f858e352f9a8"
+    "TinyPixelJapan-License.txt": "6b3a9395300c20e0d5a8a1d1c5f4c57b5e09d718964e6186694dea55a22d160a",
+    "VT323-OFL.txt": "27d9af34210253e7ca1251fbace86c6f65b40031d6ce1a75493a1b2093631298",
+    "game-loop-build.json": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+    "index.html": "3a18f3f3b8b3b23ec6535864cb573a314aa6752ffa36a78611b295027c90cf4e",
+    "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486"
   },
   "owner": "micharel09",
   "gameId": 3857509,
   "url": "https://micharel09.itch.io/clackblade",
-  "uploadId": 19874589,
-  "previousUploadId": 19872500,
+  "uploadId": 19872500,
+  "previousUploadId": 19872290,
   "priorFullUploadId": 19871730,
   "baselineUploadId": 19865461,
-  "cdnBase": "https://html-classic.itch.zone/html/19874589/",
+  "cdnBase": "https://html-classic.itch.zone/html/19872500/",
   "cdnExactNonHtmlFiles": 29,
   "oldUrlBehavior": "typing-hero redirects to clackblade",
-  "snapshot": "8ba1dda11a10270a96b8f096c30df977ee6f4e7c085b0c1340196a52216400a2",
-  "sourceCommit": "e79c185",
+  "snapshot": "5a0a621a730dd828d6fc7a33004256ffbc67808cd0f4f132fb38b5e17b7b9454",
+  "sourceCommit": "b2435450487629ee277de5176dacd5b037095d6c",
   "firebaseChanged": false,
   "productionEndlessRead": "401 known limitation",
   "quick": {
-    "scope": "ParryClashTests",
-    "passed": 14,
+    "snapshot": "70312dec1056ac27e3f5707a8ad005d646fb592c6e4fb36a7cfbadbc524742c5",
+    "passed": 116,
     "failed": 0,
     "skipped": 0,
-    "result": "20261019T123645-quick"
+    "finalDelta": "Endless combat label position only; unchanged gameplay and builder"
   },
   "repeatBuilder": {
     "snapshot": "70312dec1056ac27e3f5707a8ad005d646fb592c6e4fb36a7cfbadbc524742c5",
@@ -63,43 +63,6 @@
     "result": "20261019T102201-serialize"
   },
   "productionSmoke": {
-    "automatedChecks": 5,
-    "jsExceptions": 0,
-    "productionWrites": 0,
-    "parrySuccesses": 1,
-    "presetSelectionKeys": 0,
-    "visualVerified": [
-      "default parry launch",
-      "fall at458ms",
-      "bounce/floor at704ms",
-      "rest/fade at966ms"
-    ]
-  },
-  "publicMenuVerified": true,
-  "leaderboardReads": {
-    "global": 200,
-    "endless_v2/normal": 401
-  },
-  "sceneHashes": {
-    "MainMenu.unity": "2c8b07eb93cd2d2b91bf35fd089204623cbfef86b033506b6e284d59d7d14879",
-    "SampleScene.unity": "b2f30fb01ada0aaf7742fb3b273a4781e9fdff032a5b4054f3770eb08a28ae48"
-  },
-  "previousRelease": {
-    "filename": "CLACKBLADE-Full-20261019.zip",
-    "sha256": "bbbafaeec38053c9f833fa8fb5a6f908d26cd3e69d959553b1ada741a7f88505",
-    "snapshot": "5a0a621a730dd828d6fc7a33004256ffbc67808cd0f4f132fb38b5e17b7b9454",
-    "uploadId": 19872500,
-    "sourceCommit": "b2435450487629ee277de5176dacd5b037095d6c"
-  },
-  "defaultParryPreset": "BCompact",
-  "priorQuickEvidence": {
-    "snapshot": "70312dec1056ac27e3f5707a8ad005d646fb592c6e4fb36a7cfbadbc524742c5",
-    "passed": 116,
-    "failed": 0,
-    "skipped": 0,
-    "finalDelta": "Endless combat label position only; unchanged gameplay and builder"
-  },
-  "priorProductionSmokeEvidence": {
     "automatedChecks": 4,
     "jsExceptions": 0,
     "managedExceptions": 0,
@@ -112,29 +75,13 @@
       "pause and resume"
     ]
   },
-  "publicParry": {
-    "automatedChecks": 5,
-    "jsExceptions": 0,
-    "productionWrites": 0,
-    "parrySuccesses": 1,
-    "presetSelectionKeys": 0,
-    "visualVerified": [
-      "default launch",
-      "fall at457ms",
-      "bounce/floor at703ms",
-      "rest/fade at964ms"
-    ]
+  "publicMenuVerified": true,
+  "leaderboardReads": {
+    "global": 200,
+    "endless_v2/normal": 401
   },
-  "defaultNativeQa": {
-    "checks": 16,
-    "restartParries": 2,
-    "presetSelectionKeys": 0,
-    "result": "compact-default-native-r2",
-    "particlesAt300_550_800_1050ms": [
-      20,
-      20,
-      20,
-      12
-    ]
+  "sceneHashes": {
+    "MainMenu.unity": "2c8b07eb93cd2d2b91bf35fd089204623cbfef86b033506b6e284d59d7d14879",
+    "SampleScene.unity": "b2f30fb01ada0aaf7742fb3b273a4781e9fdff032a5b4054f3770eb08a28ae48"
   }
 }

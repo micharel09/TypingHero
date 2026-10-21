@@ -21,14 +21,6 @@ Shader "TypingHero/ParryClash"
             {
                 float2 p = abs(i.uv * 2 - 1);
                 float core = saturate(1 - p.x * p.x) * saturate(1 - p.y * p.y);
-                if (_Role < .5 && _Pixel > .5)
-                {
-                    float grid = max(1, i.shape.z);
-                    float2 q = ((floor(saturate(i.uv) * grid) + .5) / grid * 2 - 1);
-                    float radius = length(q);
-                    float mask = i.shape.x < .5 ? step(radius, .9) : step(radius, .98) * step(.62, radius);
-                    return half4(i.color.rgb * (i.shape.x < .5 ? 3 : 1.5), i.color.a * mask);
-                }
                 if (_Role < .5) return half4(i.color.rgb * 3, i.color.a * core * core);
                 if (_Pixel > .5)
                 {

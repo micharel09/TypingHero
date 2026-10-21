@@ -138,8 +138,7 @@ module.exports = async function endless(api, browser) {
     await key('Enter'); await until(page,t=>!t.encounterReading && t.timeScale === 1);
     // Establish real incoming damage before a win to verify HP carry, not just full HP.
     s = await until(page,t=>t.hp===35);
-    if (api.beforeDefense) await api.beforeDefense(page);
-    const firstHp = (await state(page)).hp;
+    const firstHp = s.hp;
     defendEnabled=true;
     report.endlessDuels=[];
     report.parryAttempts=[];
@@ -163,7 +162,6 @@ module.exports = async function endless(api, browser) {
     while (performance.now()<deadline) {
       if(defenseFailure) throw defenseFailure;
       s=await state(page);
-      if (api.observeHUD) await api.observeHUD(page,s);
       if(s.hp>0&&!s.finished&&!s.paused&&!s.slayer&&s.timeScale>0&&s.playerAnimatorEnabled)
         check(s.playerAnimatorSpeed>0&&s.playerStateSpeed>0,'live outgoing Slayer/idle/hit animation keeps advancing');
       if(process.env.TYPINGHERO_IDLE_HIT_DIAGNOSTIC==='1'){
@@ -307,7 +305,7 @@ module.exports = async function endless(api, browser) {
     }
     report.assetSamples=[...assetSamples];
     check(report.endlessDuels.length===target && sawSlayer && pausedSlayer,'keyboard typing/parry/Slayer clears the required rounds');
-    if(!api.observeHUD && Number.isFinite(s.unscaledClock)) check(report.runTiming.combo.length>0 && report.runTiming.recovery.length>0,
+    if(Number.isFinite(s.unscaledClock)) check(report.runTiming.combo.length>0 && report.runTiming.recovery.length>0,
       'each difficulty has actual clock measurements for combo decay and enemy recovery');
     defendEnabled=false;
     s=await until(page,t=>t.overlay,5000);
@@ -317,7 +315,6 @@ module.exports = async function endless(api, browser) {
     await capture('victory-960');
     await until(page,()=>report.endlessWrites>baseWrites);
     check(report.endlessPayloads.at(-1).defeated===6 && report.endlessPayloads.at(-1).score===s.score,'boss sends six defeated and the final score through the existing payload');
-    if (api.stopAtVictory) return;
     await api.clickControl(page,'Top 1000Button','button');
     await until(page,t=>t.leaderboardOpen && t.dataRows===1000);
     check((await state(page)).tableDifficulty===difficulty,'victory table uses run difficulty');

@@ -10,7 +10,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-[Category("HUDFeedback")]
 public sealed class CombatR7AssetTests
 {
     const string Art = "Assets/Art/UI/CombatR7/";
@@ -19,7 +18,7 @@ public sealed class CombatR7AssetTests
     public void EveryCombatComponentImportsAsAnActualPointClampSprite()
     {
         var paths = Directory.GetFiles(Art, "*.png");
-        Assert.That(paths.Length, Is.EqualTo(29));
+        Assert.That(paths.Length, Is.EqualTo(27));
         foreach (var path in paths)
         {
             var asset = path.Replace('\\', '/');

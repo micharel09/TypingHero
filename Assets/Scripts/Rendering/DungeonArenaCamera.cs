@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 // Runs after the existing viewport/zoom correction, before cinematic projection.
@@ -7,28 +8,106 @@ using UnityEngine.Rendering.Universal;
 public sealed class DungeonArenaCamera : MonoBehaviour
 {
     public Transform player, enemy;
+    [SerializeField] bool postProcessing = true;
+    [SerializeField, Range(0, 15)] float pitch = 5f;
+    [SerializeField] CombatHUDLayout framingLayout;
+    [SerializeField, Min(.1f)] float framingDistance = 17.8403f;
+    public const int WorldWidth = 320, WorldHeight = 180;
+    public RenderTexture WorldTexture { get; private set; }
+    public Camera PresentationCamera { get; private set; }
+    public Rect PresentationRect { get; private set; } = new Rect(0, 0, 1, 1);
+    public bool Cinematic { get; private set; }
+    internal RTHandle EnvironmentScratch;
+    public float FocusDepth => view.WorldToViewportPoint(player ? player.position : Vector3.zero).z;
     Camera view;
     CinemachineBrain brain;
-    UniversalRenderPipelineAsset pipeline;
-    float previousScale, offset, velocity, originX;
+    RenderTexture previousTexture;
+    Rect previousRect;
+    bool previousPostProcessing;
+    float offset, velocity, originX;
+    Vector3 framingOrigin;
     void OnEnable()
     {
+        if (!Application.isPlaying) return;
         view = GetComponent<Camera>(); brain = GetComponent<CinemachineBrain>();
-        pipeline = UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
-        if (pipeline) previousScale = pipeline.renderScale;
+        previousTexture = view.targetTexture; previousRect = view.rect;
         originX = transform.position.x;
+        framingOrigin = framingLayout ? framingLayout.BodyCenter : Vector3.zero;
+        offset = velocity = 0;
+        WorldTexture = new RenderTexture(WorldWidth, WorldHeight, 24, RenderTextureFormat.ARGBHalf)
+        {
+            name = "Dungeon world 320x180 HDR", filterMode = FilterMode.Point,
+            wrapMode = TextureWrapMode.Clamp, useMipMap = false, autoGenerateMips = false,
+            antiAliasing = 1, useDynamicScale = false
+        };
+        WorldTexture.Create();
+        // Unity2022's NullGfx still executes offscreen cameras and crashes in
+        // DrawLineOrTrailFromNodeQueue. Offline logic tests keep projection and
+        // ownership metadata, while only a graphics device receives the target.
+        if (SystemInfo.graphicsDeviceType != GraphicsDeviceType.Null) view.targetTexture = WorldTexture;
+        view.rect = new Rect(0, 0, 1, 1);
+        view.aspect = (float)WorldWidth / WorldHeight;
+        var screen = new GameObject("Dungeon Presentation"); screen.transform.SetParent(transform, false);
+        PresentationCamera = screen.AddComponent<Camera>();
+        PresentationCamera.cullingMask = 0; PresentationCamera.depth = view.depth + 1;
+        PresentationCamera.clearFlags = CameraClearFlags.SolidColor; PresentationCamera.backgroundColor = Color.black;
+        PresentationCamera.allowHDR = true; PresentationCamera.allowMSAA = false;
+        PresentationCamera.orthographic = true;
+        var data = PresentationCamera.GetUniversalAdditionalCameraData(); data.SetRenderer(2);
+        data.renderShadows = false; data.renderPostProcessing = postProcessing;
+        data.antialiasing = AntialiasingMode.None;
+        data.requiresColorOption = data.requiresDepthOption = CameraOverrideOption.Off;
+        screen.AddComponent<DungeonPresentationCamera>().Initialize(this);
+        SetPresentationRect(previousRect);
+    }
+    public void SetPresentationRect(Rect rect)
+    {
+        PresentationRect = rect;
+        if (PresentationCamera) PresentationCamera.rect = rect;
+    }
+    public Vector3 WorldToScreenPoint(Vector3 point)
+    {
+        var projected = view.WorldToViewportPoint(point);
+        return new Vector3((PresentationRect.x + projected.x * PresentationRect.width) * Screen.width,
+            (PresentationRect.y + projected.y * PresentationRect.height) * Screen.height, projected.z);
+    }
+    public void SetCinematic(bool active)
+    {
+        if (Cinematic == active) return;
+        Cinematic = active;
+        if (!PresentationCamera) return;
+        var data = PresentationCamera.GetUniversalAdditionalCameraData();
+        if (active) { previousPostProcessing = data.renderPostProcessing; data.renderPostProcessing = false; }
+        else data.renderPostProcessing = previousPostProcessing;
     }
     void LateUpdate()
     {
         if (!view) return;
-        // Screen-space HUD remains full resolution; URP scales only the camera world.
-        if (pipeline) { pipeline.renderScale = Mathf.Clamp(320f / Screen.width, .1f, 2f); pipeline.upscalingFilter = UpscalingFilterSelection.Point; }
+        // Existing Slayer/pause tweens still own this half-height zoom scalar.
+        // Apply the perspective lens even while pause owns camera position.
+        view.orthographic = false;
+        view.fieldOfView = 2 * Mathf.Atan(view.orthographicSize / framingDistance) * Mathf.Rad2Deg;
         if (!brain || !brain.enabled || GamePauseController.InputBlocked) return;
-        float goal = player && enemy ? Mathf.Clamp((player.position.x + enemy.position.x) * .5f - originX, -.5f, .5f) : 0;
+        var center = framingLayout ? framingLayout.BodyCenter : player && enemy ? (player.position + enemy.position) * .5f : framingOrigin;
+        float goal = Mathf.Clamp(center.x - originX, -.5f, .5f);
         offset = Mathf.SmoothDamp(offset, goal, ref velocity, .35f, Mathf.Infinity, Time.deltaTime);
-        // CombatViewportCamera already restores the brain position every frame.
-        var position = transform.position; position.x += offset; transform.position = position;
-        transform.rotation = Quaternion.Euler(10, 0, 0);
+        // Start from the brain state, retaining impulses without accumulating offsets.
+        var position = brain.CurrentCameraState.FinalPosition;
+        position.x += offset;
+        if (framingLayout)
+            position.y += center.y - framingOrigin.y + Mathf.Tan(pitch * Mathf.Deg2Rad) * (center.z - framingOrigin.z);
+        transform.position = position;
+        transform.rotation = Quaternion.Euler(pitch, 0, 0);
     }
-    void OnDisable() { if (pipeline) pipeline.renderScale = previousScale; }
+    void OnDisable()
+    {
+        if (view) { view.targetTexture = previousTexture; view.rect = previousRect; view.ResetAspect(); }
+        if (PresentationCamera)
+        {
+            PresentationCamera.enabled = false; Destroy(PresentationCamera.gameObject); PresentationCamera = null;
+        }
+        if (WorldTexture) { WorldTexture.Release(); Destroy(WorldTexture); WorldTexture = null; }
+        EnvironmentScratch?.Release(); EnvironmentScratch = null;
+        Cinematic = false;
+    }
 }

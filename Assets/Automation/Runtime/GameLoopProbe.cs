@@ -10,6 +10,7 @@ using UnityEngine.Profiling;
 using Unity.Profiling;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 // Observation only: no command dispatcher, setters, or input injection.
 [DefaultExecutionOrder(1000)]
@@ -29,8 +30,6 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Rect screenRect;
         public int particles;
         public float groundY, minY, maxY, maxAge, meanVelocityX, meanDepthSpeed;
-        public float contactGap;
-        public string defenseCel, attackCel;
     }
     readonly ParticleSystem.Particle[] observedParticles = new ParticleSystem.Particle[56];
     ProfilerRecorder frameAllocations;
@@ -76,11 +75,10 @@ public sealed class GameLoopProbe : MonoBehaviour
             var bounds = sprite ? sprite.bounds : particle.bounds;
             var burst = effect.GetComponent<PixelSparkBurst>();
             var clash = effect.GetComponent<ParryClashBurst>();
-            var voxel = effect.GetComponent<VoxelImpactBurst>();
             if (burst && (!burst.Systems[0] || !burst.Systems[1])) return null;
             float minY = float.PositiveInfinity, maxY = float.NegativeInfinity, maxAge = 0;
             float velocityX = 0, depthSpeed = 0; int observedCount = 0;
-            var systems = burst ? burst.Systems : clash ? clash.Systems : voxel ? voxel.Systems : null;
+            var systems = burst ? burst.Systems : clash ? clash.Systems : null;
             if (systems != null)
                 foreach (var ps in systems)
                 {
@@ -98,15 +96,12 @@ public sealed class GameLoopProbe : MonoBehaviour
                         depthSpeed += Mathf.Abs(observedParticles[p].velocity.z);
                     }
                 }
-            var min = camera ? camera.WorldToScreenPoint(bounds.min) : Vector3.zero;
-            var max = camera ? camera.WorldToScreenPoint(bounds.max) : Vector3.zero;
+            var min = camera ? CombatViewportCamera.WorldToScreenPoint(camera, bounds.min) : Vector3.zero;
+            var max = camera ? CombatViewportCamera.WorldToScreenPoint(camera, bounds.max) : Vector3.zero;
             return new SparkFrame { role = role, preset = clash ? clash.EmittedPreset.ToString() : "", id = effect.GetInstanceID(), frame = Time.frameCount,
                 order = sprite ? sprite.sortingOrder : particle.sortingOrder,
                 position = effect.transform.position, scale = effect.transform.lossyScale,
-                contactGap = clash ? clash.Visual.separation : 0,
-                defenseCel = clash && clash.Visual.defenseCel ? clash.Visual.defenseCel.name : "",
-                attackCel = clash && clash.Visual.attackCel ? clash.Visual.attackCel.name : "",
-                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : voxel ? voxel.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
+                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
                 minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = maxAge,
                 meanVelocityX = observedCount > 0 ? velocityX / observedCount : 0,
                 meanDepthSpeed = observedCount > 0 ? depthSpeed / observedCount : 0,
@@ -139,8 +134,6 @@ public sealed class GameLoopProbe : MonoBehaviour
         public string result;
         public string enemySprite, enemyTexture;
         public float enemyAnimationTime, frameMs, scroll, timeScale, wordTime, rowError, rowSlide;
-        public float enemyContactIn, enemyAnimationSpeed;
-        public int activeSlashParts;
         public long memory;
         public long allocatedBytes;
         public bool allocationCounterAvailable;
@@ -152,13 +145,20 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool tutorial, tutorialPracticing, tutorialPassed, tutorialRetry, stunned;
         public int tutorialLesson, tutorialStatus;
         public float cameraOrtho, multiplier, scorePulse, scoreZoom, redAlpha;
+        public float cameraFieldOfView;
+        public bool cameraPerspective;
+        public float worldRenderScale;
+        public int worldWidth, worldHeight, worldTextureId, presentationCameras;
+        public int arenaTextures, ambientParticles, ambientParticleLimit, lightmaps, lightProbes;
+        public float combatPulseIntensity;
+        public bool combatPulseEnabled;
+        public bool arenaCinematic, arenaPostProcessing;
+        public Rect arenaViewport;
         public Color scoreColor;
         public bool environmentVisible, hudPanelVisible;
-        public Vector2 barTopEdge, barBottomEdge, scorePoint, trayPoint, bodyHead, bodyFoot;
+        public Vector2 barTopEdge, barBottomEdge, scorePoint, trayPoint, bodyHead, bodyFoot, bodyCenter;
         public float barLeft, barRight;
         public Rect scoreGlyphRect, comboGlyphRect, comboDecayRect;
-        public bool comboVisible, comboDecayVisible, comboUnderScore, comboDecayUnderScore;
-        public float comboDecayValue;
         public float scoreFont, comboFont, barReveal;
         public Rect playerStatusRect, enemyStatusRect, trayRect, scoreRect, multiplierRect, staminaRect;
         public Vector2 playerFootPoint, enemyFootPoint;
@@ -170,13 +170,10 @@ public sealed class GameLoopProbe : MonoBehaviour
         public int popupCount, popupId;
         public string popupText;
         public Vector2 enemyHeadPoint;
+        public Vector2 cuePoint;
+        public Rect cueHighlightRect;
         public bool playerNameVisible, enemyNameVisible;
         public Color staminaColor;
-        public string encounterText, staminaIconName;
-        public bool encounterVisible, encounterBackgroundVisible, guardBreakVisible, combatHeadingVisible;
-        public Color parryKeyColor, hpNumberColor, hpFrameColor, guardBreakColor;
-        public float hudHitRemaining, hudSuccessRemaining;
-        public Rect guardBreakRect, encounterRect;
 
         public float rowHeight, viewportHeight;
         public int[] rowIds;
@@ -285,12 +282,6 @@ public sealed class GameLoopProbe : MonoBehaviour
             var animator = Read<Animator>(enemy, "animator");
             var info = animator ? animator.GetCurrentAnimatorStateInfo(0) : default;
             bool attacking = animator && info.fullPathHash == Animator.StringToHash(Read(enemy, "attackStatePath", ""));
-            float contactIn = -1, animationSpeed = animator ? animator.speed * info.speed * info.speedMultiplier : 0;
-            if (attacking)
-                foreach (var clip in animator.GetCurrentAnimatorClipInfo(0))
-                    foreach (var marker in clip.clip.events)
-                        if (marker.functionName == "Anim_DealDamage")
-                            contactIn = (marker.time - (info.normalizedTime % 1) * clip.clip.length) / Mathf.Max(.001f, animationSpeed);
             var controls = FindObjectsOfType<Selectable>().Where(s => s.IsInteractable()).Select(s =>
             {
                 var canvas = s.GetComponentInParent<Canvas>();
@@ -326,6 +317,9 @@ public sealed class GameLoopProbe : MonoBehaviour
             var stamina = FindObjectOfType<EnemyStamina>();
             var resultLabel = Read<TMP_Text>(match, "resultLabel");
             var tutorial = FindObjectOfType<TutorialDirector>();
+            var tutorialOverlay = FindObjectOfType<TutorialOverlay>();
+            var tutorialCue = Read<Transform>(tutorialOverlay, "cue");
+            var cueHighlight = Read<RectTransform>(tutorialOverlay, "cueHighlight");
             var fx = FindObjectOfType<SlayerScreenFX>();
             var scoreLabel = Read<TMP_Text>(ScoreSystem.I, "scoreText");
             var scoreRoot = Read<RectTransform>(fx, "scoreRoot");
@@ -338,18 +332,12 @@ public sealed class GameLoopProbe : MonoBehaviour
             var playerStatus = Read<RectTransform>(layout, "playerStatus");
             var enemyStatus = Read<RectTransform>(layout, "enemyStatus");
             var multiplierLabel = Read<TMP_Text>(layout, "multiplierText");
-            var comboHUD = Read<ScoreUI_ComboHUD>(ScoreSystem.I, "comboHUD");
-            var comboDecay = Read<Slider>(comboHUD, "decaySlider");
             var playerHpSlider = playerStatus ? playerStatus.GetComponentInChildren<Slider>() : null;
             var enemyHpSlider = enemyStatus ? enemyStatus.Find("EnemyHP").GetComponent<Slider>() : null;
             var staminaSlider = enemyStatus ? enemyStatus.Find("EnemyStamina").GetComponent<Slider>() : null;
-            var hudFeedback = FindObjectOfType<CombatHUDFeedback>();
-            var hudRound = Read<TMP_Text>(FindObjectOfType<CombatR7Status>(), "round");
-            var hudBackground = Read<Image>(FindObjectOfType<CombatR7Status>(), "roundBackground");
-            var guardLabel = Read<TMP_Text>(hudFeedback, "guardBreak");
-            var guardIcon = Read<Image>(hudFeedback, "staminaIcon");
-            var combatHeading = Read<TMP_Text>(FindObjectOfType<EndlessOverlay>(), "heading");
             var env = Read<Transform>(fx, "environment");
+            var arena = Camera.main ? Camera.main.GetComponent<DungeonArenaCamera>() : null;
+            var arenaPulse = env ? env.Find("CombatPulse")?.GetComponent<Light>() : null;
             var red = Read<SpriteRenderer>(fx, "redOverlay");
             var hudImage = Read<Image>(fx, "hudPanel");
             var tray = Read<RectTransform>(fx, "typingTray");
@@ -376,40 +364,24 @@ public sealed class GameLoopProbe : MonoBehaviour
                 popupCount = FindObjectsOfType<FloatingScore>().Length,
                 popupId = award ? award.GetInstanceID() : 0,
                 popupText = awardLabel ? awardLabel.text : "",
-                enemyHeadPoint = layout && bodyB ? (Vector2)Camera.main.WorldToScreenPoint(layout.Head(bodyB)) : default,
+                enemyHeadPoint = layout && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.Head(bodyB)) : default,
+                cuePoint = tutorialCue ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, tutorialCue.position) : default,
+                cueHighlightRect = cueHighlight && cueHighlight.gameObject.activeInHierarchy ? ScreenRect(cueHighlight) : default,
                 playerNameVisible = playerStatus && playerStatus.Find("PlayerName").gameObject.activeInHierarchy,
                 enemyNameVisible = enemyStatus && enemyStatus.Find("EnemyHPLabel").gameObject.activeInHierarchy,
-                encounterText = hudRound ? hudRound.text : "",
-                encounterVisible = hudRound && hudRound.enabled && hudRound.gameObject.activeInHierarchy,
-                encounterBackgroundVisible = hudBackground && hudBackground.enabled && hudBackground.gameObject.activeInHierarchy,
-                encounterRect = TextRect(hudRound), guardBreakRect = TextRect(guardLabel),
-                combatHeadingVisible = combatHeading && combatHeading.gameObject.activeInHierarchy,
-                staminaIconName = guardIcon && guardIcon.sprite ? guardIcon.sprite.name : "",
-                guardBreakVisible = guardLabel && guardLabel.enabled,
-                guardBreakColor = guardLabel ? guardLabel.color : default,
-                parryKeyColor = Read<Image>(hudFeedback, "parryKey") ? Read<Image>(hudFeedback, "parryKey").color : default,
-                hpNumberColor = Read<TMP_Text>(hudFeedback, "playerHp") ? Read<TMP_Text>(hudFeedback, "playerHp").color : default,
-                hpFrameColor = Read<Image>(hudFeedback, "hpFrame") ? Read<Image>(hudFeedback, "hpFrame").color : default,
-                hudHitRemaining = Read<float>(hudFeedback, "hitRemaining"),
-                hudSuccessRemaining = Read<float>(hudFeedback, "successRemaining"),
                 staminaColor = staminaSlider ? staminaSlider.fillRect.GetComponent<Image>().color : default,
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
                 decayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
                 playerStatusRect = ScreenRect(playerStatus), enemyStatusRect = ScreenRect(enemyStatus),
                 scoreGlyphRect = GlyphRect(scoreLabel), comboGlyphRect = GlyphRect(multiplierLabel),
                 comboDecayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
-                comboVisible = multiplierLabel && multiplierLabel.gameObject.activeInHierarchy,
-                comboDecayVisible = comboDecay && comboDecay.gameObject.activeInHierarchy,
-                comboUnderScore = comboHUD && scoreRoot && comboHUD.transform.IsChildOf(scoreRoot),
-                comboDecayUnderScore = comboDecay && scoreRoot && comboDecay.transform.IsChildOf(scoreRoot),
-                comboDecayValue = comboDecay ? comboDecay.value : 0,
                 scoreFont = scoreLabel ? scoreLabel.fontSize : 0,
                 comboFont = multiplierLabel ? multiplierLabel.fontSize : 0,
                 barReveal = fx ? fx.BarReveal : 0,
                 trayRect = ScreenRect(tray), scoreRect = TextRect(scoreLabel), multiplierRect = TextRect(multiplierLabel),
                 staminaRect = staminaSlider ? ScreenRect((RectTransform)staminaSlider.transform) : default,
-                playerFootPoint = layout && bodyA ? (Vector2)Camera.main.WorldToScreenPoint(layout.Foot(bodyA)) : default,
-                enemyFootPoint = layout && bodyB ? (Vector2)Camera.main.WorldToScreenPoint(layout.Foot(bodyB)) : default,
+                playerFootPoint = layout && bodyA ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.Foot(bodyA)) : default,
+                enemyFootPoint = layout && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.Foot(bodyB)) : default,
                 playerHpFill = playerHpSlider ? playerHpSlider.normalizedValue : -1,
                 enemyHpFill = enemyHpSlider ? enemyHpSlider.normalizedValue : -1,
                 staminaFill = staminaSlider ? staminaSlider.normalizedValue : -1,
@@ -428,8 +400,9 @@ public sealed class GameLoopProbe : MonoBehaviour
                 barRight = topBar ? topBar.TransformPoint(new Vector3(topBar.rect.xMax, 0, 0)).x : 0,
                 scorePoint = scoreRoot ? (Vector2)scoreRoot.position : Vector2.zero,
                 trayPoint = tray ? (Vector2)tray.position : Vector2.zero,
-                bodyHead = layout && bodyA && bodyB ? (Vector2)Camera.main.WorldToScreenPoint(layout.HighestHead) : Vector2.zero,
-                bodyFoot = layout && bodyA && bodyB ? (Vector2)Camera.main.WorldToScreenPoint(layout.LowestFoot) : Vector2.zero,
+                bodyHead = layout && bodyA && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.HighestHead) : Vector2.zero,
+                bodyFoot = layout && bodyA && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.LowestFoot) : Vector2.zero,
+                bodyCenter = layout && bodyA && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.BodyCenter) : Vector2.zero,
                 tutorial = TutorialRun.Active, tutorialStatus = (int)TutorialRun.Status,
                 tutorialLesson = tutorial ? tutorial.LessonIndex : 0, tutorialRetry = TutorialRun.Retrying,
                 tutorialPracticing = tutorial && tutorial.Practicing,
@@ -474,8 +447,6 @@ public sealed class GameLoopProbe : MonoBehaviour
                 slayer = slayer && slayer.IsActive, parryWindow = parry && parry.IsWindowActive,
                 canParry = gate && gate.CanParry && (!parry || !parry.PoseLocked), enemyAttacking = attacking,
                 enemyAnimationTime = info.normalizedTime, overlay = Read(pause, "_overlayLocked", false),
-                enemyContactIn = contactIn, enemyAnimationSpeed = animationSpeed,
-                activeSlashParts = FindObjectsOfType<MeshRenderer>().Count(r => r.enabled && r.name.StartsWith("Slash")),
                 paused = Read(pause, "_paused", false), frameMs = Time.unscaledDeltaTime * 1000,
                 timeScale = Time.timeScale, wordTime = Read(typing, "timer", 0f),
                 rowError = Read(typing, "errorRemaining", 0f), rowSlide = Read(typing, "slideRemaining", 0f),
@@ -486,6 +457,23 @@ public sealed class GameLoopProbe : MonoBehaviour
                 dataRows = data == null ? 0 : data.Count,
                 virtualized = Read(board, "virtualizeRows", false), firstVisible = Read(board, "_firstVisible", -1),
                 leaderboardOpen = LeaderboardModal.IsOpen, cameraOrtho = Camera.main ? Camera.main.orthographicSize : 0,
+                cameraFieldOfView = Camera.main ? Camera.main.fieldOfView : 0,
+                cameraPerspective = Camera.main && !Camera.main.orthographic,
+                worldWidth = arena && arena.WorldTexture ? arena.WorldTexture.width : 0,
+                worldHeight = arena && arena.WorldTexture ? arena.WorldTexture.height : 0,
+                worldTextureId = arena && arena.WorldTexture ? arena.WorldTexture.GetInstanceID() : 0,
+                presentationCameras = FindObjectsOfType<DungeonPresentationCamera>().Length,
+                arenaTextures = Resources.FindObjectsOfTypeAll<RenderTexture>().Count(texture => texture.IsCreated() && texture.name.StartsWith("Dungeon ")),
+                ambientParticles = env ? env.GetComponentsInChildren<ParticleSystem>().Sum(ps => ps.particleCount) : 0,
+                ambientParticleLimit = env ? env.GetComponentsInChildren<ParticleSystem>().Sum(ps => ps.main.maxParticles) : 0,
+                lightmaps = LightmapSettings.lightmaps.Length,
+                lightProbes = LightmapSettings.lightProbes ? LightmapSettings.lightProbes.count : 0,
+                combatPulseIntensity = arenaPulse ? arenaPulse.intensity : 0,
+                combatPulseEnabled = arenaPulse && arenaPulse.enabled && arenaPulse.gameObject.activeInHierarchy,
+                arenaCinematic = arena && arena.Cinematic,
+                arenaPostProcessing = arena && arena.PresentationCamera && arena.PresentationCamera.GetUniversalAdditionalCameraData().renderPostProcessing,
+                arenaViewport = arena ? arena.PresentationRect : default,
+                worldRenderScale = UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline is UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset urp ? urp.renderScale : -1,
                 collectionMode = Read(board, "mode", -1),
                 collectionTitle = Read<TMP_Text>(board, "title")?.text ?? "",
                 collectionFirstRow = data != null && data.Count > 0 ? data[0].name : "",

@@ -1,0 +1,8 @@
+16x16 DungeonTileset II v1.7 by 0x72 (Robert)
+https://0x72.itch.io/dungeontileset-ii
+CC0 1.0 Universal
+https://creativecommons.org/publicdomain/zero/1.0/
+
+The author dedicates this tileset to the public domain under CC0.
+Source statement: "You can use this tileset for whatever you like (CC-0)."
+Downloaded unmodified frames from the pinned mirror listed in SOURCE.json.

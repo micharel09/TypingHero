@@ -1,1000 +1,1256 @@
 {
   "family": "Clackblade Specimen Pixel",
-  "specimen_sha256": "09e33eb279b79db9d27dcba28616ec8babcc2ba8c710418837d25e9c9fef88b6",
-  "font_sha256": "76b7d45522ae304f3cfb06f244cf17ca8f9412e1b48fcb5583e29fcb4e4d28ce",
-  "units_per_em": 1024,
+  "specimen_sha256": "7012b93a09f0c386237d4e61f07e6c352325e20a44a64541eab4fd7a71f99911",
+  "font_sha256": "1e8ecf9753fa682eeeef96959b0421d375ebe2339a24f2c5079c42f2d374ee39",
+  "units_per_em": 1600,
   "source_pixel_units": 16,
   "glyphs": {
     "A": {
       "source_rect": [
-        140,
-        66,
-        30,
-        49
+        219,
+        103,
+        47,
+        77
       ],
-      "baseline": 49,
-      "advance": 36,
+      "baseline": 77,
+      "advance": 56,
       "atlas_rect": [
-        132,
-        87,
-        30,
-        49
+        676,
+        267,
+        47,
+        77
       ]
     },
     "B": {
       "source_rect": [
-        177,
-        66,
-        30,
-        49
+        277,
+        103,
+        46,
+        77
       ],
-      "baseline": 49,
-      "advance": 36,
+      "baseline": 77,
+      "advance": 55,
       "atlas_rect": [
-        196,
-        87,
-        30,
-        49
+        4,
+        395,
+        46,
+        77
       ]
     },
     "C": {
       "source_rect": [
-        216,
-        66,
-        26,
-        49
+        338,
+        103,
+        40,
+        77
       ],
-      "baseline": 49,
-      "advance": 32,
+      "baseline": 77,
+      "advance": 49,
       "atlas_rect": [
-        260,
-        87,
-        26,
-        49
+        100,
+        395,
+        40,
+        77
       ]
     },
     "D": {
       "source_rect": [
-        249,
-        66,
-        30,
-        49
+        389,
+        103,
+        47,
+        77
       ],
-      "baseline": 49,
-      "advance": 36,
+      "baseline": 77,
+      "advance": 56,
       "atlas_rect": [
-        324,
-        87,
-        30,
-        49
+        196,
+        395,
+        47,
+        77
       ]
     },
     "E": {
       "source_rect": [
-        288,
-        66,
-        26,
-        49
+        450,
+        103,
+        41,
+        77
       ],
-      "baseline": 49,
-      "advance": 32,
+      "baseline": 77,
+      "advance": 50,
       "atlas_rect": [
-        388,
-        87,
-        26,
-        49
+        292,
+        395,
+        41,
+        77
       ]
     },
     "F": {
       "source_rect": [
-        322,
-        66,
-        26,
-        49
+        503,
+        103,
+        41,
+        77
       ],
-      "baseline": 49,
-      "advance": 32,
+      "baseline": 77,
+      "advance": 50,
       "atlas_rect": [
-        452,
-        87,
-        26,
-        49
+        388,
+        395,
+        41,
+        77
       ]
     },
     "G": {
       "source_rect": [
-        355,
-        66,
-        30,
-        49
+        555,
+        103,
+        47,
+        77
       ],
-      "baseline": 49,
-      "advance": 36,
+      "baseline": 77,
+      "advance": 56,
       "atlas_rect": [
-        4,
-        167,
-        30,
-        49
+        484,
+        395,
+        47,
+        77
       ]
     },
     "H": {
       "source_rect": [
-        394,
-        66,
-        26,
-        49
+        616,
+        103,
+        40,
+        77
       ],
-      "baseline": 49,
-      "advance": 32,
+      "baseline": 77,
+      "advance": 49,
       "atlas_rect": [
-        68,
-        167,
-        26,
-        49
+        580,
+        395,
+        40,
+        77
       ]
     },
     "I": {
       "source_rect": [
-        429,
-        66,
-        11,
-        49
+        670,
+        103,
+        18,
+        77
       ],
-      "baseline": 49,
-      "advance": 17,
+      "baseline": 77,
+      "advance": 27,
       "atlas_rect": [
-        132,
-        167,
-        11,
-        49
+        676,
+        395,
+        18,
+        77
       ]
     },
     "J": {
       "source_rect": [
-        448,
-        66,
-        18,
-        49
+        700,
+        103,
+        28,
+        77
       ],
-      "baseline": 49,
-      "advance": 24,
+      "baseline": 77,
+      "advance": 37,
       "atlas_rect": [
-        196,
-        167,
-        18,
-        49
+        4,
+        523,
+        28,
+        77
       ]
     },
     "K": {
       "source_rect": [
-        474,
-        66,
-        29,
-        49
+        741,
+        103,
+        45,
+        77
       ],
-      "baseline": 49,
-      "advance": 35,
+      "baseline": 77,
+      "advance": 54,
       "atlas_rect": [
-        260,
-        167,
-        29,
-        49
+        100,
+        523,
+        45,
+        77
       ]
     },
     "L": {
       "source_rect": [
-        511,
-        66,
-        24,
-        49
+        798,
+        103,
+        38,
+        77
       ],
-      "baseline": 49,
-      "advance": 30,
+      "baseline": 77,
+      "advance": 47,
       "atlas_rect": [
-        324,
-        167,
-        24,
-        49
+        196,
+        523,
+        38,
+        77
       ]
     },
     "M": {
       "source_rect": [
-        542,
-        66,
-        46,
-        49
+        847,
+        103,
+        72,
+        77
       ],
-      "baseline": 49,
-      "advance": 52,
+      "baseline": 77,
+      "advance": 81,
       "atlas_rect": [
-        388,
-        167,
-        46,
-        49
+        292,
+        523,
+        72,
+        77
       ]
     },
     "N": {
       "source_rect": [
-        596,
-        66,
-        29,
-        49
+        931,
+        103,
+        46,
+        77
       ],
-      "baseline": 49,
-      "advance": 35,
+      "baseline": 77,
+      "advance": 55,
       "atlas_rect": [
-        452,
-        167,
-        29,
-        49
+        388,
+        523,
+        46,
+        77
       ]
     },
     "O": {
       "source_rect": [
-        156,
-        128,
-        28,
-        54
+        244,
+        200,
+        44,
+        84
       ],
-      "baseline": 48,
-      "advance": 34,
+      "baseline": 75,
+      "advance": 53,
       "atlas_rect": [
-        4,
-        248,
-        28,
-        54
+        484,
+        525,
+        44,
+        84
       ]
     },
     "P": {
       "source_rect": [
-        193,
-        128,
-        27,
-        54
+        302,
+        200,
+        42,
+        84
       ],
-      "baseline": 48,
-      "advance": 33,
+      "baseline": 75,
+      "advance": 51,
       "atlas_rect": [
-        68,
-        248,
-        27,
-        54
+        580,
+        525,
+        42,
+        84
       ]
     },
     "Q": {
       "source_rect": [
-        229,
-        128,
-        28,
-        54
+        358,
+        200,
+        44,
+        84
       ],
-      "baseline": 48,
-      "advance": 34,
+      "baseline": 75,
+      "advance": 53,
       "atlas_rect": [
-        132,
-        248,
-        28,
-        54
+        676,
+        525,
+        44,
+        84
       ]
     },
     "R": {
       "source_rect": [
-        265,
-        128,
-        33,
-        54
+        414,
+        200,
+        52,
+        84
       ],
-      "baseline": 48,
-      "advance": 39,
+      "baseline": 75,
+      "advance": 61,
       "atlas_rect": [
-        196,
-        248,
-        33,
-        54
+        4,
+        653,
+        52,
+        84
       ]
     },
     "S": {
       "source_rect": [
-        306,
-        128,
-        25,
-        54
+        478,
+        200,
+        39,
+        84
       ],
-      "baseline": 48,
-      "advance": 31,
+      "baseline": 75,
+      "advance": 48,
       "atlas_rect": [
-        260,
-        248,
-        25,
-        54
+        100,
+        653,
+        39,
+        84
       ]
     },
     "T": {
       "source_rect": [
-        340,
-        128,
-        28,
-        54
+        531,
+        200,
+        44,
+        84
       ],
-      "baseline": 48,
-      "advance": 34,
+      "baseline": 75,
+      "advance": 53,
       "atlas_rect": [
-        324,
-        248,
-        28,
-        54
+        196,
+        653,
+        44,
+        84
       ]
     },
     "U": {
       "source_rect": [
-        376,
-        128,
-        27,
-        54
+        588,
+        200,
+        42,
+        84
       ],
-      "baseline": 48,
-      "advance": 33,
+      "baseline": 75,
+      "advance": 51,
       "atlas_rect": [
-        388,
-        248,
-        27,
-        54
+        292,
+        653,
+        42,
+        84
       ]
     },
     "V": {
       "source_rect": [
-        411,
-        128,
-        28,
-        54
+        642,
+        200,
+        44,
+        84
       ],
-      "baseline": 48,
-      "advance": 34,
+      "baseline": 75,
+      "advance": 53,
       "atlas_rect": [
-        452,
-        248,
-        28,
-        54
+        388,
+        653,
+        44,
+        84
       ]
     },
     "W": {
       "source_rect": [
-        447,
-        128,
-        46,
-        54
+        698,
+        200,
+        72,
+        84
       ],
-      "baseline": 48,
-      "advance": 52,
+      "baseline": 75,
+      "advance": 81,
       "atlas_rect": [
-        4,
-        328,
-        46,
-        54
+        484,
+        653,
+        72,
+        84
       ]
     },
     "X": {
       "source_rect": [
-        502,
-        128,
-        30,
-        54
+        784,
+        200,
+        47,
+        84
       ],
-      "baseline": 48,
-      "advance": 36,
+      "baseline": 75,
+      "advance": 56,
       "atlas_rect": [
-        68,
-        328,
-        30,
-        54
+        580,
+        653,
+        47,
+        84
       ]
     },
     "Y": {
       "source_rect": [
-        539,
-        128,
-        34,
-        54
+        842,
+        200,
+        53,
+        84
       ],
-      "baseline": 48,
-      "advance": 40,
+      "baseline": 75,
+      "advance": 62,
       "atlas_rect": [
-        132,
-        328,
-        34,
-        54
+        676,
+        653,
+        53,
+        84
       ]
     },
     "Z": {
       "source_rect": [
-        581,
-        128,
-        31,
-        54
+        908,
+        200,
+        48,
+        84
       ],
-      "baseline": 48,
-      "advance": 37,
+      "baseline": 75,
+      "advance": 57,
       "atlas_rect": [
-        196,
-        328,
-        31,
-        54
+        4,
+        781,
+        48,
+        84
       ]
     },
     "a": {
       "source_rect": [
-        126,
-        193,
-        25,
-        61
+        197,
+        302,
+        39,
+        95
       ],
-      "baseline": 47,
-      "advance": 31,
+      "baseline": 73,
+      "advance": 48,
       "atlas_rect": [
-        260,
-        329,
-        25,
-        61
+        292,
+        783,
+        39,
+        95
       ]
     },
     "b": {
       "source_rect": [
-        158,
-        193,
-        28,
-        61
+        247,
+        302,
+        44,
+        95
       ],
-      "baseline": 47,
-      "advance": 34,
+      "baseline": 73,
+      "advance": 53,
       "atlas_rect": [
-        324,
-        329,
-        28,
-        61
+        388,
+        783,
+        44,
+        95
       ]
     },
     "c": {
       "source_rect": [
-        193,
-        193,
-        23,
-        61
+        302,
+        302,
+        36,
+        95
       ],
-      "baseline": 47,
-      "advance": 29,
+      "baseline": 73,
+      "advance": 45,
       "atlas_rect": [
-        388,
-        329,
-        23,
-        61
+        484,
+        783,
+        36,
+        95
       ]
     },
     "d": {
       "source_rect": [
-        223,
-        193,
-        26,
-        61
+        348,
+        302,
+        41,
+        95
       ],
-      "baseline": 47,
-      "advance": 32,
+      "baseline": 73,
+      "advance": 50,
       "atlas_rect": [
-        452,
-        329,
-        26,
-        61
+        580,
+        783,
+        41,
+        95
       ]
     },
     "e": {
       "source_rect": [
-        255,
-        193,
-        25,
-        61
+        398,
+        302,
+        40,
+        95
       ],
-      "baseline": 47,
-      "advance": 31,
+      "baseline": 73,
+      "advance": 49,
       "atlas_rect": [
-        4,
-        409,
-        25,
-        61
+        676,
+        783,
+        40,
+        95
       ]
     },
     "f": {
       "source_rect": [
-        289,
-        193,
-        25,
-        61
+        452,
+        302,
+        39,
+        95
       ],
-      "baseline": 47,
-      "advance": 31,
+      "baseline": 73,
+      "advance": 48,
       "atlas_rect": [
-        68,
-        409,
-        25,
-        61
+        4,
+        911,
+        39,
+        95
       ]
     },
     "g": {
       "source_rect": [
-        322,
-        193,
-        20,
-        61
+        503,
+        302,
+        31,
+        95
       ],
-      "baseline": 47,
-      "advance": 26,
+      "baseline": 73,
+      "advance": 40,
       "atlas_rect": [
-        132,
-        409,
-        20,
-        61
+        100,
+        911,
+        31,
+        95
       ]
     },
     "h": {
       "source_rect": [
-        349,
-        193,
-        26,
-        61
+        545,
+        302,
+        41,
+        95
       ],
-      "baseline": 47,
-      "advance": 32,
+      "baseline": 73,
+      "advance": 50,
       "atlas_rect": [
         196,
-        409,
-        26,
-        61
+        911,
+        41,
+        95
       ]
     },
     "i": {
       "source_rect": [
-        383,
-        193,
-        11,
-        61
+        598,
+        302,
+        18,
+        95
       ],
-      "baseline": 47,
-      "advance": 17,
+      "baseline": 73,
+      "advance": 27,
       "atlas_rect": [
-        260,
-        409,
-        11,
-        61
+        292,
+        911,
+        18,
+        95
       ]
     },
     "j": {
       "source_rect": [
-        400,
-        193,
-        15,
-        61
+        625,
+        302,
+        23,
+        95
       ],
-      "baseline": 47,
-      "advance": 21,
+      "baseline": 73,
+      "advance": 32,
       "atlas_rect": [
-        324,
-        409,
-        15,
-        61
+        388,
+        911,
+        23,
+        95
       ]
     },
     "k": {
       "source_rect": [
-        422,
-        193,
-        27,
-        61
+        659,
+        302,
+        43,
+        95
       ],
-      "baseline": 47,
-      "advance": 33,
+      "baseline": 73,
+      "advance": 52,
       "atlas_rect": [
-        388,
-        409,
-        27,
-        61
+        484,
+        911,
+        43,
+        95
       ]
     },
     "l": {
       "source_rect": [
-        456,
-        193,
-        10,
-        61
+        712,
+        302,
+        16,
+        95
       ],
-      "baseline": 47,
-      "advance": 16,
+      "baseline": 73,
+      "advance": 25,
       "atlas_rect": [
-        452,
-        409,
-        10,
-        61
+        580,
+        911,
+        16,
+        95
       ]
     },
     "m": {
       "source_rect": [
-        476,
-        193,
-        34,
-        61
+        744,
+        302,
+        53,
+        95
       ],
-      "baseline": 47,
-      "advance": 40,
+      "baseline": 73,
+      "advance": 62,
       "atlas_rect": [
-        4,
-        489,
-        34,
-        61
+        676,
+        911,
+        53,
+        95
       ]
     },
     "n": {
       "source_rect": [
-        519,
-        193,
-        22,
-        61
+        811,
+        302,
+        34,
+        95
       ],
-      "baseline": 47,
-      "advance": 28,
+      "baseline": 73,
+      "advance": 43,
       "atlas_rect": [
-        68,
-        489,
-        22,
-        61
+        4,
+        1039,
+        34,
+        95
       ]
     },
     "o": {
       "source_rect": [
-        551,
-        193,
-        25,
-        61
+        861,
+        302,
+        39,
+        95
       ],
-      "baseline": 47,
-      "advance": 31,
+      "baseline": 73,
+      "advance": 48,
       "atlas_rect": [
-        132,
-        489,
-        25,
-        61
+        100,
+        1039,
+        39,
+        95
       ]
     },
     "p": {
       "source_rect": [
-        585,
-        193,
-        25,
-        61
+        914,
+        302,
+        39,
+        95
       ],
-      "baseline": 47,
-      "advance": 31,
+      "baseline": 73,
+      "advance": 48,
       "atlas_rect": [
         196,
-        489,
-        25,
-        61
+        1039,
+        39,
+        95
       ]
     },
     "q": {
       "source_rect": [
-        619,
-        193,
-        22,
-        61
+        967,
+        302,
+        35,
+        95
       ],
-      "baseline": 47,
-      "advance": 28,
+      "baseline": 73,
+      "advance": 44,
       "atlas_rect": [
-        260,
-        489,
-        22,
-        61
+        292,
+        1039,
+        35,
+        95
       ]
     },
     "r": {
       "source_rect": [
-        237,
-        265,
-        23,
-        45
+        370,
+        414,
+        36,
+        70
       ],
-      "baseline": 37,
-      "advance": 29,
+      "baseline": 58,
+      "advance": 45,
       "atlas_rect": [
-        324,
-        499,
-        23,
-        45
+        388,
+        1054,
+        36,
+        70
       ]
     },
     "s": {
       "source_rect": [
-        267,
-        265,
-        23,
-        45
+        417,
+        414,
+        36,
+        70
       ],
-      "baseline": 37,
-      "advance": 29,
+      "baseline": 58,
+      "advance": 45,
       "atlas_rect": [
-        388,
-        499,
-        23,
-        45
+        484,
+        1054,
+        36,
+        70
       ]
     },
     "t": {
       "source_rect": [
-        298,
-        265,
-        18,
-        45
+        466,
+        414,
+        28,
+        70
       ],
-      "baseline": 37,
-      "advance": 24,
+      "baseline": 58,
+      "advance": 37,
       "atlas_rect": [
-        452,
-        499,
-        18,
-        45
+        580,
+        1054,
+        28,
+        70
       ]
     },
     "u": {
       "source_rect": [
-        325,
-        265,
-        26,
-        45
+        508,
+        414,
+        40,
+        70
       ],
-      "baseline": 37,
-      "advance": 32,
+      "baseline": 58,
+      "advance": 49,
       "atlas_rect": [
-        4,
-        579,
-        26,
-        45
+        676,
+        1054,
+        40,
+        70
       ]
     },
     "v": {
       "source_rect": [
-        357,
-        265,
-        27,
-        45
+        558,
+        414,
+        42,
+        70
       ],
-      "baseline": 37,
-      "advance": 33,
+      "baseline": 58,
+      "advance": 51,
       "atlas_rect": [
-        68,
-        579,
-        27,
-        45
+        4,
+        1182,
+        42,
+        70
       ]
     },
     "w": {
       "source_rect": [
-        392,
-        265,
-        41,
-        45
+        612,
+        414,
+        65,
+        70
       ],
-      "baseline": 37,
-      "advance": 47,
+      "baseline": 58,
+      "advance": 74,
       "atlas_rect": [
-        132,
-        579,
-        41,
-        45
+        100,
+        1182,
+        65,
+        70
       ]
     },
     "x": {
       "source_rect": [
-        440,
-        265,
-        24,
-        45
+        688,
+        414,
+        37,
+        70
       ],
-      "baseline": 37,
-      "advance": 30,
+      "baseline": 58,
+      "advance": 46,
       "atlas_rect": [
         196,
-        579,
-        24,
-        45
+        1182,
+        37,
+        70
       ]
     },
     "y": {
       "source_rect": [
-        472,
-        265,
-        28,
-        45
+        738,
+        414,
+        43,
+        70
       ],
-      "baseline": 37,
-      "advance": 34,
+      "baseline": 58,
+      "advance": 52,
       "atlas_rect": [
-        260,
-        579,
-        28,
-        45
+        292,
+        1182,
+        43,
+        70
       ]
     },
     "z": {
       "source_rect": [
-        506,
-        265,
-        24,
-        45
+        791,
+        414,
+        37,
+        70
       ],
-      "baseline": 37,
-      "advance": 30,
+      "baseline": 58,
+      "advance": 46,
       "atlas_rect": [
-        324,
-        579,
-        24,
-        45
+        388,
+        1182,
+        37,
+        70
       ]
     },
     "1": {
       "source_rect": [
-        243,
-        355,
-        10,
-        35
+        380,
+        555,
+        15,
+        54
       ],
-      "baseline": 35,
-      "advance": 16,
+      "baseline": 54,
+      "advance": 24,
       "atlas_rect": [
-        68,
-        21,
-        10,
-        35
+        196,
+        162,
+        15,
+        54
       ]
     },
     "2": {
       "source_rect": [
-        263,
-        355,
-        18,
-        35
+        411,
+        555,
+        28,
+        54
       ],
-      "baseline": 35,
-      "advance": 24,
+      "baseline": 54,
+      "advance": 37,
       "atlas_rect": [
-        132,
-        21,
-        18,
-        35
+        292,
+        162,
+        28,
+        54
       ]
     },
     "3": {
       "source_rect": [
-        293,
-        355,
-        21,
-        35
+        458,
+        555,
+        33,
+        54
       ],
-      "baseline": 35,
-      "advance": 27,
+      "baseline": 54,
+      "advance": 42,
       "atlas_rect": [
-        196,
-        21,
-        21,
-        35
+        388,
+        162,
+        33,
+        54
       ]
     },
     "4": {
       "source_rect": [
-        324,
-        355,
-        22,
-        35
+        506,
+        555,
+        35,
+        54
       ],
-      "baseline": 35,
-      "advance": 28,
+      "baseline": 54,
+      "advance": 44,
       "atlas_rect": [
-        260,
-        21,
-        22,
-        35
+        484,
+        162,
+        35,
+        54
       ]
     },
     "5": {
       "source_rect": [
-        354,
-        355,
-        23,
-        35
+        553,
+        555,
+        36,
+        54
       ],
-      "baseline": 35,
-      "advance": 29,
+      "baseline": 54,
+      "advance": 45,
       "atlas_rect": [
-        324,
-        21,
-        23,
-        35
+        580,
+        162,
+        36,
+        54
       ]
     },
     "6": {
       "source_rect": [
-        387,
-        355,
-        20,
-        35
+        605,
+        555,
+        31,
+        54
       ],
-      "baseline": 35,
-      "advance": 26,
+      "baseline": 54,
+      "advance": 40,
       "atlas_rect": [
-        388,
-        21,
-        20,
-        35
+        676,
+        162,
+        31,
+        54
       ]
     },
     "7": {
       "source_rect": [
-        414,
-        355,
-        20,
-        35
+        647,
+        555,
+        31,
+        54
       ],
-      "baseline": 35,
-      "advance": 26,
+      "baseline": 54,
+      "advance": 40,
       "atlas_rect": [
-        452,
-        21,
-        20,
-        35
+        4,
+        290,
+        31,
+        54
       ]
     },
     "8": {
       "source_rect": [
-        442,
-        355,
-        20,
-        35
+        691,
+        555,
+        31,
+        54
       ],
-      "baseline": 35,
-      "advance": 26,
+      "baseline": 54,
+      "advance": 40,
       "atlas_rect": [
-        4,
-        101,
-        20,
-        35
+        100,
+        290,
+        31,
+        54
       ]
     },
     "9": {
       "source_rect": [
-        472,
-        355,
-        21,
-        35
+        738,
+        555,
+        32,
+        54
       ],
-      "baseline": 35,
-      "advance": 27,
+      "baseline": 54,
+      "advance": 41,
       "atlas_rect": [
-        68,
-        101,
-        21,
-        35
+        196,
+        290,
+        32,
+        54
       ]
     },
     "0": {
       "source_rect": [
-        502,
-        355,
-        21,
-        35
+        784,
+        555,
+        33,
+        54
       ],
-      "baseline": 35,
-      "advance": 27,
+      "baseline": 54,
+      "advance": 42,
+      "atlas_rect": [
+        100,
+        162,
+        33,
+        54
+      ]
+    },
+    "~": {
+      "source_rect": [
+        256,
+        628,
+        23,
+        82
+      ],
+      "baseline": 76,
+      "advance": 32,
+      "atlas_rect": [
+        484,
+        1164,
+        23,
+        82
+      ]
+    },
+    "!": {
+      "source_rect": [
+        293,
+        628,
+        15,
+        82
+      ],
+      "baseline": 76,
+      "advance": 24,
       "atlas_rect": [
         4,
-        21,
-        21,
-        35
+        12,
+        15,
+        82
+      ]
+    },
+    "@": {
+      "source_rect": [
+        324,
+        628,
+        58,
+        82
+      ],
+      "baseline": 76,
+      "advance": 67,
+      "atlas_rect": [
+        580,
+        268,
+        58,
+        82
+      ]
+    },
+    "#": {
+      "source_rect": [
+        397,
+        628,
+        45,
+        82
+      ],
+      "baseline": 76,
+      "advance": 54,
+      "atlas_rect": [
+        100,
+        12,
+        45,
+        82
+      ]
+    },
+    "$": {
+      "source_rect": [
+        457,
+        628,
+        28,
+        82
+      ],
+      "baseline": 76,
+      "advance": 37,
+      "atlas_rect": [
+        196,
+        12,
+        28,
+        82
+      ]
+    },
+    "%": {
+      "source_rect": [
+        500,
+        628,
+        34,
+        82
+      ],
+      "baseline": 76,
+      "advance": 43,
+      "atlas_rect": [
+        292,
+        12,
+        34,
+        82
+      ]
+    },
+    "^": {
+      "source_rect": [
+        549,
+        628,
+        15,
+        82
+      ],
+      "baseline": 76,
+      "advance": 24,
+      "atlas_rect": [
+        100,
+        780,
+        15,
+        82
+      ]
+    },
+    "&": {
+      "source_rect": [
+        579,
+        628,
+        46,
+        82
+      ],
+      "baseline": 76,
+      "advance": 55,
+      "atlas_rect": [
+        388,
+        12,
+        46,
+        82
+      ]
+    },
+    "*": {
+      "source_rect": [
+        640,
+        628,
+        16,
+        82
+      ],
+      "baseline": 76,
+      "advance": 25,
+      "atlas_rect": [
+        676,
+        12,
+        16,
+        82
+      ]
+    },
+    "(": {
+      "source_rect": [
+        671,
+        628,
+        23,
+        82
+      ],
+      "baseline": 76,
+      "advance": 32,
+      "atlas_rect": [
+        484,
+        12,
+        23,
+        82
+      ]
+    },
+    ")": {
+      "source_rect": [
+        708,
+        628,
+        23,
+        82
+      ],
+      "baseline": 76,
+      "advance": 32,
+      "atlas_rect": [
+        580,
+        12,
+        23,
+        82
+      ]
+    },
+    "_": {
+      "source_rect": [
+        745,
+        628,
+        39,
+        82
+      ],
+      "baseline": 76,
+      "advance": 48,
+      "atlas_rect": [
+        196,
+        780,
+        39,
+        82
+      ]
+    },
+    "+": {
+      "source_rect": [
+        799,
+        628,
+        17,
+        82
+      ],
+      "baseline": 76,
+      "advance": 26,
+      "atlas_rect": [
+        4,
+        140,
+        17,
+        82
+      ]
+    },
+    "<": {
+      "source_rect": [
+        830,
+        628,
+        22,
+        82
+      ],
+      "baseline": 76,
+      "advance": 31,
+      "atlas_rect": [
+        292,
+        268,
+        22,
+        82
+      ]
+    },
+    ">": {
+      "source_rect": [
+        866,
+        628,
+        23,
+        82
+      ],
+      "baseline": 76,
+      "advance": 32,
+      "atlas_rect": [
+        388,
+        268,
+        23,
+        82
+      ]
+    },
+    "?": {
+      "source_rect": [
+        906,
+        628,
+        34,
+        82
+      ],
+      "baseline": 76,
+      "advance": 43,
+      "atlas_rect": [
+        484,
+        268,
+        34,
+        82
       ]
     }
   }

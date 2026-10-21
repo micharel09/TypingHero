@@ -6,6 +6,7 @@
     "Unity.ugui",
     "Unity.2D.Sprite.Editor",
     "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.RenderPipelines.Universal.Editor",
     "Unity.RenderPipelines.Core.Runtime",
     "Cinemachine"
   ],

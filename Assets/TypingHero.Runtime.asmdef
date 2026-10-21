@@ -4,6 +4,7 @@
     "Unity.TextMeshPro",
     "Unity.ugui",
     "Cinemachine",
-    "Unity.RenderPipelines.Universal.Runtime"
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.RenderPipelines.Core.Runtime"
   ]
 }

@@ -1,0 +1,81 @@
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public sealed class DungeonWorldRender : ScriptableRendererFeature
+{
+    [SerializeField] Shader blurShader;
+    [SerializeField, Range(0, .75f)] float blurRadius = .75f;
+    Material blur;
+    EnvironmentPass environment;
+    ActorPass actors;
+    public override void Create()
+    {
+        CoreUtils.Destroy(blur);
+        if (blurShader) blur = CoreUtils.CreateEngineMaterial(blurShader);
+        environment = new EnvironmentPass(blur);
+        actors = new ActorPass();
+    }
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData data)
+    {
+        if (!data.cameraData.camera.TryGetComponent<DungeonArenaCamera>(out var arena) || !arena.WorldTexture) return;
+        if (blur && blurRadius > 0 && !arena.Cinematic)
+        {
+            environment.Configure(arena, blurRadius);
+            renderer.EnqueuePass(environment);
+        }
+        renderer.EnqueuePass(actors);
+    }
+    protected override void Dispose(bool disposing)
+    {
+        CoreUtils.Destroy(blur);
+    }
+    sealed class EnvironmentPass : ScriptableRenderPass
+    {
+        readonly Material material;
+        DungeonArenaCamera arena;
+        float focus, radius;
+        public EnvironmentPass(Material material)
+        {
+            this.material = material;
+            renderPassEvent = RenderPassEvent.AfterRenderingSkybox;
+            ConfigureInput(ScriptableRenderPassInput.Depth);
+        }
+        public void Configure(DungeonArenaCamera arena, float radius) { this.arena = arena; focus = arena.FocusDepth; this.radius = radius; }
+        public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData data)
+        {
+            var descriptor = data.cameraData.cameraTargetDescriptor;
+            descriptor.depthBufferBits = 0; descriptor.msaaSamples = 1;
+            RenderingUtils.ReAllocateIfNeeded(ref arena.EnvironmentScratch, descriptor, FilterMode.Bilinear, TextureWrapMode.Clamp, name: "Dungeon environment blur");
+            ConfigureTarget(data.cameraData.renderer.cameraColorTargetHandle, data.cameraData.renderer.cameraDepthTargetHandle);
+        }
+        public override void Execute(ScriptableRenderContext context, ref RenderingData data)
+        {
+            var color = data.cameraData.renderer.cameraColorTargetHandle;
+            var scratch = arena.EnvironmentScratch;
+            var cmd = CommandBufferPool.Get("Dungeon environment depth blur");
+            material.SetVector("_DungeonFocus", new Vector4(focus + .75f, 3f, radius, 0));
+            material.SetVector("_BlitTexture_TexelSize", new Vector4(1f / color.rt.width, 1f / color.rt.height, color.rt.width, color.rt.height));
+            Blitter.BlitCameraTexture(cmd, color, scratch, material, 0);
+            Blitter.BlitCameraTexture(cmd, scratch, color, material, 1);
+            context.ExecuteCommandBuffer(cmd); CommandBufferPool.Release(cmd);
+        }
+    }
+    sealed class ActorPass : ScriptableRenderPass
+    {
+        static readonly ShaderTagId Tag = new ShaderTagId("DungeonActor");
+        public ActorPass() { renderPassEvent = RenderPassEvent.BeforeRenderingTransparents; }
+        public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData data)
+        {
+            ConfigureTarget(data.cameraData.renderer.cameraColorTargetHandle, data.cameraData.renderer.cameraDepthTargetHandle);
+        }
+        public override void Execute(ScriptableRenderContext context, ref RenderingData data)
+        {
+            // Existing SpriteRenderer sorting and alpha/depth remain authoritative.
+            var draw = CreateDrawingSettings(Tag, ref data, SortingCriteria.CommonTransparent);
+            draw.perObjectData |= PerObjectData.LightProbe | PerObjectData.LightIndices | PerObjectData.LightData;
+            var filter = new FilteringSettings(RenderQueueRange.opaque);
+            context.DrawRenderers(data.cullResults, ref draw, ref filter);
+        }
+    }
+}

@@ -281,7 +281,6 @@ public class PlayerSlayerMode : MonoBehaviour
 
         _comboF += 1f;
         _typedSteps += 1;
-        if (afterimage) afterimage.CaptureImpactTint(_typedSteps);
 
         if (_didFirstSwing && afterimage)
             afterimage.SpawnBurstFromCurrentFrame(_typedSteps);

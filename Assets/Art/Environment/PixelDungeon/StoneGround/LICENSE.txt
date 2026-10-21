@@ -1,0 +1,6 @@
+Cobblestone Floor 08 by Rob Tuytel / Poly Haven
+https://polyhaven.com/a/cobblestone_floor_08
+CC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/
+Poly Haven asset license: https://polyhaven.com/license
+Original texture maps are public domain under CC0-1.0.
+GroundMetalSmoothness.png only repacks the original roughness into Unity channels.

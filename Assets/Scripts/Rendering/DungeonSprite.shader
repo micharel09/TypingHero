@@ -31,7 +31,7 @@ Shader "CLACKBLADE/Dungeon Sprite"
   half4 Sample(Varyings i) { half4 c=SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv)*i.color; clip(c.a-_Cutoff); return c; }
   ENDHLSL
   Pass {
-   Name "ForwardLit" Tags { "LightMode"="UniversalForward" }
+   Name "ForwardLit" Tags { "LightMode"="DungeonActor" }
    HLSLPROGRAM
    #pragma vertex Vert
    #pragma fragment Frag
@@ -44,7 +44,7 @@ Shader "CLACKBLADE/Dungeon Sprite"
     Light key=GetMainLight(TransformWorldToShadowCoord(i.positionWS));
     half3 illumination=SampleSH(n)+key.color*saturate(dot(n,key.direction))*key.distanceAttenuation*key.shadowAttenuation;
     uint count=GetAdditionalLightsCount();
-    for(uint j=0;j<count;j++) { Light l=GetAdditionalLight(j,i.positionWS); illumination+=l.color*saturate(dot(n,l.direction))*l.distanceAttenuation*l.shadowAttenuation; }
+    for(uint j=0;j<count;j++) { Light l=GetAdditionalLight(j,i.positionWS,half4(1,1,1,1)); illumination+=l.color*saturate(dot(n,l.direction))*l.distanceAttenuation*l.shadowAttenuation; }
     return half4(lerp(c.rgb*illumination,_FlashColor.rgb,_FlashAmount),c.a);
    }
    ENDHLSL

@@ -16,33 +16,66 @@ internal static class DungeonArenaBuild
         const string rendererPath = "Assets/Settings/DungeonForward.asset";
         var forward = AssetDatabase.LoadAssetAtPath<UniversalRendererData>(rendererPath);
         if (!forward) { forward = ScriptableObject.CreateInstance<UniversalRendererData>(); AssetDatabase.CreateAsset(forward, rendererPath); }
+        forward.rendererFeatures.RemoveAll(feature => !feature || feature.name == "Dungeon Point Blit");
+        foreach (var obsolete in AssetDatabase.LoadAllAssetsAtPath(rendererPath).OfType<ScriptableRendererFeature>()
+            .Where(feature => feature.name == "Dungeon Point Blit").ToArray()) Object.DestroyImmediate(obsolete, true);
+        var world = Feature<DungeonWorldRender>(forward, rendererPath, "Dungeon environment and actors");
+        Set(world, "blurShader", Shader.Find("Hidden/CLACKBLADE/Dungeon Depth Blur"));
+        var worldSettings = new SerializedObject(world);
+        worldSettings.FindProperty("blurRadius").floatValue = 0;
+        worldSettings.ApplyModifiedPropertiesWithoutUndo();
+        const string screenPath = "Assets/Settings/DungeonPresentation.asset";
+        var screen = AssetDatabase.LoadAssetAtPath<UniversalRendererData>(screenPath);
+        if (!screen) { screen = ScriptableObject.CreateInstance<UniversalRendererData>(); AssetDatabase.CreateAsset(screen, screenPath); }
+        var present = Feature<DungeonPresentationRender>(screen, screenPath, "Dungeon Point presentation");
+        Set(present, "pointShader", Shader.Find("Hidden/CLACKBLADE/Dungeon Present"));
+        ResourceReloader.ReloadAllNullIn(screen, "Packages/com.unity.render-pipelines.universal");
+        var screenSettings = new SerializedObject(screen);
+        screenSettings.FindProperty("postProcessData").objectReferenceValue = AssetDatabase.LoadAssetAtPath<PostProcessData>("Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.asset");
+        screenSettings.ApplyModifiedPropertiesWithoutUndo();
+        EditorUtility.SetDirty(screen); AssetDatabase.SaveAssetIfDirty(screen);
+        // Restore package resources after the rejected custom-blit experiment.
         var forwardSettings = new SerializedObject(forward);
-        var postData = forwardSettings.FindProperty("postProcessData");
-        if (!postData.objectReferenceValue)
-        {
-            postData.objectReferenceValue = AssetDatabase.LoadAssetAtPath<PostProcessData>(
-                "Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.asset");
-            if (!postData.objectReferenceValue) throw new System.InvalidOperationException("Dungeon renderer requires URP post-process data for the parry bloom.");
-            forwardSettings.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(forward);
-        }
+        forwardSettings.FindProperty("m_CopyDepthMode").intValue = (int)CopyDepthMode.AfterOpaques;
+        var coreBlit = AssetDatabase.LoadAssetAtPath<Shader>("Packages/com.unity.render-pipelines.universal/Shaders/Utils/CoreBlit.shader");
+        if (!coreBlit) throw new System.InvalidOperationException("URP CoreBlit shader is missing");
+        forwardSettings.FindProperty("shaders").FindPropertyRelative("coreBlitPS").objectReferenceValue = coreBlit;
+        forwardSettings.FindProperty("postProcessData").objectReferenceValue = AssetDatabase.LoadAssetAtPath<PostProcessData>("Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.asset");
+        forwardSettings.ApplyModifiedPropertiesWithoutUndo();
+        EditorUtility.SetDirty(forward); AssetDatabase.SaveAssetIfDirty(forward);
         var settings = new SerializedObject(pipeline);
         var renderers = settings.FindProperty("m_RendererDataList");
-        if (renderers.arraySize < 2) renderers.arraySize = 2;
+        if (renderers.arraySize < 3) renderers.arraySize = 3;
         renderers.GetArrayElementAtIndex(1).objectReferenceValue = forward;
+        renderers.GetArrayElementAtIndex(2).objectReferenceValue = screen;
         settings.FindProperty("m_AdditionalLightShadowsSupported").boolValue=true;
+        settings.FindProperty("m_MainLightShadowmapResolution").intValue=1024;
+        settings.FindProperty("m_AdditionalLightsShadowmapResolution").intValue=2048;
+        settings.FindProperty("m_AdditionalLightsShadowResolutionTierLow").intValue=256;
+        settings.FindProperty("m_AdditionalLightsShadowResolutionTierMedium").intValue=512;
+        settings.FindProperty("m_ShadowCascadeCount").intValue=1;
+        settings.FindProperty("m_ShadowDistance").floatValue=36;
         settings.ApplyModifiedPropertiesWithoutUndo();
         pipeline.msaaSampleCount = 1;
+        pipeline.renderScale = 1;
         var textureImporter=(TextureImporter)AssetImporter.GetAtPath(Art+"dungeon_texture.png");
-        if(textureImporter.filterMode!=FilterMode.Point || textureImporter.mipmapEnabled)
-        { textureImporter.filterMode=FilterMode.Point;textureImporter.mipmapEnabled=false;textureImporter.wrapMode=TextureWrapMode.Clamp;textureImporter.SaveAndReimport(); }
+        if(textureImporter.textureShape!=TextureImporterShape.Texture2D || textureImporter.textureType!=TextureImporterType.Default || textureImporter.filterMode!=FilterMode.Point || textureImporter.mipmapEnabled)
+        { textureImporter.textureShape=TextureImporterShape.Texture2D;textureImporter.textureType=TextureImporterType.Default;textureImporter.filterMode=FilterMode.Point;textureImporter.mipmapEnabled=false;textureImporter.wrapMode=TextureWrapMode.Clamp;textureImporter.SaveAndReimport(); }
         pipeline.upscalingFilter = UpscalingFilterSelection.Point;
         var atlas = AssetDatabase.LoadAssetAtPath<Texture2D>(Art + "dungeon_texture.png");
-        if (!atlas) throw new System.InvalidOperationException("Dungeon atlas did not import as Texture2D: " + Art + "dungeon_texture.png");
+        if(!atlas) throw new System.InvalidOperationException("KayKit atlas must import as Texture2D");
         var stone = Material("DungeonStone", "Universal Render Pipeline/Lit");
-        stone.SetTexture("_BaseMap", atlas); stone.SetColor("_BaseColor", new Color(.11f,.12f,.13f)); stone.SetFloat("_Smoothness", .05f);
-        // URP validates these legacy aliases on import; keep the first serialization identical.
-        stone.SetTexture("_MainTex", atlas); stone.SetColor("_Color", stone.GetColor("_BaseColor"));
-        EditorUtility.SetDirty(stone);
+        stone.SetTexture("_BaseMap", atlas); stone.SetTexture("_MainTex",atlas);
+        var stoneColor=new Color(.45f,.49f,.53f);stone.SetColor("_BaseColor",stoneColor);stone.SetColor("_Color",stoneColor); stone.SetFloat("_Smoothness", .05f);
+        EditorUtility.SetDirty(stone);AssetDatabase.SaveAssetIfDirty(stone);
+        var floorStone=Surface("DungeonFloor",atlas,new Color(.42f,.46f,.48f),.07f);
+        var wetStone=Surface("DungeonDampStone",atlas,new Color(.36f,.41f,.43f),.68f);
+        var wood=Surface("DungeonWood",atlas,new Color(.7f,.54f,.4f),.12f);
+        var iron=Surface("DungeonIron",atlas,new Color(.33f,.37f,.4f),.3f,.55f);
+        var torchMaterial=Surface("DungeonTorch",atlas,new Color(.65f,.57f,.45f),.18f);
+        torchMaterial.SetTexture("_EmissionMap",TorchEmissionMask());torchMaterial.SetColor("_EmissionColor",new Color(3.2f,1.25f,.3f));
+        torchMaterial.EnableKeyword("_EMISSION");torchMaterial.globalIlluminationFlags=MaterialGlobalIlluminationFlags.BakedEmissive;
+        EditorUtility.SetDirty(torchMaterial);
         UnityEngine.Rendering.ResourceReloader.ReloadAllNullIn(forward, "Packages/com.unity.render-pipelines.universal");
         var sprite = Material("DungeonSprite", "CLACKBLADE/Dungeon Sprite");
         var old = Object.FindObjectsOfType<Transform>(true).FirstOrDefault(t => t.name == "DungeonEnvironment");
@@ -58,38 +91,25 @@ internal static class DungeonArenaBuild
         var layout = Object.FindObjectOfType<CombatHUDLayout>();
         float floor = layout.LowestFoot.y - .025f;
         root.transform.position = new Vector3(0, floor, 0);
-        // Slayer hides room geometry; shared combat lighting must remain active for the debris.
-        var lighting = GameObject.Find("DungeonCombatLighting") ?? new GameObject("DungeonCombatLighting");
-        lighting.transform.position = root.transform.position;
-        // All debris rests on the visible mesh floor, including the new received-hit emitter.
-        foreach (var spawner in Object.FindObjectsOfType<HitSparkSpawner>(true))
-        { var data = new SerializedObject(spawner); data.FindProperty("groundY").floatValue = floor; data.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(spawner); if(PrefabUtility.IsPartOfPrefabInstance(spawner))PrefabUtility.RecordPrefabInstancePropertyModifications(spawner); }
-        foreach (var spawner in Object.FindObjectsOfType<ParrySparkVFX_Pooled>(true))
-        { var data = new SerializedObject(spawner); data.FindProperty("groundY").floatValue = floor; data.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(spawner); if(PrefabUtility.IsPartOfPrefabInstance(spawner))PrefabUtility.RecordPrefabInstancePropertyModifications(spawner); }
-        for (int x=-7;x<=6;x++) for(int z=-4;z<=5;z++)
-            Model(root, "Floor_"+x+"_"+z, "floor_tile_large", new Vector3(x*2+1,-.15f,z*2+1), new Vector3(2,.3f,2),stone);
-        for (int x=-3;x<=3;x++)
-            Model(root,"BackWall_"+x,x==0?"wall_doorway":"wall",new Vector3(x*4,2.5f,4.5f),new Vector3(4,5,.7f),stone);
-        // Receding corridor visible through the central doorway.
-        Model(root,"CorridorEnd","wall_archedwindow_gated",new Vector3(0,2.4f,9),new Vector3(4,4.8f,.7f),stone);
+        DungeonPixelRoomBuild.Apply(root);
         foreach (int side in new[]{-1,1})
         {
-            for(int z=0;z<3;z++)
-                Model(root,"Column_"+side+"_"+z,"column",new Vector3(side*(9-z*.7f),3,z*2+1),new Vector3(1.3f,6,1.3f),stone);
-            Model(root,"FrontPillar_"+side,"pillar",new Vector3(side*9.7f,3.5f,-2),new Vector3(1.6f,7,1.6f),stone);
-            Model(root,"Rubble_"+side,"rubble_large",new Vector3(side*8,.35f,4),new Vector3(2,.7f,1.4f),stone);
-            Model(root,"Barrel_"+side,"barrel_large",new Vector3(side*9,.7f,3.5f),new Vector3(1,1.4f,1),stone);
-            Model(root,"Torch_"+side,"torch_mounted",new Vector3(side*5,3.7f,4),new Vector3(.5f,1.2f,.5f),stone);
-            var torch = Light(lighting,"TorchGlow_"+side,LightType.Point,new Color(1,.38f,.10f),1.6f,new Vector3(side*5,4.1f,3.5f)); torch.range=6;
+            float x=side<0?-5.5f:6.5f, height=side<0?3.25f:3.65f;
+            Model(root,"Torch_"+side,"torch_lit",new Vector3(x,height,9.35f),new Vector3(.4f,1.05f,.4f),torchMaterial);
+            Torch(root,"TorchGlow_"+side,new Vector3(x,height+.35f,8.95f),40,15,side<0?.7f:2.9f,
+                root.transform.Find("Torch_"+side).GetComponentsInChildren<Renderer>());
         }
-        var key=Light(lighting,"ShadowKey",LightType.Directional,new Color(.63f,.73f,.86f),1.1f,Vector3.zero);
-        key.transform.rotation=Quaternion.Euler(25,-20,0); key.shadows=LightShadows.Hard; key.shadowBias=.025f; key.shadowNormalBias=.02f;
-        var pulse=Light(lighting,"CombatPulse",LightType.Spot,new Color(1,.62f,.24f),0,Vector3.zero); pulse.range=12; pulse.spotAngle=115; pulse.innerSpotAngle=75; pulse.shadows=LightShadows.Hard; pulse.shadowBias=.015f; pulse.shadowNormalBias=.01f; pulse.transform.rotation=Quaternion.Euler(20,0,0);
-        var rig=lighting.GetComponent<ClashLightingRig>(); if(!rig)rig=lighting.AddComponent<ClashLightingRig>();
+        // No unmotivated directional key or camera-side fill survives a rebuild.
+        foreach(string name in new[]{"ShadowKey","CombatPool"})
+        {
+            var obsolete=root.transform.Find(name);
+            if(obsolete && obsolete.TryGetComponent<Light>(out var light))light.enabled=false;
+        }
+        var pulse=Light(root,"CombatPulse",LightType.Point,new Color(1,.62f,.24f),0,Vector3.zero);
+        pulse.enabled=false;pulse.range=12;pulse.shadows=LightShadows.Hard;
+        pulse.shadowBias=.015f;pulse.shadowNormalBias=.01f;pulse.lightmapBakeType=LightmapBakeType.Realtime;
+        var rig=root.GetComponent<ClashLightingRig>(); if(!rig)rig=root.AddComponent<ClashLightingRig>();
         Set(rig,"combatLight",pulse);
-        var parryLight=Light(lighting,"ParryContactLight",LightType.Point,new Color(1,.67f,.28f),0,Vector3.zero);
-        parryLight.range=3.75f; parryLight.shadows=LightShadows.None;
-        Set(rig,"parryLight",parryLight);
         foreach(var other in Object.FindObjectsOfType<ClashLightingRig>(true)) if(other!=rig)
         {
             foreach(var legacy in other.GetComponentsInChildren<Light2D>(true))
@@ -97,40 +117,60 @@ internal static class DungeonArenaBuild
             other.gameObject.SetActive(false);
             PrefabUtility.RecordPrefabInstancePropertyModifications(other.gameObject);
         }
-        RenderSettings.ambientMode=AmbientMode.Flat; RenderSettings.ambientLight=new Color(.16f,.20f,.28f);
+        RenderSettings.ambientMode=AmbientMode.Flat;
+        RenderSettings.ambientLight=Color.black;RenderSettings.ambientIntensity=0;
+        RenderSettings.ambientSkyColor=Color.black;RenderSettings.ambientEquatorColor=Color.black;
+        RenderSettings.ambientGroundColor=Color.black;
+        RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogColor=Color.black;
+        DungeonAtmosphereBuild.Apply(root);
         var camera=Camera.main; camera.GetUniversalAdditionalCameraData().SetRenderer(1);
-        // Dungeon Sprite evaluates additional lights per fragment, including the parry point.
-        var lightSettings=new SerializedObject(pipeline);
-        lightSettings.FindProperty("m_AdditionalLightsRenderingMode").intValue=(int)LightRenderingMode.PerPixel;
-        lightSettings.ApplyModifiedPropertiesWithoutUndo();
-        camera.allowMSAA=false; camera.allowHDR=true; camera.GetUniversalAdditionalCameraData().renderPostProcessing=true;
-        string bloomPath=ParryClashAssets.Root+"ParryBloom.asset";
-        var profile=AssetDatabase.LoadAssetAtPath<VolumeProfile>(bloomPath);
-        if(!profile)
-        {
-            profile=ScriptableObject.CreateInstance<VolumeProfile>(); AssetDatabase.CreateAsset(profile,bloomPath);
-            var bloom=profile.Add<Bloom>(); bloom.threshold.Override(4); bloom.intensity.Override(.2f); bloom.scatter.Override(.3f);
-            AssetDatabase.AddObjectToAsset(bloom,profile); EditorUtility.SetDirty(profile);
-        }
-        var volume=lighting.GetComponent<Volume>(); if(!volume)volume=lighting.AddComponent<Volume>();
-        volume.isGlobal=true; volume.sharedProfile=profile;
+        camera.allowMSAA=false; camera.allowHDR=true; camera.GetUniversalAdditionalCameraData().renderPostProcessing=false;
+        camera.GetUniversalAdditionalCameraData().antialiasing=AntialiasingMode.None;
         camera.backgroundColor=new Color(.012f,.017f,.026f); camera.clearFlags=CameraClearFlags.SolidColor;
         var driver=camera.GetComponent<DungeonArenaCamera>(); if(!driver)driver=camera.gameObject.AddComponent<DungeonArenaCamera>();
         var player=Object.FindObjectOfType<PlayerHealth>(); var enemy=Object.FindObjectOfType<SkeletonController>();
         driver.player=player.transform;driver.enemy=enemy.transform;
-        // Preserve the current floor framing while tipping the stable side camera down.
-        float y=layout.LowestFoot.y+(3+Mathf.Sin(10*Mathf.Deg2Rad)*-camera.transform.position.z)/Mathf.Cos(10*Mathf.Deg2Rad);
-        var cameraPosition=camera.transform.position;cameraPosition.y=y;camera.transform.position=cameraPosition;camera.transform.rotation=Quaternion.Euler(10,0,0);
-        foreach(var vcam in Object.FindObjectsOfType<Cinemachine.CinemachineVirtualCamera>())
+        const float pitch = 5f, normalOrtho = 5.625f;
+        const float fieldOfView = 35;
+        float distance=normalOrtho/Mathf.Tan(fieldOfView*.5f*Mathf.Deg2Rad);
+        RenderSettings.fogStartDistance=distance+2;RenderSettings.fogEndDistance=distance+24;
+        var driverSettings = new SerializedObject(driver);
+        driverSettings.FindProperty("pitch").floatValue = pitch;
+        driverSettings.FindProperty("framingLayout").objectReferenceValue = layout;
+        driverSettings.FindProperty("framingDistance").floatValue = distance;
+        driverSettings.ApplyModifiedPropertiesWithoutUndo();
+        // Match the previous actor scale at the focus plane, with actual perspective.
+        float radians = pitch * Mathf.Deg2Rad;
+        var center=layout.BodyCenter;
+        var cameraPosition=center+new Vector3(0,Mathf.Sin(radians)*distance,-Mathf.Cos(radians)*distance);
+        camera.transform.position=cameraPosition;camera.transform.rotation=Quaternion.Euler(pitch,0,0);
+        camera.orthographicSize=normalOrtho;
+        camera.orthographic=false;camera.fieldOfView=fieldOfView;camera.aspect=16f/9;
+        camera.nearClipPlane=.1f;camera.farClipPlane=80;
+        foreach(var vcam in Object.FindObjectsOfType<Cinemachine.CinemachineVirtualCamera>(true))
         {
-            var pos=vcam.transform.position;pos.y=y;vcam.transform.position=pos;vcam.transform.rotation=camera.transform.rotation;
-            var listener=vcam.GetComponents<Cinemachine.CinemachineImpulseListener>().FirstOrDefault(l=>l.m_ChannelMask==2);
-            if(!listener)
-            {
-                listener=vcam.gameObject.AddComponent<Cinemachine.CinemachineImpulseListener>();
-                listener.m_ChannelMask=2; listener.m_Gain=1; listener.m_UseCameraSpace=false;
-                listener.m_ReactionSettings.m_AmplitudeGain=0;
-            }
+            vcam.transform.position=cameraPosition;vcam.transform.rotation=camera.transform.rotation;
+            vcam.m_Lens.ModeOverride=Cinemachine.LensSettings.OverrideModes.Perspective;
+            vcam.m_Lens.OrthographicSize=normalOrtho;vcam.m_Lens.FieldOfView=fieldOfView;
+            vcam.m_Lens.NearClipPlane=.1f;vcam.m_Lens.FarClipPlane=80;
+        }
+        DungeonPixelRoomBuild.ApplyGround(root,camera);
+        var pier=root.transform.Find("PixelRoom/FrontPier-1");
+        var mount=root.transform.InverseTransformPoint(pier.TransformPoint(new Vector3(.8f,0,-.85f)));
+        mount.y=3.1f;
+        Model(root,"Torch_Front","torch_lit",mount,new Vector3(.5f,1.3f,.5f),torchMaterial,-108);
+        var flame=mount+new Vector3(.12f,.44f,0);
+        Torch(root,"TorchGlow_Front",flame,180,24,1.6f,root.transform.Find("Torch_Front").GetComponentsInChildren<Renderer>());
+        var frontData=root.transform.Find("TorchGlow_Front").GetComponent<Light>().GetUniversalAdditionalLightData();
+        var frontSettings=new SerializedObject(frontData);
+        frontSettings.FindProperty("m_AdditionalLightsShadowResolutionTier").intValue=UniversalAdditionalLightData.AdditionalLightsShadowResolutionTierMedium;
+        frontSettings.ApplyModifiedPropertiesWithoutUndo();
+        foreach(var viewport in Object.FindObjectsOfType<CombatViewportCamera>(true))
+        {
+            var viewportSettings=new SerializedObject(viewport);
+            viewportSettings.FindProperty("normalOrtho").floatValue=normalOrtho;
+            viewportSettings.FindProperty("anchorFloorDuringZoom").boolValue=false;
+            viewportSettings.ApplyModifiedPropertiesWithoutUndo();
         }
         foreach(var actor in new[]{player.gameObject,enemy.gameObject})
         foreach(var renderer in actor.GetComponentsInChildren<SpriteRenderer>(true))
@@ -138,11 +178,15 @@ internal static class DungeonArenaBuild
             if(renderer.name=="ContactShadow") { renderer.enabled=false;continue; }
             if(!renderer.sprite)continue;
             renderer.sharedMaterial=sprite;renderer.shadowCastingMode=ShadowCastingMode.TwoSided;renderer.receiveShadows=true;
+            renderer.lightProbeUsage=LightProbeUsage.Off;
             EditorUtility.SetDirty(renderer);
             if(PrefabUtility.IsPartOfPrefabInstance(renderer))PrefabUtility.RecordPrefabInstancePropertyModifications(renderer);
         }
         var cinematic=Object.FindObjectOfType<SlayerScreenFX>();
         var cinematicSettings=new SerializedObject(cinematic);
+        cinematicSettings.FindProperty("normalOrtho").floatValue=normalOrtho;
+        cinematicSettings.FindProperty("slayerOrtho").floatValue=3.3f;
+        cinematicSettings.ApplyModifiedPropertiesWithoutUndo();
         var red=cinematicSettings.FindProperty("redOverlay").objectReferenceValue as SpriteRenderer;
         if(red)
         {
@@ -154,37 +198,128 @@ internal static class DungeonArenaBuild
         Set(cinematic,"environment",root.transform);
         EditorUtility.SetDirty(pipeline);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
     }
+    static void Torch(GameObject root,string name,Vector3 position,float intensity,float range,float phase,Renderer[] renderers)
+    {
+        var visible=renderers.Where(renderer=>renderer.name!="TorchSolidShadow").ToArray();
+        Bounds flameBounds=new Bounds();bool found=false;
+        foreach(var renderer in visible)
+        {
+            if(!renderer.TryGetComponent<MeshFilter>(out var filter))continue;
+            var mesh=filter.sharedMesh;var uv=mesh.uv;var vertices=mesh.vertices;var indices=mesh.triangles;
+            var solid=new System.Collections.Generic.List<int>();
+            for(int i=0;i<indices.Length;i+=3)
+            {
+                Vector2 center=(uv[indices[i]]+uv[indices[i+1]]+uv[indices[i+2]])/3;
+                bool fire=center.x>=.875f&&center.x<=1&&center.y>=.25f&&center.y<.5f;
+                if(!fire){solid.Add(indices[i]);solid.Add(indices[i+1]);solid.Add(indices[i+2]);continue;}
+                for(int j=0;j<3;j++)
+                {
+                    var point=renderer.transform.TransformPoint(vertices[indices[i+j]]);
+                    if(!found){flameBounds=new Bounds(point,Vector3.zero);found=true;}else flameBounds.Encapsulate(point);
+                }
+            }
+            renderer.shadowCastingMode=ShadowCastingMode.Off;
+            string path=Art+"TorchSolid_"+mesh.name+".asset";
+            var shadowMesh=AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            if(!shadowMesh){shadowMesh=new Mesh{name="Torch solid shadow"};AssetDatabase.CreateAsset(shadowMesh,path);}
+            shadowMesh.Clear();shadowMesh.vertices=vertices;shadowMesh.uv=uv;shadowMesh.normals=mesh.normals;
+            shadowMesh.triangles=solid.ToArray();shadowMesh.RecalculateBounds();EditorUtility.SetDirty(shadowMesh);
+            var proxy=Node(renderer.gameObject,"TorchSolidShadow");
+            var shadowFilter=proxy.GetComponent<MeshFilter>();if(!shadowFilter)shadowFilter=proxy.AddComponent<MeshFilter>();shadowFilter.sharedMesh=shadowMesh;
+            var shadowRenderer=proxy.GetComponent<MeshRenderer>();if(!shadowRenderer)shadowRenderer=proxy.AddComponent<MeshRenderer>();
+            shadowRenderer.sharedMaterial=renderer.sharedMaterial;shadowRenderer.shadowCastingMode=ShadowCastingMode.ShadowsOnly;
+            shadowRenderer.enabled=true;shadowRenderer.receiveShadows=false;
+            shadowRenderer.receiveGI=ReceiveGI.LightProbes;shadowRenderer.lightProbeUsage=LightProbeUsage.BlendProbes;
+            GameObjectUtility.SetStaticEditorFlags(proxy,StaticEditorFlags.BatchingStatic|StaticEditorFlags.OccludeeStatic|StaticEditorFlags.OccluderStatic|StaticEditorFlags.ReflectionProbeStatic);
+        }
+        if(!found)throw new System.InvalidOperationException("Torch flame UV region missing: "+name);
+        position=root.transform.InverseTransformPoint(flameBounds.center);
+        Debug.Log("TORCH_SOURCE "+name+" local="+position+" flame="+flameBounds.size);
+        var light=Light(root,name,LightType.Point,new Color(1,.78f,.56f),intensity,position);
+        light.enabled=true;light.range=range;light.shadows=LightShadows.Hard;
+        light.shadowBias=.015f;light.shadowNormalBias=.02f;light.lightmapBakeType=LightmapBakeType.Realtime;
+        var flicker=light.GetComponent<DungeonTorchLight>();if(!flicker)flicker=light.gameObject.AddComponent<DungeonTorchLight>();
+        var settings=new SerializedObject(flicker);
+        settings.FindProperty("baseIntensity").floatValue=intensity;settings.FindProperty("phase").floatValue=phase;
+        var flames=settings.FindProperty("flameRenderers");flames.arraySize=visible.Length;
+        for(int i=0;i<visible.Length;i++)flames.GetArrayElementAtIndex(i).objectReferenceValue=visible[i];
+        settings.ApplyModifiedPropertiesWithoutUndo();
+    }
+    static Texture2D TorchEmissionMask()
+    {
+        // Data mask: the orange/yellow palette strip is fire; wood/metal live above it.
+        string path=Art+"TorchEmission.png";
+        {
+            var source=new Texture2D(2,2);source.LoadImage(System.IO.File.ReadAllBytes(Art+"dungeon_texture.png"));
+            var pixels=source.GetPixels();
+            for(int y=0;y<source.height;y++)for(int x=0;x<source.width;x++)
+            {
+                var c=pixels[y*source.width+x];
+                bool fire=y>=source.height/4&&y<source.height/2&&x>=source.width*7/8;
+                pixels[y*source.width+x]=fire?c:Color.black;
+            }
+            source.SetPixels(pixels);source.Apply();var bytes=source.EncodeToPNG();Object.DestroyImmediate(source);
+            if(!System.IO.File.Exists(path)||!System.IO.File.ReadAllBytes(path).SequenceEqual(bytes))
+            {System.IO.File.WriteAllBytes(path,bytes);AssetDatabase.ImportAsset(path);}
+        }
+        var importer=(TextureImporter)AssetImporter.GetAtPath(path);
+        if(importer.filterMode!=FilterMode.Point||importer.mipmapEnabled){importer.filterMode=FilterMode.Point;importer.mipmapEnabled=false;importer.SaveAndReimport();}
+        return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+    }
     static Material Material(string name,string shader)
     {
         string path=Art+name+".mat";var material=AssetDatabase.LoadAssetAtPath<Material>(path);
         if(!material){material=new Material(Shader.Find(shader));AssetDatabase.CreateAsset(material,path);} return material;
+    }
+    static Material Surface(string name,Texture2D atlas,Color color,float smoothness,float metallic=0)
+    {
+        var material=Material(name,"Universal Render Pipeline/Lit");
+        material.SetTexture("_BaseMap",atlas);material.SetColor("_BaseColor",color);
+        material.SetFloat("_Smoothness",smoothness);material.SetFloat("_Metallic",metallic);
+        EditorUtility.SetDirty(material);return material;
+    }
+    static T Feature<T>(UniversalRendererData renderer,string path,string name) where T:ScriptableRendererFeature
+    {
+        var feature=renderer.rendererFeatures.OfType<T>().FirstOrDefault();
+        if(!feature) feature=AssetDatabase.LoadAllAssetsAtPath(path).OfType<T>().FirstOrDefault();
+        if(!feature) { feature=ScriptableObject.CreateInstance<T>(); feature.name=name; AssetDatabase.AddObjectToAsset(feature,renderer); }
+        if(!renderer.rendererFeatures.Contains(feature)) renderer.rendererFeatures.Add(feature);
+        EditorUtility.SetDirty(feature); return feature;
     }
     static GameObject Node(GameObject parent,string name)
     {
         var child=parent.transform.Find(name);if(child)return child.gameObject;
         var go=new GameObject(name);go.transform.SetParent(parent.transform,false);return go;
     }
-    static void Model(GameObject root,string name,string asset,Vector3 center,Vector3 size,Material material)
+    static void Model(GameObject root,string name,string asset,Vector3 center,Vector3 size,Material material,float yaw=0)
     {
         var holder=Node(root,name);
-        if(holder.transform.childCount==0)
-        {
-            var source=AssetDatabase.LoadAssetAtPath<GameObject>(Art+asset+".fbx");
-            if(!source)throw new System.InvalidOperationException("Missing KayKit model: "+asset);
-            var model=(GameObject)PrefabUtility.InstantiatePrefab(source);model.transform.SetParent(holder.transform,false);
-        }
-        holder.transform.localPosition=Vector3.zero;holder.transform.localScale=Vector3.one;
-        var renderers=holder.GetComponentsInChildren<MeshRenderer>();
-        var bounds=renderers[0].bounds;foreach(var renderer in renderers)bounds.Encapsulate(renderer.bounds);
-        // Normalize authored mesh dimensions without changing source FBX or texture.
-        var scale=new Vector3(size.x/bounds.size.x,size.y/bounds.size.y,size.z/bounds.size.z);
-        holder.transform.localScale=scale;holder.transform.position=root.transform.position+center-Vector3.Scale(bounds.center-root.transform.position,scale);
-        foreach(var renderer in renderers){renderer.sharedMaterials=Enumerable.Repeat(material,renderer.sharedMaterials.Length).ToArray();renderer.shadowCastingMode=ShadowCastingMode.On;renderer.receiveShadows=true;PrefabUtility.RecordPrefabInstancePropertyModifications(renderer);}
+        // Keep the serialized holder, and reference the original mesh directly.
+        // Local shadow-only children must not become FBX prefab overrides.
+        foreach(var child in holder.transform.Cast<Transform>().ToArray())
+            if(PrefabUtility.IsPartOfPrefabInstance(child))Object.DestroyImmediate(child.gameObject);
+        var source=AssetDatabase.LoadAssetAtPath<GameObject>(Art+asset+".fbx");
+        var mesh=source.GetComponentInChildren<MeshFilter>().sharedMesh;
+        var visual=Node(holder,"ModelMesh");
+        var filter=visual.GetComponent<MeshFilter>();if(!filter)filter=visual.AddComponent<MeshFilter>();filter.sharedMesh=mesh;
+        var renderer=visual.GetComponent<MeshRenderer>();if(!renderer)renderer=visual.AddComponent<MeshRenderer>();
+        renderer.sharedMaterial=material;renderer.enabled=true;renderer.receiveShadows=true;
+        renderer.lightProbeUsage=LightProbeUsage.Off;renderer.reflectionProbeUsage=ReflectionProbeUsage.Off;
+        holder.transform.localPosition=center;holder.transform.localRotation=Quaternion.Euler(0,yaw,0);holder.transform.localScale=Vector3.one;
+        var scale=new Vector3(size.x/mesh.bounds.size.x,size.y/mesh.bounds.size.y,size.z/mesh.bounds.size.z);
+        visual.transform.localRotation=Quaternion.identity;visual.transform.localScale=scale;
+        visual.transform.localPosition=-Vector3.Scale(mesh.bounds.center,scale);
     }
     static Light Light(GameObject root,string name,LightType type,Color color,float intensity,Vector3 position)
     {
         var go=Node(root,name);go.transform.localPosition=position;var light=go.GetComponent<Light>();if(!light)light=go.AddComponent<Light>();
-        light.type=type;light.color=color;light.intensity=intensity;return light;
+        light.type=type;light.color=color;light.intensity=intensity;
+        var data=light.GetUniversalAdditionalLightData();data.usePipelineSettings=false;
+        // URP owns the tier selection; Light.shadowCustomResolution alone does not.
+        var settings=new SerializedObject(data);
+        settings.FindProperty("m_AdditionalLightsShadowResolutionTier").intValue=UniversalAdditionalLightData.AdditionalLightsShadowResolutionTierLow;
+        settings.ApplyModifiedPropertiesWithoutUndo();
+        return light;
     }
     static void Set(Object owner,string property,Object value)
     {var settings=new SerializedObject(owner);settings.FindProperty(property).objectReferenceValue=value;settings.ApplyModifiedPropertiesWithoutUndo();}

@@ -1,0 +1,149 @@
+{
+  "status": "published-and-verified",
+  "title": "Clackblade",
+  "target": "https://micharel09.itch.io/clackblade",
+  "baseline_upload": 19876564,
+  "baseline_input_sha256": "781c881452f74d06b79ee7f47efb4efe4e6f09f46e3078ee613c94a88cf6e8a0",
+  "serialize": {
+    "result": "20261019T144213-serialize",
+    "input_sha256": "9217078f34dd546ef2c23debd1039ab4e3a3604721cb97c7fa37e0fb77055ad9",
+    "repeat_builder": "passed"
+  },
+  "production": {
+    "result": "20261019T150239-production",
+    "input_sha256": "6b728f70426d997c8d7b49d37b5d7a2ec8efb26ecc1328bc677bd3a3ecaa0f61",
+    "status": "passed",
+    "qa_bridge": "excluded",
+    "baseline_delta": {
+      "changed_existing": [
+        "Assets/Editor/PixelUI/PixelUIBuild.cs",
+        "Assets/Scenes/MainMenu.unity"
+      ],
+      "removed": [],
+      "added": "Branding assets and BlackletterTitleBuild only"
+    },
+    "zip": {
+      "path": "marketing/itch-io/game-page/clackblade-blackletter-webgl.zip",
+      "bytes": 16608234,
+      "sha256": "bdc6a601b4827b0631a522d95e6b38a4e78e2b3c3702af6a01cbbed82acfcd5e",
+      "members": {
+        "Build/output.data": "b328046f85191b833355da605471e7f7dfefd9d46386e52ee35e4f0b3194666e",
+        "Build/output.framework.js": "a3247e18d9f6c98ac7781334d7db78105d114c38d089d8688e56eccad345c5ac",
+        "Build/output.loader.js": "1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76",
+        "Build/output.wasm": "01d7a711cecea9e45a89ce18bf74888b5870b776c256aeb1dc8e4a555733854f",
+        "CodeManu-License.txt": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+        "CREDITS.txt": "7d71aba8258ad1810eec83ac69c09c8b67a10417138f32d7e157c38246ecfd1c",
+        "Crusenho-License.txt": "967e02d313d6aad874db979e832596e624c3c177c6c887da95bd914c82168ba9",
+        "DarkAges-License.txt": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+        "game-loop-build.json": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+        "index.html": "3a18f3f3b8b3b23ec6535864cb573a314aa6752ffa36a78611b295027c90cf4e",
+        "Kenney-Impact-License.txt": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+        "Kenney-Interface-License.txt": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+        "Kenney-License.txt": "8723305f6eeda9b2ab11e3f642657744cfbed98d08abce3ccdf710c74ecc329e",
+        "Kenney-UI-License.txt": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
+        "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486",
+        "Pimen-BattleEffects-License.txt": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+        "Pimen-HitSpark-License.txt": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
+        "ServiceWorker.js": "a1410ab9ff483270351ed1dc5ee30cdd0d50911d83f4a24f3e6f04b387b52cdb",
+        "TemplateData/favicon.ico": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+        "TemplateData/icons/unity-logo-dark.png": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
+        "TemplateData/icons/unity-logo-light.png": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
+        "TemplateData/progress-bar-empty-dark.png": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+        "TemplateData/progress-bar-empty-light.png": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+        "TemplateData/progress-bar-full-dark.png": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
+        "TemplateData/progress-bar-full-light.png": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+        "TemplateData/style.css": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
+        "TemplateData/unity-logo-dark.png": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+        "TemplateData/unity-logo-light.png": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
+        "TinyPixelJapan-License.txt": "9467cd1a0f711963a85addf2d90a4a67f1ec0b3d6ccd39753d0c03894b46ae1f",
+        "VT323-OFL.txt": "e9703da7abe97795a41be19905323706502723a1eec104608c24f858e352f9a8"
+      },
+      "crc": "passed",
+      "note": "Original production player, with title provenance appended to CREDITS.txt only."
+    }
+  },
+  "native_publication": {
+    "status": "published-and-verified",
+    "upload": 19877153,
+    "previous_upload_hidden": 19876564,
+    "cover_image": 31084579,
+    "game_banner": "https://img.itch.zone/aW1nLzMxMDg0NzY3LnBuZw==/original/nXURo5.png",
+    "profile_banner": "https://img.itch.zone/aW1nLzMxMDg0ODEyLnBuZw==/original/kHyp%2Fo.png",
+    "verification": [
+      "Native Saved then editor reload",
+      "Public Run game actual menu inspected",
+      "29 CDN non-HTML hashes match ZIP",
+      "Banner CDN hashes match exports",
+      "Three labelled gallery GIF URLs/order unchanged",
+      "No description images",
+      "Protected non-asset/editor/theme fields unchanged",
+      "Avatar unchanged"
+    ],
+    "responsive": "Existing390px scrollWidth600 issue unchanged"
+  },
+  "assets": {
+    "Assets/Art/UI/Branding/ClackbladeSpecimenPixel.ttf": {
+      "bytes": 47972,
+      "sha256": "76b7d45522ae304f3cfb06f244cf17ca8f9412e1b48fcb5583e29fcb4e4d28ce"
+    },
+    "Assets/Art/UI/Branding/ClackbladeSpecimenPixel64.asset": {
+      "bytes": 2133458,
+      "sha256": "d20f216b749b5a9775555adda9eae8281b2d7a7e5e40ff30bfa135f079c90e7f"
+    },
+    "Assets/Art/UI/Branding/ClackbladeSpecimenPixel64.asset.meta": {
+      "bytes": 189,
+      "sha256": "0f8ef7dae86b5938712edaf7d8f9c82a33be545a38deeb065308c1047968b215"
+    },
+    "marketing/itch-io/profile/banner.png": {
+      "bytes": 9602,
+      "sha256": "e7fcae0639555be6667f86bc3960f57d712f0a2b07d8af9d5f5fccc1501b38f1"
+    },
+    "marketing/itch-io/game-page/cover.gif": {
+      "bytes": 988697,
+      "sha256": "678671bf31e7d644270e74c3ff4fa8ef81662504baa00c1aade986af96a51032"
+    },
+    "marketing/ItchIO_Optimization/Thumbnails/clackblade-630x500.png": {
+      "bytes": 52128,
+      "sha256": "e6f6411e8e4c25c7125025a1be040b99d4d90275c2738e43654e42d9bc14f45c"
+    }
+  },
+  "rollback": {
+    "source": "before/",
+    "native": "Native editor select previous upload19876564 as playable, hide19877153, Save. Restore only banner/cover fields using fresh backups in before/. Preserve gallery, description and all unrelated settings."
+  },
+  "smoke": {
+    "status": "passed",
+    "chromium": "155.0.4283.62",
+    "automated_checks": 3,
+    "exceptions": 0,
+    "external_requests": 0,
+    "production_writes": 0,
+    "visual_review": [
+      "menu title 960x600 native canvas",
+      "menu title 640x360 iframe-style sizing",
+      "real name FontQA",
+      "tutorial",
+      "Skip Tutorial and Enter/Fight",
+      "combat HUD unchanged",
+      "pause/resume",
+      "Latest dungeon UI production: menu960 and640, real name/tutorial/Skip/Fight/pause/resume"
+    ],
+    "note": "No full gameplay/balance suite: isolated title-only delta.",
+    "public": "Authenticated Orca public Run game/menu visually verified. Anonymous Edge direct-HTML smoke timed out at loading-bar wait (0checks); no anonymous-flow PASS claimed."
+  },
+  "resources": {
+    "server_scratch": "removed",
+    "local_temp": "removed",
+    "child_worktree": "removed",
+    "child_branch": "removed",
+    "owned_browser_tabs": "closed",
+    "retained": "Product sources/font assets, marketing exports, release ZIP, native backup and receipt in parent"
+  },
+  "public_payload": {
+    "upload": 19877153,
+    "base": "https://html-classic.itch.zone/html/19877153/",
+    "checked_files": 29,
+    "hashes_match": true,
+    "index_note": "Standard itch wrapper; native smoke checked separately."
+  }
+}

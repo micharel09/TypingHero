@@ -1,0 +1,12 @@
+{
+  "size": [
+    630,
+    500
+  ],
+  "duration_ms": 9510,
+  "initial_still_ms": 1000,
+  "bytes": 988697,
+  "sha256": "678671bf31e7d644270e74c3ff4fa8ef81662504baa00c1aade986af96a51032",
+  "gameplay_timeline_unchanged": true,
+  "source_gif_sha256": "89a76b282c35ebe97d884fc486c5f2192a53fbe2973b3353bcb922af3cab6492"
+}
