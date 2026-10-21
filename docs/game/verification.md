@@ -23,7 +23,7 @@
   of every engine frame, sub-frame timing, subjective audio listening or performance.
 - User then narrowed verification to the changed behavior; no further QA added.
   Preview/clip retention, missing supplementary melee guide and cleanup are in the
-  [combat checkpoint](../plans/combat-feedback.md). No stress/soak/production/push/deploy.
+  [combat checkpoint](../plans/combat-feedback.md). No stress/soak/production/deploy. User-approved source commit8e840a0 was subsequently pushed to origin/main; task resources were cleaned after acceptance.
 
 ## Approved parry main integration (2026-10-21)
 

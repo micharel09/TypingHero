@@ -1,17 +1,19 @@
 # Combat feedback â€” implementation checkpoint
 
-Current task: remove player received-damage particles in the isolated
-`remove-player-damage-particles` child. Scoped tests/build and keyboard acceptance
-pass; requested sound clips and a paused preview are available. Keep the child for
-review/integration. Push, merge and deployment are separate from this request.
+Current task closed with user approval on 2026-10-21. Implementation commit
+`8e840a0e1d2930a9ba597bf4bb24453fb257c35a` was pushed by fast-forward to
+`origin/main` and verified against the remote. Scoped tests/build and keyboard
+acceptance passed. Task preview, clips and helpers were removed after acceptance;
+the integrated Orca child is ready for removal. Parent dirty checkout is preserved.
+No public deployment was requested or performed.
 Earlier parry/volume/source/license/release checkpoints below are historical.
 
-## Remove player received particles (2026-10-21, verified locally)
+## Remove player received particles (2026-10-21, integrated into main)
 
 - User intent: remove Received4 and ReceivedLethal6 and their light pulses; keep
   red flash/Hurt, damage SFX, HP feedback, white sprite death, approved parry and
   outgoing normal/Slayer/lethal impacts. No health API, damage/timing, i-frame,
-  hitstop, collision, animation, asset/GUID cleanup, push or deployment changes.
+  hitstop, collision, animation or asset/GUID cleanup. Main push was subsequently approved; no deployment.
 - Orca child ID
   `e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/remove-player-damage-particles`,
   branch `micharel09/remove-player-damage-particles`, parent
@@ -38,9 +40,9 @@ Earlier parry/volume/source/license/release checkpoints below are historical.
   location and installed skill roots; no animation is authored by this change.
   Use sprite-frame-review for the scoped unchanged-pose visual comparison and
   record the missing supplementary guide as a limitation.
-- Retain the child until review and verified integration into main; local commit
-  alone does not authorize deleting its unintegrated work. Retained preview/player,
-  requested sound clips and minimal reopen harness are listed below.
+- Closure: user approved main push and task cleanup. Code integration is verified;
+  remove the clean child after this receipt is pushed. Task temp directory and all
+  four accepted clips have been deleted; hashes below are historical receipts.
 - Runner checkpoint: initial Doctor wait300s expired before acquiring the shared
   lock; this is no test/build result. Combined scoped feedback/parry tests and QA
   build queued at03:50UTC with immutable input
@@ -91,22 +93,14 @@ Earlier parry/volume/source/license/release checkpoints below are historical.
 |CLACKBLADE-NoReceived-640-1x.mp4|331252|809d903a2ed68fafbd1e1a836f36af4d0fb8bf6e925c37fea4ed913c1cd0ab20|
 |CLACKBLADE-NoReceived-640-0.25x.mp4|524645|c52610ca094e51c736479533ebe025019de39341c0fdf010210d9de682770763|
 
-Preview opened paused at1280x720 in native Edge, node PID36456/helper26728,
-`http://127.0.0.1:8159`, with fixtures/network blocking. Esc resumes, Space parries,
-type the displayed word to attack. It subsequently closed normally
-(`previewClosed=true`); no preview process/listener remains. Reopen with
-`powershell -NoProfile -File E:/CodexTemp/TypingHero/remove-player-damage-particles/native.ps1 -Mode preview -Name preview`.
-Retain `player/`, native.ps1/preview.cjs and webgl-snapshot.json
-while the user reviews; closing the preview window stops its harness. Retain the
-four requested clips until accepted. Delete the child only after verified main
-integration; no push/merge/deploy was performed.
-
-After written receipts, removed only task-owned raw QA frames/video/PCM/reports,
-review grids, copied serialization, disposable build/export adapters and the exact
-server result20261021T041018-webgl (matching frozen input confirmed before deletion).
-Shared source/Library/cache/builds, parent WIP and earlier reference captures remain.
-The closed preview's profile/logs were also removed. Only player/reopen files and
-four requested clips remain in task temp.
+Preview opened paused at1280x720 in native Edge with fixtures/network blocking,
+then closed normally (`previewClosed=true`); no preview process/listener remains.
+After user acceptance, removed the task-owned player, reopen helpers, snapshot and
+four clips from `E:/CodexTemp/TypingHero/remove-player-damage-particles`.
+The directory no longer exists; clip hashes above preserve the export receipt.
+Earlier raw QA artifacts and exact server result20261021T041018-webgl were already
+removed after verification. Shared source/Library/cache/builds, parent WIP and the
+earlier reference captures remain untouched.
 
 ### Unchanged source frame review for particle removal
 
