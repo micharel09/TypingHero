@@ -2133,3 +2133,15 @@ clean-build adapter, source provenance, per-frame CSVs and preview are recorded 
 - Original Pimen PNG/importer and288protected inputs unchanged. Preview8159,
   comparison videos and per-frame evidence/retention are in the existing
   [combat checkpoint](../plans/combat-feedback.md). Local only, no push/deploy.
+
+
+## Pimen and current HUD integration (2026-10-21)
+
+Merge aa14b24 combines99ac6da with main a83bd90. Focused Unity110107 passes11/11;
+clean WebGL110357 passes build and strict twice-run builder. Native1280x720
+integration-native-r2 passes22/22 real-input hit/pause/restart/Slayer checks,
+zero exceptions/provider reads/writes/external requests. Peak Pimen and Slayer
+images inspected: HP/score/tray remain readable. Original animation review is
+reused because VFX/art are unchanged. Imported main builder's existing resource
+frame border21/0/3/0. CRLF-only failed build and stale-restart pilot are excluded;
+see [combat checkpoint](../plans/combat-feedback.md). No itch.io deployment.

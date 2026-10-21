@@ -3280,3 +3280,34 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
   the owned preview; remove disposable task data only when review no longer needs
   reproduction. Shared runner/cache/license/other jobs and dirty parent untouched.
   This handoff is local commit only; no push/merge/deploy.
+
+
+## Pimen integration into current main (2026-10-21)
+
+- User authorized merge/closure, preserving current HUD and all three commits
+  5bf8629/b82add2/99ac6da; no itch.io deployment. Reused existing child and merged
+  origin/main a83bd90 as aa14b24 without conflicts. Dirty parent main untouched.
+- Unity2022.3.25f1 focused20261021T110107-quick:11/11PASS,0failed/skipped,
+  4.2873621s; snapshot d2f2141c2d3f4da629ad81b56035449a7d5d911fd1bc17fb28b6d27dde29d251.
+- First integration build110203 failed the protected-font byte check solely because
+  Windows CRLF was rewritten as LF in CobblestoneUI64.asset; content diff empty.
+  External runner normalizes known text inputs to LF and adds CleanBuildCache only.
+  Final110357-webgl snapshot d845c04c586891f73b1ca6927aebd567819ed66197f598ca079c2658ed7bfdc8:
+  build/strict twice-run builder PASS;1673 inputs match checkout with those adapters.
+  Final scene matches checkout;370 serialized files checked. Imported only the
+  resource-frame importer border21/0/3/0 already specified by main CombatR7Build;
+  other differences are whitespace. This preserves the exact tested builder output.
+- Native Edge155/GTX1650Ti ANGLE D3D11/Playwright1.58.2 at1280x720,
+  integration-native-r2:22/22PASS, real keyboard hit/two-hit/pause/restart/Slayer,
+  zero JS/managed exceptions/provider reads/writes/external requests. First native
+  run stopped after14checks at stale post-restart state; external driver now waits
+  for reload before observing the next lesson. Same immutable player rerun passes.
+- Directly inspected normal-hit peak/fragment images from integration-native and
+  Slayer image integration-native-r2/slayer/0023.png: Pimen stays in combat region,
+  clear of HP/score/word tray. No new animation/art changes: all runtime VFX,
+  Player prefab and Pimen inputs match99ac6da. Prior14source frames/12pairs and
+  264native frames/262pairs visual review and four comparison playbacks are reused;
+  this run verifies HUD integration, not a new animation or performance claim.
+- Evidence root E:/CodexTemp/TypingHero/combat-strike-effects/: integration-tests/,
+  integration-build/, integration-native[-r2]/, original pimen-review/ and videos/.
+  Remote integration/cleanup confirmation follows after verified push.
