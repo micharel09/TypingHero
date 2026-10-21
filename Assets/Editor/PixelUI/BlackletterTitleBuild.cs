@@ -351,7 +351,7 @@ internal static class BlackletterTitleBuild
             // BlackletterUILayout assigns explicit sizes/bounds for compact roles.
             label.enableAutoSizing = false;
             // World-space TMP uses different units (notably the real parry cue).
-            float size = label is TextMeshProUGUI ? Mathf.Max(maximum, 48) : maximum;
+            float size = label is TextMeshProUGUI ? Mathf.Max(maximum, BlackletterUILayout.BodySize) : maximum;
             label.fontSize = label.fontSizeMax = label.fontSizeMin = size;
             if (PrefabUtility.IsPartOfPrefabInstance(label))
                 PrefabUtility.RecordPrefabInstancePropertyModifications(label);

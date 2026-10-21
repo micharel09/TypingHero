@@ -39,13 +39,14 @@ public sealed class EndlessOverlay : MonoBehaviour
 
     internal void Show(string title, string message, string caption, UnityEngine.Events.UnityAction next)
     {
-        prompt.anchoredPosition = new Vector2(48, -80);
+        prompt.anchoredPosition = new Vector2(48, -107);
+        prompt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 262);
         // The clone owns its reading bounds; NEXT adds a third description line.
-        Place(heading.rectTransform, 16, 0, 832, 40);
-        Place(instruction.rectTransform, 16, 42, 832, 144);
+        Place(heading.rectTransform, 16, 0, 832, 56);
+        Place(instruction.rectTransform, 16, 58, 832, 144);
         instruction.alignment = TextAlignmentOptions.MidlineLeft;
-        Place((RectTransform)background.transform, 0, 0, 864, 192);
-        Place((RectTransform)action.transform, 16, 194, 360, 52);
+        Place((RectTransform)background.transform, 0, 0, 864, 208);
+        Place((RectTransform)action.transform, 16, 210, 360, 52);
         var captionLabel = action.GetComponentInChildren<TMP_Text>(true);
         Place(captionLabel.rectTransform, 8, 0, 344, 52);
         captionLabel.enableWordWrapping = false;

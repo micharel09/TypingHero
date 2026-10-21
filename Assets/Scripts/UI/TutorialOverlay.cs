@@ -58,7 +58,32 @@ public sealed class TutorialOverlay : MonoBehaviour
         continueButton.gameObject.SetActive(!string.IsNullOrEmpty(action));
         continueButton.GetComponentInChildren<TMP_Text>(true).text = action;
         focus = target;
+        FitReadingBounds();
         ClearSelection();
+    }
+
+    void FitReadingBounds()
+    {
+        // Keep short instructions clear of the live cue; allow long progress titles
+        // to wrap while reading/completed instead of overflowing the panel.
+        var panel = (RectTransform)heading.transform.parent;
+        float titleHeight = Mathf.Max(56, heading.GetPreferredValues(heading.text,
+            heading.rectTransform.rect.width, Mathf.Infinity).y);
+        float bodyHeight = Mathf.Max(48, instruction.GetPreferredValues(instruction.text,
+            instruction.rectTransform.rect.width, Mathf.Infinity).y);
+        heading.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, titleHeight);
+        var body = instruction.rectTransform;
+        body.anchoredPosition = new Vector2(body.anchoredPosition.x, -(titleHeight + 2));
+        body.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, bodyHeight);
+        float backgroundHeight = titleHeight + 2 + bodyHeight + 6;
+        ((RectTransform)panel.Find("InstructionBackground")).SetSizeWithCurrentAnchors(
+            RectTransform.Axis.Vertical, backgroundHeight);
+        foreach (var button in panel.GetComponentsInChildren<Button>(true))
+        {
+            var rect = (RectTransform)button.transform;
+            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, -(backgroundHeight + 6));
+        }
+        panel.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, backgroundHeight + 6 + 52);
     }
 
     internal void SubmitContinue()
