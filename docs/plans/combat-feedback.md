@@ -3346,6 +3346,6 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
   E:/CodexTemp/TypingHero/combat-strike-effects/main-preview-*. Keep live player
   and child C:/Users/ADMIN/orca/workspaces/TypingHero/pimen-main-preview while
   review is active; cleanup after owner finishes. Stop file:
-  E:/CodexTemp/TypingHero/combat-strike-effects/main-preview-live/stop.
+  E:/CodexTemp/TypingHero/combat-strike-effects/main-preview-live-r2/stop.
 - No new product changes or itch.io deployment. This checkpoint is the only
   repository change in the recheck; push it to main after whitespace validation.
