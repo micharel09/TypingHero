@@ -75,31 +75,7 @@ internal static class BlackletterUILayout
 
     static void Menu(Transform design)
     {
-        Place(design, "MenuPanel", 48, 0, 864, 398);
-        var panel = design.Find("MenuPanel");
-        Place(panel, "Title", 24, 4, 816, 52);
-        Place(panel, "NameLabel", 24, 56, 816, 38);
-        Size(panel.Find("NameLabel").GetComponent<TMP_Text>(), BodySize);
-        var input = panel.GetComponentInChildren<TMP_InputField>(true);
-        Box(input.GetComponent<RectTransform>(), panel, 24, 94, 816, 104);
-        input.pointSize = BodySize;
-        Size(input.textComponent, BodySize);
-        input.textComponent.alignment = TextAlignmentOptions.MidlineLeft;
-        if (input.placeholder is TMP_Text hint) Size(hint, BodySize);
-        // The existing viewport/caret performs horizontal scrolling for long input.
-        input.textComponent.overflowMode = TextOverflowModes.Overflow;
-        Place(panel, "NameError", 24, 198, 816, 48);
-        Size(panel.Find("NameError").GetComponent<TMP_Text>(), BodySize);
-        Difficulty(panel, 24, 246, 816);
-        Place(panel, "DifficultyHint", 24, 294, 816, 48);
-        Size(panel.Find("DifficultyHint").GetComponent<TMP_Text>(), CompactSize);
-        ButtonAt(panel, "PlayButton", 24, 342, 816, 52);
-        Place(panel, "PlayButton/key-enter", 776, 14, 24, 24);
-        ButtonAt(design, "How to PlayButton", 102, 402, 246, 48);
-        ButtonAt(design, "TutorialButton", 357, 402, 246, 48);
-        ButtonAt(design, "Top 1000Button", 612, 402, 246, 48);
-        CompactMenusBuild.Settings(design, design.Find("MenuPanel"), false);
-
+        DungeonMainMenuBuild.Apply(design);
     }
 
     static void Help(Transform design)
