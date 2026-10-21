@@ -1,0 +1,35 @@
+{
+  "license": "CC0-1.0",
+  "geometry": {
+    "author": "Kay Lousberg",
+    "source": "https://kaylousberg.itch.io/halloween-bits",
+    "repository": "https://github.com/KayKit-Game-Assets/KayKit-Halloween-Bits-1.0",
+    "revision": "6dc69bf6b2fa766a985754f35ec6a0324090e6c6",
+    "path": "addons/kaykit_halloween_bits/Assets/fbx(unity)/lantern_hanging.fbx",
+    "triangles": 472
+  },
+  "textures": [
+    {
+      "file": "metal0.png",
+      "author": "FacadeGaikan",
+      "source": "https://opengameart.org/content/16x4-tiles",
+      "archive": "https://opengameart.org/sites/default/files/164.zip",
+      "member": "16x4/metal0.png"
+    },
+    {
+      "file": "oak_planks.png",
+      "author": "ARoachIFoundOnMyPillow",
+      "source": "https://opengameart.org/content/16x16-block-texture-set",
+      "archive": "https://opengameart.org/sites/default/files/blocks_2.zip",
+      "member": "blocks/oak_planks.png"
+    }
+  ],
+  "derivation": "Original FBX and both 16x16 tiles are unchanged. LanternPixelAtlas packs metal0 at Unity texels x=1..16,y=1..16, extrudes one border pixel, and leaves a transparent region for windows. No PBR maps. DungeonHangingLanternBuild remaps UVs and, with user approval on 2026-10-21, omits only the 26 closed lower-plinth triangles from the derived mesh: 472 source triangles -> 446 rendered triangles (40 cutout window, 406 iron). Roof, corner posts and chain retain authored geometry and real shadows. Approved thin-glass child reuses the 40 window triangles with a separate URP Lit transparent renderer; frame446 + glass40 =486 submitted lantern triangles. Original FBX472 unchanged. Glass alpha0.12, emission(1,0.38,0.08), no specular, ZWrite off and no cast/receive shadows; no added point light. License text has trailing whitespace normalized.",
+  "sha256": {
+    "KayKit-LICENSE.txt": "93a043e1057a2064260ab16c81146a502c671dad92212d41af887912702a6384",
+    "LanternPixelAtlas.png": "a5d776150dc09ddfd354994ba777164754c1c9be09de8ba232c279259bd5909e",
+    "lantern_hanging.fbx": "fd58eea04c1ae72505fcff0da2ef811328b65e620b1e151e417507490be73224",
+    "metal0.png": "ac58d88395147f06272dc297a7ebaf2309aa451cb6c76acd154b79d3ae1c6ebe",
+    "oak_planks.png": "e9b844c6b73927f383ca1e49d2e2a6de2a21f97e5b59162f96050bf4bac768f1"
+  }
+}

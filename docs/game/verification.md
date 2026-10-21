@@ -1,5 +1,30 @@
 # Verification and performance memory
 
+## Final thin-glass lantern candidate ? 2026-10-21
+
+- QA110751/input046160c165646a5c3788e3b9cf90e90cfb9736e63224afcff7ee2ee742997e34,
+  player028bdab132b5e1c9: build + strict twice-run full builder PASS.
+- Correct PlayMode HDR110516: actual320x180HDR Point world RT/1280x720 presenter,
+  active Volume; all7glass/emission/shadow/bloom stills inspected. Held-pose glass
+  off/on0changed pixels outside cage ROI590,140..690,275. No floor outline return.
+- Edge155.0.4283.62/Intel UHD/ANGLE D3D11/1280x720/headed: native22gameplay checks
+  and9camera/source checks PASS,0exceptions/provider reads/writes. Real attack,
+  hit/parry,pause,Slayer/restore and glass environment lifecycle/fixed emission verified.
+- All9pan/FOV endpoints and selected complete pan12.48..18.96s,163/163frames,
+  162/162transitions inspected across11consecutive sheets; native0/80/162 inspected.
+  No observed alpha popping/transparency overlap/light drift/large floor outline.
+  Source25fps lossy capture cannot exclude sub40ms artifacts; no whole-video or
+  realtime playback review claim. Original PTS and held frames retained.
+- Fresh20s same native driver/no-video baseline472/playered2d0d86653698d7:
+  n245/mean32.12816/p5032.350/p9533.225ms. Final486: n250/mean31.38584/
+  p5031.300/p9532.575ms. Single runs/RNG/observer overhead; no GPU-only/FPS/
+  performance equivalence claim. Earlier NVIDIA measurements are separate.
+- Reused071929lifecycle2/2PASS, no runtime component changes. Existing meta/GUIDs
+  retained. Final source scene changes only approved fixture blocks plus glass.
+  Branch verified, main integration pending resolution of old dungeon snapshot
+  versus newer main. No production build/publication. [Checkpoint](../plans/combat-hanging-light.md).
+
+
 ## Hanging combat lamp ? isolated branch (2026-10-21)
 
 - Baseline snapshotfc1bbfd; final QA052033/inputb1602adbb0abaaaef224521bc109c6fc530fee550a4970d64619e9a968437e20, player2ee55b9f1b0faeae. Unity2022.3.25f1 pinned container, own cache; strict twice-run builder PASS. Scoped Quick045916 executes2lighting lifecycle tests, both PASS. No broad suite/production/release.

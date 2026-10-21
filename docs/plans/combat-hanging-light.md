@@ -1,3 +1,54 @@
+# Combat hanging lantern ? restored final glass
+
+## Current checkpoint ? 2026-10-21
+
+This checkpoint supersedes historical candidates below. User approved thin glass,
+one additional QA WebGL and integration into main; no game publication.
+
+- Original worktree was removed externally during PlayMode. User authorized recovery.
+  Restored from `E:/CodexTemp/TypingHero/combat-hanging-light/lowpoly/rework/interrupted-105914-source.tgz`
+  into `C:/Users/ADMIN/orca/workspaces/TypingHero/combat-hanging-light-restored`,
+  continuing branch `micharel09/combat-hanging-light`. Parent checkout untouched.
+- Source FBX remains 472 triangles. Derived frame 446 triangles, glass reuses 40
+  window triangles: total 486 submitted lantern triangles (beam separate).
+- Glass: URP Lit, black base alpha .12, emission (1,.38,.08), no specular,
+  alpha blending, ZWrite off, no cast/receive shadows. Child of LanternModel,
+  inside environment hiding/restoration; excluded from flame flicker bindings.
+- Key24/range16/flicker0; rear16/range15/+/-2percent. Iron/wood emission0.
+  No camera/floor/post/gameplay/public API tuning in the lantern change.
+- Correct HDR PlayMode contract: actual camera/presenter, 320x180 HDR Point world RT,
+  1280x720, active Volume. Final glass image/effect review in progress.
+  First recovery pilot found Unity import removing emission and enabling premultiply;
+  builder now fixes GI flags and PreserveSpecular. First pilot is not acceptance.
+- QA110751/input046160c165646a5c3788e3b9cf90e90cfb9736e63224afcff7ee2ee742997e34
+  player028bdab132b5e1c9: build and strict twice-run full builder PASS.
+  Edge155/Intel UHD/D3D11/headed1280x720:22gameplay +9isolated camera checks PASS,
+  0exceptions/provider reads/writes. Real attack,hit/parry,pause,Slayer/restore;
+  glass hides/restores and retains fixed emission. All9camera endpoints inspected.
+  Selected complete pan12.48..18.96s:163/163frames and162/162transitions viewed
+  across11sheets; native0/80/162 inspected. No observed alpha pop/transparency
+  overlap/floor outline/source drift. Source25fps lossy; no sub40ms/whole-video/
+  realtime playback review claim. PTS preserved in motion-review/frames.json.
+  Fresh matched20s baseline on current Intel UHD: n245/mean32.12816/p5032.350/
+  p9533.225ms; final n250/mean31.38584/p5031.300/p9532.575ms. One run each/RNG/
+  observer overhead; not isolated GPU cost, equivalence or FPS guarantee.
+  Scene audit:10changed,228removed procedural blocks,8new model/glass blocks;
+  no differences outside approved fixture blocks;0existing meta/GUID changes.
+- Reuse lifecycle071929:2/2PASS, production runtime components unchanged so far.
+  Earlier no-glass QA091233 had19gameplay/9camera checks PASS, visual cage too dark.
+  Its 163frame/162transition pan is historical; final glass needs its own review.
+- Timing baseline: same Edge155/GTX1650Ti/ANGLE D3D11/headed/1280x720,20s,
+  rejected KayKit472/playered2d0d86653698d7: n559,mean13.67229,p5013.340,p9513.525ms.
+  One run/RNG/observer overhead; no isolated GPU cost or performance equivalence claim.
+- Evidence root: `E:/CodexTemp/TypingHero/combat-hanging-light/lowpoly/rework/glass-final`.
+  Remote task cache: `/data/typinghero-game-loop/task-combat-hanging-light`.
+  Preserve evidence; remove only task-owned cache after verified integration.
+- Integration audit: baseline snapshot fc1bbfd includes unrelated obsolete UI/gameplay
+  compared with current main. Preserve current main UI/gameplay. User clarification
+  pending on carrying the existing dungeon baseline versus adapting only the lamp.
+
+## Historical checkpoint (superseded)
+
 # M?t ??n ch?nh cho v?ng combat
 
 ## Ph?m vi v? baseline

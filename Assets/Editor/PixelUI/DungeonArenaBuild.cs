@@ -155,11 +155,18 @@ internal static class DungeonArenaBuild
             vcam.m_Lens.NearClipPlane=.1f;vcam.m_Lens.FarClipPlane=80;
         }
         DungeonPixelRoomBuild.ApplyGround(root,camera);
-        var flame=new Vector3(center.x-root.transform.position.x,3.65f,
+        var flame=new Vector3(center.x-root.transform.position.x,3.405f,
             center.z-root.transform.position.z-2);
-        HangingLamp(root,flame,torchMaterial,iron,wood);
-        Torch(root,"TorchGlow_Front",flame,40,16,1.6f,
-            root.transform.Find("Torch_Front").GetComponentsInChildren<Renderer>(),0);
+        var lanternFire = Material("DungeonLanternFlame", "Universal Render Pipeline/Lit");
+        lanternFire.CopyPropertiesFromMaterial(torchMaterial);
+        lanternFire.SetColor("_BaseColor", Color.black); lanternFire.SetColor("_Color", Color.black);
+        lanternFire.SetFloat("_Smoothness", 0); lanternFire.SetFloat("_SpecularHighlights", 0);
+        lanternFire.EnableKeyword("_SPECULARHIGHLIGHTS_OFF");
+        lanternFire.SetColor("_EmissionColor", new Color(1.4f,.9f,.32f));
+        EditorUtility.SetDirty(lanternFire);
+        HangingLamp(root,flame,lanternFire);
+        Torch(root,"TorchGlow_Front",flame,24,16,1.6f,
+            new[]{root.transform.Find("Torch_Front/ModelMesh").GetComponent<Renderer>()},0);
         var frontData=root.transform.Find("TorchGlow_Front").GetComponent<Light>().GetUniversalAdditionalLightData();
         var frontSettings=new SerializedObject(frontData);
         frontSettings.FindProperty("m_AdditionalLightsShadowResolutionTier").intValue=UniversalAdditionalLightData.AdditionalLightsShadowResolutionTierMedium;
@@ -197,7 +204,7 @@ internal static class DungeonArenaBuild
         Set(cinematic,"environment",root.transform);
         EditorUtility.SetDirty(pipeline);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
     }
-    static void HangingLamp(GameObject root,Vector3 flame,Material fire,Material iron,Material wood)
+    static void HangingLamp(GameObject root,Vector3 flame,Material fire)
     {
         // Retain the former torch holder and its mesh node; only fire triangles survive.
         Model(root,"Torch_Front","torch_lit",Vector3.zero,new Vector3(.5f,.8f,.5f),fire);
@@ -222,58 +229,8 @@ internal static class DungeonArenaBuild
         mesh.bounds=fireBounds;EditorUtility.SetDirty(mesh);
         visual.GetComponent<MeshFilter>().sharedMesh=mesh;
         holder.localPosition=flame-root.transform.InverseTransformPoint(visual.TransformPoint(mesh.bounds.center));
-        // Open rings and corner uprights leave the downward light path unobstructed.
-        var frame=Node(root,"HangingLampFrame");
-        for(int level=0;level<2;level++)
-        {
-            float y=flame.y-.3f+level*.68f;
-            foreach(int side in new[]{-1,1})
-            {
-                if(level==1)LampBar(frame,"RingX"+level+side,new Vector3(flame.x,y,flame.z+side*.32f),new Vector3(1.35f,.055f,.055f),iron);
-                LampBar(frame,"RingZ"+level+side,new Vector3(flame.x+side*.65f,y,flame.z),new Vector3(.055f,.055f,.64f),iron);
-            }
-        }
-        foreach(int x in new[]{-1,1})foreach(int z in new[]{-1,1})
-            LampBar(frame,"Corner"+x+z,flame+new Vector3(x*.65f,.04f,z*.32f),new Vector3(.055f,.68f,.055f),iron);
-        var left=root.transform.Find("PixelRoom/FrontPier-1").localPosition;
-        var right=root.transform.Find("PixelRoom/FrontPier1").localPosition;
-        LampBar(frame,"SupportBeam",new Vector3((left.x+right.x)*.5f,6.08f,-2),new Vector3(right.x-left.x+1,.28f,.36f),wood);
-        // A short perpendicular arm keeps the chain directly above the flame.
-        LampBar(frame,"HangerArm",new Vector3(flame.x,6.08f,(flame.z-2)*.5f),new Vector3(.18f,.22f,Mathf.Abs(flame.z+2)+.36f),iron);
-        const int links=11;
-        float bottom=flame.y+.38f,step=(5.95f-bottom)/links;
-        for(int i=0;i<links;i++)
-        {
-            float y=bottom+(i+.5f)*step;
-            bool across=i%2==0;
-            foreach(int side in new[]{-1,1})
-            {
-                LampBar(frame,"ChainSide"+i+side,new Vector3(flame.x+(across?side*.065f:0),y,flame.z+(across?0:side*.065f)),new Vector3(.025f,step,.025f),iron);
-                LampBar(frame,"ChainEnd"+i+side,new Vector3(flame.x,y+side*step*.5f,flame.z),new Vector3(across?.155f:.025f,.025f,across?.025f:.155f),iron);
-            }
-        }
-    }
-    static void LampBar(GameObject root,string name,Vector3 position,Vector3 size,Material material)
-    {
-        var node=Node(root,name);
-        var filter=node.GetComponent<MeshFilter>();
-        if(!filter)filter=node.AddComponent<MeshFilter>();
-        string meshPath=Art+(material.name=="DungeonWood"?"LampWoodBeam":"LampIronBars")+".asset";
-        var mesh=AssetDatabase.LoadAssetAtPath<Mesh>(meshPath);
-        if(!mesh)
-        {
-            var cube=GameObject.CreatePrimitive(PrimitiveType.Cube);
-            mesh=Object.Instantiate(cube.GetComponent<MeshFilter>().sharedMesh);Object.DestroyImmediate(cube);
-            mesh.name=material.name=="DungeonWood"?"Lamp wood beam":"Lamp iron bars";
-            var mapped=mesh.uv;var palette=new Vector2(material.name=="DungeonWood"?.3125f:.0625f,.875f);
-            for(int i=0;i<mapped.Length;i++)mapped[i]=palette+Vector2.Scale(mapped[i]-Vector2.one*.5f,new Vector2(.04f,.08f));
-            mesh.uv=mapped;AssetDatabase.CreateAsset(mesh,meshPath);
-        }
-        filter.sharedMesh=mesh;
-        var renderer=node.GetComponent<MeshRenderer>();if(!renderer)renderer=node.AddComponent<MeshRenderer>();
-        renderer.sharedMaterial=material;renderer.enabled=true;renderer.shadowCastingMode=ShadowCastingMode.On;
-        renderer.receiveShadows=true;renderer.lightProbeUsage=LightProbeUsage.Off;renderer.reflectionProbeUsage=ReflectionProbeUsage.Off;
-        node.transform.localPosition=position;node.transform.localRotation=Quaternion.identity;node.transform.localScale=size;
+        visual.GetComponent<MeshRenderer>().enabled=true;
+        DungeonHangingLanternBuild.Apply(root,flame);
     }
     static void Torch(GameObject root,string name,Vector3 position,float intensity,float range,float phase,Renderer[] renderers,float flickerAmplitude=.02f)
     {

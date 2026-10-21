@@ -30,6 +30,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(ParryClashAssets.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(WorldLightingBuild.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(DungeonArenaBuild.Art, "*", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles(DungeonHangingLanternBuild.Art, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(DungeonPixelRoomBuild.Art, "*", SearchOption.AllDirectories))
             .Concat(new[] { "Assets/Settings/UniversalRP.asset", "Assets/Settings/DungeonForward.asset", "Assets/Settings/DungeonPresentation.asset" }).ToArray();
         paths = paths.Concat(Directory.GetFiles(ShogunEnvironment.Art, "*"))
@@ -92,7 +93,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
                 PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
                 CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'), BlackletterTitleBuild.Art.TrimEnd('/'),
-                DungeonArenaBuild.Art.TrimEnd('/'), DungeonPixelRoomBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings",
+                DungeonArenaBuild.Art.TrimEnd('/'), DungeonHangingLanternBuild.Art.TrimEnd('/'), DungeonPixelRoomBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings",
                 ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }, "build/PixelUI/PixelUI.unitypackage",
                 ExportPackageOptions.Recurse);
             if (Directory.Exists("Assets/Scenes/SampleScene"))

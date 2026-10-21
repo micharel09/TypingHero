@@ -291,20 +291,21 @@ Full surface art, B/C and parent integration remain separate.
 
 ## Isolated pixel dungeon preview (2026-10-20; visual review pending)
 
-Hanging combat key verified2026-10-21 on isolated branch `micharel09/combat-hanging-light`:
-replace the foreground torch with an open iron frame, chain and wood beam resting
-on the front piers. Reuse the foreground light/holder and original fire triangles.
-Flame center is horizontally centered on combat,2WU in front,3.65WU above floor.
-Main realtime point40/range16 is fixed; two rear torches16/range15 share emission
-and bounded+/-2percent phase. Open lower frame clears the actor/floor light paths;
-iron/wood cast real shadows, flame does not. Atlas2048/main512/rear256 retained.
-No camera/floor/exposure/bloom/gameplay/public-API change, hidden fill, GI or release.
-Scoped Unity2tests and final native17checks pass; camera center(640,360), actor-scale
-delta0%, actual main40 constant across240samples, rear within15.68..16.32,
-pause/Slayer restore and source world position preserved. Nine camera poses and
-36sampled sweep frames reviewed. Frame p50/p95:13.35/26.76 ->13.40/26.87ms;
-mean15.80 ->18.26ms in one20s active run per player; no frame-cost equivalence/FPS
-claim. [Checkpoint](../plans/combat-hanging-light.md) has exact receipts and limitations.
+Hanging combat lantern verified2026-10-21 on isolated branch
+`micharel09/combat-hanging-light`:
+  Original KayKit FBX472triangles unchanged; derived frame446 plus thin glass40,
+  total486submitted lantern triangles. Chamber center3.37WU above floor; actual
+  fire/light center3.405WU, centered horizontally and2WU in front of combat.
+  Main24/range16/flicker0, rear16/range15/+/-2percent. Private fire material;
+  iron/wood emission0. Glass URP Lit black/alpha.12/emission(1,.38,.08),
+  no specular, ZWrite off, no cast/receive shadow. Environment child follows
+  Slayer hide/restore, excluded from flame flicker. Camera/floor/post/API unchanged.
+  Final QA110751 strict twice-run builder and native22gameplay/9camera checks PASS;
+  reused lighting lifecycle2/2. All9camera endpoints plus163frames/162transitions
+  in selected complete pan reviewed; no observed alpha pop or large floor outline.
+  One20s run per player, same Intel UHD/D3D11/1280x720: p9533.225->32.575ms;
+  not isolated GPU cost/equivalence/FPS evidence. No publication. Main integration
+  pending scope reconciliation with newer main; see [checkpoint](../plans/combat-hanging-light.md).
 
 GroundSurface retains one mesh/eight material groups and1x1WU tiles, deterministic
 ~25percent variants, Stone tint/metallic0/smoothness.02/Point/no-mips/no PBR links.

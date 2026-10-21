@@ -1,0 +1,4 @@
+metal0.png by FacadeGaikan; oak_planks.png by ARoachIFoundOnMyPillow.
+Both authors released these assets under CC0 on the source pages in Sources.json.
+CC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/
+Original tile pixels are preserved; derived atlas only packs/extrudes metal0.
