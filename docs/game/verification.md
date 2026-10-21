@@ -1,3 +1,25 @@
+## Dungeon full-effects candidate (2026-10-21, acceptance pending)
+
+- Focused DungeonRenderTests140215:4/4PASS, including exact particle count/time/
+  position/lifetime through pause and hide/restore, pinned cloth and owned world RT.
+- Final QA153315/input75e96989e28a55bfae019e71c6490fec05722c841c86bcfbb2aade776f50186b:
+  strict twice-run builder and WebGL PASS; player0ecd1b6a6c221b30. Native Edge155,
+  GTX1650Ti/D3D11,1280x720:15real-input/render checks PASS,zero exceptions/provider
+  reads/writes. Attack,received hit,parry,pause,Slayer/restore,menu and RT cleanup.
+- Static sprite review:247authored keys x16variants,219consecutive pairs +9loops
+  per variant, native+nearest2x dark; all247keys also checked on bright background
+  at native scale. Original albedo,animation timing,slicing,pivots and GUIDs retained.
+- Independent A/B26states and all nine camera stills inspected. Selected camera
+  video22.000-38.080s exported without resampling and checked frame by frame:
+  402frames/401transitions,including holds; full video952frames/timestamps match.
+  Real-time1x/quarter playback perception remains unverified; user review requested
+  because available image tools only display static frames. Do not mark visual PASS.
+- Matched pre-integration ABBA combat RAF p95 A20.135/20.270ms,B20.220/20.585ms;
+  same GTX1650Ti,Edge155,1280x720,input driver. Draws266.8->331.4; triangles~12421->14417.
+  Browser wrappers are observable submitted load,not GPU timings. No universal FPS claim.
+- Evidence and review.html retained under E:/CodexTemp/TypingHero/dungeon-full-lighting.
+  No game publication. Latest-main menu/physics integration and final acceptance pending.
+
 ## Dungeon and thin-glass lantern integrated (2026-10-21)
 
 - Remote main verified at f1ab52b, retaining latest main gameplay/HUD/Pimen systems

@@ -28,5 +28,5 @@ Material:
     - _DstBlend: 10
     - _Haze: 1
     m_Colors:
-    - _Tint: {r: 0.3, g: 0.4, b: 0.53, a: 0.04}
+    - _Tint: {r: 0.14, g: 0.19, b: 0.23, a: 0.075}
   m_BuildTextureStacks: []

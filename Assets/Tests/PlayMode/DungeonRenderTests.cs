@@ -6,6 +6,53 @@ using UnityEngine.TestTools;
 public sealed class DungeonRenderTests
 {
     GameObject host;
+    [UnityTest, Category("Quick")]
+    public IEnumerator EnvironmentClockPinsClothAndSurvivesPauseAndSlayerHiding()
+    {
+        host=new GameObject("environment clock lifecycle");host.SetActive(false);
+        var banner=new GameObject("cloth");banner.transform.SetParent(host.transform);
+        var filter=banner.AddComponent<MeshFilter>();
+        var mesh=new Mesh();mesh.vertices=new[]{new Vector3(-1,1,0),new Vector3(1,1,0),new Vector3(-1,-1,0),new Vector3(1,-1,0)};
+        mesh.triangles=new[]{0,2,1,1,2,3};mesh.RecalculateBounds();filter.sharedMesh=mesh;
+        var renderer=banner.AddComponent<MeshRenderer>();
+        var weather=new GameObject("rain");weather.transform.SetParent(host.transform);
+        var rain=weather.AddComponent<ParticleSystem>();
+        var motion=host.AddComponent<DungeonEnvironmentMotion>();
+        var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+        typeof(DungeonEnvironmentMotion).GetField("banner",flags).SetValue(motion,filter);
+        typeof(DungeonEnvironmentMotion).GetField("atmosphere",flags).SetValue(motion,new Renderer[]{renderer});
+        typeof(DungeonEnvironmentMotion).GetField("weather",flags).SetValue(motion,new[]{rain});
+        float previous=Time.timeScale;
+        try
+        {
+            Time.timeScale=1;host.SetActive(true);
+            for(int i=0;i<3;i++)yield return null;
+            Assert.That(filter.sharedMesh,Is.Not.SameAs(mesh));
+            Assert.That(filter.sharedMesh.vertices[0],Is.EqualTo(mesh.vertices[0]));
+            Assert.That(filter.sharedMesh.vertices[1],Is.EqualTo(mesh.vertices[1]),"top seam stays attached");
+            var block=new MaterialPropertyBlock();renderer.GetPropertyBlock(block);
+            float held=block.GetFloat("_DungeonAge");Assert.That(held,Is.GreaterThan(0));
+            rain.Emit(1);
+            Time.timeScale=0;yield return null;yield return null;
+            float particleTime=rain.time;
+            var particles=new ParticleSystem.Particle[32];int particleCount=rain.GetParticles(particles);
+            Assert.That(particleCount,Is.GreaterThan(0));var particle=particles[0];
+            renderer.GetPropertyBlock(block);Assert.That(block.GetFloat("_DungeonAge"),Is.EqualTo(held));
+            Assert.That(rain.isPaused,Is.True);
+            host.SetActive(false);Assert.That(filter.sharedMesh,Is.SameAs(mesh));
+            host.SetActive(true);yield return null;
+            renderer.GetPropertyBlock(block);Assert.That(block.GetFloat("_DungeonAge"),Is.EqualTo(held));
+            Assert.That(rain.isPaused,Is.True);
+            Assert.That(rain.time,Is.EqualTo(particleTime));
+            Assert.That(rain.GetParticles(particles),Is.EqualTo(particleCount));
+            Assert.That(particles[0].position,Is.EqualTo(particle.position));
+            Assert.That(particles[0].remainingLifetime,Is.EqualTo(particle.remainingLifetime));
+            Time.timeScale=1;yield return null;yield return null;
+            renderer.GetPropertyBlock(block);Assert.That(block.GetFloat("_DungeonAge"),Is.GreaterThan(held));
+            Assert.That(rain.isPlaying,Is.True);
+        }
+        finally {Time.timeScale=previous;Object.Destroy(mesh);}
+    }
     [UnityTearDown] public IEnumerator Cleanup()
     {
         if (host) Object.Destroy(host);

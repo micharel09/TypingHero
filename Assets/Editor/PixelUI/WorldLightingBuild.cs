@@ -19,7 +19,7 @@ internal static class WorldLightingBuild
             AssetDatabase.CreateAsset(material, Root + "WorldLit.mat");
         }
         var prepared = new System.Collections.Generic.HashSet<string>();
-        foreach (string folder in new[] { "Assets/Characters/Player", "Assets/Characters/Enermy" })
+        foreach (string folder in new[] { "Assets/Characters/Player", "Assets/Characters/Enermy", "Assets/Art/EndlessSkeletons" })
             foreach (string guid in AssetDatabase.FindAssets("t:AnimationClip", new[] { folder }))
             {
                 var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath(guid));
@@ -118,7 +118,11 @@ internal static class WorldLightingBuild
     }
     static void PrepareSurface(string path, System.Collections.Generic.HashSet<string> prepared)
     {
-        if (path.EndsWith(".png", System.StringComparison.OrdinalIgnoreCase) && prepared.Add(path)) SurfaceNormalAssets.Prepare(path);
+        if (path.EndsWith(".png", System.StringComparison.OrdinalIgnoreCase) && prepared.Add(path))
+        {
+            SurfaceNormalAssets.Prepare(path);
+            SurfaceNormalAssets.PrepareMaterials(path);
+        }
     }
     static void PrepareRig()
     {

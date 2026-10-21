@@ -854,3 +854,194 @@ do not follow shared toolchain/home symlinks. Parent untouched, no push/publish/
 Full matched WebGL frame/shadow cost, complete mirror/animation and opponent-transition
 matrix remain outside this correction's verified scope. Earlier visual acceptance
 statements are superseded by this section. No60FPS/performance acceptance claimed.
+
+## Full dungeon lighting implementation â€” 2026-10-21 (in progress)
+
+Source intent: implement all groups from pixel-25d-lighting in normal combat,
+retaining the accepted room, camera, lantern, gameplay and latest UI. No release.
+Base origin/main: 3669597f2cbc9bcf92d9fcd9b767a2273c7f4597.
+Orca task branch: micharel09/dungeon-full-lighting; independent checkout
+C:/Users/ADMIN/orca/workspaces/TypingHero/dungeon-full-lighting. Parent WIP untouched.
+Evidence/helpers: E:/CodexTemp/TypingHero/dungeon-full-lighting.
+
+Acceptance checklist (all still require final visual/runtime acceptance):
+- Hero and every active opponent animation: aligned body normals, material masks,
+  four white-light directions, mapped/flat A/B and both facings; every frame and transition.
+- Alpha-aware depth/shadow, floor contact, material response and bloom.
+- Actor focus with near/far environment DOF; haze, dust and source-aligned beams.
+- Clipped planar reflection of moving actors and source lights on wet stone.
+- Sparse background rain/drips, pinned hanging cloth, UV/noise emissive rune
+  synchronized with its local light; accepted lantern settings retained.
+- Pause, Slayer hide/restore, attack/hit/parry, menu return and render-target cleanup.
+- Bright/dark backgrounds; nine camera pan/FOV poses and complete transitions.
+- Same-pose/time/exposure/resolution effect A/B and full combination; matched timing.
+- Builder twice, GUID/reference stability, scoped lifecycle tests, WebGL QA.
+
+Implementation route: existing URP forward sprite pass with alpha-clipped depth and
+shadow; companion maps share original sprite UVs. The material map is a palette-based
+DRAFT, not approved body/material artwork. Actor normal cross-section fitting is also
+unverified artwork until the required per-frame lighting review. No silhouette,
+pivot, slicing, authored timing or albedo edits are intended.
+
+New environment components own their private cloth mesh and reflection camera/texture.
+Environment remains under DungeonArena3D, the existing Slayer activation boundary.
+Planar reflection uses a horizontal plane, excludes its receiver, clips below the
+surface, guards recursion and restores culling in finally. It cannot represent
+nonplanar stone geometry. Reflection captures half the 320x180 world resolution;
+this is a proposed budget, not an observed performance acceptance.
+
+Checks so far:
+- Initial serialize input 2575ef49 failed protected font byte check solely because
+  Windows checkout CRLF became Unity LF. Normalized CobblestoneUI64 content hash
+  937cdeb37c66fd87164ef7f8f6482ef27cdcd758fde48160badeb59f5dd2f328 matches.
+  Normalized YAML line endings in this isolated checkout; no font change accepted.
+- Serialize input 2a4039c7 compiled, then strict repeat found DungeonSprite metallic
+  0 -> 1 between first/second outputs. Added immediate material asset save; recheck pending.
+- Scoped DungeonRenderTests input d841635e: 4/4 PASS on Unity2022.3.25f1/fly-server.
+  Covers pinned top seam, private mesh restore, shared clock pause/hide/resume,
+  particle pause/resume, accepted fixed lamp, bounded rear flicker and world RT lifecycle.
+  Does not establish GPU reflection rendering, visual quality or performance.
+- Final build, generated assets, complete frame review, native QA/performance,
+  commit/push/integration are pending. Do not report this task complete.
+
+
+Implementation checkpoint update:
+- Native candidate1 (a7f1bf14 input; player 1ace306beec40dbf): 12 scoped checks PASS,
+  Edge155 / Intel UHD / ANGLE D3D11. Real attack, received hit, parry, pause,
+  Slayer and restore, then menu return; zero exceptions/provider reads/writes.
+  This player predates the reflection renderer correction and final palette mask;
+  it is not full-effect visual acceptance. after/attack/pause/parry/Slayer/restore
+  images and the complete41.76s recording remain in the task evidence directory.
+- Direct inspection of the installed URP14.0.11 RenderSingleCamera source confirms
+  it only retrieves additional camera data for Game cameras. The Reflection camera
+  type selected the pipeline's default2D renderer. Replaced it with an owned Game
+  camera plus DungeonCaptureCamera marker for the actor pass. Final native proof pending.
+- Baseline HEAD-only snapshot492cb203 built with strict repeat PASS, preserving
+  player at results/20261021T131938-webgl/player and local baseline-player.
+- Complete authored-key inventory:28sprite clips/247keys, including held/repeated
+  keys and original times, at clip-scope.json. Export count is not visual review.
+- Updated full scene audit includes stripped prefab records:1866existing records,
+  0removed,21new. Six existing records change (four atmosphere renderer enable flags,
+  arena component list and child references). All other existing records retain their
+  original content. New records are appended to avoid unrelated serializer reordering.
+- Material draft now excludes the hero's cream scarf from steel, and grows skeleton
+  steel from the source's neutral204palette through adjacent neutral highlights,
+  stopping at pale blue bone/brown grips. Per-frame artwork acceptance remains pending.
+
+
+Latest checkpoint (14:05UTC; integration pending):
+- Extended the wet receiver to cover the visible foreground. Native screenshots now
+  directly show hero/enemy/light reflections below the combat lane. Camera/floor/
+  accepted lantern geometry and all old Light records remain unchanged.
+- Candidate4 input44b8190a/player98362c163dc45cf3 (result134641): native15checks PASS,
+  zero exceptions/provider reads/writes. Read-only observer proves the actual capture
+  renderer is UniversalRenderer; Slayer releases the private planar target and menu
+  return leaves zero owned world/planar targets and zero capture cameras.
+  The single-line reflection PNG was truncated at Unity's8191-character log limit;
+  that invalid PNG is NOT visual evidence. Next fixture emits2000-character chunks.
+- Particle lifecycle regression was found by stronger tests: child particle data is
+  cleared before parent OnDisable, and restoring during parent OnEnable is too early.
+  DungeonEnvironmentMotion now retains bounded particles/playback state in LateUpdate
+  and restores after child callbacks, in Update (or LateUpdate if enabled late).
+  No trails are enabled in these systems. Relevant API guidance:
+  https://docs.unity3d.com/kr/2022.2/ScriptReference/ParticleSystem.GetPlaybackState.html
+  Actual Unity2022.3.25f1 scoped run140215/input44c7b805:4/4PASS, including count,
+  time, exact position and remaining lifetime after pause/hide/restore. Earlier
+  extended runs133629/134534/135711 failed and are retained, not acceptance.
+- Old frame fixture's3captures are empty intro screens and do not count as visual
+  review. Revised fixture directly loads byte-identical source sprites from temporary
+  Resource copies with original slicing/pivot and aligned companion maps. Manifest
+  resolves247keys from28atlases by original GUID/fileID/name. Four white directions,
+  mapped/flat and two facings occupy16cells. A4x-native diagnostic viewport and full
+  authored-timing/quarter-speed modes are prepared; actual inspection remains pending.
+- Old A/B fixture threw on inactive torch Apply; its captures are not acceptance.
+  Fixture now filters inactive torches and disables UI graphics after regular UI updates.
+- Baseline134911 was intentionally canceled and its exact owned container stopped;
+  do not use that partial run. Other projects/containers were inspected but untouched.
+  Build a latest-UI baseline from origin/main for matched performance after final build.
+- Source includes upstream UI patch from origin/main (edfc3b6), preserved separately as
+  upstream-ui.patch/upstream-scene.patch in task evidence. These incoming changes must
+  be excluded from the task commit, then merged through Git before remote integration.
+- Latest final review build is running through E:/CodexTemp/TypingHero/dungeon-full-lighting/review-run.py.
+  Pending: final generated artifacts/source PNG metas, native/diagnostic A/B, complete
+  frame/transition evidence, camera video review and matched draw/frame samples;
+  then memory updates, scoped diff checks, commit/push/merge/remote proof and cleanup.
+
+
+Latest verified progress:
+- WebGL66189fcb first failed g_FieldOffsetTable linkage; rebuilding only generated
+  library/Bee/artifacts/WebGL under the runner lock then passed on the SAME input,
+  result144147/playera0ec514d0a4c27b3. Import cache/source/toolchain unchanged.
+  Exact input retained as input-66189fcb...tgz in task evidence. No Unity/package upgrade.
+- Corrected frame fixture now displays real16-cell matrices. Directly inspected
+  provisional key0 at4x: low forward stance, scarf/blade attachment intact, differing
+  mapped/flat shoulder response and correct mirrored silhouettes, no clipping.
+  Keys1/2 were captured but not inspected; no full-frame acceptance yet.
+- A/B fixture failure is isolated to cloning a LIVE deformed cloth mesh: disabling
+  the source destroys the shared runtime mesh. Revised fixture reinitializes its
+  cloth from the source's persistent authored mesh before hiding the source.
+- Atlas audit found hero death2944x128 with albedo default platform4096 while companion
+  importers defaulted2048. Editor generation now raises companion max size to fit
+  source dimensions, preserving original color atlas/slicing/pivot/timing.
+- Preliminary matched non-video AB (before final companion importer update): native
+  Edge155/IntelUHD/D3D11, same1280x720/input driver. Combat RAF p95 A33.245ms/B33.210ms,
+  n240/242; sampled engine p95 A33.785/B33.175ms. Mean combat draws266.94/331.15,
+  triangles12509/14356, measured through identical WebGL wrappers. Both4checks PASS,
+  zero exceptions/provider reads/writes. Not GPU timings or final ABBA acceptance.
+- Latest baseline built142534/input56fdef1c/player3e0bacb44182773e, based on
+  origin/main edfc3b6942fb22e0b29dc16c71060718d1fb69eb with latest name-background UI.
+- Final4K companion build and mesh-safe A/B fixture builds are queued/running.
+  No task commit, push or main integration yet; complete visual evidence remains required.
+
+
+Full-effects verification update (2026-10-21, still in progress):
+- Directly inspected all247 authored keys from28clips, each in16cells: L/R/Up/Down,
+  mapped/flat, both facings, at native448x352 matrix and nearest-neighbor2x.
+  Also inspected all219 consecutive authored-key pairs and9 loop endpoint pairs
+  in each variant (3504+144pairs). Per-key observations remain in
+  E:/CodexTemp/TypingHero/dungeon-full-lighting/frame-review-notes.json;
+  frame-evidence.csv contains3952per-frame/variant rows. Playback/runtime joins and
+  bright-background coverage are still pending; these counts are static inspection.
+- Static observations: scarf/blade grips remain attached; mapped skull/shoulder and
+  round shield response changes with white source direction, mirrored UV/alpha
+  stays registered. Thin bone/rib gaps remain open. Authored hit flashes, death
+  white conversion and weapon smears are retained, not repainted by this task.
+- All generated assets in144147 and151453 are byte-identical (final4k-hash-diff.json).
+  Correction to earlier importer concern: serialized default platform for death
+  companions already reads4096; legacy top-level field reads2048. Explicit size
+  assignment preserves the effective4096 and produced no asset changes.
+  Snapshot differences66189->75e969 contain only SurfaceNormalAssets importer
+  assignment and disposable diagnostics; shipping runtime/shaders are identical.
+- Source contract audit: no color PNG, AnimationClip or AnimatorController changes;
+  changed source PNG metas differ only in secondaryTextures, original GUIDs retained.
+  Generated501files imported with original scene record order/unchanged whitespace.
+- Final matched ABBA: Edge155.0.4283.62, ANGLE/D3D11 GTX1650Ti,1280x720, isolated
+  no-video20s real-input driver, identical draw wrappers, focused/visible combat.
+  A1/A2 RAF p95=20.135/20.270ms(n404/412), B1/B2=20.220/20.585ms(n400/407).
+  Mean draws A266.68/266.91,B331.43/331.42; triangles A12340/12502,B14425/14408.
+  Sampled engine p95 A22.80/20.52ms,B21.37/21.44ms. No GPU-time claim or cross-GPU
+  comparison. All four runs4checks PASS,zero exceptions/provider reads/writes.
+  Raw timing-final-{A1,B1,B2,A2}.json and performance-final.json retained in evidence.
+- Mesh-safe A/B diagnostic build153315/input75e969 is currently linking.
+  Pending: A/B visual/every camera transition; authored playback/bright background;
+  final native flow and reflection lifetime; final memory/diff/commit/integration.
+
+Final isolated QA candidate153315/player0ecd1b6a6c221b30:
+- Strict repeat builder/WebGL PASS; native15PASS,zero exceptions/provider effects.
+- Inspected all26A/B stills and9camera poses. Reflection-off removes reflected actors/
+  lamps; normals-off flattens skull/shoulders; metallic-off changes blade response;
+  roughness-zero tightens highlights; DOF-off sharpens bricks while actors stay clear.
+  Light-off distinguishes physical illumination from visible beam/emissive VFX.
+  Haze/fog/bloom controls visibly differ; rain crop shows faint rear streaks.
+- Bright background247keys/16variants inspected at native size. Dark review is native
+  and nearest2x. camera-video-scope.json records402/402selected frames and401/401pairs
+  viewed over22.000-38.080s; nine pans/FOV transitions,holds and return included.
+- Authored playback recordings exist at1x(245keys reached across28clips; render cadence
+  can skip16.7ms keys) andquarter(247keys/28clips). This is capture/log coverage,
+  not visual real-time playback acceptance. review.html links both and final gameplay.
+- User confirmation of perceived rhythm/readability requested through async question:
+  available tools display static frames only; sprite-frame-review explicitly requires
+  normal/slow playback. Do not infer acceptance from elapsed time or script counts.
+- origin/main advanced to f7bfc67 with dungeon menu,compact pause/settings and parry
+  physics. Integrate those changes normally and recheck affected native flows before
+  any main push. Parent dirty checkout remains untouched. No task commit/push yet.

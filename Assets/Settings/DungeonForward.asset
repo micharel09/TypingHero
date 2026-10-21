@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   m_Active: 1
   blurShader: {fileID: 4800000, guid: 9d1300faa0c6451daf9cedab37b16316, type: 3}
-  blurRadius: 0
+  blurRadius: 0.65
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

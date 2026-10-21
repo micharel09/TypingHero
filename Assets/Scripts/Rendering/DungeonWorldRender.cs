@@ -18,6 +18,11 @@ public sealed class DungeonWorldRender : ScriptableRendererFeature
     }
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData data)
     {
+        if (data.cameraData.camera.TryGetComponent<DungeonCaptureCamera>(out _))
+        {
+            renderer.EnqueuePass(actors);
+            return;
+        }
         if (!data.cameraData.camera.TryGetComponent<DungeonArenaCamera>(out var arena) || !arena.WorldTexture) return;
         if (blur && blurRadius > 0 && !arena.Cinematic)
         {

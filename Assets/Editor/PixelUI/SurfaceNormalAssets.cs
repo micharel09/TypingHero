@@ -11,7 +11,8 @@ internal static class SurfaceNormalAssets
     {
         string guid = AssetDatabase.AssetPathToGUID(sourcePath);
         string output = WorldLightingBuild.Root + "Normals/" + guid + ".png";
-        if (!File.Exists(output))
+        bool actor = sourcePath.Contains("male_hero") || sourcePath.ToLowerInvariant().Contains("skeleton");
+        if (!File.Exists(output) || actor)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var source = new Texture2D(2, 2, TextureFormat.RGBA32, false);
@@ -37,24 +38,47 @@ internal static class SurfaceNormalAssets
                 {
                     int region = Region(x,y); if (region == 0) continue;
                     float nx = 0, ny = 0;
-                    for (int d = 1; d <= 2; d++)
+                    if (actor)
                     {
-                        nx += ((Region(x-d,y) == region ? 1 : 0) - (Region(x+d,y) == region ? 1 : 0)) / (float)d;
-                        ny += ((Region(x,y-d) == region ? 1 : 0) - (Region(x,y+d) == region ? 1 : 0)) / (float)d;
+                        // Fit the local material cross-section, rather than deriving
+                        // height from painted brightness or beveling only two edge pixels.
+                        int Distance(int dx,int dy)
+                        {
+                            int d=1;while(d<12 && Region(x+dx*d,y+dy*d)==region)d++;return d;
+                        }
+                        int left=Distance(-1,0),right=Distance(1,0),down=Distance(0,-1),up=Distance(0,1);
+                        nx=(left-right)/(float)(left+right);
+                        ny=(down-up)/(float)(down+up);
+                        float verticalWeight=Mathf.Clamp((left+right)/(float)(down+up),.25f,1);
+                        ny*=verticalWeight;
                     }
-                    var n = new Vector3(nx * .36f, ny * .36f, 1).normalized;
+                    else
+                    {
+                        for (int d = 1; d <= 2; d++)
+                        {
+                            nx += ((Region(x-d,y) == region ? 1 : 0) - (Region(x+d,y) == region ? 1 : 0)) / (float)d;
+                            ny += ((Region(x,y-d) == region ? 1 : 0) - (Region(x,y+d) == region ? 1 : 0)) / (float)d;
+                        }
+                    }
+                    var n = new Vector3(nx * (actor ? 1.1f : .36f), ny * (actor ? 1.1f : .36f), 1).normalized;
                     normals[y * source.width+x] = new Color(n.x*.5f+.5f,n.y*.5f+.5f,n.z*.5f+.5f,1);
                 }
             }
             var texture = new Texture2D(source.width, source.height, TextureFormat.RGBA32, false, true);
-            texture.SetPixels32(normals); texture.Apply(); File.WriteAllBytes(output, texture.EncodeToPNG());
+            texture.SetPixels32(normals); texture.Apply();
+            var encoded=texture.EncodeToPNG();
+            int requiredSize=Mathf.NextPowerOfTwo(Mathf.Max(texture.width,texture.height));
+            bool changed=!File.Exists(output)||!File.ReadAllBytes(output).SequenceEqual(encoded);
+            if(changed)File.WriteAllBytes(output,encoded);
             Object.DestroyImmediate(source); Object.DestroyImmediate(texture);
-            AssetDatabase.ImportAsset(output);
+            if(changed)AssetDatabase.ImportAsset(output);
             var normalImporter = (TextureImporter)AssetImporter.GetAtPath(output);
             normalImporter.textureType = TextureImporterType.NormalMap;
             normalImporter.filterMode = FilterMode.Point; normalImporter.mipmapEnabled = false;
             normalImporter.textureCompression = TextureImporterCompression.Uncompressed;
-            normalImporter.npotScale = TextureImporterNPOTScale.None; normalImporter.SaveAndReimport();
+            normalImporter.npotScale = TextureImporterNPOTScale.None;
+            normalImporter.maxTextureSize=Mathf.Max(normalImporter.maxTextureSize,requiredSize);
+            normalImporter.SaveAndReimport();
         }
         var importer = (TextureImporter)AssetImporter.GetAtPath(sourcePath);
         var textures = importer.secondarySpriteTextures.ToList();
@@ -64,5 +88,68 @@ internal static class SurfaceNormalAssets
         var secondary = new SecondarySpriteTexture { name = "_NormalMap", texture = normal };
         if (index < 0) textures.Add(secondary); else textures[index] = secondary;
         importer.secondarySpriteTextures = textures.ToArray(); importer.SaveAndReimport();
+    }
+
+    // Palette-based material draft. This never changes albedo, alpha or sprite metadata.
+    internal static void PrepareMaterials(string sourcePath)
+    {
+        if (!sourcePath.Contains("male_hero") && !sourcePath.ToLowerInvariant().Contains("skeleton")) return;
+        string output = WorldLightingBuild.Root + "Normals/" + AssetDatabase.AssetPathToGUID(sourcePath) + "-surface.png";
+        {
+            var source = new Texture2D(2,2,TextureFormat.RGBA32,false);
+            source.LoadImage(File.ReadAllBytes(sourcePath));
+            var pixels = source.GetPixels32(); var masks = new Color32[pixels.Length];
+            bool bone = sourcePath.ToLowerInvariant().Contains("skeleton");
+            var weapon = new bool[pixels.Length];
+            if (bone)
+            {
+                // The source skeleton palette reserves neutral204 for steel.
+                // Grow only through adjacent neutral highlights; pale blue bone
+                // and brown grips stop the fill, including across atlas frames.
+                var pending=new System.Collections.Generic.Queue<int>();
+                for(int i=0;i<pixels.Length;i++)
+                    if(pixels[i].a>=128 && pixels[i].r==204 && pixels[i].g==204 && pixels[i].b==204)
+                    {weapon[i]=true;pending.Enqueue(i);}
+                while(pending.Count>0)
+                {
+                    int i=pending.Dequeue(),x=i%source.width,y=i/source.width;
+                    foreach(int next in new[]{x>0?i-1:-1,x+1<source.width?i+1:-1,y>0?i-source.width:-1,y+1<source.height?i+source.width:-1})
+                    {
+                        if(next<0||weapon[next])continue;var c=pixels[next];
+                        if(c.a<128||c.r!=c.g||c.g!=c.b||c.r<200)continue;
+                        weapon[next]=true;pending.Enqueue(next);
+                    }
+                }
+            }
+            for(int i=0;i<pixels.Length;i++)
+            {
+                var c=pixels[i];
+                float maximum=Mathf.Max(c.r,Mathf.Max(c.g,c.b)), minimum=Mathf.Min(c.r,Mathf.Min(c.g,c.b));
+                bool neutral=maximum-minimum<35;
+                // Pale skeleton regions remain rough bone, rather than becoming metal.
+                bool metal=bone?weapon[i]:neutral && maximum>125 && maximum<225 && c.r<=c.b;
+                bool skin=c.r>c.g*1.08f && c.g>c.b*1.12f;
+                masks[i]=new Color(metal?.7f:0,metal?.28f:skin?.65f:.9f,0,1);
+            }
+            var map=new Texture2D(source.width,source.height,TextureFormat.RGBA32,false,true);
+            map.SetPixels32(masks);map.Apply();var bytes=map.EncodeToPNG();
+            int requiredSize=Mathf.NextPowerOfTwo(Mathf.Max(map.width,map.height));
+            bool changed=!File.Exists(output)||!File.ReadAllBytes(output).SequenceEqual(bytes);
+            if(changed)File.WriteAllBytes(output,bytes);
+            Object.DestroyImmediate(source);Object.DestroyImmediate(map);if(changed)AssetDatabase.ImportAsset(output);
+            var settings=(TextureImporter)AssetImporter.GetAtPath(output);
+            settings.textureType=TextureImporterType.Default;settings.sRGBTexture=false;
+            settings.filterMode=FilterMode.Point;settings.mipmapEnabled=false;settings.wrapMode=TextureWrapMode.Clamp;
+            settings.textureCompression=TextureImporterCompression.Uncompressed;settings.npotScale=TextureImporterNPOTScale.None;
+            settings.maxTextureSize=Mathf.Max(settings.maxTextureSize,requiredSize);
+            settings.SaveAndReimport();
+        }
+        var importer=(TextureImporter)AssetImporter.GetAtPath(sourcePath);
+        var textures=importer.secondarySpriteTextures.ToList();var mapTexture=AssetDatabase.LoadAssetAtPath<Texture2D>(output);
+        int index=textures.FindIndex(t=>t.name=="_MaterialMap");
+        if(index>=0 && textures[index].texture==mapTexture)return;
+        var secondary=new SecondarySpriteTexture{name="_MaterialMap",texture=mapTexture};
+        if(index<0)textures.Add(secondary);else textures[index]=secondary;
+        importer.secondarySpriteTextures=textures.ToArray();importer.SaveAndReimport();
     }
 }

@@ -22,6 +22,7 @@ Shader "CLACKBLADE/Dungeon Atmosphere"
                 half4 _Tint;
                 half _Haze, _DstBlend;
             CBUFFER_END
+            float _DungeonAge, _DungeonPulse;
             struct Attributes { float4 positionOS:POSITION; float2 uv:TEXCOORD0; };
             struct Varyings { float4 positionCS:SV_POSITION; float2 uv:TEXCOORD0; };
             Varyings Vert(Attributes v)
@@ -36,7 +37,8 @@ Shader "CLACKBLADE/Dungeon Atmosphere"
                 half across=pow(saturate(1-abs(i.uv.x*2-1)),1.6);
                 half ends=smoothstep(0,.16,i.uv.y)*(1-smoothstep(.7,1,i.uv.y));
                 half ellipse=pow(saturate(1-dot(i.uv*2-1,i.uv*2-1)),2);
-                return half4(_Tint.rgb,_Tint.a*lerp(across*ends,ellipse,_Haze));
+                half drift=.82+.18*sin(i.uv.x*19+i.uv.y*11+_DungeonAge*.4);
+                return half4(_Tint.rgb,_Tint.a*lerp(across*ends,ellipse,_Haze)*drift);
             }
             ENDHLSL
         }

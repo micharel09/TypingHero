@@ -21,7 +21,7 @@ Shader "Hidden/CLACKBLADE/Dungeon Depth Blur"
   }
   half4 Blur(float2 uv, float2 axis) {
    float depth = EyeDepth(uv);
-   float amount = saturate((depth - _DungeonFocus.x) / _DungeonFocus.y) * _DungeonFocus.z;
+   float amount = saturate((abs(depth - (_DungeonFocus.x - .75)) - .75) / _DungeonFocus.y) * _DungeonFocus.z;
    // Five taps span at most radius world pixels, rather than twice the radius.
    float2 delta = axis * _BlitTexture_TexelSize.xy * amount * .5;
    half4 color = SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, uv, 0) * .40262;

@@ -3,6 +3,11 @@ Shader "CLACKBLADE/Dungeon Sprite"
  Properties {
   [PerRendererData] _MainTex("Sprite", 2D) = "white" {}
   [PerRendererData] _NormalMap("Normal", 2D) = "bump" {}
+  [PerRendererData] _MaterialMap("Metallic / roughness / emission", 2D) = "white" {}
+  _NormalStrength("Normal strength", Range(0,2)) = .8
+  _Metallic("Metallic", Range(0,1)) = 0
+  _Roughness("Roughness", Range(0,1)) = .8
+  [HDR] _EmissionColor("Emission", Color) = (0,0,0,1)
   _Color("Tint", Color) = (1,1,1,1)
   _Cutoff("Alpha cutoff", Range(0,1)) = .35
   [HideInInspector] _RendererColor("Renderer color", Color) = (1,1,1,1)
@@ -18,8 +23,10 @@ Shader "CLACKBLADE/Dungeon Sprite"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
   TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
   TEXTURE2D(_NormalMap); SAMPLER(sampler_NormalMap);
+  TEXTURE2D(_MaterialMap); SAMPLER(sampler_MaterialMap);
   CBUFFER_START(UnityPerMaterial)
-  half4 _Color, _RendererColor, _FlashColor; float4 _Flip; half _Cutoff, _FlashAmount;
+  half4 _Color, _RendererColor, _FlashColor, _EmissionColor; float4 _Flip;
+  half _Cutoff, _FlashAmount, _NormalStrength, _Metallic, _Roughness;
   CBUFFER_END
   struct Attributes { float4 positionOS:POSITION; float2 uv:TEXCOORD0; half4 color:COLOR; };
   struct Varyings { float4 positionCS:SV_POSITION; float2 uv:TEXCOORD0; half4 color:COLOR; float3 positionWS:TEXCOORD1; };
@@ -40,12 +47,23 @@ Shader "CLACKBLADE/Dungeon Sprite"
    #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
    half4 Frag(Varyings i):SV_Target {
     half4 c=Sample(i); half3 n=UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap,sampler_NormalMap,i.uv));
+    n=normalize(half3(n.xy*_NormalStrength,n.z));
     n.xy *= _Flip.xy; n=normalize(TransformObjectToWorldDir(float3(n.xy,-n.z)));
-    Light key=GetMainLight(TransformWorldToShadowCoord(i.positionWS));
-    half3 illumination=SampleSH(n)+key.color*saturate(dot(n,key.direction))*key.distanceAttenuation*key.shadowAttenuation;
-    uint count=GetAdditionalLightsCount();
-    for(uint j=0;j<count;j++) { Light l=GetAdditionalLight(j,i.positionWS,half4(1,1,1,1)); illumination+=l.color*saturate(dot(n,l.direction))*l.distanceAttenuation*l.shadowAttenuation; }
-    return half4(lerp(c.rgb*illumination,_FlashColor.rgb,_FlashAmount),c.a);
+    half3 mask=SAMPLE_TEXTURE2D(_MaterialMap,sampler_MaterialMap,i.uv).rgb;
+    InputData input=(InputData)0;
+    input.positionWS=i.positionWS; input.normalWS=n;
+    input.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);
+    input.shadowCoord=TransformWorldToShadowCoord(i.positionWS);
+    input.bakedGI=SampleSH(n); input.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
+    input.shadowMask=half4(1,1,1,1);
+    SurfaceData surface=(SurfaceData)0;
+    surface.albedo=c.rgb; surface.alpha=c.a;
+    surface.metallic=mask.r*_Metallic;
+    surface.smoothness=1-saturate(mask.g*_Roughness);
+    surface.occlusion=1;surface.normalTS=half3(0,0,1);
+    surface.emission=mask.b*_EmissionColor.rgb*c.rgb;
+    half4 lit=UniversalFragmentPBR(input,surface);
+    return half4(lerp(lit.rgb,_FlashColor.rgb,_FlashAmount),c.a);
    }
    ENDHLSL
   }
