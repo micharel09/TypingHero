@@ -61,7 +61,7 @@ public sealed class MainMenuUI : MonoBehaviour
 
     void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.Tab) || LeaderboardModal.BlocksShortcuts || (help && help.IsOpen)) return;
+        if (!Input.GetKeyDown(KeyCode.Tab) || (LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts) || (help && help.IsOpen)) return;
         var events = UnityEngine.EventSystems.EventSystem.current;
         if (!events || !difficultySelector) return;
         var targets = new UnityEngine.UI.Selectable[] { nameInput, difficultySelector, playButton, tutorialButton };
@@ -121,7 +121,7 @@ public sealed class MainMenuUI : MonoBehaviour
 
     void Launch(bool replay)
     {
-        if (loadingScene || LeaderboardModal.BlocksShortcuts || (help && help.IsOpen)) return;
+        if (loadingScene || (LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts) || (help && help.IsOpen)) return;
         if (!nameInput) return;
 
         if (!PlayerIdentity.TrySetName(nameInput.text, out string normalized, out string err))
