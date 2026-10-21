@@ -245,7 +245,52 @@ Change only behavior explicitly requested. Update this file after relevant verif
   See the tutorial continuation in combat-feedback and verification for actual
   profile and release receipts.
 
-## World lighting / parry clash prototype (2026-10-18)
+## World lighting / parry clash
+
+### Approved Pimen flash with restored physics (approved and merged 2026-10-21)
+
+- Default BCompact now reuses the licensed free Pimen Hit Effect01 already in the
+  project. A fixed-pivot white-gold core and five orange outer cels replace voxel
+  contacts. Flash cels/material/pivot/size/color/timing are preserved from c12c3de;
+  the uncommitted48-particle revision is discarded. Budget24/clash,192/8leases:
+  core1/main2/front10/outer1/embers10, using the same five ParticleSystems.
+  Every particle starts at the captured weapon contact. Existing Compact material
+  supplies the22 billboard sparks; real Z motion and depth tests provide depth.
+- The birth frame renders all24particles at contact without advancing debris or
+  native contact time. If the first following frame exceeds33.3ms, debris takes
+  one16.7ms step so a cold render cannot skip its visible launch. That initial
+  presentation delay is discarded; subsequent frames use full unscaled delta.
+  Long travel, velocity/path/bounce/rest and gameplay clocks remain unchanged.
+- ParryContactLibrary v4 measures existing blade pixels in the actual cel's
+  pivot/PPU/flip/transform, captures before success/Hurt, and holds existing clean
+  contact cels70ms. Six weapon crops copy original RGBA exactly. The parried enemy's
+  SlashVolume alone is suppressed200ms, with its prior state restored on expiry,
+  disable/results or another parry. Animator events, hitboxes and50ms hitstop stay.
+- Twenty falling particles reuse cc06385 launch/brake120ms/gravity9.81 paths,
+  one22%vertical/55%tangent bounce and180ms rest/fade. Their lifetime derives from
+  the complete trajectory. Two short fragments end120-180ms; no replacement
+  particles. Length/width follow projected velocity and shrink to small pixels.
+  The old physics Back group now uses Embers, reserving Back for Pimen outer cels.
+  Local xorshift/ParticleSystem seeds do not consume gameplay random. Fixed22state/
+  10particle buffers and reused Custom1 data avoid per-frame allocation. Pause/
+  reading freeze age; clear/release/disable reset state and restore legacy modules.
+  Completion waits for both contact particles and the full falling tail.
+- Core alpha holds70ms and ends200ms; the outer authored sequence ends200ms.
+  Dedicated Point light peaks5, holds70ms and smoothstep-fades to0at280ms
+  (2.5at175ms), range3m. Pulses take the strongest, never sum; legacy140ms remains.
+  DungeonForward now binds URP PostProcessData, enabling bloom-only threshold4,
+  intensity.2/scatter.3, HDR contact8. The320-wide Point world and full-res HUD stay.
+- Dedicated Cinemachine channel2 recoils at most one world-render pixel after
+  hitstop and returns100ms; no lens/zoom change. Existing parry1 clip retains gain,
+  jitter narrows to.03volume/.35semitone and player_hand ducks80ms. Other impact
+  audio/shake/trails remain. Latest contact-origin correction passes focused
+  Quick31/31, strict repeated build and native86checks, including sword/axe/Slayer
+  at640/1280, pause and Continue. Direct rendered frames supplement the25fps sound
+  clips covering the full flight at1x/.25x. Previous-source short native p95 was
+  13.455/13.540ms; this timing-only correction has no new performance claim.
+  See [verification](verification.md). Local visual review remains open.
+
+### Historical parry iterations (superseded by the candidate above)
 
 Earlier pixel-ray prototype published to itch.io at user request2026-10-19; not merged.
 Current/A/B/C and BCompact comparison clips remain art-review samples. BCompact24 code is published in the 2026-10-19 release; BCompact24 is selected by the production parry owner after the default-selection correction.
@@ -291,7 +336,7 @@ Full surface art, B/C and parent integration remain separate.
   continuously to X/Zdrag2/s and ballistic Y.
   Second ground contact stops all axes at groundY+1/32. Full trajectory sets lifetime;
   yellow/orange/dark-red cooling and alpha fade from first ground contact through rest.
-  Projected speed sets integer16PPU lengths/widths down to1x1; depth scale is clamped
+  Before the voxel preview revision, projected speed sets integer16PPU lengths/widths down to1x1; depth scale is clamped
   .75-1.5before pixel rounding. Floor clearance limits silhouette; square1x1 masks
   remain visible. No replacement particles, blur, camera or gameplay changes.
   Fixed22state/10particle buffers and reused custom data avoid per-frame allocation.
@@ -306,13 +351,60 @@ Full surface art, B/C and parent integration remain separate.
   bytes/GUIDs/references and Inspector tuning remain unchanged. F6 affects next emission.
   Comparison clips remain review samples; BCompact24 is now used in production parries.
   Prior mirror p95 concerns remain separate and unresolved.
-- Normal/Slayer/lethal particle assignments are empty in builder, player/enemy
-  prefabs and SampleScene. Existing hit SFX, lethal shake, slash, flash, afterimages
-  and damage remain. Legacy PixelSparks/CodeManu/Pimen assets are retained unwired.
-- ParryClashBurst owns unscaled simulation, pause/tutorial hold, clear and completion;
+- Historical voxel preview replaced BCompact's flat core/ring and billboard sparks
+  with one shared closed cube mesh/material. Two offset contact cuboids (maximum
+  edge .5WU) hold alpha60ms and expire200ms; no expanding ring. Twenty-two fragments
+  use 2-3source-pixel edges, 1:1:1 or1:2:1 proportions, three-axis rotation and
+  hard-normal face shading with cooling emission. Analytical launch/fall/bounce
+  timing and RNG draws remain unchanged; renderer floor support accounts for mesh
+  volume and settles rotation onto a flat face by the end of the existing bounce.
+  Manual unscaled ages obey pause; reuse restores legacy mesh/material/vertex
+  streams, render alignment and size/rotation/simulation modules. Voxel migration1
+  preserves existing GUIDs/tuning and creates only its shared mesh/material refs.
+  Frozen compact contact completion uses particleCount, avoiding IsAlive on a
+  stopped simulation clock. Earlier flat-ring art was rejected by the user;
+  its technical receipts do not qualify the voxel appearance.
+  Compact light peaks5, holds70ms, smoothstep-fades to0at280ms (half2.5at175ms).
+  Each of eight pulse states owns its timing/profile; mixed overlap takes strongest,
+  never sums. Legacy profiles keep140ms quadratic falloff and existing intensity cap;
+  light radius and world bloom are unchanged. Voxel focused Quick19 passes;
+  WebGL build and Edge155 preview pass12checks (two real noF6 parries at1280/640, no exceptions/provider writes); voxel faces were inspected at both sizes. Earlier flat-ring native/performance
+  receipts are historical, not voxel validation. Publication is deferred until
+  visual review; see combat-feedback.
+### Shared 2.5D presentation
+
+- Full 2.5D conversion source wires Normal6/Slayer8/Lethal14 closed-mesh impacts.
+  Player received4/received-lethal6 and their light pulses are removed (2026-10-21);
+  PlayerDamageVoxel/ReceivedImpact stay detached after repeated builder runs.
+  Their scripts/assets/GUIDs remain for compatibility. Red Hurt, HP/SFX and the
+  white sprite death remain unchanged. Slayer tint is captured
+  before damage can exit the mode; normal lethal has no Slayer emission. New impact
+  random is isolated from gameplay random. Eight active leases per emitter bound
+  impact particles to112outgoing, alongside192parry particles (304total).
+  SlashVolume follows the actual source Sprite cel through SlashLibrary;9atlases
+  have slash-only RGBA separated into durable layers and thin closed meshes.
+  Actor pixels outside the authored masks, sprite metadata and clip events/timing
+  are preserved. Screen flash/cues/HUD remain2D; afterimages retain3sprite snapshots,
+  120/140/160ms lifetimes and25ms cadence, with shallow Z offsets and12active cap.
+  Existing hit SFX, lethal shake and damage remain. Legacy PixelSparks/CodeManu and
+  unused Pimen prefabs remain unwired; original Pimen01 supplies the current parry.
+  Prior focused27/shared native70 receipts describe these unchanged consumers;
+  earlier parry native66 includes historical received smoke. Particle removal
+  passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
+  Existing broader visual direction remains with its original review.
+- ParryClashBurst owns the stock contact clock and analytical unscaled debris clock,
+  pause/tutorial hold, clear and completion;
   PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.
   ClashLightingRig holds eight pulse states, renders strongest capped pulse through
-  one Light2D, and immediately cancels a disabled/released owner.
+  the active scene's Light2D or3D combat spotlight. In the3D arena a winning compact
+  parry uses its dedicated Point light and mutes the combat spotlight. Disabled or
+  released owners cancel immediately.
+- The current candidate incorporates the sibling dungeon-3d environment source:
+  Forward-rendered KayKit room, shallow10degree camera and its shared3D lights.
+  VFX uses actual room lighting and the visible mesh floor. DungeonCombatLighting
+  stays outside the geometry group hidden by Slayer, keeping mesh shading and
+  combat pulses alive during the red cinematic. Scoped build/native preview checks
+  pass; this does not qualify the sibling's broader room/performance acceptance.
 - WorldLightingBuild runs after ShogunTheme: lit actor/near-environment sprites,
   ambient/key/fill plus clash rig, fixed-body-foot contact shadows and thresholded
   world bloom. The preserved WorldMenuBackdrop is disabled by the final dungeon

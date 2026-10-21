@@ -132,3 +132,30 @@ preserved. Superseded task-owned queued builds were stopped; none remain active.
   Local player, ZIP, delivery and preview updated. Immutable player preserved at
   `/data/typinghero-game-loop/results/20261021T075801-production`.
   No full suite/tutorial/difficulty matrix.
+
+## Approved main integration (in progress)
+
+- User explicitly approved pushing this work into main. Task commit8179a0c is
+  pushed to `origin/micharel09/cobblestone-itch-release`.
+- Fetched origin/main atdbe663f; it contains approved 3D arena and combat/parry
+  work not present in the older HUD source. Merge into the task branch is in
+  progress; local dirty main atb36b55a and its WIP remain untouched (no stash/reset).
+- Resolved two conflicts: PixelUIBuild retains DungeonArenaBuild.Apply plus the
+  final HUD pass/typing guard; Scene retains the scaled right-hand status fields
+  AND all new arena objects.1545unique scene IDs, no conflict markers remaining.
+- Production integration build queued through the established wrapper in tool
+ 48197. Only normal/damage HUD320/640 native smoke and UI preservation are needed,
+  not a full suite. After pass: sync canonical scene, commit merge, fetch again,
+  push task and fast-forward origin/main, then verify remote ancestry.
+- Unity-generated whitespace inherited from main is retained; task diff against
+  origin/main passed scoped `git diff --check`. No unrelated whitespace cleanup.
+
+- Integration082906 /3fce8615 PASS: strict repeat + production bridge exclusion;
+  native combat/damage4captures320/640,0JS/shader errors/external requests.
+  Actual images inspected on3D arena.169existing UI RectTransforms byte-equivalent
+  to the approved HUD; score interior pixels identical at320/640. All671new main
+  arena objects remain byte-equivalent, scene1545IDs. Canonical scene synced.
+- The original palette scope audit now explicitly replays frozen56433a4->8179a0c;
+  main integration has its own receipt so the new arena is not misreported as
+  a HUD regression. Existing local8245 player remains the approved2D HUD preview;
+  merged3D artifact is preserved in the integration result and task temp folder.

@@ -8,6 +8,13 @@ Both HP digit labels and difficulty/DUEL line are hidden. Names, icons, stamina
 and backplates scale together; score/combo and typing tray remain unchanged.
 Corner anchors remain. No itch.io upload is authorized.
 
+Main integration combines this approved HUD with main's3D arena/combat changes.
+`main-integration.json` and `main-integration.png` record a separate normal build,
+four focused combat/damage captures and preservation of169UI RectTransforms plus
+671new main arena objects. `verify_scope.py` replays the frozen approved HUD diff
+56433a4→8179a0c; the integration receipt covers the later arena merge. Earlier
+local player/ZIP receipts remain the approved2D preview, not the merged3D artifact.
+
 `tools/game_loop/export_combat_r7.py` generates the original shared art unchanged
 and 26 isolated HUD variants under `Assets/Art/UI/CombatR7/DarkFantasy/`.
 Menu consumers retain the original art. `CombatR7Build` owns HUD sprite selection,

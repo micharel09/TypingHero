@@ -11,7 +11,7 @@ public sealed class SfxOnParrySuccess : MonoBehaviour
     [Header("Ducking")]
     [SerializeField] Transform ownerRoot;                // KÉO Player vào
     [SerializeField] string channelToDuck = "player_hand";
-    [SerializeField, Min(0f)] float duckSeconds = 0.06f;
+    [SerializeField, Min(0f)] float duckSeconds = 0.08f;
 
     [Header("Clang channel riêng")]
     [SerializeField] string clangChannel = "player_parry";
@@ -39,7 +39,7 @@ public sealed class SfxOnParrySuccess : MonoBehaviour
         Transform t = (useEnemyRoot && ctx.targetRoot) ? ctx.targetRoot : (playAt ? playAt : transform);
 
         // PHÁT BẤT CHẤP LIMITS
-        SfxPlayer.I.PlayOnChannelImportant(sfxParry, t.position, t, clangChannel, owner, 0f);
+        SfxPlayer.I.PlayOnChannelImportant(sfxParry, ctx.contact.valid ? ctx.contact.point : t.position, ctx.contact.valid ? null : t, clangChannel, owner, 0f);
 
         if (logs) Debug.Log("[PARRY] clang forced play.");
     }

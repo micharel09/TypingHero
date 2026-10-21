@@ -6,6 +6,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
 ART = ROOT / "Assets/Art/UI/CombatR7/DarkFantasy"
+BASE_REF = "56433a4"
+HUD_REF = "8179a0c"
 
 
 def guid(path):
@@ -60,8 +62,9 @@ def restore_compact_fields(text):
 
 def main():
     original = subprocess.check_output(
-        ["git", "show", "HEAD:Assets/Scenes/SampleScene.unity"], cwd=ROOT).decode()
-    candidate = (ROOT / "Assets/Scenes/SampleScene.unity").read_text()
+        ["git", "show", BASE_REF + ":Assets/Scenes/SampleScene.unity"], cwd=ROOT).decode()
+    candidate = subprocess.check_output(
+        ["git", "show", HUD_REF + ":Assets/Scenes/SampleScene.unity"], cwd=ROOT).decode()
     ids = lambda s: re.findall(r"(?m)^--- !u!\d+ &(-?\d+)", s)
     assert ids(original) == ids(candidate), "Scene object identities changed"
     mapping = {}
@@ -96,10 +99,11 @@ def main():
         import difflib
         print("".join(difflib.unified_diff(before.splitlines(True), after.splitlines(True)))[:6000])
         raise AssertionError("Unexpected non-palette scene changes")
-    menu = ROOT / "Assets/Scenes/MainMenu.unity"
-    assert menu.read_bytes().replace(b"\r\n", b"\n") == subprocess.check_output(
-        ["git", "show", "HEAD:Assets/Scenes/MainMenu.unity"], cwd=ROOT).replace(b"\r\n", b"\n")
-    receipt = {"sceneIDs": len(ids(original)), "menuUnchanged": True,
+    menu = subprocess.check_output(["git", "show", HUD_REF + ":Assets/Scenes/MainMenu.unity"], cwd=ROOT)
+    assert menu.replace(b"\r\n", b"\n") == subprocess.check_output(
+        ["git", "show", BASE_REF + ":Assets/Scenes/MainMenu.unity"], cwd=ROOT).replace(b"\r\n", b"\n")
+    receipt = {"baseRef": BASE_REF, "hudRef": HUD_REF, "scope": "approved HUD before main arena integration",
+               "sceneIDs": len(ids(original)), "menuUnchanged": True,
                "completeSceneOnlyPaletteSpritesHpMaterialAndExplicitCompactFields": True,
                "healthBarLogicalWidth": 82, "sideHudScale": 0.8,
                "healthBarNativeWidthAfter": 65.6,

@@ -1,0 +1,6 @@
+KayKit Dungeon Remastered 1.1 ? Kay Lousberg
+CC0 1.0 Universal
+https://creativecommons.org/publicdomain/zero/1.0/
+Publisher license declaration: https://kaylousberg.itch.io/kaykit-dungeon-pack
+Original FBX (Unity) and original default atlas; FREE subset only.
+No generated models or textures.

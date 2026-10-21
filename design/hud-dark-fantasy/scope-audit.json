@@ -1,4 +1,7 @@
 {
+  "baseRef": "56433a4",
+  "hudRef": "8179a0c",
+  "scope": "approved HUD before main arena integration",
   "sceneIDs": 874,
   "menuUnchanged": true,
   "completeSceneOnlyPaletteSpritesHpMaterialAndExplicitCompactFields": true,

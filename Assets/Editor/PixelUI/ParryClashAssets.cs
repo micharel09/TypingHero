@@ -24,7 +24,10 @@ internal static class ParryClashAssets
                 var serialized = new SerializedObject(existing.GetComponent<ParryClashBurst>());
                 if (serialized.FindProperty("mainRays").objectReferenceValue)
                 {
-                    bool migrated = MigrateRayShape(existing, serialized);
+                    bool migrated = ParryPixelAssets.Migrate(serialized);
+                    migrated = MigrateVoxel(serialized) || migrated;
+                    migrated = MigrateContact(serialized) || migrated;
+                    migrated = MigrateRayShape(existing, serialized) || migrated;
                     migrated = MigrateCompact(existing, serialized) || migrated;
                     if (MigrateLengthSupport(existing, serialized) || migrated)
                         PrefabUtility.SaveAsPrefabAsset(existing, Root + "ParryClash.prefab");
@@ -45,6 +48,9 @@ internal static class ParryClashAssets
                 MigrateRayShape(existing, serialized);
                 MigrateLengthSupport(existing, serialized);
                 MigrateCompact(existing, serialized);
+                MigrateContact(serialized);
+                MigrateVoxel(serialized);
+                ParryPixelAssets.Migrate(serialized);
                 PrefabUtility.SaveAsPrefabAsset(existing, Root + "ParryClash.prefab");
             }
             finally { PrefabUtility.UnloadPrefabContents(existing); }
@@ -78,9 +84,55 @@ internal static class ParryClashAssets
             MigrateRayShape(root, so);
             MigrateLengthSupport(root, so);
             MigrateCompact(root, so);
+            MigrateContact(so);
+            MigrateVoxel(so);
+            ParryPixelAssets.Migrate(so);
             PrefabUtility.SaveAsPrefabAsset(root, Root + "ParryClash.prefab");
         }
         finally { Object.DestroyImmediate(root); }
+    }
+    static bool MigrateContact(SerializedObject so)
+    {
+        if (so.FindProperty("contactVersion").intValue >= 1) return false;
+        var material = RayMaterial("CompactContact", 0);
+        material.SetFloat("_Pixel", 1); EditorUtility.SetDirty(material);
+        so.FindProperty("compactContactMaterial").objectReferenceValue = material;
+        var ps = (ParticleSystem)so.FindProperty("contact").objectReferenceValue;
+        ps.GetComponent<ParticleSystemRenderer>().SetActiveVertexStreams(
+            new System.Collections.Generic.List<ParticleSystemVertexStream> {
+                ParticleSystemVertexStream.Position, ParticleSystemVertexStream.Color,
+                ParticleSystemVertexStream.UV, ParticleSystemVertexStream.UV2, ParticleSystemVertexStream.Custom1XYZW });
+        so.FindProperty("contactVersion").intValue = 1;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return true;
+    }
+    static bool MigrateVoxel(SerializedObject so)
+    {
+        if (so.FindProperty("voxelVersion").intValue >= 1) return false;
+        var mesh = AssetDatabase.LoadAssetAtPath<Mesh>(Root + "CompactVoxel.asset");
+        if (!mesh)
+        {
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                mesh = Object.Instantiate(cube.GetComponent<MeshFilter>().sharedMesh);
+                mesh.name = "CompactVoxel";
+                AssetDatabase.CreateAsset(mesh, Root + "CompactVoxel.asset");
+            }
+            finally { Object.DestroyImmediate(cube); }
+        }
+        var material = AssetDatabase.LoadAssetAtPath<Material>(Root + "CompactVoxel.mat");
+        if (!material)
+        {
+            material = new Material(Shader.Find("TypingHero/ParryVoxel"));
+            material.SetFloat("_Thermal", 1); material.SetFloat("_Emission", .08f);
+            AssetDatabase.CreateAsset(material, Root + "CompactVoxel.mat");
+        }
+        so.FindProperty("compactVoxelMesh").objectReferenceValue = mesh;
+        so.FindProperty("compactVoxelMaterial").objectReferenceValue = material;
+        so.FindProperty("voxelVersion").intValue = 1;
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return true;
     }
     static bool MigrateCompact(GameObject root, SerializedObject so)
     {
