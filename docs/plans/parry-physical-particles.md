@@ -21,9 +21,9 @@ Select Assets/Art/VFX/ParryClash/ParryPhysics.asset or duplicate it with Unity. 
 
 ## Verification status
 
-Implementation complete; verification in progress. Shared runner was initially occupied. Canceled only this task's pending initial process982780 (verified task command, lock-wait state and no children) before any Unity execution, replacing it with the final snapshot.
+Implementation and scoped verification complete. Shared runner was initially occupied. Canceled only this task's pending initial process982780 (verified task command, lock-wait state and no children) before any Unity execution, replacing it with the final snapshot.
 
-Canonical input8dfc8fc887f21b993b5cbbfaa8aa81841c123391479b0a1373a5208eb2a7d360, run20261021T145852-webgl: focused ParryClashTests + PhysicalParticleTests then QA build/repeated builder in one exclusive run. External adapter only normalizes known text inputs to LF and selects the existing Unity test filter; no product/runner source changes. Native viewport1280x720, actual keyboard parry, normal and mirrored fixture complete captured sequences and pause/reuse remain pending. Focused Unity37/37 PASS,0failed/skipped. QA build/repeat and native visual verification remain pending.
+Canonical input8dfc8fc887f21b993b5cbbfaa8aa81841c123391479b0a1373a5208eb2a7d360, run20261021T145852-webgl: focused ParryClashTests + PhysicalParticleTests then QA build/repeated builder in one exclusive run. External adapter only normalizes known text inputs to LF and selects the existing Unity test filter; no product/runner source changes. Focused Unity37/37 PASS,0failed/skipped; both QA builds/repeated builders pass. Native1280x720 actual-keyboard right/left15checks each, all110captured frames/108transitions and the five post-merge integration tests pass. Full source/limits are recorded below.
 
 ## Resources
 
@@ -42,6 +42,6 @@ Task artifacts: E:/CodexTemp/TypingHero/parry-physical-particles (runner adapter
 
 ## Delivery and cleanup
 
-- Feature branch micharel09/parry-physical-particles is pushed; final fast-forward to origin/main and ancestor verification follow the acceptance record. Parent dirty main is preserved.
+- Feature branch micharel09/parry-physical-particles and origin/main both verified at8126f0f62f7c1568f93f5000a3b5203c02ccb4d4; implementation515df92 and final task HEAD are ancestors of origin/main. This final checkpoint closure is documentation-only. Parent dirty main is preserved.
 - Retain E:/CodexTemp/TypingHero/parry-physical-particles for review/reproduction: both silent VFR clips, original native captures/JSON, per-frame CSV/sheets, XML/browser receipts, isolated normal/mirror players, input archives and external runner/fixture scripts. Disposable after the user no longer needs comparison or reproduction.
-- Six task Edge profiles were removed only after verifying no task Edge process remained. Task remote root /data/typinghero-game-loop/task-parry-physical-particles is removed after copying final receipts; shared source/library/cache/license/other jobs are preserved. Clean task worktree/local branch cleanup follows verified remote integration; remote task branch is retained for review and may be deleted manually once no longer needed.
+- Six task Edge profiles were removed only after verifying no task Edge process remained. Task remote root /data/typinghero-game-loop/task-parry-physical-particles was removed after copying final receipts and verifying no running container mounted it; shared source/library/cache/license/other jobs are preserved. Clean task worktree/local branch cleanup follows verified remote integration; remote task branch is retained for review and may be deleted manually once no longer needed.
