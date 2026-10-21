@@ -2012,3 +2012,25 @@ User removed the redundant text because Slayer already communicates guard break.
 - Focused ParryClashTests Quick20261019T152205:19/19PASS. QA WebGL20261019T152304 build PASS; source input8470def229e035afaf4bd833c139d3c103d4c32689a8909f921e5b611f7f1da8. Mesh bounds/normals, three-axis spin, floor/rest rotation, legacy renderer/streams/modules reuse, pause, 24/192 counts and existing trajectory lifecycle covered. LaunchPath/FlightPath are byte-identical to prior source.
 - Edge155.0.4283.62 preview12checks PASS: one real keyboard parry each1280x720/640x360, BCompact default/noF6, pause,0exceptions/fixture reads/writes. Impact/flight images inspected at both sizes: closed voxel forms have distinct lit/dark faces, no expanding ring; normal live control remains available. This is a focused preview, not human art approval, deep QA or a p95 measurement.
 - Copied only generated CompactVoxel mesh/material+metas and ParryClash prefab from this build. Prefab diff verified to contain exactly two new asset references plus voxelVersion1; all prior IDs/GUID refs/tuning are unchanged. YAML trailing whitespace normalized without behavior changes. No itch publication; keep older physics clips. Temporary preview player/helper/captures retained under E:/CodexTemp/TypingHero/parry-clash-lighting while visual review continues.
+
+
+## Normal strike accents (2026-10-21, verified local preview)
+
+- Focused Unity `20261021T060457-quick`:9/9 PASS,0failed/skipped,3.2342438s;
+  source `e95e1fc99ac76deadc972d4312af82761734b556a0db647880f2a1f340c6823d`.
+  Both dust directions/floor/180ms, core position/4pixels/40ms and route selection,
+  pause/reading/reuse/disable/Slayer clear, independent caps, twice-run builder,
+  one opening listener, and preserved outgoing/parry/removed received route.
+- Same-source main WebGL `20261021T060548-webgl` build/repeat PASS. Native Edge155,
+  GTX1650Ti ANGLE D3D11 at1280x720:18checks main plus10checks corrected miss fixture,
+  zero JS/managed exceptions/provider reads/writes. Miss build `20261021T063059-webgl`
+  moves only the QA enemy +10world-X before building; no fixture in the checkout.
+- Three matched-input samples per side: miss, normal hit and two hits. Inspected
+  all388selected render frames/382consecutive transitions, including held frames.
+  Silent1x/.25x exports preserve timestamps; full decode/count/PTS and playback
+  checked. Native cadence and tutorial holds are not exact lifetime measurements;
+  focused tests establish the180/40ms age limits. Second paired hit ends with
+  enemy counter-hit/tutorial reset; natural expiry is established separately.
+- Preview/local commit only; no new performance, full-profile, production or
+  publication claim. Detailed receipts, rejected fixture/harness attempts,
+  per-frame evidence paths and resource retention: [combat checkpoint](../plans/combat-feedback.md).

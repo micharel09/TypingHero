@@ -2904,3 +2904,108 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
 - After recording the scoped results above, removed the two owned local review/QA trees' disposable players, captures, profiles, reports, transfer archives and helper scripts. Verified no owned browser/helper was active and no reparse point existed before cleanup. Retained exactly the two requested ContactOrigin audio MP4s and the excluded candidate patch/source archive under contact-origin; the original29 protected reference clips elsewhere remain hash-identical. Candidate recovery retention lasts until explicitly discarded; final/reference clips are requested deliverables.
 - Removed12 verified owned remote input/player/result/source/build artifacts after checking no active container mounted the task directory and the source marker equaled4dc0cbfe. Shared Unity Library/cache/toolchain/license and unrelated task containers remain untouched. Older resources outside these owned review/integration trees were not part of this cleanup.
 - This documentation-only closure follows the verified merge. Remove the temporary integration worktree/branch after pushing this closure note and verifying its remote SHA. No itch deployment/publication was requested or performed.
+
+## Normal strike accents (2026-10-21, verified local preview)
+
+- User plan is the acceptance source: preserve animation/timing/gameplay; one low
+  three-cluster gray foot burst at the existing opening hook, 180ms/backward;
+  one cream 4-native-world-pixel core at the supplied nonlethal normal impact,
+  40ms. Existing fragments, parry, Slayer/lethal and removed received route stay.
+  Sizes/durations are trial design defaults, not reference-video measurements.
+- Child `micharel09/combat-strike-effects` at
+  `C:/Users/ADMIN/orca/workspaces/TypingHero/combat-strike-effects`, based on fetched
+  origin/main `dbe663f18fdf31183637007883d35caad3b7f1d0`. Dirty parent untouched.
+  Explicit task scope ends at local commit and preview; no push/deploy.
+- Implementation: StrikeAccentBurst, NormalStrikeEffects, StrikeAccentAssets;
+  existing HitSparkSpawner/PooledVFX pools, separate eight-accent lease cap,
+  immediate Slayer signal clear, pause/reading/result/owner lifetime handling.
+  Builder binds one component per player and creates assets only if absent.
+  QA bridge remains observation-only and reports accent count/age.
+- Required evidence: matched baseline/candidate 1280x720 real-keyboard miss,
+  normal hit, consecutive hits; each opening emits once, valid hit only;
+  pause/restart, Slayer switch, twice-run builder; full selected frame/transition
+  review and 1x/.25x playback. Completed receipts are recorded below.
+- Task evidence/helpers: `E:/CodexTemp/TypingHero/combat-strike-effects/`.
+  Isolated remote source/results/build: `/data/typinghero-game-loop/task-combat-strike-effects/`;
+  reuse shared toolchain/license/cache under the shared runner lock. Baseline
+  source was frozen before edits. Existing runner was busy; jobs wait without
+  stopping it. Focused Unity filter selects accent and directly affected impact/
+  builder checks, rather than the full Quick suite.
+- Prior reference evidence available at
+  `E:/CodexTemp/TypingHero/pixel-hit-reference-review-20261021/review.md` and clips
+  under `pixel-effects-comparison-20261021`. This implementation does not claim
+  a new complete reference-game study or an exact motion match.
+- Final focused Unity receipt: `20261021T060457-quick`, frozen source
+  `e95e1fc99ac76deadc972d4312af82761734b556a0db647880f2a1f340c6823d`:
+  9/9 passed, zero failed/skipped, 3.2342438s. Covers backward/floor dust in both
+  directions, exact core position/size/40ms and nonlethal-normal-only route,
+  pause/reading/reuse/disable/Slayer clear, independent pool caps, twice-run
+  builder and one listener per opening; preserves outgoing/parry and removes
+  received effects. Final foot anchor is one native pixel behind the stable
+  standing-body landmark. Earlier quarter-collider-width anchor was rejected
+  visually because dust sat too far behind the boot.
+- Baseline native evidence: `baseline-native-r7` (16 checks),
+  `miss-baseline-native` (8 checks), real Edge155/NVIDIA GTX1650Ti D3D11,
+  1280x720, zero managed/JS exceptions or provider writes. Miss fixture moves
+  the enemy +10 world X at build time only; both sides use that same fixture.
+  Samples use BLADE at100ms/key; pair uses BLADE20ms/key,250ms gap,STEEL20ms/key.
+  Final candidate uses identical inputs and lesson states.
+- Direct baseline visual review completed: normal50frames/49transitions,
+  pair39/38, miss105/104; each retained render frame and held pose inspected,
+  with per-frame notes in each segment's `visual-review.csv`. Render PNGs are
+  full1280x720; detail sheets include full-view thumbnails and native crops.
+  Exported all frames with original timestamps as silent 1x/.25x H264 videos; decoder,
+  dimensions, frame count and PTS checks passed (one explicit terminal hold
+  frame per export). Six baseline videos played through in Edge; playback
+  receipts are `videos/playback-baseline.json`. No reference-video research
+  or output-sprite modification is claimed by this particle-effect review.
+- Final main player `20261021T060548-webgl` built/repeated-builder PASS on the
+  same e95e1fc9 snapshot as the final nine tests. All1578 frozen input files match
+  the checkout; new GUIDs are unique. Generated Player.prefab and SampleScene
+  match checkout after ignoring line endings/trailing YAML whitespace.
+  `final-native`:18checks PASS, zero JS/managed exceptions and provider reads/writes;
+  real normal hits, pause/restart, Slayer clearing and two consecutive hits.
+- Direct final main visual review: normal50frames/49transitions and
+  pair38/37, every frame and transition inspected. Dust appears once per opening,
+  low and immediately behind the boot; cream square appears only at contact;
+  both leave the pose and typing text readable. Normal and first paired accents
+  expire naturally. The second paired hit overlaps the enemy counter-swing and
+  ends in tutorial retry cleanup; its long captured intervals are not precise
+  lifetime measurements. No crop hides this ending. Exact180/40ms age limits are
+  established by focused tests, not the10Hz QA bridge or variable render cadence.
+- First final miss build `20261021T061646-webgl` is rejected as evidence: its
+  scene-processing fixture was absent from the rendered scene, and the real
+  input check correctly found damage. Rebuild changes only temporary QA editor
+  setup to save the enemy's +10world-X position before BuildPlayer, invalidating
+  the scene cache explicitly. Production checkout/gameplay code remains unchanged.
+- Corrected miss build `20261021T063059-webgl` PASS, fixture source
+  `7135b9022d63b81a15f9d24a18bb81de15874b09d47df4169c1fe69b39b42c82`;
+  editor log confirms target at (11.56,-1.39,0). `miss-final-r3-native`:10checks
+  PASS, zero JS/managed exceptions or provider reads/writes. Same BLADE input,
+  target850HP throughout, one three-particle dust burst, no Normal/StrikeCore,
+  full expiry. The prior r2 native capture hung during browser cleanup after
+  recording; reran this same player with auxiliary WebM recording disabled.
+  Render PNG recording and keyboard actions are unchanged; no additional build.
+- Final miss visual review:106/106frames and105/105transitions inspected.
+  Frames52-63 show a single floor-level backward dust burst and its fade;
+  frame64 onward has no dust. No contact core or impact fragments anywhere.
+  All six selected baseline/final samples total388/388frames and382/382transitions
+  reviewed. Slayer recordings are supplementary functional evidence, not included
+  in that visual-review claim. Per-frame CSVs accompany every selected sample.
+- Handoff media: `E:/CodexTemp/TypingHero/combat-strike-effects/videos/index.html`,
+  six baseline and six final1280x720 silent MP4s (three samples at1x/.25x).
+  All frames/held poses and their timestamps retained, plus one terminal hold;
+  full decode, dimensions/count and PTS checks pass. Main final four videos have
+  playback receipt `videos/playback-final.json`; final miss pair receipt is
+  `videos/playback-finalmiss-.json`.
+- Preview reopened on the verified main player at `http://127.0.0.1:8159`,
+  owner PID29736, output `preview-final/`. Accuracy reading state: Enter then
+  BLADE shows natural fade; the first Attack tutorial otherwise freezes contact.
+  To close the owned preview gracefully, create `preview-final/stop` in the task
+  evidence folder. Previous preview and QA browsers are closed.
+- Retain this child/branch, local evidence/helpers/players and isolated remote
+  task directory for review and later explicitly requested push/deploy. No
+  shared runner, cache, license, unrelated jobs or dirty parent were changed.
+  Cleanup condition: after review no longer needs the preview/reproduction data;
+  preserve requested comparison videos and commit before removing disposable
+  task-only artifacts. No push, merge or deployment is part of this handoff.

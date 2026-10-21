@@ -41337,6 +41337,10 @@ PrefabInstance:
       propertyPath: groundY
       value: -2.9275508
       objectReference: {fileID: 0}
+    - target: {fileID: 1855362292372411693, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: groundY
+      value: -2.9025507
+      objectReference: {fileID: 0}
     - target: {fileID: 3027463112130235812, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: logs
       value: 0

@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 7791465751774669392}
   - component: {fileID: 1630182305097442079}
   - component: {fileID: 5405204207461019563}
+  - component: {fileID: 1855362292372411693}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -635,6 +636,7 @@ MonoBehaviour:
   slayerPrefabs:
   - {fileID: 7891126384301360098, guid: 0a51096ad0ab3f627ae6c98c27c0fcf0, type: 3}
   lethalPrefab: {fileID: 8781548728332810565, guid: a18096b9c01fe0741856b2a15afdb8aa, type: 3}
+  normalCorePrefab: {fileID: 6743196459140597029, guid: 42ec67125cf14eaadb9566d8cb45eba0, type: 3}
   normalImpact: {fileID: 11400000, guid: 3bdeeb3a8d0f17dfa896e809d6451781, type: 2}
   slayerImpact: {fileID: 11400000, guid: 46c7a33bfe3f1b677a5d4d86f698bf9a, type: 2}
   lethalImpact: {fileID: 11400000, guid: d747ffb200bc9e9a3b24a764ed0c4b80, type: 2}
@@ -802,6 +804,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 7358457235006824576}
   library: {fileID: 11400000, guid: 4720ef884b3923ec593c8cf695ad14af, type: 2}
+--- !u!114 &1855362292372411693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5449769088092458507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc28e2b1560346509051b64f6e835bcf, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  attackEvents: {fileID: 2863178931385098792}
+  slayer: {fileID: 3027463112130235812}
+  emitter: {fileID: 864069039669792717}
+  body: {fileID: 7270377225842179987}
+  dustPrefab: {fileID: 651817990799810875, guid: a4246a0a36f46eb5383e888eb1ff53a9, type: 3}
+  groundY: -3.3325508
 --- !u!1 &6092192329710406595
 GameObject:
   m_ObjectHideFlags: 0

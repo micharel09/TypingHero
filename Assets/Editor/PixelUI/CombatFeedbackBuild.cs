@@ -14,6 +14,7 @@ internal static class CombatFeedbackBuild
         CombatFeedbackAssets.Prepare();
         ParryClashAssets.Prepare();
         CombatVoxelAssets.Prepare();
+        StrikeAccentAssets.Prepare();
         SlashVolumeAssets.Prepare();
         var normal = ImpactEvent("ev_impact_normal", "medium", .65f);
         var slayer = ImpactEvent("ev_impact_slayer", "medium", .45f);
@@ -95,6 +96,7 @@ internal static class CombatFeedbackBuild
         {
             Set(spark, "sparkPrefab", CombatVoxelAssets.Load("Normal"));
             Set(spark, "lethalPrefab", CombatVoxelAssets.Load("Lethal"));
+            Set(spark, "normalCorePrefab", StrikeAccentAssets.Load(false));
             Value(spark, "groundY", Ground(root));
             var profiles = new SerializedObject(spark);
             var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 1;
@@ -116,6 +118,17 @@ internal static class CombatFeedbackBuild
                 Record(impulse);
             }
             Record(spark);
+        }
+        foreach (var actor in root.GetComponentsInChildren<PlayerHealth>(true))
+        {
+            var accent = actor.GetComponent<NormalStrikeEffects>();
+            if (!accent) accent = actor.gameObject.AddComponent<NormalStrikeEffects>();
+            Set(accent, "attackEvents", actor.GetComponentInChildren<PlayerAttackEvents>(true));
+            Set(accent, "slayer", actor.GetComponentInChildren<PlayerSlayerMode>(true));
+            Set(accent, "emitter", actor.GetComponentInChildren<HitSparkSpawner>(true));
+            Set(accent, "body", actor.GetComponent<BoxCollider2D>());
+            Set(accent, "dustPrefab", StrikeAccentAssets.Load(true));
+            Value(accent, "groundY", Ground(actor.gameObject)); Record(accent);
         }
         foreach (var parry in root.GetComponentsInChildren<ParrySparkVFX_Pooled>(true))
         {

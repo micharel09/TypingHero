@@ -356,7 +356,8 @@ Full surface art, B/C and parent integration remain separate.
   white sprite death remain unchanged. Slayer tint is captured
   before damage can exit the mode; normal lethal has no Slayer emission. New impact
   random is isolated from gameplay random. Eight active leases per emitter bound
-  impact particles to112outgoing, alongside192parry particles (304total).
+  impact particles to112outgoing, alongside192parry particles. Normal-strike
+  accents have a separate eight-lease cap (at most24particles), for328total.
   SlashVolume follows the actual source Sprite cel through SlashLibrary;9atlases
   have slash-only RGBA separated into durable layers and thin closed meshes.
   Actor pixels outside the authored masks, sprite metadata and clip events/timing
@@ -368,6 +369,23 @@ Full surface art, B/C and parent integration remain separate.
   earlier parry native66 includes historical received smoke. Particle removal
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
+
+### Normal strike accents (local preview, 2026-10-21)
+
+- `NormalStrikeEffects` listens to the existing attack-window opening: one
+  three-cluster gray dust burst, even on a miss. Its stable body-foot anchor is
+  one native world pixel behind the actor center; the builder supplies floor Y.
+  Dust moves backward, stays low, and fades over180ms. No sprite/event timing changes.
+- Confirmed nonlethal normal impacts add a cream4pixel core for40ms at the supplied
+  impact point plus the existing world offset. Existing fragments remain; Slayer,
+  lethal, parry, red Hurt and the removed received route are unchanged. No new
+  lighting, shake, audio or gameplay changes. Sizes use16PPU world units.
+- Accents share the existing owner pool, with a separate bounded lease budget.
+  Pause/tutorial reading freeze age; results, owner disable/restart/scene unload
+  and Slayer activation clear them. Builder preparation reuses assets and binds
+  a single component. Duration is simulation age; visible endpoints are quantized
+  to render frames and pause/reading can hold them. Evidence and local-only
+  handoff status are in `docs/plans/combat-feedback.md`.
 - ParryClashBurst owns the stock contact clock and analytical unscaled debris clock,
   pause/tutorial hold, clear and completion;
   PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.

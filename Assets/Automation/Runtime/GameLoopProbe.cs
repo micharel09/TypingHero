@@ -77,6 +77,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             var burst = effect.GetComponent<PixelSparkBurst>();
             var clash = effect.GetComponent<ParryClashBurst>();
             var voxel = effect.GetComponent<VoxelImpactBurst>();
+            var accent = effect.GetComponent<StrikeAccentBurst>();
             if (burst && (!burst.Systems[0] || !burst.Systems[1])) return null;
             float minY = float.PositiveInfinity, maxY = float.NegativeInfinity, maxAge = 0;
             float velocityX = 0, depthSpeed = 0; int observedCount = 0;
@@ -106,8 +107,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 contactGap = clash ? clash.Visual.separation : 0,
                 defenseCel = clash && clash.Visual.defenseCel ? clash.Visual.defenseCel.name : "",
                 attackCel = clash && clash.Visual.attackCel ? clash.Visual.attackCel.name : "",
-                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : voxel ? voxel.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
-                minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = maxAge,
+                particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : voxel ? voxel.ParticleCount : accent ? accent.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
+                minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = accent ? accent.Age : maxAge,
                 meanVelocityX = observedCount > 0 ? velocityX / observedCount : 0,
                 meanDepthSpeed = observedCount > 0 ? depthSpeed / observedCount : 0,
                 screenRect = Rect.MinMaxRect(min.x, min.y, max.x, max.y) };
