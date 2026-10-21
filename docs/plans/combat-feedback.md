@@ -3327,3 +3327,25 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
   These are acceptance evidence, retained until the owner no longer needs review.
   Delete only the clean task child/local branch after this closure commit is
   verified on origin/main; keep remote branch. No unrelated resources removed.
+
+
+## Remote main full preview recheck (2026-10-21)
+
+- User requested another full-main preview after confirming the HUD screenshot.
+  Fetched origin/main1004724 and created clean Orca child pimen-main-preview.
+  Branding/font/UI prefab bytes match a83bd90; no parent WIP imported or changed.
+- Main source rebuilt on pinned Unity2022.3.25f1:20261021T113708-webgl,
+  snapshot a3d34ab7ff7ed94c39ae38042665123dbb26f8ea69599e95441ad627fd4a730f,
+  build and strict twice-run builder PASS. External LF snapshot normalization
+  reused; no CleanBuildCache adapter in this incremental rebuild.
+- main-preview-native22/22PASS at1280x720, actual keyboard hit/two-hit/pause/
+  restart/Slayer, zero JS/managed exceptions/provider reads/writes/external requests.
+  Prior Unity11/11 result reused: runtime/test inputs unchanged. No broad profiles.
+- Live native Edge preview on127.0.0.1:8159 uses this exact player, starts normal
+  gameplay and pauses for owner review; Esc resumes. Evidence/player/helpers in
+  E:/CodexTemp/TypingHero/combat-strike-effects/main-preview-*. Keep live player
+  and child C:/Users/ADMIN/orca/workspaces/TypingHero/pimen-main-preview while
+  review is active; cleanup after owner finishes. Stop file:
+  E:/CodexTemp/TypingHero/combat-strike-effects/main-preview-live/stop.
+- No new product changes or itch.io deployment. This checkpoint is the only
+  repository change in the recheck; push it to main after whitespace validation.
