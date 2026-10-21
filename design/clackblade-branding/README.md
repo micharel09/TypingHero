@@ -1,0 +1,15 @@
+# CLACKBLADE typography
+
+User decision: reconstructed Blackbit only for the Clackblade brand title. All other UI and all three typing labels use the original supplied Cobblestone.ttf, SHA256 e9d8bcb7947fb467a86448317b5ede989bf985c5d5989944450e243e43f070e8. No glyph redraw/stretch/emboldening of Cobblestone. Existing input, character coloring and geometry remain protected.
+
+`Assets/Art/UI/Branding/cobblestone.json` records all225 source mappings and the UI atlas recipe:64point SDF32, padding8,1024atlas, stock TMP Mobile Distance Field, Bilinear/Clamp/no mipmaps. CobblestoneUI64 and dedicated CobblestoneVT323Fallback keep native scale1. Primary metrics: upem2048, ascent48, descent-12, cap36, mean24, line64. Fallback contributes368 mappings outside the primary. Existing name validation is unchanged and does not guarantee arbitrary Unicode font coverage.
+
+The title is reconstructed from the supplied1200x800 `specimen-v2.png`, not an original Blackbit font. `build-font.py` traces merged outer/hole contours, preserving detached dots, the full f descender, individual cap/lowercase/numeral ratios, origins and baselines. Bearings, spacing and conservative kerning are reconstruction decisions. `glyphs.json` stores sources/transforms/metrics/character coverage and checksums; rerun with `python design/clackblade-branding/build-font.py` using existing fontTools/Pillow. Only regenerate when intentionally changing the source font; the current output is pinned by its manifest checksum.
+
+For title metrics/string verification, run `node design/clackblade-branding/verify-font-browser.cjs <task-temp-output>` with TYPINGHERO_PLAYWRIGHT pointing to the existing Playwright installation, then `python design/clackblade-branding/verify-font.py --output <task-temp-output>`. These checks keep origins/baselines/advances. They do not establish UI readability by themselves.
+
+`BlackletterTitleBuild` hashes sources, character sets and render recipes, preserves asset/material/texture GUIDs and validates saved scene/prefab consumers. `PixelUIBuild` repeats serialization in QA and guards all three typing components except allowed font/material replacement. The title uses100point SDF32 with the scoped hard-edge ClackbladePixelSDF shader. Cobblestone uses stock SDF and has no Blackbit pixel-snap component. The unused historical specimen UI asset is retained; no current UI label references it.
+
+Current release preserves approved main HUD score/feedback/readability and hides only ParryR7, ParryKeyR7, ClockR7 and its backplate. Original source/font recipes plus the Unity-serialized assets are retained. Build uses pinned Unity2022.3.25f1 and the normal isolated runner on fly-server. No marketing banner/cover/gallery changes.
+
+Publication, real game evidence, scope limits and rollback: [page checkpoint](../../docs/plans/itch-game-page-dark-fantasy.md) and [release receipt](../../marketing/itch-io/cobblestone-release-20261021.json). Historical all-UI Blackbit quality claims are superseded by the user-approved Cobblestone choice.

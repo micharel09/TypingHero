@@ -1,3 +1,7 @@
+## Cobblestone UI public release (2026-10-21)
+
+Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, hidden PARRY/key/clock. Exact input640a9871: QA020049 repeat-builder and complete typing behavior guard PASS; production021408 QA exclusion PASS. Native scoped633checks across four viewports and DPR1/2/1.25; six lessons/parry/Slayer/pause/restart/first win/Continue and current score cluster pass, Firebase fixture/blocking and zero real writes. Normal player48viewport-state captures pass; public Run game actual menu plus8native CDN combat/pause captures and Space pose,29payload hashes exact. Upload19915823 selected after native Save/reload;19893288 retained hidden for rollback. No full balance/performance claim. See [release receipt](../../marketing/itch-io/cobblestone-release-20261021.json) and [font checkpoint](../plans/itch-game-page-dark-fantasy.md). Older all-UI Blackbit font-quality conclusions are superseded by the user-approved Cobblestone choice; their behavioral evidence stays scoped to its frozen source.
+
 # Verification and performance memory
 
 ## HUD readability for side-view 2.5D preparation (2026-10-20)

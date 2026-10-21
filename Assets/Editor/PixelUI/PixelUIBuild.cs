@@ -68,6 +68,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
         var previousScene = EditorSceneManager.GetActiveScene().path;
         try
         {
+            var originalTyping = BlackletterTitleBuild.SnapshotTypingComponents();
             PixelUIAssets.Prepare();
             PixelUIAssets.SavePrimitives();
             PixelUIScenes.Menu();
@@ -81,6 +82,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             CombatR7Build.Apply();
             DungeonUISkin.Apply();
             BlackletterTitleBuild.Apply();
+            BlackletterTitleBuild.AssertTypingComponents(originalTyping);
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");

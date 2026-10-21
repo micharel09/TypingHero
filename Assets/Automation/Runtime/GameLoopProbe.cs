@@ -148,6 +148,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool environmentVisible, hudPanelVisible;
         public Vector2 barTopEdge, barBottomEdge, scorePoint, trayPoint, bodyHead, bodyFoot;
         public float barLeft, barRight;
+        public FontObservation[] typography;
         public Rect scoreGlyphRect, comboGlyphRect, comboDecayRect;
         public bool comboVisible, comboDecayVisible, comboUnderScore, comboDecayUnderScore;
         public float comboDecayValue;
@@ -173,6 +174,78 @@ public sealed class GameLoopProbe : MonoBehaviour
         public float rowHeight, viewportHeight;
         public int[] rowIds;
         public Point[] controls;
+    }
+    [Serializable] sealed class FontObservation
+    {
+        public string path, text, font, shader;
+        public float size, minimum, maximum, scale;
+        public bool autosize, truncated;
+        public Rect bounds, glyphBounds;
+        public string[] renderedFonts;
+    }
+    static FontObservation[] ObserveTypography()
+    {
+        return FindObjectsOfType<TMP_Text>().Where(t => t.isActiveAndEnabled).Select(t =>
+        {
+            var names = new System.Collections.Generic.List<string>();
+            for (var node = t.transform; node; node = node.parent) names.Add(node.name);
+            names.Reverse();
+            var info = t.textInfo;
+            return new FontObservation {
+                path = string.Join("/", names), text = t.text, font = t.font ? t.font.name : "",
+                shader = t.fontSharedMaterial ? t.fontSharedMaterial.shader.name : "",
+                size = t.fontSize, minimum = t.fontSizeMin, maximum = t.fontSizeMax,
+                scale = t.transform.lossyScale.y, autosize = t.enableAutoSizing,
+                truncated = t.isTextTruncated, bounds = FontScreenRect(t.rectTransform, !(t is TextMeshProUGUI)),
+                glyphBounds = info.characterInfo.Take(info.characterCount).Any(c => c.isVisible) ? FontGlyphRect(t) : default,
+                renderedFonts = info.characterInfo.Take(info.characterCount).Where(c => c.isVisible && c.fontAsset)
+                    .Select(c => c.fontAsset.name).Distinct().ToArray()
+            };
+        }).ToArray();
+    }
+    static Rect FontScreenRect(RectTransform rt, bool worldSpace = false)
+    {
+        if (!rt) return default;
+        var min = rt.TransformPoint(new Vector3(rt.rect.xMin, rt.rect.yMin, 0));
+        var max = rt.TransformPoint(new Vector3(rt.rect.xMax, rt.rect.yMax, 0));
+        if (worldSpace && Camera.main)
+        {
+            min = Camera.main.WorldToScreenPoint(min);
+            max = Camera.main.WorldToScreenPoint(max);
+        }
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+    }
+    static Rect FontTextRect(TMP_Text text)
+    {
+        if (!text || !text.gameObject.activeInHierarchy) return default;
+        var rt = text.rectTransform;
+        float offset = text.alignment == TextAlignmentOptions.Center ? (rt.rect.width - text.preferredWidth) * .5f : 0;
+        var min = rt.TransformPoint(new Vector3(rt.rect.xMin + offset, rt.rect.yMin, 0));
+        var max = rt.TransformPoint(new Vector3(rt.rect.xMin + offset + text.preferredWidth, rt.rect.yMax, 0));
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+    }
+    static Rect FontGlyphRect(TMP_Text text)
+    {
+        if (!text || !text.gameObject.activeInHierarchy) return default;
+        Vector2 min = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+        Vector2 max = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+        for (int i = 0; i < text.textInfo.characterCount; i++)
+        {
+            var c = text.textInfo.characterInfo[i];
+            if (!c.isVisible) continue;
+            var m = c.textElement.glyph.metrics;
+            var topLeft = text.transform.TransformPoint(new Vector3(
+                c.origin + m.horizontalBearingX * c.scale, c.baseLine + m.horizontalBearingY * c.scale, 0));
+            var bottomRight = topLeft + text.transform.TransformVector(new Vector3(m.width, -m.height, 0) * c.scale);
+            if (!(text is TextMeshProUGUI) && Camera.main)
+            {
+                topLeft = Camera.main.WorldToScreenPoint(topLeft);
+                bottomRight = Camera.main.WorldToScreenPoint(bottomRight);
+            }
+            min = Vector2.Min(min, bottomRight); min = Vector2.Min(min, topLeft);
+            max = Vector2.Max(max, bottomRight); max = Vector2.Max(max, topLeft);
+        }
+        return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
     }
     static Rect ScreenRect(RectTransform rt)
     {
@@ -382,6 +455,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
                 decayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
                 playerStatusRect = ScreenRect(playerStatus), enemyStatusRect = ScreenRect(enemyStatus),
+                typography = ObserveTypography(),
                 scoreGlyphRect = GlyphRect(scoreLabel), comboGlyphRect = GlyphRect(multiplierLabel),
                 comboDecayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
                 comboVisible = multiplierLabel && multiplierLabel.gameObject.activeInHierarchy,

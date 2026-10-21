@@ -166,6 +166,8 @@ internal static class CombatR7Build
         Backplate(root, "EnemyReadabilityR7", 215, 0, 102, 11);
         var roundBackground = Backplate(root, "RoundReadabilityR7", 108, 45, 104, 13);
         Backplate(root, "ClockReadabilityR7", 256, 145, 32, 14);
+        foreach (string name in new[] { "ParryR7", "ParryKeyR7", "ClockR7", "ClockReadabilityR7" })
+            root.Find(name).gameObject.SetActive(false);
         var pauseIcon = Picture(root, "PauseIconR7", "icon-pause", 267, 163, 10, 10);
         pauseIcon.raycastTarget = true;
         var pauseButton = pauseIcon.GetComponent<Button>();
