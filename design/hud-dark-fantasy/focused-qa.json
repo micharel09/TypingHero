@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": 11,
+  "graphics": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "elapsedSeconds": 30.0142243,
+  "exceptions": [],
+  "paletteLowHpObserved": true,
+  "snapshot": {
+    "sha256": "72528e3526fbe77904642b84b97dc950b85f37471bad3052c9c950238348b1f8"
+  },
+  "chromium": "155.0.4283.62",
+  "fixtureWrites": 0,
+  "externalBlocked": 0,
+  "scope": "Changed HP underlay and combat ink only, real keyboard input; normal/combo/low-HP/pause at320/640 DPR1. No full suite.",
+  "productionPause": "PASS: final production064056 original-HTML pause/resume at320/640; actual screenshot reviewed",
+  "qaTrackNote": "This immutable QA predates final coal track flatten and pause material migration; final production includes both.",
+  "focusedDriverSha256": "8bf7248e96a0dbe427f87a6a60ca8545f14231c1fda10aca8742e7459b94bd48"
+}

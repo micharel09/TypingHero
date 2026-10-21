@@ -4,8 +4,7 @@ module.exports = async function combatHUD(api,browser) {
   const sizes=[[320,180],[640,360],[1280,720],[400,300]];
   const near=(a,b)=>Math.abs(a-b)<.015;
   const red=c=>near(c.r,241/255)&&near(c.g,107/255)&&near(c.b,103/255);
-  const gold=c=>near(c.r,220/255)&&near(c.g,193/255)&&near(c.b,138/255);
-  const teal=c=>near(c.r,88/255)&&near(c.g,139/255)&&near(c.b,140/255);
+  const gold=c=>near(c.r,229/255)&&near(c.g,190/255)&&near(c.b,114/255);
   const dim=c=>near(c.r,.4)&&near(c.g,.4)&&near(c.b,.4);
   const labels={very_easy:'VERY EASY',easy:'EASY',normal:'NORMAL',hard:'HARD',very_hard:'VERY HARD'};
   report.hudSeen={};
@@ -29,7 +28,7 @@ module.exports = async function combatHUD(api,browser) {
     } else if(s.endless){
       check(s.encounterVisible&&s.encounterText===labels[s.runDifficulty]+' \u00b7 DUEL '+(s.endlessSlot+1)+'/6','HUD difficulty and duel match the run');
       check(!s.combatHeadingVisible,'combat has no duplicate duel heading');
-      if(s.hudSuccessRemaining>0){check(teal(s.parryKeyColor),'success event paints teal');seen.success=true;}
+      if(s.hudSuccessRemaining>0){check(gold(s.parryKeyColor),'success event paints gold');seen.success=true;}
       else if(s.parryWindow){check(gold(s.parryKeyColor),'actual parry window paints gold');seen.window=true;}
       else if(s.cue&&s.canParry){check(gold(s.parryKeyColor),'ready enemy cue paints gold');seen.cue=true;}
       else if(!s.canParry){check(dim(s.parryKeyColor),'hit/pose lock dims keycap');seen.lock=true;}

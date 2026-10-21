@@ -1,0 +1,28 @@
+[
+  {
+    "viewport": [
+      320,
+      180
+    ],
+    "crop": [
+      111,
+      3,
+      209,
+      22
+    ],
+    "scorePixelsIdentical": true
+  },
+  {
+    "viewport": [
+      640,
+      360
+    ],
+    "crop": [
+      222,
+      6,
+      418,
+      44
+    ],
+    "scorePixelsIdentical": true
+  }
+]

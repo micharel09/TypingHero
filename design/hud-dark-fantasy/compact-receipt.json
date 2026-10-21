@@ -1,0 +1,9 @@
+{
+  "kind": "independent real production runs; actor frames/words may differ",
+  "images": {
+    "combat-320x180-dpr1.png-before": "c06cb8984837472fc828c93a74c6e1441dc3f3bc6966faa30e8fd21e3b63264e",
+    "combat-320x180-dpr1.png-after": "b941ad81c581b8556540ded1f748dac10ff0fa2fb81eac08082a81c1628b7b59",
+    "combat-640x360-dpr1.png-before": "c449e782f313cd8e6c50a1cea65fe671ce853b54c3dacd594a4a5ce439a51bb9",
+    "combat-640x360-dpr1.png-after": "e6c81db3fa295bb6741a02b0ff0c98bc309685b3f41beeac1b6cf5e55844ed56"
+  }
+}

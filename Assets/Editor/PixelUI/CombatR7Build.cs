@@ -21,7 +21,8 @@ internal static class CombatR7Build
     }
     static Sprite Sprite(string name)
     {
-        var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(Art + name + ".png");
+        var path = Art + (name.StartsWith("scene-") ? "" : "DarkFantasy/") + name + ".png";
+        var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
         if (!sprite) throw new FileNotFoundException("CombatR7 sprite import missing: " + name);
         return sprite;
     }
@@ -73,7 +74,7 @@ internal static class CombatR7Build
         var font8 = CombatFont(8);
         var font10 = CombatFont(10);
         var font12 = CombatFont(12);
-        foreach (var file in Directory.GetFiles(Art, "*.png"))
+        foreach (var file in Directory.GetFiles(Art, "*.png", SearchOption.AllDirectories))
         {
             var importer = (TextureImporter)AssetImporter.GetAtPath(file.Replace('\\', '/'));
             importer.textureType = TextureImporterType.Sprite;
@@ -85,6 +86,8 @@ internal static class CombatR7Build
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             string name = Path.GetFileNameWithoutExtension(file);
             importer.spriteBorder = name == "typing-frame" ? new Vector4(4, 4, 4, 4) :
+                name == "resource-frame" ? new Vector4(21, 0, 3, 0) :
+                name == "modal-normal" ? new Vector4(6, 6, 6, 6) :
                 name == "score-frame" ? new Vector4(3, 4, 3, 3) :
                 name.StartsWith("secondary-frame") ? new Vector4(2, 2, 2, 2) : Vector4.zero;
             importer.SaveAndReimport();
@@ -111,11 +114,11 @@ internal static class CombatR7Build
             text.enableAutoSizing = false; text.enableWordWrapping = false;
             text.overflowMode = TextOverflowModes.Overflow;
             text.margin = Vector4.zero;
-            text.color = Hex(field == "wordText" ? "f2e7cf" : field == "nextWordText" ? "afa1b3" : "827789");
+            text.color = Hex(field == "wordText" ? "f2e7cf" : field == "nextWordText" ? "c5b9a7" : "a99c90");
             var group = text.GetComponent<CanvasGroup>(); if (group) group.alpha = 1;
         }
         Value(typing, "referencePixel", 3f);
-        Value(typing, "completedColor", Hex("588b8c"));
+        Value(typing, "completedColor", Hex("73b6aa"));
         Value(typing, "errorFlashColor", Hex("f16b67"));
         var player = Item("PlayerStatus"); Box(player, hud, 9, 33, 306, 63);
         var enemy = Item("EnemyStatus"); Box(enemy, hud, 645, 33, 306, 108);
@@ -127,7 +130,7 @@ internal static class CombatR7Build
             if (player.Find(name)) player.Find(name).gameObject.SetActive(false);
         var cluster = Item("ScoreCluster"); Box(cluster, hud, 333, 9, 294, 66);
         var scoreBoard = Picture(cluster, "Metal", "score-frame", 0, 0, 98, 22); scoreBoard.transform.SetAsFirstSibling();
-        scoreBoard.color = new Color(.75f, .75f, .75f, 1f);
+        scoreBoard.color = Color.white;
         var score = Item("ScoreText").GetComponent<TMP_Text>();
         Box(score.rectTransform, cluster, 12, 0, 270, 60); Style(score, 36); score.alignment = TextAlignmentOptions.Center;
         score.rectTransform.pivot = new Vector2(.5f, .5f);
@@ -154,7 +157,8 @@ internal static class CombatR7Build
         var timer = Get<Slider>(typing, "countdownSlider");
         Box(timer.GetComponent<RectTransform>(), tray, 12, 78, 570, 6);
         foreach (var img in timer.GetComponentsInChildren<Image>(true)) img.sprite = null;
-        LabelOnce(root, "ParryR7", "PARRY", 27, 146, 40, 12, 10).color = Hex("dcc18a");
+        timer.fillRect.GetComponent<Image>().color = Hex("73b6aa");
+        LabelOnce(root, "ParryR7", "PARRY", 27, 146, 40, 12, 10).color = Hex("e5be72");
         Picture(root, "ParryKeyR7", "keycap-space", 35, 160, 24, 12);
         var clock = LabelOnce(root, "ClockR7", "00:00", 257, 146, 30, 12, 10);
         var playerHp = LabelOnce(root, "PlayerHpR7", "", 73, 0, 31, 11, 8);
@@ -209,8 +213,16 @@ internal static class CombatR7Build
         var guardBreak = LabelOnce(enemy, "GuardBreakR7", "", 0, 37, 102, 11, 8);
         guardBreak.enabled = false;
         Set(hudFeedback, "guardBreak", guardBreak);
-        Value(hudFeedback, "red", Hex("f16b67")); Value(hudFeedback, "gold", Hex("dcc18a"));
-        Value(hudFeedback, "success", Hex("588b8c"));
+        Value(hudFeedback, "red", Hex("f16b67")); Value(hudFeedback, "gold", Hex("e5be72"));
+        Value(hudFeedback, "success", Hex("e5be72"));
+        foreach (var label in new[] { playerName, enemyName, playerHp, enemyHp, round, score })
+            label.color = Hex("f2e7cf");
+        mult.color = Hex("e5be72");
+        var rules = Get<ScoreRules>(Find<ScoreSystem>(), "rules");
+        Value(rules, "colorTier1", Hex("f2e7cf"));
+        Value(rules, "colorTier2", Hex("e5be72"));
+        Value(rules, "colorTier3", Hex("e5be72"));
+        EditorUtility.SetDirty(rules);
         var combat = root.Find("CombatViewport") as RectTransform; Box(combat, root, 0, 0, 960, 540);
         // 48 reference pixels/world unit = 16 native pixels/unit for the existing 16PPU actors.
         // Reframe the camera, never the actor transforms/colliders or attack spacing.
@@ -265,6 +277,144 @@ internal static class CombatR7Build
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 
+    // The approved ivory ink needs a coal outline where HP numbers cross the red fill.
+    // A zero-offset, hard outer underlay preserves the original thin glyph face.
+    internal static void ApplyResourceInk()
+    {
+        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
+        var root = GameObject.Find("PixelUI/Reference960x540").transform;
+        var playerHp = root.Find("PlayerHpR7").GetComponent<TMP_Text>();
+        var source = playerHp.font.material;
+        string path = Art + "DarkFantasy/HpText.mat";
+        var material = AssetDatabase.LoadAssetAtPath<Material>(path);
+        if (!material)
+        {
+            material = new Material(source) { name = "HpText" };
+            AssetDatabase.CreateAsset(material, path);
+        }
+        material.CopyPropertiesFromMaterial(source);
+        material.SetColor("_UnderlayColor", Hex("121014").linear);
+        material.SetFloat("_UnderlayDilate", 1);
+        material.SetFloat("_UnderlaySoftness", 0);
+        material.SetFloat("_UnderlayOffsetX", 0);
+        material.SetFloat("_UnderlayOffsetY", 0);
+        material.EnableKeyword("UNDERLAY_ON");
+        foreach (string name in new[] { "PlayerHpR7", "EnemyHpR7" })
+        {
+            var label = root.Find(name).GetComponent<TMP_Text>();
+            label.fontSharedMaterial = material;
+            label.UpdateMeshPadding();
+            PrefabUtility.RecordPrefabInstancePropertyModifications(label);
+        }
+        EditorUtility.SetDirty(material);
+        ApplyPauseInk();
+        ApplyCompactStatus();
+        EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+    }
+
+    static void ApplyCompactStatus()
+    {
+        var root = GameObject.Find("PixelUI/Reference960x540").transform;
+        var hud = root.Find("HUD");
+        var player = (RectTransform)hud.Find("PlayerStatus");
+        var enemy = (RectTransform)hud.Find("EnemyStatus");
+        Box(player, hud, 9, 60, 246, 63);
+        Box(enemy, hud, 705, 60, 246, 108);
+        foreach (var group in new[] { player, enemy })
+        {
+            var frame = group.Find("FrameHP").GetComponent<Image>();
+            Box(frame.rectTransform, group, 0, 0, 246, 63);
+            frame.type = UnityEngine.UI.Image.Type.Sliced;
+            frame.pixelsPerUnitMultiplier = 1f / 3f;
+            var hp = group.Find(group == player ? "PlayerHP" : "EnemyHP").GetComponent<Slider>();
+            Box(hp.GetComponent<RectTransform>(), group, 60, 21, 171, 18);
+            Box((RectTransform)hp.transform.Find("TrackR7"), hp.transform, 0, 0, 171, 18);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(frame);
+        }
+        var staminaFrame = enemy.Find("FrameSecondary").GetComponent<Image>();
+        Box(staminaFrame.rectTransform, enemy, 0, 69, 246, 39);
+        staminaFrame.type = UnityEngine.UI.Image.Type.Sliced;
+        staminaFrame.pixelsPerUnitMultiplier = 1f / 3f;
+        var stamina = enemy.Find("EnemyStamina");
+        Box((RectTransform)stamina, enemy, 42, 81, 192, 12);
+        Box((RectTransform)stamina.Find("TrackR7"), stamina, 0, 0, 192, 12);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(staminaFrame);
+        // Preserve the right-aligned name and the player's original text size.
+        Box((RectTransform)enemy.Find("EnemyHPLabel"), enemy, -72, -60, 312, 60);
+        Box((RectTransform)root.Find("PlayerHpR7"), root, 72, 72, 183, 42);
+        // Scale only the two status clusters, including names, sockets and stamina.
+        // The score/combo cluster and typing tray stay at their existing scale.
+        const float statusScale = .8f;
+        player.anchoredPosition = new Vector2(9, -48);
+        player.localScale = enemy.localScale = new Vector3(statusScale, statusScale, 1);
+        enemy.anchorMin = enemy.anchorMax = new Vector2(1, 1);
+        enemy.pivot = new Vector2(1, 1);
+        enemy.anchoredPosition = new Vector2(-9, -48);
+        var playerPlate = (RectTransform)root.Find("PlayerReadabilityR7");
+        var enemyPlate = (RectTransform)root.Find("EnemyReadabilityR7");
+        playerPlate.localScale = enemyPlate.localScale = new Vector3(statusScale, statusScale, 1);
+        enemyPlate.anchorMin = enemyPlate.anchorMax = new Vector2(1, 1);
+        enemyPlate.pivot = new Vector2(1, 1);
+        enemyPlate.anchoredPosition = new Vector2(-9, 0);
+        Get<GameObject>(Find<TutorialOverlay>(), "staminaHighlight").transform.localScale =
+            new Vector3(statusScale, statusScale, 1);
+        foreach (string name in new[] { "PlayerHpR7", "EnemyHpR7", "RoundR7", "RoundReadabilityR7" })
+            root.Find(name).gameObject.SetActive(false);
+    }
+
+    static void ApplyPauseInk()
+    {
+        var overlay = Object.FindObjectsOfType<Canvas>(true).Single(c => c.name == "PixelOverlay");
+        Sprite Rim(string name)
+        {
+            string path = Art + "DarkFantasy/" + name + ".asset";
+            var rim = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (rim) return rim;
+            var source = Sprite(name);
+            var rect = source.rect; rect.xMin += 10;
+            rim = UnityEngine.Sprite.Create(source.texture, rect, new Vector2(.5f, .5f),
+                source.pixelsPerUnit, 0, SpriteMeshType.FullRect, new Vector4(2, 2, 2, 2));
+            rim.name = name;
+            AssetDatabase.CreateAsset(rim, path);
+            return rim;
+        }
+        var normal = Rim("secondary-frame");
+        var focused = Rim("secondary-frame-gold");
+        foreach (var image in overlay.GetComponentsInChildren<Image>(true))
+        {
+            image.color = Hex(image.name == "Fill" || image.name == "Handle" ? "a17b4f" : "121014");
+            if (image.name == "CombatOverlay") image.color = new Color(18f / 255, 16f / 255, 20f / 255, .88f);
+            if (image.name.Contains("Panel")) { image.sprite = Sprite("modal-normal"); image.color = Color.white; }
+            if (image.name.StartsWith("key-")) image.color = Color.white;
+            PrefabUtility.RecordPrefabInstancePropertyModifications(image);
+        }
+        foreach (var text in overlay.GetComponentsInChildren<TMP_Text>(true))
+        {
+            text.color = Hex(text.name == "KeyHint" ? "c5b9a7" : "f2e7cf");
+            PrefabUtility.RecordPrefabInstancePropertyModifications(text);
+        }
+        foreach (var control in overlay.GetComponentsInChildren<Selectable>(true))
+        {
+            if (control is Button)
+            {
+                var image = (Image)control.targetGraphic;
+                image.sprite = normal; image.color = Color.white;
+                control.spriteState = new SpriteState { highlightedSprite = focused, selectedSprite = focused,
+                    pressedSprite = focused, disabledSprite = normal };
+                PrefabUtility.RecordPrefabInstancePropertyModifications(image);
+            }
+            else
+            {
+                var colors = control.colors;
+                colors.highlightedColor = colors.selectedColor = Hex("d1ad73");
+                colors.pressedColor = Hex("a17b4f"); colors.disabledColor = Hex("302b2b");
+                control.colors = colors;
+            }
+            PrefabUtility.RecordPrefabInstancePropertyModifications(control);
+        }
+        Value(Find<GamePauseController>(), "thanksTextColor", Hex("e5be72"));
+    }
+
     static TMP_FontAsset CombatFont(int size)
     {
         string path = Art + "VT323Pixel" + size + ".asset";
@@ -300,7 +450,7 @@ internal static class CombatR7Build
     static Image Backplate(Transform root, string name, float x, float y, float w, float h)
     {
         var rt = Node(root, name); Box(rt, root, x * 3, y * 3, w * 3, h * 3);
-        var image = Image(rt, new Color(20f / 255, 17f / 255, 30f / 255, .88f));
+        var image = Image(rt, Hex("121014"));
         image.sprite = null; image.type = UnityEngine.UI.Image.Type.Simple;
         image.raycastTarget = false;
         // Root siblings precede HUD/tray/labels; overlapping typing-frame pixels stay on top.
