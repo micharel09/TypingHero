@@ -1,5 +1,29 @@
 # Current gameplay
 
+## Dark fantasy HUD — local candidate (2026-10-21)
+
+The latest local presentation supersedes older palette/font notes below. Combat HUD
+uses coal `#121014`, iron `#302B2B`, antique bronze `#A17B4F/#D1AD73`, ivory
+`#F2E7CF`, blood HP `#C34B55/#ED8080`, teal stamina/typing `#73B6AA` and gold
+combo/parry `#E5BE72`; error/damage stays `#F16B67`. Score total/popup use configured
+ivory/gold tiers; the visible multiplier is gold from its first tier. HP glyphs
+retain their original face with a hard coal underlay for contrast. Pause uses
+isolated coal/bronze modal and button rims. Shared menu art is unchanged.
+
+User follow-up: health/status rails are82 native pixels wide instead of102
+(19.6% shorter), retain their height and crisp sliced borders, and stay in their
+outer corners. Latest follow-up scales both side status groups (names, HP, icons,
+stamina and name backplates) to80%: effective HP width65.6px. Both player/enemy HP
+digits and the difficulty/DUEL line/background are hidden. Score/combo and typing
+tray keep their original scale/geometry; stamina tutorial highlight follows80%.
+Name content, Cobblestone source sizes56/48/42, Blackbit title only, other geometry, three typing cells,
+hidden PARRY/Space/clock, bindings and feedback timing remain unchanged. No gameplay math
+or input changes. Native focused HUD11 checks and production combat/pause smoke
+passed at320/640 DPR1. Compact follow-up production combat/damage4 captures also
+passed and were visually inspected. Latest scale follow-up: six combat/damage
+captures at320/640/400x300 pass; score region pixel-identical at320/640.
+No full suite rerun or upload. [Evidence and local handoff](../plans/hud-dark-fantasy.md).
+
 Current source brand: **CLACKBLADE**, slogan **TYPE TO SLASH**. Gameplay and stable technical
 identifiers remain unchanged by the rename. Native menu960x540/640x360 and
 same-artifact name reload verified. Public release: https://micharel09.itch.io/clackblade

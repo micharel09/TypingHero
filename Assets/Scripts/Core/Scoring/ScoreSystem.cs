@@ -223,7 +223,7 @@ public class ScoreSystem : MonoBehaviour
         if (comboHUD)
         {
             // HUD chỉ hiện khi mul > 1.0 (đã xử lý sẵn trong ComboHUD) — behavior giữ nguyên
-            comboHUD.SetMultiplier(Multiplier, rules.maxMultiplier, ColorByMultiplier(Multiplier));
+            comboHUD.SetMultiplier(Multiplier, rules.maxMultiplier, rules.colorTier2);
             comboHUD.SetDecay(ComboRemain01);
         }
     }

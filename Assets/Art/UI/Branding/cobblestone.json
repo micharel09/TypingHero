@@ -1,0 +1,11 @@
+{
+  "source": "Assets/Art/UI/Branding/Cobblestone.ttf",
+  "font_sha256": "e9d8bcb7947fb467a86448317b5ede989bf985c5d5989944450e243e43f070e8",
+  "characters": " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ ¡¢£¶·¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĄąĆćıŁłŒœŠšŸŹźŻżŽžǫɢɪɴʀʏʙʜʟᴀᴄᴅᴇᴊᴋᴍᴏᴘᴛᴜᴠᴡᴢ–—‘’“”•‹›€™−☚☛☜☞ꜰꜱ",
+  "point_size": 64,
+  "render_mode": "SDF32",
+  "padding": 8,
+  "atlas": 1024,
+  "fallback_source": "Assets/Art/UI/Pixel/VT323-Regular.ttf",
+  "fallback_scale": 1.0
+}

@@ -1,0 +1,1125 @@
+{
+  "ok": true,
+  "tab_id": 1350807749,
+  "value": {
+    "fields": [
+      {
+        "checked": false,
+        "name": "q",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "checked": false,
+        "name": "game[title]",
+        "type": "text",
+        "value": "CLACKBLADE"
+      },
+      {
+        "checked": false,
+        "name": "game[slug]",
+        "type": "text",
+        "value": "clackblade"
+      },
+      {
+        "checked": false,
+        "name": "game[short_text]",
+        "type": "text",
+        "value": "Type to attack. Space to parry. Break stamina for Slayer. Free browser sword combat."
+      },
+      {
+        "name": "game[user_classification]",
+        "type": "select-one",
+        "value": "game"
+      },
+      {
+        "name": "game[type]",
+        "type": "select-one",
+        "value": "html"
+      },
+      {
+        "name": "game[release_status]",
+        "type": "select-one",
+        "value": "in_development"
+      },
+      {
+        "checked": false,
+        "name": "game[payment_mode]",
+        "type": "hidden",
+        "value": "free"
+      },
+      {
+        "checked": false,
+        "name": "game[min_price]",
+        "type": "hidden",
+        "value": "$0.00"
+      },
+      {
+        "checked": false,
+        "name": "game[suggested_price]",
+        "type": "text",
+        "value": "$1.00"
+      },
+      {
+        "checked": false,
+        "name": "upload[19792304][position]",
+        "type": "hidden",
+        "value": "0"
+      },
+      {
+        "checked": false,
+        "name": "upload[19792304][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19792304][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19792304][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19792304][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19792304][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19792304][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19792304][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19793957][position]",
+        "type": "hidden",
+        "value": "1"
+      },
+      {
+        "checked": false,
+        "name": "upload[19793957][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19793957][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19793957][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19793957][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19793957][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19793957][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19793957][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19819691][position]",
+        "type": "hidden",
+        "value": "2"
+      },
+      {
+        "checked": false,
+        "name": "upload[19819691][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19819691][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19819691][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19819691][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19819691][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19819691][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19819691][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19839230][position]",
+        "type": "hidden",
+        "value": "3"
+      },
+      {
+        "checked": false,
+        "name": "upload[19839230][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19839230][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19839230][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19839230][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19839230][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19839230][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19839230][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19840745][position]",
+        "type": "hidden",
+        "value": "4"
+      },
+      {
+        "checked": false,
+        "name": "upload[19840745][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19840745][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19840745][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19840745][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19840745][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19840745][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19840745][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847268][position]",
+        "type": "hidden",
+        "value": "5"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847268][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19847268][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847268][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847268][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847268][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847268][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19847268][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847423][position]",
+        "type": "hidden",
+        "value": "6"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847423][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19847423][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847423][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847423][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847423][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19847423][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19847423][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19865461][position]",
+        "type": "hidden",
+        "value": "7"
+      },
+      {
+        "checked": false,
+        "name": "upload[19865461][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19865461][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19865461][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19865461][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19865461][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19865461][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19865461][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19871730][position]",
+        "type": "hidden",
+        "value": "8"
+      },
+      {
+        "checked": false,
+        "name": "upload[19871730][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19871730][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19871730][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19871730][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19871730][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19871730][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19871730][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872290][position]",
+        "type": "hidden",
+        "value": "9"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872290][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19872290][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872290][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872290][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872290][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872290][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19872290][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872500][position]",
+        "type": "hidden",
+        "value": "10"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872500][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19872500][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872500][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872500][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872500][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19872500][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19872500][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19874589][position]",
+        "type": "hidden",
+        "value": "11"
+      },
+      {
+        "checked": false,
+        "name": "upload[19874589][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19874589][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19874589][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19874589][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19874589][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19874589][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19874589][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19876564][position]",
+        "type": "hidden",
+        "value": "12"
+      },
+      {
+        "checked": false,
+        "name": "upload[19876564][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19876564][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19876564][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19876564][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19876564][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19876564][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19876564][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19877153][position]",
+        "type": "hidden",
+        "value": "13"
+      },
+      {
+        "checked": false,
+        "name": "upload[19877153][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19877153][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19877153][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19877153][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19877153][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19877153][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19877153][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891315][position]",
+        "type": "hidden",
+        "value": "14"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891315][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19891315][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891315][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891315][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891315][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891315][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891315][embed]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891315][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891356][position]",
+        "type": "hidden",
+        "value": "15"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891356][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19891356][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891356][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891356][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891356][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19891356][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19891356][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19892576][position]",
+        "type": "hidden",
+        "value": "16"
+      },
+      {
+        "checked": false,
+        "name": "upload[19892576][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19892576][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19892576][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19892576][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19892576][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19892576][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19892576][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19893288][position]",
+        "type": "hidden",
+        "value": "17"
+      },
+      {
+        "checked": false,
+        "name": "upload[19893288][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "checked": true,
+        "name": "upload[19893288][embed]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19915267][position]",
+        "type": "hidden",
+        "value": "18"
+      },
+      {
+        "checked": false,
+        "name": "upload[19915267][display_name]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "name": "upload[19915267][type]",
+        "type": "select-one",
+        "value": "default"
+      },
+      {
+        "checked": false,
+        "name": "upload[19915267][p_windows]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19915267][p_linux]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19915267][p_osx]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "upload[19915267][p_android]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "upload[19915267][hidden]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "name": "embed[embed_type]",
+        "type": "select-one",
+        "value": "maximized"
+      },
+      {
+        "checked": false,
+        "name": "embed[mobile_friendly]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "embed[scrollbars]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "embed[cdn_type]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "game[classname]",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "name": "game[description]",
+        "type": "textarea",
+        "value": "<p>A sword duel played on your keyboard. Finish words to strike, read the skeleton's cue, and turn a well-timed parry into an opening.</p>\n<p><strong>Free in your desktop browser. Keyboard required.</strong> Click <strong>Run game</strong> above to play.</p>\n<h2>Type to attack</h2>\n<p>Complete the highlighted word to swing your sword.</p>\n<h2>Space to parry</h2>\n<p>Watch for the yellow attack cue and time Space to parry the incoming swing.</p>\n<h2>Unleash Slayer</h2>\n<p>Break enemy stamina to unleash Slayer: each correct keystroke becomes a rapid strike.</p>\n<h2>Learn the rhythm</h2>\n<p>The interactive tutorial walks through attacking, accuracy, parrying and Slayer. Skip it or replay it from the menu.</p>\n<table><thead><tr><th>Key</th><th>Action</th></tr></thead><tbody><tr><td>Letters</td><td>Type to attack</td></tr><tr><td>Space</td><td>Parry</td></tr><tr><td>Esc</td><td>Pause</td></tr><tr><td>R / M</td><td>Restart / menu from pause or results</td></tr></tbody></table>\n<h2>Follow development</h2>\n<p>Use itch.io's <strong>Follow</strong> button to follow development. Tried a duel? Leave a comment below with the moment that clicked&mdash;or where you got stuck.</p>\n<h2>Credits</h2>\n<ul>\n  <li><a href=\"https://lyniadesign.itch.io/tiny-pixel-japan-parallax-background\">Tiny Pixel Japan Parallax Background</a> by <strong>LyniaDesign</strong>, used under the author's license. Palette adapted for CLACKBLADE.</li>\n  <li><a href=\"https://pimen.itch.io/battle-vfx-hit-spark\">Hit Spark</a> and <a href=\"https://pimen.itch.io/pixel-battle-effects\">Battle Effects</a> by <strong>Pimen</strong>. Hit Spark uses the included author license; Battle Effects is <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>. Animation timing, pivots and scale adapted; Battle Effects converted to white for Slayer.</li>\n  <li><a href=\"https://kenney.nl/assets/input-prompts-pixel\">Input Prompts Pixel</a> by <strong>Kenney</strong> (CC0).</li>\n  <li><a href=\"https://kenney.nl/assets/impact-sounds\">Impact Sounds</a> and <a href=\"https://kenney.nl/assets/ui-audio\">UI Audio</a> by <strong>Kenney</strong> (CC0).</li>\n  <li><a href=\"https://github.com/google/fonts/tree/main/ofl/vt323\">VT323</a> by <strong>Peter Hull</strong> (SIL Open Font License 1.1).</li>\n<li><a href=\"https://opengameart.org/content/free-vfx-asset-pack\">Free VFX Asset Pack</a> by <strong>CodeManu</strong> (CC0); retained legacy sheets adapted by CLACKBLADE. Current impact particles are implemented in the project.</li>\n</ul>\n<p>Credits and licenses are included in the browser build. Attribution for the retained hero and skeleton assets and original music is still being verified.</p>"
+      },
+      {
+        "name": "game[genre]",
+        "type": "select-one",
+        "value": "action"
+      },
+      {
+        "checked": false,
+        "name": "game[tags]",
+        "type": "text",
+        "value": "2d,arcade,difficult,fast-paced,hack-and-slash,high-score,pixel-art,typing,word-game"
+      },
+      {
+        "checked": true,
+        "name": "ai_disclosure[ai_generated]",
+        "type": "radio",
+        "value": "yes"
+      },
+      {
+        "checked": false,
+        "name": "ai_disclosure[ai_generated]",
+        "type": "radio",
+        "value": "no"
+      },
+      {
+        "checked": false,
+        "name": "ai_disclosure[ai_graphics]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "ai_disclosure[ai_audio]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": true,
+        "name": "ai_disclosure[ai_text]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "ai_disclosure[ai_code]",
+        "type": "checkbox",
+        "value": "on"
+      },
+      {
+        "checked": false,
+        "name": "game[steam_url]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "checked": false,
+        "name": "game[app_store_url]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "checked": false,
+        "name": "game[google_play_url]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "checked": false,
+        "name": "game[amazon_appstore_url]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "checked": false,
+        "name": "game[windows_phone_url]",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "checked": false,
+        "name": "game[noun]",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "name": "game[instructions]",
+        "type": "textarea",
+        "value": ""
+      },
+      {
+        "checked": false,
+        "name": "game[community_type]",
+        "type": "radio",
+        "value": "none"
+      },
+      {
+        "checked": true,
+        "name": "game[community_type]",
+        "type": "radio",
+        "value": "topic"
+      },
+      {
+        "checked": false,
+        "name": "game[community_type]",
+        "type": "radio",
+        "value": "category"
+      },
+      {
+        "checked": false,
+        "name": "game[published]",
+        "type": "radio",
+        "value": "draft"
+      },
+      {
+        "checked": false,
+        "name": "game[published]",
+        "type": "radio",
+        "value": "restricted"
+      },
+      {
+        "checked": true,
+        "name": "game[published]",
+        "type": "radio",
+        "value": "published"
+      },
+      {
+        "checked": false,
+        "name": "game[cover_image_id]",
+        "type": "hidden",
+        "value": "31084579"
+      },
+      {
+        "checked": false,
+        "name": "game[video_url]",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "checked": false,
+        "name": "screenshot[31082580][position]",
+        "type": "hidden",
+        "value": "0"
+      },
+      {
+        "checked": false,
+        "name": "screenshot[31082579][position]",
+        "type": "hidden",
+        "value": "1"
+      },
+      {
+        "checked": false,
+        "name": "screenshot[31082581][position]",
+        "type": "hidden",
+        "value": "2"
+      }
+    ],
+    "title": "Edit project - itch.io",
+    "url": "https://itch.io/game/edit/3857509"
+  }
+}

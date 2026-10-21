@@ -1,0 +1,74 @@
+{
+  "browser": "155.0.4283.62",
+  "cases": [
+    {
+      "name": "combat",
+      "viewport": [
+        320,
+        180
+      ],
+      "buffer": [
+        320,
+        180
+      ],
+      "css": [
+        320,
+        180
+      ],
+      "dpr": 1
+    },
+    {
+      "name": "combat",
+      "viewport": [
+        640,
+        360
+      ],
+      "buffer": [
+        640,
+        360
+      ],
+      "css": [
+        640,
+        360
+      ],
+      "dpr": 1
+    },
+    {
+      "name": "pause",
+      "viewport": [
+        320,
+        180
+      ],
+      "buffer": [
+        320,
+        180
+      ],
+      "css": [
+        320,
+        180
+      ],
+      "dpr": 1
+    },
+    {
+      "name": "pause",
+      "viewport": [
+        640,
+        360
+      ],
+      "buffer": [
+        640,
+        360
+      ],
+      "css": [
+        640,
+        360
+      ],
+      "dpr": 1
+    }
+  ],
+  "pageErrors": [],
+  "shaderErrors": [],
+  "externalBlocked": 0,
+  "htmlRewritten": false,
+  "status": "passed"
+}

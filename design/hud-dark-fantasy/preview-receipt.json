@@ -1,0 +1,31 @@
+{
+  "kind": "native real-input captures, independent runs in the same dungeon; actor frames may differ",
+  "baseline": {
+    "sha256": "94c4adbdc5deba6512e6dc614568eeb2b362ca2d52fe1fa96396b26243c97cb0"
+  },
+  "candidate": {
+    "sha256": "72528e3526fbe77904642b84b97dc950b85f37471bad3052c9c950238348b1f8"
+  },
+  "images": {
+    "combat-320x180-dpr1.png-before": "065c9185aa415dacce439e81320eee950c4f8896410311fb85db549706c6479c",
+    "combat-320x180-dpr1.png-after": "287d6483896327a1069541bb6ddcc32d543120f9a48377e4f826d2fc058cd6a4",
+    "combat-640x360-dpr1.png-before": "e6afcf5c1075669ed7fb1b27a4c67b844390ff67d233f8092ed36620de3ecd20",
+    "combat-640x360-dpr1.png-after": "815f52c69fa1046c4ff9590c76731ed3dee872ddceda0bea66ac7e8a66938566",
+    "normal-320x180.png-before": "e7b795a01cd957e2e7fe1e5f0ad73ce529e5e7713dcd78561fb64e33284b3738",
+    "normal-320x180.png-after": "e74ad2f292ddae67dbabcb6d858e150533031475f8c0207f87c2332eb143dcfc",
+    "normal-640x360.png-before": "d7a6e2a04ecae50ea08b8fa339d17bf96d97ef9fbb7b737f6ba9f2c448872de7",
+    "normal-640x360.png-after": "bdf5ce02d4ab68cce67730742506a97b2eb404eb5662bc63f8501e86375e470b",
+    "low-hp-320x180.png-before": "b4d84b740332f25ddd17940c0cdcc1ed688c086dd107c8c659d8c5aba01b01ec",
+    "low-hp-320x180.png-after": "e43ac7b50d5f48ad73a17eac1970d3a81e831c50e59f49b7d35f7ea888bf4a2c",
+    "low-hp-640x360.png-before": "0addd8fad448b49f5af1074ca0443f76831fd7dbaff4e162c190bb421e8931a0",
+    "low-hp-640x360.png-after": "7ea3d875ab3e83a4bd14f5d33c7a51b0f485625ddd861b1118af9d53dce232eb",
+    "combo-320x180.png-before": "7f06950adf8bfd6fdcab577c34cf66fdeb032efa0cdece06e0f65b5ce4ce8771",
+    "combo-320x180.png-after": "5fd4058deb4e551ce6363ca07486849766a0105611935231a5a14cf3b8e35dc7",
+    "combo-640x360.png-before": "53a53ede538b093503d79f5d51f679c7f57ad7810dbe1d4b56463642f5062f53",
+    "combo-640x360.png-after": "9affcd8dc90d105f928ff2cfa2d4361ed16dc5675a935a6698b02dcf9c7ffb2c"
+  },
+  "productionCandidate": {
+    "sha256": "eb36b3b193b2952cf08ffe064de4e08610d2868fee727cc42344c6c3c1ad6ba9"
+  },
+  "qaScope": "QA captures verify final HP ink/combo. Production additionally includes coal track flatten and pause palette."
+}

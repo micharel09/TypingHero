@@ -1,0 +1,13 @@
+{
+  "baseRef": "56433a4",
+  "hudRef": "8179a0c",
+  "scope": "approved HUD before main arena integration",
+  "sceneIDs": 874,
+  "menuUnchanged": true,
+  "completeSceneOnlyPaletteSpritesHpMaterialAndExplicitCompactFields": true,
+  "healthBarLogicalWidth": 82,
+  "sideHudScale": 0.8,
+  "healthBarNativeWidthAfter": 65.6,
+  "bothHpDigitsAndEncounterLineHidden": true,
+  "scoreClusterUnchanged": true
+}

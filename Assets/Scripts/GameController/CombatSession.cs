@@ -75,12 +75,6 @@ public sealed class CombatSession : MonoBehaviour
         string accuracy = letters == 0 ? "—" : (100f * correct / letters).ToString("0.0") + "%";
         if (resultLabel)
         {
-            if (EndlessDuel.I)
-            {
-                resultLabel.fontSize = 20;
-                // Results hide Resume, leaving its row available for run statistics.
-                resultLabel.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 120);
-            }
             resultLabel.text = survival + $"SCORE {finalScore}    TIME {seconds:0.0}s\nACCURACY {accuracy}    PARRIES {parries}";
         }
     }

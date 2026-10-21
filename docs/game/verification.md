@@ -1,3 +1,67 @@
+## HUD integration with current main (2026-10-21)
+
+Merged HUD8179a0c with maindbe663f (approved3D arena/parry/combat). Two conflicts
+resolved by retaining the main arena build and objects plus the final HUD pass.
+Production082906/3fce8615 strict repeat and normal bridge exclusion PASS; focused
+combat/damage4captures320/640 PASS with0JS/shader errors/external requests. Actual
+3D images inspected;169UI RectTransforms equal the approved HUD, score interior
+pixels identical at320/640, and all671new main arena objects unchanged.1545scene
+IDs; no full suite rerun. [Receipt](../../design/hud-dark-fantasy/main-integration.json).
+Earlier local8245/ZIP receipts below retain the approved2D preview; the integration
+artifact is preserved separately as recorded in the checkpoint.
+
+## Uniform side HUD scale — local only (2026-10-21)
+
+Production075801/input0f97006d: strict repeat and production QA exclusion PASS.
+Six original-HTML combat/damage captures at320/640/400x300 DPR1 PASS, zero JS/shader
+errors/external requests. Actual images inspected: both HP digit labels hidden,
+both side status groups/names/icons/stamina at80%, outer corners maintained and
+fills continue updating under damage. Score region pixel-identical to77f90925 at
+320/640. Complete serialized scene audit retains874IDs and all fields outside
+explicit HUD changes, including the entire score/combo cluster and typing tray.
+Stamina highlight serialized scale also80%, matching its existing TransformPoint
+follow contract. No gameplay code edits, full tutorial/suite or upload.
+Latest player/ZIP/hash: [delivery](../../design/hud-dark-fantasy/delivery.json).
+
+## Compact health HUD follow-up — local only (2026-10-21)
+
+Production070959/input77f90925: strict repeated builder and normal QA exclusion
+PASS. Four original-HTML combat/damage captures at320/640 DPR1 PASS, zero JS/shader
+errors; actual screenshots inspected. Enemy HP numbers and difficulty/DUEL line
+stay hidden, player HP35/40to20/40 and its fill update correctly, rails102to82px
+retain their height/corner anchors and sliced rim pixels. Complete scene audit
+permits only these explicit geometry/visibility changes beyond the prior palette;
+all874IDs, fonts and bindings retained. No gameplay code changes or full suite.
+Latest local ZIP/hash: [delivery](../../design/hud-dark-fantasy/delivery.json);
+[before/after](../../design/hud-dark-fantasy/compact.html). No upload.
+
+## Dark fantasy HUD — local only (2026-10-21)
+
+Source56433a4 on `micharel09/cobblestone-itch-release`. QA062108/72528e35 strict
+repeat PASS; native focused11 checks/30.014s on Edge155/GTX1650Ti D3D11 at320/640
+DPR1, actual normal/combo/low-HP inspected,0exceptions/provider writes. Final
+production064056/eb36b3b1 includes coal tracks and pause palette; separate strict
+repeat PASS,5JS/WASM/data payloads exclude QA markers, qa=false and original HTML
+production combat/pause4 captures plus resume PASS with0JS/shader errors. Final
+production screenshots inspected;874IDs and normalized complete scene prove only
+palette/sprite/two HP material bindings changed, menu unchanged.26PNG dimensions
+and alpha unchanged, text>=4.5:1 with hard HP coal underlay, resources>=3:1.
+
+The user explicitly limited testing to changed parts: no final full gameplay,
+tutorial, difficulty, DPR matrix, stress or soak rerun. Prior evidence remains
+scoped to unchanged behavior; final material is visually verified atDPR1.
+Local ZIP30members/16,983,695bytes, CRC PASS; receipt, paired native/nearest previews,
+rejected candidate history and resources: [checkpoint](../plans/hud-dark-fantasy.md),
+[delivery](../../design/hud-dark-fantasy/delivery.json). No itch.io upload.
+
+## Typography role synchronization - local preview (2026-10-21)
+
+Final94c4adbd: QA035043/production040103 strict repeat/bridge exclusion pass, matching serialized scenes/fonts/prefabs and unchanged complete typing components/non-text serialized scripts/scene IDs. Source fonts/prefabs unchanged. Native698checks plus259ink-clearance checks pass, four sizes and DPR1/2/1.25, fixture/blocking and zero real provider writes. Original-production HTML52viewport-state captures pass, including defeat/results; actual full live cue and wrapped COMPLETE title inspected. Hierarchy56/48/42;20native-pixel name row clears stacked accents, HP/round stacks shift9pixels, score/typing fixed. No full balance/performance or publication claim; previous public build unchanged. Source/limits/resources: [font checkpoint](../plans/itch-game-page-dark-fantasy.md).
+
+## Cobblestone UI public release (2026-10-21)
+
+Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, hidden PARRY/key/clock. Exact input640a9871: QA020049 repeat-builder and complete typing behavior guard PASS; production021408 QA exclusion PASS. Native scoped633checks across four viewports and DPR1/2/1.25; six lessons/parry/Slayer/pause/restart/first win/Continue and current score cluster pass, Firebase fixture/blocking and zero real writes. Normal player48viewport-state captures pass; public Run game actual menu plus8native CDN combat/pause captures and Space pose,29payload hashes exact. Upload19915823 selected after native Save/reload;19893288 retained hidden for rollback. No full balance/performance claim. See [release receipt](../../marketing/itch-io/cobblestone-release-20261021.json) and [font checkpoint](../plans/itch-game-page-dark-fantasy.md). Older all-UI Blackbit font-quality conclusions are superseded by the user-approved Cobblestone choice; their behavioral evidence stays scoped to its frozen source.
+
 # Verification and performance memory
 
 ## Player received particles removed (2026-10-21, local)

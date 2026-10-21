@@ -1,0 +1,20 @@
+{
+  "background": "121014",
+  "ratios": {
+    "f2e7cf": 15.412,
+    "c5b9a7": 9.795,
+    "a99c90": 7.068,
+    "73b6aa": 8.109,
+    "e5be72": 10.757,
+    "f16b67": 6.342,
+    "c34b55": 4.016,
+    "ed8080": 7.208
+  },
+  "resourceText": {
+    "outline": "121014",
+    "outlineDesignPixels": 0.812,
+    "ivoryAgainstRedWithoutOutline": 3.837,
+    "ivoryAgainstOutline": 15.412,
+    "damageRedAgainstOutline": 6.342
+  }
+}

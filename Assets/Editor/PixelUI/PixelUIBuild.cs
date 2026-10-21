@@ -17,6 +17,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
         catch (System.Exception error) { throw new BuildFailedException(error); }
         if (System.Environment.GetEnvironmentVariable("TYPINGHERO_QA") != "1") return;
         var paths = new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
+            "Assets/Data/Score/ScoreRules.asset",
             PixelUIFactory.Generated + "Panel.prefab", PixelUIFactory.Generated + "Button.prefab",
             PixelUIFactory.Generated + "StatBar.prefab", PixelUIFactory.Generated + "LeaderboardRow.prefab",
             "Assets/Characters/Player/Player.prefab", "Assets/Characters/Enermy/Skeleton.prefab",
@@ -34,7 +35,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(DungeonArenaBuild.Art, "*", SearchOption.AllDirectories))
             .Concat(new[] { "Assets/Settings/UniversalRP.asset", "Assets/Settings/DungeonForward.asset" }).ToArray();
         paths = paths.Concat(Directory.GetFiles(ShogunEnvironment.Art, "*"))
-            .Concat(Directory.GetFiles(CombatR7Build.Art, "*"))
+            .Concat(Directory.GetFiles(CombatR7Build.Art, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(DungeonUISkin.Art, "*"))
             .Concat(Directory.GetFiles(BlackletterTitleBuild.Art, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Art/EndlessSkeletons", "*", SearchOption.AllDirectories))
@@ -72,6 +73,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
         var previousScene = EditorSceneManager.GetActiveScene().path;
         try
         {
+            var originalTyping = BlackletterTitleBuild.SnapshotTypingComponents();
             PixelUIAssets.Prepare();
             PixelUIAssets.SavePrimitives();
             PixelUIScenes.Menu();
@@ -86,6 +88,8 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             DungeonUISkin.Apply();
             BlackletterTitleBuild.Apply();
             DungeonArenaBuild.Apply();
+            CombatR7Build.ApplyResourceInk();
+            BlackletterTitleBuild.AssertTypingComponents(originalTyping);
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");
