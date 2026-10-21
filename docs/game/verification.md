@@ -1,5 +1,14 @@
 # Verification and performance memory
 
+## Hanging combat lamp ? isolated branch (2026-10-21)
+
+- Baseline snapshotfc1bbfd; final QA052033/inputb1602adbb0abaaaef224521bc109c6fc530fee550a4970d64619e9a968437e20, player2ee55b9f1b0faeae. Unity2022.3.25f1 pinned container, own cache; strict twice-run builder PASS. Scoped Quick045916 executes2lighting lifecycle tests, both PASS. No broad suite/production/release.
+- Edge155.0.4283.62/GTX1650Ti/ANGLE D3D11,1280x720: final17checks PASS,240actual lamp samples, main40..40, rear15.6820..16.3188; pause holds phase, Slayer hides/restores lights and camera FOV35, center640/360, actor-scale delta0%. Three successful parries; actual attack/hit/pause/Slayer/restored images inspected.0exceptions/provider reads/writes; external blocking retained.
+- Visual playerab0035a1 has identical287scene assets and identical lighting/geometry scene to final after preserving pre-existing TMP-only refs. Nine pan/FOV endpoints and36frames sampled at2fps over18s reviewed, four source combinations inspected, blackout world ROI RGB0. Both faces and weapon silhouettes read; lower-ring face/floor blackout from rejected candidate fixed with actual open geometry, not shadow disabling. No full-frame continuous-video or GPU-only claim.
+- One20s active keyboard run each, same native driver/GPU/viewport: baseline n488,mean15.798,p5013.350,p9526.765ms; final n428,mean18.262,p5013.400,p9526.865ms. Mean+15.6%,p50/p95 about+0.4%; three final>50ms samples vs0baseline. RNG/combat timing and QA observer differ; no causal attribution, performance equivalence or FPS guarantee. Paused rAF runs hit1Hz gaps and are not the active comparison.
+- Retained preview/captures/receipts in `E:/CodexTemp/TypingHero/combat-hanging-light`; play8217 and `/review.html`. See [checkpoint](../plans/combat-hanging-light.md) for source ownership, rejected pilots and cleanup.
+
+
 ## Source-motivated torch lighting final (2026-10-21)
 
 - QA041655 strict repeated builder PASS, Unity2022.3.25f1/URP14.0.11; input e1cf4516b7f5f3b21ddf4237ac5bc12a42a465febe59cdf2f9b19043c47fc4ce, immutable player17b60d80687e332f. Three actual-flame point sources, no hidden key/fill or glowing shafts/haze; black ambient/no GI. Fire-only emission and non-fire shadow geometry; hit/parry pulse at contact. Existing GUIDs/camera/floor/gameplay retained.

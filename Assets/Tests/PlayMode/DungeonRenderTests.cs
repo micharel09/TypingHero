@@ -12,6 +12,26 @@ public sealed class DungeonRenderTests
         yield return null;
     }
     [UnityTest, Category("Quick")]
+    public IEnumerator MainLampStaysConstantAcrossPauseAndCinematicRestore()
+    {
+        float previousScale=Time.timeScale;
+        host=new GameObject("fixed key lifecycle");host.SetActive(false);
+        var light=host.AddComponent<Light>();var torch=host.AddComponent<DungeonTorchLight>();
+        var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+        typeof(DungeonTorchLight).GetField("baseIntensity",flags).SetValue(torch,40f);
+        typeof(DungeonTorchLight).GetField("flickerAmplitude",flags).SetValue(torch,0f);
+        try
+        {
+            Time.timeScale=1;host.SetActive(true);
+            for(int i=0;i<20;i++){yield return null;Assert.That(light.intensity,Is.EqualTo(40));}
+            Time.timeScale=0;yield return null;Assert.That(light.intensity,Is.EqualTo(40));
+            host.SetActive(false);host.SetActive(true);yield return null;
+            Assert.That(light.intensity,Is.EqualTo(40));
+        }
+        finally{Time.timeScale=previousScale;}
+    }
+
+    [UnityTest, Category("Quick")]
     public IEnumerator TorchFlickerIsBoundedAndPreservesPhaseAcrossPauseAndHiding()
     {
         float previousScale = Time.timeScale;
@@ -35,7 +55,7 @@ public sealed class DungeonRenderTests
                 maximum = Mathf.Max(maximum, light.intensity);
                 renderer.GetPropertyBlock(block);
                 Assert.That(block.GetColor("_EmissionColor").r,Is.EqualTo(3*light.intensity/22).Within(.0001f),"visible flame and local light share the same phase");
-                Assert.That(light.intensity, Is.InRange(22 * .95f, 22 * 1.05f));
+                Assert.That(light.intensity, Is.InRange(22 * .98f, 22 * 1.02f));
             }
             Assert.That(maximum - minimum, Is.GreaterThan(.001f));
             Time.timeScale = 0;
@@ -49,7 +69,7 @@ public sealed class DungeonRenderTests
             Time.timeScale = 1;
             yield return null;
             Assert.That(torch.enabled, Is.True);
-            Assert.That(light.intensity, Is.InRange(22 * .95f, 22 * 1.05f));
+            Assert.That(light.intensity, Is.InRange(22 * .98f, 22 * 1.02f));
         }
         finally { Time.timeScale = previousScale; Object.Destroy(material); }
     }

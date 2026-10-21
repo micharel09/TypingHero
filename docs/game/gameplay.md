@@ -291,13 +291,20 @@ Full surface art, B/C and parent integration remain separate.
 
 ## Isolated pixel dungeon preview (2026-10-20; visual review pending)
 
-Source-motivated lighting verified2026-10-21: two rear torches plus one visible
-left foreground torch, all realtime point lights centered in the actual flame.
-Fire-only emission and light share bounded+/-5percent phase; wood/metal cast true
-shadows. Hidden key/fill and glowing beam/haze cards are disabled. Ambient/fog are
-black; dust receives real local lights, bloom.12; no baked/realtime GI. One temporary
-point pulse originates at hit/parry contact. Pause holds phase; Slayer hides/restores
-the room. Camera remains5deg/FOV35 with prior actor scale/center and no new controls.
+Hanging combat key verified2026-10-21 on isolated branch `micharel09/combat-hanging-light`:
+replace the foreground torch with an open iron frame, chain and wood beam resting
+on the front piers. Reuse the foreground light/holder and original fire triangles.
+Flame center is horizontally centered on combat,2WU in front,3.65WU above floor.
+Main realtime point40/range16 is fixed; two rear torches16/range15 share emission
+and bounded+/-2percent phase. Open lower frame clears the actor/floor light paths;
+iron/wood cast real shadows, flame does not. Atlas2048/main512/rear256 retained.
+No camera/floor/exposure/bloom/gameplay/public-API change, hidden fill, GI or release.
+Scoped Unity2tests and final native17checks pass; camera center(640,360), actor-scale
+delta0%, actual main40 constant across240samples, rear within15.68..16.32,
+pause/Slayer restore and source world position preserved. Nine camera poses and
+36sampled sweep frames reviewed. Frame p50/p95:13.35/26.76 ->13.40/26.87ms;
+mean15.80 ->18.26ms in one20s active run per player; no frame-cost equivalence/FPS
+claim. [Checkpoint](../plans/combat-hanging-light.md) has exact receipts and limitations.
 
 GroundSurface retains one mesh/eight material groups and1x1WU tiles, deterministic
 ~25percent variants, Stone tint/metallic0/smoothness.02/Point/no-mips/no PBR links.

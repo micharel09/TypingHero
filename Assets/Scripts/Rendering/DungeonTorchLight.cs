@@ -6,6 +6,7 @@ public sealed class DungeonTorchLight : MonoBehaviour
 {
     [SerializeField, Min(0)] float baseIntensity = 22;
     [SerializeField] float phase;
+    [SerializeField, Range(0, .02f)] float flickerAmplitude = .02f;
     [SerializeField] Renderer[] flameRenderers = new Renderer[0];
     Light source;
     MaterialPropertyBlock flameBlock;
@@ -28,7 +29,7 @@ public sealed class DungeonTorchLight : MonoBehaviour
     {
         float wave = .65f * Mathf.Sin(age * 12.57f + phase)
             + .35f * Mathf.Sin(age * 19.92f + phase * 1.7f);
-        float multiplier=1+.05f*wave;
+        float multiplier=1+Mathf.Clamp(flickerAmplitude,0,.02f)*wave;
         source.intensity=baseIntensity*multiplier;
         if(flameBlock==null)flameBlock=new MaterialPropertyBlock();
         foreach(var renderer in flameRenderers)
