@@ -349,11 +349,14 @@ Full surface art, B/C and parent integration remain separate.
   visual review; see combat-feedback.
 ### Shared 2.5D presentation
 
-- Full 2.5D conversion source wires Normal6/Slayer8/Lethal14 closed-mesh impacts,
-  plus received4/received-lethal6 on accepted player HP loss. Slayer tint is captured
+- Full 2.5D conversion source wires Normal6/Slayer8/Lethal14 closed-mesh impacts.
+  Player received4/received-lethal6 and their light pulses are removed (2026-10-21);
+  PlayerDamageVoxel/ReceivedImpact stay detached after repeated builder runs.
+  Their scripts/assets/GUIDs remain for compatibility. Red Hurt, HP/SFX and the
+  white sprite death remain unchanged. Slayer tint is captured
   before damage can exit the mode; normal lethal has no Slayer emission. New impact
   random is isolated from gameplay random. Eight active leases per emitter bound
-  impact particles to112outgoing+48received, alongside192parry particles.
+  impact particles to112outgoing, alongside192parry particles (304total).
   SlashVolume follows the actual source Sprite cel through SlashLibrary;9atlases
   have slash-only RGBA separated into durable layers and thin closed meshes.
   Actor pixels outside the authored masks, sprite metadata and clip events/timing
@@ -362,8 +365,9 @@ Full surface art, B/C and parent integration remain separate.
   Existing hit SFX, lethal shake and damage remain. Legacy PixelSparks/CodeManu and
   unused Pimen prefabs remain unwired; original Pimen01 supplies the current parry.
   Prior focused27/shared native70 receipts describe these unchanged consumers;
-  current parry native66 includes normal/received/Slayer/lethal smoke. Visual
-  direction still awaits user review.
+  earlier parry native66 includes historical received smoke. Particle removal
+  passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
+  Existing broader visual direction remains with its original review.
 - ParryClashBurst owns the stock contact clock and analytical unscaled debris clock,
   pause/tutorial hold, clear and completion;
   PooledVFX owns guarded release. Eight parry leases reclaim the oldest when full.

@@ -7,6 +7,57 @@ using UnityEngine.TestTools;
 
 public sealed partial class ParryClashTests
 {
+#if UNITY_EDITOR
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void RepeatedCombatBuilderRemovesReceivedRouteAndPreservesOutgoingAndParry(bool legacyRoute)
+    {
+        PrepareVoxel();
+        var root = UnityEditor.PrefabUtility.LoadPrefabContents("Assets/Characters/Player/Player.prefab");
+        try
+        {
+            var health = root.GetComponentInChildren<PlayerHealth>(true);
+            if (legacyRoute && !health.GetComponent<PlayerDamageVoxel>())
+            {
+                var received = new GameObject("ReceivedImpact");
+                received.transform.SetParent(health.transform, false);
+                var emitter = received.AddComponent<HitSparkSpawner>();
+                Set(emitter, "sparkPrefab", UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/CombatVoxel/Received.prefab"));
+                Set(emitter, "lethalPrefab", UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/CombatVoxel/ReceivedLethal.prefab"));
+                var damage = health.gameObject.AddComponent<PlayerDamageVoxel>();
+                Set(damage, "health", health); Set(damage, "emitter", emitter);
+            }
+            System.Type builder = null;
+            foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies())
+                if ((builder = assembly.GetType("CombatFeedbackBuild")) != null) break;
+            Assert.That(builder, Is.Not.Null);
+            var configure = builder.GetMethod("Configure", BindingFlags.Static | BindingFlags.NonPublic);
+            for (int repeat = 0; repeat < 2; repeat++)
+            {
+                configure.Invoke(null, new object[] { root, null, null, null });
+                Assert.That(root.GetComponentsInChildren<PlayerDamageVoxel>(true), Is.Empty);
+                Assert.That(health.transform.Find("ReceivedImpact"), Is.Null);
+                var outgoing = root.GetComponentsInChildren<HitSparkSpawner>(true);
+                Assert.That(outgoing.Length, Is.EqualTo(1));
+                var so = new UnityEditor.SerializedObject(outgoing[0]);
+                foreach (var role in new[] { ("sparkPrefab", "Normal"), ("lethalPrefab", "Lethal") })
+                    Assert.That(so.FindProperty(role.Item1).objectReferenceValue,
+                        Is.EqualTo(UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/CombatVoxel/" + role.Item2 + ".prefab")));
+                var variants = so.FindProperty("slayerPrefabs");
+                Assert.That(variants.arraySize, Is.EqualTo(1));
+                Assert.That(variants.GetArrayElementAtIndex(0).objectReferenceValue,
+                    Is.EqualTo(UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/CombatVoxel/Slayer.prefab")));
+                var hitbox = new UnityEditor.SerializedObject(root.GetComponentInChildren<PlayerWeaponHitbox>(true));
+                Assert.That(hitbox.FindProperty("hitSpark").objectReferenceValue, Is.EqualTo(outgoing[0]));
+                var parry = new UnityEditor.SerializedObject(root.GetComponentInChildren<ParrySparkVFX_Pooled>(true));
+                Assert.That(parry.FindProperty("sparkPrefab").objectReferenceValue,
+                    Is.EqualTo(UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/ParryClash/ParryClash.prefab")));
+                Assert.That(parry.FindProperty("sparkPreset").intValue, Is.EqualTo((int)ParryClashBurst.Preset.BCompact));
+                Assert.That(parry.FindProperty("parrySystem").objectReferenceValue, Is.Not.Null);
+            }
+        }
+        finally { UnityEditor.PrefabUtility.UnloadPrefabContents(root); }
+    }
+#endif
     static void PrepareVoxel()
     {
         foreach (string name in new[] { "ParryClashAssets", "CombatVoxelAssets", "SlashVolumeAssets" })

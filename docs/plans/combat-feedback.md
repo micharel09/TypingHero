@@ -1,13 +1,156 @@
 # Combat feedback â€” implementation checkpoint
 
-Current task: BCompact continuous 3D pixel sparks in child `feat/pixel-hit-sparks`.
-Implementation, Quick78, repeated builders, two-direction/two-size native art and
-lifecycle checks pass. Matched-configuration performance verification is complete;
-see the final volume receipt for measured limits and retained review resources. Current/default and the earlier
-published prototype remain unchanged. Keep review players/clips; integration and
-publication are separate from this request.
-Earlier intent/checkpoints are historical; preserve their source/license/release
-receipts and use the latest approved BCompact volume requirements for this task.
+Current task: remove player received-damage particles in the isolated
+`remove-player-damage-particles` child. Scoped tests/build and keyboard acceptance
+pass; requested sound clips and a paused preview are available. Keep the child for
+review/integration. Push, merge and deployment are separate from this request.
+Earlier parry/volume/source/license/release checkpoints below are historical.
+
+## Remove player received particles (2026-10-21, verified locally)
+
+- User intent: remove Received4 and ReceivedLethal6 and their light pulses; keep
+  red flash/Hurt, damage SFX, HP feedback, white sprite death, approved parry and
+  outgoing normal/Slayer/lethal impacts. No health API, damage/timing, i-frame,
+  hitstop, collision, animation, asset/GUID cleanup, push or deployment changes.
+- Orca child ID
+  `e14b56e3-5bc0-49e9-bfdc-c342284235fc::C:/Users/ADMIN/orca/workspaces/TypingHero/remove-player-damage-particles`,
+  branch `micharel09/remove-player-damage-particles`, parent
+  `C:/Users/ADMIN/orca/TypingHero`, base/target `origin/main`
+  `95767447e576e5e080a13a8c804d1187799fad38`, verified remote
+  `https://github.com/micharel09/TypingHero.git`. Parent WIP preserved.
+- Implemented: retire PlayerDamageVoxel and ReceivedImpact before the builder's
+  spawner loop, remove recreation, remove only their serialized prefab objects
+  and scene floor override. Scripts and Received assets remain intact/unwired.
+  Regression covers both legacy and already-clean prefab roots, two passes,
+  outgoing hitbox/three profiles and BCompact parry references.
+- Completed: scoped Unity feedback/parry tests, strict repeated builder and QA
+  build, keyboard sword/axe damage/death at1280x720 and640x360, exact HP delta,
+  Hurt recovery/results, no-damage parry, outgoing hit and pause/restart.
+  Sound clips at1x/.25x exported; preview opened and subsequently closed. User then requested testing only
+  the changed behavior; no additional QA or playback suite was started.
+  No stress/soak/performance or public release in scope.
+- Task temp: `E:/CodexTemp/TypingHero/remove-player-damage-particles`. Reuse existing
+  runner/toolchain/fixtures with a disposable filter/build-only adapter; runner
+  source is unchanged. Shared server runner lock preserved concurrent jobs.
+  Original review reference: origin/main95767447 and the retained frame review at
+  `E:/CodexTemp/TypingHero/player-hit-review-20261021/review.md` (29source cels).
+  The referenced global pixel-melee-animation skill is missing from its stated
+  location and installed skill roots; no animation is authored by this change.
+  Use sprite-frame-review for the scoped unchanged-pose visual comparison and
+  record the missing supplementary guide as a limitation.
+- Retain the child until review and verified integration into main; local commit
+  alone does not authorize deleting its unintegrated work. Retained preview/player,
+  requested sound clips and minimal reopen harness are listed below.
+- Runner checkpoint: initial Doctor wait300s expired before acquiring the shared
+  lock; this is no test/build result. Combined scoped feedback/parry tests and QA
+  build queued at03:50UTC with immutable input
+  `fe8c8c2e09129e0b36d910e78a0665dad8a6fa04d663f44d65351ea31b4874f5`.
+  Adapter executes only ParryClashTests/CombatFeedbackTests, then builds and exits
+  before the unrelated browser profile. It waited behind existing QA/production
+  jobs; none was interrupted. The submission subsequently completed successfully.
+- At04:11UTC the queued run acquired the lock as `20261021T041018-webgl`.
+  Unity2022.3.25f1 scoped tests42/42 PASS,0failed/skipped,17.685s; actual XML
+  verified. Includes both new two-pass legacy/clean routing cases, accepted/lethal
+  damage notification and existing feedback/parry/voxel contracts. QA build and
+  strict repeated builder PASS. Final generated prefab/scene match the patch;
+  other generated files match except an empty-property trailing space in Compact.mat.
+  A stale shared Bee input briefly referenced BlackletterPixelSnap.cs from another
+  snapshot; Unity automatically rebuilt that graph and the final build succeeded.
+- Native Edge155.0.4283.62/Playwright1.58.2/GTX1650Ti ANGLE D3D11:178/178 PASS,
+  325.623s. Each size has13accepted hits: eight sword5HP and five axe8HP, both40to0.
+  Normal damage enters/recover Hurt (40to35/40to32), HUD feedback remains; successful
+  parry preserves HP and default BCompact particles, normal outgoing hit emits.
+  Pause holds HP; Restart clears effects/restores40HP/zero score, two real sword
+  wins/Continue reach axe, and both deaths finish/results after actor cleanup.
+  Whole-flow observer saw no Received/ReceivedLethal; removing their emit path also
+  removes their owned light pulses. No health/timing/collision/SFX/animation edits.
+ 0JS/managed exceptions,4fixture reads/4intercepted writes,0production writes;
+  fixture interception and external blocking remain enabled.
+- Viewed301render captures and293consecutive pairs inside the eight capture windows,
+  plus all29source cels/27pairs below. Do not count gaps between windows as transitions.
+ 1280: sword Hurt R0..25, death R26..73, axe Hurt R74..102, death R103..144.
+ 640: sword Hurt R0..25, death R26..76, axe Hurt R77..102, death R103..155.
+  Every sampled image was inspected at readable nearest-neighbor size: cue/contact
+  to red recoil, original palette/forward recovery and idle; lethal crouch/rise,
+  white wash, authored white flecks, disappearance and results. No received debris
+  or received burst flash appears. Full HUD/results were also inspected.
+- Limits: render/video sampling is approximately25fps; QA state labels update more
+  slowly, so they do not establish exact contact latency or show every engine cel.
+  All source cels/controller/clip bytes match origin/main95767447. Supplemental
+  pixel-melee guide remains unavailable; no new animation or broad melee-quality
+  certification is claimed. No subjective audio listening or new performance claim.
+- Four clips below retain the native render dimensions, H26425fps/AAC48kHz stereo.
+  Each contains sword Hurt/death and axe Hurt/death, duration8.501s at1x or33.941s
+  at.25x. Real game PCM peaks.5703001/.5937117, full decode and stream checks pass;
+  labels occupy background below HUD. No microphone audio.
+
+| Clip in `E:/CodexTemp/TypingHero/remove-player-damage-particles` | Bytes | SHA256 |
+|---|---:|---|
+|CLACKBLADE-NoReceived-1280-1x.mp4|642488|58628b276eb084925dc5a36a56d091407461b390c2a553f004f787985a3bc5e6|
+|CLACKBLADE-NoReceived-1280-0.25x.mp4|1090378|a88a93825c4de5497546bd97200e67c40a1b2ac58a6e180f1e837587146b4c55|
+|CLACKBLADE-NoReceived-640-1x.mp4|331252|809d903a2ed68fafbd1e1a836f36af4d0fb8bf6e925c37fea4ed913c1cd0ab20|
+|CLACKBLADE-NoReceived-640-0.25x.mp4|524645|c52610ca094e51c736479533ebe025019de39341c0fdf010210d9de682770763|
+
+Preview opened paused at1280x720 in native Edge, node PID36456/helper26728,
+`http://127.0.0.1:8159`, with fixtures/network blocking. Esc resumes, Space parries,
+type the displayed word to attack. It subsequently closed normally
+(`previewClosed=true`); no preview process/listener remains. Reopen with
+`powershell -NoProfile -File E:/CodexTemp/TypingHero/remove-player-damage-particles/native.ps1 -Mode preview -Name preview`.
+Retain `player/`, native.ps1/preview.cjs and webgl-snapshot.json
+while the user reviews; closing the preview window stops its harness. Retain the
+four requested clips until accepted. Delete the child only after verified main
+integration; no push/merge/deploy was performed.
+
+After written receipts, removed only task-owned raw QA frames/video/PCM/reports,
+review grids, copied serialization, disposable build/export adapters and the exact
+server result20261021T041018-webgl (matching frozen input confirmed before deletion).
+Shared source/Library/cache/builds, parent WIP and earlier reference captures remain.
+The closed preview's profile/logs were also removed. Only player/reopen files and
+four requested clips remain in task temp.
+
+### Unchanged source frame review for particle removal
+
+Reference is the same cel at origin/main95767447, not a new animation design.
+Reopened all29cels and27consecutive pairs at readable nearest-neighbor zoom.
+Hurt lasts450ms, Die1600ms; canvas/pivot/order/events/controller are unchanged.
+The short held/repeated cels below keep their actual durations. These source
+observations cover the source; runtime joins are covered by the scoped receipts above.
+Evidence H=`E:/CodexTemp/TypingHero/player-hit-review-20261021/hurt-all-cels.png`;
+D0..D3=`die-detail-00.png` through `die-detail-03.png` in the same retained folder.
+Source clips are `Assets/Characters/Player/player_hit.anim` and `player_die.anim`;
+the hurt/death PNGs, both clips and AC_Controller.controller retain origin/main95767447 bytes.
+
+| Clip | Frame | Duration ms | Reference | Observed pose | Transition to next | Status / evidence |
+|---|---|---:|---|---|---|---|
+| Hurt |0|83.33|same F0|Red recoil, hands close to chest|Tint reduces; silhouette holds|source reviewed / H|
+| Hurt |1|83.33|same F1|Dark red held recoil|Normal palette returns|source reviewed / H|
+| Hurt |2|100|same F2|Normal palette, body still recoils|Small shoulder/head recovery|source reviewed / H|
+| Hurt |3|83.33|same F3|Feet low, shoulders settling|Head/body leans forward|source reviewed / H|
+| Hurt |4|83.33|same F4|Forward lean, trailing scarf|Hands/feet return toward stand|source reviewed / H|
+| Hurt |5|16.67|same F5|Upright recovery, scarf behind|Idle join observed in both weapons/sizes; no loop|source reviewed / H|
+| Die |0|66.67|same F0|Head forward, hands drawn in|Head bows and shoulders contract|source reviewed / D0|
+| Die |1|83.33|same F1|Bowed head, scarf extended|Body contracts lower|source reviewed / D0|
+| Die |2|66.67|same F2|Low contracted body, hand at face|Pose holds; scarf moves|source reviewed / D0|
+| Die |3|83.33|same F3|Contracted silhouette held|Scarf bends down|source reviewed / D0|
+| Die |4|33.33|same F4|Low body, scarf curved|Scarf points farther downward|source reviewed / D0|
+| Die |5|116.67|same F5|Held crouched pose|Scarf settles before rise|source reviewed / D0|
+| Die |6|50|same F6|Last contracted pose|Torso rises, head tilts back|source reviewed / D1|
+| Die |7|83.33|same F7|Head up, chest opens, one leg lifts|Rise extends vertically|source reviewed / D1|
+| Die |8|50|same F8|Tall arched body, legs drawn|Head/torso holds high|source reviewed / D1|
+| Die |9|100|same F9|Arched pose, original colors|White veil begins|source reviewed / D1|
+| Die |10|50|same F10|Gray translucent veil, details visible|White increases|source reviewed / D1|
+| Die |11|66.67|same F11|Paler body, silhouette still solid|Details wash out|source reviewed / D1|
+| Die |12|100|same F12|Almost white silhouette|Full white replaces detail|source reviewed / D2|
+| Die |13|50|same F13|Full white, complete limbs|Silhouette holds|source reviewed / D2|
+| Die |14|83.33|same F14|Solid white body|Lower outline starts breaking|source reviewed / D2|
+| Die |15|50|same F15|White silhouette with rough lower edge|Lower gaps enlarge|source reviewed / D2|
+| Die |16|116.67|same F16|White outline erodes at feet/sides|Upper outline stretches into streaks|source reviewed / D2|
+| Die |17|33.33|same F17|Tall white streaks, body splits|More holes and separate fragments|source reviewed / D2|
+| Die |18|83.33|same F18|White bands with hollow center|Bands thin and separate|source reviewed / D3|
+| Die |19|66.67|same F19|Sparse vertical white fragments|Most bands disappear|source reviewed / D3|
+| Die |20|83.33|same F20|Small separated white flecks|Flecks become fewer|source reviewed / D3|
+| Die |21|66.67|same F21|Few thin white flecks|Only three faint spots remain|source reviewed / D3|
+| Die |22|16.67|same F22|Three tiny white spots|Cleanup/results observed; final16.67ms cel not resolved in video; no loop|source reviewed / D3|
 
 ## Intent and acceptance
 

@@ -1,5 +1,30 @@
 # Verification and performance memory
 
+## Player received particles removed (2026-10-21, local)
+
+- Orca child `micharel09/remove-player-damage-particles`, origin/main95767447 base.
+  Only the builder, retired prefab wiring, its scene override and regression tests
+  change; all runtime scripts, animation/art/GUIDs and gameplay settings remain.
+- Frozen input `fe8c8c2e09129e0b36d910e78a0665dad8a6fa04d663f44d65351ea31b4874f5`,
+  run20261021T041018-webgl: pinned Unity2022.3.25f1 scoped42/42 PASS,0skip/fail,
+  17.685s. Both legacy/clean roots survive two configurations without received
+  routes; outgoing normal/Slayer/lethal and BCompact references remain connected.
+  QA build and strict repeat-builder PASS. Generated prefab/scene match the local
+  patch; only Compact.mat's empty-property trailing space differs elsewhere.
+- Edge155.0.4283.62/Playwright1.58.2/GTX1650Ti ANGLE D3D11:178checks PASS in325.623s.
+  Both1280x720/640x360: eight sword5HP and five axe8HP deductions40to0, normal Hurt
+  recovery, parry without damage, outgoing hit, pause/restart, real Continue to axe,
+  both deaths/results. No Received/ReceivedLethal observed.0JS/managed exceptions;
+  four fixture reads/four intercepted writes,0production writes; external blocking on.
+- Reviewed all29unchanged source cels/27pairs plus301render captures/293within-window
+  pairs: red recoil returns to idle, white sprite dissolves into authored flecks,
+  no received burst. Sound exports at1x/.25x in both sizes use actual48kHz stereo;
+  raw peaks.57030/.59371. Clips25fps and QA labels have sampling limits; no claim
+  of every engine frame, sub-frame timing, subjective audio listening or performance.
+- User then narrowed verification to the changed behavior; no further QA added.
+  Preview/clip retention, missing supplementary melee guide and cleanup are in the
+  [combat checkpoint](../plans/combat-feedback.md). No stress/soak/production/push/deploy.
+
 ## Approved parry main integration (2026-10-21)
 
 - User approved previewd866c5b and requested push/main closure. Mergeec30ed9 preserves newer main HUD/palette and excludes the unbuilt distributed-launch candidate. Final canonical source4dc0cbfe2fa75c97394e7aa5ec95d12f25be9d320ca65f23f3b8073909da854d: pinned Unity2022.3.25f1, repeat builder unchanged, all1564 checkout inputs match, zero final C# errors.
