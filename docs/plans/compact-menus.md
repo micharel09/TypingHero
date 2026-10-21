@@ -85,3 +85,18 @@ Player/driver/report: E:/CodexTemp/TypingHero/compact-tutorial/menus-build,
 Keep these with the existing compact-tutorial worktree/cache until review is over;
 then close the task preview and remove task-only menu artifacts. Existing tutorial
 preview/materials are not owned by this task. No itch deployment performed.
+
+
+## Integration and retained resources
+
+Implementation commit `1509028` pushed to `origin/micharel09/compact-tutorial`
+and fast-forwarded to `origin/main`; remote SHA and ancestry verified. Only task
+changes were committed. The worktree retains exactly the original nine changed
+and 28 added tutorial scene records plus the pre-existing tutorial source/docs WIP.
+Removed the three task-owned superseded remote build results and intermediate
+menu captures/generated staging copies. Kept compact-tutorial Library/cache,
+final immutable remote result 20261021T144302-webgl, local menus-build/player,
+final QA/failure JSON receipts and live preview helper PID 32016/port 8238.
+The earlier task menu preview on port 8237 was closed; original tutorial resources
+remain untouched. Keep the worktree/branch and final preview resources until the
+user finishes review and the outstanding tutorial actor-clearance work is resolved.
