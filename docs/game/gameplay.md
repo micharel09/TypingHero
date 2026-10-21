@@ -223,7 +223,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## World lighting / parry clash
 
-### Approved Pimen flash with restored physics (2026-10-20, local preview ready)
+### Approved Pimen flash with restored physics (approved and merged 2026-10-21)
 
 - Default BCompact now reuses the licensed free Pimen Hit Effect01 already in the
   project. A fixed-pivot white-gold core and five orange outer cels replace voxel

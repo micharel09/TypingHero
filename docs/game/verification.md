@@ -1,5 +1,11 @@
 # Verification and performance memory
 
+## Approved parry main integration (2026-10-21)
+
+- User approved previewd866c5b and requested push/main closure. Mergeec30ed9 preserves newer main HUD/palette and excludes the unbuilt distributed-launch candidate. Final canonical source4dc0cbfe2fa75c97394e7aa5ec95d12f25be9d320ca65f23f3b8073909da854d: pinned Unity2022.3.25f1, repeat builder unchanged, all1564 checkout inputs match, zero final C# errors.
+- Unity31parry plus4HUD/asset checks pass. Canonical Edge/native HUD damage confirmation6checks and final sword/axe/Slayer1280x720/640x360 run93checks/98.9857342s pass, including real damage/parry HUD pulses, pause and Continue cleanup. Zero JS/managed exceptions, provider reads/writes or external requests; no cue retry. No new performance/stress/soak/mirror or publication claim.
+- First integration player020742 is unqualified despite a successful final build: intermediate script-import CS0246 and missed HUD pulse observation. Rebuilt canonical assets022158 without that error and confirmed behavior before push. Detailed provenance, retained final/reference clips, excluded candidate recovery and cleanup are in the [combat checkpoint](../plans/combat-feedback.md). Parent dirty main remains atb36b55a; remote main contains the merge.
+
 ## HUD readability for side-view 2.5D preparation (2026-10-20)
 
 - Base8fa55dd, isolated child `micharel09/hud-25d-readability`; parent WIP preserved. Unity2022.3.25f1/fly-server serialize055929 PASS: strict repeat plus final-branding font/material/settings/glyph/content/bounds checks. Three new VT323 bitmap atlases8/10/12 each contain97 characters with actual nonblank required glyph pixels, static/Point/Clamp/one-pixel gutter. All858 existing scene IDs retained; only four backplates/16records added. Three complete typing text components are byte-equivalent after newline normalization.
