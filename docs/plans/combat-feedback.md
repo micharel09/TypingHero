@@ -3198,3 +3198,85 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
   exact task-root identity and no-child checks; no running editor/job was stopped.
   Final scoped filter includes NormalStrikeEffectsTests plus the existing two
   builder cases and profile/settling/RNG regression. Final receipts remain pending.
+
+
+## Pimen normal hit replacement (2026-10-21, verified local preview)
+
+- User-selected contract: retain baseline local commit `b82add2` in the existing
+  `combat-strike-effects` child; local commit and preview only, no push/deploy.
+  Original `Hit Effect 01 1.png`, all seven cels in source order,160ms total,
+  equal160/7ms holds, fixed center pivot, one common scale to48world pixels at16PPU.
+  Keep source palette/art, source PNG/importer, muted trail/dust, parry/Slayer/lethal,
+  animation events, damage, sound and hitstop unchanged.
+- Checklist: source7frames/6pairs in each direction; native1280x720 normal hit/pair,
+  miss exclusion, pause/restart/Slayer cleanup, exact lifetime and8lease cap,
+  repeated builder binding/components, full selected capture review and1x/.25x playback.
+- Dedicated `NormalHitSpark.prefab` uses existing Pixel.mat unlit material/order3,
+  original Sprite subassets and the existing owner pool. No procedural core/rays,
+  color multiplication or positional/angular/size jitter in this route.
+- Source inspection:336x48, seven48x48cels, pivots(24,24), unchanged100PPU importer.
+  Widest nontransparent width36px; uniform scale=48/16*100/36=8.333333.
+  Source F6 is entirely transparent: its full22.857143ms hold is deliberately kept;
+  artwork disappears at137.142857ms, lease ends at160ms of unpaused running age.
+  Do not invent a visible seventh cel or shorten the source sequence.
+- Directly inspected14/14 source-direction frames and12/12 adjacent transitions,
+  nearest-neighbor detail at `E:/CodexTemp/TypingHero/combat-strike-effects/pimen-review/`.
+  `review.md` contains per-frame observations, source hash and transition notes.
+  This is direct Pimen asset comparison; no new Blasphemous motion-match claim.
+- Initial focused run20261021T100056-quick FAILED10/11 because the new builder used
+  C# null-coalescing with Unity fake-null components. Fixed with Unity object checks.
+  Initial clean WebGL100159 failed on that same builder; neither is acceptance.
+- Corrected focused run20261021T100254-quick:11/11PASS,0fail/skip,4.462771s.
+  Input7d25538bb84ea69e3feb94140320480babd17bcfcc665618d718020970ef00be.
+  Final run adds an explicit scale assertion and makes dependent builder preparation
+  independent of test order; final receipts and runtime review follow below.
+
+- Final focused Unity20261021T101930-quick:11/11PASS,0failed/skipped,4.5620254s;
+  frozen input206bb52900fb65804d44b1190472f713d9bd606b4f73c398333f389c6ba93632.
+  Both mirrors, seven ordered equal-duration cels/pivots/white tint/common scale,
+  exact lifetime boundary/reuse/two hits, pause/reading/Slayer/disable cleanup,
+  eight impact/eight dust caps, miss opening without contact, and builder twice.
+  Existing outgoing/parry/removed received wiring and volume-profile regression pass.
+- Clean WebGL20261021T100352-webgl build and strict repeated builder PASS,
+  source39b0e5a0b882a2d5885b0a1bc2bd3efdd0795e6f5d6fcd7c7e0f62ba452283eb.
+  Temporary runner adapter adds CleanBuildCache only; no adapter in the repository.
+  Input comparison differs only by the final scale assertion and generated Player
+  binding. New prefab/Player/scene equal generated assets after YAML whitespace
+  normalization. Scene itself has no Git diff; prefab inheritance supplies binding.
+  New source asset contains exactly7original sprite references, one SpriteRenderer,
+  one NormalHitSpark and one PooledVFX, no Animator or ParticleSystem.
+- `pimen-native`:22/22PASS, Edge155/GTX1650Ti ANGLE D3D11/real keyboard/1280x720,
+  no JS/managed exceptions, provider reads/writes or external requests. One confirmed
+  hit has one Pimen lease and no old core/rays; expiry, preparation exclusion,
+  two real hits, pause/restart and real Slayer entry/exclusion pass. Native probe
+  publishes10Hz; precise160ms and pause-frame equality are established in Unity,
+  not inferred from sampled browser telemetry. Native combat faces right; left
+  flip/cel/pivot is verified in focused Unity and all seven direct mirrored images.
+- Miss exclusion: current focused opening test has dust only and no hit callback;
+  unchanged PlayerWeaponHitbox contact routing retains prior `rays-miss-vector-native`
+  10/10PASS out-of-range fixture evidence. No redundant fixture WebGL rebuild.
+- Direct final visual review: all99/99normal frames/98pairs and165/165two-hit
+  frames/164pairs, including held frames, enemy cue/counter-swing and tutorial
+  retry ending. Pimen seed->white/gold peak->orange fragments->transparent end
+  follows source at fixed contact. Larger original star clearly overlays muted
+  sword trail; word tray, score and subsequent cue remain readable. Foot dust stays
+  low. Existing blue recovery flecks belong to the unchanged sword animation.
+  Per-frame `visual-review.csv` and full-view/native crops in each selected segment
+  under `E:/CodexTemp/TypingHero/combat-strike-effects/pimen-native/`.
+- Four silent1280x720videos in `videos/pimen/` preserve every capture timestamp/frame
+  plus one terminal hold. ffmpeg full decode, frame counts100/166 and PTS pass;
+  four1x/.25x clips play to ended (`videos/playback-pimen.json`). Comparison page
+  `videos/pimen.html` pairs these with unchanged b82add2/large-impact-final clips.
+  Prior baseline full-frame review is reused; baseline contact image was also
+  directly reopened during this comparison. No new reference-game matching claim.
+- 288protected Pimen/parry/audio/animation/controller/Slayer/lethal/dust/trail files
+  match b82add2 after text newline normalization; source PNG/importer byte-unchanged.
+  Receipts/source hash and provenance: `pimen-review/`. Original task history,
+  prior commits and videos remain. No performance/stress/full-profile claim.
+- Preview opened and verified at `http://127.0.0.1:8159`, Node PID1052, launcher26076,
+  `preview-pimen/preview-ready.json` and preview.png. Accuracy reading: Enter then
+  BLADE shows a complete hit/fade. Retain child/branch and task evidence/player/
+  videos while review is active. Close page or create `preview-pimen/stop` to stop
+  the owned preview; remove disposable task data only when review no longer needs
+  reproduction. Shared runner/cache/license/other jobs and dirty parent untouched.
+  This handoff is local commit only; no push/merge/deploy.

@@ -2047,3 +2047,25 @@ because miss-route inputs are unchanged.272protected sprite/clip/controller/audi
 attack-hitstop files match5bf8629. Reference research, failed incremental startup,
 clean-build adapter, source provenance, per-frame CSVs and preview are recorded in
 `docs/plans/combat-feedback.md`. Local-only handoff, without push/deploy.
+
+
+## Pimen normal hit (2026-10-21, verified local preview)
+
+- Scoped Unity20261021T101930-quick:11/11PASS,0fail/skip,4.5620254s. Both mirrors,
+  seven equal160/7ms cels, fixed pivot/contact/48world-pixel width, original tint,
+ 160ms release/reuse/pause/reading/Slayer/disable,8impact/8dust caps, miss opening,
+  repeated builder and preserved other routes. Initial fake-null builder failure
+  was fixed and rerun; failed intermediate players are excluded.
+- Clean WebGL100352 build/strict repeat PASS. Same runtime source as final tests;
+  clean-build adapter only, generated normal prefab/Player/scene match checkout
+  ignoring YAML whitespace. Native22keyboard checks PASS at1280x720,0exceptions/
+  provider reads/writes/external requests. Prior10-check out-of-range miss evidence
+  reused because miss contact routing is unchanged; current miss opening test passes.
+- Direct14source-direction frames/12pairs and264native frames/262pairs reviewed.
+  Four1x/.25x exports retain all capture timestamps; decode/count/PTS and playback
+  to ended pass. Source F6 is transparent: art ends137.142857ms, lease ends160ms.
+  Native scenario faces right; left output has focused Unity and full mirrored
+  source-image evidence. No exact endpoint claim from10Hz probe or performance claim.
+- Original Pimen PNG/importer and288protected inputs unchanged. Preview8159,
+  comparison videos and per-frame evidence/retention are in the existing
+  [combat checkpoint](../plans/combat-feedback.md). Local only, no push/deploy.

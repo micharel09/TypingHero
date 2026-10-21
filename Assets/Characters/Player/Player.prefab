@@ -632,11 +632,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c45f11584dfbc8498ac9a341fc39fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sparkPrefab: {fileID: 7325816068902005353, guid: 33183b64f29739140964fe016fb93ddd, type: 3}
+  sparkPrefab: {fileID: 1311458191187710406, guid: ea26fa231183c5127a39df3b0f3e19cd, type: 3}
   slayerPrefabs:
   - {fileID: 7891126384301360098, guid: 0a51096ad0ab3f627ae6c98c27c0fcf0, type: 3}
   lethalPrefab: {fileID: 8781548728332810565, guid: a18096b9c01fe0741856b2a15afdb8aa, type: 3}
-  normalCorePrefab: {fileID: 6743196459140597029, guid: 42ec67125cf14eaadb9566d8cb45eba0, type: 3}
   normalImpact: {fileID: 11400000, guid: 3bdeeb3a8d0f17dfa896e809d6451781, type: 2}
   slayerImpact: {fileID: 11400000, guid: 46c7a33bfe3f1b677a5d4d86f698bf9a, type: 2}
   lethalImpact: {fileID: 11400000, guid: d747ffb200bc9e9a3b24a764ed0c4b80, type: 2}

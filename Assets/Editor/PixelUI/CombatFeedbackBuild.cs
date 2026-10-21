@@ -15,6 +15,7 @@ internal static class CombatFeedbackBuild
         ParryClashAssets.Prepare();
         CombatVoxelAssets.Prepare();
         StrikeAccentAssets.Prepare();
+        NormalHitSparkAssets.Prepare();
         SlashVolumeAssets.Prepare();
         var normal = ImpactEvent("ev_impact_normal", "medium", .65f);
         var slayer = ImpactEvent("ev_impact_slayer", "medium", .45f);
@@ -94,9 +95,8 @@ internal static class CombatFeedbackBuild
         }
         foreach (var spark in root.GetComponentsInChildren<HitSparkSpawner>(true))
         {
-            Set(spark, "sparkPrefab", CombatVoxelAssets.Load("Normal"));
+            Set(spark, "sparkPrefab", NormalHitSparkAssets.Load());
             Set(spark, "lethalPrefab", CombatVoxelAssets.Load("Lethal"));
-            Set(spark, "normalCorePrefab", StrikeAccentAssets.Load(false));
             Value(spark, "groundY", Ground(root));
             var profiles = new SerializedObject(spark);
             var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 1;

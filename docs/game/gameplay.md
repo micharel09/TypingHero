@@ -376,16 +376,18 @@ Full surface art, B/C and parent integration remain separate.
   three-cluster gray dust burst, even on a miss. Its stable body-foot anchor is
   one native world pixel behind the actor center; the builder supplies floor Y.
   Dust moves backward, stays low, and fades over180ms. No sprite/event timing changes.
-- Confirmed nonlethal normal impacts add a cream8pixel core (40ms full,20ms fade)
-  at the supplied contact plus the existing world offset. Six pointed gold rays
-  span roughly32x24pixels, hold40ms, then travel straight2.5WU/s
-  without spin, shorten to25%, and fade in their final40ms; lives100-160ms.
-  Dedicated NormalImpact shader uses ZTest Always, rays order3/core4 above trail2.
-  Normal player trail RGBx.75/alphax.55/emission.05 preserves cel shape/timing
-  for misses, hits and lethal swings. Slayer,
-  lethal, parry, red Hurt and the removed received route are unchanged. No new
-  lighting, shake, audio or gameplay changes. Sizes use16PPU world units.
-- Accents share the existing owner pool, with a separate bounded lease budget.
+- Confirmed nonlethal normal hits use dedicated NormalHitSpark.prefab, original
+  Pimen `Hit Effect 01 1.png` Sprite subassets0..6, equal160/7ms holds, once only.
+  Existing Pixel.mat is unlit, white renderer color, sorting order3 above trail2.
+  Fixed48x48canvas/center pivot and a single8.333333scale preserve original art:
+  widest36source pixels at100PPU becomes3world units=48pixels at16PPU.
+  Source F6 is transparent; art disappears at137.142857ms, lease returns at160ms.
+  Contact/world offset and horizontal facing are retained; no jitter/core/code rays.
+  Source PNG/importer and parry/Slayer/lethal assets remain unchanged.
+  Normal player trail RGBx.75/alphax.55/emission.05 preserves cel shape/timing;
+  gray foot dust remains180ms. No event, damage, audio or hitstop changes.
+- Normal sprites share the existing eight-impact cap; dust has a separate eight-lease
+  budget in the existing owner pool.
   Pause/tutorial reading freeze age; results, owner disable/restart/scene unload
   and Slayer activation clear them. Builder preparation reuses assets and binds
   a single component. Duration is simulation age; visible endpoints are quantized

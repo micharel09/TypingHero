@@ -9,7 +9,6 @@ public class HitSparkSpawner : MonoBehaviour
     [SerializeField] GameObject sparkPrefab;
     [SerializeField] GameObject[] slayerPrefabs;
     [SerializeField] GameObject lethalPrefab;
-    [SerializeField] GameObject normalCorePrefab;
     [SerializeField] SfxEvent normalImpact, slayerImpact, lethalImpact;
     [SerializeField] CinemachineImpulseSource lethalImpulse;
     [SerializeField] bool parentUnderAttacker;
@@ -76,7 +75,6 @@ public class HitSparkSpawner : MonoBehaviour
             prefab = slayerPrefabs[slayerIndex++ % slayerPrefabs.Length];
         var images = wasSlayer && attacker ? attacker.GetComponentInChildren<SlayerAfterimagePool>() : null;
         SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, images ? images.CurrentTint : Color.clear);
-        if (!wasSlayer && !lethal) SpawnAccent(normalCorePrefab, (Vector3)point + worldOffset, 1);
         var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
         if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
         if (lethal && lethalImpulse) lethalImpulse.GenerateImpulse(.015f);
@@ -85,7 +83,7 @@ public class HitSparkSpawner : MonoBehaviour
     void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null)
     {
         if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
-        if (prefab.GetComponent<PixelSparkBurst>() || prefab.GetComponent<VoxelImpactBurst>())
+        if (prefab.GetComponent<NormalHitSpark>() || prefab.GetComponent<PixelSparkBurst>() || prefab.GetComponent<VoxelImpactBurst>())
         {
             int count = 0; GameObject oldest = null;
             foreach (var item in active)
@@ -94,6 +92,14 @@ public class HitSparkSpawner : MonoBehaviour
         }
         var go = PoolFor(prefab).Get();
         var t = go.transform;
+        if (go.TryGetComponent<NormalHitSpark>(out var normal))
+        {
+            t.SetParent(poolRoot, true);
+            float direction = directionOverride ?? (attacker ? (targetRoot ? targetRoot.position.x : point.x) - attacker.position.x : 1);
+            if (direction == 0) direction = attacker ? attacker.lossyScale.x : 1;
+            normal.Emit((Vector3)point + worldOffset, direction);
+            return;
+        }
         if (go.TryGetComponent<VoxelImpactBurst>(out var voxel))
         {
             t.SetParent(poolRoot, true);
@@ -138,7 +144,7 @@ public class HitSparkSpawner : MonoBehaviour
     internal void ClearAccents()
     {
         for (int i = active.Count - 1; i >= 0; i--)
-            if (active[i] && active[i].GetComponent<StrikeAccentBurst>()) active[i].GetComponent<PooledVFX>().Release();
+            if (active[i] && (active[i].GetComponent<StrikeAccentBurst>() || active[i].GetComponent<NormalHitSpark>())) active[i].GetComponent<PooledVFX>().Release();
     }
     void OnDisable()
     {
