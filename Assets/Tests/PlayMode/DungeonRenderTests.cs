@@ -17,8 +17,10 @@ public sealed class DungeonRenderTests
         var renderer=banner.AddComponent<MeshRenderer>();
         var weather=new GameObject("rain");weather.transform.SetParent(host.transform);
         var rain=weather.AddComponent<ParticleSystem>();
+        var rune=host.AddComponent<Light>();
         var motion=host.AddComponent<DungeonEnvironmentMotion>();
         var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+        typeof(DungeonEnvironmentMotion).GetField("runeLight",flags).SetValue(motion,rune);
         typeof(DungeonEnvironmentMotion).GetField("banner",flags).SetValue(motion,filter);
         typeof(DungeonEnvironmentMotion).GetField("atmosphere",flags).SetValue(motion,new Renderer[]{renderer});
         typeof(DungeonEnvironmentMotion).GetField("weather",flags).SetValue(motion,new[]{rain});
@@ -32,16 +34,25 @@ public sealed class DungeonRenderTests
             Assert.That(filter.sharedMesh.vertices[1],Is.EqualTo(mesh.vertices[1]),"top seam stays attached");
             var block=new MaterialPropertyBlock();renderer.GetPropertyBlock(block);
             float held=block.GetFloat("_DungeonAge");Assert.That(held,Is.GreaterThan(0));
+            float heldGain=block.GetFloat("_DungeonPulse");
+            Assert.That(rune.intensity,Is.EqualTo(.7f*heldGain).Within(.000001f));
+            var heldCloth=filter.sharedMesh.vertices;
             rain.Emit(1);
             Time.timeScale=0;yield return null;yield return null;
             float particleTime=rain.time;
             var particles=new ParticleSystem.Particle[32];int particleCount=rain.GetParticles(particles);
             Assert.That(particleCount,Is.GreaterThan(0));var particle=particles[0];
             renderer.GetPropertyBlock(block);Assert.That(block.GetFloat("_DungeonAge"),Is.EqualTo(held));
+            Assert.That(block.GetFloat("_DungeonPulse"),Is.EqualTo(heldGain));
+            Assert.That(rune.intensity,Is.EqualTo(.7f*heldGain).Within(.000001f));
+            Assert.That(filter.sharedMesh.vertices,Is.EqualTo(heldCloth));
             Assert.That(rain.isPaused,Is.True);
             host.SetActive(false);Assert.That(filter.sharedMesh,Is.SameAs(mesh));
             host.SetActive(true);yield return null;
             renderer.GetPropertyBlock(block);Assert.That(block.GetFloat("_DungeonAge"),Is.EqualTo(held));
+            Assert.That(block.GetFloat("_DungeonPulse"),Is.EqualTo(heldGain));
+            Assert.That(rune.intensity,Is.EqualTo(.7f*heldGain).Within(.000001f));
+            Assert.That(filter.sharedMesh.vertices,Is.EqualTo(heldCloth));
             Assert.That(rain.isPaused,Is.True);
             Assert.That(rain.time,Is.EqualTo(particleTime));
             Assert.That(rain.GetParticles(particles),Is.EqualTo(particleCount));
@@ -52,6 +63,38 @@ public sealed class DungeonRenderTests
             Assert.That(rain.isPlaying,Is.True);
         }
         finally {Time.timeScale=previous;Object.Destroy(mesh);}
+    }
+    [Test, Category("Quick")]
+    public void RuneNoiseReachesRendererAndLightAndIsRepeatableOverTwoEnvelopes()
+    {
+        host=new GameObject("rune gain contract");host.SetActive(false);
+        var renderer=host.AddComponent<MeshRenderer>();var light=host.AddComponent<Light>();
+        var motion=host.AddComponent<DungeonEnvironmentMotion>();
+        var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+        var type=typeof(DungeonEnvironmentMotion);
+        type.GetField("atmosphere",flags).SetValue(motion,new Renderer[]{renderer});
+        type.GetField("runeLight",flags).SetValue(motion,light);
+        host.SetActive(true);
+        var age=type.GetField("age",flags);var apply=type.GetMethod("Apply",flags);
+        var block=new MaterialPropertyBlock();float minimum=1,maximum=0,previous=0;
+        for(int i=0;i<=240;i++)
+        {
+            float time=i*.1f;age.SetValue(motion,time);apply.Invoke(motion,null);
+            renderer.GetPropertyBlock(block);float gain=block.GetFloat("_DungeonPulse");
+            float noise=Mathf.Clamp01(Mathf.PerlinNoise(11.17f+time*.11f,29.31f+time*.07f));
+            float expected=.76f+.18f*noise+.06f*(.5f+.5f*Mathf.Sin(2*Mathf.PI*time/12));
+            Assert.That(gain,Is.EqualTo(expected).Within(.000001f));
+            Assert.That(gain,Is.InRange(.76f,1f));
+            Assert.That(light.intensity,Is.EqualTo(.7f*gain).Within(.000001f));
+            Assert.That(block.GetFloat("_DungeonAge"),Is.EqualTo(time));
+            if(i>0)Assert.That(Mathf.Abs(gain-previous),Is.LessThan(.02f),"no abrupt step at 100ms");
+            minimum=Mathf.Min(minimum,gain);maximum=Mathf.Max(maximum,gain);previous=gain;
+            age.SetValue(motion,time+100);apply.Invoke(motion,null);
+            age.SetValue(motion,time);apply.Invoke(motion,null);renderer.GetPropertyBlock(block);
+            Assert.That(block.GetFloat("_DungeonPulse"),Is.EqualTo(gain),"seeking back is deterministic");
+            Assert.That(light.intensity,Is.EqualTo(.7f*gain).Within(.000001f));
+        }
+        Assert.That(maximum-minimum,Is.GreaterThan(.02f),"noise and envelope vary over 24 seconds");
     }
     [UnityTearDown] public IEnumerator Cleanup()
     {

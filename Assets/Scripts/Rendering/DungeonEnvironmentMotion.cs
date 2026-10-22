@@ -81,7 +81,9 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
     }
     void Apply()
     {
-        float pulse = .88f + .08f * Mathf.Sin(age * 1.7f) + .04f * Mathf.Sin(age * 4.13f);
+        float noise = Mathf.Clamp01(Mathf.PerlinNoise(11.17f + age * .11f, 29.31f + age * .07f));
+        float envelope = .5f + .5f * Mathf.Sin(2 * Mathf.PI * age / 12);
+        float pulse = .76f + .18f * noise + .06f * envelope;
         foreach (var renderer in atmosphere) if (renderer)
         {
             renderer.GetPropertyBlock(block);

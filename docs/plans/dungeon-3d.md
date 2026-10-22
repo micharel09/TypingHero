@@ -1080,3 +1080,32 @@ Integrated candidate results:
 - Remaining acceptance: perceived normal/slow playback (async user review pending).
   Available image tools show static frames only. No full visual PASS/main integration
   claimed. Retain task worktree until that gap is resolved; evidence retained on E:.
+
+
+## Completion follow-up (2026-10-22, acceptance pending)
+
+Continues clean `micharel09/dungeon-full-lighting` from bf1fd9e; origin verified
+and fetched, original dirty checkout untouched. No main merge before playback approval.
+
+- Rune gain now uses Clamp01 Perlin(11.17+age*.11,29.31+age*.07), a 12s envelope,
+  and gain=.76+.18*noise+.06*envelope. Same scaled age/gain reaches _DungeonPulse
+  and RuneLight intensity=.7*gain. Existing shader mask/scan needs no change.
+  No public API, serialized schema, artwork, clip timing, lantern or package change.
+- Unity2022.3.25f1 scoped run20261022T015303-quick:5/5 PASS,0fail/skip.
+  Input b4fd5582578fafaabe653510bb699890f36b26382e25bf7105cfe3462c980c54.
+  Actual renderer/light values sampled across24s: formula/bounds/variation/seek
+  repeatability/continuity; held gain/light/cloth and exact particle lifecycle.
+  Receipt: E:/CodexTemp/TypingHero/dungeon-full-lighting/noise-tests.xml.
+- moving-light-input-audit.json checks605static-review inputs against input75e969
+  and final4k-generated: PNG/clip/shader bytes match, metadata only trailing spaces.
+  Reuse static review within its prior scope; moving-light remains independent.
+- Disposable DungeonFrameReview fixture now rotates white lights radius4/depth-4,
+  period8s/four initial phases,16mapped/flat/facing cells. Opening pose holds8s;
+  quarter speed scales both lights and authored animation. No shipping diagnostic.
+- Expanded disposable effects A/B: same-age noise-on/off(noise fixed.5), no bloom,
+  receiver-only/emission-only. Fixtures and planned scopes retained in the existing
+  evidence directory and its completion/ subdirectory; old evidence preserved.
+- Final QA input bfef36a3d7a5a3dad47750242a86f1b6269b1bbe8e38c9e0f138fb2b8b0c0ac5
+  building under20261022T015412-webgl. Build/runtime/visual acceptance pending.
+  Exported and actually viewed frame counts must remain distinct. No visual PASS
+  from compilation. Reflection approximates one plane, not irregular stone geometry.

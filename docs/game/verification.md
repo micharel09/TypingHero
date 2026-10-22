@@ -1,3 +1,13 @@
+## Rune noise completion candidate (2026-10-22, acceptance pending)
+
+Scoped DungeonRenderTests run20261022T015303-quick:5/5 PASS,0fail/skip,
+Unity2022.3.25f1. Actual property-block/light gain checked over24s, bounds.76..1,
+deterministic seek and gradual variation; pause/hide/restore preserves gain,
+cloth and exact particle state. No serialized asset changes/duplicate GUIDs.
+Final moving-light, noise A/B, camera/gameplay capture,30s ABBA and user1x/.25x
+playback remain pending; prior static-review evidence retains its original scope.
+See [checkpoint](../plans/dungeon-3d.md) for source identity and receipts.
+
 ## Dungeon full-effects candidate (2026-10-21, acceptance pending)
 
 - Focused DungeonRenderTests140215:4/4PASS, including exact particle count/time/
