@@ -172,6 +172,7 @@ internal static class DungeonArenaBuild
         HangingLamp(root,flame,lanternFire);
         Torch(root,"TorchGlow_Front",flame,24,16,1.6f,
             new[]{root.transform.Find("Torch_Front/ModelMesh").GetComponent<Renderer>()},0);
+        DungeonPixelFlameBuild.Apply(root);
         var frontData=root.transform.Find("TorchGlow_Front").GetComponent<Light>().GetUniversalAdditionalLightData();
         var frontSettings=new SerializedObject(frontData);
         frontSettings.FindProperty("m_AdditionalLightsShadowResolutionTier").intValue=UniversalAdditionalLightData.AdditionalLightsShadowResolutionTierMedium;
@@ -240,7 +241,7 @@ internal static class DungeonArenaBuild
     }
     static void Torch(GameObject root,string name,Vector3 position,float intensity,float range,float phase,Renderer[] renderers,float flickerAmplitude=.02f)
     {
-        var visible=renderers.Where(renderer=>renderer.name!="TorchSolidShadow").ToArray();
+        var visible=renderers.Where(renderer=>renderer.name!="TorchSolidShadow" && renderer.name!="PixelFlame").ToArray();
         Bounds flameBounds=new Bounds();bool found=false;
         foreach(var renderer in visible)
         {
