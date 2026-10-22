@@ -30,7 +30,7 @@ internal sealed class PhysicalParticleSimulation
     }
 
     internal void Emit(PhysicalParticleProfile profile, Vector3 point, float attackerDirection,
-        float playerDirection, float floor, int seed)
+        float playerDirection, float floor, int seed, PhysicalParticleProfile.RecipientSnapshot recipient = default)
     {
         Clear();
         random = unchecked((uint)(seed + 1) * 747796405u + 2891336453u);
@@ -52,11 +52,30 @@ internal sealed class PhysicalParticleSimulation
                 origin += new Vector3(Mathf.Cos(phi) * direction * radius, Mathf.Sin(phi) * radius, 0);
             }
             origin.x += playerDirection * group.playerOffset;
+            Vector3 launch = new Vector3(Mathf.Cos(angle) * direction * velocity, Mathf.Sin(angle) * velocity,
+                Range(group.depthSpeed.x, group.depthSpeed.y));
+            if (recipient.valid && group.towardPlayer)
+            {
+                Vector2 axis = (Vector2)(recipient.center - point);
+                if (axis.sqrMagnitude > .000001f)
+                {
+                    axis.Normalize();
+                    // Reflect the local fan around the actual recipient axis, independently of facing.
+                    launch.x = velocity * (axis.x * Mathf.Cos(angle) - axis.y * Mathf.Sin(angle) * direction);
+                    launch.y = velocity * (axis.y * Mathf.Cos(angle) + axis.x * Mathf.Sin(angle) * direction);
+                }
+            }
+            if (recipient.valid && group.spawnRegion == PhysicalParticleProfile.SpawnRegion.RecipientBody)
+            {
+                float phi = i * Mathf.PI * 2 / group.count + Range(-.1f, .1f);
+                var outward = new Vector2(Mathf.Cos(phi) * playerDirection, Mathf.Sin(phi));
+                origin = recipient.center + new Vector3(outward.x * recipient.halfAxes.x, outward.y * recipient.halfAxes.y, 0);
+                launch.x = outward.x * velocity; launch.y = outward.y * velocity;
+            }
             var pixels = i % 2 == (seed & 1) ? group.longPixels : group.shortPixels;
             var state = new State {
                 origin = origin, floor = floor, channel = group.channel, small = group.small,
-                launch = new Vector3(Mathf.Cos(angle) * direction * velocity, Mathf.Sin(angle) * velocity,
-                    Range(group.depthSpeed.x, group.depthSpeed.y)),
+                launch = launch,
                 length = Mathf.Floor(Range(pixels.x, pixels.y + 1)), width = group.widthPixels,
                 total = Range(group.lifetime.x, group.lifetime.y), mask = Mathf.Floor(Range(0, 3)),
                 physics = group.physics, flight = float.PositiveInfinity

@@ -2404,3 +2404,15 @@ input3f11a598c427567a85ec2f0dc40a023f8689bee9d4a8f4e6aed52b1cf83138a6.
 Menu source/config unchanged; existing native evidence reused. Task captures/
 profiles cleaned; final preview8246/player retained for review, tutorial WIP intact.
 Clipboard acceptance remains pending as recorded above.
+
+
+Parry/counter synchronization follow-up (2026-10-22): scoped CombatFeedback,
+NormalStrikeEffects, PhysicalParticle, ParryClash and ParryClashPixel tests82/82,
+normal062419-webgl inputc5d5e327; mirrored063127-webgl inputd7f66218 build/repeat
+PASS. Native real-input normal/parry/full-hidden both directions PASS;474 frames
+and468 consecutive pairs directly inspected, plus42 source cels/36 pairs.
+Functional Slayer/lethal28checks PASS, final playerHP40/enemyHP0. Six fresh clips
+retain actual destination audio and render holds. Browser audio-bus timing is
+measured separately from display submission and does not measure device latency.
+Exact source, timestamps, failed cold-decode/link diagnostics, per-frame records
+and integration/cleanup are in [combat checkpoint](../plans/combat-feedback.md).

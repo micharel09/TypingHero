@@ -48,6 +48,11 @@ Task artifacts: E:/CodexTemp/TypingHero/parry-physical-particles (runner adapter
 
 ## Near-zero drag correction (2026-10-22)
 
+The later [parry/counter/impact task](combat-feedback.md) supersedes the historical
+attacker-directed fan and contact-offset speck requirement above. Its recipient
+snapshot/body-perimeter emission retains the stable drag solver below. Historical
+captures and results remain attributed to their original inputs.
+
 - Review found cancellation in float travel=(1-exp(-drag*t))/drag and fall=(t-travel)/drag. Unity red run20261022T014230-quick, input8c70e90f56530e62b20ada5868a3bc8d354d426c0cff055da05f6f0084501146, executes the new regression on unchanged runtime:1failed/0passed/0skipped. With launchDrag.0001, gravity9.81 and age.12s, expected Y=-.07063172WU but actual Y=-19.0962753WU.
 - PhysicalParticleSimulation now shares stable travel/fall integrals: exact drag0 limit, fourth-order Taylor in x=drag*t below.01, double closed-form intermediates otherwise. Launch uses both integrals; flight/bounce use the same travel helper. Public/serialized contracts, preset assets/GUIDs, particle budgets and pause/pool clocks are unchanged; no dependencies or per-particle objects added.
 - Unity2022.3.25f1 pinned GameCI/fly-server green20261022T014352-quick, inputa78eb11385d22f5183173e21d9b5ccf220d13580c0401937eaf46a8cec0d50fe:53/53PASS,0failed/skipped,13.2167476s. PhysicalParticleTests + ParryClashTests only, selected by the existing external filtered-runner adapter; repository runner/toolchain unchanged. All1992source inputs match the green archive after known-text LF normalization.

@@ -9,10 +9,11 @@ using UnityEngine.TestTools;
 public sealed class FeedbackDamageTarget : MonoBehaviour, IDamageable
 {
     public bool dead;
-    public int hits;
+    public int hits, amount;
+    public Vector2 point;
     public Action onDamage;
     public bool IsDead => dead;
-    public void TakeDamage(int damage, Vector2 point) { hits++; onDamage?.Invoke(); }
+    public void TakeDamage(int damage, Vector2 point) { hits++; amount += damage; this.point = point; onDamage?.Invoke(); }
 }
 
 public sealed class CombatFeedbackTests
@@ -37,6 +38,157 @@ public sealed class CombatFeedbackTests
         foreach (var o in owned) if (o) UnityEngine.Object.Destroy(o);
         owned.Clear(); yield return null;
         Assert.That(Active(), Is.Empty);
+    }
+
+#if UNITY_EDITOR
+    [UnityTest, Category("Quick")]
+    public IEnumerator ImpactBanksLoadBeforeFirstHitWithoutPlayingOrConsumingRandom()
+    {
+        var medium = new AudioClip[3]; var heavy = new AudioClip[3];
+        for (int i = 0; i < 3; i++)
+        {
+            string root = "Assets/Audio/SFX/Clips/KenneyImpact/impactWood_";
+            medium[i] = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(root + $"medium_{i:000}.ogg");
+            heavy[i] = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(root + $"heavy_{i:000}.ogg");
+            Assert.That(medium[i].UnloadAudioData(), Is.True);
+            Assert.That(heavy[i].UnloadAudioData(), Is.True);
+            Assert.That(medium[i].loadState, Is.EqualTo(AudioDataLoadState.Unloaded));
+            Assert.That(heavy[i].loadState, Is.EqualTo(AudioDataLoadState.Unloaded));
+        }
+        var normal = Own(ScriptableObject.CreateInstance<SfxEvent>()); Set(normal, "clips", medium);
+        var slayer = Own(ScriptableObject.CreateInstance<SfxEvent>()); Set(slayer, "clips", medium);
+        var lethal = Own(ScriptableObject.CreateInstance<SfxEvent>()); Set(lethal, "clips", heavy);
+        var owner = Host("preload impact banks"); var spawner = owner.AddComponent<HitSparkSpawner>();
+        Set(spawner, "normalImpact", normal); Set(spawner, "slayerImpact", slayer); Set(spawner, "lethalImpact", lethal);
+        var random = UnityEngine.Random.state;
+        int voices = UnityEngine.Object.FindObjectsOfType<AudioSource>().Length;
+        owner.SetActive(true);
+        Assert.That(UnityEngine.Random.state, Is.EqualTo(random));
+        Assert.That(UnityEngine.Object.FindObjectsOfType<AudioSource>().Length, Is.EqualTo(voices));
+        Assert.That(normal.CanPlayNow() && slayer.CanPlayNow() && lethal.CanPlayNow(), Is.True);
+        float deadline = Time.realtimeSinceStartup + 3;
+        bool loading;
+        do
+        {
+            loading = false;
+            foreach (var clip in medium) loading |= clip.loadState == AudioDataLoadState.Loading;
+            foreach (var clip in heavy) loading |= clip.loadState == AudioDataLoadState.Loading;
+            if (loading) yield return null;
+        } while (loading && Time.realtimeSinceStartup < deadline);
+        foreach (var clip in medium) Assert.That(clip.loadState, Is.EqualTo(AudioDataLoadState.Loaded));
+        foreach (var clip in heavy) Assert.That(clip.loadState, Is.EqualTo(AudioDataLoadState.Loaded));
+    }
+
+    [TestCase("Assets/Characters/Player/attack1.anim", 1f, false)]
+    [TestCase("Assets/Characters/Player/attack1.anim", -1.5f, true)]
+    [TestCase("Assets/Art/male_hero/individual_sheets/player_parry_success.anim", 1f, true)]
+    [TestCase("Assets/Art/male_hero/individual_sheets/player_parry_success.anim", -1.5f, false)]
+    public void ActualAnimationEventConfirmsDamageAndBrightSparkAtAuthoredContact(string path, float scale, bool flip)
+    {
+        var clip = UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
+        var opening = System.Array.Find(UnityEditor.AnimationUtility.GetAnimationEvents(clip), e => e.functionName == "OnAttackStartCel");
+        Assert.That(opening, Is.Not.Null);
+        if (path.Contains("parry")) Assert.That(opening.time, Is.EqualTo(.1f).Within(.000001));
+        var cel = (Sprite)opening.objectReferenceParameter;
+        var library = UnityEditor.AssetDatabase.LoadAssetAtPath<SlashLibrary>("Assets/Art/VFX/SlashVolume/SlashLibrary.asset");
+        var player = Host("animated contact"); player.transform.localScale = new Vector3(scale, 1.2f, 1);
+        player.AddComponent<BoxCollider2D>().size = Vector2.one * 20;
+        var source = player.AddComponent<SpriteRenderer>(); source.flipX = flip;
+        var box = player.AddComponent<PlayerWeaponHitbox>(); box.targetLayers = 1;
+        Set(box, "slashLibrary", library); Set(box, "slashSource", source);
+        var events = player.AddComponent<PlayerAttackEvents>(); events.hitbox = box;
+        var emitter = player.AddComponent<HitSparkSpawner>();
+        Set(emitter, "sparkPrefab", UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/CombatVoxel/NormalHitSpark.prefab"));
+        Set(box, "hitSpark", emitter);
+        var animator = player.AddComponent<Animator>();
+        var controller = Own(new UnityEditor.Animations.AnimatorController()); controller.AddLayer("Base Layer");
+        var machine = controller.layers[0].stateMachine;
+        var state = machine.AddState("swing"); state.motion = clip; machine.defaultState = state;
+        animator.runtimeAnimatorController = controller;
+        player.AddComponent<ParrySystem>().logs = false;
+        var enemy = Host("contact recipient"); var target = enemy.AddComponent<FeedbackDamageTarget>();
+        var collider = enemy.AddComponent<BoxCollider2D>(); collider.size = new Vector2(1, 2);
+        var row = System.Array.Find(library.frames, f => f.sprite == cel);
+        var local = ((row.contactA + row.contactB) * .5f - cel.pivot) / cel.pixelsPerUnit;
+        if (flip) local.x = -local.x;
+        enemy.transform.position = player.transform.TransformPoint(local) + new Vector3(.15f, .1f, 0);
+        enemy.SetActive(true); player.SetActive(true); Physics2D.SyncTransforms();
+        Assert.That(library.TryContact(cel, source, collider, out var expected), Is.True);
+        target.onDamage = () => source.sprite = null; // Hurt/Die must not change the already captured point.
+        animator.Update(0); animator.Update(.0001f);
+        if (!path.Contains("parry")) Assert.That(target.hits, Is.EqualTo(1), "first displayed slash cel must already confirm damage");
+        animator.Update(opening.time + .001f);
+        Assert.That(target.hits, Is.EqualTo(1)); Assert.That(target.amount, Is.EqualTo(10));
+        Assert.That(Vector2.Distance(target.point, expected), Is.LessThan(.0001f));
+        Assert.That(box.LastHitFrame, Is.EqualTo(Time.frameCount));
+        var spark = UnityEngine.Object.FindObjectOfType<NormalHitSpark>(); Assert.That(spark, Is.Not.Null);
+        Assert.That(spark.GetComponent<SpriteRenderer>().sprite.name, Is.EqualTo("frame_1"));
+        Assert.That(Vector2.Distance(spark.transform.position, expected), Is.LessThan(.0001f));
+        Hit(box, collider); Assert.That(target.hits, Is.EqualTo(1));
+    }
+#endif
+
+    [Test, Category("Quick")]
+    public void ContainedContactSegmentUsesItsCentreInsteadOfLowEndpoint()
+    {
+        var texture = Own(new Texture2D(16, 16));
+        var sprite = Own(Sprite.Create(texture, new Rect(0, 0, 16, 16), Vector2.zero, 1));
+        var library = Own(ScriptableObject.CreateInstance<SlashLibrary>());
+        library.frames = new[] { new SlashLibrary.Frame { sprite = sprite, hasContact = true,
+            contactA = new Vector2(10, 0), contactB = new Vector2(10, 10) } };
+        var source = Host("contact source").AddComponent<SpriteRenderer>(); source.sprite = sprite;
+        var target = Host("contact geometry"); target.transform.position = new Vector3(10, 5, 0);
+        var collider = target.AddComponent<BoxCollider2D>(); collider.size = new Vector2(2, 12);
+        target.SetActive(true); Physics2D.SyncTransforms();
+        Assert.That(library.TryContact(sprite, source, collider, out var point), Is.True);
+        Assert.That(Vector2.Distance(point, new Vector2(10, 5)), Is.LessThan(.0001f));
+    }
+
+    [Test, Category("Quick")]
+    public void OpeningRespectsPairIgnoreAndTriggerStillAcceptsLaterEntry()
+    {
+        var player = Host("ignore player"); var ownCollider = player.AddComponent<BoxCollider2D>();
+        var box = player.AddComponent<PlayerWeaponHitbox>(); box.targetLayers = 1;
+        var events = player.AddComponent<PlayerAttackEvents>(); events.hitbox = box; player.SetActive(true);
+        var enemy = Host("ignored enemy"); var target = enemy.AddComponent<FeedbackDamageTarget>();
+        var collider = enemy.AddComponent<BoxCollider2D>(); enemy.SetActive(true);
+        Physics2D.IgnoreCollision(ownCollider, collider); events.OnAttackStartCel(null); Assert.That(target.hits, Is.Zero);
+        Physics2D.IgnoreCollision(ownCollider, collider, false); Hit(box, collider); Assert.That(target.hits, Is.EqualTo(1));
+    }
+
+    [Test, Category("Quick")]
+    public void OpeningRespectsPhysicsLayerIgnoreDespiteTargetMask()
+    {
+        var player = Host("layer player"); player.AddComponent<BoxCollider2D>();
+        var box = player.AddComponent<PlayerWeaponHitbox>(); box.targetLayers = 1 << 8;
+        var events = player.AddComponent<PlayerAttackEvents>(); events.hitbox = box; player.SetActive(true);
+        var enemy = Host("layer enemy"); enemy.layer = 8;
+        var target = enemy.AddComponent<FeedbackDamageTarget>(); enemy.AddComponent<BoxCollider2D>(); enemy.SetActive(true);
+        bool before = Physics2D.GetIgnoreLayerCollision(0, 8);
+        try
+        {
+            Physics2D.IgnoreLayerCollision(0, 8, true); events.OnAttackStartCel(null); Assert.That(target.hits, Is.Zero);
+            Physics2D.IgnoreLayerCollision(0, 8, false); events.OnAttackStartCel(null); Assert.That(target.hits, Is.EqualTo(1));
+        }
+        finally { Physics2D.IgnoreLayerCollision(0, 8, before); }
+    }
+
+    [Test, Category("Quick")]
+    public void AnimationOpeningConfirmsOverlapImmediatelyAndDeduplicatesLaterTrigger()
+    {
+        var player = Host("opening player"); player.AddComponent<BoxCollider2D>();
+        var box = player.AddComponent<PlayerWeaponHitbox>(); box.targetLayers = 1;
+        var events = player.AddComponent<PlayerAttackEvents>(); events.hitbox = box;
+        player.SetActive(true);
+        var enemy = Host("opening enemy"); var damage = enemy.AddComponent<FeedbackDamageTarget>();
+        var a = enemy.AddComponent<BoxCollider2D>(); var b = enemy.AddComponent<CircleCollider2D>();
+        enemy.SetActive(true);
+        events.OnAttackStart();
+        Assert.That(damage.hits, Is.Zero, "Slayer entrypoint retains trigger cadence");
+        events.OnAttackStartCel(null);
+        Assert.That(damage.hits, Is.EqualTo(1), "animation callback must confirm before a physics step");
+        Hit(box, a); Hit(box, b);
+        Assert.That(damage.hits, Is.EqualTo(1));
     }
 
     [Test, Category("Quick")]

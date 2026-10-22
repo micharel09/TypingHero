@@ -1453,3 +1453,10 @@ container. It is NOT PASS;no integrated runtime/builder rerun claim. The tempora
 unexecuted scene test was removed. Reuse approved defect gameplay evidence and
 retain this explicit limitation;no full suite/WebGL build or publication.
 Existing pre-task Orca worktree and local playback evidence remain preserved.
+
+Before push,main advanced to7d89d09 with verified parry impact synchronization.
+Integrated it too;only systems.md conflicted. Retained incoming VFX documentation
+and this task's lighting/rendering rows. All three scene files are unchanged from
+the reviewed integration state;incoming player animation changes add contact events
+but sprite curves/cel times remain identical to the accepted lighting source.
+Receipt:completion/player-fix/integration/latest-main-review.json. No extra QA run.

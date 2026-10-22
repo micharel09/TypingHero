@@ -190,6 +190,8 @@ MonoBehaviour:
   slayer: {fileID: 3027463112130235812}
   staminaOnHit: -1
   hitStunSeconds: 6
+  slashLibrary: {fileID: 11400000, guid: 4720ef884b3923ec593c8cf695ad14af, type: 2}
+  slashSource: {fileID: 7358457235006824576}
   hitSpark: {fileID: 864069039669792717}
 --- !u!1 &5449769088092458507
 GameObject:

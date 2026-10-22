@@ -13,6 +13,25 @@ public sealed class SlashVolume : MonoBehaviour
     MeshRenderer frontRenderer, backRenderer;
     void Awake()
     {
+        if (normalPlayerMaterial)
+        {
+            // Prepare the declared lighting variants before the first visible swing.
+            var variants = new ShaderVariantCollection();
+            var keywords = new List<string>(3);
+            foreach (var main in new[] { "", "_MAIN_LIGHT_SHADOWS", "_MAIN_LIGHT_SHADOWS_CASCADE" })
+            for (int additional = 0; additional < 2; additional++)
+            for (int shadows = 0; shadows < 2; shadows++)
+            {
+                keywords.Clear();
+                if (main.Length > 0) keywords.Add(main);
+                if (additional != 0) keywords.Add("_ADDITIONAL_LIGHTS");
+                if (shadows != 0) keywords.Add("_ADDITIONAL_LIGHT_SHADOWS");
+                variants.Add(new ShaderVariantCollection.ShaderVariant(normalPlayerMaterial.shader,
+                    UnityEngine.Rendering.PassType.Normal, keywords.ToArray()));
+            }
+            variants.WarmUp();
+            Destroy(variants);
+        }
         foreach (var frame in library.frames) lookup[frame.sprite] = frame;
         front = Part("SlashFront", out frontRenderer); back = Part("SlashBack", out backRenderer);
     }

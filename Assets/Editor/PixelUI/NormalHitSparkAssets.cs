@@ -27,6 +27,7 @@ internal static class NormalHitSparkAssets
             }
         }
         finally { Object.DestroyImmediate(texture); }
+        frames = frames.Skip(1).ToArray(); // Start at the white core; retain the transparent tail and total160ms.
         var root = Load() ? PrefabUtility.LoadPrefabContents(Path) : new GameObject("NormalHitSpark");
         bool existing = Load();
         try

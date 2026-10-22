@@ -33,6 +33,18 @@ public class HitSparkSpawner : MonoBehaviour
 
     void Awake()
     {
+        // WebGL decodes referenced clips lazily; request every variant before the first hit.
+        if (normalImpact) normalImpact.PreloadClipData();
+        if (slayerImpact) slayerImpact.PreloadClipData();
+        if (lethalImpact) lethalImpact.PreloadClipData();
+        if (sparkPrefab && sparkPrefab.GetComponent<NormalHitSpark>())
+        {
+            var shader = sparkPrefab.GetComponent<SpriteRenderer>().sharedMaterial.shader;
+            var variants = new ShaderVariantCollection();
+            variants.Add(new ShaderVariantCollection.ShaderVariant(shader, UnityEngine.Rendering.PassType.Normal));
+            variants.WarmUp();
+            Destroy(variants);
+        }
         // Independent world transform: sparks neither inherit motion nor survive their owner.
         poolRoot = new GameObject("CombatImpactPool").transform;
         UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(poolRoot.gameObject, gameObject.scene);

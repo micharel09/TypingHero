@@ -17,8 +17,8 @@ MonoBehaviour:
     count: 2
     channel: 1
     small: 0
-    towardPlayer: 0
-    angles: {x: -20, y: 50}
+    towardPlayer: 1
+    angles: {x: -35, y: 35}
     angleJitter: 3
     speed: {x: 14, y: 24}
     depthSpeed: {x: -1, y: 1}
@@ -41,8 +41,8 @@ MonoBehaviour:
     count: 8
     channel: 2
     small: 0
-    towardPlayer: 0
-    angles: {x: -20, y: 50}
+    towardPlayer: 1
+    angles: {x: -35, y: 35}
     angleJitter: 3
     speed: {x: 14, y: 24}
     depthSpeed: {x: -6, y: -4}
@@ -65,8 +65,8 @@ MonoBehaviour:
     count: 8
     channel: 4
     small: 0
-    towardPlayer: 0
-    angles: {x: -20, y: 50}
+    towardPlayer: 1
+    angles: {x: -35, y: 35}
     angleJitter: 3
     speed: {x: 14, y: 24}
     depthSpeed: {x: 2, y: 4}
@@ -89,13 +89,14 @@ MonoBehaviour:
     count: 4
     channel: 2
     small: 1
+    spawnRegion: 1
     towardPlayer: 1
     angles: {x: 0, y: 360}
     angleJitter: 10
     speed: {x: 1, y: 2.5}
     depthSpeed: {x: -0.2, y: 0.2}
-    spawnRadius: 0.12
-    playerOffset: 0.08
+    spawnRadius: 0
+    playerOffset: 0
     longPixels: {x: 1, y: 2}
     shortPixels: {x: 1, y: 2}
     widthPixels: 1

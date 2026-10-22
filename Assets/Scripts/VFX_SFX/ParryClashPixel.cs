@@ -58,7 +58,7 @@ public sealed partial class ParryClashBurst
         }
     }
 
-    void EmitPixel(float direction, float groundY, ParryContactSnapshot? visual, float playerDirection)
+    void EmitPixel(float direction, float groundY, ParryContactSnapshot? visual, float playerDirection, PhysicalParticleProfile.RecipientSnapshot recipient)
     {
         var camera = Camera.main;
         pixelUnit = camera && camera.orthographic ? Mathf.Max(1f / 16, camera.orthographicSize * 2 * camera.aspect / 320) : 1f / 16;
@@ -75,15 +75,15 @@ public sealed partial class ParryClashBurst
             startSize = Mathf.Min(1, pixelUnit * 16), startLifetime = .2f, startColor = Color.white }, 1);
         back.Emit(new ParticleSystem.EmitParams { position = transform.position, velocity = Vector3.zero,
             startSize = pixelUnit * 16, startLifetime = .2f, startColor = Color.white }, 1);
-        EmitPhysical(direction, playerDirection, groundY);
+        EmitPhysical(direction, playerDirection, groundY, recipient);
     }
 
-    void EmitPhysical(float direction, float playerDirection, float groundY)
+    void EmitPhysical(float direction, float playerDirection, float groundY, PhysicalParticleProfile.RecipientSnapshot recipient)
     {
         var camera = Camera.main;
         screenRight = camera ? camera.transform.right : Vector3.right;
         screenUp = camera ? camera.transform.up : Vector3.up;
-        simulation.Emit(physicalProfile, transform.position, direction, playerDirection, groundY + 1f / 32, variationIndex);
+        simulation.Emit(physicalProfile, transform.position, direction, playerDirection, groundY + 1f / 32, variationIndex, recipient);
         debrisCount = simulation.Count;
         for (int i = 0; i < debrisCount; i++)
         {
