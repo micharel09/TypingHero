@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   groups:
   - name: Fragments
-    count: 2
+    count: 4
     channel: 1
     small: 0
     towardPlayer: 1
-    angles: {x: -35, y: 35}
+    pastRecipient: 1
+    angles: {x: -25, y: 45}
     angleJitter: 3
-    speed: {x: 14, y: 24}
+    speed: {x: 24, y: 32}
     depthSpeed: {x: -1, y: 1}
     spawnRadius: 0
     playerOffset: 0
@@ -31,20 +32,21 @@ MonoBehaviour:
     physics:
       gravity: 9.81
       launchDuration: 0.12
-      launchDrag: 20
-      flightDrag: 2
+      launchDrag: 5
+      flightDrag: 1.5
       collideWithFloor: 0
       restitution: 0
       tangentRetention: 0.55
       restDuration: 0
   - name: Near rays
-    count: 8
+    count: 16
     channel: 2
     small: 0
     towardPlayer: 1
-    angles: {x: -35, y: 35}
+    pastRecipient: 1
+    angles: {x: -25, y: 45}
     angleJitter: 3
-    speed: {x: 14, y: 24}
+    speed: {x: 24, y: 32}
     depthSpeed: {x: -6, y: -4}
     spawnRadius: 0
     playerOffset: 0
@@ -55,20 +57,21 @@ MonoBehaviour:
     physics:
       gravity: 9.81
       launchDuration: 0.12
-      launchDrag: 20
-      flightDrag: 2
+      launchDrag: 5
+      flightDrag: 1.5
       collideWithFloor: 1
       restitution: 0.22
       tangentRetention: 0.55
       restDuration: 0.18
   - name: Far rays
-    count: 8
+    count: 16
     channel: 4
     small: 0
     towardPlayer: 1
-    angles: {x: -35, y: 35}
+    pastRecipient: 1
+    angles: {x: -25, y: 45}
     angleJitter: 3
-    speed: {x: 14, y: 24}
+    speed: {x: 24, y: 32}
     depthSpeed: {x: 2, y: 4}
     spawnRadius: 0
     playerOffset: 0
@@ -79,8 +82,8 @@ MonoBehaviour:
     physics:
       gravity: 9.81
       launchDuration: 0.12
-      launchDrag: 20
-      flightDrag: 2
+      launchDrag: 5
+      flightDrag: 1.5
       collideWithFloor: 1
       restitution: 0.22
       tangentRetention: 0.55

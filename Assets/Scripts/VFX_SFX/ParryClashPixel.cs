@@ -6,9 +6,10 @@ public sealed partial class ParryClashBurst
     [SerializeField] PhysicalParticleProfile physicalProfile;
     float pixelUnit;
     internal float PixelUnitsPerMeter { get; private set; } = 1.25f;
-    readonly PhysicalParticleSimulation simulation = new PhysicalParticleSimulation(22);
-    readonly ParticleSystem.Particle[] debrisParticles = new ParticleSystem.Particle[22];
-    readonly ParticleSystem.Particle[] identities = new ParticleSystem.Particle[22];
+    const int DebrisCapacity = 40;
+    readonly PhysicalParticleSimulation simulation = new PhysicalParticleSimulation(DebrisCapacity);
+    readonly ParticleSystem.Particle[] debrisParticles = new ParticleSystem.Particle[DebrisCapacity];
+    readonly ParticleSystem.Particle[] identities = new ParticleSystem.Particle[DebrisCapacity];
     Vector3 screenRight = Vector3.right, screenUp = Vector3.up;
     float debrisAge;
     int debrisCount;
