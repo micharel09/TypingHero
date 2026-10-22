@@ -1,4 +1,4 @@
-## Player recovery lighting / reflection removal (2026-10-22; playback pending)
+## Player recovery lighting / reflection removal (2026-10-22; playback approved)
 
 - Root cause: actual player controller references the parry-success clip outside
   the folder scan. Four combo_2_end cels lacked both companion bindings. Matched
@@ -29,7 +29,11 @@
   including atlas switch and both facings; no recovery blackout. User subsequently
   narrowed verification to the reported defect:additional VFX fixture build stopped,
   its inactive-clone captures are not accepted. No further broad QA required.
-  User1x/quarter playback acceptance remains pending; no main integration/publication.
+  User approved1x/quarter playback and requested main integration. Shared-world
+  integration preserves27lighting records and main's game/menu scene contents;
+  static references/Transform/reflection flags audit PASS. Additional filtered Unity
+  attempt stalled before tests,not PASS;integrated runtime/builder not rerun.
+  Approved defect gameplay evidence retained; no publication.
   [Checkpoint](../plans/dungeon-3d.md).
 
 ## Rune noise completion candidate (2026-10-22, acceptance pending)
@@ -83,6 +87,41 @@ See [checkpoint](../plans/dungeon-3d.md) for source identity and receipts.
   remote-main integration remain pending; task branch is a verified technical candidate.
 
 ## Dungeon and thin-glass lantern integrated (2026-10-21)
+
+## Shared3D dungeon lifecycle ? 2026-10-22
+
+Editor direct-play follow-up: Quick062143 on Unity2022.3.25f1/fly-server passes
+2/2 actual EnterPlayMode tests and25/25 filtered PlayMode tests, zero failed/skipped,
+on input `c6f931fa01cfc9228a58914d327cc2e205eae229f84579d409226db9f24eb931`.
+Actual Play twice with domain reload disabled retains unsaved Inspector edits,
+resets transient run/tutorial state and exercises Fight/ProcessInput/pause/Restart/
+menu callbacks. Mixed MainMenu+SampleScene startup stays actor-free; direct entry
+reuses an open world and retains camera/RT across reload and menu Start. Prior22
+checks rerun with three new direct-entry cases. Nine source/scene/editor-setting
+comparisons match the immutable input after testing. Headless controller/input-path
+evidence; no new browser/physical-keyboard or visual/performance claim. Scenes,
+builders, packages and project settings are unchanged. Receipts/diagnostics and
+retained task artifacts: [checkpoint](../plans/shared-dungeon-session.md).
+
+Unity2022.3.25f1/fly-server Quick041809:22/22PASS,0failed/skipped: real Slayer teardown
+across3cycles, binding/nativeCanvas, actor roots, duplicate transitions, rendering,
+identity15and3directly affected HUD/damage/Continue consumers. QA042021 strict
+repeated builder PASS on identical input
+`1dc641a5e34fb745b3a71ef8d5ef913c4dbcd17fc6cf49073ac05e531283cc8d`.
+All3serialized scenes/world.meta/build settings match final checkout;96original
+menu RectTransforms and old scene GUID/meta unchanged, no dangling local references.
+
+Edge155/GTX1650Ti/D3D11/DPR1 native129/129PASS at1280x720/640x360; focused fresh
+Play/Unseen/Skip/Fight/return640supplement7/7PASS. Actual menu/preparation/modals,
+tutorial/next lesson, win/Continue, Slayer/restore and unobstructed640combat images
+inspected. Real keyboard/mouse only. After required-flow warmup,3identical
+Menu->Start->Restart->Menu cycles remain594GameObjects and1dungeon RT; room/camera/
+RT IDs fixed across all flows, camera/presenter/listener1each. Menu has0actors/HUD/
+timer, world restored, combat light0/disabled and time scale1. Both final reports
+0Unity/JS exceptions/provider writes;2Endless reads intercepted, external blocking
+and observation-only conditional bridge retained. No full gameplay/stress/soak/
+performance or itch publication claim. [Checkpoint](../plans/shared-dungeon-session.md).
+
 
 - Remote main verified at f1ab52b, retaining latest main gameplay/HUD/Pimen systems
   with the task's full dungeon3D/camera/lighting/lantern. No game publication.
@@ -171,6 +210,19 @@ Final94c4adbd: QA035043/production040103 strict repeat/bridge exclusion pass, ma
 Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, hidden PARRY/key/clock. Exact input640a9871: QA020049 repeat-builder and complete typing behavior guard PASS; production021408 QA exclusion PASS. Native scoped633checks across four viewports and DPR1/2/1.25; six lessons/parry/Slayer/pause/restart/first win/Continue and current score cluster pass, Firebase fixture/blocking and zero real writes. Normal player48viewport-state captures pass; public Run game actual menu plus8native CDN combat/pause captures and Space pose,29payload hashes exact. Upload19915823 selected after native Save/reload;19893288 retained hidden for rollback. No full balance/performance claim. See [release receipt](../../marketing/itch-io/cobblestone-release-20261021.json) and [font checkpoint](../plans/itch-game-page-dark-fantasy.md). Older all-UI Blackbit font-quality conclusions are superseded by the user-approved Cobblestone choice; their behavioral evidence stays scoped to its frozen source.
 
 # Verification and performance memory
+
+## Near-zero physical particle drag (2026-10-22)
+
+- Unity2022.3.25f1/fly-server red20261022T014230-quick reproduces1/1failure on old
+  runtime: drag.0001/age.12s gives Y=-19.0962753WU instead of-.07063172WU.
+- Green20261022T014352-quick inputa78eb11385d22f5183173e21d9b5ccf220d13580c0401937eaf46a8cec0d50fe:
+  focused PhysicalParticleTests + ParryClashTests53/53PASS,0failed/skipped,
+  13.2167476s. Adds16numeric regression cases; prior pause/pool/direction/budget
+  and zero-allocation tests pass. All1992build/test inputs match the archive.
+- External adapter retains the shared runner lock/cache/license and selects tests
+  through Unity's existing filter; repository runner/toolchain/preset assets unchanged.
+  No new WebGL/native/visual/performance claim. Exact scope and retained receipts:
+  [physics checkpoint](../plans/parry-physical-particles.md#near-zero-drag-correction-2026-10-22).
 
 ## Dungeon main menu — 2026-10-21
 
@@ -2294,6 +2346,20 @@ frame border21/0/3/0. CRLF-only failed build and stale-restart pilot are exclude
 see [combat checkpoint](../plans/combat-feedback.md). No itch.io deployment.
 
 
+## Menu name/Escape/focus follow-up - 2026-10-22
+
+Filtered PlayerIdentityTests15/15 PASS; QA WebGL015918 and strict repeat-builder
+PASS, same input2eb55c66bee8884f055007d0587ba78104567ef9b394179c8be163bb36c1724a.
+Native Edge155/D3D11:279 focused assertions plus17 legacy16 fixture assertions
+PASS at1280x720/640x360; real input, read-only QA bridge, zero exceptions/provider
+writes. Name10 glyph bounds and actual name/error/legacy images inspected.
+Three fixes verified: shared3-10 UI limits, Back/Escape drafts with Start-only
+persistence, bounded main-menu selection restoration after background clicks.
+WebGL OS clipboard paste remains unsupported in both original and patched players;
+paste11/16 acceptance is not passed. No six-lesson/full Quick/gameplay/stress/soak
+or itch deployment. Details and scope decision: [checkpoint](../plans/dungeon-main-menu.md).
+
+
 ## Attacker-facing parry and reusable floor particles (2026-10-21)
 
 - Orca task micharel09/parry-physical-particles from origin/main edfc3b6; parent
@@ -2330,3 +2396,11 @@ see [combat checkpoint](../plans/combat-feedback.md). No itch.io deployment.
   1611145 dungeon MainMenu merge leaves all37 relevant runtime/config/test inputs
   identical; scoped results reused. No integrated menu redesign or publication
   claim by this task. Final resource/provenance record is in the physics checkpoint.
+
+
+Menu follow-up integrated as dedfe16 on origin/main after preserving incoming
+particle physics changes. Integrated filtered identity021754:15/15 PASS,
+input3f11a598c427567a85ec2f0dc40a023f8689bee9d4a8f4e6aed52b1cf83138a6.
+Menu source/config unchanged; existing native evidence reused. Task captures/
+profiles cleaned; final preview8246/player retained for review, tutorial WIP intact.
+Clipboard acceptance remains pending as recorded above.

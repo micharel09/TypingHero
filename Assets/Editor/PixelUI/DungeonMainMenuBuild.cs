@@ -50,6 +50,8 @@ internal static class DungeonMainMenuBuild
         nameLabel.text = "Player name"; Box(nameLabel.rectTransform, panel, 24, 54, 372, 28); Text(nameLabel, 24);
         var input = Get<TMP_InputField>(menu, "nameInput");
         Box((RectTransform)input.transform, panel, 24, 84, 372, 40);
+        input.characterLimit = PlayerIdentity.MaxNameLength;
+        input.restoreOriginalTextOnEscape = false;
         input.pointSize = 27; Text(input.textComponent, 27);
         if (input.placeholder is TMP_Text hint) Text(hint, 27);
         var error = Get<TMP_Text>(menu, "errorLabel");

@@ -31,7 +31,7 @@ public sealed class TutorialDirector : MonoBehaviour
     internal int LessonIndex => (int)lesson;
     internal bool Practicing => phase == Phase.Practice;
     internal bool Passed => phase == Phase.Passed;
-    bool ControlsBlocked => !initialized || reloading || GamePauseController.IsPaused ||
+    bool ControlsBlocked => DungeonSession.InputSuppressed || !initialized || reloading || GamePauseController.IsPaused ||
         LeaderboardModal.IsOpen || (pause && pause.IsRestarting);
 
     void Start()
@@ -153,7 +153,7 @@ public sealed class TutorialDirector : MonoBehaviour
         TutorialRun.Checkpoint = (int)checkpoint;
         TutorialRun.Retrying = retry;
         GamePauseController.SetTutorialReading(true);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DungeonSession.I.ReloadGameplay();
     }
 
     public void Skip()
@@ -168,7 +168,7 @@ public sealed class TutorialDirector : MonoBehaviour
         reloading = true;
         GamePauseController.SetTutorialReading(false);
         TutorialRun.End();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DungeonSession.I.ReloadGameplay();
     }
 
     void OnDestroy()

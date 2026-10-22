@@ -1,0 +1,6 @@
+{
+  "name": "TypingHero.EditorTests",
+  "references": ["TypingHero.Runtime"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

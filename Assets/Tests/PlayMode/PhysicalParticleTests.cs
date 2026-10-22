@@ -4,6 +4,170 @@ using UnityEngine;
 public sealed class PhysicalParticleTests
 {
     [Test, Category("Quick")]
+    public void SmallLaunchDragRetainsBallisticGravityInsteadOfDroppingMetres()
+    {
+        var profile = ScriptableObject.CreateInstance<PhysicalParticleProfile>();
+        try
+        {
+            profile.groups = new[] { new PhysicalParticleProfile.Group {
+                count = 1, angles = Vector2.zero, angleJitter = 0, speed = Vector2.one * 2,
+                lifetime = Vector2.one * 3,
+                physics = new PhysicalParticleProfile.PhysicsSettings {
+                    gravity = 9.81f, launchDuration = .12f, launchDrag = .0001f
+                }
+            } };
+            var simulation = new PhysicalParticleSimulation(1);
+            simulation.Emit(profile, Vector3.zero, 1, -1, 0, 0);
+            var sample = simulation.Evaluate(0, .12f);
+            Assert.That(sample.alive, Is.True);
+            Assert.That(sample.position.y, Is.EqualTo(-.07063172f).Within(.00001f));
+            Assert.That(sample.position.x, Is.EqualTo(.23999856f).Within(.00001f));
+        }
+        finally { Object.DestroyImmediate(profile); }
+    }
+
+    [TestCase(0f), TestCase(1e-8f), TestCase(1e-6f), TestCase(.0001f), TestCase(.001f)]
+    [TestCase(.08325f), TestCase(.083333336f), TestCase(.08341667f)]
+    [TestCase(2f), TestCase(6f), TestCase(20f), Category("Quick")]
+    public void DragTrajectoriesMatchReferenceThroughLaunchAndFlight(float drag)
+    {
+        var profile = ScriptableObject.CreateInstance<PhysicalParticleProfile>();
+        try
+        {
+            var group = new PhysicalParticleProfile.Group {
+                count = 1, angles = Vector2.one * 30, angleJitter = 0,
+                speed = Vector2.one * 24, depthSpeed = Vector2.one * -4,
+                lifetime = Vector2.one * 3,
+                physics = new PhysicalParticleProfile.PhysicsSettings {
+                    launchDuration = .12f, launchDrag = drag, flightDrag = drag
+                }
+            };
+            profile.groups = new[] { group };
+            var simulation = new PhysicalParticleSimulation(1);
+            foreach (float gravity in new[] { 0f, 9.81f })
+            {
+                group.physics.gravity = gravity;
+                simulation.Emit(profile, Vector3.up, 1, -1, 0, 0);
+                var state = simulation[0];
+                foreach (float age in new[] { 0f, .0001f, .03f, .119999f, .12f, .120001f, .3f, 1f, 2.5f })
+                {
+                    var sample = simulation.Evaluate(0, age);
+                    Assert.That(sample.alive, Is.True);
+                    ReferenceFlight(state, age, out var position, out var velocity);
+                    AssertVector(sample.position, position, $"position: drag={drag}, gravity={gravity}, age={age}");
+                    AssertVector(sample.velocity, velocity, $"velocity: drag={drag}, gravity={gravity}, age={age}");
+                }
+            }
+        }
+        finally { Object.DestroyImmediate(profile); }
+    }
+
+    [TestCase(0f), TestCase(1e-8f), TestCase(.0001f), TestCase(.001f), Category("Quick")]
+    public void SmallDragFloorContactAndBounceRemainContinuous(float drag)
+    {
+        var profile = ScriptableObject.CreateInstance<PhysicalParticleProfile>();
+        try
+        {
+            profile.groups = new[] { new PhysicalParticleProfile.Group {
+                count = 1, angles = Vector2.one * 60, angleJitter = 0,
+                speed = Vector2.one * 2, depthSpeed = Vector2.one,
+                lifetime = Vector2.one * 3,
+                physics = new PhysicalParticleProfile.PhysicsSettings {
+                    gravity = 10, launchDuration = .12f, launchDrag = drag, flightDrag = drag,
+                    collideWithFloor = true, restitution = .25f, tangentRetention = .5f, restDuration = .2f
+                }
+            } };
+            var simulation = new PhysicalParticleSimulation(1);
+            simulation.Emit(profile, Vector3.up, 1, -1, 0, 0);
+            var state = simulation[0];
+            double lo = 0, hi = 2;
+            for (int i = 0; i < 50; i++)
+            {
+                double mid = (lo + hi) / 2;
+                ReferenceFlight(state, mid, out var position, out _);
+                if (position[1] > 0) lo = mid; else hi = mid;
+            }
+            Assert.That(state.flight, Is.EqualTo((lo + hi) / 2).Within(.0001));
+            ReferenceFlight(state, (lo + hi) / 2, out var impact, out var impactVelocity);
+            double bounce = -2 * impactVelocity[1] * state.physics.restitution / state.physics.gravity;
+            Assert.That(state.bounce, Is.EqualTo(bounce).Within(.0001));
+            float previousY = 0;
+            int rises = 0;
+            for (float age = state.flight; age < state.total; age += .001f)
+            {
+                var sample = simulation.Evaluate(0, age);
+                double t = System.Math.Min(System.Math.Max(0, age - state.flight), state.bounce);
+                ReferenceIntegrals(drag, t, out double travel, out _);
+                AssertVector(sample.position, new[] {
+                    impact[0] + impactVelocity[0] * state.physics.tangentRetention * travel,
+                    .5 * state.physics.gravity * t * (state.bounce - t),
+                    impact[2] + impactVelocity[2] * state.physics.tangentRetention * travel
+                }, "bounce and rest position");
+                Assert.That(sample.position.y, Is.GreaterThanOrEqualTo(0));
+                if (sample.position.y > previousY + .000001f) rises++;
+                previousY = sample.position.y;
+            }
+            Assert.That(rises, Is.GreaterThan(0), "one upward bounce must remain visible");
+            var rest = simulation.Evaluate(0, state.flight + state.bounce + .1f);
+            Assert.That(rest.position.y, Is.Zero);
+            Assert.That(rest.velocity, Is.EqualTo(Vector3.zero));
+            Assert.That(simulation.Evaluate(0, state.total).alive, Is.False);
+        }
+        finally { Object.DestroyImmediate(profile); }
+    }
+
+    // Independent double-precision oracle: sum a convergent series well beyond
+    // the runtime polynomial near zero, and use the closed form elsewhere.
+    static void ReferenceIntegrals(double drag, double t, out double travel, out double fall)
+    {
+        double x = drag * t;
+        if (x < .5)
+        {
+            double travelTerm = t, fallTerm = t * t / 2;
+            travel = travelTerm; fall = fallTerm;
+            for (int n = 1; n <= 30; n++)
+            {
+                travelTerm *= -x / (n + 1);
+                fallTerm *= -x / (n + 2);
+                travel += travelTerm; fall += fallTerm;
+            }
+        }
+        else
+        {
+            travel = (1 - System.Math.Exp(-x)) / drag;
+            fall = (t - travel) / drag;
+        }
+    }
+
+    static void ReferenceFlight(PhysicalParticleSimulation.State state, double age,
+        out double[] position, out double[] velocity)
+    {
+        double launchTime = System.Math.Min(age, state.physics.launchDuration);
+        ReferenceIntegrals(state.physics.launchDrag, launchTime, out double travel, out double fall);
+        double decay = System.Math.Exp(-state.physics.launchDrag * launchTime);
+        position = new[] { state.origin.x + state.launch.x * travel,
+            state.origin.y + state.launch.y * travel - state.physics.gravity * fall,
+            state.origin.z + state.launch.z * travel };
+        velocity = new[] { state.launch.x * decay,
+            state.launch.y * decay - state.physics.gravity * travel, state.launch.z * decay };
+        if (age <= state.physics.launchDuration) return;
+        double coastTime = age - state.physics.launchDuration;
+        ReferenceIntegrals(state.physics.flightDrag, coastTime, out travel, out _);
+        decay = System.Math.Exp(-state.physics.flightDrag * coastTime);
+        position[0] += velocity[0] * travel;
+        position[1] += velocity[1] * coastTime - .5 * state.physics.gravity * coastTime * coastTime;
+        position[2] += velocity[2] * travel;
+        velocity[0] *= decay; velocity[1] -= state.physics.gravity * coastTime; velocity[2] *= decay;
+    }
+
+    static void AssertVector(Vector3 actual, double[] expected, string context)
+    {
+        for (int axis = 0; axis < 3; axis++)
+            Assert.That(actual[axis], Is.EqualTo(expected[axis]).Within(.00001 + .000001 * System.Math.Abs(expected[axis])),
+                $"{context}, axis={axis}");
+    }
+
+    [Test, Category("Quick")]
     public void ProfilesDriveIndependentPhysicsAndSnapshotSettingsAtEmission()
     {
         var profile = ScriptableObject.CreateInstance<PhysicalParticleProfile>();

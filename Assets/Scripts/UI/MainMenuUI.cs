@@ -18,9 +18,6 @@ public sealed class MainMenuUI : MonoBehaviour
     [Tooltip("Tự focus vào ô nhập khi vào menu.")]
     [SerializeField] bool autoFocusInput = true;
 
-    [Header("Validation (expose để thống nhất với PlayerIdentity)")]
-    [SerializeField, Range(3, 24)] int minLen = 3;
-    [SerializeField, Range(3, 24)] int maxLen = 16;
     bool loadingScene;
     [SerializeField] HowToPlayPanel help;
     [SerializeField] GameObject preparation;
@@ -32,6 +29,7 @@ public sealed class MainMenuUI : MonoBehaviour
     int transitionFrame = -1;
     Button opener;
     bool helpWasOpen;
+    int lastMenuIndex;
 
     bool Blocked => LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts || (help && help.IsOpen);
 
@@ -72,7 +70,11 @@ public sealed class MainMenuUI : MonoBehaviour
 
         if (nameInput)
         {
+            // Preserve legacy saved names for correction without silently truncating them.
+            nameInput.characterLimit = 0;
             nameInput.text = PlayerIdentity.Name ?? string.Empty;
+            nameInput.characterLimit = PlayerIdentity.MaxNameLength;
+            nameInput.restoreOriginalTextOnEscape = false;
             nameInput.onValueChanged.AddListener(OnNameChanged);
             nameInput.onSubmit.AddListener(OnSubmit);   // TMP có onSubmit
         }
@@ -82,9 +84,15 @@ public sealed class MainMenuUI : MonoBehaviour
         UpdateValidationUI(nameInput ? nameInput.text : string.Empty);
     }
 
-    void Start()
+    System.Collections.IEnumerator Start()
     {
-        if (preparation) { preparation.SetActive(false); menuButtons[0].Select(); return; }
+        loadingScene = true;
+        var events = UnityEngine.EventSystems.EventSystem.current;
+        if (events) events.enabled = false;
+        yield return DungeonSession.I.LoadWorld();
+        if (events) events.enabled = true;
+        loadingScene = false;
+        if (preparation) { preparation.SetActive(false); menuButtons[0].Select(); yield break; }
         if (autoFocusInput && nameInput)
         {
             nameInput.Select();
@@ -112,6 +120,8 @@ public sealed class MainMenuUI : MonoBehaviour
             {
                 if (help && help.IsOpen) return;
                 int selected = System.Array.FindIndex(menuButtons, b => b.gameObject == system.currentSelectedGameObject);
+                if (selected >= 0) lastMenuIndex = selected;
+                else selected = lastMenuIndex;
                 int step = Input.GetKeyDown(KeyCode.UpArrow) ? -1 : Input.GetKeyDown(KeyCode.DownArrow) ? 1 :
                     Input.GetKeyDown(KeyCode.Tab) ? (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? -1 : 1) : 0;
                 if (step != 0) menuButtons[(selected + step + menuButtons.Length) % menuButtons.Length].Select();
@@ -145,8 +155,14 @@ public sealed class MainMenuUI : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!preparation || preparation.activeSelf || Blocked) return;
+        if (!preparation || preparation.activeSelf || Blocked || loadingScene || !menuActions || !menuActions.interactable) return;
         var events = UnityEngine.EventSystems.EventSystem.current;
+        if (events)
+        {
+            int selected = System.Array.FindIndex(menuButtons, b => b && b.gameObject == events.currentSelectedGameObject);
+            if (selected >= 0) lastMenuIndex = selected;
+            else if (!events.currentSelectedGameObject) menuButtons[lastMenuIndex].Select();
+        }
         foreach (var button in menuButtons)
         {
             bool focused = events && events.currentSelectedGameObject == button.gameObject;
@@ -180,11 +196,22 @@ public sealed class MainMenuUI : MonoBehaviour
         if (playButton && playButton.interactable) Play();
     }
 
+    static bool ValidateName(string raw, out string normalized, out string error)
+    {
+        if (raw != null && raw.Length > PlayerIdentity.MaxNameLength)
+        {
+            normalized = null;
+            error = $"Name is too long (≤ {PlayerIdentity.MaxNameLength}).";
+            return false;
+        }
+        return PlayerIdentity.Validate(raw, PlayerIdentity.MinNameLength, PlayerIdentity.MaxNameLength, out normalized, out error);
+    }
+
     void UpdateValidationUI(string raw)
     {
         string err;
         string _; // normalized
-        bool ok = PlayerIdentity.Validate(raw, minLen, maxLen, out _, out err);
+        bool ok = ValidateName(raw, out _, out err);
 
         if (playButton) playButton.interactable = ok;
         if (tutorialButton) tutorialButton.interactable = preparation || ok;
@@ -195,7 +222,7 @@ public sealed class MainMenuUI : MonoBehaviour
         }
     }
 
-    void BeginGame() => SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
+    void BeginGame() => DungeonSession.I.BeginGame(gameSceneName);
     public void Tutorial() { if (preparation) OpenPreparation(true); else Launch(true); }
 
     public void ShowHelp()
@@ -219,7 +246,8 @@ public sealed class MainMenuUI : MonoBehaviour
         if (loadingScene || (LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts) || (help && help.IsOpen)) return;
         if (!nameInput) return;
 
-        if (!PlayerIdentity.TrySetName(nameInput.text, out string normalized, out string err))
+        if (!ValidateName(nameInput.text, out _, out string err) ||
+            !PlayerIdentity.TrySetName(nameInput.text, out _, out err))
         {
             UpdateValidationUI(nameInput.text);
             if (errorLabel) errorLabel.text = err;
@@ -232,6 +260,7 @@ public sealed class MainMenuUI : MonoBehaviour
         }
 
         // Đồng bộ lại text (đã được normalize)
+        string normalized = PlayerIdentity.Name;
         if (nameInput.text != normalized) nameInput.text = normalized;
 
         // TODO (sau này): Đẩy tên lên Firebase tại đây hoặc trong màn chơi đầu vào.

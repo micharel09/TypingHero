@@ -44,7 +44,7 @@ internal static class WorldLightingBuild
                             if (key.value is Sprite sprite) PrepareSurface(AssetDatabase.GetAssetPath(sprite.texture), prepared);
             }
             PrepareRig();
-            var rig = Object.FindObjectOfType<ClashLightingRig>();
+            var rig = Object.FindObjectOfType<ClashLightingRig>(true);
             if (!rig) PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(Root + "WorldLighting.prefab"), scene);
             if (scene.name == "MainMenu") MenuBackdrop(material, prepared);
             foreach (var renderer in Object.FindObjectsOfType<SpriteRenderer>(true))
@@ -74,7 +74,8 @@ internal static class WorldLightingBuild
         var source = GameObject.Find("PixelUI/Reference960x540/MenuEnvironment");
         if (!source) return;
         var canvas = GameObject.Find("PixelUI").GetComponent<Image>(); if (canvas) canvas.enabled = false;
-        var root = GameObject.Find("WorldMenuBackdrop") ?? new GameObject("WorldMenuBackdrop");
+        var previous = Object.FindObjectOfType<WorldMenuBackdrop>(true);
+        var root = previous ? previous.gameObject : new GameObject("WorldMenuBackdrop");
         var driver = root.GetComponent<WorldMenuBackdrop>();
         if (!driver) driver = root.AddComponent<WorldMenuBackdrop>();
         var images = source.GetComponentsInChildren<Image>(true);

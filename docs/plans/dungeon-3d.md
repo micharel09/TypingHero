@@ -1431,3 +1431,25 @@ logs/results locally and checking no active container mounted it. Shared toolcha
 cache and private Unity HOME symlink targets remain intact (remote-cleanup.json).
 Canceled extra build exits143 by user scope reduction;not a source/test failure.
 Final defect receipt:completion/player-fix/defect-review-complete.json.
+
+### Accepted playback and main integration (2026-10-22)
+
+User approved playback and requested the primary branch push. Remote default is
+main (not master). Integrated origin/main8a1da77 into accepted taskedd0de1.
+Main had moved the environment/camera to DungeonWorld and combat lights to their
+gameplay owner. Resolved scene conflicts by moving27task lighting records into
+DungeonWorld,retaining main's gameplay/menu scenes and combat-rig ownership.
+Environment child lists combine the new effects with main's relocated lights.
+
+Scoped static integration audit PASS:game/menu records exactly match latest main;
+27lighting records retained (root component/child lists combine both intentions),
+no dangling local references or Transform cycles,reflection node/component/renderer
+remain disabled,unrelated world records and18original art/timing hashes unchanged.
+Receipt:completion/player-fix/integration/static-review.json.
+
+Additional two-test/serialize attempt065857/input211930c0 stalled at Unity editor
+initialization before any test results;stopped only its verified result-mounted
+container. It is NOT PASS;no integrated runtime/builder rerun claim. The temporary
+unexecuted scene test was removed. Reuse approved defect gameplay evidence and
+retain this explicit limitation;no full suite/WebGL build or publication.
+Existing pre-task Orca worktree and local playback evidence remain preserved.

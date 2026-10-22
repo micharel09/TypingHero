@@ -1,0 +1,31 @@
+{
+  "checks": [
+    "all original menu RectTransforms unchanged",
+    "no menu camera",
+    "exactly one serialized world camera",
+    "one room in world",
+    "no room in gameplay",
+    "Assets/Scenes/MainMenu.unity has no dangling local references",
+    "Assets/Scenes/SampleScene.unity has no dangling local references",
+    "Assets/Scenes/DungeonWorld.unity has no dangling local references",
+    "only relocated combat rig component can replace its original local ID",
+    "all original gameplay GameObjects retained",
+    "Assets/Scenes/MainMenu.unity.meta GUID and metadata unchanged",
+    "Assets/Scenes/SampleScene.unity.meta GUID and metadata unchanged"
+  ],
+  "ids": {
+    "Assets/Scenes/MainMenu.unity": 477,
+    "Assets/Scenes/SampleScene.unity": 925,
+    "Assets/Scenes/DungeonWorld.unity": 997
+  },
+  "danglingLocalReferences": {
+    "Assets/Scenes/MainMenu.unity": [],
+    "Assets/Scenes/SampleScene.unity": [],
+    "Assets/Scenes/DungeonWorld.unity": []
+  },
+  "removedOriginalGameIds": [
+    1784889891
+  ],
+  "menuRects": 96,
+  "status": "passed"
+}

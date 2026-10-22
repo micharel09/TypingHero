@@ -86,7 +86,7 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
   The original skeleton controller/GUIDs remain for the tutorial configuration.
 - Initial Fight only. Continue after the first five death animations loads AND starts the
   next opponent once. Carry only HP/score/combat time/letter counts/parries/progress;
-  scene reload resets combo, queues, stamina, cue, stun, Slayer and effect bindings.
+  gameplay reload resets combo, queues, stamina, cue, stun, Slayer and effect bindings; world ownership is retained.
   Boss victory ends the run without healing or a seventh opponent. After the death
   animation, VICTORY / BOSS DEFEATED shows the final statistics with Restart, Menu
   and leaderboard; Enter/Continue cannot resume it. Intro/HUD show DUEL x/6.
@@ -134,13 +134,34 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
 Source-backed inventory, 2026-10-16. Quick and browser flow have runtime evidence;
 see verification for profile status. These are current behaviors, not new requirements.
 
-- Build scenes: `Assets/Scenes/MainMenu.unity`, then `SampleScene.unity`.
-  MainMenuUI auto-focuses name input; Enter or Play validates and loads SampleScene.
-  PlayerIdentity persists the name via PlayerPrefs, normalizes allowed characters,
-  and clamps to 10 characters (menu validation defaults differ; inspect serialized values).
-  With no saved name, EnsureLoaded creates and saves `Guest` plus four uppercase
-  hex characters through TrySetName. Existing names stay unchanged; the menu's
-  existing field supports immediate Enter/Play or an edited name with the same validation.
+- Build scenes: `Assets/Scenes/MainMenu.unity`, `SampleScene.unity`, and additive
+  `DungeonWorld.unity`. DungeonSession loads the world once before enabling menu
+  input. Start loads inactive gameplay additively, binds camera/environment/actors
+  (including native Canvas.worldCamera), activates actor roots and then establishes
+  framing from live colliders. The room, camera, presenter and320x180 RT survive
+  Restart, lesson/Skip, Endless Continue and return to menu. Menu contains no actors
+  or combat HUD/controller. Internal transitions are serialized and additive;
+  gameplay is the active scene while the world reapplies its fog/ambient settings.
+  Teardown clears both directions of scene bindings, restores Slayer environment,
+  camera/pause/reading/time scale and reloads the menu's official saved identity.
+  See [world lifecycle checkpoint](../plans/shared-dungeon-session.md).
+  In the Editor, Play from active SampleScene adopts that live scene into a fresh
+  Endless Fight screen, retaining unsaved Inspector edits. The initial decision
+  waits one frame so a simultaneously opened MainMenu keeps ownership. Direct Play
+  resets transient tutorial/run/pause state without saving tutorial progress and
+  supports the configured disabled domain reload. Player builds keep the menu entry.
+  MainMenuUI initially selects Play; Play/Tutorial open the shared preparation
+  card and focus the name input. Names use shared 3-10 limits, with raw overlimit
+  UI rejection before normalization and TMP characterLimit=10 for editing.
+  PlayerIdentity retains its existing normalization/clamping API and PlayerPrefs
+  key. Only Start saves the normalized name; Back/Escape retain the text/difficulty
+  draft until the menu scene is left. Existing saved names over10 load intact,
+  show an error and disable Start until corrected; no automatic migration.
+  With no saved name, EnsureLoaded creates and saves Guest plus four uppercase
+  hex characters through TrySetName. Clicking background restores the last selected
+  main action while no card/modal/scene transition blocks the menu; hover never
+  changes keyboard position. Browser clipboard paste is currently unsupported
+  in the existing WebGL player; this follow-up does not add a clipboard bridge.
 - TypingManager keeps current/next/third in a synchronous queue. ProcessInput is
   the only letter path: comparison ignores case and nonletters are ignored.
   Completing a word emits the existing correct/advance events once, then promotes
@@ -231,7 +252,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
   frozen. UI confirm events retain existing pause-safe audio routing. Practice
   uses existing TypingManager.ProcessInput,animations,hitboxes and Parry/Slayer
   timing. First attack practice holds enemy attacks and the word timer.
-- Ordinary lesson transitions,timeout and getting hit reload the current scene
+- Ordinary lesson transitions,timeout and getting hit reload gameplay at the current
   checkpoint at full HP. Stamina break to Slayer stays live in the same scene and
   holds its real duration while reading. Expiry or Restart during Slayer repeats
   the stamina-break checkpoint. Previous lessons survive an attempt retry.
@@ -275,6 +296,12 @@ Change only behavior explicitly requested. Update this file after relevant verif
   Lifetime derives from the complete floor trajectory, capped5s. Two short
   fragments end120-180ms. Floor only in v1; no per-particle GameObject/Rigidbody.
   Zero drag/gravity and floor-level/upward/below-floor births have focused tests.
+- Drag integration uses fourth-order Taylor polynomials when drag*time<.01 and
+  double intermediates elsewhere, retaining the exact zero-drag limit. This avoids
+  near-zero launch drag turning centimetres of gravity fall into metres; launch,
+  coast and bounce share the stable travel integral. Production profile tuning,
+  contacts, budgets and pause/pool lifecycle remain unchanged. Focused Unity53/53
+  passes; numeric checks cover drag0..20 and launch/flight/floor transitions.
 - Birth renders at age0 before advancing physics/contact time; tiny specks may
   start inside their configured region. A first following delta>33.3ms takes one
   16.7ms step so a cold render cannot skip launch; subsequent frames use full

@@ -91,6 +91,13 @@ public sealed class GamePauseController : MonoBehaviour
         ApplyFreeze();
     }
 
+    internal static void ResetSessionState()
+    {
+        pauseBlocked = readingBlocked = encounterBlocked = false;
+        ResultOverlayVisible = false;
+        ApplyFreeze();
+    }
+
     static void ApplyFreeze()
     {
         if (ScoreSystem.I) ScoreSystem.I.SetPaused(InputBlocked);
@@ -288,26 +295,8 @@ public sealed class GamePauseController : MonoBehaviour
             SetPauseCanvasVisible(false);
             if (pauseAudioListener) AudioListener.pause = false;
 
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            var sc = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(sc.name, LoadSceneMode.Single);
+            DungeonSession.I.ReloadGameplay();
         });
-    }
-
-    void OnSceneLoaded(Scene sc, LoadSceneMode mode)
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-
-        // Bind lại playerHealth (trường hợp object cũ bị Destroy hoặc dùng DontDestroyOnLoad)
-        BindPlayerHealthIfNeeded();
-        if (playerHealth) playerHealth.FullRestore();     // reset HP về max
-
-        Time.timeScale = 1f;
-        _restarting = false;
-        _overlayLocked = false;
-        ResultOverlayVisible = false;
-        _paused = false;
-        if (cinemachineBrain) cinemachineBrain.enabled = _brainSaved;
     }
 
     // ===== AUDIO HELPERS =====
@@ -349,10 +338,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     void LoadMenuNow()
     {
-        if (!string.IsNullOrEmpty(menuSceneName))
-            SceneManager.LoadScene(menuSceneName, LoadSceneMode.Single);
-        else
-            SceneManager.LoadScene(0, LoadSceneMode.Single); // fallback: index 0
+        DungeonSession.I.ReturnToMenu(string.IsNullOrEmpty(menuSceneName) ? "MainMenu" : menuSceneName);
     }
 
     IEnumerator CoFadeStopThenLoad()
