@@ -22,7 +22,7 @@ internal static class DungeonArenaBuild
         var world = Feature<DungeonWorldRender>(forward, rendererPath, "Dungeon environment and actors");
         Set(world, "blurShader", Shader.Find("Hidden/CLACKBLADE/Dungeon Depth Blur"));
         var worldSettings = new SerializedObject(world);
-        worldSettings.FindProperty("blurRadius").floatValue = 0;
+        worldSettings.FindProperty("blurRadius").floatValue = .65f;
         worldSettings.ApplyModifiedPropertiesWithoutUndo();
         const string screenPath = "Assets/Settings/DungeonPresentation.asset";
         var screen = AssetDatabase.LoadAssetAtPath<UniversalRendererData>(screenPath);
@@ -78,6 +78,8 @@ internal static class DungeonArenaBuild
         EditorUtility.SetDirty(torchMaterial);
         UnityEngine.Rendering.ResourceReloader.ReloadAllNullIn(forward, "Packages/com.unity.render-pipelines.universal");
         var sprite = Material("DungeonSprite", "CLACKBLADE/Dungeon Sprite");
+        sprite.SetFloat("_Metallic",1); sprite.SetFloat("_Roughness",1); sprite.SetFloat("_NormalStrength",.8f);
+        EditorUtility.SetDirty(sprite); AssetDatabase.SaveAssetIfDirty(sprite);
         var old = Object.FindObjectsOfType<Transform>(true).FirstOrDefault(t => t.name == "DungeonEnvironment");
         if (old)
         {
@@ -205,6 +207,7 @@ internal static class DungeonArenaBuild
             PrefabUtility.RecordPrefabInstancePropertyModifications(red.transform);
         }
         Set(cinematic,"environment",root.transform);
+        DungeonFullEffectsBuild.Apply(root);
         EditorUtility.SetDirty(pipeline);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
     }
     static void HangingLamp(GameObject root,Vector3 flame,Material fire)

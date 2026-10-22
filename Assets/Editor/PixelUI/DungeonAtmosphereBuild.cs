@@ -63,7 +63,7 @@ internal static class DungeonAtmosphereBuild
         }
 
     }
-    static void Sheet(GameObject root,string name,Vector3 top,Vector3 bottom,float topWidth,float bottomWidth,Color tint,bool haze)
+    internal static void Sheet(GameObject root,string name,Vector3 top,Vector3 bottom,float topWidth,float bottomWidth,Color tint,bool haze)
     {
         string meshPath=DungeonPixelRoomBuild.Art+name+".asset";
         var mesh=AssetDatabase.LoadAssetAtPath<Mesh>(meshPath);

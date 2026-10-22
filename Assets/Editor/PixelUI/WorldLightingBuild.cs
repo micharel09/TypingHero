@@ -19,7 +19,7 @@ internal static class WorldLightingBuild
             AssetDatabase.CreateAsset(material, Root + "WorldLit.mat");
         }
         var prepared = new System.Collections.Generic.HashSet<string>();
-        foreach (string folder in new[] { "Assets/Characters/Player", "Assets/Characters/Enermy" })
+        foreach (string folder in new[] { "Assets/Characters/Player", "Assets/Characters/Enermy", "Assets/Art/EndlessSkeletons" })
             foreach (string guid in AssetDatabase.FindAssets("t:AnimationClip", new[] { folder }))
             {
                 var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath(guid));
@@ -32,6 +32,17 @@ internal static class WorldLightingBuild
             var scene = EditorSceneManager.OpenScene(path);
             foreach (var oldLight in Object.FindObjectsOfType<Light2D>(true))
                 if (!oldLight.GetComponentInParent<ClashLightingRig>()) oldLight.enabled = false;
+            // Actor controllers can reference clips outside the conventional folders
+            // (notably the parry-success recovery atlas). Prepare those cels too.
+            foreach (var animator in Object.FindObjectsOfType<Animator>(true))
+            {
+                if (!animator.runtimeAnimatorController ||
+                    (!animator.GetComponent<PlayerHealth>() && !animator.GetComponent<SkeletonController>())) continue;
+                foreach (var clip in animator.runtimeAnimatorController.animationClips)
+                    foreach (var binding in AnimationUtility.GetObjectReferenceCurveBindings(clip))
+                        foreach (var key in AnimationUtility.GetObjectReferenceCurve(clip, binding))
+                            if (key.value is Sprite sprite) PrepareSurface(AssetDatabase.GetAssetPath(sprite.texture), prepared);
+            }
             PrepareRig();
             var rig = Object.FindObjectOfType<ClashLightingRig>(true);
             if (!rig) PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(Root + "WorldLighting.prefab"), scene);
@@ -119,7 +130,11 @@ internal static class WorldLightingBuild
     }
     static void PrepareSurface(string path, System.Collections.Generic.HashSet<string> prepared)
     {
-        if (path.EndsWith(".png", System.StringComparison.OrdinalIgnoreCase) && prepared.Add(path)) SurfaceNormalAssets.Prepare(path);
+        if (path.EndsWith(".png", System.StringComparison.OrdinalIgnoreCase) && prepared.Add(path))
+        {
+            SurfaceNormalAssets.Prepare(path);
+            SurfaceNormalAssets.PrepareMaterials(path);
+        }
     }
     static void PrepareRig()
     {

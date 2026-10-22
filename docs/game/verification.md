@@ -1,3 +1,91 @@
+## Player recovery lighting / reflection removal (2026-10-22; playback approved)
+
+- Root cause: actual player controller references the parry-success clip outside
+  the folder scan. Four combo_2_end cels lacked both companion bindings. Matched
+  48-state native A/B shows normal-flat/shadow-off do not remove the blackout;
+  metallic0 restores the same recovery cel. Controller-derived map preparation
+  fixes the missing bindings; shader, lights, original artwork and combat unchanged.
+- QA20261022T044230/input3baf37bc3fce07853acb13b608f2b129dbbe6fd12143b20a66823c5c3d40024a,
+  playerb2723a4a20fe5423:strict twice-run builder/WebGL PASS. All1928scene record
+  contents/references match local result (serialization order differs). Five binding
+  assets match immutable build properties/PNG payloads (new meta whitespace normalized);70actual-controller keys now have both maps;
+  18original albedo/clip hashes unchanged and new GUIDs unique.
+- Scoped Unity20261022T045507:9/9PASS,0fail/skip, including actual-controller map
+  dimensions/bindings, environment lifecycle and parry70/175/280ms/pause/reuse.
+  Final native r3:17/17real-input checks,0exceptions/provider reads/writes. Attack,
+  received hit,consecutive parries,attack after parry,pause,Slayer/restore,menu passed.
+  All reflection/capture-camera samples0;last menu world/reflection/scratch/cameras0.
+- Final gameplay source563frames exported with exact PTS; actually inspected113
+  frames/111pairs at native and nearest2x:153..213 (20.593..25.295s),234..285
+  (26.505..29.970s). Recovered cels retain face/armor/waist brightness through pulse
+  fade and return to idle. Whole-scene attack/parry/post-parry/restored stills also
+  opened: no reflected figures/lamps;floor light and ground contact remain.
+- Failed runs retained separately:one cold Edge WebGL-context loss at menu;one
+  driver waited for immediate HP loss rather than observing the actual attack
+  state and timed out. r3 observes correct-word attack animation directly; no
+  gameplay change. First test transport truncated before Unity; retry hash checked.
+  Disk failures did not execute tests or count as PASS. No performance/FPS claim.
+- Supplementary no-VFX matrix:8cels x16variants actually inspected at native/2x,
+  including atlas switch and both facings; no recovery blackout. User subsequently
+  narrowed verification to the reported defect:additional VFX fixture build stopped,
+  its inactive-clone captures are not accepted. No further broad QA required.
+  User approved1x/quarter playback and requested main integration. Shared-world
+  integration preserves27lighting records and main's game/menu scene contents;
+  static references/Transform/reflection flags audit PASS. Additional filtered Unity
+  attempt stalled before tests,not PASS;integrated runtime/builder not rerun.
+  Approved defect gameplay evidence retained; no publication.
+  [Checkpoint](../plans/dungeon-3d.md).
+
+## Rune noise completion candidate (2026-10-22, acceptance pending)
+
+Scoped DungeonRenderTests run20261022T015303-quick:5/5 PASS,0fail/skip,
+Unity2022.3.25f1. Actual property-block/light gain checked over24s, bounds.76..1,
+deterministic seek and gradual variation; pause/hide/restore preserves gain,
+cloth and exact particle state. No serialized asset changes/duplicate GUIDs.
+QA20261022T015412/player8d537e103ab97c01 passes WebGL/strict repeat builder;
+all1928scene record contents match. Final native real-input gameplay-r2 passes16/16,
+including LAST post-menu sample(world/reflection/scratch/cameras all0). Matched30s
+ABBA RAF p95 A1/B1/B2/A2=13.445/13.525/26.735/26.685ms,mean draws~331 throughout;
+both late runs slow similarly,not isolated GPU/FPS/equivalence evidence.
+Native moving-light777selected frames/776pairs viewed at logical-native size;
+247-key static evidence retained by605-input hash audit. Direct Canvas quarter
+now logs247/247 with matching capture duration;48consecutive attackS3/context
+frames supplement missing native key61. Direct Canvas gameplay586/586frames
+viewed; legacy pause panel appears8.102..8.360s,so visual/UI acceptance remains
+open. QA-only isolation build20261022T030011/player3ed75542c5ec83bf succeeded with
+production source/art unchanged. All30A/B stills,261noise/camera frames and
+134selected new-A/B frames inspected; exact source PTS retained. Low VFR cadence
+limits high-frequency shimmer assessment. User playback approval remains pending.
+No full visual PASS or main integration.
+See [checkpoint](../plans/dungeon-3d.md) for source identity and receipts.
+
+## Dungeon full-effects candidate (2026-10-21, acceptance pending)
+
+- Focused DungeonRenderTests140215:4/4PASS, including exact particle count/time/
+  position/lifetime through pause and hide/restore, pinned cloth and owned world RT.
+- Final QA153315/input75e96989e28a55bfae019e71c6490fec05722c841c86bcfbb2aade776f50186b:
+  strict twice-run builder and WebGL PASS; player0ecd1b6a6c221b30. Native Edge155,
+  GTX1650Ti/D3D11,1280x720:15real-input/render checks PASS,zero exceptions/provider
+  reads/writes. Attack,received hit,parry,pause,Slayer/restore,menu and RT cleanup.
+- Static sprite review:247authored keys x16variants,219consecutive pairs +9loops
+  per variant, native+nearest2x dark; all247keys also checked on bright background
+  at native scale. Original albedo,animation timing,slicing,pivots and GUIDs retained.
+- Independent A/B26states and all nine camera stills inspected. Selected camera
+  video22.000-38.080s exported without resampling and checked frame by frame:
+  402frames/401transitions,including holds; full video952frames/timestamps match.
+  Real-time1x/quarter playback perception remains unverified; user review requested
+  because available image tools only display static frames. Do not mark visual PASS.
+- Matched pre-integration ABBA combat RAF p95 A20.135/20.270ms,B20.220/20.585ms;
+  same GTX1650Ti,Edge155,1280x720,input driver. Draws266.8->331.4; triangles~12421->14417.
+  Browser wrappers are observable submitted load,not GPU timings. No universal FPS claim.
+- Evidence and review.html retained under E:/CodexTemp/TypingHero/dungeon-full-lighting.
+  No game publication. Integrated main f7bfc67 in87eb373; QA160528/input47af0723,
+  player2ac005eb7f4b60d3: repeat builder/WebGL PASS,16native checks PASS,
+  zero exceptions/provider effects, newer Play/preparation and compact pause verified.
+  Focused Unity162136/input1272a6a7:4/4PASS. Scene1928objects and main menu482objects
+  unchanged by builder (only trailing blank line differs). Real-time playback and
+  remote-main integration remain pending; task branch is a verified technical candidate.
+
 ## Dungeon and thin-glass lantern integrated (2026-10-21)
 
 ## Shared3D dungeon lifecycle ? 2026-10-22
