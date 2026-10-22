@@ -3,6 +3,8 @@ using UnityEngine;
 using System;
 public static class PlayerIdentity
 {
+    public const int MinNameLength = 3;
+    public const int MaxNameLength = 10;
     public static event Action<string> OnNameChanged;
     public static string Name { get; private set; }
     const string PrefKey = "player_name_v1";
@@ -44,10 +46,7 @@ public static class PlayerIdentity
     }
     public static bool TrySetName(string raw, out string normalized, out string error)
     {
-        // Giảm maxLen từ 16 xuống 10 ký tự
-        const int minLen = 3;
-        const int maxLen = 10;
-        if (!Validate(raw, minLen, maxLen, out normalized, out error))
+        if (!Validate(raw, MinNameLength, MaxNameLength, out normalized, out error))
             return false;
         // Không làm gì nếu không đổi
         if (string.Equals(Name, normalized, StringComparison.Ordinal))

@@ -2208,3 +2208,17 @@ images inspected: HP/score/tray remain readable. Original animation review is
 reused because VFX/art are unchanged. Imported main builder's existing resource
 frame border21/0/3/0. CRLF-only failed build and stale-restart pilot are excluded;
 see [combat checkpoint](../plans/combat-feedback.md). No itch.io deployment.
+
+
+## Menu name/Escape/focus follow-up - 2026-10-22
+
+Filtered PlayerIdentityTests15/15 PASS; QA WebGL015918 and strict repeat-builder
+PASS, same input2eb55c66bee8884f055007d0587ba78104567ef9b394179c8be163bb36c1724a.
+Native Edge155/D3D11:279 focused assertions plus17 legacy16 fixture assertions
+PASS at1280x720/640x360; real input, read-only QA bridge, zero exceptions/provider
+writes. Name10 glyph bounds and actual name/error/legacy images inspected.
+Three fixes verified: shared3-10 UI limits, Back/Escape drafts with Start-only
+persistence, bounded main-menu selection restoration after background clicks.
+WebGL OS clipboard paste remains unsupported in both original and patched players;
+paste11/16 acceptance is not passed. No six-lesson/full Quick/gameplay/stress/soak
+or itch deployment. Details and scope decision: [checkpoint](../plans/dungeon-main-menu.md).

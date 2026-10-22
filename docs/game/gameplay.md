@@ -135,12 +135,18 @@ Source-backed inventory, 2026-10-16. Quick and browser flow have runtime evidenc
 see verification for profile status. These are current behaviors, not new requirements.
 
 - Build scenes: `Assets/Scenes/MainMenu.unity`, then `SampleScene.unity`.
-  MainMenuUI auto-focuses name input; Enter or Play validates and loads SampleScene.
-  PlayerIdentity persists the name via PlayerPrefs, normalizes allowed characters,
-  and clamps to 10 characters (menu validation defaults differ; inspect serialized values).
-  With no saved name, EnsureLoaded creates and saves `Guest` plus four uppercase
-  hex characters through TrySetName. Existing names stay unchanged; the menu's
-  existing field supports immediate Enter/Play or an edited name with the same validation.
+  MainMenuUI initially selects Play; Play/Tutorial open the shared preparation
+  card and focus the name input. Names use shared 3-10 limits, with raw overlimit
+  UI rejection before normalization and TMP characterLimit=10 for editing.
+  PlayerIdentity retains its existing normalization/clamping API and PlayerPrefs
+  key. Only Start saves the normalized name; Back/Escape retain the text/difficulty
+  draft until the menu scene is left. Existing saved names over10 load intact,
+  show an error and disable Start until corrected; no automatic migration.
+  With no saved name, EnsureLoaded creates and saves Guest plus four uppercase
+  hex characters through TrySetName. Clicking background restores the last selected
+  main action while no card/modal/scene transition blocks the menu; hover never
+  changes keyboard position. Browser clipboard paste is currently unsupported
+  in the existing WebGL player; this follow-up does not add a clipboard bridge.
 - TypingManager keeps current/next/third in a synchronous queue. ProcessInput is
   the only letter path: comparison ignores case and nonletters are ignored.
   Completing a word emits the existing correct/advance events once, then promotes

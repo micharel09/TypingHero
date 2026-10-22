@@ -42,6 +42,7 @@ public sealed class PlayerIdentityTests
         Assert.That(PlayerIdentity.Name, Is.EqualTo(guest));
     }
 
+    [TestCase("1234567890123456")]
     [TestCase("Old Player")]
     [TestCase("GuestA12F")]
     [Category("Quick")]
@@ -51,6 +52,61 @@ public sealed class PlayerIdentityTests
         Reload();
         Assert.That(PlayerIdentity.Name, Is.EqualTo(name));
         Assert.That(PlayerPrefs.GetString(Key), Is.EqualTo(name));
+    }
+
+    [TestCase("", false)]
+    [TestCase("a", false)]
+    [TestCase("ab", false)]
+    [TestCase("abc", true)]
+    [TestCase("abcdefghi", true)]
+    [TestCase("abcdefghij", true)]
+    [Category("Quick")]
+    public void NameLengthBoundaries(string raw, bool expected)
+    {
+        Assert.That(PlayerIdentity.MinNameLength, Is.EqualTo(3));
+        Assert.That(PlayerIdentity.MaxNameLength, Is.EqualTo(10));
+        Assert.That(PlayerIdentity.TrySetName(raw, out var normalized, out _), Is.EqualTo(expected));
+        if (expected) Assert.That(PlayerPrefs.GetString(Key), Is.EqualTo(normalized));
+    }
+
+    [TestCase("12345678901")]
+    [TestCase("1234567890123456")]
+    [TestCase("   abc     ")]
+    [Category("Quick")]
+    public void MenuRejectsRawOverLimitBeforeNormalization(string raw)
+    {
+        var args = new object[] { raw, null, null };
+        var validate = typeof(MainMenuUI).GetMethod("ValidateName", BindingFlags.Static | BindingFlags.NonPublic);
+        Assert.That(validate.Invoke(null, args), Is.False);
+        Assert.That(args[2], Does.Contain("10"));
+    }
+
+    [Test, Category("Quick")]
+    public void MenuShowsLegacyNameWithoutChangingPreferenceAndDisablesStart()
+    {
+        const string legacy = "1234567890123456";
+        PlayerPrefs.SetString(Key, legacy);
+        Reload();
+        var root = new GameObject("IdentityMenuTest");
+        root.SetActive(false);
+        try
+        {
+            var input = root.AddComponent<TMPro.TMP_InputField>();
+            var buttonObject = new GameObject("Start", typeof(RectTransform), typeof(UnityEngine.UI.Button));
+            buttonObject.transform.SetParent(root.transform);
+            var button = buttonObject.GetComponent<UnityEngine.UI.Button>();
+            var menu = root.AddComponent<MainMenuUI>();
+            typeof(MainMenuUI).GetField("nameInput", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(menu, input);
+            typeof(MainMenuUI).GetField("playButton", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(menu, button);
+            typeof(MainMenuUI).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(menu, null);
+            Assert.That(input.text, Is.EqualTo(legacy));
+            Assert.That(input.characterLimit, Is.EqualTo(PlayerIdentity.MaxNameLength));
+            Assert.That(input.restoreOriginalTextOnEscape, Is.False);
+            Assert.That(button.interactable, Is.False);
+            Assert.That(PlayerPrefs.GetString(Key), Is.EqualTo(legacy));
+            Assert.That(PlayerIdentity.Name, Is.EqualTo(legacy));
+        }
+        finally { Object.DestroyImmediate(root); }
     }
 
     [Test, Category("Quick")]
