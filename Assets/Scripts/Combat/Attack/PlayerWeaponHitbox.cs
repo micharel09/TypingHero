@@ -24,7 +24,23 @@ public class PlayerWeaponHitbox : MonoBehaviour
     [SerializeField] float hitStunSeconds = 6f;
     Collider2D col;
     readonly HashSet<IDamageable> hitTargets = new();
+    [SerializeField] SlashLibrary slashLibrary;
+    [SerializeField] SpriteRenderer slashSource;
+    Sprite contactCel;
+    internal void SetContactCel(Sprite cel) => contactCel = cel;
+    internal int AttackId { get; private set; }
+    internal int LastHitFrame { get; private set; } = -1;
+    internal Vector2 LastContact { get; private set; }
     bool active;
+    readonly List<Collider2D> overlaps = new List<Collider2D>(32);
+
+    internal void ConfirmOverlaps()
+    {
+        var filter = new ContactFilter2D(); filter.SetLayerMask(targetLayers); filter.useTriggers = true;
+        col.OverlapCollider(filter, overlaps);
+        for (int i = 0; i < overlaps.Count; i++) TryHit(overlaps[i]);
+        overlaps.Clear();
+    }
 
     //HitSpark
     [Header("VFX (optional)")]
@@ -42,6 +58,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
     public void BeginAttack(int attackId)
     {
         hitTargets.Clear();
+        AttackId = attackId;
         active = true;
         col.enabled = true;
     }
@@ -55,17 +72,21 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
     // ... giữ nguyên phần khai báo ở trên
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other) => TryHit(other);
+
+    void TryHit(Collider2D other)
     {
         if (!isActiveAndEnabled || !active || GamePauseController.InputBlocked || CombatSession.Finished) return;
         if ((targetLayers.value & (1 << other.gameObject.layer)) == 0) return;
 
+        if (Physics2D.GetIgnoreLayerCollision(col.gameObject.layer, other.gameObject.layer) || Physics2D.GetIgnoreCollision(col, other)) return;
         var dmg = other.GetComponentInParent<IDamageable>();
         if (dmg == null || dmg.IsDead) return;
         if (hitTargets.Contains(dmg)) return;
 
         hitTargets.Add(dmg);
         Vector2 p = other.ClosestPoint(transform.position);
+        if (slashLibrary && slashSource && contactCel && slashLibrary.TryContact(contactCel, slashSource, other, out var contact)) p = contact;
         Transform root = other.transform.root;
 
         bool wasSlayer = slayer && slayer.IsActive;
@@ -91,6 +112,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
             float mul = Mathf.Max(0f, slayer.CurrentSlayerMultiplier);
             applyDamage = Mathf.RoundToInt(damage * mul);
         }
+        LastHitFrame = Time.frameCount; LastContact = p;
         dmg.TakeDamage(applyDamage, p);
         if (wasSlayer && !dmg.IsDead && root.TryGetComponent(out EnemySlayerHitPose pose))
         {

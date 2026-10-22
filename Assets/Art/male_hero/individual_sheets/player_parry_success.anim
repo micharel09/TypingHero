@@ -93,22 +93,36 @@ AnimationClip:
   m_Events:
   - time: 0.083333336
     functionName: Anim_ParryClose
-    data: 
+    data:
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.1
-    functionName: OnAttackStart
-    data: 
-    objectReferenceParameter: {fileID: 0}
+    functionName: OnAttackStartCel
+    data:
+    objectReferenceParameter: {fileID: -433393424, guid: 9a285e541f8bd3c43a2e4085c312b1b7, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.15
     functionName: OnAttackEnd
-    data: 
+    data:
     objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.15
+    functionName: OnAttackContact
+    data:
+    objectReferenceParameter: {fileID: -292395255, guid: 9a285e541f8bd3c43a2e4085c312b1b7, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.2
+    functionName: OnAttackContact
+    data:
+    objectReferenceParameter: {fileID: -1479094, guid: 9a285e541f8bd3c43a2e4085c312b1b7, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

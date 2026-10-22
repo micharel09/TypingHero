@@ -3349,3 +3349,62 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
   E:/CodexTemp/TypingHero/combat-strike-effects/main-preview-live-r2/stop.
 - No new product changes or itch.io deployment. This checkpoint is the only
   repository change in the recheck; push it to main after whitespace validation.
+
+
+## Parry / counterattack / impact synchronization (2026-10-22, active)
+
+- Intent: recipient-directed18rays/fragments, four perimeter body specks and two
+  unchanged Pimen contacts;24per clash/eight leases. Preserve near-zero drag fix,
+  damage/range/Slayer/stamina/stun. Source main2c3a742; isolated Orca child
+  `C:/Users/ADMIN/orca/workspaces/TypingHero/parry-impact-sync`, branch
+  `micharel09/parry-impact-sync`; dirty parent preserved.
+- Correction: counter event100ms is the first slash cel, not an erroneous100ms
+  event delay. Retain this authored time. Remove physics-step confirmation latency
+  and the normal spark seed cel; play original frames1..6 over160ms.
+- Required review checklist: normal hit and counter, both directions, wrong facing,
+  body-region snapshot/movement, flip/scale/contact offsets, miss/dedup/late entry,
+  normal/Slayer/lethal/pause/reuse/floor/bounce/budget/allocation. Native clips must
+  include preparation, parry, counter and complete particle tail with audio;
+  per-render probe must accompany the corresponding canvas frame. Review every
+  frame/transition, including held frames and VFX-visible/hidden comparisons.
+- Evidence root: `E:/CodexTemp/TypingHero/parry-impact-sync/`. Red snapshot8da543a:
+  Unity20261022T021720-quick,0/3PASS: immediate overlap expected1hit/actual0;
+  both mirror spark tests expectedframe_1/actualframe_0. XML retained.
+- First green snapshot96e747b: Unity20261022T022049-quick70/71PASS; speck
+  floor assertion caught an unintended removal of floor collision. Final source
+  restores speck floor collision/restitution0 and the original floor assertion;
+  only its emission region/direction changes. A subsequent compilation failed
+  on ambiguous Object in the new test; qualified UnityEngine.Object and reran.
+- Authored contact source: unchanged SlashVolume hero combo1/2 layers, all six
+  active cels directly opened at3xnearest in contact-cels.png. Segments use sprite
+  pixel coordinates near the forward arc, not the hitbox pivot; original mesh/art,
+  GUIDs and parry100ms event preserved. Final runtime/visual acceptance pending.
+
+- Re-read the earlier `parry-physical-particles/review-followup/review.json` and
+  corrected its two erroneous counter/event statements, preserving the original
+  statements under corrections20261022. Counter0 is preparation; first slash and
+  event both start100ms. No recovery/exit animation timing change is included.
+- First frame-synchronous pilot (pre-final): normal shows combo1_0 one render
+  before damage/core, confirming the separate16.7ms normal opening gap. Normal
+  opening is now0; counter remains100ms. A real Animator regression asserts damage
+  at the first evaluated normal slash cel. The pilot is diagnostic, not final
+  acceptance. Guest menu preparation/first tutorial practice are used for stable
+  real-input normal-hit QA; ordinary battle is used for parry/counter/tail.
+- Perimeter specks use four cardinal strata with light jitter so at least two
+  side specks start outside the body collider; diagonal-only strata could put all
+  four inside it. New snapshot tests explicitly check this, both directions.
+- Build adapters/fixtures remain external. Superseded queued task snapshots were
+  canceled only after verifying task-root identity and lock-wait state; running
+  jobs and other tasks remain untouched. Final snapshots are queued on the shared
+  runner; no final visual/runtime/remote-integration PASS claimed yet.
+
+- Final gameplay/contact source d45202e: Unity20261022T033220-webgl81/81PASS and
+  strict repeated builder PASS; mirror034103 build/repeat PASS. Exact source
+  columns were directly checked for all six contact segments; narrow outer-edge
+  segments and centre tie handling replace the initial broad/low contact.
+- Final render probe now also publishes playerHP/parries/canParry/parryWindow/
+  enemyContactIn each render. This is QA-only observation, not gameplay mutation.
+  Native input uses this fresh frame rather than100ms telemetry. Earlier timing
+  attempts and functional-run failures remain retained; no global native PASS is
+  inferred from partially passed runs. Source/live-resource checkpoint:
+  E:/CodexTemp/TypingHero/parry-impact-sync/active-checkpoint.json.

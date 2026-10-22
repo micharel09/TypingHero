@@ -45,8 +45,72 @@ public sealed class GameLoopProbe : MonoBehaviour
         "Base Layer.player_parry", "Base Layer.player_parry_success" };
     static readonly string[] SparkRoles = { "Normal", "Parry", "Lethal", "Slayer1", "Slayer2", "Slayer3", "Slayer4", "Slayer" };
 
+    [Serializable] sealed class CombatRenderFrame
+    {
+        public int frame, attackId, hitFrame, enemyHP, playerHP, parries;
+        public bool canParry, parryWindow, enemyAttacking, slayer;
+        public float enemyContactIn, timeScale;
+        public string cel, sparkCel;
+        public Vector2 contact;
+        public Vector3 sparkPoint;
+    }
+    PlayerWeaponHitbox combatHitbox;
+    SkeletonController combatEnemy;
+    PlayerHealth combatPlayer;
+    ParrySystem combatParry;
+    PlayerSlayerMode combatSlayer;
+    readonly System.Collections.Generic.List<AnimatorClipInfo> combatClips = new();
+    readonly System.Collections.Generic.Dictionary<AnimationClip, float> contactTimes = new();
+    float ContactInRender()
+    {
+        if (!combatEnemy || !combatEnemy.IsAttacking) return -1;
+        var animator = Read<Animator>(combatEnemy, "animator");
+        if (!animator) return -1;
+        var info = animator.GetCurrentAnimatorStateInfo(0);
+        animator.GetCurrentAnimatorClipInfo(0, combatClips);
+        if (combatClips.Count == 0) return -1;
+        var clip = combatClips[0].clip;
+        if (!contactTimes.TryGetValue(clip, out float marker))
+        {
+            marker = -1;
+            foreach (var ev in clip.events) if (ev.functionName == "Anim_DealDamage") { marker = ev.time; break; }
+            contactTimes[clip] = marker;
+        }
+        return marker < 0 ? -1 : (marker - info.normalizedTime % 1 * clip.length) /
+            Mathf.Max(.001f, animator.speed * info.speed * info.speedMultiplier);
+    }
+    readonly CombatRenderFrame combatFrame = new CombatRenderFrame();
+    void PublishCombatFrame()
+    {
+        if (!combatHitbox) combatHitbox = FindObjectOfType<PlayerWeaponHitbox>();
+        if (!combatEnemy) combatEnemy = FindObjectOfType<SkeletonController>();
+        if (!combatPlayer) combatPlayer = FindObjectOfType<PlayerHealth>();
+        if (!combatParry) combatParry = FindObjectOfType<ParrySystem>();
+        if (!combatSlayer) combatSlayer = FindObjectOfType<PlayerSlayerMode>();
+        combatFrame.playerHP = combatPlayer ? combatPlayer.Current : -1;
+        combatFrame.parries = CombatSession.I ? CombatSession.I.Parries : 0;
+        combatFrame.canParry = combatParry && combatParry.CanBeginParry;
+        combatFrame.parryWindow = combatParry && combatParry.IsWindowActive;
+        combatFrame.enemyAttacking = combatEnemy && combatEnemy.IsAttacking;
+        combatFrame.slayer = combatSlayer && combatSlayer.IsActive;
+        combatFrame.enemyContactIn = ContactInRender();
+        combatFrame.timeScale = Time.timeScale;
+        combatFrame.frame = Time.frameCount;
+        combatFrame.attackId = combatHitbox ? combatHitbox.AttackId : 0;
+        combatFrame.hitFrame = combatHitbox ? combatHitbox.LastHitFrame : -1;
+        combatFrame.contact = combatHitbox ? combatHitbox.LastContact : default;
+        combatFrame.enemyHP = combatEnemy ? combatEnemy.Current : -1;
+        combatFrame.cel = sortingSprite && sortingSprite.sprite ? sortingSprite.sprite.name : "";
+        var spark = FindObjectOfType<NormalHitSpark>();
+        combatFrame.sparkCel = spark && spark.GetComponent<SpriteRenderer>().sprite ? spark.GetComponent<SpriteRenderer>().sprite.name : "";
+        combatFrame.sparkPoint = spark ? spark.transform.position : default;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        TypingHeroQA_CombatFrame(JsonUtility.ToJson(combatFrame));
+#endif
+    }
     void LateUpdate()
     {
+        PublishCombatFrame();
         if (!sortingAnimator || !sortingSprite) return;
         var info = sortingAnimator.IsInTransition(0) ? sortingAnimator.GetNextAnimatorStateInfo(0)
             : sortingAnimator.GetCurrentAnimatorStateInfo(0);
@@ -309,6 +373,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         => target == null ? fallback : (T)target.GetType().GetField(field, Fields).GetValue(target);
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")] static extern void TypingHeroQA_Publish(string json);
+    [DllImport("__Internal")] static extern void TypingHeroQA_CombatFrame(string json);
 #endif
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Install()

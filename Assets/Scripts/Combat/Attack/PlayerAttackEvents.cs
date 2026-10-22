@@ -20,7 +20,12 @@ public class PlayerAttackEvents : MonoBehaviour
     private float openedAt;
     private Coroutine closeCo;
 
-    public void OnAttackStart()
+    public void OnAttackStart() => StartAttack(null, false);
+
+    public void OnAttackStartCel(Sprite cel) => StartAttack(cel, true);
+    public void OnAttackContact(Sprite cel) { if (hitbox) hitbox.SetContactCel(cel); }
+
+    void StartAttack(Sprite cel, bool confirmImmediately)
     {
         if (hitbox == null) return;
 
@@ -31,11 +36,13 @@ public class PlayerAttackEvents : MonoBehaviour
 
         currentAttackId = ++globalAttackCounter;
         hitbox.BeginAttack(currentAttackId);
+        hitbox.SetContactCel(cel);
 
         // Đẩy transform ra PhysX ngay frame này (để tiếp xúc chính xác)
         Physics2D.SyncTransforms();
 
         OnWindowOpen?.Invoke();
+        if (confirmImmediately) hitbox.ConfirmOverlaps();
     }
 
     public void OnAttackEnd()

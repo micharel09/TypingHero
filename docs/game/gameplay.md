@@ -260,11 +260,13 @@ Change only behavior explicitly requested. Update this file after relevant verif
   cels, material, pivot, size, tint and200ms timing from c12c3de. Budget24/clash,
   192/8leases: core1/main2/front12/outer1/embers8. Eighteen directional particles
   (sixteen rays and two short fragments) launch from captured sword contact
-  toward the attacking enemy. The continuous -20..50degree fan adds+/-3degree
-  jitter at14-24WU/s. Actor position owns direction, independently of facing scale;
+  toward the receiving player's captured upper body. The continuous +/-35degree
+  fan adds+/-3degree jitter at14-24WU/s. Captured body position owns direction, independently of facing scale;
   movement after emission cannot redirect the existing particles.
-- Four additional1-2pixel specks scatter around contact on the player side,
-  radius.12WU/offset.08WU, speed1-2.5WU/s, horizontal/depth drag6/s,
+- Four additional1-2pixel specks start on four jittered cardinal perimeter strata
+  of the captured upper-body ellipse: center=body.center+0.2height up,
+  halfAxes=(body.extents.x+1/16,0.3height). Initial velocity points outward,
+  speed1-2.5WU/s, horizontal/depth drag6/s,
   max450ms/no bounce. Horizontal displacement stays below.6WU. The twelve
   strong reverse-X rays are removed. Front carries eight near rays plus four
   specks; Embers carries eight far rays. Back remains the Pimen outer renderer.
@@ -416,17 +418,26 @@ Full surface art, B/C and parent integration remain separate.
 - `NormalStrikeEffects` listens to the existing attack-window opening: one
   three-cluster gray dust burst, even on a miss. Its stable body-foot anchor is
   one native world pixel behind the actor center; the builder supplies floor Y.
-  Dust moves backward, stays low, and fades over180ms. No sprite/event timing changes.
+  Dust moves backward, stays low, and fades over180ms. Normal opening is at0ms;
+  counter opening remains100ms, its first slash cel. Whoosh/dust follow opening.
 - Confirmed nonlethal normal hits use dedicated NormalHitSpark.prefab, original
-  Pimen `Hit Effect 01 1.png` Sprite subassets0..6, equal160/7ms holds, once only.
+  Pimen `Hit Effect 01 1.png` Sprite subassets1..6, equal160/6ms holds, once only.
+  Emit displays bright frame_1 immediately and cannot advance on its birth frame.
   Existing Pixel.mat is unlit, white renderer color, sorting order3 above trail2.
   Fixed48x48canvas/center pivot and a single8.333333scale preserve original art:
   widest36source pixels at100PPU becomes3world units=48pixels at16PPU.
-  Source F6 is transparent; art disappears at137.142857ms, lease returns at160ms.
+  Source F6 is transparent; art disappears at133.333333ms, lease returns at160ms.
   Contact/world offset and horizontal facing are retained; no jitter/core/code rays.
   Source PNG/importer and parry/Slayer/lethal assets remain unchanged.
   Normal player trail RGBx.75/alphax.55/emission.05 preserves cel shape/timing;
-  gray foot dust remains180ms. No event, damage, audio or hitstop changes.
+  gray foot dust remains180ms. Damage values, stamina, stun and routing remain.
+- Normal/counter opening enables the hitbox, synchronizes transforms, emits the
+  opening hook and immediately queries overlap. Overlap and later triggers share
+  TryHit, collision exclusions and per-swing target deduplication. Slayer's legacy
+  OnAttackStart retains trigger cadence. Explicit animation-event Sprite references
+  select authored SlashLibrary contact segments; transformed segment/collider
+  contact is captured before Hurt/Die, then shared by damage feedback and impact
+  audio. Geometry positions feedback only; existing colliders determine eligibility.
 - Normal sprites share the existing eight-impact cap; dust has a separate eight-lease
   budget in the existing owner pool.
   Pause/tutorial reading freeze age; results, owner disable/restart/scene unload

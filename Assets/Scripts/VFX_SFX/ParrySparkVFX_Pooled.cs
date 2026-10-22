@@ -136,8 +136,10 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
             t.SetParent(poolRoot, true);
             float towardAttacker = ctx.targetRoot ? ctx.targetRoot.position.x - t.position.x : transform.lossyScale.x;
             if (towardAttacker == 0) towardAttacker = transform.lossyScale.x;
+            var body = parrySystem ? parrySystem.GetComponent<Collider2D>() : null;
+            var recipient = body ? PhysicalParticleProfile.RecipientSnapshot.FromBounds(body.bounds) : default;
             clash.Emit(t.position, towardAttacker, groundY, sparkPreset,
-                variationSequences[(int)sparkPreset]++, ctx.contact, transform.position.x - t.position.x);
+                variationSequences[(int)sparkPreset]++, ctx.contact, recipient.center.x - t.position.x, recipient);
         }
         else if (go.TryGetComponent<PixelSparkBurst>(out var burst))
         {

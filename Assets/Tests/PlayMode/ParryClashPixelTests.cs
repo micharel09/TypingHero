@@ -151,7 +151,7 @@ public sealed partial class ParryClashTests
     }
 
     [Test, Category("Quick")]
-    public void CompactFanFacesAttackerWithOnlyFourSmallPlayerSpecksAndMirrorsExactly()
+    public void CompactFanFacesRecipientWithFourBodySpecksAndMirrorsExactly()
     {
         var burst = Burst();
         var buffer = new ParticleSystem.Particle[22];
@@ -160,7 +160,9 @@ public sealed partial class ParryClashTests
             var right = new Dictionary<uint, ParticleSystem.Particle>();
             foreach (float direction in new[] { 1f, -1f })
             {
-                burst.Emit(Vector3.up, direction, 0, ParryClashBurst.Preset.BCompact, seed);
+                var recipient = new PhysicalParticleProfile.RecipientSnapshot {valid = true,
+                    center = new Vector3(-direction * 2, 1, 0), halfAxes = new Vector2(.5f, .6f)};
+                burst.Emit(Vector3.up, direction, 0, ParryClashBurst.Preset.BCompact, seed, null, -direction, recipient);
                 int rays = 0, specks = 0;
                 foreach (int group in new[] { 1, 2, 4 })
                 for (int i = 0, count = burst.Systems[group].GetParticles(buffer); i < count; i++)
@@ -170,9 +172,9 @@ public sealed partial class ParryClashTests
                     {
                         rays++;
                         Assert.That(p.position, Is.EqualTo(Vector3.up));
-                        Assert.That(p.velocity.x * direction, Is.GreaterThan(0));
-                        float angle = Mathf.Atan2(p.velocity.y, p.velocity.x * direction) * Mathf.Rad2Deg;
-                        Assert.That(angle, Is.InRange(-23f, 53f));
+                        Assert.That(p.velocity.x * direction, Is.LessThan(0));
+                        float angle = Mathf.Atan2(p.velocity.y, -p.velocity.x * direction) * Mathf.Rad2Deg;
+                        Assert.That(angle, Is.InRange(-38f, 38f));
                     }
                     else
                     {
@@ -180,7 +182,9 @@ public sealed partial class ParryClashTests
                         Assert.That(p.startSize3D.x * 16, Is.InRange(1, 2));
                         Assert.That(p.startSize3D.y * 16, Is.InRange(1, 2));
                         Assert.That(p.startLifetime, Is.LessThanOrEqualTo(.550001f));
-                        Assert.That(Mathf.Abs(p.position.x + direction * .08f), Is.LessThanOrEqualTo(.12f));
+                        var relative = p.position - recipient.center;
+                        Assert.That(relative.x * relative.x / .25f + relative.y * relative.y / .36f, Is.EqualTo(1).Within(.00001));
+                        Assert.That(Vector2.Dot(relative, p.velocity), Is.GreaterThan(0));
                     }
                     if (direction > 0) right.Add(p.randomSeed, p);
                     else
@@ -283,10 +287,11 @@ public sealed partial class ParryClashTests
     }
 
     [Test, Category("Quick")]
-    public void SuccessfulParrySnapshotsAttackerSideAndSpecksStayOnPlayerSide()
+    public void SuccessfulParrySnapshotsRecipientDespiteWrongFacingAndActorMovement()
     {
         var host = new GameObject("parry physics owner"); host.SetActive(false); owned.Add(host);
         var parry = host.AddComponent<ParrySystem>(); parry.logs = false;
+        host.AddComponent<BoxCollider2D>().size = new Vector2(1, 3);
         var fx = host.AddComponent<ParrySparkVFX_Pooled>();
         var anchor = new GameObject("contact anchor"); anchor.transform.SetParent(host.transform);
         var attacker = new GameObject("real attacker context"); owned.Add(attacker);
@@ -304,13 +309,13 @@ public sealed partial class ParryClashTests
             int count = burst.Systems[2].GetParticles(particles);
             for (int i = 0; i < count; i++)
             {
-                if (particles[i].randomSeed <= 18) Assert.That(particles[i].velocity.x * direction, Is.GreaterThan(0));
-                else Assert.That(Mathf.Abs(particles[i].position.x - (direction - direction * .08f)), Is.LessThanOrEqualTo(.12f));
+                if (particles[i].randomSeed <= 18) Assert.That(particles[i].velocity.x * direction, Is.LessThan(0));
+                else Assert.That(Mathf.Abs(particles[i].position.x), Is.LessThanOrEqualTo(.562501f));
             }
             attacker.transform.position *= -1; host.transform.position += Vector3.right * 20;
             burst.AdvanceDebris(.05f);
             count = burst.Systems[4].GetParticles(particles);
-            for (int i = 0; i < count; i++) Assert.That(particles[i].velocity.x * direction, Is.GreaterThan(0),
+            for (int i = 0; i < count; i++) Assert.That(particles[i].velocity.x * direction, Is.LessThan(0),
                 "moving actors cannot redirect particles already in flight");
             host.SetActive(false); host.transform.position = Vector3.zero;
         }
@@ -372,7 +377,8 @@ public sealed partial class ParryClashTests
         Assert.That(library, Is.Not.Null);
         var host = new GameObject("parry pose"); owned.Add(host);
         var player = host.AddComponent<SpriteRenderer>(); player.sprite = library.frames[0].sprite;
-        var parry = host.AddComponent<ParrySystem>(); parry.logs = false; parry.playerAnimator = host.AddComponent<Animator>();
+        var parry = host.AddComponent<ParrySystem>(); parry.logs = false;
+        host.AddComponent<BoxCollider2D>().size = new Vector2(1, 3); parry.playerAnimator = host.AddComponent<Animator>();
         Set(parry, "contactLibrary", library);
         var enemy = new GameObject("attack pose"); owned.Add(enemy);
         var attacker = enemy.AddComponent<SpriteRenderer>();

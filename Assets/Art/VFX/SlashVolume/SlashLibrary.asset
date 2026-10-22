@@ -16,21 +16,39 @@ MonoBehaviour:
   - sprite: {fileID: 1524072070, guid: 4d98ab3bc9edfb6469dfa7d0972ab25a, type: 3}
     front: {fileID: 4300000, guid: a68833f850b5334b2b54ada3fd71b535, type: 2}
     back: {fileID: 0}
+    hasContact: 1
+    contactA: {x: 112, y: 62}
+    contactB: {x: 112, y: 71}
   - sprite: {fileID: 1802292035, guid: 4d98ab3bc9edfb6469dfa7d0972ab25a, type: 3}
     front: {fileID: 4300000, guid: 369c7d9f87db9092fa1ff643db5f984b, type: 2}
     back: {fileID: 0}
+    hasContact: 1
+    contactA: {x: 114, y: 62}
+    contactB: {x: 114, y: 69}
   - sprite: {fileID: 999995765, guid: 4d98ab3bc9edfb6469dfa7d0972ab25a, type: 3}
     front: {fileID: 4300000, guid: 8e1365aefbc9bb66c99875c5184dac9a, type: 2}
     back: {fileID: 0}
+    hasContact: 1
+    contactA: {x: 111, y: 61}
+    contactB: {x: 111, y: 65}
   - sprite: {fileID: -433393424, guid: 9a285e541f8bd3c43a2e4085c312b1b7, type: 3}
     front: {fileID: 4300000, guid: dbf24257eac5f48b6a8c1ebdb4b133ad, type: 2}
     back: {fileID: 4300000, guid: 70b885ff7e22d349d90400fcdda950db, type: 2}
+    hasContact: 1
+    contactA: {x: 114, y: 60}
+    contactB: {x: 114, y: 63}
   - sprite: {fileID: -292395255, guid: 9a285e541f8bd3c43a2e4085c312b1b7, type: 3}
     front: {fileID: 4300000, guid: c47e2d20f11e7b08da14fa97b66d610f, type: 2}
     back: {fileID: 4300000, guid: 2b89c889f686ed8918fcbd53550e083f, type: 2}
+    hasContact: 1
+    contactA: {x: 116, y: 58}
+    contactB: {x: 116, y: 62}
   - sprite: {fileID: -1479094, guid: 9a285e541f8bd3c43a2e4085c312b1b7, type: 3}
     front: {fileID: 4300000, guid: f55e82daed426cb7dadb5d01d4f7e180, type: 2}
     back: {fileID: 0}
+    hasContact: 1
+    contactA: {x: 116, y: 56}
+    contactB: {x: 116, y: 64}
   - sprite: {fileID: -120341246, guid: 47269c996d71cb4449a14068e75a8707, type: 3}
     front: {fileID: 4300000, guid: 46038411ea663d11580f80c6c929cd3e, type: 2}
     back: {fileID: 4300000, guid: b35edad74f7906034ad246c9a4e09b91, type: 2}

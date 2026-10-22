@@ -69,7 +69,7 @@ public sealed class NormalStrikeEffectsTests
         burst.Advance(.001f); Assert.That(burst.ParticleCount, Is.Zero);
     }
     [TestCase(-1f), TestCase(1f)]
-    public void PimenSevenEqualFramesFixedContactMirrorAndExactRelease(float direction)
+    public void PimenSixEqualFramesFixedContactMirrorAndExactRelease(float direction)
     {
         var emitter = Emitter(); var point = new Vector2(2, 3);
         emitter.SpawnImpact(point, emitter.transform, false, false, null, direction);
@@ -83,21 +83,21 @@ public sealed class NormalStrikeEffectsTests
         Vector3 scale = go.transform.localScale;
         Assert.That(scale.x, Is.EqualTo(48f / 16f * 100f / 36f).Within(.00001f));
         Assert.That(scale.y, Is.EqualTo(scale.x));
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 6; i++)
         {
-            Assert.That(image.sprite.name, Is.EqualTo("frame_" + i));
+            Assert.That(image.sprite.name, Is.EqualTo("frame_" + (i + 1)));
             Assert.That(image.color, Is.EqualTo(Color.white));
             Assert.That(go.transform.position, Is.EqualTo((Vector3)point));
             Assert.That(go.transform.rotation, Is.EqualTo(Quaternion.identity));
             Assert.That(go.transform.localScale, Is.EqualTo(scale));
             Assert.That(image.sprite.pivot, Is.EqualTo(new Vector2(24, 24)));
-            if (i < 6) burst.Advance(NormalHitSpark.Duration / 7f + (i == 0 ? .000001f : 0));
+            if (i < 5) burst.Advance(NormalHitSpark.Duration / 6f + (i == 0 ? .000001f : 0));
         }
         burst.Advance(.159999f - burst.Age); Assert.That(go.activeSelf, Is.True);
         burst.Advance(.000002f); Assert.That(Live(emitter), Is.Empty);
         emitter.SpawnImpact(point, emitter.transform, false, false, null, -direction);
         Assert.That(Live(emitter)[0], Is.EqualTo(go));
-        Assert.That(image.sprite.name, Is.EqualTo("frame_0"));
+        Assert.That(image.sprite.name, Is.EqualTo("frame_1"));
         emitter.SpawnImpact(point, emitter.transform, false, false);
         Assert.That(Live(emitter).Count, Is.EqualTo(2), "two confirmed hits each emit once");
         emitter.ClearAccents(); Assert.That(Live(emitter), Is.Empty);
@@ -148,6 +148,25 @@ public sealed class NormalStrikeEffectsTests
         yield return null;
 #endif
     }
+#if UNITY_EDITOR
+    [Test] public void MissingRequiredContactFailsAuthoringWithoutOverwritingAuthoredData()
+    {
+        var library = UnityEditor.AssetDatabase.LoadAssetAtPath<SlashLibrary>("Assets/Art/VFX/SlashVolume/SlashLibrary.asset");
+        var contact = library.frames[0].contactA;
+        Call("SlashVolumeAssets", "Prepare"); Call("SlashVolumeAssets", "Prepare");
+        Assert.That(library.frames[0].contactA, Is.EqualTo(contact));
+        var broken = Object.Instantiate(library);
+        try
+        {
+            broken.frames[0].hasContact = false;
+            var error = Assert.Throws<TargetInvocationException>(() => Call("SlashVolumeAssets", "ValidateContacts", broken));
+            Assert.That(error.InnerException, Is.TypeOf<System.InvalidOperationException>());
+            StringAssert.Contains("Missing authored slash contact", error.InnerException.Message);
+        }
+        finally { Object.DestroyImmediate(broken); }
+    }
+#endif
+
     [Test] public void IndependentLeaseCapsKeepExistingImpactBudget()
     {
         var emitter = Emitter();

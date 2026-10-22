@@ -93,6 +93,12 @@ internal static class CombatFeedbackBuild
             }
             Set(shake, "impulseSource", child.GetComponent<Cinemachine.CinemachineImpulseSource>()); Record(shake);
         }
+        foreach (var box in root.GetComponentsInChildren<PlayerWeaponHitbox>(true))
+        {
+            Set(box, "slashLibrary", SlashVolumeAssets.Library());
+            Set(box, "slashSource", box.GetComponentInParent<PlayerHealth>().GetComponent<SpriteRenderer>());
+            Record(box);
+        }
         foreach (var spark in root.GetComponentsInChildren<HitSparkSpawner>(true))
         {
             Set(spark, "sparkPrefab", NormalHitSparkAssets.Load());

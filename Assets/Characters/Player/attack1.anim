@@ -88,17 +88,31 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.016666668
-    functionName: OnAttackStart
-    data: 
-    objectReferenceParameter: {fileID: 0}
+  - time: 0
+    functionName: OnAttackStartCel
+    data:
+    objectReferenceParameter: {fileID: 1524072070, guid: 4d98ab3bc9edfb6469dfa7d0972ab25a, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.1
     functionName: OnAttackEnd
-    data: 
+    data:
     objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.16666667
+    functionName: OnAttackContact
+    data:
+    objectReferenceParameter: {fileID: 1802292035, guid: 4d98ab3bc9edfb6469dfa7d0972ab25a, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.23333333
+    functionName: OnAttackContact
+    data:
+    objectReferenceParameter: {fileID: 999995765, guid: 4d98ab3bc9edfb6469dfa7d0972ab25a, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

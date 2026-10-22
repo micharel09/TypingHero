@@ -3,6 +3,45 @@ using UnityEngine;
 
 public sealed class PhysicalParticleTests
 {
+#if UNITY_EDITOR
+    [TestCase(-1f), TestCase(1f), Category("Quick")]
+    public void RecipientSnapshotOwnsAllRaysAndFourPerimeterSpecks(float side)
+    {
+        var profile = UnityEditor.AssetDatabase.LoadAssetAtPath<PhysicalParticleProfile>("Assets/Art/VFX/ParryClash/ParryPhysics.asset");
+        var simulation = new PhysicalParticleSimulation(22);
+        var point = new Vector3(side * 2, 1, 0);
+        var body = PhysicalParticleProfile.RecipientSnapshot.FromBounds(new Bounds(new Vector3(0, .5f, 0), new Vector3(1, 2, 0)));
+        var center = body.center; var axes = body.halfAxes;
+        simulation.Emit(profile, point, side, -side, -3, 4, body);
+        body.center += Vector3.one * 20; // Mutating the caller snapshot cannot drag the emitted burst.
+        Assert.That(simulation.Count, Is.EqualTo(22));
+        int specks = 0, rays = 0, outsideBody = 0;
+        for (int i = 0; i < simulation.Count; i++)
+        {
+            var state = simulation[i];
+            if (!state.small)
+            {
+                rays++; Assert.That(state.origin, Is.EqualTo(point));
+                float angle = Vector2.Angle((Vector2)(center - point), (Vector2)state.launch);
+                Assert.That(angle, Is.LessThanOrEqualTo(38));
+                Assert.That(((Vector2)state.launch).magnitude, Is.InRange(14, 24));
+            }
+            else
+            {
+                specks++; var offset = state.origin - center;
+                if (Mathf.Abs(state.origin.x) > .5f) outsideBody++;
+                Assert.That(offset.x * offset.x / (axes.x * axes.x) + offset.y * offset.y / (axes.y * axes.y), Is.EqualTo(1).Within(.00001));
+                Assert.That(Vector2.Dot(offset, state.launch), Is.GreaterThan(0));
+                Assert.That(state.length, Is.InRange(1, 2)); Assert.That(state.total, Is.LessThanOrEqualTo(.45f));
+                Assert.That(state.physics.flightDrag, Is.EqualTo(6)); Assert.That(state.physics.collideWithFloor, Is.True); Assert.That(state.physics.restitution, Is.Zero);
+                Assert.That(((Vector2)state.launch).magnitude, Is.InRange(1, 2.5f));
+            }
+        }
+        Assert.That(rays, Is.EqualTo(18)); Assert.That(specks, Is.EqualTo(4));
+        Assert.That(outsideBody, Is.GreaterThanOrEqualTo(2), "side specks must start outside the body, not all four behind its sprite");
+    }
+#endif
+
     [Test, Category("Quick")]
     public void SmallLaunchDragRetainsBallisticGravityInsteadOfDroppingMetres()
     {

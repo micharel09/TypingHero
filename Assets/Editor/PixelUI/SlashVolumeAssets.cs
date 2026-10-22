@@ -22,7 +22,7 @@ internal static class SlashVolumeAssets
         normal.SetFloat("_Emission", .05f);
         normal.SetVector("_Tint", new Vector4(.75f, .75f, .75f, .55f));
         EditorUtility.SetDirty(normal);
-        if (Library()) return;
+        if (Library()) { ValidateContacts(Library()); return; }
         var manifest = JsonUtility.FromJson<Manifest>(File.ReadAllText(Root + "sources.json"));
         var library = ScriptableObject.CreateInstance<SlashLibrary>();
         AssetDatabase.CreateAsset(library, Root + "SlashLibrary.asset");
@@ -50,7 +50,24 @@ internal static class SlashVolumeAssets
             }
             finally { Object.DestroyImmediate(layer); }
         }
-        data.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(library);
+        data.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(library); ValidateContacts(library);
+    }
+    static void ValidateContacts(SlashLibrary library)
+    {
+        foreach (var clipPath in new[] { "Assets/Characters/Player/attack1.anim", "Assets/Art/male_hero/individual_sheets/player_parry_success.anim" })
+        {
+            var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
+            var events = AnimationUtility.GetAnimationEvents(clip);
+            if (!events.Any(e => e.functionName == "OnAttackStartCel"))
+                throw new System.InvalidOperationException("Missing authored slash opening: " + clipPath);
+            foreach (var ev in events)
+            {
+                if (ev.functionName != "OnAttackStartCel" && ev.functionName != "OnAttackContact") continue;
+                var cel = ev.objectReferenceParameter as Sprite;
+                if (!cel || !library.frames.Any(f => f.sprite == cel && f.hasContact && f.contactA != f.contactB))
+                    throw new System.InvalidOperationException("Missing authored slash contact: " + clipPath + " @ " + ev.time);
+            }
+        }
     }
     static Mesh Build(Sprite sprite, Texture2D layer, bool behind)
     {

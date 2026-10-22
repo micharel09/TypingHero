@@ -14,6 +14,19 @@ public sealed class PhysicalParticleProfile : ScriptableObject
         [Min(0)] public float restDuration;
     }
 
+    public enum SpawnRegion { Contact, RecipientBody }
+
+    public struct RecipientSnapshot
+    {
+        public bool valid;
+        public Vector3 center;
+        public Vector2 halfAxes;
+        public static RecipientSnapshot FromBounds(Bounds bounds) => new RecipientSnapshot {
+            valid = true, center = bounds.center + Vector3.up * (bounds.size.y * .2f),
+            halfAxes = new Vector2(bounds.extents.x + 1f / 16, bounds.size.y * .3f)
+        };
+    }
+
     [System.Serializable]
     public sealed class Group
     {
@@ -22,6 +35,7 @@ public sealed class PhysicalParticleProfile : ScriptableObject
         [Tooltip("Renderer channel supplied by the effect adapter. Parry: 1 fragments, 2 near, 4 far; 0/3 reserved for contacts.")]
         public int channel;
         public bool small;
+        public SpawnRegion spawnRegion;
         public bool towardPlayer;
         public Vector2 angles = new Vector2(-20, 50);
         [Min(0)] public float angleJitter = 3;
