@@ -6,6 +6,37 @@ using UnityEngine.TestTools;
 public sealed class DungeonRenderTests
 {
     GameObject host;
+#if UNITY_EDITOR
+    [Test, Category("Quick")]
+    public void PlayerControllerCelsHaveAlignedNormalAndMaterialBindings()
+    {
+        var controller = UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(
+            "Assets/Characters/Player/AC_Controller.controller");
+        Assert.That(controller, Is.Not.Null);
+        var paths = new System.Collections.Generic.HashSet<string>();
+        bool checkedRecovery = false;
+        foreach (var clip in controller.animationClips)
+            foreach (var binding in UnityEditor.AnimationUtility.GetObjectReferenceCurveBindings(clip))
+                foreach (var key in UnityEditor.AnimationUtility.GetObjectReferenceCurve(clip, binding))
+                {
+                    if (!(key.value is Sprite sprite)) continue;
+                    string path = UnityEditor.AssetDatabase.GetAssetPath(sprite.texture);
+                    if (!path.Contains("male_hero") || !paths.Add(path)) continue;
+                    checkedRecovery |= path.EndsWith("male_hero-combo_2_end.png");
+                    var importer = (UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(path);
+                    foreach (string name in new[] { "_NormalMap", "_MaterialMap" })
+                    {
+                        Texture2D texture = null;
+                        foreach (var secondary in importer.secondarySpriteTextures)
+                            if (secondary.name == name) texture = secondary.texture;
+                        Assert.That(texture, Is.Not.Null, clip.name + ": " + path + " " + name);
+                        Assert.That(texture.width, Is.EqualTo(sprite.texture.width), path + " " + name);
+                        Assert.That(texture.height, Is.EqualTo(sprite.texture.height), path + " " + name);
+                    }
+                }
+        Assert.That(checkedRecovery, Is.True, "Actual parry recovery outside Characters/Player is covered");
+    }
+#endif
     [UnityTest, Category("Quick")]
     public IEnumerator EnvironmentClockPinsClothAndSurvivesPauseAndSlayerHiding()
     {

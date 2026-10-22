@@ -32,6 +32,17 @@ internal static class WorldLightingBuild
             var scene = EditorSceneManager.OpenScene(path);
             foreach (var oldLight in Object.FindObjectsOfType<Light2D>(true))
                 if (!oldLight.GetComponentInParent<ClashLightingRig>()) oldLight.enabled = false;
+            // Actor controllers can reference clips outside the conventional folders
+            // (notably the parry-success recovery atlas). Prepare those cels too.
+            foreach (var animator in Object.FindObjectsOfType<Animator>(true))
+            {
+                if (!animator.runtimeAnimatorController ||
+                    (!animator.GetComponent<PlayerHealth>() && !animator.GetComponent<SkeletonController>())) continue;
+                foreach (var clip in animator.runtimeAnimatorController.animationClips)
+                    foreach (var binding in AnimationUtility.GetObjectReferenceCurveBindings(clip))
+                        foreach (var key in AnimationUtility.GetObjectReferenceCurve(clip, binding))
+                            if (key.value is Sprite sprite) PrepareSurface(AssetDatabase.GetAssetPath(sprite.texture), prepared);
+            }
             PrepareRig();
             var rig = Object.FindObjectOfType<ClashLightingRig>();
             if (!rig) PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(Root + "WorldLighting.prefab"), scene);

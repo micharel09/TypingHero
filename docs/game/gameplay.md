@@ -442,6 +442,14 @@ Full surface art, B/C and parent integration remain separate.
   world bloom. The preserved WorldMenuBackdrop is disabled by the final dungeon
   UI pass; the menu uses four original gameplay dungeon layers as UGUI images.
   Overlay HUD remains separate. Camera lens/zoom unchanged.
+- WorldLightingBuild also follows actual player/enemy Animator controller clip
+  references, including `Art/male_hero/individual_sheets/player_parry_success.anim`.
+  Its four recovery cels now have aligned normal/material companions; missing
+  material binding had made the whole cel metallic and dark. Albedo, pivots,
+  slicing and timing are unchanged. Parry hold70ms/end280ms is unchanged.
+- DungeonFullEffectsBuild no longer creates WetStoneReflection and disables the
+  serialized legacy node, renderer and component. Stone lighting/material highlights
+  and cast shadows remain; no reflection capture camera/RT through pause or Slayer.
 - Secondary _NormalMap textures preserve source GUIDs/rects/pivots/PPU. Current
   maps are draft alpha/material-region bevels, independent of painted luminance;
   anatomical/armor/roof authoring and complete frame/mirror review remain milestone B.

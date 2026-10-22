@@ -20,12 +20,16 @@ internal static class DungeonFullEffectsBuild
         DungeonAtmosphereBuild.Sheet(root, "LowHaze", new Vector3(0, .9f, 4), new Vector3(0, .05f, 4),
             19, 19, new Color(.14f, .19f, .23f, .075f), true);
 
-        var wet = Node(root, "WetStoneReflection"); wet.transform.localPosition = new Vector3(0, .008f, 1.5f);
-        var wetMesh = Mesh("WetStoneReflection", new[] {
-            new Vector3(-16,0,-13), new Vector3(16,0,-13), new Vector3(-16,0,10), new Vector3(16,0,10) });
-        var wetRenderer = Visual(wet, wetMesh, Material("WetStoneReflection", "CLACKBLADE/Dungeon Wet Stone"));
-        var reflection = wet.GetComponent<DungeonPlanarReflection>(); if (!reflection) reflection = wet.AddComponent<DungeonPlanarReflection>();
-        Set(reflection, "receiver", wetRenderer);
+        // Retain legacy serialized bindings without creating a reflection receiver.
+        var wet = root.transform.Find("WetStoneReflection");
+        if (wet)
+        {
+            var reflection = wet.GetComponent<DungeonPlanarReflection>();
+            if (reflection) reflection.enabled = false;
+            var receiver = wet.GetComponent<Renderer>();
+            if (receiver) receiver.enabled = false;
+            wet.gameObject.SetActive(false);
+        }
 
         var rune = Node(root, "RearRune"); rune.transform.localPosition = new Vector3(-5, 2.6f, 9.76f);
         var runeRenderer = Visual(rune, Mesh("RearRune", new[] {

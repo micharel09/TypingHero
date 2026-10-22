@@ -1,3 +1,37 @@
+## Player recovery lighting / reflection removal (2026-10-22; playback pending)
+
+- Root cause: actual player controller references the parry-success clip outside
+  the folder scan. Four combo_2_end cels lacked both companion bindings. Matched
+  48-state native A/B shows normal-flat/shadow-off do not remove the blackout;
+  metallic0 restores the same recovery cel. Controller-derived map preparation
+  fixes the missing bindings; shader, lights, original artwork and combat unchanged.
+- QA20261022T044230/input3baf37bc3fce07853acb13b608f2b129dbbe6fd12143b20a66823c5c3d40024a,
+  playerb2723a4a20fe5423:strict twice-run builder/WebGL PASS. All1928scene record
+  contents/references match local result (serialization order differs). Five binding
+  assets match immutable build properties/PNG payloads (new meta whitespace normalized);70actual-controller keys now have both maps;
+  18original albedo/clip hashes unchanged and new GUIDs unique.
+- Scoped Unity20261022T045507:9/9PASS,0fail/skip, including actual-controller map
+  dimensions/bindings, environment lifecycle and parry70/175/280ms/pause/reuse.
+  Final native r3:17/17real-input checks,0exceptions/provider reads/writes. Attack,
+  received hit,consecutive parries,attack after parry,pause,Slayer/restore,menu passed.
+  All reflection/capture-camera samples0;last menu world/reflection/scratch/cameras0.
+- Final gameplay source563frames exported with exact PTS; actually inspected113
+  frames/111pairs at native and nearest2x:153..213 (20.593..25.295s),234..285
+  (26.505..29.970s). Recovered cels retain face/armor/waist brightness through pulse
+  fade and return to idle. Whole-scene attack/parry/post-parry/restored stills also
+  opened: no reflected figures/lamps;floor light and ground contact remain.
+- Failed runs retained separately:one cold Edge WebGL-context loss at menu;one
+  driver waited for immediate HP loss rather than observing the actual attack
+  state and timed out. r3 observes correct-word attack animation directly; no
+  gameplay change. First test transport truncated before Unity; retry hash checked.
+  Disk failures did not execute tests or count as PASS. No performance/FPS claim.
+- Supplementary no-VFX matrix:8cels x16variants actually inspected at native/2x,
+  including atlas switch and both facings; no recovery blackout. User subsequently
+  narrowed verification to the reported defect:additional VFX fixture build stopped,
+  its inactive-clone captures are not accepted. No further broad QA required.
+  User1x/quarter playback acceptance remains pending; no main integration/publication.
+  [Checkpoint](../plans/dungeon-3d.md).
+
 ## Rune noise completion candidate (2026-10-22, acceptance pending)
 
 Scoped DungeonRenderTests run20261022T015303-quick:5/5 PASS,0fail/skip,
