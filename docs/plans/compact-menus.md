@@ -159,7 +159,18 @@ Implementation commit `bc962f1`; task resources/evidence root:
 `E:/CodexTemp/TypingHero/pause-modal-resume/`. Final QA player,9PNGs/video/trace,
 Unity XML/snapshot receipts and reproducible driver are retained for review.
 Remote final QA result/source input: `/data/typinghero-game-loop/results/20261022T075105-webgl/`.
-Keep final QA/evidence until review ends; then remove only this task artifact root
-and its final remote result. Intermediate task captures/profiles/archives and failed
-remote/test result directories will be cleaned after integration. Shared cache and
-pre-existing resources stay untouched. Remote integration/cleanup receipt follows.
+Keep QA/evidence until review ends; cleanup then requires a separately reviewed
+scope that preserves anything still needed. Automatic approval review rejected
+recursive cleanup including QA directories/player.tar.gz because it could remove
+required review evidence. Used a narrower safe cleanup: removed only the temporary
+font comparison asset and scoped/build execution adapters. All QA directories,
+archives, failed-run diagnostics and remote results remain as review evidence;
+shared cache and pre-existing resources stay untouched. Final extracted QA player
+was verified byte-identical to all32archive members before cleanup was considered.
+The QA listener8254 is closed and no live preview is retained.
+
+Remote integration verified: task branch pushed and HEAD `c8e74a1` fast-forwarded
+`origin/main` from4e62ea2; fetched remote SHA equals local HEAD and implementation
+`bc962f1` is an ancestor. This final receipt is a documentation-only follow-up;
+verify its remote HEAD before removing the clean task worktree/local branch.
+Remote task branch stays retained. No parent checkout/WIP modification.
