@@ -29,29 +29,8 @@ module.exports = async function scoreCluster(api, browser) {
     await page.setViewportSize({width:640,height:360});
     await until(page,s=>s.width===640 && s.height===360);
   };
-  // The existing tutorial reaches a real stamina break without a gameplay setter.
-  const tutorial=await session(browser,{width:640,height:360},1000);
-  try {
-    await start(tutorial.page,false);
-    await require('./tutorial.cjs')(api,tutorial.page,{freshTutorial:true,stopAfterSlayerLayout:true,viewports:sizes});
-    let s=await state(tutorial.page);
-    check(s.slayer && s.tutorialLesson===4,'real parry reaches Slayer');
-    await tutorial.page.keyboard.press('Enter',{delay:80});
-    await until(tutorial.page,s=>s.tutorialPracticing);
-    await tutorial.page.keyboard.type('F',{delay:80});
-    await until(tutorial.page,s=>s.multiplier>1 && s.comboDecayVisible);
-    await tutorial.page.screenshot({path:report.outputDirectory+'/slayer-live.png'});
-    await tutorial.page.keyboard.type('IRE',{delay:90});
-    s=await until(tutorial.page,s=>s.tutorialPassed && s.multiplier>1);
-    check(s.comboVisible && s.comboDecayVisible,'Slayer character awards reveal the grouped UI');
-    await resizeCapture(tutorial.page,'slayer-combo');
-    await tutorial.page.keyboard.press('Escape',{delay:80});
-    await until(tutorial.page,s=>s.paused);
-    await tutorial.page.keyboard.press('r',{delay:80});
-    s=await until(tutorial.page,s=>s.tutorialLesson===3 && !s.slayer);
-    check(s.multiplier===1 && !s.comboVisible && !s.comboDecayVisible,'restart clears grouped combo and restores normal HUD');
-    await tutorial.page.screenshot({path:report.outputDirectory+'/slayer-exit-restart.png'});
-  } finally {await tutorial.context.close();}
+  // Slayer is exercised in real combat now that the guide has no practice mode.
+  await require('./slayer.cjs')(api,browser);
   const battle=await session(browser,{width:640,height:360},1000);
   try {
     const page=battle.page;

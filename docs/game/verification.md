@@ -1,3 +1,32 @@
+## Single HUD tutorial guide (2026-10-22)
+
+- Unity2022.3.25f1 / fly-server:7/7 scoped TutorialTests and DungeonEditorEntryTests
+  PASS,0failed/skipped, input `0c8b3a88988177676262b280baf67aed56b21a66f67c1089ab4c740c6a205844`,
+  run101452. Covers existing viewed values, abandon/confirm, reading input/time/audio,
+  pause/resume/restart/menu, repeated confirmation, provider guard, fresh dungeon
+  lifecycle and no cloned guide copy/background in intro/live combat.
+- QA103149 on the same input: WebGL build and strict repeated builder PASS after
+  recreating only the generated GameAssembly.a archive to resolve stale duplicate
+  IL2CPP symbols. No runtime/config/dependency change or weakened build threshold.
+- Edge155.0.4283.62 / GTX1650Ti / ANGLE D3D11: final26/26 real keyboard/mouse checks
+  PASS at1280x720 and640x360,0JS/managed exceptions,0provider reads/writes. Fixture
+  interception and external blocking enabled. Strict text glyph containment,
+  HP/guard/typing clearance, five real-RectTransform arrow tips, unread menu exit,
+  pause/resume/restart, held Enter consumption, persistence/replay, selected Hard
+  fresh intro and actual typed hit (score10) pass. Both guide sizes, pause, clean
+  intro and live hit captures directly inspected. All32local player hashes match
+  the immutable server player. This is scoped functional/layout acceptance.
+- Software browser remains FAIL:15checks then a missed menu Play input at roughly
+  193ms/frame. Earlier5check glyph-bound failure, preflight-capacity failure and
+  stale-link failure are recorded in the checkpoint; none are reported as passing.
+- Committed SampleScene contains1005IDs:925original IDs retained plus80blocks for
+  20guide/arrow nodes. All168tutorial subtree blocks match the final builder;
+  non-tutorial blocks remain byte-identical and local references resolve. Only
+  blank lines were removed from one pre-existing malformed DungeonWorld GameObject
+  to allow direct-source loading; every field/ID is unchanged. MainMenu, fonts,
+  art, prefabs, How to Play, gameplay/provider APIs and TutorialProgress_v1 remain.
+- No itch.io upload. Source/cleanup/integration record: [checkpoint](../plans/tutorial-hud-guide.md).
+
 ## Player recovery lighting / reflection removal (2026-10-22; playback approved)
 
 - Root cause: actual player controller references the parry-success clip outside

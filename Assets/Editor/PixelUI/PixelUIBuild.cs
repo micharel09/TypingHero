@@ -94,6 +94,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             DungeonArenaBuild.Apply();
             CombatR7Build.ApplyResourceInk();
             BlackletterTitleBuild.AssertTypingComponents(originalTyping);
+            TutorialBuild.Guide();
             DungeonSessionBuild.Apply();
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
