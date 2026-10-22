@@ -2460,7 +2460,8 @@ and integration/cleanup are in [combat checkpoint](../plans/combat-feedback.md).
 ## Pause fix published (2026-10-22)
 
 Source db1936d; production20261022T082936/input6dd75a9b32f7e6baefc5b85f8fec6a95d9df83272dc6b1a115ff7aa0654a85a8
-passes strict repeat/build and complete ASCII/UTF16LE QA-marker exclusion.
+passes the normal build and complete ASCII/UTF16LE QA-marker exclusion.
+Production invokes the builder once; the earlier Pause QA performed strict repeat.
 Original-HTML native Guest/Play/tutorial reading/Pause/Settings/Escape/Resume/Menu
 inspected, bridge undefined,0exceptions/provider writes. Existing scoped5Unity
 and31native acceptance reused; no full suite, audio or performance remeasurement.

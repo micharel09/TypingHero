@@ -184,9 +184,11 @@ Parent dirty checkout/WIP is excluded. Existing scoped Unity5/5 and native31/31
 pause results reused; no runtime changes or full suite/stress/soak.
 
 Unity2022.3.25f1/fly-server production `20261022T082936-production` PASS,
-strict repeated-builder PASS, input
+input
 `6dd75a9b32f7e6baefc5b85f8fec6a95d9df83272dc6b1a115ff7aa0654a85a8`.
 Snapshot adapter only normalizes YAML CRLF to canonical LF; no checker/asset edits.
+Production runs the normal builder once; the strict repeat was performed by the
+preceding Pause QA build, not by this production invocation.
 qa=false; ASCII/UTF16LE typingHeroQA/GameLoopProbe/TYPINGHERO_AUTOMATION exclusion
 across all JS/WASM/data PASS. ZIP32members/18,777,511bytes, SHA256
 `7d30660e33cf70adb76167a28a6d5afcd32ff0b88f71d66d71a059afb4d157a4`,CRC/local transfer PASS.
