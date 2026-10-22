@@ -169,3 +169,36 @@ one additional QA WebGL and integration into main; no game publication.
 - HTTP preview200, t?t c? review routes200/no-store/version2ee55b9f1b0faeae; actual HTTP output.data SHA256 kh?p immutable player. Diff whitespace PASS; source Settings/post/floor/meta GUID g?c kh?ng ??i.
 
 - Cu?i c?ng b? trailing spaces c?a8file YAML asset/meta m?i do Unity xu?t ra; ch? kho?ng tr?ng cu?i d?ng, d? li?u mesh/GUID kh?ng ??i. Ki?m `git diff --cached --check` l?i sau khi stage.
+
+
+## NYKNCK free pixel flame ? 2026-10-22
+
+- User selected the free five-frame Fire Set, not paid Bonfire. Source: https://nyknck.itch.io/pixel-fire-set; credit @nyk_nck; source archive SHA256 08b78ec0fe4ee9f4d5627e57f0a7013ea7edbc3fb279cb320f9f83ee0ecd091b.
+- Task branch micharel09/lantern-pixel-fire, base origin/main 4e62ea2. Preserve the dirty parent checkout.
+- Isolate each largest 8-connected alpha body on the authored native pixel grid, bottom-anchor in 48x34 cels, keep original colors and 100ms timing. Main lamp only: private runtime quad/UV flipbook and continuous bounded Perlin noise; base24, amplitude6percent, emission synchronized. Rear sine/+/-2percent behavior unchanged.
+- Original lantern/mesh/material GUIDs retained. No gameplay/UI/floor reflection changes. Full source and final output frame review remain separate.
+- Acceptance pending: scoped front/rear Unity tests, strict repeated builder and persisted DungeonWorld configuration, all five output frames/transitions at game size/2x, one short real-input gameplay capture including parry/recovery and pause/Slayer restoration. No broad suite/multi-viewport/stress acceptance.
+- Local evidence: E:/CodexTemp/TypingHero/pixel-fire-review-20261022-m60wlc3t. Source five frames/transitions inspected; paid promotional preview is excluded from output. Runtime verification is not yet complete.
+
+### Pixel flame verification
+
+- Unity2022.3.25f1 scoped Quick20261022T081730: **2/2 PASS**, front lifecycle/mesh/emission/clock test and directly affected rear torch regression. Strict repeated builder PASS on input195216041bd12cdd99291d0b9827c5fa31c4ea79ab69565cad5f940cf8034c3b.
+- Initial Windows CRLF-only font protection failure was resolved in the disposable Linux snapshot (canonical text LF; binary bytes retained), not by changing font assets or weakening guards. Earlier material GI/alpha-mask and room renderer-enable idempotence failures were fixed in the new flame builder; failed receipts retained locally.
+- QA20261022T082242, inputcf8366fc823770ecf1ef786e66facf8a37bef5ff0fb648a78c55a65350ae00f4; player5f849262aed3f42e. Native Edge155.0.4283.62 / NVIDIA GTX1650Ti / ANGLE D3D11 at1280x720: **21/21 PASS**,0exceptions/provider reads/writes,481read-only lamp samples,186hidden. Observed active intensity22.5750618..25.2119675, all5cels; shared emission, root, pause and Slayer phase verified. Shipping runtime/assets unchanged by the QA-only observer, which is excluded from the commit.
+- First browser pilot is INVALID for gameplay acceptance: tutorial skip reloaded the encounter after its early Enter. Fixed only the harness settling/wait; reused the same player for the passing run.
+- Source GIF original timing is5x100ms. Final adapted atlas240x34 SHA25614b26a8dc4566e7c7079107054cfbcc9056432b0b33c3fe3a9cb857cf7cce910; no interpolated colors. Source reference review and output review remain separate.
+
+| Output cel | Duration | Source | Observation at native48x34/nearest2x | Next transition | Status | Evidence |
+|---|---|---|---|---|---|---|
+| F0 |100ms|1.png, largest alpha body|Hai c?m ch?nh n?i ch?o t?o th?n l?a nghi?ng; palette v?ng/cam g?c, ??y ? h?ng32.|Sang F1 th?n ng?n l?i theo ngu?n; pivot ??y kh?ng ??i.|??t|PixelFire.png cell0; local output-frame-0.png|
+| F1 |100ms|2.png, largest alpha body|Th?n nh? nh?t, d?ng n?m nghi?ng ph?i; m?p pixel v? ch?n c?n trong canvas.|F1?F2 k?o d?i th?nh gi?t; gi? ??y33 v? t? l? pixel chung.|??t|PixelFire.png cell1; local output-frame-1.png|
+| F2 |100ms|3.png, largest alpha body|Th?n gi?t d?i m?u v?ng cam, ?u?i d??i nh?n; kh?ng clipping.|F2?F3 r?ng th?m, c? v?ng t?i gi?a th?n theo ngu?n; ch?n kh?ng d?ch.|??t|PixelFire.png cell2; local output-frame-2.png|
+| F3 |100ms|4.png, largest alpha body|Th?n r?ng c? l? t?i v? ??m ch?n n?i ch?o theo alpha g?c; kh?ng v? th?m pixel.|F3?F4 k?o cao theo frame ngu?n; v?n n?m trong envelope ??n.|??t|PixelFire.png cell3; local output-frame-3.png|
+| F4 |100ms|5.png, largest alpha body|Th?n cao nh?t d?ng cong ch? S v? ?u?i cam; ??y c?ng h?ng32, gi? palette g?c.|Loop F4?F0 ??i silhouette theo ngu?n, kh?ng reset pha ?nh s?ng ho?c ??i pivot.|??t|PixelFire.png cell4; local output-frame-4.png|
+
+- Actual canvas SHA256c4b65aa7482de36f7d93ee8a9144fc012c4eb02b6443e0d50006333bbeec86a3;640decoded/exported with exact timestamp agreement. Before review selected normal6.212475..7.830410s(F77..116) and first parry9.834410..12.234410s(F166..223), covering windup/contact/recovery and a following normal hit. **98/98selected frames and96/96adjacent transitions actually inspected** at logical320x180 and nearest2x640x360; all40normal lamp crops additionally inspected at2x capture. Actual1280x720 after/parry/post-hit/restored stills also opened.
+- Warm light remains on 3D floor/actors, fire varies inside a stationary cage; no full-room flash or whole-player recovery blackout in those segments. Source five-cel silhouette changes are retained. VFR25FPS capture is not every engine frame/high-frequency shimmer or performance/FPS evidence. No full suite, extra viewport or stress run.
+- Full builder also regenerates unrelated legacy scene records; committed DungeonWorld instead preserves all1018original IDs and every out-of-scope record. Only old front renderer, front holder child list and front torch binding/settings change, plus4new pixel-node records. New-node transforms match generated output; original materials/meshes/GUIDs remain unchanged.
+- Local frame-level runtime observations: selected-review/frame-evidence.csv (98rows), source/output hashes and scope.json; source animation review has its own source-frame-review.csv. Retain local evidence until integrated result is reviewed; no public game publication.
+
+- Direct committed-scene load audit20261022T084400-serialize PASS (input5e6eb9b5d04ad1a0020033c53c55a8b9f303f60d94f031d2c4ac109913b49f95): Unity opens the exact scoped DungeonWorld scene and asserts3torches, front24/.06, rear.02/no pixel binding,4vertex private-quad template, renderer enable/array links, old flame disabled,240x34 Point/no-mip atlas. This is a read-only scene audit, NOT another full repeated-builder run despite the stock runner completion label. Initial optional audit wait timed out on the shared lock; retry passed, other jobs preserved.

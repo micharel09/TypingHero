@@ -172,6 +172,7 @@ internal static class DungeonArenaBuild
         HangingLamp(root,flame,lanternFire);
         Torch(root,"TorchGlow_Front",flame,24,16,1.6f,
             new[]{root.transform.Find("Torch_Front/ModelMesh").GetComponent<Renderer>()},0);
+        DungeonPixelFlameBuild.Apply(root);
         var frontData=root.transform.Find("TorchGlow_Front").GetComponent<Light>().GetUniversalAdditionalLightData();
         var frontSettings=new SerializedObject(frontData);
         frontSettings.FindProperty("m_AdditionalLightsShadowResolutionTier").intValue=UniversalAdditionalLightData.AdditionalLightsShadowResolutionTierMedium;

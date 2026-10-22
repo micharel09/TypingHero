@@ -2416,3 +2416,10 @@ retain actual destination audio and render holds. Browser audio-bus timing is
 measured separately from display submission and does not measure device latency.
 Exact source, timestamps, failed cold-decode/link diagnostics, per-frame records
 and integration/cleanup are in [combat checkpoint](../plans/combat-feedback.md).
+
+
+## NYKNCK free main-lantern pixel flame (2026-10-22)
+
+Scoped Quick20261022T081730 passes2/2tests (front lifecycle/mesh/emission/clock and rear regression), strict repeated builder PASS; no full Quick profile claim. QA20261022T082242/player5f849262aed3f42e native Edge155/NVIDIA GTX1650Ti/ANGLE D3D11 at1280x720 passes21/21real-input checks,0exceptions/provider IO.481read-only samples, active intensity22.5750618..25.2119675, all5cels, stationary root, pause and Slayer phase verified.
+
+Source/output each5/5cels and5/5loop transitions reviewed separately; output native48x34/nearest2x. Actual canvas640frames decoded/exported with exact timestamps; selectedF77..116 andF166..223 reviewed98/98frames,96/96pairs at logical320x180/nearest2x640x360 plus40lamp detail crops. No room flash or whole-player parry/recovery blackout in those samples. Capture is25FPS VFR, not every engine frame or performance/FPS evidence. Earlier intro-race pilot is not acceptance. Direct-scene load audit20261022T084400 verifies the committed scene reference graph, front24/6percent, rear2percent, atlas/renderer bindings and disabled original flame. [Full checkpoint](../plans/combat-hanging-light.md).

@@ -1,0 +1,12 @@
+Pixel Fire Set by NYKNCK (@nyk_nck)
+Source: https://nyknck.itch.io/pixel-fire-set
+Author terms: https://nyknck.itch.io/
+
+Free fire set.zip, SHA256 08b78ec0fe4ee9f4d5627e57f0a7013ea7edbc3fb279cb320f9f83ee0ecd091b.
+Five authored frames, 100 ms each. The largest connected flame body from each
+frame is isolated and bottom-anchored; original colors and authored pixels retained.
+Source 4x preview pixels reduced losslessly to their native pixel grid.
+
+Author permits commercial project use, requires credit, and prohibits redistribution
+of assets. This adapted atlas is used as game content, not offered as an asset pack.
+Original archive and unmodified sprites are not included.
