@@ -89,13 +89,36 @@ internal sealed class PhysicalParticleSimulation
         }
     }
 
-    static float Travel(float drag, float t) => drag > 0 ? (1 - Mathf.Exp(-drag * t)) / drag : t;
+    static void DragIntegrals(float drag, float t, out float travel, out float fall)
+    {
+        if (drag == 0) { travel = t; fall = (float)(.5 * t * t); return; }
+        double time = t, x = drag * time;
+        // Both closed forms subtract nearly equal numbers near zero. Expand in
+        // dimensionless drag*time, not drag alone, and retain double intermediates.
+        if (x < .01)
+        {
+            travel = (float)(time * (1 + x * (-.5 + x * (1d / 6 + x * (-1d / 24 + x / 120)))));
+            fall = (float)(time * time * (.5 + x * (-1d / 6 + x * (1d / 24 + x * (-1d / 120 + x / 720)))));
+        }
+        else
+        {
+            double distance = (1 - System.Math.Exp(-x)) / drag;
+            travel = (float)distance;
+            fall = (float)((time - distance) / drag);
+        }
+    }
+
+    static float Travel(float drag, float t)
+    {
+        DragIntegrals(drag, t, out float travel, out _);
+        return travel;
+    }
 
     static void Launch(State d, float t, out Vector3 position, out Vector3 velocity)
     {
-        float drag = d.physics.launchDrag, travel = Travel(drag, t);
+        float drag = d.physics.launchDrag;
+        DragIntegrals(drag, t, out float travel, out float fall);
         velocity = d.launch * Mathf.Exp(-drag * t) + Vector3.down * (d.physics.gravity * travel);
-        float fall = drag > 0 ? (t - travel) / drag : .5f * t * t;
         position = d.origin + d.launch * travel + Vector3.down * (d.physics.gravity * fall);
     }
 

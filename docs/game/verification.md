@@ -88,6 +88,19 @@ Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, 
 
 # Verification and performance memory
 
+## Near-zero physical particle drag (2026-10-22)
+
+- Unity2022.3.25f1/fly-server red20261022T014230-quick reproduces1/1failure on old
+  runtime: drag.0001/age.12s gives Y=-19.0962753WU instead of-.07063172WU.
+- Green20261022T014352-quick inputa78eb11385d22f5183173e21d9b5ccf220d13580c0401937eaf46a8cec0d50fe:
+  focused PhysicalParticleTests + ParryClashTests53/53PASS,0failed/skipped,
+  13.2167476s. Adds16numeric regression cases; prior pause/pool/direction/budget
+  and zero-allocation tests pass. All1992build/test inputs match the archive.
+- External adapter retains the shared runner lock/cache/license and selects tests
+  through Unity's existing filter; repository runner/toolchain/preset assets unchanged.
+  No new WebGL/native/visual/performance claim. Exact scope and retained receipts:
+  [physics checkpoint](../plans/parry-physical-particles.md#near-zero-drag-correction-2026-10-22).
+
 ## Dungeon main menu — 2026-10-21
 
 Cached Unity2022.3.25f1 WebGL153008 and strict repeat-builder PASS on input

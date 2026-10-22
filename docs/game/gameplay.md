@@ -275,6 +275,12 @@ Change only behavior explicitly requested. Update this file after relevant verif
   Lifetime derives from the complete floor trajectory, capped5s. Two short
   fragments end120-180ms. Floor only in v1; no per-particle GameObject/Rigidbody.
   Zero drag/gravity and floor-level/upward/below-floor births have focused tests.
+- Drag integration uses fourth-order Taylor polynomials when drag*time<.01 and
+  double intermediates elsewhere, retaining the exact zero-drag limit. This avoids
+  near-zero launch drag turning centimetres of gravity fall into metres; launch,
+  coast and bounce share the stable travel integral. Production profile tuning,
+  contacts, budgets and pause/pool lifecycle remain unchanged. Focused Unity53/53
+  passes; numeric checks cover drag0..20 and launch/flight/floor transitions.
 - Birth renders at age0 before advancing physics/contact time; tiny specks may
   start inside their configured region. A first following delta>33.3ms takes one
   16.7ms step so a cold render cannot skip launch; subsequent frames use full
