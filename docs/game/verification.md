@@ -2273,3 +2273,11 @@ or itch deployment. Details and scope decision: [checkpoint](../plans/dungeon-ma
   1611145 dungeon MainMenu merge leaves all37 relevant runtime/config/test inputs
   identical; scoped results reused. No integrated menu redesign or publication
   claim by this task. Final resource/provenance record is in the physics checkpoint.
+
+
+Menu follow-up integrated as dedfe16 on origin/main after preserving incoming
+particle physics changes. Integrated filtered identity021754:15/15 PASS,
+input3f11a598c427567a85ec2f0dc40a023f8689bee9d4a8f4e6aed52b1cf83138a6.
+Menu source/config unchanged; existing native evidence reused. Task captures/
+profiles cleaned; final preview8246/player retained for review, tutorial WIP intact.
+Clipboard acceptance remains pending as recorded above.

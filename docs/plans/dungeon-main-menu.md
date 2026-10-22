@@ -173,7 +173,33 @@ for the rendered frame passes without product changes. The legacy fixture driver
 also needed to wait for QA initialization after reload. These driver failures do
 not establish product failures. Earlier paste assertion failures remain failures.
 
-Qualified reports: task temp menu-fix-qa (279), menu-legacy-qa (17), and
-menu-clipboard-baseline (4), under E:/CodexTemp/TypingHero/compact-tutorial.
-Final immutable player/snapshot/log remains in the remote015918 result; local
-menu-fix-build holds the same player. Integration and cleanup receipt follows.
+Qualified native runs: menu-fix-qa279 in149.697s, menu-legacy-qa17 in26.758s,
+clipboard baseline4 in6.838s, Edge155.0.4283.62. Their captures/profiles and the
+failed clipboard capture directory were removed after textual evidence recording.
+Final immutable player/snapshot/log remains in remote015918; local menu-fix-build
+holds the same player.
+
+### Follow-up integration and retained resources
+
+Implementation fc06acd pushed to origin/micharel09/compact-tutorial. Integrated
+new origin/main particle-physics commits through2c3a742 in merge dedfe16; the
+verification document append conflict was resolved by preserving both records.
+All four menu runtime/editor/test files are unchanged from the tested snapshot.
+Filtered integrated identity run20261022T021754-quick:15/15 PASS, input
+3f11a598c427567a85ec2f0dc40a023f8689bee9d4a8f4e6aed52b1cf83138a6.
+Reused native menu evidence because affected menu inputs/configuration are
+unchanged; no second WebGL build for unrelated, upstream-verified VFX changes.
+Pushed dedfe16 to origin/main as a fast-forward; fetched ancestry confirms both
+fc06acd and dedfe16 on main. Seven original tutorial WIP files remain byte-identical;
+none entered the task commits. No itch deployment.
+
+Removed the superseded11-test remote result and four completed native capture/
+profile directories; shared caches, earlier resources and other jobs preserved.
+Preview http://127.0.0.1:8246 is open at1280x720; task process26524,
+menu-fix-preview and menu-fix-build under E:/CodexTemp/TypingHero/compact-tutorial.
+Keep this final player/preview plus menu_fix/menu_legacy drivers for review and
+reproduction. After review, close the preview browser/process and remove these
+specific task-created preview/player directories. Keep the pre-existing
+compact-tutorial worktree/branch until tutorial WIP is resolved and preserved.
+The original8240 preview and earlier assets were not created by this follow-up
+and remain untouched. Clipboard support remains a separate pending scope decision.
