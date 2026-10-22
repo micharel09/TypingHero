@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Player — Parry gốc</title>
+  <link rel="stylesheet" href="preview.css">
+  <script defer src="preview-data.js"></script>
+  <script defer src="preview.js"></script>
+</head>
+<body>
+<main>
+  <h1>Player — Parry gốc</h1>
+  <p>Cả hai clip bắt đầu bằng frame 2, rồi 3 → 4 → 5 → idle. Parry giữ 250 ms; đỡ trúng giữ 800 ms. Phát lặp nghỉ 450 ms ở idle.</p>
+  <fieldset id="controls" disabled>
+    <legend>Điều khiển preview</legend>
+    <div class="settings">
+      <label>Clip <select id="clip"></select></label>
+      <label>Tốc độ <select id="speed"><option value="1">1×</option><option value="0.5">0,5×</option></select></label>
+      <label>Zoom <select id="zoom"><option value="1">1×</option><option value="4" selected>4×</option></select></label>
+      <label>Hướng <select id="direction"><option value="right">Phải</option><option value="left">Trái</option></select></label>
+    </div>
+    <div class="buttons">
+      <button id="once" type="button">Phát một lần</button>
+      <button id="loop" type="button">Phát lặp</button>
+      <button id="stop" type="button">Dừng</button>
+      <button id="previous" type="button">Cel trước</button>
+      <button id="next" type="button">Cel sau</button>
+      <label>Thời gian <input id="scrub" type="range" min="0" max="400" value="0" step="1"></label>
+    </div>
+  </fieldset>
+  <p id="status" role="status" aria-live="polite">Đang nạp sprite gốc…</p>
+  <div class="stages">
+    <figure><figcaption>Idle gốc</figcaption><div class="stage"><canvas id="reference" width="128" height="128" aria-label="Idle gốc"></canvas></div></figure>
+    <figure><figcaption id="candidate-label">Parry</figcaption><div class="stage"><canvas id="candidate" width="128" height="128" aria-label="Sprite parry đang xem"></canvas></div></figure>
+  </div>
+  <p id="frame-state">Chưa sẵn sàng.</p>
+</main>
+</body>
+</html>

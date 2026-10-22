@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parryKey: 32
   playerParryPoseStatePath: Base Layer.player_parry
-  playerParryPoseCrossfade: 0.02
+  playerParryPoseCrossfade: 0
   playerParrySuccessStatePath: Base Layer.player_parry_success
-  playerParrySuccessCrossfade: 0.02
+  playerParrySuccessCrossfade: 0

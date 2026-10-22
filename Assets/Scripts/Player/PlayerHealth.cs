@@ -60,7 +60,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
 
         // Parry?
-        if (parry && (parry.IsWindowActive || parry.IsSuccessActive))
+        if (parry && parry.IsSuccessActive) return;
+        if (parry && parry.IsWindowActive)
         {
             if (logs) Debug.Log("[PARRY] SUCCESS => no damage");
             parry.ParrySuccess();

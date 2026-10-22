@@ -1,5 +1,16 @@
 # Current gameplay
 
+## Original parry on latest main (2026-10-22; local demo)
+
+Both parry clips enter original combo_3_end_2 and play2->3->4->5->idle at400/950ms.
+Defense stays250ms. After success, one completed word in[0,800) unpaused real ms
+queues one existing attack after recovery; hit/death/Slayer/early interruption
+cancel it. Existing hitstop extends animation wall time. Main contact hold uses
+that same frame2, with current physical-spark/clean-enemy-cel presentation retained.
+Success itself opens no attack window. Latest HUD guide/pause/dungeon remain on
+main fd3f21d; parent WIP preserved. Scoped Unity31/native17 PASS; local candidate,
+no release. [Evidence and demo resources](../plans/parry-main-demo.md).
+
 ## Dark fantasy HUD — local candidate (2026-10-21)
 
 The latest local presentation supersedes older palette/font notes below. Combat HUD

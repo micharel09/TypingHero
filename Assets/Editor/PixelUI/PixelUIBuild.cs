@@ -18,6 +18,8 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
         if (System.Environment.GetEnvironmentVariable("TYPINGHERO_QA") != "1") return;
         var paths = new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
             "Assets/Data/Score/ScoreRules.asset",
+            "Assets/Characters/Player/player_parry.anim", "Assets/Characters/Player/player_parry_success.anim",
+            "Assets/Art/male_hero/individual_sheets/player_parry_success.anim", "Assets/Characters/Player/AC_Controller.controller",
             PixelUIFactory.Generated + "Panel.prefab", PixelUIFactory.Generated + "Button.prefab",
             PixelUIFactory.Generated + "StatBar.prefab", PixelUIFactory.Generated + "LeaderboardRow.prefab",
             "Assets/Characters/Player/Player.prefab", "Assets/Characters/Enermy/Skeleton.prefab",
@@ -85,6 +87,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             CoreMatchBuild.Apply();
             EndlessAssets.Prepare();
             CombatFeedbackBuild.Apply();
+            PlayerParryAssets.Apply();
             TutorialBuild.Apply();
             ShogunTheme.Apply();
             WorldLightingBuild.Apply();

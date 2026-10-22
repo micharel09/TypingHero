@@ -51,10 +51,19 @@ public class ParrySystem : MonoBehaviour
     SlashVolume enemyTrail;
     bool enemyTrailEnabled;
     float enemyTrailHold;
+    int successRequestedFrame = -1;
+    double followUpUntil = double.NegativeInfinity;
+
+    internal bool InSuccessPose => successRequestedFrame == Time.frameCount ||
+        (config && InAnimation(config.playerParrySuccessStatePath));
+    internal bool CanQueueFollowUp => InSuccessPose && !SuccessPoseCompleted &&
+        Time.unscaledTimeAsDouble < followUpUntil;
+    internal bool SuccessPoseCompleted { get; private set; }
 
     public bool IsWindowActive => windowOpen;
     public bool IsSuccessActive => Time.unscaledTime < successUntilUnscaled;
-    public bool PoseLocked => poseRequestedFrame == Time.frameCount || InParryOrSuccess();
+    public bool PoseLocked => poseRequestedFrame == Time.frameCount ||
+        successRequestedFrame == Time.frameCount || InParryOrSuccess();
 
     void OnEnable()
     {
@@ -68,6 +77,9 @@ public class ParrySystem : MonoBehaviour
         if (enemy) enemy.OnStrike -= OnEnemyStrike;
         if (gate) gate.PopParryPose(this);
         poseRequestedFrame = -1;
+        successRequestedFrame = -1;
+        followUpUntil = double.NegativeInfinity;
+        SuccessPoseCompleted = false;
         windowOpen = false;
     }
 
@@ -98,6 +110,13 @@ public class ParrySystem : MonoBehaviour
         _lastCloseAt = Time.unscaledTime;
         if (logs) Debug.Log("[PARRY] Pose closed");
     }
+
+    public void Anim_ParryEnd(int success)
+    {
+        // Mecanim can already report idle while dispatching the outgoing clip's end event.
+        if (success == 1 && !CombatSession.Finished && (!gate || (!gate.IsHitLocked && !gate.IsDeadLocked)))
+            SuccessPoseCompleted = true;
+    }
     // --------------------------------------------------
 
     // gom logic chốt parry-success vào 1 chỗ
@@ -127,6 +146,12 @@ public class ParrySystem : MonoBehaviour
         // i-frame cho player như cũ
         successUntilUnscaled = Time.unscaledTime + successIFrame;
         windowOpen = false;
+        _lastOpenAt = _lastCloseAt = float.NegativeInfinity;
+        successRequestedFrame = playerAnimator && config && !string.IsNullOrEmpty(config.playerParrySuccessStatePath)
+            ? Time.frameCount : -1;
+        followUpUntil = Time.unscaledTimeAsDouble + .8;
+        SuccessPoseCompleted = false;
+        if (gate && successRequestedFrame >= 0) gate.PushParryPose(this);
 
         // === NEW: khoá damage phía enemy đang vung ===
         if (enemyComp)
@@ -153,7 +178,8 @@ public class ParrySystem : MonoBehaviour
     // NỚI điều kiện trong OnEnemyStrike bằng grace-time
     void OnEnemyStrike(IParryTarget enemyTarget)
     {
-        if (gate && gate.IsDeadLocked) return;
+        if (GamePauseController.InputBlocked || CombatSession.Finished ||
+            IsSuccessActive || (gate && (gate.IsDeadLocked || gate.IsHitLocked))) return;
 
         float now = Time.unscaledTime;
         bool withinEarly = (now - _lastOpenAt) <= strikeEarlyGrace;  // strike vừa sớm
@@ -217,6 +243,12 @@ public class ParrySystem : MonoBehaviour
 
     void Update()
     {
+        if (CombatSession.Finished || (gate && (gate.IsHitLocked || gate.IsDeadLocked)))
+        {
+            successRequestedFrame = -1;
+            followUpUntil = double.NegativeInfinity;
+            SuccessPoseCompleted = false;
+        }
         // Interrupted poses may never reach the clip's close event.
         if (windowOpen && (CombatSession.Finished || (gate && (gate.IsHitLocked || gate.IsDeadLocked)) ||
             (playerAnimator && config && !InAnimation(config.playerParryPoseStatePath))))
@@ -228,6 +260,7 @@ public class ParrySystem : MonoBehaviour
         }
         if (GamePauseController.InputBlocked)
         {
+            followUpUntil += Time.unscaledDeltaTime;
             successUntilUnscaled += Time.unscaledDeltaTime;
             _lastOpenAt += Time.unscaledDeltaTime; _lastCloseAt += Time.unscaledDeltaTime;
             return;

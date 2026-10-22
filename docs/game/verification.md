@@ -1,3 +1,17 @@
+## Latest-main original parry demo (2026-10-22; local)
+
+Base origin/main fd3f21d; original2->3->4->5->idle integration on a separate child.
+Pinned Unity2022.3.25f1/fly-server141745: strict builder/font protection and31/31
+scoped parry/contact/slash cases PASS,0failed/skipped,2.4495452s. WebGL build PASS
+on e17c70958e4e7cf0ac08e71d65ff7c03293c623fe23bf5eea878717eed6a7382.
+32downloaded player file hashes match. Native Edge155/Playwright1.58.2/Intel UHD
+D3D11,640x360:17/17PASS,15.865s, two real parries/two words/one10HP follow-up,
+pause/resume and no automatic no-word attack;0exceptions/provider writes.
+Dense frame/direction/speed/boundary coverage is Unity, not browser. Local demo
+only; original pixels retained, source contact table matches tested generated
+asset. Detailed failed attempts, font CRLF diagnosis, evidence limits and retained
+resources: [checkpoint](../plans/parry-main-demo.md).
+
 ## Single HUD tutorial guide (2026-10-22)
 
 - Unity2022.3.25f1 / fly-server:7/7 scoped TutorialTests and DungeonEditorEntryTests

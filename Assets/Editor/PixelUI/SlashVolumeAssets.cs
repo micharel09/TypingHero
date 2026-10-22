@@ -54,7 +54,7 @@ internal static class SlashVolumeAssets
     }
     static void ValidateContacts(SlashLibrary library)
     {
-        foreach (var clipPath in new[] { "Assets/Characters/Player/attack1.anim", "Assets/Art/male_hero/individual_sheets/player_parry_success.anim" })
+        foreach (var clipPath in new[] { "Assets/Characters/Player/attack1.anim" })
         {
             var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
             var events = AnimationUtility.GetAnimationEvents(clip);

@@ -81,8 +81,6 @@ public sealed class CombatFeedbackTests
 
     [TestCase("Assets/Characters/Player/attack1.anim", 1f, false)]
     [TestCase("Assets/Characters/Player/attack1.anim", -1.5f, true)]
-    [TestCase("Assets/Art/male_hero/individual_sheets/player_parry_success.anim", 1f, true)]
-    [TestCase("Assets/Art/male_hero/individual_sheets/player_parry_success.anim", -1.5f, false)]
     public void ActualAnimationEventConfirmsDamageAndBrightSparkAtAuthoredContact(string path, float scale, bool flip)
     {
         var clip = UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(path);

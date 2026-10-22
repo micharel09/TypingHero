@@ -9,9 +9,16 @@ public sealed class ParryBypassBinder : MonoBehaviour
 
     Transform _lastTargetRoot;
     float _lastParryTimeUnscaled;
+    PlayerController controller;
+
+    void Update()
+    {
+        if (GamePauseController.InputBlocked) _lastParryTimeUnscaled += Time.unscaledDeltaTime;
+    }
 
     void OnEnable()
     {
+        controller = GetComponent<PlayerController>();
         if (parry) parry.OnParrySuccess += OnParrySuccess;
         if (attackEvents)
         {
@@ -37,8 +44,9 @@ public sealed class ParryBypassBinder : MonoBehaviour
 
     void OnOpen()
     {
+        bool followUp = controller && controller.ConsumeParryFollowUp();
         if (!_lastTargetRoot) return;
-        if (Time.unscaledTime - _lastParryTimeUnscaled > parrySuccessTTL) return;
+        if (!followUp && Time.unscaledTime - _lastParryTimeUnscaled > parrySuccessTTL) return;
         UninterruptibleBypass.ActivateFor(_lastTargetRoot, safetyHoldSeconds);
     }
 

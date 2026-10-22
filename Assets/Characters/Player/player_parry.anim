@@ -21,19 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -72709093, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.25
-      value: {fileID: -338187803, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.31666666
       value: {fileID: -1615060738, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.4
+    - time: 0.25
       value: {fileID: -1587955471, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.46666667
+    - time: 0.31666667
       value: {fileID: 768906646, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - time: 0.53333336
+    - time: 0.38333333
       value: {fileID: 1786144713, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
     attribute: m_Sprite
-    path: 
+    path:
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -54,8 +50,6 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -72709093, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
-    - {fileID: -338187803, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
     - {fileID: -1615060738, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
     - {fileID: -1587955471, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
     - {fileID: 768906646, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
@@ -65,7 +59,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.55
+    m_StopTime: 0.4
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -87,21 +81,28 @@ AnimationClip:
   m_Events:
   - time: 0
     functionName: Anim_ParryOpen
-    data: 
+    data:
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0
     functionName: Anim_ParryPoseSfx
-    data: 
+    data:
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.25
     functionName: Anim_ParryClose
-    data: 
+    data:
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.4
+    functionName: Anim_ParryEnd
+    data:
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
