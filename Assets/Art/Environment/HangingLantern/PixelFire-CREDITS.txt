@@ -1,12 +1,10 @@
-Pixel Fire Set by NYKNCK (@nyk_nck)
-Source: https://nyknck.itch.io/pixel-fire-set
-Author terms: https://nyknck.itch.io/
+Pixel fire review candidate, selected by the user from Pinterest.
+Reference: https://www.pinterest.com/pin/1135681231035570556/
+Source GIF: https://i.pinimg.com/originals/95/f2/43/95f24363e310d115b83d8993aab903e6.gif
+Source SHA256: ac07257c81d688591ebbe67e309f80f37aeee4adcd06a1ccd75407b492e26d37
+10 frames, 100 ms each, complete 1 second loop. Lossless 5x reduction to 100x100.
+Uniform crop (22,21)-(76,101), transparent padding, 54x80 cells in a 5x2 atlas.
+Original source colors/order/timing retained; game palette applied by material.
 
-Free fire set.zip, SHA256 08b78ec0fe4ee9f4d5627e57f0a7013ea7edbc3fb279cb320f9f83ee0ecd091b.
-Five authored frames, 100 ms each. The largest connected flame body from each
-frame is isolated and bottom-anchored; original colors and authored pixels retained.
-Source 4x preview pixels reduced losslessly to their native pixel grid.
-
-Author permits commercial project use, requires credit, and prohibits redistribution
-of assets. This adapted atlas is used as game content, not offered as an asset pack.
-Original archive and unmodified sprites are not included.
+LOCAL REVIEW CANDIDATE. The pin supplies no author attribution or license.
+External distribution rights have not been established. No publication claim.

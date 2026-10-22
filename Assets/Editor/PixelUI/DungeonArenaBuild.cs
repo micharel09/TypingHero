@@ -241,7 +241,7 @@ internal static class DungeonArenaBuild
     }
     static void Torch(GameObject root,string name,Vector3 position,float intensity,float range,float phase,Renderer[] renderers,float flickerAmplitude=.02f)
     {
-        var visible=renderers.Where(renderer=>renderer.name!="TorchSolidShadow").ToArray();
+        var visible=renderers.Where(renderer=>renderer.name!="TorchSolidShadow" && renderer.name!="PixelFlame").ToArray();
         Bounds flameBounds=new Bounds();bool found=false;
         foreach(var renderer in visible)
         {

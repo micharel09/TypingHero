@@ -647,11 +647,16 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
 Hanging combat lantern integrated2026-10-21 from branch
 `micharel09/combat-hanging-light`:
   Original KayKit FBX472triangles unchanged; derived frame446 plus thin glass40,
-  486frame/glass triangles plus2pixel-flame triangles. Chamber center3.37WU above floor; actual
+  486frame/glass triangles plus2central pixel-flame triangles; two rear pixel cards add4triangles. Chamber center3.37WU above floor; actual
   fire/light center3.405WU, centered horizontally and2WU in front of combat.
-  Main24/range16/+/-6percent continuous Perlin; rear16/range15/+/-2percent
-  sine unchanged. NYKNCK free five-cel pixel flame (100ms/cel), bottom anchored
-  on a private runtime quad/UV mesh; emission shares the same clock/gain.
+  Main24/range16/+/-6percent; rear16/range15/+/-2percent, all continuous Perlin.
+  Current local review replaces rejected NYKNCK/Pixie art with the approved Pinterest
+  ten-frame loop (100ms/cel), material-tinted brick red/orange/pale yellow, bottom anchored
+  on individual private runtime UV meshes; animation offsets0/.17/.33seconds.
+  Maximum projected source height front10/rear12native pixels, width80percent;
+  depth-tested flame draw follows environment blur. Current replacement passes focused Unity2/native35checks; user demo approval
+  remains pending. Integration receipts below refer to earlier art.
+  Rear bodies reuse their existing fire-free shadow mesh; emission follows each local light.
   Pause and Slayer freeze/resume phase; destruction releases only the private mesh.
   Original fire mesh/material/GUIDs stay intact. Private fire material;
   iron/wood emission0. Glass URP Lit black/alpha.12/emission(1,.38,.08),

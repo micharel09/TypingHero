@@ -90,8 +90,8 @@ public static class GameLoopBuild
         System.IO.File.Copy("Assets/Art/Environment/TinyPixelJapan/LICENSE.txt", output + "/TinyPixelJapan-License.txt", true);
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\nKayKit Dungeon Remastered 1.1 FREE by Kay Lousberg (CC0). https://kaylousberg.itch.io/kaykit-dungeon-pack\n");
         System.IO.File.Copy("Assets/Art/Environment/KayKitDungeon/LICENSE.txt", output + "/KayKit-Dungeon-CC0.txt", true);
-        System.IO.File.AppendAllText(output + "/CREDITS.txt", "\nPixel Fire Set by NYKNCK (@nyk_nck). https://nyknck.itch.io/pixel-fire-set\n");
-        System.IO.File.Copy("Assets/Art/Environment/HangingLantern/PixelFire-CREDITS.txt", output + "/NYKNCK-PixelFire-Credits.txt", true);
+        System.IO.File.AppendAllText(output + "/CREDITS.txt", "\nFlame reference selected from https://www.pinterest.com/pin/1135681231035570556/ (local review candidate; source rights unverified)\n");
+        System.IO.File.Copy("Assets/Art/Environment/HangingLantern/PixelFire-CREDITS.txt", output + "/PixelFire-Credits.txt", true);
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\nDungeonTileset II v1.7 by 0x72 / Robert (CC0). https://0x72.itch.io/dungeontileset-ii\n");
         System.IO.File.Copy("Assets/Art/Environment/PixelDungeon/LICENSE.txt", output + "/PixelDungeon-CC0.txt", true);
         System.IO.File.Copy("Assets/Art/UI/DarkAges/LICENSE.txt", output + "/DarkAges-License.txt", true);

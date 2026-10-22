@@ -9,6 +9,10 @@ public sealed class DungeonTorchLight : MonoBehaviour
     [SerializeField, Range(0, .06f)] float flickerAmplitude = .02f;
     [SerializeField] Renderer[] flameRenderers = new Renderer[0];
     [SerializeField] MeshFilter pixelFlame;
+    [SerializeField] float flameTimeOffset;
+    [SerializeField, Min(1)] int flameFrames = 5;
+    [SerializeField, Min(1)] int flameColumns = 5;
+    [SerializeField, Min(.001f)] float flameFrameSeconds = .1f;
     Light source;
     MaterialPropertyBlock flameBlock;
     float age;
@@ -46,11 +50,12 @@ public sealed class DungeonTorchLight : MonoBehaviour
             + .35f * Mathf.Sin(age * 19.92f + phase * 1.7f);
         float multiplier=1+Mathf.Clamp(flickerAmplitude,0,pixelFlame ? .06f : .02f)*wave;
         source.intensity=baseIntensity*multiplier;
-        int frame = Mathf.FloorToInt(age * 10) % 5;
+        int frame = Mathf.FloorToInt((age + flameTimeOffset) / flameFrameSeconds) % flameFrames;
         if (privateMesh && displayedFrame != frame)
         {
             for (int i = 0; i < frameUV.Length; i++)
-                frameUV[i] = originalUV[i] + Vector2.right * (frame / 5f);
+                frameUV[i] = originalUV[i] + new Vector2((frame % flameColumns) / (float)flameColumns,
+                    -(frame / flameColumns) / (float)Mathf.CeilToInt(flameFrames / (float)flameColumns));
             privateMesh.uv = frameUV;
             displayedFrame = frame;
         }
