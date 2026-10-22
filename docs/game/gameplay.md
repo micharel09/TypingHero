@@ -651,3 +651,11 @@ Hanging combat lantern integrated2026-10-21 from branch
   One20s run per player, same Intel UHD/D3D11/1280x720: p9533.225->32.575ms;
   not isolated GPU cost/equivalence/FPS evidence. No publication. Integrated verification: final QA114427/playerfdc8253ed7a62b1f,25native checks
   and6scoped offline checks PASS; see [checkpoint](../plans/combat-hanging-light.md).
+
+
+Stronger parry follow-up2026-10-22: integrated normal6d86af46 passes56/56 focused
+physical/parry cases; normal/mirror builds and repeated authoring pass. Four
+real-input VFX/hidden variants pass64 checks, with direct995frame/991transition
+review of the complete parry/counter/physical tail. Dense recipient-backward fan
+passes behind player on both sides. Final source/clip/timestamp limits and
+per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.

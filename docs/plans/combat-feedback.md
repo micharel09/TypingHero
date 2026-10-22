@@ -3596,3 +3596,75 @@ Implementation/tests/native review/integration remain pending at this checkpoint
   no numeric tolerance was relaxed. Green78ded0a1/run070949:56/56PASS,0skip,
   including exact42/336, wrong facing, snapshots, backward reach, legacy aim,
   stable near-zero drag, one bounce, pause/reuse and zero update allocations.
+
+- Integration checkpoint: task commit b422781 and merge c0334b8 incorporate
+  origin/main4c33780. Main changes the dungeon scene, actor surface bindings and
+  PBR lighting, so the preceding runtime captures are interim evidence only.
+  Direct interim review completed right120/119, hidden-right188/187 and
+  left149/148 frames/pairs; hidden-left only24/107frames was viewed before
+  recapture became necessary. No final visual acceptance is inferred from them.
+  Integrated frozen source6d86af46/run073123-webgl passes56/56 scoped cases;
+  build/repeat and replacement four-variant native review remain pending.
+  2129 frozen repository inputs match the merged checkout; the external
+  automation visibility fixture is excluded. No further product changes after
+  freezing; documentation can change independently of that fingerprint.
+
+
+Final integrated stronger-spray evidence (2026-10-22):
+
+- Integrated normal6d86af46/run073123:56/56 scoped Unity cases, build and strict
+  repeated authoring PASS. Mirror7b67dfed/run074127:build/repeat PASS. Normal
+  and mirror differ only by the external actor arrangement fixture. Artifact
+  integrated-source-audit.json verifies2129 frozen inputs against c0334b8.
+- Native Edge155/Playwright1.58.2, GTX1650Ti ANGLE D3D11,1280x720 viewport with
+  original320x180 world canvas; real mouse/keyboard input, read-only per-render
+  combat probe, provider fixtures/external writes blocked. Each final variant
+  passes16 input/combat checks:42birth particles, correct recipient-backward
+  direction, successful parry without HP loss, counter HP/core/contact match,
+  and impact audio signal within the confirmed Unity frame interval.
+- Selection was fixed before viewing: first fresh enemy windup after recorder
+  setup through accepted parry, counter/recovery and full physical expiry.
+  Raw source is each segment's audio-video.webm plus every numbered canvas PNG.
+  scope.json retains source timestamps/reason. Complete source-video intervals:
+
+| Final segment | Source video seconds | Inspected frames / total | Inspected pairs / total |
+|---|---:|---:|---:|
+| final-parry-right/parry-right |0.301925-4.338465|203/203|202/202|
+| final-hidden-right/parry-hidden-right |0.340255-4.242990|269/269|268/268|
+| final-parry-left/parry-left |0.371105-4.372825|282/282|281/281|
+| final-hidden-left/parry-hidden-left |0.150160-4.052210|241/241|240/240|
+
+- Direct full-viewport nearest-neighbor2x review covers995frames/991consecutive
+  pairs, including held frames. Each final segment has visual-review.csv with
+  one observation and next-transition assessment per frame, filled after viewing.
+  Strong gold fan moves LEFT behind the left-side player and RIGHT behind the
+  right-side player, crosses the back edge clearly, then cools orange/dark toward
+  the viewport edge. Contact stays at crossed blades; four low-energy body
+  specks retain their snapshot/perimeter profile (exact counts/size/lifetime
+  established by scoped tests). Bare-sprite variants hide particles, slash mesh,
+  spark and contact lighting; grip, feet, blade contact and recovery remain
+  continuous. Original enemy upper sword smear remains part of its sprite.
+- Bright counter core and HP180to170 coincide at right localF33/render136 and
+  leftF37/render134. Audio begins30.385ms and6.425ms before canvas submission,
+  respectively, inside those Unity frame intervals. Hidden variants likewise
+  align at localF37/render134 andF19/render121 (4.170ms/16.615ms before submission).
+  No audio was shifted. These are browser bus/render observations, not speaker
+  latency measurements. Render quantization skips some spark cels; no claim
+  that every source cel is presented on every device. Unchanged authored six-cel
+ 160ms timing and source-art review retain the preceding evidence.
+- Every segment retains a subsequent unattempted enemy thrust while waiting for
+  the full particle tail; player HP40to35 there is separate from the successful
+  parry. Segments end Hurt4(right) or Hurt3(others), not an idle-loop claim.
+  No perfect-defense, FPS, full-suite, stress or soak claim. Existing normal,
+  Slayer/lethal damage/stamina/stun/hitstop routing evidence remains applicable:
+  this follow-up changes only parry profile/aim/buffers and their direct tests.
+- Delivery final-parry-right.mp4/final-parry-left.mp4 plus final-hidden-right.mp4/
+  final-hidden-left.mp4 retain every original render hold and destination-mix
+  audio, one1ms terminal duplicate only. Full decode PASS, timestamp error below
+ 0.5ms; playback verification is recorded after completion below.
+
+- Final playback-check.json: all four delivery files reach ended with decoded
+  audio at1x and0.25x (8/8PASS). Browser presentation may drop frames at playback;
+  the independent numbered-PNG review above covers every source render frame.
+  Full decode and original-PTS checks pass separately. Implementation and scoped
+  verification complete; remote integration/cleanup receipt follows in handoff.
