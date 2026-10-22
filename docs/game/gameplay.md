@@ -254,48 +254,58 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## World lighting / parry clash
 
-### Approved Pimen flash with restored physics (approved and merged 2026-10-21)
+### Pimen flash with reusable floor physics (2026-10-21)
 
-- Default BCompact now reuses the licensed free Pimen Hit Effect01 already in the
-  project. A fixed-pivot white-gold core and five orange outer cels replace voxel
-  contacts. Flash cels/material/pivot/size/color/timing are preserved from c12c3de;
-  the uncommitted48-particle revision is discarded. Budget24/clash,192/8leases:
-  core1/main2/front10/outer1/embers10, using the same five ParticleSystems.
-  Every particle starts at the captured weapon contact. Existing Compact material
-  supplies the22 billboard sparks; real Z motion and depth tests provide depth.
-- The birth frame renders all24particles at contact without advancing debris or
-  native contact time. If the first following frame exceeds33.3ms, debris takes
-  one16.7ms step so a cold render cannot skip its visible launch. That initial
-  presentation delay is discarded; subsequent frames use full unscaled delta.
-  Long travel, velocity/path/bounce/rest and gameplay clocks remain unchanged.
-- ParryContactLibrary v4 measures existing blade pixels in the actual cel's
-  pivot/PPU/flip/transform, captures before success/Hurt, and holds existing clean
-  contact cels70ms. Six weapon crops copy original RGBA exactly. The parried enemy's
-  SlashVolume alone is suppressed200ms, with its prior state restored on expiry,
-  disable/results or another parry. Animator events, hitboxes and50ms hitstop stay.
-- Twenty falling particles reuse cc06385 launch/brake120ms/gravity9.81 paths,
-  one22%vertical/55%tangent bounce and180ms rest/fade. Their lifetime derives from
-  the complete trajectory. Two short fragments end120-180ms; no replacement
-  particles. Length/width follow projected velocity and shrink to small pixels.
-  The old physics Back group now uses Embers, reserving Back for Pimen outer cels.
-  Local xorshift/ParticleSystem seeds do not consume gameplay random. Fixed22state/
-  10particle buffers and reused Custom1 data avoid per-frame allocation. Pause/
-  reading freeze age; clear/release/disable reset state and restore legacy modules.
-  Completion waits for both contact particles and the full falling tail.
-- Core alpha holds70ms and ends200ms; the outer authored sequence ends200ms.
-  Dedicated Point light peaks5, holds70ms and smoothstep-fades to0at280ms
-  (2.5at175ms), range3m. Pulses take the strongest, never sum; legacy140ms remains.
-  DungeonForward now binds URP PostProcessData, enabling bloom-only threshold4,
-  intensity.2/scatter.3, HDR contact8. The320-wide Point world and full-res HUD stay.
-- Dedicated Cinemachine channel2 recoils at most one world-render pixel after
-  hitstop and returns100ms; no lens/zoom change. Existing parry1 clip retains gain,
-  jitter narrows to.03volume/.35semitone and player_hand ducks80ms. Other impact
-  audio/shake/trails remain. Latest contact-origin correction passes focused
-  Quick31/31, strict repeated build and native86checks, including sword/axe/Slayer
-  at640/1280, pause and Continue. Direct rendered frames supplement the25fps sound
-  clips covering the full flight at1x/.25x. Previous-source short native p95 was
-  13.455/13.540ms; this timing-only correction has no new performance claim.
-  See [verification](verification.md). Local visual review remains open.
+- Default BCompact retains the approved licensed Pimen Hit Effect01 core/outer
+  cels, material, pivot, size, tint and200ms timing from c12c3de. Budget24/clash,
+  192/8leases: core1/main2/front12/outer1/embers8. Eighteen directional particles
+  (sixteen rays and two short fragments) launch from captured sword contact
+  toward the attacking enemy. The continuous -20..50degree fan adds+/-3degree
+  jitter at14-24WU/s. Actor position owns direction, independently of facing scale;
+  movement after emission cannot redirect the existing particles.
+- Four additional1-2pixel specks scatter around contact on the player side,
+  radius.12WU/offset.08WU, speed1-2.5WU/s, horizontal/depth drag6/s,
+  max450ms/no bounce. Horizontal displacement stays below.6WU. The twelve
+  strong reverse-X rays are removed. Front carries eight near rays plus four
+  specks; Embers carries eight far rays. Back remains the Pimen outer renderer.
+- PhysicalParticleProfile is an Inspector-editable ScriptableObject; production
+  uses Assets/Art/VFX/ParryClash/ParryPhysics.asset. Groups configure emission,
+  count, speed, depth, pixel dimensions, lifetime and per-group floor physics.
+  PhysicalParticleSimulation snapshots settings and evaluates absolute-age paths
+  independently of combat/ParticleSystem rendering. ParryClashPixel renders the
+  resulting positions, projected-velocity silhouettes and hot-to-cool tint.
+  Builder fills only an absent profile reference, preserving custom profiles and
+  tuning. BCompact reserves22physical slots; other consumers choose their capacity.
+- Sixteen main rays use120ms launch drag20/s, flight horizontal/depth drag2/s,
+  gravity9.81, one optional22%vertical/55%tangent bounce and180ms rest/fade.
+  Lifetime derives from the complete floor trajectory, capped5s. Two short
+  fragments end120-180ms. Floor only in v1; no per-particle GameObject/Rigidbody.
+  Zero drag/gravity and floor-level/upward/below-floor births have focused tests.
+- Drag integration uses fourth-order Taylor polynomials when drag*time<.01 and
+  double intermediates elsewhere, retaining the exact zero-drag limit. This avoids
+  near-zero launch drag turning centimetres of gravity fall into metres; launch,
+  coast and bounce share the stable travel integral. Production profile tuning,
+  contacts, budgets and pause/pool lifecycle remain unchanged. Focused Unity53/53
+  passes; numeric checks cover drag0..20 and launch/flight/floor transitions.
+- Birth renders at age0 before advancing physics/contact time; tiny specks may
+  start inside their configured region. A first following delta>33.3ms takes one
+  16.7ms step so a cold render cannot skip launch; subsequent frames use full
+  unscaled delta. Pause/tutorial reading freeze age. Fixed22state/22particle
+  buffers, stable identities and reused Custom1 data avoid per-frame managed
+  allocation; local seeds do not consume gameplay random. Clear/release/disable
+  reset states. Completion waits for both authored contacts and the physical tail.
+- ParryContactLibrary v4 still captures transformed blade pixels before pose
+  changes and holds the approved cels70ms. Enemy SlashVolume suppression200ms,
+  hitboxes/50ms hitstop, Point light5/70ms hold/280ms fade, bloom and one-pixel
+  camera recoil remain. Audio gain/jitter/ducking, outgoing normal/Slayer/lethal
+  effects and legacy Current/A/B/C remain unchanged.
+- Focused Unity37/37 and strict repeated builders pass. Native Edge155/Intel UHD
+  D3D11 at1280x720 passes15right+15left checks with real Space, pause and second
+  parry cleanup. Left uses an editor-only mirrored-actor build fixture. All
+  55right+55left captured frames/54+54transitions directly inspected; no long
+  reverse spray, visible floor penetration or residue observed. Captures/probe
+  timing do not certify every engine frame or performance. [Evidence and authoring
+  contract](../plans/parry-physical-particles.md).
 
 ### Historical parry iterations (superseded by the candidate above)
 

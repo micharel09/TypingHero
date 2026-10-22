@@ -82,7 +82,7 @@ public sealed partial class ParryClashBurst : MonoBehaviour
         if (emittedPreset == Preset.BCompact) ConfigurePixel();
     }
 
-    internal void Emit(Vector3 point, float direction, float groundY = -10f, Preset? selection = null, int sequence = 0, ParryContactSnapshot? visual = null)
+    internal void Emit(Vector3 point, float direction, float groundY = -10f, Preset? selection = null, int sequence = 0, ParryContactSnapshot? visual = null, float playerDirection = 0)
     {
         Clear();
         debrisEmissionFrame = Time.frameCount;
@@ -94,7 +94,7 @@ public sealed partial class ParryClashBurst : MonoBehaviour
         transform.localScale = Vector3.one;
         if (ground) ground.SetPositionAndRotation(new Vector3(point.x, groundY, 0), Quaternion.identity);
         direction = direction < 0 ? -1 : 1;
-        if (emittedPreset == Preset.BCompact) EmitPixel(direction, groundY, visual);
+        if (emittedPreset == Preset.BCompact) EmitPixel(direction, groundY, visual, playerDirection);
         else
         {
             bool varied = emittedPreset != Preset.Current;
@@ -207,7 +207,8 @@ public sealed partial class ParryClashBurst : MonoBehaviour
         if (systems != null) foreach (var ps in systems) if (ps) ps.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
         debrisAge = 0; debrisCount = 0;
         debrisEmissionFrame = -1;
-        System.Array.Clear(debris, 0, debris.Length);
+        simulation.Clear();
+        System.Array.Clear(identities, 0, identities.Length);
         System.Array.Clear(debrisParticles, 0, debrisParticles.Length);
         playing = paused = false;
         Visual = default;

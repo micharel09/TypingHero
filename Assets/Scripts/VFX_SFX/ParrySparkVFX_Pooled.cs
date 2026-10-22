@@ -134,7 +134,10 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
         if (go.TryGetComponent<ParryClashBurst>(out var clash))
         {
             t.SetParent(poolRoot, true);
-            clash.Emit(t.position, ctx.targetRoot ? ctx.targetRoot.position.x - playerSparkAnchor.position.x : transform.lossyScale.x, groundY, sparkPreset, variationSequences[(int)sparkPreset]++, ctx.contact);
+            float towardAttacker = ctx.targetRoot ? ctx.targetRoot.position.x - t.position.x : transform.lossyScale.x;
+            if (towardAttacker == 0) towardAttacker = transform.lossyScale.x;
+            clash.Emit(t.position, towardAttacker, groundY, sparkPreset,
+                variationSequences[(int)sparkPreset]++, ctx.contact, transform.position.x - t.position.x);
         }
         else if (go.TryGetComponent<PixelSparkBurst>(out var burst))
         {

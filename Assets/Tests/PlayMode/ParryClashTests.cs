@@ -339,7 +339,7 @@ public sealed partial class ParryClashTests
             Assert.That(burst.EmittedPreset, Is.EqualTo(ParryClashBurst.Preset.BCompact));
             Assert.That(burst.ParticleCount, Is.EqualTo(24));
             burst.AdvanceDebris(.3f);
-            Assert.That(burst.Systems[4].particleCount, Is.EqualTo(10));
+            Assert.That(burst.Systems[4].particleCount, Is.EqualTo(8));
             host.SetActive(false);
             Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
         }
