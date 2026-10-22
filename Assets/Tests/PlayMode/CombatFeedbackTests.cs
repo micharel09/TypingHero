@@ -41,6 +41,44 @@ public sealed class CombatFeedbackTests
     }
 
 #if UNITY_EDITOR
+    [UnityTest, Category("Quick")]
+    public IEnumerator ImpactBanksLoadBeforeFirstHitWithoutPlayingOrConsumingRandom()
+    {
+        var medium = new AudioClip[3]; var heavy = new AudioClip[3];
+        for (int i = 0; i < 3; i++)
+        {
+            string root = "Assets/Audio/SFX/Clips/KenneyImpact/impactWood_";
+            medium[i] = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(root + $"medium_{i:000}.ogg");
+            heavy[i] = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(root + $"heavy_{i:000}.ogg");
+            Assert.That(medium[i].UnloadAudioData(), Is.True);
+            Assert.That(heavy[i].UnloadAudioData(), Is.True);
+            Assert.That(medium[i].loadState, Is.EqualTo(AudioDataLoadState.Unloaded));
+            Assert.That(heavy[i].loadState, Is.EqualTo(AudioDataLoadState.Unloaded));
+        }
+        var normal = Own(ScriptableObject.CreateInstance<SfxEvent>()); Set(normal, "clips", medium);
+        var slayer = Own(ScriptableObject.CreateInstance<SfxEvent>()); Set(slayer, "clips", medium);
+        var lethal = Own(ScriptableObject.CreateInstance<SfxEvent>()); Set(lethal, "clips", heavy);
+        var owner = Host("preload impact banks"); var spawner = owner.AddComponent<HitSparkSpawner>();
+        Set(spawner, "normalImpact", normal); Set(spawner, "slayerImpact", slayer); Set(spawner, "lethalImpact", lethal);
+        var random = UnityEngine.Random.state;
+        int voices = UnityEngine.Object.FindObjectsOfType<AudioSource>().Length;
+        owner.SetActive(true);
+        Assert.That(UnityEngine.Random.state, Is.EqualTo(random));
+        Assert.That(UnityEngine.Object.FindObjectsOfType<AudioSource>().Length, Is.EqualTo(voices));
+        Assert.That(normal.CanPlayNow() && slayer.CanPlayNow() && lethal.CanPlayNow(), Is.True);
+        float deadline = Time.realtimeSinceStartup + 3;
+        bool loading;
+        do
+        {
+            loading = false;
+            foreach (var clip in medium) loading |= clip.loadState == AudioDataLoadState.Loading;
+            foreach (var clip in heavy) loading |= clip.loadState == AudioDataLoadState.Loading;
+            if (loading) yield return null;
+        } while (loading && Time.realtimeSinceStartup < deadline);
+        foreach (var clip in medium) Assert.That(clip.loadState, Is.EqualTo(AudioDataLoadState.Loaded));
+        foreach (var clip in heavy) Assert.That(clip.loadState, Is.EqualTo(AudioDataLoadState.Loaded));
+    }
+
     [TestCase("Assets/Characters/Player/attack1.anim", 1f, false)]
     [TestCase("Assets/Characters/Player/attack1.anim", -1.5f, true)]
     [TestCase("Assets/Art/male_hero/individual_sheets/player_parry_success.anim", 1f, true)]

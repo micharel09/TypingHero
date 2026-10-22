@@ -55,6 +55,12 @@ public class SfxEvent : ScriptableObject
         return clips[Random.Range(0, clips.Length)];
     }
 
+    internal void PreloadClipData()
+    {
+        if (clips == null) return;
+        foreach (var clip in clips) if (clip) clip.LoadAudioData();
+    }
+
     public void ApplyToSource(AudioSource src)
     {
         // ---- luôn 2D tuyệt đối ----

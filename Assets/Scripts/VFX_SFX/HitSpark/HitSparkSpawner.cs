@@ -33,6 +33,10 @@ public class HitSparkSpawner : MonoBehaviour
 
     void Awake()
     {
+        // WebGL decodes referenced clips lazily; request every variant before the first hit.
+        if (normalImpact) normalImpact.PreloadClipData();
+        if (slayerImpact) slayerImpact.PreloadClipData();
+        if (lethalImpact) lethalImpact.PreloadClipData();
         // Independent world transform: sparks neither inherit motion nor survive their owner.
         poolRoot = new GameObject("CombatImpactPool").transform;
         UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(poolRoot.gameObject, gameObject.scene);
