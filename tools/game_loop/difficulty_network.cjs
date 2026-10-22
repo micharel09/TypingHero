@@ -58,9 +58,10 @@ module.exports=async function difficultyNetwork(api,browser){
     await clickControl(page,'Top 1000Button','button');await until(page,s=>s.leaderboardOpen && s.dataRows===1000);
     check(reads===afterRetry,'successful pending retry is cleared durably');
     await key('Escape');await until(page,s=>!s.leaderboardOpen);
-    // Replay the actual six-lesson tutorial with a non-Normal menu selection.
+    // Replay the single HUD guide with a non-Normal menu selection.
     await clickControl(page,'TutorialButton','button');
-    s=await until(page,s=>s.tutorial && !s.tutorialPracticing);
+    await start(page,false);
+    s=await until(page,s=>s.tutorial && s.timeScale===0);
     check(Math.abs(s.comboWindowSeconds-1.5)<.0001,'Very Easy does not scale the tutorial combo timer');
     await require('./tutorial.cjs')(api,page,{freshTutorial:true,viewports:[[960,540],[640,360]]});
     check(report.fixtureWrites===0,'pending and tutorial never write the Classic table');

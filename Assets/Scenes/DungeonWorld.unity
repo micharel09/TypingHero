@@ -21321,43 +21321,24 @@ Transform:
   m_Father: {fileID: 1784889892}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1784889890
-
 GameObject:
-
   m_ObjectHideFlags: 0
-
   m_CorrespondingSourceObject: {fileID: 0}
-
   m_PrefabInstance: {fileID: 0}
-
   m_PrefabAsset: {fileID: 0}
-
   serializedVersion: 6
-
   m_Component:
-
   - component: {fileID: 1784889892}
-
   - component: {fileID: 1784889894}
-
   - component: {fileID: 1784889893}
-
   - component: {fileID: 1784889895}
-
   m_Layer: 0
-
   m_Name: DungeonArena3D
-
   m_TagString: Untagged
-
   m_Icon: {fileID: 0}
-
   m_NavMeshLayer: 0
-
   m_StaticEditorFlags: 0
-
   m_IsActive: 1
-
 --- !u!4 &1784889892
 Transform:
   m_ObjectHideFlags: 0

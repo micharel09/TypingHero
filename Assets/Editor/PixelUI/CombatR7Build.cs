@@ -356,8 +356,6 @@ internal static class CombatR7Build
         enemyPlate.anchorMin = enemyPlate.anchorMax = new Vector2(1, 1);
         enemyPlate.pivot = new Vector2(1, 1);
         enemyPlate.anchoredPosition = new Vector2(-9, 0);
-        Get<GameObject>(Find<TutorialOverlay>(), "staminaHighlight").transform.localScale =
-            new Vector3(statusScale, statusScale, 1);
         foreach (string name in new[] { "PlayerHpR7", "EnemyHpR7", "RoundR7", "RoundReadabilityR7" })
             root.Find(name).gameObject.SetActive(false);
     }

@@ -49,7 +49,6 @@ internal static class BlackletterUILayout
             if (root.name == "HowToPlay") Help(design);
             if (root.name == "SettingsModal") CompactMenusBuild.Style(design);
             if (root.name == "LeaderboardModal") Collection(design);
-            if (root.name == "Tutorial") Tutorial(design);
             if (root.name == "PixelOverlay") Results(design);
             if (root.name == "PixelUI" && design.Find("HUD")) Combat(design);
         }
@@ -156,21 +155,6 @@ internal static class BlackletterUILayout
             label.overflowMode = TextOverflowModes.Ellipsis;
             label.alignment = label.name == "Score" ? TextAlignmentOptions.MidlineRight : TextAlignmentOptions.MidlineLeft;
         }
-    }
-
-    static void Tutorial(Transform design)
-    {
-        var panel = design.Find("TutorialPrompt");
-        if (!panel) return;
-        Box((RectTransform)panel, design, 48, 107, 864, 170);
-        Place(panel, "Heading", 16, 0, 832, 56);
-        Size(panel.Find("Heading").GetComponent<TMP_Text>(), HeadingSize, true);
-        Place(panel, "Instruction", 16, 58, 832, 48);
-        Size(panel.Find("Instruction").GetComponent<TMP_Text>(), BodySize, true);
-        Place(panel, "InstructionBackground", 0, 0, 864, 112);
-        // Keep the real parry cue and its highlight between the existing actions.
-        ButtonAt(panel, "PracticeButton", 16, 118, 360, 52);
-        ButtonAt(panel, "Skip TutorialButton", 552, 118, 320, 52);
     }
 
     static void Results(Transform design)

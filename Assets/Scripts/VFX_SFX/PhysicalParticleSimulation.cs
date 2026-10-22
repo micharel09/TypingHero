@@ -6,9 +6,11 @@ internal sealed class PhysicalParticleSimulation
     internal struct State
     {
         internal Vector3 origin, launch, coastOrigin, coastVelocity, impactPosition, impactVelocity;
-        internal float floor, flight, bounce, total, length, mask;
+        internal float floor, flight, bounce, total, length, mask, coolingDuration;
         internal int channel, width;
         internal bool small;
+        internal PhysicalParticleProfile.AngleSampling angleSampling;
+        internal PhysicalParticleProfile.PixelScaleMode pixelScaleMode;
         internal PhysicalParticleProfile.PhysicsSettings physics;
     }
     internal struct Sample
@@ -41,8 +43,11 @@ internal sealed class PhysicalParticleSimulation
         for (int i = 0; i < group.count && Count < states.Length; i++)
         {
             float direction = group.towardPlayer ? playerDirection : attackerDirection;
-            float angle = (Mathf.Lerp(group.angles.x, group.angles.y, (i + .5f) / group.count)
-                + Range(-group.angleJitter, group.angleJitter)) * Mathf.Deg2Rad;
+            // Keep the legacy draw sequence byte-for-byte for default profiles.
+            float angle = (group.angleSampling == PhysicalParticleProfile.AngleSampling.Independent
+                ? Range(group.angles.x, group.angles.y) + (group.angleJitter > 0 ? Range(-group.angleJitter, group.angleJitter) : 0)
+                : Mathf.Lerp(group.angles.x, group.angles.y, (i + .5f) / group.count)
+                    + Range(-group.angleJitter, group.angleJitter)) * Mathf.Deg2Rad;
             float velocity = Range(group.speed.x, group.speed.y);
             var origin = point;
             if (group.spawnRadius > 0)
@@ -80,6 +85,7 @@ internal sealed class PhysicalParticleSimulation
             var pixels = i % 2 == (seed & 1) ? group.longPixels : group.shortPixels;
             var state = new State {
                 origin = origin, floor = floor, channel = group.channel, small = group.small,
+                angleSampling = group.angleSampling, pixelScaleMode = group.pixelScaleMode,
                 launch = launch,
                 length = Mathf.Floor(Range(pixels.x, pixels.y + 1)), width = group.widthPixels,
                 total = Range(group.lifetime.x, group.lifetime.y), mask = Mathf.Floor(Range(0, 3)),
@@ -109,6 +115,8 @@ internal sealed class PhysicalParticleSimulation
                     state.total = Mathf.Min(state.total, state.flight + state.bounce + state.physics.restDuration);
                 }
             }
+            if (group.coolingDuration.x > 0 || group.coolingDuration.y > 0)
+                state.coolingDuration = Mathf.Min(state.total, Range(group.coolingDuration.x, group.coolingDuration.y));
             states[Count++] = state;
         }
     }

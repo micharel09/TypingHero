@@ -13,6 +13,9 @@ public sealed partial class ParryClashBurst
     Vector3 screenRight = Vector3.right, screenUp = Vector3.up;
     float debrisAge;
     int debrisCount;
+#if TYPINGHERO_AUTOMATION
+    internal float DebrisAge => debrisAge;
+#endif
 
     static readonly List<ParticleSystemVertexStream> contactStreams = new() {
         ParticleSystemVertexStream.Position, ParticleSystemVertexStream.Color, ParticleSystemVertexStream.UV };
@@ -119,9 +122,14 @@ public sealed partial class ParryClashBurst
                 var p = identities[i];
                 var position = sample.position; var velocity = sample.velocity;
                 float motion = Mathf.Clamp01(ProjectedSpeed(velocity) / Mathf.Max(.00001f, ProjectedSpeed(d.launch)));
-                float depth = Mathf.Clamp(1 - (position.z - d.origin.z) * .7f, .75f, 1.5f);
+                float coolingTime = d.coolingDuration > 0 ? d.coolingDuration : Mathf.Min(d.total, d.flight + d.bounce);
+                float heat = Mathf.Clamp01(debrisAge / Mathf.Max(.00001f, coolingTime));
+                float depth = d.pixelScaleMode == PhysicalParticleProfile.PixelScaleMode.VelocityOnly ? 1 :
+                    Mathf.Clamp(1 - (position.z - d.origin.z) * .7f, .75f, 1.5f);
                 int length = Mathf.Max(1, Mathf.RoundToInt(d.length * motion * depth));
                 int width = Mathf.Max(1, Mathf.RoundToInt(d.width * motion * depth));
+                if (d.coolingDuration > 0)
+                    length = Mathf.Min(length, Mathf.Max(1, Mathf.RoundToInt(Mathf.Lerp(d.length, 1, heat))));
                 if (d.small) { length = Mathf.Clamp(Mathf.RoundToInt(d.length), 1, 2); width = length; }
                 if (d.physics.collideWithFloor)
                 {
@@ -132,11 +140,13 @@ public sealed partial class ParryClashBurst
                 p.startSize3D = new Vector3(width / 16f, length / 16f, 1);
                 p.rotation = d.small || (width == 1 && length == 1) ? 0 :
                     90 - Mathf.Atan2(Vector3.Dot(velocity, screenUp), Vector3.Dot(velocity, screenRight)) * Mathf.Rad2Deg;
-                float coolingTime = Mathf.Min(d.total, d.flight + d.bounce);
-                float heat = Mathf.Clamp01(debrisAge / Mathf.Max(.00001f, coolingTime));
+                // Cooling shortens the streak, but the remaining ember must stay
+                // readable through its physical fall and bounce on the dark floor.
+                Color cooled = d.coolingDuration > 0 ? new Color(.65f, .2f, .025f) : new Color(.18f, .015f, 0);
                 Color tint = heat < .5f ? Color.Lerp(new Color(1, .8667f, .5f), new Color(.8f, .25f, .03f), heat * 2) :
-                    Color.Lerp(new Color(.8f, .25f, .03f), new Color(.18f, .015f, 0), heat * 2 - 1);
-                tint.a = d.physics.restDuration > 0 && !float.IsPositiveInfinity(d.flight) ?
+                    Color.Lerp(new Color(.8f, .25f, .03f), cooled, heat * 2 - 1);
+                tint.a = d.coolingDuration > 0 ? Mathf.Clamp01((d.total - debrisAge) / Mathf.Min(.08f, d.total)) :
+                    d.physics.restDuration > 0 && !float.IsPositiveInfinity(d.flight) ?
                     1 - Mathf.Clamp01((debrisAge - d.flight) / (d.bounce + d.physics.restDuration)) : 1 - debrisAge / d.total;
                 p.startColor = tint; p.remainingLifetime = d.total - debrisAge + .1f;
                 debrisParticles[count++] = p;

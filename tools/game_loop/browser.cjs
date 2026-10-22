@@ -80,7 +80,9 @@ async function clickControl(page, name, kind, input = page) {
   await page.waitForTimeout(150);
 }
 async function start(page, skipTutorial = true) {
-  await until(page, s => s.scene === 'MainMenu' && s.controls.some(c => c.kind === 'input'));
+  await until(page, s => s.scene === 'MainMenu');
+  if (!(await state(page)).controls.some(c => c.kind === 'input')) await clickControl(page, 'PlayButton', 'button');
+  await until(page, s => s.controls.some(c => c.kind === 'input'));
   await clickControl(page, 'NameInput', 'input');
   await page.waitForTimeout(200);
   await page.keyboard.press('Control+A');
@@ -90,60 +92,20 @@ async function start(page, skipTutorial = true) {
   await page.keyboard.type('LoopQA', { delay: 120 });
   await page.waitForTimeout(250);
   const named = await state(page);
-  check(named.controls.some(c => c.name === 'PlayButton') && named.controls.some(c => c.name === 'TutorialButton'),
-    'valid name enables both battle and tutorial actions');
+  check(named.controls.some(c => c.name === 'PlayButton'),
+    'valid name enables Start');
   await page.keyboard.press('Enter');
   const ready = await until(page, s => s.scene === 'SampleScene' || s.controls.some(c => c.name === 'ContinueButton'));
   if (ready.scene !== 'SampleScene') await clickControl(page, 'ContinueButton', 'button');
   let s = await until(page, s => s.scene === 'SampleScene' && s.hp > 0 && s.current.length > 0);
   if (s.tutorial && skipTutorial) {
-    await clickControl(page, 'Skip TutorialButton', 'button');
+    await clickControl(page, 'PracticeButton', 'button');
     s = await until(page, s => s.scene === 'SampleScene' && !s.tutorial && s.hp === 40 && s.score === 0);
   }
   check(s.playerName === 'LoopQA', 'name persisted into gameplay');
   return s;
 }
 
-async function tutorialPilot(page) {
-  const writes = report.fixtureWrites;
-  const menu = await state(page);
-  check(!menu.controls.some(c => c.name === 'PlayButton' || c.name === 'TutorialButton'),
-    'empty name disables both battle and tutorial actions');
-  await clickControl(page, 'How to PlayButton', 'button');
-  await until(page, t => t.helpOpen);
-  await clickControl(page, 'ContinueButton', 'button');
-  await until(page, t => !t.helpOpen);
-  let s = await start(page, false);
-  check(s.tutorial && s.tutorialStatus === 0 && !s.tutorialPracticing && s.timeScale === 0 && s.current === 'BLADE', 'first Play reads attack lesson even after legacy quick help');
-  await page.screenshot({ path: path.join(report.outputDirectory, 'tutorial-reading.png') });
-  await page.keyboard.press('Space', { delay: 120 });
-  await page.keyboard.type('BLADE', { delay: 100 });
-  await page.waitForTimeout(3200);
-  s = await state(page);
-  check(s.current === 'BLADE' && s.hp === 40 && s.enemyHp === 850 && s.wordTime === 3, 'reading ignores typing/Space and holds timer and combat');
-  await page.keyboard.press('Escape', { delay: 120 });
-  await until(page, t => t.paused);
-  await page.keyboard.press('Escape', { delay: 120 });
-  s = await until(page, t => !t.paused);
-  await page.waitForTimeout(400);
-  check((await state(page)).timeScale === 0, 'Resume preserves tutorial reading lock');
-  await page.keyboard.press('Enter', { delay: 120 });
-  await until(page, t => t.tutorialPracticing);
-  await page.waitForTimeout(3300);
-  s = await state(page);
-  check(s.hp === 40 && s.enemyHp === 850 && s.wordTime === 3 && !s.cue, 'first practice holds enemy attacks and word timer at full speed');
-  await page.keyboard.type('BLADE', { delay: 120 });
-  s = await until(page, t => t.tutorialPassed);
-  check(s.enemyHp < 850 && s.hp === 40 && s.timeScale === 0, 'BLADE slash really hits skeleton before lesson passes');
-  await page.screenshot({ path: path.join(report.outputDirectory, 'tutorial-hit.png') });
-  check(report.fixtureWrites === writes, 'tutorial pilot produces no score writes');
-  console.log('PASS tutorial pilot: real keyboard slash, reading/pause locks, zero score writes');
-  await clickControl(page, 'Skip TutorialButton', 'button');
-  s = await until(page, t => !t.tutorial && t.hp === 40 && t.enemyHp === 850 && t.score === 0);
-  check(s.stamina === 250 && s.inputLetters === 0 && s.matchParries === 0, 'Skip loads a clean battle');
-  await page.keyboard.press('Escape', { delay: 120 }); await until(page, t => t.paused);
-  await page.keyboard.press('m', { delay: 120 }); await until(page, t => t.scene === 'MainMenu');
-}
 async function session(browser, viewport, rows, embedded = false) {
   const context = await browser.newContext({ viewport, serviceWorkers: 'block',
     ...((process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1' || process.env.TYPINGHERO_ENDLESS_ONLY === '1' || process.env.TYPINGHERO_ENDLESS_NETWORK_ONLY === '1' || process.env.TYPINGHERO_HUD_R7_ONLY === '1' || process.env.TYPINGHERO_PARRY_CLASH_ONLY === '1') ? {recordVideo:{dir:report.outputDirectory,size:viewport}} : {}) });
@@ -589,7 +551,10 @@ async function modalFlow(page, paused) {
       browser = context.browser();
     } else browser = await chromium.launch(options);
     report.chromium = browser.version();
-    if (process.env.TYPINGHERO_HUD_FEEDBACK_ONLY === '1') {
+    if (process.env.TYPINGHERO_TUTORIAL_ONLY === '1') {
+      report.scenario='tutorial';
+      await require('./tutorial_sizes.cjs')({session,start,state,until,clickControl,check,report},browser);
+    } else if (process.env.TYPINGHERO_HUD_FEEDBACK_ONLY === '1') {
       report.scenario='score-cluster';
       await require('./combat_hud_feedback.cjs')({session,start,state,until,clickControl,check,report},browser);
     } else if (process.env.TYPINGHERO_SCORE_CLUSTER_ONLY === '1') {
@@ -673,7 +638,6 @@ async function modalFlow(page, paused) {
       const { context, page } = await session(browser, { width: 960, height: 600 }, 1000);
       try {
         if (profile === 'webgl') {
-          await tutorialPilot(page);
           const api = {state, until, clickControl, check, report,
             focus: (p, reading) => require('./tutorial_focus.cjs')({state, until, check, report}, p, reading)};
           await require('./tutorial.cjs')(api, page);
@@ -687,7 +651,7 @@ async function modalFlow(page, paused) {
       } finally { await context.close(); }
       if (profile === 'webgl') await require('./tutorial_embedding.cjs')({session, state, until, clickControl, check, report}, browser);
     }
-    if (profile === 'webgl' && process.env.TYPINGHERO_PARRY_CLASH_ONLY !== '1' && !['endless','endless-network','endless-ui','endless-typing-audio','score-cluster'].includes(report.scenario) && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
+    if (profile === 'webgl' && process.env.TYPINGHERO_PARRY_CLASH_ONLY !== '1' && !['endless','endless-network','endless-ui','endless-typing-audio','score-cluster','tutorial'].includes(report.scenario) && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
     check(!report.pageError, 'no JavaScript exceptions');
     check(report.exceptions.length === 0, 'no startup or runtime exceptions in console');
     report.status = 'passed';

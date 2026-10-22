@@ -27,50 +27,119 @@ internal static class TutorialBuild
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
 
         EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
-        if (!Object.FindObjectOfType<TutorialDirector>(true))
-        {
-            var director = new GameObject("TutorialDirector").AddComponent<TutorialDirector>();
-            var canvas = Canvas("Tutorial", 30);
-            var overlay = canvas.gameObject.AddComponent<TutorialOverlay>();
-            var bounds = DesignRoot(canvas);
-            var panel = PanelAt("TutorialPrompt", bounds, 144, 80, 672, 124);
-            var heading = Label("Heading", "", panel, 16, 6, 640, 24, 20);
-            var instruction = Label("Instruction", "", panel, 16, 30, 640, 50, 26);
-            instruction.enableWordWrapping = true;
-            var next = Button("Practice", panel, 16, 82, 240, director.Continue);
-            var skip = Button("Skip Tutorial", panel, 480, 82, 176, director.Skip);
-            next.navigation = skip.navigation = new Navigation { mode = Navigation.Mode.None };
-            var tray = Border("TrayHighlight", bounds, 140, 432, 680, 96);
-            Set(overlay, "heading", heading); Set(overlay, "instruction", instruction);
-            Set(overlay, "continueButton", next); Set(overlay, "trayHighlight", tray.gameObject);
-            Set(director, "overlay", overlay);
-        }
+        var director = Object.FindObjectOfType<TutorialDirector>(true);
+        if (!director) director = new GameObject("TutorialDirector").AddComponent<TutorialDirector>();
         var tutorial = Object.FindObjectOfType<TutorialOverlay>(true);
-        if (!tutorial.GetComponent<CanvasGroup>()) tutorial.gameObject.AddComponent<CanvasGroup>();
-        var tutorialBounds = tutorial.transform.Find("Reference960x540");
-        var prompt = tutorialBounds.Find("TutorialPrompt");
-        var background = prompt.Find("InstructionBackground") as RectTransform;
-        if (!background) background = Rect("InstructionBackground", prompt);
-        Box(background, prompt, 0, 0, 672, 70);
-        Image(background, Ink);
-        background.SetAsFirstSibling();
-        var stamina = tutorialBounds.Find("StaminaHighlight") as RectTransform;
-        if (!stamina) stamina = Border("StaminaHighlight", tutorialBounds, 668, 38, 264, 30);
-        var cue = tutorialBounds.Find("CueHighlight") as RectTransform;
-        if (!cue)
+        if (!tutorial)
         {
-            cue = Border("CueHighlight", tutorialBounds, 0, 0, 48, 52);
-            cue.anchorMin = cue.anchorMax = cue.pivot = new Vector2(.5f, .5f);
+            var canvas = Canvas("Tutorial", 30);
+            tutorial = canvas.gameObject.AddComponent<TutorialOverlay>();
+            var bounds = DesignRoot(canvas);
+            var panel = PanelAt("TutorialPrompt", bounds, 144, 150, 672, 276);
+            Button("Practice", panel, 156, 226, 360, director.Continue);
         }
-        Set(tutorial, "staminaHighlight", stamina.gameObject); Set(tutorial, "cueHighlight", cue);
-        Set(tutorial, "cue", Object.FindObjectOfType<SkeletonController>(true).transform.Find("AttackCue"));
+        if (!tutorial.GetComponent<CanvasGroup>()) tutorial.gameObject.AddComponent<CanvasGroup>();
+        Set(director, "overlay", tutorial);
+        var prompt = tutorial.transform.Find("Reference960x540/TutorialPrompt");
+        // Preserve the existing Start control and its persistent Continue listener.
+        Set(tutorial, "continueButton", prompt.Find("PracticeButton").GetComponent<Button>());
+        foreach (string name in new[] { "Heading", "Instruction", "InstructionBackground", "Skip TutorialButton" })
+            if (prompt.Find(name)) prompt.Find(name).gameObject.SetActive(false);
+        foreach (string name in new[] { "TrayHighlight", "StaminaHighlight", "CueHighlight" })
+        {
+            var node = tutorial.transform.Find("Reference960x540/" + name);
+            if (node) node.gameObject.SetActive(false);
+        }
         Skin(tutorial.gameObject);
-        // The cue sits in the gap between actions. Keep that part of the arena visible.
-        var promptImage = prompt.GetComponent<Image>();
-        promptImage.enabled = false;
-        PrefabUtility.RecordPrefabInstancePropertyModifications(promptImage);
-        foreach (var edge in tutorial.GetComponentsInChildren<Image>(true))
-            if (edge.name.StartsWith("HighlightEdge")) edge.color = Gold;
+        EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+    }
+
+    // Run after the HUD and typography migrations so these references and bounds
+    // always describe the final, real HUD, including repeated builder passes.
+    internal static void Guide()
+    {
+        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
+        var overlay = Object.FindObjectOfType<TutorialOverlay>(true);
+        var bounds = overlay.transform.Find("Reference960x540");
+        var panel = (RectTransform)bounds.Find("TutorialPrompt");
+        Box(panel, bounds, 0, 0, 960, 540);
+        var image = panel.GetComponent<Image>();
+        image.enabled = false; image.color = Color.white; image.type = UnityEngine.UI.Image.Type.Sliced;
+        image.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(DungeonUISkin.Art + "modal-normal.png");
+        image.pixelsPerUnitMultiplier = 1;
+        PrefabUtility.RecordPrefabInstancePropertyModifications(image);
+        var font = panel.GetComponentsInChildren<TMP_Text>(true)[0].font;
+        TMP_Text Text(string name, string content, float x, float y, float w, float h, float size)
+        {
+            var rect = panel.Find(name) as RectTransform;
+            var label = rect ? rect.GetComponent<TMP_Text>() : Label(name, content, panel, x, y, w, h, size);
+            Box(label.rectTransform, panel, x, y, w, h);
+            label.font = font; label.fontSharedMaterial = font.material; label.text = content;
+            label.fontSize = label.fontSizeMin = label.fontSizeMax = size;
+            label.color = Hex("f2e7cf"); label.enableKerning = true; label.fontStyle = FontStyles.Normal;
+            label.enableAutoSizing = false; label.enableWordWrapping = true;
+            label.margin = new Vector4(6, 0, 0, 0);
+            label.alignment = TextAlignmentOptions.TopLeft;
+            label.overflowMode = TextOverflowModes.Overflow;
+            return label;
+        }
+        // Separate callouts sit beside their HUD targets; the shared root is transparent.
+        void Card(string name, float x, float y, float w, float h)
+        {
+            var rect = panel.Find(name) as RectTransform;
+            if (!rect) rect = Rect(name, panel);
+            Box(rect, panel, x, y, w, h);
+            var background = Image(rect, Color.white);
+            background.sprite = image.sprite; background.type = image.type;
+            background.color = Color.white; background.raycastTarget = false;
+            rect.SetAsFirstSibling();
+        }
+        Card("ScoreCard", 328, 116, 304, 96);
+        Card("HealthCard", 24, 176, 288, 120);
+        Card("EnemyCard", 648, 176, 288, 144);
+        Card("TypingCard", 24, 310, 396, 120);
+        var score = Text("ScoreGuide", "<color=#DCC47C>Score / Combo</color>\nPoints and successful action streaks.", 340, 128, 280, 72, 24);
+        var hp = Text("HealthGuide", "<color=#DCC47C>Your HP</color>\nYour health. When it runs out, you lose.", 36, 188, 264, 96, 24);
+        var enemy = Text("EnemyGuide", "<color=#DCC47C>Enemy HP / Guard</color>\nDrain HP to win. Parry lowers guard. Break guard for Slayer.", 660, 188, 264, 120, 24);
+        var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 36, 322, 372, 96, 24);
+        Text("Shortcuts", "Space: parry on the yellow cue \u00b7 Esc: pause", 452, 326, 460, 64, 24).alignment = TextAlignmentOptions.Top;
+        var next = panel.Find("PracticeButton").GetComponent<Button>();
+        Box((RectTransform)next.transform, panel, 500, 392, 360, 36);
+        next.navigation = new Navigation { mode = Navigation.Mode.None };
+        var action = next.GetComponentInChildren<TMP_Text>(true);
+        Box(action.rectTransform, next.transform, 8, 0, 344, 36);
+        action.text = "Start Battle \u00b7 Enter"; action.fontSize = action.fontSizeMin = action.fontSizeMax = 24;
+        action.enableAutoSizing = false;
+        PrefabUtility.RecordPrefabInstancePropertyModifications(next.transform);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(action);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(action.rectTransform);
+        var hud = GameObject.Find("PixelUI/Reference960x540/HUD").transform;
+        var so = new SerializedObject(overlay);
+        var arrows = so.FindProperty("arrows"); arrows.arraySize = 5;
+        void Arrow(int index, RectTransform source, RectTransform target, Vector2 start, Vector2 end)
+        {
+            var entry = arrows.GetArrayElementAtIndex(index);
+            entry.FindPropertyRelative("source").objectReferenceValue = source;
+            entry.FindPropertyRelative("target").objectReferenceValue = target;
+            entry.FindPropertyRelative("sourceAnchor").vector2Value = start;
+            entry.FindPropertyRelative("targetAnchor").vector2Value = end;
+            foreach (string part in new[] { "shaft", "tipA", "tipB" })
+            {
+                string name = "Arrow" + index + part;
+                var rect = bounds.Find(name) as RectTransform;
+                if (!rect) rect = Rect(name, bounds);
+                rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(.5f, .5f);
+                Image(rect, Gold);
+                entry.FindPropertyRelative(part).objectReferenceValue = rect;
+            }
+        }
+        Arrow(0, hp.rectTransform, (RectTransform)hud.Find("PlayerStatus/PlayerHP"), new Vector2(.3f, 1), new Vector2(.5f, 0));
+        Arrow(1, enemy.rectTransform, (RectTransform)hud.Find("EnemyStatus/EnemyHP"), new Vector2(.3f, 1), new Vector2(.5f, 0));
+        Arrow(2, enemy.rectTransform, (RectTransform)hud.Find("EnemyStatus/EnemyStamina"), new Vector2(.85f, 1), new Vector2(1, 0));
+        Arrow(3, score.rectTransform, (RectTransform)hud.Find("ScoreCluster"), new Vector2(.5f, 1), new Vector2(.5f, 0));
+        // Exit below the typing callout, keeping the connector outside its copy.
+        Arrow(4, typing.rectTransform, Get<RectTransform>(overlay, "typingTray"), new Vector2(.1f, -.15f), new Vector2(0, 1));
+        so.ApplyModifiedPropertiesWithoutUndo();
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 
@@ -78,15 +147,4 @@ internal static class TutorialBuild
         AssetDatabase.LoadAssetAtPath<SfxEvent>(ShogunTheme.Events + "Confirm.asset"),
         AssetDatabase.LoadAssetAtPath<SfxEvent>(ShogunTheme.Events + "Back.asset"));
 
-    static RectTransform Border(string name, Transform parent, float x, float y, float w, float h)
-    {
-        var border = Rect(name, parent); Box(border, parent, x, y, w, h);
-        var edges = new[] { new Rect(0, 0, w, 2), new Rect(0, h - 2, w, 2), new Rect(0, 0, 2, h), new Rect(w - 2, 0, 2, h) };
-        for (int i = 0; i < edges.Length; i++)
-        {
-            var edge = Rect("HighlightEdge" + i, border); var box = edges[i];
-            Box(edge, border, box.x, box.y, box.width, box.height); Image(edge, Gold);
-        }
-        return border;
-    }
 }

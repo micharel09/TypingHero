@@ -1,4 +1,4 @@
-Pixel fire review candidate, selected by the user from Pinterest.
+Pixel fire selected and visually approved by the user from Pinterest.
 Reference: https://www.pinterest.com/pin/1135681231035570556/
 Source GIF: https://i.pinimg.com/originals/95/f2/43/95f24363e310d115b83d8993aab903e6.gif
 Source SHA256: ac07257c81d688591ebbe67e309f80f37aeee4adcd06a1ccd75407b492e26d37
@@ -6,5 +6,5 @@ Source SHA256: ac07257c81d688591ebbe67e309f80f37aeee4adcd06a1ccd75407b492e26d37
 Uniform crop (22,21)-(76,101), transparent padding, 54x80 cells in a 5x2 atlas.
 Original source colors/order/timing retained; game palette applied by material.
 
-LOCAL REVIEW CANDIDATE. The pin supplies no author attribution or license.
+USER-APPROVED VISUAL SOURCE. The pin supplies no author attribution or license.
 External distribution rights have not been established. No publication claim.

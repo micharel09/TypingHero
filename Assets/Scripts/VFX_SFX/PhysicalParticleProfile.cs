@@ -14,6 +14,9 @@ public sealed class PhysicalParticleProfile : ScriptableObject
         [Min(0)] public float restDuration;
     }
 
+    public enum AngleSampling { Stratified = 0, Independent = 1 }
+    public enum PixelScaleMode { LegacyDepth = 0, VelocityOnly = 1 }
+
     public enum SpawnRegion { Contact, RecipientBody }
 
     public struct RecipientSnapshot
@@ -39,6 +42,9 @@ public sealed class PhysicalParticleProfile : ScriptableObject
         public bool towardPlayer;
         [Tooltip("Aim horizontally past the captured recipient; group angles supply the upward fan.")]
         public bool pastRecipient;
+        public AngleSampling angleSampling;
+        public PixelScaleMode pixelScaleMode;
+        public Vector2 coolingDuration;
         public Vector2 angles = new Vector2(-20, 50);
         [Min(0)] public float angleJitter = 3;
         public Vector2 speed = new Vector2(14, 24), depthSpeed;

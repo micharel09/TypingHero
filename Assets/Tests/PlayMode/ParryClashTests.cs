@@ -293,7 +293,7 @@ public sealed partial class ParryClashTests
         Assert.That(releases, Is.EqualTo(1));
         burst.GetComponent<PooledVFX>().Release(); Assert.That(releases, Is.EqualTo(1));
         burst.gameObject.SetActive(true); Assert.That(burst.ParticleCount, Is.Zero);
-        burst.Emit(Vector3.one, -1, -10, ParryClashBurst.Preset.BCompact); Assert.That(burst.ParticleCount, Is.EqualTo(42));
+        burst.Emit(Vector3.one, -1, -10, ParryClashBurst.Preset.BCompact); Assert.That(burst.ParticleCount, Is.EqualTo(24));
         pool.Clear();
     }
 #if UNITY_EDITOR
@@ -337,9 +337,9 @@ public sealed partial class ParryClashTests
             Assert.That(active.Count, Is.EqualTo(1));
             var burst = active[0].GetComponent<ParryClashBurst>();
             Assert.That(burst.EmittedPreset, Is.EqualTo(ParryClashBurst.Preset.BCompact));
-            Assert.That(burst.ParticleCount, Is.EqualTo(42));
+            Assert.That(burst.ParticleCount, Is.EqualTo(24));
             burst.AdvanceDebris(.3f);
-            Assert.That(burst.Systems[4].particleCount, Is.EqualTo(16));
+            Assert.That(burst.Systems[4].particleCount, Is.InRange(6, 8));
             host.SetActive(false);
             Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
         }
@@ -371,11 +371,11 @@ public sealed partial class ParryClashTests
             parry.ParrySuccess();
             var active = (List<GameObject>)typeof(ParrySparkVFX_Pooled).GetField("active", Flags).GetValue(fx);
             var burst = active[active.Count - 1].GetComponent<ParryClashBurst>();
-            Assert.That(burst.ParticleCount, Is.EqualTo(42));
-            Assert.That(burst.Systems[1].particleCount, Is.EqualTo(4));
+            Assert.That(burst.ParticleCount, Is.EqualTo(24));
+            Assert.That(burst.Systems[1].particleCount, Is.EqualTo(2));
             int live = 0;
             foreach (var go in active) live += go.GetComponent<ParryClashBurst>().ParticleCount;
-            if (sequence >= 7) Assert.That(live, Is.EqualTo(336));
+            if (sequence >= 7) Assert.That(live, Is.EqualTo(192));
         }
         Assert.That(Object.FindObjectsOfType<ParryClashBurst>().Length, Is.EqualTo(8));
         host.SetActive(false); Assert.That(Object.FindObjectsOfType<ParryClashBurst>(), Is.Empty);
