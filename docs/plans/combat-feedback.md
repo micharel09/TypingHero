@@ -3494,11 +3494,70 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
   two combat pulse lights before camera rendering. hidden-prewarm-pilot confirms
   actual F7/hidden=True and a directly opened4x contact detail shows the two blades
   without burst/glow; outgoing slash and impact are also hidden. Its complete
- 112frame source is diagnostic until full final-source frame review. Earlier
+  112frame source is diagnostic until full final-source frame review. Earlier
   comparisons retained contact lighting, so their full-hide verdict stays failed.
 - Private RAM PackageCache/BurstCache/Win64 cache and archived players were pruned
   after verifying no active container mounted those targets. PackageCache now mounts
   the exact existing shared versions read-only; no package/version installation.
- 3GiB startup and1GiB live guards remain, including `/data` monitoring. Source
+  3GiB startup and1GiB live guards remain, including `/data` monitoring. Source
   review prose corrupted by question marks was repaired in readable English only
   after directly reopening all42 source cels/36pairs; source hashes are unchanged.
+
+
+### Final render evidence, 2026-10-22
+
+The later evidence below supersedes the pending items in the chronological notes.
+The counter event remains100ms, exactly at combo_2_3, the first player counter
+arc; combo_2_2 is preparation. Normal attack opens at its first arc at0ms.
+
+- Final warmup normal inputc5d5e327, run20261022T062419-webgl:82/82 scoped
+  PlayMode tests, build and repeated authoring PASS. Mirrored inputd7f66218,
+  run063127-webgl: build/repeat PASS. Both players and frozen inputs are retained
+  under `E:/CodexTemp/TypingHero/parry-impact-sync/` as warm-normal-build and
+  warm-mirror-build. The external visibility/mirror fixtures are absent from source.
+- Actual Edge155.0.4283.62, Playwright1.58.2, NVIDIA GTX1650Ti ANGLE D3D11,
+ 1280x720 viewport,320x180 native raster: normal-right/left11 checks each;
+  parry-right/left and hidden-right/left16 each, all PASS. Real menu/input only;
+  provider fixture interception and external blocking retained. A transient scene
+  probe during additive loading caused warm-parry-right to fail before battle;
+  r2 waits for fully active gameplay and retains the failed diagnostic unchanged.
+- Every selected final frame and consecutive pair was directly opened at nearest
+  zoom, including held poses and full tails: warm-normal-right51/50 pairs,
+  warm-parry-right-r2 69/68, warm-hidden-right65/64, warm-normal-left67/66,
+  warm-parry-left95/94, warm-hidden-left127/126:474/474 frames and468/468 pairs.
+  Each segment's scope.json records source/timestamps/reason before review;
+  visual-review.csv has one concrete observation/next-transition per frame.
+  Guard, blade crossing, preparation, first lower counter arc, recovery and return
+  to idle are continuous. Both hidden comparisons suppress burst/contact glow
+  and outgoing slash/impact, exposing the connected weapon grip and body poses.
+- HP, hit confirmation, first visible arc and white spark core coincide in the
+  same fresh render record, with identical damage/spark contact points. Startup
+  audio decode completes before the first impact. Normal-right audio signal is
+ 37.945ms before post-render canvas submission; counter-right11.115ms,
+  counter-left35.095ms, each inside its confirmed Unity frame interval. The old
+ 78.6ms shader-link stall is absent from the final normal first-hit GL trace.
+  These are browser audio-bus/render observations, not speaker/device-latency
+  measurements. All six authored spark cels retain26.667ms holds/160ms total;
+  render quantization can skip a cel, including during the recorded long left
+  counter frame. Source-cel review and unit timing are distinct from render QA.
+- warm-functional-right passes28 real-input checks: three parries, stamina break,
+  Slayer character impacts and lethal route, enemyHP0/playerHP40. Damage,
+  stamina, stun, multiplier, role routing and hitstop assertions remain covered
+  by the scoped suite. No full suite, stress, soak or deployment was performed.
+- New delivery clips parry-right.mp4/parry-left.mp4, normal-right/left.mp4 and
+  hidden-right/left.mp4 preserve every captured frame's original hold and actual
+  destination audio; one1ms terminal hold only. All frame timestamps differ by
+  less than0.5ms from source. Full decode and browser1x/0.25x playback-to-ended
+  with decoded audio PASS; playback-check.json records the results. No SFX shift
+  or replacement audio was applied. This does not claim subjective speaker QA.
+- New origin/main8a1da77 was integrated without conflict. Its non-Editor change
+  extracts the identical activation sequence into ActivateGameplay;2006 frozen
+  inputs compare unchanged except AssemblyInfo and DungeonSession. Combat source,
+  serialized setup and visual assets are identical, so native evidence is reused.
+  The focused post-merge Editor-entry/combat check is recorded below when complete.
+
+- Combined source d99c62d9, run065218-quick:82/82 combat/physical cases PASS
+  with no skip. Separate run065448-quick:3/3 DungeonEditorEntry tests PASS,
+  covering Inspector-preserving direct startup, world reuse across restart/menu,
+  and menu ownership of tutorial dispatch. No product edits after these checks.
+  Only documentation and evidence records changed afterwards.
