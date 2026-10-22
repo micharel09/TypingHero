@@ -24,12 +24,15 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
 #if TYPINGHERO_AUTOMATION
     void OnGUI() => GUI.Label(new Rect(12, 12, 300, 28), "F6 Spark: " + sparkPreset);
 #endif
+    ImpactVfxEmitter emitter;
     IObjectPool<GameObject> _pool;
     readonly List<GameObject> active = new(8);
     Transform poolRoot;
 
     void OnEnable()
     {
+        if (!emitter) emitter = GetComponent<ImpactVfxEmitter>();
+        if (!emitter) emitter = gameObject.AddComponent<ImpactVfxEmitter>();
         if (_pool == null) BuildPool();
         if (parrySystem) parrySystem.OnParrySuccess += Spawn;
     }
@@ -138,8 +141,14 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
             if (towardAttacker == 0) towardAttacker = transform.lossyScale.x;
             var body = parrySystem ? parrySystem.GetComponent<Collider2D>() : null;
             var recipient = body ? PhysicalParticleProfile.RecipientSnapshot.FromBounds(body.bounds) : default;
-            clash.Emit(t.position, towardAttacker, groundY, sparkPreset,
-                variationSequences[(int)sparkPreset]++, ctx.contact, recipient.center.x - t.position.x, recipient);
+            int sequence = variationSequences[(int)sparkPreset]++;
+            if (sparkPreset == ParryClashBurst.Preset.BCompact)
+                emitter.Play(clash.impactProfile, new ImpactVfxContext {
+                    point = t.position, direction = towardAttacker, floorY = groundY, seed = sequence,
+                    recipient = recipient, unitsPerMeter = ctx.contact.valid ? ctx.contact.unitsPerMeter : 1.25f
+                }, clash, ctx.contact);
+            else clash.Emit(t.position, towardAttacker, groundY, sparkPreset,
+                sequence, ctx.contact, recipient.center.x - t.position.x, recipient);
         }
         else if (go.TryGetComponent<PixelSparkBurst>(out var burst))
         {

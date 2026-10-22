@@ -139,8 +139,15 @@ internal static class ParryClashAssets
     }
     static bool BindPhysics(SerializedObject so)
     {
+        var effect = so.FindProperty("impactProfile");
+        bool changed = !effect.objectReferenceValue;
+        if (changed) effect.objectReferenceValue = AssetDatabase.LoadAssetAtPath<ImpactVfxProfile>(Root + "MetalClash.asset");
         var reference = so.FindProperty("physicalProfile");
-        if (reference.objectReferenceValue) return false;
+        if (reference.objectReferenceValue)
+        {
+            if (changed) so.ApplyModifiedPropertiesWithoutUndo();
+            return changed;
+        }
         var profile = AssetDatabase.LoadAssetAtPath<PhysicalParticleProfile>(Root + "ParryPhysics.asset");
         if (!profile) throw new System.InvalidOperationException("Missing parry physical particle profile");
         reference.objectReferenceValue = profile;

@@ -19,13 +19,7 @@ MonoBehaviour:
   parryDepthOffset: 0.15
   parryRangeScale: 3
   defaultPixelUnits: 1.25
-  pulses:
-  - kind: 0
-    intensity: 5
-    maximum: 5
-    hold: 0.07
-    duration: 0.28
-    decay:
+  parryDecay:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -49,6 +43,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  pulses:
   - kind: 1
     intensity: 2.4
     maximum: 3

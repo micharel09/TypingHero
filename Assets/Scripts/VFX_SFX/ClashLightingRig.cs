@@ -9,7 +9,7 @@ public sealed class ClashLightingRig : MonoBehaviour
     [SerializeField] Light combatLight;
     [SerializeField] Light parryLight;
     public CombatLightingProfile profile;
-    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; public CombatLightingProfile.Event kind; }
+    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; public CombatLightingProfile.Event kind; public float maximum, range, offset; public AnimationCurve decay; }
     PulseState[] pulses = System.Array.Empty<PulseState>();
     void Prepare()
     {
@@ -44,7 +44,7 @@ public sealed class ClashLightingRig : MonoBehaviour
         if (combatLight) combatLight.intensity = 0;
         if (parryLight) parryLight.intensity = 0;
     }
-    internal static void Pulse(Scene scene, Vector3 point, CombatLightingProfile.Event kind, ParryClashBurst owner)
+    internal static void Pulse(Scene scene, Vector3 point, CombatLightingProfile.Event kind, ImpactVfxBurst owner)
     {
         foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, kind, owner);
     }
@@ -63,17 +63,22 @@ public sealed class ClashLightingRig : MonoBehaviour
     }
     void Add(Vector3 point, CombatLightingProfile.Event kind, Component owner)
     {
-        Prepare(); var settings = profile.Get(kind);
+        Prepare();
+        var effect = owner as ImpactVfxBurst;
+        var settings = kind == CombatLightingProfile.Event.Parry ? profile.CaptureParry(effect.appearance) : profile.Get(kind);
+        if (settings.intensity <= 0) return;
+        if (settings.duration <= settings.hold) throw new System.InvalidOperationException("Light pulse duration must exceed hold");
         AddProfile(new PulseState { owner = owner, point = point, strength = settings.intensity,
-            duration = settings.duration, hold = settings.hold, kind = kind,
+            duration = settings.duration, hold = settings.hold, kind = kind, maximum = settings.maximum, decay = settings.decay,
+            range = kind == CombatLightingProfile.Event.Parry ? effect.appearance.lightRange : profile.parryRangeScale,
+            offset = kind == CombatLightingProfile.Event.Parry ? effect.appearance.lightOffset : profile.parryDepthOffset,
             compact = kind != CombatLightingProfile.Event.LegacyParry });
     }
     float Intensity(PulseState p)
     {
         if (!p.owner) return 0;
-        var settings = profile.Get(p.kind);
         float t = Mathf.Clamp01((p.age - p.hold) / (p.duration - p.hold));
-        return Mathf.Min(settings.maximum, p.strength * settings.decay.Evaluate(t));
+        return Mathf.Min(p.maximum, p.strength * p.decay.Evaluate(t));
     }
     void AddProfile(PulseState pulse)
     {
@@ -102,12 +107,12 @@ public sealed class ClashLightingRig : MonoBehaviour
     void Render()
     {
         if (!clashLight && !combatLight && !parryLight) return;
-        float strongest = 0; Vector3 point = transform.position; ParryClashBurst parry = null;
+        float strongest = 0; Vector3 point = transform.position; ImpactVfxBurst parry = null; float range = profile ? profile.parryRangeScale : 0, offset = profile ? profile.parryDepthOffset : 0;
         foreach (var pulse in pulses) if (pulse.owner)
         {
             float intensity = Intensity(pulse);
-            if (intensity > strongest) { strongest = intensity; point = pulse.point;
-                parry = pulse.compact ? pulse.owner as ParryClashBurst : null; }
+            if (intensity > strongest) { strongest = intensity; point = pulse.point; range = pulse.range; offset = pulse.offset;
+                parry = pulse.compact ? pulse.owner as ImpactVfxBurst : null; }
         }
         if (clashLight) { clashLight.transform.position = point; clashLight.intensity = strongest; }
         if (combatLight)
@@ -119,8 +124,8 @@ public sealed class ClashLightingRig : MonoBehaviour
         {
             var camera = Camera.main;
             float units = parry ? parry.PixelUnitsPerMeter : profile.defaultPixelUnits;
-            parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (profile.parryDepthOffset * units);
-            parryLight.range = profile.parryRangeScale * units; parryLight.intensity = parry ? strongest : 0;
+            parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (offset * units);
+            parryLight.range = range * units; parryLight.intensity = parry ? strongest : 0;
         }
     }
     void LateUpdate()

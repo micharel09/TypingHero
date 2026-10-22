@@ -266,6 +266,25 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## World lighting / parry clash
 
+### Reusable MetalClash preset (2026-10-22)
+
+- `ImpactVfxEmitter.Play(ImpactVfxProfile, ImpactVfxContext)` emits without a player
+  or ParrySystem. Context captures point, left/right direction, floorY, seed,
+  optional recipient ellipse and optional world scale (1.25 default).
+- `Assets/Art/VFX/ParryClash/MetalClash.asset` references the approved existing
+  ParryPhysics/prefab. Profile stores hot/warm/cooled colors, final fade and local
+  pulse intensity/hold/duration/range/offset. Defaults preserve24particles,1px,
+  rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
+- `ImpactVfxBurst`/`ImpactVfxPixel` own rendering; `ParryClashBurst` retains its
+  serialized script GUID as a compatibility subclass, including historical presets.
+  Parry's adapter calls the shared emitter with existing leases; other callers use
+  the emitter's bounded eight-lease pool. Builder fills absent references only.
+- Physical states and appearance are copied at emission; simultaneous profiles
+  and later asset edits cannot change an existing burst/pulse. One-floor/one-bounce
+  solver, fixed buffers, unscaled pause-held updates and cleanup remain. Audio,
+  damage, recoil and hitstop remain owned by gameplay.
+- Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
+
 ### Pimen flash with thin separated physical sparks (2026-10-22)
 
 - Production BCompact emits24/clash,192/eight leases: contact1/fragments2/front12/
