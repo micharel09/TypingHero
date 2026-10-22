@@ -23,7 +23,16 @@ public static class LightingAuthoringChecks
             var world = UnityEngine.Object.FindObjectOfType<DungeonWorld>(true);
             PrefabUtility.SaveAsPrefabAsset(world.view.gameObject, cameraPath);
         }
+        const string combatPath = "Assets/Data/Lighting/CombatLightingRig.prefab";
+        if (!AssetDatabase.LoadAssetAtPath<GameObject>(combatPath))
+        {
+            EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
+            var rig = UnityEngine.Object.FindObjectsOfType<ClashLightingRig>(true).Single(x => x.profile);
+            PrefabUtility.SaveAsPrefabAsset(rig.gameObject, combatPath);
+        }
         Verify(); LightingFixtureBuild.Create();
+        EditorBuildSettings.scenes = EditorBuildSettings.scenes.Where(x => x.path != LightingFixtureBuild.ScenePath)
+            .Concat(new[] { new EditorBuildSettingsScene(LightingFixtureBuild.ScenePath, true) }).ToArray();
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
     }
     public static void Verify()

@@ -5,22 +5,33 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-public sealed class LightingProfileTests
+public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
 {
     const string OtherScene = "Assets/Tests/Fixtures/Lighting/OtherWorld.unity";
-    UnityEditor.EditorBuildSettingsScene[] previousScenes;
-    [SetUp] public void Setup()
+    [System.Serializable] sealed class SceneList { public string[] paths; public bool[] enabled; }
+    const string SceneBackup = "CLACKBLADE.LightingTests.SceneList";
+    void IPrebuildSetup.Setup()
     {
-        previousScenes = UnityEditor.EditorBuildSettings.scenes;
-        UnityEditor.EditorBuildSettings.scenes = previousScenes.Where(x => x.path != OtherScene)
+        var scenes = UnityEditor.EditorBuildSettings.scenes;
+        UnityEditor.SessionState.SetString(SceneBackup, JsonUtility.ToJson(new SceneList {
+            paths = scenes.Select(x => x.path).ToArray(), enabled = scenes.Select(x => x.enabled).ToArray()
+        }));
+        UnityEditor.EditorBuildSettings.scenes = scenes.Where(x => x.path != OtherScene)
             .Concat(new[] { new UnityEditor.EditorBuildSettingsScene(OtherScene, true) }).ToArray();
+    }
+    void IPostBuildCleanup.Cleanup()
+    {
+        var json = UnityEditor.SessionState.GetString(SceneBackup, "");
+        if (string.IsNullOrEmpty(json)) return;
+        var saved = JsonUtility.FromJson<SceneList>(json);
+        UnityEditor.EditorBuildSettings.scenes = saved.paths.Select((path, i) => new UnityEditor.EditorBuildSettingsScene(path, saved.enabled[i])).ToArray();
+        UnityEditor.SessionState.EraseString(SceneBackup);
     }
     [UnityTearDown] public IEnumerator Cleanup()
     {
         var session = DungeonSession.Current;
         if (session && session.World) yield return SceneManager.UnloadSceneAsync(session.World.gameObject.scene);
         if (session) Object.Destroy(session.gameObject);
-        UnityEditor.EditorBuildSettings.scenes = previousScenes;
         GamePauseController.ResetSessionState(); LightingTestAssets.Cleanup();
         yield return null;
     }

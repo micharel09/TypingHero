@@ -46,7 +46,10 @@ public sealed class LightProfile : ScriptableObject
         light.spotAngle = spotAngle; light.innerSpotAngle = innerSpotAngle;
         light.shadows = shadows; light.shadowBias = shadowBias; light.shadowNormalBias = shadowNormalBias;
         light.shadowNearPlane = shadowNearPlane; light.shadowStrength = shadowStrength;
-        light.lightmapBakeType = bakeType; light.cullingMask = cullingMask;
+#if UNITY_EDITOR
+        light.lightmapBakeType = bakeType;
+#endif
+        light.cullingMask = cullingMask;
         var data = light.GetUniversalAdditionalLightData(); data.usePipelineSettings = false;
         ShadowTier.SetValue(data, shadowResolutionTier);
     }

@@ -21,6 +21,8 @@ public static class WorldLightingAuthoring
             throw new InvalidOperationException(world.name + ": incomplete world bindings");
         world.definition.Validate();
         var p = world.Profile;
+        if (GraphicsSettings.currentRenderPipeline != p.pipeline)
+            throw new InvalidOperationException(p.name + ": select its URP asset in Graphics/Quality Settings");
         var renderers = new SerializedObject(p.pipeline).FindProperty("m_RendererDataList");
         if (p.worldRendererIndex < 0 || p.worldRendererIndex >= renderers.arraySize ||
             renderers.GetArrayElementAtIndex(p.worldRendererIndex).objectReferenceValue != p.worldRenderer ||
@@ -83,6 +85,9 @@ public static class WorldLightingAuthoring
         foreach (var rig in UnityEngine.Object.FindObjectsOfType<ClashLightingRig>(true))
             if (rig.gameObject.scene == world.gameObject.scene || rig.GetComponentInParent<DungeonSessionBindings>(true))
             { rig.profile = world.definition.combat; EditorUtility.SetDirty(rig); }
+        foreach (var component in world.environment.GetComponentsInChildren<Component>(true))
+            if (component && PrefabUtility.IsPartOfPrefabInstance(component))
+            { PrefabUtility.RecordPrefabInstancePropertyModifications(component); EditorUtility.SetDirty(component); }
         EditorUtility.SetDirty(world.Arena); EditorUtility.SetDirty(view);
     }
 }

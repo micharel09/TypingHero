@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa7328556ce4802a6e0171945aed202, type: 3}
+  m_Name: OtherLighting
+  m_EditorClassIdentifier:
+  ambientMode: 3
+  ambient: {r: 0, g: 0, b: 0, a: 1}
+  sky: {r: 0, g: 0, b: 0, a: 1}
+  equator: {r: 0, g: 0, b: 0, a: 1}
+  ground: {r: 0, g: 0, b: 0, a: 1}
+  ambientIntensity: 0.25
+  fog: 1
+  fogMode: 1
+  fogColor: {r: 0.05, g: 0.1, b: 0.2, a: 1}
+  fogStart: 19.84022
+  fogEnd: 41.840218
+  fogDensity: 0.01
+  post: {fileID: 11400000, guid: 04f3d20438081fedd8d9ee3644647570, type: 2}
+  baking: {fileID: 4890085278179872738, guid: 9820b3eb0e52f3b46a1f69f4d28f2b46, type: 2}
+  actorMaterial: {fileID: 2100000, guid: 65b1493a01e8200f1b8f9baae9304f36, type: 2}
+  pipeline: {fileID: 11400000, guid: 681886c5eb7344803b6206f758bf0b1c, type: 2}
+  worldRenderer: {fileID: 11400000, guid: 9cb431987881b731098c9592a89412d2, type: 2}
+  presentationRenderer: {fileID: 11400000, guid: 0226b225b1c5e86748f9db630093d5eb, type: 2}
+  worldRendererIndex: 1
+  presentationRendererIndex: 2
+  resolution: {x: 256, y: 144}
+  textureFormat: 2
+  depthBits: 24
+  background: {r: 0.012, g: 0.017, b: 0.026, a: 1}
+  pitch: 5.0000005
+  normalOrtho: 5.625
+  fieldOfView: 35
+  nearClip: 0.1
+  farClip: 80
+  slayerOrtho: 3.3
+  followLimit: 0.5
+  followSmooth: 0.35
+  postProcessing: 1
+  blurRadius: 0.65
+  focusOffset: 0.75
+  focusFalloff: 3
+  rune: {fileID: 11400000, guid: 445621b93f20947ac914be8e394ae5a1, type: 2}
+  runeNoiseOrigin: {x: 11.17, y: 29.31}
+  runeNoiseSpeed: {x: 0.11, y: 0.07}
+  runeBase: 0.76
+  runeNoiseGain: 0.18
+  runeEnvelopeGain: 0.06
+  runeEnvelopePeriod: 12

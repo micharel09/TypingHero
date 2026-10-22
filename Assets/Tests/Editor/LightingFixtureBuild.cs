@@ -6,6 +6,7 @@ using UnityEngine;
 // Test-only authored world: different names/count/resolution, shared fixture styles.
 public static class LightingFixtureBuild
 {
+    static readonly System.Collections.Generic.List<Object> retained = new System.Collections.Generic.List<Object>();
     public const string ScenePath = "Assets/Tests/Fixtures/Lighting/OtherWorld.unity";
     public const string DefinitionPath = "Assets/Tests/Fixtures/Lighting/OtherWorld.asset";
     public static void Create()
@@ -13,8 +14,9 @@ public static class LightingFixtureBuild
         if (AssetDatabase.LoadAssetAtPath<WorldDefinition>(DefinitionPath)) return;
         System.IO.Directory.CreateDirectory("Assets/Tests/Fixtures/Lighting"); AssetDatabase.Refresh();
         var source = AssetDatabase.LoadAssetAtPath<WorldDefinition>("Assets/Data/Lighting/DungeonWorld.asset");
-        var definition = Object.Instantiate(source); definition.scenePath = ScenePath;
-        var profile = Object.Instantiate(source.lighting); profile.fogColor = new Color(.05f, .1f, .2f);
+        var definition = Object.Instantiate(source); definition.scene = null; definition.scenePath = ScenePath;
+        retained.Add(source); retained.Add(definition);
+        var profile = Object.Instantiate(source.lighting); retained.Add(profile); profile.fogColor = new Color(.05f, .1f, .2f);
         profile.ambientIntensity = .25f; profile.resolution = new Vector2Int(256, 144);
         AssetDatabase.CreateAsset(profile, "Assets/Tests/Fixtures/Lighting/OtherLighting.asset");
         definition.lighting = profile; AssetDatabase.CreateAsset(definition, DefinitionPath);
@@ -29,7 +31,10 @@ public static class LightingFixtureBuild
         var alternate = Object.Instantiate(fourth.GetComponentInChildren<DungeonTorchLight>(true).profile);
         alternate.intensity = 12; alternate.amplitude = .04f;
         AssetDatabase.CreateAsset(alternate, "Assets/Tests/Fixtures/Lighting/OtherLight.asset");
-        fourth.GetComponentInChildren<DungeonTorchLight>(true).profile = alternate;
+        var alternateTorch = fourth.GetComponentInChildren<DungeonTorchLight>(true);
+        alternateTorch.profile = alternate;
+        PrefabUtility.RecordPrefabInstancePropertyModifications(alternateTorch);
+        EditorUtility.SetDirty(alternateTorch);
         fourth.name = "Fourth Reused Fixture"; fourth.transform.localPosition = new Vector3(0, 4, 9);
         EditorSceneManager.SaveScene(scene, ScenePath);
         definition.scene = AssetDatabase.LoadAssetAtPath<SceneAsset>(ScenePath);
