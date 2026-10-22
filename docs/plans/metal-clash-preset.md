@@ -27,8 +27,8 @@ Builder fills missing references only.
 
 ## Verification checkpoint
 
-Final scoped Unity72/72 PASS; both-direction frame comparison PASS. Remote integration
-is pending. Task artifacts and external filtered runner:
+Final scoped Unity72/72 PASS; both-direction frame comparison PASS. Feature integration
+verified on remote main at7ef0da3069dc4b621f608de33bcf642d6c3319cd. Task artifacts and external filtered runner:
 E:/CodexTemp/TypingHero/metal-clash-preset. Shared runner cache/license are preserved.
 
 ## Calling and authoring
@@ -136,3 +136,28 @@ when those comparisons are no longer needed. Task server root cleanup and clean
 Orca worktree/local-branch cleanup follow verified remote integration; preserve
 shared source/Library/cache/license and parent checkout changes. Remote task branch
 is retained for review (no automatic deletion).
+
+## Remote integration and cleanup
+
+- Commit09a58f5 implements the preset. Newer origin/main5f371fa adds the approved
+  dungeon torch flames; merged as7ef0da3. Resolved only the systems.md conflict,
+  retaining the preset VFX row and newer torch-lighting row. All VFX/Combat/
+  ParryClash/actor/SampleScene files remain identical to the verified task commit.
+  Upstream torch assets/runtime and its prior visual evidence are preserved.
+- Integrated input1eb1cbe4f3d13a52d8477e93dab37c8a69761c4381cbad67f2805c1c812175ce,
+  run20261022T145953-quick:6/6PASS,0failed/skipped. Actual local profile pulse,
+  standalone pool/pause/expiry/reuse, parry pulse pause, weak voxel overlap,
+  default parry adapter and upstream pixel-lantern clock/source-mesh lifecycle.
+  No broader runtime/build recheck: relevant VFX inputs are unchanged; full-frame
+  captures remain attributed to their exact pre-torch-merge snapshots.
+- Task branch and main pushed; fetched remote confirms09a58f5 and7ef0da3 are
+  ancestors of origin/main, with main at7ef0da3 before this documentation closure.
+  Parent dirty main was never checked out, reset, stashed or modified.
+- Final integration XML/logs archived to tests-integration-result. Task server root
+  /data/typinghero-game-loop/task-metal-clash-preset removed after verifying its
+  final input marker and absence of any container mount in that target. Shared
+  runner was occupied by another job, which was left untouched; isolated task-root
+  cleanup required no shared-source mutation. Shared source/Library/cache/license
+  remain. Clean Orca worktree/local-branch cleanup follows final remote verification;
+  delivery.json in the retained artifact root records the outcome. Remote task
+  branch stays for review.

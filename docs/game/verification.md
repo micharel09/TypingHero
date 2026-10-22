@@ -1,5 +1,10 @@
 ## Reusable MetalClash preset (2026-10-22)
 
+- Integrated newer main5f371fa torch flames as7ef0da3, preserving all VFX/actor/
+  ParryClash/SampleScene inputs exactly. Integration145953 input1eb1cbe4 passes6/6
+  focused pulse/pause/pool/adapter/voxel-overlap/torch-lifecycle checks,0fail/skip.
+  Feature and merge commits verified ancestors of remote main7ef0da3. Existing
+  images below remain qualified by frozen inputs; no new torch-art claim.
 - Focused Unity2022.3.25f1/fly-server:72/72 PASS,0failed/skipped,
   run20261022T144224-webgl input4e59bdb41d6d22a5c113353f270154ad746213e95691f084dc9d2ff4f9a50c8f.
   ImpactVfxTests + ParryClashTests + PhysicalParticleTests only, using the existing
