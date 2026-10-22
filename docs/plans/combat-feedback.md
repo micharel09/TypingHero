@@ -3408,3 +3408,97 @@ Final reviewed sheet versions (same-index cells are the frame evidence):
   attempts and functional-run failures remain retained; no global native PASS is
   inferred from partially passed runs. Source/live-resource checkpoint:
   E:/CodexTemp/TypingHero/parry-impact-sync/active-checkpoint.json.
+
+- Source visual review: all30 normal/counter sprite cels and26 consecutive pairs,
+  all12 mirrored spark cels and10 pairs, and12 annotated contact views were opened
+  directly. Unchanged PNG/importers and authored mesh references are recorded in
+  source-review.md, clip-source-review.csv/map.json and contact-segments.json under
+  the evidence root. Source spark F6 is transparent; all six holds are verified
+  separately from render quantization (a slow native frame can skip a cel).
+- Final pre-integration probe snapshot98dfebd0: scoped Unity81/81 and strict
+  repeated builder PASS (20261022T040415-webgl); mirrored633a59bf build/repeat PASS
+  (041247). Frozen-source audit matches all task gameplay/build inputs after LF
+  normalization. Real-input functional run render-functional-r3 passes25 checks:
+  three successful parries, stamina-break Slayer route, character input and lethal
+  enemyHP0/playerHP30. Earlier unattempted strikes are retained; this is not a
+  perfect-defense claim. Lethal occurs after Slayer exit; the focused unit covers
+  lethal during Slayer exit. No gameplay mutations through the QA bridge.
+- Native capture records each unique Unity render frame with its synchronous
+  combat probe, plus explicitly sampled100ms general telemetry. Canvas readback is
+  320x180 (native world raster), nearest upscale only; raw PNGs and actual holds are
+  retained. Audio captures the real destination mix. Readback completion can lag
+  frame submission, so newer captures record both publication and pre-readback
+  timestamps. Old post-readback audio offsets are diagnostic, not acoustic proof.
+- Direct native review so far: render-normal-motion-r3/parry-right31/31 frames,
+  30/30 pairs; normal-right35/35,34/34; render-mirror-motion-r5/parry-left48/48,
+  47/47. Per-frame observations are in each visual-review.csv. Partial runs retain
+  their failed overall status. The two outgoing-VFX-hidden comparisons were also
+  reviewed completely (left160/159 pairs; right136/135), including unattempted
+  first strikes and recovery. Their parry contact remains visible; they do not
+  establish a fully hidden parry review. A forceRenderingOff fixture rebuild is
+  pending and is excluded from product source.
+- Integrated newer origin/main45310fd (shared dungeon session) into local5cc5a70;
+  automatic merges preserve both render probe fields and both game-memory changes.
+  Combat rig/pool retain gameplay-scene lifetime; world references bind on scene
+  activation. Rebuild and scoped combat checks are required on this combined
+  source. The mirror fixture now includes inactive actors beneath GameplayContent.
+  Superseded queued task helpers are canceled only when task-root/lock-wait identity
+  is verified; running Unity/license work is preserved. Remote integration remains
+  pending until the combined-source acceptance evidence is complete.
+
+- Stricter native audio observation found a cold-clip issue beyond the original
+  trigger delay: integrated-normal-audio-diagnostic records hit frame661 beginning
+  at15363.730ms, image submission15486.810ms, next frame15534.340ms, impact audio
+  starting15582.080ms. The matching0.331979s buffer begins decoding15375.580ms and
+  finishes15576.135ms, proving first-use decoding crosses the hit render interval.
+  This run remains FAILED despite same-frame HP/core. Raw frames, decode/start
+  callbacks and audio-alignment.json are retained. Audio signal timing includes
+  scheduled-start offset and first nonzero sample, not only the SFX request.
+- HitSparkSpawner now requests all serialized normal/Slayer/lethal clip variants
+  during Awake through SfxEvent.PreloadClipData; no silent playback, voice rental,
+  random selection, new timer or altered clip/importer/pitch/routing. The regression
+  unloads all six original medium/heavy clips, activates a configured spawner and
+  checks every bank reloads, without voice/RNG/limits changes. Native cold-start
+  audio validation remains pending. API basis:
+  [Unity2022.3 AudioClip.LoadAudioData](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/AudioClip.LoadAudioData.html).
+- `/data` dropped below the unchanged3GiB startup threshold while other work ran.
+  Task-only archived players cannot free the missing1.1GiB. The runner now uses
+  existing `/tmp/typinghero-parry-impact-sync` RAM storage and a private copy of
+  Library, copied read-only under the shared lock. Shared cache/license are kept;
+  the1GiB live guard also watches `/data`. RAM integrated run051620 passes81 tests
+  and build/repeat before the audio preload change. Superseded lock-wait helpers
+  were canceled by verified task-root identity; current red/green/mirror jobs wait
+  for the shared runner. No threshold reduction or other-job cancellation.
+
+- Cold-audio red060002-quick input4b8e369a executes one regression on the snapshot
+  without the three preload calls: expectedLoaded/actualUnloaded,0/1PASS. Green
+  inputf4afe32d run060109-webgl passes82/82 and build/repeat; mirroraa4e04e4
+  run060804 also builds/repeats. Local source commit8082518 adds only startup
+  clip loading plus its regression. Native first-hit medium buffers now decode
+  during scene setup, rather than on the confirmed hit.
+- Audio-only first-hit captures still expose a separate render stall: in
+  final-normal-render-diagnostic, frame222 runs10828.355..10957.130ms; audio
+  starts10851.485ms but post-render canvas is10952.415ms. WebGL calls show two
+  getProgramParameter stalls10857.665..10866.010ms and10871.115..10949.710ms.
+  This is lazy shader linking, not an animation or damage delay. Same-engine-frame
+  assertions alone do not establish presentation/audio alignment; this capture is
+  diagnostic, not final acceptance.
+- Startup now warms the normal spark's existing unlit variant and the normal
+  player slash shader's12 declared lighting combinations. No source art, tint,
+  shader code, hit timer or visible early emission changes. Collections are
+  released after warming; no per-hit preparation. Existing normal-material/actual
+  animation/lifecycle cases run again: c5d5e327 passes82/82; its native build and
+  mirror are pending. Technique basis:
+  [Unity2022.3 ShaderVariantCollection.WarmUp](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/ShaderVariantCollection.WarmUp.html).
+- Fully hidden fixture now applies particle renderer suppression and zeros the
+  two combat pulse lights before camera rendering. hidden-prewarm-pilot confirms
+  actual F7/hidden=True and a directly opened4x contact detail shows the two blades
+  without burst/glow; outgoing slash and impact are also hidden. Its complete
+ 112frame source is diagnostic until full final-source frame review. Earlier
+  comparisons retained contact lighting, so their full-hide verdict stays failed.
+- Private RAM PackageCache/BurstCache/Win64 cache and archived players were pruned
+  after verifying no active container mounted those targets. PackageCache now mounts
+  the exact existing shared versions read-only; no package/version installation.
+ 3GiB startup and1GiB live guards remain, including `/data` monitoring. Source
+  review prose corrupted by question marks was repaired in readable English only
+  after directly reopening all42 source cels/36pairs; source hashes are unchanged.

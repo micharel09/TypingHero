@@ -264,7 +264,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## World lighting / parry clash
 
-### Pimen flash with reusable floor physics (2026-10-21)
+### Pimen flash with reusable floor physics (recipient revision, 2026-10-22)
 
 - Default BCompact retains the approved licensed Pimen Hit Effect01 core/outer
   cels, material, pivot, size, tint and200ms timing from c12c3de. Budget24/clash,
@@ -423,7 +423,7 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Normal strike accents (local preview, 2026-10-21)
+### Normal strike accents and contact confirmation (2026-10-22)
 
 - `NormalStrikeEffects` listens to the existing attack-window opening: one
   three-cluster gray dust burst, even on a miss. Its stable body-foot anchor is
