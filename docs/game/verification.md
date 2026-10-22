@@ -1,3 +1,22 @@
+## Reusable MetalClash preset (2026-10-22)
+
+- Focused Unity2022.3.25f1/fly-server:72/72 PASS,0failed/skipped,
+  run20261022T144224-webgl input4e59bdb41d6d22a5c113353f270154ad746213e95691f084dc9d2ff4f9a50c8f.
+  ImpactVfxTests + ParryClashTests + PhysicalParticleTests only, using the existing
+  external filtered runner and shared exclusive lock. Standalone emitter, two
+  concurrent profiles, color/physics/fade/pulse snapshots, actual local light,
+  seed/recipient/both directions, pool cap/expiry, pause/reuse/cleanup and zero
+  managed allocations in warmed render updates pass. Initial70/70 and71/71 passes predate
+  the final builder-reference test and inactive voxel-light range assertion; final72
+  includes them. No full-suite/performance claim.
+- Solver/profile, approved physical asset and materials unchanged from916c752;
+  existing prefab/script GUIDs retained. Final normal144224 and mirror144950 WebGL/strict
+  repeated builder PASS; both32-file player hashes equal server artifacts. Native
+  Edge/Playwright1.58.2/Intel UHD D3D11 at1280x720:36/36 real-input checks PASS,
+  0exceptions/provider reads/writes. Direct162/162output frames/160/160pairs versus
+  128/128reference frames/126/126pairs retain contact, thin spray, orange floor tail
+  and expiry. Per-frame notes/timing/scope and artifacts: [preset checkpoint](../plans/metal-clash-preset.md).
+
 ## Separate tutorial HUD callouts (2026-10-22)
 
 - Replaces the single shared background with four independent existing-style cards beside HP, enemy HP/guard, score/combo and typing/timer. Copy, font, HUD, input/lifecycle/storage and provider contracts remain unchanged. Transparent shared root; existing Start control/listener retained.

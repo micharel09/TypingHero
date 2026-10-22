@@ -15,7 +15,7 @@ public sealed class ParryClashEmissionProbe : MonoBehaviour
     internal float birthDelta, birthAge, nextDelta, nextAge = -1, nextDisplacement;
     internal readonly Vector3[] birthPositions = new Vector3[24];
     readonly ParticleSystem.Particle[] particles = new ParticleSystem.Particle[40];
-    static readonly System.Reflection.FieldInfo Age = typeof(ParryClashBurst).GetField("debrisAge",
+    static readonly System.Reflection.FieldInfo Age = typeof(ImpactVfxBurst).GetField("debrisAge",
         System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
     void Update()
     {
@@ -50,7 +50,7 @@ public sealed partial class ParryClashTests
 {
     static PhysicalParticleSimulation.State ParticleState(ParryClashBurst burst, uint identity)
     {
-        var simulation = (PhysicalParticleSimulation)typeof(ParryClashBurst).GetField("simulation", Flags).GetValue(burst);
+        var simulation = (PhysicalParticleSimulation)typeof(ImpactVfxBurst).GetField("simulation", Flags).GetValue(burst);
         return simulation[(int)identity - 1];
     }
 

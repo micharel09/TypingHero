@@ -11,7 +11,7 @@ public sealed class ClashLightingRig : MonoBehaviour
     [SerializeField] float duration = .14f;
     [SerializeField] float maximumIntensity = 3f;
     // A fixed array bounds overlap without allocating in the combat loop.
-    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; }
+    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; public float range, offset; }
     readonly PulseState[] pulses = new PulseState[8];
     static readonly System.Collections.Generic.List<ClashLightingRig> rigs = new();
     Light2D key, fill, ambient;
@@ -33,7 +33,7 @@ public sealed class ClashLightingRig : MonoBehaviour
         if (combatLight) combatLight.intensity = 0;
         if (parryLight) parryLight.intensity = 0;
     }
-    internal static void Pulse(Scene scene, Vector3 point, float strength, ParryClashBurst owner)
+    internal static void Pulse(Scene scene, Vector3 point, float strength, ImpactVfxBurst owner)
     {
         foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, strength, owner);
     }
@@ -51,16 +51,17 @@ public sealed class ClashLightingRig : MonoBehaviour
             rig.Render();
         }
     }
-    void Add(Vector3 point, float strength, ParryClashBurst owner)
+    void Add(Vector3 point, float strength, ImpactVfxBurst owner)
     {
-        AddProfile(new PulseState { owner = owner, point = point, strength = strength, compact = owner.EmittedPreset == ParryClashBurst.Preset.BCompact,
-            duration = owner.EmittedPreset == ParryClashBurst.Preset.BCompact ? .28f : duration,
-            hold = owner.EmittedPreset == ParryClashBurst.Preset.BCompact ? .07f : 0 });
+        AddProfile(new PulseState { owner = owner, point = point, strength = strength, compact = owner.EmittedPreset == ImpactVfxBurst.Preset.BCompact,
+            duration = owner.EmittedPreset == ImpactVfxBurst.Preset.BCompact ? owner.appearance.lightDuration : duration,
+            range = owner.appearance.lightRange, offset = owner.appearance.lightOffset,
+            hold = owner.EmittedPreset == ImpactVfxBurst.Preset.BCompact ? owner.appearance.lightHold : 0 });
     }
     float Intensity(PulseState p)
     {
         float t = Mathf.Clamp01((p.age - p.hold) / (p.duration - p.hold));
-        return Mathf.Min(p.compact ? 5f : maximumIntensity, p.strength * (p.compact ? 1 - t * t * (3 - 2 * t) : Mathf.Pow(1 - t, 2)));
+        return Mathf.Min(p.compact ? p.strength : maximumIntensity, p.strength * (p.compact ? 1 - t * t * (3 - 2 * t) : Mathf.Pow(1 - t, 2)));
     }
     void AddProfile(PulseState pulse)
     {
@@ -89,12 +90,12 @@ public sealed class ClashLightingRig : MonoBehaviour
     void Render()
     {
         if (!clashLight && !combatLight && !parryLight) return;
-        float strongest = 0; Vector3 point = transform.position; ParryClashBurst parry = null;
+        float strongest = 0; Vector3 point = transform.position; ImpactVfxBurst parry = null; float range = 3, offset = .15f;
         foreach (var pulse in pulses) if (pulse.owner)
         {
             float intensity = Intensity(pulse);
-            if (intensity > strongest) { strongest = intensity; point = pulse.point;
-                parry = pulse.compact ? pulse.owner as ParryClashBurst : null; }
+            if (intensity > strongest) { strongest = intensity; point = pulse.point; range = pulse.owner is ImpactVfxBurst ? pulse.range : 3; offset = pulse.owner is ImpactVfxBurst ? pulse.offset : .15f;
+                parry = pulse.compact ? pulse.owner as ImpactVfxBurst : null; }
         }
         if (clashLight) { clashLight.transform.position = point; clashLight.intensity = strongest; }
         if (combatLight)
@@ -106,8 +107,8 @@ public sealed class ClashLightingRig : MonoBehaviour
         {
             var camera = Camera.main;
             float units = parry ? parry.PixelUnitsPerMeter : 1.25f;
-            parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (.15f * units);
-            parryLight.range = 3 * units; parryLight.intensity = parry ? strongest : 0;
+            parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (offset * units);
+            parryLight.range = range * units; parryLight.intensity = parry ? strongest : 0;
         }
     }
     void LateUpdate()
