@@ -126,3 +126,30 @@ review with its exact path/process and cleanup condition in final receipt.
   cache and compact-tutorial. Final preview and Git/cleanup receipt follows below.
 
 Native driver module SHA256: `0bba8ba9265e897a82715113184069d96a01edd703e17099476e80f9e5d5aeab`.
+
+## Integration and handoff receipt
+
+- Task implementation commit0757ed77706e12cacce54b21666b08e97a8e091a pushed to
+  origin/micharel09/shared-dungeon, then fast-forwarded to origin/main from1e921327.
+  Fresh fetch verified task commit ancestry on remote main. Workflow is manual-only;
+  no itch deployment was invoked. Dirty local main and compact-tutorial WIP untouched.
+- Final QA preview opened and actual ready image inspected at1280x720:
+  http://127.0.0.1:8251, hidden Python helper PID8568, isolated Edge profile under
+  E:/CodexTemp/TypingHero/shared-dungeon/preview. Fixture/external blocking retained.
+  Close the preview browser page to end the helper; remove this task artifact
+  directory after review/replacement. Keep the pre-existing8246preview untouched.
+- All runner receipts archived locally in runner-receipts.tar.gz (814entries),
+  early shared-runner failures in failed-shared-runner-receipts.tar.gz, immutable
+  final source in snapshots/webgl-1dc641a5*.tar.gz. Exact129-check driver was archived
+  and its SHA256 matched the report. Final player and captures remain for review.
+- Removed archived /tmp/typinghero-shared-dungeon scratch and its shared-resource
+  symlinks, plus only the2verified task-owned failed results025542/025806. Shared
+  Unity Library/cache/license/toolchain and other jobs preserved. Completed native
+  profiles/downloads/traces removed; preview profile remains active intentionally.
+  Owned stale diagnostic SSH process19192closed. No build job/lock remains owned.
+- Source/docs/JSON/config whitespace and affected links pass. Unity-generated scene
+  YAML and World.meta retain canonical blank-value trailing spaces; those assets
+  are verified by strict repeated serialization and final byte identity.
+- After this documentation receipt is pushed and verified, remove only the clean
+  task worktree/local branch. Keep the remote task branch and final preview/evidence
+  for review; no automatic deletion of pre-existing resources or remote branches.
