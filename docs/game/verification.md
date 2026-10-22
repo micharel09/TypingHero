@@ -2,6 +2,19 @@
 
 ## Shared3D dungeon lifecycle ? 2026-10-22
 
+Editor direct-play follow-up: Quick062143 on Unity2022.3.25f1/fly-server passes
+2/2 actual EnterPlayMode tests and25/25 filtered PlayMode tests, zero failed/skipped,
+on input `c6f931fa01cfc9228a58914d327cc2e205eae229f84579d409226db9f24eb931`.
+Actual Play twice with domain reload disabled retains unsaved Inspector edits,
+resets transient run/tutorial state and exercises Fight/ProcessInput/pause/Restart/
+menu callbacks. Mixed MainMenu+SampleScene startup stays actor-free; direct entry
+reuses an open world and retains camera/RT across reload and menu Start. Prior22
+checks rerun with three new direct-entry cases. Nine source/scene/editor-setting
+comparisons match the immutable input after testing. Headless controller/input-path
+evidence; no new browser/physical-keyboard or visual/performance claim. Scenes,
+builders, packages and project settings are unchanged. Receipts/diagnostics and
+retained task artifacts: [checkpoint](../plans/shared-dungeon-session.md).
+
 Unity2022.3.25f1/fly-server Quick041809:22/22PASS,0failed/skipped: real Slayer teardown
 across3cycles, binding/nativeCanvas, actor roots, duplicate transitions, rendering,
 identity15and3directly affected HUD/damage/Continue consumers. QA042021 strict

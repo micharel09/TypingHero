@@ -145,6 +145,11 @@ see verification for profile status. These are current behaviors, not new requir
   Teardown clears both directions of scene bindings, restores Slayer environment,
   camera/pause/reading/time scale and reloads the menu's official saved identity.
   See [world lifecycle checkpoint](../plans/shared-dungeon-session.md).
+  In the Editor, Play from active SampleScene adopts that live scene into a fresh
+  Endless Fight screen, retaining unsaved Inspector edits. The initial decision
+  waits one frame so a simultaneously opened MainMenu keeps ownership. Direct Play
+  resets transient tutorial/run/pause state without saving tutorial progress and
+  supports the configured disabled domain reload. Player builds keep the menu entry.
   MainMenuUI initially selects Play; Play/Tutorial open the shared preparation
   card and focus the name input. Names use shared 3-10 limits, with raw overlimit
   UI rejection before normalization and TMP characterLimit=10 for editing.
