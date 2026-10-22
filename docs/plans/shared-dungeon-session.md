@@ -1,5 +1,50 @@
 # Shared dungeon session
 
+## Editor direct-play follow-up - verified 2026-10-22
+
+- Approved behavior: opening SampleScene and entering Play starts a fresh Endless
+  Fight screen directly, retaining the live scene and unsaved Inspector edits.
+  MainMenu keeps ownership when both scenes are open. No player/build bootstrap,
+  serialized scene, builder, identity/provider or gameplay-rule change.
+- Independent Orca worktree editor-game-entry, branch micharel09/editor-game-entry,
+  based on origin/main45310fd. Existing dirty checkout, compact-tutorial and the
+  shared-dungeon browser demo are preserved.
+- Editor-only initial-scene hook adopts the existing gate through DungeonSession;
+  direct start and normal transitions share bind/input-consumption/activation.
+  SubsystemRegistration resets the session singleton with domain reload disabled.
+  Direct start resets transient tutorial/run/pause state, without saving tutorial
+  progress; identity keeps its existing HUD initialization (including the existing
+  Guest fallback for a profile without a name).
+- Added three focused PlayMode cases and two Editor integration cases. The latter
+  actually enter/exit Play twice with domain reload disabled and retain an unsaved
+  max-health Inspector edit, plus verify menu ownership with both scenes open.
+- Red Quick055048 on baseline45310fd: direct Play has no session (one failure),
+  mixed-scene menu case passes. The fixture's no-open-scene teardown was corrected.
+  Quick055445 then exposed a cached baseline DLL: the override reused the edited
+  file timestamp. Adapter baseline timestamps are distinct and runtime reimported;
+  no API or compiler guard was changed to hide the missing method.
+- Quick055652: actual two-Play/Fight/typing/Restart/menu case passes; mixed startup
+  exposes AfterSceneLoad before MainMenu registration. Editor decision now waits
+  one frame and rechecks menu/transition ownership before adopting the gate.
+- Final Quick062143, immutable input
+  `c6f931fa01cfc9228a58914d327cc2e205eae229f84579d409226db9f24eb931`:
+  Editor2/2PASS (12.199s), PlayMode25/25PASS (13.094s), zero failed/skipped.
+  The actual EnterPlayMode cases prove both repeated direct Play and menu ownership;
+  controller callbacks/ProcessInput drive Fight, typing, pause/Restart and menu return.
+  This is headless Editor evidence, not a new physical-keyboard/browser review.
+- PlayMode covers three direct-entry cases plus the existing22 lifecycle/render/
+  identity/HUD/damage/Continue checks. Same world/camera/RT survive direct start,
+  Restart, Menu and normal Start; startup does not save tutorial progress. Nine
+  source/scene/editor-settings checks match the immutable input after both groups.
+- Task adapter/inputs/receipts: E:/CodexTemp/TypingHero/editor-game-entry. Shared
+  runner lock/cache/license/toolchain reused with all capacity gates intact. Busy
+  /tmp and root storage required an isolated /dev/shm task root; the same lock covers
+  both filtered groups. Pending obsolete helpers were canceled only while waiting.
+  Keep local evidence until review/replacement; archive receipts before removing
+  only task-owned remote scratch and the clean integrated Orca worktree/branch.
+- No scene, builder, package or project-setting changes; no WebGL rebuild, full
+  gameplay suite, stress/soak or deployment. Existing browser demo remains unchanged.
+
 ## Scope and acceptance
 
 Source of intent: approved menu/gameplay shared 3D dungeon plan. Preserve room,
