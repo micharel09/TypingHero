@@ -308,7 +308,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
   frames/863pairs were inspected, but user feedback rejects the invisible physical
   tail. Final orange ember follow-up passes focused Unity90/90, native100checks,
   and direct review of1159frames/1155pairs across both directions with VFX visible/hidden.
-  User approved the audible demo on2026-10-22; independent subjective listening by
+  Integrated latest-main follow-up passes94/94 focused tests plus WebGL/strict
+  repeated builder. User approved the audible demo on2026-10-22; independent subjective listening by
   the agent remains unavailable. See [combat-feedback checkpoint](../plans/combat-feedback.md). Historical
   42-particle receipts stay version-specific; they do not qualify this thin24 output.
 

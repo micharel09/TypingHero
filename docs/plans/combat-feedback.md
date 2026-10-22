@@ -3812,3 +3812,25 @@ previous dark-red-at300ms palette criterion. Retain prior receipts by version.
   whitespace only, SampleScene changes are guide/UI, and no parry/shader/camera/
   contact/audio implementation changed. Preserve guide probe fields alongside the
   reusable render-aligned particle observations. Integration checks follow below.
+
+- Integration input80806a6ddb7d37a5345bc4c1fe837b1b45797f15708010686445d3a18bb7d68b,
+  run20261022T130843:94/94 focused Unity tests PASS, including the four current
+  TutorialTests because the shared probe/builder merge must retain guide behavior.
+  No full suite, stress, soak or extra viewport. All seven VFX/profile/test sources
+  match the approved frozen QA input exactly; only GameLoopProbe gains main's guide
+  observation fields alongside this task's particle buffer. WebGL QA build and
+  strict repeated builder PASS on the same integrated input. Existing four approved
+  demos remain applicable: VFX/profile/pose/contact/shader inputs are unchanged.
+- PhysicalTail-BeforeAfter-PlayerRight.png and tail-comparison-right.json now
+  complete the two-direction comparison set; all twelve panels opened directly.
+  Both comparison grids preserve actual source frame/time labels and independent
+  RNG/timestep limits. Local evidence/demos stay at the path above for review.
+
+- Integration code commit5eb5f9a, main reconciliation8ffcd58. Documentation conflict
+  resolved by retaining the new single HUD guide description and this task's final
+  VFX description; no actor art, combat event, camera, shader or audio edits added.
+  Final scoped receipts are retained in integration-build; remote fast-forward and
+  task worktree cleanup are verified in the delivery receipt/handoff after push.
+  Evidence and four audible demos remain at E:/CodexTemp/TypingHero/parry-thin-sparks
+  for review/reproduction; server-only task copies and clean local branch/worktree
+  can be removed once integration is confirmed. No itch.io publication.
