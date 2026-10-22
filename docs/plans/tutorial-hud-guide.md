@@ -46,3 +46,7 @@ Focused TutorialTests / DungeonEditorEntryTests; strict repeated serialization; 
 ## Resource cleanup
 
 After written evidence, all eight owned server result directories and the task-only local temp tree (players, captures, diagnostic/final Edge profiles, manifests and helpers) were removed. Native QA processes exited and port8267 has no listener. Shared source, import/cache/toolchain/builds and other tasks remain. After verified remote integration, remove the clean task worktree/local branch; retain the remote task branch under repository policy for comparison until no longer needed.
+
+## Remote integration receipt
+
+Source commit680ba53ab5c9fcb49d84a046c76c391534dc2a0d was pushed to the task branch and fast-forwarded to origin/main fromf82c012. A fresh fetch confirmed HEAD equals origin/main and task ancestry is preserved. All scoped checks and artifact cleanup above are complete. This documentation receipt is pushed through the same fast-forward workflow; the clean task worktree/local branch are removed afterward. Remote branch `micharel09/tutorial-hud-guide` is retained under repository policy for comparison and may be deleted when no longer needed. No itch upload or workflow dispatch occurred.
