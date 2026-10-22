@@ -3668,3 +3668,147 @@ Final integrated stronger-spray evidence (2026-10-22):
   the independent numbered-PNG review above covers every source render frame.
   Full decode and original-PTS checks pass separately. Implementation and scoped
   verification complete; remote integration/cleanup receipt follows in handoff.
+
+
+## Thin separated parry sparks ? 2026-10-22 (active)
+
+User rejects the dense white 42-particle output. Prior technical receipts apply only
+to their recorded sources and do not establish visual acceptance. New target:
+24 particles (22 physical + 2 unchanged Pimen contacts), four lead rays, twelve
+secondary rays, two fragments, four body specks; 1px ray width, independent angles,
+independent cooling capped at lifetime, no depth enlargement, tail <=750ms.
+Keep counter contact at100ms and all combat/audio contracts.
+
+Worktree: C:/Users/ADMIN/orca/workspaces/TypingHero/parry-thin-sparks,
+branch micharel09/parry-thin-sparks, base origin/main db1936d. Parent dirty files preserved.
+Acceptance includes red/green focused Unity, four render-aligned keyboard QA clips
+(two directions, visible/hidden), audio and every-frame/transition review.
+Reference receipts from the supplied plan: Sekiro0?5s120/119 and Pimen0?480ms6/5;
+not re-inspected in this run yet. Output/reference review remain separate.
+
+- Red Unity20261022T084504:0/3 pass; actual42vs24 particles,3vs1px,
+  red channel161vs<60 at300ms; actual assertions, no compile failure. XML and frozen
+  source106c9de3 retained at E:/CodexTemp/TypingHero/parry-thin-sparks.
+- First green89/89 at084716, input414d8a17. Final QA source3d60436f also89/89;
+  normal build/repeated builder still running. Specks retain gravity/floor collision
+  without bounce; rays expire by750ms. No shader or bloom edits.
+- Baseline42 clips reused from parry-backward-force/final-parry-{right,left}.mp4:
+  git4e62ea2..db1936d changes only pause modal/resume and its tests, no rendering/
+  combat/asset inputs. Unpaused comparison audit/hashes in baseline-audit.json.
+- References downloaded directly after adding HTTP referer. Sekiro full0-5s,
+ 120/120 frames119/119 pairs directly re-inspected; MP4 SHA2564803c88965a1a231a4a85d0e2e995d79d756da1f10517b9271a8583d25560905.
+  Pimen0-480ms6/6 frames5/5 pairs; GIF SHA25631bbb5aef3041379a1f214bb11e6d27f7efe65e8611c42a56b9ba805c92d497f.
+  Source URLs are the supplied Sekiro Lone Shadow Deflect and Pimen Hit Spark pages.
+  Numbered images/timing/visual-review.csv in reference/{sekiro,pimen}; warm detached
+  streaks and sparse cooled tail are the comparison, not Sekiro's broad shockwave.
+
+  Reference links: [Sekiro Lone Shadow Deflect](https://makeagif.com/gif/sekiro-lone-shadow-deflect-Ziub4z),
+  [Pimen Hit Spark](https://pimen.itch.io/battle-vfx-hit-spark).
+
+### Thin24 qualified evidence and remaining acceptance (2026-10-22)
+
+- Final normal QA20261022T084911, input3d60436fdc0d58db4ed9204a6b105cde8a3892f00a0da9e531c96480e4b67c61:
+  focused Unity89/89 actual tests PASS, build and strict repeated builder PASS.
+  Mirror QA090242, inpute27d130cd54431e3c7dd36b1c1a6d3fb4fa4065eff08c5519f8c528b00a5e83d:
+  build/repeat PASS; only disposable editor actor-mirror fixture differs. Runtime,
+  profile, probe and test files still exactly match the frozen qualified normal input.
+- Native Edge155/Playwright1.58.2,1280x720/world320x180, actual Space input:
+  visible player-left25checks/280frames279pairs; hidden player-left25/182/181;
+  visible player-right25/188/187; hidden player-right25/217/216. Two consecutive
+  successful parries and counters per segment, idle before windup through complete
+  tail. All100checks pass, no JS/managed exceptions/provider writes. Fixture and
+  external-request blocking retained; no gameplay commands added to bridge.
+- Direct numbered-PNG nearest-neighbor2x fullviewport inspection:867/867 frames,
+ 863/863 consecutive pairs, all holds retained. No white rear column, detached
+  grip/weapon or persistent tail observed. Warm short rays separate beyond rear
+  outline; core remains at blades; counters retain authored100ms slash/hit/core.
+  Per-frame observations and transitions: all-frame-review.csv plus each segment's
+  visual-review.csv under E:/CodexTemp/TypingHero/parry-thin-sparks.
+- Render-aligned probe has consecutive Unity frame IDs for every source frame,
+  maximum24particles, ray width1px. Living main rays at>=300ms are1px long,
+  red<=46/255; last live effect ages0.7204..0.7293s. At most750ms plus render
+  quantum to release remains covered by the solver/lifecycle tests.
+- Eight confirmed-hit impact signal onsets fall inside their corresponding render
+  intervals; HP/core/contact align in the same frames. Four new MP4s retain actual
+  destination audio, VFR and every captured source frame plus one1ms terminal hold.
+  Full decode and PTS error<=0.5ms PASS. Browser playback to end with decoded audio
+  at1x/.25x passes8/8. These are playback/decode receipts, not subjective listening.
+- Review entry: E:/CodexTemp/TypingHero/parry-thin-sparks/review.html; videos
+  Parry-Thin24-PlayerLeft/PlayerRight and corresponding -Hidden.mp4. BeforeAfter-
+  PlayerLeft/PlayerRight.png label actual contact-relative source timestamps; runs
+  have independent RNG/time steps. Hashes, source inputs, audio alignment, all PNGs,
+  CSVs, normal/mirror players and reproduction helpers retained for review.
+- Remaining acceptance: this session cannot accept audio input (tool explicitly
+  returned unsupported audio input), so subjective listening/playback review is
+  unverified. User asked whether to review the clips or accept technical evidence
+  in its place. Do not equate decode/onset or frame inspection with listening.
+  Main integration waits for that decision; no itch.io publication is in scope.
+
+
+### User feedback: physical tail unreadable (active follow-up)
+
+User accepts the separated launch but reports the physical particles disappeared.
+The thin24 candidate above is NOT visually accepted: its 1px cooled RGB46/4/0
+plus early alpha fade hides the falling/bouncing tail. Render-aligned telemetry
+confirms actual floor contact/bounce around400-700ms. Preserve24/192, thin launch,
+1px cooled shape and750ms lifetime; restore readable orange embers through the
+physical fall/bounce and fade in the final80ms. This feedback supersedes the
+previous dark-red-at300ms palette criterion. Retain prior receipts by version.
+
+- Follow-up red093000/input71dc62b9:1actual test failed on effective red
+ 9.741/255vs>=80 at>=300ms. No compile failure; tail-red/tests.xml and frozen
+ ram-tests-tail-red-input.tar.gz retain the evidence. Correction palette166/51/6
+ with opacity held until final80ms; no physics, count, size or lifetime changes.
+- Follow-up normal input730dd62d:90/90focused Unity PASS, including new
+  visibility/fall/bounce regression and warmed zero-allocation checks; build and
+  final rendered output review remain in progress.
+- Normal follow-up093055/input730dd62d and mirror094016/inputde633331:
+  QA build and strict repeated builder PASS; eight runtime/profile/probe/test files
+  match both frozen inputs byte-for-byte after CRLF normalization. Left visible
+ 306/305 and hidden326/325 directly inspected in full at nearest2x, including
+  holds; both25native checks PASS. Render audit records10readable floor reversals
+  across the two parries,1px cooled rays and last live age0.72915s.
+
+
+### Final physical-tail approval and integration (2026-10-22)
+
+- User explicitly approved the final demo: "oke rat tot, chot nay lun" and asked
+  whether the particles have depth. Keep this version unchanged. These are pixel
+  billboards with real XYZ trajectories: near groups Z=-6..-4WU/s, far groups
+  Z=2..4WU/s, no artificial Z size amplification. They are 2.5D, not mesh shards.
+- Final normal QA093055 input730dd62d50bcfb82b3c04f5a1df8de3208309b1e66216cb47f8564ac8eeff8e7:
+  focused Unity90/90, build and strict repeated builder PASS. Mirror QA094016
+  inputde6333314743f2d51f4a967d69b5433e0df82b4f08170f82f41b78aa48333a25:
+  build/repeat PASS. Runtime/profile/probe/tests still match both immutable inputs.
+- Four native keyboard scenarios pass25checks each: player-left visible306frames/
+  305pairs, hidden326/325; player-right visible266/265, hidden261/260. All1159
+  frames and1155 consecutive pairs directly inspected at full viewport nearest2x,
+  preserving holds. Final per-frame observations and transitions are in
+  E:/CodexTemp/TypingHero/parry-thin-sparks/all-frame-review-tail.csv and each
+  tail-{visible,hidden}-player-{left,right} segment's visual-review.csv/scope.json.
+- Warm rays stay separated outside contact from80ms, keep the silhouette/grip
+  readable and travel behind the player. Sparse orange1px embers remain visible
+  during fall and low floor bounce, then fade; no white column or re-stretched tail.
+  Render-aligned audit records10readable floor reversals per two-parry segment;
+  hidden captures prove poses/grip/contact, not visually rendered particles.
+  Last observed living effect age0.71879..0.72915s; lifetime remains <=750ms plus
+  one render quantum to release. Max24 particles, cooled ray width/length1px.
+- First right-visible counter capture skips presenting authored combo_2_3
+  (combo_2_2 -> combo_2_4); first presented slash/hit/core remain aligned. Second
+  counter presents combo_2_3. This is a capture-cadence limit, not a change to the
+  authored100ms event. Source tests establish timing; do not claim every cel was
+  presented or infer performance from this capture.
+- Four Parry-PhysicalTail-PlayerLeft/PlayerRight[-Hidden].mp4 files retain actual
+  destination-mix audio, all source frames and a1ms terminal hold. Full decode and
+  original-PTS error<=0.5ms pass. Eight1x/.25x playback-to-end/decode checks pass.
+  Independent subjective listening remains unavailable; the user's final demo
+  approval is the acceptance decision, not an agent listening claim.
+- review.html opens all four clips locally with1x/.25x controls. Final hashes and
+  receipt: delivery-tail.json. PhysicalTail-BeforeAfter-PlayerLeft.png compares
+  baseline42, rejected dark thin24 and approved orange thin24 at approximately
+ 80/300/500/650ms; exact source frame/ages in tail-comparison-left.json. Independent
+  runs have different RNG/time steps; reference research remains recorded separately.
+- Main advanced to c666fd5 with the HUD guide while QA ran. DungeonWorld diff is
+  whitespace only, SampleScene changes are guide/UI, and no parry/shader/camera/
+  contact/audio implementation changed. Preserve guide probe fields alongside the
+  reusable render-aligned particle observations. Integration checks follow below.

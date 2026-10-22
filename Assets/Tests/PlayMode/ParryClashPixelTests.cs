@@ -13,7 +13,7 @@ public sealed class ParryClashEmissionProbe : MonoBehaviour
     internal bool pending;
     internal int frame = -1, birthCount;
     internal float birthDelta, birthAge, nextDelta, nextAge = -1, nextDisplacement;
-    internal readonly Vector3[] birthPositions = new Vector3[42];
+    internal readonly Vector3[] birthPositions = new Vector3[24];
     readonly ParticleSystem.Particle[] particles = new ParticleSystem.Particle[40];
     static readonly System.Reflection.FieldInfo Age = typeof(ParryClashBurst).GetField("debrisAge",
         System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
@@ -48,6 +48,94 @@ public sealed class ParryClashEmissionProbe : MonoBehaviour
 
 public sealed partial class ParryClashTests
 {
+    static PhysicalParticleSimulation.State ParticleState(ParryClashBurst burst, uint identity)
+    {
+        var simulation = (PhysicalParticleSimulation)typeof(ParryClashBurst).GetField("simulation", Flags).GetValue(burst);
+        return simulation[(int)identity - 1];
+    }
+
+    [Test, Category("Quick")]
+    public void CooledPhysicalEmbersRemainVisibleWhileFallingAndBouncing()
+    {
+        var burst = Burst();
+        var particles = new ParticleSystem.Particle[40];
+        foreach (float direction in new[] { -1f, 1f })
+        {
+            burst.Emit(Vector3.up * 2, direction, 0, ParryClashBurst.Preset.BCompact, 7);
+            var falling = new HashSet<uint>(); var bouncing = new HashSet<uint>();
+            int visible = 0;
+            for (int step = 0; step < 75; step++)
+            {
+                float age = step * .01f;
+                foreach (int group in new[] { 2, 4 })
+                for (int i = 0, count = burst.Systems[group].GetParticles(particles); i < count; i++)
+                {
+                    var p = particles[i]; var state = ParticleState(burst, p.randomSeed);
+                    if (state.small || age < .3f || age > state.total - .08f) continue;
+                    // An alive trajectory must still contribute a readable orange pixel.
+                    Assert.That(p.startColor.r * p.startColor.a / 255f, Is.GreaterThanOrEqualTo(80));
+                    Assert.That(p.startColor.g * p.startColor.a / 255f, Is.GreaterThanOrEqualTo(20));
+                    Assert.That(p.startSize3D, Is.EqualTo(new Vector3(1f / 16, 1f / 16, 1)));
+                    visible++;
+                    if (p.velocity.y < 0) falling.Add(p.randomSeed);
+                    if (age >= state.flight && p.velocity.y > 0 && falling.Contains(p.randomSeed))
+                        bouncing.Add(p.randomSeed);
+                }
+                burst.AdvanceDebris(.01f);
+            }
+            Assert.That(visible, Is.GreaterThan(0));
+            Assert.That(bouncing, Is.Not.Empty, "the production tail must show an actual floor bounce");
+        }
+    }
+
+    [Test, Category("Quick")]
+    public void CoolingCapsEveryRayAtOnePixelEvenWhenGravityAcceleratesItAgain()
+    {
+        var burst = Burst();
+        for (int seed = 0; seed < 24; seed++)
+        {
+            burst.Emit(Vector3.up * 3, 1, -10, ParryClashBurst.Preset.BCompact, seed);
+            var particles = new ParticleSystem.Particle[40];
+            for (int step = 0; step <= 75; step++)
+            {
+                foreach (int group in new[] { 1, 2, 4 })
+                for (int i = 0, count = burst.Systems[group].GetParticles(particles); i < count; i++)
+                {
+                    var p = particles[i]; var state = ParticleState(burst, p.randomSeed);
+                    if (state.small) continue;
+                    Assert.That(p.startSize3D.x * 16, Is.EqualTo(1));
+                    if (step * .01f + .000001f < state.coolingDuration) continue;
+                    Assert.That(p.startSize3D.y * 16, Is.EqualTo(1));
+                    Assert.That(p.startColor.r, Is.LessThan(180));
+                }
+                burst.AdvanceDebris(.01f);
+            }
+            Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[4].particleCount, Is.Zero);
+        }
+    }
+
+    [TestCase(0), TestCase(1), TestCase(2), Category("Quick")]
+    public void ThinParryBudgetWidthAndCoolingRegression(int criterion)
+    {
+        var burst = Burst();
+        burst.Emit(Vector3.up, 1, 0, ParryClashBurst.Preset.BCompact, 7);
+        if (criterion == 0) { Assert.That(burst.ParticleCount, Is.EqualTo(24)); return; }
+        if (criterion == 2) burst.AdvanceDebris(.3f);
+        var particles = new ParticleSystem.Particle[40];
+        foreach (int group in new[] { 1, 2, 4 })
+        for (int i = 0, count = burst.Systems[group].GetParticles(particles); i < count; i++)
+        {
+            var particle = particles[i];
+            if (criterion == 1 && group == 4)
+                Assert.That(particle.startSize3D.x * 16, Is.EqualTo(1));
+            if (criterion == 2)
+            {
+                Assert.That(particle.startSize3D.y * 16, Is.LessThanOrEqualTo(2));
+                Assert.That(particle.startColor.r, Is.LessThan(180));
+            }
+        }
+    }
+
     [UnityTest, Category("Quick")]
     public IEnumerator EarlyUpdateEmissionRendersAtContactBeforeFlightEvenAfterSlowFrameAndReuse()
     {
@@ -64,7 +152,7 @@ public sealed partial class ParryClashTests
             while (probe.nextAge < 0) yield return null;
             Assert.That(probe.birthDelta, Is.GreaterThan(.08f), "exercise a genuinely slow emission frame");
             Assert.That(probe.birthAge, Is.Zero, "pre-emission time must not move a newborn particle");
-            Assert.That(probe.birthCount, Is.EqualTo(42));
+            Assert.That(probe.birthCount, Is.EqualTo(24));
             foreach (var position in probe.birthPositions)
                 Assert.That(Vector3.Distance(position, probe.point), Is.LessThanOrEqualTo(.2f),
                     "only four player specks may start inside the configured contact region");
@@ -94,14 +182,14 @@ public sealed partial class ParryClashTests
         host.SetActive(false); Assert.That(point.intensity + spot.intensity, Is.Zero);
     }
     [Test, Category("Quick")]
-    public void PixelClashHasOneOriginFortyTwoParticlesAndIsolatedRandom()
+    public void PixelClashHasOneOriginTwentyFourParticlesAndIsolatedRandom()
     {
         var burst = Burst(); var saved = Random.state;
         var point = new Vector3(3, 2, .1f);
         burst.Emit(point, 1, 0, ParryClashBurst.Preset.BCompact, 7);
         Assert.That(Random.state, Is.EqualTo(saved), "presentation must not consume gameplay randomness");
-        Assert.That(burst.ParticleCount, Is.EqualTo(42));
-        int[] expected = { 1, 4, 20, 1, 16 };
+        Assert.That(burst.ParticleCount, Is.EqualTo(24));
+        int[] expected = { 1, 2, 12, 1, 8 };
         bool near = false, far = false;
         for (int g = 0; g < 5; g++)
         {
@@ -147,7 +235,7 @@ public sealed partial class ParryClashTests
         }
         burst.AdvanceDebris(.46f);
         Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[4].particleCount,
-            Is.EqualTo(32), "main rays survive while short fragments and 450ms player specks expire");
+            Is.InRange(0, 12), "only secondary rays may survive after460ms");
     }
 
     [Test, Category("Quick")]
@@ -168,13 +256,13 @@ public sealed partial class ParryClashTests
                 for (int i = 0, count = burst.Systems[group].GetParticles(buffer); i < count; i++)
                 {
                     var p = buffer[i];
-                    if (p.randomSeed <= 36)
+                    if (!ParticleState(burst, p.randomSeed).small)
                     {
                         rays++;
                         Assert.That(p.position, Is.EqualTo(Vector3.up));
                         Assert.That(p.velocity.x * direction, Is.LessThan(0));
                         float angle = Mathf.Atan2(p.velocity.y, -p.velocity.x * direction) * Mathf.Rad2Deg;
-                        Assert.That(angle, Is.InRange(-28f, 48f));
+                        Assert.That(angle, Is.InRange(-35f, 35f));
                     }
                     else
                     {
@@ -197,7 +285,7 @@ public sealed partial class ParryClashTests
                         Assert.That(p.velocity.z, Is.EqualTo(other.velocity.z));
                     }
                 }
-                Assert.That(rays, Is.EqualTo(36)); Assert.That(specks, Is.EqualTo(4));
+                Assert.That(rays, Is.EqualTo(18)); Assert.That(specks, Is.EqualTo(4));
                 // Across the entire speck lifetime, not just a selected pose.
                 for (int step = 0; step < 46; step++)
                 {
@@ -205,7 +293,7 @@ public sealed partial class ParryClashTests
                     for (int i = 0, count = burst.Systems[group].GetParticles(buffer); i < count; i++)
                     {
                         var p = buffer[i];
-                        if (p.randomSeed <= 36) continue;
+                        if (!ParticleState(burst, p.randomSeed).small) continue;
                         Assert.That(Mathf.Abs(p.position.x - right[p.randomSeed].position.x * direction), Is.LessThan(.6f));
                         Assert.That(p.startSize3D.x * 16, Is.InRange(1, 2));
                         Assert.That(p.startSize3D.y * 16, Is.InRange(1, 2));
@@ -235,8 +323,8 @@ public sealed partial class ParryClashTests
                         int count = burst.Systems[g].GetParticles(buffer);
                         for (int i = 0; i < count; i++)
                         {
-                            var p = buffer[i]; bool fast = p.randomSeed <= 4 || p.randomSeed >= 37;
-                            if (g != 1) // Short fragments intentionally retain their non-colliding profile.
+                            var p = buffer[i]; bool fast = !ParticleState(burst, p.randomSeed).physics.collideWithFloor;
+                            if (ParticleState(burst, p.randomSeed).physics.collideWithFloor)
                                 Assert.That(p.position.y, Is.GreaterThanOrEqualTo(1f / 32 - .000001f));
                             Assert.That(p.startSize3D.x * 16, Is.GreaterThanOrEqualTo(1));
                             Assert.That(p.startSize3D.y * 16, Is.GreaterThanOrEqualTo(1));
@@ -254,14 +342,15 @@ public sealed partial class ParryClashTests
                                 rests.Add(p.randomSeed);
                                 Assert.That(p.position.y, Is.EqualTo(1f / 32).Within(.000001f));
                                 Assert.That(p.startSize3D.x, Is.EqualTo(1f / 16)); Assert.That(p.startSize3D.y, Is.EqualTo(1f / 16));
-                                Assert.That(p.startColor.r, Is.LessThan(60));
+                                Assert.That(p.startColor.r, Is.LessThan(180));
                             }
                             previous[p.randomSeed] = p;
                         }
                     }
                     burst.AdvanceDebris(.01f);
                 }
-                Assert.That(bounces.Count, Is.EqualTo(32)); Assert.That(rests.Count, Is.EqualTo(32)); Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[4].particleCount, Is.Zero);
+                // Long-lifetime floor/bounce fixtures live in PhysicalParticleTests; production may expire in flight.
+                Assert.That(bounces.Count, Is.LessThanOrEqualTo(16)); Assert.That(rests.Count, Is.LessThanOrEqualTo(16)); Assert.That(burst.Systems[1].particleCount + burst.Systems[2].particleCount + burst.Systems[4].particleCount, Is.Zero);
                 burst.Clear(); burst.AdvanceDebris(.1f); Assert.That(burst.ParticleCount, Is.Zero);
                 // Absolute-age integration must agree even across skipped contacts.
                 Random.InitState(42); burst.Emit(new Vector3(0, 1, 0), direction, 0, ParryClashBurst.Preset.BCompact);
@@ -310,7 +399,7 @@ public sealed partial class ParryClashTests
             int count = burst.Systems[2].GetParticles(particles);
             for (int i = 0; i < count; i++)
             {
-                if (particles[i].randomSeed <= 36) Assert.That(particles[i].velocity.x * direction, Is.LessThan(0));
+                if (!ParticleState(burst, particles[i].randomSeed).small) Assert.That(particles[i].velocity.x * direction, Is.LessThan(0));
                 else Assert.That(Mathf.Abs(particles[i].position.x), Is.LessThanOrEqualTo(.562501f));
             }
             attacker.transform.position *= -1; host.transform.position += Vector3.right * 20;

@@ -53,6 +53,57 @@ public sealed class GameLoopProbe : MonoBehaviour
         public string cel, sparkCel;
         public Vector2 contact;
         public Vector3 sparkPoint;
+        public int parryParticleCount, parryBurstCount, parrySampleCount;
+        public ParryParticleFrame[] parryParticles;
+    }
+    [Serializable] sealed class ParryParticleFrame
+    {
+        public int burst, channel;
+        public uint identity;
+        public float age, width, length;
+        public Vector3 position;
+        public Color32 color;
+    }
+    readonly ParryParticleFrame[] renderParryParticles = CreateParryFrames();
+    static ParryParticleFrame[] CreateParryFrames()
+    {
+        var frames = new ParryParticleFrame[192];
+        for (int i = 0; i < frames.Length; i++) frames[i] = new ParryParticleFrame();
+        return frames;
+    }
+    readonly System.Collections.Generic.List<GameObject> renderRoots = new();
+    readonly System.Collections.Generic.List<ParryClashBurst> renderBursts = new();
+    void ObserveRenderParry()
+    {
+        combatFrame.parryParticleCount = combatFrame.parryBurstCount = combatFrame.parrySampleCount = 0;
+        combatFrame.parryParticles = renderParryParticles;
+        var scene = SceneManager.GetActiveScene();
+        if (!scene.IsValid() || !scene.isLoaded) return;
+        scene.GetRootGameObjects(renderRoots);
+        foreach (var root in renderRoots)
+        {
+            root.GetComponentsInChildren(false, renderBursts);
+            foreach (var burst in renderBursts)
+            {
+                if (burst.EmittedPreset != ParryClashBurst.Preset.BCompact || burst.ParticleCount == 0) continue;
+                combatFrame.parryBurstCount++;
+                combatFrame.parryParticleCount += burst.ParticleCount;
+                for (int channel = 1; channel < burst.Systems.Length; channel++)
+                {
+                    if (channel == 3) continue;
+                    int count = burst.Systems[channel].GetParticles(observedParticles);
+                    for (int i = 0; i < count && combatFrame.parrySampleCount < renderParryParticles.Length; i++)
+                    {
+                        int index = combatFrame.parrySampleCount++;
+                        var sample = renderParryParticles[index];
+                        var p = observedParticles[i];
+                        sample.burst = burst.GetInstanceID(); sample.channel = channel; sample.identity = p.randomSeed;
+                        sample.age = burst.DebrisAge; sample.width = p.startSize3D.x * 16;
+                        sample.length = p.startSize3D.y * 16; sample.position = p.position; sample.color = p.startColor;
+                    }
+                }
+            }
+        }
     }
     PlayerWeaponHitbox combatHitbox;
     SkeletonController combatEnemy;
@@ -87,6 +138,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         if (!combatPlayer) combatPlayer = FindObjectOfType<PlayerHealth>();
         if (!combatParry) combatParry = FindObjectOfType<ParrySystem>();
         if (!combatSlayer) combatSlayer = FindObjectOfType<PlayerSlayerMode>();
+        ObserveRenderParry();
         combatFrame.playerHP = combatPlayer ? combatPlayer.Current : -1;
         combatFrame.parries = CombatSession.I ? CombatSession.I.Parries : 0;
         combatFrame.canParry = combatParry && combatParry.CanBeginParry;

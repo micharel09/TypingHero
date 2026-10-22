@@ -14,7 +14,7 @@ public sealed class PhysicalParticleTests
         var center = body.center; var axes = body.halfAxes;
         simulation.Emit(profile, point, -side, side, -3, 4, body); // Both legacy directions deliberately wrong.
         body.center += Vector3.one * 20; // Mutating the caller snapshot cannot drag the emitted burst.
-        Assert.That(simulation.Count, Is.EqualTo(40));
+        Assert.That(simulation.Count, Is.EqualTo(22));
         int specks = 0, rays = 0, outsideBody = 0, pastBack = 0;
         for (int i = 0; i < simulation.Count; i++)
         {
@@ -23,14 +23,18 @@ public sealed class PhysicalParticleTests
             {
                 rays++; Assert.That(state.origin, Is.EqualTo(point));
                 float angle = Mathf.Atan2(state.launch.y, -side * state.launch.x) * Mathf.Rad2Deg;
-                Assert.That(angle, Is.InRange(-28, 48));
-                Assert.That(((Vector2)state.launch).magnitude, Is.InRange(24, 32));
+                Assert.That(angle, Is.InRange(-35, 35));
+                Assert.That(((Vector2)state.launch).magnitude, Is.InRange(state.channel == 1 ? 8 : 14, 28));
                 Assert.That(state.coastVelocity.x / state.launch.x, Is.EqualTo(Mathf.Exp(-.6f)).Within(.00001f));
                 if (state.channel != 1)
                 {
                     var flight = simulation.Evaluate(i, .25f);
-                    if ((flight.position.x - center.x) * -side > axes.x) pastBack++;
-                    Assert.That(state.physics.flightDrag, Is.EqualTo(1.5f));
+                    if (state.length >= 6)
+                    {
+                        Assert.That((flight.position.x - center.x) * -side, Is.GreaterThan(axes.x));
+                        pastBack++;
+                    }
+                    Assert.That(state.physics.flightDrag, Is.EqualTo(3f));
                 }
             }
             else
@@ -44,9 +48,72 @@ public sealed class PhysicalParticleTests
                 Assert.That(((Vector2)state.launch).magnitude, Is.InRange(1, 2.5f));
             }
         }
-        Assert.That(rays, Is.EqualTo(36)); Assert.That(specks, Is.EqualTo(4));
-        Assert.That(pastBack, Is.GreaterThanOrEqualTo(28), "most main rays must visibly pass the recipient's back by250ms");
+        Assert.That(rays, Is.EqualTo(18)); Assert.That(specks, Is.EqualTo(4));
+        Assert.That(pastBack, Is.GreaterThanOrEqualTo(4), "all lead rays must visibly pass the recipient's back by250ms");
         Assert.That(outsideBody, Is.GreaterThanOrEqualTo(2), "side specks must start outside the body, not all four behind its sprite");
+    }
+#endif
+
+    [Test, Category("Quick")]
+    public void NewEmissionOptionsSnapshotCoolingAndKeepLegacyDefaults()
+    {
+        var profile = ScriptableObject.CreateInstance<PhysicalParticleProfile>();
+        try
+        {
+            var group = new PhysicalParticleProfile.Group { count = 4, lifetime = Vector2.one * .4f,
+                coolingDuration = Vector2.one * .8f, angleJitter = 0,
+                angleSampling = PhysicalParticleProfile.AngleSampling.Independent,
+                pixelScaleMode = PhysicalParticleProfile.PixelScaleMode.VelocityOnly };
+            profile.groups = new[] { group };
+            var sim = new PhysicalParticleSimulation(4);
+            sim.Emit(profile, Vector3.zero, 1, -1, -10, 3);
+            var original = sim[0];
+            Assert.That(original.coolingDuration, Is.EqualTo(.4f));
+            group.coolingDuration = Vector2.one * .1f;
+            group.pixelScaleMode = PhysicalParticleProfile.PixelScaleMode.LegacyDepth;
+            group.angleSampling = PhysicalParticleProfile.AngleSampling.Stratified;
+            Assert.That(sim[0].coolingDuration, Is.EqualTo(.4f));
+            Assert.That(sim[0].pixelScaleMode, Is.EqualTo(PhysicalParticleProfile.PixelScaleMode.VelocityOnly));
+            Assert.That(sim[0].angleSampling, Is.EqualTo(PhysicalParticleProfile.AngleSampling.Independent));
+            group.coolingDuration = Vector2.zero;
+            sim.Emit(profile, Vector3.zero, 1, -1, -10, 3);
+            Assert.That(sim[0].coolingDuration, Is.Zero);
+            Assert.That(new PhysicalParticleProfile.Group().angleSampling, Is.EqualTo(PhysicalParticleProfile.AngleSampling.Stratified));
+            Assert.That(new PhysicalParticleProfile.Group().pixelScaleMode, Is.EqualTo(PhysicalParticleProfile.PixelScaleMode.LegacyDepth));
+        }
+        finally { Object.DestroyImmediate(profile); }
+    }
+
+#if UNITY_EDITOR
+    [Test, Category("Quick")]
+    public void LeadForceAndIndependentSamplingAreReproducibleAcrossFiniteSeedsAndSides()
+    {
+        var profile = UnityEditor.AssetDatabase.LoadAssetAtPath<PhysicalParticleProfile>("Assets/Art/VFX/ParryClash/ParryPhysics.asset");
+        var first = new PhysicalParticleSimulation(40); var second = new PhysicalParticleSimulation(40);
+        for (int seed = 0; seed < 24; seed++)
+        foreach (float side in new[] { -1f, 1f })
+        {
+            var body = new PhysicalParticleProfile.RecipientSnapshot { valid = true,
+                center = Vector3.up, halfAxes = new Vector2(.5f, .6f) };
+            var point = new Vector3(side * 2, 1, 0);
+            first.Emit(profile, point, -side, side, -5, seed, body);
+            second.Emit(profile, point, -side, side, -5, seed, body);
+            int leads = 0;
+            for (int i = 0; i < first.Count; i++)
+            {
+                var state = first[i];
+                Assert.That(state.launch, Is.EqualTo(second[i].launch));
+                Assert.That(state.coolingDuration, Is.EqualTo(second[i].coolingDuration));
+                Assert.That(state.pixelScaleMode, Is.EqualTo(PhysicalParticleProfile.PixelScaleMode.VelocityOnly));
+                Assert.That(state.total, Is.LessThanOrEqualTo(.75f));
+                if (!state.small) Assert.That(state.width, Is.EqualTo(1));
+                if (state.length < 6) continue;
+                leads++;
+                Assert.That((first.Evaluate(i, .25f).position.x - body.center.x) * -side,
+                    Is.GreaterThan(body.halfAxes.x), "every lead passes the captured rear edge by250ms");
+            }
+            Assert.That(leads, Is.EqualTo(4));
+        }
     }
 #endif
 
