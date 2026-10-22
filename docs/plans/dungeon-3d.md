@@ -1109,3 +1109,75 @@ and fetched, original dirty checkout untouched. No main merge before playback ap
   building under20261022T015412-webgl. Build/runtime/visual acceptance pending.
   Exported and actually viewed frame counts must remain distinct. No visual PASS
   from compilation. Reflection approximates one plane, not irregular stone geometry.
+
+
+Completion evidence checkpoint (2026-10-22, still not full acceptance):
+- Runtime/test implementation b1c96cf is pushed and remote hash verified.
+- QA20261022T015412-webgl/inputbfef36a3/player8d537e103ab97c01 passes WebGL and
+  strict repeated builder. All1928scene records retain contents/IDs/references;
+  generated scene record order differs. Other499generated files match after
+  serialized whitespace normalization. Audit: completion/builder-asset-audit.json,
+  scene-record-audit.json. No generated source import required.
+- Final real-input gameplay-r2:16/16PASS,0exceptions/provider effects. Actual hit,
+  attack/parry,pause,complete Slayer,restore and menu return. Strengthened cleanup
+  requires the LAST observer sample after menu return, not the initial menu:
+  MainMenu/world0/reflection0/scratch0/cameras0. Seven1280x720stills inspected.
+  First gameplay16check receipt had a weaker initial-menu predicate; it is not
+  the cleanup proof. Same player reused for corrected observer-only driver.
+- Matched30s driver-window ABBA(no video),Edge155/GTX1650Ti/driver32.0.16.1088,
+  1280x720: RAF p95 A1=13.445,B1=13.525,B2=26.735,A2=26.685ms. Mean draws
+  330.83/330.90/331.08/331.01; triangles14285/14215/14332/14285. All5checks/run
+  PASS/0provider effects. Sample spans30.011/30.01147/29.99556/30.03150seconds;
+  frame endpoints need not coincide with30sdriver boundaries. Both late runs
+  slow similarly; no isolated GPU timing, FPS promise or equivalence claim.
+  Raw frames and performance-noise-abba.json are under completion/.
+- Moving-light native source dfb33e8bff2b29e28ee1e8754677d3bb.webm exports1087/1087
+  with exact decoded timestamps. Directly viewed208..1023consecutively(816frames,
+  815pairs); selected complete matrix234..1010(9.36..40.40s),777frames/776pairs,
+  all16cells at logical-native448x352sheet scale. Frame300 also opened1792x1408.
+  Includes full held revolution and28clip sequence/fixture return. No obvious
+  direction inversion, UV jump, closed alpha gaps or stray atlas rectangle seen.
+  Detailed observed ranges and12432per-frame/variant rows: moving-review-notes.json
+  and moving-native-frame-evidence.csv. This is not full zoom/playback acceptance.
+- Native render-event log reaches246/247keys; key61(16.7ms attackS3 last cel) absent.
+  First quarter log reaches247/247;3777frames exported with source PTS preserved.
+  Quarter viewed only eight isolated full-size frames(1420/1430/1440/1450/1500/
+  1510/1520/1530),not a continuous review. Capture/log timing drift detected while
+  native export ran concurrently; do not accept quarter playback timing yet.
+- A/B capture has28/30stills, missing all-on/DOF; source video1201frames exported.
+  Four new noise/receiver/emission stills inspected, but actors disappear in two
+  views despite unrelated controls. This fixture is NOT accepted. Noise continuous
+  video918frames exported,0frames visually reviewed; export does not count as QA.
+- QA-only fixture repair waits.75s after tutorial skip(which reloads SampleScene),
+  freezes original gameplay and disables original camera/presenter for effect
+  staging; restores bloom for final complete state. Runtime shipping source and
+  all normal/material/art inputs unchanged. R2 snapshot75414113cd471e1a541ddfdc
+  4852348680e23086d2177f27cffbfc02c3f49069 queued under existing shared runner lock.
+  R2 removes the disposable CleanBuildCache adapter; no repository/toolchain edit.
+- Quarter-only retry r2 failed at initial Play/preparation control wait,0runtime
+  exceptions; retained as harness failure, not visual acceptance. Driver now waits
+  for menu settling. Latest review.html explicitly warns not to approve that
+  quarter capture yet. Async user playback question pending; no assumed approval.
+- Remaining: reliable A/B/noise/camera captures and all selected-frame review;
+  reliable quarter playback and missing-key evidence; final gameplay temporal
+  review; user playback approval; then fetch/merge newer main and affected checks.
+  Keep task worktree and evidence; no main push or publication.
+
+
+Capture audit continuation:
+- Gameplay-r2 video42d21cd24f7e0ec89356ff172c00b114.webm exported839/839frames,
+  then directly viewed0..838and all838pairs at320x180(0.000..33.520s),including
+  loader/menu,hit,attack/parry,pause,full Slayer,restore and menu. Per-frame notes:
+  completion/gameplay-final-frame-evidence.csv and gameplay-final-review.json.
+  Intermittent recorded horizontal crop/shift and brief legacy pause-panel view
+  mean this is NOT blanket visual/UI acceptance. Cause(engine vs screencast)
+  remains unresolved; direct Canvas MediaRecorder is being tried without changing
+  game source. Keep runtime16/16 and final RT cleanup proof separate.
+- QA isolation rebuild first attempt timed out after600s waiting for the shared
+  runner lock; no job was stopped. Same immutable input75414113... retried.
+- First Canvas quarter attempt(1792x1408/VP9) failed after menu preparation wait
+  with closed-page error,0runtime exceptions; no accepted capture. Retry uses
+  896x704(same aspect/camera,2x logical native),VP8 and real-input menu settling/
+  observed-state retry. No export runs concurrently with capture.
+- User review page and pending question retain explicit warning that quarter/A/B
+  captures are not yet accepted. No approval inferred from silence.

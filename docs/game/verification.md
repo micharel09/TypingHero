@@ -4,8 +4,15 @@ Scoped DungeonRenderTests run20261022T015303-quick:5/5 PASS,0fail/skip,
 Unity2022.3.25f1. Actual property-block/light gain checked over24s, bounds.76..1,
 deterministic seek and gradual variation; pause/hide/restore preserves gain,
 cloth and exact particle state. No serialized asset changes/duplicate GUIDs.
-Final moving-light, noise A/B, camera/gameplay capture,30s ABBA and user1x/.25x
-playback remain pending; prior static-review evidence retains its original scope.
+QA20261022T015412/player8d537e103ab97c01 passes WebGL/strict repeat builder;
+all1928scene record contents match. Final native real-input gameplay-r2 passes16/16,
+including LAST post-menu sample(world/reflection/scratch/cameras all0). Matched30s
+ABBA RAF p95 A1/B1/B2/A2=13.445/13.525/26.735/26.685ms,mean draws~331 throughout;
+both late runs slow similarly,not isolated GPU/FPS/equivalence evidence.
+Native moving-light777selected frames/776pairs viewed at logical-native size;
+247-key static evidence retained by605-input hash audit. Quarter timing and A/B
+isolation need fixture/capture correction; user playback approval remains pending.
+No full visual PASS or main integration.
 See [checkpoint](../plans/dungeon-3d.md) for source identity and receipts.
 
 ## Dungeon full-effects candidate (2026-10-21, acceptance pending)
