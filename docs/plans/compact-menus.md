@@ -100,3 +100,123 @@ final QA/failure JSON receipts and live preview helper PID 32016/port 8238.
 The earlier task menu preview on port 8237 was closed; original tutorial resources
 remain untouched. Keep the worktree/branch and final preview resources until the
 user finishes review and the outstanding tutorial actor-clearance work is resolved.
+
+
+## Pause modal / Resume follow-up (2026-10-22)
+
+Scope: Settings/Top 1000 deactivate the CompactPauseLayout panel while preserving
+dungeon, pause/time/audio locks. Close returns audio geometry, activates Pause,
+and restores opener focus; the closing frame still consumes shortcuts.
+Resume keeps compact geometry and pause until camera exit, hides the canvas
+before restoring result geometry, and rejects Resume/Restart/Menu while exiting.
+The preceding camera tween is cancelled to handle Resume immediately after Pause.
+No scene/GUID, public API, camera parameter, volume or gameplay rule changes.
+
+Isolated Orca worktree `fix-pause-modal-resume`, branch
+`micharel09/fix-pause-modal-resume`, based on origin/main `4c33780`.
+Parent dirty checkout is preserved. No full suite, stress/soak or itch upload.
+
+Focused Unity receipt `20261022T074625-quick`, input
+`d953da04972cf86830623fef125b5549f578afc894f92363a4d1d663db892dc0`:
+5/5 PASS, 0 failed/skipped, 0.8417408s, Unity 2022.3.25f1/fly-server.
+Two new tests cover PanelReveal/audio/focus and 0.2s camera exit/repeated actions,
+compact geometry until hidden, input/time/audio lock and restored Victory layout.
+Three existing tests cover hidden selection, modal closing-frame/focus and tutorial
+reading. Task-only adapter uses Unity testFilter; repository runner is unchanged.
+
+First QA `20261022T074847-webgl` failed the pre-existing protected-font byte check:
+checkout CRLF versus Linux Unity LF in CobblestoneUI64.asset. Download comparison
+proves equality after only newline normalization (2217448 vs 2211434 bytes,
+6014 CRLFs). Retried snapshot with Git-canonical LF YAML; restored checkout
+line endings immediately. Font/checker/assets are unchanged in the task diff.
+
+Final QA `20261022T075105-webgl`, input
+`c320c91534c08c8ce08689e40a60a46a1568a9190f2be3a8919722b1c637c23b`:
+WebGL/strict repeated-builder PASS. Changed runtime/test files SHA256 match the
+integrated checkout 4/4. Merged latest upstream parry tuning without conflicts;
+final integrated scoped Unity `20261022T080125-quick`: 5/5 PASS,0fail/skip,
+0.8485045s, input36fffcf31b5f40a0c57c8e43a7e43eed594c3358000d6aa83444f1a9a7600298.
+
+Native final `qa-verified/browser.json`:31/31 PASS,58.252276s,1280x720,
+Edge155.0.4283.62/Playwright1.58.2/GTX1650Ti ANGLE D3D11. Main-menu Settings;
+Pause Settings Back/Escape; Top1000 Close/Escape; opener focus and unchanged audio
+values; inactive underlying panel; frozen match; Resume rapid Escape/R/M and
+encounter reading retention; Restart; natural Game Over after Resume; return from
+results/Pause to MainMenu all pass. Unity covers Victory result geometry too.
+Inspected all9final PNGs, including disabled compact menu during Resume and
+restored Game Over results; trace records compact PAUSE through locked transition
+and absence of label after canvas hide. No result-layout flash observed.
+0exceptions,5fixture reads,1intercepted ended-run score write,0production writes.
+Fixture interception/external blocking stay on; no bridge gameplay mutations.
+
+Failed driver receipts remain distinct: first25checks timed out on hp0 after actor
+was disabled (hp-1); use existing finished/overlay state. Second attempt missed a
+menu click and hung closing its already-exited browser; stopped only verified task
+Python/Node processes. Final driver holds actual mouse input90ms, unchanged game.
+No full suite/stress/soak, production build or itch upload.
+
+Implementation commit `bc962f1`; task resources/evidence root:
+`E:/CodexTemp/TypingHero/pause-modal-resume/`. Final QA player,9PNGs/video/trace,
+Unity XML/snapshot receipts and reproducible driver are retained for review.
+Remote final QA result/source input: `/data/typinghero-game-loop/results/20261022T075105-webgl/`.
+Keep QA/evidence until review ends; cleanup then requires a separately reviewed
+scope that preserves anything still needed. Automatic approval review rejected
+recursive cleanup including QA directories/player.tar.gz because it could remove
+required review evidence. Used a narrower safe cleanup: removed only the temporary
+font comparison asset and scoped/build execution adapters. All QA directories,
+archives, failed-run diagnostics and remote results remain as review evidence;
+shared cache and pre-existing resources stay untouched. Final extracted QA player
+was verified byte-identical to all32archive members before cleanup was considered.
+The QA listener8254 is closed and no live preview is retained.
+
+Remote integration verified: task branch pushed and HEAD `c8e74a1` fast-forwarded
+`origin/main` from4e62ea2; fetched remote SHA equals local HEAD and implementation
+`bc962f1` is an ancestor. This final receipt is a documentation-only follow-up;
+verify its remote HEAD before removing the clean task worktree/local branch.
+Remote task branch stays retained. No parent checkout/WIP modification.
+
+
+## Itch release follow-up (2026-10-22; published)
+
+User authorized upload after Pause acceptance. Release source `db1936d`, from
+verified origin/main, in isolated `release-pause-itch` / `micharel09/release-pause-itch`.
+Parent dirty checkout/WIP is excluded. Existing scoped Unity5/5 and native31/31
+pause results reused; no runtime changes or full suite/stress/soak.
+
+Unity2022.3.25f1/fly-server production `20261022T082936-production` PASS,
+input
+`6dd75a9b32f7e6baefc5b85f8fec6a95d9df83272dc6b1a115ff7aa0654a85a8`.
+Snapshot adapter only normalizes YAML CRLF to canonical LF; no checker/asset edits.
+Production runs the normal builder once; the strict repeat was performed by the
+preceding Pause QA build, not by this production invocation.
+qa=false; ASCII/UTF16LE typingHeroQA/GameLoopProbe/TYPINGHERO_AUTOMATION exclusion
+across all JS/WASM/data PASS. ZIP32members/18,777,511bytes, SHA256
+`7d30660e33cf70adb76167a28a6d5afcd32ff0b88f71d66d71a059afb4d157a4`,CRC/local transfer PASS.
+Original HTML/native Edge155: Guest/Play, tutorial reading, Pause/Settings/Escape,
+Resume with reading retained and Pause/M return inspected; bridge undefined,
+0exceptions/provider reads/writes, fixture/external blocking enabled. No audio or
+performance measurement. Initial interactive runner had closed stdin; stopped only
+its verified task process tree and reran in a PTY, without touching the game.
+
+Published https://micharel09.itch.io/clackblade, game3857509, playable19943928,
+`CLACKBLADE-WebGL-Pause-20261022-db1936d.zip`. BrowserSkill native upload succeeded,
+new playable selected, previous19915823 hidden/retained, Save returned Saved.
+38non-upload fields,5page images and every other upload flag are unchanged.
+No page text/gallery/pricing/tag edits, devlog/social posts or provider changes.
+Actual public Run game iframe selects19943928 and renders the new dungeon menu.
+All31non-HTML anonymous CDN SHA256s match ZIP; index adds only standard itch
+htmlgame.js. Direct anonymous Edge player also renders the same menu, bridge
+undefined,0exceptions/writes. Raw anonymous HTTP access to the root page returned
+Cloudflare403; no anonymous-root HTTP PASS claimed. Browser/public-player checks
+above establish the published runtime; no challenge bypass.
+
+Canonical receipt: [pause-release-20261022.json](../../marketing/itch-io/pause-release-20261022.json).
+Rollback: select retained19915823, hide19943928 and Save; other settings unchanged.
+BrowserSkill session stopped; task smoke browser/server8256 closed. Earlier idle
+BrowserSkill sessions were already absent and were not reused/guessed.
+Retain final ZIP/player, smoke images/reports, immutable source snapshot and CDN/
+form verification receipts at `E:/CodexTemp/TypingHero/pause-itch-release/` and
+`/data/typinghero-game-loop/results/20261022T082936-production/` until release review
+ends. Shared cache and previous artifacts stay untouched. The clean release
+worktree/local branch can be removed after these documentation commits are pushed,
+merged and verified on origin/main; retain the remote release branch.

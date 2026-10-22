@@ -290,6 +290,100 @@ public sealed class ShogunPresentationTests
         yield return null;
     }
 
+    static GameObject PausePanel(Transform parent)
+    {
+        var panel = new GameObject("pause panel", typeof(RectTransform), typeof(CanvasGroup));
+        panel.SetActive(false); panel.transform.SetParent(parent, false);
+        foreach (var name in new[] { "PauseLabel", "ResumeButton", "RestartButton", "SettingsButton", "Top 1000Button", "Main MenuButton", "AudioPreferences", "KeyHint" })
+        {
+            var child = new GameObject(name, typeof(RectTransform)); child.transform.SetParent(panel.transform, false);
+            if (name == "PauseLabel") child.AddComponent<TextMeshProUGUI>();
+            if (name.EndsWith("Button"))
+            {
+                child.AddComponent<Button>();
+                var label = new GameObject("label", typeof(RectTransform), typeof(TextMeshProUGUI)); label.transform.SetParent(child.transform, false);
+            }
+        }
+        var key = new GameObject("key-r"); key.transform.SetParent(panel.transform.Find("RestartButton"), false);
+        panel.AddComponent<CompactPauseLayout>(); panel.AddComponent<PanelReveal>(); panel.SetActive(true);
+        return panel;
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator PauseModalsHideRevealPanelAndRestoreAudioFocus()
+    {
+        var events = new GameObject("events", typeof(EventSystem));
+        var canvas = new GameObject("canvas", typeof(RectTransform), typeof(Canvas));
+        var previous = PausePanel(canvas.transform);
+        var panel = new GameObject("modal panel", typeof(RectTransform));
+        var card = new GameObject("SettingsPanel", typeof(RectTransform)); card.transform.SetParent(panel.transform);
+        var close = new GameObject("close", typeof(RectTransform), typeof(Button)); close.transform.SetParent(panel.transform);
+        var host = new GameObject("modal owner");
+        var settings = host.AddComponent<SettingsModal>(); var leaderboard = host.AddComponent<LeaderboardModal>();
+        var audio = (RectTransform)previous.transform.Find("AudioPreferences");
+        audio.anchoredPosition = new Vector2(12, 34); audio.sizeDelta = new Vector2(56, 78); audio.gameObject.SetActive(false);
+        Set(settings, "panel", panel); Set(settings, "audio", audio); Set(settings, "previousScreen", previous.GetComponent<CanvasGroup>()); Set(settings, "backButton", close.GetComponent<Button>());
+        Set(leaderboard, "panel", panel); Set(leaderboard, "previousScreen", previous.GetComponent<CanvasGroup>()); Set(leaderboard, "closeButton", close.GetComponent<Button>());
+        panel.SetActive(false);
+        try
+        {
+            Time.timeScale = 0; AudioListener.pause = true;
+            var opener = previous.transform.Find("SettingsButton").GetComponent<Button>(); opener.gameObject.SetActive(true); opener.Select();
+            settings.Open(); yield return new WaitForSecondsRealtime(.16f);
+            Assert.That(previous.activeSelf, Is.False); Assert.That(panel.activeInHierarchy, Is.True);
+            Assert.That(audio.IsChildOf(panel.transform), Is.True); Assert.That(audio.gameObject.activeInHierarchy, Is.True);
+            Assert.That(Time.timeScale, Is.Zero); Assert.That(AudioListener.pause, Is.True);
+            settings.Close(); Assert.That(SettingsModal.BlocksShortcuts, Is.True);
+            Assert.That(previous.activeSelf, Is.True); Assert.That(audio.parent, Is.EqualTo(previous.transform));
+            Assert.That(audio.anchoredPosition, Is.EqualTo(new Vector2(12, 34))); Assert.That(audio.sizeDelta, Is.EqualTo(new Vector2(56, 78)));
+            Assert.That(audio.gameObject.activeSelf, Is.False); Assert.That(EventSystem.current.currentSelectedGameObject, Is.EqualTo(opener.gameObject));
+            yield return null;
+            opener = previous.transform.Find("Top 1000Button").GetComponent<Button>(); opener.Select();
+            leaderboard.Open(); yield return new WaitForSecondsRealtime(.16f);
+            Assert.That(previous.activeSelf, Is.False); Assert.That(LeaderboardModal.IsOpen, Is.True);
+            leaderboard.Close(); Assert.That(LeaderboardModal.BlocksShortcuts, Is.True);
+            Assert.That(previous.activeSelf, Is.True); Assert.That(previous.GetComponent<CanvasGroup>().interactable, Is.True);
+            Assert.That(EventSystem.current.currentSelectedGameObject, Is.EqualTo(opener.gameObject));
+            Assert.That(Time.timeScale, Is.Zero); Assert.That(AudioListener.pause, Is.True);
+        }
+        finally { Object.DestroyImmediate(host); Object.DestroyImmediate(panel); Object.DestroyImmediate(canvas); Object.DestroyImmediate(events); GamePauseController.ResetSessionState(); }
+        yield return null;
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator ResumeKeepsCompactLayoutFrozenUntilCameraExitAndRejectsRepeatedActions()
+    {
+        var events = new GameObject("events", typeof(EventSystem));
+        var canvas = new GameObject("canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasGroup));
+        var panel = PausePanel(canvas.transform); var rect = panel.GetComponent<RectTransform>(); rect.sizeDelta = new Vector2(600, 500);
+        var cameraHost = new GameObject("camera", typeof(Camera)); var camera = cameraHost.GetComponent<Camera>(); camera.orthographic = true; camera.orthographicSize = 5;
+        var host = new GameObject("pause owner"); host.SetActive(false);
+        var pause = host.AddComponent<GamePauseController>(); Set(pause, "pauseCanvas", canvas.GetComponent<Canvas>()); Set(pause, "targetCamera", camera);
+        Set(pause, "pauseLabel", panel.transform.Find("PauseLabel").GetComponent<TextMeshProUGUI>()); Set(pause, "zoomDuration", .2f); Set(pause, "pauseOnLoseFocus", false);
+        try
+        {
+            host.SetActive(true); pause.TogglePause(true);
+            panel.transform.Find("ResumeButton").GetComponent<Button>().Select();
+            pause.Resume(); pause.Resume(); pause.Restart(); pause.ReturnToMenu(); pause.TogglePause(true);
+            Assert.That(pause.IsRestarting, Is.False);
+            Assert.That(rect.sizeDelta, Is.EqualTo(new Vector2(420, 340)));
+            Assert.That(canvas.GetComponent<CanvasGroup>().interactable, Is.False);
+            yield return null;
+            Assert.That(canvas.GetComponent<Canvas>().enabled, Is.True); Assert.That(GamePauseController.InputBlocked, Is.True);
+            Assert.That(Time.timeScale, Is.Zero); Assert.That(AudioListener.pause, Is.True);
+            GamePauseController.SetTutorialReading(true);
+            yield return new WaitForSecondsRealtime(.3f);
+            Assert.That(canvas.GetComponent<Canvas>().enabled, Is.False); Assert.That(rect.sizeDelta, Is.EqualTo(new Vector2(600, 500)));
+            Assert.That(EventSystem.current.currentSelectedGameObject, Is.Null); Assert.That(camera.orthographicSize, Is.EqualTo(5));
+            Assert.That(GamePauseController.InputBlocked, Is.True); GamePauseController.SetTutorialReading(false);
+            Assert.That(GamePauseController.InputBlocked, Is.False); Assert.That(Time.timeScale, Is.EqualTo(1));
+            pause.ShowVictory(); Assert.That(rect.sizeDelta, Is.EqualTo(new Vector2(600, 500)));
+            Assert.That(canvas.GetComponent<Canvas>().enabled, Is.True);
+        }
+        finally { Object.DestroyImmediate(host); Object.DestroyImmediate(canvas); Object.DestroyImmediate(cameraHost); Object.DestroyImmediate(events); GamePauseController.ResetSessionState(); }
+        yield return null;
+    }
+
     [UnityTest, Category("Quick")]
     public IEnumerator ResumeClearsSelectionAndDisablesHiddenPauseButtons()
     {

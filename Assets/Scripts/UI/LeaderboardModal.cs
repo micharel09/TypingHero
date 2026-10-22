@@ -11,6 +11,7 @@ public sealed class LeaderboardModal : MonoBehaviour
     [SerializeField] CanvasGroup previousScreen;
     [SerializeField] LeaderboardUIBinder binder;
     GameObject previousFocus;
+    bool hiddenPausePanel;
     static LeaderboardModal current;
     static int closedFrame = -1;
     public static bool IsOpen => current && current.panel && current.panel.activeInHierarchy;
@@ -18,12 +19,14 @@ public sealed class LeaderboardModal : MonoBehaviour
 
     public void Open()
     {
-        if (BlocksShortcuts) return;
+        if (BlocksShortcuts || SettingsModal.BlocksShortcuts) return;
         var canvas = previousScreen ? previousScreen.GetComponentInParent<Canvas>() : null;
         if ((canvas && !canvas.isActiveAndEnabled) || (previousScreen && !previousScreen.interactable)) return;
         previousFocus = EventSystem.current ? EventSystem.current.currentSelectedGameObject : null;
         current = this;
         if (previousScreen) { previousScreen.interactable = false; previousScreen.blocksRaycasts = false; }
+        hiddenPausePanel = previousScreen && previousScreen.GetComponent<CompactPauseLayout>();
+        if (hiddenPausePanel) previousScreen.gameObject.SetActive(false);
         panel.SetActive(true);
         if (binder) binder.enabled = true;
         if (closeButton) closeButton.Select();
@@ -31,9 +34,12 @@ public sealed class LeaderboardModal : MonoBehaviour
 
     public void Close()
     {
+        if (current != this) return;
         closedFrame = Time.frameCount;
         panel.SetActive(false);
         if (binder) binder.enabled = false;
+        if (hiddenPausePanel && previousScreen) previousScreen.gameObject.SetActive(true);
+        hiddenPausePanel = false;
         if (previousScreen) { previousScreen.interactable = true; previousScreen.blocksRaycasts = true; }
         if (EventSystem.current) EventSystem.current.SetSelectedGameObject(previousFocus);
         if (current == this) current = null;

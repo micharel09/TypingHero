@@ -56,6 +56,8 @@ public sealed class GamePauseController : MonoBehaviour
     bool _paused;
     bool _overlayLocked;
     bool _restarting;
+    bool _resuming;
+    Coroutine cameraTransition;
     Vector3 _camPosSaved;
     float _orthoSaved;
     bool _brainSaved;
@@ -153,13 +155,14 @@ public sealed class GamePauseController : MonoBehaviour
 
     void OnApplicationFocus(bool hasFocus)
     {
-        if (_overlayLocked) return;
+        if (_overlayLocked || _resuming || _restarting) return;
         if (!pauseOnLoseFocus) return;
         if (!hasFocus && !_paused) TogglePause(true);
     }
 
     void Update()
     {
+        if (_resuming || _restarting) return;
         // The modal processes Escape later; swallow all shortcuts for this frame.
         if ((LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts)) return;
         if (_overlayLocked)
@@ -184,14 +187,14 @@ public sealed class GamePauseController : MonoBehaviour
     {
         // ---- NEW GUARD ----
         if (!Usable()) return;
-        if (_overlayLocked || _restarting) return;
+        if (_overlayLocked || _restarting || _resuming) return;
         _overlayLocked = true;
         ShowOverlay_PauseLabel(gameOverText, gameOverTextColor, showRestart: true);
     }
 
     public void ShowVictory()
     {
-        if (!Usable() || _overlayLocked || _restarting) return;
+        if (!Usable() || _overlayLocked || _restarting || _resuming) return;
         _overlayLocked = true;
         ShowOverlay_PauseLabel("VICTORY", thanksTextColor, showRestart: true);
     }
@@ -200,14 +203,14 @@ public sealed class GamePauseController : MonoBehaviour
     {
         // ---- NEW GUARD ----
         if (!Usable()) return;
-        if (_overlayLocked || _restarting) return;
+        if (_overlayLocked || _restarting || _resuming) return;
         _overlayLocked = true;
         ShowOverlay_ThanksLabel(showRestart: true);
     }
 
     public void ReturnToMenu()
     {
-        if (_restarting) return;         // dùng chung flag tránh spam
+        if (_restarting || _resuming) return;         // dùng chung flag tránh spam
         EndlessRun.Clear();
         _restarting = true;
 
@@ -230,18 +233,24 @@ public sealed class GamePauseController : MonoBehaviour
     // ===== PAUSE CORE =====
     public void TogglePause(bool pause)
     {
-        if (_overlayLocked || _restarting) return;
+        if (_overlayLocked || _restarting || _resuming) return;
         if (_paused == pause) return;
 
-        _paused = pause;
-        if (pauseLabel) pauseLabel.GetComponentInParent<CompactPauseLayout>()?.Apply(pause);
         if (pause)
+        {
+            _paused = true;
+            if (pauseLabel) pauseLabel.GetComponentInParent<CompactPauseLayout>()?.Apply(true);
             ShowOverlay_PauseLabel(pauseText, pauseTextColor, showRestart: true);
+        }
         else
+        {
+            _resuming = true;
+            if (pauseInteraction) pauseInteraction.interactable = pauseInteraction.blocksRaycasts = false;
             ZoomOutThen(() =>
             {
                 if (cinemachineBrain) cinemachineBrain.enabled = _brainSaved;
                 SetPauseCanvasVisible(false);
+                if (pauseLabel) pauseLabel.GetComponentInParent<CompactPauseLayout>()?.Apply(false);
                 if (uiRoot) uiRoot.gameObject.SetActive(true);
 
                 if (thanksLabel) thanksLabel.gameObject.SetActive(false);
@@ -249,8 +258,11 @@ public sealed class GamePauseController : MonoBehaviour
                 if (restartHintLabel) restartHintLabel.enabled = false;
                 if (menuHintLabel) menuHintLabel.enabled = false; // NEW
 
+                _paused = false;
+                _resuming = false;
                 ApplyFreeze();
             });
+        }
     }
 
     // ===== OVERLAY HELPERS =====
@@ -285,7 +297,7 @@ public sealed class GamePauseController : MonoBehaviour
     // ===== RESTART =====
     void TryRestart()
     {
-        if (_restarting) return;
+        if (_restarting || _resuming) return;
         if (!TutorialRun.Active && EndlessRun.Current != null) EndlessRun.Restart();
         else EndlessRun.Clear();
         _restarting = true;
@@ -373,13 +385,15 @@ public sealed class GamePauseController : MonoBehaviour
 
     void ZoomIn()
     {
-        StartCoroutine(CoTweenCam(_camPosSaved, CalcFocus(_camPosSaved),
+        if (cameraTransition != null) StopCoroutine(cameraTransition);
+        cameraTransition = StartCoroutine(CoTweenCam(_camPosSaved, CalcFocus(_camPosSaved),
             _orthoSaved, Mathf.Max(0.01f, _orthoSaved / zoomMultiplier), zoomDuration, zoomCurve, null));
     }
 
     void ZoomOutThen(System.Action then)
     {
-        StartCoroutine(CoTweenCam(
+        if (cameraTransition != null) StopCoroutine(cameraTransition);
+        cameraTransition = StartCoroutine(CoTweenCam(
             targetCamera ? targetCamera.transform.position : Vector3.zero,
             _camPosSaved,
             targetCamera ? targetCamera.orthographicSize : 5f,

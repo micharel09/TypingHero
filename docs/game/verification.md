@@ -2418,8 +2418,65 @@ Exact source, timestamps, failed cold-decode/link diagnostics, per-frame records
 and integration/cleanup are in [combat checkpoint](../plans/combat-feedback.md).
 
 
+## Pause modal isolation and Resume transition (2026-10-22)
+
+- Scoped Unity20261022T074625-quick:5/5 PASS,0fail/skip,0.8417408s,
+  inputd953da04972cf86830623fef125b5549f578afc894f92363a4d1d663db892dc0.
+  PanelReveal panel deactivation, audio parent/geometry/active state, focus and
+  closing-frame shortcuts; 0.2s camera exit, compact-until-hidden geometry,
+  rejected repeated Resume/Restart/Menu, hidden selection and Victory layout;
+  existing modal/selection/tutorial reading regressions.
+- Integrated Unity20261022T080125-quick after latest parry upstream merge:
+  5/5 PASS,0fail/skip,0.8485045s, input36fffcf31b5f40a0c57c8e43a7e43eed594c3358000d6aa83444f1a9a7600298.
+  Existing Unity testFilter selected by external task adapter; repo runner unchanged.
+- QA20261022T075105-webgl inputc320c91534c08c8ce08689e40a60a46a1568a9190f2be3a8919722b1c637c23b:
+  compile/build/strict repeated-builder PASS, qa=true. Three changed runtime files
+  and focused test file match integrated checkout byte-for-byte (4/4 SHA256).
+  Later upstream delta is unrelated parry particle tuning, preserved by merge;
+  scoped integrated Unity acceptance above covers the final checkout.
+- First QA074847 failed only the protected font's Windows CRLF/Linux LF byte check.
+  Downloaded font is identical after newline normalization; canonical LF snapshot
+  passes without changing fonts, checker or scene/GUIDs. Checkout endings restored.
+- Final native Edge155.0.4283.62 / Playwright1.58.2 / GTX1650Ti ANGLE D3D11:
+  31/31 PASS in58.252276s at1280x720. Main-menu Settings unchanged; Pause Settings
+  Back/Escape and Top1000 Close/Escape restore focus and frozen state. Actual
+  inactive-panel text observations plus inspected images show no underlying Pause.
+  Resume screenshot/trace holds compact PAUSE while controls are locked, then hides;
+  rapid Escape/R/M causes no second transition and encounter reading stays frozen.
+  Real Restart, reading release, natural Game Over after Resume, result actions and
+  returns to menu from results/Pause pass. Unity also checks restored Victory layout.
+  Nine final PNGs inspected, including Resume transition;0exceptions,5fixture reads,
+  1intercepted ended-run score write,0production writes. All external requests remain
+  blocked; bridge only observes. No audio-signal/performance claim.
+- First25checks reached actual
+  Game Over but driver incorrectly waited for hp0 (disabled actor reports hp-1).
+  Corrected to existing finished/overlay state. A subsequent driver click was not
+  observed at MainMenu and shutdown hung; task-only processes stopped, mouse hold
+  made explicit in the external driver. No runtime changes to satisfy drivers.
+- Final evidence and cleanup: [compact menu checkpoint](../plans/compact-menus.md).
+  No full suite/stress/soak, normal production build or itch upload in this task.
+
+
+## Pause fix published (2026-10-22)
+
+Source db1936d; production20261022T082936/input6dd75a9b32f7e6baefc5b85f8fec6a95d9df83272dc6b1a115ff7aa0654a85a8
+passes the normal build and complete ASCII/UTF16LE QA-marker exclusion.
+Production invokes the builder once; the earlier Pause QA performed strict repeat.
+Original-HTML native Guest/Play/tutorial reading/Pause/Settings/Escape/Resume/Menu
+inspected, bridge undefined,0exceptions/provider writes. Existing scoped5Unity
+and31native acceptance reused; no full suite, audio or performance remeasurement.
+Published itch playable19943928; prior19915823 hidden/retained. Save and actual
+public iframe/menu verified,31non-HTML CDN hashes match ZIP and index adds only
+standard htmlgame.js. Fresh anonymous direct player menu loads with no bridge or
+exceptions/writes. Raw anonymous root HTTP403 is not a passing guest-page check.
+38non-upload fields,5page images,other upload flags unchanged. ZIP32members,
+18,777,511bytes,CRC/hash PASS. BrowserSkill and smoke sessions closed.
+Receipt/rollback/resources: [pause release](../../marketing/itch-io/pause-release-20261022.json),
+[checkpoint](../plans/compact-menus.md). No devlog/social/provider mutations.
+
 ## NYKNCK free main-lantern pixel flame (2026-10-22)
 
 Scoped Quick20261022T081730 passes2/2tests (front lifecycle/mesh/emission/clock and rear regression), strict repeated builder PASS; no full Quick profile claim. QA20261022T082242/player5f849262aed3f42e native Edge155/NVIDIA GTX1650Ti/ANGLE D3D11 at1280x720 passes21/21real-input checks,0exceptions/provider IO.481read-only samples, active intensity22.5750618..25.2119675, all5cels, stationary root, pause and Slayer phase verified.
 
 Source/output each5/5cels and5/5loop transitions reviewed separately; output native48x34/nearest2x. Actual canvas640frames decoded/exported with exact timestamps; selectedF77..116 andF166..223 reviewed98/98frames,96/96pairs at logical320x180/nearest2x640x360 plus40lamp detail crops. No room flash or whole-player parry/recovery blackout in those samples. Capture is25FPS VFR, not every engine frame or performance/FPS evidence. Earlier intro-race pilot is not acceptance. Direct-scene load audit20261022T084400 verifies the committed scene reference graph, front24/6percent, rear2percent, atlas/renderer bindings and disabled original flame. [Full checkpoint](../plans/combat-hanging-light.md).
+
