@@ -85,6 +85,31 @@ public sealed class PhysicalParticleTests
     }
 
 #if UNITY_EDITOR
+    [TestCase(-1f), TestCase(1f), Category("Quick")]
+    public void CooledSecondaryEmbersStayAtRestOnTheFloorBeforeTheirFinalFade(float direction)
+    {
+        var profile = UnityEditor.AssetDatabase.LoadAssetAtPath<PhysicalParticleProfile>("Assets/Art/VFX/ParryClash/ParryPhysics.asset");
+        var simulation = new PhysicalParticleSimulation(40);
+        simulation.Emit(profile, Vector3.up * .5f, direction, -direction, 0, 7);
+        int resting = 0;
+        for (int i = 0; i < simulation.Count; i++)
+        {
+            var state = simulation[i];
+            if (state.small || state.channel == 1 || state.length >= 6) continue;
+            float settledAt = state.flight + state.bounce;
+            if (state.total - settledAt < .35f) continue;
+            var first = simulation.Evaluate(i, settledAt + .01f);
+            var later = simulation.Evaluate(i, settledAt + .26f);
+            Assert.That(first.alive && later.alive, Is.True, "cooled embers remain for a visible quarter-second on the floor");
+            Assert.That(later.position, Is.EqualTo(first.position));
+            Assert.That(later.position.y, Is.EqualTo(0).Within(.000001f));
+            Assert.That(later.velocity, Is.EqualTo(Vector3.zero));
+            Assert.That(simulation.Evaluate(i, state.total).alive, Is.False);
+            resting++;
+        }
+        Assert.That(resting, Is.GreaterThanOrEqualTo(2), "both views retain multiple stationary ground embers");
+    }
+
     [Test, Category("Quick")]
     public void LeadForceAndIndependentSamplingAreReproducibleAcrossFiniteSeedsAndSides()
     {
@@ -105,7 +130,7 @@ public sealed class PhysicalParticleTests
                 Assert.That(state.launch, Is.EqualTo(second[i].launch));
                 Assert.That(state.coolingDuration, Is.EqualTo(second[i].coolingDuration));
                 Assert.That(state.pixelScaleMode, Is.EqualTo(PhysicalParticleProfile.PixelScaleMode.VelocityOnly));
-                Assert.That(state.total, Is.LessThanOrEqualTo(.75f));
+                Assert.That(state.total, Is.LessThanOrEqualTo(1.1f));
                 if (!state.small) Assert.That(state.width, Is.EqualTo(1));
                 if (state.length < 6) continue;
                 leads++;
