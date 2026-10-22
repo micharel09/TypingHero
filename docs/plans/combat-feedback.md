@@ -3834,3 +3834,58 @@ previous dark-red-at300ms palette criterion. Retain prior receipts by version.
   Evidence and four audible demos remain at E:/CodexTemp/TypingHero/parry-thin-sparks
   for review/reproduction; server-only task copies and clean local branch/worktree
   can be removed once integration is confirmed. No itch.io publication.
+
+
+### Longer ground-ember hold (2026-10-22, active follow-up)
+
+User approves the physical look/depth but requests particles remain on the floor
+slightly longer. Preserve the approved24particles, launch, cooling, orange palette,
+size, XYZ motion, bounce and contact/combat/audio. Change only near/far secondary
+profile lifetimes450-750ms ->850-1100ms and post-bounce rest80ms ->400ms. The previous
+750ms total cap is superseded by this request; fragments/leads/body specks unchanged.
+Final80ms alpha fade remains. Add a direct two-side stationary-floor dwell regression
+and extend existing cooling/lifetime assertions through1100ms. Scoped particle
+checks plus two actual-input visible clips cover the changed tail; previously
+approved hidden-pose/reference evidence remains applicable to unchanged art/poses.
+
+- Scoped Unity20261022T134033/inputef2e25d0f668e3468ad79b8ae45011a3149495bc721e9207026b278156d9070b:
+  65/65 PhysicalParticleTests and ParryClashTests PASS, including both new floor-dwell
+  cases, existing finite-seed/mirror/launch,1px cooling, pause/pool and allocation
+  coverage. Test execution began after the existing shared runner job released its
+  lock; no other jobs interrupted. WebGL QA/repeated builder and new visible clips
+  remain pending. Hidden-pose art and unchanged combat/audio receipts are reused.
+
+- Final normal134033/inputef2e25d0 and mirror135657/input22038076: WebGL QA and
+  strict repeated builder PASS. Profile and directly changed tests match both frozen
+  inputs; runtime solver/renderer/probe/shared shader are identical to approved main
+  fd3f21d. All counts, GUIDs and references retained; only four profile values change.
+- Native Edge155/Playwright1.58.2,1280x720/world320x180, actual Space input:
+  player-left18checks/66frames65pairs, player-right18/62/61. One complete parry,
+  counter/recovery and extended tail each; providers intercepted/blocked, no writes
+  or exceptions. Guide confirmed using real Enter, no gameplay bridge mutations.
+- Direct numbered full-viewport nearest2x review:128/128frames,126/126consecutive
+  pairs, including holds. Contact/launch remain separated and readable; after
+  recovery, sparse orange1px embers sit on the rear floor and fade without growing
+  or jumping. Floor-position tracking observes readable stationary spans229ms(left)
+  and256ms(right); both captures show11readable floor reversals. Max24particles,
+  ray width1px, cold length1px; last living ages1.06453/1.04294s, then fully clear.
+  The400ms rest is a ceiling, still capped by each particle's850-1100ms lifetime.
+- Two Parry-GroundHold-PlayerLeft/PlayerRight.mp4 clips include the actual audio
+  mix and all render frames plus one1ms terminal hold. Full decode and source-PTS
+  error<0.5ms PASS; four1x/.25x playback-to-end/decode checks PASS. This does not
+  claim subjective hearing; audio source/routing and prior user acceptance remain
+  unchanged. Some normal-spark cels are not individually presented at capture cadence;
+  no new six-cel/performance/FPS claim. Unchanged normal/counter source tests and
+  prior qualified receipts remain applicable.
+- Evidence: E:/CodexTemp/TypingHero/parry-ember-rest/review.html, delivery.json,
+  all-frame-review.csv, per-segment visual-review.csv/scope.json/tail-audit.json,
+  normal-build/tests.xml, qualified-source-audit.json and frozen input archives.
+  GroundHold-BeforeAfter-PlayerLeft.png compares prior approved750ms output to this
+  profile near300/800/1000ms after contact. All six comparison panels inspected;
+  actual frame/time labels retained, independent RNG/time steps are not matched.
+- New main6d6b659 changes only tutorial cards, their editor builder/scene overrides,
+  docs and tutorial driver. Serialized-record audit finds guide/card/arrow owners
+  and the two guide UI prefab overrides only; combat actors, cameras, particle
+  owners, runtime, shader, contact and audio unchanged. Keep both guide changes and
+  this profile, reusing scoped receipts for unchanged inputs instead of rebuilding
+  unrelated UI. Integration/cleanup verification is retained in the delivery receipt.

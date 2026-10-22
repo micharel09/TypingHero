@@ -38,8 +38,11 @@ module.exports = async function tutorialFlow(api, page, options = {}) {
       t.glyphBounds.y>=t.bounds.y-1 && t.glyphBounds.x+t.glyphBounds.width<=t.bounds.x+t.bounds.width+1 &&
       t.glyphBounds.y+t.glyphBounds.height<=t.bounds.y+t.bounds.height+1),'all guide copy fits '+width+'x'+height);
     const overlaps=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a.y+a.height>b.y;
-    check(![s.playerStatusRect,s.enemyStatusRect,s.trayRect].some(r=>overlaps(r,s.tutorialPanel)),
-      'panel clears real HP/guard/typing HUD '+width+'x'+height);
+    const padding=12*width/960;
+    const cards=texts.filter(t=>!t.path.endsWith('/Shortcuts')).map(t=>({x:t.bounds.x-padding,y:t.bounds.y-padding,width:t.bounds.width+2*padding,height:t.bounds.height+2*padding}));
+    check(cards.length===4 && cards.every((r,i)=>!cards.slice(i+1).some(other=>overlaps(r,other))) &&
+      !cards.some(card=>[s.playerStatusRect,s.enemyStatusRect,s.trayRect,s.scoreRect].filter(Boolean).some(r=>overlaps(r,card))),
+      'four separate callouts clear each other and real HUD '+width+'x'+height);
     check(s.tutorialArrows.map(a=>a.target).join(',')==='PlayerHP,EnemyHP,EnemyStamina,ScoreCluster,TypingPanel' &&
       s.tutorialArrows.every(a=>a.end.x>=a.targetRect.x-.5 && a.end.x<=a.targetRect.x+a.targetRect.width+.5 &&
         a.end.y>=a.targetRect.y-.5 && a.end.y<=a.targetRect.y+a.targetRect.height+.5),

@@ -75,6 +75,6 @@
     "success": 1087310200512674595,
     "idle": 338508742614425329
   },
-  "baselineCommit": "fd3f21de716964e4cb1dc60a4ce21e70e67d29f0",
+  "baselineCommit": "916c75291250c34aed774db1c7ecc489b435b1b0",
   "baselineNote": "Protected latest-main source bytes; approved main artwork/import changes are retained. No sprite pixels edited by this integration."
 }

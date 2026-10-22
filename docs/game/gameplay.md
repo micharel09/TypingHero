@@ -253,11 +253,12 @@ Change only behavior explicitly requested. Update this file after relevant verif
 ## Single HUD tutorial guide
 
 - TutorialRun selects a frozen SampleScene guide without lesson/practice/retry
-  state or combat preparation. All four groups are visible together: Your HP,
+  state or combat preparation. Four separate callout cards sit beside the HUD
+  instead of sharing one large background. All groups are visible together: Your HP,
   Enemy HP / Guard, Typing / Timer and Score / Combo. Five static gold arrows
   follow real HUD RectTransforms after layout, including separate HP and guard
-  destinations. Existing dungeon, HUD, fonts, panel and Continue listener remain.
-- The panel explains HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
+  destinations. Existing dungeon, HUD, fonts, panel style and Continue listener remain.
+- The callouts explain HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
   with Space/parry and Esc/pause copy plus one Start Battle / Enter action.
   No lesson tests, additional pages, animation or illustrations; How to Play is separate.
 - Reading uses the existing GamePauseController input/time/audio/score lock.
@@ -284,7 +285,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
   toward and beyond the recipient independently of facing or later actor movement.
 - Six groups in `Assets/Art/VFX/ParryClash/ParryPhysics.asset`: two fragments
   (8-12WU/s,1-3px,100-160ms), two near/two far leads (24-28WU/s,6-9px,
-  280-400ms), six near/six far secondary rays (14-20WU/s,2-5px,450-750ms),
+  280-400ms), six near/six far secondary rays (14-20WU/s,2-5px,850-1100ms),
   four1-2px body-perimeter specks (1-2.5WU/s,max450ms). All launch on success.
   Independent angle ranges: fragments-35..35, leads-12..18, secondary-30..35degrees;
   angleJitter0. All rays have base width1px at16PPU. VelocityOnly omits artificial
@@ -296,7 +297,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
   Alpha stays opaque until the final80ms, then fades to zero. Cooling is captured
   and capped by lifetime. This corrects the user-rejected invisible physical tail.
 - Main rays: gravity9.81,120ms launch drag5/s, flight X/Z drag3/s, one optional
-  bounce22%vertical/55%tangent, rest<=80ms, always capped by group lifetime.
+  bounce22%vertical/55%tangent; leads rest<=80ms, secondary rest<=400ms,
+  always capped by group lifetime.
   Near Z=-6..-4, far Z=2..4WU/s; fragments Z=-1..1 and no floor collision.
   Specks retain floor collision/gravity/drag6 without bounce. Captured body ellipse:
   center=body.center+0.2height up, halfAxes=(body.extents.x+1/16,0.3height),
@@ -309,7 +311,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Birth renders at age0; first slow-following frame keeps its existing step cap.
   Pause/tutorial reading freeze age, hitstop continues. Continuous Z, preset restore,
   oldest-lease reclaim, disable/unload cleanup and contact+tail completion remain.
-  All physical particles expire by750ms effect age; next frame returns the lease.
+  All physical particles expire by1100ms effect age; next frame returns the lease.
   Reused buffers retain zero managed allocations for warmed particle updates.
 - Counter hit remains100ms on the first slash cel. Immediate confirmed hit/dedup,
   bright normal spark six cels/160ms, damage/stamina/stun, Slayer/lethal profiles,
@@ -323,6 +325,14 @@ Change only behavior explicitly requested. Update this file after relevant verif
   repeated builder. User approved the audible demo on2026-10-22; independent subjective listening by
   the agent remains unavailable. See [combat-feedback checkpoint](../plans/combat-feedback.md). Historical
   42-particle receipts stay version-specific; they do not qualify this thin24 output.
+
+- Ground-rest follow-up: user requests a longer visible floor hold. Only near/far
+  secondary lifetime/rest change; original launch, cooling, palette, size and XYZ
+  physics remain. Focused particle Unity65/65, native36checks, normal/mirror WebGL/strict repeat
+  and direct128frame/126transition review PASS. Visible stationary embers remain
+  readable229-256ms in these captures; final live age1.043-1.065s. See the same
+  combat-feedback checkpoint. Prior94/1159frame receipts
+  describe the approved750ms version and unchanged consumers.
 
 ### Historical parry iterations (superseded by the approved version above)
 

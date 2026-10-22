@@ -123,3 +123,54 @@ profile and the retired e2 demo after ownership/hash/process checks. Retained on
 the current32-file player, host/fixture worker, manifest and session/ready markers.
 All32 hashes rechecked unchanged; only the requested user-play host/page remain.
 Source child kept for review; parent checkout and all other jobs preserved.
+
+## Remote advance during delivery
+
+Final remote check found main916c752 (tutorial callout cards9927025 and floor-rest
+embers7077a35) beyond the initially fetched fd3f21d. Preserved verified fd demo
+source in local commit c568bb1, merged latest main in the same child, retaining both
+documentation sections. No runtime C# changed upstream; its scene/editor guide and
+particle profile changes are retained. No remote push/merge. Rebuilding latest
+input `662223b4e2dc26cddad814d0668c6a2f6e258e6e41dc858493e1f69fd3122cf7`, scoped33 cases (prior31 plus two-sided floor-rest cases).
+Existing fd demo stays available until this latest replacement is verified.
+
+The first916 attempt stopped at the existing3GiB disk gate before Unity.
+Temporary helper now removes only its own just-extracted duplicate input archive
+under the shared lock after verifying snapshot662223b4. Source/Library/cache and
+other jobs stay intact; disk thresholds and validation unchanged. Retrying same
+source input, not claiming the capacity failure as tests/build PASS.
+
+Capacity retry still lacked a few MiB at the strict3GiB gate after archive cleanup.
+Verified the previous shared QA output matches all32 files of this task local
+e17 demo exactly. Temporary helper may retire only that exact old artifact under
+the shared lock (and asserts its full manifest again), retaining the verified
+local player and leaving other tasks/cache/source intact. No gate lowered.
+
+Data volume still lacked the configured3GiB, so latest916 verification moves
+to an owned /tmp/typinghero-parry-main-demo-916-662223b4 workspace (tmpfs7.5GiB
+free before cloning). Same global /data runner.lock, pinned image/CPU/memory,
+activated private HOME and unchanged3GiB thresholds. Library/cache are copied
+under that lock; originals and shared source are preserved. Only this private
+workspace/output is eligible for later cleanup. No dependency or service setup.
+
+
+## Latest main demo verified (2026-10-22)
+
+Local integration includes main916c75291250c34aed774db1c7ecc489b435b1b0.
+Frozen source662223b4e2dc26cddad814d0668c6a2f6e258e6e41dc858493e1f69fd3122cf7:
+33/33 scoped Unity cases passed, zero failed/skipped,2.6048547s, including
+both cooled-floor-ember cases. Strict builder repeat/font protection and WebGL
+build passed on pinned Unity2022.3.25f1. Native Edge155.0.4283.62,
+Playwright1.58.2,640x360, NVIDIA GTX1650Ti ANGLE D3D11:20/20 checks passed
+in16.998s. Real keyboard/mouse confirmed latest guide cards/text/arrows,
+original frame2 on press/contact, no-word recovery without attack, two typed
+words queue exactly one10-damage follow-up, pause ignores letters and retains
+queue, two parries retain40HP, enemy180->170, valid sorting, zero exceptions
+and scoreboard writes. Menu, guide and success entry screenshots inspected.
+This is technical/static evidence; continuous perceived motion/force and a full
+performance matrix remain unverified. Previous e17 evidence remains separate.
+Downloaded32 player files/48,026,728bytes; every SHA256 matched the immutable
+build. Reopened user page e98327a8-914c-45c1-8810-75f3e56380f7 at
+http://127.0.0.1:8136/; loading finished, no warning, actual menu observed.
+Owned private server workspace/results were removed after verifying task marker,
+snapshot and no active Docker mounts. Shared Library/cache/source/home preserved.

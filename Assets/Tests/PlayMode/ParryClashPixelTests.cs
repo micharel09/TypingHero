@@ -64,7 +64,7 @@ public sealed partial class ParryClashTests
             burst.Emit(Vector3.up * 2, direction, 0, ParryClashBurst.Preset.BCompact, 7);
             var falling = new HashSet<uint>(); var bouncing = new HashSet<uint>();
             int visible = 0;
-            for (int step = 0; step < 75; step++)
+            for (int step = 0; step < 111; step++)
             {
                 float age = step * .01f;
                 foreach (int group in new[] { 2, 4 })
@@ -96,7 +96,7 @@ public sealed partial class ParryClashTests
         {
             burst.Emit(Vector3.up * 3, 1, -10, ParryClashBurst.Preset.BCompact, seed);
             var particles = new ParticleSystem.Particle[40];
-            for (int step = 0; step <= 75; step++)
+            for (int step = 0; step <= 110; step++)
             {
                 foreach (int group in new[] { 1, 2, 4 })
                 for (int i = 0, count = burst.Systems[group].GetParticles(particles); i < count; i++)
