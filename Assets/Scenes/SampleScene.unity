@@ -5356,6 +5356,10 @@ MonoBehaviour:
     field: framingLayout
     slot: 1
     worldOwnsField: 1
+  - local: {fileID: 1604031849}
+    field: impact
+    worldIndex: 1
+    worldOwnsField: 1
   - local: {fileID: 567804062}
     field: targetCamera
     slot: 0
@@ -5403,6 +5407,10 @@ MonoBehaviour:
   - local: {fileID: 1264025837}
     field: target
     slot: 0
+    worldOwnsField: 0
+  - local: {fileID: 1604031849}
+    field: arena
+    worldIndex: 1
     worldOwnsField: 0
   - local: {fileID: 1628099933}
     field: target
@@ -7701,6 +7709,7 @@ MonoBehaviour:
   useUnscaledTime: 1
   logs: 0
   enterShake: {fileID: 782845586}
+  cameraImpact: {fileID: 1604031849}
   shakeDelay: 0.03
   toggleGroup:
   - {fileID: 1606792141}
@@ -17673,6 +17682,8 @@ GameObject:
   - component: {fileID: 1604031848}
   - component: {fileID: 1604031847}
   - component: {fileID: 1604031846}
+  - component: {fileID: 1604031849}
+  - component: {fileID: 1604031850}
   m_Layer: 0
   m_Name: CM vcam
   m_TagString: Untagged
@@ -17758,6 +17769,44 @@ Transform:
   - {fileID: 1364320445}
   m_Father: {fileID: 542294579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604031849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604031845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2081cdcff54ce5bfc10807c7dadcab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  arena: {fileID: 0}
+  health: {fileID: 1837079558}
+  recoil: {fileID: 3482038794572103695}
+--- !u!114 &1604031850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604031845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  m_ApplyAfter: 2
+  m_ChannelMask: 2
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 0
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1606471233
 GameObject:
   m_ObjectHideFlags: 0
@@ -26399,6 +26448,10 @@ PrefabInstance:
       propertyPath: groundY
       value: -2.9025507
       objectReference: {fileID: 0}
+    - target: {fileID: 6140051893238759780, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: cameraImpact
+      value:
+      objectReference: {fileID: 1604031849}
     - target: {fileID: 7358457235006824576, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: m_CastShadows
       value: 2
@@ -26419,6 +26472,10 @@ PrefabInstance:
       propertyPath: hitStopper
       value: 
       objectReference: {fileID: 75867772}
+    - target: {fileID: 8547728396154669619, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: cameraImpact
+      value:
+      objectReference: {fileID: 1604031849}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -26450,6 +26507,17 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 7270377225842179987, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
   m_PrefabInstance: {fileID: 3482038794572103693}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3482038794572103695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6649342182655876260, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+  m_PrefabInstance: {fileID: 3482038794572103693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!4 &4270550857376948404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1689848629239462568, guid: 2be969c4c7a135b49b7cbbbed3c0a0d1, type: 3}

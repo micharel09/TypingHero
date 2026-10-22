@@ -45,6 +45,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
     //HitSpark
     [Header("VFX (optional)")]
     [SerializeField] HitSparkSpawner hitSpark;
+    [SerializeField] CombatCameraImpact cameraImpact;
 
     void Awake()
     {
@@ -146,6 +147,9 @@ public class PlayerWeaponHitbox : MonoBehaviour
                 if (slayer) slayer.ActivateForStun(stun);
             }
         }
+
+        if (cameraImpact && applyDamage > 0)
+            cameraImpact.Hit(p, root.position - transform.root.position, wasSlayer, dmg.IsDead);
 
         if (hitStopper && !ignoreHitstop)
         {

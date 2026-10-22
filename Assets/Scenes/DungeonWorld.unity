@@ -5456,6 +5456,7 @@ MonoBehaviour:
   enemy: {fileID: 0}
   profile: {fileID: 11400000, guid: 8dad05f8f56b4f23492f502d6ca0d526, type: 2}
   framingLayout: {fileID: 0}
+  impact: {fileID: 0}
 --- !u!1 &520016404
 GameObject:
   m_ObjectHideFlags: 0
