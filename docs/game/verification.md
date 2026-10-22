@@ -2416,3 +2416,42 @@ retain actual destination audio and render holds. Browser audio-bus timing is
 measured separately from display submission and does not measure device latency.
 Exact source, timestamps, failed cold-decode/link diagnostics, per-frame records
 and integration/cleanup are in [combat checkpoint](../plans/combat-feedback.md).
+
+
+## Pause modal isolation and Resume transition (2026-10-22)
+
+- Scoped Unity20261022T074625-quick:5/5 PASS,0fail/skip,0.8417408s,
+  inputd953da04972cf86830623fef125b5549f578afc894f92363a4d1d663db892dc0.
+  PanelReveal panel deactivation, audio parent/geometry/active state, focus and
+  closing-frame shortcuts; 0.2s camera exit, compact-until-hidden geometry,
+  rejected repeated Resume/Restart/Menu, hidden selection and Victory layout;
+  existing modal/selection/tutorial reading regressions.
+- Integrated Unity20261022T080125-quick after latest parry upstream merge:
+  5/5 PASS,0fail/skip,0.8485045s, input36fffcf31b5f40a0c57c8e43a7e43eed594c3358000d6aa83444f1a9a7600298.
+  Existing Unity testFilter selected by external task adapter; repo runner unchanged.
+- QA20261022T075105-webgl inputc320c91534c08c8ce08689e40a60a46a1568a9190f2be3a8919722b1c637c23b:
+  compile/build/strict repeated-builder PASS, qa=true. Three changed runtime files
+  and focused test file match integrated checkout byte-for-byte (4/4 SHA256).
+  Later upstream delta is unrelated parry particle tuning, preserved by merge;
+  scoped integrated Unity acceptance above covers the final checkout.
+- First QA074847 failed only the protected font's Windows CRLF/Linux LF byte check.
+  Downloaded font is identical after newline normalization; canonical LF snapshot
+  passes without changing fonts, checker or scene/GUIDs. Checkout endings restored.
+- Final native Edge155.0.4283.62 / Playwright1.58.2 / GTX1650Ti ANGLE D3D11:
+  31/31 PASS in58.252276s at1280x720. Main-menu Settings unchanged; Pause Settings
+  Back/Escape and Top1000 Close/Escape restore focus and frozen state. Actual
+  inactive-panel text observations plus inspected images show no underlying Pause.
+  Resume screenshot/trace holds compact PAUSE while controls are locked, then hides;
+  rapid Escape/R/M causes no second transition and encounter reading stays frozen.
+  Real Restart, reading release, natural Game Over after Resume, result actions and
+  returns to menu from results/Pause pass. Unity also checks restored Victory layout.
+  Nine final PNGs inspected, including Resume transition;0exceptions,5fixture reads,
+  1intercepted ended-run score write,0production writes. All external requests remain
+  blocked; bridge only observes. No audio-signal/performance claim.
+- First25checks reached actual
+  Game Over but driver incorrectly waited for hp0 (disabled actor reports hp-1).
+  Corrected to existing finished/overlay state. A subsequent driver click was not
+  observed at MainMenu and shutdown hung; task-only processes stopped, mouse hold
+  made explicit in the external driver. No runtime changes to satisfy drivers.
+- Final evidence and cleanup: [compact menu checkpoint](../plans/compact-menus.md).
+  No full suite/stress/soak, normal production build or itch upload in this task.

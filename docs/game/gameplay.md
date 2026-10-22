@@ -557,6 +557,15 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
 - Top1000 is a modal in menu/pause, with the existing1000-row dataset,19-row
   visible pool,refresh and scroll retention. Close restores prior focus/screen;
   pause remains paused. Modal R/M/Escape cannot reach the previous screen.
+  Settings and Top1000 deactivate the CompactPauseLayout panel after saving focus
+  (Settings first reparents audio into its modal); Close restores audio geometry,
+  activates Pause and restores the opener. PanelReveal cannot reveal the inactive
+  panel. Main-menu modals keep their existing visibility behavior.
+  Resume keeps compact geometry and pause/time/audio locks through camera exit,
+  disables interaction immediately, and rejects repeated Resume/Restart/Menu and
+  Escape/R/M during that transition. It hides the canvas before restoring result
+  geometry and clearing hidden selection, then releases pause while retaining any
+  tutorial/encounter reading lock. Only one camera tween runs at a time.
   Hidden pause controls are noninteractive and selection clears on resume,
   preventing WASD/Space from submitting a hidden Main Menu button.
 - Non-combat panels/modal/keycaps use byte-identical v2 components; small controls

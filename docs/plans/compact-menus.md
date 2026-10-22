@@ -100,3 +100,66 @@ final QA/failure JSON receipts and live preview helper PID 32016/port 8238.
 The earlier task menu preview on port 8237 was closed; original tutorial resources
 remain untouched. Keep the worktree/branch and final preview resources until the
 user finishes review and the outstanding tutorial actor-clearance work is resolved.
+
+
+## Pause modal / Resume follow-up (2026-10-22)
+
+Scope: Settings/Top 1000 deactivate the CompactPauseLayout panel while preserving
+dungeon, pause/time/audio locks. Close returns audio geometry, activates Pause,
+and restores opener focus; the closing frame still consumes shortcuts.
+Resume keeps compact geometry and pause until camera exit, hides the canvas
+before restoring result geometry, and rejects Resume/Restart/Menu while exiting.
+The preceding camera tween is cancelled to handle Resume immediately after Pause.
+No scene/GUID, public API, camera parameter, volume or gameplay rule changes.
+
+Isolated Orca worktree `fix-pause-modal-resume`, branch
+`micharel09/fix-pause-modal-resume`, based on origin/main `4c33780`.
+Parent dirty checkout is preserved. No full suite, stress/soak or itch upload.
+
+Focused Unity receipt `20261022T074625-quick`, input
+`d953da04972cf86830623fef125b5549f578afc894f92363a4d1d663db892dc0`:
+5/5 PASS, 0 failed/skipped, 0.8417408s, Unity 2022.3.25f1/fly-server.
+Two new tests cover PanelReveal/audio/focus and 0.2s camera exit/repeated actions,
+compact geometry until hidden, input/time/audio lock and restored Victory layout.
+Three existing tests cover hidden selection, modal closing-frame/focus and tutorial
+reading. Task-only adapter uses Unity testFilter; repository runner is unchanged.
+
+First QA `20261022T074847-webgl` failed the pre-existing protected-font byte check:
+checkout CRLF versus Linux Unity LF in CobblestoneUI64.asset. Download comparison
+proves equality after only newline normalization (2217448 vs 2211434 bytes,
+6014 CRLFs). Retried snapshot with Git-canonical LF YAML; restored checkout
+line endings immediately. Font/checker/assets are unchanged in the task diff.
+
+Final QA `20261022T075105-webgl`, input
+`c320c91534c08c8ce08689e40a60a46a1568a9190f2be3a8919722b1c637c23b`:
+WebGL/strict repeated-builder PASS. Changed runtime/test files SHA256 match the
+integrated checkout 4/4. Merged latest upstream parry tuning without conflicts;
+final integrated scoped Unity `20261022T080125-quick`: 5/5 PASS,0fail/skip,
+0.8485045s, input36fffcf31b5f40a0c57c8e43a7e43eed594c3358000d6aa83444f1a9a7600298.
+
+Native final `qa-verified/browser.json`:31/31 PASS,58.252276s,1280x720,
+Edge155.0.4283.62/Playwright1.58.2/GTX1650Ti ANGLE D3D11. Main-menu Settings;
+Pause Settings Back/Escape; Top1000 Close/Escape; opener focus and unchanged audio
+values; inactive underlying panel; frozen match; Resume rapid Escape/R/M and
+encounter reading retention; Restart; natural Game Over after Resume; return from
+results/Pause to MainMenu all pass. Unity covers Victory result geometry too.
+Inspected all9final PNGs, including disabled compact menu during Resume and
+restored Game Over results; trace records compact PAUSE through locked transition
+and absence of label after canvas hide. No result-layout flash observed.
+0exceptions,5fixture reads,1intercepted ended-run score write,0production writes.
+Fixture interception/external blocking stay on; no bridge gameplay mutations.
+
+Failed driver receipts remain distinct: first25checks timed out on hp0 after actor
+was disabled (hp-1); use existing finished/overlay state. Second attempt missed a
+menu click and hung closing its already-exited browser; stopped only verified task
+Python/Node processes. Final driver holds actual mouse input90ms, unchanged game.
+No full suite/stress/soak, production build or itch upload.
+
+Implementation commit `bc962f1`; task resources/evidence root:
+`E:/CodexTemp/TypingHero/pause-modal-resume/`. Final QA player,9PNGs/video/trace,
+Unity XML/snapshot receipts and reproducible driver are retained for review.
+Remote final QA result/source input: `/data/typinghero-game-loop/results/20261022T075105-webgl/`.
+Keep final QA/evidence until review ends; then remove only this task artifact root
+and its final remote result. Intermediate task captures/profiles/archives and failed
+remote/test result directories will be cleaned after integration. Shared cache and
+pre-existing resources stay untouched. Remote integration/cleanup receipt follows.
