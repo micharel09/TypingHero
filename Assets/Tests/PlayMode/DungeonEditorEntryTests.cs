@@ -31,7 +31,7 @@ public sealed class DungeonEditorEntryTests
         Assert.That(Object.FindObjectsOfType<PlayerHealth>(), Is.Empty);
         var player = gate.GetComponentInChildren<PlayerHealth>(true);
         player.maxHealth = 53; // An unsaved Inspector edit must survive bootstrap.
-        TutorialRun.Begin(); TutorialRun.Retrying = true;
+        TutorialRun.Begin();
         EndlessRun.Begin().Score = 123;
         GamePauseController.SetTutorialReading(true);
         int progress = PlayerPrefs.GetInt("TutorialProgress_v1", 0);
@@ -43,7 +43,6 @@ public sealed class DungeonEditorEntryTests
         Assert.That(player.maxHealth, Is.EqualTo(53));
         Assert.That(player.Current, Is.EqualTo(53));
         Assert.That(TutorialRun.Active, Is.False);
-        Assert.That(TutorialRun.Retrying, Is.False);
         Assert.That(PlayerPrefs.GetInt("TutorialProgress_v1", 0), Is.EqualTo(progress));
         Assert.That(EndlessDuel.I.Run.Score, Is.Zero);
         Assert.That(EndlessDuel.I.Run.Difficulty, Is.EqualTo(EndlessDifficulties.Selected));

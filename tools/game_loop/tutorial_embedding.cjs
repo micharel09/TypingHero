@@ -9,6 +9,8 @@ module.exports = async function embedding(api, browser) {
     await game.evaluate(() => { window.__qaKeys = []; addEventListener('keydown', e => window.__qaKeys.push(e.key)); });
     await page.evaluate(() => { window.__qaKeys = []; addEventListener('keydown', e => window.__qaKeys.push(e.key)); });
     await game.locator('#unity-canvas').click({position:{x:30,y:220}});
+    await clickControl(game, 'PlayButton', 'button', page);
+    await until(game,s=>s.controls.some(c=>c.name==='NameInput'));
     await clickControl(game, 'NameInput', 'input', page);
     report.iframeFocus = await game.evaluate(() => ({focused:document.hasFocus(), active:document.activeElement?.tagName}));
     await page.keyboard.press('Control+A', {delay:120});
@@ -19,7 +21,7 @@ module.exports = async function embedding(api, browser) {
     report.iframeKeys = await game.evaluate(() => window.__qaKeys);
     report.outerKeys = await page.evaluate(() => window.__qaKeys);
     await page.screenshot({path:report.outputDirectory + '/tutorial-iframe-entry.png'});
-    let s = await until(game, s => s.tutorial && s.current === 'BLADE' && s.timeScale === 0);
+    let s = await until(game, s => s.tutorial && s.current.length > 0 && s.timeScale === 0);
     check(s.width === 960 && s.height === 540, 'tutorial starts in actual 960x540 iframe');
     await page.screenshot({path:report.outputDirectory + '/tutorial-iframe.png'});
     await page.locator('#fullscreen').click();
@@ -39,10 +41,8 @@ module.exports = async function embedding(api, browser) {
     check(s.tutorial && s.timeScale === 0, 'fullscreen/focus return preserves reading lock');
     await page.screenshot({path:report.outputDirectory + '/tutorial-fullscreen.png'});
     await page.keyboard.press('Enter', {delay:120});
-    await until(game, s => s.tutorialPracticing);
-    await page.keyboard.type('BLADE', {delay:120});
-    s = await until(game, s => s.tutorialPassed);
-    check(s.enemyHp < 850, 'actual fullscreen keyboard slash completes attack lesson');
+    s = await until(game, s => !s.tutorial && s.encounterReading);
+    check(s.tutorialStatus === 2 && s.inputLetters === 0, 'fullscreen Start Battle opens a fresh encounter intro');
     check(report.fixtureWrites === writes, 'iframe/fullscreen tutorial produces zero score writes');
   } catch(error) {
     await page.screenshot({path:report.outputDirectory + '/tutorial-embedding-failure.png'});

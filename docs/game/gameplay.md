@@ -16,7 +16,7 @@ outer corners. Latest follow-up scales both side status groups (names, HP, icons
 stamina) to80%: effective HP width65.6px. Both player/enemy HP
 digits and the difficulty/DUEL line/background are hidden. The two name
 backplate Images are disabled; names remain visible over the arena. Score/combo and typing
-tray keep their original scale/geometry; stamina tutorial highlight follows80%.
+tray keep their original scale/geometry; tutorial arrows follow the actual scaled HUD RectTransforms.
 Name content, Cobblestone source sizes56/48/42, Blackbit title only, other geometry, three typing cells,
 hidden PARRY/Space/clock, bindings and feedback timing remain unchanged. No gameplay math
 or input changes. Native focused HUD11 checks and production combat/pause smoke
@@ -227,45 +227,41 @@ see verification for profile status. These are current behaviors, not new requir
   import metadata and animation/events remain unchanged. Hurt1 retains its baked
   full-body flash; Stun uses Hurt3/4/3 and hitBySlayer uses Hurt1/3. Source/native
   assets and the approved sample hashes live in `design/skeleton-hero/`.
-- First Play enters the six-lesson English interactive tutorial. Menu Tutorial
-  replays it; How to Play remains a separate quick reference. TutorialProgress_v1
-  stores Unseen=0,Skipped=1,Completed=2 independently of HowToPlaySeen. Completing
-  the last challenge saves completion; skipping a replay cannot erase completion.
-  MusicVolume/SfxVolume default to1,persist from menu/pause sliders,and multiply
-  independent fade/duck/scene envelopes. Restart retains these and the name.
+- First Play opens the single English HUD guide for unseen players. Menu Tutorial
+  reopens it; How to Play remains a separate quick reference. TutorialProgress_v1
+  retains Unseen=0,Skipped=1,Completed=2; both legacy viewed values bypass first-Play
+  onboarding. Only Start Battle saves Completed. MusicVolume/SfxVolume default to1,
+  persist from menu/pause sliders and multiply independent fade/duck/scene envelopes.
+  Restart retains these and the player name.
 - HitStopper briefly lowers scaled time and restores the original pre-hitstop value.
   Replacing an expired coroutine before it resumes must preserve that original
   value, including slow motion; Quick regression covers both stacking settings.
 
 Change only behavior explicitly requested. Update this file after relevant verified changes.
 
-## Interactive tutorial
+## Single HUD tutorial guide
 
-- TutorialRun selects tutorial versus ordinary SampleScene and retains only the
-  in-session lesson checkpoint. TutorialDirector verifies BLADE plus an actual hit;
-  two words with the existing3s timer; two actual target-root parries; a final parry
-  from25/250 stamina causing real stun/Slayer; FIRE completion plus a Slayer hit;
-  then two words and one parry in the same challenge. Enter/click only starts
-  practice or advances an already passed lesson. SPACE remains combat Parry.
-- Reading uses a distinct GamePauseController lock. InputBlocked combines that
-  lock with pause,including resume's camera transition; Resume keeps reading
-  frozen. UI confirm events retain existing pause-safe audio routing. Practice
-  uses existing TypingManager.ProcessInput,animations,hitboxes and Parry/Slayer
-  timing. First attack practice holds enemy attacks and the word timer.
-- Ordinary lesson transitions,timeout and getting hit reload gameplay at the current
-  checkpoint at full HP. Stamina break to Slayer stays live in the same scene and
-  holds its real duration while reading. Expiry or Restart during Slayer repeats
-  the stamina-break checkpoint. Previous lessons survive an attempt retry.
-- Skip Tutorial and final Start Battle load an ordinary fresh40/850HP match with
-  250stamina,zero score/statistics and no active Slayer/queued attack. Name and
-  audio preferences remain. LeaderboardSubmitter rejects tutorial submissions at
-  its existing public entry point; Firebase schema/public provider API are unchanged.
-- TutorialOverlay keeps the existing HUD/arena/tray anchors. Gold emphasizes the
-  tray,cue or stamina; mixed practice switches emphasis when the cue appears.
-  The background covers only the instruction strip so the real cue remains
-  visible in the gap between action buttons. Character art/animation/VFX remain.
-  See the tutorial continuation in combat-feedback and verification for actual
-  profile and release receipts.
+- TutorialRun selects a frozen SampleScene guide without lesson/practice/retry
+  state or combat preparation. All four groups are visible together: Your HP,
+  Enemy HP / Guard, Typing / Timer and Score / Combo. Five static gold arrows
+  follow real HUD RectTransforms after layout, including separate HP and guard
+  destinations. Existing dungeon, HUD, fonts, panel and Continue listener remain.
+- The panel explains HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
+  with Space/parry and Esc/pause copy plus one Start Battle / Enter action.
+  No lesson tests, additional pages, animation or illustrations; How to Play is separate.
+- Reading uses the existing GamePauseController input/time/audio/score lock.
+  Pause hides the guide; Resume preserves the lock and returns to the same panel.
+  Restart reloads the guide. Menu abandons it without marking it viewed.
+- Start Battle guards repeated confirmation, saves Completed, ends tutorial mode
+  and reloads through DungeonSession. The reading lock remains through teardown;
+  held Enter is consumed before fresh gameplay activation. The selected-difficulty
+  encounter intro starts with40HP,180enemy HP,100guard and zero score/statistics.
+- LeaderboardSubmitter still rejects tutorial submissions before resolving a
+  provider. Public gameplay/provider APIs, Firebase schema and saved key stay unchanged.
+- EndlessOverlay clones only the original encounter intro content: all guide copy
+  and the guide panel background remain hidden in the clone. Intro width/action
+  typography retain their original bounds; live combat has no reading panel.
+- Verification and scoped scene/asset evidence: [tutorial guide checkpoint](../plans/tutorial-hud-guide.md).
 
 ## World lighting / parry clash
 

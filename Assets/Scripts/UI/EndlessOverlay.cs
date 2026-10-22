@@ -26,6 +26,10 @@ public sealed class EndlessOverlay : MonoBehaviour
         var design = root.transform.Find("Reference960x540");
         foreach (Transform child in design) child.gameObject.SetActive(child.name == "TutorialPrompt");
         overlay.prompt = (RectTransform)design.Find("TutorialPrompt");
+        // Only the encounter's original content belongs in this template clone.
+        // Guide copy stays hidden both in the intro and during live combat.
+        foreach (Transform child in overlay.prompt) child.gameObject.SetActive(false);
+        overlay.prompt.GetComponent<Image>().enabled = false;
         overlay.heading = overlay.prompt.Find("Heading").GetComponent<TMP_Text>();
         overlay.instruction = overlay.prompt.Find("Instruction").GetComponent<TMP_Text>();
         overlay.background = overlay.prompt.Find("InstructionBackground").gameObject;
@@ -40,6 +44,7 @@ public sealed class EndlessOverlay : MonoBehaviour
     internal void Show(string title, string message, string caption, UnityEngine.Events.UnityAction next)
     {
         prompt.anchoredPosition = new Vector2(48, -107);
+        prompt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 864);
         prompt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 262);
         // The clone owns its reading bounds; NEXT adds a third description line.
         Place(heading.rectTransform, 16, 0, 832, 56);
@@ -50,6 +55,7 @@ public sealed class EndlessOverlay : MonoBehaviour
         var captionLabel = action.GetComponentInChildren<TMP_Text>(true);
         Place(captionLabel.rectTransform, 8, 0, 344, 52);
         captionLabel.enableWordWrapping = false;
+        captionLabel.fontSize = captionLabel.fontSizeMin = captionLabel.fontSizeMax = instruction.fontSize;
 
         heading.gameObject.SetActive(true);
         heading.text = title; instruction.text = message;

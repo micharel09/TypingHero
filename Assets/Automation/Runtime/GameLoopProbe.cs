@@ -267,8 +267,11 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool leaderboardOpen;
         public int collectionMode;
         public string collectionTitle, collectionDetails, collectionStatus, selectedControl, collectionFirstRow;
-        public bool tutorial, tutorialPracticing, tutorialPassed, tutorialRetry, stunned;
-        public int tutorialLesson, tutorialStatus;
+        public bool tutorial, stunned;
+        public bool audioPaused;
+        public int tutorialStatus;
+        public Rect tutorialPanel;
+        public GuideArrow[] tutorialArrows;
         public float cameraOrtho, multiplier, scorePulse, scoreZoom, redAlpha;
         public float cameraFieldOfView;
         public bool cameraPerspective;
@@ -311,6 +314,22 @@ public sealed class GameLoopProbe : MonoBehaviour
         public float rowHeight, viewportHeight;
         public int[] rowIds;
         public Point[] controls;
+    }
+    [Serializable] sealed class GuideArrow
+    {
+        public string target;
+        public Vector2 start, end;
+        public Rect targetRect;
+    }
+    static GuideArrow[] ObserveGuide(TutorialOverlay overlay)
+    {
+        if (!overlay || !overlay.gameObject.activeInHierarchy) return Array.Empty<GuideArrow>();
+        return Read<TutorialOverlay.Arrow[]>(overlay, "arrows").Select(a => new GuideArrow {
+            target = a.target.name,
+            start = a.shaft.TransformPoint(new Vector3(a.shaft.rect.xMin, 0, 0)),
+            end = a.shaft.TransformPoint(new Vector3(a.shaft.rect.xMax, 0, 0)),
+            targetRect = ScreenRect(a.target)
+        }).ToArray();
     }
     [Serializable] sealed class FontObservation
     {
@@ -528,7 +547,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             sortingEnemy = enemy ? enemy.GetComponent<SpriteRenderer>() : null;
             var stamina = FindObjectOfType<EnemyStamina>();
             var resultLabel = Read<TMP_Text>(match, "resultLabel");
-            var tutorial = FindObjectOfType<TutorialDirector>();
+            var guide = FindObjectOfType<TutorialOverlay>();
             var fx = FindObjectOfType<SlayerScreenFX>();
             var scoreLabel = Read<TMP_Text>(ScoreSystem.I, "scoreText");
             var scoreRoot = Read<RectTransform>(fx, "scoreRoot");
@@ -647,9 +666,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 bodyFoot = layout && bodyA && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.LowestFoot) : Vector2.zero,
                 bodyCenter = layout && bodyA && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.BodyCenter) : Vector2.zero,
                 tutorial = TutorialRun.Active, tutorialStatus = (int)TutorialRun.Status,
-                tutorialLesson = tutorial ? tutorial.LessonIndex : 0, tutorialRetry = TutorialRun.Retrying,
-                tutorialPracticing = tutorial && tutorial.Practicing,
-                tutorialPassed = tutorial && tutorial.Passed,
+                tutorialPanel = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/TutorialPrompt")) : default,
+                tutorialArrows = ObserveGuide(guide),
                 stunned = enemy && enemy.GetComponent<EnemyStunController>() && enemy.GetComponent<EnemyStunController>().IsStunned,
                 scene = SceneManager.GetActiveScene().name, frame = Time.frameCount,
                 endless = endless != null,
@@ -678,6 +696,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 inputLetters = match ? match.Letters : 0, inputCorrect = match ? match.Correct : 0,
                 matchParries = match ? match.Parries : 0, finalScore = match ? match.FinalScore : 0,
                 stamina = stamina ? stamina.Current : -1, nextProgress = Read(typing, "_typeAheadCount", 0),
+                audioPaused = AudioListener.pause,
                 musicVolume = AudioPreferences.Music, sfxVolume = AudioPreferences.Sfx,
                 result = resultLabel ? resultLabel.text : "",
                 current = Read(typing, "current", ""), next = Read(typing, "next", ""),
