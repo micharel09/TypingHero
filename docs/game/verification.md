@@ -2455,3 +2455,20 @@ and integration/cleanup are in [combat checkpoint](../plans/combat-feedback.md).
   made explicit in the external driver. No runtime changes to satisfy drivers.
 - Final evidence and cleanup: [compact menu checkpoint](../plans/compact-menus.md).
   No full suite/stress/soak, normal production build or itch upload in this task.
+
+
+## Pause fix published (2026-10-22)
+
+Source db1936d; production20261022T082936/input6dd75a9b32f7e6baefc5b85f8fec6a95d9df83272dc6b1a115ff7aa0654a85a8
+passes strict repeat/build and complete ASCII/UTF16LE QA-marker exclusion.
+Original-HTML native Guest/Play/tutorial reading/Pause/Settings/Escape/Resume/Menu
+inspected, bridge undefined,0exceptions/provider writes. Existing scoped5Unity
+and31native acceptance reused; no full suite, audio or performance remeasurement.
+Published itch playable19943928; prior19915823 hidden/retained. Save and actual
+public iframe/menu verified,31non-HTML CDN hashes match ZIP and index adds only
+standard htmlgame.js. Fresh anonymous direct player menu loads with no bridge or
+exceptions/writes. Raw anonymous root HTTP403 is not a passing guest-page check.
+38non-upload fields,5page images,other upload flags unchanged. ZIP32members,
+18,777,511bytes,CRC/hash PASS. BrowserSkill and smoke sessions closed.
+Receipt/rollback/resources: [pause release](../../marketing/itch-io/pause-release-20261022.json),
+[checkpoint](../plans/compact-menus.md). No devlog/social/provider mutations.

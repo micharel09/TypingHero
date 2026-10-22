@@ -174,3 +174,47 @@ Remote integration verified: task branch pushed and HEAD `c8e74a1` fast-forwarde
 `bc962f1` is an ancestor. This final receipt is a documentation-only follow-up;
 verify its remote HEAD before removing the clean task worktree/local branch.
 Remote task branch stays retained. No parent checkout/WIP modification.
+
+
+## Itch release follow-up (2026-10-22; published)
+
+User authorized upload after Pause acceptance. Release source `db1936d`, from
+verified origin/main, in isolated `release-pause-itch` / `micharel09/release-pause-itch`.
+Parent dirty checkout/WIP is excluded. Existing scoped Unity5/5 and native31/31
+pause results reused; no runtime changes or full suite/stress/soak.
+
+Unity2022.3.25f1/fly-server production `20261022T082936-production` PASS,
+strict repeated-builder PASS, input
+`6dd75a9b32f7e6baefc5b85f8fec6a95d9df83272dc6b1a115ff7aa0654a85a8`.
+Snapshot adapter only normalizes YAML CRLF to canonical LF; no checker/asset edits.
+qa=false; ASCII/UTF16LE typingHeroQA/GameLoopProbe/TYPINGHERO_AUTOMATION exclusion
+across all JS/WASM/data PASS. ZIP32members/18,777,511bytes, SHA256
+`7d30660e33cf70adb76167a28a6d5afcd32ff0b88f71d66d71a059afb4d157a4`,CRC/local transfer PASS.
+Original HTML/native Edge155: Guest/Play, tutorial reading, Pause/Settings/Escape,
+Resume with reading retained and Pause/M return inspected; bridge undefined,
+0exceptions/provider reads/writes, fixture/external blocking enabled. No audio or
+performance measurement. Initial interactive runner had closed stdin; stopped only
+its verified task process tree and reran in a PTY, without touching the game.
+
+Published https://micharel09.itch.io/clackblade, game3857509, playable19943928,
+`CLACKBLADE-WebGL-Pause-20261022-db1936d.zip`. BrowserSkill native upload succeeded,
+new playable selected, previous19915823 hidden/retained, Save returned Saved.
+38non-upload fields,5page images and every other upload flag are unchanged.
+No page text/gallery/pricing/tag edits, devlog/social posts or provider changes.
+Actual public Run game iframe selects19943928 and renders the new dungeon menu.
+All31non-HTML anonymous CDN SHA256s match ZIP; index adds only standard itch
+htmlgame.js. Direct anonymous Edge player also renders the same menu, bridge
+undefined,0exceptions/writes. Raw anonymous HTTP access to the root page returned
+Cloudflare403; no anonymous-root HTTP PASS claimed. Browser/public-player checks
+above establish the published runtime; no challenge bypass.
+
+Canonical receipt: [pause-release-20261022.json](../../marketing/itch-io/pause-release-20261022.json).
+Rollback: select retained19915823, hide19943928 and Save; other settings unchanged.
+BrowserSkill session stopped; task smoke browser/server8256 closed. Earlier idle
+BrowserSkill sessions were already absent and were not reused/guessed.
+Retain final ZIP/player, smoke images/reports, immutable source snapshot and CDN/
+form verification receipts at `E:/CodexTemp/TypingHero/pause-itch-release/` and
+`/data/typinghero-game-loop/results/20261022T082936-production/` until release review
+ends. Shared cache and previous artifacts stay untouched. The clean release
+worktree/local branch can be removed after these documentation commits are pushed,
+merged and verified on origin/main; retain the remote release branch.

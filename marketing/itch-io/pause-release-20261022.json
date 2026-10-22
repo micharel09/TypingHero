@@ -1,0 +1,218 @@
+{
+  "status": "published",
+  "sourceCommit": "db1936df8c8b0e1bd10872435707903acc68d223",
+  "result": "/data/typinghero-game-loop/results/20261022T082936-production",
+  "snapshot": "6dd75a9b32f7e6baefc5b85f8fec6a95d9df83272dc6b1a115ff7aa0654a85a8",
+  "qa": false,
+  "qaMarkers": "excluded in ASCII and UTF16LE across JS/WASM/data",
+  "zip": "CLACKBLADE-WebGL-Pause-20261022-db1936d.zip",
+  "bytes": 18777511,
+  "sha256": "7d30660e33cf70adb76167a28a6d5afcd32ff0b88f71d66d71a059afb4d157a4",
+  "crc": "passed",
+  "members": {
+    "Build/output.data": "0ad51180843369ad0fe089a7ebd23db8c4e6a5ba17ed225bc2693acb07477aa6",
+    "Build/output.framework.js": "b9ba690e6c17d915719c62ce6c9c14ca147a4797ed030fd6da53765648237db5",
+    "Build/output.loader.js": "1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76",
+    "Build/output.wasm": "293539ec33fa16945be03c94e27a33a5af3a072c171666fc815de5df9fadb76d",
+    "CREDITS.txt": "db27cdd048651ef483574c6f91242ccac13e20c8aef8b581e03c060e3e892266",
+    "CodeManu-License.txt": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+    "Crusenho-License.txt": "967e02d313d6aad874db979e832596e624c3c177c6c887da95bd914c82168ba9",
+    "DarkAges-License.txt": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+    "KayKit-Dungeon-CC0.txt": "0bcbcd288619887511298e3c3304e221fe659888717a6977822249369f83bac5",
+    "Kenney-Impact-License.txt": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+    "Kenney-Interface-License.txt": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+    "Kenney-License.txt": "8723305f6eeda9b2ab11e3f642657744cfbed98d08abce3ccdf710c74ecc329e",
+    "Kenney-UI-License.txt": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
+    "Pimen-BattleEffects-License.txt": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+    "Pimen-HitSpark-License.txt": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
+    "PixelDungeon-CC0.txt": "ab1738a63883411e4a82517c71d3b3887a37be0127503af172d6898a577fed36",
+    "ServiceWorker.js": "a1410ab9ff483270351ed1dc5ee30cdd0d50911d83f4a24f3e6f04b387b52cdb",
+    "TemplateData/favicon.ico": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+    "TemplateData/icons/unity-logo-dark.png": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
+    "TemplateData/icons/unity-logo-light.png": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
+    "TemplateData/progress-bar-empty-dark.png": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+    "TemplateData/progress-bar-empty-light.png": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+    "TemplateData/progress-bar-full-dark.png": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
+    "TemplateData/progress-bar-full-light.png": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+    "TemplateData/style.css": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
+    "TemplateData/unity-logo-dark.png": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+    "TemplateData/unity-logo-light.png": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
+    "TinyPixelJapan-License.txt": "9467cd1a0f711963a85addf2d90a4a67f1ec0b3d6ccd39753d0c03894b46ae1f",
+    "VT323-OFL.txt": "e9703da7abe97795a41be19905323706502723a1eec104608c24f858e352f9a8",
+    "game-loop-build.json": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+    "index.html": "3a18f3f3b8b3b23ec6535864cb573a314aa6752ffa36a78611b295027c90cf4e",
+    "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486"
+  },
+  "target": "https://micharel09.itch.io/clackblade",
+  "game": 3857509,
+  "publishedUpload": 19943928,
+  "previousPlayable": 19915823,
+  "previousPlayableHidden": true,
+  "nonUploadFieldsUnchanged": 38,
+  "pageImagesUnchanged": 5,
+  "otherUploadFlagsUnchanged": true,
+  "cdnVerification": {
+    "base": "https://html-classic.itch.zone/html/19943928/",
+    "nonHtmlMatched": 31,
+    "index": "original plus standard itch htmlgame.js",
+    "verified": [
+      {
+        "name": "Build/output.data",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Build/output.framework.js",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Build/output.loader.js",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Build/output.wasm",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "CREDITS.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "CodeManu-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Crusenho-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "DarkAges-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "KayKit-Dungeon-CC0.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Kenney-Impact-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Kenney-Interface-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Kenney-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Kenney-UI-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Pimen-BattleEffects-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "Pimen-HitSpark-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "PixelDungeon-CC0.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "ServiceWorker.js",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/favicon.ico",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/icons/unity-logo-dark.png",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/icons/unity-logo-light.png",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/progress-bar-empty-dark.png",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/progress-bar-empty-light.png",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/progress-bar-full-dark.png",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/progress-bar-full-light.png",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/style.css",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/unity-logo-dark.png",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TemplateData/unity-logo-light.png",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "TinyPixelJapan-License.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "VT323-OFL.txt",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "game-loop-build.json",
+        "status": "SHA256 match"
+      },
+      {
+        "name": "index.html",
+        "status": "original plus standard itch htmlgame.js"
+      },
+      {
+        "name": "manifest.webmanifest",
+        "status": "SHA256 match"
+      }
+    ],
+    "anonymousRootHttp": "403 Cloudflare; browser runtime verification separate"
+  },
+  "productionSmoke": {
+    "originalHtml": true,
+    "viewport": "1280x720",
+    "realInput": [
+      "Guest name/Play",
+      "tutorial reading",
+      "Pause",
+      "Settings",
+      "Escape to Pause",
+      "Resume retaining reading",
+      "Pause/M to menu"
+    ],
+    "bridge": "undefined",
+    "exceptions": [],
+    "fixtureReads": 0,
+    "fixtureWrites": 0
+  },
+  "publicVerification": {
+    "selectedActualIframe": "https://html-classic.itch.zone/html/19943928/index.html?v=1792658720",
+    "browserPublicMenuInspected": true,
+    "anonymousDirectPlayerMenuInspected": true,
+    "bridge": "undefined",
+    "exceptions": [],
+    "fixtureWrites": 0
+  },
+  "localArtifactRoot": "E:\\CodexTemp\\TypingHero\\pause-itch-release",
+  "rollback": "Select retained playable19915823, hide19943928, Save; preserve all other page settings.",
+  "noDevlogOrSocialPost": true
+}
