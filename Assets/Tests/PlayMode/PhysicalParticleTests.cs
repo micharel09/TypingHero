@@ -8,23 +8,30 @@ public sealed class PhysicalParticleTests
     public void RecipientSnapshotOwnsAllRaysAndFourPerimeterSpecks(float side)
     {
         var profile = UnityEditor.AssetDatabase.LoadAssetAtPath<PhysicalParticleProfile>("Assets/Art/VFX/ParryClash/ParryPhysics.asset");
-        var simulation = new PhysicalParticleSimulation(22);
-        var point = new Vector3(side * 2, 1, 0);
+        var simulation = new PhysicalParticleSimulation(40);
+        var point = new Vector3(side * 2, 3, 0);
         var body = PhysicalParticleProfile.RecipientSnapshot.FromBounds(new Bounds(new Vector3(0, .5f, 0), new Vector3(1, 2, 0)));
         var center = body.center; var axes = body.halfAxes;
-        simulation.Emit(profile, point, side, -side, -3, 4, body);
+        simulation.Emit(profile, point, -side, side, -3, 4, body); // Both legacy directions deliberately wrong.
         body.center += Vector3.one * 20; // Mutating the caller snapshot cannot drag the emitted burst.
-        Assert.That(simulation.Count, Is.EqualTo(22));
-        int specks = 0, rays = 0, outsideBody = 0;
+        Assert.That(simulation.Count, Is.EqualTo(40));
+        int specks = 0, rays = 0, outsideBody = 0, pastBack = 0;
         for (int i = 0; i < simulation.Count; i++)
         {
             var state = simulation[i];
             if (!state.small)
             {
                 rays++; Assert.That(state.origin, Is.EqualTo(point));
-                float angle = Vector2.Angle((Vector2)(center - point), (Vector2)state.launch);
-                Assert.That(angle, Is.LessThanOrEqualTo(38));
-                Assert.That(((Vector2)state.launch).magnitude, Is.InRange(14, 24));
+                float angle = Mathf.Atan2(state.launch.y, -side * state.launch.x) * Mathf.Rad2Deg;
+                Assert.That(angle, Is.InRange(-28, 48));
+                Assert.That(((Vector2)state.launch).magnitude, Is.InRange(24, 32));
+                Assert.That(state.coastVelocity.x / state.launch.x, Is.EqualTo(Mathf.Exp(-.6f)).Within(.00001f));
+                if (state.channel != 1)
+                {
+                    var flight = simulation.Evaluate(i, .25f);
+                    if ((flight.position.x - center.x) * -side > axes.x) pastBack++;
+                    Assert.That(state.physics.flightDrag, Is.EqualTo(1.5f));
+                }
             }
             else
             {
@@ -37,10 +44,33 @@ public sealed class PhysicalParticleTests
                 Assert.That(((Vector2)state.launch).magnitude, Is.InRange(1, 2.5f));
             }
         }
-        Assert.That(rays, Is.EqualTo(18)); Assert.That(specks, Is.EqualTo(4));
+        Assert.That(rays, Is.EqualTo(36)); Assert.That(specks, Is.EqualTo(4));
+        Assert.That(pastBack, Is.GreaterThanOrEqualTo(28), "most main rays must visibly pass the recipient's back by250ms");
         Assert.That(outsideBody, Is.GreaterThanOrEqualTo(2), "side specks must start outside the body, not all four behind its sprite");
     }
 #endif
+
+    [Test, Category("Quick")]
+    public void LegacyRecipientAimStillFollowsBodyAndSnapshotsItsDirection()
+    {
+        var profile = ScriptableObject.CreateInstance<PhysicalParticleProfile>();
+        try
+        {
+            profile.groups = new[] { new PhysicalParticleProfile.Group {
+                count = 1, towardPlayer = true, angles = Vector2.zero, angleJitter = 0,
+                speed = Vector2.one * 10, lifetime = Vector2.one
+            } };
+            Assert.That(profile.groups[0].pastRecipient, Is.False);
+            var body = new PhysicalParticleProfile.RecipientSnapshot { valid = true, center = new Vector3(-2, -2, 0) };
+            var simulation = new PhysicalParticleSimulation(1);
+            simulation.Emit(profile, Vector3.zero, 1, -1, -10, 0, body);
+            Assert.That(Vector2.Angle(body.center, simulation[0].launch), Is.LessThan(.01f));
+            var before = simulation.Evaluate(0, .2f);
+            body.center = Vector3.one * 30;
+            Assert.That(simulation.Evaluate(0, .2f).position, Is.EqualTo(before.position));
+        }
+        finally { Object.DestroyImmediate(profile); }
+    }
 
     [Test, Category("Quick")]
     public void SmallLaunchDragRetainsBallisticGravityInsteadOfDroppingMetres()

@@ -57,6 +57,11 @@ internal sealed class PhysicalParticleSimulation
             if (recipient.valid && group.towardPlayer)
             {
                 Vector2 axis = (Vector2)(recipient.center - point);
+                if (group.pastRecipient)
+                {
+                    axis = new Vector2(Mathf.Abs(axis.x) > .000001f ? Mathf.Sign(axis.x) : playerDirection, 0);
+                    direction = axis.x;
+                }
                 if (axis.sqrMagnitude > .000001f)
                 {
                     axis.Normalize();

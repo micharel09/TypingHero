@@ -3561,3 +3561,38 @@ arc; combo_2_2 is preparation. Normal attack opens at its first arc at0ms.
   covering Inspector-preserving direct startup, world reuse across restart/menu,
   and menu ownership of tutorial dispatch. No product edits after these checks.
   Only documentation and evidence records changed afterwards.
+
+
+### Stronger recipient-backward parry follow-up (2026-10-22)
+
+User rejected the preceding visual force/density despite the technical pass.
+The earlier visual verdict does not establish the requested stronger back spray.
+Accepted follow-up:36 main rays/fragments (16near+16far+4fragments),4 unchanged
+body specks and2 unchanged contacts:42/burst, eight leases/336 maximum.
+Main launch24-32WU/s,120ms drag5/s, flight drag1.5/s; fan-25..45deg+jitter3deg
+around the horizontal contact-to-recipient direction, independent of facing/Y.
+New group pastRecipient defaults false so existing/custom body aim is preserved.
+Physical buffers40; existing prefab/builder renderer capacity64 already fits every
+channel (contact1/fragments4/near20/contact1/far16), without reauthoring its GUID.
+No animation/spark/audio/combat/stat tuning belongs to this follow-up.
+
+Reference checklist: both mirrored sides, enemy preparation, guard, blade contact,
+recipientward main fan passing beyond the player's back, four body specks,
+counterattack, recovery and full parry particle tail; compare full VFX and fully
+hidden VFX. Reference is the preceding task's own captures under
+E:/CodexTemp/TypingHero/parry-impact-sync (baseline final source7d89d09), not an
+external game. New evidence is E:/CodexTemp/TypingHero/parry-backward-force.
+Each selected segment records source/timestamps/reason before frame review;
+per-frame observations must be filled only after actually viewing every frame.
+Implementation/tests/native review/integration remain pending at this checkpoint.
+
+- Red snapshot2c2c60f5/run070700-quick: both mirrored cases fail expected40/actual22
+  against the old emission. First green59ad73a1/run070754 executes56:55pass/1fail.
+  The failure assumed floor collision for short fragments, whose retained profile
+  explicitly disables it; higher speed exposes this in a synthetic1WU contact.
+  Floor nonpenetration remains mandatory for all colliding rays/specks. The test
+  now applies that assertion to their channels; short fragments still expire at
+  120-180ms. Bounce/rest coverage extends to5s for the longer high-angle flight;
+  no numeric tolerance was relaxed. Green78ded0a1/run070949:56/56PASS,0skip,
+  including exact42/336, wrong facing, snapshots, backward reach, legacy aim,
+  stable near-zero drag, one bounce, pause/reuse and zero update allocations.

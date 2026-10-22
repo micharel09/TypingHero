@@ -272,19 +272,19 @@ Change only behavior explicitly requested. Update this file after relevant verif
 ### Pimen flash with reusable floor physics (recipient revision, 2026-10-22)
 
 - Default BCompact retains the approved licensed Pimen Hit Effect01 core/outer
-  cels, material, pivot, size, tint and200ms timing from c12c3de. Budget24/clash,
-  192/8leases: core1/main2/front12/outer1/embers8. Eighteen directional particles
-  (sixteen rays and two short fragments) launch from captured sword contact
-  toward the receiving player's captured upper body. The continuous +/-35degree
-  fan adds+/-3degree jitter at14-24WU/s. Captured body position owns direction, independently of facing scale;
+  cels, material, pivot, size, tint and200ms timing from c12c3de. Budget42/clash,
+  336/8leases: core1/main4/front20/outer1/embers16. Thirty-six directional particles
+  (32rays and4short fragments) launch from captured sword contact horizontally
+  past the receiving player. The fan spans-25..45degrees with+/-3degree jitter
+  at24-32WU/s. Captured recipient X owns direction independently of facing scale;
   movement after emission cannot redirect the existing particles.
 - Four additional1-2pixel specks start on four jittered cardinal perimeter strata
   of the captured upper-body ellipse: center=body.center+0.2height up,
   halfAxes=(body.extents.x+1/16,0.3height). Initial velocity points outward,
   speed1-2.5WU/s, horizontal/depth drag6/s,
   max450ms/no bounce. Horizontal displacement stays below.6WU. The twelve
-  strong reverse-X rays are removed. Front carries eight near rays plus four
-  specks; Embers carries eight far rays. Back remains the Pimen outer renderer.
+  strong reverse-X rays are removed. Front carries16near rays plus four
+  specks; Embers carries16far rays. Back remains the Pimen outer renderer.
 - PhysicalParticleProfile is an Inspector-editable ScriptableObject; production
   uses Assets/Art/VFX/ParryClash/ParryPhysics.asset. Groups configure emission,
   count, speed, depth, pixel dimensions, lifetime and per-group floor physics.
@@ -292,22 +292,22 @@ Change only behavior explicitly requested. Update this file after relevant verif
   independently of combat/ParticleSystem rendering. ParryClashPixel renders the
   resulting positions, projected-velocity silhouettes and hot-to-cool tint.
   Builder fills only an absent profile reference, preserving custom profiles and
-  tuning. BCompact reserves22physical slots; other consumers choose their capacity.
-- Sixteen main rays use120ms launch drag20/s, flight horizontal/depth drag2/s,
+  tuning. BCompact reserves40physical slots; pastRecipient defaults false for old/custom body aim; other consumers choose their capacity.
+- Thirty-two main rays use120ms launch drag5/s, flight horizontal/depth drag1.5/s,
   gravity9.81, one optional22%vertical/55%tangent bounce and180ms rest/fade.
-  Lifetime derives from the complete floor trajectory, capped5s. Two short
+  Lifetime derives from the complete floor trajectory, capped5s. Four short
   fragments end120-180ms. Floor only in v1; no per-particle GameObject/Rigidbody.
   Zero drag/gravity and floor-level/upward/below-floor births have focused tests.
 - Drag integration uses fourth-order Taylor polynomials when drag*time<.01 and
   double intermediates elsewhere, retaining the exact zero-drag limit. This avoids
   near-zero launch drag turning centimetres of gravity fall into metres; launch,
-  coast and bounce share the stable travel integral. Production profile tuning,
-  contacts, budgets and pause/pool lifecycle remain unchanged. Focused Unity53/53
-  passes; numeric checks cover drag0..20 and launch/flight/floor transitions.
+  coast and bounce share the stable travel integral. The stronger-backward revision changes only profile tuning/direction/budget;
+  contacts and pause/pool lifecycle remain unchanged. Historical focused Unity53/53
+  passed before this revision; numeric checks cover drag0..20 and launch/flight/floor transitions.
 - Birth renders at age0 before advancing physics/contact time; tiny specks may
   start inside their configured region. A first following delta>33.3ms takes one
   16.7ms step so a cold render cannot skip launch; subsequent frames use full
-  unscaled delta. Pause/tutorial reading freeze age. Fixed22state/22particle
+  unscaled delta. Pause/tutorial reading freeze age. Fixed40state/40particle
   buffers, stable identities and reused Custom1 data avoid per-frame managed
   allocation; local seeds do not consume gameplay random. Clear/release/disable
   reset states. Completion waits for both authored contacts and the physical tail.
@@ -316,7 +316,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
   hitboxes/50ms hitstop, Point light5/70ms hold/280ms fade, bloom and one-pixel
   camera recoil remain. Audio gain/jitter/ducking, outgoing normal/Slayer/lethal
   effects and legacy Current/A/B/C remain unchanged.
-- Focused Unity37/37 and strict repeated builders pass. Native Edge155/Intel UHD
+- Historical (pre stronger-backward revision): focused Unity37/37 and strict repeated builders pass. Native Edge155/Intel UHD
   D3D11 at1280x720 passes15right+15left checks with real Space, pause and second
   parry cleanup. Left uses an editor-only mirrored-actor build fixture. All
   55right+55left captured frames/54+54transitions directly inspected; no long
@@ -414,8 +414,8 @@ Full surface art, B/C and parent integration remain separate.
   white sprite death remain unchanged. Slayer tint is captured
   before damage can exit the mode; normal lethal has no Slayer emission. New impact
   random is isolated from gameplay random. Eight active leases per emitter bound
-  impact particles to112outgoing, alongside192parry particles. Normal-strike
-  accents have a separate eight-lease cap (at most24particles), for328total.
+  impact particles to112outgoing, alongside336parry particles. Normal-strike
+  accents have a separate eight-lease cap (at most24particles), for472total.
   SlashVolume follows the actual source Sprite cel through SlashLibrary;9atlases
   have slash-only RGBA separated into durable layers and thin closed meshes.
   Actor pixels outside the authored masks, sprite metadata and clip events/timing
