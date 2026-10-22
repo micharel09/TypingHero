@@ -1,4 +1,4 @@
-## Reusable world lighting profiles - verified implementation, 2026-10-23
+## Reusable world lighting profiles - integrated, 2026-10-23
 
 User requested reusable scene/map profiles for all 3D lighting, rune and combat
 pulses. No hardware quality tiers or map-selection UI. Five authored types:
@@ -94,11 +94,17 @@ Final integrated evidence (supersedes earlier palette approval):
   three production scenes. No package, gameplay balance, UI or reflection change.
   Atlas/mesh/animation/controller files and existing GUID metadata remain unchanged.
 
-Integration destination remains micharel09/TypingHero main; fetch/reconcile before
-fast-forward push and verify remote ancestry. Keep local evidence root for replay
-and reproduction; cleanup is safe when review/reproduction is no longer needed.
-Owned completed runner results are archived locally before removal after confirming
-no active mounts. Shared source/cache/toolchain and pre-existing resources remain.
+Remote integration verified at73528adb3df60e2b148ed6bf6539f02070bbfff5 on
+micharel09/TypingHero main: task HEAD equals fetched origin/main and the task commit
+is its ancestor. Main2e77c70 is preserved. This final receipt changes documentation
+only. Remove the clean task-created worktree/local branch after receipt ancestry
+is verified; retain the remote branch and original dirty parent checkout.
+
+Keep local evidence root for replay/reproduction; cleanup is safe when it is no
+longer needed. Sixteen owned completed runner result directories were archived
+locally then removed after confirming no active Docker mounts. All task jobs and
+headless browser sessions exited; no new preview server was started. Shared
+source/cache/toolchain, older preview server8228 and pre-existing resources remain.
 
 Earlier failed migration/verification attempts are archived separately: missing
 initial bake reference; Editor assembly refs; stale shared C# Bee graph; fixture
