@@ -2,7 +2,7 @@
 
 ## Acceptance
 
-Replace six lessons with one English reading panel. All four groups are visible together: Your HP, Enemy HP / Guard, Typing / Timer and Score / Combo. Five static gold arrows follow live RectTransforms after HUD layout, including separate enemy HP and guard destinations. Reuse the dungeon, HUD, fonts, panel and button. Include Space/Esc copy and Start Battle / Enter. No practice, retry, animation, illustrations or extra page. How to Play stays separate.
+Replace six lessons with one English guide screen. The follow-up below replaces its shared background with four separate callout cards. All four groups are visible together: Your HP, Enemy HP / Guard, Typing / Timer and Score / Combo. Five static gold arrows follow live RectTransforms after HUD layout, including separate enemy HP and guard destinations. Reuse the dungeon, HUD, fonts, panel and button. Include Space/Esc copy and Start Battle / Enter. No practice, retry, animation, illustrations or extra page. How to Play stays separate.
 
 First Play for TutorialProgress_v1=0 opens the guide; saved legacy values 1 and 2 bypass it. Tutorial reopens it. Only explicit Start Battle persists completion. Reading freezes gameplay/input/time/audio and cannot submit scores. Pause/Resume retains the reading lock; Restart reopens it; Menu abandons without marking viewed. Repeated confirmation is guarded; DungeonSession waits for Enter release before activating the new selected-difficulty encounter intro.
 
@@ -50,3 +50,18 @@ After written evidence, all eight owned server result directories and the task-o
 ## Remote integration receipt
 
 Source commit680ba53ab5c9fcb49d84a046c76c391534dc2a0d was pushed to the task branch and fast-forwarded to origin/main fromf82c012. A fresh fetch confirmed HEAD equals origin/main and task ancestry is preserved. All scoped checks and artifact cleanup above are complete. This documentation receipt is pushed through the same fast-forward workflow; the clean task worktree/local branch are removed afterward. Remote branch `micharel09/tutorial-hud-guide` is retained under repository policy for comparison and may be deleted when no longer needed. No itch upload or workflow dispatch occurred.
+
+
+## Follow-up: separate HUD callouts (2026-10-22)
+
+User supplied an image showing annotations distributed beside the actual HUD and requested separate boxes instead of one crowded panel. Keep the four groups visible together, existing copy/font/colors, five real-HUD arrows, one Start Battle button and all lifecycle/storage/provider behavior. Replace only the large background with four smaller existing-style panels. Keep HP left, enemy right, score above center and typing below left; shortcuts/action sit separately above the typing tray. No reference animation or art recreation is in scope.
+
+Independent Orca worktree `C:/Users/ADMIN/orca/workspaces/TypingHero/tutorial-hud-cards`, branch `micharel09/tutorial-hud-cards`, base c666fd5. Builder and scoped layout assertion updated. Strict serialization, two-size visual/input QA and scene projection passed as recorded below. Shared runner contention was handled without interrupting other jobs. Remote integration receipt follows verified acceptance.
+
+
+### Follow-up verified result
+
+- Integrated origin/main fd3f21d before the final WebGL snapshot, preserving the separately verified parry updates. Canceled only this task's superseded queued serialize jobs; no other job interrupted. Final inputa0f2690bf90397d5fbccf510d5b01502acecbe9eb2703140b1ebd7b73f65bc3f / run20261022T134816-webgl: build and strict repeat builder PASS. No runtime/API change or new dependency.
+- Four existing-style dark cards, transparent shared root, HP left/enemy right/score above center/typing below left. Same copy/font, five HUD-bound arrows, separate shortcut line and retained Start button. Final serialized scene equals the captured builder output; scoped projection retains1005 original IDs, adds16 blocks for four cards, and leaves837 non-tutorial blocks byte-identical. All local references resolve; SHA25647c0d23ce881d5eb1be7192c84c45dc501d114971380456e05213795c3828b7e. Existing listener and GUIDs retained.
+- Software browser FAIL after15 checks on missed menu Play at184.63ms/frame; its strict two-size copy/card-clearance/arrow checks had passed. Native Edge155.0.4283.62 / Playwright1.58.2 / Intel UHD D3D11 on the same32-file hash-matched immutable player:26/26 PASS,0exceptions/provider reads/writes. No assertions weakened. Both guide sizes, pause, fresh intro and live-hit images directly inspected. No guide/card leakage into encounter or combat. Reuse existing unit lifecycle evidence: runtime code is unchanged; new scene/input behavior is covered by this focused real-input run.
+- Interactive fixture-isolated Edge demo opened at127.0.0.1:8251, in the guide after transition completion. Retain `E:/CodexTemp/TypingHero/tutorial-hud-cards-20261022` (player, evidence, independent preview driver/profile/helpers) while the user reviews; close the demo and remove this directory when review is finished. Previous requested demo at8250 remains untouched. No itch upload.

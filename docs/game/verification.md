@@ -1,3 +1,10 @@
+## Separate tutorial HUD callouts (2026-10-22)
+
+- Replaces the single shared background with four independent existing-style cards beside HP, enemy HP/guard, score/combo and typing/timer. Copy, font, HUD, input/lifecycle/storage and provider contracts remain unchanged. Transparent shared root; existing Start control/listener retained.
+- Input `a0f2690bf90397d5fbccf510d5b01502acecbe9eb2703140b1ebd7b73f65bc3f`, run `20261022T134816-webgl`: pinned Unity2022.3.25f1 build and strict repeated builder PASS. Original1005 scene IDs retained; tutorial168?184 blocks (four new cards),1021 total. All837 non-tutorial blocks remain byte-identical; local references resolve. Projected scene SHA256 `47c0d23ce881d5eb1be7192c84c45dc501d114971380456e05213795c3828b7e`; tutorial matches final serialized builder apart from empty-field trailing whitespace.
+- Same immutable player,32/32 local/server file hashes equal: native Edge155.0.4283.62 / Playwright1.58.2 / Intel UHD ANGLE D3D11 **26/26 PASS**,0exceptions,0provider reads/writes. At1280?720 and640?360 all glyphs fit, four cards clear each other and real HUD, and five arrow tips touch targets. Keyboard/mouse, frozen reading, Pause/Resume/Restart/Menu, held Enter, completion persistence/bypass/replay and typed battle hit pass. Guide images at both sizes, pause, fresh intro and live hit directly inspected; no cloned guide cards during intro/live combat. Fixtures and external blocking retained.
+- Software-renderer run remains FAIL after15checks: missed menu Play at184.63ms/frame. Its two-size layout checks passed; no software success claimed. Native run used the exact same player and unchanged strict assertions. No balance, sprite, full-suite or itch.io upload scope. Details and retained review demo: [checkpoint](../plans/tutorial-hud-guide.md).
+
 ## Single HUD tutorial guide (2026-10-22)
 
 - Unity2022.3.25f1 / fly-server:7/7 scoped TutorialTests and DungeonEditorEntryTests

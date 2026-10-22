@@ -242,11 +242,12 @@ Change only behavior explicitly requested. Update this file after relevant verif
 ## Single HUD tutorial guide
 
 - TutorialRun selects a frozen SampleScene guide without lesson/practice/retry
-  state or combat preparation. All four groups are visible together: Your HP,
+  state or combat preparation. Four separate callout cards sit beside the HUD
+  instead of sharing one large background. All groups are visible together: Your HP,
   Enemy HP / Guard, Typing / Timer and Score / Combo. Five static gold arrows
   follow real HUD RectTransforms after layout, including separate HP and guard
-  destinations. Existing dungeon, HUD, fonts, panel and Continue listener remain.
-- The panel explains HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
+  destinations. Existing dungeon, HUD, fonts, panel style and Continue listener remain.
+- The callouts explain HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
   with Space/parry and Esc/pause copy plus one Start Battle / Enter action.
   No lesson tests, additional pages, animation or illustrations; How to Play is separate.
 - Reading uses the existing GamePauseController input/time/audio/score lock.

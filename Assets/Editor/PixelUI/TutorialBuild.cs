@@ -62,9 +62,9 @@ internal static class TutorialBuild
         var overlay = Object.FindObjectOfType<TutorialOverlay>(true);
         var bounds = overlay.transform.Find("Reference960x540");
         var panel = (RectTransform)bounds.Find("TutorialPrompt");
-        Box(panel, bounds, 144, 150, 672, 276);
+        Box(panel, bounds, 0, 0, 960, 540);
         var image = panel.GetComponent<Image>();
-        image.enabled = true; image.color = Color.white; image.type = UnityEngine.UI.Image.Type.Sliced;
+        image.enabled = false; image.color = Color.white; image.type = UnityEngine.UI.Image.Type.Sliced;
         image.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(DungeonUISkin.Art + "modal-normal.png");
         image.pixelsPerUnitMultiplier = 1;
         PrefabUtility.RecordPrefabInstancePropertyModifications(image);
@@ -83,14 +83,28 @@ internal static class TutorialBuild
             label.overflowMode = TextOverflowModes.Overflow;
             return label;
         }
-        var score = Text("ScoreGuide", "<color=#DCC47C>Score / Combo</color>\nPoints and successful action streaks.", 126, 8, 420, 48, 24);
-        score.alignment = TextAlignmentOptions.Top;
-        var hp = Text("HealthGuide", "<color=#DCC47C>Your HP</color>\nYour health. When it runs out, you lose.", 16, 60, 294, 72, 24);
-        var enemy = Text("EnemyGuide", "<color=#DCC47C>Enemy HP / Guard</color>\nDrain HP to win. Parry lowers guard. Break guard for Slayer.", 350, 60, 306, 72, 24);
-        var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 16, 140, 640, 56, 24);
-        Text("Shortcuts", "Space: parry on the yellow cue \u00b7 Esc: pause", 16, 200, 640, 24, 24).alignment = TextAlignmentOptions.Top;
+        // Separate callouts sit beside their HUD targets; the shared root is transparent.
+        void Card(string name, float x, float y, float w, float h)
+        {
+            var rect = panel.Find(name) as RectTransform;
+            if (!rect) rect = Rect(name, panel);
+            Box(rect, panel, x, y, w, h);
+            var background = Image(rect, Color.white);
+            background.sprite = image.sprite; background.type = image.type;
+            background.color = Color.white; background.raycastTarget = false;
+            rect.SetAsFirstSibling();
+        }
+        Card("ScoreCard", 328, 116, 304, 96);
+        Card("HealthCard", 24, 176, 288, 120);
+        Card("EnemyCard", 648, 176, 288, 144);
+        Card("TypingCard", 24, 310, 396, 120);
+        var score = Text("ScoreGuide", "<color=#DCC47C>Score / Combo</color>\nPoints and successful action streaks.", 340, 128, 280, 72, 24);
+        var hp = Text("HealthGuide", "<color=#DCC47C>Your HP</color>\nYour health. When it runs out, you lose.", 36, 188, 264, 96, 24);
+        var enemy = Text("EnemyGuide", "<color=#DCC47C>Enemy HP / Guard</color>\nDrain HP to win. Parry lowers guard. Break guard for Slayer.", 660, 188, 264, 120, 24);
+        var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 36, 322, 372, 96, 24);
+        Text("Shortcuts", "Space: parry on the yellow cue \u00b7 Esc: pause", 452, 326, 460, 64, 24).alignment = TextAlignmentOptions.Top;
         var next = panel.Find("PracticeButton").GetComponent<Button>();
-        Box((RectTransform)next.transform, panel, 156, 230, 360, 36);
+        Box((RectTransform)next.transform, panel, 500, 392, 360, 36);
         next.navigation = new Navigation { mode = Navigation.Mode.None };
         var action = next.GetComponentInChildren<TMP_Text>(true);
         Box(action.rectTransform, next.transform, 8, 0, 344, 36);
@@ -119,12 +133,12 @@ internal static class TutorialBuild
                 entry.FindPropertyRelative(part).objectReferenceValue = rect;
             }
         }
-        Arrow(0, hp.rectTransform, (RectTransform)hud.Find("PlayerStatus/PlayerHP"), new Vector2(0, 1), new Vector2(.5f, 0));
-        Arrow(1, enemy.rectTransform, (RectTransform)hud.Find("EnemyStatus/EnemyHP"), new Vector2(1, 1), new Vector2(.5f, 0));
-        Arrow(2, enemy.rectTransform, (RectTransform)hud.Find("EnemyStatus/EnemyStamina"), new Vector2(1, .5f), new Vector2(1, 0));
+        Arrow(0, hp.rectTransform, (RectTransform)hud.Find("PlayerStatus/PlayerHP"), new Vector2(.3f, 1), new Vector2(.5f, 0));
+        Arrow(1, enemy.rectTransform, (RectTransform)hud.Find("EnemyStatus/EnemyHP"), new Vector2(.3f, 1), new Vector2(.5f, 0));
+        Arrow(2, enemy.rectTransform, (RectTransform)hud.Find("EnemyStatus/EnemyStamina"), new Vector2(.85f, 1), new Vector2(1, 0));
         Arrow(3, score.rectTransform, (RectTransform)hud.Find("ScoreCluster"), new Vector2(.5f, 1), new Vector2(.5f, 0));
-        // Exit on the left; the line stays outside all copy and the Start button.
-        Arrow(4, typing.rectTransform, Get<RectTransform>(overlay, "typingTray"), new Vector2(-.025f, 0), new Vector2(0, 1));
+        // Exit below the typing callout, keeping the connector outside its copy.
+        Arrow(4, typing.rectTransform, Get<RectTransform>(overlay, "typingTray"), new Vector2(.1f, -.15f), new Vector2(0, 1));
         so.ApplyModifiedPropertiesWithoutUndo();
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
