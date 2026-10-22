@@ -29,7 +29,8 @@ There is no profile inheritance or implicit per-instance style override.
 ## Add a fixture or flame animation
 
 1. Place a reusable hanging-lantern or wall-torch prefab from `Assets/Data/Lighting`.
-   Move its transform and assign a `LightProfile`. Positions do not depend on object
+   Move its transform and assign a `LightProfile`. A light-only profile with no
+   flame hides the existing card and creates no private mesh. Positions do not depend on object
    names, scene names or a fixed number of lights.
 2. Change style in a duplicated light profile. Noise phase and animation offset
    remain instance fields; using one style does not share clocks or mutable UVs.

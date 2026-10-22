@@ -36,6 +36,27 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         yield return null;
     }
     [Test, Category("Quick")]
+    public void LightOnlyProfileHidesAnExistingFlameCardWithoutCloningItsMesh()
+    {
+        var host = new GameObject("light-only fixture"); host.SetActive(false);
+        var card = new GameObject("authored flame anchor", typeof(MeshFilter), typeof(MeshRenderer));
+        card.transform.SetParent(host.transform);
+        var original = LightingTestAssets.Definition.lighting.rune;
+        var mesh = UnityEditor.AssetDatabase.LoadAssetAtPath<FlameProfile>("Assets/Data/Lighting/WarmFlame.asset").mesh;
+        var filter = card.GetComponent<MeshFilter>(); filter.sharedMesh = mesh;
+        try
+        {
+            var fixture = host.AddComponent<DungeonTorchLight>(); fixture.profile = original;
+            typeof(DungeonTorchLight).GetField("pixelFlame", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(fixture, filter);
+            fixture.Preview(); Assert.That(card.GetComponent<Renderer>().enabled, Is.False);
+            host.SetActive(true);
+            Assert.That(card.GetComponent<Renderer>().enabled, Is.False);
+            Assert.That(filter.sharedMesh, Is.SameAs(mesh));
+            Assert.That(host.GetComponent<Light>().intensity, Is.EqualTo(original.intensity));
+        }
+        finally { Object.DestroyImmediate(host); }
+    }
+    [Test, Category("Quick")]
     public void IrregularAtlasFramesKeepTheirOwnDurationsAndRejectInvalidData()
     {
         var profile = Object.Instantiate(UnityEditor.AssetDatabase.LoadAssetAtPath<FlameProfile>("Assets/Data/Lighting/WarmFlame.asset"));

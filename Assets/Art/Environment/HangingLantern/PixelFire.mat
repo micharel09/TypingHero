@@ -125,7 +125,7 @@ Material:
     - _FlameOrange: {r: 0.89411765, g: 0.54509807, b: 0.22745098, a: 1}
     - _FlameRed: {r: 0.5294118, g: 0.23137255, b: 0.16862746, a: 1}
     - _FlameYellow: {r: 0.95686275, g: 0.8, b: 0.4745098, a: 1}
-    - _PaletteThresholds: {r: 0, g: 0, b: 0, a: 0}
+    - _PaletteThresholds: {r: 0.03, g: 0.12, b: 0.3, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1957949564456821412

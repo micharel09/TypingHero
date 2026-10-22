@@ -1,3 +1,18 @@
+## Reusable world lighting (2026-10-22)
+
+- Scene selection, world presentation, individual lights, flame sequences and combat
+  lighting now use authored profiles under `Assets/Data/Lighting`. Native materials,
+  post, bake and URP assets remain their authorities. Builders apply these values;
+  they do not regenerate the approved dungeon style. See [authoring guide](lighting-profiles.md).
+- World loading accepts a `WorldDefinition`; camera/arena/brain/environment bindings
+  use semantic roles. Fixture names/counts and atlas layouts are independent of the
+  default room. Profile changes require Editor apply/reload; this adds no map UI or
+  hardware quality tiers.
+- The approved ten-frame flame, palette, timing, fixed anchors, 24/16 light strengths
+  and pause/Slayer phase are preserved. Each instance owns its clock and UV mesh.
+  Existing camera impact tuning remains unchanged; pixel recoil uses the active
+  world's target height, and zoom composes with its profile lens.
+
 ## Combat camera impact (2026-10-22)
 
 - CombatCameraImpact is gameplay-owned and bound to the persistent DungeonArenaCamera. Confirmed normal hits use2%/140ms, parry3%/180ms plus1native-pixel/100ms recoil, accepted received damage1pixel/100ms without zoom, outgoing lethal5%/250ms (2% for a captured Slayer hit) plus2pixels/100ms. Slayer entry retains5.625?3.3/350ms and authored source/delay; rapid Slayer hits add no pulse. Priority lethal>entry>received>parry>normal; equal/weaker events do not extend the single envelope.
@@ -500,19 +515,14 @@ Full surface art, B/C and parent integration remain separate.
   by the latest gameplay/VFX systems. Final QA114427/native25 and6targeted offline
   checks pass. No integrated performance/FPS or publication claim.
 
-- WorldLightingBuild runs after ShogunTheme: lit actor/near-environment sprites,
-  ambient/key/fill plus clash rig, fixed-body-foot contact shadows and thresholded
-  world bloom. The preserved WorldMenuBackdrop is disabled by the final dungeon
-  UI pass; the menu uses four original gameplay dungeon layers as UGUI images.
-  Overlay HUD remains separate. Camera lens/zoom unchanged.
-- WorldLightingBuild also follows actual player/enemy Animator controller clip
-  references, including `Art/male_hero/individual_sheets/player_parry_success.anim`.
-  Its four recovery cels now have aligned normal/material companions; missing
-  material binding had made the whole cel metallic and dark. Albedo, pivots,
-  slicing and timing are unchanged. Parry hold70ms/end280ms is unchanged.
-- DungeonFullEffectsBuild no longer creates WetStoneReflection and disables the
-  serialized legacy node, renderer and component. Stone lighting/material highlights
-  and cast shadows remain; no reflection capture camera/RT through pause or Slayer.
+- The canonical builder applies ShogunTheme/CombatR7/UI, then DungeonArenaBuild
+  and WorldLightingAuthoring against existing authored assets. It preserves the
+  world definition, profile values, native materials/post/URP, disabled legacy
+  WetStoneReflection and secondary sprite-map bindings. The old procedural
+  WorldLightingBuild and room/style generators are not part of rebuilding.
+- Actor controller clips, including the four parry-recovery cels outside the
+  standard folders, retain their normal/material companions, albedo, pivots and
+  timing. Existing parry hold70ms/end280ms remains unchanged.
 - Secondary _NormalMap textures preserve source GUIDs/rects/pivots/PPU. Current
   maps are draft alpha/material-region bevels, independent of painted luminance;
   anatomical/armor/roof authoring and complete frame/mirror review remain milestone B.
@@ -565,7 +575,7 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
 
 ## UI presentation (dungeon skin 2026-10-19; legacy Shogun migration retained)
 
-- Final builder order is ShogunTheme, WorldLightingBuild, CombatR7Build, then
+- Final presentation order is ShogunTheme, CombatR7Build, then
   DungeonUISkin for menu/help/Collection/tutorial/pause/results/Continue only.
   Original Japan assets/objects remain preserved and disabled. The final
   BlackletterUILayout/DungeonMainMenuBuild pass presents a static320x180 dungeon

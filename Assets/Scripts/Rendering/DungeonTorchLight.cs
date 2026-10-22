@@ -14,6 +14,7 @@ public sealed class DungeonTorchLight : MonoBehaviour
     {
         if (!profile) throw new System.InvalidOperationException(name + ": missing LightProfile");
         profile.Validate(); profile.Apply(GetComponent<Light>());
+        if (pixelFlame) pixelFlame.GetComponent<Renderer>().enabled = profile.flame;
         if (profile.flame && pixelFlame)
         {
             pixelFlame.sharedMesh = profile.flame.mesh;
@@ -32,7 +33,8 @@ public sealed class DungeonTorchLight : MonoBehaviour
         if (!profile) throw new System.InvalidOperationException(name + ": missing LightProfile");
         profile.Validate();
         source = GetComponent<Light>(); profile.Apply(source);
-        if (pixelFlame && !privateMesh)
+        if (pixelFlame) pixelFlame.GetComponent<Renderer>().enabled = profile.flame;
+        if (pixelFlame && profile.flame && !privateMesh)
         {
             originalMesh = profile.flame.mesh;
             pixelFlame.GetComponent<Renderer>().sharedMaterial = profile.flame.material;

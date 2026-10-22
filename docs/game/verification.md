@@ -1,3 +1,24 @@
+## Reusable world lighting profiles (2026-10-23)
+
+- Pinned Unity2022.3.25f1 / URP14.0.11:20/20 scoped profile/lifecycle/lighting checks,
+  independent native fixture registration2/2, camera-main integration19/19, final
+  light-only/fixture/lifecycle4/4;0fail/skip in these accepted runs. These overlap;
+  they are not one combined suite. Edited light/size/material/post values survive
+  two complete builder applications. A-to-B-to-A validates arbitrary fixture names,
+  four lights, independent style/fog and256x144 presentation without leaked UV/RT state.
+- Final input c25b03c0040fe852621521f45b6d41d93354f427a77f2e7f6802252e2c425626,
+  QA20261022T165927-webgl: WebGL and strict repeat builder PASS. Native player
+  a484cfa7f3a82e38, Edge155 / GTX1650Ti / ANGLE D3D11 /1280x720:34/34 actual-input
+  checks,0exceptions/provider reads/writes. Lamp bounds/emission/phase, Pause,
+  parry/following attack, Slayer/restore and menu pass.
+- Direct final visual review108/108selected encoded frames,106/106pairs in28native/2x
+  sheets. Colored local fire, fixed fixtures, warm3D surface pools and readable
+  player recovery pass. Earlier palette migration had zero thresholds; corrected
+  to original .03/.12/.3 before final player. Earlier palette acceptance is superseded.
+  No full suite, extra viewport, stress/soak or general performance claim.
+  Exact inputs/counts/segments/limitations and retained evidence: [checkpoint](../plans/combat-hanging-light.md).
+  Usage: [profile authoring](lighting-profiles.md).
+
 ## Combat camera impact (2026-10-22)
 
 - Integrated input `d0fede39b9c7db8c593c3ae618f256b4888a25f1a163df390e0389c573ccb4d1`: pinned Unity2022.3.25f1 focused32/32 PASS,0failed/skipped (`20261022T160203-quick`). Confirms real hit consumers, bounded priority, channel isolation, projection/foot anchor, pooled-event ownership, warmed request allocation and Pause/dungeon lifecycle behavior.

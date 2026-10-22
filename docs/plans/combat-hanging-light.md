@@ -1,18 +1,111 @@
-## Reusable world lighting profiles - implementation in progress, 2026-10-22
+## Reusable world lighting profiles - verified implementation, 2026-10-23
 
-User requested complete reusable profiles for scene/map expansion, including all 3D lighting, rune and combat pulses. Hardware quality tiers and a map-selection UI are outside this revision. Preserve the approved Pinterest art and existing appearance. Five authored asset types: FlameProfile, LightProfile, WorldLightingProfile, CombatLightingProfile and WorldDefinition. Native materials/VolumeProfile/LightingSettings/URP assets own their respective values; instance phases, anchors and mutable clock/UV state stay local. Menu/direct Editor entry must supply an explicit world definition; four semantic binding slots replace generated object-array indices.
+User requested reusable scene/map profiles for all 3D lighting, rune and combat
+pulses. No hardware quality tiers or map-selection UI. Five authored types:
+FlameProfile, LightProfile, WorldLightingProfile, CombatLightingProfile and
+WorldDefinition. Native materials/VolumeProfile/LightingSettings/URP own their
+values; clocks, phases, anchors and UV meshes remain local. Four semantic roles
+replace generated object-array indices. [Authoring guide](../game/lighting-profiles.md).
 
-Task branch micharel09/world-lighting-profiles, independent worktree C:/Users/ADMIN/orca/workspaces/TypingHero/world-lighting-profiles, based on origin/main5f371fa. Original dirty parent checkout preserved. Evidence root E:/CodexTemp/TypingHero/lighting-profiles-20261022-3vlshh3g.
+Task branch micharel09/world-lighting-profiles, independent worktree
+C:/Users/ADMIN/orca/workspaces/TypingHero/world-lighting-profiles, based on5f371fa.
+Original dirty parent checkout preserved. Evidence root
+E:/CodexTemp/TypingHero/lighting-profiles-20261022-3vlshh3g.
 
-Focused Unity input b23958f4e36fc7a22909bfcd94c1ad64b27397ef800f830279e893b3d2208cfb:20/20 passed,0failed/skipped. Covers light/clock/UV/source-mesh ownership, rune, native controller map bindings, viewport RT release, direct Editor/menu lifecycle, three gameplay cycles, compact/legacy/overlap pulse and standalone MetalClash emission snapshots. Second world uses arbitrary names, four fixtures, a12-intensity independent light profile,256x144 world target and independent fog; A-to-B-to-A releases prior meshes/camera/RT and preserves profile JSON. Main remains320x180/24 and rear16. Test fixture registered before Play Mode only; task adapter restores original production Build Settings. Existing source atlas unchanged.
+- Unity2022.3.25f1 / URP14.0.11:20/20 scoped checks,0fail/skip, input
+  b23958f4e36fc7a22909bfcd94c1ad64b27397ef800f830279e893b3d2208cfb,
+  run20261022T162012-quick. Covers private UV/source-mesh/clock lifecycle, rune,
+  real-controller companion maps, viewport release, direct/menu entry, three gameplay
+  cycles, compact/legacy/overlap pulses and standalone MetalClash light snapshots.
+- Second world: arbitrary names, four independent fixtures, intensity12 variation,
+  256x144 target and independent fog. A-to-B-to-A releases prior camera/RT/meshes
+  without changing profile JSON. Native Test Framework prebuild/cleanup registration
+  independently passed2/2 in20261022T163704-quick, input
+  4efb2852409bcf522d66cb36a6190af05cd46517dc35c1b9b3dc054e4ecab79f.
+  Fixture scene remains excluded from production Build Settings.
+- Authoring audit: intensity19/projected height9, material palette and bloom.14
+  survive two full builder applications byte-for-byte; baseline restored afterward.
+  Prefab overrides are recorded. No one-time migration seeder ships.
+- Before camera integration: QA20261022T162758-webgl, snapshot
+  ff11735dc6734c53f9c048857670582f9933f95131f7fbce6a315597173ad790,
+  immutable player f72a8fe34ee9b768, WebGL/strict repeated builder PASS. Native Edge155,
+  Playwright1.58.2, NVIDIA GTX1650Ti/ANGLE D3D11,1280x720:34/34 checks,
+  0exceptions/provider reads/writes. All10frames per lamp;288active samples each.
+  Front22.5599995..25.2784576, left15.6800003..16.2807598,
+  right15.6800003..16.2647190. Emission gain, fixed roots, actual Pause frame/age/light
+  and hidden Slayer phase pass. Actual word attack/parry/following attack/Slayer/menu.
+- Pre-integration video hash95bdba41bc13660ed4dec180862c4a87e503868c5a55a1d1287d9a19edbe85f0:
+  exported563/563 encoded frames with exact timestamps. Directly viewed72/72frames
+  and70/70pairs, native320x180 and nearest2x,18paired sheets. Normal F64..91
+  (7.219..8.786s), including incoming hit/recovery; parry F137..180
+  (11.452..14.397s), preparation/contact/counter/following word attack/recovery.
+  Wall/floor pools and player readability were observed; cage/root position retained.
+  Palette acceptance from that review is superseded: later source/material audit
+  found zero migration thresholds, confirmed by reopening after.png (pale-only fire).
+  Earlier claims of preserved red/orange layers were incorrect. Native after/parry/restore stills and
+  real1x/quarter playback checked. VFR lossy capture does not prove every engine
+  frame, all563frames, pixel-identical GPU output or performance. Per-frame notes
+  remain in selected/frame-evidence.csv. Source atlas remains unchanged:
+  539be2b093203e571c5d30f49c8ece31f8769f07c0fa08496c9a97e6d1878912;
+  reuse prior complete10source-cell/10transition review above the historical record.
+- New main3710883 MetalClash: preserve ImpactVfxProfile as sole standalone pulse
+  tuning owner. World combat profile owns templates/overlap/decay/ordinary+legacy
+  events; parameters are snapshotted when emitted. New main2e77c70 camera impact:
+  preserve its contact scheduler/priority/foot anchor/Pause behavior. Camera framing,
+  pitch and recoil pixel size now read the active world profile; legacy no-arena
+  camera fallback uses its actual pixelHeight, without a fixed dungeon target.
+- Integrated input01543b8b82adc03a484b212287866b318802b54473b31e301a1df419fe86466a,
+  run20261022T164856-quick:19/19 passed,0fail/skip. CameraImpactTests14,
+  direct-entry3, projection/RT1 and three-cycle lifecycle1. Repeated-builder authoring
+  audit passed again. Scene record IDs preserved: World1030original+1rune light-data,
+  MainMenu477, SampleScene1024. Reordered serialized records retain equivalent data.
 
-Edited intensity19/projected height9, material palette and bloom.14 survived two full builder applications; finally restored original authored values. Apply/Preview records prefab property modifications. Two fixture-only failures were corrected (Play Mode scene registration too late; missing prefab override recording). Their partial16/17 and19/20 results are not accepted as complete.
+Final integrated evidence (supersedes earlier palette approval):
 
-Remote main3710883 introduced reusable MetalClash during this task. Merged it and retained ImpactVfxProfile as the single owner of standalone effect light intensity/hold/duration/range/offset. CombatLightingProfile owns world light templates, overlap/decay and ordinary/legacy impact events. No duplicated compact pulse tuning in the world profile. Source/profile parameters are snapshotted when pulses start.
+- Additional native fixture checks20261022T165821-quick, input
+  e151dd0e4b406155aa6f04b43181ab08776e42ee59ee8425676e513b6dd3e976:
+  4/4 passed,0fail/skip. Light-only profile hides the existing card without cloning
+  a mesh; irregular frames, world switching and existing pixel-lantern lifecycle pass.
+- Final QA20261022T165927-webgl, input
+  c25b03c0040fe852621521f45b6d41d93354f427a77f2e7f6802252e2c425626,
+  immutable player a484cfa7f3a82e38. WebGL and strict repeated builder PASS.
+  Material thresholds .03/.12/.3 match the original shader and survive serialization.
+  Local scenes match generated records exactly after whitespace/order normalization;
+  all original IDs retained. Profiles/prefabs/material equal the built inputs.
+- Native Edge155.0.4283.62 / Playwright1.58.2 / NVIDIA GTX1650Ti / ANGLE D3D11,
+  1280x720:34/34 real-input checks PASS,0exceptions/provider reads/writes. Actual
+  pause/resume, word hit/parry/following hit, Slayer/restore and menu return pass.
+  All10frames each lamp;289active samples each. Front22.5599995..25.2697334,
+  left15.6821041..16.2718716, right15.7007704..16.2819023. Emission, fixed roots,
+  Pause frame/clock/light and hidden Slayer phase pass (1e-5float boundary tolerance).
+- Final video SHA2563b24553c9e9c2f07f106ab4e182f26ebe911f3a1693c61c976ef0870b7f31dc6:
+  exported651/651 encoded frames with original timestamps. Directly inspected all
+  108selected frames and106consecutive within-segment pairs in28sheets, native320x180
+  and nearest2x640x360. Normal F70..108(5.277..6.869s) includes enemy preparation,
+  incoming hit and recovery; parry F165..233(9.187..12.106s) includes prior word hit,
+  complete wind-up/guard/contact/counter/recovery, following word hit and return.
+  Red/orange tongues and bright cores change locally; cage/root stays fixed, brick
+  and floor pools persist, player remains readable through every reviewed recovery.
+  Native after/parry/restored stills inspected. Playback controls ran at1x/.25x and
+  advanced time; visual evidence is the complete selected sheets/stills. No whole651
+  frame/every-engine-frame, pixel-identical GPU or performance claim.
+  Per-frame notes/timing: integrated/selected/frame-evidence.csv and scope.json.
+- QA observer removed from checkout. Production Build Settings retain only the
+  three production scenes. No package, gameplay balance, UI or reflection change.
+  Atlas/mesh/animation/controller files and existing GUID metadata remain unchanged.
 
-Pending: strict repeated player builder, actual-input gameplay capture and complete selected-frame review at native/2x, final remote integration. First player compile found Editor-only Light.lightmapBakeType usage; guarded only that authoring assignment with UNITY_EDITOR. Editor behavior is unchanged, so20passing checks remain applicable. No visual/build/integration PASS claim yet.
+Integration destination remains micharel09/TypingHero main; fetch/reconcile before
+fast-forward push and verify remote ancestry. Keep local evidence root for replay
+and reproduction; cleanup is safe when review/reproduction is no longer needed.
+Owned completed runner results are archived locally before removal after confirming
+no active mounts. Shared source/cache/toolchain and pre-existing resources remain.
 
-Migration attempts: first captured no complete profile set because split DungeonWorld has no native LightingSettings reference; select the existing approved PreviewLighting asset explicitly during one-time migration. Subsequent compile found missing EditorTests URP/editor assembly references (fixed) and a shared stale Bee response naming an absent CombatCameraImpact.cs from a different snapshot. The external task adapter removes that proven stale graph only while holding the shared exclusive runner lock. Other jobs/source/checkouts remain untouched.
+Earlier failed migration/verification attempts are archived separately: missing
+initial bake reference; Editor assembly refs; stale shared C# Bee graph; fixture
+registration/prefab override errors; Editor-only bakeType player assignment.
+The initial camera merge compile referenced removed WorldHeight; replaced it with
+active profile height / actual no-arena pixelHeight. Partial/failing runs are not
+claimed as passing. Shared cache/source and other jobs are preserved.
 
 ## Approved integration checkpoint - 2026-10-22
 

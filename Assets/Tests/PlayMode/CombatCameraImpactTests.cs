@@ -203,11 +203,11 @@ public sealed class CombatCameraImpactTests
             view.orthographicSize = baseline;
             update.Invoke(arena, null);
             Assert.That(view.orthographicSize, Is.EqualTo(baseline));
-            Assert.That(view.fieldOfView, Is.EqualTo(2 * Mathf.Atan(baseline / 1.02f / 17.8403f) * Mathf.Rad2Deg).Within(.0001f));
+            Assert.That(view.fieldOfView, Is.EqualTo(2 * Mathf.Atan(baseline / 1.02f / arena.profile.FramingDistance) * Mathf.Rad2Deg).Within(.0001f));
         }
         arena.ResetFraming(); update.Invoke(arena, null);
         Assert.That(impact.Zoom, Is.Zero);
-        Assert.That(view.fieldOfView, Is.EqualTo(2 * Mathf.Atan(1.65f / 17.8403f) * Mathf.Rad2Deg).Within(.0001f));
+        Assert.That(view.fieldOfView, Is.EqualTo(2 * Mathf.Atan(1.65f / arena.profile.FramingDistance) * Mathf.Rad2Deg).Within(.0001f));
     }
     [UnityTest, Category("Quick")]
     public IEnumerator ClearingExpiredOwnedEventDoesNotCancelAnotherPooledImpulse()
@@ -233,7 +233,7 @@ public sealed class CombatCameraImpactTests
         impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.01f);
         yield return new WaitForSeconds(.02f);
         Assert.That(CinemachineImpulseManager.Instance.GetImpulseAt(Vector3.zero, true, 2, out var signal, out _), Is.True);
-        float pixel = 2 * 17.8403f * Mathf.Tan(35 * Mathf.Deg2Rad / 2) / 180;
+        float pixel = 2 * 17.8403f * Mathf.Tan(35 * Mathf.Deg2Rad / 2) / view.pixelHeight;
         Assert.That(signal.x, Is.LessThan(0));
         Assert.That(signal.magnitude / pixel, Is.InRange(.1f, 1.01f));
         var callback = typeof(CinemachineImpulseListener).GetMethod("PostPipelineStageCallback", BindingFlags.Instance | BindingFlags.NonPublic);

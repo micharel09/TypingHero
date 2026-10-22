@@ -5358,7 +5358,7 @@ MonoBehaviour:
     worldOwnsField: 1
   - local: {fileID: 1604031849}
     field: impact
-    worldIndex: 1
+    slot: 1
     worldOwnsField: 1
   - local: {fileID: 567804062}
     field: targetCamera
@@ -5410,7 +5410,7 @@ MonoBehaviour:
     worldOwnsField: 0
   - local: {fileID: 1604031849}
     field: arena
-    worldIndex: 1
+    slot: 1
     worldOwnsField: 0
   - local: {fileID: 1628099933}
     field: target

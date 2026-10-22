@@ -172,8 +172,8 @@ public sealed class CombatCameraImpact : MonoBehaviour
         {
             if (!view) return;
             float depth = Mathf.Max(.01f, view.WorldToViewportPoint(active.point).z);
-            float pixel = arena ? arena.PixelSizeAtDepth(depth) : view.orthographic ? 2 * view.orthographicSize / DungeonArenaCamera.WorldHeight :
-                2 * depth * Mathf.Tan(view.fieldOfView * Mathf.Deg2Rad * .5f) / DungeonArenaCamera.WorldHeight;
+            float pixel = arena ? arena.PixelSizeAtDepth(depth) : view.orthographic ? 2 * view.orthographicSize / view.pixelHeight :
+                2 * depth * Mathf.Tan(view.fieldOfView * Mathf.Deg2Rad * .5f) / view.pixelHeight;
             var local = view.transform.InverseTransformDirection(active.direction);
             local.z = 0;
             if (local.sqrMagnitude < .0001f) local = Vector3.left;
