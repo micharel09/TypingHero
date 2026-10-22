@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 // A single owner serializes every internal scene transition and retains the world.
 public sealed class DungeonSession : MonoBehaviour
 {
-    public const string WorldScene = "DungeonWorld";
+    public WorldDefinition Definition { get; private set; }
     public const string GameScene = "SampleScene";
     static DungeonSession instance;
     public static DungeonSession Current => instance;
@@ -65,6 +65,7 @@ public sealed class DungeonSession : MonoBehaviour
         EndlessRun.Clear();
         EndlessRun.Prepare();
         GamePauseController.ResetSessionState();
+        Definition = FindGameplayGate(scene).worldDefinition;
         yield return EnsureWorld();
         World.ResetView();
         SceneManager.SetActiveScene(scene);
@@ -75,23 +76,35 @@ public sealed class DungeonSession : MonoBehaviour
     }
 #endif
 
-    public IEnumerator LoadWorld()
+    public IEnumerator LoadWorld(WorldDefinition definition)
     {
-        if (World) yield break;
-        if (Transitioning) { while (Transitioning) yield return null; yield break; }
+        definition.Validate();
+        if (World && Definition == definition) yield break;
+        if (gameplay) throw new System.InvalidOperationException("Select a world before entering gameplay");
+        if (Transitioning) { while (Transitioning) yield return null; yield return LoadWorld(definition); yield break; }
         Transitioning = true;
+        if (World)
+        {
+            var oldScene = World.gameObject.scene;
+            World = null;
+            yield return SceneManager.UnloadSceneAsync(oldScene);
+        }
+        Definition = definition;
         yield return EnsureWorld();
         Transitioning = false;
     }
     IEnumerator EnsureWorld()
     {
         if (World) yield break;
-        var scene = SceneManager.GetSceneByName(WorldScene);
-        if (!scene.isLoaded) yield return SceneManager.LoadSceneAsync(WorldScene, LoadSceneMode.Additive);
-        scene = SceneManager.GetSceneByName(WorldScene);
+        if (!Definition) throw new System.InvalidOperationException("DungeonSession requires a WorldDefinition");
+        var path = Definition.scenePath;
+        var scene = SceneManager.GetSceneByPath(path);
+        if (!scene.isLoaded) yield return SceneManager.LoadSceneAsync(path, LoadSceneMode.Additive);
+        scene = SceneManager.GetSceneByPath(path);
         foreach (var root in scene.GetRootGameObjects())
             if (root.TryGetComponent<DungeonWorld>(out var world)) World = world;
         if (!World) throw new System.InvalidOperationException("DungeonWorld scene has no owner");
+        if (World.definition != Definition) throw new System.InvalidOperationException("World scene/definition mismatch");
         World.ResetView();
     }
     public void BeginGame(string scene = GameScene) => Request(scene);

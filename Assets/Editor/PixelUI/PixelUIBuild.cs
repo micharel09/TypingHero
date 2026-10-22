@@ -48,6 +48,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
         paths = paths.Concat(AssetDatabase.FindAssets("t:Prefab", new[] { "Assets" })
             .Select(AssetDatabase.GUIDToAssetPath)).Distinct().ToArray();
         paths = paths.Concat(new[] { DungeonSessionBuild.WorldPath, DungeonSessionBuild.WorldPath + ".meta", "ProjectSettings/EditorBuildSettings.asset" }).ToArray();
+        paths = paths.Concat(Directory.GetFiles("Assets/Data/Lighting", "*", SearchOption.AllDirectories)).ToArray();
         var before = System.Array.ConvertAll(paths, File.ReadAllBytes);
         try { Apply(); }
         catch (System.Exception error) { throw new BuildFailedException(error); }
@@ -87,7 +88,6 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             CombatFeedbackBuild.Apply();
             TutorialBuild.Apply();
             ShogunTheme.Apply();
-            WorldLightingBuild.Apply();
             CombatR7Build.Apply();
             DungeonUISkin.Apply();
             BlackletterTitleBuild.Apply();
@@ -102,7 +102,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity", DungeonSessionBuild.WorldPath,
                 PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
                 CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'), BlackletterTitleBuild.Art.TrimEnd('/'),
-                DungeonArenaBuild.Art.TrimEnd('/'), DungeonPixelRoomBuild.Art.TrimEnd('/'), DungeonHangingLanternBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings",
+                DungeonArenaBuild.Art.TrimEnd('/'), DungeonPixelRoomBuild.Art.TrimEnd('/'), DungeonHangingLanternBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings", "Assets/Data/Lighting",
                 ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }, "build/PixelUI/PixelUI.unitypackage",
                 ExportPackageOptions.Recurse);
             Debug.Log("Pixel UI migration and serialization complete");

@@ -4,15 +4,22 @@ using UnityEngine;
 [RequireComponent(typeof(Light))]
 public sealed class DungeonTorchLight : MonoBehaviour
 {
-    [SerializeField, Min(0)] float baseIntensity = 22;
+    public LightProfile profile;
     [SerializeField] float phase;
-    [SerializeField, Range(0, .06f)] float flickerAmplitude = .02f;
     [SerializeField] Renderer[] flameRenderers = new Renderer[0];
     [SerializeField] MeshFilter pixelFlame;
     [SerializeField] float flameTimeOffset;
-    [SerializeField, Min(1)] int flameFrames = 5;
-    [SerializeField, Min(1)] int flameColumns = 5;
-    [SerializeField, Min(.001f)] float flameFrameSeconds = .1f;
+    public MeshFilter Flame => pixelFlame;
+    public void Preview()
+    {
+        if (!profile) throw new System.InvalidOperationException(name + ": missing LightProfile");
+        profile.Validate(); profile.Apply(GetComponent<Light>());
+        if (profile.flame && pixelFlame)
+        {
+            pixelFlame.sharedMesh = profile.flame.mesh;
+            pixelFlame.GetComponent<Renderer>().sharedMaterial = profile.flame.material;
+        }
+    }
     Light source;
     MaterialPropertyBlock flameBlock;
     float age;
@@ -22,10 +29,13 @@ public sealed class DungeonTorchLight : MonoBehaviour
 
     void OnEnable()
     {
-        source = GetComponent<Light>();
+        if (!profile) throw new System.InvalidOperationException(name + ": missing LightProfile");
+        profile.Validate();
+        source = GetComponent<Light>(); profile.Apply(source);
         if (pixelFlame && !privateMesh)
         {
-            originalMesh = pixelFlame.sharedMesh;
+            originalMesh = profile.flame.mesh;
+            pixelFlame.GetComponent<Renderer>().sharedMaterial = profile.flame.material;
             privateMesh = Instantiate(originalMesh);
             privateMesh.name = "Lantern pixel flame (runtime)";
             originalUV = originalMesh.uv;
@@ -44,22 +54,20 @@ public sealed class DungeonTorchLight : MonoBehaviour
 
     void Apply()
     {
-        float wave = pixelFlame
-            ? 2 * Mathf.Clamp01(Mathf.PerlinNoise(phase + age * 4.7f, 11.73f)) - 1
-            : .65f * Mathf.Sin(age * 12.57f + phase)
-            + .35f * Mathf.Sin(age * 19.92f + phase * 1.7f);
-        float multiplier=1+Mathf.Clamp(flickerAmplitude,0,pixelFlame ? .06f : .02f)*wave;
-        source.intensity=baseIntensity*multiplier;
-        int frame = Mathf.FloorToInt((age + flameTimeOffset) / flameFrameSeconds) % flameFrames;
+        float multiplier = profile.Multiplier(age, phase);
+        source.intensity = profile.intensity * multiplier;
+        int frame = profile.flame ? profile.flame.FrameAt(age + flameTimeOffset) : -1;
         if (privateMesh && displayedFrame != frame)
         {
+            var from = profile.flame.meshUV; var to = profile.flame.frames[frame].uv;
             for (int i = 0; i < frameUV.Length; i++)
-                frameUV[i] = originalUV[i] + new Vector2((frame % flameColumns) / (float)flameColumns,
-                    -(frame / flameColumns) / (float)Mathf.CeilToInt(flameFrames / (float)flameColumns));
+                frameUV[i] = to.position + Vector2.Scale(new Vector2((originalUV[i].x - from.x) / from.width,
+                    (originalUV[i].y - from.y) / from.height), to.size);
             privateMesh.uv = frameUV;
             displayedFrame = frame;
         }
         if(flameBlock==null)flameBlock=new MaterialPropertyBlock();
+        if (!profile.synchronizeEmission) return;
         foreach(var renderer in flameRenderers)
         {
             if(!renderer||!renderer.sharedMaterial)continue;
@@ -71,7 +79,7 @@ public sealed class DungeonTorchLight : MonoBehaviour
 
     void OnDisable()
     {
-        if (source) source.intensity = baseIntensity;
+        if (source) source.intensity = profile.intensity;
     }
 
     void OnDestroy()

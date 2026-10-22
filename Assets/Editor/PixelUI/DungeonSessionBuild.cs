@@ -26,18 +26,11 @@ internal static class DungeonSessionBuild
         gate.Bind(world);
         foreach (var link in gate.links)
         {
-            var owner = link.worldOwnsField ? world.objects[link.worldIndex] : link.local;
+            var owner = link.worldOwnsField ? world.Resolve(link.slot) : link.local;
             EditorUtility.SetDirty(owner);
             if (PrefabUtility.IsPartOfPrefabInstance(owner)) PrefabUtility.RecordPrefabInstancePropertyModifications(owner);
         }
         foreach (Transform child in gate.transform.Cast<Transform>().ToArray()) child.SetParent(null, true);
-        var combat = game.GetRootGameObjects().FirstOrDefault(root => root.name == "DungeonCombatLighting");
-        if (combat)
-            foreach (string name in new[] { "CombatPulse", "ParryContactLight" })
-            {
-                var light = combat.transform.Find(name);
-                if (light) light.SetParent(world.environment, true);
-            }
         gate.gameObject.SetActive(true);
         EditorSceneManager.CloseScene(worldScene, true);
         EditorSceneManager.SaveScene(game);
@@ -53,7 +46,6 @@ internal static class DungeonSessionBuild
         var world = Object.FindObjectOfType<DungeonWorld>(true);
         if (!world) world = new GameObject("DungeonWorldOwner").AddComponent<DungeonWorld>();
         world.environment = environment.transform; world.view = camera;
-        world.CaptureEnvironment();
         // Combat lights/rig have gameplay lifetime and remain available during Slayer.
         var rig = environment.GetComponent<ClashLightingRig>();
         if (rig)
@@ -108,15 +100,14 @@ internal static class DungeonSessionBuild
                 if (property.propertyPath.Contains("."))
                     throw new InvalidOperationException("Unsupported nested cross-scene binding: " + component + "." + property.propertyPath);
                 var item = owns ? (Object)component : value;
-                int index = objects.IndexOf(item);
-                if (index < 0) { index = objects.Count; objects.Add(item); }
+                var slot = world.SlotFor(item);
                 links.Add(new DungeonSessionBindings.Link { local = owns ? value : component,
-                    field = property.propertyPath, worldIndex = index, worldOwnsField = owns });
+                    field = property.propertyPath, slot = slot, worldOwnsField = owns });
                 property.objectReferenceValue = null;
             }
             serialized.ApplyModifiedPropertiesWithoutUndo();
         }
-        world.objects = objects.ToArray(); gate.links = links.ToArray();
+        gate.links = links.ToArray();
         var worldScene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
         // Copy authored fog/ambient/lighting via the scene settings before moving roots.
         var previousActive = SceneManager.GetActiveScene();

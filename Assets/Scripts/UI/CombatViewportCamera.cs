@@ -6,6 +6,7 @@ using Cinemachine;
 [DefaultExecutionOrder(990)]
 public sealed class CombatViewportCamera : MonoBehaviour
 {
+    public WorldLightingProfile lighting;
     [SerializeField] Camera target;
     [SerializeField] bool anchorFloorDuringZoom;
     [SerializeField] float normalOrtho = 5.625f;
@@ -47,7 +48,7 @@ public sealed class CombatViewportCamera : MonoBehaviour
             // Use the brain's final position to retain impulses without accumulating
             // corrections; the pause controller owns the camera while brain is disabled.
             var position = brain.CurrentCameraState.FinalPosition;
-            position.y += (target.orthographicSize - normalOrtho) * (48f / 90f)
+            position.y += (target.orthographicSize - (lighting ? lighting.normalOrtho : normalOrtho)) * (48f / 90f)
                 / Mathf.Cos(target.transform.eulerAngles.x * Mathf.Deg2Rad);
             target.transform.position = position;
         }

@@ -49,7 +49,7 @@ public sealed class DungeonRenderTests
         var weather=new GameObject("rain");weather.transform.SetParent(host.transform);
         var rain=weather.AddComponent<ParticleSystem>();
         var rune=host.AddComponent<Light>();
-        var motion=host.AddComponent<DungeonEnvironmentMotion>();
+        var motion=host.AddComponent<DungeonEnvironmentMotion>(); motion.profile = LightingTestAssets.Definition.lighting;
         var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
         typeof(DungeonEnvironmentMotion).GetField("runeLight",flags).SetValue(motion,rune);
         typeof(DungeonEnvironmentMotion).GetField("banner",flags).SetValue(motion,filter);
@@ -100,7 +100,7 @@ public sealed class DungeonRenderTests
     {
         host=new GameObject("rune gain contract");host.SetActive(false);
         var renderer=host.AddComponent<MeshRenderer>();var light=host.AddComponent<Light>();
-        var motion=host.AddComponent<DungeonEnvironmentMotion>();
+        var motion=host.AddComponent<DungeonEnvironmentMotion>(); motion.profile = LightingTestAssets.Definition.lighting;
         var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
         var type=typeof(DungeonEnvironmentMotion);
         type.GetField("atmosphere",flags).SetValue(motion,new Renderer[]{renderer});
@@ -131,6 +131,7 @@ public sealed class DungeonRenderTests
     {
         if (host) Object.Destroy(host);
         yield return null;
+        LightingTestAssets.Cleanup();
     }
     [UnityTest, Category("Quick")]
     public IEnumerator MainLampStaysConstantAcrossPauseAndCinematicRestore()
@@ -139,8 +140,8 @@ public sealed class DungeonRenderTests
         host=new GameObject("fixed key lifecycle");host.SetActive(false);
         var light=host.AddComponent<Light>();var torch=host.AddComponent<DungeonTorchLight>();
         var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
-        typeof(DungeonTorchLight).GetField("baseIntensity",flags).SetValue(torch,40f);
-        typeof(DungeonTorchLight).GetField("flickerAmplitude",flags).SetValue(torch,0f);
+        torch.profile = LightingTestAssets.Light(40, 0);
+
         try
         {
             Time.timeScale=1;host.SetActive(true);
@@ -156,9 +157,10 @@ public sealed class DungeonRenderTests
     public IEnumerator TorchFlickerIsBoundedAndPreservesPhaseAcrossPauseAndHiding()
     {
         float previousScale = Time.timeScale;
-        host = new GameObject("torch lifecycle test");
+        host = new GameObject("torch lifecycle test"); host.SetActive(false);
         var light = host.AddComponent<Light>();
         var torch = host.AddComponent<DungeonTorchLight>();
+        torch.profile = LightingTestAssets.Light(22, .02f);
         var renderer=host.AddComponent<MeshRenderer>();
         var material=new Material(Shader.Find("Universal Render Pipeline/Lit"));
         material.SetColor("_EmissionColor",new Color(3,1,.2f));renderer.sharedMaterial=material;
@@ -167,7 +169,7 @@ public sealed class DungeonRenderTests
         var block=new MaterialPropertyBlock();
         try
         {
-            Time.timeScale = 1;
+            Time.timeScale = 1; host.SetActive(true);
             float minimum = light.intensity, maximum = light.intensity;
             for (int i = 0; i < 20; i++)
             {
@@ -217,12 +219,13 @@ public sealed class DungeonRenderTests
             var type = typeof(DungeonTorchLight);
             type.GetField("pixelFlame", flags).SetValue(torch, filter);
             type.GetField("flameRenderers", flags).SetValue(torch, new Renderer[] { renderer });
-            type.GetField("baseIntensity", flags).SetValue(torch, configuration.x);
-            type.GetField("flickerAmplitude", flags).SetValue(torch, configuration.y);
+            torch.profile = LightingTestAssets.Light(configuration.x, configuration.y);
+            torch.profile.flame = LightingTestAssets.Flame(original, material);
+
             type.GetField("flameTimeOffset", flags).SetValue(torch, configuration.z);
-            type.GetField("flameFrames", flags).SetValue(torch, 10);
-            type.GetField("flameColumns", flags).SetValue(torch, 5);
-            type.GetField("flameFrameSeconds", flags).SetValue(torch, .1f);
+
+
+
             var age = type.GetField("age", flags);
             var apply = type.GetMethod("Apply", flags);
             var block = new MaterialPropertyBlock();
@@ -281,7 +284,7 @@ public sealed class DungeonRenderTests
         camera.orthographicSize = 5.625f; camera.transform.position = new Vector3(0, 4, -10);
         camera.transform.rotation = Quaternion.Euler(10, 0, 0);
         var originalRect = new Rect(.1f, .15f, .8f, .7f); camera.rect = originalRect;
-        var arena = host.AddComponent<DungeonArenaCamera>(); host.SetActive(true);
+        var arena = host.AddComponent<DungeonArenaCamera>(); arena.profile = LightingTestAssets.Definition.lighting; host.SetActive(true);
         var texture = arena.WorldTexture;
         Assert.That(texture.width, Is.EqualTo(320)); Assert.That(texture.height, Is.EqualTo(180));
         Assert.That(texture.format, Is.EqualTo(RenderTextureFormat.ARGBHalf));

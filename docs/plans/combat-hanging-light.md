@@ -1,3 +1,13 @@
+## Reusable world lighting profiles - implementation in progress, 2026-10-22
+
+User requested complete reusable profiles for scene/map expansion, including all 3D lighting, rune and combat pulses. Hardware quality tiers and a map-selection UI are outside this revision. Preserve the approved Pinterest art and existing appearance. Five authored asset types: FlameProfile, LightProfile, WorldLightingProfile, CombatLightingProfile and WorldDefinition. Native materials/VolumeProfile/LightingSettings/URP assets own their respective values; instance phases, anchors and mutable clock/UV state stay local. Menu/direct Editor entry must supply an explicit world definition; four semantic binding slots replace generated object-array indices.
+
+Task branch micharel09/world-lighting-profiles, independent worktree C:/Users/ADMIN/orca/workspaces/TypingHero/world-lighting-profiles, based on origin/main5f371fa. Original dirty parent checkout preserved. Evidence root E:/CodexTemp/TypingHero/lighting-profiles-20261022-3vlshh3g.
+
+Verification pending: edited-profile rebuild preservation and strict repeated builder; focused light/clock/UV/pulse/session tests; a second named world with four fixtures and independent render resolution; one actual-input gameplay capture and complete selected-frame review at native/2x. No implementation/test/integration PASS claim yet.
+
+Migration attempts: first captured no complete profile set because split DungeonWorld has no native LightingSettings reference; select the existing approved PreviewLighting asset explicitly during one-time migration. Subsequent compile found missing EditorTests URP/editor assembly references (fixed) and a shared stale Bee response naming an absent CombatCameraImpact.cs from a different snapshot. The external task adapter removes that proven stale graph only while holding the shared exclusive runner lock. Other jobs/source/checkouts remain untouched.
+
 ## Approved integration checkpoint - 2026-10-22
 
 User approved final fire commit297c0c5 and requested integration into main. Merge current main916c752, preserving the new separate tutorial callouts and longer parry ember floor hold. Only documentation conflicted: retain current tutorial/VFX descriptions and approved fire lighting description. DungeonWorld merge changes only blank-line normalization outside the fire records. Fire runtime, shader, atlas, material, geometry, builder and focused tests are unchanged: reuse the recorded2/2Unity,35/35native and complete selected-frame reviews; no additional player build is needed. Run diff whitespace/conflict checks before push. Asset author/license remain unknown; user approval does not establish distribution rights. No game-host deployment requested.

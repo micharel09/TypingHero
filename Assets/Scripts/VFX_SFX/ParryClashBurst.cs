@@ -33,7 +33,6 @@ public sealed partial class ParryClashBurst : MonoBehaviour
     [SerializeField] ParticleSystem contact, mainRays, front, back, embers;
     [SerializeField] Transform ground;
     [SerializeField] Vector2 speed = new Vector2(14f, 24f);
-    [SerializeField] float pulseIntensity = 2.4f;
     [System.Serializable]
     sealed class Layer
     {
@@ -113,7 +112,7 @@ public sealed partial class ParryClashBurst : MonoBehaviour
         foreach (var ps in systems) ps.Play(false);
         if (emittedPreset == Preset.BCompact) { contact.Pause(false); back.Pause(false); }
         playing = true;
-        ClashLightingRig.Pulse(gameObject.scene, point, emittedPreset == Preset.BCompact ? 5f : pulseIntensity, this);
+        ClashLightingRig.Pulse(gameObject.scene, point, emittedPreset == Preset.BCompact ? CombatLightingProfile.Event.Parry : CombatLightingProfile.Event.LegacyParry, this);
     }
 
     void EmitGroup(ParticleSystem ps, Layer layer, float direction, float force, float z,

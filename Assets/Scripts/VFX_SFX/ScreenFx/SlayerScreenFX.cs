@@ -12,6 +12,10 @@ using UnityEditor;
 [DefaultExecutionOrder(1000)]
 public class SlayerScreenFX : MonoBehaviour
 {
+    public WorldLightingProfile lighting;
+    float NormalOrtho => lighting ? lighting.normalOrtho : normalOrtho;
+    float SlayerOrtho => lighting ? lighting.slayerOrtho : slayerOrtho;
+
     [Header("Refs")]
     [SerializeField] CinemachineVirtualCamera vcam;
     [SerializeField] RectTransform topBar;
@@ -177,7 +181,7 @@ public class SlayerScreenFX : MonoBehaviour
         if (typingPanel) typingPanel.enabled = _trayWasEnabled;
     }
 
-    void OnDisable() { StopAllCoroutines(); EndPresentation(); SetBarsInstant(0); SetRedInstant(0); SetZoomInstant(normalOrtho); }
+    void OnDisable() { StopAllCoroutines(); EndPresentation(); SetBarsInstant(0); SetRedInstant(0); SetZoomInstant(NormalOrtho); }
 
 
     void Awake()
@@ -188,7 +192,7 @@ public class SlayerScreenFX : MonoBehaviour
 
         SetBarsInstant(0f);
         SetRedInstant(0f);
-        SetZoomInstant(normalOrtho);
+        SetZoomInstant(NormalOrtho);
     }
 
     // Public API
@@ -198,7 +202,7 @@ public class SlayerScreenFX : MonoBehaviour
         if (autoShowOnEnter) SetGroup(true);
 
         StopAllCoroutines();
-        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, slayerOrtho, zoomDuration, zoomCurve));
+        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, SlayerOrtho, zoomDuration, zoomCurve));
         StartCoroutine(CoBars(_barReveal * barHeight, barHeight, barDuration, barCurve));
         StartCoroutine(CoRed(GetRedAlpha(), redAlpha, redFade));
         if (enterShake) StartCoroutine(CoShake());
@@ -218,7 +222,7 @@ public class SlayerScreenFX : MonoBehaviour
         if (!isActiveAndEnabled) { EndPresentation(); return; }
         EndPresentation();
         StopAllCoroutines();
-        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, normalOrtho, zoomDuration, zoomCurve));
+        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, NormalOrtho, zoomDuration, zoomCurve));
         StartCoroutine(CoBars(_barReveal * barHeight, 0f, barDuration, barCurve));
         StartCoroutine(CoRed(GetRedAlpha(), 0f, redFade));
         if (autoHideOnExit) StartCoroutine(CoDisableAfter(redFade));

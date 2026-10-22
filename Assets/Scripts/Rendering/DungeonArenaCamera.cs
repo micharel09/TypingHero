@@ -8,11 +8,8 @@ using UnityEngine.Rendering.Universal;
 public sealed class DungeonArenaCamera : MonoBehaviour
 {
     public Transform player, enemy;
-    [SerializeField] bool postProcessing = true;
-    [SerializeField, Range(0, 15)] float pitch = 5f;
+    public WorldLightingProfile profile;
     [SerializeField] CombatHUDLayout framingLayout;
-    [SerializeField, Min(.1f)] float framingDistance = 17.8403f;
-    public const int WorldWidth = 320, WorldHeight = 180;
     public RenderTexture WorldTexture { get; private set; }
     public Camera PresentationCamera { get; private set; }
     public Rect PresentationRect { get; private set; } = new Rect(0, 0, 1, 1);
@@ -29,14 +26,21 @@ public sealed class DungeonArenaCamera : MonoBehaviour
     void OnEnable()
     {
         if (!Application.isPlaying) return;
+        if (!profile) throw new System.InvalidOperationException(name + ": missing world presentation profile");
+        profile.Validate();
         view = GetComponent<Camera>(); brain = GetComponent<CinemachineBrain>();
+        view.allowHDR = true; view.allowMSAA = false;
+        view.orthographicSize = profile.normalOrtho;
+        view.nearClipPlane = profile.nearClip; view.farClipPlane = profile.farClip;
+        view.backgroundColor = profile.background;
+        view.GetUniversalAdditionalCameraData().SetRenderer(profile.worldRendererIndex);
         previousTexture = view.targetTexture; previousRect = view.rect;
         originX = transform.position.x;
         framingOrigin = framingLayout && player && enemy ? framingLayout.BodyCenter : Vector3.zero;
         offset = velocity = 0;
-        WorldTexture = new RenderTexture(WorldWidth, WorldHeight, 24, RenderTextureFormat.ARGBHalf)
+        WorldTexture = new RenderTexture(profile.resolution.x, profile.resolution.y, profile.depthBits, profile.textureFormat)
         {
-            name = "Dungeon world 320x180 HDR", filterMode = FilterMode.Point,
+            name = "Dungeon world HDR", filterMode = FilterMode.Point,
             wrapMode = TextureWrapMode.Clamp, useMipMap = false, autoGenerateMips = false,
             antiAliasing = 1, useDynamicScale = false
         };
@@ -46,15 +50,15 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         // ownership metadata, while only a graphics device receives the target.
         if (SystemInfo.graphicsDeviceType != GraphicsDeviceType.Null) view.targetTexture = WorldTexture;
         view.rect = new Rect(0, 0, 1, 1);
-        view.aspect = (float)WorldWidth / WorldHeight;
+        view.aspect = (float)profile.resolution.x / profile.resolution.y;
         var screen = new GameObject("Dungeon Presentation"); screen.transform.SetParent(transform, false);
         PresentationCamera = screen.AddComponent<Camera>();
         PresentationCamera.cullingMask = 0; PresentationCamera.depth = view.depth + 1;
         PresentationCamera.clearFlags = CameraClearFlags.SolidColor; PresentationCamera.backgroundColor = Color.black;
         PresentationCamera.allowHDR = true; PresentationCamera.allowMSAA = false;
         PresentationCamera.orthographic = true;
-        var data = PresentationCamera.GetUniversalAdditionalCameraData(); data.SetRenderer(2);
-        data.renderShadows = false; data.renderPostProcessing = postProcessing;
+        var data = PresentationCamera.GetUniversalAdditionalCameraData(); data.SetRenderer(profile.presentationRendererIndex);
+        data.renderShadows = false; data.renderPostProcessing = profile.postProcessing;
         data.antialiasing = AntialiasingMode.None;
         data.requiresColorOption = data.requiresDepthOption = CameraOverrideOption.Off;
         screen.AddComponent<DungeonPresentationCamera>().Initialize(this);
@@ -92,19 +96,19 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         // Existing Slayer/pause tweens still own this half-height zoom scalar.
         // Apply the perspective lens even while pause owns camera position.
         view.orthographic = false;
-        view.fieldOfView = 2 * Mathf.Atan(view.orthographicSize / framingDistance) * Mathf.Rad2Deg;
+        view.fieldOfView = 2 * Mathf.Atan(view.orthographicSize / profile.FramingDistance) * Mathf.Rad2Deg;
         if (!brain || !brain.enabled || GamePauseController.InputBlocked) return;
         if (framingLayout && (!player || !enemy)) return;
         var center = framingLayout ? framingLayout.BodyCenter : player && enemy ? (player.position + enemy.position) * .5f : framingOrigin;
-        float goal = Mathf.Clamp(center.x - originX, -.5f, .5f);
-        offset = Mathf.SmoothDamp(offset, goal, ref velocity, .35f, Mathf.Infinity, Time.deltaTime);
+        float goal = Mathf.Clamp(center.x - originX, -profile.followLimit, profile.followLimit);
+        offset = Mathf.SmoothDamp(offset, goal, ref velocity, profile.followSmooth, Mathf.Infinity, Time.deltaTime);
         // Start from the brain state, retaining impulses without accumulating offsets.
         var position = brain.CurrentCameraState.FinalPosition;
         position.x += offset;
         if (framingLayout)
-            position.y += center.y - framingOrigin.y + Mathf.Tan(pitch * Mathf.Deg2Rad) * (center.z - framingOrigin.z);
+            position.y += center.y - framingOrigin.y + Mathf.Tan(profile.pitch * Mathf.Deg2Rad) * (center.z - framingOrigin.z);
         transform.position = position;
-        transform.rotation = Quaternion.Euler(pitch, 0, 0);
+        transform.rotation = Quaternion.Euler(profile.pitch, 0, 0);
     }
     void OnDisable()
     {

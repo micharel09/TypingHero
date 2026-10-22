@@ -13,6 +13,8 @@ public sealed class MainMenuUI : MonoBehaviour
     [SerializeField] EndlessDifficultySelector difficultySelector;
     [SerializeField] TextMeshProUGUI errorLabel;   // optional
 
+    public WorldDefinition worldDefinition;
+
     [Header("Flow")]
     [SerializeField] string gameSceneName = "Game";
     [Tooltip("Tự focus vào ô nhập khi vào menu.")]
@@ -89,7 +91,8 @@ public sealed class MainMenuUI : MonoBehaviour
         loadingScene = true;
         var events = UnityEngine.EventSystems.EventSystem.current;
         if (events) events.enabled = false;
-        yield return DungeonSession.I.LoadWorld();
+        var session = DungeonSession.I;
+        yield return session.LoadWorld(session.Definition ? session.Definition : worldDefinition);
         if (events) events.enabled = true;
         loadingScene = false;
         if (preparation) { preparation.SetActive(false); menuButtons[0].Select(); yield break; }

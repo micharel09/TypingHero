@@ -11,7 +11,7 @@ public sealed class DungeonSessionTests
     [UnityTearDown]
     public IEnumerator Cleanup()
     {
-        foreach (var name in new[] { "MainMenu", DungeonSession.GameScene, DungeonSession.WorldScene })
+        foreach (var name in new[] { "MainMenu", DungeonSession.GameScene, LightingTestAssets.WorldScene })
         {
             var scene = SceneManager.GetSceneByName(name);
             if (scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
@@ -24,7 +24,7 @@ public sealed class DungeonSessionTests
     public IEnumerator WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause()
     {
         var session = owned = DungeonSession.I;
-        yield return session.LoadWorld();
+        yield return session.LoadWorld(LightingTestAssets.Definition);
         var world = session.World;
         var room = world.environment;
         var camera = world.view;
@@ -46,10 +46,10 @@ public sealed class DungeonSessionTests
             Assert.That(gate.links.Length, Is.GreaterThan(0));
             foreach (var link in gate.links)
             {
-                var owner = link.worldOwnsField ? world.objects[link.worldIndex] : link.local;
+                var owner = link.worldOwnsField ? world.Resolve(link.slot) : link.local;
                 var field = owner.GetType().GetField(link.field, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                 var actual = owner is Canvas canvas && link.field == "m_Camera" ? canvas.worldCamera : field.GetValue(owner);
-                Assert.That(actual, Is.EqualTo(link.worldOwnsField ? link.local : world.objects[link.worldIndex]), link.field);
+                Assert.That(actual, Is.EqualTo(link.worldOwnsField ? link.local : world.Resolve(link.slot)), link.field);
             }
             EndlessRun.Restart();
             session.ReloadGameplay();

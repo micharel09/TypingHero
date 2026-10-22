@@ -8,15 +8,26 @@ public sealed class ClashLightingRig : MonoBehaviour
     [SerializeField] Light2D clashLight;
     [SerializeField] Light combatLight;
     [SerializeField] Light parryLight;
-    [SerializeField] float duration = .14f;
-    [SerializeField] float maximumIntensity = 3f;
-    // A fixed array bounds overlap without allocating in the combat loop.
-    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; }
-    readonly PulseState[] pulses = new PulseState[8];
+    public CombatLightingProfile profile;
+    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; public CombatLightingProfile.Event kind; }
+    PulseState[] pulses = System.Array.Empty<PulseState>();
+    void Prepare()
+    {
+        if (!profile) throw new System.InvalidOperationException(name + ": missing CombatLightingProfile");
+        if (pulses.Length == profile.overlapCapacity) return;
+        profile.Validate();
+        pulses = new PulseState[profile.overlapCapacity];
+    }
     static readonly System.Collections.Generic.List<ClashLightingRig> rigs = new();
     Light2D key, fill, ambient;
     void OnEnable()
     {
+        if (profile)
+        {
+            Prepare();
+            if (combatLight) profile.combat.Apply(combatLight);
+            if (parryLight) profile.parry.Apply(parryLight);
+        }
         rigs.Add(this); Clear();
         foreach (var light in GetComponentsInChildren<Light2D>())
         {
@@ -33,14 +44,13 @@ public sealed class ClashLightingRig : MonoBehaviour
         if (combatLight) combatLight.intensity = 0;
         if (parryLight) parryLight.intensity = 0;
     }
-    internal static void Pulse(Scene scene, Vector3 point, float strength, ParryClashBurst owner)
+    internal static void Pulse(Scene scene, Vector3 point, CombatLightingProfile.Event kind, ParryClashBurst owner)
     {
-        foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, strength, owner);
+        foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, kind, owner);
     }
-    internal static void Impact(Scene scene, Vector3 point, float strength, float hold, float seconds, VoxelImpactBurst owner)
+    internal static void Impact(Scene scene, Vector3 point, CombatLightingProfile.Event kind, VoxelImpactBurst owner)
     {
-        foreach (var rig in rigs) if (rig.gameObject.scene == scene)
-            rig.AddProfile(new PulseState {owner = owner, point = point, strength = strength, duration = seconds, hold = hold, compact = true});
+        foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, kind, owner);
     }
     internal static void Cancel(Component owner)
     {
@@ -51,16 +61,19 @@ public sealed class ClashLightingRig : MonoBehaviour
             rig.Render();
         }
     }
-    void Add(Vector3 point, float strength, ParryClashBurst owner)
+    void Add(Vector3 point, CombatLightingProfile.Event kind, Component owner)
     {
-        AddProfile(new PulseState { owner = owner, point = point, strength = strength, compact = owner.EmittedPreset == ParryClashBurst.Preset.BCompact,
-            duration = owner.EmittedPreset == ParryClashBurst.Preset.BCompact ? .28f : duration,
-            hold = owner.EmittedPreset == ParryClashBurst.Preset.BCompact ? .07f : 0 });
+        Prepare(); var settings = profile.Get(kind);
+        AddProfile(new PulseState { owner = owner, point = point, strength = settings.intensity,
+            duration = settings.duration, hold = settings.hold, kind = kind,
+            compact = kind != CombatLightingProfile.Event.LegacyParry });
     }
     float Intensity(PulseState p)
     {
+        if (!p.owner) return 0;
+        var settings = profile.Get(p.kind);
         float t = Mathf.Clamp01((p.age - p.hold) / (p.duration - p.hold));
-        return Mathf.Min(p.compact ? 5f : maximumIntensity, p.strength * (p.compact ? 1 - t * t * (3 - 2 * t) : Mathf.Pow(1 - t, 2)));
+        return Mathf.Min(settings.maximum, p.strength * settings.decay.Evaluate(t));
     }
     void AddProfile(PulseState pulse)
     {
@@ -99,15 +112,15 @@ public sealed class ClashLightingRig : MonoBehaviour
         if (clashLight) { clashLight.transform.position = point; clashLight.intensity = strongest; }
         if (combatLight)
         {
-            combatLight.transform.position = point + new Vector3(0, 2, -4);
+            combatLight.transform.position = point + profile.combatOffset;
             combatLight.intensity = parry && parryLight ? 0 : strongest;
         }
         if (parryLight)
         {
             var camera = Camera.main;
-            float units = parry ? parry.PixelUnitsPerMeter : 1.25f;
-            parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (.15f * units);
-            parryLight.range = 3 * units; parryLight.intensity = parry ? strongest : 0;
+            float units = parry ? parry.PixelUnitsPerMeter : profile.defaultPixelUnits;
+            parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (profile.parryDepthOffset * units);
+            parryLight.range = profile.parryRangeScale * units; parryLight.intensity = parry ? strongest : 0;
         }
     }
     void LateUpdate()

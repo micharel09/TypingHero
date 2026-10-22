@@ -53,7 +53,7 @@ public sealed class TutorialTests
     [UnityTearDown]
     public IEnumerator UnloadOwnedScene()
     {
-        foreach (string name in new[] { "MainMenu", DungeonSession.GameScene, DungeonSession.WorldScene })
+        foreach (string name in new[] { "MainMenu", DungeonSession.GameScene, LightingTestAssets.WorldScene })
         {
             var scene = SceneManager.GetSceneByName(name);
             if (scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);

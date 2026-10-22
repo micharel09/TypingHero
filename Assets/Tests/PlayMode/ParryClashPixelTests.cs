@@ -171,7 +171,7 @@ public sealed partial class ParryClashTests
         var spot = host.AddComponent<Light>();
         var child = new GameObject("Point"); child.transform.SetParent(host.transform);
         var point = child.AddComponent<Light>(); point.type = LightType.Point;
-        var rig = host.AddComponent<ClashLightingRig>(); Set(rig, "combatLight", spot); Set(rig, "parryLight", point); host.SetActive(true);
+        var rig = host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat; Set(rig, "combatLight", spot); Set(rig, "parryLight", point); host.SetActive(true);
         var compact = Burst(); compact.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
         Assert.That(point.intensity, Is.EqualTo(5)); Assert.That(spot.intensity, Is.Zero);
         Assert.That(point.range, Is.EqualTo(3.75f).Within(.001f));

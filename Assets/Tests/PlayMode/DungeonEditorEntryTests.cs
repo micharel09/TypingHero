@@ -10,7 +10,7 @@ public sealed class DungeonEditorEntryTests
     [UnityTearDown]
     public IEnumerator Cleanup()
     {
-        foreach (var name in new[] { DungeonSession.GameScene, "MainMenu", DungeonSession.WorldScene })
+        foreach (var name in new[] { DungeonSession.GameScene, "MainMenu", LightingTestAssets.WorldScene })
         {
             var scene = SceneManager.GetSceneByName(name);
             if (scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
@@ -62,7 +62,7 @@ public sealed class DungeonEditorEntryTests
     public IEnumerator ReusesOpenWorldThroughDirectStartRestartAndMenuStart()
     {
         var session = DungeonSession.I;
-        yield return session.LoadWorld();
+        yield return session.LoadWorld(LightingTestAssets.Definition);
         var world = session.World;
         var camera = world.view;
         var texture = world.Arena.WorldTexture;

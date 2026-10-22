@@ -2,40 +2,46 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+[DefaultExecutionOrder(-1000)]
 public sealed class DungeonWorld : MonoBehaviour
 {
-    public Object[] objects;
+    public enum Slot { Camera, Arena, Brain, Environment }
+    public WorldDefinition definition;
+    public WorldLightingProfile Profile => definition.lighting;
+    public Object Resolve(Slot slot)
+    {
+        switch (slot)
+        {
+            case Slot.Camera: return view;
+            case Slot.Arena: return Arena;
+            case Slot.Brain: return view.GetComponent<CinemachineBrain>();
+            case Slot.Environment: return environment;
+            default: throw new System.ArgumentOutOfRangeException(nameof(slot));
+        }
+    }
+    public Slot SlotFor(Object value)
+    {
+        foreach (Slot slot in System.Enum.GetValues(typeof(Slot))) if (Resolve(slot) == value) return slot;
+        throw new System.InvalidOperationException(name + ": unsupported world binding " + value);
+    }
     public Transform environment;
     public Camera view;
     Vector3 position;
     Quaternion rotation;
     float ortho, fieldOfView;
-    [SerializeField] Color ambient, fogColor;
-    [SerializeField] float fogStart, fogEnd, fogDensity, ambientIntensity;
-    [SerializeField] bool fog;
-    [SerializeField] FogMode fogMode;
-    [SerializeField] AmbientMode ambientMode;
     public DungeonArenaCamera Arena => view.GetComponent<DungeonArenaCamera>();
     void Awake()
     {
+        definition.Validate();
+        Arena.profile = Profile;
+        var volume = environment.GetComponent<Volume>();
+        if (volume) volume.sharedProfile = Profile.post;
+        foreach (var motion in environment.GetComponentsInChildren<DungeonEnvironmentMotion>(true)) motion.profile = Profile;
         position = view.transform.position; rotation = view.transform.rotation;
         ortho = view.orthographicSize; fieldOfView = view.fieldOfView;
         ResetView();
     }
-    public void CaptureEnvironment()
-    {
-        ambient = RenderSettings.ambientLight; ambientMode = RenderSettings.ambientMode;
-        ambientIntensity = RenderSettings.ambientIntensity;
-        fog = RenderSettings.fog; fogMode = RenderSettings.fogMode; fogColor = RenderSettings.fogColor;
-        fogStart = RenderSettings.fogStartDistance; fogEnd = RenderSettings.fogEndDistance; fogDensity = RenderSettings.fogDensity;
-    }
-    public void ApplyEnvironment()
-    {
-        RenderSettings.ambientMode = ambientMode; RenderSettings.ambientLight = ambient;
-        RenderSettings.ambientIntensity = ambientIntensity;
-        RenderSettings.fog = fog; RenderSettings.fogMode = fogMode; RenderSettings.fogColor = fogColor;
-        RenderSettings.fogStartDistance = fogStart; RenderSettings.fogEndDistance = fogEnd; RenderSettings.fogDensity = fogDensity;
-    }
+    public void ApplyEnvironment() => Profile.ApplyEnvironment();
     public void ResetView()
     {
         environment.gameObject.SetActive(true);

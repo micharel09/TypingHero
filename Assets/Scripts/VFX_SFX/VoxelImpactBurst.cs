@@ -82,8 +82,8 @@ public sealed class VoxelImpactBurst : MonoBehaviour
             Systems[group].Play(false);
         }
         Advance(0);
-        ClashLightingRig.Impact(gameObject.scene, point, profile == 1 ? 1.8f : Lethal ? 2.8f : 1.2f,
-            profile == 1 ? .03f : Lethal ? .04f : 0, profile == 1 ? .14f : Lethal ? .2f : .1f, this);
+        ClashLightingRig.Impact(gameObject.scene, point, profile == 1 ? CombatLightingProfile.Event.AccentImpact :
+            Lethal ? CombatLightingProfile.Event.LethalImpact : CombatLightingProfile.Event.Impact, this);
     }
     internal void Advance(float delta)
     {
