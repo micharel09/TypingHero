@@ -83,12 +83,14 @@ public sealed class GamePauseController : MonoBehaviour
 
     internal static void SetTutorialReading(bool reading)
     {
+        ResetReadingImpact(reading);
         readingBlocked = reading;
         ApplyFreeze();
     }
 
     internal static void SetEncounterReading(bool reading)
     {
+        ResetReadingImpact(reading);
         encounterBlocked = reading;
         ApplyFreeze();
     }
@@ -98,6 +100,12 @@ public sealed class GamePauseController : MonoBehaviour
         pauseBlocked = readingBlocked = encounterBlocked = false;
         ResultOverlayVisible = false;
         ApplyFreeze();
+    }
+
+    static void ResetReadingImpact(bool reading)
+    {
+        if (reading && !pauseBlocked && Camera.main && Camera.main.TryGetComponent<DungeonArenaCamera>(out var arena))
+            arena.ResetImpacts(true);
     }
 
     static void ApplyFreeze()
@@ -362,6 +370,8 @@ public sealed class GamePauseController : MonoBehaviour
     // ===== CAMERA & FREEZE =====
     void SnapshotCam()
     {
+        if (_overlayLocked && targetCamera && targetCamera.TryGetComponent<DungeonArenaCamera>(out var arena))
+            arena.ResetImpacts(true);
         if (targetCamera)
         {
             _camPosSaved = targetCamera.transform.position;

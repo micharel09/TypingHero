@@ -1,3 +1,10 @@
+## Combat camera impact (2026-10-22)
+
+- CombatCameraImpact is gameplay-owned and bound to the persistent DungeonArenaCamera. Confirmed normal hits use2%/140ms, parry3%/180ms plus1native-pixel/100ms recoil, accepted received damage1pixel/100ms without zoom, outgoing lethal5%/250ms (2% for a captured Slayer hit) plus2pixels/100ms. Slayer entry retains5.625?3.3/350ms and authored source/delay; rapid Slayer hits add no pulse. Priority lethal>entry>received>parry>normal; equal/weaker events do not extend the single envelope.
+- Channel2/gain1 listener handles directional camera-plane kicks; original channel1/gain10 remains for Slayer entry. One warmed reusable signal avoids new per-contact managed allocation; owned event/start/signal checks prevent cancelling recycled events. ParryCameraShake forwards accepted context; PlayerHealth.DamageAccepted excludes rejection/i-frames; confirmed hitbox captures Slayer before damage and emits independently of visual prefabs. The visual lethal spawner no longer emits a duplicate impulse.
+- Final perspective half-height is base/(1+impactZoom), composed once at order995, with an analytic foot-anchor correction. Base virtual-camera lens,320x180 HDR/Point RT and fixed HUD/typing geometry remain. Manual Pause holds envelope/kick and Slayer tween; results/reading clear transient state, while existing unscaled Slayer exits complete. Restart/Menu/unbind clear only owned impulses. Public gameplay/provider/storage contracts and combat/audio timings unchanged.
+- Focused integrated Unity32/32 PASS; final native two-size verification and remote integration are recorded in [camera checkpoint](../plans/camera-impact.md).
+
 # Current gameplay
 
 ## Dark fantasy HUD — local candidate (2026-10-21)

@@ -1,3 +1,9 @@
+## Combat camera impact (2026-10-22)
+
+- Integrated input `d0fede39b9c7db8c593c3ae618f256b4888a25f1a163df390e0389c573ccb4d1`: pinned Unity2022.3.25f1 focused32/32 PASS,0failed/skipped (`20261022T160203-quick`). Confirms real hit consumers, bounded priority, channel isolation, projection/foot anchor, pooled-event ownership, warmed request allocation and Pause/dungeon lifecycle behavior.
+- Final WebGL/strict repeated builder PASS (`20261022T160608-webgl`);33/33 immutable player file hashes match local/server. Native Edge155 / Playwright1.58.2 / GTX1650Ti D3D11:86/86 checks PASS across1280x720 and640x360,0exceptions/provider calls, real keyboard/mouse and fixture/external-network isolation. Camera profiles, actual kick bounds, fixed HUD/typing and Pause/Resume/Restart/Menu pass.
+- Directly reviewed400/400 encoded frames and390/390 transitions in ten selected output windows,37/37 sheets; framing and recovery pass. Original WebM/PTS remain timing authority, including held spans; derived MP4 tails are not authoritative. Reference research remains separate. No full-suite/stress/soak, general performance or itch release claim. Sources, limits and retained demo: [camera checkpoint](../plans/camera-impact.md).
+
 ## Reusable MetalClash preset (2026-10-22)
 
 - Integrated newer main5f371fa torch flames as7ef0da3, preserving all VFX/actor/

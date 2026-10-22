@@ -22,7 +22,7 @@ def main():
     parser.add_argument("--wait-seconds", type=int, default=0, help="Wait up to this many seconds for the existing exclusive runner lock")
     parser.add_argument("--seconds", type=int, default=1800)
     parser.add_argument("--profile-allocations", action="store_true", help="Development QA player with per-frame allocation counters (WebGL only)")
-    parser.add_argument("--browser-scenario", choices=["tutorial", "skeleton-art", "attack-sorting", "score-layout", "score-cluster", "pixel-sparks", "pixel-sparks-parry", "endless", "combat-r7", "parry-clash"], help="Targeted WebGL acceptance using the existing isolated harness")
+    parser.add_argument("--browser-scenario", choices=["tutorial", "skeleton-art", "attack-sorting", "score-layout", "score-cluster", "pixel-sparks", "pixel-sparks-parry", "endless", "combat-r7", "parry-clash", "camera-impact"], help="Targeted WebGL acceptance using the existing isolated harness")
     args = parser.parse_args()
     if not 0 <= args.wait_seconds <= 3600:
         parser.error('--wait-seconds must be between 0 and 3600')

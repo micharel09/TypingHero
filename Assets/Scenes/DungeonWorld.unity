@@ -5457,6 +5457,7 @@ MonoBehaviour:
   postProcessing: 1
   pitch: 5
   framingLayout: {fileID: 0}
+  impact: {fileID: 0}
   framingDistance: 17.84022
 --- !u!1 &520016404
 GameObject:

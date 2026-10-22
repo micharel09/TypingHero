@@ -11,6 +11,11 @@ public sealed class DungeonArenaCamera : MonoBehaviour
     [SerializeField] bool postProcessing = true;
     [SerializeField, Range(0, 15)] float pitch = 5f;
     [SerializeField] CombatHUDLayout framingLayout;
+    [SerializeField] CombatCameraImpact impact;
+    internal float ImpactZoom => impact ? impact.Zoom : 0;
+    internal float PixelSizeAtDepth(float depth) => 2 * depth * EffectiveHalfHeight / framingDistance / WorldHeight;
+    internal float EffectiveHalfHeight => view.orthographicSize / (1 + ImpactZoom);
+    Vector3 unshakenPosition;
     [SerializeField, Min(.1f)] float framingDistance = 17.8403f;
     public const int WorldWidth = 320, WorldHeight = 180;
     public RenderTexture WorldTexture { get; private set; }
@@ -31,6 +36,7 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         if (!Application.isPlaying) return;
         view = GetComponent<Camera>(); brain = GetComponent<CinemachineBrain>();
         previousTexture = view.targetTexture; previousRect = view.rect;
+        unshakenPosition = transform.position;
         originX = transform.position.x;
         framingOrigin = framingLayout && player && enemy ? framingLayout.BodyCenter : Vector3.zero;
         offset = velocity = 0;
@@ -80,8 +86,19 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         if (active) { previousPostProcessing = data.renderPostProcessing; data.renderPostProcessing = false; }
         else data.renderPostProcessing = previousPostProcessing;
     }
+    internal void ResetImpacts(bool restoreView = false)
+    {
+        if (impact) impact.Clear();
+        if (restoreView && view)
+        {
+            transform.position = unshakenPosition;
+            view.fieldOfView = 2 * Mathf.Atan(view.orthographicSize / framingDistance) * Mathf.Rad2Deg;
+        }
+    }
     public void ResetFraming()
     {
+        ResetImpacts();
+        unshakenPosition = transform.position;
         offset = velocity = 0;
         originX = transform.position.x;
         framingOrigin = framingLayout && player && enemy ? framingLayout.BodyCenter : Vector3.zero;
@@ -92,7 +109,7 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         // Existing Slayer/pause tweens still own this half-height zoom scalar.
         // Apply the perspective lens even while pause owns camera position.
         view.orthographic = false;
-        view.fieldOfView = 2 * Mathf.Atan(view.orthographicSize / framingDistance) * Mathf.Rad2Deg;
+        view.fieldOfView = 2 * Mathf.Atan(EffectiveHalfHeight / framingDistance) * Mathf.Rad2Deg;
         if (!brain || !brain.enabled || GamePauseController.InputBlocked) return;
         if (framingLayout && (!player || !enemy)) return;
         var center = framingLayout ? framingLayout.BodyCenter : player && enemy ? (player.position + enemy.position) * .5f : framingOrigin;
@@ -103,6 +120,17 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         position.x += offset;
         if (framingLayout)
             position.y += center.y - framingOrigin.y + Mathf.Tan(pitch * Mathf.Deg2Rad) * (center.z - framingOrigin.z);
+        unshakenPosition = position - brain.CurrentCameraState.PositionCorrection;
+        // Zoom around the existing foot landmark, rather than lifting the floor.
+        if (framingLayout && ImpactZoom > 0)
+        {
+            var rotation = Quaternion.Euler(pitch, 0, 0);
+            var local = Quaternion.Inverse(rotation) * (framingLayout.LowestFoot - unshakenPosition);
+            float ratio = EffectiveHalfHeight / view.orthographicSize;
+            float shift = local.y * (1 - ratio) /
+                (Mathf.Cos(pitch * Mathf.Deg2Rad) + ratio * local.y / Mathf.Max(.01f, local.z) * Mathf.Sin(pitch * Mathf.Deg2Rad));
+            position.y += shift;
+        }
         transform.position = position;
         transform.rotation = Quaternion.Euler(pitch, 0, 0);
     }
