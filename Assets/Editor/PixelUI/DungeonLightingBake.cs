@@ -10,7 +10,7 @@ public static class DungeonLightingBake
     public static void Bake()
     {
         PixelUIBuild.Apply();
-        var scene = EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
+        var scene = EditorSceneManager.OpenScene(DungeonSessionBuild.WorldPath);
         var meshes = GameObject.Find("DungeonArena3D").GetComponentsInChildren<MeshFilter>();
         foreach (var guid in AssetDatabase.FindAssets("t:Model",new[] { DungeonArenaBuild.Art.TrimEnd('/') }))
         {

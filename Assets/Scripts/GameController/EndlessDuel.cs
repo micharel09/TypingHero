@@ -31,7 +31,7 @@ public sealed class EndlessDuel : MonoBehaviour
         ready = true;
         EndlessProfile.Encounter(Run.Role, Run.Slot == 4);
         encounterStartHp = player.Current;
-        if (continuing) Continue(); else RenderIntro();
+        if (continuing) BeginEncounter(); else RenderIntro();
     }
 
     void RenderIntro()
@@ -42,23 +42,28 @@ public sealed class EndlessDuel : MonoBehaviour
 
     void Update()
     {
-        if (!ready || loading || Run.Completed || GamePauseController.IsPaused || LeaderboardModal.BlocksShortcuts ||
+        if (DungeonSession.InputSuppressed || !ready || loading || Run.Completed || GamePauseController.IsPaused || LeaderboardModal.BlocksShortcuts ||
             (pause && pause.IsRestarting)) return;
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) Continue();
     }
 
     public void Continue()
     {
-        if (!ready || loading || Run.Completed || GamePauseController.IsPaused || LeaderboardModal.BlocksShortcuts ||
+        if (DungeonSession.InputSuppressed || !ready || loading || Run.Completed || GamePauseController.IsPaused || LeaderboardModal.BlocksShortcuts ||
             (pause && pause.IsRestarting)) return;
         if (CombatSession.Finished)
         {
             if (!player || player.IsDead) return;
             loading = true;
             EndlessRun.Continuing = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            DungeonSession.I.ReloadGameplay();
             return;
         }
+        BeginEncounter();
+    }
+
+    void BeginEncounter()
+    {
         ready = false;
         GamePauseController.SetEncounterReading(false);
         if (overlay) overlay.ShowCombat($"{Run.Difficulty.Label()} · DUEL {Run.Slot + 1}/6 · {Run.Enemy.Name}");

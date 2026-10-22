@@ -388,7 +388,7 @@ public sealed class EndlessTests
         TutorialRun.End(); EndlessRun.Clear();
         var previousMusic = MusicPlayer.I;
         var previousSfx = SfxPlayer.I;
-        yield return SceneManager.LoadSceneAsync("SampleScene");
+        yield return DungeonSceneTestFlow.Start();
         yield return null;
         try
         {
@@ -411,6 +411,7 @@ public sealed class EndlessTests
             Assert.That(Object.FindObjectOfType<SkeletonController>(), Is.Null);
             Assert.That(Object.FindObjectOfType<StaminaBarUI>(), Is.Null, "No floating stamina bar after enemy cleanup");
             duel.Continue();
+            yield return DungeonSceneTestFlow.Wait();
             yield return null; yield return null;
             Assert.That(GamePauseController.EncounterReading, Is.False);
             Assert.That(CombatSession.Finished, Is.False);
@@ -452,6 +453,7 @@ public sealed class EndlessTests
             var clean = SceneManager.CreateScene("EndlessTestCleanup");
             SceneManager.SetActiveScene(clean);
             SceneManager.UnloadSceneAsync("SampleScene");
+            DungeonSceneTestFlow.Cleanup();
             if (!previousMusic && MusicPlayer.I) Object.Destroy(MusicPlayer.I.gameObject);
             if (!previousSfx && SfxPlayer.I) Object.Destroy(SfxPlayer.I.gameObject);
             AudioListener.pause = false;

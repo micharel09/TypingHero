@@ -95,6 +95,8 @@ public class SlayerScreenFX : MonoBehaviour
 
     [Header("Cinematic presentation")]
     [SerializeField] Transform environment;
+    [SerializeField] GameObject combatLighting;
+    bool _combatLightingWasActive;
     [SerializeField] BoxCollider2D playerBody, enemyBody;
     [SerializeField] CombatHUDLayout hudLayout;
     [SerializeField] RectTransform scoreRoot, typingTray, popupAnchor;
@@ -153,6 +155,8 @@ public class SlayerScreenFX : MonoBehaviour
         if (_main && _main.TryGetComponent<DungeonArenaCamera>(out var arena)) arena.SetCinematic(true);
         _environmentWasActive = environment && environment.gameObject.activeSelf;
         if (environment) environment.gameObject.SetActive(false);
+        _combatLightingWasActive = combatLighting && combatLighting.activeSelf;
+        if (combatLighting) combatLighting.SetActive(false);
         _captionWasActive = scoreCaption && scoreCaption.activeSelf;
         if (scoreCaption) scoreCaption.SetActive(false);
         _hudWasEnabled = hudPanel && hudPanel.enabled;
@@ -167,6 +171,7 @@ public class SlayerScreenFX : MonoBehaviour
         _cinematic = false;
         if (_main && _main.TryGetComponent<DungeonArenaCamera>(out var arena)) arena.SetCinematic(false);
         if (environment) environment.gameObject.SetActive(_environmentWasActive);
+        if (combatLighting) combatLighting.SetActive(_combatLightingWasActive);
         if (scoreCaption) scoreCaption.SetActive(_captionWasActive);
         if (hudPanel) hudPanel.enabled = _hudWasEnabled;
         if (typingPanel) typingPanel.enabled = _trayWasEnabled;
@@ -208,6 +213,9 @@ public class SlayerScreenFX : MonoBehaviour
 
     public void ExitSlayerFX()
     {
+        // Teardown can disable this root before the player's exit notification.
+        // OnDisable already restores the presentation instantly; no tween can run.
+        if (!isActiveAndEnabled) { EndPresentation(); return; }
         EndPresentation();
         StopAllCoroutines();
         StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, normalOrtho, zoomDuration, zoomCurve));

@@ -84,9 +84,15 @@ public sealed class MainMenuUI : MonoBehaviour
         UpdateValidationUI(nameInput ? nameInput.text : string.Empty);
     }
 
-    void Start()
+    System.Collections.IEnumerator Start()
     {
-        if (preparation) { preparation.SetActive(false); menuButtons[0].Select(); return; }
+        loadingScene = true;
+        var events = UnityEngine.EventSystems.EventSystem.current;
+        if (events) events.enabled = false;
+        yield return DungeonSession.I.LoadWorld();
+        if (events) events.enabled = true;
+        loadingScene = false;
+        if (preparation) { preparation.SetActive(false); menuButtons[0].Select(); yield break; }
         if (autoFocusInput && nameInput)
         {
             nameInput.Select();
@@ -216,7 +222,7 @@ public sealed class MainMenuUI : MonoBehaviour
         }
     }
 
-    void BeginGame() => SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
+    void BeginGame() => DungeonSession.I.BeginGame(gameSceneName);
     public void Tutorial() { if (preparation) OpenPreparation(true); else Launch(true); }
 
     public void ShowHelp()

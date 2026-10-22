@@ -158,6 +158,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool cameraPerspective;
         public float worldRenderScale;
         public int worldWidth, worldHeight, worldTextureId, presentationCameras;
+        public int dungeonId, worldCameraId, worldCameras, listeners, gameplayActors, gameplayHud;
+        public bool dungeonTransitioning;
         public int arenaTextures, ambientParticles, ambientParticleLimit, lightmaps, lightProbes;
         public float combatPulseIntensity;
         public bool combatPulseEnabled;
@@ -433,9 +435,11 @@ public sealed class GameLoopProbe : MonoBehaviour
             var guardLabel = Read<TMP_Text>(hudFeedback, "guardBreak");
             var guardIcon = Read<Image>(hudFeedback, "staminaIcon");
             var combatHeading = Read<TMP_Text>(FindObjectOfType<EndlessOverlay>(), "heading");
-            var env = Read<Transform>(fx, "environment");
+            var env = DungeonSession.Current && DungeonSession.Current.World
+                ? DungeonSession.Current.World.environment : Read<Transform>(fx, "environment");
             var arena = Camera.main ? Camera.main.GetComponent<DungeonArenaCamera>() : null;
-            var arenaPulse = env ? env.Find("CombatPulse")?.GetComponent<Light>() : null;
+            var pulseRig = FindObjectsOfType<ClashLightingRig>(true).FirstOrDefault(rig => Read<Light>(rig, "combatLight"));
+            var arenaPulse = Read<Light>(pulseRig, "combatLight");
             var red = Read<SpriteRenderer>(fx, "redOverlay");
             var hudImage = Read<Image>(fx, "hudPanel");
             var tray = Read<RectTransform>(fx, "typingTray");
@@ -456,6 +460,13 @@ public sealed class GameLoopProbe : MonoBehaviour
                 playerAnimatorEnabled = sortingAnimator && sortingAnimator.isActiveAndEnabled,
                 playerHitStateActive = hitState != 0 && (playerInfo.fullPathHash == hitState || playerNext == hitState),
                 sparks = sparks, sparkMask = sparkMask, lastError = lastError,
+                dungeonId = FindObjectOfType<DungeonWorld>() ? FindObjectOfType<DungeonWorld>().environment.GetInstanceID() : 0,
+                worldCameraId = Camera.main ? Camera.main.GetInstanceID() : 0,
+                worldCameras = FindObjectsOfType<DungeonArenaCamera>().Length,
+                listeners = FindObjectsOfType<AudioListener>().Count(listener => listener.isActiveAndEnabled),
+                gameplayActors = FindObjectsOfType<PlayerHealth>().Length + FindObjectsOfType<SkeletonController>().Length,
+                gameplayHud = FindObjectsOfType<CombatHUDLayout>().Length,
+                dungeonTransitioning = DungeonSession.Current && DungeonSession.Current.Transitioning,
                 popupRect = TextRect(awardLabel), popupAlpha = awardLabel ? awardLabel.color.a : 0,
                 popupFont = awardLabel ? awardLabel.fontSize : 0,
                 popupElapsed = award ? Read<float>(award, "_elapsed") : 0,
