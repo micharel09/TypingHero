@@ -1208,3 +1208,45 @@ Direct Canvas follow-up (2026-10-22):
   selected segment review,resolve/report any material visual findings,user
   playback acceptance,then integration. Shipping runtime tests/build/ABBA and
   static asset audits retain their recorded scope; no main integration yet.
+
+Final scoped evidence checkpoint (2026-10-22; playback acceptance pending):
+- QA isolation build20261022T030011-webgl succeeded after obtaining runner lock;
+  strict repeat builder reports serialized objects/references/listeners unchanged.
+  Snapshot75414113cd471e1a541ddfdc4852348680e23086d2177f27cffbfc02c3f49069;
+  immutable QA-only player3ed75542c5ec83bf copied inside the lock. Local identity,
+  snapshot and full Unity log: completion/qa-r2-build-identity.json,qa-r2-snapshot.json,
+  qa-r2-unity.log. Input diff proves production runtime/art unchanged from8d537.
+- Both new Canvas drivers PASS5checks each,zero exceptions/provider reads/writes.
+  Noise video0..41.188s:261exported,261actually viewed/260pairs,all17sheets320x180.
+  Diagnostic frames42..260(11.342..41.188s) span more than two12s envelopes and
+  all9camera positions/transitions. Localized cyan scan/receiver light;no observed
+  whole-background emission or abrupt shutoff. Haze remains behind silhouettes;
+  reflection follows camera as one-plane approximation. Pixel stepping/specular
+  changes with projected scale remain visible. Low VFR cadence limits any claim
+  about every engine frame or high-frequency shimmer; user perception still open.
+- All30A/B stills opened1280x720,including all9poses. Stable actors at matched
+  age1/camera/exposure in noise on/off,bloom disabled. Pixel audit noiseoff vs on:
+ 430pixels,max1channel step(subtle);receiver-only removes glyph(688pixels,max167),
+  emission-only removes adjacent wall illumination(17958pixels,max42). Emission,
+  bloom and receiver contributions assessed separately; complete restores bloom.
+- A/B video695frames exported. Before review, selected37.819..43.301s/561..694
+  for complete new noise/receiver/emission stages and transitions back to all-on.
+  All134selected frames/133pairs viewed;actual opened range560..694=135/134.
+  Earlier A/B stages assessed as stills,not a claim of full695frame video review.
+  Record/source hashes/per-frame rows: completion/qa-r2-visual-review.json,
+  qa-r2-noise-frame-evidence.csv,qa-r2-effects-frame-evidence.csv. Both review copies
+  preserve every source PTS; earlier invalid A/B/capture evidence retained as such.
+
+| Acceptance area | Result and evidence | Remaining/limits |
+| --- | --- | --- |
+| Technical | Shared deterministic gain;5/5DungeonRenderTests;WebGL and repeat builder;GUID/serialized audits;ABBA recorded | RAF observations only,no GPU timing/FPS promise |
+| Image/motion | Full native28clip matrix review plus reliable quarter attackS3 supplement;unchanged247-key static inputs;30A/B stills;all selected noise/camera/new-A/B frames inspected | User1x/quarter/final gameplay playback pending;capture cadence limits;brief legacy pause panel reaches canvas |
+| Runtime gameplay | Real input hit/attack/parry/pause/full Slayer/restore/menu;16/16checks and last-sample world/reflection/scratch/cameras0;586Canvas gameplay frames inspected | Runtime success does not waive visual playback acceptance |
+
+- Review: E:/CodexTemp/TypingHero/dungeon-full-lighting/completion/review.html.
+  User must confirm rhythm,readability and flicker/shimmer after actual playback;
+  no approval inferred. No main integration/publication. After acceptance,fetch
+  origin/main,merge newer main normally,recheck affected behavior and verify remote
+  integration before cleanup. Keep task worktree and all review evidence until then.
+  Retained worktree:C:/Users/ADMIN/orca/workspaces/TypingHero/dungeon-full-lighting;
+  branch:micharel09/dungeon-full-lighting. No task browser/build process remains.

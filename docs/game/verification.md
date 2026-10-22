@@ -14,7 +14,10 @@ Native moving-light777selected frames/776pairs viewed at logical-native size;
 now logs247/247 with matching capture duration;48consecutive attackS3/context
 frames supplement missing native key61. Direct Canvas gameplay586/586frames
 viewed; legacy pause panel appears8.102..8.360s,so visual/UI acceptance remains
-open. Diagnostic A/B isolation rebuild and user playback approval remain pending.
+open. QA-only isolation build20261022T030011/player3ed75542c5ec83bf succeeded with
+production source/art unchanged. All30A/B stills,261noise/camera frames and
+134selected new-A/B frames inspected; exact source PTS retained. Low VFR cadence
+limits high-frequency shimmer assessment. User playback approval remains pending.
 No full visual PASS or main integration.
 See [checkpoint](../plans/dungeon-3d.md) for source identity and receipts.
 
