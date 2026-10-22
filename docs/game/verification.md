@@ -1,5 +1,27 @@
 ## Dungeon and thin-glass lantern integrated (2026-10-21)
 
+## Shared3D dungeon lifecycle ? 2026-10-22
+
+Unity2022.3.25f1/fly-server Quick041809:22/22PASS,0failed/skipped: real Slayer teardown
+across3cycles, binding/nativeCanvas, actor roots, duplicate transitions, rendering,
+identity15and3directly affected HUD/damage/Continue consumers. QA042021 strict
+repeated builder PASS on identical input
+`1dc641a5e34fb745b3a71ef8d5ef913c4dbcd17fc6cf49073ac05e531283cc8d`.
+All3serialized scenes/world.meta/build settings match final checkout;96original
+menu RectTransforms and old scene GUID/meta unchanged, no dangling local references.
+
+Edge155/GTX1650Ti/D3D11/DPR1 native129/129PASS at1280x720/640x360; focused fresh
+Play/Unseen/Skip/Fight/return640supplement7/7PASS. Actual menu/preparation/modals,
+tutorial/next lesson, win/Continue, Slayer/restore and unobstructed640combat images
+inspected. Real keyboard/mouse only. After required-flow warmup,3identical
+Menu->Start->Restart->Menu cycles remain594GameObjects and1dungeon RT; room/camera/
+RT IDs fixed across all flows, camera/presenter/listener1each. Menu has0actors/HUD/
+timer, world restored, combat light0/disabled and time scale1. Both final reports
+0Unity/JS exceptions/provider writes;2Endless reads intercepted, external blocking
+and observation-only conditional bridge retained. No full gameplay/stress/soak/
+performance or itch publication claim. [Checkpoint](../plans/shared-dungeon-session.md).
+
+
 - Remote main verified at f1ab52b, retaining latest main gameplay/HUD/Pimen systems
   with the task's full dungeon3D/camera/lighting/lantern. No game publication.
 - QA114427/input9a9081df02bf07286e197c4cf9ec1e5c3f0c49008fbc838b46fc8d47455dbc97,

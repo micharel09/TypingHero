@@ -70,7 +70,7 @@ public sealed class CombatR7AssetTests
     {
         var oldMusic = MusicPlayer.I; var oldSfx = SfxPlayer.I;
         TutorialRun.Begin();
-        yield return SceneManager.LoadSceneAsync("SampleScene");
+        yield return DungeonSceneTestFlow.Start();
         yield return null;
         try
         {
@@ -106,6 +106,7 @@ public sealed class CombatR7AssetTests
             TutorialRun.End(); GamePauseController.SetTutorialReading(false);
             var clean = SceneManager.CreateScene("CombatR7TestCleanup"); SceneManager.SetActiveScene(clean);
             SceneManager.UnloadSceneAsync("SampleScene");
+            DungeonSceneTestFlow.Cleanup();
             if (!oldMusic && MusicPlayer.I) Object.Destroy(MusicPlayer.I.gameObject);
             if (!oldSfx && SfxPlayer.I) Object.Destroy(SfxPlayer.I.gameObject);
             AudioListener.pause = false; Time.timeScale = 1;

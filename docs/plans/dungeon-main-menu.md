@@ -203,3 +203,11 @@ specific task-created preview/player directories. Keep the pre-existing
 compact-tutorial worktree/branch until tutorial WIP is resolved and preserved.
 The original8240 preview and earlier assets were not created by this follow-up
 and remain untouched. Clipboard support remains a separate pending scope decision.
+
+## Shared3D world continuation ? 2026-10-22
+
+The static menu backdrop is replaced by the same retained3D room used by gameplay.
+All96original menu RectTransforms and existing scene GUID/meta are unchanged.
+Strict repeated builder,22focused Unity checks and native129+7checks pass.
+The same room/camera/RT survive all transitions and3measured repeat cycles. Integration
+and final preview are tracked in [shared dungeon checkpoint](shared-dungeon-session.md).

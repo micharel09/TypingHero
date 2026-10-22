@@ -47,6 +47,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(ShogunTheme.Events, "*")).ToArray();
         paths = paths.Concat(AssetDatabase.FindAssets("t:Prefab", new[] { "Assets" })
             .Select(AssetDatabase.GUIDToAssetPath)).Distinct().ToArray();
+        paths = paths.Concat(new[] { DungeonSessionBuild.WorldPath, DungeonSessionBuild.WorldPath + ".meta", "ProjectSettings/EditorBuildSettings.asset" }).ToArray();
         var before = System.Array.ConvertAll(paths, File.ReadAllBytes);
         try { Apply(); }
         catch (System.Exception error) { throw new BuildFailedException(error); }
@@ -75,6 +76,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
         var previousScene = EditorSceneManager.GetActiveScene().path;
         try
         {
+            DungeonSessionBuild.RestoreForBuilders();
             var originalTyping = BlackletterTitleBuild.SnapshotTypingComponents();
             PixelUIAssets.Prepare();
             PixelUIAssets.SavePrimitives();
@@ -92,10 +94,11 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             DungeonArenaBuild.Apply();
             CombatR7Build.ApplyResourceInk();
             BlackletterTitleBuild.AssertTypingComponents(originalTyping);
+            DungeonSessionBuild.Apply();
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");
-            AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity",
+            AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity", DungeonSessionBuild.WorldPath,
                 PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
                 CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'), BlackletterTitleBuild.Art.TrimEnd('/'),
                 DungeonArenaBuild.Art.TrimEnd('/'), DungeonPixelRoomBuild.Art.TrimEnd('/'), DungeonHangingLanternBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings",

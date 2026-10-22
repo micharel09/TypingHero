@@ -32,7 +32,7 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         view = GetComponent<Camera>(); brain = GetComponent<CinemachineBrain>();
         previousTexture = view.targetTexture; previousRect = view.rect;
         originX = transform.position.x;
-        framingOrigin = framingLayout ? framingLayout.BodyCenter : Vector3.zero;
+        framingOrigin = framingLayout && player && enemy ? framingLayout.BodyCenter : Vector3.zero;
         offset = velocity = 0;
         WorldTexture = new RenderTexture(WorldWidth, WorldHeight, 24, RenderTextureFormat.ARGBHalf)
         {
@@ -80,6 +80,12 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         if (active) { previousPostProcessing = data.renderPostProcessing; data.renderPostProcessing = false; }
         else data.renderPostProcessing = previousPostProcessing;
     }
+    public void ResetFraming()
+    {
+        offset = velocity = 0;
+        originX = transform.position.x;
+        framingOrigin = framingLayout && player && enemy ? framingLayout.BodyCenter : Vector3.zero;
+    }
     void LateUpdate()
     {
         if (!view) return;
@@ -88,6 +94,7 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         view.orthographic = false;
         view.fieldOfView = 2 * Mathf.Atan(view.orthographicSize / framingDistance) * Mathf.Rad2Deg;
         if (!brain || !brain.enabled || GamePauseController.InputBlocked) return;
+        if (framingLayout && (!player || !enemy)) return;
         var center = framingLayout ? framingLayout.BodyCenter : player && enemy ? (player.position + enemy.position) * .5f : framingOrigin;
         float goal = Mathf.Clamp(center.x - originX, -.5f, .5f);
         offset = Mathf.SmoothDamp(offset, goal, ref velocity, .35f, Mathf.Infinity, Time.deltaTime);
