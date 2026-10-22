@@ -14,6 +14,7 @@ public sealed class SettingsModal : MonoBehaviour
     Vector2 audioPosition, audioSize;
     bool audioActive;
     GameObject previousFocus;
+    bool hiddenPausePanel;
     static SettingsModal current;
     static int closedFrame = -1;
     public static bool BlocksShortcuts => current || closedFrame == Time.frameCount;
@@ -31,6 +32,8 @@ public sealed class SettingsModal : MonoBehaviour
         audio.anchoredPosition = new Vector2(24, -60); audio.sizeDelta = new Vector2(372, 88);
         audio.gameObject.SetActive(true);
         LayoutAudio();
+        hiddenPausePanel = previousScreen && previousScreen.GetComponent<CompactPauseLayout>();
+        if (hiddenPausePanel) previousScreen.gameObject.SetActive(false);
         panel.SetActive(true);
         backButton.Select();
     }
@@ -67,6 +70,8 @@ public sealed class SettingsModal : MonoBehaviour
         for (int i = 0; i < children.Length; i++) { children[i].anchoredPosition = positions[i]; children[i].sizeDelta = sizes[i]; }
         for (int i = 0; i < labels.Length; i++) { labels[i].fontSize = fontSizes[i]; labels[i].text = labelTexts[i]; }
         audio.gameObject.SetActive(audioActive);
+        if (hiddenPausePanel && previousScreen) previousScreen.gameObject.SetActive(true);
+        hiddenPausePanel = false;
         previousScreen.interactable = previousScreen.blocksRaycasts = true;
         if (EventSystem.current) EventSystem.current.SetSelectedGameObject(previousFocus);
         current = null;
