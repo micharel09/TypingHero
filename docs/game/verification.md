@@ -10,8 +10,11 @@ including LAST post-menu sample(world/reflection/scratch/cameras all0). Matched3
 ABBA RAF p95 A1/B1/B2/A2=13.445/13.525/26.735/26.685ms,mean draws~331 throughout;
 both late runs slow similarly,not isolated GPU/FPS/equivalence evidence.
 Native moving-light777selected frames/776pairs viewed at logical-native size;
-247-key static evidence retained by605-input hash audit. Quarter timing and A/B
-isolation need fixture/capture correction; user playback approval remains pending.
+247-key static evidence retained by605-input hash audit. Direct Canvas quarter
+now logs247/247 with matching capture duration;48consecutive attackS3/context
+frames supplement missing native key61. Direct Canvas gameplay586/586frames
+viewed; legacy pause panel appears8.102..8.360s,so visual/UI acceptance remains
+open. Diagnostic A/B isolation rebuild and user playback approval remain pending.
 No full visual PASS or main integration.
 See [checkpoint](../plans/dungeon-3d.md) for source identity and receipts.
 

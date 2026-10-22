@@ -1181,3 +1181,30 @@ Capture audit continuation:
   observed-state retry. No export runs concurrently with capture.
 - User review page and pending question retain explicit warning that quarter/A/B
   captures are not yet accepted. No approval inferred from silence.
+
+Direct Canvas follow-up (2026-10-22):
+- Reliable quarter capture canvas-quarter-r2.webm:247/247 authored keys,896x704,
+  VP8 target25fps. Recorder131.49498s, last decoded PTS131.444s. All3185frame
+  timestamps preserved in the seekable review copy;48consecutive frames1232..1279
+  and47pairs inspected at448x352,plus1252..1254at896x704. Complete attackS3 and
+  adjacent clip context include key61 at53.548s; no abnormal UV/basis/highlight
+  jump observed. This supplements the native full-sequence review; only48/3185
+  quarter frames were visually inspected. User full playback still pending.
+- Direct Canvas gameplay:16/16checks PASS,0exceptions/provider effects, last
+  observer MainMenu/world0/reflection0/scratch0/cameras0. All586exported frames
+  and585pairs directly viewed consecutively at320x180,0..29.322s. No previous
+  horizontal window-capture shift seen. Legacy pause panel DOES reach canvas at
+  frames88..94(8.102..8.360s),so it cannot be dismissed as browser screencast
+  artifact. UI/gameplay source unchanged; no blanket visual/UI acceptance.
+  Slayer holds the final attack silhouette during the driver's subsequent
+  no-input interval; runtime checks do not certify animation playback quality.
+  Evidence: completion/quarter-supplement-review.json,canvas-gameplay-review.json
+  and corresponding per-frame CSVs. review.html now links direct Canvas quarter
+  and gameplay copies,with explicit unresolved visual warning.
+- QA-only isolation rebuild timed out twice waiting for shared runner lock;
+  third attempt is queued. Other users' jobs/caches were left intact. The
+  external build-only helper now preserves its player inside the runner lock.
+- Still required: repaired A/B/noise/nine-camera diagnostic evidence and full
+  selected segment review,resolve/report any material visual findings,user
+  playback acceptance,then integration. Shipping runtime tests/build/ABBA and
+  static asset audits retain their recorded scope; no main integration yet.
