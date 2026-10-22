@@ -174,3 +174,11 @@ build. Reopened user page e98327a8-914c-45c1-8810-75f3e56380f7 at
 http://127.0.0.1:8136/; loading finished, no warning, actual menu observed.
 Owned private server workspace/results were removed after verifying task marker,
 snapshot and no active Docker mounts. Shared Library/cache/source/home preserved.
+
+Retained for user play review: child worktree/branch micharel09/parry-main-demo
+and E:/CodexTemp/TypingHero/parry-main-demo containing host.py,ServiceWorker.js,
+session.json,player-manifest.json,ready.json,player/. Host terminal
+term_493bae17-a400-4301-9582-111f117ae4ee. Old e17 player, latest916 helpers,
+profiles and captures removed after verification. Source is locally committed;
+no push or remote merge. Retain branch until reviewed/integrated; stop owned host
+and delete this demo temp only when the user finishes play review.
