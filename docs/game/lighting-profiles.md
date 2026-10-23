@@ -262,3 +262,50 @@ authored duration: this is not a render-acknowledged peak-hold system. No new pr
 field or migration is required; MetalClash retains5intensity/70ms hold/280ms duration.
 
 Camera impact authoring, render acknowledgment and profile reload rules: [camera guide](camera-impact-profiles.md).
+
+
+### Experimental sprite depth self-shadow (production disabled)
+
+`WorldDefinition.spriteDepth` optionally selects a `SpriteDepthLibrary`. Leave it
+unassigned until all referenced hero/skeleton cels, motion and WebGL performance
+meet the self-shadow gate in the lighting checkpoint. The current two-pose fixtures
+are not production maps. This approximates occlusion on a planar sprite; it does
+not add character geometry or replace the existing silhouette shadow caster.
+
+Author an RGBA atlas matching the original dimensions/slicing: R is depth towards
+local -Z (0 back,1 front), A is valid opaque coverage. Use linear Default texture,
+Point, no mipmaps, no compression. Paint anatomical/weapon overlap per pose; do
+not convert albedo brightness into depth. Keep source albedo, pivot, PPU and GUIDs.
+Bind it as `_DepthMap`, or put the authored map at
+`Assets/Art/Lighting/Depths/<source-texture-guid>.png`. Select the depth library and
+use **CLACKBLADE / Lighting / Rebuild Selected Depth Library Metadata** to bind
+existing maps and serialize frame UV rect/texture dimensions/PPU. This command
+never generates or overwrites painted PNGs. Routine builds validate selected
+world libraries and do not regenerate maps; incomplete unselected libraries do
+not opt into validation. Packed/rotated runtime atlases are not supported by this
+original-UV metadata path.
+
+The actor material owns `_SelfShadowStrength` (default0.65), `_DepthScale`
+(default0.15 local units) and `_SelfShadowBias` (default0.01 local units). The
+shader probes1,2,3,4,6,8,10,12 source texels towards each light, staying inside the
+current frame. Only direct diffuse/specular from that light is attenuated;
+ambient/emission and other light contributions remain independent. A sprite
+without a bound frame uses the previous URP PBR path. World bind prepares one
+lookup, and clear removes the prior lookup; `SpriteDepthBinding` merges its
+properties with combat tint/flash via `GetPropertyBlock`.
+Mapped actors also receive `_DepthFacing` from SpriteRenderer flip flags so the
+ray and sampled normal follow the source UV orientation. Transform scale is
+handled by the object/world matrices; do not apply its sign a second time.
+
+For the isolated two-pose lab, run Editor entry point
+`SpriteDepthDemoBuild.WebGL` with `TYPINGHERO_QA=1` and
+`TYPINGHERO_BUILD_PATH` pointing to a task-owned output directory. It copies the
+world into a temporary scene, builds with `TYPINGHERO_DEPTH_DEMO`, then removes
+that scene. Normal players exclude the lab component. Use the native1280x720
+WebGL view for visual judgment; `SpriteDepthRenderChecks.Investigate` provides
+analytical/per-light checks and offscreen diagnostics, not gameplay presentation
+or performance acceptance.
+
+No all-frame, production WebGL or performance acceptance is claimed for this
+experimental path. See the current section of
+[the lighting checkpoint](../plans/combat-hanging-light.md) for actual evidence.

@@ -11,6 +11,7 @@ public sealed class WorldDefinition : ScriptableObject
     public WorldLightingProfile lighting;
     public CombatLightingProfile combat;
     public CombatCameraProfile cameraImpact;
+    public SpriteDepthLibrary spriteDepth;
     public void Validate()
     {
         if (string.IsNullOrEmpty(scenePath) || !lighting || !combat || !cameraImpact) throw new InvalidOperationException(name + ": missing world scene/profiles");

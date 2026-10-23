@@ -27,6 +27,7 @@ public sealed class LightingBuildValidation : IPreprocessBuildWithReport
         foreach (var definition in SelectedWorlds())
         {
             definition.Validate();
+            SpriteDepthAuthoring.Validate(definition.spriteDepth);
             if (!definition.scene || AssetDatabase.GetAssetPath(definition.scene) != definition.scenePath ||
                 !EditorBuildSettings.scenes.Any(x => x.enabled && x.path == definition.scenePath))
                 throw new BuildFailedException(definition.name + ": select the current world scene and enable it in Build Settings");
