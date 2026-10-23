@@ -217,3 +217,36 @@ acceptance.json and native-latest/review/review-inventory.json (per-source SHA25
 frame ranges, counts, observations). Retain these artifacts and immutable server
 result20261023T100031-webgl for review; remove after review when no longer needed.
 Earlier483/479frame receipts are historical, superseded by this488frame receipt.
+
+
+## Hit-flash exit composition follow-up
+
+Base9bd927b (main removed deferred guard/body-fall cues after the earlier receipts).
+Scope: coordinate EnemyHitFlash with SlayerSilhouetteGroup, preserve normal lighting,
+450/650ms timing and gameplay. During exit, blend the active ivory flash toward black
+by the presentation weight. The group owns final RGB while weight>0; flash stores only
+untinted baseline and resumes ownership at zero. Preserve current visibility alpha.
+No shader/material change or new component. Internal read-only cache methods only.
+
+Acceptance: regression must fail before fix, then pass with middle/end-overlap flash,
+retrigger/reversal, teardown orders, dynamic/excluded renderers, pause/hitstop and
+existing standalone flash. WebGL1280x720 keyboard-only: observe a real normal hit
+inside exit and one whose flash outlives exit, record/render-review all selected frames.
+Status: implementation/tests in progress; no current acceptance claim.
+
+
+Regression receipts (2026-10-23)
+- Before fix:20261023T115241-quick / bb61ad7ee6bb62dd79f607b362196fe67689858a5f2ddf35ff1c717a6e986e4b:
+  both new exit-flash cases fail as intended. At weight.5 expected(.5,.48,.425,.8),
+  actual(.35,.2,.1,1): silhouette erased flash and flash changed visibility alpha.
+- After fix:20261023T115911-quick / d5c7b60295e44bad07b0e458c10f53455af2e26c040a2b18bc5dcd59dd4c0a90:
+  13/13PASS,0fail/skip,2.6434691s. Covers six new cases, five existing transition
+  cases, existing standalone ivory-flash Pause/disable and interrupted bar lifecycle.
+- Additional combined flash/Pause/gameplay-Slayer cancellation case and native QA
+  are pending. Production methods are unchanged since the13-case passing snapshot.
+
+- Combined flash/Pause/cancellation:20261023T120115-quick /
+  7e88519966b671fbe3751f85539c5a6d36235d27c27434a69a3fcd58defc8e5e:
+  1/1PASS,0fail/skip,.4111289s. Total14 distinct scoped passing cases across the
+  two after-fix runs. Same production methods; additional input is this test and
+  QA-only enemyFlash/enemyColor observations. QA build uses this final snapshot.

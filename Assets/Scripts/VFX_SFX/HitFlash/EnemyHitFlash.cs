@@ -16,6 +16,7 @@ public sealed class EnemyHitFlash : MonoBehaviour
     [SerializeField, Range(1, 4)] int minFrames = 2;
 
     Color[] _originalColors;
+    SlayerSilhouetteGroup[] _groups;
     float _flashUntil = -1f;
     int _flashFrameUntil = -1;
     bool _active;
@@ -25,14 +26,12 @@ public sealed class EnemyHitFlash : MonoBehaviour
         if (renderers == null || renderers.Count == 0)
             renderers = new List<SpriteRenderer>(GetComponentsInChildren<SpriteRenderer>(includeInactive: false));
         EnsureCache();
-        RestoreInstant();
     }
 
     void OnEnable()
     {
-        EnsureCache();
-        RestoreInstant();
         _active = false;
+        EnsureCache();
         _flashUntil = -1f;
         _flashFrameUntil = -1;
     }
@@ -40,8 +39,10 @@ public sealed class EnemyHitFlash : MonoBehaviour
     void OnDisable()
     {
         // Nếu đang flash mà bị tắt (hoặc đổi scene) → trả ngay về màu gốc
-        RestoreInstant();
         _active = false;
+        RestoreInstant();
+        _flashUntil = -1f;
+        _flashFrameUntil = -1;
     }
 
     void EnsureCache()
@@ -50,8 +51,12 @@ public sealed class EnemyHitFlash : MonoBehaviour
         if (_originalColors == null || _originalColors.Length != renderers.Count)
         {
             _originalColors = new Color[renderers.Count];
+            _groups = new SlayerSilhouetteGroup[renderers.Count];
             for (int i = 0; i < renderers.Count; i++)
+            {
+                _groups[i] = renderers[i] ? renderers[i].GetComponentInParent<SlayerSilhouetteGroup>(true) : null;
                 _originalColors[i] = renderers[i] ? renderers[i].color : Color.white;
+            }
         }
     }
 
@@ -70,8 +75,8 @@ public sealed class EnemyHitFlash : MonoBehaviour
         bool framePassed = Time.frameCount >= _flashFrameUntil;
         if (timePassed && framePassed)
         {
-            RestoreInstant();
             _active = false;
+            RestoreInstant();
         }
     }
 
@@ -93,24 +98,37 @@ public sealed class EnemyHitFlash : MonoBehaviour
             {
                 var r = renderers[i];
                 if (!r) continue;
-                _originalColors[i] = r.color;
-                r.color = flashColor;
+                _originalColors[i] = _groups[i] && _groups[i].TryGetBaseColor(r, out var baseline)
+                    ? baseline : r.color;
             }
             _active = true;
         }
-        else
+        // The silhouette compositor owns RGB until its presentation ends.
+        for (int i = 0; i < renderers.Count; i++)
         {
-            // Gia hạn và đảm bảo vẫn là flashColor
-            for (int i = 0; i < renderers.Count; i++)
-            {
-                var r = renderers[i];
-                if (!r) continue;
-                r.color = flashColor;
-            }
+            var renderer = renderers[i];
+            if (!renderer || (_groups[i] && _groups[i].TryGetBaseColor(renderer, out _))) continue;
+            var color = flashColor; color.a = renderer.color.a;
+            renderer.color = color;
         }
 
         _flashUntil = now + dur;
         _flashFrameUntil = Time.frameCount + Mathf.Max(1, minFrames);
+    }
+
+    // Raw caches only: these reads never call back into the compositor.
+    internal bool TryGetUnflashedColor(SpriteRenderer renderer, out Color color)
+    {
+        int index = renderers == null ? -1 : renderers.IndexOf(renderer);
+        bool found = _active && index >= 0 && _originalColors != null && index < _originalColors.Length;
+        color = found ? _originalColors[index] : default;
+        return found;
+    }
+
+    internal bool TryGetFlashColor(SpriteRenderer renderer, out Color color)
+    {
+        color = flashColor;
+        return isActiveAndEnabled && _active && renderers != null && renderers.Contains(renderer);
     }
 
     void RestoreInstant()
@@ -120,7 +138,9 @@ public sealed class EnemyHitFlash : MonoBehaviour
         {
             var r = renderers[i];
             if (!r) continue;
-            r.color = _originalColors[i];
+            if (_groups[i] && _groups[i].TryGetBaseColor(r, out _)) continue;
+            var color = _originalColors[i]; color.a = r.color.a;
+            r.color = color;
         }
     }
 }
