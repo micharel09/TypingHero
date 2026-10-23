@@ -178,6 +178,8 @@ public static class LightingAuthoringChecks
     }
     public static void VerifyPreviewAndRepeatBuilder()
     {
+        if (Environment.GetEnvironmentVariable("TYPINGHERO_QA") != "1")
+            throw new InvalidOperationException("Strict repeat-builder requires TYPINGHERO_QA=1.");
         VerifyPreviewBindingsAndUndo();
         VerifyPreviewScenes();
         var scenes = EditorBuildSettings.scenes;

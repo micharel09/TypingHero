@@ -507,3 +507,43 @@ one additional QA WebGL and integration into main; no game publication.
 - Remote verification and resource cleanup are recorded in the evidence root's
   `acceptance.json`. Retain logs, snapshot/patch/audit receipts and the remote task
   branch for review/reproduction; they may be deleted when review is complete.
+
+## Camera prefab overrides and strict QA precondition (2026-10-23)
+
+- Independent Orca worktree/branch `finish-camera-prefab-preview` /
+  `micharel09/finish-camera-prefab-preview`, based on remote main95f978b.
+  Dirty primary checkout preserved. Scope is Editor/test/docs only; existing
+  asset GUIDs, runtime, shaders, profiles, materials and world geometry unchanged.
+- Apply records prefab overrides for Camera, DungeonArenaCamera and native URP
+  camera data even outside environment. The same three camera targets are used
+  by Preview Undo; duplicate targets in the environment hierarchy are removed.
+- VerifyPreviewAndRepeatBuilder rejects every QA value other than exactly1
+  before calling scene/profile/builder code. New checks exercise unset and0,
+  compare scene setup/Build Settings and restore the original environment.
+- New temporary camera-prefab fixture changes FOV/near/far/half-height, arena
+  profile and renderer slot; swaps the two existing renderer references/indices
+  only in a cloned profile to keep validation valid. Tests Preview, Undo/Redo,
+  save/reopen and direct Apply without Undo; source prefab bytes and cloned
+  profile JSON must remain unchanged. Temporary assets/scenes are deleted in finally.
+- Fixture pilot20261023T071305, cd096ba0 input: ArgumentNullException before
+  camera assertions. Creating a scene after cloning unreferenced temporary assets
+  allowed Unity to unload them; scene creation now precedes cloning. Not acceptance.
+- Baseline production code95f978b with corrected fixture, run20261023T071522,
+  input `bd5ad160038706b2e8d059c3d11768edb469cc4eb805d04bb82a9b129d7702fd`:
+  expected FAIL for the combined arena-profile/renderer assertion on Redo and
+  subsequent Preview save/reopen. Lens and direct-Apply checks did not fail in
+  this environment; do not claim that every camera field was lost on baseline.
+- Accepted pre-integration run20261023T071834, input
+  `7f41e55138b4b67f732e6c5167c30947e218df2c1d4d9389b7ee7acb5b0e1353`:
+  QA unset/zero rejection PASS; camera prefab persistence/Undo/Redo/direct Apply
+  PASS; existing split-world combat/bake/fog/Undo checks PASS; strict repeated
+  builder with both worlds selected PASS. TYPINGHERO_QA=1 for the valid path.
+- Evidence root `E:/CodexTemp/TypingHero/camera-prefab-preview-20261023` contains
+  fixture pilot (`repro`), genuine baseline (`repro-initialized`), accepted logs,
+  snapshot receipts and external adapters. Private server root
+  `/tmp/typinghero-camera-prefab-preview-20261023` uses private copies of Library,
+  cache/HOME (unused npm cache omitted) and the shared exclusive runner lock.
+  Images/activation/shared data are preserved; original3GiB threshold remains on
+  the actual private filesystem. No full suite, PlayMode/WebGL, visual or FPS claim.
+- Main advanced to15d538c with combat-light pulse clock changes. Integrate this
+  source and recheck the scoped Editor acceptance before remote publication.

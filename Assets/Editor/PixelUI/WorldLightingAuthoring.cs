@@ -19,6 +19,8 @@ public static class WorldLightingAuthoring
             .SelectMany(x => x.roots).Where(x => x)
             .SelectMany(x => x.GetComponentsInChildren<ClashLightingRig>(true)))
         .Distinct().ToArray();
+    static UnityEngine.Object[] CameraObjects(DungeonWorld world) => new UnityEngine.Object[] {
+        world.view, world.Arena, world.view.GetUniversalAdditionalCameraData() };
     [MenuItem("CLACKBLADE/Lighting/Validate Loaded Worlds")]
     public static void ValidateLoaded()
     {
@@ -61,7 +63,8 @@ public static class WorldLightingAuthoring
                 UnityEngine.SceneManagement.SceneManager.SetActiveScene(world.gameObject.scene);
                 var objects = world.environment.GetComponentsInChildren<Component>(true).Where(x => x).Cast<UnityEngine.Object>()
                     .Concat(CombatRigs(world).Cast<UnityEngine.Object>())
-                    .Concat(new UnityEngine.Object[] { world, world.view, world.view.transform, world.Arena, world.view.GetUniversalAdditionalCameraData(),
+                    .Concat(CameraObjects(world))
+                    .Concat(new UnityEngine.Object[] { world, world.view.transform,
                         Unsupported.GetRenderSettings(), (UnityEngine.Object)GetLightmapSettings.Invoke(null, null) }).Distinct().ToArray();
                 Undo.RecordObjects(objects, "Apply lighting profiles");
                 Apply(world);
@@ -115,9 +118,10 @@ public static class WorldLightingAuthoring
                 if (PrefabUtility.IsPartOfPrefabInstance(rig)) PrefabUtility.RecordPrefabInstancePropertyModifications(rig);
                 EditorUtility.SetDirty(rig); EditorSceneManager.MarkSceneDirty(rig.gameObject.scene);
             }
-        foreach (var component in world.environment.GetComponentsInChildren<Component>(true))
+        var cameraObjects = CameraObjects(world);
+        foreach (var component in world.environment.GetComponentsInChildren<Component>(true).Cast<UnityEngine.Object>().Concat(cameraObjects).Distinct())
             if (component && PrefabUtility.IsPartOfPrefabInstance(component))
             { PrefabUtility.RecordPrefabInstancePropertyModifications(component); EditorUtility.SetDirty(component); }
-        EditorUtility.SetDirty(world.Arena); EditorUtility.SetDirty(view);
+        foreach (var component in cameraObjects) EditorUtility.SetDirty(component);
     }
 }

@@ -122,6 +122,14 @@ The Unity 2022.3 scene `LightmapSettings` object is obtained through the cached
 internal `LightmapEditorSettings.GetLightmapSettings` method for Undo; recheck this
 Editor-only contract when upgrading Unity.
 
+Camera prefab instances may sit outside the environment hierarchy. Apply records
+overrides for Camera, DungeonArenaCamera and UniversalAdditionalCameraData using
+the same camera-target list as Preview Undo, so lens/profile/renderer changes
+survive saving and reopening without editing the source prefab.
+`LightingAuthoringChecks.VerifyPreviewAndRepeatBuilder` requires
+`TYPINGHERO_QA=1`; unset/other values fail before scene or Build Settings changes.
+The strict PASS message is emitted only after the QA two-pass check returns.
+
 ## Lifecycle and checks
 
 Pause and Slayer hiding preserve each instance's animation/flicker phase. Resume
