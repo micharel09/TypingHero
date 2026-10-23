@@ -365,3 +365,69 @@ next transition, status and image). The preview limits above apply to every mirr
 Retain local player/host/fixture and evidence for user review. Delivery session
 records the integrated commit and owned terminal/page IDs; source task worktree
 is removable only after remote ancestry verification. No itch.io upload.
+
+
+## User correction: omit first follow-up cel (2026-10-23)
+
+User reports a small player jerk and requests removing the first follow-up frame.
+This supersedes the previous full-ten-cel choice: omit only combo_2_0; do not edit
+pixels, pivot, transforms, normal maps, normal attacks or Slayer. Reference is the
+same original source strips above, with the user-selected sequence deletion.
+
+New sequence combo_2_1..5 then combo_2_end_0..3 begins at0/50/100/150/200/
+250/316.667/383.333/450ms. Repeated final key500ms retains the original terminal
+hold through516.667ms. Start/contact/close events move together to100/150/200ms,
+using the same combo_2_3/combo_2_4 contacts and opening-cel ownership. Parry
+800ms hold,950ms recovery, queue rules, fixed20ms crossfade and10damage stay unchanged.
+Builder skips the first source cel so rebuilding cannot restore it.
+
+Source-only direct review:9/9unique cels plus terminal-hold key, all9key pairs and
+both parry-exit/idle joins per normal/mirror variant. Sheets source-0-0..2 and
+source-1-0..2 at native128px/nearest zoom and20explicit per-key rows are retained
+at E:/CodexTemp/TypingHero/parry-trim-entry/source-frame-review.csv. The omitted
+low extended-blade jab is absent; entry now goes directly from upright parry
+recovery to the tucked grip of combo_2_1. That original anticipation still leans
+forward; no new in-between pose or smoothing was invented. Connected grip,
+blade rotation, planted feet and recovery scarf were checked across every pair.
+Source mirror is a pixel preview; runtime mirror-lighting coverage is not implied.
+
+Pinned Unity2022.3.25f1/fly-server20261023T150834-webgl, input
+09307d5508e136d66cd6218f2e27c6ba4678c00c63e1da6ad42e62ff9b35a955:
+37/37focused PlayMode cases PASS,0failed/skipped,1.1736806s. Filters are
+PlayerParryTests and the four actual animation-event contact cases (normal/
+follow-up, ordinary/mirrored scale). No broad camera/performance suite repeated.
+Runtime queue/cancellation code and unrelated consumer code are unchanged.
+
+Strict repeated builder/WebGL PASS. Unity-authored clip export copied back with
+trailing whitespace normalized; GUID/controller/config/source strips unchanged.
+All33immutable player files match local/server hashes. Native Edge155/Playwright
+1.58.2/Intel UHD ANGLE D3D11 at1280x720:51/51PASS, zero runtime exceptions/provider
+writes. Early/late/two-word/no-input/Pause-Resume retain one10damage hit and idle;
+all9remaining cels appear and combo_2_0 never appears. Prior keyboard pilots are
+retained as incomplete: full-state polling missed windows that raw per-render
+telemetry proves existed. Driver now waits on the read-only per-frame condition
+in the browser before sending actual Space; no gameplay mutation or threshold change.
+
+Before review selected final video window7.043685..8.348160s: last250ms before
+follow-up detection includes original parry recovery and entry, complete trimmed
+follow-up and idle tail. Actual source F177..215, PTS7.060..8.334:39/39frames and
+38/38pairs directly inspected at native320x180/nearest zoom; all held encoded
+frames retained. Also39/39frames and38/38pairs in labeled pixel mirror preview;
+source-only normal/mirror9poses/terminal hold reviewed separately above. F180->181
+joins directly to tucked combo_2_1, F183..184raise grip, F185first slash/single hit,
+F185..187hold through hitstop, F188..190finish cut, F191..198recover and F199..215idle.
+No extended initial jab, residual slash or foot-anchor jump in this selected segment.
+The original compact anticipation lean is retained; this is the requested deletion,
+not a promise of interpolated motion. Runtime mirror lighting is outside this preview.
+
+Final per-frame evidence: runtime-review/manifest.json (source SHA/PTS/scope),
+20sheets and78explicit normal/mirror per-frame rows in frame-observations.csv,
+under E:/CodexTemp/TypingHero/parry-trim-entry. Normal/slow playback plus source-only
+normal/mirror playback supplements direct frame inspection. Local player/host and
+receipts retained for user review; after review stop the owned host and remove this
+evidence directory. Delivery session records commit, remote verification and host.
+
+Playback uses an indexed39-frame lossless derivative with reset timestamps; its
+reported terminal duration is not the timing authority. Original WebM, complete
+per-frame PTS and held durations remain authoritative. Final clip matches the
+immutable serialized export after trailing-whitespace normalization.

@@ -69,9 +69,9 @@ acceptance and latest-main integration remain pending in docs/plans/dungeon-3d.m
 
 Dedicated original-parry integration: PlayerController/ParrySystem retain one
 completed-word follow-up in[0,800)ms; PlayerParryAssets owns400/950ms parry clips
-and the separate Attack-tag `parry_followup`/AC_ParryFollowUp, full566.667ms combo_2.
-PlayerAttackEvents opens150/contact200/closes250ms and guards end/exit cancellation
+and the separate Attack-tag `parry_followup`/AC_ParryFollowUp, trimmed516.667ms combo_2_1..5 + combo_2_end (combo_2_0 omitted).
+PlayerAttackEvents opens100/contact150/closes200ms and guards end/exit cancellation
 by opening cel so a replacement normal/Slayer window survives. Disable is unconditional.
 Normal config/Slayer and the shared contact/damage/lighting/VFX/audio pipeline stay intact.
-Unity89 distinct cases covered across scoped runs, native47+13 and strict repeated builder verified;
+Trimmed-entry Unity37/37, native51/51 and strict repeated builder verified;
 [checkpoint and frame-preview limits](../plans/parry-main-demo.md).

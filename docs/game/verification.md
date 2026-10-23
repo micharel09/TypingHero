@@ -2927,3 +2927,16 @@ Mirrored VFX71/70 is a pixel
 preview, not an actual runtime flipX lighting capture. Full per-frame evidence,
 initial truncated-length/ownership regressions, scope and resources are in
 [parry checkpoint](../plans/parry-main-demo.md). No full performance/balance or release claim.
+
+
+## Trim first parry-follow-up cel (2026-10-23)
+
+User-requested combo_2_0 removal: nine cels,516.667ms, contacts100/150/200ms.
+Pinned Unity2022.3.25f1 result20261023T150834-webgl/input09307d5508e136d66cd6218f2e27c6ba4678c00c63e1da6ad42e62ff9b35a955:
+37/37focused cases, strict repeat builder/WebGL PASS. All33player hashes match.
+Native1280x720/Edge155/Intel UHD D3D11:51/51PASS,0exceptions/provider writes.
+Actual keyboard early/late/two words/no word/Pause-Resume; one10damage hit, all9cels,
+no combo_2_0 or combo_1 in follow-up. Direct frame review39/39normal and39/39pixel
+mirror frames,38/38pairs each; source-only20key rows, unchanged pixel/pivot sources.
+Scope, failed driver pilots, original PTS and mirror-preview limits:
+[existing parry checkpoint](../plans/parry-main-demo.md#user-correction-omit-first-follow-up-cel-2026-10-23).
