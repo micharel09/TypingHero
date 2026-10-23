@@ -317,3 +317,36 @@ cleanup. Runtime/visual acceptance remains pending until results below.
   retains immutable players, source archives, tests, per-frame/video evidence and
   reproduction scripts for review; delete those evidence artifacts only when no
   longer needed. Parent dirty checkout/index remains untouched.
+
+### Pulse lifecycle review fixes (2026-10-23)
+
+- Base9acdb4e, task branch micharel09/impact-vfx-lifecycle in an independent Orca
+  worktree. Preserve the dirty parent checkout. No asset, GUID, solver, rendering
+  evaluation or public emitter API changes; existing ImpactVfxProfile is sufficient.
+- Analytical bursts wait for registered pulses after particles/flashes finish.
+  Internal ClashLightingRig.HasPulse reads existing active-rig state without
+  allocating or introducing another clock. No rig, disabled light, rejected/
+  evicted pulse or disabled rig adds no wait. Explicit cleanup/capacity eviction
+  still cancels immediately; natural lease return may follow expiry by one frame.
+- Rig Clear restores the captured2D base color, preventing temporary local tint
+  from becoming the next enable's baseline. Inactive authored color edits remain valid.
+- Red20261023T062644-quick on old runtime reproduces both reviewed defects (2/2
+  expected failures). An earlier compile pilot lacked a direct URP test-assembly
+  reference; the test now uses the repository's existing Light2D reflection pattern,
+  without a dependency change. The final two regression failures are behavioral.
+- Final normalized inputb5bf5c663fa93a77aa4ff0105f322f8eaf22665c00a34e913bbb7ae3598a6615:
+  20261023T062925-quick30/30 PASS plus20261023T063139-quick1/1 PASS,0failed/skipped.
+  Seven new tests cover long pulse lifetime/pause/snapshot, light-only expiry/reuse,
+  absent/disabled/rejected/evicted pulses, capacity/disable/Clear, scene unload,
+  zero-allocation pulse waiting, and repeated2D re-enable/inactive color authoring.
+  Existing frozen particle trace, mirrors, generic profiles, parry timing/overlap/
+  cleanup and real Point/Spot arena-light checks also pass.
+- Prior visual receipts remain unchanged and attributed to their immutable players;
+  no fresh WebGL or full animation-frame review is claimed. The fixed runtime does
+  not alter approved MetalClash render inputs or its shorter280ms light behavior.
+- Evidence and reproduction scripts remain at
+  E:/CodexTemp/TypingHero/impact-vfx-lifecycle; delete when no longer needed.
+  Integration and scoped cleanup receipts are written there after remote verification.
+  Retain remote task branch for traceability; remove only the clean task-created
+  worktree/local branch and the verified /tmp/typinghero-impact-vfx-lifecycle root.
+  Shared Library/cache/license and all other tasks remain untouched.

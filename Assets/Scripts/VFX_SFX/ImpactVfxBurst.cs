@@ -116,6 +116,8 @@ public partial class ImpactVfxBurst : MonoBehaviour
         {
             if (debrisCount > 0) return;
             for (int i = 0; i < systems.Length; i++) if (flashChannels[i] && systems[i].particleCount > 0) return;
+            // The rig owns the pulse clock; a longer local light still owns this lease.
+            if (ClashLightingRig.HasPulse(this)) return;
         }
         else foreach (var ps in systems) if (ps.IsAlive(false)) return;
         Release();

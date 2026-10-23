@@ -330,7 +330,11 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Physical states, presentation values and curve keys are copied at emission.
   Simultaneous profiles and later asset edits cannot change a living burst/pulse.
   Local light bypasses gameplay event selection; the scene rig still owns actual
-  light templates and overlap budget. One-floor/one-bounce solver, fixed buffers,
+  light templates and overlap budget. A burst retains its lease until particles,
+  flashes and registered local pulses finish; missing/disabled rigs or rejected/
+  evicted pulses add no wait. Explicit cleanup and capacity eviction cancel immediately.
+  Legacy 2D rig clear restores its captured base color before the next enable.
+  One-floor/one-bounce solver, fixed buffers,
   unscaled pause-held updates and cleanup remain. Audio, damage, recoil and hitstop
   remain owned by gameplay. No new production material preset is introduced.
 - Authoring/API: [lighting and impact profiles](lighting-profiles.md).
