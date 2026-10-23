@@ -69,6 +69,123 @@ public static class LightingAuthoringChecks
             else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         }
     }
+    public static void VerifyPreviewBindingsAndUndo()
+    {
+        var setup = EditorSceneManager.GetSceneManagerSetup();
+        string folder = AssetDatabase.GenerateUniqueAssetPath("Assets/Tests/Fixtures/Lighting/PreviewUndoTemporary");
+        AssetDatabase.CreateFolder("Assets/Tests/Fixtures/Lighting", Path.GetFileName(folder));
+        var failures = new List<string>();
+        void Check(bool valid, string message)
+        { if (!valid) { failures.Add(message); Debug.Log("PREVIEW REGRESSION: " + message); } }
+        T Save<T>(T asset, string name) where T : UnityEngine.Object
+        { AssetDatabase.CreateAsset(asset, folder + "/" + name + ".asset"); return asset; }
+        WorldDefinition CopyWorld(string source, string name)
+        {
+            var original = AssetDatabase.LoadAssetAtPath<WorldDefinition>(source);
+            var definition = Save(UnityEngine.Object.Instantiate(original), name);
+            string scenePath = folder + "/" + name + ".unity";
+            if (!AssetDatabase.CopyAsset(original.scenePath, scenePath)) throw new InvalidOperationException("Cannot copy preview fixture");
+            definition.scene = AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath); definition.scenePath = scenePath;
+            definition.lighting = Save(UnityEngine.Object.Instantiate(original.lighting), name + "Lighting");
+            definition.combat = Save(UnityEngine.Object.Instantiate(original.combat), name + "Combat");
+            definition.lighting.baking = Save(new LightingSettings { autoGenerate = false, bakedGI = false, realtimeGI = false }, name + "Bake");
+            EditorUtility.SetDirty(definition); EditorUtility.SetDirty(definition.lighting);
+            return definition;
+        }
+        try
+        {
+            var a = CopyWorld("Assets/Data/Lighting/DungeonWorld.asset", "A");
+            var b = CopyWorld(LightingFixtureBuild.DefinitionPath, "B");
+            var priorBake = Save(new LightingSettings { autoGenerate = false, bakedGI = false, realtimeGI = false }, "PriorBake");
+            var first = EditorSceneManager.OpenScene(a.scenePath);
+            first.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<DungeonWorld>(true)).Single().definition = a;
+            var firstFog = Color.magenta; RenderSettings.fogColor = firstFog; Lightmapping.lightingSettings = priorBake;
+            var local = new GameObject("World-local rig"); local.SetActive(false);
+            var localRig = local.AddComponent<ClashLightingRig>(); localRig.profile = b.combat;
+            var second = EditorSceneManager.OpenScene(b.scenePath, OpenSceneMode.Additive);
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(second);
+            second.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<DungeonWorld>(true)).Single().definition = b;
+            var secondFog = Color.green; RenderSettings.fogColor = secondFog; Lightmapping.lightingSettings = null;
+            string gamePath = folder + "/Gameplay.unity";
+            if (!AssetDatabase.CopyAsset("Assets/Scenes/SampleScene.unity", gamePath)) throw new InvalidOperationException("Cannot copy gameplay fixture");
+            var game = EditorSceneManager.OpenScene(gamePath, OpenSceneMode.Additive);
+            var gate = game.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<DungeonSessionBindings>(true)).Single();
+            gate.worldDefinition = a;
+            var rigs = gate.roots.SelectMany(x => x.GetComponentsInChildren<ClashLightingRig>(true)).Distinct().ToArray();
+            if (rigs.Length == 0) throw new InvalidOperationException("Gameplay fixture has no combat rig");
+            var originalProfiles = rigs.Select(x => x.profile).ToArray();
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(game);
+            var otherHost = new GameObject("Unrelated gate"); otherHost.SetActive(false);
+            var otherGate = otherHost.AddComponent<DungeonSessionBindings>(); otherGate.worldDefinition = b;
+            var otherRoot = new GameObject("Explicit root outside gate hierarchy"); otherRoot.SetActive(false);
+            var otherRig = otherRoot.AddComponent<ClashLightingRig>(); otherRig.profile = a.combat;
+            otherGate.roots = new[] { otherRoot, otherRoot }; // Duplicate roots must not duplicate application/Undo.
+            var orphan = new GameObject("Unbound rig"); orphan.SetActive(false);
+            var orphanRig = orphan.AddComponent<ClashLightingRig>(); orphanRig.profile = originalProfiles[0];
+            AssetDatabase.SaveAssets();
+            foreach (var scene in new[] { first, second, game }) EditorSceneManager.SaveScene(scene);
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(first);
+            var loaded = EditorSceneManager.GetSceneManagerSetup().Select(x => x.path + "|" + x.isActive + "|" + x.isLoaded).ToArray();
+            var styles = new UnityEngine.Object[] { a, b, a.lighting, b.lighting, a.combat, b.combat, a.lighting.baking, b.lighting.baking };
+            var authored = styles.Select(EditorJsonUtility.ToJson).ToArray();
+            WorldLightingAuthoring.PreviewLoaded();
+            Check(rigs.All(x => x.profile == a.combat), "Preview missed split gameplay rigs for A");
+            Check(otherRig.profile == b.combat, "Preview missed explicit roots for B");
+            Check(localRig.profile == a.combat && orphanRig.profile == originalProfiles[0], "Preview crossed world ownership");
+            Check(first.isDirty && game.isDirty, "Preview did not dirty changed scenes");
+            Check(loaded.SequenceEqual(EditorSceneManager.GetSceneManagerSetup().Select(x => x.path + "|" + x.isActive + "|" + x.isLoaded)), "Preview changed scene setup");
+            Undo.FlushUndoRecordObjects(); Undo.PerformUndo();
+            Check(RenderSettings.fogColor == firstFog && Lightmapping.GetLightingSettingsForScene(first) == priorBake, "Undo missed A fog/bake settings");
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(second);
+            Check(RenderSettings.fogColor == secondFog && Lightmapping.GetLightingSettingsForScene(second) == null, "Undo missed B fog/null bake settings");
+            Check(rigs.Select(x => x.profile).SequenceEqual(originalProfiles) && localRig.profile == b.combat && otherRig.profile == a.combat, "Undo missed combat profiles");
+            Undo.PerformRedo();
+            Check(RenderSettings.fogColor == b.lighting.fogColor && Lightmapping.GetLightingSettingsForScene(second) == b.lighting.baking, "Redo missed B fog/bake settings");
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(first);
+            Check(RenderSettings.fogColor == a.lighting.fogColor && Lightmapping.GetLightingSettingsForScene(first) == a.lighting.baking, "Redo missed A fog/bake settings");
+            Check(rigs.All(x => x.profile == a.combat) && localRig.profile == a.combat && otherRig.profile == b.combat, "Redo missed combat profiles");
+            gate.worldDefinition = b;
+            WorldLightingAuthoring.PreviewLoaded(); Undo.FlushUndoRecordObjects();
+            Check(rigs.All(x => x.profile == b.combat) && localRig.profile == a.combat, "Switching gate to B leaked another world's combat profile");
+            Undo.PerformUndo(); Check(rigs.All(x => x.profile == a.combat), "Undo missed gate-selected rig change");
+            Undo.PerformRedo(); Check(rigs.All(x => x.profile == b.combat), "Redo missed gate-selected rig change");
+            var bake = a.lighting.baking; a.lighting.baking = null;
+            WorldLightingAuthoring.PreviewLoaded();
+            Check(Lightmapping.GetLightingSettingsForScene(first) == bake, "Null profile bake changed existing scene bake settings");
+            a.lighting.baking = bake;
+            foreach (var scene in new[] { first, second, game }) EditorSceneManager.SaveScene(scene);
+            EditorSceneManager.OpenScene(gamePath);
+            var reopened = UnityEngine.Object.FindObjectsOfType<DungeonSessionBindings>(true).Single(x => x.worldDefinition == b && x.roots.Any(y => y && y.GetComponentsInChildren<PlayerHealth>(true).Length > 0));
+            Check(reopened.roots.SelectMany(x => x.GetComponentsInChildren<ClashLightingRig>(true)).All(x => x.profile == b.combat), "Save/reopen lost gameplay rig profile or prefab overrides");
+            EditorSceneManager.OpenScene(a.scenePath);
+            Check(Lightmapping.GetLightingSettingsForScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene()) == bake, "Save/reopen lost A bake settings");
+            EditorSceneManager.OpenScene(b.scenePath);
+            Check(Lightmapping.GetLightingSettingsForScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene()) == b.lighting.baking, "Save/reopen lost B bake settings");
+            Check(authored.SequenceEqual(styles.Select(EditorJsonUtility.ToJson)), "Preview mutated authored assets");
+            if (failures.Count != 0) throw new InvalidOperationException(string.Join("; ", failures));
+            Debug.Log("PASS: split/multiple-world combat Preview, grouped Undo/Redo, null bake, scene setup and save/reopen");
+        }
+        finally
+        {
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            AssetDatabase.DeleteAsset(folder);
+            if (setup.Any(x => x.isLoaded)) EditorSceneManager.RestoreSceneManagerSetup(setup);
+        }
+    }
+    public static void VerifyPreviewAndRepeatBuilder()
+    {
+        VerifyPreviewBindingsAndUndo();
+        VerifyPreviewScenes();
+        var scenes = EditorBuildSettings.scenes;
+        try
+        {
+            EditorBuildSettings.scenes = scenes.Where(x => x.path != LightingFixtureBuild.ScenePath)
+                .Concat(new[] { new EditorBuildSettingsScene(LightingFixtureBuild.ScenePath, true) }).ToArray();
+            PixelUIBuild.SerializeOnly();
+            Debug.Log("PASS: Preview regressions and strict repeated builder with both selected worlds");
+        }
+        finally { EditorBuildSettings.scenes = scenes; }
+    }
     public static void Verify()
     {
         var definition = AssetDatabase.LoadAssetAtPath<WorldDefinition>("Assets/Data/Lighting/DungeonWorld.asset");

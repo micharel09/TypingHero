@@ -112,6 +112,16 @@ selected world's virtual lens and camera-impact profile before activation. Root 
 actor/gameplay placement and pixel-art presentation contracts remain scene/game
 authoring responsibilities; this feature does not add procedural maps or a map UI.
 
+With world and gameplay scenes loaded additively, Preview also updates combat rigs
+in the explicit `roots` of gates whose `worldDefinition` matches that world.
+Other gates and unbound gameplay rigs retain their profiles. One Preview is one
+Undo/Redo step for all loaded worlds, including fog, scene bake-settings references
+and affected combat rigs. A null profile `baking` leaves the scene's existing bake
+settings unchanged; Preview does not bake or edit the referenced settings assets.
+The Unity 2022.3 scene `LightmapSettings` object is obtained through the cached
+internal `LightmapEditorSettings.GetLightmapSettings` method for Undo; recheck this
+Editor-only contract when upgrading Unity.
+
 ## Lifecycle and checks
 
 Pause and Slayer hiding preserve each instance's animation/flicker phase. Resume

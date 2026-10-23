@@ -449,3 +449,44 @@ one additional QA WebGL and integration into main; no game publication.
   method and all runtime/shader/asset inputs are unchanged from6b1258a5; reuse the
   passing39Unity/53native/WebGL/visual results. `preview-isolation-proof.json`,
   `preview-unity.log` and `preview-snapshot.json` retain exact evidence.
+
+## Preview ownership and complete scene Undo follow-up (2026-10-23)
+
+- Independent Orca worktree `fix-world-preview-undo`, branch
+  `micharel09/fix-world-preview-undo`, base `9acdb4e`. Dirty primary checkout
+  preserved. No runtime, shader, profile, material, geometry or GUID changes.
+- Preview/Apply resolve combat rigs from the world scene plus explicit roots of
+  gates selecting that exact definition. Distinct targets are shared with Undo;
+  unrelated gates/unbound rigs retain their profiles. Changed gameplay scenes
+  are marked dirty and prefab modifications recorded.
+- One Preview creates one Undo group including each scene's native
+  LightmapSettings reference, RenderSettings and affected combat rigs. Null
+  profile baking retains the existing scene reference. The cached internal
+  LightmapEditorSettings.GetLightmapSettings contract is pinned to Unity2022.3.
+- New Editor checks copy world/gameplay scenes and styles into a temporary folder,
+  then restore scene setup and delete only those copies in finally. Covers A/B
+  gate selection, detached/duplicate roots, local/unbound rigs, grouped Undo/Redo,
+  prior and null bake references, unchanged authored JSON, scene dirty/setup and
+  save/reopen persistence. Existing multi-scene fog/active-scene test is retained.
+- Reproduction `20261023T063030-serialize`, input
+  `b3b76993724dd4b2a66c740098ed40a0531bf50f125e7a9d6fa8a6820ce2a859`,
+  executes the unchanged base authoring code with the regression checks: FAIL as
+  expected, confirming missed split rigs and missing bake-reference Undo.
+- First fixed-source pilot `20261023T063235-serialize` still executed the cached
+  old Editor DLL: CombatRigs was absent despite the new source. Not acceptance.
+  The external snapshot adapter advances only this source file's timestamp after
+  baseline injection; no source/test assertion or build threshold was weakened.
+- Accepted pre-integration input
+  `98a91cc6109419f190e5046bca6003b2fd22c7ce33063477d7541d73e5a00c2c`,
+  run `20261023T063454-serialize`: new Preview regression checks PASS, existing
+  multi-scene fog/Undo PASS, strict PixelUIBuild repeat PASS with both worlds
+  selected. The compiled Editor DLL contains CombatRigs. No runtime/full-suite,
+  WebGL, frame-review or performance claim; those paths are unchanged by this fix.
+- Evidence: `E:/CodexTemp/TypingHero/fix-world-preview-undo-20261023`, including
+  `repro`, `fixed-pilot`, `accepted` logs/snapshot receipts and external adapters.
+  Server private source/cache/Library/HOME/results are under
+  `/tmp/typinghero-preview-undo-20261023`; shared runner lock/images/license/cache
+  preserved. Private writable copies avoid the shared filesystem's <3GiB free
+  condition while retaining the original 3GiB threshold on the actual filesystem.
+- Newer main `94911a8` changes impact pulse lifetime/legacy-light cleanup. Merge
+  and scoped Editor/repeat verification are required before remote integration.

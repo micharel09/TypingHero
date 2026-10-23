@@ -9,6 +9,16 @@ using UnityEngine.Rendering.Universal;
 // Applies authored data to explicit scene bindings. Never writes style assets.
 public static class WorldLightingAuthoring
 {
+    // Unity 2022.3 keeps the scene's lighting-settings reference on this native object.
+    static readonly System.Reflection.MethodInfo GetLightmapSettings = typeof(LightmapEditorSettings)
+        .GetMethod("GetLightmapSettings", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+    static ClashLightingRig[] CombatRigs(DungeonWorld world) => UnityEngine.Object.FindObjectsOfType<ClashLightingRig>(true)
+        .Where(x => x.gameObject.scene == world.gameObject.scene)
+        .Concat(UnityEngine.Object.FindObjectsOfType<DungeonSessionBindings>(true)
+            .Where(x => x.worldDefinition == world.definition)
+            .SelectMany(x => x.roots).Where(x => x)
+            .SelectMany(x => x.GetComponentsInChildren<ClashLightingRig>(true)))
+        .Distinct().ToArray();
     [MenuItem("CLACKBLADE/Lighting/Validate Loaded Worlds")]
     public static void ValidateLoaded()
     {
@@ -41,20 +51,28 @@ public static class WorldLightingAuthoring
     {
         if (Application.isPlaying) throw new InvalidOperationException("Stop Play Mode before applying authored scene changes");
         var activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        Undo.IncrementCurrentGroup();
+        int undoGroup = Undo.GetCurrentGroup();
+        Undo.SetCurrentGroupName("Apply lighting profiles");
         try
         {
             foreach (var world in UnityEngine.Object.FindObjectsOfType<DungeonWorld>(true))
             {
                 UnityEngine.SceneManagement.SceneManager.SetActiveScene(world.gameObject.scene);
                 var objects = world.environment.GetComponentsInChildren<Component>(true).Where(x => x).Cast<UnityEngine.Object>()
-                    .Concat(UnityEngine.Object.FindObjectsOfType<ClashLightingRig>(true).Where(x => x.gameObject.scene == world.gameObject.scene).Cast<UnityEngine.Object>())
-                    .Concat(new UnityEngine.Object[] { world, world.view, world.view.transform, world.Arena, world.view.GetUniversalAdditionalCameraData(), Unsupported.GetRenderSettings() }).ToArray();
+                    .Concat(CombatRigs(world).Cast<UnityEngine.Object>())
+                    .Concat(new UnityEngine.Object[] { world, world.view, world.view.transform, world.Arena, world.view.GetUniversalAdditionalCameraData(),
+                        Unsupported.GetRenderSettings(), (UnityEngine.Object)GetLightmapSettings.Invoke(null, null) }).Distinct().ToArray();
                 Undo.RecordObjects(objects, "Apply lighting profiles");
                 Apply(world);
                 EditorSceneManager.MarkSceneDirty(world.gameObject.scene);
             }
         }
-        finally { UnityEngine.SceneManagement.SceneManager.SetActiveScene(activeScene); }
+        finally
+        {
+            Undo.CollapseUndoOperations(undoGroup);
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(activeScene);
+        }
     }
 
     public static void Apply(DungeonWorld world)
@@ -90,9 +108,13 @@ public static class WorldLightingAuthoring
             node.localScale = Vector3.one * (height / flame.contentHeightRatio / flame.mesh.bounds.size.y / parentScale);
             EditorUtility.SetDirty(node); EditorUtility.SetDirty(torch);
         }
-        foreach (var rig in UnityEngine.Object.FindObjectsOfType<ClashLightingRig>(true))
-            if (rig.gameObject.scene == world.gameObject.scene)
-            { rig.profile = world.definition.combat; EditorUtility.SetDirty(rig); }
+        foreach (var rig in CombatRigs(world))
+            if (rig.profile != world.definition.combat)
+            {
+                rig.profile = world.definition.combat;
+                if (PrefabUtility.IsPartOfPrefabInstance(rig)) PrefabUtility.RecordPrefabInstancePropertyModifications(rig);
+                EditorUtility.SetDirty(rig); EditorSceneManager.MarkSceneDirty(rig.gameObject.scene);
+            }
         foreach (var component in world.environment.GetComponentsInChildren<Component>(true))
             if (component && PrefabUtility.IsPartOfPrefabInstance(component))
             { PrefabUtility.RecordPrefabInstancePropertyModifications(component); EditorUtility.SetDirty(component); }
