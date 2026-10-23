@@ -30,8 +30,6 @@ MonoBehaviour:
   depthLimits: {x: 0.75, y: 1.5}
   flashes:
   - channel: 0
-    heightScale: 1
-    sortingOrder: 0
     count: 1
     lifetime: 0.2
     tint: {r: 1, g: 1, b: 1, a: 1}
@@ -96,8 +94,6 @@ MonoBehaviour:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 3
   - channel: 3
-    heightScale: 1
-    sortingOrder: 0
     count: 1
     lifetime: 0.2
     tint: {r: 1, g: 1, b: 1, a: 1}

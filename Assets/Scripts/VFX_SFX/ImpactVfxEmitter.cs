@@ -15,8 +15,7 @@ public sealed class ImpactVfxEmitter : MonoBehaviour
     public ImpactVfxBurst Play(ImpactVfxProfile profile, ImpactVfxContext context)
     {
         if (!isActiveAndEnabled || !profile || !profile.prefab || !profile.physics ||
-            GamePauseController.InputBlocked || Time.timeScale == 0 || GamePauseController.ResultOverlayVisible ||
-            (CombatSession.Finished && context.completionPolicy == ImpactVfxCompletionPolicy.StopOnCombatEnd)) return null;
+            GamePauseController.InputBlocked || Time.timeScale == 0 || CombatSession.Finished) return null;
         var template = profile.prefab.GetComponent<ImpactVfxBurst>();
         if (!template) throw new System.InvalidOperationException(profile.name + ": prefab needs ImpactVfxBurst");
         template.Validate(profile);
@@ -55,21 +54,8 @@ public sealed class ImpactVfxEmitter : MonoBehaviour
             if (go) go.GetComponent<PooledVFX>().Release();
         }
     }
-    void OnEnable() => GamePauseController.FreezeChanged += OnFreeze;
-    void OnFreeze(bool _) { if (GamePauseController.ResultOverlayVisible) Clear(); }
-    void Update()
-    {
-        if (GamePauseController.ResultOverlayVisible) { Clear(); return; }
-        if (!CombatSession.Finished) return;
-        for (int i = active.Count - 1; i >= 0; i--)
-            if (active[i].GetComponent<ImpactVfxBurst>().CompletionPolicy == ImpactVfxCompletionPolicy.StopOnCombatEnd)
-                active[i].GetComponent<PooledVFX>().Release();
-    }
-    void OnDisable()
-    {
-        GamePauseController.FreezeChanged -= OnFreeze;
-        Clear();
-    }
+    void Update() { if (CombatSession.Finished) Clear(); }
+    void OnDisable() => Clear();
     void OnDestroy()
     {
         Clear();

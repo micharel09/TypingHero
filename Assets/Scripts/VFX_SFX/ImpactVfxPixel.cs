@@ -47,8 +47,6 @@ public partial class ImpactVfxBurst
         foreach (var flash in profile.flashes)
         {
             var ps = systems[RequireBinding(flash.channel)];
-            var main = ps.main; main.startSize3D = flash.heightScale != 1;
-            ps.GetComponent<ParticleSystemRenderer>().sortingOrder = flash.sortingOrder;
             var color = ps.colorOverLifetime;
             var gradient = new Gradient { mode = flash.colorOverLifetime.mode };
             gradient.SetKeys(flash.colorOverLifetime.colorKeys, flash.colorOverLifetime.alphaKeys);
@@ -79,11 +77,9 @@ public partial class ImpactVfxBurst
         {
             float size = pixelUnit * flash.sizePixels;
             if (flash.maxWorldSize > 0) size = Mathf.Min(size, flash.maxWorldSize);
-            var emission = new ParticleSystem.EmitParams {
+            systems[RequireBinding(flash.channel)].Emit(new ParticleSystem.EmitParams {
                 position = transform.position, velocity = Vector3.zero, startSize = size,
-                startLifetime = flash.lifetime, startColor = flash.tint };
-            if (flash.heightScale != 1) emission.startSize3D = new Vector3(size, size * flash.heightScale, size);
-            systems[RequireBinding(flash.channel)].Emit(emission, flash.count);
+                startLifetime = flash.lifetime, startColor = flash.tint }, flash.count);
         }
         EmitPhysical(context.direction < 0 ? -1 : 1,
             context.recipient.valid ? context.recipient.center.x - context.point.x : 0,

@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3711288224446577679
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 200031621859889045}
-  m_Layer: 0
-  m_Name: DeathImpactAnchor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &200031621859889045
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3711288224446577679}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.095092416, y: -0.08674586, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5316290525864657520}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7212155499661164206
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,8 +23,6 @@ GameObject:
   - component: {fileID: 8121196955070503774}
   - component: {fileID: 660688279820089180}
   - component: {fileID: 8834135786078280039}
-  - component: {fileID: 70160591691703254}
-  - component: {fileID: 4916376261781618011}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Enemy
@@ -75,8 +42,7 @@ Transform:
   m_LocalPosition: {x: 1.84, y: -1.43, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 200031621859889045}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3278272914554389335
@@ -428,38 +394,3 @@ MonoBehaviour:
   source: {fileID: 3278272914554389335}
   library: {fileID: 11400000, guid: 4720ef884b3923ec593c8cf695ad14af, type: 2}
   normalPlayerMaterial: {fileID: 0}
---- !u!114 &70160591691703254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7212155499661164206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ef1cf507eff420583042563801366eb, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  health: {fileID: 2581763793603456263}
-  stamina: {fileID: 1020424546824809957}
-  stun: {fileID: 6335462748226833986}
-  body: {fileID: 7819345444398823029}
-  deathAnchor: {fileID: 200031621859889045}
-  guardEmitter: {fileID: 4916376261781618011}
-  deathEmitter: {fileID: 0}
-  guardBreak: {fileID: 11400000, guid: c7bac12a40777a0f8a945e4ba305071e, type: 2}
-  bodyFallDust: {fileID: 11400000, guid: 3fbc9a188d6de85a9ad6314a6bad348f, type: 2}
-  floorY: -3.0409918
---- !u!114 &4916376261781618011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7212155499661164206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d57c442a91d946b3b2188803c484b8c1, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  maxActive: 2

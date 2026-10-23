@@ -341,33 +341,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
   conservatively rebase without catch-up. Positive-scale hitstop remains unscaled.
   One-floor/one-bounce solver, fixed buffers,
   unscaled pause-held updates and cleanup remain. Audio, damage, recoil and hitstop
-  remain owned by gameplay. Combat-bound lifetime remains the default.
+  remain owned by gameplay. No new production material preset is introduced.
 - Authoring/API: [lighting and impact profiles](lighting-profiles.md).
-
-### Enemy state cues (2026-10-23)
-
-- GuardBreak reuses original Pimen Battle Effects Effect2,5cells/30ms,total150ms,
-  width32logical pixels,heightScale.5. BodyFallDust uses original Pimen Smoke n
-  Dust03 VFX5,8cells/30ms,total240ms,width24; final two cells are transparent.
-  Neither emits physics, sound, light, camera shake or hitstop. Art pixels remain
-  unchanged; source permissions/hashes are retained with the asset.
-- EnemyStateVfxBinder emits guard only on an accepted alive zero-stamina stun
-  start, once per episode; refresh/depletion during stun does not replay. Real
-  stun end resets it; enabling during an existing stun does not replay. One
-  paused request may resume if still valid; disable/death/results cancel it.
-- SkeletonController.Anim_DeathImpact optionally relays to the binder. Clip
-  contact events are sword/shield.7s,axe.5s,legacy.48333332s; original sprite keys,
-  held frames and cleanup events are retained. Capture the authored body anchor
-  before collider disable; floor is the scene standing collider bottom.
-- Only death dust opts into ImpactVfxContext.completionPolicy AllowUntilResults.
-  CombatSession.Finished is set at death start; the independent scene emitter
-  permits the later contact cue and survives actor destruction. Results/restart/
-  menu/unload clear it; pause holds it. Actor guard and scene dust budgets are2
-  each, leaving the existing MetalClash budget unchanged.
-- Focused48PlayMode+1actualSlayer+1editor-authoring tests pass. Deterministic
-  rendered frame acceptance is recorded separately in
-  [checkpoint](../plans/enemy-state-vfx.md); no WebGL/device performance claim.
-
   Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
 
 ### Pimen flash with thin separated physical sparks (2026-10-22)
