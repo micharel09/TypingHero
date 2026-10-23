@@ -42,7 +42,7 @@ resources: [checkpoint](../plans/parry-main-demo.md).
 
 - Final source snapshotcbff319fd0c09a9cb26c5f4b5baeafb6d656f2e5e2640ad567588c16247420d8:
   **85/85 scoped Unity PASS**,0failed/skipped (`20261023T035820-quick`), all2229
-  input files match the final checkout after LF normalization of text only.
+  input files match the pre-integration task checkout after text-only LF normalization.
   Filters: ImpactVfxTests, ParryClashTests, PhysicalParticleTests and three directly
   affected PixelSpark parry direction/teardown/unload cases. Covers pure generic
   prefabs,0/1/3 flashes/arbitrary IDs, varied flipbook/color/physics/pixel scale,
@@ -82,6 +82,15 @@ resources: [checkpoint](../plans/parry-main-demo.md).
   not copied into source. [Checkpoint](../plans/metal-clash-preset.md) records handoff.
 - Artifacts/reproduction: E:/CodexTemp/TypingHero/impact-vfx-authoring. Full suites,
   broad WebGL profiles and stress runs are outside this focused change.
+
+- Integrated newer main e491984 as cb4c84e. VFX runtime/profile/prefab/player inputs
+  remain identical to task1590347; the shared builder preserves upstream authored
+  camera impacts and the custom impact-profile migration. Focused integration
+ 12/12 PASS (`20261023T040800-quick`, f4fa6f0c3fa360570ac856c537e686b01cbec31d27cb0346094c53848b0b08d6):
+  frozen trace, generic lease expiry, custom builder refs, public parry route,
+  pulse snapshots/pause/weak overlap, selected-world/camera-profile rebinding and
+  lantern lifecycle. Upstream39Unity/53native/world-frame evidence stays attributed
+  to its own checkpoint; task visual receipts remain pre-integration snapshots.
 
 ## Reusable MetalClash preset (2026-10-22)
 

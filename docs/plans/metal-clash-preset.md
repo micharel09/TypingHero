@@ -274,3 +274,28 @@ cleanup. Runtime/visual acceptance remains pending until results below.
   equals the built value. Final85 tests verify changed generic/Editor paths and
   rerun frozen traces/pool/pause/allocation. No native missing-lease-fixture claim.
 - Remote integration and scoped resource cleanup follow the final diff review.
+
+
+### Follow-up integration
+
+- Implementation commit1590347 pushed to origin/micharel09/impact-vfx-authoring.
+  origin/main advanced to e491984 (authored world effects/camera impacts); merged
+  as cb4c84e. Automatic merges preserve both source-backed memory updates and
+  shared CombatFeedbackBuild behavior: upstream camera profile ownership plus
+  this task's missing-reference migration. No VFX runtime/profile/prefab/player
+  differences from the tested task commit. No parent checkout/index changes.
+- Integration snapshotf4fa6f0c3fa360570ac856c537e686b01cbec31d27cb0346094c53848b0b08d6,
+  run20261023T040800-quick: **12/12 PASS**,0failed/skipped. Frozen baseline trace,
+  active generic lease expiry/reuse, custom reference migration, public parry
+  profile.prefab route, pulse color/curve snapshots, parry pause/weak voxel overlap,
+  selected-world lens/impact-profile rebinding and pixel-lantern mesh lifecycle.
+  Passing85 task tests remain scoped to their original inputs; VFX render/physics
+  inputs are unchanged by integration. No repeat of unrelated full suites/builds.
+- Newer world authoring source has independent39Unity/53native and355frame/
+  350pair observations in combat-hanging-light.md. Preserve that evidence and
+  its explicit VFR/subjective/performance limits. This task's full-frame VFX
+  comparisons remain attributed to their pre-integration immutable players.
+- Evidence/player/scripts retained at E:/CodexTemp/TypingHero/impact-vfx-authoring
+  for review/reproduction; disposable when no longer needed. Only task server
+  roots and the clean task Orca worktree/local branch are removed after remote
+  verification; shared Library/cache/license, other tasks and parent WIP remain.
