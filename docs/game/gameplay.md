@@ -784,3 +784,19 @@ real-input VFX/hidden variants pass64 checks, with direct995frame/991transition
 review of the complete parry/counter/physical tail. Dense recipient-backward fan
 passes behind player on both sides. Final source/clip/timestamp limits and
 per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.
+
+
+## Space cue demo (isolated review branch)
+
+`ParryCuePresenter` reads `SkeletonController.TryGetAttackTelegraph` and the existing
+`CanBeginParry`/`IsWindowActive`; it never changes combat or typing input. Original
+Kenney CC0 caps form a32?16 logical key at(23,153),6px left of the tray. Outline
+amber means wind-up, ivory fill begins200ms before authored contact, teal means
+an active parry window, gray/X hides the label while locked. No valid attack means
+hidden. Prediction caches Anim_DealDamage events by controller and follows Animator
+speed/progress plus the100ms thrust hold; outgoing transitions cancel the cue.
+The original cue object/SFX stay intact; only its Graphics are suppressed.
+Esc?F8?Esc compares key/legacy! in-session, default key on application start;
+no PlayerPrefs/settings/tutorial state added. Pause holds presentation, terminal/
+Slayer/encounter state clears it. This remains a separate review branch, not a
+production default declaration. Acceptance and captures: [demo checkpoint](../plans/parry-cue-demo.md).

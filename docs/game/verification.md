@@ -1,5 +1,24 @@
 ## Latest-main original parry demo (2026-10-22; local)
 
+
+## Space cue demo, isolated review branch (2026-10-24)
+
+- Immutable input00adef3c: QA172219, normal172820, Unity2022.3.25f1/fly-server.
+  Two scoped Unity tests PASS: seven real Classic/sword/shield/axe attacks with
+  pause/speed/thrust/contact/disable and crossfade cancellation. Strict repeat-builder
+  PASS;39new scene objects,0old IDs removed; existing changes only tutorial text/parents.
+- Native mute: completed640scope reused from first row of native-final2 (whole report
+  retains its1280polling failure); fresh native-1280-final16checks PASS. Real Space
+  fill/early/late/locked, pause/F8, typing error/timeout, different9-letter queue at
+  both sizes, Slayer/win/next duel/restart/menu;0exceptions/production writes.
+- All194selected capture frames and191adjacent transitions directly inspected,
+  including holds/repeats.7.76s/25fps clip full decode/count PASS. Normal smoke2
+  five checks plus actual menu/tutorial/combat/pause/mode/menu image review and
+  visible cue proof; qa=false, five JS/WASM/data payloads exclude ASCII/UTF16 QA markers.
+- No full-suite/balance/stress/performance or human-attention claim. Fixtures block
+  external writes. Exact sources, valid/failed receipts, timestamps, clock-calibration
+  caveat, clip hash and retained resources: [checkpoint](../plans/parry-cue-demo.md).
+
 Base origin/main fd3f21d; original2->3->4->5->idle integration on a separate child.
 Pinned Unity2022.3.25f1/fly-server141745: strict builder/font protection and31/31
 scoped parry/contact/slash cases PASS,0failed/skipped,2.4495452s. WebGL build PASS

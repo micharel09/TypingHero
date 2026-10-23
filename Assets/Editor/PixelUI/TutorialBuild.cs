@@ -102,7 +102,7 @@ internal static class TutorialBuild
         var hp = Text("HealthGuide", "<color=#DCC47C>Your HP</color>\nYour health. When it runs out, you lose.", 36, 188, 264, 96, 24);
         var enemy = Text("EnemyGuide", "<color=#DCC47C>Enemy HP / Guard</color>\nDrain HP to win. Parry lowers guard. Break guard for Slayer.", 660, 188, 264, 120, 24);
         var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 36, 322, 372, 96, 24);
-        Text("Shortcuts", "Space: parry on the yellow cue \u00b7 Esc: pause", 452, 326, 460, 64, 24).alignment = TextAlignmentOptions.Top;
+        Text("Shortcuts", "Space: parry when the key fills.\nEsc: pause", 452, 326, 460, 64, 24).alignment = TextAlignmentOptions.Top;
         var next = panel.Find("PracticeButton").GetComponent<Button>();
         Box((RectTransform)next.transform, panel, 500, 392, 360, 36);
         next.navigation = new Navigation { mode = Navigation.Mode.None };

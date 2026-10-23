@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -70,6 +71,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         var sprite = GetComponent<SpriteRenderer>();
         if (sprite) { sprite.color = Color.white; sprite.sprite = definition.idle; }
         animator.runtimeAnimatorController = definition.controller;
+        CacheAttackEvents();
         foreach (var clip in definition.controller.animationClips)
         {
             if (clip.name == "Attack1") attackOneLength = clip.length;
@@ -85,6 +87,40 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
 
     }
 
+    RuntimeAnimatorController telegraphController;
+    readonly List<AnimatorClipInfo> telegraphClips = new List<AnimatorClipInfo>();
+    readonly Dictionary<AnimationClip, float> impactTimes = new Dictionary<AnimationClip, float>();
+    void CacheAttackEvents()
+    {
+        telegraphController = animator ? animator.runtimeAnimatorController : null;
+        impactTimes.Clear();
+        if (!telegraphController) return;
+        foreach (var clip in telegraphController.animationClips)
+            foreach (var evt in clip.events)
+                if (evt.functionName == "Anim_DealDamage")
+                { impactTimes[clip] = evt.time; break; }
+    }
+
+    // Presentation only: seconds of game time until the authored strike event.
+    public bool TryGetAttackTelegraph(out float secondsToImpact)
+    {
+        secondsToImpact = 0;
+        if (!isActiveAndEnabled || !_attacking || IsDead || CombatSession.Finished || !CueActive || !animator) return false;
+        if (telegraphController != animator.runtimeAnimatorController) CacheAttackEvents();
+        if (!AnimatorUtil.IsInState(animator, attackStatePath, out var state)) return false;
+        if (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).fullPathHash != state.fullPathHash) return false;
+        animator.GetCurrentAnimatorClipInfo(0, telegraphClips);
+        if (telegraphClips.Count == 0 || !impactTimes.TryGetValue(telegraphClips[0].clip, out var impact)) return false;
+        var clip = telegraphClips[0].clip;
+        float remaining = impact - state.normalizedTime * clip.length;
+        if (remaining < 0) return false;
+        float speed = Mathf.Abs(state.speed * state.speedMultiplier * (preparing ? 1 : animator.speed));
+        if (speed <= 0) return false;
+        secondsToImpact = remaining / speed + (preparing ? Mathf.Max(0, prepareUntil - Now) : 0);
+        return true;
+    }
+
+    internal GameObject AttackCueObject => attackCue;
     float Now => Time.time;
     public bool IsAttacking => _attacking;
     bool practiceIdle;
@@ -119,6 +155,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     void Awake()
     {
         if (Current <= 0) Current = maxHealth;
+        CacheAttackEvents();
     }
 
     void OnEnable() { _attacking = false; _nextAttackAt = Now + 0.5f; }

@@ -300,6 +300,7 @@ internal static class ShogunTheme
     {
         foreach (var image in root.GetComponentsInChildren<Image>(true))
         {
+            if (ParryCueBuild.Owns(image)) continue;
             if (image.sprite && AssetDatabase.GetAssetPath(image.sprite).StartsWith(ShogunEnvironment.Art)) continue;
             if (image.sprite && image.sprite.texture.name.StartsWith("key-")) continue;
             if (image.name.StartsWith("ErrorBorder")) continue;
@@ -312,6 +313,7 @@ internal static class ShogunTheme
         }
         foreach (var text in root.GetComponentsInChildren<TMP_Text>(true))
         {
+            if (ParryCueBuild.Owns(text)) continue;
             text.color = text.name.Contains("Label") || text.name == "Credits" ? Hex("A5B9AB") : Paper;
             PrefabUtility.RecordPrefabInstancePropertyModifications(text);
         }

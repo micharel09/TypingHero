@@ -49,7 +49,8 @@ public sealed class GameLoopProbe : MonoBehaviour
     {
         public int frame, attackId, hitFrame, enemyHP, playerHP, parries;
         public bool canParry, parryWindow, enemyAttacking, slayer;
-        public float enemyContactIn, timeScale;
+        public float enemyContactIn, timeScale, cueImpactIn;
+        public bool spaceCueVisible, spaceCueFilled, spaceCueLocked, legacyCueVisible;
         public string cel, sparkCel;
         public Vector2 contact;
         public Vector3 sparkPoint, cameraPosition, cameraCorrection;
@@ -181,6 +182,17 @@ public sealed class GameLoopProbe : MonoBehaviour
         combatFrame.canParry = combatParry && combatParry.CanBeginParry;
         combatFrame.parryWindow = combatParry && combatParry.IsWindowActive;
         combatFrame.enemyAttacking = combatEnemy && combatEnemy.IsAttacking;
+        combatFrame.cueImpactIn = combatEnemy && combatEnemy.TryGetAttackTelegraph(out float cueImpact) ? cueImpact : -1;
+        var presenter = FindObjectOfType<ParryCuePresenter>();
+        var cueKey = presenter ? Read<RectTransform>(presenter, "key") : null;
+        var cueLeft = presenter ? Read<Image>(presenter, "left") : null;
+        var cueLock = presenter ? Read<Image>(presenter, "locked") : null;
+        combatFrame.spaceCueVisible = cueKey && cueKey.gameObject.activeInHierarchy;
+        combatFrame.spaceCueFilled = cueLeft && cueLeft.sprite && cueLeft.sprite.name == "tile_0507";
+        combatFrame.spaceCueLocked = cueLock && cueLock.gameObject.activeInHierarchy;
+        var legacy = combatEnemy && combatEnemy.AttackCueObject ? combatEnemy.AttackCueObject.GetComponent<Graphic>() : null;
+        combatFrame.legacyCueVisible = legacy && legacy.enabled && legacy.gameObject.activeInHierarchy;
+
         combatFrame.slayer = combatSlayer && combatSlayer.IsActive;
         combatFrame.enemyContactIn = ContactInRender();
         combatFrame.timeScale = Time.timeScale;
