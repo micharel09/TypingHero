@@ -371,6 +371,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures:
+    - texture: {fileID: 2800000, guid: cf297fe6ba1f4c8b8a5cdd76f425a9f2, type: 3}
+      name: _DepthMap
     - texture: {fileID: 2800000, guid: a72628f6cb31ce4f09bb58994854360a, type: 3}
       name: _NormalMap
     - texture: {fileID: 2800000, guid: 059e0151d059bf3db86671f175c4a1e8, type: 3}

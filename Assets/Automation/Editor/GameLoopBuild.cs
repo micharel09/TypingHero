@@ -6,6 +6,40 @@ using UnityEngine;
 
 public static class GameLoopBuild
 {
+    static bool depthPreview;
+    // Explicit QA candidate: normal builds retain the world's production opt-in.
+    public static void DepthPreview()
+    {
+        if (Environment.GetEnvironmentVariable("TYPINGHERO_QA") != "1")
+            throw new InvalidOperationException("Depth preview requires the isolated QA runner");
+        var library = AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>("Assets/Data/Lighting/ActorDepth.asset");
+        if (!library) throw new InvalidOperationException("Missing authored actor depth library");
+        var paths = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
+        var worlds = AssetDatabase.GetDependencies(paths, true)
+            .Select(AssetDatabase.LoadAssetAtPath<WorldDefinition>).Where(x => x).Distinct().ToArray();
+        var worldPaths = worlds.Select(AssetDatabase.GetAssetPath).ToArray();
+        var previousPaths = worlds.Select(x => AssetDatabase.GetAssetPath(x.spriteDepth)).ToArray();
+        try
+        {
+            foreach (var world in worlds) { world.spriteDepth = library; EditorUtility.SetDirty(world); }
+            AssetDatabase.SaveAssets();
+            depthPreview = true;
+            WebGL();
+        }
+        finally
+        {
+            depthPreview = false;
+            // Building can unload the editor instances; restore by stable asset path.
+            for (int i = 0; i < worldPaths.Length; i++)
+            {
+                var world = AssetDatabase.LoadAssetAtPath<WorldDefinition>(worldPaths[i]);
+                world.spriteDepth = string.IsNullOrEmpty(previousPaths[i]) ? null
+                    : AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>(previousPaths[i]);
+                EditorUtility.SetDirty(world);
+            }
+            AssetDatabase.SaveAssets();
+        }
+    }
     public static void Windows64()
     {
         var output = Environment.GetEnvironmentVariable("TYPINGHERO_BUILD_PATH");
@@ -70,7 +104,9 @@ public static class GameLoopBuild
                 target = BuildTarget.WebGL,
                 options = qa && Environment.GetEnvironmentVariable("TYPINGHERO_PROFILE_ALLOCATIONS") == "1"
                     ? BuildOptions.Development : BuildOptions.None,
-                extraScriptingDefines = qa ? new[] { "TYPINGHERO_AUTOMATION" } : Array.Empty<string>()
+                extraScriptingDefines = qa ? (depthPreview
+                    ? new[] { "TYPINGHERO_AUTOMATION", "TYPINGHERO_DEPTH_PREVIEW" }
+                    : new[] { "TYPINGHERO_AUTOMATION" }) : Array.Empty<string>()
             });
             if (report.summary.result != BuildResult.Succeeded)
                 throw new InvalidOperationException("WebGL build failed: " + report.summary.result);

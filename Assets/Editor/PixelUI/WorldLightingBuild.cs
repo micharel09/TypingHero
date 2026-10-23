@@ -59,8 +59,8 @@ internal static class WorldLightingBuild
                 EditorUtility.SetDirty(renderer);
                 if (PrefabUtility.IsPartOfPrefabInstance(renderer)) PrefabUtility.RecordPrefabInstancePropertyModifications(renderer);
             }
-            foreach (var body in Object.FindObjectsOfType<PlayerHealth>(true)) { ContactShadow(body.gameObject); SpriteDepthAuthoring.Attach(body.gameObject); }
-            foreach (var body in Object.FindObjectsOfType<SkeletonController>(true)) { ContactShadow(body.gameObject); SpriteDepthAuthoring.Attach(body.gameObject); }
+            foreach (var body in Object.FindObjectsOfType<PlayerHealth>(true)) ContactShadow(body.gameObject);
+            foreach (var body in Object.FindObjectsOfType<SkeletonController>(true)) ContactShadow(body.gameObject);
             if (Camera.main)
             {
                 Camera.main.allowHDR = true;

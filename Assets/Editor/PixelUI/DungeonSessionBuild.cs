@@ -45,6 +45,13 @@ internal static class DungeonSessionBuild
         var world = Object.FindObjectOfType<DungeonWorld>(true);
         if (!gate || !world || !world.environment || !world.view)
             throw new InvalidOperationException("Authored world/session bindings missing");
+        foreach (var root in game.GetRootGameObjects())
+        {
+            foreach (var actor in root.GetComponentsInChildren<PlayerHealth>(true))
+                SpriteDepthAuthoring.Attach(actor.gameObject);
+            foreach (var actor in root.GetComponentsInChildren<SkeletonController>(true))
+                SpriteDepthAuthoring.Attach(actor.gameObject);
+        }
         var environment = world.environment.gameObject;
         var camera = world.view;
         WorldPath = gate.worldDefinition.scenePath;

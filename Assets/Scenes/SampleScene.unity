@@ -26562,6 +26562,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5449769088092458507, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1837079577}
+    - targetCorrespondingSourceObject: {fileID: 5449769088092458507, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3482038794572103695}
     - targetCorrespondingSourceObject: {fileID: 3220913007637166692, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2033396417}
@@ -26728,6 +26731,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7212155499661164206, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
       insertIndex: -1
       addedObject: {fileID: 515790491}
+    - targetCorrespondingSourceObject: {fileID: 7212155499661164206, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8734117375464330133}
   m_SourcePrefab: {fileID: 100100000, guid: f3f3b403737322c4ebd1deb461fa4556, type: 3}
 --- !u!61 &8734117375464330132 stripped
 BoxCollider2D:
@@ -28846,3 +28852,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734951554}
   m_CullTransparentMesh: 1
+
+--- !u!114 &3482038794572103695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557806707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbf7fd3ada64241a157b5889807414b, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+
+--- !u!114 &8734117375464330133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464473849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbf7fd3ada64241a157b5889807414b, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:

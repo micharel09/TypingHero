@@ -12,6 +12,13 @@ using UnityEngine.Rendering.Universal;
 public static class SpriteDepthRenderChecks
 {
     static bool diagnostics;
+    static bool allFrames;
+    public static void CaptureAll()
+    {
+        allFrames = true;
+        try { Capture(); }
+        finally { allFrames = false; }
+    }
     public static void Investigate()
     {
         SpriteDepthGpuChecks.Verify();
@@ -28,7 +35,7 @@ public static class SpriteDepthRenderChecks
     [Serializable] sealed class Cell
     {
         public string source, sprite, file;
-        public int mode;
+        public int mode, facing;
         public long localId;
         public Vector3 light;
     }
@@ -86,19 +93,21 @@ public static class SpriteDepthRenderChecks
                 "Assets/Art/male_hero/individual_sheets/male_hero-combo_3.png",
                 "Assets/Art/EndlessSkeletons/sword/Attack1.png"
             };
-            for (int actorIndex = 0; actorIndex < sources.Length; actorIndex++)
+            var authored = AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>("Assets/Data/Lighting/ActorDepth.asset");
+            if (allFrames) SpriteDepthAuthoring.Validate(authored);
+            for (int actorIndex = 0; actorIndex < (allFrames ? authored.frames.Length : sources.Length); actorIndex++)
             {
-                string path = sources[actorIndex];
-                var sprite = AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>()
+                string path = allFrames ? AssetDatabase.GetAssetPath(authored.frames[actorIndex].sprite) : sources[actorIndex];
+                var sprite = allFrames ? authored.frames[actorIndex].sprite : AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>()
                     .OrderBy(x => x.rect.x).ElementAt(actorIndex == 0 ? 1 : 2);
-                var depth = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Tests/Fixtures/Lighting/SelfShadow/" + (actorIndex == 0 ? "hero" : "sword") + ".png");
+                var depth = allFrames ? authored.frames[actorIndex].depth : AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Tests/Fixtures/Lighting/SelfShadow/" + (actorIndex == 0 ? "hero" : "sword") + ".png");
                 var library = ScriptableObject.CreateInstance<SpriteDepthLibrary>();
                 library.frames = new[] { SpriteDepthAuthoring.Describe(sprite, depth) };
                 renderer.sprite = sprite; binding.Bind(library.CreateLookup());
                 AssetDatabase.TryGetGUIDAndLocalFileIdentifier(sprite, out string guid, out long localId);
                 // Keep the source foot on the receiver: hero bottom is48 pixels
                 // above its cel bottom; sword Attack1 reaches the cel bottom.
-                actor.transform.position = new Vector3(0, (sprite.pivot.y - (actorIndex == 0 ? 48 : 0)) / sprite.pixelsPerUnit, 0);
+                actor.transform.position = new Vector3(0, (sprite.pivot.y - (path.Contains("male_hero") ? 48 : 0)) / sprite.pixelsPerUnit, 0);
                 for (int facing=0; facing<2; facing++)
                 for (int direction=0; direction<4; direction++)
                 for (int mode=0; mode<3; mode++)
@@ -115,7 +124,7 @@ public static class SpriteDepthRenderChecks
                     string file = "frame-" + cells.Count.ToString("D4") + ".png";
                     File.WriteAllBytes(Path.Combine(output,file),pixels.EncodeToPNG());
                     cells.Add(new Cell { source = path, sprite = sprite.name, mode = mode,
-                        localId = localId, light = lamp.transform.position, file = file });
+                        localId = localId, facing = facing, light = lamp.transform.position, file = file });
                     if (diagnostics && mode==2)
                     {
                         diagnostic.SetFloat("_SelfShadowStrength",.65f);

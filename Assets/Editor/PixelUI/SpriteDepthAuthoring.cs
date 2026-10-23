@@ -25,7 +25,14 @@ public static class SpriteDepthAuthoring
         public float time, duration;
         public bool loop;
     }
-    [Serializable] sealed class Inventory { public int uniqueSprites; public KeyRecord[] keys; }
+    [Serializable] sealed class FrameRecord
+    {
+        public string sprite, source;
+        public long localId;
+        public Rect rect;
+        public float pixelsPerUnit;
+    }
+    [Serializable] sealed class Inventory { public int uniqueSprites; public KeyRecord[] keys; public FrameRecord[] frames; }
     public static void ExportInventory(string destination)
     {
         var keys = new List<KeyRecord>();
@@ -44,8 +51,13 @@ public static class SpriteDepthAuthoring
                     loop = AnimationUtility.GetAnimationClipSettings(clip).loopTime });
             }
         }
+        var frames = ReferencedSprites().Select(sprite => {
+            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(sprite, out string guid, out long id);
+            return new FrameRecord { sprite = sprite.name, source = AssetDatabase.GetAssetPath(sprite),
+                localId = id, rect = sprite.rect, pixelsPerUnit = sprite.pixelsPerUnit };
+        }).ToArray();
         System.IO.File.WriteAllText(destination, JsonUtility.ToJson(new Inventory {
-            uniqueSprites = ReferencedSprites().Length, keys = keys.ToArray() }, true));
+            uniqueSprites = frames.Length, keys = keys.ToArray(), frames = frames }, true));
     }
     // An explicit authoring operation. Routine builders only validate the result.
     [MenuItem("CLACKBLADE/Lighting/Rebuild Selected Depth Library Metadata")]
@@ -77,17 +89,23 @@ public static class SpriteDepthAuthoring
         library.frames = frames.ToArray(); EditorUtility.SetDirty(library);
         AssetDatabase.SaveAssets();
     }
-    internal static Sprite[] ReferencedSprites()
+    public static Sprite[] ReferencedSprites()
     {
         var dependencies = ActorDependencies();
         // Include directly referenced hurt/parry clips as well as controller clips.
         var clips = dependencies.Select(AssetDatabase.LoadAssetAtPath<AnimationClip>).Where(x => x);
         var initial = dependencies.Select(AssetDatabase.LoadAssetAtPath<EndlessOpponent>)
             .Where(x => x).Select(x => x.idle);
+        // Parry temporarily replaces animation cels with clean weapon-contact poses.
+        // Their atlas lives under VFX, but these sprites render on the actual actor.
+        var contacts = dependencies.Select(AssetDatabase.LoadAssetAtPath<ParryContactLibrary>)
+            .Where(x => x).SelectMany(x => x.frames)
+            .SelectMany(x => new[] { x.sprite, x.contactCel, x.defenseCel }).Where(x => x);
         return clips
             .SelectMany(clip => AnimationUtility.GetObjectReferenceCurveBindings(clip)
                 .SelectMany(binding => AnimationUtility.GetObjectReferenceCurve(clip, binding)))
-            .Select(x => x.value as Sprite).Concat(initial).Where(x => x && IsActor(x)).Distinct().ToArray();
+            .Select(x => x.value as Sprite).Concat(initial).Where(x => x && IsActor(x))
+            .Concat(contacts).Distinct().ToArray();
     }
     static bool IsActor(Sprite sprite)
     {
@@ -109,7 +127,7 @@ public static class SpriteDepthAuthoring
                 rect.xMax / source.width, rect.yMax / source.height),
             textureSize = new Vector2(source.width, source.height), pixelsPerUnit = sprite.pixelsPerUnit };
     }
-    internal static void Validate(SpriteDepthLibrary library)
+    public static void Validate(SpriteDepthLibrary library)
     {
         if (!library) return; // Production opt-in only after full authoring acceptance.
         var frames = library.CreateLookup();

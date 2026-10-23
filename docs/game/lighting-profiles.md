@@ -255,8 +255,10 @@ Camera impact authoring, render acknowledgment and profile reload rules: [camera
 
 `WorldDefinition.spriteDepth` optionally selects a `SpriteDepthLibrary`. Leave it
 unassigned until all referenced hero/skeleton cels, motion and WebGL performance
-meet the self-shadow gate in the lighting checkpoint. The current two-pose fixtures
-are not production maps. This approximates occlusion on a planar sprite; it does
+meet the self-shadow gate in the lighting checkpoint. `ActorDepth.asset` now covers
+274 gameplay-referenced cels, including six parry contact replacements, but its
+full-pose maps remain a candidate pending timed playback acceptance.
+The two-pose fixtures remain the approved diagnostic baseline. This approximates occlusion on a planar sprite; it does
 not add character geometry or replace the existing silhouette shadow caster.
 
 Author an RGBA atlas matching the original dimensions/slicing: R is depth towards
@@ -280,6 +282,8 @@ ambient/emission and other light contributions remain independent. A sprite
 without a bound frame uses the previous URP PBR path. World bind prepares one
 lookup, and clear removes the prior lookup; `SpriteDepthBinding` merges its
 properties with combat tint/flash via `GetPropertyBlock`.
+The active `DungeonSessionBuild` attaches the component before serializing the
+gameplay roots; the retired world-lighting builder is not the attachment path.
 Mapped actors also receive `_DepthFacing` from SpriteRenderer flip flags so the
 ray and sampled normal follow the source UV orientation. Transform scale is
 handled by the object/world matrices; do not apply its sign a second time.
@@ -293,6 +297,21 @@ WebGL view for visual judgment; `SpriteDepthRenderChecks.Investigate` provides
 analytical/per-light checks and offscreen diagnostics, not gameplay presentation
 or performance acceptance.
 
-No all-frame, production WebGL or performance acceptance is claimed for this
-experimental path. See the current section of
+The explicit offline authoring command is
+`python tools/lighting/author_actor_depth.py --recipe tools/lighting/actor_depth_poses.json --write`.
+It rasterizes per-cel anatomical masks after checking each source PNG hash; only
+source alpha supplies coverage. Without `--write` it reports targets. Builders do
+not call it. Edit masks or paint the depth PNGs directly and re-review affected
+frames/transitions; rerunning `--write` deliberately replaces the listed maps.
+
+`GameLoopBuild.DepthPreview` builds the real enabled gameplay scenes with the full
+library assigned temporarily, restores world assets afterward, and requires the
+isolated QA runner. Its QA-only F8 key toggles self-shadow for same-player A/B.
+Normal gameplay builds exclude that control. `SpriteDepthRenderChecks.CaptureAll`
+exports flat/OFF/ON, four white-light directions and both facings for every
+referenced cel; export alone is not visual acceptance.
+
+All referenced cels have static A/B and adjacent-pose observations; native QA
+combat and same-build performance were measured. Timed playback and complete
+capture coverage remain unverified, so production stays disabled. See
 [the lighting checkpoint](../plans/combat-hanging-light.md) for actual evidence.

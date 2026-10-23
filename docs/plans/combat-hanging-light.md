@@ -933,3 +933,100 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   gates. No task Unity job remains after the build. Remove those resources after
   verified full integration; preserve A/B evidence. Local demo serverPID2024 is
   retained for user review and can be stopped when that review is finished.
+
+### Full gameplay depth expansion (2026-10-23, in progress)
+
+- Merged origin/main e5bbc76 into the existing task branch, preserving the upstream
+  hit-flash/Slayer composition and removed guard-break/body-fall VFX.
+- Found and fixed a dead hookup: the active PixelUI pipeline calls
+  DungeonSessionBuild, not WorldLightingBuild. The active builder now serializes
+  exactly one SpriteDepthBinding on each actor. Run20261023T150555-serialize,
+  input01b97e7e1ccdafd93f57f2f341e0d69f01d7f0b564a9e7c94cedc74cc24cf448,
+  passed repeated builder, two serialized bindings, unassigned-world bind/clear,
+  and13 SpriteDepthTests/SlayerTransitionTests. That run predates full-library bind
+  assertions; it does not establish the later A-to-B-to-A result.
+- Inventory now follows ParryContactLibrary replacements too:274 distinct cels
+  on31 atlases, including six gameplay parry cels formerly missed by clip-only
+  collection. No hardcoded expected frame count in the builder.
+- Added draft anatomical masks and31 depth PNGs, plus ActorDepth.asset. Source
+  cels were inspected to place head/arm/weapon/shield masks; final rendered frame,
+  transition, loop and playback review remains pending. Hero's non-anatomical
+  final soul fragments do not occlude light. The two approved prototype cels
+  preserve every visible depth pixel (including their24-valued rear plane).
+  Original31 source GUIDs, slicing, pivots/import settings and prior secondary
+  bindings compare unchanged; only _DepthMap links were added. No albedo or
+  normal PNG was edited. Draft recipe and asset hashes are under task evidence
+  depth-authoring/draft-map-receipt.json (regenerate after mask edits).
+- Full-library checks initially exposed incorrect empty-list secondary texture
+  names; fixed. Full-library bind initially failed because scene opening unloaded
+  the test's library asset, which deliberately is not a production dependency.
+  Reacquiring it after both scenes open fixes the test without a runtime/shader
+  change. Run20261023T154159-webgl input6d9099ac242a638df7a72bd7efd7da6d5453b2808a3c16b5170d13249a5d8e9b
+  passes repeated builder, painted PNG byte preservation, full-library bind,
+  clear, no-map bind and return. CaptureAll and the QA gameplay build are running;
+  no full-game visual/performance acceptance yet. Production remains unassigned.
+- Two-pose native lab RAF measurements, no capture: hero ON/OFF p95 both33.1ms,
+  sword OFF31.6ms/ON31.7ms. Same existing lab build/viewport1280x720; raw samples
+  are diagnosis/*-dungeon-*-perf.json. This is static-pose browser cadence, not
+  final combat/GPU performance acceptance.
+- Retain the task worktree, private runner, original two-pose lab and evidence
+  roots listed above while full gameplay work continues. No main integration or
+  complete-feature acceptance is claimed by this checkpoint.
+
+### Full-map QA checkpoint, 2026-10-23
+
+- Build20261023T155618-webgl, input
+  `f15cd2ac15c99709af18110ac0276d6006fe1cdd60a9452d40f11998e4c6589a`,
+  passed repeated builder, PNG preservation, selected-library bind/clear/no-map/
+  return,6576 GPU captures and actual gameplay WebGL build. The previous154159
+  build failed after compilation while restoring unloaded world editor objects;
+  restore now reacquires assets by path. Downloaded player archive SHA256:
+  `b5cc7a12ae979c108a517ea8d2f3c00af4646d683808dbe020ff5e1f5050f21a`.
+- Inspected274 cels in both facings under top white light, native and nearest2x.
+  Found a dark stripe on tutorial Attack1 F5/F6's non-anatomical smear; excluded
+  that VFX from blocker coverage, rebuilt and re-inspected the full10-cel clip.
+  All other captures compare byte-identical. No source albedo/normal PNG changed.
+  Evidence: depth-authoring/frame-observations.csv (548 rows), review-wide,
+  tutorial-revised and review-tutorial. Updated hashes: draft-map-receipt.json.
+- Inspected all279 animation keys in33 clips, both facings, in actual clip order,
+  including held/repeated keys and514 adjacent/loop pairs across both facings.
+  Evidence: depth-authoring/clip-order and clip-observations.csv (558 rows).
+  These are static adjacent-pose observations, not timed playback acceptance.
+  Non-loop outgoing state joins are not inferred from isolated clip sheets.
+- Serialize20261023T162033, input
+  `9d52f4aca4abbbfd7532a2457fda867b67e5720ee964a66d2d96605f39c4f434`,
+  passed full-library/editor checks and13 SpriteDepthTests/SlayerTransitionTests,
+  including warmed binding zero-allocation and property-block preservation.
+  Copied only the two tested added-component overrides into SampleScene;
+  preserved existing serialized IDs and avoided unrelated builder churn.
+- Native gameplay QA runs gameplay-native-03 and -04 passed14 checks each:
+  real parry, typed follow-up, Slayer, Pause/Resume, restoration, managed errors,
+  restart, menu unload and return. Recorded received hits too. Earlier01/02
+  drivers failed to parry: they used an obsolete normalized animation contact
+  formula. Switching the driver to actual enemyContactIn fixes input scheduling;
+  no combat code was changed. User demo: http://127.0.0.1:8277 (F8 A/B).
+- Native04 video exports788 decoded frames with exact timestamp agreement.
+  Before visual review, selected0–3.2s (parry/slash),9.4–12s (Slayer entry and
+  Pause/Resume),20.5–22.9s (exit, slash and hurt). Inspected every decoded frame
+  in these intervals:220 frames,217 within-segment pairs,400x260 native crops.
+  Observations: pulse lights contact/face and decays; flash survives depth binding;
+  Slayer tint restores; hurt returns to lit idle. Selected crop/row evidence is
+  gameplay-native-04/video-review/selected. The zoom crop excludes parts of the
+  full silhouette. Native03 only frames0–44 were viewed before recapture.
+- Capture limitation remains: even after warm-up, native04 has gaps0.337–0.809s,
+  2.025–2.181s and21.807–21.963s. Recording was continuous with no screenshots;
+  decoded-frame coverage does not prove coverage of every game-rendered frame.
+  Do not claim full motion acceptance or infer images inside those gaps.
+- Same-build native Intel UHD Graphics/D3D11, Edge155.0.4283.62,1280x720,
+  no recording: gameplay-perf/browser.json contains480 OFF and481 ON combat
+  samples. p95 OFF31.8451ms, ON31.7593ms (ratio0.9973). No >10% regression;
+  ABBA/four-sample fallback were not triggered. This is player frame cadence,
+  not isolated GPU timing. Existing interactive demo remained open in both runs.
+- Timed1x/slow playback remains unverified. A review page at
+  http://127.0.0.1:8277/depth-review/index.html preserves original clip key times,
+  durations, non-loop endings and mirrored A/B images, plus the native video.
+  Production is still unassigned; do not merge main or report full acceptance.
+- origin/main advanced to b1a0df6 during QA with a changed parry follow-up and
+  recovery clip. Integrate it and recheck inventory/affected parry motion before
+  treating this candidate demo as current. Other static cel observations remain
+  reusable only where source/depth/render configuration is unchanged.
