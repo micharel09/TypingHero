@@ -248,7 +248,7 @@ public sealed class PlayerParryTests
         Advance(.951f); animator.Update(.03f); Tick(parry); Tick(controller); animator.Update(.03f);
         var hit = typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Private);
         Assert.That(Get<bool>(box, "active"), Is.False, "no damage during anticipation");
-        animator.Update(.151f);
+        animator.Update(.101f);
         hit.Invoke(box, new object[] { first }); hit.Invoke(box, new object[] { second });
         Assert.That(damage.hits, Is.EqualTo(1));
         int attackId = Get<int>(attacks, "currentAttackId");
@@ -274,7 +274,7 @@ public sealed class PlayerParryTests
         // 950ms recovery + existing hitstop + frame delivery can exceed the old 1s TTL.
         Set(binder, "_lastParryTimeUnscaled", Time.unscaledTime - 2f);
         Advance(.951f); animator.Update(.03f); Tick(parry); Tick(controller); animator.Update(.03f);
-        animator.Update(.151f);
+        animator.Update(.101f);
         Assert.That(UninterruptibleBypass.IsActiveFor(target.transform), Is.True);
         if (replaceBeforeClose) attacks.OnAttackStart();
         else attacks.OnAttackEnd();
@@ -292,7 +292,7 @@ public sealed class PlayerParryTests
         weapon.transform.SetParent(player.transform);
         attacks.hitbox = weapon.AddComponent<PlayerWeaponHitbox>();
         int closed = 0; attacks.OnWindowClose += () => closed++;
-        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.151f);
+        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.101f);
         Assert.That(Get<bool>(attacks.hitbox, "active"), Is.True);
         if (disable) controller.enabled = false;
         else { animator.Play("Base Layer.player_idle", 0, 0); animator.Update(0); }
@@ -320,7 +320,7 @@ public sealed class PlayerParryTests
         var weapon = new GameObject("replacement window", typeof(BoxCollider2D));
         weapon.transform.SetParent(player.transform);
         attacks.hitbox = weapon.AddComponent<PlayerWeaponHitbox>();
-        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.151f);
+        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.101f);
         var leaving = animator.GetCurrentAnimatorStateInfo(0);
         var exit = animator.GetBehaviours<ParryFollowUpExit>().Single();
         int previous = Get<int>(attacks, "currentAttackId");
@@ -349,13 +349,13 @@ public sealed class PlayerParryTests
     }
 
     [Test, Category("Quick")]
-    public void FollowUpClosesAt250MillisecondsAndExitDoesNotNotifyAgain()
+    public void FollowUpClosesAt200MillisecondsAndExitDoesNotNotifyAgain()
     {
         var weapon = new GameObject("timed follow-up", typeof(BoxCollider2D));
         weapon.transform.SetParent(player.transform);
         attacks.hitbox = weapon.AddComponent<PlayerWeaponHitbox>();
         int closed = 0; attacks.OnWindowClose += () => closed++;
-        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.151f);
+        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.101f);
         Assert.That(Get<bool>(attacks.hitbox, "active"), Is.True);
         animator.Update(.1f);
         Assert.That(Get<bool>(attacks.hitbox, "active"), Is.False);
@@ -365,26 +365,26 @@ public sealed class PlayerParryTests
     }
 
     [Test, Category("Quick")]
-    public void FollowUpAuthoringHasFullComboAndNormalAttackIsUnchanged()
+    public void FollowUpOmitsFirstCelAndNormalAttackIsUnchanged()
     {
         var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>("Assets/Characters/Player/parry_followup.anim");
         var keys = AnimationUtility.GetObjectReferenceCurve(clip, AnimationUtility.GetObjectReferenceCurveBindings(clip).Single());
-        Assert.That(keys.Length, Is.EqualTo(11), "ten cels plus a repeated terminal hold key");
-        for (int i = 0; i < 10; i++)
+        Assert.That(keys.Length, Is.EqualTo(10), "nine cels plus a repeated terminal hold key");
+        for (int i = 0; i < 9; i++)
         {
-            Assert.That(keys[i].time, Is.EqualTo(i < 6 ? i * .05f : .3f + (i - 6) / 15f).Within(.00001f));
-            Assert.That(keys[i].value.name, Is.EqualTo(i < 6 ? "male_hero-combo_2_" + i : "male_hero-combo_2_end_" + (i - 6)));
+            Assert.That(keys[i].time, Is.EqualTo(i < 5 ? i * .05f : .25f + (i - 5) / 15f).Within(.00001f));
+            Assert.That(keys[i].value.name, Is.EqualTo(i < 5 ? "male_hero-combo_2_" + (i + 1) : "male_hero-combo_2_end_" + (i - 5)));
         }
-        Assert.That(keys[10].value, Is.SameAs(keys[9].value));
-        Assert.That(keys[10].time, Is.EqualTo(33f / 60f).Within(.00001f));
-        Assert.That(clip.length, Is.EqualTo(34f / 60f).Within(.00001f));
-        Assert.That(clip.events.Select(e => e.time), Is.EqualTo(new[] { .15f, .2f, .25f }));
-        Assert.That(clip.events[0].objectReferenceParameter, Is.SameAs(keys[3].value));
-        Assert.That(clip.events[1].objectReferenceParameter, Is.SameAs(keys[4].value));
-        Assert.That(clip.events[2].objectReferenceParameter, Is.SameAs(keys[3].value));
+        Assert.That(keys[9].value, Is.SameAs(keys[8].value));
+        Assert.That(keys[9].time, Is.EqualTo(30f / 60f).Within(.00001f));
+        Assert.That(clip.length, Is.EqualTo(31f / 60f).Within(.00001f));
+        Assert.That(clip.events.Select(e => e.time), Is.EqualTo(new[] { .1f, .15f, .2f }));
+        Assert.That(clip.events[0].objectReferenceParameter, Is.SameAs(keys[2].value));
+        Assert.That(clip.events[1].objectReferenceParameter, Is.SameAs(keys[3].value));
+        Assert.That(clip.events[2].objectReferenceParameter, Is.SameAs(keys[2].value));
         var authored = AssetDatabase.LoadAssetAtPath<UnityEditor.Animations.AnimatorController>("Assets/Characters/Player/AC_Controller.controller");
         var state = authored.layers[0].stateMachine.states.Single(s => s.state.name == "parry_followup").state;
-        Assert.That(state.behaviours.OfType<ParryFollowUpExit>().Single().openingCel, Is.SameAs(keys[3].value));
+        Assert.That(state.behaviours.OfType<ParryFollowUpExit>().Single().openingCel, Is.SameAs(keys[2].value));
         Assert.That(controller.parryFollowUp.startTime, Is.Zero);
         Assert.That(controller.parryFollowUp.crossfade, Is.EqualTo(.02f));
         typing.ProcessInput("type"); animator.Update(.03f);

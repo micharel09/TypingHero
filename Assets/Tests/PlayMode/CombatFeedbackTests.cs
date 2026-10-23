@@ -88,7 +88,7 @@ public sealed class CombatFeedbackTests
         var clip = UnityEditor.AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
         var opening = System.Array.Find(UnityEditor.AnimationUtility.GetAnimationEvents(clip), e => e.functionName == "OnAttackStartCel");
         Assert.That(opening, Is.Not.Null);
-        if (path.Contains("parry")) Assert.That(opening.time, Is.EqualTo(.15f).Within(.000001));
+        if (path.Contains("parry")) Assert.That(opening.time, Is.EqualTo(.1f).Within(.000001));
         var cel = (Sprite)opening.objectReferenceParameter;
         var library = UnityEditor.AssetDatabase.LoadAssetAtPath<SlashLibrary>("Assets/Art/VFX/SlashVolume/SlashLibrary.asset");
         var player = Host("animated contact"); player.transform.localScale = new Vector3(scale, 1.2f, 1);
