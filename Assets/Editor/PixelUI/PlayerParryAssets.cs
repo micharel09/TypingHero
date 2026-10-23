@@ -23,6 +23,7 @@ internal static class PlayerParryAssets
             if (child.state.name == "player_parry" || child.state.name == "player_parry_success")
                 foreach (var transition in child.state.transitions)
                 {
+                    if (!transition.destinationState || transition.destinationState.name != "player_idle") continue;
                     transition.exitTime = 1f;
                     transition.duration = 0f;
                     EditorUtility.SetDirty(transition);
@@ -71,6 +72,17 @@ internal static class PlayerParryAssets
         exit.openingCel = frames[3];
         EditorUtility.SetDirty(exit);
         var idle = machine.states.Single(child => child.state.name == "player_idle").state;
+        const string queuedParameter = "ParryFollowUpQueued";
+        if (!controller.parameters.Any(p => p.name == queuedParameter))
+            controller.AddParameter(queuedParameter, AnimatorControllerParameterType.Bool);
+        var success = machine.states.Single(child => child.state.name == "player_parry_success").state;
+        var direct = success.transitions.SingleOrDefault(t => t.destinationState == state) ?? success.AddTransition(state);
+        direct.hasExitTime = true; direct.exitTime = 1; direct.duration = .02f; direct.hasFixedDuration = true;
+        if (!direct.conditions.Any(c => c.parameter == queuedParameter))
+            direct.AddCondition(AnimatorConditionMode.If, 0, queuedParameter);
+        var noFollowUp = success.transitions.Single(t => t.destinationState == idle);
+        if (!noFollowUp.conditions.Any(c => c.parameter == queuedParameter))
+            noFollowUp.AddCondition(AnimatorConditionMode.IfNot, 0, queuedParameter);
         var transition = state.transitions.SingleOrDefault(t => t.destinationState == idle) ?? state.AddTransition(idle);
         transition.hasExitTime = true; transition.exitTime = 1; transition.duration = 0;
         EditorUtility.SetDirty(controller);

@@ -76,3 +76,8 @@ by opening cel so a replacement normal/Slayer window survives. Disable is uncond
 Normal config/Slayer and the shared contact/damage/lighting/VFX/audio pipeline stay intact.
 Pose5-removal Unity37/37, native21/21 and strict repeated builder verified;
 [checkpoint and frame-preview limits](../plans/parry-main-demo.md).
+
+Direct handoff uses Animator bool `ParryFollowUpQueued`: success exits to follow-up
+when true, idle when false. Follow-up state entry consumes the pending request
+before its animation events; cancellation clears the bool. Strict repeat builder,
+Unity42/42 and native22/22 verify the same950ms recovery without idle insertion.

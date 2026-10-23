@@ -47,7 +47,9 @@ the new window. Disable closes unconditionally, once.
 
 Pose5-removal follow-up: pinned Unity37/37, strict repeat/WebGL and native1280x720
 21/21focused real-input checks PASS. Previous cancellation/consumer receipts remain
-attributed to their builds. An existing idle0 frame can precede queued release.
+attributed to their builds. Direct-handoff correction: success transitions directly
+to follow-up at950ms when queued, without an intermediate idle0 frame; no queue
+returns to idle. Focused Unity42/42 and native22/22 pass on the corrected build.
 [Frame evidence, scope and demo resources](../plans/parry-main-demo.md).
 
 ## Dark fantasy HUD — local candidate (2026-10-21)

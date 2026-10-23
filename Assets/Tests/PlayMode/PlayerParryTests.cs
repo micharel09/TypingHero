@@ -161,6 +161,27 @@ public sealed class PlayerParryTests
         Assert.That(Get<bool>(controller, "pendingAttack"), Is.False);
     }
 
+    [TestCase(false)]
+    [TestCase(true)]
+    [Category("Quick")]
+    public void QueuedFollowUpNeverPresentsIdleBetweenRecoveryAndAttack(bool mirror)
+    {
+        renderer.flipX = mirror;
+        Begin(true); typing.ProcessInput("type");
+        bool sawFollowUp = false;
+        for (int frame = 0; frame < 174; frame++)
+        {
+            Advance(1f / 120f);
+            Assert.That(renderer.sprite.name, Does.Not.StartWith("male_hero-idle_"), "idle blink at step " + frame);
+            if (renderer.sprite.name.StartsWith("male_hero-combo_2")) sawFollowUp = true;
+            if (frame < 112) Assert.That(sawFollowUp, Is.False, "recovery remains950ms");
+        }
+        Assert.That(sawFollowUp, Is.True);
+        Assert.That(Get<bool>(controller, "pendingAttack"), Is.False);
+        Assert.That(animator.GetBool("ParryFollowUpQueued"), Is.False);
+        Assert.That(renderer.flipX, Is.EqualTo(mirror));
+    }
+
     [TestCase("hit")]
     [TestCase("death")]
     [TestCase("slayer")]

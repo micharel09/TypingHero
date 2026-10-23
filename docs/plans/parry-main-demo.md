@@ -433,3 +433,59 @@ missed input/late completion or one nine-cel recording failed acceptance; accept
 Retain E:/CodexTemp/TypingHero/parry-trim-entry for demo and audit; after review stop
 the owned host, close its page and remove this task directory. The delivery session
 records integration and cleanup. No itch.io upload.
+
+
+## Remove the intermediate idle frame (2026-10-23)
+
+User requests removing one more entry frame after viewing the supplied normal/
+quarter-speed clips. Reference is the0cb0d01 recording: F65/PTS2.866s is idle0
+between success recovery and combo_2_0 (1.302s in parry-clip.mp4). This correction
+removes that intermediate state, not another cel from the attack.
+
+PlayerController records an Animator bool when one completed word queues the
+follow-up. Builder authors mutually exclusive success->idle (no queue) and
+success->parry_followup (queued) exits at normalized1/950ms. Direct exit retains
+20ms fixed crossfade and start0. OnStateEnter consumes the pending request and
+marks the released follow-up before its150ms opening event. Hit/death/Slayer,
+interruption, new parry and disable clear the request; pause retains it. No word
+still recovers into idle. All sprite clips/keys/pixels,150/200/250ms events,10damage,
+normal/Slayer configs and existing GUIDs remain unchanged. The existing follow-up
+exit behaviour also owns the entry callback; no extra component is introduced.
+
+Pinned Unity2022.3.25f1/fly-server20261023T160209-webgl, input
+de5bee8c4376827ead46f1f39cc54c6a4ebec84d0466bf6a0cc876c78978e09e:
+42/42focused PlayMode cases PASS. New normal/mirror regression steps the actual
+Animator at120Hz through recovery and follow-up and rejects any idle cel before
+the attack ends. Existing no-input exits,799/800/801ms, pause, cancellation,
+contact/bypass and three directly affected generic controller flows remain covered.
+No broad performance/camera suite repeated. Source-only cel review from0cb0d01
+is reusable because clip/source data is unchanged; final runtime join review is
+recorded below separately.
+
+### Direct handoff final evidence (2026-10-23)
+
+- Final pinned result `20261023T160209-webgl`: Unity42/42, strict repeated builder
+  and WebGL PASS. Snapshot `de5bee8c4376827ead46f1f39cc54c6a4ebec84d0466bf6a0cc876c78978e09e`.
+  Native Edge155/Intel UHD/ANGLE D3D11/1280x720 passes22/22, real keyboard only:
+  two completed words keep one queue, direct combo_2, ten cels, one10-damage hit,
+  existing impact/flash/spark/audio, no combo_1/user-image5/idle join/repeat.
+- Evidence root `E:/CodexTemp/TypingHero/parry-direct-followup/`; raw
+  `native/followup-runtime.webm`, `native/frames.json`, `native/browser.json`.
+  Initial pilot passed no-idle but audio assertion used delayed success telemetry;
+  external harness corrected audio comparison to first observed combo_2 frame.
+  Product source unchanged for the final22/22 rerun.
+- Selected runtime scope expanded from delayed attack-observation timestamp to
+  actual parry preparation before inspecting added frames:3.548090?6.329125s,
+  F34?74. All41encoded frames/40pairs inspected normal and pixel reflection,
+  including held VFR frames. F45->46 goes directly success->anticipation;
+  F49->50 reaches slash/contact; F57->58 returns idle after recovery. No idle
+  insert at the first join. Per-frame remarks/durations/pairs in
+  `runtime-review/per-frame-review.csv` and manifest; sheets retain original PTS.
+  Pixel mirror is preview only; actual flipX behavioral coverage is Unity.
+  Unchanged clips/sprites reuse prior complete source/VFX-off review.
+- User clips `player/parry-clip.mp4` and `player/parry-clip-slow.mp4` retain
+  all41selected source frames, original intervals at1x and intentional4x intervals
+  at0.25x. Original VFR video and telemetry remain authoritative; no FPS claim.
+- Retain demo port8287 from this evidence root via original-checkout Orca terminal
+  `term_c4960853-21a8-43b7-85df-4a0b88abf58b`; stop after user review. Old owned
+  host33644 was verified against its exact script and stopped. No itch upload.

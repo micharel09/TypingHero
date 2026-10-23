@@ -11,6 +11,20 @@ public class PlayerController : MonoBehaviour
 
     ParrySystem parry;
     bool followUpQueued, pendingFromSuccess, releasedFollowUp;
+    static readonly int FollowUpParameter = Animator.StringToHash("ParryFollowUpQueued");
+
+    internal void OnParryFollowUpEntered()
+    {
+        if (!pendingFromSuccess) return;
+        pendingAttack = pendingFromSuccess = false;
+        releasedFollowUp = true;
+        animator.SetBool(FollowUpParameter, false);
+    }
+
+    void ClearFollowUpRequest()
+    {
+        if (followUpQueued && animator) animator.SetBool(FollowUpParameter, false);
+    }
 
     internal bool ConsumeParryFollowUp()
     {
@@ -29,22 +43,24 @@ public class PlayerController : MonoBehaviour
     {
         TypingManager.OnWordCorrect -= DoAttack;
         if (parry) parry.OnParrySuccess -= OnParrySuccess;
+        ClearFollowUpRequest();
         pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false;
         if (attackEvents) attackEvents.CancelAttack();
     }
 
     void OnParrySuccess(ParrySystem.ParryContext _)
     {
+        ClearFollowUpRequest();
         pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false;
     }
 
     void Update()
     {
         if (CombatSession.Finished || (gate && (gate.IsDeadLocked || gate.IsHitLocked)) || TypingManager.MuteWordCorrect)
-        { pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false; return; }
+        { ClearFollowUpRequest(); pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false; return; }
         if (GamePauseController.InputBlocked) return;
         if (pendingFromSuccess && (!parry || (!parry.InSuccessPose && !parry.SuccessPoseCompleted)))
-            pendingAttack = pendingFromSuccess = false;
+        { ClearFollowUpRequest(); pendingAttack = pendingFromSuccess = false; }
         if (pendingAttack && (!gate || gate.CanAttack))
         {
             bool followUp = pendingFromSuccess;
@@ -64,7 +80,10 @@ public class PlayerController : MonoBehaviour
                 if (parry && parry.InSuccessPose)
                 {
                     if (parry.CanQueueFollowUp && !followUpQueued)
+                    {
                         pendingAttack = pendingFromSuccess = followUpQueued = true;
+                        animator.SetBool(FollowUpParameter, true);
+                    }
                 }
                 else pendingAttack = true;
             }

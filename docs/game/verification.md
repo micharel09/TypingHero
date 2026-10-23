@@ -2940,3 +2940,14 @@ Edge155/Intel UHD D3D11:21/21PASS,0exceptions/provider writes, all10combo_2 cels
 one10damage and explicit user-pose5 absence. Direct final38/38normal +38/38pixel
 mirror frames and37/37pairs each; source30key rows. Existing idle0 transition and
 pixel-mirror lighting limits are documented in the [parry checkpoint](../plans/parry-main-demo.md).
+
+## Remove intermediate idle before queued follow-up (2026-10-23)
+
+Pinned Unity42/42, strict repeated builder and WebGL build PASS; immutable result
+`20261023T160209-webgl`, snapshot `de5bee8c4376827ead46f1f39cc54c6a4ebec84d0466bf6a0cc876c78978e09e`.
+Native Edge155/Intel UHD ANGLE D3D11 at1280x720 passes22/22 real-input checks,
+including no idle between success and combo_2, ten cels, one10-damage hit and idle tail.
+Runtime video selected3.548090?6.329125s before added-frame review: sourceF34?74,
+41/41encoded frames and40/40pairs inspected normal and pixel-mirror preview.
+Pixel reflection does not verify mirrored runtime lighting. Source sprite/clip assets
+are unchanged; prior source/VFX-off review remains applicable. See checkpoint.
