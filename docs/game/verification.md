@@ -2904,3 +2904,26 @@ source SHA256, frame ranges and manual observations. Keep for review; removable
 after review. Immutable server result120206 and three scoped test receipts remain.
 No full suite, extra viewport, stress/soak, performance claim or itch.io upload.
 Implementation/acceptance complete; pending remote integration verification/cleanup.
+
+
+## Dedicated parry combo_2 follow-up (2026-10-23)
+
+Pinned Unity2022.3.25f1/fly-server final result20261023T144919-webgl, input
+8be3e31c25b53c32b7ec40ca8b47cbb138b5aeee48b42374489a12e689a1f050:
+strict repeated builder/WebGL PASS;89distinct focused PlayMode cases covered
+(PlayerParry33, CombatFeedback18, CombatCameraImpact38). Runtime-final source
+passed87/89 in144229; exact800ms fixture arithmetic and the existing timing-sensitive
+180ms camera case failed. Final9/9targeted rerun passes both; only the fixture's
+arithmetic grouping changed, with camera assertion/production code unchanged.
+This combines scoped runs, not a single89/89 suite; prior0c74 passed88/88.
+Final immutable33-file player hashes match local demo. Native Edge155.0.4283.62,
+Playwright1.58.2/Intel UHD ANGLE D3D11, one1280x720:47functional +13queued
+Restart/Menu checks PASS,0exceptions/provider writes, fixture blocking enabled.
+Full10cels, one10-damage hit, early/late/no-input/pause, actual contact/hit flash/
+camera/spark/audio verified. Source cels20/20,22/22key positions,18/18pose pairs +2/2hold pairs plus4joins;
+reviewed0c74 runtime segment71/71frames and70/70pairs (six final authored asset
+hashes unchanged); final-player native receipts are native-final/ and native-final-lifecycle/.
+Mirrored VFX71/70 is a pixel
+preview, not an actual runtime flipX lighting capture. Full per-frame evidence,
+initial truncated-length/ownership regressions, scope and resources are in
+[parry checkpoint](../plans/parry-main-demo.md). No full performance/balance or release claim.

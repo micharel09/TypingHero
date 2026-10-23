@@ -19,11 +19,28 @@ public class PlayerAttackEvents : MonoBehaviour
     private bool open;
     private float openedAt;
     private Coroutine closeCo;
+    private bool closeNotified;
+    private Sprite currentOpeningCel;
+
+    void OnDisable() => CancelAttack();
+
+    internal void CancelAttack(Sprite expectedOpeningCel = null)
+    {
+        if (expectedOpeningCel && currentOpeningCel != expectedOpeningCel) return;
+        if (closeCo != null) { StopCoroutine(closeCo); closeCo = null; }
+        bool notify = open && !closeNotified;
+        open = false;
+        closeNotified = true;
+        currentOpeningCel = null;
+        if (hitbox) hitbox.EndAttack();
+        if (notify) OnWindowClose?.Invoke();
+    }
 
     public void OnAttackStart() => StartAttack(null, false);
 
     public void OnAttackStartCel(Sprite cel) => StartAttack(cel, true);
     public void OnAttackContact(Sprite cel) { if (hitbox) hitbox.SetContactCel(cel); }
+    public void OnParryFollowUpEnd(Sprite openingCel) => CancelAttack(openingCel);
 
     void StartAttack(Sprite cel, bool confirmImmediately)
     {
@@ -31,7 +48,10 @@ public class PlayerAttackEvents : MonoBehaviour
 
         if (closeCo != null) { StopCoroutine(closeCo); closeCo = null; }
 
+        if (open && !closeNotified) { closeNotified = true; OnWindowClose?.Invoke(); }
         open = true;
+        closeNotified = false;
+        currentOpeningCel = cel;
         openedAt = Time.time;
 
         currentAttackId = ++globalAttackCounter;
@@ -52,7 +72,7 @@ public class PlayerAttackEvents : MonoBehaviour
         float remain = Mathf.Max(0f, minOpenSeconds - (Time.time - openedAt));
         if (closeCo != null) StopCoroutine(closeCo);
         closeCo = StartCoroutine(CloseAfter(remain));
-        OnWindowClose?.Invoke();
+        if (!closeNotified) { closeNotified = true; OnWindowClose?.Invoke(); }
     }
 
     private IEnumerator CloseAfter(float t)

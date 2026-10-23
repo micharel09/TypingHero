@@ -67,8 +67,11 @@ One scaled environment clock freezes on pause and retains particle state through
 Slayer hiding. Scoped Unity4 and final native15 checks pass; full visual playback
 acceptance and latest-main integration remain pending in docs/plans/dungeon-3d.md.
 
-Local latest-main original-parry integration: PlayerController/ParrySystem keep
-one completed-word follow-up in[0,800)ms; PlayerParryAssets owns400/950ms clips
-and original frame2 contact rows, SlashVolumeAssets validates actual attacks.
-Main damage notifications/contact/physical tails stay intact. Scoped Unity31 and
-native17 verified; [checkpoint](../plans/parry-main-demo.md).
+Dedicated original-parry integration: PlayerController/ParrySystem retain one
+completed-word follow-up in[0,800)ms; PlayerParryAssets owns400/950ms parry clips
+and the separate Attack-tag `parry_followup`/AC_ParryFollowUp, full566.667ms combo_2.
+PlayerAttackEvents opens150/contact200/closes250ms and guards end/exit cancellation
+by opening cel so a replacement normal/Slayer window survives. Disable is unconditional.
+Normal config/Slayer and the shared contact/damage/lighting/VFX/audio pipeline stay intact.
+Unity89 distinct cases covered across scoped runs, native47+13 and strict repeated builder verified;
+[checkpoint and frame-preview limits](../plans/parry-main-demo.md).

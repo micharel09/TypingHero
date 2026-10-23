@@ -206,6 +206,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         bool attack = info.IsTag("Attack");
         bool parry = info.IsTag("Parry");
         string name = "other";
+        if (info.fullPathHash == Animator.StringToHash("Base Layer.parry_followup")) name = "Base Layer.parry_followup";
         for (int i = 0; i < SortingStates.Length; i++)
             if (info.fullPathHash == Animator.StringToHash(SortingStates[i]))
             {

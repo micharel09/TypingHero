@@ -201,3 +201,167 @@ Private temporary runner uses same global lock and unchanged disk/toolchain gate
 After remote ancestry verification, remove integrated child branch/worktree and
 owned private runner/results/helpers; retain8136 host/player for user review.
 Parent kaluga WIP is preserved.
+
+
+## Dedicated combo_2 follow-up - 2026-10-23 (verified implementation)
+
+Scope: successful-parry follow-up only; normal combo_1 and Slayer unchanged.
+Hold800ms/recovery950ms/window[0,800)ms; one completed word queues one attack.
+New Attack-tag state starts0/crossfades20ms, duration566.667ms;
+open150/contact200/immediate close250ms, exit/disable cancellation.
+
+Reference is the existing combo_2 and combo_2_end strips at origin/main e5bbc76,
+not an external game's motion. Checklist:10cels/9internal pairs, parry-to-combo
+and combo-to-idle joins; normal/mirror, source-only and runtime VFX, real early/late
+typing, no input, pause, lifecycle, damage/bypass and strict repeated builder.
+
+- `Assets/Art/male_hero/individual_sheets/male_hero-combo_2.png` SHA256 `e3b79c0d29ffcee9d7ce8e1a3e36ed123945b1a0c951881af91c82c8a9de9599`.
+- `Assets/Art/male_hero/individual_sheets/male_hero-combo_2_end.png` SHA256 `cf94240b9338d6e0cbbc9bc14a4e65607bf021e4f85198da3061a77f5f980bac`.
+
+Direct source review:20/20unique cels,22/22key positions including both terminal
+hold repeats,18/18pose pairs +2/2held-repeat pairs,4/4joins at1x and nearest zoom.
+Canvas128x128/cel; original PNGs, pivots, palette and import metadata retained.
+Evidence: `E:/CodexTemp/TypingHero/parry-combo2/review-{0,1}-{0,1,2}.png`,
+full source strips and full mirrored strips in the same directory. The white-purple
+slash is baked into the source sprite; this is not runtime lighting/VFX acceptance.
+
+| Clip / variant | Frame | Duration ms | Reference / phase | Frame observation | Next transition | Status | Evidence |
+|---|---|---|---|---|---|---|---|
+| combo_2 / normal | F0: combo_2_0 | 50 | original same-name cel / anticipation | Low stance; visible forward blade, connected grip and grounded feet. | Blade retracts while feet remain anchored. | Source pass | review-0-0.png |
+| combo_2 / normal | F1: combo_2_1 | 50 | original same-name cel / anticipation | Torso turns inward; hidden blade belongs to anticipation, not missing contact. | Grip rises in front of chest; head and feet remain continuous. | Source pass | review-0-0.png |
+| combo_2 / normal | F2: combo_2_2 | 50 | original same-name cel / anticipation | Grip near shoulder; no forward slash arc yet. | Fast torso reversal becomes the first authored horizontal smear. | Source pass | review-0-0.png |
+| combo_2 / normal | F3: combo_2_3 | 50 | original same-name cel / slash | Broad white-purple forward arc; rearward arm and stable planted foot. | Arc thins; body and grip remain connected. | Source pass | review-0-1.png |
+| combo_2 / normal | F4: combo_2_4 | 50 | original same-name cel / slash | Separated arc segments follow original smear; contact stays forward. | Arc dissipates as blade rises behind shoulder. | Source pass | review-0-1.png |
+| combo_2 / normal | F5: combo_2_5 | 50 | original same-name cel / slash | Arc almost gone; diagonal blade overhead; stance returns upright. | Arm lowers into recovery without anchor jump. | Source pass | review-0-1.png |
+| combo_2 / normal | F6: combo_2_end_0 | 66.6667 | original same-name cel / recovery | Arm lowers horizontally; blade remnants visible; scarf lifted by momentum. | Blade remnants shorten, hand and scarf lower. | Source pass | review-0-1.png |
+| combo_2 / normal | F7: combo_2_end_1 | 66.6667 | original same-name cel / recovery | Hand below shoulder, short blade remnant, stable torso. | Wrist lowers toward hip; bright remnant diminishes. | Source pass | review-0-2.png |
+| combo_2 / normal | F8: combo_2_end_2 | 66.6667 | original same-name cel / recovery | Small trailing blade remnant; pelvis and feet stay fixed. | Hand finishes lowering; scarf approaches idle direction. | Source pass | review-0-2.png |
+| combo_2 / normal | F9: combo_2_end_3 | 50 | original same-name cel / recovery | Relaxed final stance; original canvas has no clipping. | To repeated end_3 key at550ms: same grip, feet and scarf; no new pose. | Source pass | review-0-2.png |
+| combo_2 / normal | F9b: held end_3 at550ms | 16.6667 | original end_3 / terminal hold | Same end_3 pixels retained through566.667ms; anchor and grip unchanged (also visible in runtime frames190->191). | To idle_0: hand/scarf nearly align, slight head-angle change; nonlooping. | Held-position pass | review-0-2.png |
+| combo_2 / mirror | F0: combo_2_0 | 50 | original same-name cel / anticipation | Low stance; visible forward blade, connected grip and grounded feet. Left-facing grip and arc on correct side. | Blade retracts while feet remain anchored. | Source pass | review-1-0.png |
+| combo_2 / mirror | F1: combo_2_1 | 50 | original same-name cel / anticipation | Torso turns inward; hidden blade belongs to anticipation, not missing contact. Left-facing grip and arc on correct side. | Grip rises in front of chest; head and feet remain continuous. | Source pass | review-1-0.png |
+| combo_2 / mirror | F2: combo_2_2 | 50 | original same-name cel / anticipation | Grip near shoulder; no forward slash arc yet. Left-facing grip and arc on correct side. | Fast torso reversal becomes the first authored horizontal smear. | Source pass | review-1-0.png |
+| combo_2 / mirror | F3: combo_2_3 | 50 | original same-name cel / slash | Broad white-purple forward arc; rearward arm and stable planted foot. Left-facing grip and arc on correct side. | Arc thins; body and grip remain connected. | Source pass | review-1-1.png |
+| combo_2 / mirror | F4: combo_2_4 | 50 | original same-name cel / slash | Separated arc segments follow original smear; contact stays forward. Left-facing grip and arc on correct side. | Arc dissipates as blade rises behind shoulder. | Source pass | review-1-1.png |
+| combo_2 / mirror | F5: combo_2_5 | 50 | original same-name cel / slash | Arc almost gone; diagonal blade overhead; stance returns upright. Left-facing grip and arc on correct side. | Arm lowers into recovery without anchor jump. | Source pass | review-1-1.png |
+| combo_2 / mirror | F6: combo_2_end_0 | 66.6667 | original same-name cel / recovery | Arm lowers horizontally; blade remnants visible; scarf lifted by momentum. Left-facing grip and arc on correct side. | Blade remnants shorten, hand and scarf lower. | Source pass | review-1-1.png |
+| combo_2 / mirror | F7: combo_2_end_1 | 66.6667 | original same-name cel / recovery | Hand below shoulder, short blade remnant, stable torso. Left-facing grip and arc on correct side. | Wrist lowers toward hip; bright remnant diminishes. | Source pass | review-1-2.png |
+| combo_2 / mirror | F8: combo_2_end_2 | 66.6667 | original same-name cel / recovery | Small trailing blade remnant; pelvis and feet stay fixed. Left-facing grip and arc on correct side. | Hand finishes lowering; scarf approaches idle direction. | Source pass | review-1-2.png |
+| combo_2 / mirror | F9: combo_2_end_3 | 50 | original same-name cel / recovery | Relaxed final stance; original canvas has no clipping. Left-facing grip and arc on correct side. | To repeated end_3 key at550ms: same grip, feet and scarf; no new pose. | Source pass | review-1-2.png |
+| combo_2 / mirror | F9b: held end_3 at550ms | 16.6667 | original end_3 / terminal hold | Same end_3 pixels retained through566.667ms; anchor and grip unchanged (also visible in runtime frames190->191). | To idle_0: hand/scarf nearly align, slight head-angle change; nonlooping. | Held-position pass | review-1-2.png |
+
+Parry exit combo_3_end_5 to combo_2_0 inspected in both directions: upright torso
+lowers into anticipation, trailing blade remnant becomes forward blade at hip,
+feet retain ground line. Final runtime timing/lighting/VFX and playback evidence follows below.
+
+First builder attempts stopped before tests: three typing labels have stale
+serialized m_fontColor32 caches inconsistent with their existing float m_fontColor.
+Only these caches were synchronized to existing float colors; no font, float color,
+input or geometry changes, and the preservation guard remains unchanged.
+The final receipts below supersede these initial failures.
+
+
+### Final implementation and receipts
+
+- Follow-up uses `AC_ParryFollowUp` / `Base Layer.parry_followup`, tagged Attack,
+  speed1, start0 and a fixed20ms CrossFadeInFixedTime. Normal keeps its original
+  normalized CrossFade/start offset; Slayer clips and their states are unchanged.
+- Ten unique cels at0/50/100/150/200/250/300/366.667/433.333/500ms.
+  Unity derives clip length from its last key plus one sample: a repeated final
+  cel at550ms holds the same end_3 pose through566.667ms. This is11curve keys,
+  not an eleventh pose. Initial516.667ms truncation was caught and corrected.
+- OnAttackStartCel(combo_2_3)150ms, contact combo_2_4 at200ms, immediate close250ms.
+  Start marks follow-up before Animator request. Queue/input/recovery windows stay
+  unchanged; hit/death/Slayer/interruption/disable clear queue, pause retains it.
+- CancelAttack stops delayed close, disables hitbox and notifies closure once.
+  Follow-up end/exit supplies its opening cel as owner: late callbacks cannot stop
+  a newer normal/Slayer window or its coroutine. Controller/component disable is
+  unconditional. Source-backed repro ca861185, result20261023T140708-quick failed
+  both replacement-window cases before the guard; final tests cover both callbacks.
+  An earlier fixture incorrectly expected Slayer clips to emit opening events;
+  actual PlayerSlayerMode.OnCorrectChar opens the window through code. That fixture
+  failure is not counted as product evidence.
+- Final Unity2022.3.25f1/fly-server result20261023T144919-webgl,
+  input `8be3e31c25b53c32b7ec40ca8b47cbb138b5aeee48b42374489a12e689a1f050`:
+  strict repeat builder and WebGL build PASS. **89 distinct PlayMode cases covered**
+  (PlayerParry33, CombatFeedback18, CombatCameraImpact38). Final runtime source
+  first passed87/89 in result20261023T144229-webgl; exact800ms fixture arithmetic
+  had a floating-point future-deadline residue and the existing180ms camera
+  receiving-frame case hit its timing-sensitive boundary. Parenthesizing the
+  fixture offset fixes exact800ms without changing gameplay; camera assertion/
+  production code were unchanged. Final targeted rerun passed9/9 including both
+  failures. This is combined coverage, not a single89/89 run. Prior0c74 source
+  passed88/88 before adding replacement-before-close bypass coverage.
+  Starting a replacement attack now closes the old logical window before the new
+  open event, clearing follow-up bypass without cancelling the incoming hitbox.
+  Includes799/800/801ms, early/late words, no input, two words/one release,
+  pause/interruption, no anticipation damage, one hit across multiple colliders,
+  actual mirrored/nonuniform-scale contact, hit-flash, bypass consumption/closure,
+  exact250ms closure, exit/disable and replacement normal/Slayer window preservation.
+- All19old controller subasset IDs retained unchanged except the Base Layer child
+  list gains the new state; three subassets added (state/transition/exit behaviour).
+  Existing GUIDs, all source PNGs/normal maps/pivots/palette and normal attack config
+  retained. Pivots0.49/0.51,16PPU,128x128canvas throughout the new sequence.
+  Six authored asset files equal immutable build exports after whitespace-only
+  normalization. Prefab serialization adds two previously implicit null cameraImpact
+  fields; values remain null. Three typing Color32 caches now match existing float
+  colors; every other protected typing field/font remains protected by the guard.
+- Final local player33files all match immutable server SHA256s. Edge155.0.4283.62,
+  Playwright1.58.2, Intel UHD/ANGLE D3D11, one1280x720 viewport: **47/47** real-input
+  checks PASS in35.3055221s (`native-final/browser.json`). Early and late word completion plus queued Pause/Resume
+  each show all10combo_2 cels, enemy180->170 once, Attack sorting, hit-flash,
+  hit spark, normal camera peak and WebAudio buffer starts; no combo_1 in the branch.
+  No input produces no follow-up. Zero managed/JS exceptions, fixture/production
+  scoreboard reads/writes0; interception and external blocking remain enabled.
+- Same final player, separate direct lifecycle run: **13/13** checks PASS in
+  19.8399111s (`native-final-lifecycle/browser.json`). Real parry/typed queue -> Pause -> Restart leaves no pending attack
+  or enemy damage after waiting beyond recovery; real queued Pause -> Menu clears
+  queue and leaves0active gameplay actors/hitboxes. This is scoped acceptance,
+  not a full difficulty, performance, stress/soak or release result.
+- Final-player first headed pilot passed14checks then missed a real Space
+  acknowledgement before the late scenario; it is retained as incomplete, not PASS.
+  Its copied prior snapshot label is explicitly corrected by provenance-note.json;
+  accepted rerun uses the final marker and verifies the same player bytes.
+- Headless pilot passed no-input then missed a later real Space acknowledgement;
+  no overall PASS. Headed final driver focuses the canvas and acknowledges the raw
+  per-render window; product timing/thresholds were not changed to pass the driver.
+
+### Final frame evidence
+
+Source references and22per-key rows for20unique cels above remain valid: no PNG/import changes.
+Final clip/config canonical hashes: `E:/CodexTemp/TypingHero/parry-combo2/final-asset-hashes.json`.
+Reviewed recording: `E:/CodexTemp/TypingHero/parry-combo2/native/followup-runtime.webm`
+from immutable result20261023T140929-webgl/input0c74b4ae. Reused for final source:
+all six authored asset canonical hashes are identical; the later logical-window
+transfer fix is not taken in this complete parry-to-idle capture. Final native
+functional/lifecycle receipts are separate; this video is not relabeled as a new build.
+Selected BEFORE visual inspection: requested PTS5.155810..7.578580s, complete parry
+preparation/success hold, two typed words, full follow-up and idle tail. Actual
+source frames136..206 (PTS5.161..7.550), **71/71frames and70/70consecutive pairs**
+directly inspected, including every held frame. No sampling or FPS conversion.
+Manifest preserves original PTS/durations and video SHA256; raw PNGs remain linked.
+
+At native320x180 and nearest gameplay zoom: held upright parry/grip stays grounded;
+parry recovery lowers blade through3/4/5, then enters combo_2_0 directly at frame172.
+Frames172..176 show all anticipation before damage;177starts the broad forward
+arc, spark and single HP drop. Hitstop repeats177..180, then thinner arc181,
+raised blade182..183 and four recovery cels184..191. Frame192returns to idle;
+through206no repeat, residue or foot jump is visible. Final hold key produces no
+new pose. Runtime lighting/normal maps, camera contact and enemy flash remain readable.
+
+All71frames/70pairs were also inspected as a labeled pixel-reflected VFX preview.
+This is **not a second runtime flipX capture** and does not establish mirrored
+runtime lighting; actual flipped contact/math are separately covered by Unity.
+Source-only normal/mirror sheets provide the VFX-free silhouette/grip comparison
+(the baked arc belongs to the original sprite and remains).1x/.25x normal and
+pixel-mirror playback supplement, never replace, the complete frame inspection.
+
+Evidence directory `E:/CodexTemp/TypingHero/parry-combo2/runtime-review/`:
+`manifest.json`, `frames/`,18normal sheets,18mirror-preview sheets and
+`frame-observations.csv` with **one explicit row for each of142reviewed frames**
+(variant, source frame, PTS, original duration, reference phase, observation,
+next transition, status and image). The preview limits above apply to every mirror row.
+
+Retain local player/host/fixture and evidence for user review. Delivery session
+records the integrated commit and owned terminal/page IDs; source task worktree
+is removable only after remote ancestry verification. No itch.io upload.

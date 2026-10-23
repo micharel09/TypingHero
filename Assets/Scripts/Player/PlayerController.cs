@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public PlayerAttackEvents attackEvents;
     public AttackConfig attack;
+    public AttackConfig parryFollowUp;
 
     public PlayerInputGate gate;  
 
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
         TypingManager.OnWordCorrect -= DoAttack;
         if (parry) parry.OnParrySuccess -= OnParrySuccess;
         pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false;
+        if (attackEvents) attackEvents.CancelAttack();
     }
 
     void OnParrySuccess(ParrySystem.ParryContext _)
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (CombatSession.Finished || (gate && (gate.IsDeadLocked || gate.IsHitLocked)) || TypingManager.MuteWordCorrect)
-        { pendingAttack = pendingFromSuccess = releasedFollowUp = false; return; }
+        { pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false; return; }
         if (GamePauseController.InputBlocked) return;
         if (pendingFromSuccess && (!parry || (!parry.InSuccessPose && !parry.SuccessPoseCompleted)))
             pendingAttack = pendingFromSuccess = false;
@@ -47,8 +49,7 @@ public class PlayerController : MonoBehaviour
         {
             bool followUp = pendingFromSuccess;
             pendingAttack = pendingFromSuccess = false;
-            DoAttack();
-            releasedFollowUp = followUp;
+            PlayAttack(followUp);
         }
     }
 
@@ -70,7 +71,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        releasedFollowUp = false;
-        animator.CrossFade(attack.statePath, attack.crossfade, 0, attack.startTime);
+        PlayAttack(false);
+    }
+
+    void PlayAttack(bool followUp)
+    {
+        var config = followUp ? parryFollowUp : attack;
+        if (!animator || !config) return;
+        releasedFollowUp = followUp;
+        if (followUp) animator.CrossFadeInFixedTime(config.statePath, config.crossfade, 0, config.startTime);
+        else animator.CrossFade(config.statePath, config.crossfade, 0, config.startTime);
     }
 }
