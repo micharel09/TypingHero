@@ -117,8 +117,10 @@ public static class LightingAuthoringChecks
             UnityEngine.SceneManagement.SceneManager.SetActiveScene(game);
             var otherHost = new GameObject("Unrelated gate"); otherHost.SetActive(false);
             var otherGate = otherHost.AddComponent<DungeonSessionBindings>(); otherGate.worldDefinition = b;
-            var otherRoot = new GameObject("Explicit root outside gate hierarchy"); otherRoot.SetActive(false);
-            var otherRig = otherRoot.AddComponent<ClashLightingRig>(); otherRig.profile = a.combat;
+            var otherRoot = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Data/Lighting/CombatLightingRig.prefab"), game);
+            otherRoot.name = "Explicit prefab root outside gate hierarchy"; otherRoot.SetActive(false);
+            var otherRig = otherRoot.GetComponent<ClashLightingRig>(); otherRig.profile = a.combat;
+            PrefabUtility.RecordPrefabInstancePropertyModifications(otherRig);
             otherGate.roots = new[] { otherRoot, otherRoot }; // Duplicate roots must not duplicate application/Undo.
             var orphan = new GameObject("Unbound rig"); orphan.SetActive(false);
             var orphanRig = orphan.AddComponent<ClashLightingRig>(); orphanRig.profile = originalProfiles[0];
@@ -157,6 +159,8 @@ public static class LightingAuthoringChecks
             EditorSceneManager.OpenScene(gamePath);
             var reopened = UnityEngine.Object.FindObjectsOfType<DungeonSessionBindings>(true).Single(x => x.worldDefinition == b && x.roots.Any(y => y && y.GetComponentsInChildren<PlayerHealth>(true).Length > 0));
             Check(reopened.roots.SelectMany(x => x.GetComponentsInChildren<ClashLightingRig>(true)).All(x => x.profile == b.combat), "Save/reopen lost gameplay rig profile or prefab overrides");
+            var reopenedPrefab = UnityEngine.Object.FindObjectsOfType<DungeonSessionBindings>(true).Single(x => x.roots.Length == 2 && x.roots[0] == x.roots[1]).roots[0].GetComponent<ClashLightingRig>();
+            Check(PrefabUtility.IsPartOfPrefabInstance(reopenedPrefab) && reopenedPrefab.profile == b.combat, "Save/reopen lost actual prefab profile override");
             EditorSceneManager.OpenScene(a.scenePath);
             Check(Lightmapping.GetLightingSettingsForScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene()) == bake, "Save/reopen lost A bake settings");
             EditorSceneManager.OpenScene(b.scenePath);

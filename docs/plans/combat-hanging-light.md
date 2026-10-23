@@ -490,3 +490,20 @@ one additional QA WebGL and integration into main; no game publication.
   condition while retaining the original 3GiB threshold on the actual filesystem.
 - Newer main `94911a8` changes impact pulse lifetime/legacy-light cleanup. Merge
   and scoped Editor/repeat verification are required before remote integration.
+
+- Integrated main94911a8 as42ef2a5 without conflicts in source; both authoring-guide
+  additions are retained. Post-merge run20261023T063803 (eb875c2e input) passes
+  the two Editor entrypoints and strict repeated builder.
+- Final fixture explicitly uses the real CombatLightingRig prefab for the detached
+  gate root and asserts prefab identity plus the selected profile after reopening.
+  This closes the earlier fixture's plain-object-only persistence coverage.
+- Final input `00654f10733f1ef8d8d740f3638135e98cb7de7f222b332153663ee7b219876c`,
+  run `20261023T064045-serialize`: split/multiple-world Preview/Undo/Redo/null bake/
+  unchanged assets/save-reopen including actual prefab override PASS; existing
+  multi-scene fog/active-scene/Undo PASS; strict repeated builder with both worlds
+  enabled PASS (TYPINGHERO_QA=1). No exceptions or regression markers in final log.
+  Final evidence is under `final`; earlier passes/pilot remain attributed to their
+  own snapshots. Documentation-only receipt updates do not change tested inputs.
+- Remote verification and resource cleanup are recorded in the evidence root's
+  `acceptance.json`. Retain logs, snapshot/patch/audit receipts and the remote task
+  branch for review/reproduction; they may be deleted when review is complete.
