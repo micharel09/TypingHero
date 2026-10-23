@@ -255,3 +255,77 @@ authored duration: this is not a render-acknowledged peak-hold system. No new pr
 field or migration is required; MetalClash retains5intensity/70ms hold/280ms duration.
 
 Camera impact authoring, render acknowledgment and profile reload rules: [camera guide](camera-impact-profiles.md).
+
+
+### Sprite depth self-shadow
+
+`WorldDefinition.spriteDepth` selects a `SpriteDepthLibrary`. DungeonWorld uses
+`ActorDepth.asset` in normal builds. The user accepted demo `8293` as the visual
+baseline, with the rear rune/light and both blue haze overlays disabled. Acceptance
+for this integration is the approved demo plus scoped integration checks; it does
+not claim a new complete animation review. The builder collects current gameplay
+references and rejects missing/stale metadata or maps, without a fixed cel count.
+This approximates occlusion on a planar sprite; it does not add character geometry
+or replace the existing silhouette shadow caster. Leave `spriteDepth` unassigned
+for a world that should use the previous rendering path.
+
+Author an RGBA atlas matching the original dimensions/slicing: R is depth towards
+local -Z (0 back,1 front), A is valid opaque coverage. Use linear Default texture,
+Point, no mipmaps, no compression. Paint anatomical/weapon overlap per pose; do
+not convert albedo brightness into depth. Keep source albedo, pivot, PPU and GUIDs.
+Bind it as `_DepthMap`, or put the authored map at
+`Assets/Art/Lighting/Depths/<source-texture-guid>.png`. Select the depth library and
+use **CLACKBLADE / Lighting / Rebuild Selected Depth Library Metadata** to bind
+existing maps and serialize frame UV rect/texture dimensions/PPU. This command
+never generates or overwrites painted PNGs. Routine builds validate selected
+world libraries and do not regenerate maps; incomplete unselected libraries do
+not opt into validation. Packed/rotated runtime atlases are not supported by this
+original-UV metadata path.
+
+The actor material saves `_SelfShadowStrength` = 0.65, `_DepthScale` = 0.15
+local units and `_SelfShadowBias` = 0.01 local units. Authors may tune each
+material independently. `SELF_SHADOW_SAMPLES_PER_LIGHT` = 8 and
+`SELF_SHADOW_MAX_DISTANCE_TEXELS` = 12 are fixed technical limits in
+`SpriteDepthVisibility.hlsl`. The shader probes 1,2,3,4,6,8,10,12 source texels
+towards each light, staying inside the current frame. Only direct diffuse/specular from that light is attenuated;
+ambient/emission and other light contributions remain independent. A sprite
+without a bound frame uses the previous URP PBR path. World bind prepares one
+lookup, and clear removes the prior lookup; `SpriteDepthBinding` merges its
+properties with combat tint/flash via `GetPropertyBlock`.
+The active `DungeonSessionBuild` attaches the component before serializing the
+gameplay roots; the retired world-lighting builder is not the attachment path.
+Mapped actors also receive `_DepthFacing` from SpriteRenderer flip flags so the
+ray and sampled normal follow the source UV orientation. Transform scale is
+handled by the object/world matrices; do not apply its sign a second time.
+
+For the isolated two-pose lab, run Editor entry point
+`SpriteDepthDemoBuild.WebGL` with `TYPINGHERO_QA=1` and
+`TYPINGHERO_BUILD_PATH` pointing to a task-owned output directory. It copies the
+world into a temporary scene, builds with `TYPINGHERO_DEPTH_DEMO`, then removes
+that scene. Normal players exclude the lab component. Use the native1280x720
+WebGL view for visual judgment; `SpriteDepthRenderChecks.Investigate` provides
+analytical/per-light checks and offscreen diagnostics, not gameplay presentation
+or performance acceptance.
+
+The explicit offline authoring command is
+`python tools/lighting/author_actor_depth.py --recipe tools/lighting/actor_depth_poses.json --write`.
+It rasterizes per-cel anatomical masks after checking each source PNG hash; only
+source alpha supplies coverage. Without `--write` it reports targets. Builders do
+not call it. Edit masks or paint the depth PNGs directly and re-review affected
+frames/transitions; rerunning `--write` deliberately replaces the listed maps.
+
+`GameLoopBuild.DepthPreview` builds the real enabled gameplay scenes using the
+saved production world/material configuration and requires the isolated QA runner.
+It never selects a library by path or rewrites the world. Its QA-only F8 key toggles
+self-shadow for same-player A/B, restoring each material's captured strength when
+turned on. Disabling/destroying the preview control restores all captured values;
+scene loads while OFF retain the original values. Normal player builds exclude
+that control and the F8 handler. `SpriteDepthRenderChecks.CaptureAll`
+exports flat/OFF/ON, four white-light directions and both facings for every
+referenced cel; export alone is not visual acceptance.
+
+Existing static A/B, adjacent-pose observations and same-build performance remain
+scoped to their recorded source. The user's demo acceptance supersedes the earlier
+pending full-playback gate; no complete timed-animation review is claimed. See
+[the lighting checkpoint](../plans/combat-hanging-light.md) for evidence and current
+integration status.

@@ -17,3 +17,4 @@ MonoBehaviour:
   lighting: {fileID: 11400000, guid: 8dad05f8f56b4f23492f502d6ca0d526, type: 2}
   combat: {fileID: 11400000, guid: 1bc41744fb1afc15a84a0ef674de7f2a, type: 2}
   cameraImpact: {fileID: 11400000, guid: 4bca0a930c3f4bd0abaf68135084484e, type: 2}
+  spriteDepth: {fileID: 11400000, guid: c3ba67471d974c158a6e5590b4203e64, type: 2}

@@ -1,3 +1,25 @@
+## Production sprite self-shadow integration (2026-10-24)
+
+- User accepted demo8293 with rune/light and both blue haze layers disabled;
+  scope is saved production configuration and integration, without full animation
+  review. DungeonWorld selects ActorDepth; material saves0.65/0.15/0.01.
+- Unity2022.3.25f1:49/49focused depth/F8/parry/Slayer tests PASS,0failed/skipped.
+  Final-main QA182529/inputd0403f7:280sprites/289keys/34clips/32atlases validated;
+  repeated builder, map/config/reference preservation and world/no-depth/return PASS.
+- Native Edge/GTX1650Ti/D3D11,1280x720:18/18real-input integration checks PASS in
+  38.25s,0exceptions/provider writes, no video. Parry->queued slash, hurt,
+  Pause/Resume, Slayer/restore, F8 and menu/world return covered.204exported lighting
+  files match source; all four rejected rune/haze objects remain inactive.
+- QA and production183215 use the same complete input SHA256
+  `d0403f7cf73aa00e821d13dd00d2a67955d1458ec565ac72611614739fd1ed8e`.
+  Both WebGL builds PASS;33files per downloaded player match remote hashes.
+  Production48assembly scan excludes QA probe/depth controls/demo; native production
+  gameplay/pause directly inspected, bridge absent, F8 canvas unchanged,0exceptions.
+- Historical visual/performance evidence remains scoped to its recorded source;
+  unchanged probe sequence and lighting need no new measurement. Failed lock wait,
+  port conflict and helper startup are recorded separately, not gameplay passes.
+  [Checkpoint and receipt location](../plans/combat-hanging-light.md).
+
 ## Latest-main original parry demo (2026-10-22; local)
 
 
