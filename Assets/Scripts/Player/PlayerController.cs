@@ -5,11 +5,26 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public PlayerAttackEvents attackEvents;
     public AttackConfig attack;
+    public AttackConfig parryFollowUp;
 
     public PlayerInputGate gate;  
 
     ParrySystem parry;
     bool followUpQueued, pendingFromSuccess, releasedFollowUp;
+    static readonly int FollowUpParameter = Animator.StringToHash("ParryFollowUpQueued");
+
+    internal void OnParryFollowUpEntered()
+    {
+        if (!pendingFromSuccess) return;
+        pendingAttack = pendingFromSuccess = false;
+        releasedFollowUp = true;
+        animator.SetBool(FollowUpParameter, false);
+    }
+
+    void ClearFollowUpRequest()
+    {
+        if (followUpQueued && animator) animator.SetBool(FollowUpParameter, false);
+    }
 
     internal bool ConsumeParryFollowUp()
     {
@@ -28,27 +43,29 @@ public class PlayerController : MonoBehaviour
     {
         TypingManager.OnWordCorrect -= DoAttack;
         if (parry) parry.OnParrySuccess -= OnParrySuccess;
+        ClearFollowUpRequest();
         pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false;
+        if (attackEvents) attackEvents.CancelAttack();
     }
 
     void OnParrySuccess(ParrySystem.ParryContext _)
     {
+        ClearFollowUpRequest();
         pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false;
     }
 
     void Update()
     {
         if (CombatSession.Finished || (gate && (gate.IsDeadLocked || gate.IsHitLocked)) || TypingManager.MuteWordCorrect)
-        { pendingAttack = pendingFromSuccess = releasedFollowUp = false; return; }
+        { ClearFollowUpRequest(); pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false; return; }
         if (GamePauseController.InputBlocked) return;
         if (pendingFromSuccess && (!parry || (!parry.InSuccessPose && !parry.SuccessPoseCompleted)))
-            pendingAttack = pendingFromSuccess = false;
+        { ClearFollowUpRequest(); pendingAttack = pendingFromSuccess = false; }
         if (pendingAttack && (!gate || gate.CanAttack))
         {
             bool followUp = pendingFromSuccess;
             pendingAttack = pendingFromSuccess = false;
-            DoAttack();
-            releasedFollowUp = followUp;
+            PlayAttack(followUp);
         }
     }
 
@@ -63,14 +80,25 @@ public class PlayerController : MonoBehaviour
                 if (parry && parry.InSuccessPose)
                 {
                     if (parry.CanQueueFollowUp && !followUpQueued)
+                    {
                         pendingAttack = pendingFromSuccess = followUpQueued = true;
+                        animator.SetBool(FollowUpParameter, true);
+                    }
                 }
                 else pendingAttack = true;
             }
             return;
         }
 
-        releasedFollowUp = false;
-        animator.CrossFade(attack.statePath, attack.crossfade, 0, attack.startTime);
+        PlayAttack(false);
+    }
+
+    void PlayAttack(bool followUp)
+    {
+        var config = followUp ? parryFollowUp : attack;
+        if (!animator || !config) return;
+        releasedFollowUp = followUp;
+        if (followUp) animator.CrossFadeInFixedTime(config.statePath, config.crossfade, 0, config.startTime);
+        else animator.CrossFade(config.statePath, config.crossfade, 0, config.startTime);
     }
 }

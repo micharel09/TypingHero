@@ -27,16 +27,30 @@
 
 # Current gameplay
 
-## Original parry on latest main (2026-10-22; local demo)
+## Original parry and dedicated follow-up (2026-10-23)
 
-Both parry clips enter original combo_3_end_2 and play2->3->4->5->idle at400/950ms.
-Defense stays250ms. After success, one completed word in[0,800) unpaused real ms
-queues one existing attack after recovery; hit/death/Slayer/early interruption
-cancel it. Existing hitstop extends animation wall time. Main contact hold uses
-that same frame2, with current physical-spark/clean-enemy-cel presentation retained.
-Success itself opens no attack window. Latest HUD guide/pause/dungeon remain on
-main fd3f21d; parent WIP preserved. Scoped Unity31/native17 PASS; local candidate,
-no release. [Evidence and demo resources](../plans/parry-main-demo.md).
+Parry enters original combo_3_end_2; unsuccessful recovery stays2->3->4->5->idle
+at400ms. Success recovers2->3->4->4->idle/follow-up at950ms: user-image
+combo_3_end_5 is omitted from both success clips, with cel4 held through the end;
+defense stays250ms and success holds its first cel800ms. One completed word in
+[0,800) unpaused real ms queues one dedicated `parry_followup` after recovery.
+No word means no attack. Pause retains queue/budget; hit/death/Slayer/interruption/
+disable clear it. Ordinary words after idle still use combo_1; Slayer is unchanged.
+
+The full10cel combo_2 + combo_2_end sequence starts0 with fixed20ms crossfade,
+ends566.667ms, opens at150ms on combo_2_3, updates contact200ms and closes250ms.
+A repeated end_3 key550ms preserves its final66.667ms hold. Existing10damage,
+stamina, deduplication, hitstop, contact/lighting/flash/camera/audio consumers remain.
+Follow-up end/exit cancels only its own opening cel; a newer normal/Slayer window
+and its delayed close survive. Replacement clears the old bypass before opening
+the new window. Disable closes unconditionally, once.
+
+Pose5-removal follow-up: pinned Unity37/37, strict repeat/WebGL and native1280x720
+21/21focused real-input checks PASS. Previous cancellation/consumer receipts remain
+attributed to their builds. Direct-handoff correction: success transitions directly
+to follow-up at950ms when queued, without an intermediate idle0 frame; no queue
+returns to idle. Focused Unity42/42 and native22/22 pass on the corrected build.
+[Frame evidence, scope and demo resources](../plans/parry-main-demo.md).
 
 ## Dark fantasy HUD — local candidate (2026-10-21)
 

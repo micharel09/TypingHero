@@ -193,6 +193,7 @@ MonoBehaviour:
   slashLibrary: {fileID: 11400000, guid: 4720ef884b3923ec593c8cf695ad14af, type: 2}
   slashSource: {fileID: 7358457235006824576}
   hitSpark: {fileID: 864069039669792717}
+  cameraImpact: {fileID: 0}
 --- !u!1 &5449769088092458507
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +501,7 @@ MonoBehaviour:
   animator: {fileID: 2040951967068383774}
   attackEvents: {fileID: 2863178931385098792}
   attack: {fileID: 11400000, guid: 373597bbccd369d44a72491ba3620e6e, type: 2}
+  parryFollowUp: {fileID: 11400000, guid: bb5d109ccab02e753a34d073a0794b27, type: 2}
   gate: {fileID: 3897296489748599779}
 --- !u!114 &3897296489748599779
 MonoBehaviour:
@@ -552,6 +554,7 @@ MonoBehaviour:
   parrySystem: {fileID: 4700267102167904995}
   impulseSource: {fileID: 6649342182655876260}
   power: 1
+  cameraImpact: {fileID: 0}
 --- !u!114 &3027463112130235812
 MonoBehaviour:
   m_ObjectHideFlags: 0

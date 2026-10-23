@@ -2904,3 +2904,50 @@ source SHA256, frame ranges and manual observations. Keep for review; removable
 after review. Immutable server result120206 and three scoped test receipts remain.
 No full suite, extra viewport, stress/soak, performance claim or itch.io upload.
 Implementation/acceptance complete; pending remote integration verification/cleanup.
+
+
+## Dedicated parry combo_2 follow-up (2026-10-23)
+
+Pinned Unity2022.3.25f1/fly-server final result20261023T144919-webgl, input
+8be3e31c25b53c32b7ec40ca8b47cbb138b5aeee48b42374489a12e689a1f050:
+strict repeated builder/WebGL PASS;89distinct focused PlayMode cases covered
+(PlayerParry33, CombatFeedback18, CombatCameraImpact38). Runtime-final source
+passed87/89 in144229; exact800ms fixture arithmetic and the existing timing-sensitive
+180ms camera case failed. Final9/9targeted rerun passes both; only the fixture's
+arithmetic grouping changed, with camera assertion/production code unchanged.
+This combines scoped runs, not a single89/89 suite; prior0c74 passed88/88.
+Final immutable33-file player hashes match local demo. Native Edge155.0.4283.62,
+Playwright1.58.2/Intel UHD ANGLE D3D11, one1280x720:47functional +13queued
+Restart/Menu checks PASS,0exceptions/provider writes, fixture blocking enabled.
+Full10cels, one10-damage hit, early/late/no-input/pause, actual contact/hit flash/
+camera/spark/audio verified. Source cels20/20,22/22key positions,18/18pose pairs +2/2hold pairs plus4joins;
+reviewed0c74 runtime segment71/71frames and70/70pairs (six final authored asset
+hashes unchanged); final-player native receipts are native-final/ and native-final-lifecycle/.
+Mirrored VFX71/70 is a pixel
+preview, not an actual runtime flipX lighting capture. Full per-frame evidence,
+initial truncated-length/ownership regressions, scope and resources are in
+[parry checkpoint](../plans/parry-main-demo.md). No full performance/balance or release claim.
+
+
+## Remove user-image parry recovery pose (2026-10-23)
+
+Image identifies combo_3_end_5/fileID1786144713. Both success clips now2/3/4/4;
+950ms recovery and full combo_2 remain. Incorrect combo_2_0 removal was corrected
+before main integration. Unity2022.3.25f1 result20261023T152926-webgl/input
+673572ba16354a7df6a61b18584d23257f22461aa6494f3b9d148cc7c4d594a2:
+37/37focused PASS, strict repeat/WebGL PASS,33player hashes match. Native1280x720/
+Edge155/Intel UHD D3D11:21/21PASS,0exceptions/provider writes, all10combo_2 cels,
+one10damage and explicit user-pose5 absence. Direct final38/38normal +38/38pixel
+mirror frames and37/37pairs each; source30key rows. Existing idle0 transition and
+pixel-mirror lighting limits are documented in the [parry checkpoint](../plans/parry-main-demo.md).
+
+## Remove intermediate idle before queued follow-up (2026-10-23)
+
+Pinned Unity42/42, strict repeated builder and WebGL build PASS; immutable result
+`20261023T160209-webgl`, snapshot `de5bee8c4376827ead46f1f39cc54c6a4ebec84d0466bf6a0cc876c78978e09e`.
+Native Edge155/Intel UHD ANGLE D3D11 at1280x720 passes22/22 real-input checks,
+including no idle between success and combo_2, ten cels, one10-damage hit and idle tail.
+Runtime video selected3.548090?6.329125s before added-frame review: sourceF34?74,
+41/41encoded frames and40/40pairs inspected normal and pixel-mirror preview.
+Pixel reflection does not verify mirrored runtime lighting. Source sprite/clip assets
+are unchanged; prior source/VFX-off review remains applicable. See checkpoint.

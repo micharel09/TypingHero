@@ -20,6 +20,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             "Assets/Data/Score/ScoreRules.asset",
             "Assets/Characters/Player/player_parry.anim", "Assets/Characters/Player/player_parry_success.anim",
             "Assets/Art/male_hero/individual_sheets/player_parry_success.anim", "Assets/Characters/Player/AC_Controller.controller",
+            "Assets/Characters/Player/parry_followup.anim", "Assets/Data/Attack/AC_ParryFollowUp.asset",
             PixelUIFactory.Generated + "Panel.prefab", PixelUIFactory.Generated + "Button.prefab",
             PixelUIFactory.Generated + "StatBar.prefab", PixelUIFactory.Generated + "LeaderboardRow.prefab",
             "Assets/Characters/Player/Player.prefab", "Assets/Characters/Enermy/Skeleton.prefab",
