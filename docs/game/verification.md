@@ -38,6 +38,60 @@ resources: [checkpoint](../plans/parry-main-demo.md).
 - Final WebGL/strict repeated builder PASS (`20261022T160608-webgl`);33/33 immutable player file hashes match local/server. Native Edge155 / Playwright1.58.2 / GTX1650Ti D3D11:86/86 checks PASS across1280x720 and640x360,0exceptions/provider calls, real keyboard/mouse and fixture/external-network isolation. Camera profiles, actual kick bounds, fixed HUD/typing and Pause/Resume/Restart/Menu pass.
 - Directly reviewed400/400 encoded frames and390/390 transitions in ten selected output windows,37/37 sheets; framing and recovery pass. Original WebM/PTS remain timing authority, including held spans; derived MP4 tails are not authoritative. Reference research remains separate. No full-suite/stress/soak, general performance or itch release claim. Sources, limits and retained demo: [camera checkpoint](../plans/camera-impact.md).
 
+## Impact profile authoring follow-up (2026-10-23)
+
+- Final source snapshotcbff319fd0c09a9cb26c5f4b5baeafb6d656f2e5e2640ad567588c16247420d8:
+  **85/85 scoped Unity PASS**,0failed/skipped (`20261023T035820-quick`), all2229
+  input files match the pre-integration task checkout after text-only LF normalization.
+  Filters: ImpactVfxTests, ParryClashTests, PhysicalParticleTests and three directly
+  affected PixelSpark parry direction/teardown/unload cases. Covers pure generic
+  prefabs,0/1/3 flashes/arbitrary IDs, varied flipbook/color/physics/pixel scale,
+  public parry/profile.prefab routing, immutable values/curve keys, concurrent
+  pulses, bounded pool/pause/reuse/cleanup and zero warmed particle-update
+  allocations. Invalid IDs/overlapping roles/>40 states fail before leasing.
+  Includes active prefabs without an authored lease, and repeated custom-reference
+  migration. Earlier83/83 and supplementary builder4/4 receipts remain attributed
+  to their own snapshots, superseded by this complete focused85-case result.
+- Independent frozen pre-refactor origin/main3253274 fixture compares every
+  particle on every renderer over68 consecutive1/60s steps, both directions and
+  seeds0,7. JSON SHA256079ac532a82ecc8d521993391f19f5974fe10a22fc751956e3415f2e477f3360;
+  gzip TextAsset fixture is under PlayMode tests. Solver and physics asset unchanged.
+- Normal/mirror WebGL + strict repeated builder PASS (20261023T034250 and034946).
+  Native Edge155/Playwright1.58.2/NVIDIA GTX1650Ti ANGLE D3D11:36/36 PASS,
+  0exceptions/provider calls. Real parry plus typed queued slash, HP preservation,
+  contact/core/damage/audio-source alignment and pool caps pass. Frozen baseline
+  builds/native36 also pass after correcting the external driver's superseded
+  automatic-counter assumption; main requires real typing for the queued follow-up.
+- All242 output frames/240 consecutive pairs directly compared with all302 baseline
+  frames/300pairs, preserving native render timestamps and held frames, no gaps.
+  Per-frame/transition notes in visual-review.csv; total544frames/540pairs. Both
+  directions retain blade-centered contacts, narrow directional launch, orange1px
+  fall/rest/fade, clear endpoint and coherent guard/queued-slash recovery. Compare
+  by effect age/hero phase: cadence, words and encounter labels vary. No whole-scene
+  bitwise, FPS benchmark, or independent subjective-audio claim.
+- Visual players predate the final active-prefab missing-lease guard and Editor-only
+  custom-reference migration. Reuse is limited to unchanged MetalClash rendering:
+  its prefab already has PooledVFX, so the new missing-lease branch does not execute;
+  its authored profile/materials/physics/render code are unchanged. Its new player
+  reference equals the already-built serialized value. Final85 tests cover the
+  changed generic ownership/migration paths and rerun frozen-trace/pooling tests.
+  Native coverage of a generic active prefab missing a lease is not claimed.
+- All33 files of each of four immutable players match local/server SHA256 hashes.
+  Generated baseline/output assets differ only in the intended MetalClash profile,
+  prefab bindings and player profile reference; unrelated builder normalization is
+  not copied into source. [Checkpoint](../plans/metal-clash-preset.md) records handoff.
+- Artifacts/reproduction: E:/CodexTemp/TypingHero/impact-vfx-authoring. Full suites,
+  broad WebGL profiles and stress runs are outside this focused change.
+
+- Integrated newer main e491984 as cb4c84e. VFX runtime/profile/prefab/player inputs
+  remain identical to task1590347; the shared builder preserves upstream authored
+  camera impacts and the custom impact-profile migration. Focused integration
+ 12/12 PASS (`20261023T040800-quick`, f4fa6f0c3fa360570ac856c537e686b01cbec31d27cb0346094c53848b0b08d6):
+  frozen trace, generic lease expiry, custom builder refs, public parry route,
+  pulse snapshots/pause/weak overlap, selected-world/camera-profile rebinding and
+  lantern lifecycle. Upstream39Unity/53native/world-frame evidence stays attributed
+  to its own checkpoint; task visual receipts remain pre-integration snapshots.
+
 ## Reusable MetalClash preset (2026-10-22)
 
 - Integrated newer main5f371fa torch flames as7ef0da3, preserving all VFX/actor/
@@ -2632,3 +2686,61 @@ Source atlas/timing/runtime code unchanged, so2/2unit results reused. Final save
 records/material/quad match verified builder. User art review and main integration
 remain pending; no external distribution claim. Current source, per-frame reference observations,
 runner receipts and limitations belong to the existing hanging-light checkpoint.
+
+
+## Authored 3D configuration completion (2026-10-23)
+
+Canonical input `6b1258a53256b28cc07ab6bf716e8cf40ca994514d8ad31d31c7172f665299fa`,
+Unity2022.3.25f1/fly-server, task run `20261023T033400-webgl`:
+
+- Editor check PASS: edited blur center/half-width/depth edge, cloth, camera impact,
+  haze/rune material controls, existing light/material/post survive two full UI
+  builders. Selected alternate world has arbitrary room/owner names and lives outside
+  Assets/Data/Lighting; incomplete unused template does not block validation/build.
+  Additive scene setup and authored room/camera placement remain unchanged.
+- Filtered PlayMode **39/39 PASS**, zero failed/skipped, 9.9696019s. Camera impact,
+  real contact consumers, environment clock/cloth/rune, target projection, binding
+  and session lifecycle; includes two-profile A -> B -> A, pulse snapshots,
+  Pause/Slayer, independent local cloth motion and zero managed allocation across
+  32 warmed parry/clear cycles. No general FPS/performance claim.
+- External task adapter retains the shared runner lock and pinned images/license,
+  uses the existing Unity testFilter, canonical LF text snapshots, and task-owned
+  /tmp source/build/results. Repository runner/toolchain/packages unchanged.
+- Final WebGL/strict repeat PASS; immutable player33files/48,078,641bytes all match
+  server SHA256 receipts. Native Edge155.0.4283.62/Playwright1.58.2/NVIDIA GTX1650Ti
+  ANGLE D3D11, one1280x720 viewport:53/53 real-input checks PASS in37.7076506s,
+  zero exceptions/provider reads/writes/external requests. Normal/received/parry,
+  active-pulse Pause/Resume, Slayer/lethal, actual post-parry word impact, Restart
+  and Menu baseline restore pass. Raw shared report viewport header is stale;
+  actual cameraImpact rows and render dimensions prove the single-size scope.
+- Direct review46/46 sheets,355/355 frame observations and350/350 within-window
+  transitions at320x180 and nearest2x640x360. Overlapping normal/received windows
+  yield340unique source frames/336unique pairs. Selected windows: F0-18, F4-43,
+  F507-581, F735-805, F898-1047 of the1048-frame VFR WebM. Source PTS retained,
+  including648ms F10->11 gap; no every-engine-frame or FPS claim. Warm follow-up
+  contains full normal contact/recovery. Cloth is dark/subpixel at approved exposure;
+  pinning/private mesh/local direction and pause/hide phases have focused Unity evidence.
+- No observed selected-scope regression in warm flame colors/anchors, wall/floor
+  lighting, actor focal clarity, parry release or restored room. Baseline native
+  camera-impact sheet/Pause image inspected; source atlas/mesh/clip checks reused
+  because these inputs are unchanged. No new reference-game/full-video match claim.
+- First native pilot reached7checks but requested Pause after the180ms pulse expired;
+  trace retained. External driver now sends real Escape key-down promptly and still
+  requires a positive active envelope before asserting freeze. Product unchanged.
+  Canonical build recovered a stale shared-cache missing diagnostic-script compiler
+  message during refresh and completed successfully; no diagnostic script added.
+- Exact sources, per-frame CSV, receipt and cleanup belong to the existing
+  [lighting checkpoint](../plans/combat-hanging-light.md). No full suite, stress/soak,
+  production publication or hardware quality tier claim.
+
+
+Final Editor-only Preview follow-up `20261023T035720-serialize`, input
+`530e3293c47fd5e0955600a083e759d6982e604f51e066de804829c733f00286`:
+standalone VerifyPreviewScenes PASS. Two loaded worlds receive their own fog;
+original active scene retained, Undo restores both original fog values. Preview
+now selects each owning scene before recording/applying RenderSettings. Record
+also covers camera data/combat rigs. Only Preview plus its Editor check changed
+since the passing QA input (then indentation only); production Apply method,
+runtime/shaders/profiles/materials/scenes are byte-identical. Reuse39Unity/53native/
+strict WebGL/visual evidence. Stock runner serialize completion label is generic;
+this follow-up does not claim another full builder repeat. Proof/receipt in checkpoint.

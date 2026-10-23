@@ -19452,6 +19452,23 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   impactProfile: {fileID: 11400000, guid: 30c4a45210684307abf25edd76990d6d, type: 2}
+  rendererBindings:
+  - id: 0
+    particles: {fileID: 93123400999666248}
+    material: {fileID: 2100000, guid: aa4654d53860adccda1809ea52d38ae6, type: 2}
+  - id: 1
+    particles: {fileID: 1031238912976098065}
+    material: {fileID: 2100000, guid: f0969adfcc4e17fc2995a56e734f0cf7, type: 2}
+  - id: 2
+    particles: {fileID: 8353909590064180188}
+    material: {fileID: 2100000, guid: f0969adfcc4e17fc2995a56e734f0cf7, type: 2}
+  - id: 3
+    particles: {fileID: 2287620420860437417}
+    material: {fileID: 2100000, guid: aa4654d53860adccda1809ea52d38ae6, type: 2}
+  - id: 4
+    particles: {fileID: 7249802757633528133}
+    material: {fileID: 2100000, guid: f0969adfcc4e17fc2995a56e734f0cf7, type: 2}
+  bindingVersion: 1
   preset: 0
   lengthSupportVersion: 1
   compactVersion: 1

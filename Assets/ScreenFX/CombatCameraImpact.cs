@@ -45,9 +45,12 @@ public sealed class CombatCameraImpact : MonoBehaviour
     // Retained read-only probe API: now counts directly applied shake starts.
     internal int ImpulseCount { get; private set; }
     static Kind ToKind(CombatCameraProfile.Event trigger) => trigger == CombatCameraProfile.Event.SlayerLethal ? Kind.Lethal : (Kind)((int)trigger + 1);
+    public CombatCameraProfile profile { get; private set; }
+    // Explicit reconfiguration prepares future requests; accepted requests retain their snapshot.
+    public void Configure(CombatCameraProfile value) { profile = value; prepared = value ? value.Prepare() : null; }
     internal void Bind(CombatCameraProfile profile)
     {
-        Clear(); prepared = profile ? profile.Prepare() : null;
+        Clear(); Configure(profile);
         view = arena ? arena.GetComponent<Camera>() : null;
         clockReady = false; clockFrozen = GamePauseController.InputBlocked;
     }
@@ -77,7 +80,8 @@ public sealed class CombatCameraImpact : MonoBehaviour
     {
         if (camera != view || renderFrame != Time.frameCount) return;
         int count = timeline.PeakRenderCount, shakeCount = timeline.ShakePeakRenderCount;
-        timeline.Acknowledge(renderedSerial, renderedMask, GamePauseController.InputBlocked);
+        UpdateClock();
+        timeline.Acknowledge(renderedSerial, renderedMask, GamePauseController.InputBlocked, clock);
         if (count != timeline.PeakRenderCount || shakeCount != timeline.ShakePeakRenderCount) PeakRenderFrame = Time.frameCount;
     }
     void FreezeChanged(bool frozen) { UpdateClock(); clockFrozen = frozen; }

@@ -12,7 +12,8 @@ internal sealed class CameraImpactTimeline
     internal float Zoom { get; private set; }
     internal Vector3 Offset { get; private set; }
     double start, shakeStart, requestGameplayStart, releaseStart, shakeRecoveryStart;
-    bool waitedForHitstop;
+    double lastSampleTime, lastGameplayTime, shakeRenderTime, shakeSampleTime, shakeSampleGameplay;
+    bool waitedForHitstop, shakeRecoveryPending;
     bool zoomRendered, shakeRendered, shakeStarted, zoomHeld, shakeHeld;
     float initialZoom, shakePeakTime, shakePeakValue;
     Vector3 velocity;
@@ -22,7 +23,7 @@ internal sealed class CameraImpactTimeline
         if (!preset.enabled || Active != null && preset.priority <= Active.priority) return false;
         initialZoom = preset.zoomPeak == 0 ? 0 : Zoom;
         Active = preset; start = now; requestGameplayStart = gameplayNow; velocity = displacement; Serial++;
-        waitedForHitstop = false;
+        waitedForHitstop = shakeRecoveryPending = false;
         Zoom = initialZoom; Offset = Vector3.zero; RenderMask = 0;
         zoomRendered = shakeRendered = shakeStarted = zoomHeld = shakeHeld = false;
         shakePeakValue = preset.shakePeakValue; shakePeakTime = preset.shakePeakTime;
@@ -31,7 +32,17 @@ internal sealed class CameraImpactTimeline
     internal void Sample(double now, double gameplayNow, bool hitstop, bool paused)
     {
         if (Active == null || paused) return;
+        lastSampleTime = now; lastGameplayTime = gameplayNow;
         var p = Active; double age = now - start; RenderMask = 0;
+        if (shakeRecoveryPending)
+        {
+            // Unity publishes gameplay time at frame boundaries. Partition the next
+            // scaled delta around the actual render acknowledgment, including clamped frames.
+            double span = now - shakeSampleTime;
+            double afterRender = span > 0 ? System.Math.Max(0, System.Math.Min(1, (now - shakeRenderTime) / span)) : 0;
+            shakeRecoveryStart = gameplayNow - System.Math.Max(0, gameplayNow - shakeSampleGameplay) * afterRender;
+            shakeRecoveryPending = false;
+        }
         bool zoomDone = p.zoomPeak == 0;
         if (zoomDone) Zoom = 0;
         else if (!zoomRendered)
@@ -74,12 +85,23 @@ internal sealed class CameraImpactTimeline
         }
         if (zoomDone && shakeDone && age >= p.minimumPriorityTime) Finish();
     }
-    internal void Acknowledge(int serial, int mask, bool paused)
+    internal void Acknowledge(int serial, int mask, bool paused) => Acknowledge(serial, mask, paused, lastSampleTime);
+    internal void Acknowledge(int serial, int mask, bool paused, double renderedAt)
     {
         if (paused || Active == null || serial != Serial) return;
-        if ((mask & 1) != 0 && zoomHeld && !zoomRendered) { zoomRendered = true; PeakRenderCount++; }
-        if ((mask & 2) != 0 && shakeHeld && !shakeRendered) { shakeRendered = true; ShakePeakRenderCount++; }
+        renderedAt = System.Math.Max(lastSampleTime, renderedAt);
+        if ((mask & 1) != 0 && zoomHeld && !zoomRendered)
+        {
+            zoomRendered = true; PeakRenderCount++;
+            releaseStart = System.Math.Max(releaseStart, renderedAt);
+        }
+        if ((mask & 2) != 0 && shakeHeld && !shakeRendered)
+        {
+            shakeRendered = true; ShakePeakRenderCount++;
+            shakeRenderTime = renderedAt; shakeSampleTime = lastSampleTime; shakeSampleGameplay = lastGameplayTime;
+            shakeRecoveryPending = true;
+        }
     }
-    void Finish() { Active = null; Zoom = 0; Offset = Vector3.zero; RenderMask = 0; }
+    void Finish() { Active = null; Zoom = 0; Offset = Vector3.zero; RenderMask = 0; shakeRecoveryPending = false; }
     internal void Clear() { Serial++; Finish(); }
 }

@@ -38,7 +38,7 @@ Reference evidence: E:/CodexTemp/TypingHero/camera-impact-research-20261022/rese
 - Local receipts: `E:/CodexTemp/TypingHero/camera-impact-20261022/{integrated-tests.xml,integrated-snapshot.json,integrated-unity.log,player-hashes.json,native-final/browser.json,native-final/frame-review/manifest.json}`. Final immutable server results: `/data/typinghero-game-loop/results/20261022T160203-quick` and `/data/typinghero-game-loop/results/20261022T160608-webgl`.
 - Isolated review demo remains open in Edge on127.0.0.1:8261, same final player, fixture routing retained; Enter starts battle. Keep local player/demo/video/receipts until user review is finished. Remote task branch retained as integration history. No itch.io upload, full suite, stress or soak run.
 
-## Reusable impact timeline / hitch regression ? 2026-10-23 (in progress)
+## Reusable impact timeline / hitch regression ? 2026-10-23 (acceptance passed)
 
 Task: replace frame-delta envelope/owned impulses with profile-driven timeline,
 world binding and Noise-stage displacement. Worktree
@@ -109,3 +109,112 @@ warm loops, two-controller shared asset isolation and real A?B?A session binding
   input1280x720/640x360, final-key180ms main-thread stall, camera acknowledgment,
   actual RT dimensions and full selected-camera-window frame review. No WebGL
   acceptance claim until that run and review complete.
+
+### Integration with concurrent world/VFX authoring
+
+Remote main advanced to `dac65f2` (world configuration `e491984`, impact VFX
+`1590347` and receipts). Local checkpoint `bbc49d1` preserves the verified initial
+implementation. Merge keeps the incoming world/VFX changes, virtual-camera lens
+binding, selected-world validation and authoring checks. Their simpler camera
+schema still used the old frame-delta/impulse runner; the requested timeline
+supersedes that runner and the duplicate schema.
+
+`Assets/Data/Lighting/CameraImpact.asset` retains incoming GUID
+`4bca0a930c3f4bd0abaf68135084484e`, now with six CombatCameraProfile presets. All
+five incoming envelope peak/attack/hold/release/pixel values, recoil duration/curve
+and Slayer priority hold transfer unchanged; entry curve/gain are retained from
+the earlier migration. The task's initial DungeonCamera asset is consolidated
+into this asset. WorldDefinition owns the sole binding reference; obsolete
+WorldLightingProfile camera pointers and the old CameraImpactProfile/default
+C# table are removed. Other world/VFX settings remain incoming main values.
+`integration-migration.json` verifies envelope equality/GUID and shows exactly two
+changed SampleScene camera records plus the removed orphan proxy versus main.
+
+The public Configure hook prepares future requests without altering accepted
+snapshots; world Bind clears state. Adapted the incoming snapshot test and lens
+binding test to the rich schema. Integrated Quick `20261023T042510`, input
+`9da1fad7b03dbc1f305925ce818e80c6c81183dbf139197069da373c964bdb7a`:
+**55/55PASS**,0fail/skip,12.3059049s. Receipts `integrated-{tests.xml,snapshot.json,unity.log}`.
+Initial integrated authoring `042616` passed both camera builder assertions but
+failed test cleanup because scene restoration unloaded the stack-only asset
+reference. The harness now retains assets and reloads by path before restore,
+matching existing lighting test ownership. This is not a passing whole run.
+The pre-merge WebGL `040906` compiled/built successfully on input `0c3fc9d2` but
+is superseded for final integrated native acceptance; no obsolete-player pass claim.
+
+### Slow-render follow-up (resolved; final receipts below)
+
+Integrated authoring retry `20261023T042916`, input `6f8a7c54`:PASS, including the
+broader selected-world lighting/impact/material preservation and unused-template
+validation. Generated SampleScene1023/1023 records match source exactly modulo
+record order/whitespace. DungeonWorld1031records differ only in LightmapSettings
+record3 linking the already-authored bake asset, applied by incoming main's builder;
+no camera/geometry/style record changes. Keep source world records unchanged.
+WebGL `043257` built on that input;33files/48,099,362bytes downloaded and SHA256
+matched. Native first matrix102/102passed at1280x720/640x360, 180ms actual-key
+stall with receiving contact deltas197.015/190.630ms. Captured parry/received/lethal
+peaks about0.9963/0.9986/2.0028logical pixels; no exceptions/provider IO. This run
+is superseded for final slow-render timing acceptance below.
+
+The1280capture has long initial held spans. Extended segment boundaries to include
+bracketing encoded frames (no narrowing). Directly inspected81window-frames and
+78pairs in normal/parry/received before stopping this superseded review; no claim
+of reviewing the remaining segments on that player. A follow-up wrapper initially
+launched the original driver due an incomplete external path replacement. Its
+300ms baseline assertion failed while the peak frame was rendering. Raw samples
+show contact116, peak118, then acknowledgment118/baseline119 after a330ms render.
+This exposed a real uncovered timing gap: release started at peak sampling rather
+than actual render completion and could be consumed before the peak acknowledgment.
+
+EndRender now updates the pause-excluded double clock and acknowledges with the
+actual completion timestamp. Zoom release begins no earlier than that acknowledgment.
+Shake partitions the next published gameplay delta around the render timestamp,
+including clamped frames, then continues on gameplay time. A later post-acknowledgment
+hitch still never replays the peak. No asset tuning or gameplay consumers changed.
+New slow-render zoom and shake/post-ack regressions pass in the focused58/58 run
+(input `947be5f7`,0fail/skip); latest receipt to be appended. Harness now waits for a
+render-confirmed baseline with a deadline, warms using real typing and normal UI
+Restart before capture, and verifies the actual receiving-frame delta. New final
+player/capture requested; earlier102checks are not final timing acceptance.
+
+### Final reusable-timeline acceptance
+
+- Unity2022.3.25f1 run `20261023T044944-quick`, canonical input
+  `947be5f7029eef2f1f740e122b3b440ad663abbeca56a4522c0fe9bc25e154af`:
+  **58/58 PASS**,0failed/skipped,12.9840066s. Covers140/180/200/500ms receiving
+  frames, hitches across phases and actual slow-render acknowledgment, priority,
+  cancellation/old serials, pause/hitstop, real consumers, shared-asset instance
+  isolation, A/B/A binding and256x144 projection. Warm timeline/adapter request
+  and update loops allocate0managed bytes. Receipt `final-tests.xml`.
+- Final QA WebGL/strict builder `20261023T045111-webgl`, input
+  `09c8255daa374728bc9dcca5382074c29aff740860c767eedf3e9d33df8061eb` PASS.
+  Runtime matches the58-case run; input difference is the final real-input driver
+  and Editor verification helper. All33 downloaded player files match server
+  SHA256 (`final-player-hashes.json`). Authoring preservation receipts above remain
+  applicable: subsequent changes affect timing only, not profile/builder data.
+- Native Edge155.0.4283.62 / Playwright1.58.2 / NVIDIA GTX1650Ti ANGLE D3D11:
+  **110/110 PASS**,60.1598037s,1280x720 and640x360,0exceptions/provider IO/external
+  requests. Real keyboard final-key blocks180.005/180.000ms; actual receiving
+  contact deltas194.315/190.495ms (frames205/203, serials14/13). One HP reduction,
+  one normal request, exact2%peak acknowledged once, then baseline. Parry/received/
+  lethal displacement peaks approximately0.9963/0.9986/2.0028logical pixels.
+  Normal/parry/received/Slayer/lethal and Pause/Resume/Restart/Menu pass; HUD and
+  typing tray stay fixed. Actual world RT320x180 is recorded by the read-only probe.
+- MediaRecorder startup dropped the1280normal/received segment; no visual pass
+  is claimed from that gap. Same immutable player compositor follow-up passes
+  **16/16** real-input checks. Its76original timestamped PNG frames are retained
+  with matching76-frame lossless FFV1; largest185.508ms gap is the intentional
+  final-key stall. Raw compositor timestamps, not convenience excerpts, own timing.
+- Directly inspected all49sheets: **512/512 window-frame inspections and502/502
+  consecutive pairs** over10selected complete camera windows, including boundaries,
+  held/repeated frames and preparation/contact/recovery. Overlapping windows count
+  twice; these are captured frames, not a claim to inspect every engine frame.
+  Source/timing/per-frame notes are in `final-frame-review.csv` and both final
+  `frame-review/manifest.json` files. No duplicate pulse, missing recovery or HUD
+  movement observed. Slayer base lens persists during rapid hits and exits smoothly
+  after lethal; damage translates without zoom. Existing reference research above
+  remains separate; this task changes no sprites or animations.
+- Evidence root: `E:/CodexTemp/TypingHero/camera-impact-timeline-20261023`.
+  Keep final player, source videos/PNGs, logs, manifests and receipts for review;
+  removable after user review. Remote integration/owned-source cleanup is recorded
+  in the delivery receipt. No itch.io upload.

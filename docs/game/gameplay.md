@@ -1,7 +1,8 @@
 ## Reusable world lighting (2026-10-22)
 
 - Scene selection, world presentation, individual lights, flame sequences and combat
-  lighting now use authored profiles under `Assets/Data/Lighting`. Native materials,
+  lighting use authored profiles (defaults under `Assets/Data/Lighting`; selected
+  assets may live elsewhere). Native materials,
   post, bake and URP assets remain their authorities. Builders apply these values;
   they do not regenerate the approved dungeon style. See [authoring guide](lighting-profiles.md).
 - World loading accepts a `WorldDefinition`; camera/arena/brain/environment bindings
@@ -10,8 +11,11 @@
   hardware quality tiers.
 - The approved ten-frame flame, palette, timing, fixed anchors, 24/16 light strengths
   and pause/Slayer phase are preserved. Each instance owns its clock and UV mesh.
-  Existing camera impact tuning remains unchanged; pixel recoil uses the active
-  world's target height, and zoom composes with its profile lens.
+  Camera impacts now read `WorldDefinition.cameraImpact` (`CombatCameraProfile`); defaults
+  remain unchanged. Presets and curves prepare at binding; accepted requests retain that snapshot.
+  Pixel recoil uses the active world's target height; zoom composes with its lens.
+  Blur center/half-width/depth edge and pinned cloth are world-profile values;
+  haze/rune shapes and drift/scan are authored on their existing materials.
 
 ## Combat camera impact (2026-10-23)
 
@@ -19,7 +23,7 @@
 - `CameraImpactTimeline` owns each instance's prepared curves, single prioritized envelope and displacement. Requests capture double timestamps; zoom excludes manual Pause and shake uses gameplay time plus the configured HitStopper gate. A skipped attack/hold renders its peak before running release. Only the bound world camera can acknowledge that peak, with a matching serial; later hitches never replay an acknowledged peak. Equal/weaker requests never extend ownership. Runtime has no combat default table or missing-profile preset selection.
 - `CameraImpactExtension` applies the sample directly at Cinemachine Noise. Logical pixels use this frame's CameraState lens/position and actual WorldTexture height; no180px/window-size assumption. Combat emits no old impulses; the dedicated channel2 listener is gone and legacy channel1 remains available. Final half-height is base/(1+impactZoom), with the existing analytic foot anchor and fixed HUD/typing. Profile edits apply on bind/reload and survive repeated builders.
 - Existing hitbox/parry/DamageAccepted consumers and captured Slayer classification remain. Pause holds pending hitstop/render acknowledgment through exact freeze transitions. Reading/results/Restart/Menu/unbind/disable clear pending and active output, including destroyed-root teardown; existing Slayer exits still complete through results. Public gameplay/provider/storage contracts, damage/typing/scoring/audio/animation are unchanged.
-- Focused Unity camera/lens37/37 and three-cycle lifecycle1/1 pass; producer and two-world binding evidence, builder preservation and final WebGL status are recorded in the [camera checkpoint](../plans/camera-impact.md). WebGL verification is in progress.
+- Integrated focused Unity58/58 and final WebGL110/110 pass at1280x720/640x360, including the real final-key180ms stall, lifecycle and two-world binding. Same-player compositor follow-up16/16 and direct review of512window-frames/502pairs complete the camera evidence; see the [camera checkpoint](../plans/camera-impact.md).
 
 # Current gameplay
 
@@ -300,24 +304,37 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## World lighting / parry clash
 
-### Reusable MetalClash preset (2026-10-22)
+### Reusable MetalClash preset (2026-10-23)
 
 - `ImpactVfxEmitter.Play(ImpactVfxProfile, ImpactVfxContext)` emits without a player
   or ParrySystem. Context captures point, left/right direction, floorY, seed,
-  optional recipient ellipse and optional world scale (1.25 default).
+  optional recipient ellipse and optional world scale (profile default1.25).
 - `Assets/Art/VFX/ParryClash/MetalClash.asset` references the approved existing
-  ParryPhysics/prefab. Profile stores hot/warm/cooled colors, final fade and local
-  pulse intensity/hold/duration/range/offset. Defaults preserve24particles,1px,
-  rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
-- `ImpactVfxBurst`/`ImpactVfxPixel` own rendering; `ParryClashBurst` retains its
-  serialized script GUID as a compatibility subclass, including historical presets.
-  Parry's adapter calls the shared emitter with existing leases; other callers use
-  the emitter's bounded eight-lease pool. Builder fills absent references only.
-- Physical states and appearance are copied at emission; simultaneous profiles
-  and later asset edits cannot change an existing burst/pulse. One-floor/one-bounce
-  solver, fixed buffers, unscaled pause-held updates and cleanup remain. Audio,
-  damage, recoil and hitstop remain owned by gameplay.
-- Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
+  ParryPhysics/prefab. Profile owns pixel/world scale, depth scaling, cooling colors,
+  final fade, arbitrary flash layers (renderer ID/count/lifetime/tint/pixel size/
+  world cap/grid/start frame/frame curve/color-alpha gradient), and local light
+  enabled/color/intensity/hold/duration/decay/range/offset. MetalClash preserves
+  24particles,1px,rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
+- Prefab renderer bindings supply unique IDs, particle systems and materials;
+  generic rendering reserves no contact slots and supports zero or multiple flashes.
+  Camera/world configuration supplies the native raster width. PPU supplies the
+  floor clearance/offset and particle geometry; Compact shader UV masks remain code.
+- `ImpactVfxBurst`/`ImpactVfxPixel` own generic rendering. `ParryClashBurst` retains
+  the original serialized script GUID, historical Current/A/B/C fields and parry
+  metadata. Production parry calls the same public emitter API and uses
+  profile.prefab; legacy presets/PixelSpark retain their compatibility pool.
+- Emitter defaults to eight active leases across prefab pools, reclaiming the
+  oldest at capacity. Physics exceeding40 states or missing/overlapping/duplicate
+  bindings fail before leasing; renderer capacity is also validated. Builders fill
+  absent references; versioned compatibility migration preserves authored settings.
+- Physical states, presentation values and curve keys are copied at emission.
+  Simultaneous profiles and later asset edits cannot change a living burst/pulse.
+  Local light bypasses gameplay event selection; the scene rig still owns actual
+  light templates and overlap budget. One-floor/one-bounce solver, fixed buffers,
+  unscaled pause-held updates and cleanup remain. Audio, damage, recoil and hitstop
+  remain owned by gameplay. No new production material preset is introduced.
+- Authoring/API: [lighting and impact profiles](lighting-profiles.md).
+  Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
 
 ### Pimen flash with thin separated physical sparks (2026-10-22)
 

@@ -85,10 +85,6 @@ internal static class CombatFeedbackBuild
                 var source = child.gameObject.AddComponent<Cinemachine.CinemachineImpulseSource>();
                 source.m_ImpulseDefinition.m_ImpulseChannel = 2;
                 source.m_ImpulseDefinition.m_ImpulseType = Cinemachine.CinemachineImpulseDefinition.ImpulseTypes.Uniform;
-                source.m_ImpulseDefinition.m_ImpulseDuration = .1f;
-                source.m_ImpulseDefinition.m_ImpulseShape = (Cinemachine.CinemachineImpulseDefinition.ImpulseShapes)0;
-                source.m_ImpulseDefinition.m_CustomImpulseShape = new AnimationCurve(
-                    new Keyframe(0, 0), new Keyframe(.2f, 1), new Keyframe(1, 0));
                 Set(shake, "impulseSource", source); Value(shake, "power", 1f); Record(shake);
             }
             Set(shake, "impulseSource", child.GetComponent<Cinemachine.CinemachineImpulseSource>()); Record(shake);
@@ -138,7 +134,13 @@ internal static class CombatFeedbackBuild
         }
         foreach (var parry in root.GetComponentsInChildren<ParrySparkVFX_Pooled>(true))
         {
-            Set(parry, "sparkPrefab", ParryClashAssets.Load());
+            if (!Get<GameObject>(parry, "sparkPrefab")) Set(parry, "sparkPrefab", ParryClashAssets.Load());
+            if (!Get<ImpactVfxProfile>(parry, "impactProfile"))
+            {
+                var prefab = Get<GameObject>(parry, "sparkPrefab");
+                var template = prefab ? prefab.GetComponent<ImpactVfxBurst>() : null;
+                if (template && template.impactProfile) Set(parry, "impactProfile", template.impactProfile);
+            }
             var system = Get<ParrySystem>(parry, "parrySystem");
             if (system) { Set(system, "contactLibrary", ParryPixelAssets.Contacts()); Record(system); }
             foreach (var audio in parry.GetComponentsInParent<SfxOnParrySuccess>(true)) { Value(audio, "duckSeconds", .08f); Record(audio); }

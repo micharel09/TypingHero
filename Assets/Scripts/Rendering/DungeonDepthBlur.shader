@@ -8,6 +8,7 @@ Shader "Hidden/CLACKBLADE/Dungeon Depth Blur"
   #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
   float4 _DungeonFocus;
+  float _DungeonDepthEdgeDistance;
   float4 _BlitTexture_TexelSize;
   float EyeDepth(float2 uv) {
    float raw = SampleSceneDepth(uv);
@@ -21,7 +22,7 @@ Shader "Hidden/CLACKBLADE/Dungeon Depth Blur"
   }
   half4 Blur(float2 uv, float2 axis) {
    float depth = EyeDepth(uv);
-   float amount = saturate((abs(depth - (_DungeonFocus.x - .75)) - .75) / _DungeonFocus.y) * _DungeonFocus.z;
+   float amount = saturate((abs(depth - _DungeonFocus.x) - _DungeonFocus.w) / _DungeonFocus.y) * _DungeonFocus.z;
    // Five taps span at most radius world pixels, rather than twice the radius.
    float2 delta = axis * _BlitTexture_TexelSize.xy * amount * .5;
    half4 color = SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, uv, 0) * .40262;
@@ -29,7 +30,7 @@ Shader "Hidden/CLACKBLADE/Dungeon Depth Blur"
    [unroll] for (int i = -2; i <= 2; i++) {
     if (i == 0) continue;
     float2 sampleUV = uv + delta * i;
-    float weight = (abs(i) == 1 ? .24420 : .05449) * saturate(1 - abs(EyeDepth(sampleUV) - depth) * 2);
+    float weight = (abs(i) == 1 ? .24420 : .05449) * saturate(1 - abs(EyeDepth(sampleUV) - depth) / _DungeonDepthEdgeDistance);
     color += SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, sampler_LinearClamp, sampleUV, 0) * weight;
     total += weight;
    }

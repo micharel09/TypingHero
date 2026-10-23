@@ -3,10 +3,11 @@ using UnityEngine;
 
 public partial class ImpactVfxBurst
 {
-    [SerializeField] PhysicalParticleProfile physicalProfile;
-    internal ImpactVfxProfile.Appearance appearance = ImpactVfxProfile.DefaultAppearance;
-    float pixelUnit;
-    internal float PixelUnitsPerMeter { get; private set; } = 1.25f;
+    internal ImpactVfxProfile.Appearance appearance;
+    float pixelUnit, pixelsPerUnit;
+    float depthScale;
+    Vector2 depthLimits;
+    internal float PixelUnitsPerMeter { get; private set; }
     const int DebrisCapacity = 40;
     readonly PhysicalParticleSimulation simulation = new PhysicalParticleSimulation(DebrisCapacity);
     readonly ParticleSystem.Particle[] debrisParticles = new ParticleSystem.Particle[DebrisCapacity];
@@ -23,72 +24,74 @@ public partial class ImpactVfxBurst
     static readonly List<ParticleSystemVertexStream> compactStreams = new() {
         ParticleSystemVertexStream.Position, ParticleSystemVertexStream.Color, ParticleSystemVertexStream.UV,
         ParticleSystemVertexStream.UV2, ParticleSystemVertexStream.Custom1XYZW };
-    void ConfigurePixel()
+    void ConfigurePixel(ImpactVfxProfile profile)
     {
+        System.Array.Clear(flashChannels, 0, flashChannels.Length);
+        foreach (var flash in profile.flashes) flashChannels[RequireBinding(flash.channel)] = true;
         for (int i = 0; i < systems.Length; i++)
         {
-            var ps = systems[i]; bool contactLayer = i == 0 || i == 3;
-            var main = ps.main;
-            // Only the two approved Pimen contacts use Unity's clock. The remaining
-            // particles retain their identities along an absolute-age analytical path.
-            main.simulationSpeed = contactLayer ? 1 : 0;
+            var ps = systems[i]; bool contactLayer = flashChannels[i];
+            var main = ps.main; main.simulationSpeed = contactLayer ? 1 : 0;
             main.startSize3D = !contactLayer; main.startRotation3D = false; main.gravityModifier = 0;
             var size = ps.sizeOverLifetime; size.enabled = false;
             var renderer = ps.GetComponent<ParticleSystemRenderer>();
-            renderer.sharedMaterial = contactLayer ? pixelContactMaterial : compactMaterial;
-            renderer.renderMode = ParticleSystemRenderMode.Billboard;
-            renderer.alignment = ParticleSystemRenderSpace.View;
+            renderer.sharedMaterial = rendererBindings[i].material;
+            renderer.renderMode = ParticleSystemRenderMode.Billboard; renderer.alignment = ParticleSystemRenderSpace.View;
             renderer.lengthScale = 1; renderer.velocityScale = 0; renderer.sortingOrder = 0;
             renderer.SetActiveVertexStreams(contactLayer ? contactStreams : compactStreams);
             var color = ps.colorOverLifetime; color.enabled = contactLayer;
-            if (contactLayer)
-            {
-                var gradient = new Gradient();
-                gradient.SetKeys(new[] { new GradientColorKey(Color.white, 0), new GradientColorKey(Color.white, 1) },
-                    new[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, i == 0 ? .35f : .45f), new GradientAlphaKey(0, 1) });
-                color.color = gradient;
-            }
             var limit = ps.limitVelocityOverLifetime; limit.enabled = false;
             var collision = ps.collision; collision.enabled = false;
             var sheet = ps.textureSheetAnimation; sheet.enabled = contactLayer;
-            if (contactLayer)
-            {
-                sheet.mode = ParticleSystemAnimationMode.Grid;
-                sheet.numTilesX = 6; sheet.numTilesY = 1; sheet.animation = ParticleSystemAnimationType.WholeSheet;
-                sheet.startFrame = i == 0 ? 0 : 1f / 6;
-                sheet.frameOverTime = i == 0 ? new ParticleSystem.MinMaxCurve(0) :
-                    new ParticleSystem.MinMaxCurve(1, AnimationCurve.Linear(0, 0, 1, 5f / 6));
-                sheet.cycleCount = 1; sheet.uvChannelMask = UnityEngine.Rendering.UVChannelFlags.UV0;
-            }
+        }
+        foreach (var flash in profile.flashes)
+        {
+            var ps = systems[RequireBinding(flash.channel)];
+            var color = ps.colorOverLifetime;
+            var gradient = new Gradient { mode = flash.colorOverLifetime.mode };
+            gradient.SetKeys(flash.colorOverLifetime.colorKeys, flash.colorOverLifetime.alphaKeys);
+            color.color = gradient;
+            var sheet = ps.textureSheetAnimation;
+            sheet.mode = ParticleSystemAnimationMode.Grid; sheet.numTilesX = flash.columns; sheet.numTilesY = flash.rows;
+            sheet.animation = ParticleSystemAnimationType.WholeSheet; sheet.startFrame = flash.startFrame;
+            sheet.frameOverTime = new ParticleSystem.MinMaxCurve(1, ImpactVfxProfile.CopyCurve(flash.frameOverTime));
+            sheet.cycleCount = flash.cycles; sheet.uvChannelMask = UnityEngine.Rendering.UVChannelFlags.UV0;
         }
     }
-
-    void EmitPixel(float direction, float groundY, ParryContactSnapshot? visual, float playerDirection, PhysicalParticleProfile.RecipientSnapshot recipient, PhysicalParticleProfile physics)
+    void EmitPixel(ImpactVfxProfile profile, ImpactVfxContext context)
     {
         var camera = Camera.main;
-        pixelUnit = camera && camera.orthographic ? Mathf.Max(1f / 16, camera.orthographicSize * 2 * camera.aspect / 320) : 1f / 16;
-        var snapshot = visual.GetValueOrDefault();
-        PixelUnitsPerMeter = snapshot.valid ? snapshot.unitsPerMeter : 1.25f;
-        uint seed = unchecked((uint)(variationIndex + 1) * 747796405u + 2891336453u);
-        for (int group = 0; group < systems.Length; group++)
+        int resolution = camera ? camera.pixelWidth : 1;
+        if (camera && camera.targetTexture) resolution = camera.targetTexture.width;
+        else if (camera && camera.TryGetComponent<DungeonArenaCamera>(out var arena) && arena.profile)
+            resolution = arena.profile.resolution.x;
+        pixelUnit = camera && camera.orthographic ? Mathf.Max(1 / pixelsPerUnit,
+            camera.orthographicSize * 2 * camera.aspect / Mathf.Max(1, resolution)) : 1 / pixelsPerUnit;
+        PixelUnitsPerMeter = context.unitsPerMeter > 0 ? context.unitsPerMeter : profile.unitsPerMeter;
+        uint seed = unchecked((uint)(context.seed + 1) * 747796405u + 2891336453u);
+        for (int i = 0; i < systems.Length; i++)
         {
-            systems[group].useAutoRandomSeed = false;
-            systems[group].randomSeed = seed + (uint)group + 1;
+            systems[i].useAutoRandomSeed = false; systems[i].randomSeed = seed + (uint)i + 1;
         }
-        // Exact c12c3de pivot, size, tint, flipbook, alpha and lifetime.
-        contact.Emit(new ParticleSystem.EmitParams { position = transform.position, velocity = Vector3.zero,
-            startSize = Mathf.Min(1, pixelUnit * 16), startLifetime = .2f, startColor = Color.white }, 1);
-        back.Emit(new ParticleSystem.EmitParams { position = transform.position, velocity = Vector3.zero,
-            startSize = pixelUnit * 16, startLifetime = .2f, startColor = Color.white }, 1);
-        EmitPhysical(direction, playerDirection, groundY, recipient, physics);
+        foreach (var flash in profile.flashes)
+        {
+            float size = pixelUnit * flash.sizePixels;
+            if (flash.maxWorldSize > 0) size = Mathf.Min(size, flash.maxWorldSize);
+            systems[RequireBinding(flash.channel)].Emit(new ParticleSystem.EmitParams {
+                position = transform.position, velocity = Vector3.zero, startSize = size,
+                startLifetime = flash.lifetime, startColor = flash.tint }, flash.count);
+        }
+        EmitPhysical(context.direction < 0 ? -1 : 1,
+            context.recipient.valid ? context.recipient.center.x - context.point.x : 0,
+            context.floorY, context.recipient, profile.physics, context.seed);
     }
 
-    void EmitPhysical(float direction, float playerDirection, float groundY, PhysicalParticleProfile.RecipientSnapshot recipient, PhysicalParticleProfile physics)
+    void EmitPhysical(float direction, float playerDirection, float groundY, PhysicalParticleProfile.RecipientSnapshot recipient, PhysicalParticleProfile physics, int seed)
     {
         var camera = Camera.main;
         screenRight = camera ? camera.transform.right : Vector3.right;
         screenUp = camera ? camera.transform.up : Vector3.up;
-        simulation.Emit(physics, transform.position, direction, playerDirection, groundY + 1f / 32, variationIndex, recipient);
+        simulation.Emit(physics, transform.position, direction, playerDirection, groundY + .5f / pixelsPerUnit, seed, recipient);
         debrisCount = simulation.Count;
         for (int i = 0; i < debrisCount; i++)
         {
@@ -109,14 +112,14 @@ public partial class ImpactVfxBurst
         if (debrisCount == 0) return;
         debrisAge += delta;
         bool alive = false;
-        for (int group = 1; group < systems.Length; group++)
+        for (int group = 0; group < systems.Length; group++)
         {
-            if (group == 3) continue; // The approved Pimen outer contact retains this renderer.
+            if (flashChannels[group]) continue;
             int count = 0; shapeData.Clear();
             for (int i = 0; i < simulation.Count; i++)
             {
                 var d = simulation[i];
-                if (d.channel != group) continue;
+                if (d.channel != rendererBindings[group].id) continue;
                 var sample = simulation.Evaluate(i, debrisAge);
                 if (!sample.alive) continue;
                 alive = true;
@@ -126,19 +129,19 @@ public partial class ImpactVfxBurst
                 float coolingTime = d.coolingDuration > 0 ? d.coolingDuration : Mathf.Min(d.total, d.flight + d.bounce);
                 float heat = Mathf.Clamp01(debrisAge / Mathf.Max(.00001f, coolingTime));
                 float depth = d.pixelScaleMode == PhysicalParticleProfile.PixelScaleMode.VelocityOnly ? 1 :
-                    Mathf.Clamp(1 - (position.z - d.origin.z) * .7f, .75f, 1.5f);
+                    Mathf.Clamp(1 - (position.z - d.origin.z) * depthScale, depthLimits.x, depthLimits.y);
                 int length = Mathf.Max(1, Mathf.RoundToInt(d.length * motion * depth));
                 int width = Mathf.Max(1, Mathf.RoundToInt(d.width * motion * depth));
                 if (d.coolingDuration > 0)
                     length = Mathf.Min(length, Mathf.Max(1, Mathf.RoundToInt(Mathf.Lerp(d.length, 1, heat))));
-                if (d.small) { length = Mathf.Clamp(Mathf.RoundToInt(d.length), 1, 2); width = length; }
+                if (d.small) { length = Mathf.Max(1, Mathf.RoundToInt(d.length)); width = length; }
                 if (d.physics.collideWithFloor)
                 {
-                    int clearance = Mathf.Max(1, Mathf.FloorToInt((position.y - d.floor) * 32));
+                    int clearance = Mathf.Max(1, Mathf.FloorToInt((position.y - d.floor) * (2 * pixelsPerUnit)));
                     length = Mathf.Min(length, clearance); width = Mathf.Min(width, clearance);
                 }
                 p.position = position; p.velocity = velocity;
-                p.startSize3D = new Vector3(width / 16f, length / 16f, 1);
+                p.startSize3D = new Vector3(width / pixelsPerUnit, length / pixelsPerUnit, 1);
                 p.rotation = d.small || (width == 1 && length == 1) ? 0 :
                     90 - Mathf.Atan2(Vector3.Dot(velocity, screenUp), Vector3.Dot(velocity, screenRight)) * Mathf.Rad2Deg;
                 // Cooling shortens the streak, but the remaining ember must stay
@@ -159,7 +162,7 @@ public partial class ImpactVfxBurst
         if (!alive) debrisCount = 0;
     }
 
-    sealed class ParticlePresetState
+    protected sealed class ParticlePresetState
     {
         readonly Material material;
         readonly Mesh mesh;

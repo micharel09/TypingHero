@@ -35,6 +35,14 @@ public sealed class DungeonSessionBindings : MonoBehaviour
         if (!clear)
         foreach (var root in roots)
         {
+            foreach (var camera in root.GetComponentsInChildren<Cinemachine.CinemachineVirtualCamera>(true))
+            {
+                var p = world.Profile;
+                camera.transform.SetPositionAndRotation(world.view.transform.position, world.view.transform.rotation);
+                camera.m_Lens.ModeOverride = Cinemachine.LensSettings.OverrideModes.Perspective;
+                camera.m_Lens.OrthographicSize = p.normalOrtho; camera.m_Lens.FieldOfView = p.fieldOfView;
+                camera.m_Lens.NearClipPlane = p.nearClip; camera.m_Lens.FarClipPlane = p.farClip;
+            }
             foreach (var viewport in root.GetComponentsInChildren<CombatViewportCamera>(true)) viewport.lighting = world.Profile;
             foreach (var fx in root.GetComponentsInChildren<SlayerScreenFX>(true)) fx.lighting = world.Profile;
             foreach (var rig in root.GetComponentsInChildren<ClashLightingRig>(true)) rig.profile = world.definition.combat;

@@ -30,6 +30,7 @@ internal static class ParryClashAssets
                     migrated = MigrateContact(serialized) || migrated;
                     migrated = MigrateRayShape(existing, serialized) || migrated;
                     migrated = MigrateCompact(existing, serialized) || migrated;
+                    migrated = MigrateImpactAuthoring(serialized) || migrated;
                     if (MigrateLengthSupport(existing, serialized) || migrated)
                         PrefabUtility.SaveAsPrefabAsset(existing, Root + "ParryClash.prefab");
                     return;
@@ -53,6 +54,7 @@ internal static class ParryClashAssets
                 MigrateVoxel(serialized);
                 ParryPixelAssets.Migrate(serialized);
                 BindPhysics(serialized);
+                MigrateImpactAuthoring(serialized);
                 PrefabUtility.SaveAsPrefabAsset(existing, Root + "ParryClash.prefab");
             }
             finally { PrefabUtility.UnloadPrefabContents(existing); }
@@ -90,9 +92,57 @@ internal static class ParryClashAssets
             MigrateVoxel(so);
             ParryPixelAssets.Migrate(so);
             BindPhysics(so);
+            MigrateImpactAuthoring(so);
             PrefabUtility.SaveAsPrefabAsset(root, Root + "ParryClash.prefab");
         }
         finally { Object.DestroyImmediate(root); }
+    }
+    // Versioned compatibility migration only; authored arrays (including zero flashes) are never rebuilt.
+    static bool MigrateImpactAuthoring(SerializedObject so)
+    {
+        bool changed = false;
+        if (so.FindProperty("bindingVersion").intValue == 0)
+        {
+            var bindings = so.FindProperty("rendererBindings");
+            if (bindings.arraySize == 0)
+            {
+                string[] names = { "contact", "mainRays", "front", "back", "embers" };
+                bindings.arraySize = names.Length;
+                for (int i = 0; i < names.Length; i++)
+                {
+                    var binding = bindings.GetArrayElementAtIndex(i);
+                    binding.FindPropertyRelative("id").intValue = i;
+                    binding.FindPropertyRelative("particles").objectReferenceValue = so.FindProperty(names[i]).objectReferenceValue;
+                    binding.FindPropertyRelative("material").objectReferenceValue = so.FindProperty(i == 0 || i == 3 ? "pixelContactMaterial" : "compactMaterial").objectReferenceValue;
+                }
+            }
+            so.FindProperty("bindingVersion").intValue = 1;
+            so.ApplyModifiedPropertiesWithoutUndo(); changed = true;
+        }
+        var profile = so.FindProperty("impactProfile").objectReferenceValue as ImpactVfxProfile;
+        if (!profile || AssetDatabase.GetAssetPath(profile) != Root + "MetalClash.asset") return changed;
+        var asset = new SerializedObject(profile);
+        if (asset.FindProperty("authoringVersion").intValue != 0) return changed;
+        if (profile.flashes.Length == 0)
+        {
+            profile.flashes = new ImpactVfxProfile.FlashLayer[2];
+            for (int i = 0; i < 2; i++)
+            {
+                var gradient = new Gradient();
+                gradient.SetKeys(new[] { new GradientColorKey(Color.white, 0), new GradientColorKey(Color.white, 1) },
+                    new[] { new GradientAlphaKey(1, 0), new GradientAlphaKey(1, i == 0 ? .35f : .45f), new GradientAlphaKey(0, 1) });
+                profile.flashes[i] = new ImpactVfxProfile.FlashLayer { channel = i == 0 ? 0 : 3,
+                    columns = 6, startFrame = i == 0 ? 0 : 1f / 6,
+                    frameOverTime = i == 0 ? AnimationCurve.Constant(0, 1, 0) : AnimationCurve.Linear(0, 0, 1, 5f / 6),
+                    maxWorldSize = i == 0 ? 1 : 0, colorOverLifetime = gradient };
+            }
+        }
+        var lighting = AssetDatabase.LoadAssetAtPath<CombatLightingProfile>("Assets/Data/Lighting/DungeonCombat.asset");
+        profile.lightColor = lighting.parry.color;
+        profile.lightDecay = ImpactVfxProfile.CopyCurve(lighting.parryDecay);
+        EditorUtility.SetDirty(profile); asset.Update();
+        asset.FindProperty("authoringVersion").intValue = 1; asset.ApplyModifiedPropertiesWithoutUndo();
+        return true;
     }
     static bool MigrateContact(SerializedObject so)
     {

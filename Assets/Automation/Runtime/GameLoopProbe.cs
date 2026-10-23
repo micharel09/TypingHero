@@ -75,7 +75,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         return frames;
     }
     readonly System.Collections.Generic.List<GameObject> renderRoots = new();
-    readonly System.Collections.Generic.List<ParryClashBurst> renderBursts = new();
+    readonly System.Collections.Generic.List<ImpactVfxBurst> renderBursts = new();
     void ObserveRenderParry()
     {
         combatFrame.parryParticleCount = combatFrame.parryBurstCount = combatFrame.parrySampleCount = 0;
@@ -88,21 +88,21 @@ public sealed class GameLoopProbe : MonoBehaviour
             root.GetComponentsInChildren(false, renderBursts);
             foreach (var burst in renderBursts)
             {
-                if (burst.EmittedPreset != ParryClashBurst.Preset.BCompact || burst.ParticleCount == 0) continue;
+                if (!burst.Analytical || burst.ParticleCount == 0) continue;
                 combatFrame.parryBurstCount++;
                 combatFrame.parryParticleCount += burst.ParticleCount;
-                for (int channel = 1; channel < burst.Systems.Length; channel++)
+                for (int channel = 0; channel < burst.Systems.Length; channel++)
                 {
-                    if (channel == 3) continue;
+                    if (!burst.IsPhysicalChannel(channel)) continue;
                     int count = burst.Systems[channel].GetParticles(observedParticles);
                     for (int i = 0; i < count && combatFrame.parrySampleCount < renderParryParticles.Length; i++)
                     {
                         int index = combatFrame.parrySampleCount++;
                         var sample = renderParryParticles[index];
                         var p = observedParticles[i];
-                        sample.burst = burst.GetInstanceID(); sample.channel = channel; sample.identity = p.randomSeed;
-                        sample.age = burst.DebrisAge; sample.width = p.startSize3D.x * 16;
-                        sample.length = p.startSize3D.y * 16; sample.position = p.position; sample.color = p.startColor;
+                        sample.burst = burst.GetInstanceID(); sample.channel = burst.ChannelId(channel); sample.identity = p.randomSeed;
+                        sample.age = burst.DebrisAge; sample.width = p.startSize3D.x * burst.PixelsPerUnit;
+                        sample.length = p.startSize3D.y * burst.PixelsPerUnit; sample.position = p.position; sample.color = p.startColor;
                     }
                 }
             }

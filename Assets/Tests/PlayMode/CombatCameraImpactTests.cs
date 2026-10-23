@@ -60,6 +60,26 @@ public sealed class CombatCameraImpactTests
         Assert.That(t.PeakRenderCount, Is.EqualTo(1));
     }
     [Test, Category("Quick")]
+    public void SlowWorldRenderStartsZoomRecoveryAtTheActualAcknowledgment()
+    {
+        var t = Timeline(out var p); t.Play(p, 0, Vector3.zero); t.Sample(.03, .03, false, false);
+        t.Acknowledge(t.Serial, t.RenderMask, false, .5);
+        t.Sample(.55, .363, false, false); Assert.That(t.Zoom, Is.EqualTo(.01f).Within(.00001f));
+        t.Sample(.61, .423, false, false); Assert.That(t.Active, Is.Null);
+        Assert.That(t.PeakRenderCount, Is.EqualTo(1));
+    }
+    [TestCase(.516, true), TestCase(1.5, false), Category("Quick")]
+    public void SlowRenderShakeKeepsGameplayRecoveryButNeverReplaysAfterALaterHitch(double nextTime, bool recovering)
+    {
+        var t = Timeline(out var p, 2); t.Play(p, 0, Vector3.left); t.Sample(.03, .03, false, false);
+        t.Acknowledge(t.Serial, t.RenderMask, false, .5);
+        t.Sample(nextTime, .363, false, false);
+        if (recovering) Assert.That(t.Offset.x, Is.InRange(-1f, -.5f));
+        else Assert.That(t.Active, Is.Null, "time after the acknowledged render must not replay the peak");
+        t.Sample(nextTime + 1, 1.363, false, false); Assert.That(t.Active, Is.Null);
+        Assert.That(t.ShakePeakRenderCount, Is.EqualTo(1));
+    }
+    [Test, Category("Quick")]
     public void DisabledPresetsAndMinimumOwnershipRespectAuthoredConfiguration()
     {
         var t = Timeline(out var p); p.enabled = false;
@@ -124,6 +144,28 @@ public sealed class CombatCameraImpactTests
         Assert.That(impact.Zoom, Is.EqualTo(.01f));
         impact.Bind(profile); impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
         Assert.That(impact.Zoom, Is.EqualTo(.02f));
+    }
+    [Test, Category("Quick")]
+    public void ConfigurePreservesAcceptedTuningAndCurvesWhilePreparingFutureRequests()
+    {
+        var other = Object.Instantiate(profile);
+        try
+        {
+            var old = profile.presets[1]; old.zoomPeak = .07f; old.attack = .01f; old.hold = .08f;
+            old.release = .2f; old.strength = 2; old.shakeDuration = .24f;
+            impact.Configure(profile); impact.Parry(Vector3.zero, Vector3.left, .5f);
+            old.zoomPeak = .9f; old.strength = 10; old.shakeDuration = 2;
+            var next = other.presets[1]; next.zoomPeak = .04f; next.attack = .01f; next.hold = .08f;
+            next.release = .1f; next.strength = .5f; next.shakeDuration = .1f;
+            next.shakeEnvelope = new AnimationCurve(new Keyframe(0, 0), new Keyframe(.5f, 1), new Keyframe(1, 0));
+            impact.Configure(other); impact.Advance(.06f);
+            Assert.That(impact.Zoom, Is.EqualTo(.07f).Within(.00001f));
+            Assert.That(impact.Offset.magnitude, Is.EqualTo(1).Within(.0001f), "accepted curve/duration/power stay captured");
+            impact.Clear(); impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.06f);
+            Assert.That(impact.Zoom, Is.EqualTo(.04f).Within(.00001f));
+            Assert.That(impact.Offset.magnitude, Is.EqualTo(.5f).Within(.0001f));
+        }
+        finally { impact.Clear(); impact.Configure(profile); Object.DestroyImmediate(other); }
     }
     [Test, Category("Quick")]
     public void TwoControllersSharingOneAssetKeepIndependentRuntimeState()

@@ -36,6 +36,7 @@ public sealed class DungeonWorldRender : ScriptableRendererFeature
     }
     sealed class EnvironmentPass : ScriptableRenderPass
     {
+        static readonly int FocusId = Shader.PropertyToID("_DungeonFocus"), EdgeId = Shader.PropertyToID("_DungeonDepthEdgeDistance"), TexelId = Shader.PropertyToID("_BlitTexture_TexelSize");
         readonly Material material;
         DungeonArenaCamera arena;
         float focus, radius;
@@ -58,8 +59,9 @@ public sealed class DungeonWorldRender : ScriptableRendererFeature
             var color = data.cameraData.renderer.cameraColorTargetHandle;
             var scratch = arena.EnvironmentScratch;
             var cmd = CommandBufferPool.Get("Dungeon environment depth blur");
-            material.SetVector("_DungeonFocus", new Vector4(focus + arena.profile.focusOffset, arena.profile.focusFalloff, radius, 0));
-            material.SetVector("_BlitTexture_TexelSize", new Vector4(1f / color.rt.width, 1f / color.rt.height, color.rt.width, color.rt.height));
+            material.SetVector(FocusId, new Vector4(focus + arena.profile.focusOffset, arena.profile.focusFalloff, radius, arena.profile.focusHalfWidth));
+            material.SetFloat(EdgeId, arena.profile.depthEdgeDistance);
+            material.SetVector(TexelId, new Vector4(1f / color.rt.width, 1f / color.rt.height, color.rt.width, color.rt.height));
             Blitter.BlitCameraTexture(cmd, color, scratch, material, 0);
             Blitter.BlitCameraTexture(cmd, scratch, color, material, 1);
             context.ExecuteCommandBuffer(cmd); CommandBufferPool.Release(cmd);

@@ -7,12 +7,15 @@ using UnityEngine;
 
 public static class CameraImpactAuthoringChecks
 {
+    static UnityEngine.Object[] retained;
+    public static void VerifyIntegrated() { Verify(); LightingAuthoringChecks.PrepareAndVerify(); }
     public static void Verify()
     {
         var world = AssetDatabase.LoadAssetAtPath<WorldDefinition>("Assets/Data/Lighting/DungeonWorld.asset");
         var other = AssetDatabase.LoadAssetAtPath<WorldDefinition>(LightingFixtureBuild.DefinitionPath);
         world.Validate(); other.Validate();
         var profile = world.cameraImpact;
+        retained = new UnityEngine.Object[] { world, other, profile };
         string before = EditorJsonUtility.ToJson(profile);
         string path = AssetDatabase.GetAssetPath(profile);
         try
@@ -39,8 +42,9 @@ public static class CameraImpactAuthoringChecks
         }
         finally
         {
+            profile = AssetDatabase.LoadAssetAtPath<CombatCameraProfile>(path);
             EditorJsonUtility.FromJsonOverwrite(before, profile); EditorUtility.SetDirty(profile); AssetDatabase.SaveAssets();
-            PixelUIBuild.Apply();
+            PixelUIBuild.Apply(); retained = null;
         }
     }
 }

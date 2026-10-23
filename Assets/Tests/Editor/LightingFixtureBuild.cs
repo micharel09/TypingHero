@@ -26,6 +26,7 @@ public static class LightingFixtureBuild
         definition.lighting = profile; AssetDatabase.CreateAsset(definition, DefinitionPath);
         var scene = EditorSceneManager.OpenScene(source.scenePath);
         var world = Object.FindObjectOfType<DungeonWorld>(true); world.definition = definition;
+        world.name = "Alternate World Owner"; world.environment.name = "Alternate Authored Hall";
         world.view.name = "Alternative Lens"; world.Arena.profile = profile;
         foreach (var motion in world.environment.GetComponentsInChildren<DungeonEnvironmentMotion>(true)) motion.profile = profile;
         int index = 0;

@@ -16,4 +16,4 @@ MonoBehaviour:
   scenePath: Assets/Scenes/DungeonWorld.unity
   lighting: {fileID: 11400000, guid: 8dad05f8f56b4f23492f502d6ca0d526, type: 2}
   combat: {fileID: 11400000, guid: 1bc41744fb1afc15a84a0ef674de7f2a, type: 2}
-  cameraImpact: {fileID: 11400000, guid: dee2f616b1da406aa6b3fca6672d00ce, type: 2}
+  cameraImpact: {fileID: 11400000, guid: 4bca0a930c3f4bd0abaf68135084484e, type: 2}

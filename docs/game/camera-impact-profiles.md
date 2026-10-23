@@ -1,6 +1,6 @@
 # Camera impact profiles
 
-1. Duplicate `Assets/Data/Lighting/DungeonCamera.asset` in the Unity Project window.
+1. Duplicate `Assets/Data/Lighting/CameraImpact.asset` in the Unity Project window.
 2. Edit its six presets in the Inspector. `zoomPeak` is a fraction (`0.02` = 2%);
    all times are seconds. Attack curves run 0?1; release curves run 1?0.
    Shake envelopes use normalized time 0?1 and end at zero.
@@ -24,7 +24,8 @@ uses zero zoom. Nonlethal Slayer contacts do not request a transient impact.
 Zoom uses event timestamps on the unscaled clock excluding manual Pause; shake uses
 the gameplay clock and its configured hitstop gate/delay. A skipped attack/hold still
 renders the exact peak once, acknowledged only by the bound world camera. Release
-then runs from that peak. A later hitch cannot replay an acknowledged peak. Reading,
+starts no earlier than that frame's actual render completion, so a slow render cannot
+consume recovery before the peak is shown. A later hitch cannot replay an acknowledged peak. Reading,
 results, restart, menu, unbind and disable discard pending requests and displacement;
 old render acknowledgments cannot confirm a replacement effect.
 

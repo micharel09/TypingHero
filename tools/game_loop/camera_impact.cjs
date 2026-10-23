@@ -2,6 +2,7 @@
 const fs=require('node:fs'),path=require('node:path');
 module.exports=async function({session,state,until,clickControl,check,report},browser){
   report.cameraImpact=[];
+  report.cameraImpactDriverSha256=require('node:crypto').createHash('sha256').update(fs.readFileSync(__filename)).digest('hex');
   const sizes=process.env.TYPINGHERO_CAMERA_SINGLE==='1'?[[1280,720]]:[[1280,720],[640,360]];
   for(const [width,height] of sizes){
     const {context,page}=await session(browser,{width,height},1000);
@@ -37,6 +38,11 @@ module.exports=async function({session,state,until,clickControl,check,report},br
       let s=await until(page,t=>t.scene==='SampleScene'&&!t.dungeonTransitioning);
       if(s.tutorial){await clickControl(page,'PracticeButton','button');await until(page,t=>!t.tutorial&&!t.dungeonTransitioning);}
       s=await live();check(s.width===width&&s.height===height,'camera viewport matches render');
+      // Warm the real render paths, then reset through the normal UI before recording.
+      s=await until(page,t=>!t.enemyAttacking&&t.canParry&&t.current.length>0&&t.wordTime>1);
+      await page.keyboard.type(s.current,{delay:35});
+      await page.waitForFunction(()=>window.typingHeroCombatFrame?.normalImpacts===1&&window.typingHeroCombatFrame?.peakRenderCount===1&&window.typingHeroCombatFrame?.impactZoom===0,null,{timeout:5000});
+      s=await restart();await page.evaluate(()=>window.cameraFrames=[]);
       const hud=JSON.stringify([s.playerStatusRect,s.enemyStatusRect,s.trayRect]);
       if(process.env.TYPINGHERO_CAMERA_CAPTURE==='1')await page.evaluate(()=>{
         const stream=document.querySelector('#unity-canvas').captureStream(60);
@@ -44,6 +50,7 @@ module.exports=async function({session,state,until,clickControl,check,report},br
         const chunks=[];recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
         window.cameraRecording={recorder,chunks,stream,start:performance.now()/1000};recorder.start(250);
       });
+      await page.waitForTimeout(300);
       s=await until(page,t=>!t.enemyAttacking&&t.canParry&&t.current.length>0&&t.wordTime>1);
       const hpBefore=s.enemyHp;
       await page.keyboard.type(s.current.slice(0,-1),{delay:35});
@@ -58,11 +65,17 @@ module.exports=async function({session,state,until,clickControl,check,report},br
       },s.current.slice(-1));
       await page.keyboard.type(s.current.slice(-1),{delay:35});
       await page.waitForFunction(()=>window.typingHeroCombatFrame?.normalImpacts>0,null,{timeout:10000});
-      await page.waitForTimeout(300);
+      await page.waitForFunction(()=>window.typingHeroCombatFrame?.peakRenderCount===1&&window.typingHeroCombatFrame?.impactZoom===0,null,{timeout:2500});
       let f=await frame();check(f.impactZoom===0&&f.normalImpacts===1,'confirmed normal hit pulses once and returns');
       s=await state(page);check(JSON.stringify([s.playerStatusRect,s.enemyStatusRect,s.trayRect])===hud,'HUD and typing geometry remain fixed');
       row.hitchMs=await page.evaluate(()=>window.cameraHitchMs);
       check(row.hitchMs>=180&&f.enemyHP<hpBefore,'180ms final-key hitch still confirms actual damage');
+      row.hitchContact=await page.evaluate(()=>{
+        const frames=window.cameraFrames,i=frames.findIndex(f=>f.normalImpacts===1),contact=frames[i];
+        const previous=frames.slice(0,i).reverse().find(f=>f.frame<contact.frame);
+        return {frame:contact.frame,serial:contact.effectSerial,delta:previous?contact.unscaledNow-previous.unscaledNow:0};
+      });
+      check(row.hitchContact.delta>=.14,'hitch occurs on the actual confirmed-contact frame');
       const hitchFrames=await page.evaluate(()=>window.cameraFrames.filter(f=>f.normalImpacts===1));
       check(hitchFrames.some(f=>Math.abs(f.impactZoom-.02)<.00001)&&hitchFrames.some(f=>f.peakRenderCount===1),'hitch pulse renders and acknowledges its exact peak');
       check(f.peakRenderCount===1,'hitch normal peak acknowledged exactly once');

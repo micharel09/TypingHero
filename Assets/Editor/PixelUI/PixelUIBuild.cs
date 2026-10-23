@@ -51,6 +51,8 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Select(AssetDatabase.GUIDToAssetPath)).Distinct().ToArray();
         paths = paths.Concat(new[] { DungeonSessionBuild.WorldPath, DungeonSessionBuild.WorldPath + ".meta", "ProjectSettings/EditorBuildSettings.asset" }).ToArray();
         paths = paths.Concat(Directory.GetFiles("Assets/Data/Lighting", "*", SearchOption.AllDirectories)).ToArray();
+        paths = paths.Concat(LightingBuildValidation.Dependencies())
+            .Concat(LightingBuildValidation.Dependencies().Select(x => x + ".meta").Where(File.Exists)).Distinct().ToArray();
         var before = System.Array.ConvertAll(paths, File.ReadAllBytes);
         try { Apply(); }
         catch (System.Exception error) { throw new BuildFailedException(error); }
@@ -76,10 +78,10 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
     [MenuItem("CLACKBLADE/Apply Pixel UI")]
     public static void Apply()
     {
-        var previousScene = EditorSceneManager.GetActiveScene().path;
+        var previousSetup = EditorSceneManager.GetSceneManagerSetup();
         try
         {
-            DungeonSessionBuild.RestoreForBuilders();
+            var cameraPose = DungeonSessionBuild.RestoreForBuilders();
             var originalTyping = BlackletterTitleBuild.SnapshotTypingComponents();
             PixelUIAssets.Prepare();
             PixelUIAssets.SavePrimitives();
@@ -94,12 +96,13 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             CombatR7Build.Apply();
             DungeonUISkin.Apply();
             BlackletterTitleBuild.Apply();
-            DungeonArenaBuild.Apply();
+            DungeonArenaBuild.Apply(cameraPose);
             CombatR7Build.ApplyResourceInk();
             BlackletterTitleBuild.AssertTypingComponents(originalTyping);
             TutorialBuild.Guide();
             CombatCameraImpactBuild.Apply();
             DungeonSessionBuild.Apply();
+            LightingBuildValidation.ApplySelected();
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");
@@ -107,14 +110,14 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
                 PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
                 CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'), BlackletterTitleBuild.Art.TrimEnd('/'),
                 DungeonArenaBuild.Art.TrimEnd('/'), DungeonPixelRoomBuild.Art.TrimEnd('/'), DungeonHangingLanternBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings", "Assets/Data/Lighting",
-                ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }, "build/PixelUI/PixelUI.unitypackage",
+                ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }.Concat(LightingBuildValidation.Dependencies()).Distinct().ToArray(), "build/PixelUI/PixelUI.unitypackage",
                 ExportPackageOptions.Recurse);
             Debug.Log("Pixel UI migration and serialization complete");
         }
         finally
         {
-            if (!string.IsNullOrEmpty(previousScene) && File.Exists(previousScene))
-                EditorSceneManager.OpenScene(previousScene);
+            if (previousSetup.Any(x => x.isLoaded)) EditorSceneManager.RestoreSceneManagerSetup(previousSetup);
+            else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         }
     }
 }

@@ -25,8 +25,17 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _Taper: 1.6
+    - _FadeIn: 0.16
+    - _FadeOut: 0.7
+    - _EllipsePower: 2
+    - _DriftBase: 0.82
+    - _DriftAmplitude: 0.18
+    - _DriftSpeed: 0.4
     - _DstBlend: 10
     - _Haze: 1
     m_Colors:
+    - _EllipseScale: {r: 1, g: 1, b: 0, a: 0}
+    - _DriftFrequency: {r: 19, g: 11, b: 0, a: 0}
     - _Tint: {r: 0.14, g: 0.19, b: 0.23, a: 0.075}
   m_BuildTextureStacks: []

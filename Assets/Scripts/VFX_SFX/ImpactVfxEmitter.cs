@@ -9,12 +9,16 @@ public sealed class ImpactVfxEmitter : MonoBehaviour
 {
     readonly Dictionary<GameObject, ObjectPool<GameObject>> pools = new();
     internal readonly List<GameObject> active = new(8);
+    [SerializeField, Min(1)] int maxActive = 8;
     Transform poolRoot;
 
     public ImpactVfxBurst Play(ImpactVfxProfile profile, ImpactVfxContext context)
     {
         if (!isActiveAndEnabled || !profile || !profile.prefab || !profile.physics ||
             GamePauseController.InputBlocked || Time.timeScale == 0 || CombatSession.Finished) return null;
+        var template = profile.prefab.GetComponent<ImpactVfxBurst>();
+        if (!template) throw new System.InvalidOperationException(profile.name + ": prefab needs ImpactVfxBurst");
+        template.Validate(profile);
         if (!poolRoot)
         {
             poolRoot = new GameObject("ImpactVfxPool").transform;
@@ -32,25 +36,14 @@ public sealed class ImpactVfxEmitter : MonoBehaviour
             }, go => { active.Add(go); go.SetActive(true); }, go => {
                 active.Remove(go);
                 if (go) { go.transform.SetParent(poolRoot, true); go.SetActive(false); }
-            }, go => { if (go) Destroy(go); }, false, 8, 8);
+            }, go => { if (go) Destroy(go); }, false, maxActive, maxActive);
             pool = created; pools.Add(prefab, pool);
         }
-        if (active.Count >= 8) active[0].GetComponent<PooledVFX>().Release();
+        if (active.Count >= maxActive) active[0].GetComponent<PooledVFX>().Release();
         var item = pool.Get();
         var burst = item.GetComponent<ImpactVfxBurst>();
-        Play(profile, context, burst);
+        burst.Play(profile, context);
         return burst;
-    }
-
-    // Adapter overload accepts an existing lease, retaining legacy pool ownership.
-    internal void Play(ImpactVfxProfile profile, ImpactVfxContext context, ImpactVfxBurst burst,
-        ParryContactSnapshot? contact = null)
-    {
-        var visual = contact ?? new ParryContactSnapshot {
-            valid = context.unitsPerMeter > 0, unitsPerMeter = context.unitsPerMeter };
-        burst.Emit(context.point, context.direction, context.floorY, ImpactVfxBurst.Preset.BCompact,
-            context.seed, visual, context.recipient.valid ? context.recipient.center.x - context.point.x : 0,
-            context.recipient, profile);
     }
 
     public void Clear()
