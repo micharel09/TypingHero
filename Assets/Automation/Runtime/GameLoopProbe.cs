@@ -608,8 +608,8 @@ public sealed class GameLoopProbe : MonoBehaviour
             var enemyHpSlider = enemyStatus ? enemyStatus.Find("EnemyHP").GetComponent<Slider>() : null;
             var staminaSlider = enemyStatus ? enemyStatus.Find("EnemyStamina").GetComponent<Slider>() : null;
             var hudFeedback = FindObjectOfType<CombatHUDFeedback>();
-            var hudRound = Read<TMP_Text>(FindObjectOfType<CombatR7Status>(), "round");
-            var hudBackground = Read<Image>(FindObjectOfType<CombatR7Status>(), "roundBackground");
+            var hudRound = FindObjectOfType<CombatR7Status>()?.transform.Find("RoundR7")?.GetComponent<TMP_Text>();
+            var hudBackground = FindObjectOfType<CombatR7Status>()?.transform.Find("RoundReadabilityR7")?.GetComponent<Image>();
             var guardLabel = Read<TMP_Text>(hudFeedback, "guardBreak");
             var guardIcon = Read<Image>(hudFeedback, "staminaIcon");
             var combatHeading = Read<TMP_Text>(FindObjectOfType<EndlessOverlay>(), "heading");

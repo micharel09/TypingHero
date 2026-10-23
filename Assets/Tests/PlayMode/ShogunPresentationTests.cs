@@ -292,7 +292,7 @@ public sealed class ShogunPresentationTests
 
     static GameObject PausePanel(Transform parent)
     {
-        var panel = new GameObject("pause panel", typeof(RectTransform), typeof(CanvasGroup));
+        var panel = new GameObject("pause panel", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
         panel.SetActive(false); panel.transform.SetParent(parent, false);
         foreach (var name in new[] { "PauseLabel", "ResumeButton", "RestartButton", "SettingsButton", "Top 1000Button", "Main MenuButton", "AudioPreferences", "KeyHint" })
         {
@@ -363,6 +363,9 @@ public sealed class ShogunPresentationTests
         try
         {
             host.SetActive(true); pause.TogglePause(true);
+            Assert.That(panel.GetComponent<Image>().enabled, Is.False, "Pause has no enclosing panel");
+            pause.TogglePause(true);
+            Assert.That(panel.GetComponent<Image>().enabled, Is.False);
             panel.transform.Find("ResumeButton").GetComponent<Button>().Select();
             pause.Resume(); pause.Resume(); pause.Restart(); pause.ReturnToMenu(); pause.TogglePause(true);
             Assert.That(pause.IsRestarting, Is.False);
@@ -378,6 +381,7 @@ public sealed class ShogunPresentationTests
             Assert.That(GamePauseController.InputBlocked, Is.True); GamePauseController.SetTutorialReading(false);
             Assert.That(GamePauseController.InputBlocked, Is.False); Assert.That(Time.timeScale, Is.EqualTo(1));
             pause.ShowVictory(); Assert.That(rect.sizeDelta, Is.EqualTo(new Vector2(600, 500)));
+            Assert.That(panel.GetComponent<Image>().enabled, Is.True, "Results retain the authored panel");
             Assert.That(canvas.GetComponent<Canvas>().enabled, Is.True);
         }
         finally { Object.DestroyImmediate(host); Object.DestroyImmediate(canvas); Object.DestroyImmediate(cameraHost); Object.DestroyImmediate(events); GamePauseController.ResetSessionState(); }

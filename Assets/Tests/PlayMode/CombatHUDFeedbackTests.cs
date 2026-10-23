@@ -38,12 +38,9 @@ public sealed class CombatHUDFeedbackTests
             Assert.That(icon.sprite.name, Is.EqualTo("icon-shield"));
             Assert.That(Get<float>(hud, "hitRemaining"), Is.Zero);
             var status = Object.FindObjectOfType<CombatR7Status>();
-            var row = Get<TMP_Text>(status, "round");
-            Assert.That(row.text, Is.EqualTo("TUTORIAL"));
-            Assert.That(row.enabled, Is.False);
+            Assert.That(status.transform.Find("RoundR7"), Is.Null);
+            Assert.That(status.transform.Find("RoundReadabilityR7"), Is.Null);
             GamePauseController.SetTutorialReading(false);
-            typeof(CombatR7Status).GetMethod("LateUpdate", Flags).Invoke(status, null);
-            Assert.That(row.enabled, Is.True);
             var parry = player.parry;
             var key = Get<Image>(hud, "parryKey");
             var cue = Get<GameObject>(enemy, "attackCue");

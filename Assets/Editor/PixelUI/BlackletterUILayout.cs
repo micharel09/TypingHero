@@ -205,8 +205,6 @@ internal static class BlackletterUILayout
         Place(design, "EnemyHpR7", 708, 72, 243, 42);
         Place(design, "PlayerReadabilityR7", 9, 0, 324, 60);
         Place(design, "EnemyReadabilityR7", 627, 0, 324, 60);
-        Place(design, "RoundR7", 309, 165, 342, 33);
-        Place(design, "RoundReadabilityR7", 306, 162, 348, 39);
         foreach (var label in design.GetComponentsInChildren<TMP_Text>(true))
         {
             if (label.name == "PlayerName" || label.name == "EnemyHPLabel")
@@ -222,7 +220,7 @@ internal static class BlackletterUILayout
                 label.alignment = TextAlignmentOptions.MidlineRight;
             }
             if (label.name == "ScoreText") Size(label, BodySize);
-            if (label.name == "Multiplier" || label.name == "RoundR7") Size(label, CompactSize);
+            if (label.name == "Multiplier") Size(label, CompactSize);
         }
     }
 }

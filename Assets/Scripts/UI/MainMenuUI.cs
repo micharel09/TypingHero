@@ -21,7 +21,6 @@ public sealed class MainMenuUI : MonoBehaviour
     [SerializeField] bool autoFocusInput = true;
 
     bool loadingScene;
-    [SerializeField] HowToPlayPanel help;
     [SerializeField] GameObject preparation;
     [SerializeField] CanvasGroup menuActions;
     [SerializeField] Button[] menuButtons;
@@ -30,10 +29,9 @@ public sealed class MainMenuUI : MonoBehaviour
     bool replayTutorial;
     int transitionFrame = -1;
     Button opener;
-    bool helpWasOpen;
     int lastMenuIndex;
 
-    bool Blocked => LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts || (help && help.IsOpen);
+    bool Blocked => LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts;
 
     public void OpenPlay() => OpenPreparation(false);
     public void ClosePreparation()
@@ -108,20 +106,12 @@ public sealed class MainMenuUI : MonoBehaviour
     {
         if (preparation)
         {
-            if (help && help.IsOpen) helpWasOpen = true;
-            else if (helpWasOpen)
-            {
-                helpWasOpen = false; menuActions.interactable = menuActions.blocksRaycasts = true;
-                menuButtons[4].Select(); transitionFrame = Time.frameCount;
-            }
-            if (help && help.IsOpen && Input.GetKeyDown(KeyCode.Escape)) { help.Close(); return; }
             if (Blocked || loadingScene || transitionFrame == Time.frameCount) return;
             if (preparation.activeSelf && Input.GetKeyDown(KeyCode.Escape)) { ClosePreparation(); return; }
             var system = UnityEngine.EventSystems.EventSystem.current;
             if (!system) return;
             if (!preparation.activeSelf)
             {
-                if (help && help.IsOpen) return;
                 int selected = System.Array.FindIndex(menuButtons, b => b.gameObject == system.currentSelectedGameObject);
                 if (selected >= 0) lastMenuIndex = selected;
                 else selected = lastMenuIndex;
@@ -142,7 +132,7 @@ public sealed class MainMenuUI : MonoBehaviour
             }
             return;
         }
-        if (!Input.GetKeyDown(KeyCode.Tab) || (LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts) || (help && help.IsOpen)) return;
+        if (!Input.GetKeyDown(KeyCode.Tab) || (LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts)) return;
         var events = UnityEngine.EventSystems.EventSystem.current;
         if (!events || !difficultySelector) return;
         var targets = new UnityEngine.UI.Selectable[] { nameInput, difficultySelector, playButton, tutorialButton };
@@ -228,16 +218,6 @@ public sealed class MainMenuUI : MonoBehaviour
     void BeginGame() => DungeonSession.I.BeginGame(gameSceneName);
     public void Tutorial() { if (preparation) OpenPreparation(true); else Launch(true); }
 
-    public void ShowHelp()
-    {
-        if (Blocked || preparation.activeSelf) return;
-        menuActions.interactable = menuActions.blocksRaycasts = false;
-        helpWasOpen = true;
-        help.Show();
-        var button = System.Array.Find(Object.FindObjectsOfType<Button>(), b => b.name == "ContinueButton");
-        if (button) button.Select();
-    }
-
     void Play()
     {
         if (preparation && (!preparation.activeSelf || transitionFrame == Time.frameCount)) return;
@@ -246,7 +226,7 @@ public sealed class MainMenuUI : MonoBehaviour
 
     void Launch(bool replay)
     {
-        if (loadingScene || (LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts) || (help && help.IsOpen)) return;
+        if (loadingScene || (LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts)) return;
         if (!nameInput) return;
 
         if (!ValidateName(nameInput.text, out _, out string err) ||

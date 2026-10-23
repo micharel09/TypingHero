@@ -220,3 +220,51 @@ form verification receipts at `E:/CodexTemp/TypingHero/pause-itch-release/` and
 ends. Shared cache and previous artifacts stay untouched. The clean release
 worktree/local branch can be removed after these documentation commits are pushed,
 merged and verified on origin/main; retain the remote release branch.
+
+
+## Pause and redundant guidance cleanup ? 2026-10-24
+
+Approved scope: remove the enclosing Pause face/rim, retain its five actions;
+keep the single current tutorial, remove How to Play and the initial Fight gate;
+remove DUEL x/6 from HUD and between-encounter copy, retain Continue/results.
+No combat/animation/provider/save-schema changes or itch publication.
+
+Implementation: CompactPauseLayout snapshots/restores the shared panel Image.enabled
+alongside geometry. Settings/results keep their own authored surfaces. CoreMatchBuild
+removes the legacy help canvas/button/component; menu navigation contains four actions.
+All layout passes stop addressing retired help/round nodes. CombatR7Build removes both
+round label/backplate; the QA observer checks the actual hierarchy without retired fields.
+EndlessDuel starts after initialization, preserving DungeonSession transition input
+suppression; Continue still advances only a completed encounter. The result shows the
+next opponent name without tactical hints or duel numbering. Tutorial guide/template,
+replay, completion and persisted preferences remain intact.
+
+Worktree: C:/Users/ADMIN/orca/workspaces/TypingHero/clean-pause-guidance,
+branch micharel09/clean-pause-guidance, based on origin/main 8a7b498.
+Evidence/helpers: E:/CodexTemp/TypingHero/clean-pause-guidance.
+Verification: Unity2022.3.25f1/fly-server result20261023T174743-webgl,
+input d90abc079611723cb0556589b74770f96563c3e29dee9a94cc796a4ca6be0922:
+12/12 filtered PlayMode PASS, zero failures/skips, 10.564191s. Strict repeated builder
+and QA WebGL PASS; all2231 input files match before generated scene import. Initial
+builder caught a retired Round node in ApplyCompactStatus; corrected before acceptance.
+Generated scene records match final checkout after ignoring ordering/trailing whitespace;
+37 legacy help records and8 round records removed, zero new records, all other IDs kept.
+Original record ordering retained to avoid unrelated Unity serialization churn.
+
+Native Edge/ANGLE D3D11, Playwright1.58.2,1280x720:22/22 PASS with actual keyboard/mouse,
+read-only probe and fixture interception. Tutorial first-run/replay/Start Battle,
+pause during tutorial/combat, Resume, Settings/R/M guards/Back, Top1000/Escape,
+real typing defeat, Continue to next opponent, Restart, death/results and Main Menu.
+Nine screenshots directly inspected: menu,tutorial,combat,pause,pause-tutorial,
+pause-restored,settings,continue,defeat. Pause shows title/buttons without enclosing
+face/rim; Settings/results retain their surfaces; no Help/DUEL x/6/initial Fight gate.
+Zero JS/managed exceptions or production writes. No full balance, sprite or performance
+suite; actual Editor EnterPlayMode tests updated but not rerun (direct-entry PlayMode
+coverage passes). No merge-conflict cause established for the original visible panel.
+
+
+Preview retained: http://127.0.0.1:8291/ with its player, fixture service worker,
+source snapshot,12-test XML,22-check native report and nine screenshots under
+E:/CodexTemp/TypingHero/clean-pause-guidance. Keep until user review is complete;
+then stop only its preview host and remove that task artifact directory. Shared
+Unity cache/source and pre-existing previews remain untouched.

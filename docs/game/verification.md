@@ -1,5 +1,20 @@
 ## Latest-main original parry demo (2026-10-22; local)
 
+
+## Pause and redundant guidance cleanup (2026-10-24)
+
+Unity2022.3.25f1 result20261023T174743-webgl/input
+d90abc079611723cb0556589b74770f96563c3e29dee9a94cc796a4ca6be0922:
+12/12 scoped PlayMode PASS,0failed/skipped,10.564191s; strict repeat builder and QA
+WebGL PASS. Native Edge/ANGLE D3D11 at1280x720:22/22 real-input checks PASS,
+0JS/managed exceptions, fixture interception/external blocking enabled.
+Nine screenshots inspected: unframed Pause, four-action menu, preserved tutorial,
+Settings/results, clean combat and Continue without duel numbering. Tutorial entry/
+replay, pause/modals, direct battle start, typing defeat/Continue, Restart/death/menu
+verified. No balance/performance/sprite suite or itch publication.
+Source scenes semantically match generated records; retained original ordering and
+unrelated values/GUIDs. [Receipt and resources](../plans/compact-menus.md).
+
 Base origin/main fd3f21d; original2->3->4->5->idle integration on a separate child.
 Pinned Unity2022.3.25f1/fly-server141745: strict builder/font protection and31/31
 scoped parry/contact/slash cases PASS,0failed/skipped,2.4495452s. WebGL build PASS

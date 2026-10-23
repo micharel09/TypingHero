@@ -18,25 +18,13 @@ internal static class CoreMatchBuild
             finally { PrefabUtility.UnloadPrefabContents(contents); }
         }
         EditorSceneManager.OpenScene("Assets/Scenes/MainMenu.unity");
-        var menu = Object.FindObjectOfType<MainMenuUI>(true);
-        if (!Object.FindObjectOfType<HowToPlayPanel>(true))
-        {
-            var root = GameObject.Find("PixelUI/Reference960x540").transform;
-            var help = menu.gameObject.AddComponent<HowToPlayPanel>();
-            Set(menu, "help", help);
-            Button("How to Play", root, 272, 430, 200, help.Show);
-            Volumes(root, 700, 220, 230);
-            var helpCanvas = Canvas("HowToPlay", 60);
-            var helpRoot = DesignRoot(helpCanvas);
-            var shade = Image(helpRoot, new Color(0, 0, 0, .9f)); shade.raycastTarget = true;
-            var panel = PanelAt("HowToPlayPanel", helpRoot, 220, 85, 520, 370);
-            Label("Title", "HOW TO PLAY", panel, 24, 20, 472, 48, 36);
-            var body = Label("Instructions", "Type the word to slash.\nMistake? Retype the whole word.\nPress SPACE to parry the yellow cue.\nBreak stamina to enter SLAYER.\nIn Slayer, each new letter strikes!", panel, 24, 80, 472, 210, 24);
-            body.enableWordWrapping = true;
-            Button("Continue", panel, 24, 306, 472, help.Close);
-            Set(help, "panel", helpRoot.gameObject);
-            helpRoot.gameObject.SetActive(false);
-        }
+        var menuRoot = GameObject.Find("PixelUI/Reference960x540").transform;
+        var legacyButton = menuRoot.Find("How to PlayButton");
+        if (legacyButton) Object.DestroyImmediate(legacyButton.gameObject);
+        foreach (var canvas in Object.FindObjectsOfType<Canvas>(true))
+            if (canvas.name == "HowToPlay") Object.DestroyImmediate(canvas.gameObject);
+        foreach (var help in Object.FindObjectsOfType<HowToPlayPanel>(true)) Object.DestroyImmediate(help);
+        if (!menuRoot.Find("AudioPreferences")) Volumes(menuRoot, 700, 220, 230);
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
 
         EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");

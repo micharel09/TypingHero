@@ -60,7 +60,6 @@ internal static class ShogunTheme
     {
         ShogunEnvironment.Menu(root);
         Place(root, "MenuPanel", 264, 76, 432, 312);
-        Place(root, "How to PlayButton", 264, 398, 138, 40);
         Place(root, "AudioPreferences", 264, 450, 432, 76);
         foreach (var path in new[] { "Title", "NameLabel", "NameError", "PlayButton" })
         {
