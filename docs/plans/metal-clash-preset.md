@@ -161,3 +161,116 @@ is retained for review (no automatic deletion).
   remain. Clean Orca worktree/local-branch cleanup follows final remote verification;
   delivery.json in the retained artifact root records the outcome. Remote task
   branch stays for review.
+
+
+## Reusable authoring follow-up — 2026-10-23 (in progress)
+
+User approved implementing the optimization plan for particles, flashes and local
+lighting. Base origin/main325327418a6c; independent Orca worktree
+`C:/Users/ADMIN/orca/workspaces/TypingHero/impact-vfx-authoring`, branch
+`micharel09/impact-vfx-authoring`. Parent dirty checkout is preserved.
+
+Acceptance: configurable renderer IDs/material bindings, 0/1/3+ flash layers,
+count/lifetime/tint/pixel size/world cap, grid/start/frame/color-alpha curves;
+profile-owned local pulse enabled/color/intensity/hold/duration/decay/range/offset.
+Scene rig still owns actual light templates and overlap budget. One public
+`ImpactVfxEmitter.Play(profile, context)` path for standalone and parry, including
+profile.prefab ownership. Historical presets and parry-only metadata belong to
+the compatibility adapter. Preserve GUIDs, solver/RNG, fixed40 physical slots,
+MetalClash24 particles/1px/400ms floor rest/1100ms lifetime, pause/pooling/cleanup,
+zero warmed Update allocations and immutable living snapshots. Builders only fill
+missing references; versioned migration never resets authored arrays/curves.
+No extra production material preset, wall/stair physics or gameplay/audio changes.
+
+Frozen pre-refactor snapshot0c42fde68500bdb4766722a0cd56fddf19bf01711280172145d9c0c812d89f51
+captures both directions/seeds0,7 at68 consecutive1/60s steps across all5 renderers.
+Independent JSON SHA256079ac532a82ecc8d521993391f19f5974fe10a22fc751956e3415f2e477f3360;
+compressed fixture is `Assets/Tests/PlayMode/MetalClashBaseline.bytes`.
+Artifacts/reproduction scripts: `E:/CodexTemp/TypingHero/impact-vfx-authoring`.
+Server task root `/tmp/typinghero-impact-vfx-authoring`: task outputs relocated to
+tmpfs because /data is just below the existing3GiB free guard. No guard reduction,
+shared cache/library/license deletion, or other task cleanup. Shared runner lock
+preserves concurrent jobs. Initial /data task snapshot remains task-owned pending
+cleanup. Runtime/visual acceptance remains pending until results below.
+
+
+### Follow-up verification checkpoint
+
+- First implementation snapshot7c7166daff50:78/78 scoped Unity tests pass
+  (`20261023T032601-quick`). Final runtime/test source snapshotdb94155fd2b6692296437179e45ba41e8ec131454ac68eeba2db55047644347d:
+  **83/83 PASS**,0failed/skipped (`20261023T033251-quick`). Includes the frozen
+  pre-refactor trace at every step, pure generic prefabs with0/1/3 flash layers
+  and IDs77/10/20/30, custom grid/tint/curves/scales, immutable curve keys,
+  concurrent profiles/pulse color/decay/overlap, profile.prefab selection by parry,
+  invalid binding/overflow rejection, repeated migration preservation, seed/mirror,
+  pool/pause/reuse/cleanup and zero warmed particle-update allocation. Three
+  directly affected old PixelSpark parry direction/teardown/unload tests also pass.
+- Frozen normal baseline build/strict repeat (`20261023T031901-webgl`) and mirror
+  (`20261023T032949-webgl`) pass. The first old native driver failed its automatic
+  counter assumption on unchanged main: main3253274 requires a completed word
+  within800ms to queue a follow-up. Preserved failed receipt in baseline-right;
+  updated only the external driver to type the current word after real parry.
+  No gameplay mutation. Both corrected baseline runs pass18/18 native checks,
+  no exceptions/provider calls. Their source segments were selected before capture:
+  idle, complete fresh windup/parry/success/recovery, typed queued slash and full
+  recovery, complete ember tail and empty endpoint. Full source video/timing in
+  each scope.json. Baseline right178frames/177pairs, video1.36478..5.433445s;
+  left124frames/123pairs, video0.01562..2.68949s. All302frames/300pairs directly
+  inspected in numbered native/nearest2x sheets; per-frame/transition observations
+  recorded in each visual-review.csv. Small blade-centered contacts, directional
+  hot rays cooling to1px orange ground embers, fade and coherent recovery match
+  the current source. Final output comparison remains pending.
+- Final normal/mirror builds are queued under the existing shared runner lock;
+  another job is left untouched. Reuse83 passing runtime results while their
+  relevant inputs remain unchanged. Authoring docs now describe profile ownership,
+  binding IDs/validation, public API, snapshot semantics, scene light templates
+  and the unchanged Compact shader/one-floor solver contracts.
+
+
+### Final implementation and acceptance
+
+- Hạt/flash/local pulse are profile-owned. Generic runtime has no ParrySystem,
+  Preset/BCompact, ParryContactSnapshot, Pimen slot0/3 or320px raster dependency.
+  Fixed40-state capacity, RNG constants, first-visible-step timing and Compact
+  shader UV/mask protocol remain algorithm/resource contracts. Existing prefab
+  object IDs, GUIDs and all old references remain. Solver/ParryPhysics bytes are
+  unchanged. Production still has only MetalClash; no gameplay/audio/camera edits.
+- Late review found two necessary compatibility edges: infer a missing parry
+  profile from its existing custom prefab instead of assigning MetalClash; resolve
+  an emitter-added lease when an active generic prefab Awakes before that lease
+  exists. The latter prevents expired inactive objects remaining in active leases.
+  Dedicated tests added. Builder4/4 PASS (6135a1ff...,20261023T035557-quick).
+- Final snapshotcbff319fd0c09a9cb26c5f4b5baeafb6d656f2e5e2640ad567588c16247420d8,
+  run20261023T035820-quick: **85/85 PASS**,0failed/skipped. All2229 snapshot inputs
+  match checkout after text-only LF normalization. Includes the complete earlier
+  scoped set, custom builder references and active-prefab expiry/reuse. Metadata
+  whitespace correction is the only nonbehavioral difference from earlier83 inputs.
+- Normal d6a015205aa4d34ce16fda9ff3fae94b09a8ce1ed3cee59f339e92ceed639e4b
+  (20261023T034250-webgl) and mirror33823a196b16484a4604a222d7e3677a84a8c4d2d15c2431188a53e58aa68d41
+  (20261023T034946-webgl) pass WebGL/strict repeated builders. All33 files in each
+  baseline/final normal/mirror player match local/server SHA256. Immutable source
+  archives, XML, logs and source/static/generated audits retained in artifact root.
+- Native Edge155.0.4283.62/Playwright1.58.2/NVIDIA GTX1650Ti ANGLE D3D11,
+  real keyboard/mouse with fixture/external-network isolation: final36/36 PASS,
+  0exceptions/provider calls. Right109frames/108pairs, video0.01893..2.532805s;
+  left133frames/132pairs, video0.009915..2.54843s. Source segment selection recorded
+  before capture. Inspected all242 output frames/240pairs and compared by effect
+  age/hero phase to all302 baseline frames/300pairs: **544frames/540pairs total**.
+  Every Unity render ID is consecutive; positive durations and held/repeated cels
+  retained. Numbered native PNGs/nearest2x sheets, original WebM/audio, timing and
+  explicit per-frame/transition notes remain under each capture directory.
+- Both directions retain small white/yellow blade contacts, thin recipient-directed
+  launch, independent orange1px cooling/fall/ground hold/final fade, no ring or
+  residue, original success cels and queued-slash recovery. Words/cadence/encounter
+  labels differ across sessions; no whole-scene pixel/FPS equality or subjective
+  audio judgment is claimed. Actual audio-source/contact/damage alignment checks
+  pass. Generated baseline/final serialized outputs differ only in MetalClash.asset,
+  ParryClash.prefab bindings and Player.prefab profile reference. Copied only that
+  one new player reference; unrelated scene/material/importer normalization stays out.
+- Visual receipts intentionally remain attributed to their immutable players,
+  before the final missing-lease guard and custom-reference Editor fix. MetalClash
+  already has its lease, so that new branch is not used; render configuration,
+  materials, physics and render evaluation are unchanged. The player reference
+  equals the built value. Final85 tests verify changed generic/Editor paths and
+  rerun frozen traces/pool/pause/allocation. No native missing-lease-fixture claim.
+- Remote integration and scoped resource cleanup follow the final diff review.

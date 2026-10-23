@@ -35,7 +35,7 @@ public sealed class PhysicalParticleProfile : ScriptableObject
     {
         public string name;
         [Min(0)] public int count;
-        [Tooltip("Renderer channel supplied by the effect adapter. Parry: 1 fragments, 2 near, 4 far; 0/3 reserved for contacts.")]
+        [Tooltip("Renderer ID bound by the effect prefab. Must not share a channel with a flash layer.")]
         public int channel;
         public bool small;
         public SpawnRegion spawnRegion;

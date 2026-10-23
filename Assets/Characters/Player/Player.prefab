@@ -529,6 +529,7 @@ MonoBehaviour:
   parrySystem: {fileID: 4700267102167904995}
   sparkPrefab: {fileID: 6713487999085554968, guid: 449d773a8c868d0f2b51dd70a5da1de9, type: 3}
   playerSparkAnchor: {fileID: 8595483995670857711}
+  impactProfile: {fileID: 11400000, guid: 30c4a45210684307abf25edd76990d6d, type: 2}
   offset: {x: 0, y: 0}
   flipTowardEnemy: 1
   parentToAnchor: 0

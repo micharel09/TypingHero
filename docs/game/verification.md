@@ -38,6 +38,51 @@ resources: [checkpoint](../plans/parry-main-demo.md).
 - Final WebGL/strict repeated builder PASS (`20261022T160608-webgl`);33/33 immutable player file hashes match local/server. Native Edge155 / Playwright1.58.2 / GTX1650Ti D3D11:86/86 checks PASS across1280x720 and640x360,0exceptions/provider calls, real keyboard/mouse and fixture/external-network isolation. Camera profiles, actual kick bounds, fixed HUD/typing and Pause/Resume/Restart/Menu pass.
 - Directly reviewed400/400 encoded frames and390/390 transitions in ten selected output windows,37/37 sheets; framing and recovery pass. Original WebM/PTS remain timing authority, including held spans; derived MP4 tails are not authoritative. Reference research remains separate. No full-suite/stress/soak, general performance or itch release claim. Sources, limits and retained demo: [camera checkpoint](../plans/camera-impact.md).
 
+## Impact profile authoring follow-up (2026-10-23)
+
+- Final source snapshotcbff319fd0c09a9cb26c5f4b5baeafb6d656f2e5e2640ad567588c16247420d8:
+  **85/85 scoped Unity PASS**,0failed/skipped (`20261023T035820-quick`), all2229
+  input files match the final checkout after LF normalization of text only.
+  Filters: ImpactVfxTests, ParryClashTests, PhysicalParticleTests and three directly
+  affected PixelSpark parry direction/teardown/unload cases. Covers pure generic
+  prefabs,0/1/3 flashes/arbitrary IDs, varied flipbook/color/physics/pixel scale,
+  public parry/profile.prefab routing, immutable values/curve keys, concurrent
+  pulses, bounded pool/pause/reuse/cleanup and zero warmed particle-update
+  allocations. Invalid IDs/overlapping roles/>40 states fail before leasing.
+  Includes active prefabs without an authored lease, and repeated custom-reference
+  migration. Earlier83/83 and supplementary builder4/4 receipts remain attributed
+  to their own snapshots, superseded by this complete focused85-case result.
+- Independent frozen pre-refactor origin/main3253274 fixture compares every
+  particle on every renderer over68 consecutive1/60s steps, both directions and
+  seeds0,7. JSON SHA256079ac532a82ecc8d521993391f19f5974fe10a22fc751956e3415f2e477f3360;
+  gzip TextAsset fixture is under PlayMode tests. Solver and physics asset unchanged.
+- Normal/mirror WebGL + strict repeated builder PASS (20261023T034250 and034946).
+  Native Edge155/Playwright1.58.2/NVIDIA GTX1650Ti ANGLE D3D11:36/36 PASS,
+  0exceptions/provider calls. Real parry plus typed queued slash, HP preservation,
+  contact/core/damage/audio-source alignment and pool caps pass. Frozen baseline
+  builds/native36 also pass after correcting the external driver's superseded
+  automatic-counter assumption; main requires real typing for the queued follow-up.
+- All242 output frames/240 consecutive pairs directly compared with all302 baseline
+  frames/300pairs, preserving native render timestamps and held frames, no gaps.
+  Per-frame/transition notes in visual-review.csv; total544frames/540pairs. Both
+  directions retain blade-centered contacts, narrow directional launch, orange1px
+  fall/rest/fade, clear endpoint and coherent guard/queued-slash recovery. Compare
+  by effect age/hero phase: cadence, words and encounter labels vary. No whole-scene
+  bitwise, FPS benchmark, or independent subjective-audio claim.
+- Visual players predate the final active-prefab missing-lease guard and Editor-only
+  custom-reference migration. Reuse is limited to unchanged MetalClash rendering:
+  its prefab already has PooledVFX, so the new missing-lease branch does not execute;
+  its authored profile/materials/physics/render code are unchanged. Its new player
+  reference equals the already-built serialized value. Final85 tests cover the
+  changed generic ownership/migration paths and rerun frozen-trace/pooling tests.
+  Native coverage of a generic active prefab missing a lease is not claimed.
+- All33 files of each of four immutable players match local/server SHA256 hashes.
+  Generated baseline/output assets differ only in the intended MetalClash profile,
+  prefab bindings and player profile reference; unrelated builder normalization is
+  not copied into source. [Checkpoint](../plans/metal-clash-preset.md) records handoff.
+- Artifacts/reproduction: E:/CodexTemp/TypingHero/impact-vfx-authoring. Full suites,
+  broad WebGL profiles and stress runs are outside this focused change.
+
 ## Reusable MetalClash preset (2026-10-22)
 
 - Integrated newer main5f371fa torch flames as7ef0da3, preserving all VFX/actor/

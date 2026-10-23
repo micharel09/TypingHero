@@ -333,7 +333,7 @@ public sealed partial class ParryClashTests
         for (int emission = 0; emission < 2; emission++)
         {
             host.SetActive(true); parry.ParrySuccess();
-            var active = (List<GameObject>)typeof(ParrySparkVFX_Pooled).GetField("active", Flags).GetValue(fx);
+            var active = fx.GetComponent<ImpactVfxEmitter>().active;
             Assert.That(active.Count, Is.EqualTo(1));
             var burst = active[0].GetComponent<ParryClashBurst>();
             Assert.That(burst.EmittedPreset, Is.EqualTo(ParryClashBurst.Preset.BCompact));
@@ -369,7 +369,7 @@ public sealed partial class ParryClashTests
         for (int sequence = 0; sequence < 12; sequence++)
         {
             parry.ParrySuccess();
-            var active = (List<GameObject>)typeof(ParrySparkVFX_Pooled).GetField("active", Flags).GetValue(fx);
+            var active = fx.GetComponent<ImpactVfxEmitter>().active;
             var burst = active[active.Count - 1].GetComponent<ParryClashBurst>();
             Assert.That(burst.ParticleCount, Is.EqualTo(24));
             Assert.That(burst.Systems[1].particleCount, Is.EqualTo(2));

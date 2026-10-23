@@ -9,6 +9,8 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     [SerializeField] GameObject sparkPrefab;        // kéo prefab VFX_HitSpark_Parry (prefab, không để trong Scene)
     [SerializeField] Transform playerSparkAnchor;   // kéo Player/Attack1/ParrySparkAnchor
 
+    [SerializeField] ImpactVfxProfile impactProfile;
+
     [Header("Tuning")]
     [SerializeField] Vector2 offset;
     [SerializeField] bool flipTowardEnemy = true;
@@ -33,7 +35,6 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     {
         if (!emitter) emitter = GetComponent<ImpactVfxEmitter>();
         if (!emitter) emitter = gameObject.AddComponent<ImpactVfxEmitter>();
-        if (_pool == null) BuildPool();
         if (parrySystem) parrySystem.OnParrySuccess += Spawn;
     }
 
@@ -41,6 +42,7 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
     {
         if (parrySystem) parrySystem.OnParrySuccess -= Spawn;
         ClearActive();
+        if (emitter) emitter.Clear();
     }
 
     void BuildPool()
@@ -117,8 +119,30 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
 
     void Spawn(ParrySystem.ParryContext ctx)
     {
-        if (_pool == null || sparkPrefab == null || !playerSparkAnchor || GamePauseController.InputBlocked || CombatSession.Finished || Time.timeScale == 0f) return;
+        if (!playerSparkAnchor || GamePauseController.InputBlocked || CombatSession.Finished || Time.timeScale == 0f) return;
 
+        if (sparkPreset == ParryClashBurst.Preset.BCompact &&
+            (impactProfile || sparkPrefab && sparkPrefab.GetComponent<ImpactVfxBurst>()))
+        {
+            // Old scenes retain their prefab reference; builders fill the new profile reference only if missing.
+            var selected = impactProfile;
+            if (!selected && sparkPrefab && sparkPrefab.TryGetComponent<ImpactVfxBurst>(out var template)) selected = template.impactProfile;
+            var point = ctx.contact.valid ? ctx.contact.point : playerSparkAnchor.position + (Vector3)offset;
+            float direction = ctx.targetRoot ? ctx.targetRoot.position.x - point.x : transform.lossyScale.x;
+            if (direction == 0) direction = transform.lossyScale.x;
+            var body = parrySystem ? parrySystem.GetComponent<Collider2D>() : null;
+            var recipient = body ? PhysicalParticleProfile.RecipientSnapshot.FromBounds(body.bounds) : default;
+            ClearActive();
+            var burst = emitter.Play(selected, new ImpactVfxContext {
+                point = point, direction = direction, floorY = groundY,
+                seed = variationSequences[(int)sparkPreset]++, recipient = recipient,
+                unitsPerMeter = ctx.contact.valid ? ctx.contact.unitsPerMeter : 0 });
+            if (burst is ParryClashBurst adapter) adapter.SetContact(ctx.contact);
+            return;
+        }
+        emitter.Clear();
+        if (!sparkPrefab) return;
+        if (_pool == null) BuildPool();
         if ((sparkPrefab.GetComponent<PixelSparkBurst>() || sparkPrefab.GetComponent<ParryClashBurst>()) && active.Count >= 8) active[0].GetComponent<PooledVFX>().Release();
         var go = _pool.Get();
         var t = go.transform;
@@ -142,12 +166,7 @@ public sealed class ParrySparkVFX_Pooled : MonoBehaviour
             var body = parrySystem ? parrySystem.GetComponent<Collider2D>() : null;
             var recipient = body ? PhysicalParticleProfile.RecipientSnapshot.FromBounds(body.bounds) : default;
             int sequence = variationSequences[(int)sparkPreset]++;
-            if (sparkPreset == ParryClashBurst.Preset.BCompact)
-                emitter.Play(clash.impactProfile, new ImpactVfxContext {
-                    point = t.position, direction = towardAttacker, floorY = groundY, seed = sequence,
-                    recipient = recipient, unitsPerMeter = ctx.contact.valid ? ctx.contact.unitsPerMeter : 1.25f
-                }, clash, ctx.contact);
-            else clash.Emit(t.position, towardAttacker, groundY, sparkPreset,
+            clash.Emit(t.position, towardAttacker, groundY, sparkPreset,
                 sequence, ctx.contact, recipient.center.x - t.position.x, recipient);
         }
         else if (go.TryGetComponent<PixelSparkBurst>(out var burst))

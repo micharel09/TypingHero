@@ -138,7 +138,13 @@ internal static class CombatFeedbackBuild
         }
         foreach (var parry in root.GetComponentsInChildren<ParrySparkVFX_Pooled>(true))
         {
-            Set(parry, "sparkPrefab", ParryClashAssets.Load());
+            if (!Get<GameObject>(parry, "sparkPrefab")) Set(parry, "sparkPrefab", ParryClashAssets.Load());
+            if (!Get<ImpactVfxProfile>(parry, "impactProfile"))
+            {
+                var prefab = Get<GameObject>(parry, "sparkPrefab");
+                var template = prefab ? prefab.GetComponent<ImpactVfxBurst>() : null;
+                if (template && template.impactProfile) Set(parry, "impactProfile", template.impactProfile);
+            }
             var system = Get<ParrySystem>(parry, "parrySystem");
             if (system) { Set(system, "contactLibrary", ParryPixelAssets.Contacts()); Record(system); }
             foreach (var audio in parry.GetComponentsInParent<SfxOnParrySuccess>(true)) { Value(audio, "duckSeconds", .08f); Record(audio); }

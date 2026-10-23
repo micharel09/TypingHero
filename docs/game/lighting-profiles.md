@@ -17,7 +17,7 @@ the approved dungeon/Pinterest flame, not a runtime fallback.
 | Flame material/atlas, source mesh/pivot, UV sequence, per-frame duration, content padding | `FlameProfile` and its native material/mesh assets |
 | Palette remapping/thresholds, alpha cutoff, brightness | Flame material; disable remapping to retain arbitrary source colors |
 | World combat-light templates, overlap, decay and ordinary/legacy impact pulses | `CombatLightingProfile` |
-| Standalone MetalClash pulse intensity, duration, hold, range and offset | Existing `ImpactVfxProfile`; copied into each pulse at emission |
+| Impact pulse enabled, color, intensity, duration, hold, decay, range and offset | Existing `ImpactVfxProfile`; copied into each pulse at emission |
 | Fixture placement, flame anchor, noise phase and animation offset | Serialized scene/prefab instance |
 | Clock, current frame, pulse leases and private UV mesh | Runtime instance only |
 
@@ -94,3 +94,51 @@ independent instances, pause/hide/restore, pulse snapshots and two different wor
 The test-only second world and profiles live under `Assets/Tests/Fixtures/Lighting`
 and are not enabled in production Build Settings. Results and visual evidence belong
 to [the lighting checkpoint](../plans/combat-hanging-light.md).
+
+
+## Author reusable impact effects
+
+Duplicate `Assets/Art/VFX/ParryClash/MetalClash.asset` to tune another effect.
+Assign its `physics` and `prefab`. A new prefab needs `ImpactVfxBurst`, particle
+systems with emission disabled/play-on-awake off/world simulation/unscaled time,
+and renderer bindings containing unique IDs, systems and appropriate materials.
+`PooledVFX` is supplied by the emitter when absent. No ParrySystem or
+ParryClashBurst is required. Legacy Current/A/B/C remain only on the old adapter.
+
+Each physical group's `channel` and each flash's `channel` names a binding ID,
+not its array index. Physical groups can share a renderer; a flash must have its
+own renderer. An empty flash array means no flash. Counts, lifetime, tint,
+pixel size, optional world size cap (`0` means uncapped), grid columns/rows,
+cycles, normalized start frame/frame curve and native color/alpha gradient are
+editable per layer. Bind materials suitable for each layer; Compact physics
+materials retain their shader's Custom1/UV stream contract.
+
+`pixelsPerUnit` defines physical pixel geometry and floor clearance. Flash size
+uses the greater of one authored pixel and the orthographic camera's actual
+world-raster pixel; perspective uses the authored pixel size. `unitsPerMeter`
+defines the default local-light world scale; a positive context scale overrides
+it for that emission. Local light range/offset are multiplied by that scale.
+Enabled/color/intensity/hold/duration/decay/range/offset belong to the impact
+profile; the scene's ClashLightingRig supplies the real light templates and
+shared overlap budget. No rig means particles/flashes still play without light.
+
+```csharp
+emitter.Play(profile, new ImpactVfxContext {
+    point = contactPoint, direction = facingRight ? 1 : -1,
+    floorY = floorHeight, seed = sequence++
+});
+```
+
+Optional recipient bounds are captured with
+`PhysicalParticleProfile.RecipientSnapshot.FromBounds(body.bounds)` and assigned
+to context.recipient. The snapshot remains fixed after emission. Material/prefab
+references keep normal Unity asset ownership; copied profile values, physics
+settings and native curve keys remain independent of later profile edits.
+
+The emitter validates the fixed40-state physics budget and renderer bindings
+before leasing. `maxActive` defaults to8 across prefab pools. Pause/reading holds
+age and native flash clocks; hitstop keeps unscaled VFX running; Clear/disable/
+scene unload cancel owned particles and pulses. Sound/damage/camera/hitstop are
+caller responsibilities. Rebuilds preserve authored references/arrays/curves;
+one-time legacy MetalClash migration is versioned. Tests use alternate temporary
+profiles and pure generic prefabs; production still ships only MetalClash.

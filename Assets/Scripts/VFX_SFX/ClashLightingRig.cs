@@ -9,7 +9,7 @@ public sealed class ClashLightingRig : MonoBehaviour
     [SerializeField] Light combatLight;
     [SerializeField] Light parryLight;
     public CombatLightingProfile profile;
-    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; public CombatLightingProfile.Event kind; public float maximum, range, offset; public AnimationCurve decay; }
+    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public bool compact; public CombatLightingProfile.Event kind; public float maximum, range, offset; public AnimationCurve decay; public bool local; public Color color; }
     PulseState[] pulses = System.Array.Empty<PulseState>();
     void Prepare()
     {
@@ -20,6 +20,7 @@ public sealed class ClashLightingRig : MonoBehaviour
     }
     static readonly System.Collections.Generic.List<ClashLightingRig> rigs = new();
     Light2D key, fill, ambient;
+    Color clashColor;
     void OnEnable()
     {
         if (profile)
@@ -28,6 +29,7 @@ public sealed class ClashLightingRig : MonoBehaviour
             if (combatLight) profile.combat.Apply(combatLight);
             if (parryLight) profile.parry.Apply(parryLight);
         }
+        if (clashLight) clashColor = clashLight.color;
         rigs.Add(this); Clear();
         foreach (var light in GetComponentsInChildren<Light2D>())
         {
@@ -48,6 +50,18 @@ public sealed class ClashLightingRig : MonoBehaviour
     {
         foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, kind, owner);
     }
+    internal static void Pulse(Scene scene, Vector3 point, ImpactVfxProfile.Appearance settings, ImpactVfxBurst owner)
+    {
+        if (settings.lightIntensity <= 0) return;
+        foreach (var rig in rigs) if (rig.gameObject.scene == scene)
+        {
+            rig.Prepare();
+            rig.AddProfile(new PulseState { owner = owner, point = point, strength = settings.lightIntensity,
+                maximum = settings.lightIntensity, duration = settings.lightDuration, hold = settings.lightHold,
+                decay = settings.lightDecay, range = settings.lightRange, offset = settings.lightOffset,
+                color = settings.lightColor, local = true, compact = true });
+        }
+    }
     internal static void Impact(Scene scene, Vector3 point, CombatLightingProfile.Event kind, VoxelImpactBurst owner)
     {
         foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, kind, owner);
@@ -64,14 +78,13 @@ public sealed class ClashLightingRig : MonoBehaviour
     void Add(Vector3 point, CombatLightingProfile.Event kind, Component owner)
     {
         Prepare();
-        var effect = owner as ImpactVfxBurst;
-        var settings = kind == CombatLightingProfile.Event.Parry ? profile.CaptureParry(effect.appearance) : profile.Get(kind);
+        var settings = profile.Get(kind);
         if (settings.intensity <= 0) return;
         if (settings.duration <= settings.hold) throw new System.InvalidOperationException("Light pulse duration must exceed hold");
         AddProfile(new PulseState { owner = owner, point = point, strength = settings.intensity,
             duration = settings.duration, hold = settings.hold, kind = kind, maximum = settings.maximum, decay = settings.decay,
-            range = kind == CombatLightingProfile.Event.Parry ? effect.appearance.lightRange : profile.parryRangeScale,
-            offset = kind == CombatLightingProfile.Event.Parry ? effect.appearance.lightOffset : profile.parryDepthOffset,
+            range = profile.parryRangeScale,
+            offset = profile.parryDepthOffset,
             compact = kind != CombatLightingProfile.Event.LegacyParry });
     }
     float Intensity(PulseState p)
@@ -108,16 +121,19 @@ public sealed class ClashLightingRig : MonoBehaviour
     {
         if (!clashLight && !combatLight && !parryLight) return;
         float strongest = 0; Vector3 point = transform.position; ImpactVfxBurst parry = null; float range = profile ? profile.parryRangeScale : 0, offset = profile ? profile.parryDepthOffset : 0;
+        Color tint = profile ? profile.parry.color : Color.white;
+        bool local = false;
         foreach (var pulse in pulses) if (pulse.owner)
         {
             float intensity = Intensity(pulse);
             if (intensity > strongest) { strongest = intensity; point = pulse.point; range = pulse.range; offset = pulse.offset;
-                parry = pulse.compact ? pulse.owner as ImpactVfxBurst : null; }
+                parry = pulse.compact ? pulse.owner as ImpactVfxBurst : null; local = pulse.local; tint = pulse.local ? pulse.color : profile.parry.color; }
         }
-        if (clashLight) { clashLight.transform.position = point; clashLight.intensity = strongest; }
+        if (clashLight) { clashLight.transform.position = point; clashLight.intensity = strongest; clashLight.color = local ? tint : clashColor; }
         if (combatLight)
         {
             combatLight.transform.position = point + profile.combatOffset;
+            combatLight.color = local ? tint : profile.combat.color;
             combatLight.intensity = parry && parryLight ? 0 : strongest;
         }
         if (parryLight)
@@ -125,6 +141,7 @@ public sealed class ClashLightingRig : MonoBehaviour
             var camera = Camera.main;
             float units = parry ? parry.PixelUnitsPerMeter : profile.defaultPixelUnits;
             parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (offset * units);
+            parryLight.color = tint;
             parryLight.range = range * units; parryLight.intensity = parry ? strongest : 0;
         }
     }

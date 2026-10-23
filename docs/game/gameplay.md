@@ -299,24 +299,37 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## World lighting / parry clash
 
-### Reusable MetalClash preset (2026-10-22)
+### Reusable MetalClash preset (2026-10-23)
 
 - `ImpactVfxEmitter.Play(ImpactVfxProfile, ImpactVfxContext)` emits without a player
   or ParrySystem. Context captures point, left/right direction, floorY, seed,
-  optional recipient ellipse and optional world scale (1.25 default).
+  optional recipient ellipse and optional world scale (profile default1.25).
 - `Assets/Art/VFX/ParryClash/MetalClash.asset` references the approved existing
-  ParryPhysics/prefab. Profile stores hot/warm/cooled colors, final fade and local
-  pulse intensity/hold/duration/range/offset. Defaults preserve24particles,1px,
-  rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
-- `ImpactVfxBurst`/`ImpactVfxPixel` own rendering; `ParryClashBurst` retains its
-  serialized script GUID as a compatibility subclass, including historical presets.
-  Parry's adapter calls the shared emitter with existing leases; other callers use
-  the emitter's bounded eight-lease pool. Builder fills absent references only.
-- Physical states and appearance are copied at emission; simultaneous profiles
-  and later asset edits cannot change an existing burst/pulse. One-floor/one-bounce
-  solver, fixed buffers, unscaled pause-held updates and cleanup remain. Audio,
-  damage, recoil and hitstop remain owned by gameplay.
-- Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
+  ParryPhysics/prefab. Profile owns pixel/world scale, depth scaling, cooling colors,
+  final fade, arbitrary flash layers (renderer ID/count/lifetime/tint/pixel size/
+  world cap/grid/start frame/frame curve/color-alpha gradient), and local light
+  enabled/color/intensity/hold/duration/decay/range/offset. MetalClash preserves
+  24particles,1px,rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
+- Prefab renderer bindings supply unique IDs, particle systems and materials;
+  generic rendering reserves no contact slots and supports zero or multiple flashes.
+  Camera/world configuration supplies the native raster width. PPU supplies the
+  floor clearance/offset and particle geometry; Compact shader UV masks remain code.
+- `ImpactVfxBurst`/`ImpactVfxPixel` own generic rendering. `ParryClashBurst` retains
+  the original serialized script GUID, historical Current/A/B/C fields and parry
+  metadata. Production parry calls the same public emitter API and uses
+  profile.prefab; legacy presets/PixelSpark retain their compatibility pool.
+- Emitter defaults to eight active leases across prefab pools, reclaiming the
+  oldest at capacity. Physics exceeding40 states or missing/overlapping/duplicate
+  bindings fail before leasing; renderer capacity is also validated. Builders fill
+  absent references; versioned compatibility migration preserves authored settings.
+- Physical states, presentation values and curve keys are copied at emission.
+  Simultaneous profiles and later asset edits cannot change a living burst/pulse.
+  Local light bypasses gameplay event selection; the scene rig still owns actual
+  light templates and overlap budget. One-floor/one-bounce solver, fixed buffers,
+  unscaled pause-held updates and cleanup remain. Audio, damage, recoil and hitstop
+  remain owned by gameplay. No new production material preset is introduced.
+- Authoring/API: [lighting and impact profiles](lighting-profiles.md).
+  Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
 
 ### Pimen flash with thin separated physical sparks (2026-10-22)
 
