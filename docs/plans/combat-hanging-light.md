@@ -547,3 +547,15 @@ one additional QA WebGL and integration into main; no game publication.
   the actual private filesystem. No full suite, PlayMode/WebGL, visual or FPS claim.
 - Main advanced to15d538c with combat-light pulse clock changes. Integrate this
   source and recheck the scoped Editor acceptance before remote publication.
+
+- Integrated main15d538c asb4fbb7d without source conflicts; retained both guide
+  additions. Final scoped rerun20261023T072145, input
+  `2d28112b52ea6befbbb4558b733326a8da35d25f88507416f6fdc5e473b7c9c8`:
+  all camera prefab/QA guard/previous Preview/Undo checks PASS and strict repeated
+  builder with both selected worlds PASS. No regression markers or unhandled
+  exceptions. Only receipt documentation changes after this tested snapshot.
+- Final evidence/logs/snapshot are in `final`; `acceptance.json` records actual
+  remote integration and cleanup. Retain evidence and the remote task branch for
+  review/reproduction; evidence can be deleted when no longer needed, and the
+  remote branch only when requested. Task-created local worktree/private server
+  root must be removed after verified remote integration.
