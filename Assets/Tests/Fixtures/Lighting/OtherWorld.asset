@@ -16,3 +16,4 @@ MonoBehaviour:
   scenePath: Assets/Tests/Fixtures/Lighting/OtherWorld.unity
   lighting: {fileID: 11400000, guid: f7bd51b5275db9bc4969cca6786fc894, type: 2}
   combat: {fileID: 11400000, guid: 1bc41744fb1afc15a84a0ef674de7f2a, type: 2}
+  cameraImpact: {fileID: 11400000, guid: 8ed86b4c16b1497ea4243e6a3b627c42, type: 2}

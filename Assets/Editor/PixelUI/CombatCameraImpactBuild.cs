@@ -15,27 +15,16 @@ internal static class CombatCameraImpactBuild
             throw new System.InvalidOperationException("Camera impact authoring references missing");
         var impact = camera.GetComponent<CombatCameraImpact>();
         if (!impact) impact = camera.gameObject.AddComponent<CombatCameraImpact>();
-        var source = (CinemachineImpulseSource)new SerializedObject(shake).FindProperty("impulseSource").objectReferenceValue;
-        if (!source || source.m_ImpulseDefinition.m_ImpulseChannel != 2)
-            throw new System.InvalidOperationException("Dedicated ParryRecoil channel missing");
-        source.m_ImpulseDefinition.m_ImpulseDuration = .1f;
-        source.m_ImpulseDefinition.m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform;
-        EditorUtility.SetDirty(source);
-        PrefabUtility.RecordPrefabInstancePropertyModifications(source);
-        CinemachineImpulseListener impactListener = null;
+        var world = Object.FindObjectOfType<DungeonWorld>(true);
+        if (!world || !world.definition) throw new System.InvalidOperationException("Camera impact world definition missing");
+        world.definition.Validate();
+        // Assets are authored migration results. Never replace user-edited preset data.
         foreach (var listener in camera.GetComponents<CinemachineImpulseListener>())
-            if (listener.m_ChannelMask == 2) impactListener = listener;
-        if (!impactListener) impactListener = camera.gameObject.AddComponent<CinemachineImpulseListener>();
-        impactListener.m_ApplyAfter = CinemachineCore.Stage.Noise;
-        impactListener.m_ChannelMask = 2;
-        impactListener.m_Gain = 1;
-        impactListener.m_UseCameraSpace = false;
-        impactListener.m_Use2DDistance = true;
-        var settings = new SerializedObject(impactListener);
-        settings.FindProperty("m_ReactionSettings.m_AmplitudeGain").floatValue = 0;
-        settings.ApplyModifiedPropertiesWithoutUndo();
-        EditorUtility.SetDirty(impactListener);
-        Set(impact, "arena", arena); Set(impact, "health", health); Set(impact, "recoil", source);
+            if (listener.m_ChannelMask == 2) Object.DestroyImmediate(listener);
+        var extension = camera.GetComponent<CameraImpactExtension>();
+        if (!extension) extension = camera.gameObject.AddComponent<CameraImpactExtension>();
+        Set(extension, "impact", impact);
+        Set(impact, "arena", arena); Set(impact, "health", health);
         Set(arena, "impact", impact); Set(shake, "cameraImpact", impact);
         foreach (var box in Object.FindObjectsOfType<PlayerWeaponHitbox>(true)) Set(box, "cameraImpact", impact);
         foreach (var fx in Object.FindObjectsOfType<SlayerScreenFX>(true)) Set(fx, "cameraImpact", impact);

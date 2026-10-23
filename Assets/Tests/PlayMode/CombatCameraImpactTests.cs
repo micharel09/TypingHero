@@ -11,7 +11,7 @@ public sealed class CombatCameraImpactTests
     CombatCameraImpact impact;
     PlayerHealth health;
     Camera view;
-    CinemachineImpulseSource source;
+    CombatCameraProfile profile;
     static void Set(object owner, string field, object value) => owner.GetType()
         .GetField(field, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(owner, value);
     [SetUp] public void Setup()
@@ -19,128 +19,262 @@ public sealed class CombatCameraImpactTests
         GamePauseController.ResetSessionState(); TutorialRun.End(); Time.timeScale = 1;
         host = new GameObject("impact session"); host.SetActive(false);
         health = host.AddComponent<PlayerHealth>();
-        source = host.AddComponent<CinemachineImpulseSource>();
-        source.m_ImpulseDefinition.m_ImpulseChannel = 2;
-        source.m_ImpulseDefinition.m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform;
-        source.m_ImpulseDefinition.m_ImpulseDuration = .1f;
-        source.m_ImpulseDefinition.m_ImpulseShape = 0;
-        source.m_ImpulseDefinition.m_CustomImpulseShape = new AnimationCurve(
-            new Keyframe(0, 0), new Keyframe(.2f, 1), new Keyframe(1, 0));
-        impact = host.AddComponent<CombatCameraImpact>();
-        Set(impact, "health", health); Set(impact, "recoil", source);
+        impact = host.AddComponent<CombatCameraImpact>(); Set(impact, "health", health);
         cameraHost = new GameObject("impact camera"); view = cameraHost.AddComponent<Camera>();
-        view.transform.position = new Vector3(0, 0, -17.8403f);
-        view.fieldOfView = 35; view.orthographic = false;
-        host.SetActive(true); Set(impact, "view", view);
+        view.transform.position = new Vector3(0, 0, -17.8403f); view.fieldOfView = 35;
+        profile = Object.Instantiate(LightingTestAssets.Definition.cameraImpact);
+        foreach (var preset in profile.presets) preset.units = CombatCameraProfile.ShakeUnits.WorldUnits;
+        host.SetActive(true); impact.Bind(profile); Set(impact, "view", view);
     }
     [TearDown] public void Cleanup()
     {
-        Object.DestroyImmediate(host); Object.DestroyImmediate(cameraHost);
+        Object.DestroyImmediate(host); Object.DestroyImmediate(cameraHost); Object.DestroyImmediate(profile);
         GamePauseController.ResetSessionState(); TutorialRun.End(); Time.timeScale = 1;
     }
+    CameraImpactTimeline Timeline(out CombatCameraProfile.Preset preset, int index = 0)
+    { preset = profile.Prepare()[index]; return new CameraImpactTimeline(); }
+    [TestCase(.14), TestCase(.18), TestCase(.2), TestCase(.5), Category("Quick")]
+    public void LongReceivingFrameCannotExpireBeforePeakRendered(double stall)
+    {
+        var t = Timeline(out var p); t.Play(p, 10, Vector3.zero);
+        t.Sample(10, 0, false, false); Assert.That(t.Zoom, Is.Zero, "pre-contact frame time is excluded");
+        t.Sample(10 + stall, 0, false, false); Assert.That(t.Zoom, Is.EqualTo(.02f));
+        t.Sample(11, 0, false, false); Assert.That(t.Zoom, Is.EqualTo(.02f));
+        t.Acknowledge(t.Serial, t.RenderMask, false);
+        t.Sample(11.05, 0, false, false); Assert.That(t.Zoom, Is.EqualTo(.01f).Within(.00001));
+        t.Sample(11.101, 0, false, false); Assert.That(t.Active, Is.Null);
+        Assert.That(t.PeakRenderCount, Is.EqualTo(1));
+    }
+    [TestCase(.01), TestCase(.019), TestCase(.03), TestCase(.08), Category("Quick")]
+    public void StallsBeforeAndAfterPeakNeverReplayIt(double hitchAt)
+    {
+        var t = Timeline(out var p); t.Play(p, 0, Vector3.zero); t.Sample(hitchAt, 0, false, false);
+        if (hitchAt >= .02) t.Acknowledge(t.Serial, t.RenderMask, false);
+        t.Sample(hitchAt + .5, 0, false, false);
+        if (hitchAt < .02)
+        {
+            Assert.That(t.Zoom, Is.EqualTo(.02f)); t.Acknowledge(t.Serial, t.RenderMask, false);
+            t.Sample(hitchAt + .551, 0, false, false); Assert.That(t.Zoom, Is.InRange(0, .02f));
+        }
+        t.Sample(hitchAt + 1, 0, false, false); Assert.That(t.Active, Is.Null);
+        Assert.That(t.PeakRenderCount, Is.EqualTo(1));
+    }
     [Test, Category("Quick")]
-    public void NormalHasBoundedPeakAndReturnsWithoutExtendingOnEqualRequests()
+    public void DisabledPresetsAndMinimumOwnershipRespectAuthoredConfiguration()
+    {
+        var t = Timeline(out var p); p.enabled = false;
+        Assert.That(t.Play(p, 0, Vector3.zero), Is.False);
+        p.enabled = true; p.minimumPriorityTime = .5f; t.Play(p, 0, Vector3.zero);
+        t.Sample(.03, 0, false, false); t.Acknowledge(t.Serial, t.RenderMask, false);
+        t.Sample(.2, 0, false, false); Assert.That(t.Zoom, Is.Zero); Assert.That(t.Active, Is.SameAs(p));
+        Assert.That(t.Play(p, .2, Vector3.zero), Is.False);
+        t.Sample(.51, 0, false, false); Assert.That(t.Active, Is.Null);
+    }
+    [Test, Category("Quick")]
+    public void PriorityPreemptsBeforeRenderAndRejectsEqualOrWeakerWithoutExtension()
+    {
+        var t = Timeline(out var normal); var all = profile.Prepare();
+        Assert.That(t.Play(normal, 0, Vector3.zero), Is.True); t.Sample(.03, 0, false, false);
+        int old = t.Serial;
+        Assert.That(t.Play(all[1], .03, Vector3.left), Is.True);
+        t.Sample(.06, 0, false, false); t.Acknowledge(old, 3, false);
+        Assert.That(t.PeakRenderCount, Is.Zero);
+        Assert.That(t.Play(all[1], .06, Vector3.left), Is.False);
+        Assert.That(t.Play(normal, .06, Vector3.zero), Is.False);
+        t.Acknowledge(t.Serial, t.RenderMask, false); Assert.That(t.PeakRenderCount, Is.EqualTo(1));
+        Assert.That(t.Play(all[2], .06, Vector3.left), Is.True); t.Sample(.06, 0, false, false);
+        Assert.That(t.Zoom, Is.Zero, "received clears outgoing zoom immediately");
+    }
+    [Test, Category("Quick")]
+    public void PausePreservesPendingHitstopAndRenderAndClearInvalidatesAcknowledgment()
+    {
+        var t = Timeline(out var p, 1); t.Play(p, 0, Vector3.left); t.Sample(.03, 0, true, false);
+        var held = t.Zoom; int serial = t.Serial;
+        t.Sample(.03, 0, true, true); t.Acknowledge(serial, 3, true);
+        Assert.That(t.Zoom, Is.EqualTo(held)); Assert.That(t.Offset, Is.EqualTo(Vector3.zero));
+        Assert.That(t.PeakRenderCount, Is.Zero);
+        t.Sample(.04, 0, false, false); t.Sample(.05, .03, false, false);
+        Assert.That(t.Offset.x, Is.LessThan(-.99));
+        t.Clear(); t.Play(p, .05, Vector3.right); t.Sample(.08, .03, false, false);
+        t.Acknowledge(serial, 3, false); Assert.That(t.PeakRenderCount, Is.Zero);
+        t.Acknowledge(t.Serial, t.RenderMask, false); Assert.That(t.PeakRenderCount, Is.EqualTo(1));
+    }
+    [Test, Category("Quick")]
+    public void ShakeClockWaitsForHitstopAndItsPeakMustRenderBeforeRecovery()
+    {
+        var t = Timeline(out var p, 2); t.Play(p, 0, Vector3.left);
+        t.Sample(.5, 0, true, false); Assert.That(t.Offset, Is.EqualTo(Vector3.zero)); Assert.That(t.Active, Is.Not.Null);
+        t.Sample(.51, 0, false, false); t.Sample(.7, .5, false, false);
+        Assert.That(t.Offset.x, Is.LessThan(-.99));
+        t.Acknowledge(t.Serial, t.RenderMask, false);
+        t.Sample(.74, .54, false, false); Assert.That(t.Offset.x, Is.InRange(-.99f, 0));
+        t.Sample(.9, .7, false, false); Assert.That(t.Active, Is.Null);
+        Assert.That(t.ShakePeakRenderCount, Is.EqualTo(1));
+        t.Sample(2, 2, false, false); Assert.That(t.Offset, Is.EqualTo(Vector3.zero));
+    }
+    [Test, Category("Quick")]
+    public void IndependentPreparedInstancesAndRebindingUseTheirWorldsAuthoredValues()
+    {
+        var a = Timeline(out var p); var b = Timeline(out var q);
+        a.Play(p, 0, Vector3.zero); a.Sample(.03, 0, false, false);
+        Assert.That(b.Zoom, Is.Zero); Assert.That(q.attackCurve, Is.Not.SameAs(p.attackCurve));
+        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f); Assert.That(impact.Zoom, Is.EqualTo(.02f));
+        var other = UnityEditor.AssetDatabase.LoadAssetAtPath<WorldDefinition>("Assets/Tests/Fixtures/Lighting/OtherWorld.asset");
+        impact.Bind(other.cameraImpact); impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        Assert.That(impact.Zoom, Is.EqualTo(.01f));
+        impact.Bind(profile); impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        Assert.That(impact.Zoom, Is.EqualTo(.02f));
+    }
+    [Test, Category("Quick")]
+    public void TwoControllersSharingOneAssetKeepIndependentRuntimeState()
+    {
+        var secondHost = new GameObject("second impact controller"); secondHost.SetActive(false);
+        var second = secondHost.AddComponent<CombatCameraImpact>(); second.Bind(profile); secondHost.SetActive(true);
+        string authored = JsonUtility.ToJson(profile);
+        try
+        {
+            impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+            Assert.That(second.Zoom, Is.Zero); Assert.That(second.Serial, Is.Zero);
+            second.Hit(Vector3.zero, Vector3.right, false, false); second.Advance(.03f);
+            impact.Clear(); Assert.That(second.Zoom, Is.EqualTo(.02f));
+            Assert.That(JsonUtility.ToJson(profile), Is.EqualTo(authored));
+        }
+        finally { Object.DestroyImmediate(secondHost); }
+    }
+    [Test, Category("Quick")]
+    public void AssetEditsApplyOnlyWhenReboundAndNeverMutateRunningState()
     {
         impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
-        Assert.That(impact.Zoom, Is.EqualTo(.02f).Within(.00001f));
-        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.04f);
-        Assert.That(impact.NormalCount, Is.EqualTo(1));
-        Assert.That(impact.Zoom, Is.InRange(0, .02f));
-        impact.Advance(.08f);
-        Assert.That(impact.Zoom, Is.Zero); Assert.That(impact.ActiveKind, Is.EqualTo(CombatCameraImpact.Kind.None));
-        Assert.That(impact.ImpulseCount, Is.Zero);
-    }
-    [Test, Category("Quick")]
-    public void SameFramePrioritySelectsOneAndSlayerEntrySuppressesGuardBreakParry()
-    {
-        impact.Hit(Vector3.zero, Vector3.right, false, false);
-        impact.Parry(Vector3.zero, Vector3.left, 1);
-        health.TakeDamage(1, Vector2.right);
-        impact.EnterSlayer(null, .03f); impact.Advance(.03f);
-        Assert.That(impact.LastKind, Is.EqualTo(CombatCameraImpact.Kind.SlayerEnter));
-        Assert.That(impact.Serial, Is.EqualTo(1)); Assert.That(impact.Zoom, Is.Zero);
-        Assert.That(impact.ParryCount + impact.NormalCount + impact.ReceivedCount, Is.Zero);
+        profile.presets[0].zoomPeak = .04f;
+        profile.presets[0].attackCurve = AnimationCurve.Linear(0, 0, 1, 1);
+        Assert.That(impact.Zoom, Is.EqualTo(.02f));
+        impact.Clear(); impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        Assert.That(impact.Zoom, Is.EqualTo(.02f));
+        impact.Bind(profile); impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        Assert.That(impact.Zoom, Is.EqualTo(.04f));
     }
     [TestCase(false, .05f), TestCase(true, .02f), Category("Quick")]
-    public void AcceptedLethalRetainsCapturedModeEvenAfterSessionFinished(bool wasSlayer, float expected)
+    public void AcceptedLethalRetainsCapturedModeAfterMatchFinished(bool slayer, float peak)
     {
-        var session = host.AddComponent<CombatSession>(); session.Complete(true);
-        impact.Hit(Vector3.zero, Vector3.right, wasSlayer, true); impact.Advance(.04f);
-        Assert.That(impact.LethalCount, Is.EqualTo(1));
-        Assert.That(impact.Zoom, Is.EqualTo(expected).Within(.00001f));
-        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.3f);
-        Assert.That(impact.NormalCount, Is.Zero); Assert.That(impact.Zoom, Is.Zero);
-        impact.Clear(); impact.EnterSlayer(source, .03f); impact.Advance(.04f);
-        Assert.That(impact.Serial, Is.EqualTo(1), "finished match rejects new Slayer impact");
+        host.AddComponent<CombatSession>().Complete(true);
+        impact.Hit(Vector3.zero, Vector3.right, slayer, true); impact.Advance(.5f);
+        Assert.That(impact.Zoom, Is.EqualTo(peak)); Assert.That(impact.LethalCount, Is.EqualTo(1));
+        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.01f);
+        Assert.That(impact.NormalCount, Is.Zero);
     }
-    [Test, Category("Quick")]
-    public void SlayerHitsAndRejectedDamageDoNotEmitNewImpact()
+    [TestCase(1), TestCase(999), Category("Quick")]
+    public void SlayerNormalAndRejectedDamageDoNotEmitButAcceptedDamageDoes(int damage)
     {
         impact.Hit(Vector3.zero, Vector3.right, true, false); impact.Advance(.01f);
         Assert.That(impact.Serial, Is.Zero);
-        health.TakeDamage(0, Vector2.right); impact.Advance(.01f);
-        Assert.That(impact.Serial, Is.Zero);
-        health.TakeDamage(1, Vector2.right); impact.Advance(.01f);
-        // The zero-damage call established the existing i-frame; camera must honor it.
-        Assert.That(impact.Serial, Is.Zero);
+        health.TakeDamage(damage, Vector2.right); impact.Advance(.01f);
+        Assert.That(impact.ReceivedCount, Is.EqualTo(1)); Assert.That(impact.Zoom, Is.Zero);
+        health.TakeDamage(1, Vector2.right); impact.Advance(.01f); Assert.That(impact.ReceivedCount, Is.EqualTo(1));
     }
     [Test, Category("Quick")]
-    public void StrongerContactPreemptsWithoutAddingZoomAndClearDropsPendingKick()
+    public void MissingBindingDoesNotSelectRuntimeDefaults()
     {
-        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
-        impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.03f);
-        Assert.That(impact.Zoom, Is.EqualTo(.03f).Within(.00001f));
-        Assert.That(impact.Serial, Is.EqualTo(2));
-        impact.Clear();
-        impact.Advance(1);
-        Assert.That(impact.Zoom, Is.Zero); Assert.That(impact.ActiveKind, Is.EqualTo(CombatCameraImpact.Kind.None));
+        impact.Bind(null); impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        Assert.That(impact.Serial, Is.Zero); Assert.That(impact.Zoom, Is.Zero);
+    }
+    [TestCase(CombatCameraProfile.ShakeUnits.WorldUnits), TestCase(CombatCameraProfile.ShakeUnits.WorldPixels), Category("Quick")]
+    public void WarmRepeatedContactsAndUpdatesAllocateNoManagedMemory(CombatCameraProfile.ShakeUnits units)
+    {
+        cameraHost.SetActive(false);
+        var arena = cameraHost.AddComponent<DungeonArenaCamera>(); arena.profile = LightingTestAssets.Definition.lighting;
+        cameraHost.SetActive(true); Set(impact, "arena", arena);
+        foreach (var preset in profile.presets) preset.units = units;
+        impact.Bind(profile);
+        var state = CameraState.Default; var lens = state.Lens; lens.OrthographicSize = view.orthographicSize; state.Lens = lens;
+        impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.02f); _ = impact.Offset; _ = impact.OffsetForState(state); impact.Clear();
+        long before = System.GC.GetAllocatedBytesForCurrentThread();
+        for (int i = 0; i < 32; i++) { impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.02f); _ = impact.Offset; _ = impact.OffsetForState(state); impact.Clear(); }
+        Assert.That(System.GC.GetAllocatedBytesForCurrentThread() - before, Is.Zero);
+    }
+    static void FullCycle(CameraImpactTimeline t, CombatCameraProfile.Preset p)
+    {
+        t.Play(p, 0, Vector3.left); t.Sample(.01, .01, false, false);
+        t.Sample(.03, .03, false, false); t.Acknowledge(t.Serial, t.RenderMask, false);
+        t.Sample(.08, .08, false, false); t.Sample(.3, .3, false, false);
+    }
+    [Test, Category("Quick")]
+    public void FullTimelineAttackPeakAcknowledgmentAndRecoveryAllocateNothingAfterWarmup()
+    {
+        var t = Timeline(out var p, 1); FullCycle(t, p);
+        long before = System.GC.GetAllocatedBytesForCurrentThread();
+        for (int i = 0; i < 32; i++) FullCycle(t, p);
+        Assert.That(System.GC.GetAllocatedBytesForCurrentThread() - before, Is.Zero);
     }
     [UnityTest, Category("Quick")]
-    public IEnumerator HitstopDelaysKickAndPauseFreezesEnvelopeAndPendingContact()
+    public IEnumerator ReadingClearsDelayedRequestAndPauseHoldsOutput()
     {
-        Time.timeScale = .0001f;
         impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.03f);
-        Assert.That(impact.ImpulseCount, Is.Zero);
-        Time.timeScale = 1;
-        impact.Advance(.001f);
-        Assert.That(impact.ImpulseCount, Is.EqualTo(1));
+        GamePauseController.SetTutorialReading(true); yield return null;
+        Assert.That(impact.Zoom, Is.Zero); Assert.That(impact.Offset, Is.EqualTo(Vector3.zero));
+        GamePauseController.SetTutorialReading(false);
         var pause = cameraHost.AddComponent<GamePauseController>();
-        Set(pause, "targetCamera", view); Set(pause, "pauseOnLoseFocus", false);
-        Set(pause, "zoomDuration", .05f);
-        pause.TogglePause(true);
-        float held = impact.Zoom;
-        yield return new WaitForSecondsRealtime(.08f);
-        Assert.That(impact.Zoom, Is.EqualTo(held));
-        pause.Resume();
-        yield return new WaitForSecondsRealtime(.1f);
-        Assert.That(GamePauseController.InputBlocked, Is.False);
-        Assert.That(impact.Zoom, Is.LessThanOrEqualTo(held));
-        Time.timeScale = 1; impact.Clear();
-        Assert.That(impact.Zoom, Is.Zero);
-    }
-    [UnityTest, Category("Quick")]
-    public IEnumerator ReadingClearsBothRunningAndDelayedImpact()
-    {
-        Time.timeScale = .0001f;
-        impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.03f);
-        GamePauseController.SetTutorialReading(true);
-        yield return null;
-        Assert.That(impact.Zoom, Is.Zero);
-        GamePauseController.SetTutorialReading(false); impact.Advance(.1f);
-        Assert.That(impact.ImpulseCount, Is.Zero);
+        Set(pause, "targetCamera", view); Set(pause, "pauseOnLoseFocus", false); Set(pause, "zoomDuration", .05f);
+        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        pause.TogglePause(true); float held = impact.Zoom;
+        yield return new WaitForSecondsRealtime(.08f); Assert.That(impact.Zoom, Is.EqualTo(held));
+        pause.Resume(); yield return new WaitForSecondsRealtime(.1f);
+        Assert.That(GamePauseController.InputBlocked, Is.False); impact.Clear();
     }
     [Test, Category("Quick")]
-    public void SlayerEntryRetainsAuthoredSourcePositionAndDelay()
+    public void OnlyMatchingWorldCameraAcknowledgesRenderedPeak()
     {
-        source.transform.position = new Vector3(3, 2, 0);
-        impact.EnterSlayer(source, .03f); impact.Advance(.01f);
-        Assert.That(impact.ImpulseCount, Is.Zero);
-        impact.Advance(.025f);
-        Assert.That(impact.ImpulseCount, Is.EqualTo(1));
-        var owned = (CinemachineImpulseManager.ImpulseEvent)typeof(CombatCameraImpact)
-            .GetField("ownedImpulse", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(impact);
-        Assert.That(owned.m_Position, Is.EqualTo(source.transform.position));
-        Assert.That(impact.Zoom, Is.Zero);
+        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.5f);
+        var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        var begin = typeof(CombatCameraImpact).GetMethod("BeginRender", flags);
+        var end = typeof(CombatCameraImpact).GetMethod("EndRender", flags);
+        var other = host.AddComponent<Camera>();
+        object[] args = { default(UnityEngine.Rendering.ScriptableRenderContext), other };
+        begin.Invoke(impact, args); end.Invoke(impact, args); Assert.That(impact.PeakRenderCount, Is.Zero);
+        args[1] = view; begin.Invoke(impact, args); end.Invoke(impact, args);
+        Assert.That(impact.PeakRenderCount, Is.EqualTo(1));
+        end.Invoke(impact, args); Assert.That(impact.PeakRenderCount, Is.EqualTo(1));
+    }
+    [TestCase(140), TestCase(180), TestCase(200), TestCase(500), Category("Quick")]
+    public void AdapterDoesNotUseTimeBeforeContactInReceivingFrame(int milliseconds)
+    {
+        System.Threading.Thread.Sleep(milliseconds);
+        impact.Hit(Vector3.zero, Vector3.right, false, false);
+        typeof(CombatCameraImpact).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(impact, null);
+        Assert.That(impact.NormalCount, Is.EqualTo(1));
+        Assert.That(impact.Zoom, Is.LessThan(.02f)); Assert.That(impact.ActiveKind, Is.EqualTo(CombatCameraImpact.Kind.Normal));
+    }
+    [TestCase(180), TestCase(144), Category("Quick")]
+    public void LogicalPixelUsesActualWorldTextureAndPerspectiveProjection(int height)
+    {
+        cameraHost.SetActive(false);
+        var arena = cameraHost.AddComponent<DungeonArenaCamera>();
+        var lighting = Object.Instantiate(LightingTestAssets.Definition.lighting);
+        lighting.resolution = new Vector2Int(height == 144 ? 256 : 320, height);
+        arena.profile = lighting; cameraHost.SetActive(true);
+        try
+        {
+            view.orthographic = false; view.fieldOfView = 35;
+            Assert.That(arena.WorldTexture.height, Is.EqualTo(height));
+            float pixel = 2 * 17.8403f * Mathf.Tan(35 * Mathf.Deg2Rad / 2) / height;
+            Assert.That(arena.PixelSizeAtDepth(17.8403f), Is.EqualTo(pixel).Within(.000001f));
+            Set(arena, "impact", impact);
+            impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+            Assert.That(arena.PixelSizeAtDepth(17.8403f), Is.EqualTo(pixel / 1.02f).Within(.000001f));
+            Assert.That(arena.PixelSizeAtDepth(17.8403f, view.orthographicSize * .8f), Is.EqualTo(pixel * .8f / 1.02f).Within(.000001f),
+                "Noise uses the current brain lens before Camera receives it");
+            view.orthographicSize *= .8f;
+            Assert.That(arena.PixelSizeAtDepth(17.8403f), Is.EqualTo(pixel * .8f / 1.02f).Within(.000001f));
+        }
+        finally { Object.DestroyImmediate(arena); Object.DestroyImmediate(lighting); }
+    }
+    [Test, Category("Quick")]
+    public void ProfileValidationRejectsMissingDuplicatesNegativeAndInvalidCurves()
+    {
+        profile.Validate(); var save = profile.presets[1]; profile.presets[1] = profile.presets[0];
+        Assert.Throws<System.InvalidOperationException>(() => profile.Validate()); profile.presets[1] = save;
+        profile.presets[0].attack = -1; Assert.Throws<System.InvalidOperationException>(() => profile.Validate());
+        profile.presets[0].attack = .02f; profile.presets[0].attackCurve = new AnimationCurve();
+        Assert.Throws<System.InvalidOperationException>(() => profile.Validate());
     }
     [Test, Category("Quick")]
     public void PulseKeepsAuthoredFootLandmarkAtItsBaselineScreenHeight()
@@ -176,18 +310,6 @@ public sealed class CombatCameraImpactTests
         Assert.That(arena.WorldToScreenPoint(layout.LowestFoot).y, Is.EqualTo(baseline).Within(.01f));
     }
     [Test, Category("Quick")]
-    public void WarmRepeatedContactsDoNotAllocateManagedMemory()
-    {
-        impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.02f); impact.Clear();
-        long before = System.GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 32; i++)
-        {
-            impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.02f); impact.Clear();
-        }
-        long allocated = System.GC.GetAllocatedBytesForCurrentThread() - before;
-        Assert.That(allocated, Is.Zero, "camera scheduler and reused channel2 signal are allocation-free after initialization");
-    }
-    [Test, Category("Quick")]
     public void PerspectiveCompositionLeavesBaseLensOwnedBySlayerAndPause()
     {
         view.orthographicSize = 5.625f;
@@ -208,39 +330,5 @@ public sealed class CombatCameraImpactTests
         arena.ResetFraming(); update.Invoke(arena, null);
         Assert.That(impact.Zoom, Is.Zero);
         Assert.That(view.fieldOfView, Is.EqualTo(2 * Mathf.Atan(1.65f / arena.profile.FramingDistance) * Mathf.Rad2Deg).Within(.0001f));
-    }
-    [UnityTest, Category("Quick")]
-    public IEnumerator ClearingExpiredOwnedEventDoesNotCancelAnotherPooledImpulse()
-    {
-        impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.02f);
-        yield return new WaitForSeconds(.16f);
-        CinemachineImpulseManager.Instance.GetImpulseAt(Vector3.zero, true, 2, out _, out _);
-        source.m_ImpulseDefinition.CreateAndReturnEvent(Vector3.zero, Vector3.right * .1f);
-        impact.Clear();
-        yield return new WaitForSeconds(.02f);
-        Assert.That(CinemachineImpulseManager.Instance.GetImpulseAt(Vector3.zero, true, 2, out var value, out _), Is.True);
-        Assert.That(value.x, Is.GreaterThan(0));
-        yield return new WaitForSeconds(.12f);
-    }
-    [UnityTest, Category("Quick")]
-    public IEnumerator DedicatedListenerUsesOnePixelWhileLegacyGainStaysIsolated()
-    {
-        var vcam = cameraHost.AddComponent<CinemachineVirtualCamera>();
-        var legacy = cameraHost.AddComponent<CinemachineImpulseListener>(); legacy.m_ChannelMask = 1; legacy.m_Gain = 10;
-        var listener = cameraHost.AddComponent<CinemachineImpulseListener>(); listener.m_ChannelMask = 2; listener.m_Gain = 1;
-        listener.m_UseCameraSpace = false;
-        legacy.m_ApplyAfter = listener.m_ApplyAfter = CinemachineCore.Stage.Noise;
-        impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.01f);
-        yield return new WaitForSeconds(.02f);
-        Assert.That(CinemachineImpulseManager.Instance.GetImpulseAt(Vector3.zero, true, 2, out var signal, out _), Is.True);
-        float pixel = 2 * 17.8403f * Mathf.Tan(35 * Mathf.Deg2Rad / 2) / view.pixelHeight;
-        Assert.That(signal.x, Is.LessThan(0));
-        Assert.That(signal.magnitude / pixel, Is.InRange(.1f, 1.01f));
-        var callback = typeof(CinemachineImpulseListener).GetMethod("PostPipelineStageCallback", BindingFlags.Instance | BindingFlags.NonPublic);
-        var state = CameraState.Default;
-        object[] args = { vcam, CinemachineCore.Stage.Noise, state, .016f };
-        callback.Invoke(legacy, args); callback.Invoke(listener, args);
-        var result = (CameraState)args[2];
-        Assert.That((result.PositionCorrection - signal).magnitude, Is.LessThan(.0001f));
     }
 }

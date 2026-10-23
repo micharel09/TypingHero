@@ -54,6 +54,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Vector2 contact;
         public Vector3 sparkPoint, cameraPosition, cameraCorrection;
         public int impactKind, impactSerial, normalImpacts, parryImpacts, receivedImpacts, lethalImpacts, impulseCount;
+        public int effectSerial, peakRenderCount, shakePeakRenderCount, peakRenderFrame, worldWidth, worldHeight;
         public float impactZoom, cameraBase, cameraHalfHeight, cameraFov, unscaledNow;
         public int parryParticleCount, parryBurstCount, parrySampleCount;
         public ParryParticleFrame[] parryParticles;
@@ -151,6 +152,12 @@ public sealed class GameLoopProbe : MonoBehaviour
         combatFrame.receivedImpacts = combatImpact ? combatImpact.ReceivedCount : 0;
         combatFrame.lethalImpacts = combatImpact ? combatImpact.LethalCount : 0;
         combatFrame.impulseCount = combatImpact ? combatImpact.ImpulseCount : 0;
+        combatFrame.effectSerial = combatImpact ? combatImpact.EffectSerial : 0;
+        combatFrame.peakRenderCount = combatImpact ? combatImpact.PeakRenderCount : 0;
+        combatFrame.shakePeakRenderCount = combatImpact ? combatImpact.ShakePeakRenderCount : 0;
+        combatFrame.peakRenderFrame = combatImpact ? combatImpact.PeakRenderFrame : 0;
+        combatFrame.worldWidth = combatArena && combatArena.WorldTexture ? combatArena.WorldTexture.width : 0;
+        combatFrame.worldHeight = combatArena && combatArena.WorldTexture ? combatArena.WorldTexture.height : 0;
         combatFrame.impactZoom = combatImpact ? combatImpact.Zoom : 0;
         combatFrame.cameraBase = Camera.main ? Camera.main.orthographicSize : 0;
         combatFrame.cameraHalfHeight = combatArena ? combatArena.EffectiveHalfHeight : 0;

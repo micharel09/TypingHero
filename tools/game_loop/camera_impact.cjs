@@ -45,11 +45,28 @@ module.exports=async function({session,state,until,clickControl,check,report},br
         window.cameraRecording={recorder,chunks,stream,start:performance.now()/1000};recorder.start(250);
       });
       s=await until(page,t=>!t.enemyAttacking&&t.canParry&&t.current.length>0&&t.wordTime>1);
-      await page.keyboard.type(s.current,{delay:35});
+      const hpBefore=s.enemyHp;
+      await page.keyboard.type(s.current.slice(0,-1),{delay:35});
+      await page.evaluate(last=>{
+        const block=e=>{
+          if(e.key.toLowerCase()!==last.toLowerCase())return;
+          document.removeEventListener('keydown',block,true);
+          const start=performance.now();while(performance.now()-start<180){}
+          window.cameraHitchMs=performance.now()-start;
+        };
+        document.addEventListener('keydown',block,true);
+      },s.current.slice(-1));
+      await page.keyboard.type(s.current.slice(-1),{delay:35});
       await page.waitForFunction(()=>window.typingHeroCombatFrame?.normalImpacts>0,null,{timeout:10000});
       await page.waitForTimeout(300);
       let f=await frame();check(f.impactZoom===0&&f.normalImpacts===1,'confirmed normal hit pulses once and returns');
       s=await state(page);check(JSON.stringify([s.playerStatusRect,s.enemyStatusRect,s.trayRect])===hud,'HUD and typing geometry remain fixed');
+      row.hitchMs=await page.evaluate(()=>window.cameraHitchMs);
+      check(row.hitchMs>=180&&f.enemyHP<hpBefore,'180ms final-key hitch still confirms actual damage');
+      const hitchFrames=await page.evaluate(()=>window.cameraFrames.filter(f=>f.normalImpacts===1));
+      check(hitchFrames.some(f=>Math.abs(f.impactZoom-.02)<.00001)&&hitchFrames.some(f=>f.peakRenderCount===1),'hitch pulse renders and acknowledges its exact peak');
+      check(f.peakRenderCount===1,'hitch normal peak acknowledged exactly once');
+      check(f.worldWidth===320&&f.worldHeight===180,'probe reports actual dungeon render texture');
       const normal=f.normalImpacts;
       await page.keyboard.press(s.current[0]?.toLowerCase()==='z'?'q':'z',{delay:30});
       await page.waitForTimeout(120);check((await frame()).normalImpacts===normal,'wrong character emits no attack camera pulse');
@@ -97,7 +114,7 @@ module.exports=async function({session,state,until,clickControl,check,report},br
       check(lethalFrames.length>0&&lethalFrames.every(t=>t.impactZoom<=.02001)&&lethalFrames.some(t=>t.impactZoom>.015),'Slayer lethal retains captured 2 percent profile');
       check(recorded.filter(t=>t.cameraBase>0).every(t=>Math.abs(t.cameraHalfHeight-t.cameraBase/(1+t.impactZoom))<.0001),'render projection composes pulse with current base lens');
       for(const [kind,frames,limit] of [['parry',parryFrames,1.1],['received',hurtFrames,1.1],['lethal',lethalFrames,2.2]]){
-        const pixels=frames.filter(f=>f.timeScale>.01&&f.cameraHalfHeight>0).map(f=>Math.hypot(f.cameraCorrection.x,f.cameraCorrection.y,f.cameraCorrection.z)/(2*f.cameraHalfHeight/180));
+        const pixels=frames.filter(f=>f.timeScale>.01&&f.cameraHalfHeight>0).map(f=>Math.hypot(f.cameraCorrection.x,f.cameraCorrection.y,f.cameraCorrection.z)/(2*f.cameraHalfHeight/f.worldHeight));
         const peak=Math.max(0,...pixels);
         check(peak>.3&&peak<=limit,kind+' reaches the actual camera at bounded native-pixel gain');
         (row.peakPixels||={})[kind]=peak;

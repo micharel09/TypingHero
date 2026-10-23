@@ -37,3 +37,75 @@ Reference evidence: E:/CodexTemp/TypingHero/camera-impact-research-20261022/rese
 - Direct visual review:37/37 sheets,400/400 encoded source frames and390/390 consecutive transitions across ten selected camera windows, including sheet boundaries. Full original WebM and PTS preserve timing/held spans; convenience MP4 excerpts may truncate held tails and are not timing authority. Normal zoom/return, received translation without zoom, parry recoil, Slayer entry/stable rapid hits and lethal exit retain framing; HUD/typing stay fixed. No sprite-animation authorship or full-video/frame-rate claim.
 - Local receipts: `E:/CodexTemp/TypingHero/camera-impact-20261022/{integrated-tests.xml,integrated-snapshot.json,integrated-unity.log,player-hashes.json,native-final/browser.json,native-final/frame-review/manifest.json}`. Final immutable server results: `/data/typinghero-game-loop/results/20261022T160203-quick` and `/data/typinghero-game-loop/results/20261022T160608-webgl`.
 - Isolated review demo remains open in Edge on127.0.0.1:8261, same final player, fixture routing retained; Enter starts battle. Keep local player/demo/video/receipts until user review is finished. Remote task branch retained as integration history. No itch.io upload, full suite, stress or soak run.
+
+## Reusable impact timeline / hitch regression ? 2026-10-23 (in progress)
+
+Task: replace frame-delta envelope/owned impulses with profile-driven timeline,
+world binding and Noise-stage displacement. Worktree
+`C:/Users/ADMIN/orca/workspaces/TypingHero/camera-impact-timeline`, branch
+`micharel09/camera-impact-timeline`, base `3253274`. Existing dirty primary preserved.
+No itch upload. Acceptance: six editable presets; exact hit timestamp; render-acknowledged
+peak and release after a skipped attack/hold; priority, pause, hitstop and teardown;
+independent worlds/controllers; zero warmed hit/update allocations; repeated builders
+preserve edits. Focused Unity consumers/binding/projection and final WebGL real-input
+checks at 1280x720 and 640x360, plus 256x144 world fixture and 180ms final-key stall.
+
+Migration source: previous CombatCameraImpact constants; Player.prefab custom recoil
+keys (0,0),(.2,1),(1,0), all zero tangents,100ms; SampleScene Slayer source Uniform,
+Rumble CM2.9.7 standard curve,200ms,default velocity(0,-.1,0), listener gain10 in camera space,
+delay30ms. DungeonCamera.asset preserves that composite1world-unit amplitude and
+all11rumble keys. Existing Slayer base lens tween remains its owner. Dedicated
+channel2 listener is replaced by CameraImpactExtension; combat no longer emits any
+Cinemachine impulse. Channel1 listener/source references remain available without
+combat emission, preserving unrelated users. Curves are cloned/prepared on binding;
+no runtime default table or alternate missing-profile selection.
+
+Implementation underway; no passing verification claimed yet. Task evidence/runner:
+`E:/CodexTemp/TypingHero/camera-impact-timeline-20261023`. External filtered adapter
+reuses the exclusive server runner lock and pinned Unity; it canonicalizes text
+newlines and confines its disposable source to `/dev/shm/typinghero-camera-timeline-*`.
+Shared runner currently has another task's world-configuration build; preserved.
+
+Verification pilots (not acceptance): initial Quick `20261023T033158` / input
+`5c3f62dd` stopped at an ambiguous Object identifier in the new consumer fixture;
+qualified UnityEngine.Object. Quick `035442` / `5b3181fd` and authoring `035521` /
+`30466006` stopped at a missing Cinemachine reference in the Editor test assembly;
+removed that test-only dependency and inspect component identity/serialized fields
+instead. Two queue waits expired while unrelated existing builds held the exclusive
+runner lock. Current retries wait up to3600seconds without changing limits or
+interfering with other jobs. No tests from these failed compiles are claimed as pass.
+Runtime is frozen for verification; pixel conversion follows the composed lens and
+actual world RT each sample, including base Slayer zoom changes. Added full-cycle
+allocation coverage (attack, acknowledged peak, release), adapter WorldUnits/WorldPixels
+warm loops, two-controller shared asset isolation and real A?B?A session binding.
+
+### Offline acceptance and final QA preparation
+
+- Quick `20261023T035931`, input `de45a36b`:53cases,52pass/1fail/0skip,
+  8.9164846s. All camera/config/consumer/two-world cases passed. The lifecycle
+  assertion still expected two impulse listeners; updated it to require the
+  preserved channel1/gain10 listener plus exactly one direct extension.
+- Authoring `20261023T040038`, same input:PASS. Edited normal peak0.027 survived
+  two full builder calls byte-for-byte after save; one controller/extension,
+  no dedicated channel2 listener, independent256x144 fixture. Finally restored
+  original profile and rebuilt. `authoring-unity.log` and source hashes retained.
+- Unity-serialized record comparison: DungeonWorld1031/1031records, no changed,
+  added or removed records. SampleScene1024?1023: no changed/added records;
+  only the now-unreferenced stripped recoil proxy3482038794572103695 disappears.
+  Removed that orphan from source while preserving original record order/IDs.
+  Profile numeric values/curves unchanged (only0.0/1.0 and whitespace canonicalization).
+- Noise must read this frame's CameraState lens, since the brain copies it to
+  Camera later. Shared projection math now handles that explicitly. Lens Quick
+  `20261023T040245`, input `3b6502b4`:37/37PASS,0fail/skip; includes current lens,
+  144/180 RT heights, per-controller asset isolation, full attack/peak/ack/release
+  allocation loop and adapter WorldPixels/WorldUnits warm loops (0managed bytes).
+- Lifecycle `20261023T040344` exposed a real destroyed-root access in the new unbind
+  loop. Added the same live-object guard used by existing Deactivate; surviving
+  controllers still clear, destroyed controllers have already cleared on disable.
+  Focused rerun after this fix PASS1/1 on input `0c3fc9d2` (three gameplay cycles,
+  Pause/Resume, Slayer exit through results, restart/menu and RT/controller ownership).
+  Latest test receipt path and durations will be recorded with final QA.
+- Final native QA build requested from the verified runtime. Scope remains real
+  input1280x720/640x360, final-key180ms main-thread stall, camera acknowledgment,
+  actual RT dimensions and full selected-camera-window frame review. No WebGL
+  acceptance claim until that run and review complete.

@@ -56,6 +56,10 @@ public sealed class DungeonSessionBindings : MonoBehaviour
             if (field == null) throw new InvalidOperationException("Missing dungeon binding field: " + link.field);
             field.SetValue(owner, clear ? null : link.worldOwnsField ? link.local : world.Resolve(link.slot));
         }
+        foreach (var root in roots)
+            if (root)
+            foreach (var impact in root.GetComponentsInChildren<CombatCameraImpact>(true))
+                impact.Bind(clear ? null : world.definition.cameraImpact);
     }
     static void ApplyActorMaterial(Component actor, WorldLightingProfile profile)
     {

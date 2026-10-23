@@ -19,6 +19,10 @@ public static class LightingFixtureBuild
         var profile = Object.Instantiate(source.lighting); retained.Add(profile); profile.fogColor = new Color(.05f, .1f, .2f);
         profile.ambientIntensity = .25f; profile.resolution = new Vector2Int(256, 144);
         AssetDatabase.CreateAsset(profile, "Assets/Tests/Fixtures/Lighting/OtherLighting.asset");
+        var camera = Object.Instantiate(source.cameraImpact); retained.Add(camera);
+        camera.presets[0].zoomPeak = .01f;
+        AssetDatabase.CreateAsset(camera, "Assets/Tests/Fixtures/Lighting/OtherCamera.asset");
+        definition.cameraImpact = camera;
         definition.lighting = profile; AssetDatabase.CreateAsset(definition, DefinitionPath);
         var scene = EditorSceneManager.OpenScene(source.scenePath);
         var world = Object.FindObjectOfType<DungeonWorld>(true); world.definition = definition;

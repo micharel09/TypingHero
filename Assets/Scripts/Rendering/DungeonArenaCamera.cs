@@ -12,7 +12,10 @@ public sealed class DungeonArenaCamera : MonoBehaviour
     [SerializeField] CombatHUDLayout framingLayout;
     [SerializeField] CombatCameraImpact impact;
     internal float ImpactZoom => impact ? impact.Zoom : 0;
-    internal float PixelSizeAtDepth(float depth) => 2 * depth * EffectiveHalfHeight / profile.FramingDistance / profile.resolution.y;
+    float FieldOfViewForBase(float halfHeight) => 2 * Mathf.Atan(halfHeight / (1 + ImpactZoom) / profile.FramingDistance) * Mathf.Rad2Deg;
+    internal float ProjectionFieldOfView => FieldOfViewForBase(view.orthographicSize);
+    internal float PixelSizeAtDepth(float depth) => PixelSizeAtDepth(depth, view.orthographicSize);
+    internal float PixelSizeAtDepth(float depth, float baseHalfHeight) => 2 * depth * Mathf.Tan(FieldOfViewForBase(baseHalfHeight) * Mathf.Deg2Rad * .5f) / WorldTexture.height;
     internal float EffectiveHalfHeight => view.orthographicSize / (1 + ImpactZoom);
     Vector3 unshakenPosition;
     public RenderTexture WorldTexture { get; private set; }
@@ -113,7 +116,7 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         // Existing Slayer/pause tweens still own this half-height zoom scalar.
         // Apply the perspective lens even while pause owns camera position.
         view.orthographic = false;
-        view.fieldOfView = 2 * Mathf.Atan(EffectiveHalfHeight / profile.FramingDistance) * Mathf.Rad2Deg;
+        view.fieldOfView = ProjectionFieldOfView;
         if (!brain || !brain.enabled || GamePauseController.InputBlocked) return;
         if (framingLayout && (!player || !enemy)) return;
         var center = framingLayout ? framingLayout.BodyCenter : player && enemy ? (player.position + enemy.position) * .5f : framingOrigin;

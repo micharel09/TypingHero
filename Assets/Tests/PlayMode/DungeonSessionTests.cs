@@ -68,7 +68,10 @@ public sealed class DungeonSessionTests
             Assert.That(impact, Is.Not.Null);
             Assert.That(impact.Zoom, Is.Zero);
             var listeners = impact.GetComponents<Cinemachine.CinemachineImpulseListener>();
-            Assert.That(listeners.Length, Is.EqualTo(2));
+            Assert.That(listeners.Length, Is.EqualTo(1), "only the unrelated legacy channel remains");
+            Assert.That(listeners[0].m_ChannelMask, Is.EqualTo(1));
+            Assert.That(listeners[0].m_Gain, Is.EqualTo(10));
+            Assert.That(impact.GetComponents<CameraImpactExtension>().Length, Is.EqualTo(1), "one direct combat Noise extension");
             GamePauseController.SetEncounterReading(false);
             impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
             Assert.That(impact.Zoom, Is.EqualTo(.02f).Within(.00001f));

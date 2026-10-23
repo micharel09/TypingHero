@@ -21,6 +21,7 @@ public class HitStopper : MonoBehaviour
     [Tooltip("Cho phép chồng nhiều hitstop (ít dùng).")]
     public bool allowStacking = false;
 
+    internal static bool IsActive => I && I.active;
     bool active;
     float restoreAt;
     float restoreTimeScale;

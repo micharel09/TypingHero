@@ -78,6 +78,7 @@ public sealed class GamePauseController : MonoBehaviour
     static bool pauseBlocked, readingBlocked, encounterBlocked;
     public static bool InputBlocked => pauseBlocked || readingBlocked || encounterBlocked;
     internal static bool IsPaused => pauseBlocked;
+    internal static event System.Action<bool> FreezeChanged;
     internal static bool EncounterReading => encounterBlocked;
     internal static bool ResultOverlayVisible { get; private set; }
 
@@ -110,6 +111,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     static void ApplyFreeze()
     {
+        FreezeChanged?.Invoke(InputBlocked);
         if (ScoreSystem.I) ScoreSystem.I.SetPaused(InputBlocked);
         AudioListener.pause = InputBlocked;
         Time.timeScale = InputBlocked ? 0f : 1f;
@@ -388,6 +390,7 @@ public sealed class GamePauseController : MonoBehaviour
     {
         pauseBlocked = on;
         ResultOverlayVisible = on && _overlayLocked;
+        FreezeChanged?.Invoke(InputBlocked);
         if (ScoreSystem.I) ScoreSystem.I.SetPaused(on);
         Time.timeScale = InputBlocked ? 0f : 1f;
         if (pauseAudioListener || readingBlocked || encounterBlocked) AudioListener.pause = InputBlocked;

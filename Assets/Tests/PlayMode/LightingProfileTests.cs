@@ -7,6 +7,7 @@ using UnityEngine.TestTools;
 
 public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
 {
+    GameObject cameraBindingHost;
     const string OtherScene = "Assets/Tests/Fixtures/Lighting/OtherWorld.unity";
     [System.Serializable] sealed class SceneList { public string[] paths; public bool[] enabled; }
     const string SceneBackup = "CLACKBLADE.LightingTests.SceneList";
@@ -29,6 +30,7 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
     }
     [UnityTearDown] public IEnumerator Cleanup()
     {
+        if (cameraBindingHost) Object.DestroyImmediate(cameraBindingHost);
         var session = DungeonSession.Current;
         if (session && session.World) yield return SceneManager.UnloadSceneAsync(session.World.gameObject.scene);
         if (session) Object.Destroy(session.gameObject);
@@ -81,12 +83,25 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         var second = UnityEditor.AssetDatabase.LoadAssetAtPath<WorldDefinition>("Assets/Tests/Fixtures/Lighting/OtherWorld.asset");
         Assert.That(second, Is.Not.Null);
         string a = JsonUtility.ToJson(first.lighting), b = JsonUtility.ToJson(second.lighting);
+        GamePauseController.ResetSessionState(); TutorialRun.End();
+        cameraBindingHost = new GameObject("camera binding fixture"); cameraBindingHost.SetActive(false);
+        var impact = cameraBindingHost.AddComponent<CombatCameraImpact>();
+        var gate = cameraBindingHost.AddComponent<DungeonSessionBindings>();
+        gate.roots = new[] { cameraBindingHost };
+        gate.links = new[] { new DungeonSessionBindings.Link { local = impact, field = "arena", slot = DungeonWorld.Slot.Arena } };
+
         var session = DungeonSession.I;
         yield return session.LoadWorld(first);
+        gate.Bind(session.World); cameraBindingHost.SetActive(true);
+        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        Assert.That(impact.Zoom, Is.EqualTo(.02f));
         var previousWorld = session.World; var previousRT = previousWorld.Arena.WorldTexture;
         Assert.That(previousWorld.environment.GetComponentsInChildren<DungeonTorchLight>().Length, Is.EqualTo(3));
         yield return session.LoadWorld(second); yield return null;
         Assert.That(previousWorld == null, Is.True); Assert.That(previousRT == null, Is.True);
+        gate.Bind(session.World);
+        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        Assert.That(impact.Zoom, Is.EqualTo(.01f), "world B binds its camera profile");
         var world = session.World;
         Assert.That(world.Profile, Is.SameAs(second.lighting));
         Assert.That(world.Arena.WorldTexture.width, Is.EqualTo(256));
@@ -103,6 +118,9 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
             Assert.That(torch.Flame.sharedMesh, Is.Not.SameAs(torch.profile.flame.mesh));
         }
         yield return session.LoadWorld(first); yield return null;
+        gate.Bind(session.World);
+        impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+        Assert.That(impact.Zoom, Is.EqualTo(.02f), "world A rebind restores its own profile");
         foreach (var filter in filters) Assert.That(filter == null, Is.True);
         Assert.That(session.World.Arena.WorldTexture.width, Is.EqualTo(320));
         Assert.That(RenderSettings.fogColor, Is.EqualTo(first.lighting.fogColor));
