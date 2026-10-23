@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Only Pause changes geometry. Restore the authored result layout before gameplay resumes.
 public sealed class CompactPauseLayout : MonoBehaviour
@@ -18,6 +19,11 @@ public sealed class CompactPauseLayout : MonoBehaviour
         foreach (var reset in restore) reset();
         restore.Clear();
         if (!paused) return;
+        // The panel sprite includes its enclosing border. Results still use it.
+        var face = GetComponent<Image>();
+        bool visible = face.enabled;
+        restore.Add(() => face.enabled = visible);
+        face.enabled = false;
         Place((RectTransform)transform, 270, 100, 420, 340);
         var title = transform.Find("PauseLabel").GetComponent<TMP_Text>();
         Place(title.rectTransform, 24, 20, 372, 40);

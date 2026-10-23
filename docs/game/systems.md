@@ -1,5 +1,17 @@
 # System and configuration map
 
+## Pause and guidance ownership (2026-10-24)
+
+CompactPauseLayout snapshots/restores the shared panel Image.enabled as well as
+geometry: manual Pause is unframed, results retain the authored surface.
+CoreMatchBuild migrates away the legacy help canvas/button/component; final menu
+navigation binds four actions. CombatR7Build removes RoundR7/RoundReadabilityR7;
+CombatR7Status no longer owns those serialized fields. QA observes the hierarchy.
+EndlessDuel starts initialized encounters directly; DungeonSession still suppresses
+transition input. EndlessOverlay retains the tutorial clone only for Continue and
+results, with no intro or tactical hint. No save/provider contract changes.
+
+
 | Owner | Source/config | Consumers and verification |
 | --- | --- | --- |
 | Local dark fantasy HUD | `CombatR7Build`, `PixelUIBuild`, `export_combat_r7.py`, `CombatR7/DarkFantasy/`, `ScoreRules` and `ScoreSystem` display tint |26 isolated PNGs, two pause rim subrects and hard HP underlay; 874scene IDs/fonts/bindings retained; follow-up shortens rails102to82px and hides both HP labels/encounter line; side groups at80%, score/typing unchanged. Strict repeat builder, focused native11 and production4 combat/pause captures pass. No full suite or upload; [checkpoint](../plans/hud-dark-fantasy.md). |

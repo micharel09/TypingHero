@@ -46,7 +46,7 @@ public sealed class EndlessOverlay : MonoBehaviour
         prompt.anchoredPosition = new Vector2(48, -107);
         prompt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 864);
         prompt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 262);
-        // The clone owns its reading bounds; NEXT adds a third description line.
+        // Keep the result card and Continue control in their authored bounds.
         Place(heading.rectTransform, 16, 0, 832, 56);
         Place(instruction.rectTransform, 16, 58, 832, 144);
         instruction.alignment = TextAlignmentOptions.MidlineLeft;
@@ -67,9 +67,9 @@ public sealed class EndlessOverlay : MonoBehaviour
         if (events) events.SetSelectedGameObject(null);
     }
 
-    internal void ShowCombat(string title)
+    internal void ShowCombat()
     {
-        // The fixed HUD owns difficulty/duel during combat.
+        // Combat uses only the live HUD.
         prompt.anchoredPosition = new Vector2(144, -156);
         heading.gameObject.SetActive(false);
         instruction.gameObject.SetActive(false); background.SetActive(false); action.gameObject.SetActive(false);

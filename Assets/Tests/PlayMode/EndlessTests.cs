@@ -395,7 +395,7 @@ public sealed class EndlessTests
             var duel = EndlessDuel.I;
             Assert.That(duel, Is.Not.Null);
             AssertTypingAudioBinding();
-            Assert.That(GamePauseController.EncounterReading, Is.True);
+            Assert.That(GamePauseController.EncounterReading, Is.False, "Fresh encounters start without an intro gate");
             var player = Object.FindObjectOfType<PlayerHealth>();
             var enemy = Object.FindObjectOfType<SkeletonController>();
             Assert.That(enemy.Current, Is.EqualTo(180));

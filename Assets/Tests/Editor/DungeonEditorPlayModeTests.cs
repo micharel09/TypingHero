@@ -57,8 +57,8 @@ public sealed class DungeonEditorPlayModeTests
             Assert.That(TutorialRun.Active, Is.False);
             Assert.That(EndlessRun.Current.Score, Is.Zero);
             Assert.That(GamePauseController.IsPaused, Is.False);
-            Assert.That(GamePauseController.EncounterReading, Is.True);
-            Assert.That(CombatSession.I.Seconds, Is.Zero);
+            Assert.That(GamePauseController.EncounterReading, Is.False);
+            Assert.That(CombatSession.I.Seconds, Is.InRange(0f, 1f), "Fresh encounter clock starts immediately");
             Assert.That(Object.FindObjectsOfType<DungeonWorld>().Length, Is.EqualTo(1));
             Assert.That(Object.FindObjectsOfType<DungeonArenaCamera>().Length, Is.EqualTo(1));
             Assert.That(Object.FindObjectsOfType<DungeonPresentationCamera>().Length, Is.EqualTo(1));
@@ -66,7 +66,7 @@ public sealed class DungeonEditorPlayModeTests
             Assert.That(PlayerPrefs.GetInt("TutorialProgress_v1", 0), Is.EqualTo(progress));
             var world = session.World;
             var texture = world.Arena.WorldTexture;
-            EndlessDuel.I.Continue(); // The actual Fight controller callback.
+            EndlessDuel.I.Continue(); // No-op during the already active encounter.
             Assert.That(GamePauseController.InputBlocked, Is.False);
             var typing = Object.FindObjectOfType<TypingManager>();
             var word = (string)typeof(TypingManager).GetField("current", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(typing);
@@ -85,7 +85,7 @@ public sealed class DungeonEditorPlayModeTests
             Assert.That(session.World, Is.SameAs(world));
             Assert.That(world.Arena.WorldTexture, Is.SameAs(texture));
             Assert.That(EndlessRun.Current.Score, Is.Zero);
-            Assert.That(GamePauseController.EncounterReading, Is.True);
+            Assert.That(GamePauseController.EncounterReading, Is.False);
             pause = Object.FindObjectOfType<GamePauseController>();
             pause.TogglePause(true); pause.ReturnToMenu();
             deadline = Time.realtimeSinceStartup + 30;

@@ -16,7 +16,6 @@ public sealed class EndlessDuel : MonoBehaviour
     void Awake() { I = this; }
     void Start()
     {
-        bool continuing = EndlessRun.Continuing;
         Run = EndlessRun.EnterScene();
         player = FindObjectOfType<PlayerHealth>();
         pause = FindObjectOfType<GamePauseController>();
@@ -27,17 +26,9 @@ public sealed class EndlessDuel : MonoBehaviour
         CombatSession.I.RestoreEndless(Run);
         if (ScoreSystem.I) ScoreSystem.I.RestoreRunScore(Run.Score);
         overlay = EndlessOverlay.Create();
-        GamePauseController.SetEncounterReading(true);
-        ready = true;
         EndlessProfile.Encounter(Run.Role, Run.Slot == 4);
         encounterStartHp = player.Current;
-        if (continuing) BeginEncounter(); else RenderIntro();
-    }
-
-    void RenderIntro()
-    {
-        if (overlay) overlay.Show($"{Run.Difficulty.Label()} · DUEL {Run.Slot + 1}/6 · {Run.Enemy.Name}",
-            Run.Enemy.Hint, "Fight · Enter", Continue);
+        BeginEncounter();
     }
 
     void Update()
@@ -66,7 +57,7 @@ public sealed class EndlessDuel : MonoBehaviour
     {
         ready = false;
         GamePauseController.SetEncounterReading(false);
-        if (overlay) overlay.ShowCombat($"{Run.Difficulty.Label()} · DUEL {Run.Slot + 1}/6 · {Run.Enemy.Name}");
+        if (overlay) overlay.ShowCombat();
     }
 
     internal void EnemyDefeated()
@@ -96,7 +87,7 @@ public sealed class EndlessDuel : MonoBehaviour
         }
         ready = true;
         if (overlay) overlay.Show($"{Run.Difficulty.Label()} · CLEARED {Run.Defeated} · HP {Run.Health}/{player.maxHealth}",
-            $"NEXT: DUEL {Run.Slot + 1}/6 \u00b7 {Run.Enemy.Name}\n{Run.Enemy.Hint}", "Continue · Enter", Continue);
+            $"NEXT: {Run.Enemy.Name}", "Continue · Enter", Continue);
     }
 
     internal string FinishRun(bool won = false)

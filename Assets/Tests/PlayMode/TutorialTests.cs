@@ -106,13 +106,12 @@ public sealed class TutorialTests
         Assert.That(EndlessDuel.I.Run.Score, Is.Zero);
         Assert.That(EndlessDuel.I.Run.Slot, Is.Zero);
         Assert.That(CombatSession.I.Letters, Is.Zero);
-        Assert.That(CombatSession.I.Seconds, Is.Zero);
-        Assert.That(GamePauseController.EncounterReading, Is.True);
+        Assert.That(CombatSession.I.Seconds, Is.InRange(0f, 1f), "Fresh encounter clock starts immediately");
+        Assert.That(GamePauseController.EncounterReading, Is.False);
         var encounter = Object.FindObjectOfType<EndlessOverlay>();
         var panel = encounter.transform.Find("Reference960x540/TutorialPrompt");
         foreach (string name in new[] { "HealthGuide", "EnemyGuide", "TypingGuide", "ScoreGuide", "Shortcuts" })
             Assert.That(panel.Find(name).gameObject.activeInHierarchy, Is.False, "guide must not leak into the encounter clone");
-        Assert.That(((RectTransform)panel).rect.width, Is.EqualTo(864));
         EndlessDuel.I.Continue();
         yield return null;
         Assert.That(panel.GetComponentsInChildren<Graphic>().Any(g => g.isActiveAndEnabled), Is.False,

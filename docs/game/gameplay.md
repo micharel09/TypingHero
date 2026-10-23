@@ -1,5 +1,21 @@
 ## Reusable world lighting (2026-10-22)
 
+## Pause and guidance cleanup (2026-10-24)
+
+- Manual Pause shows PAUSE plus Resume/Restart/Settings/Top 1000/Main Menu without
+  an enclosing panel face or rim. Settings and result cards keep their surfaces;
+  Resume restores the authored result layout. Modal focus and freeze rules remain.
+- The single current tutorial is the only how-to screen. Main Menu has Play,
+  Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
+- Fresh/restarted encounters begin immediately after DungeonSession initialization,
+  including after tutorial completion. There is no initial Fight/Enter gate.
+- Combat has no DUEL x/6 label/backplate. Between-enemy results retain cleared/HP,
+  NEXT opponent name and Continue, without tactical hints or duel numbering.
+  Combat cues, typing feedback, finite six-opponent progression and scoring remain.
+- Scoped Unity 12/12 and repeat builder pass; native WebGL acceptance is recorded
+  in [the menu checkpoint](../plans/compact-menus.md).
+
+
 - Scene selection, world presentation, individual lights, flame sequences and combat
   lighting use authored profiles (defaults under `Assets/Data/Lighting`; selected
   assets may live elsewhere). Native materials,

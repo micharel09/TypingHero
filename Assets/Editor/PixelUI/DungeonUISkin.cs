@@ -181,7 +181,7 @@ internal static class DungeonUISkin
             var image = Image(rect, Color.white); image.sprite = Sprite("scene-" + layer, true);
         }
         // Existing content bounds are y=24..526. Center the complete group in the viewport.
-        foreach (string name in new[] { "MenuPanel", "How to PlayButton", "TutorialButton", "Top 1000Button", "AudioPreferences" })
+        foreach (string name in new[] { "MenuPanel", "TutorialButton", "Top 1000Button", "AudioPreferences" })
         {
             var rect = root.Find(name) as RectTransform;
             var position = rect.anchoredPosition; position.y += 5; rect.anchoredPosition = position;

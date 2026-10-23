@@ -163,12 +163,15 @@ internal static class CombatR7Build
         var clock = LabelOnce(root, "ClockR7", "00:00", 257, 146, 30, 12, 10);
         var playerHp = LabelOnce(root, "PlayerHpR7", "", 73, 0, 31, 11, 8);
         var enemyHp = LabelOnce(root, "EnemyHpR7", "", 281, 0, 36, 11, 8);
-        var round = LabelOnce(root, "RoundR7", "", 109, 46, 102, 11, 8);
-        CombatLabel(playerHp, font8); CombatLabel(enemyHp, font8); CombatLabel(round, font8);
+        foreach (string name in new[] { "RoundR7", "RoundReadabilityR7" })
+        {
+            var retired = root.Find(name);
+            if (retired) Object.DestroyImmediate(retired.gameObject);
+        }
+        CombatLabel(playerHp, font8); CombatLabel(enemyHp, font8);
         CombatLabel(mult, font8); CombatLabel(clock, font10); CombatLabel(score, font12);
         Backplate(root, "PlayerReadabilityR7", 3, 0, 102, 11).enabled = false;
         Backplate(root, "EnemyReadabilityR7", 215, 0, 102, 11).enabled = false;
-        var roundBackground = Backplate(root, "RoundReadabilityR7", 108, 45, 104, 13);
         Backplate(root, "ClockReadabilityR7", 256, 145, 32, 14);
         foreach (string name in new[] { "ParryR7", "ParryKeyR7", "ClockR7", "ClockReadabilityR7" })
             root.Find(name).gameObject.SetActive(false);
@@ -193,8 +196,7 @@ internal static class CombatR7Build
         var status = root.GetComponent<CombatR7Status>();
         if (!status) status = root.gameObject.AddComponent<CombatR7Status>();
         Set(status, "enemyLabel", enemyName); Set(status, "clock", clock);
-        Set(status, "playerHp", playerHp); Set(status, "enemyHp", enemyHp); Set(status, "round", round);
-        Set(status, "roundBackground", roundBackground);
+        Set(status, "playerHp", playerHp); Set(status, "enemyHp", enemyHp);
         Set(status, "comboFill", decayFill);
         Set(status, "normalFill", Sprite("combo-fill")); Set(status, "goldFill", Sprite("combo-gold-fill"));
         Set(Find<TutorialOverlay>(), "staminaTarget", enemy.Find("FrameSecondary"));
@@ -215,7 +217,7 @@ internal static class CombatR7Build
         Set(hudFeedback, "guardBreak", guardBreak);
         Value(hudFeedback, "red", Hex("f16b67")); Value(hudFeedback, "gold", Hex("e5be72"));
         Value(hudFeedback, "success", Hex("e5be72"));
-        foreach (var label in new[] { playerName, enemyName, playerHp, enemyHp, round, score })
+        foreach (var label in new[] { playerName, enemyName, playerHp, enemyHp, score })
             label.color = Hex("f2e7cf");
         mult.color = Hex("e5be72");
         var rules = Get<ScoreRules>(Find<ScoreSystem>(), "rules");
@@ -356,7 +358,7 @@ internal static class CombatR7Build
         enemyPlate.anchorMin = enemyPlate.anchorMax = new Vector2(1, 1);
         enemyPlate.pivot = new Vector2(1, 1);
         enemyPlate.anchoredPosition = new Vector2(-9, 0);
-        foreach (string name in new[] { "PlayerHpR7", "EnemyHpR7", "RoundR7", "RoundReadabilityR7" })
+        foreach (string name in new[] { "PlayerHpR7", "EnemyHpR7" })
             root.Find(name).gameObject.SetActive(false);
     }
 

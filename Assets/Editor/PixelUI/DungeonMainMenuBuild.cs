@@ -84,7 +84,7 @@ internal static class DungeonMainMenuBuild
         if (!back.GetComponent<DungeonControlSkin>()) back.gameObject.AddComponent<DungeonControlSkin>();
         foreach (var control in panel.GetComponentsInChildren<Selectable>(true)) control.navigation = new Navigation { mode = Navigation.Mode.None };
         var buttons = new[] { Action(root, "Play", menu.OpenPlay), Action(root, "Tutorial", menu.Tutorial),
-            Action(root, "Top 1000", null), Action(root, "Settings", null), Action(root, "How to Play", menu.ShowHelp) };
+            Action(root, "Top 1000", null), Action(root, "Settings", null) };
         var serialized = new SerializedObject(menu);
         var items = serialized.FindProperty("menuButtons"); items.arraySize = buttons.Length;
         for (int i = 0; i < buttons.Length; i++)
@@ -98,7 +98,7 @@ internal static class DungeonMainMenuBuild
             var image = (Image)button.targetGraphic; image.sprite = null; image.type = UnityEngine.UI.Image.Type.Simple; image.color = Color.clear;
             image.pixelsPerUnitMultiplier = 1;
             var label = button.GetComponentInChildren<TMP_Text>(true);
-            label.text = new[] { "Play", "Tutorial", "Top 1000", "Settings", "How to Play" }[i];
+            label.text = new[] { "Play", "Tutorial", "Top 1000", "Settings" }[i];
             Box(label.rectTransform, button.transform, 24, 0, 216, 36); Text(label, 30, TextAlignmentOptions.MidlineRight);
             var marker = button.transform.Find("Selection") as RectTransform;
             if (!marker) marker = Rect("Selection", button.transform);
