@@ -11,6 +11,7 @@ internal static class CombatFeedbackBuild
 
     internal static void Apply()
     {
+        EnemyStateVfxBuild.Prepare();
         CombatFeedbackAssets.Prepare();
         ParryClashAssets.Prepare();
         CombatVoxelAssets.Prepare();
@@ -39,6 +40,7 @@ internal static class CombatFeedbackBuild
         EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
         foreach (var root in EditorSceneManager.GetActiveScene().GetRootGameObjects())
             Configure(root, normal, slayer, lethal);
+        EnemyStateVfxBuild.BindScene();
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 
@@ -66,6 +68,7 @@ internal static class CombatFeedbackBuild
 
     static void Configure(GameObject root, SfxEvent normal, SfxEvent slayer, SfxEvent lethal)
     {
+        EnemyStateVfxBuild.Configure(root);
         // Remove the retired damage route before configuring the outgoing hit spawners.
         foreach (var damage in root.GetComponentsInChildren<PlayerDamageVoxel>(true))
             Object.DestroyImmediate(damage);

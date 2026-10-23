@@ -164,7 +164,8 @@ Each physical group's `channel` and each flash's `channel` names a binding ID,
 not its array index. Physical groups can share a renderer; a flash must have its
 own renderer. An empty flash array means no flash. Counts, lifetime, tint,
 pixel size, optional world size cap (`0` means uncapped), grid columns/rows,
-cycles, normalized start frame/frame curve and native color/alpha gradient are
+cycles, normalized start frame/frame curve, height/width ratio (`heightScale`,
+default1), sorting order and native color/alpha gradient are
 editable per layer. Bind materials suitable for each layer; Compact physics
 materials retain their shader's Custom1/UV stream contract.
 
@@ -196,7 +197,19 @@ age and native flash clocks; hitstop keeps unscaled VFX running; Clear/disable/
 scene unload cancel owned particles and pulses. Sound/damage/camera/hitstop are
 caller responsibilities. Rebuilds preserve authored references/arrays/curves;
 one-time legacy MetalClash migration is versioned. Tests use alternate temporary
-profiles and pure generic prefabs; production still ships only MetalClash.
+profiles and pure generic prefabs. Production also ships GuardBreak and
+BodyFallDust under `Assets/Art/VFX/EnemyState/`: original Pimen flipbooks, empty
+physics groups and local light disabled. Guard uses a byte-identical2D copy of
+Effect2 because the original pack importer is a cubemap; its original GUID/meta
+are retained. Dust retains all eight cells (six visible, two transparent).
+
+Combat end stops bursts by default. Set context.completionPolicy to
+`ImpactVfxCompletionPolicy.AllowUntilResults` only for the unlit death tail:
+its scene-owned emitter can emit after CombatSession.Finished and lives until
+natural expiry or results. Result overlay, Clear, disable and scene unload always
+clear it; pause/reading hold it. Shared combat lights retain their session owner.
+The EnemyStateVfxBinder chooses events/anchors; appearance stays in the profiles.
+Its actor emitter and independent scene death emitter each have two active leases.
 
 Local light may outlive all particles/flashes, including a light-only profile.
 The burst waits for its registered pulse in active rigs before returning to the
