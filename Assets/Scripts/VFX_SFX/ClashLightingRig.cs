@@ -42,7 +42,7 @@ public sealed class ClashLightingRig : MonoBehaviour
     void Clear()
     {
         System.Array.Clear(pulses, 0, pulses.Length);
-        if (clashLight) clashLight.intensity = 0;
+        if (clashLight) { clashLight.intensity = 0; clashLight.color = clashColor; }
         if (combatLight) combatLight.intensity = 0;
         if (parryLight) parryLight.intensity = 0;
     }
@@ -65,6 +65,13 @@ public sealed class ClashLightingRig : MonoBehaviour
     internal static void Impact(Scene scene, Vector3 point, CombatLightingProfile.Event kind, VoxelImpactBurst owner)
     {
         foreach (var rig in rigs) if (rig.gameObject.scene == scene) rig.Add(point, kind, owner);
+    }
+    internal static bool HasPulse(Component owner)
+    {
+        foreach (var rig in rigs)
+            foreach (var pulse in rig.pulses)
+                if (pulse.owner == owner) return true;
+        return false;
     }
     internal static void Cancel(Component owner)
     {

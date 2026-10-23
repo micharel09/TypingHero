@@ -460,6 +460,171 @@ public sealed class ImpactVfxTests
         emitter.Clear();
     }
 
+    ImpactVfxProfile PulseProfile(bool lightOnly = false)
+    {
+        var profile = GenericProfile(lightOnly ? 0 : 1);
+        if (lightOnly) profile.physics.groups = System.Array.Empty<PhysicalParticleProfile.Group>();
+        foreach (var group in profile.physics.groups) group.lifetime = Vector2.one * .2f;
+        foreach (var flash in profile.flashes) flash.lifetime = .2f;
+        profile.lightEnabled = true; profile.lightIntensity = 2;
+        profile.lightHold = 0; profile.lightDuration = 1;
+        profile.lightDecay = AnimationCurve.Constant(0, 1, 1);
+        return profile;
+    }
+
+    ClashLightingRig PulseRig(out Light light, int capacity = 8)
+    {
+        var host = new GameObject("pulse lifecycle rig"); owned.Add(host); host.SetActive(false);
+        light = host.AddComponent<Light>();
+        var rig = host.AddComponent<ClashLightingRig>();
+        rig.profile = Object.Instantiate(LightingTestAssets.Definition.combat); owned.Add(rig.profile);
+        rig.profile.overlapCapacity = capacity;
+        typeof(ClashLightingRig).GetField("parryLight", Flags).SetValue(rig, light);
+        host.SetActive(true); return rig;
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator LongPulseOutlivesParticlesPausesAndKeepsItsSnapshot()
+    {
+        var profile = PulseProfile(); PulseRig(out var light);
+        var emitter = Emitter(); var burst = emitter.Play(profile, Context());
+        yield return new WaitForSecondsRealtime(.35f);
+        Assert.That(burst.ParticleCount, Is.Zero);
+        Assert.That(emitter.active.Count, Is.EqualTo(1));
+        Assert.That(light.intensity, Is.EqualTo(2));
+        profile.lightDuration = .01f; profile.lightColor = Color.magenta;
+        profile.lightDecay.MoveKey(0, new Keyframe(0, 0));
+        GamePauseController.SetTutorialReading(true);
+        yield return new WaitForSecondsRealtime(.2f);
+        Assert.That(emitter.active.Count, Is.EqualTo(1));
+        Assert.That(light.intensity, Is.EqualTo(2));
+        Assert.That(light.color, Is.EqualTo(burst.appearance.lightColor));
+        GamePauseController.SetTutorialReading(false);
+        yield return new WaitForSecondsRealtime(.15f);
+        Assert.That(emitter.active.Count, Is.EqualTo(1));
+        Assert.That(light.intensity, Is.EqualTo(2));
+        yield return new WaitForSecondsRealtime(.65f);
+        Assert.That(light.intensity, Is.Zero);
+        Assert.That(emitter.active, Is.Empty);
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator LightOnlyPulseExpiresAndReusesItsLease()
+    {
+        var profile = PulseProfile(true); profile.lightDuration = .2f;
+        PulseRig(out var light); var emitter = Emitter(); var first = emitter.Play(profile, Context());
+        yield return null; yield return null;
+        Assert.That(first.ParticleCount, Is.Zero);
+        Assert.That(emitter.active.Count, Is.EqualTo(1));
+        Assert.That(light.intensity, Is.EqualTo(2));
+        yield return new WaitForSecondsRealtime(.3f);
+        Assert.That(emitter.active, Is.Empty); Assert.That(light.intensity, Is.Zero);
+        Assert.That(emitter.Play(profile, Context()), Is.SameAs(first));
+        Assert.That(light.intensity, Is.EqualTo(2));
+        emitter.Clear(); Assert.That(light.intensity, Is.Zero);
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator MissingDisabledRejectedAndEvictedPulsesDoNotRetainEmptyBursts()
+    {
+        var profile = PulseProfile(true); var emitter = Emitter();
+        emitter.Play(profile, Context());
+        yield return null; yield return null;
+        Assert.That(emitter.active, Is.Empty, "No rig must not retain a light-only lease");
+        var rig = PulseRig(out var light, 1);
+        profile.lightEnabled = false; emitter.Play(profile, Context());
+        yield return null; yield return null;
+        Assert.That(emitter.active, Is.Empty);
+        profile.lightEnabled = true;
+        var stronger = Object.Instantiate(profile); owned.Add(stronger); stronger.lightIntensity = 4;
+        var first = emitter.Play(profile, Context());
+        var second = emitter.Play(stronger, Context());
+        var rejected = emitter.Play(profile, Context());
+        yield return null; yield return null;
+        Assert.That(first.gameObject.activeSelf, Is.False);
+        Assert.That(rejected.gameObject.activeSelf, Is.False);
+        Assert.That(emitter.active.Count, Is.EqualTo(1));
+        Assert.That(emitter.active[0], Is.SameAs(second.gameObject));
+        Assert.That(light.intensity, Is.EqualTo(4));
+        rig.enabled = false;
+        yield return null; yield return null;
+        Assert.That(emitter.active, Is.Empty); Assert.That(light.intensity, Is.Zero);
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator LongPulseCapacityDisableAndClearCancelOwnersImmediately()
+    {
+        var profile = PulseProfile(true); profile.lightDuration = 10;
+        PulseRig(out var light); var emitter = Emitter();
+        var first = emitter.Play(profile, Context());
+        for (int i = 0; i < 8; i++) emitter.Play(profile, Context());
+        Assert.That(emitter.active.Count, Is.EqualTo(8));
+        emitter.enabled = false;
+        Assert.That(emitter.active, Is.Empty); Assert.That(light.intensity, Is.Zero);
+        emitter.enabled = true; var reused = emitter.Play(profile, Context());
+        yield return null; yield return null;
+        Assert.That(emitter.active.Count, Is.EqualTo(1));
+        Assert.That(light.intensity, Is.EqualTo(2));
+        emitter.Clear(); Assert.That(light.intensity, Is.Zero);
+        Assert.That(reused.ParticleCount, Is.Zero); Assert.That(first.ParticleCount, Is.Zero);
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator SceneUnloadReclaimsLightOnlyLeaseAndRig()
+    {
+        var scene = UnityEngine.SceneManagement.SceneManager.CreateScene("long impact pulse unload");
+        var profile = PulseProfile(true); var rig = PulseRig(out var light);
+        var emitter = Emitter();
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(rig.gameObject, scene);
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(emitter.gameObject, scene);
+        var burst = emitter.Play(profile, Context());
+        yield return null; yield return null;
+        Assert.That(light.intensity, Is.EqualTo(2));
+        yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(scene);
+        Assert.That(burst == null, Is.True); Assert.That(rig == null, Is.True);
+    }
+
+    [Test, Category("Quick")]
+    public void WaitingForLocalPulseAllocatesNothingAfterWarmup()
+    {
+        var profile = PulseProfile(true); PulseRig(out _);
+        var emitter = Emitter(); var burst = emitter.Play(profile, Context());
+        var update = (System.Action)System.Delegate.CreateDelegate(typeof(System.Action), burst,
+            typeof(ImpactVfxBurst).GetMethod("Update", Flags));
+        update();
+        long before = System.GC.GetAllocatedBytesForCurrentThread();
+        for (int i = 0; i < 100; i++) update();
+        long allocated = System.GC.GetAllocatedBytesForCurrentThread() - before;
+        Assert.That(allocated, Is.Zero);
+        Assert.That(emitter.active.Count, Is.EqualTo(1));
+    }
+
+    [Test, Category("Quick")]
+    public void RigReenableRestoresLegacyColorAndAcceptsInactiveAuthoring()
+    {
+        var host = new GameObject("2D pulse color lifecycle"); owned.Add(host); host.SetActive(false);
+        var lightType = System.Type.GetType("UnityEngine.Rendering.Universal.Light2D, Unity.RenderPipelines.Universal.Runtime");
+        var light = host.AddComponent(lightType);
+        var color = lightType.GetProperty("color"); var intensity = lightType.GetProperty("intensity");
+        var baseline = Color.yellow; color.SetValue(light, baseline);
+        var rig = host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat;
+        typeof(ClashLightingRig).GetField("clashLight", Flags).SetValue(rig, light); host.SetActive(true);
+        var profile = PulseProfile(true); profile.lightColor = Color.cyan;
+        var emitter = Emitter();
+        var legacy = Object.Instantiate(Metal.prefab); owned.Add(legacy); legacy.SetActive(true);
+        var owner = legacy.GetComponent<ParryClashBurst>();
+        for (int i = 0; i < 3; i++)
+        {
+            emitter.Play(profile, Context()); Assert.That(color.GetValue(light), Is.EqualTo(Color.cyan));
+            rig.enabled = false;
+            Assert.That(intensity.GetValue(light), Is.EqualTo(0f)); Assert.That(color.GetValue(light), Is.EqualTo(baseline));
+            if (i == 1) color.SetValue(light, baseline = Color.green);
+            rig.enabled = true;
+            ClashLightingRig.Pulse(host.scene, Vector3.zero, CombatLightingProfile.Event.LegacyParry, owner);
+            Assert.That((float)intensity.GetValue(light), Is.GreaterThan(0)); Assert.That(color.GetValue(light), Is.EqualTo(baseline));
+            ClashLightingRig.Cancel(owner); emitter.Clear();
+        }
+    }
 }
 
 #endif

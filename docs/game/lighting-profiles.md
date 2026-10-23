@@ -190,4 +190,13 @@ caller responsibilities. Rebuilds preserve authored references/arrays/curves;
 one-time legacy MetalClash migration is versioned. Tests use alternate temporary
 profiles and pure generic prefabs; production still ships only MetalClash.
 
+Local light may outlive all particles/flashes, including a light-only profile.
+The burst waits for its registered pulse in active rigs before returning to the
+pool; no rig, disabled lighting, or a rejected/evicted pulse adds no delay.
+The rig owns the clock, so pause and emission snapshots remain shared with pulse
+rendering. Explicit Clear/disable/unload and the emitter's capacity eviction still
+cancel immediately. Pool return may follow pulse expiry by one Update frame.
+Clearing a legacy 2D rig restores its captured base color; edits made while the
+rig is disabled become the base color on its next enable.
+
 Camera impact authoring, render acknowledgment and profile reload rules: [camera guide](camera-impact-profiles.md).

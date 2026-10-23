@@ -365,6 +365,27 @@ Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, 
 
 # Verification and performance memory
 
+## Impact pulse lifecycle follow-up (2026-10-23)
+
+- On base9acdb4e, focused red run20261023T062644-quick reproduced both findings:
+  a0.2s particle/flash burst released before its1s light expired, and disabling a
+  cyan2D pulse retained cyan instead of the authored base color (2/2 expected failures).
+- Fixed snapshotb5bf5c663fa93a77aa4ff0105f322f8eaf22665c00a34e913bbb7ae3598a6615:
+  Unity2022.3.25f1/fly-server20261023T062925-quick **30/30 PASS**,0failed/skipped;
+  same-input20261023T063139-quick **1/1 PASS** for the shared Point/Spot arena route.
+  Includes7new lifecycle/color/allocation regressions, frozen MetalClash trace,
+  seed/mirror/recipient, concurrent snapshots, parry overlap/pause/reuse and unload.
+- Pulse-only waiting allocates0managed bytes after warmup. Missing/disabled rigs,
+  rejected/evicted pulses and explicit cleanup do not retain leases. Runtime uses
+  the rig's existing pulse clock; no new profile field or duplicated timer.
+- Render evaluation, solver, assets/GUIDs and approved MetalClash parameters are
+  unchanged. Prior visual receipts retain their original attribution; no new
+  WebGL build or sprite-frame inspection is claimed for this lifecycle-only fix.
+- Results, immutable source archives and external filtered runner are retained at
+  E:/CodexTemp/TypingHero/impact-vfx-lifecycle for reproduction; disposable when no
+  longer needed. Delivery/cleanup receipts are stored there after integration.
+  See the [preset checkpoint](../plans/metal-clash-preset.md).
+
 ## Near-zero physical particle drag (2026-10-22)
 
 - Unity2022.3.25f1/fly-server red20261022T014230-quick reproduces1/1failure on old
