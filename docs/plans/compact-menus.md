@@ -296,3 +296,33 @@ Initial run183939 passed3/4 but Victory teardown reused the first test cleanup s
 name; fixed only the test scene name and reran. No product layout correction needed.
 QA WebGL/strict repeated builder PASS. Native image review still pending; shared runner contention accounted for
 most waiting before the scoped tests. No other task processes were stopped.
+
+
+Final native UI review: Edge155/ANGLE D3D11/NVIDIA GTX1650Ti, Playwright1.58.2,
+1280x720, native-complete/browser.json PASS191 checks, zero JS/managed exceptions.
+Real mouse/keyboard: natural death, result Settings/R/M guards/Back, Top1000/Escape,
+Restart, unframed Pause/Resume, six actual Very Easy opponent defeats and Victory,
+Victory Settings/Escape restoration, Main Menu. Six full screenshots directly
+inspected: game-over, game-over-restored, result-settings, pause-unchanged, victory,
+victory-restored. Both result titles, five summary lines and four actions fit;
+embedded sliders/key hints absent. Fixture interception retained; no production writes.
+Earlier native pilots are not overall PASS: one assumed HP stayed0 after corpse
+cleanup (probe correctly returns-1), then conservative typing pilots lost before
+Victory. Corrected only the real-input driver (allow legal Slayer/Parry typing,
+acknowledge held character input); no game rules/timing/assets were changed to win.
+
+Integrated newer origin/main cb54e5f authored actor shadows without conflicts.
+Result UI code and all18 modified scene records are unchanged from the reviewed
+QA player43e1f3...; UGUI remains separate from the actor shadow material.
+Integrated Quick20261023T185318/input
+d1188082e78510a576d2d56a5e03bc27cf92038a6981b304e7b57a903811bc7f:
+4/4 same scoped PlayMode tests PASS,0fail/skip,2.887987s; strict repeat builder PASS.
+The complete integrated SampleScene matches Unity's generated records, ignoring
+record order/trailing whitespace only. No actor-shadow visual certification is
+claimed by this UI task; its existing main receipts remain authoritative.
+
+UI review page: http://127.0.0.1:8293/review.html (links to the UI QA player).
+Retain E:/CodexTemp/TypingHero/compact-results player, screenshots and receipts
+until user review is complete; then stop only its preview host and remove the task
+artifact directory. This UI player predates the concurrent shadow merge; its UI
+records match the integrated source exactly. No itch publication.

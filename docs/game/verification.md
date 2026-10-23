@@ -3004,3 +3004,20 @@ static serialized-reference/event/key/duration checks pass. Tests updated but
 not rerun in this quick preview iteration; prior42/42 is not new-build evidence.
 New sprite preview provided; runtime WebGL and complete timing visual acceptance
 remain unverified. [Checkpoint](../plans/parry-main-demo.md).
+
+
+## Compact Game Over / Victory (2026-10-24)
+
+QA20261023T184327/input43e1f3b6a5dafd1609a3f9e3ad48e569b9c310191a56f2bf16869970d18d730a:
+Unity2022.3.25f1 strict repeat and4/4 focused result/pause PlayMode PASS.
+Native Edge155/NVIDIA GTX1650Ti/D3D11 at1280x720:191 checks PASS, zero exceptions/production
+writes, actual typing/parry through six opponents to Victory plus natural death,
+result Settings/modal/Restart/Menu and Pause/Resume. Six final UI images inspected.
+Card600x366/title30/summary24, four actions, audio in existing Settings, no clipping.
+After integrating main cb54e5f, Quick185318/input
+d1188082e78510a576d2d56a5e03bc27cf92038a6981b304e7b57a903811bc7f:
+4/4 PASS,2.887987s and strict repeat PASS. Full SampleScene semantic records match;
+18 result records and all UI code unchanged from native-reviewed player. Actor
+shadow visuals retain their separate main receipts. Initial test teardown name
+collision and unsuccessful native pilots are superseded by these final runs.
+[Scope, failed-attempt attribution and retained UI preview](../plans/compact-menus.md).
