@@ -13,7 +13,7 @@ public sealed class CompactPauseLayout : MonoBehaviour
         restore.Add(() => { rt.anchoredPosition = position; rt.sizeDelta = size; });
         rt.anchoredPosition = new Vector2(x, -y); rt.sizeDelta = new Vector2(w, h);
     }
-    void Awake() { transform.Find("SettingsButton").gameObject.SetActive(false); }
+    void Awake() { transform.Find("SettingsButton").gameObject.SetActive(true); }
     public void Apply(bool paused)
     {
         foreach (var reset in restore) reset();

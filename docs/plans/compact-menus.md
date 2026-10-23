@@ -268,3 +268,31 @@ source snapshot,12-test XML,22-check native report and nine screenshots under
 E:/CodexTemp/TypingHero/clean-pause-guidance. Keep until user review is complete;
 then stop only its preview host and remove that task artifact directory. Shared
 Unity cache/source and pre-existing previews remain untouched.
+
+
+## Compact Game Over / Victory ? 2026-10-24
+
+User requested review and shrink of the result card after the Pause cleanup.
+Prior results used864x540 with48-unit summary text, embedded volume sliders and
+full-width actions. New authored result card600x366 at(180,87) on960x540, title30,
+summary24 with176-high wrap area, two268x36 action columns: Restart/Main Menu,
+Top1000/Settings. Audio preferences use the existing Settings modal. Redundant
+R/M footer and restart keycap are hidden; keyboard shortcuts remain owned by
+GamePauseController. Same result bounds for Game Over and Victory. Pause continues
+its unframed420x340 runtime layout and restores the compact result geometry.
+
+Base origin/main b0534d5; task branch micharel09/compact-results. Scoped checks:
+two real-scene result layout/long-statistics/Settings round-trip tests plus existing
+pause/modal restoration cases, strict repeated builder, and one1280x720 native
+visual/real-input flow for defeat and actual six-opponent victory. No timing,
+progression, damage, save/provider/public API, asset GUID or animation changes.
+Artifacts/helpers: E:/CodexTemp/TypingHero/compact-results.
+Unity2022.3.25f1/fly-server result20261023T184327-webgl, input
+43e1f3b6a5dafd1609a3f9e3ad48e569b9c310191a56f2bf16869970d18d730a:
+4/4 filtered PlayMode PASS,0failed/skipped,2.6974057s; strict repeated builder PASS.
+Tests use both real result callbacks, long five-line summaries, glyph/card bounds,
+four active actions/no Resume, Settings/Back/hidden sliders, and Pause restoration.
+Initial run183939 passed3/4 but Victory teardown reused the first test cleanup scene
+name; fixed only the test scene name and reran. No product layout correction needed.
+QA WebGL/strict repeated builder PASS. Native image review still pending; shared runner contention accounted for
+most waiting before the scoped tests. No other task processes were stopped.

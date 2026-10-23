@@ -161,37 +161,28 @@ internal static class BlackletterUILayout
     {
         var panel = design.Find("CombatOverlay/OverlayPanel");
         if (!panel) return;
-        Box((RectTransform)panel, panel.parent, 48, 0, 864, 540);
+        Box((RectTransform)panel, panel.parent, 180, 87, 600, 366);
         foreach (string name in new[] { "PauseLabel", "ThanksLabel" })
         {
-            Place(panel, name, 24, 4, 816, 44);
+            Place(panel, name, 24, 16, 552, 40);
             var title = panel.Find(name).GetComponent<TMP_Text>();
-            Size(title, HeadingSize);
+            Size(title, 30);
             title.alignment = TextAlignmentOptions.Midline;
         }
-        Place(panel, "MatchResult", 24, 48, 816, 216);
+        Place(panel, "MatchResult", 24, 64, 552, 176);
         var result = panel.Find("MatchResult").GetComponent<TMP_Text>();
-        Size(result, BodySize, true);
-        // Five compact statistic rows: 36-unit ink plus six units of leading.
-        // TMP spacing is percent of em: -12.5% of 48 = -6 reference units.
-        result.lineSpacing = -12.5f;
-        ButtonAt(panel, "ResumeButton", 24, 218, 816, 42);
-        ButtonAt(panel, "RestartButton", 24, 270, 816, 42);
-        ButtonAt(panel, "Main MenuButton", 24, 318, 816, 42);
-        Place(panel, "AudioPreferences", 24, 366, 816, 76);
-        var audio = panel.Find("AudioPreferences");
-        Place(audio, "MusicVolume", 312, 6, 504, 12);
-        Place(audio, "SFXVolume", 312, 44, 504, 12);
-        foreach (var label in audio.GetComponentsInChildren<TMP_Text>(true))
-        {
-            Size(label, BodySize);
-            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 300);
-            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 38);
-        }
-        ButtonAt(panel, "Top 1000Button", 24, 448, 816, 48);
-        Place(panel, "KeyHint", 24, 502, 816, 34);
-        Size(panel.Find("KeyHint").GetComponent<TMP_Text>(), CompactSize);
+        Size(result, 24, true);
+        result.lineSpacing = 0;
+        ButtonAt(panel, "ResumeButton", 24, 254, 268, 36, 24);
+        ButtonAt(panel, "RestartButton", 24, 254, 268, 36, 24);
+        ButtonAt(panel, "Main MenuButton", 308, 254, 268, 36, 24);
+        // Results share the existing Settings modal instead of embedding sliders.
         CompactMenusBuild.Settings(design, panel, true);
+        ButtonAt(panel, "Top 1000Button", 24, 302, 268, 36, 24);
+        ButtonAt(panel, "SettingsButton", 308, 302, 268, 36, 24);
+        panel.Find("SettingsButton").gameObject.SetActive(true);
+        foreach (string name in new[] { "AudioPreferences", "KeyHint", "RestartButton/key-r" })
+            panel.Find(name).gameObject.SetActive(false);
     }
 
     static void Combat(Transform design)
