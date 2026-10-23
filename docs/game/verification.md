@@ -2850,3 +2850,28 @@ timestamps, limitations and retained evidence are in the existing
   receipt is historical; final integrated source/frame counts are in the checkpoint.
   Reuse Unity8/8: no changed timing/tint/lifecycle logic after its passing run.
   No itch.io publication.
+
+
+## Final cue-integration acceptance
+
+Current runtime c6f6802 preserves main668d3c2 lighting and guard-break/body-fall cues.
+QA20261023T100031-webgl strict repeat/protected-font checks PASS; normalized input
+5613e279864d13272436f8a143f5d1692ba5f8f0e1558e39d2adc0f24b49fce1.
+Native32/32PASS at1280x720 and640x360, zero exceptions/provider IO.
+Directly inspected488/488frames and480/480consecutive transitions in all8windows
+selected above, preserving original timestamps/held frames and sheet boundaries.
+1280:53/52entry,65/64exit,99/98hitch+Pause,32/31lethal exit.
+640:50/49entry,63/62exit,90/89hitch+Pause,36/35lethal exit.
+No observed background/tint pop or stuck bars; guard-break sparks and body-fall
+particles remain separate from the background blend. Pause holds, Resume settles,
+results exit and Restart/Menu restore baseline. Camera impact composition passes.
+All29authored normal PNGs remain byte-identical after builder. Reuse scoped Unity8/8
+because the merged cues do not change the tested presentation clock/lifecycle logic;
+the affected render consumers were checked in this final player. No gameplay timing,
+input, damage or scoring changes; no itch.io upload.
+
+Authoritative current artifacts: E:/CodexTemp/TypingHero/slayer-soft-transitions/
+acceptance.json and native-latest/review/review-inventory.json (per-source SHA256,
+frame ranges, counts, observations). Retain these artifacts and immutable server
+result20261023T100031-webgl for review; remove after review when no longer needed.
+Earlier483/479frame receipts are historical, superseded by this488frame receipt.

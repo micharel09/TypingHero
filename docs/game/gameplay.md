@@ -717,7 +717,7 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   No gameplay timing, damage, scoring formula, public API, GUID or package changes.
 
 - Coordinated transition checks(2026-10-23): scoped Unity8/8, strict builder and
-  native32/32 at1280x720/640x360 pass. Integrated review covers483/483frames and475/475adjacent
+  native32/32 at1280x720/640x360 pass. Integrated review covers488/488frames and480/480adjacent
   transitions across full entry/exit, Pause/Resume with180ms hitch and lethal
   exit with500ms hitch. Input/stun/Slayer/damage/scoring code is unchanged.
   [Checkpoint](../plans/slayer-soft-transitions.md) records sources and limits.

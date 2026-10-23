@@ -172,3 +172,48 @@ body-fall dust cues. These intersect entry and lethal exit. Keep the verified
 normal/shadow merge and all cue changes; recheck the new render consumers.
 Timing/Pause/tint/lifecycle code is unchanged; reuse its scoped passing evidence.
 Do not report remote integration until this follow-up passes and ancestry is verified.
+
+## Final cue-integration selection before review
+
+Merged latest main668d3c2 as c6f6802. QA20261023T100031, normalized input5613e279864d13272436f8a143f5d1692ba5f8f0e1558e39d2adc0f24b49fce1:
+strict builder PASS; native-latest32/32PASS at1280/640,0exceptions/provider IO.
+Select all8complete transition windows again so the new guard-break/body-fall
+cues are inspected together with Pause/hitches and the restored normal view.
+Source videos: native-latest/transition-1280.webm and transition-640.webm.
+At selection time0latest frames have been visually inspected.
+
+| Width | Source | Segment | Start(s) | End(s) | Reason |
+|---|---|---|---:|---:|---|
+| 1280 | transition-1280.webm | entry | 10.001850 | 11.012585 | complete entry with preparation and settled endpoint |
+| 1280 | transition-1280.webm | exit | 20.091810 | 21.294650 | complete exit with preparation and settled endpoint |
+| 1280 | transition-1280.webm | hitch-pause-entry | 32.992700 | 35.258120 | complete hitch-pause-entry with preparation and settled endpoint including 180ms hitch and Pause/Resume |
+| 1280 | transition-1280.webm | lethal-exit | 37.532935 | 38.743010 | complete lethal-exit with preparation and settled endpoint including actor cleanup and 500ms hitch |
+| 640 | transition-640.webm | entry | 9.688670 | 10.702400 | complete entry with preparation and settled endpoint |
+| 640 | transition-640.webm | exit | 19.784350 | 21.002415 | complete exit with preparation and settled endpoint |
+| 640 | transition-640.webm | hitch-pause-entry | 29.685400 | 31.840510 | complete hitch-pause-entry with preparation and settled endpoint including 180ms hitch and Pause/Resume |
+| 640 | transition-640.webm | lethal-exit | 34.095975 | 35.434905 | complete lethal-exit with preparation and settled endpoint including actor cleanup and 500ms hitch |
+
+
+## Final cue-integration acceptance
+
+Current runtime c6f6802 preserves main668d3c2 lighting and guard-break/body-fall cues.
+QA20261023T100031-webgl strict repeat/protected-font checks PASS; normalized input
+5613e279864d13272436f8a143f5d1692ba5f8f0e1558e39d2adc0f24b49fce1.
+Native32/32PASS at1280x720 and640x360, zero exceptions/provider IO.
+Directly inspected488/488frames and480/480consecutive transitions in all8windows
+selected above, preserving original timestamps/held frames and sheet boundaries.
+1280:53/52entry,65/64exit,99/98hitch+Pause,32/31lethal exit.
+640:50/49entry,63/62exit,90/89hitch+Pause,36/35lethal exit.
+No observed background/tint pop or stuck bars; guard-break sparks and body-fall
+particles remain separate from the background blend. Pause holds, Resume settles,
+results exit and Restart/Menu restore baseline. Camera impact composition passes.
+All29authored normal PNGs remain byte-identical after builder. Reuse scoped Unity8/8
+because the merged cues do not change the tested presentation clock/lifecycle logic;
+the affected render consumers were checked in this final player. No gameplay timing,
+input, damage or scoring changes; no itch.io upload.
+
+Authoritative current artifacts: E:/CodexTemp/TypingHero/slayer-soft-transitions/
+acceptance.json and native-latest/review/review-inventory.json (per-source SHA256,
+frame ranges, counts, observations). Retain these artifacts and immutable server
+result20261023T100031-webgl for review; remove after review when no longer needed.
+Earlier483/479frame receipts are historical, superseded by this488frame receipt.
