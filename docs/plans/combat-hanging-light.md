@@ -1030,3 +1030,49 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   recovery clip. Integrate it and recheck inventory/affected parry motion before
   treating this candidate demo as current. Other static cel observations remain
   reusable only where source/depth/render configuration is unchanged.
+
+### Updated-main candidate checkpoint, 2026-10-23
+
+- Integrated b1a0df6 as 6f1754b. Its new queued parry follow-up references six
+  additional cels. Authored those explicitly: combo2 F4/F5 and combo2_end F0-F3.
+  Existing combo2 F0-F3 depth pixels remain byte-identical. Inventory now covers
+  280 distinct cels,32 atlases,290 animation keys and34 clips. Production remains
+  unassigned; these maps are still a QA candidate.
+- Build20261023T163224-webgl, input
+  `0b498d6dc72976333ddf92168acdd71e9061609c565b04b5afc087e9c55cfbc4`,
+  passed repeated builder/preservation/binding checks,36 SpriteDepthTests and
+  PlayerParryTests,6720 GPU captures and WebGL compilation. All6576 prior
+  captures are byte-identical, recorded in reused-capture-comparison.json.
+  Downloaded player archive SHA256:
+  `486c3385b216e1a93751cc9fc714128850744d44b695fe938ed948f1731f52b1`.
+  The earlier162840 build correctly rejected missing newly referenced maps.
+- Inspected six added cels in both facings at native/nearest2x and all changed
+  parry_success/parry_followup ordered sheets. Evidence under depth-authoring:
+  current-map-receipt.json, current-frame-observations.csv (560 rows),
+  current-clip-observations.csv (580 rows), review-current-new and
+  current-clip-order. Combined static coverage is534 adjacent/loop pairs.
+  Timed playback remains unverified; static sheets do not establish motion pass.
+- Native gameplay-native-05 confirmed queued typing during successful parry and
+  reaching male_hero-combo_2_4. The longer scenario failed to reach Slayer before
+  death: measured input frames often took93-296ms during recording and parries
+  were missed. Preserve this failed run/video; do not claim full current-build
+  native acceptance. Earlier03/04 passes belong to the earlier gameplay source.
+- Current review page includes34 clips and original key timing. Retain the
+  independent worktree and private runner/evidence while motion acceptance and
+  the current-build native scenario remain outstanding. No main integration.
+- Current-build performance: gameplay-perf-current initially stopped when its
+  input driver missed a short parry pose. gameplay-perf-current-02 used a100ms
+  real key hold without requiring that transient pose to be observed. Both
+  conditions contain living combat frames; no video or screenshots were taken.
+  Initial OFF/ON p95 were54.8706/61.7752ms, triggering ABBA. Confirmation p95:
+  OFF54.9164, ON55.5649, ON59.0973, OFF53.1464ms. Mean condition p95 is
+  OFF54.0314/ON57.3311ms (+6.107%). This does not confirm a >10% regression,
+  so the four-sample fallback was not triggered. Native environment/viewport
+  match the earlier run, but absolute cadence is worse; these are browser frame
+  timings, not isolated GPU measurements. Raw samples and abba-receipt.json are
+  preserved. The driver completed11 checks; this is not full native motion QA.
+- Current playable QA: http://127.0.0.1:8291, F8 toggles self-shadow.
+  Launcher20780 serves gameplay-build-163224/player; keep it while the user
+  tests. The older8277 demo remains unchanged. Current review page:
+  http://127.0.0.1:8291/depth-review/index.html (34 clips; embedded combat video
+  remains the earlier native04 capture, not proof of updated-main behavior).

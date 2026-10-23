@@ -256,7 +256,7 @@ Camera impact authoring, render acknowledgment and profile reload rules: [camera
 `WorldDefinition.spriteDepth` optionally selects a `SpriteDepthLibrary`. Leave it
 unassigned until all referenced hero/skeleton cels, motion and WebGL performance
 meet the self-shadow gate in the lighting checkpoint. `ActorDepth.asset` now covers
-274 gameplay-referenced cels, including six parry contact replacements, but its
+280 gameplay-referenced cels, including six parry contact replacements, but its
 full-pose maps remain a candidate pending timed playback acceptance.
 The two-pose fixtures remain the approved diagnostic baseline. This approximates occlusion on a planar sprite; it does
 not add character geometry or replace the existing silhouette shadow caster.
