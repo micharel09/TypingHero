@@ -367,67 +367,69 @@ records the integrated commit and owned terminal/page IDs; source task worktree
 is removable only after remote ancestry verification. No itch.io upload.
 
 
-## User correction: omit first follow-up cel (2026-10-23)
+## Remove the pose identified by the user image (2026-10-23)
 
-User reports a small player jerk and requests removing the first follow-up frame.
-This supersedes the previous full-ten-cel choice: omit only combo_2_0; do not edit
-pixels, pivot, transforms, normal maps, normal attacks or Slayer. Reference is the
-same original source strips above, with the user-selected sequence deletion.
+Authoritative clarification: user image orca-paste-1792769237352-d5bdf7c7-c39a-
+4cb8-8e77-b3f4c974ae29.png matches original male_hero-combo_3_end_5, sprite fileID
+1786144713 in sheet GUID ab0383fb37a41114dba343cfa0c6e919. This is the hand-down,
+blue-particle pose at the end of parry-success recovery, not combo_2_0. The earlier
+b495e5a attempt removed the wrong cel; it was pushed only to the task branch and
+not integrated into main. Its build/review receipts are superseded by this correction.
 
-New sequence combo_2_1..5 then combo_2_end_0..3 begins at0/50/100/150/200/
-250/316.667/383.333/450ms. Repeated final key500ms retains the original terminal
-hold through516.667ms. Start/contact/close events move together to100/150/200ms,
-using the same combo_2_3/combo_2_4 contacts and opening-cel ownership. Parry
-800ms hold,950ms recovery, queue rules, fixed20ms crossfade and10damage stay unchanged.
-Builder skips the first source cel so rebuilding cannot restore it.
+Both existing player_parry_success clips now use2->3->4->4, omitting exactly the
+user-image pose5. Existing key times0/800/866.667/933.333ms and950ms end remain;
+last key repeats4 to preserve the original clock. The builder authors this same
+sequence idempotently. The ordinary unsuccessful400ms parry remains2->3->4->5.
+Full original ten-cel combo_2,566.667ms duration,150/200/250ms attack events and
+20ms crossfade are restored exactly to0295f2e. No runtime/controller/config,
+queue/damage, source PNG, pivot, palette or GUID change.
 
-Source-only direct review:9/9unique cels plus terminal-hold key, all9key pairs and
-both parry-exit/idle joins per normal/mirror variant. Sheets source-0-0..2 and
-source-1-0..2 at native128px/nearest zoom and20explicit per-key rows are retained
-at E:/CodexTemp/TypingHero/parry-trim-entry/source-frame-review.csv. The omitted
-low extended-blade jab is absent; entry now goes directly from upright parry
-recovery to the tucked grip of combo_2_1. That original anticipation still leans
-forward; no new in-between pose or smoothing was invented. Connected grip,
-blade rotation, planted feet and recovery scarf were checked across every pair.
-Source mirror is a pixel preview; runtime mirror-lighting coverage is not implied.
+Direct source review: both normal and pixel-mirror success4keys/3pairs; restored
+follow-up11keys/10pairs and parry-success->follow-up->idle joins. At native128px
+and nearest zoom, success holds the connected vertical grip of4 instead of dropping
+to user-image5; combo_2_0 retains its authored forward anticipation. Foot anchor,
+connected grip/blade rotation and scarf continuity inspected for all poses/pairs.
+30explicit key rows are in corrected-source-review.csv and eight corrected-source
+sheets under E:/CodexTemp/TypingHero/parry-trim-entry. User image identification and
+scope are in corrected-reference.json. These source mirrors do not imply runtime
+mirror-lighting capture.
 
-Pinned Unity2022.3.25f1/fly-server20261023T150834-webgl, input
-09307d5508e136d66cd6218f2e27c6ba4678c00c63e1da6ad42e62ff9b35a955:
-37/37focused PlayMode cases PASS,0failed/skipped,1.1736806s. Filters are
-PlayerParryTests and the four actual animation-event contact cases (normal/
-follow-up, ordinary/mirrored scale). No broad camera/performance suite repeated.
-Runtime queue/cancellation code and unrelated consumer code are unchanged.
+Pinned Unity2022.3.25f1/fly-server20261023T152926-webgl, input
+673572ba16354a7df6a61b18584d23257f22461aa6494f3b9d148cc7c4d594a2:
+37/37focused PlayMode cases PASS,0failed/skipped,1.1502027s. Normal/mirror and1x/.5x
+success recovery verify exact2/3/4/4 keys and950ms exit; full combo_2 authoring,
+contact, queue/boundaries/interruption/bypass checks stay included. Full camera,
+performance or stress suites are outside this pose-only correction.
 
-Strict repeated builder/WebGL PASS. Unity-authored clip export copied back with
-trailing whitespace normalized; GUID/controller/config/source strips unchanged.
-All33immutable player files match local/server hashes. Native Edge155/Playwright
-1.58.2/Intel UHD ANGLE D3D11 at1280x720:51/51PASS, zero runtime exceptions/provider
-writes. Early/late/two-word/no-input/Pause-Resume retain one10damage hit and idle;
-all9remaining cels appear and combo_2_0 never appears. Prior keyboard pilots are
-retained as incomplete: full-state polling missed windows that raw per-render
-telemetry proves existed. Driver now waits on the read-only per-frame condition
-in the browser before sending actual Space; no gameplay mutation or threshold change.
+Strict repeated builder and final WebGL PASS; both success clips equal immutable
+Unity-authored exports after trailing-whitespace normalization. Unity rewrites
+float text866.6667/933.33334ms; end/event950ms and GUIDs unchanged. All33downloaded
+player hashes match immutable result152926. Native Edge155/Playwright1.58.2/
+Intel UHD ANGLE D3D11 at1280x720:21/21PASS,0exceptions/provider writes. Focused
+real parry -> typed two words -> one queued full combo_2 -> enemy180-to170 -> idle;
+all10combo_2 cels seen and an explicit assertion rejects combo_3_end_5 anywhere
+from success through follow-up. Scope is this pose correction; previous pause/
+interruption/normal/Slayer evidence remains attributed to its original source.
 
-Before review selected final video window7.043685..8.348160s: last250ms before
-follow-up detection includes original parry recovery and entry, complete trimmed
-follow-up and idle tail. Actual source F177..215, PTS7.060..8.334:39/39frames and
-38/38pairs directly inspected at native320x180/nearest zoom; all held encoded
-frames retained. Also39/39frames and38/38pairs in labeled pixel mirror preview;
-source-only normal/mirror9poses/terminal hold reviewed separately above. F180->181
-joins directly to tucked combo_2_1, F183..184raise grip, F185first slash/single hit,
-F185..187hold through hitstop, F188..190finish cut, F191..198recover and F199..215idle.
-No extended initial jab, residual slash or foot-anchor jump in this selected segment.
-The original compact anticipation lean is retained; this is the requested deletion,
-not a promise of interpolated motion. Runtime mirror lighting is outside this preview.
+Before inspection selected final video window2.738010..3.999065s, last250ms before
+observed follow-up through its full action and idle tail. Actual source F62..99,
+PTS2.768..3.982:38/38frames and37/37consecutive pairs directly inspected at native
+320x180 and nearest zoom; same38/37pixel mirror preview inspected. F62..64keep
+upright recovery blade, F65is an existing idle0 transition, F66..70original combo_2
+anticipation, F71first slash/one hit, F71..73hitstop, F74..77finish cut, F78..85recover,
+F86..99idle. The user-image pose5 is absent. Existing controller can still expose
+one idle0 frame before releasing the follow-up; this task does not claim that
+all perceived entry jerk is eliminated or change the controller's release contract.
 
-Final per-frame evidence: runtime-review/manifest.json (source SHA/PTS/scope),
-20sheets and78explicit normal/mirror per-frame rows in frame-observations.csv,
-under E:/CodexTemp/TypingHero/parry-trim-entry. Normal/slow playback plus source-only
-normal/mirror playback supplements direct frame inspection. Local player/host and
-receipts retained for user review; after review stop the owned host and remove this
-evidence directory. Delivery session records commit, remote verification and host.
+Final evidence: runtime-review/manifest.json with original video SHA/PTS/scope,
+20sheets,76explicit per-frame rows in frame-observations.csv; source-only30key rows
+are in corrected-source-review.csv. Normal/slow playback and mirrored source
+playback supplement full frame inspection. Indexed38-frame playback derivative
+resets PTS; original WebM/PTS remain timing authority. Pixel reflection does not
+establish runtime mirror lighting. Final keyboard pilots are retained as incomplete:
+missed input/late completion or one nine-cel recording failed acceptance; accepted
+21checks use real keys, per-frame readiness and rapid typing, no gameplay mutation.
 
-Playback uses an indexed39-frame lossless derivative with reset timestamps; its
-reported terminal duration is not the timing authority. Original WebM, complete
-per-frame PTS and held durations remain authoritative. Final clip matches the
-immutable serialized export after trailing-whitespace normalization.
+Retain E:/CodexTemp/TypingHero/parry-trim-entry for demo and audit; after review stop
+the owned host, close its page and remove this task directory. The delivery session
+records integration and cleanup. No itch.io upload.

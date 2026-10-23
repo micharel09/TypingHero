@@ -2929,14 +2929,14 @@ initial truncated-length/ownership regressions, scope and resources are in
 [parry checkpoint](../plans/parry-main-demo.md). No full performance/balance or release claim.
 
 
-## Trim first parry-follow-up cel (2026-10-23)
+## Remove user-image parry recovery pose (2026-10-23)
 
-User-requested combo_2_0 removal: nine cels,516.667ms, contacts100/150/200ms.
-Pinned Unity2022.3.25f1 result20261023T150834-webgl/input09307d5508e136d66cd6218f2e27c6ba4678c00c63e1da6ad42e62ff9b35a955:
-37/37focused cases, strict repeat builder/WebGL PASS. All33player hashes match.
-Native1280x720/Edge155/Intel UHD D3D11:51/51PASS,0exceptions/provider writes.
-Actual keyboard early/late/two words/no word/Pause-Resume; one10damage hit, all9cels,
-no combo_2_0 or combo_1 in follow-up. Direct frame review39/39normal and39/39pixel
-mirror frames,38/38pairs each; source-only20key rows, unchanged pixel/pivot sources.
-Scope, failed driver pilots, original PTS and mirror-preview limits:
-[existing parry checkpoint](../plans/parry-main-demo.md#user-correction-omit-first-follow-up-cel-2026-10-23).
+Image identifies combo_3_end_5/fileID1786144713. Both success clips now2/3/4/4;
+950ms recovery and full combo_2 remain. Incorrect combo_2_0 removal was corrected
+before main integration. Unity2022.3.25f1 result20261023T152926-webgl/input
+673572ba16354a7df6a61b18584d23257f22461aa6494f3b9d148cc7c4d594a2:
+37/37focused PASS, strict repeat/WebGL PASS,33player hashes match. Native1280x720/
+Edge155/Intel UHD D3D11:21/21PASS,0exceptions/provider writes, all10combo_2 cels,
+one10damage and explicit user-pose5 absence. Direct final38/38normal +38/38pixel
+mirror frames and37/37pairs each; source30key rows. Existing idle0 transition and
+pixel-mirror lighting limits are documented in the [parry checkpoint](../plans/parry-main-demo.md).

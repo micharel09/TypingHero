@@ -49,18 +49,18 @@ internal static class PlayerParryAssets
         clip.frameRate = 60;
         AnimationUtility.SetObjectReferenceCurve(clip,
             EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"),
-            frames.Skip(1).Select((sprite, i) => new ObjectReferenceKeyframe
-            { time = i < 5 ? i * .05f : .25f + (i - 5) / 15f, value = sprite })
+            frames.Select((sprite, i) => new ObjectReferenceKeyframe
+            { time = i < 6 ? i * .05f : .3f + (i - 6) / 15f, value = sprite })
             // Unity derives length from the last key plus one sample. Keep the
-            // final cel held to frame31 without introducing another pose.
-            .Concat(new[] { new ObjectReferenceKeyframe { time = 30f / 60f, value = frames[9] } }).ToArray());
+            // final cel held to frame34 without introducing another pose.
+            .Concat(new[] { new ObjectReferenceKeyframe { time = 33f / 60f, value = frames[9] } }).ToArray());
         var settings = AnimationUtility.GetAnimationClipSettings(clip);
-        settings.startTime = 0; settings.stopTime = 31f / 60f; settings.loopTime = false;
+        settings.startTime = 0; settings.stopTime = 34f / 60f; settings.loopTime = false;
         AnimationUtility.SetAnimationClipSettings(clip, settings);
         AnimationUtility.SetAnimationEvents(clip, new[] {
-            new AnimationEvent { time = .1f, functionName = "OnAttackStartCel", objectReferenceParameter = frames[3] },
-            new AnimationEvent { time = .15f, functionName = "OnAttackContact", objectReferenceParameter = frames[4] },
-            new AnimationEvent { time = .2f, functionName = "OnParryFollowUpEnd", objectReferenceParameter = frames[3] }
+            new AnimationEvent { time = .15f, functionName = "OnAttackStartCel", objectReferenceParameter = frames[3] },
+            new AnimationEvent { time = .2f, functionName = "OnAttackContact", objectReferenceParameter = frames[4] },
+            new AnimationEvent { time = .25f, functionName = "OnParryFollowUpEnd", objectReferenceParameter = frames[3] }
         });
         EditorUtility.SetDirty(clip);
         var machine = controller.layers[0].stateMachine;
@@ -95,7 +95,7 @@ internal static class PlayerParryAssets
         var binding = EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite");
         var times = new[] { 0f, hold, hold + 4f / 60f, end - 1f / 60f };
         AnimationUtility.SetObjectReferenceCurve(clip, binding, sprites.Select((sprite, i) =>
-            new ObjectReferenceKeyframe { time = times[i], value = sprite }).ToArray());
+            new ObjectReferenceKeyframe { time = times[i], value = !opensWindow && i == 3 ? sprites[2] : sprite }).ToArray());
         clip.frameRate = 60;
         var settings = AnimationUtility.GetAnimationClipSettings(clip);
         settings.startTime = 0; settings.stopTime = end; settings.loopTime = false;
