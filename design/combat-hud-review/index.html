@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="vi">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CLACKBLADE — Combat HUD / Design review</title>
+<link rel="stylesheet" href="review.css">
+<body>
+<header class="masthead"><a href="#top" class="brand">CLACKBLADE<span>DESIGN STUDY / 02</span></a><span class="phase">BẢN MẪU TRÌNH BÀY · CHƯA ÁP DỤNG VÀO GAME</span></header>
+<main id="top">
+  <section class="intro">
+    <p class="eyebrow">COMBAT HUD / THỨ BẬC & KHOẢNG TRỐNG</p>
+    <h1>Đọc chữ rõ.<br>Giữ trọn vùng giao chiến.</h1>
+    <p class="lead">Hai bố cục dùng cùng cảnh, font và nội dung. Khay chữ đứng yên; HP, Guard và điểm thưởng có vùng riêng. Camera và gameplay giữ nguyên.</p>
+    <div class="facts"><span><i></i> 3 từ luôn hiện</span><span>320 × 180 logical</span><span>Font & skin hiện có</span><span>Review hình trước</span></div>
+  </section>
+  <section class="comparison" aria-labelledby="compare-title">
+    <div class="section-title"><div><p class="eyebrow">01 / HAI PHƯƠNG ÁN</p><h2 id="compare-title">Cùng một cảnh, hai cách đọc</h2></div><span class="tag">PA1 được đề xuất</span></div>
+    <div class="toolbar">
+      <label>Trạng thái <select id="scenario"></select></label>
+      <label>Từ <select id="word"><option value="different">different · dài nhất</option><option value="is">is · ngắn</option><option value="question">question</option><option value="remember">remember</option></select></label>
+      <label>Kích thước <select id="size"><option value="640">640 × 360</option><option value="1280">1280 × 720</option></select></label>
+      <label class="check"><input type="checkbox" id="bounds"> Vùng bảo vệ</label>
+      <button id="play" type="button">Chạy storyboard</button>
+    </div>
+    <div class="paired">
+      <article class="concept preferred"><div class="concept-heading"><span class="number">01</span><div><h3>Khay hai tầng</h3><p>Từ chính ở giữa · hai từ kế tiếp phía dưới</p></div></div><canvas id="p1" width="640" height="360" aria-label="Phương án 1: khay hai tầng"></canvas><div class="concept-foot"><p><strong>Ưu tiên sự tập trung.</strong> Từ chính và Space cùng trục; chữ đổi tại chỗ.</p><button data-export="1">Lưu PNG</button></div></article>
+      <article class="concept"><div class="concept-heading"><span class="number">02</span><div><h3>Hàng ba ô</h3><p>Ô hiện tại rộng · hai ô xem trước nhỏ hơn</p></div></div><canvas id="p2" width="640" height="360" aria-label="Phương án 2: hàng ba ô"></canvas><div class="concept-foot"><p><strong>Ưu tiên chiều cao.</strong> Khay thấp hơn; mắt cần di chuyển ngang nhiều hơn.</p><button data-export="2">Lưu PNG</button></div></article>
+    </div>
+    <div class="caption"><span id="state-note" aria-live="polite"></span><span id="time-label">STILL</span></div>
+    <p class="scope-note">Nền là frame nguyên gốc từ player thử nghiệm cũ. Các lớp header/footer mới phủ vùng UI cũ; phần giao chiến không bị sửa, dịch chuyển hoặc scale riêng. Chuyển động UI trong storyboard là minh họa, chưa đồng bộ với đòn thật.</p>
+    <details class="video-review"><summary>Xem video storyboard 12 giây · hai phương án cạnh nhau</summary><video controls preload="metadata" src="exports/comparison-storyboard.mp4" aria-label="Video storyboard so sánh PA1 và PA2"></video></details>
+  </section>
+  <section class="details">
+    <div><p class="eyebrow">02 / HỆ THỊ GIÁC</p><h2>Một vai trò,<br>một tín hiệu rõ.</h2><p class="body-copy">Chữ hiện tại là điểm đọc chính. Hai từ tiếp theo lùi một bậc. Thanh teal dành cho thời gian gõ; hai dấu vàng và keycap dành cho parry.</p></div>
+    <div class="specs"><div><span class="swatch cream"></span><strong>Từ hiện tại</strong><span>Cobblestone / 16 px logical</span></div><div><span class="swatch muted"></span><strong>Hai từ kế tiếp</strong><span>10 px / giảm sáng theo thứ tự</span></div><div><span class="swatch teal"></span><strong>Typing & tiến độ</strong><span>#73B6AA / thanh phẳng riêng</span></div><div><span class="swatch gold"></span><strong>Nhịp Space</strong><span>#E5BE72 / hai dấu tiến về đích</span></div><div><span class="swatch red"></span><strong>Sai & hết giờ</strong><span>#F16B67 / giữ vị trí chữ</span></div></div>
+  </section>
+  <section><div class="section-title"><div><p class="eyebrow">03 / CÁC TRẠNG THÁI</p><h2>Kiểm lúc màn hình khó đọc nhất</h2></div><span class="tag neutral">Bấm ô để xem</span></div><div id="state-grid" class="state-grid"></div></section>
+  <section class="references"><div class="section-title"><div><p class="eyebrow">04 / NGUỒN THAM KHẢO</p><h2>Học từng phần phù hợp</h2></div></div><div id="references" class="reference-grid"></div><p class="scope-note">Đã rà toàn bộ 660 frame / 659 chuyển tiếp của Type Knight 00:08–00:19 và 390 frame / 389 chuyển tiếp của Furi 00:47–01:00. Các đoạn trailer có cắt cảnh được giữ lại trong ghi nhận. Không dùng chúng để suy ra cửa sổ parry của CLACKBLADE.</p></section>
+  <section class="acceptance"><div><p class="eyebrow">05 / GIỚI HẠN & BƯỚC TIẾP</p><h2>Chọn bố cục bằng hình.<br>Xác nhận nhịp bằng demo sau.</h2></div><div><p>Đã ghi footage sword, shield và axe bằng input thật; có cả Attack1/Attack2 của sword và shield. Classic và axe Attack2 chưa có footage đối chiếu.</p><p>Vùng bảo vệ là bao bảo thủ cho frame đã dùng, không phải kết quả dò hitbox mọi clip. Độ sắc SDF, khoảng hở khi chuyển động và mốc sáng trước va chạm 180 ms cần được kiểm lại trong Unity sau khi chọn thiết kế.</p><p><strong>Không đổi camera, damage, tốc độ đòn, cửa sổ parry, luật typing hoặc giao diện mặc định.</strong></p><a class="text-link" href="README.md">Đọc thông số, kết quả kiểm và cách tái tạo ↗</a></div></section>
+</main>
+<footer><span>CLACKBLADE / COMBAT HUD REVIEW</span><span>PA1 — Hai tầng &nbsp; / &nbsp; PA2 — Ba ô</span></footer>
+<script src="review-data.js"></script><script src="review.js"></script>
+</body></html>

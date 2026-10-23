@@ -1,0 +1,47 @@
+{
+  "scope": "Offline design board, not gameplay acceptance",
+  "checks": [
+    "Pool matches lowercase/deduplication: 220 raw, 219 unique",
+    "Every normalized pool word fits both current slots and both preview slots at fixed sizes",
+    "Both views render at requested native dimensions",
+    "Eight native PNGs exported: two concepts × normal/Slayer × two sizes",
+    "All 17 design states render in both concepts without missing assets",
+    "Short-word control changes both proposals",
+    "State selector renders Pause",
+    "State-card interaction updates selected state",
+    "Storyboard starts and advances",
+    "Stopping storyboard freezes presentation clock",
+    "PNG export button produces a local download",
+    "Five source images and linked references available offline",
+    "Review page has no horizontal overflow at 640",
+    "Review page has no horizontal overflow at 1280",
+    "No browser script errors"
+  ],
+  "errors": [],
+  "wordMetrics": {
+    "raw": 220,
+    "unique": 219,
+    "main": {
+      "word": "remember",
+      "main": 52,
+      "preview": 32.5
+    },
+    "preview": {
+      "word": "remember",
+      "main": 52,
+      "preview": 32.5
+    },
+    "fits": true,
+    "hasI": true,
+    "duplicate": false,
+    "sameNative": true
+  },
+  "storyboard": {
+    "frames": 144,
+    "fps": 12,
+    "seconds": 12,
+    "audio": false,
+    "type": "UI storyboard over unchanged still captures, not live gameplay"
+  },
+  "status": "passed"
+}

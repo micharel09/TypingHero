@@ -1,0 +1,89 @@
+{
+  "purpose": "Design storyboard only; not runtime HUD or timing validation.",
+  "source_snapshot": {
+    "sha256": "de7d18c2eb42ef5289e0d9a6f0fd2a3127430e68e7a878c2d289d0dce2384f60"
+  },
+  "source_video": "b75c14c16f5fbcb35fc6a51845a2d729.webm",
+  "frames": {
+    "normal": {
+      "source_seconds": 17.5,
+      "sha256": "588adc29a20f92f92a1a261913451e2e8e2efd88cc34b5c32e44bb894edbdc2a",
+      "nearest_observation_seconds": 17.5167029,
+      "slayer": false,
+      "band_reveal": 0,
+      "popup_alpha": 0,
+      "overhead": false
+    },
+    "slayer": {
+      "source_seconds": 25.0,
+      "sha256": "86fac1796815845c71717afe05086520b2fcccdffea16b0c32fa279df31d0c41",
+      "nearest_observation_seconds": 24.959110499999998,
+      "slayer": true,
+      "band_reveal": 1,
+      "popup_alpha": 0,
+      "overhead": false
+    },
+    "entry": {
+      "source_seconds": 21.4,
+      "sha256": "aa64be2619bec0436a8346a08098d2abbc0bf5f178c1f6fdc2e46089a3cce0d7",
+      "nearest_observation_seconds": 21.357555400000003,
+      "slayer": false,
+      "band_reveal": 0,
+      "popup_alpha": 0,
+      "overhead": false
+    },
+    "exit": {
+      "source_seconds": 31.6,
+      "sha256": "494a839a073ebf36f98f8cbe6a4c1aa737cb13492d665038a10a3f9bd389f52e",
+      "nearest_observation_seconds": 31.6531813,
+      "slayer": true,
+      "band_reveal": 1,
+      "popup_alpha": 0,
+      "overhead": false
+    }
+  },
+  "fixture_writes": 0,
+  "exceptions": [],
+  "clock_note": "Video PTS defines selected pictures. Nearest QA is context, not exact frame synchronization.",
+  "source_capture_coverage": {
+    "status": "passed",
+    "video": "5183a4e7e435aec820c004d6492509fb.webm",
+    "roles": {
+      "SWORDSMAN": {
+        "start": 11.038590899999999,
+        "textures": [
+          "Attack1"
+        ]
+      },
+      "DOUBLE STRIKE": {
+        "start": 20.4269021,
+        "textures": [
+          "Attack1",
+          "Attack2"
+        ]
+      },
+      "HEAVY": {
+        "start": 31.4154505,
+        "textures": [
+          "Attack1"
+        ]
+      },
+      "GUARD": {
+        "start": 40.6592027,
+        "textures": [
+          "Attack1",
+          "Attack2"
+        ]
+      },
+      "ELITE / SWORDSMAN": {
+        "start": 53.4380005,
+        "textures": [
+          "Attack1"
+        ]
+      }
+    },
+    "fixture_writes": 0,
+    "exceptions": [],
+    "scope": "Existing-player source capture only; no new HUD gameplay acceptance."
+  }
+}
