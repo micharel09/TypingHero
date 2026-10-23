@@ -9,6 +9,7 @@ public sealed class CombatCameraImpactTests
 {
     GameObject host, cameraHost;
     CombatCameraImpact impact;
+    CameraImpactProfile profile;
     PlayerHealth health;
     Camera view;
     CinemachineImpulseSource source;
@@ -27,6 +28,7 @@ public sealed class CombatCameraImpactTests
         source.m_ImpulseDefinition.m_CustomImpulseShape = new AnimationCurve(
             new Keyframe(0, 0), new Keyframe(.2f, 1), new Keyframe(1, 0));
         impact = host.AddComponent<CombatCameraImpact>();
+        profile = ScriptableObject.CreateInstance<CameraImpactProfile>(); impact.Configure(profile);
         Set(impact, "health", health); Set(impact, "recoil", source);
         cameraHost = new GameObject("impact camera"); view = cameraHost.AddComponent<Camera>();
         view.transform.position = new Vector3(0, 0, -17.8403f);
@@ -35,8 +37,34 @@ public sealed class CombatCameraImpactTests
     }
     [TearDown] public void Cleanup()
     {
+        Object.DestroyImmediate(profile);
         Object.DestroyImmediate(host); Object.DestroyImmediate(cameraHost);
         GamePauseController.ResetSessionState(); TutorialRun.End(); Time.timeScale = 1;
+    }
+    [Test, Category("Quick")]
+    public void PendingPulseSnapshotsTuningAndCurveAcrossProfileRebinding()
+    {
+        var other = ScriptableObject.CreateInstance<CameraImpactProfile>();
+        try
+        {
+            profile.parry = new CameraImpactProfile.Envelope(.07f, .01f, .08f, .2f, 2);
+            profile.recoilDuration = .24f;
+            impact.Parry(Vector3.zero, Vector3.left, .5f);
+            profile.parry = new CameraImpactProfile.Envelope(.9f, 1, 1, 1, 10);
+            profile.recoilDuration = 2;
+            other.parry = new CameraImpactProfile.Envelope(.04f, .01f, .08f, .1f, .5f);
+            impact.Configure(other);
+            impact.Advance(.02f);
+            Assert.That(impact.Zoom, Is.EqualTo(.07f).Within(.00001f));
+            var active = typeof(CombatCameraImpact).GetField("active", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(impact);
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            Assert.That(active.GetType().GetField("pixels", flags).GetValue(active), Is.EqualTo(1f));
+            Assert.That(active.GetType().GetField("recoilDuration", flags).GetValue(active), Is.EqualTo(.24f));
+            impact.Clear(); impact.Parry(Vector3.zero, Vector3.left, 1); impact.Advance(.02f);
+            Assert.That(impact.Zoom, Is.EqualTo(.04f).Within(.00001f));
+            impact.Clear(); impact.Configure(profile);
+        }
+        finally { Object.DestroyImmediate(other); }
     }
     [Test, Category("Quick")]
     public void NormalHasBoundedPeakAndReturnsWithoutExtendingOnEqualRequests()

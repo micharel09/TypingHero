@@ -358,3 +358,94 @@ one additional QA WebGL and integration into main; no game publication.
 - Local frame-level runtime observations: selected-review/frame-evidence.csv (98rows), source/output hashes and scope.json; source animation review has its own source-frame-review.csv. Retain local evidence until integrated result is reviewed; no public game publication.
 
 - Direct committed-scene load audit20261022T084400-serialize PASS (input5e6eb9b5d04ad1a0020033c53c55a8b9f303f60d94f031d2c4ac109913b49f95): Unity opens the exact scoped DungeonWorld scene and asserts3torches, front24/.06, rear.02/no pixel binding,4vertex private-quad template, renderer enable/array links, old flame disabled,240x34 Point/no-mip atlas. This is a read-only scene audit, NOT another full repeated-builder run despite the stock runner completion label. Initial optional audit wait timed out on the shared lock; retry passed, other jobs preserved.
+
+
+## Complete 3D configuration - 2026-10-23
+
+- Scope: blur, haze/rune, cloth, camera impact and multi-world builder. Preserve
+  source atlases/meshes, combat and Point/HDR/MSAA. Orca branch
+  `micharel09/finish-world-configuration`, base `3253274` from latest origin/main;
+  original dirty checkout preserved. Retain main changes after plan baseline bab5ee6.
+- Blur migration is explicit in production/fixture assets: offset .75 -> center 0,
+  half-width .75, depth edge .5; unchanged Gaussian/taps, no builder migration.
+  Haze/rune use existing materials. Cloth captures profile values on enable.
+- CameraImpactProfile retains approved defaults; scalar envelopes/duration snapshot
+  at emission, curve copy at binding, no objects per hit. Gameplay binds selected
+  virtual lens/profile before activation; two-profile A -> B -> A test added.
+- Builder uses gate definition and serialized owner/references, applies worlds
+  reachable from enabled scenes, supports assets outside the lighting folder and
+  ignores unused templates. Repeat/export include actual dependencies. Preserve
+  authored camera/room placement and restore scene setup.
+- Initial Unity `20261023T031358-quick`, input
+  `06f699768bfb430ccf0bf808e186fe40540ede4a88d3b1c1744b98a4b6d4dcd7`:
+  42/43 PASS, 1 FAIL. PlayerControllerCelsHaveAlignedNormalAndMaterialBindings
+  still expects old male_hero-combo_2_end.png recovery, removed by current main;
+  no normal-map/controller/atlas change or weaker assertion in this task.
+  Relevant camera/environment/bindings/session cases pass, including zero managed
+  bytes after warm-up. The aggregate run is not PASS.
+- Editor pilot `20261023T031700-serialize` failed restoring empty scene setup in
+  batch mode. Empty setup handling fixed; additive scene setup/placement checks added.
+  Final Editor/filtered runtime/WebGL/native visual acceptance remain pending.
+- Local evidence/adapters: `E:/CodexTemp/TypingHero/finish-world-configuration-20261023`.
+  Remote temporary source/build/results: `/tmp/typinghero-world-configuration-20261023`.
+  Shared lock/cache/images/license preserved. Only this task's doctor source/archive
+  removed after marker/mount verification; old results untouched, thresholds unchanged.
+  External adapter uses testFilter and canonical text LF without changing font content.
+  Waiting on other jobs holding the shared runner lock; do not stop unrelated jobs.
+- Integration and cleanup are recorded in the final local `acceptance.json` receipt;
+  historical failed pilots below/above do not count as acceptance.
+
+- Second Editor pilot `20261023T032714-webgl`, canonical input
+  `6a3dd2b2fdaa63562e4a038100393fb19fc01c5230478a7ce271a733af5ea322`,
+  exposed legacy HUD camera Y overwrite (+.110096929). Authored room stayed fixed.
+  Default world pose is now captured before UI passes and restored by the 3D pass;
+  no camera pose is computed from dungeon-specific geometry. Preview Undo now also
+  records affected combat rig components. Final repeat/runtime/WebGL rerun queued.
+
+- Final source input `6b1258a53256b28cc07ab6bf716e8cf40ca994514d8ad31d31c7172f665299fa`,
+  run `20261023T033400-webgl`: Editor authoring/additive setup/arbitrary naming/
+  selected outside-folder assets/unused-template/placement checks PASS.
+  Filtered PlayMode39/39 PASS,0failed/skipped,9.9696019s. Strict repeated builder
+  PASS; WebGL linker and native acceptance still pending. Runtime/config source
+  is frozen for this candidate; reuse scoped evidence while it stays unchanged.
+
+- Final WebGL/strict repeated builder PASS on the same6b1258a5 input. Downloaded
+  immutable player33/33 SHA256 matches,48,078,641bytes. Native Edge155.0.4283.62 /
+  Playwright1.58.2 / NVIDIA GTX1650Ti ANGLE D3D11,1280x720:53/53 PASS in37.7076506s,
+  zero exceptions/provider reads/writes/external requests. Includes accepted normal/
+  received/parry, positive active-pulse Pause freeze, Slayer/lethal, actual typed
+  post-parry follow-up, Restart and Menu restoration. First driver attempt paused
+  too late (pulse already0); retained as failed, timing corrected using real keyboard.
+- Direct visual review COMPLETE:46/46 sheets;355/355 frame observations and350/350
+  adjacent pairs across5windows (340unique frames/336unique pairs due to overlapping
+  normal/received windows). Raw video1048frames; source PTS windows0-1.148s(F0-18),
+  .163-1.682s(F4-43),13.201-14.974s(F507-581),18.897-20.673s(F735-805),
+  22.827-25.997s(F898-1047). Native320x180 and nearest2x
+  640x360 shown side-by-side; held/repeated frames and sheet-boundary pairs retained.
+  No observed change to warm flame colors, anchored fixtures, floor/wall pools,
+  focal actor clarity or room restore. Cloth is dark/subpixel; deformation/pinning/
+  independent local direction/private mesh/phase rely on the scoped Unity lifecycle test.
+- VFR timing limit: source F10(.302s)->F11(.950s) has648ms gap; keep it, do not
+  interpolate or infer every-engine-frame/FPS behavior. Warm F1008-1031 provides
+  full normal-hit/recovery motion. Reuse unchanged source atlas/mesh/clip review;
+  baseline camera-impact native sheet and Pause image compared. No full-video,
+  new reference-match, audio-signal or performance-improvement claim.
+- Evidence root: `E:/CodexTemp/TypingHero/finish-world-configuration-20261023`.
+  Final receipt `acceptance.json`; scoped Unity XML/editor/build logs under
+  `20261023T033400-webgl`;53-check report/video under `native`; per-frame observations
+  and exact source windows under `native/frame-review/manifest.json` and
+  `frame-evidence.csv`. Video SHA256
+  `089b3c6e2638053c487a852bb560baad7e74c0971d803ea068e3d56debbf5619`.
+  Keep these evidence/player artifacts for reproduction/review; delete after review
+  when no longer needed. Disposable task source/worktree/profile cleanup is required
+  after verified integration; final receipt records actual completion.
+
+- Final read-through found multi-scene Preview wrote RenderSettings into the active
+  scene. Fixed only Preview scene selection/Undo recording and restored active scene
+  in finally. Standalone VerifyPreviewScenes `20261023T035720-serialize` PASS on
+  input530e3293: each world's fog correct, active scene retained, Undo restores both.
+  Generic runner completion wording does not represent another repeated-builder run.
+  Subsequent indentation-only adjustment has no semantic change. Production Apply
+  method and all runtime/shader/asset inputs are unchanged from6b1258a5; reuse the
+  passing39Unity/53native/WebGL/visual results. `preview-isolation-proof.json`,
+  `preview-unity.log` and `preview-snapshot.json` retain exact evidence.

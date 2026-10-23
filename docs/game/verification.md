@@ -2677,3 +2677,61 @@ Source atlas/timing/runtime code unchanged, so2/2unit results reused. Final save
 records/material/quad match verified builder. User art review and main integration
 remain pending; no external distribution claim. Current source, per-frame reference observations,
 runner receipts and limitations belong to the existing hanging-light checkpoint.
+
+
+## Authored 3D configuration completion (2026-10-23)
+
+Canonical input `6b1258a53256b28cc07ab6bf716e8cf40ca994514d8ad31d31c7172f665299fa`,
+Unity2022.3.25f1/fly-server, task run `20261023T033400-webgl`:
+
+- Editor check PASS: edited blur center/half-width/depth edge, cloth, camera impact,
+  haze/rune material controls, existing light/material/post survive two full UI
+  builders. Selected alternate world has arbitrary room/owner names and lives outside
+  Assets/Data/Lighting; incomplete unused template does not block validation/build.
+  Additive scene setup and authored room/camera placement remain unchanged.
+- Filtered PlayMode **39/39 PASS**, zero failed/skipped, 9.9696019s. Camera impact,
+  real contact consumers, environment clock/cloth/rune, target projection, binding
+  and session lifecycle; includes two-profile A -> B -> A, pulse snapshots,
+  Pause/Slayer, independent local cloth motion and zero managed allocation across
+  32 warmed parry/clear cycles. No general FPS/performance claim.
+- External task adapter retains the shared runner lock and pinned images/license,
+  uses the existing Unity testFilter, canonical LF text snapshots, and task-owned
+  /tmp source/build/results. Repository runner/toolchain/packages unchanged.
+- Final WebGL/strict repeat PASS; immutable player33files/48,078,641bytes all match
+  server SHA256 receipts. Native Edge155.0.4283.62/Playwright1.58.2/NVIDIA GTX1650Ti
+  ANGLE D3D11, one1280x720 viewport:53/53 real-input checks PASS in37.7076506s,
+  zero exceptions/provider reads/writes/external requests. Normal/received/parry,
+  active-pulse Pause/Resume, Slayer/lethal, actual post-parry word impact, Restart
+  and Menu baseline restore pass. Raw shared report viewport header is stale;
+  actual cameraImpact rows and render dimensions prove the single-size scope.
+- Direct review46/46 sheets,355/355 frame observations and350/350 within-window
+  transitions at320x180 and nearest2x640x360. Overlapping normal/received windows
+  yield340unique source frames/336unique pairs. Selected windows: F0-18, F4-43,
+  F507-581, F735-805, F898-1047 of the1048-frame VFR WebM. Source PTS retained,
+  including648ms F10->11 gap; no every-engine-frame or FPS claim. Warm follow-up
+  contains full normal contact/recovery. Cloth is dark/subpixel at approved exposure;
+  pinning/private mesh/local direction and pause/hide phases have focused Unity evidence.
+- No observed selected-scope regression in warm flame colors/anchors, wall/floor
+  lighting, actor focal clarity, parry release or restored room. Baseline native
+  camera-impact sheet/Pause image inspected; source atlas/mesh/clip checks reused
+  because these inputs are unchanged. No new reference-game/full-video match claim.
+- First native pilot reached7checks but requested Pause after the180ms pulse expired;
+  trace retained. External driver now sends real Escape key-down promptly and still
+  requires a positive active envelope before asserting freeze. Product unchanged.
+  Canonical build recovered a stale shared-cache missing diagnostic-script compiler
+  message during refresh and completed successfully; no diagnostic script added.
+- Exact sources, per-frame CSV, receipt and cleanup belong to the existing
+  [lighting checkpoint](../plans/combat-hanging-light.md). No full suite, stress/soak,
+  production publication or hardware quality tier claim.
+
+
+Final Editor-only Preview follow-up `20261023T035720-serialize`, input
+`530e3293c47fd5e0955600a083e759d6982e604f51e066de804829c733f00286`:
+standalone VerifyPreviewScenes PASS. Two loaded worlds receive their own fog;
+original active scene retained, Undo restores both original fog values. Preview
+now selects each owning scene before recording/applying RenderSettings. Record
+also covers camera data/combat rigs. Only Preview plus its Editor check changed
+since the passing QA input (then indentation only); production Apply method,
+runtime/shaders/profiles/materials/scenes are byte-identical. Reuse39Unity/53native/
+strict WebGL/visual evidence. Stock runner serialize completion label is generic;
+this follow-up does not claim another full builder repeat. Proof/receipt in checkpoint.

@@ -36,6 +36,42 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         yield return null;
     }
     [Test, Category("Quick")]
+    public void BindingSwitchesVirtualLensAndImpactProfileBeforeActivationAndRestoresA()
+    {
+        var host = new GameObject("inactive gameplay"); host.SetActive(false);
+        var a = new GameObject("world A"); a.SetActive(false);
+        var b = new GameObject("world B"); b.SetActive(false);
+        var definition = Object.Instantiate(LightingTestAssets.Definition);
+        var lighting = Object.Instantiate(definition.lighting);
+        var impactProfile = ScriptableObject.CreateInstance<CameraImpactProfile>();
+        try
+        {
+            definition.lighting = lighting; lighting.fieldOfView = 48; lighting.nearClip = .3f;
+            lighting.cameraImpact = impactProfile;
+            var first = a.AddComponent<DungeonWorld>(); first.definition = LightingTestAssets.Definition;
+            first.view = a.AddComponent<Camera>();
+            var second = b.AddComponent<DungeonWorld>(); second.definition = definition;
+            second.view = b.AddComponent<Camera>(); second.view.transform.position = new Vector3(2, 3, -20);
+            var camera = host.AddComponent<Cinemachine.CinemachineVirtualCamera>();
+            var impact = host.AddComponent<CombatCameraImpact>();
+            var gate = host.AddComponent<DungeonSessionBindings>(); gate.roots = new[] { host };
+            foreach (var world in new[] { first, second, first })
+            {
+                gate.Bind(world);
+                Assert.That(host.activeSelf, Is.False);
+                Assert.That(camera.m_Lens.FieldOfView, Is.EqualTo(world.Profile.fieldOfView));
+                Assert.That(camera.m_Lens.NearClipPlane, Is.EqualTo(world.Profile.nearClip));
+                Assert.That(camera.transform.position, Is.EqualTo(world.view.transform.position));
+                Assert.That(impact.profile, Is.SameAs(world.Profile.cameraImpact));
+            }
+        }
+        finally
+        {
+            Object.DestroyImmediate(host); Object.DestroyImmediate(a); Object.DestroyImmediate(b);
+            Object.DestroyImmediate(definition); Object.DestroyImmediate(lighting); Object.DestroyImmediate(impactProfile);
+        }
+    }
+    [Test, Category("Quick")]
     public void LightOnlyProfileHidesAnExistingFlameCardWithoutCloningItsMesh()
     {
         var host = new GameObject("light-only fixture"); host.SetActive(false);

@@ -9,13 +9,15 @@ the approved dungeon/Pinterest flame, not a runtime fallback.
 | Data | Authoritative owner |
 | --- | --- |
 | World scene selection | `WorldDefinition` scene picker; runtime scene path is derived Editor metadata |
-| Ambient, fog, camera, world resolution, depth blur, rune modulation | `WorldLightingProfile` |
+| Ambient, fog, camera, world resolution, depth blur, pinned cloth, rune modulation | `WorldLightingProfile` |
 | Exposure, bloom, grading | Referenced native `VolumeProfile` |
 | Pipeline/shadow atlas limits | Referenced native URP asset and renderer assets |
 | Bake settings | Referenced native `LightingSettings`; baking is explicit |
 | Light type, enabled state, color, intensity, range, shadows, flicker | `LightProfile` |
 | Flame material/atlas, source mesh/pivot, UV sequence, per-frame duration, content padding | `FlameProfile` and its native material/mesh assets |
 | Palette remapping/thresholds, alpha cutoff, brightness | Flame material; disable remapping to retain arbitrary source colors |
+| Haze taper/fades/ellipse/drift and rune size/strokes/scan | Existing atmosphere and rune materials |
+| Contact zoom envelopes, recoil duration/curve and Slayer priority hold | `CameraImpactProfile`, referenced by `WorldLightingProfile` |
 | World combat-light templates, overlap, decay and ordinary/legacy impact pulses | `CombatLightingProfile` |
 | Impact pulse enabled, color, intensity, duration, hold, decay, range and offset | Existing `ImpactVfxProfile`; copied into each pulse at emission |
 | Fixture placement, flame anchor, noise phase and animation offset | Serialized scene/prefab instance |
@@ -25,6 +27,32 @@ Profiles have Create menu entries under **CLACKBLADE / Lighting**. Duplicate an
 existing asset to make a variation. Materials, post profiles and meshes are shared:
 duplicate those too when a variation should not affect other users of the asset.
 There is no profile inheritance or implicit per-instance style override.
+
+## Blur, atmosphere, cloth and camera impacts
+
+`focusOffset` is the signed eye-depth offset of the **center** of the sharp region
+from the player. `focusHalfWidth` controls its half-width independently;
+`depthEdgeDistance` is the depth difference where a blur sample receives zero
+weight. Existing production and test profiles have been migrated once from
+`focusOffset=.75` to `0`, with half-width `.75` and edge distance `.5`.
+The builder never migrates or resets these fields. Gaussian weights/tap count are unchanged.
+
+Edit haze and rune geometry/drift/scan directly on their existing materials.
+The original values are explicitly serialized on every current material.
+`_DungeonAge` and `_DungeonPulse` remain per-instance property-block values;
+materials contain no shared moving clock.
+
+Cloth uses world-profile amplitude `.025`, speed `1.25`, length frequency `2`,
+and local Z direction by default. Instances capture these on enable, retain the
+pinned upper edge and own their mesh; reload/re-enable to apply structural edits.
+
+Assign a `CameraImpactProfile` on each world lighting profile. It owns normal,
+parry, received, lethal and Slayer-lethal attack/hold/release/peak/pixel values,
+plus the `.35s` Slayer priority interval and `.1s` recoil curve duration.
+Defaults reproduce the existing 2%/3%/0%/5%/2% zoom and 0/1/1/2/2 pixel kicks.
+The event snapshots scalar values; binding copies the recoil curve once, so
+switching profiles does not alter an already queued pulse. No profile is mutated
+or allocated for a hit. Cinemachine channel 2/gain 1 remains an implementation contract.
 
 ## Add a fixture or flame animation
 
@@ -69,9 +97,17 @@ There is no profile inheritance or implicit per-instance style override.
 Maps share the selected project URP asset; the lighting authoring pass validates
 the profile reference and renderer slots against that pipeline.
 
-The canonical UI builder still partitions the existing menu/gameplay/default-world
-scenes. It preserves authored entrypoint selections and does not recreate other
-maps. New maps use the generic bound lighting authoring pass. Root world geometry,
+The canonical UI builder keeps MainMenu/SampleScene as application entrypoints.
+It gets the default world scene from the gameplay gate's `worldDefinition`, the
+room/camera from `DungeonWorld`, and combat lights from the serialized Slayer
+binding. Names and lighting asset folders are not selection rules. It partitions
+that authored world, then applies profiles to all definitions reachable from enabled
+Build Settings scenes, including menu/gameplay selections. Referenced world scenes
+must be enabled; unused templates do not block a build. Selected worlds' actual
+asset dependencies and metadata participate in repeat checks and dependency export.
+The builder preserves authored room geometry/camera positions and restores the
+previous scene setup. Preview changes remain undoable. Gameplay binding sets each
+selected world's virtual lens and camera-impact profile before activation. Root world geometry,
 actor/gameplay placement and pixel-art presentation contracts remain scene/game
 authoring responsibilities; this feature does not add procedural maps or a map UI.
 

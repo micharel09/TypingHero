@@ -10,18 +10,20 @@ using Object = UnityEngine.Object;
 
 internal static class DungeonSessionBuild
 {
-    internal const string WorldPath = "Assets/Scenes/DungeonWorld.unity";
+    internal static string WorldPath { get; private set; }
     const string GamePath = "Assets/Scenes/SampleScene.unity";
     // Existing passes author a complete room. Reunite it before those passes, then
     // partition the final serialized result once. No room/presenter is cloned.
-    internal static void RestoreForBuilders()
+    internal static Pose RestoreForBuilders()
     {
-        if (!File.Exists(WorldPath)) return;
         var game = EditorSceneManager.OpenScene(GamePath);
         var gate = Object.FindObjectOfType<DungeonSessionBindings>(true);
         if (!gate) throw new InvalidOperationException("Split scene missing binding gate");
+        if (!gate.worldDefinition) throw new InvalidOperationException("Gameplay gate requires a world definition");
+        WorldPath = gate.worldDefinition.scenePath;
         var worldScene = EditorSceneManager.OpenScene(WorldPath, OpenSceneMode.Additive);
         var world = Object.FindObjectOfType<DungeonWorld>(true);
+        var cameraPose = new Pose(world.view.transform.position, world.view.transform.rotation);
         foreach (var root in worldScene.GetRootGameObjects()) SceneManager.MoveGameObjectToScene(root, game);
         gate.Bind(world);
         foreach (var link in gate.links)
@@ -34,36 +36,22 @@ internal static class DungeonSessionBuild
         gate.gameObject.SetActive(true);
         EditorSceneManager.CloseScene(worldScene, true);
         EditorSceneManager.SaveScene(game);
+        return cameraPose;
     }
     internal static void Apply()
     {
         var game = EditorSceneManager.OpenScene(GamePath);
-        var environment = GameObject.Find("DungeonArena3D");
-        var camera = Camera.main;
-        if (!environment || !camera) throw new InvalidOperationException("Dungeon authoring roots missing");
         var gate = Object.FindObjectOfType<DungeonSessionBindings>(true);
-        if (!gate) gate = new GameObject("GameplayContent").AddComponent<DungeonSessionBindings>();
         var world = Object.FindObjectOfType<DungeonWorld>(true);
-        if (!world) world = new GameObject("DungeonWorldOwner").AddComponent<DungeonWorld>();
-        world.environment = environment.transform; world.view = camera;
-        // Combat lights/rig have gameplay lifetime and remain available during Slayer.
-        var rig = environment.GetComponent<ClashLightingRig>();
-        if (rig)
-        {
-            var combat = game.GetRootGameObjects().FirstOrDefault(root => root.name == "DungeonCombatLighting")
-                ?? new GameObject("DungeonCombatLighting");
-            combat.SetActive(true);
-            UnityEditorInternal.ComponentUtility.CopyComponent(rig);
-            var existing = combat.GetComponent<ClashLightingRig>();
-            if (existing) UnityEditorInternal.ComponentUtility.PasteComponentValues(existing);
-            else UnityEditorInternal.ComponentUtility.PasteComponentAsNew(combat);
-            Object.DestroyImmediate(rig);
-            foreach (string name in new[] { "CombatPulse", "ParryContactLight" })
-                environment.transform.Find(name).SetParent(combat.transform, true);
-        }
+        if (!gate || !world || !world.environment || !world.view)
+            throw new InvalidOperationException("Authored world/session bindings missing");
+        var environment = world.environment.gameObject;
+        var camera = world.view;
+        WorldPath = gate.worldDefinition.scenePath;
         var cinematic = new SerializedObject(Object.FindObjectOfType<SlayerScreenFX>(true));
-        cinematic.FindProperty("combatLighting").objectReferenceValue = GameObject.Find("DungeonCombatLighting");
-        cinematic.ApplyModifiedPropertiesWithoutUndo();
+        var combat = cinematic.FindProperty("combatLighting").objectReferenceValue as GameObject;
+        if (!combat || !combat.GetComponent<ClashLightingRig>())
+            throw new InvalidOperationException("Serialized combat lighting binding missing");
         var backgroundCamera = GameObject.Find("PixelBackgroundCamera");
         if (backgroundCamera) backgroundCamera.GetComponent<Camera>().enabled = false;
         var roots = new[] { environment, camera.gameObject, world.gameObject };

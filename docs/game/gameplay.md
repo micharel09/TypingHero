@@ -1,7 +1,8 @@
 ## Reusable world lighting (2026-10-22)
 
 - Scene selection, world presentation, individual lights, flame sequences and combat
-  lighting now use authored profiles under `Assets/Data/Lighting`. Native materials,
+  lighting use authored profiles (defaults under `Assets/Data/Lighting`; selected
+  assets may live elsewhere). Native materials,
   post, bake and URP assets remain their authorities. Builders apply these values;
   they do not regenerate the approved dungeon style. See [authoring guide](lighting-profiles.md).
 - World loading accepts a `WorldDefinition`; camera/arena/brain/environment bindings
@@ -10,8 +11,11 @@
   hardware quality tiers.
 - The approved ten-frame flame, palette, timing, fixed anchors, 24/16 light strengths
   and pause/Slayer phase are preserved. Each instance owns its clock and UV mesh.
-  Existing camera impact tuning remains unchanged; pixel recoil uses the active
-  world's target height, and zoom composes with its profile lens.
+  Camera impacts now read the world-referenced `CameraImpactProfile`; defaults
+  remain unchanged. Pulse values snapshot at emission and recoil curves at binding.
+  Pixel recoil uses the active world's target height; zoom composes with its lens.
+  Blur center/half-width/depth edge and pinned cloth are world-profile values;
+  haze/rune shapes and drift/scan are authored on their existing materials.
 
 ## Combat camera impact (2026-10-22)
 
