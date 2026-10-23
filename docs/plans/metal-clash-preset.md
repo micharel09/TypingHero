@@ -350,3 +350,40 @@ cleanup. Runtime/visual acceptance remains pending until results below.
   Retain remote task branch for traceability; remove only the clean task-created
   worktree/local branch and the verified /tmp/typinghero-impact-vfx-lifecycle root.
   Shared Library/cache/license and all other tasks remain untouched.
+
+### Emission timestamp clock correction (2026-10-23)
+
+- User selected authored-duration behavior: exclude time before emission, but count
+  post-emission stalls normally; do not extend lifetime awaiting a camera render.
+  Base95f978b, independent Orca branch/worktree micharel09/impact-pulse-clock.
+- ClashLightingRig now owns a private double-precision realtime clock; every local,
+  legacy and voxel pulse captures startedAt. Runtime and tests use the same internal
+  timestamped emission/sample/cancel paths. Existing pulses refresh before overlap
+  decisions. HasPulse stays a pure query; burst lease completion is unchanged.
+- FreezeChanged accounts up to the actual pause/reading transition, before the
+  controller updates timeScale. Direct scale0 polling drops uncertain transition
+  intervals without catch-up; positive-scale hitstop stays unscaled. Disable
+  unsubscribes; enable resets the clock. No shared clock service, render callback,
+  public emitter API change, profile field, migration or asset/GUID change.
+- Red20261023T070541-quick1/1 expected failure on input15af9a4c9e0839520aed31b92a725fbd3ca56917c5fa3086e777945b93ac7eb5:
+  a real>280ms receiving frame emits at Update205 before rig210; old intensity0,
+  expected5. This integration test uses one320ms sleep; logic cases use synthetic time.
+- Pilot20261023T071159-quick41/44 passes. Three old fixtures counted construction
+  as zero elapsed wall time. Migrated exact timing/simultaneous-overlap assertions
+  to the timestamp seams, without changing thresholds. New clock cases live in a
+  partial ImpactVfxTests file; existing test/prefab GUIDs are preserved.
+- Final inputa708356bb9940acb20eabc5b67470a58e4a83164fa7baedc6834b0a30e7f2fac,
+  20261023T071650-quick **44/44 PASS**,0failed/skipped. Thirteen new clock cases cover
+  receiving/update order, post-emission expiry,70/175/280ms samples, freeze fractions,
+  scale0 resume/hitstop, idempotent samples, stale/expired overlap slots, independent
+  rigs, zero-allocation sampling and event cleanup. The31existing scoped checks
+  retain frozen particle traces, seed/mirror/recipient, snapshots, pooling, pause,
+  lifecycle,2D color and Point/Spot coverage.
+- Headless Unity establishes script order and actual Light property state, not
+  rendered-pixel/peak acknowledgment. No native build or animation-frame review is
+  claimed. Approved particle/render inputs, solver and MetalClash data are unchanged.
+- Evidence remains at E:/CodexTemp/TypingHero/impact-pulse-clock; remove when no longer
+  needed. Delivery/cleanup receipts follow integration. Retain the remote task branch
+  for traceability; remove only the clean task-created worktree/local branch and
+  verified /tmp/typinghero-impact-pulse-clock root. Shared caches/license, other jobs
+  and the dirty parent checkout remain untouched.

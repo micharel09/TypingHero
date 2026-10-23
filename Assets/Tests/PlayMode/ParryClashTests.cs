@@ -393,21 +393,19 @@ public sealed partial class ParryClashTests
         var host = new GameObject("compact pulse rig"); host.SetActive(false); owned.Add(host);
         var light = host.AddComponent(lightType);
         var rig = host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat; Set(rig, "clashLight", light); host.SetActive(true);
-        var burst = Burst(); burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
-        var pulses = (System.Array)typeof(ClashLightingRig).GetField("pulses", Flags).GetValue(rig);
-        var render = typeof(ClashLightingRig).GetMethod("Render", Flags);
+        var burst = Burst(); var legacy = Burst();
+        var clock = new ClashLightingRig.PulseClock(); clock.Reset(10, false); Set(rig, "clock", clock);
+        rig.PulseAt(Vector3.one, burst.impactProfile.Capture(), burst, 10, false);
         var intensity = lightType.GetProperty("intensity");
         foreach (var sample in new[] { new Vector2(0, 5), new Vector2(.07f, 5), new Vector2(.175f, 2.5f), new Vector2(.28f, 0) })
         {
-            var pulse = pulses.GetValue(0);
-            pulse.GetType().GetField("age").SetValue(pulse, sample.x); pulses.SetValue(pulse, 0);
-            render.Invoke(rig, null);
+            rig.SampleAt(10 + sample.x, false);
             Assert.That((float)intensity.GetValue(light), Is.EqualTo(sample.y).Within(.001f));
         }
-        burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
-        var legacy = Burst(); legacy.Emit(Vector3.right, 1, 0, ParryClashBurst.Preset.B);
+        rig.PulseAt(Vector3.one, burst.impactProfile.Capture(), burst, 11, false);
+        rig.PulseAt(Vector3.right, CombatLightingProfile.Event.LegacyParry, legacy, 11, false);
         Assert.That((float)intensity.GetValue(light), Is.EqualTo(5));
-        burst.gameObject.SetActive(false);
+        rig.CancelAt(burst, 11, false);
         Assert.That((float)intensity.GetValue(light), Is.EqualTo(2.4f).Within(.001f));
         host.SetActive(false); Assert.That((float)intensity.GetValue(light), Is.Zero);
     }

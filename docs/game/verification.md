@@ -365,6 +365,34 @@ Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, 
 
 # Verification and performance memory
 
+## Impact pulse emission clock (2026-10-23)
+
+- Base95f978b. Red20261023T070541-quick reproduces1/1 expected failure: an actual
+  >280ms receiving frame emits at Update205 before rig210; old light intensity is0
+  instead of5 before that frame completes. Source15af9a4c9e0839520aed31b92a725fbd3ca56917c5fa3086e777945b93ac7eb5.
+- Final inputa708356bb9940acb20eabc5b67470a58e4a83164fa7baedc6834b0a30e7f2fac,
+  Unity2022.3.25f1/fly-server20261023T071650-quick: **44/44 PASS**,0failed/skipped.
+  Includes13new clock cases and the31affected impact/parry/Point-Spot checks.
+  Runtime and deterministic tests share timestamped emission/sample/cancel paths.
+- Covers before/after rig Update, one real320ms receiving-frame stall, subsequent
+  stalls expiring normally, exact MetalClash hold/midpoint/expiry, pause-event fractions,
+  direct scale0 resume, positive-scale hitstop, repeated samples, expiry/current
+  intensity before overlap, two independent rigs and disable/unsubscribe/re-enable.
+  Clock sampling and pulse-only burst waiting allocate0managed bytes after warmup.
+- First fixed pilot20261023T071159-quick passed41/44. Three existing fixtures assumed
+  no wall time elapsed during construction or sequential emission. They now use the
+  timestamp seams for simultaneous/precise samples; intensity/timing/owner assertions
+  are preserved. Full final44case rerun passes; no threshold was relaxed.
+- Frozen MetalClash particle trace and seed/mirror/snapshot/pool/color/unload regressions
+  pass. Assets/GUIDs, particles, solver and profile parameters are unchanged. Headless
+  script order and Light state are verified; no native WebGL/rendered peak or new
+  animation-frame inspection is claimed. User chose authored expiry after emission,
+  rather than extending the pulse to await a render.
+- Immutable source/results and external filtered runner remain at
+  E:/CodexTemp/TypingHero/impact-pulse-clock for audit, disposable when no longer needed.
+  Delivery and scoped cleanup receipts are stored there after integration.
+  See the [preset checkpoint](../plans/metal-clash-preset.md).
+
 ## Impact pulse lifecycle follow-up (2026-10-23)
 
 - On base9acdb4e, focused red run20261023T062644-quick reproduced both findings:
