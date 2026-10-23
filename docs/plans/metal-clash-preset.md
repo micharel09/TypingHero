@@ -299,3 +299,21 @@ cleanup. Runtime/visual acceptance remains pending until results below.
   for review/reproduction; disposable when no longer needed. Only task server
   roots and the clean task Orca worktree/local branch are removed after remote
   verification; shared Library/cache/license, other tasks and parent WIP remain.
+
+
+### Verified follow-up delivery and cleanup
+
+- Task branch and main pushed. Fetched origin/main36d6e27d49918e192ef3aab87a127c8711c4e692
+  contains implementation1590347 and integration cb4c84e; both ancestry checks pass.
+  This documentation-only closure follows that verification, with no runtime edits.
+- Removed only /tmp/typinghero-impact-vfx-authoring and the initial
+  /data/typinghero-game-loop/task-impact-vfx-authoring snapshot root. Verified exact
+  resolved targets, expected tests-merged/baseline-normal markers and no running
+  container mount in either target before deletion. server-cleanup.json retains
+  receipts. Shared runner/cache/Library/license and other jobs remain untouched.
+- Clean Orca worktree/local task-branch removal follows this closure's remote
+  verification. Local delivery.json records final remote HEAD/ancestry and actual
+  Orca cleanup. Remote task branch remains. E:/CodexTemp/TypingHero/impact-vfx-authoring
+  retains immutable players, source archives, tests, per-frame/video evidence and
+  reproduction scripts for review; delete those evidence artifacts only when no
+  longer needed. Parent dirty checkout/index remains untouched.
