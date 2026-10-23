@@ -248,7 +248,7 @@ public sealed class PlayerParryTests
         Advance(.951f); animator.Update(.03f); Tick(parry); Tick(controller); animator.Update(.03f);
         var hit = typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Private);
         Assert.That(Get<bool>(box, "active"), Is.False, "no damage during anticipation");
-        animator.Update(.101f);
+        animator.Update(.111f);
         hit.Invoke(box, new object[] { first }); hit.Invoke(box, new object[] { second });
         Assert.That(damage.hits, Is.EqualTo(1));
         int attackId = Get<int>(attacks, "currentAttackId");
@@ -274,7 +274,7 @@ public sealed class PlayerParryTests
         // 950ms recovery + existing hitstop + frame delivery can exceed the old 1s TTL.
         Set(binder, "_lastParryTimeUnscaled", Time.unscaledTime - 2f);
         Advance(.951f); animator.Update(.03f); Tick(parry); Tick(controller); animator.Update(.03f);
-        animator.Update(.101f);
+        animator.Update(.111f);
         Assert.That(UninterruptibleBypass.IsActiveFor(target.transform), Is.True);
         if (replaceBeforeClose) attacks.OnAttackStart();
         else attacks.OnAttackEnd();
@@ -292,7 +292,7 @@ public sealed class PlayerParryTests
         weapon.transform.SetParent(player.transform);
         attacks.hitbox = weapon.AddComponent<PlayerWeaponHitbox>();
         int closed = 0; attacks.OnWindowClose += () => closed++;
-        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.101f);
+        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.111f);
         Assert.That(Get<bool>(attacks.hitbox, "active"), Is.True);
         if (disable) controller.enabled = false;
         else { animator.Play("Base Layer.player_idle", 0, 0); animator.Update(0); }
@@ -320,7 +320,7 @@ public sealed class PlayerParryTests
         var weapon = new GameObject("replacement window", typeof(BoxCollider2D));
         weapon.transform.SetParent(player.transform);
         attacks.hitbox = weapon.AddComponent<PlayerWeaponHitbox>();
-        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.101f);
+        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.111f);
         var leaving = animator.GetCurrentAnimatorStateInfo(0);
         var exit = animator.GetBehaviours<ParryFollowUpExit>().Single();
         int previous = Get<int>(attacks, "currentAttackId");
@@ -349,15 +349,15 @@ public sealed class PlayerParryTests
     }
 
     [Test, Category("Quick")]
-    public void FollowUpClosesAt200MillisecondsAndExitDoesNotNotifyAgain()
+    public void FollowUpClosesAtStretchedSlashTimingAndExitDoesNotNotifyAgain()
     {
         var weapon = new GameObject("timed follow-up", typeof(BoxCollider2D));
         weapon.transform.SetParent(player.transform);
         attacks.hitbox = weapon.AddComponent<PlayerWeaponHitbox>();
         int closed = 0; attacks.OnWindowClose += () => closed++;
-        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.101f);
+        animator.Play("Base Layer.parry_followup", 0, 0); animator.Update(0); animator.Update(.111f);
         Assert.That(Get<bool>(attacks.hitbox, "active"), Is.True);
-        animator.Update(.1f);
+        animator.Update(.11f);
         Assert.That(Get<bool>(attacks.hitbox, "active"), Is.False);
         Assert.That(closed, Is.EqualTo(1));
         animator.Update(.4f);
@@ -372,13 +372,13 @@ public sealed class PlayerParryTests
         Assert.That(keys.Length, Is.EqualTo(10), "nine cels plus a repeated terminal hold key");
         for (int i = 0; i < 9; i++)
         {
-            Assert.That(keys[i].time, Is.EqualTo(i < 5 ? i * .05f : .25f + (i - 5) / 15f).Within(.00001f));
+            Assert.That(keys[i].time, Is.EqualTo((i < 5 ? i * .05f : .25f + (i - 5) / 15f) * (34f / 31f)).Within(.00001f));
             Assert.That(keys[i].value.name, Is.EqualTo(i < 5 ? "male_hero-combo_2_" + (i + 1) : "male_hero-combo_2_end_" + (i - 5)));
         }
         Assert.That(keys[9].value, Is.SameAs(keys[8].value));
-        Assert.That(keys[9].time, Is.EqualTo(30f / 60f).Within(.00001f));
-        Assert.That(clip.length, Is.EqualTo(31f / 60f).Within(.00001f));
-        Assert.That(clip.events.Select(e => e.time), Is.EqualTo(new[] { .1f, .15f, .2f }));
+        Assert.That(keys[9].time, Is.EqualTo(33f / 60f).Within(.00001f));
+        Assert.That(clip.length, Is.EqualTo(34f / 60f).Within(.00001f));
+        Assert.That(clip.events.Select(e => e.time), Is.EqualTo(new[] { .1f * (34f / 31f), .15f * (34f / 31f), .2f * (34f / 31f) }));
         Assert.That(clip.events[0].objectReferenceParameter, Is.SameAs(keys[2].value));
         Assert.That(clip.events[1].objectReferenceParameter, Is.SameAs(keys[3].value));
         Assert.That(clip.events[2].objectReferenceParameter, Is.SameAs(keys[2].value));

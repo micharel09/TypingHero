@@ -48,20 +48,21 @@ internal static class PlayerParryAssets
         var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
         if (!clip) { clip = new AnimationClip(); AssetDatabase.CreateAsset(clip, clipPath); }
         clip.frameRate = 60;
+        const float stretch = 34f / 31f; // Match the normal attack duration with the retained nine cels.
         AnimationUtility.SetObjectReferenceCurve(clip,
             EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite"),
             frames.Skip(1).Select((sprite, i) => new ObjectReferenceKeyframe
-            { time = i < 5 ? i * .05f : .25f + (i - 5) / 15f, value = sprite })
+            { time = (i < 5 ? i * .05f : .25f + (i - 5) / 15f) * stretch, value = sprite })
             // Unity derives length from the last key plus one sample. Keep the
-            // final cel held to frame31 without introducing another pose.
-            .Concat(new[] { new ObjectReferenceKeyframe { time = 30f / 60f, value = frames[9] } }).ToArray());
+            // final cel held to frame34 without introducing another pose.
+            .Concat(new[] { new ObjectReferenceKeyframe { time = 33f / 60f, value = frames[9] } }).ToArray());
         var settings = AnimationUtility.GetAnimationClipSettings(clip);
-        settings.startTime = 0; settings.stopTime = 31f / 60f; settings.loopTime = false;
+        settings.startTime = 0; settings.stopTime = 34f / 60f; settings.loopTime = false;
         AnimationUtility.SetAnimationClipSettings(clip, settings);
         AnimationUtility.SetAnimationEvents(clip, new[] {
-            new AnimationEvent { time = .1f, functionName = "OnAttackStartCel", objectReferenceParameter = frames[3] },
-            new AnimationEvent { time = .15f, functionName = "OnAttackContact", objectReferenceParameter = frames[4] },
-            new AnimationEvent { time = .2f, functionName = "OnParryFollowUpEnd", objectReferenceParameter = frames[3] }
+            new AnimationEvent { time = .1f * stretch, functionName = "OnAttackStartCel", objectReferenceParameter = frames[3] },
+            new AnimationEvent { time = .15f * stretch, functionName = "OnAttackContact", objectReferenceParameter = frames[4] },
+            new AnimationEvent { time = .2f * stretch, functionName = "OnParryFollowUpEnd", objectReferenceParameter = frames[3] }
         });
         EditorUtility.SetDirty(clip);
         var machine = controller.layers[0].stateMachine;

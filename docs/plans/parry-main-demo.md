@@ -527,3 +527,25 @@ the42-test receipt, cancelling further WebGL build/recording per user speed requ
 Local tests.xml/builder.log/snapshot.json and Unity-authored clip retained in the
 evidence root. Static diff/whitespace and preserved serialized references checked.
 Runtime join/playback on this shortened build remains unverified; no fresh-demo claim.
+
+## Follow-up tempo matched to normal duration (2026-10-24)
+
+User accepted stretching the retained nine cels to566.667ms. Authored key/event
+times use34/31 of the preceding shortened sequence; no Animator runtime speed
+change. First cel stays combo_2_1; normal attack and950ms parry recovery unchanged.
+Open/contact/close109.677/164.516/219.355ms align with the same combo_2_3/4/5
+keys. Final repeated key550ms gives the Unity clip34samples total.
+
+Static verification passes: same ordered sprite/event references, no removed cel,
+monotonic10keys, event-to-cel times,34/60duration and clean diff. Existing focused
+Unity tests updated to the new authored timing; they were not rerun for this quick
+preview iteration. Previous42/42 belongs to the preceding516.667ms build.
+Unchanged source pose observations reused for10keys/9pairs per direction with
+updated durations in `E:/CodexTemp/TypingHero/parry-followup-tempo/source-frame-review.csv`.
+Full new runtime/frame/playback acceptance remains unverified.
+
+Quick sprite preview `http://127.0.0.1:8287/parry-tempo-preview.mp4` uses121frames
+at60FPS:950ms parry,34samples follow-up,500ms idle. Subframe authored times
+round to the next presentation sample. No runtime hitstop/lighting/VFX simulation.
+Retained preview/artifacts are for user review; existing port8287 host serves the
+file from `E:/CodexTemp/TypingHero/parry-direct-followup/player/`.

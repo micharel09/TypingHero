@@ -2961,3 +2961,9 @@ source normal/mirror VFX-off review10keys/9pairs each complete. WebGL build,
 new real-input recording and final runtime join/playback were cancelled at the
 user's speed request and remain unverified. Existing demo is the preceding build.
 See [checkpoint](../plans/parry-main-demo.md).
+
+Tempo follow-up (2026-10-24): retained nine cels stretched34/31 to566.667ms;
+static serialized-reference/event/key/duration checks pass. Tests updated but
+not rerun in this quick preview iteration; prior42/42 is not new-build evidence.
+New sprite preview provided; runtime WebGL and complete timing visual acceptance
+remain unverified. [Checkpoint](../plans/parry-main-demo.md).
