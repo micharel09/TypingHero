@@ -4,6 +4,10 @@ The authoritative configuration is authored data. Runtime state belongs to each
 instance; builders apply data and preserve existing assets. The default look is
 the approved dungeon/Pinterest flame, not a runtime fallback.
 
+The selected DungeonWorld disables the RearRune decoration and its RuneLight.
+The user rejected that blue rear glow; keep the existing torch lighting as the
+environment light sources. Shared rune assets remain available to other worlds.
+
 ## Ownership
 
 | Data | Authoritative owner |
