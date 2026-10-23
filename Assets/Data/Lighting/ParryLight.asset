@@ -19,9 +19,9 @@ MonoBehaviour:
   range: 3.75
   spotAngle: 30
   innerSpotAngle: 21.80208
-  shadows: 0
-  shadowBias: 0.05
-  shadowNormalBias: 0.4
+  shadows: 1
+  shadowBias: 0.015
+  shadowNormalBias: 0.02
   shadowNearPlane: 0.2
   shadowStrength: 1
   bakeType: 4

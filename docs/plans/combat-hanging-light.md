@@ -559,3 +559,86 @@ one additional QA WebGL and integration into main; no game publication.
   review/reproduction; evidence can be deleted when no longer needed, and the
   remote branch only when requested. Task-created local worktree/private server
   root must be removed after verified remote integration.
+
+## Dynamic sprite shadows - strong contrast, 2026-10-23
+
+User selected strong contrast. Base main `1f22565`; independent Orca worktree
+`dynamic-sprite-shadows` preserves the dirty primary checkout. Hybrid route:
+alpha-clipped sprite cards cast into the existing 3D scene; semantic/form normal
+planes relight their surfaces. No limb-on-body volumetric self-shadow claim.
+Gameplay, contact timing, albedo/atlas, existing GUIDs, geometry and pixel camera
+settings are unchanged.
+
+- Key stays intensity24/hard512. Rear fills become intensity8/shadows off.
+  Parry uses hard256 shadows with bias0.015/normalBias0.02; eight additional
+  lights/object admit authored world lights plus the one selected combat light.
+  Existing strongest-pulse scheduling, snapshots, clocks, holds and release stay.
+  Light fills shadows spatially; no global shadowStrength animation was added.
+- Re-authored29 existing normal PNGs/261 sliced poses using semantic material
+  regions and broad form planes, never luminance-as-height. Ordinary Prepare now
+  preserves painted bytes and custom secondary bindings. The destructive draft
+  replacement is an explicit Editor menu command; offline recipe `--write` is
+  also explicit. See [authoring guide](../game/lighting-profiles.md).
+- Reference: [Acquire combat lighting](https://www.unrealengine.com/spotlights/octopath-traveler-s-hd-2d-art-style-and-story-make-for-a-jrpg-dream-come-true)
+  directly describes point lights with combat VFX casting character shadows on
+  environments. [Dead Cells developer interview](https://80.lv/articles/interview-with-the-developers-of-dead-cells)
+  discusses normal-map lighting. Prior research directly inspected129 GIF frames/
+  127 pairs; this does not establish its cast-shadow algorithm or visual parity.
+
+Evidence root: `E:/CodexTemp/TypingHero/dynamic-sprite-shadows-20261023`.
+`review.html` links A/B videos, timestamp manifests, observations and measurements.
+Retain this evidence and the remote task branch for review; remove only when no
+longer needed/requested. No external publication or full-suite/stress/soak run.
+
+| Acceptance | Actual evidence |
+|---|---|
+| Frozen baseline | main1f22565, input2d28112b52ea6befbbb4558b733326a8da35d25f88507416f6fdc5e473b7c9c8, WebGL run20261023T081906 |
+| Scoped Unity | run20261023T082941:43 tests PASS across SpriteShadowTests, ImpactVfxClockTests, ImpactVfxTests, LightingProfileTests |
+| Final warmed light tests | run20261023T083737:2 SpriteShadowTests PASS, including zero managed allocations after warm-up; overlaps the43 above |
+| Authoring | run20261023T083209:custom binding/painted-byte preservation, Preview/Undo/Redo/save-reopen/fog, strict two-world repeat PASS |
+| QA player | run20261023T083500, input626e54e88dcb554f27efec2a89b18b3e3f2a7b661f2a16deeac2993137a47a61:strict repeat + WebGL build PASS |
+| Real input | baseline/candidate each14 checks PASS:normal hit, received hit, parry, Pause/Resume, follow-up, Slayer/victory, Menu cleanup; no exceptions; network fixtures/blocking enabled |
+| GPU pose diagnostics | run20261023T083900:1044/1044 cells directly viewed,261 poses x left/right x facing; run20261023T084553:10/10 above/below cells, llvmpipe LLVM15; alpha-shaped floor casts, no rectangular card shadows |
+| Normal previews | 261/261 poses viewed across33 sheets, albedo/normal/left/right/mirror; illustrations are not Unity PBR acceptance |
+| Data | source-audit.json:29 normal dimensions and bytes match QA output; existing metas/albedo/animation unchanged. Only two rear Light records copied from tested serialized output, retaining original scene IDs/geometry |
+
+Native GPU: Edge155/ANGLE D3D11, GTX1650Ti,1280x720. Selected encoded frames and
+all consecutive transitions reviewed at internal native320x180 and nearest2x
+actor/floor crops; full1280 stills also inspected. A/B captures use phase mapping,
+not identical wall-clock inputs. Actual coverage:
+
+| Recording | Complete selected windows | Viewed frames / transitions |
+|---|---|---|
+| baseline-visual | parry/follow-up F12-277; final guard-break preparation through Slayer restoration F605-849 | 266/265 +245/244 |
+| candidate-visual | parry/follow-up F18-289; final guard-break preparation through Slayer restoration F613-861 | 272/271 +249/248 |
+| baseline-continuous | normal preparation/contact/recovery F11-64 | 54/53 |
+| candidate-continuous | normal preparation/contact/recovery F11-57 | 47/46 |
+
+Manifests record exact requested/encoded PTS and source hashes; CSV rows record
+observations per frame and preceding transition. Held/repeated encoded frames
+remain included. Initial visual normal windows have a recording gap and are
+superseded by continuous captures without screenshots. No claim to inspect
+unrecorded engine frames, every full animation clip, or the whole source videos.
+Static GPU pose coverage remains separate from temporal WebGL coverage. Native
+and quarter-speed playback controls are verified in playback-controls.json;
+frame inspection is the visual evidence. Warm torch color, actor readability,
+spatial floor light, cloth/blur and return from Slayer showed no selected-scope
+regression. Intentional Slayer black/red silhouettes and source hurt flashes stay.
+
+Separate non-recording runs, matched active/unpaused/non-Slayer samples401 each:
+RAF p50/p95 baseline18.295/19.025ms, candidate18.290/19.020ms. Observed WebGL draws
+p50/p95 277/281 to165/184; 256/512 shadow-tile viewports18/18 to6/12. These are
+observational browser counts, not GPU-only timing or engine profiler pass counts.
+No FPS improvement claim. No >10% p95 regression, so no ABBA escalation required.
+
+Pilot/environment notes: initial baseline stopped before Unity below the3GiB
+free-space threshold. Removed only unused private npm cache; shared toolchain,
+license and caches preserved. Private tmpfs runner uses the shared exclusive
+runner.lock. First offscreen diagnostic image needed URP shadow-resource warm-up;
+recaptured warm full/vertical sets. Exactly1043/1044 and9/10 other images are
+byte-identical to already viewed pilots; changed first images viewed separately.
+Latest diagnostic inputa17b4bb5d7844a29f130f66f48a207bc82bb2c82bd4f292b52bde54aa987eed0
+adds only Editor capture warm-up and test changes relative to QA runtime inputs.
+Final source audit preserves that snapshot; only two serialized rear-light records
+now mirror tested builder output. Remote integration/cleanup receipt: acceptance.json
+in the evidence root, populated after publication.

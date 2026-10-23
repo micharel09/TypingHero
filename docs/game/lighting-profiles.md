@@ -55,6 +55,37 @@ Binding prepares private data once; world changes clear old requests. Explicit
 Combat displacement uses a direct Noise extension rather than the old channel2
 impulse path. See the [camera guide](camera-impact-profiles.md) for Inspector steps.
 
+## Dynamic sprite shadows and authored normals
+
+The default dungeon uses one hard-shadow key (front lantern24,512px faces), two
+rear fill lights (8, no shadows), and at most one active spatial combat light
+(256px faces). Parry now casts shadows as well as illuminating receivers.
+The2048 shadow atlas and Point/HDR/MSAA presentation are unchanged. The shared
+URP per-object additional-light limit is8, covering the current selected worlds'
+fixtures, rune and combat pulse without dropping a light at contact.
+
+Actor albedo/alpha/UVs drive the same clipped silhouette in color, depth and shadow
+passes. This is a flat animated sprite casting onto3D receivers, not volumetric
+character geometry or limb-on-body self-shadowing. Other light contributions can
+brighten a region shadowed from the key; no event fades every world's shadowStrength.
+The existing strongest-pulse scheduler, contact positions, pause clock and decay
+remain authoritative. Intensity/hold/duration/color remain in their existing profiles.
+
+Secondary normal PNGs are authored data. Routine surface preparation preserves an
+existing map and custom binding. To deliberately replace a selected **source sprite**
+normal with the old contour draft, use **CLACKBLADE / Lighting / Replace Selected
+Normal With Generated Draft**. This is destructive for that binding/map; builders
+never invoke the replacement. Keep source albedo and sprite slicing unchanged.
+
+The production actor maps use the explicit offline recipe in
+[author_actor_normals.py](../../tools/lighting/author_actor_normals.py): semantic
+skin/cloth/steel/bone/wood regions, broad plane biases and bounded contour curvature,
+not albedo luminance as height. With the existing Pillow tooling, run without
+arguments to list targets; **--write replaces all listed actor normal PNGs in place**.
+Edit the recipe or paint the normal PNGs directly, then review every affected pose,
+mirror, loop and transition under moving light before accepting a revision.
+There is no normal generation or material lookup added to gameplay updates.
+
 ## Add a fixture or flame animation
 
 1. Place a reusable hanging-lantern or wall-torch prefab from `Assets/Data/Lighting`.

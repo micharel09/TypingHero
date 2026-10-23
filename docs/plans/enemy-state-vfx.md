@@ -184,3 +184,16 @@ lighting/WebGL/device performance acceptance. Runtime unscaled lifetime,
 pause, expiry, scene ownership and result cleanup have independent behavioral
 evidence. MetalClash frozen every-step seed/mirror tests passed with original
 art retained; no new parry movie/reference-game comparison is claimed.
+
+## Integration review
+
+Fetched newer main1a7895c (spatial shadows/normal-map preservation). Merge
+conflicts were documentation only: retained state-cue VFX row and new lighting
+row, and both verification receipts. Incoming runtime changes affect lighting
+assets/settings only; no cue/binder/emitter/animation/art input changed. Neutral
+fixture uses the original unlit Pixel material, not those lit surfaces. Existing
+scoped passing evidence remains applicable; no broader suite rerun required.
+Review MP4 was opened in the browser with1x and0.25x controls as supplemental
+playback; complete native frame/transition inspection is recorded above.
+Artifacts and original download remain under the named evidence root for review;
+remove that root when the delivery no longer needs reproduction.
