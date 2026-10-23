@@ -1,4 +1,5 @@
-#if TYPINGHERO_AUTOMATION && TYPINGHERO_DEPTH_PREVIEW
+#if UNITY_EDITOR || (TYPINGHERO_AUTOMATION && TYPINGHERO_DEPTH_PREVIEW)
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,16 +7,26 @@ using UnityEngine.SceneManagement;
 public sealed class SpriteDepthPreviewControl : MonoBehaviour
 {
     static readonly int Strength = Shader.PropertyToID("_SelfShadowStrength");
+    readonly Dictionary<Material, float> configuredStrengths = new Dictionary<Material, float>();
     bool enabledDepth = true;
 
+    #if TYPINGHERO_AUTOMATION && TYPINGHERO_DEPTH_PREVIEW
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Install()
     {
         var control = new GameObject("Depth preview A-B").AddComponent<SpriteDepthPreviewControl>();
         DontDestroyOnLoad(control.gameObject);
     }
-    void OnEnable() { SceneManager.sceneLoaded += Loaded; }
-    void OnDisable() { SceneManager.sceneLoaded -= Loaded; }
+    #endif
+    void OnEnable() { SceneManager.sceneLoaded += Loaded; Apply(); }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= Loaded;
+        foreach (var entry in configuredStrengths)
+            if (entry.Key) entry.Key.SetFloat(Strength, entry.Value);
+        configuredStrengths.Clear();
+        enabledDepth = true;
+    }
     void Loaded(Scene scene, LoadSceneMode mode) { Apply(); }
     void Update()
     {
@@ -30,8 +41,13 @@ public sealed class SpriteDepthPreviewControl : MonoBehaviour
         foreach (var binding in FindObjectsOfType<SpriteDepthBinding>(true))
         {
             var material = binding.GetComponent<SpriteRenderer>().sharedMaterial;
-            if (material && material.HasProperty(Strength))
-                material.SetFloat(Strength, enabledDepth ? .65f : 0);
+            if (!material || !material.HasProperty(Strength)) continue;
+            if (!configuredStrengths.TryGetValue(material, out float configured))
+            {
+                configured = material.GetFloat(Strength);
+                configuredStrengths.Add(material, configured);
+            }
+            material.SetFloat(Strength, enabledDepth ? configured : 0);
         }
     }
 }

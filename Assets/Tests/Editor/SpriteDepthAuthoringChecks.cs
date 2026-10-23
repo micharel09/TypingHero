@@ -17,11 +17,27 @@ public static class SpriteDepthAuthoringChecks
             AssetDatabase.GetAssetPath(x).Contains("PixelWeaponContacts")).ToArray();
         if (!library || contactSprites.Length == 0 || contactSprites.Any(x => !library.CreateLookup().ContainsKey(x)))
             throw new Exception("Depth inventory must cover gameplay parry contact cels");
+        var definitionPath = "Assets/Data/Lighting/DungeonWorld.asset";
+        var materialPath = "Assets/Art/Environment/KayKitDungeon/DungeonSprite.mat";
+        var definition = AssetDatabase.LoadAssetAtPath<WorldDefinition>(definitionPath);
+        if (definition.spriteDepth != library) throw new Exception("Production world must select authored depth");
+        var material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
+        if (material.GetFloat("_SelfShadowStrength") != .65f || material.GetFloat("_DepthScale") != .15f ||
+            material.GetFloat("_SelfShadowBias") != .01f) throw new Exception("Production depth material configuration changed");
+        var results = Environment.GetEnvironmentVariable("TYPINGHERO_RESULTS_PATH");
+        if (!string.IsNullOrEmpty(results))
+            SpriteDepthAuthoring.ExportInventory(Path.Combine(results, "depth-inventory.json"));
+        Debug.Log("Validated depth metadata/maps for " + SpriteDepthAuthoring.ReferencedSprites().Length + " gameplay sprites");
         var painted = Directory.GetFiles("Assets/Art/Lighting", "*.png", SearchOption.AllDirectories)
             .ToDictionary(path => path, Hash);
+        var references = new[] { definitionPath, materialPath, AssetDatabase.GetAssetPath(library) }
+            .ToDictionary(path => path, File.ReadAllText);
         PixelUIBuild.SerializeOnly(); // QA mode also checks the second full application.
         foreach (var image in painted)
             if (Hash(image.Key) != image.Value) throw new Exception("Builder changed painted map: " + image.Key);
+        foreach (var reference in references)
+            if (File.ReadAllText(reference.Key) != reference.Value)
+                throw new Exception("Builder changed depth configuration/references: " + reference.Key);
         var setup = EditorSceneManager.GetSceneManagerSetup();
         try
         {
@@ -37,8 +53,7 @@ public static class SpriteDepthAuthoringChecks
                     throw new Exception(actor.name + ": gameplay builder must serialize exactly one depth binding");
             var worldScene = EditorSceneManager.OpenScene(gate.worldDefinition.scenePath, OpenSceneMode.Additive);
             var world = worldScene.GetRootGameObjects().SelectMany(x => x.GetComponentsInChildren<DungeonWorld>(true)).Single();
-            // Scene opening unloads unused assets. This library is deliberately
-            // not a production dependency yet; reacquire after opening scenes.
+            // Reacquire editor assets after opening scenes.
             library = AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>("Assets/Data/Lighting/ActorDepth.asset");
             var block = new MaterialPropertyBlock();
             int ready = Shader.PropertyToID("_DepthReady");

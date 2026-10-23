@@ -1,5 +1,12 @@
 ## Reusable world lighting (2026-10-22)
 
+- DungeonWorld selects the authored ActorDepth library for normal-player self-shadow.
+  DungeonSprite saves strength0.65/depth scale0.15/bias0.01; world without a library
+  retains the previous rendering path. The user accepted demo8293 with rune and
+  blue haze disabled. QA F8 restores each material's configured value; normal
+  builds exclude the control. Integration evidence/status is in the
+  [lighting checkpoint](../plans/combat-hanging-light.md).
+
 ## Pause and guidance cleanup (2026-10-24)
 
 - Manual Pause shows PAUSE plus Resume/Restart/Settings/Top 1000/Main Menu without

@@ -1079,3 +1079,75 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   Review-page smoke check passed34 clips,320x180 images, non-loop ending,
   facing/speed controls and no JavaScript errors. The first launcher closed
   during startup; retry37072 reached ready and served the verified page.
+
+
+### Production integration, 2026-10-24 (verification complete)
+
+- User accepted demo8293 as visual acceptance, with rear rune/light and both blue
+  haze layers disabled. Explicit scope: finish saved production configuration,
+  scoped integration tests and one1280x720 real-input run without video; no full
+  animation review. Earlier complete-playback gate is superseded by this choice,
+  not reported as having passed. Existing evidence and failed runs are retained.
+- Merged origin/main8a7b498 into the existing sprite-self-shadow worktree, retaining
+  upstream trimmed parry follow-up cel and normal-attack-matched duration.
+- DungeonWorld now selects ActorDepth; DungeonSprite saves strength0.65,
+  depth scale0.15 and bias0.01. DepthPreview only adds QA controls to those saved
+  assets. F8 captures per-material values and restores them on ON/disable/destroy.
+- Named shader limits remain8samples/light and12source texels; probe sequence,
+  light configuration and authored depth/normal images are unchanged. Reuse the
+  existing performance evidence; this constant extraction is not a shader fix or
+  lighting change. No new performance claim.
+- Pending: current reference inventory, repeated builder/map/reference preservation,
+  focused binding/F8/parry/Slayer tests, native integration, production QA exclusion,
+  commit/push/remote verification and retained-demo handoff.
+
+- Offline run20261023T180003, input9d1d29426c2fe2f41f603354c1563c233a60c5528e9b28c7dbc9a5c94b4d172d:
+  49/49 SpriteDepthTests/PlayerParryTests/SlayerTransitionTests PASS,0failed/skipped;
+  actual inventory280sprites, repeated builder, PNG/config/reference preservation,
+  serialized world bind/clear/no-depth/return PASS. Reused for unchanged depth,
+  parry and Slayer source below. WebGL compilation from this snapshot was stopped
+  deliberately (exit143) after newer main arrived; it is not a passing build.
+- Integrated mainb0534d5 (pause chrome/menu/encounter guidance cleanup). Two depth
+  component overrides remain through the scene merge. Recheck current builder and
+  actual menu/Pause/Resume/encounter flow on a new QA build; no full-suite expansion.
+
+- Build queue: the first latest-main attempt expired waiting600s for the shared
+  Unity lock; it executed no Unity stage and is not a failed gameplay result.
+  QA and production were resubmitted with3600s lock waits, preserving other jobs.
+
+- Final-main QA20261023T182529, input
+  `d0403f7cf73aa00e821d13dd00d2a67955d1458ec565ac72611614739fd1ed8e`:
+  repeated builder,280sprite metadata/map validation, painted-map and saved
+  config/reference preservation, selected world bind/clear/no-map/return, and
+  WebGL build PASS. Inventory289keys/34clips/32atlases; no fixed-count gate.
+- Native integration-native-02: Edge/GTX1650Ti/ANGLE D3D11,1280x720,18/18PASS.
+  Real keyboard/mouse parry -> queued combo2 follow-up, received hit, Pause/Resume,
+  Slayer entry/restore, F8 OFF/ON, menu and world return passed; enemyFlash and
+  expected follow-up/hurt cels observed in the read-only trace. No video recording,
+  no full animation review,0exceptions/provider writes; fixture interception and
+  external blocking remain enabled. Initial native launch01 did not start because
+  port8295 was occupied; preserved that process and selected a free port for02.
+- Downloaded33player files match the immutable server player. All204 exported
+  lighting files match source (text line endings normalized); RuneLight,RearRune,
+  RearHaze,LowHaze are inactive in serialized build output. Paused OFF/restored
+  stills inspected only as integration evidence, not a new animation/style gate.
+  Evidence: `E:/CodexTemp/TypingHero/sprite-self-shadow-20261023/`:
+  integration-offline, integration-qa-build, integration-native-02 and their
+  receipts. Production build and remote integration remain pending.
+
+- Production20261023T183215 uses the same d0403f7 input; normal WebGL build PASS.
+  Scanned48stripped managed assemblies: GameLoopProbe,SpriteDepthPreviewControl
+  and SpriteDepthDemo absent; JS QA bridge absent. All33downloaded player files
+  match the remote. Final local build-input digest also matches both builds.
+- Normal-player native smoke: actual menu/name/tutorial skip/gameplay/pause opened
+  with keyboard/mouse, no QA bridge or JS/managed exceptions,0provider writes.
+  Gameplay and paused images directly inspected: actors render in the saved
+  dungeon with rune/haze off. Pressing F8 leaves the paused canvas byte-identical.
+  Production helper's first launch had a local tutorial-hash path error before
+  browser startup; corrected only the external helper, without changing the player.
+- Acceptance is complete for the user's scoped integration and approved demo;
+  no new full-animation or performance claim. Final remote commit/ancestry and
+  cleanup are recorded in `E:/CodexTemp/TypingHero/sprite-self-shadow-20261023/integration-receipt.json`.
+  Retain evidence and the standalone integration-qa-build/player demo outside the
+  worktree. Private runner results remain for reproducibility; remove its cache
+  and source only when no longer needed, preserving evidence/player artifacts.

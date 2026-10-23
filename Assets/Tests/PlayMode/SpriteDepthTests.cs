@@ -4,6 +4,52 @@ using UnityEngine;
 
 public sealed class SpriteDepthTests
 {
+    #if UNITY_EDITOR
+    [Test, Category("Quick")]
+    public void PreviewRestoresEachConfiguredMaterialAcrossToggleDisableAndReenable()
+    {
+        var a = new GameObject("preview actor A", typeof(SpriteRenderer), typeof(SpriteDepthBinding));
+        var b = new GameObject("preview actor B", typeof(SpriteRenderer), typeof(SpriteDepthBinding));
+        var control = new GameObject("preview control");
+        var first = new Material(Shader.Find("CLACKBLADE/Dungeon Sprite"));
+        var second = new Material(first);
+        try
+        {
+            first.SetFloat("_SelfShadowStrength", .27f);
+            second.SetFloat("_SelfShadowStrength", .81f);
+            a.GetComponent<SpriteRenderer>().sharedMaterial = first;
+            b.GetComponent<SpriteRenderer>().sharedMaterial = second;
+            var preview = control.AddComponent<SpriteDepthPreviewControl>();
+            var toggle = typeof(SpriteDepthPreviewControl).GetField("enabledDepth",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            toggle.SetValue(preview, false); preview.SendMessage("Apply");
+            Assert.That(first.GetFloat("_SelfShadowStrength"), Is.Zero);
+            Assert.That(second.GetFloat("_SelfShadowStrength"), Is.Zero);
+            // Repeated scene application must not capture the temporary zero as the baseline.
+            preview.SendMessage("Apply");
+            toggle.SetValue(preview, true); preview.SendMessage("Apply");
+            Assert.That(first.GetFloat("_SelfShadowStrength"), Is.EqualTo(.27f));
+            Assert.That(second.GetFloat("_SelfShadowStrength"), Is.EqualTo(.81f));
+            toggle.SetValue(preview, false); preview.SendMessage("Apply");
+            preview.enabled = false;
+            Assert.That(first.GetFloat("_SelfShadowStrength"), Is.EqualTo(.27f));
+            Assert.That(second.GetFloat("_SelfShadowStrength"), Is.EqualTo(.81f));
+            first.SetFloat("_SelfShadowStrength", .43f);
+            preview.enabled = true;
+            toggle.SetValue(preview, false); preview.SendMessage("Apply");
+            UnityEngine.Object.DestroyImmediate(control);
+            Assert.That(first.GetFloat("_SelfShadowStrength"), Is.EqualTo(.43f));
+            Assert.That(second.GetFloat("_SelfShadowStrength"), Is.EqualTo(.81f));
+        }
+        finally
+        {
+            if (control) UnityEngine.Object.DestroyImmediate(control);
+            UnityEngine.Object.DestroyImmediate(a); UnityEngine.Object.DestroyImmediate(b);
+            UnityEngine.Object.DestroyImmediate(first); UnityEngine.Object.DestroyImmediate(second);
+        }
+    }
+    #endif
+
     [Test, Category("Quick")]
     public void FrameFacingClearAndWorldRebindPreserveCombatPropertiesWithoutAllocations()
     {
