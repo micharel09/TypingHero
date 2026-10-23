@@ -59,7 +59,7 @@ Scoped filter: SlayerTransitionTests;ShogunPresentationTests.SlayerBarRevealSurv
 
 transition.cjs is a task-only real-input native QA driver using the existing fixture harness. Provider writes remain intercepted and external requests blocked. No bridge mutations.
 
-## Remaining acceptance
+## Original verification checklist (completed in receipts below)
 
 1. Final filtered Unity checks and strict repeated builder.
 2. One QA WebGL build and native1280/640 entry/exit, Pause/Resume,180/500ms hitches, lethal/results, Restart/Menu; verify input/score and camera impact.
@@ -75,7 +75,7 @@ Native-r4:32/32PASS,1280x720 and640x360, Edge155/D3D11/GTX1650Ti. Real keyboard 
 
 Previous accepted function run(native-r3) used an overly bright raw HDR red(181). Added explicit sRGB-to-linear conversion. The final screenshot has the unchanged authored red at117 versus legacy118, a1/255 quantization difference; no intentional palette change or bit-identical color claim.
 
-Selected complete segments below were recorded before visual review. Source videos are final native-r4 transition-1280.webm and transition-640.webm under the task artifact directory. Each includes stable preparation and a settled endpoint; pause/hitch and actor cleanup are included instead of narrowing them away. Full original frame timestamps and held intervals will be retained. Currently0frames visually reviewed.
+Selected complete segments below were recorded before visual review. Source videos are final native-r4 transition-1280.webm and transition-640.webm under the task artifact directory. Each includes stable preparation and a settled endpoint; pause/hitch and actor cleanup are included instead of narrowing them away. Full original frame timestamps and held intervals will be retained. At selection time0frames had been visually reviewed.
 
 | Width | Source | Segment | Start(s) | End(s) | Reason |
 |---|---|---|---:|---:|---|
@@ -102,3 +102,73 @@ All sources/counts/manual observations and SHA256s are in native-r4/review/revie
 origin/main advanced to1a7895c(sprite normals/spatial shadows) during validation.
 The scoped implementation is verified on its original base; merge and recheck
 render consumers before remote integration. Preserve both sides' intended behavior.
+
+## Integration checkpoint
+
+Task commitacda5b4 is pushed to origin/micharel09/slayer-soft-transitions.
+Merged origin/main1a7895c as13d7304; the only conflict was appended verification
+records, resolved by retaining the complete lighting receipt before the Slayer
+heading. No source conflict and no blanket ours/theirs choice.
+
+Integrated QA20261023T094605: build/strict repeated builder PASS, normalized
+inputfeafdf96f9f5a77e39f7e07a502671f3be22c51c677ab89b12a4f9f8b2ec0bc6.
+All29new authored normal-map PNGs match the immutable builder output byte-for-byte
+(integrated-normal-identity.json). Native integrated run and final render review
+are in progress; origin/main has not received Slayer yet.
+
+## Integrated selection before visual review
+
+Native-integrated32/32PASS on the merged player at both requested sizes, no
+exceptions/provider reads/writes. This rechecks the changed lighting consumers;
+prior timing/migration tests remain applicable because that runtime code and its
+timing configuration are unchanged by the merge.
+
+Sources: native-integrated/transition-1280.webm and transition-640.webm.
+Selected before inspection, including complete preparation/end and all original
+held intervals. At this selection checkpoint0integrated frames have been reviewed.
+
+| Width | Source | Segment | Start(s) | End(s) | Reason |
+|---|---|---|---:|---:|---|
+| 1280 | transition-1280.webm | entry | 9.588630 | 10.587555 | complete entry with preparation and settled endpoint |
+| 1280 | transition-1280.webm | exit | 19.678835 | 20.879970 | complete exit with preparation and settled endpoint |
+| 1280 | transition-1280.webm | hitch-pause-entry | 29.580335 | 31.723325 | complete hitch-pause-entry with preparation and settled endpoint including 180ms hitch and Pause/Resume |
+| 1280 | transition-1280.webm | lethal-exit | 33.990975 | 35.303240 | complete lethal-exit with preparation and settled endpoint including actor cleanup and 500ms hitch |
+| 640 | transition-640.webm | entry | 9.600555 | 10.598025 | complete entry with preparation and settled endpoint |
+| 640 | transition-640.webm | exit | 19.702815 | 20.917115 | complete exit with preparation and settled endpoint |
+| 640 | transition-640.webm | hitch-pause-entry | 29.624520 | 31.883780 | complete hitch-pause-entry with preparation and settled endpoint including 180ms hitch and Pause/Resume |
+| 640 | transition-640.webm | lethal-exit | 34.238970 | 35.448610 | complete lethal-exit with preparation and settled endpoint including actor cleanup and 500ms hitch |
+
+## Final integrated acceptance
+
+Integrated player13d7304 / QA20261023T094605 / inputfeafdf96f9f5a77e39f7e07a502671f3be22c51c677ab89b12a4f9f8b2ec0bc6:
+strict repeated builder PASS;32/32native checks at both sizes,0exceptions/provider IO.
+Reviewed483/483frames and475/475consecutive transitions across all8segments above,
+including held frames, sheet-boundary pairs,180/500ms hitches and Pause/Resume.
+1280:51/50entry,62/61exit,96/95hitch+Pause entry,35/34lethal exit.
+640:48/47entry,63/62exit,98/97hitch+Pause entry,30/29lethal exit.
+No observed transition pop or stuck state. Both normal palette and baseline restore
+with the merged authored normals/shadows; all29normal PNGs are byte-identical to
+origin/main's authored inputs after builder. Native-integrated/review inventory
+records exact source frame ranges, timestamps, SHA256s and manual observations.
+
+The previous479frame receipt remains historical. Reuse scoped Unity8/8 because
+merge changes only lighting/shadow inputs, not timing/tint/lifecycle logic; final
+render consumers were rechecked above. No full Quick/performance/stress/soak or
+external-reference-match claim. Only the requested two viewports were exercised.
+
+Acceptance complete; pending final documentation commit, remote fast-forward
+verification and clean task-worktree removal. No itch.io upload.
+
+Retain E:/CodexTemp/TypingHero/slayer-soft-transitions and immutable final server
+result20261023T094605-webgl for review/reproduction. They can be removed after
+review when no longer needed. Disposable browser profiles and redundant local
+players/transfer archives will be removed after integration. Shared Unity source,
+Library, toolchain and other jobs are preserved.
+
+## Latest-main follow-up
+
+Before final push, main advanced again toe882aba/668d3c2, adding guard-break and
+body-fall dust cues. These intersect entry and lethal exit. Keep the verified
+normal/shadow merge and all cue changes; recheck the new render consumers.
+Timing/Pause/tint/lifecycle code is unchanged; reuse its scoped passing evidence.
+Do not report remote integration until this follow-up passes and ancestry is verified.

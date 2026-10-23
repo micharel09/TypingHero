@@ -683,16 +683,16 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   x2 yellow/x3 red, original points/rounding and x3 cap. Combo sits below the total;
   floating awards use the latest tier tint and the enemy-head anchor.
 - The SCORE caption and former corner labels stay hidden in both modes.
-  Exit/disable restores saved background opacity and Volume/weather properties. HUD positions
-  for actors/tray follow the camera; the total keeps canvas scale1 and uses the
-  upper-frame layout during Slayer (revision5 below).
+  Exit/disable restores saved background opacity and Volume/weather properties.
+  HUD/typing anchors and score canvas scale1 stay fixed throughout; only the
+  existing floating-award anchor follows the enemy head.
   Final builder migrates existing scenes and protects black bars from theme tint.
 - Quick46/46 and browser acceptance cover these paths; four render sizes and x3
   exit frames were inspected. See verification and the slayer-restore checkpoint.
   No gameplay timing, damage, scoring formula, public API, GUID or package changes.
 
 - Coordinated transition checks(2026-10-23): scoped Unity8/8, strict builder and
-  native32/32 at1280x720/640x360 pass. Reviewed479/479frames and471/471adjacent
+  native32/32 at1280x720/640x360 pass. Integrated review covers483/483frames and475/475adjacent
   transitions across full entry/exit, Pause/Resume with180ms hitch and lethal
   exit with500ms hitch. Input/stun/Slayer/damage/scoring code is unchanged.
   [Checkpoint](../plans/slayer-soft-transitions.md) records sources and limits.

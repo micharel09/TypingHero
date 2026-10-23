@@ -2809,7 +2809,7 @@ timestamps, limitations and retained evidence are in the existing
 [lighting checkpoint](../plans/combat-hanging-light.md).
 
 
-## Coordinated Slayer transitions (2026-10-23; pre-integration receipt)
+## Coordinated Slayer transitions (2026-10-23)
 
 - Scoped Unity20261023T090657:8/8PASS,0fail/skip. Entry450/exit650, curves,
   duplicate/reversal,180/500ms deltas, Pause/results, disable/re-enable, weather/Volume
@@ -2831,5 +2831,12 @@ timestamps, limitations and retained evidence are in the existing
   weakening checks. Initial HDR red181 was rejected; final red117 versus legacy118
   is a1/255 quantization difference with unchanged authored color. Failed attempts
   remain identified; no bit-identical palette or full-game/reference-match claim.
-- New origin/main1a7895c changes sprite normals/shadows; integration render recheck
-  is pending. No integration-complete or itch.io-publication claim yet.
+- Merged origin/main1a7895c as13d7304, preserving authored normals/shadows.
+  Integrated QA20261023T094605, inputfeafdf96f9f5a77e39f7e07a502671f3be22c51c677ab89b12a4f9f8b2ec0bc6:
+  strict repeat/protected typing assets PASS;32/32native checks again at both sizes,
+  0exceptions/provider IO. All29normal PNGs remain byte-identical after builder.
+  Directly re-reviewed483/483frames and475/475transitions in8complete integrated
+  clips, including both hitches/Pause/results and sheet boundaries. Prior479frame
+  receipt is historical; final integrated source/frame counts are in the checkpoint.
+  Reuse Unity8/8: no changed timing/tint/lifecycle logic after its passing run.
+  No itch.io publication.
