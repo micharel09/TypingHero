@@ -250,3 +250,41 @@ Regression receipts (2026-10-23)
   1/1PASS,0fail/skip,.4111289s. Total14 distinct scoped passing cases across the
   two after-fix runs. Same production methods; additional input is this test and
   QA-only enemyFlash/enemyColor observations. QA build uses this final snapshot.
+
+
+Final flash QA selection before review
+- Runtime5d82f96, QA20261023T120206-webgl / input7e88519966b671fbe3751f85539c5a6d36235d27c27434a69a3fcd58defc8e5e.
+  Strict builder/WebGL PASS; native1280x72023/23PASS, zero exceptions/provider IO.
+  Edge155.0.4283.62, Intel UHD ANGLE D3D11;107.35932s. Keyboard-only four exit
+  attempts at offsets0/.1/.2/.3; first is mid-exit, fourth has flash active at weight0.
+- Source native/transition-1280.webm. Select complete exit windows19.805760?21.105760s
+  (middle flash) and89.527400?90.827400s (endpoint overlap), including preparation,
+  whole exit, flash and stable recovery. No selected frames visually reviewed yet.
+
+
+## Hit-flash composition acceptance (2026-10-23)
+
+Runtime5d82f96 on main9bd927b; immutable QA20261023T120206-webgl,
+input7e88519966b671fbe3751f85539c5a6d36235d27c27434a69a3fcd58defc8e5e.
+Before-fix two regression cases fail; after-fix14 distinct scoped Unity cases pass
+(13+1 runs above),0fail/skip. Public APIs, shader/material and450/650ms clocks unchanged.
+The group composes active flash RGB with silhouette and preserves live alpha; flash
+stores untinted baseline. Endpoint hands back an active flash; disable cancels old state.
+
+Native Edge155/Intel UHD ANGLE D3D11,1280x720:23/23PASS,0exceptions/provider IO.
+Four keyboard-driven exit attempts captured; first normal-hit flash at weights
+.600952/.529466, fourth at.004261 then0, proving it survives the endpoint.
+Pause/Resume and Restart/Menu pass. No gameplay mutation through QA bridge.
+Direct review:75/75encoded frames and73/73within-segment consecutive pairs across
+both complete windows selected above:38/37middle and37/36endpoint. Original PTS,
+held intervals and page-boundary pairs preserved. All four sheets inspected.
+Flash is visible in the returning scene; neither endpoint erase nor residual dark
+baseline observed. Local slash/sparks stay distinct; bars and room recover normally.
+This is color/presentation QA, not sprite animation authoring or reference research.
+
+Current artifacts: E:/CodexTemp/TypingHero/slayer-flash-composition/acceptance.json,
+native/browser.json, original video and native/review/review-inventory.json with
+source SHA256, frame ranges and manual observations. Keep for review; removable
+after review. Immutable server result120206 and three scoped test receipts remain.
+No full suite, extra viewport, stress/soak, performance claim or itch.io upload.
+Implementation/acceptance complete; pending remote integration verification/cleanup.

@@ -678,6 +678,11 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
   Duplicate requests do not restart; reversal begins at displayed values.
   Unscaled presentation excludes Pause; results allow exit to finish.
   Disable/unload/Restart/Menu cancel old progress and restore baseline immediately.
+- Normal hit-flash during the650ms exit is composed with the remaining silhouette.
+  The group owns final RGB while presentation weight>0; hit-flash caches untinted
+  baseline, keeps its remaining duration at the endpoint, and preserves live alpha.
+  Gameplay Slayer still suppresses normal hit-flash. Scoped14 Unity cases/native23
+  plus75frame/73pair review cover this follow-up in the coordinated checkpoint.
 - ScoreCluster stays at screen scale1 in both modes; its camera scale binder is disabled.
   ScoreUI_Flash retains the120ms award-only text pulse. ScoreRules still owns white/
   x2 yellow/x3 red, original points/rounding and x3 cap. Combo sits below the total;
