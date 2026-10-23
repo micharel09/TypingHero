@@ -22,6 +22,7 @@ Shader "CLACKBLADE/Dungeon Rune"
    #pragma vertex Vert
    #pragma fragment Frag
    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+   float _DungeonSlayerWeight;
    half4 _Tint; float _DungeonAge, _DungeonPulse;
    float _RingRadius, _StrokeWidth, _StrokeSoftness, _RingSoftness, _CrossLength, _SlashRadius;
    float _ScanBase, _ScanAmplitude, _ScanSpeed, _ScanFrequency;
@@ -34,7 +35,7 @@ Shader "CLACKBLADE/Dungeon Rune"
     half cross=(1-smoothstep(_StrokeWidth,_StrokeWidth+_StrokeSoftness,abs(p.x)))*step(abs(p.y),_CrossLength);
     half slash=(1-smoothstep(_StrokeWidth,_StrokeWidth+_StrokeSoftness,abs(abs(p.x)-abs(p.y))))*step(length(p),_SlashRadius);
     half scan=_ScanBase+_ScanAmplitude*sin((i.uv.y+_DungeonAge*_ScanSpeed)*_ScanFrequency);
-    return half4(_Tint.rgb*_DungeonPulse,saturate(ring+cross+slash)*scan*_Tint.a);
+    return half4(_Tint.rgb*_DungeonPulse,(1-_DungeonSlayerWeight)*saturate(ring+cross+slash)*scan*_Tint.a);
    }
    ENDHLSL
   }

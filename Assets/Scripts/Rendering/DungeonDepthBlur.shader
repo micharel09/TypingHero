@@ -8,6 +8,7 @@ Shader "Hidden/CLACKBLADE/Dungeon Depth Blur"
   #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
   float4 _DungeonFocus;
+  half4 _DungeonSlayerBackground;
   float _DungeonDepthEdgeDistance;
   float4 _BlitTexture_TexelSize;
   float EyeDepth(float2 uv) {
@@ -37,7 +38,11 @@ Shader "Hidden/CLACKBLADE/Dungeon Depth Blur"
    return color / total;
   }
   half4 Horizontal(Varyings i):SV_Target { return Blur(i.texcoord, float2(1,0)); }
-  half4 Vertical(Varyings i):SV_Target { return Blur(i.texcoord, float2(0,1)); }
+  half4 Vertical(Varyings i):SV_Target {
+   half4 c = Blur(i.texcoord, float2(0,1));
+   // This pass runs before DungeonActor and combat transparents.
+   return half4(lerp(c.rgb, _DungeonSlayerBackground.rgb, _DungeonSlayerBackground.a), c.a);
+  }
   ENDHLSL
   Pass {
    Name "Horizontal"

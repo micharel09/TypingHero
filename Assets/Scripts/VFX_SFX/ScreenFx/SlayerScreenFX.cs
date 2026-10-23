@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,20 +24,20 @@ public class SlayerScreenFX : MonoBehaviour
     [Header("Zoom")]
     [SerializeField] float normalOrtho = 5f;
     [SerializeField] float slayerOrtho = 3.9f;
-    [SerializeField, Range(0.05f, 1.5f)] float zoomDuration = 0.35f;
-    [SerializeField] AnimationCurve zoomCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField, Range(0.05f, 1.5f)] [HideInInspector] float zoomDuration = 0.35f;
+    [SerializeField] [HideInInspector] AnimationCurve zoomCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Filmframe Bars (pixel)")]
     [SerializeField] float barHeight = 64f;
-    [SerializeField, Range(0.05f, 1.0f)] float barDuration = 0.22f;
-    [SerializeField] AnimationCurve barCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField, Range(0.05f, 1.0f)] [HideInInspector] float barDuration = 0.22f;
+    [SerializeField] [HideInInspector] AnimationCurve barCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Background Red")]
     [SerializeField, Range(0f, 1f)] float redAlpha = 1f;
-    [SerializeField, Range(0.05f, 1.0f)] float redFade = 0.18f;
+    [SerializeField, Range(0.05f, 1.0f)] [HideInInspector] float redFade = 0.18f;
 
     [Header("General")]
-    [SerializeField] bool useUnscaledTime = true;
+    [SerializeField] [HideInInspector] bool useUnscaledTime = true;
     [SerializeField] bool logs = false;
     [SerializeField] CinemachineImpulseSource enterShake;
     [SerializeField] CombatCameraImpact cameraImpact;
@@ -101,15 +100,13 @@ public class SlayerScreenFX : MonoBehaviour
     [Header("Cinematic presentation")]
     [SerializeField] Transform environment;
     [SerializeField] GameObject combatLighting;
-    bool _combatLightingWasActive;
     [SerializeField] BoxCollider2D playerBody, enemyBody;
     [SerializeField] CombatHUDLayout hudLayout;
     [SerializeField] RectTransform scoreRoot, typingTray, popupAnchor;
     [SerializeField] Image hudPanel, typingPanel;
     [SerializeField] GameObject scoreCaption;
-    bool _captionWasActive;
     [SerializeField] float bodyPadding = 8f;
-    bool _cinematic, _environmentWasActive, _hudWasEnabled, _trayWasEnabled;
+    bool _cinematic;
     float _barReveal;
     Camera _main;
     float _topFrameHeight, _bottomFrameHeight;
@@ -153,133 +150,188 @@ public class SlayerScreenFX : MonoBehaviour
         bottomBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _bottomFrameHeight * _barReveal);
     }
 
+    [SerializeField, HideInInspector] int presentationVersion;
+    public void MigratePresentationDefaults()
+    {
+        if (presentationVersion >= 1) return;
+        // Old authored custom zoom durations survive the one-time migration.
+        if (!Mathf.Approximately(zoomDuration, .35f))
+        {
+            if (Mathf.Approximately(enterDuration, .45f)) enterDuration = zoomDuration;
+            if (Mathf.Approximately(exitDuration, .65f)) exitDuration = zoomDuration;
+        }
+        presentationVersion = 1;
+    }
+
+    [Header("Coordinated transition")]
+    [SerializeField, Min(.001f)] float enterDuration = .45f;
+    [SerializeField, Min(.001f)] float exitDuration = .65f;
+    [SerializeField] AnimationCurve enterZoomCurve = new AnimationCurve(new Keyframe(0, 0, 3, 3), new Keyframe(1, 1, 0, 0));
+    [SerializeField] AnimationCurve exitZoomCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] AnimationCurve presentationCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public static float PresentationWeight { get; private set; }
+    static SlayerScreenFX _owner;
+    public static bool PresentationDriven => _owner != null;
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics() { PresentationWeight = 0; _owner = null; Shader.SetGlobalFloat("_DungeonSlayerWeight", 0); }
+    bool _target;
+    float _weight, _zoomWeight, _fromWeight, _fromZoom, _elapsed;
+    bool _transitioning;
+    Color _hudColor, _trayColor;
+    CanvasGroup _caption;
+    float _captionAlpha;
+    DungeonArenaCamera _arena;
+    UnityEngine.Rendering.Volume _volume;
+    float _volumeWeight;
+    ParticleSystemRenderer[] _weather = new ParticleSystemRenderer[0];
+    MaterialPropertyBlock[] _weatherOriginals;
+    Color[] _weatherColors;
+    MaterialPropertyBlock _weatherBlock;
+    static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+
     void BeginPresentation()
     {
-        if (_cinematic || !scoreRoot || !typingTray) return;
+        if (_cinematic) return;
         _cinematic = true;
-        if (_main && _main.TryGetComponent<DungeonArenaCamera>(out var arena)) arena.SetCinematic(true);
-        _environmentWasActive = environment && environment.gameObject.activeSelf;
-        if (environment) environment.gameObject.SetActive(false);
-        _combatLightingWasActive = combatLighting && combatLighting.activeSelf;
-        if (combatLighting) combatLighting.SetActive(false);
-        _captionWasActive = scoreCaption && scoreCaption.activeSelf;
-        if (scoreCaption) scoreCaption.SetActive(false);
-        _hudWasEnabled = hudPanel && hudPanel.enabled;
-        _trayWasEnabled = typingPanel && typingPanel.enabled;
-        if (hudPanel) hudPanel.enabled = false;
-        if (typingPanel) typingPanel.enabled = false;
+        if (_weatherBlock == null) _weatherBlock = new MaterialPropertyBlock();
+        _volume = environment ? environment.GetComponent<UnityEngine.Rendering.Volume>() : null;
+        _volumeWeight = _volume ? _volume.weight : 0;
+        _weather = environment ? environment.GetComponentsInChildren<ParticleSystemRenderer>(true) : new ParticleSystemRenderer[0];
+        _weatherOriginals = new MaterialPropertyBlock[_weather.Length];
+        _weatherColors = new Color[_weather.Length];
+        for (int i = 0; i < _weather.Length; i++)
+        {
+            var renderer = _weather[i];
+            _weatherOriginals[i] = new MaterialPropertyBlock();
+            renderer.GetPropertyBlock(_weatherOriginals[i]);
+            _weatherColors[i] = _weatherOriginals[i].HasProperty(BaseColorId)
+                ? _weatherOriginals[i].GetColor(BaseColorId)
+                : renderer.sharedMaterial ? renderer.sharedMaterial.GetColor(BaseColorId) : Color.white;
+        }
+        _hudColor = hudPanel ? hudPanel.color : Color.white;
+        _trayColor = typingPanel ? typingPanel.color : Color.white;
+        if (scoreCaption)
+        {
+            _caption = scoreCaption.GetComponent<CanvasGroup>();
+            if (!_caption) _caption = scoreCaption.AddComponent<CanvasGroup>();
+            _captionAlpha = _caption.alpha;
+        }
     }
 
     void EndPresentation()
     {
         if (!_cinematic) return;
         _cinematic = false;
-        if (_main && _main.TryGetComponent<DungeonArenaCamera>(out var arena)) arena.SetCinematic(false);
-        if (environment) environment.gameObject.SetActive(_environmentWasActive);
-        if (combatLighting) combatLighting.SetActive(_combatLightingWasActive);
-        if (scoreCaption) scoreCaption.SetActive(_captionWasActive);
-        if (hudPanel) hudPanel.enabled = _hudWasEnabled;
-        if (typingPanel) typingPanel.enabled = _trayWasEnabled;
+        if (_volume) _volume.weight = _volumeWeight;
+        for (int i = 0; i < _weather.Length; i++)
+            if (_weather[i]) _weather[i].SetPropertyBlock(_weatherOriginals[i]);
+        if (hudPanel) hudPanel.color = _hudColor;
+        if (typingPanel) typingPanel.color = _trayColor;
+        if (_caption) _caption.alpha = _captionAlpha;
     }
 
-    void OnDisable() { if (cameraImpact) cameraImpact.ExitSlayer(); StopAllCoroutines(); EndPresentation(); SetBarsInstant(0); SetRedInstant(0); SetZoomInstant(NormalOrtho); }
+    void OnEnable() { _owner = this; }
 
+    void OnDisable()
+    {
+        if (cameraImpact) cameraImpact.ExitSlayer();
+        if (_owner == this) _owner = null;
+        _target = _transitioning = false;
+        _weight = _zoomWeight = PresentationWeight = 0;
+        if (_arena) _arena.SetSlayerBackground(Color.clear);
+        Shader.SetGlobalFloat("_DungeonSlayerWeight", 0);
+        foreach (var group in FindObjectsOfType<SlayerSilhouetteGroup>()) group.SetPresentationWeight(0);
+        EndPresentation(); SetBarsInstant(0); SetRedInstant(0); SetZoomInstant(NormalOrtho);
+    }
 
     void Awake()
     {
+        MigratePresentationDefaults();
         if (!enterShake) enterShake = GetComponent<CinemachineImpulseSource>();
         if (!vcam) vcam = FindObjectOfType<CinemachineVirtualCamera>();
         _main = Camera.main;
+        _arena = _main ? _main.GetComponent<DungeonArenaCamera>() : null;
+        _owner = this;
+        PresentationWeight = 0;
 
         SetBarsInstant(0f);
         SetRedInstant(0f);
         SetZoomInstant(NormalOrtho);
     }
 
-    // Public API
-    public void EnterSlayerFX()
+    // Gameplay keeps its boolean signals; presentation can finish after they turn off.
+    public void EnterSlayerFX() => Request(true);
+    public void ExitSlayerFX() => Request(false);
+
+    void Request(bool on)
     {
+        if (!isActiveAndEnabled || _target == on) return;
+        _target = on;
         BeginPresentation();
-        if (autoShowOnEnter) SetGroup(true);
-
-        StopAllCoroutines();
-        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, SlayerOrtho, zoomDuration, zoomCurve));
-        StartCoroutine(CoBars(_barReveal * barHeight, barHeight, barDuration, barCurve));
-        StartCoroutine(CoRed(GetRedAlpha(), redAlpha, redFade));
-        if (cameraImpact) cameraImpact.EnterSlayer(enterShake, shakeDelay);
-        if (logs) Debug.Log("[SlayerScreenFX] Enter");
-    }
-
-    public void ExitSlayerFX()
-    {
-        // Teardown can disable this root before the player's exit notification.
-        // OnDisable already restores the presentation instantly; no tween can run.
-        if (!isActiveAndEnabled) { EndPresentation(); return; }
-        if (cameraImpact) cameraImpact.ExitSlayer();
-        EndPresentation();
-        StopAllCoroutines();
-        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, NormalOrtho, zoomDuration, zoomCurve));
-        StartCoroutine(CoBars(_barReveal * barHeight, 0f, barDuration, barCurve));
-        StartCoroutine(CoRed(GetRedAlpha(), 0f, redFade));
-        if (autoHideOnExit) StartCoroutine(CoDisableAfter(redFade));
-        if (logs) Debug.Log("[SlayerScreenFX] Exit");
-    }
-
-    IEnumerator CoDisableAfter(float sec)
-    {
-        yield return new WaitForSecondsRealtime(sec);
-        SetGroup(false);
-    }
-
-    // Coroutines
-    IEnumerator CoZoom(float from, float to, float dur, AnimationCurve curve)
-    {
-        if (!vcam) yield break;
-        float t = 0f;
-        while (t < 1f)
+        if (on && autoShowOnEnter) SetGroup(true);
+        _fromWeight = _weight; _fromZoom = _zoomWeight; _elapsed = 0;
+        _transitioning = true;
+        if (cameraImpact)
         {
-            t += Dt(dur);
-            float k = curve.Evaluate(Mathf.Clamp01(t));
-            vcam.m_Lens.OrthographicSize = Mathf.LerpUnclamped(from, to, k);
-            yield return null;
+            if (on) cameraImpact.EnterSlayer(enterShake, shakeDelay);
+            else cameraImpact.ExitSlayer();
         }
-        vcam.m_Lens.OrthographicSize = to;
     }
 
-    IEnumerator CoBars(float from, float to, float dur, AnimationCurve curve)
+    void Update()
     {
-        if (!topBar || !bottomBar) yield break;
-        float t = 0f;
-        while (t < 1f)
-        {
-            t += Dt(dur);
-            float k = curve.Evaluate(Mathf.Clamp01(t));
-            float h = Mathf.LerpUnclamped(from, to, k);
-            SetBarsInstant(h);
-            yield return null;
-        }
-        SetBarsInstant(to);
+        if (GamePauseController.IsPaused && !GamePauseController.ResultOverlayVisible) return;
+        AdvancePresentation(Time.unscaledDeltaTime);
     }
 
-    IEnumerator CoRed(float from, float to, float dur)
+    // Explicit delta makes hitch, reversal and duplicate-request behavior testable.
+    internal void AdvancePresentation(float delta)
     {
-        if (!redOverlay) yield break;
-        if (!redOverlay.enabled) redOverlay.enabled = true;
-        float t = 0f;
-        while (t < 1f)
+        if (!_transitioning) return;
+        _elapsed += Mathf.Max(0, delta);
+        float t = Mathf.Clamp01(_elapsed / Mathf.Max(.001f, _target ? enterDuration : exitDuration));
+        float destination = _target ? 1 : 0;
+        _weight = Mathf.Lerp(_fromWeight, destination, presentationCurve.Evaluate(t));
+        _zoomWeight = Mathf.Lerp(_fromZoom, destination, (_target ? enterZoomCurve : exitZoomCurve).Evaluate(t));
+        if (t >= 1) { _weight = _zoomWeight = destination; _transitioning = false; }
+        PresentationWeight = _weight;
+        Shader.SetGlobalFloat("_DungeonSlayerWeight", _weight);
+        if (_volume) _volume.weight = _volumeWeight * (1 - _weight);
+        for (int i = 0; i < _weather.Length; i++)
         {
-            t += Dt(dur);
-            float a = Mathf.Lerp(from, to, Mathf.Clamp01(t));
-            var c = redOverlay.color; c.a = a; redOverlay.color = c;
-            yield return null;
+            if (!_weather[i]) continue;
+            _weather[i].GetPropertyBlock(_weatherBlock);
+            var color = _weatherColors[i]; color.a *= 1 - _weight;
+            _weatherBlock.SetColor(BaseColorId, color);
+            _weather[i].SetPropertyBlock(_weatherBlock);
         }
-        var cf = redOverlay.color; cf.a = to; redOverlay.color = cf;
-        if (to <= 0.001f) redOverlay.enabled = false;
+        SetZoomInstantForTween(Mathf.Lerp(NormalOrtho, SlayerOrtho, _zoomWeight));
+        SetBarsInstant(barHeight * _weight);
+        if (_arena)
+        {
+            var color = redOverlay ? redOverlay.color : Color.red;
+            color.a = redAlpha * _weight;
+            _arena.SetSlayerBackground(color);
+            SetRedInstant(0);
+        }
+        else SetRedInstant(redAlpha * _weight);
+        if (hudPanel) { var c = _hudColor; c.a *= 1 - _weight; hudPanel.color = c; }
+        if (typingPanel) { var c = _trayColor; c.a *= 1 - _weight; typingPanel.color = c; }
+        if (_caption) _caption.alpha = _captionAlpha * (1 - _weight);
+        if (!_transitioning && !_target)
+        {
+            EndPresentation();
+            if (autoHideOnExit) SetGroup(false);
+        }
+    }
+
+    void SetZoomInstantForTween(float ortho)
+    {
+        // Cinemachine/impact retain ownership of the composed rendered camera.
+        if (vcam) vcam.m_Lens.OrthographicSize = ortho;
     }
 
     // Helpers
-    float Dt(float dur) => GamePauseController.IsPaused && !GamePauseController.ResultOverlayVisible ? 0 : (useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime) / Mathf.Max(0.0001f, dur);
-
     void SetBarsInstant(float height)
     {
         _barReveal = Mathf.Clamp01(height / Mathf.Max(.001f, barHeight));
@@ -297,5 +349,4 @@ public class SlayerScreenFX : MonoBehaviour
         if (vcam) vcam.m_Lens.OrthographicSize = ortho;
         if (_main && _main.orthographic) _main.orthographicSize = ortho;
     }
-    float GetRedAlpha() => redOverlay ? redOverlay.color.a : 0f;
 }

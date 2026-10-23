@@ -2793,3 +2793,29 @@ since the passing QA input (then indentation only); production Apply method,
 runtime/shaders/profiles/materials/scenes are byte-identical. Reuse39Unity/53native/
 strict WebGL/visual evidence. Stock runner serialize completion label is generic;
 this follow-up does not claim another full builder repeat. Proof/receipt in checkpoint.
+
+
+## Coordinated Slayer transitions (2026-10-23; pre-integration receipt)
+
+- Scoped Unity20261023T090657:8/8PASS,0fail/skip. Entry450/exit650, curves,
+  duplicate/reversal,180/500ms deltas, Pause/results, disable/re-enable, weather/Volume
+  property restoration, dynamic silhouette/exclusions, actual scene lifecycle and
+  camera-impact composition. No full Quick/stress/soak claim.
+- Final QA20261023T092633: strict repeated builder and protected typing assets PASS,
+  input668e6246dcced708e7a562f06ea85bb849117e68da0bed7d17bd79dbdbf8f46b.
+  Native Edge155/GTX1650Ti ANGLE D3D11:32/32PASS at1280x720/640x360; real keyboard
+  entry/exit,180ms hitch, Pause/timer/Resume, lethal/results with500ms hitch,
+  Restart/Menu.0exceptions/provider reads/writes; fixture interception and external
+  blocking remain. Nominal durations finish on the next rendered frame, not a
+  sub-frame scheduling guarantee. No device-performance claim.
+- Direct visual review: all479frames/471consecutive transitions in8complete selected
+  segments. Original VFR timestamps/held intervals preserved, no sampling; source
+  ranges/counts/manual notes are in the existing Slayer checkpoint and retained
+  review-inventory.json. No observed transition pop or stuck state.
+- Intermediate font gate failure was CRLF/LF only, proven byte-equal after
+  normalization; adapter normalizes text snapshots without changing repo files or
+  weakening checks. Initial HDR red181 was rejected; final red117 versus legacy118
+  is a1/255 quantization difference with unchanged authored color. Failed attempts
+  remain identified; no bit-identical palette or full-game/reference-match claim.
+- New origin/main1a7895c changes sprite normals/shadows; integration render recheck
+  is pending. No integration-complete or itch.io-publication claim yet.

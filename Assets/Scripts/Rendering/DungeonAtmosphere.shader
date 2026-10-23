@@ -27,6 +27,7 @@ Shader "CLACKBLADE/Dungeon Atmosphere"
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+   float _DungeonSlayerWeight;
             CBUFFER_START(UnityPerMaterial)
                 half4 _Tint;
                 half _Haze, _DstBlend;
@@ -49,7 +50,7 @@ Shader "CLACKBLADE/Dungeon Atmosphere"
                 half ends=smoothstep(0,_FadeIn,i.uv.y)*(1-smoothstep(_FadeOut,1,i.uv.y));
                 half ellipse=pow(saturate(1-dot((i.uv*2-1)*_EllipseScale.xy,(i.uv*2-1)*_EllipseScale.xy)),_EllipsePower);
                 half drift=_DriftBase+_DriftAmplitude*sin(dot(i.uv,_DriftFrequency.xy)+_DungeonAge*_DriftSpeed);
-                return half4(_Tint.rgb,_Tint.a*lerp(across*ends,ellipse,_Haze)*drift);
+                return half4(_Tint.rgb,(1-_DungeonSlayerWeight)*_Tint.a*lerp(across*ends,ellipse,_Haze)*drift);
             }
             ENDHLSL
         }

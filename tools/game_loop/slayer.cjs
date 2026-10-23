@@ -94,7 +94,7 @@ module.exports = async function slayerFlow(api, browser) {
       await until(page,s=>s.frame>=resized.frame+4);
       s=await state(page);
       (report.slayerPausedSizes ||= []).push({width,height,left:s.barLeft,right:s.barRight});
-      check(!s.environmentVisible && !s.hudPanelVisible && s.redAlpha===1,`${width}: red cinematic hides environment and HUD panel`);
+      check(s.environmentVisible && !s.hudPanelVisible && s.redAlpha===1,`${width}: red cinematic covers the active room and fades HUD panel`);
       check(Math.abs(s.barLeft)<1 && Math.abs(s.barRight-width)<1,`${width}: bars span render width`);
       check(s.score===held.score,'pause holds actual score');
     }
@@ -103,7 +103,7 @@ module.exports = async function slayerFlow(api, browser) {
     await page.keyboard.press('Escape',{delay:80});await until(page,s=>!s.paused && s.cameraOrtho<4.5 && s.scoreZoom===1 && !s.controls.some(c=>c.name==='ResumeButton'));
     await page.screenshot({path:report.outputDirectory+'/slayer-x3.png'});
     await until(page,s=>!s.paused && !s.slayer);
-    await page.waitForTimeout(500);s=await state(page);
+    await until(page,s=>s.redAlpha===0 && s.barReveal===0);s=await state(page);
     check(s.scoreFont===36 && s.comboFont===24 && s.barReveal===0,'exit restores normal font sizes with closed bars');
     check(s.environmentVisible && !s.hudPanelVisible && s.redAlpha===0 && Math.abs(s.scoreZoom-1)<.001,'Slayer exit restores environment, panels and red overlay');
     await page.screenshot({path:report.outputDirectory+'/slayer-exit.png'});

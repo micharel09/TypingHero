@@ -32,7 +32,9 @@ internal static class DungeonArenaBuild
             var so = new SerializedObject(viewport); so.FindProperty("normalOrtho").floatValue = p.normalOrtho;
             so.FindProperty("anchorFloorDuringZoom").boolValue = false; so.ApplyModifiedPropertiesWithoutUndo();
         }
-        var fx = new SerializedObject(Object.FindObjectOfType<SlayerScreenFX>(true));
+        var screenFx = Object.FindObjectOfType<SlayerScreenFX>(true);
+        screenFx.MigratePresentationDefaults();
+        var fx = new SerializedObject(screenFx);
         fx.FindProperty("normalOrtho").floatValue = p.normalOrtho; fx.FindProperty("slayerOrtho").floatValue = p.slayerOrtho;
         fx.FindProperty("environment").objectReferenceValue = world.environment; fx.ApplyModifiedPropertiesWithoutUndo();
         foreach (var actor in new Component[] { Object.FindObjectOfType<PlayerHealth>(true), Object.FindObjectOfType<SkeletonController>(true) })

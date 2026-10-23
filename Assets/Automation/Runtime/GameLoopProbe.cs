@@ -56,6 +56,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public int impactKind, impactSerial, normalImpacts, parryImpacts, receivedImpacts, lethalImpacts, impulseCount;
         public int effectSerial, peakRenderCount, shakePeakRenderCount, peakRenderFrame, worldWidth, worldHeight;
         public float impactZoom, cameraBase, cameraHalfHeight, cameraFov, unscaledNow;
+        public float presentationWeight, backgroundAlpha;
         public int parryParticleCount, parryBurstCount, parrySampleCount;
         public ParryParticleFrame[] parryParticles;
     }
@@ -166,6 +167,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         var brain = Camera.main ? Camera.main.GetComponent<Cinemachine.CinemachineBrain>() : null;
         combatFrame.cameraCorrection = brain ? brain.CurrentCameraState.PositionCorrection : default;
         combatFrame.unscaledNow = Time.unscaledTime;
+        combatFrame.presentationWeight = SlayerScreenFX.PresentationWeight;
+        combatFrame.backgroundAlpha = combatArena ? combatArena.SlayerBackground.a : 0;
         ObserveRenderParry();
         combatFrame.playerHP = combatPlayer ? combatPlayer.Current : -1;
         combatFrame.parries = CombatSession.I ? CombatSession.I.Parries : 0;
@@ -317,6 +320,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Rect arenaViewport;
         public Color scoreColor;
         public bool environmentVisible, hudPanelVisible;
+        public float slayerPresentationWeight, hudPanelAlpha, typingPanelAlpha;
         public Vector2 barTopEdge, barBottomEdge, scorePoint, trayPoint, bodyHead, bodyFoot, bodyCenter;
         public float barLeft, barRight;
         public FontObservation[] typography;
@@ -685,9 +689,12 @@ public sealed class GameLoopProbe : MonoBehaviour
                 scorePulse = scoreLabel ? scoreLabel.transform.localScale.x : 1,
                 scoreZoom = scoreRoot ? scoreRoot.localScale.x : 1,
                 scoreColor = scoreLabel ? scoreLabel.color : Color.white,
-                redAlpha = red && red.enabled ? red.color.a : 0,
+                redAlpha = arena ? arena.SlayerBackground.a : red && red.enabled ? red.color.a : 0,
+                slayerPresentationWeight = SlayerScreenFX.PresentationWeight,
+                hudPanelAlpha = hudImage ? hudImage.color.a : 0,
+                typingPanelAlpha = Read<Image>(fx, "typingPanel") ? Read<Image>(fx, "typingPanel").color.a : 0,
                 environmentVisible = env && env.gameObject.activeInHierarchy,
-                hudPanelVisible = hudImage && hudImage.enabled,
+                hudPanelVisible = hudImage && hudImage.enabled && hudImage.color.a > .001f,
                 barTopEdge = topBar ? (Vector2)topBar.TransformPoint(new Vector3(0, topBar.rect.yMin, 0)) : Vector2.zero,
                 barBottomEdge = bottomBar ? (Vector2)bottomBar.TransformPoint(new Vector3(0, bottomBar.rect.yMax, 0)) : Vector2.zero,
                 barLeft = topBar ? topBar.TransformPoint(new Vector3(topBar.rect.xMin, 0, 0)).x : 0,

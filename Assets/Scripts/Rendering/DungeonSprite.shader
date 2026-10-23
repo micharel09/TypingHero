@@ -12,6 +12,7 @@ Shader "CLACKBLADE/Dungeon Sprite"
   _Cutoff("Alpha cutoff", Range(0,1)) = .35
   [HideInInspector] _RendererColor("Renderer color", Color) = (1,1,1,1)
   [HideInInspector] _Flip("Flip", Vector) = (1,1,1,1)
+  [PerRendererData] _SlayerTintWeight("Slayer silhouette", Range(0,1)) = 0
   _FlashAmount("Flash", Range(0,1)) = 0
   _FlashColor("Flash color", Color) = (1,1,1,1)
  }
@@ -28,6 +29,7 @@ Shader "CLACKBLADE/Dungeon Sprite"
   half4 _Color, _RendererColor, _FlashColor, _EmissionColor; float4 _Flip;
   half _Cutoff, _FlashAmount, _NormalStrength, _Metallic, _Roughness;
   CBUFFER_END
+  float _SlayerTintWeight;
   struct Attributes { float4 positionOS:POSITION; float2 uv:TEXCOORD0; half4 color:COLOR; };
   struct Varyings { float4 positionCS:SV_POSITION; float2 uv:TEXCOORD0; half4 color:COLOR; float3 positionWS:TEXCOORD1; };
   Varyings Vert(Attributes v) {
@@ -63,7 +65,9 @@ Shader "CLACKBLADE/Dungeon Sprite"
     surface.occlusion=1;surface.normalTS=half3(0,0,1);
     surface.emission=mask.b*_EmissionColor.rgb*c.rgb;
     half4 lit=UniversalFragmentPBR(input,surface);
-    return half4(lerp(lit.rgb,_FlashColor.rgb,_FlashAmount),c.a);
+    half3 flashed = lerp(lit.rgb,_FlashColor.rgb,_FlashAmount);
+    // Silhouette must not retain dielectric highlights from the active room.
+    return half4(lerp(flashed,c.rgb,_SlayerTintWeight),c.a);
    }
    ENDHLSL
   }

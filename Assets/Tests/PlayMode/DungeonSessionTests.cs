@@ -78,8 +78,8 @@ public sealed class DungeonSessionTests
             var slayer = Object.FindObjectOfType<PlayerSlayerMode>();
             slayer.Activate(10);
             Assert.That(slayer.IsActive, Is.True);
-            Assert.That(world.environment.gameObject.activeSelf, Is.False);
-            Assert.That(world.Arena.Cinematic, Is.True);
+            Assert.That(world.environment.gameObject.activeSelf, Is.True, "room is blended before actors instead of disabled");
+            Assert.That(world.Arena.SlayerBackground.a, Is.Zero, "entry begins from the displayed baseline");
             var virtualCamera = Object.FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
             float heldLens = virtualCamera.m_Lens.OrthographicSize;
             var pause = Object.FindObjectOfType<GamePauseController>();
@@ -87,11 +87,11 @@ public sealed class DungeonSessionTests
             yield return new WaitForSecondsRealtime(.12f);
             Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(heldLens).Within(.00001f), "Slayer tween holds during Pause");
             pause.Resume();
-            yield return new WaitForSecondsRealtime(.4f);
+            yield return new WaitForSecondsRealtime(.7f);
             Assert.That(GamePauseController.IsPaused, Is.False);
             Object.FindObjectOfType<SlayerScreenFX>().ExitSlayerFX();
             GamePauseController.SetEncounterReading(true);
-            yield return new WaitForSecondsRealtime(.4f);
+            yield return new WaitForSecondsRealtime(.7f);
             Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(5.625f).Within(.00001f), "Slayer exit completes through encounter results");
             GamePauseController.SetTutorialReading(true);
             session.ReturnToMenu();

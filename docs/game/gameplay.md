@@ -548,8 +548,8 @@ Full surface art, B/C and parent integration remain separate.
 - The integrated dungeon uses the task's full3D environment: pixel-stone room,
   5degree/FOV35 perspective, owned320x180HDR Point world RT and presentation camera.
   Three steady fire-centered sources plus the latest main transient combat/parry
-  pulses shade actors and floor. Slayer hides the room, steady sources and their
-  rig together, then restores them and the camera; standalone sparks remain owned
+  pulses shade actors and floor. Slayer now blends the active room to red before
+  actors/VFX instead of disabling its sources/rig; standalone sparks remain owned
   by the latest gameplay/VFX systems. Final QA114427/native25 and6targeted offline
   checks pass. No integrated performance/FPS or publication claim.
 
@@ -663,25 +663,39 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
 
 ## Slayer cinematic restoration (2026-10-18)
 
-- SlayerScreenFX hides/restores the Shogun environment and HUD/tray backgrounds,
-  stretches the camera horizontally, and frames both bodies with full-width black
+- SlayerScreenFX coordinates450ms entry/650ms exit with independent presentation
+  progress. Entry zoom uses EaseOutCubic; exit zoom and color/bars use SmoothStep.
+  DungeonWorldRender blends red before actors/VFX; the room stays active, with
+  weather/atmosphere/Volume and HUD/tray background opacity fading together.
+  Silhouette tint includes per-renderer lighting suppression without tinting
+  excluded sparks/afterimages. It frames both bodies with full-width black
   bars. Fixed standing-body landmarks use collision bounds inset .28 world units
   above and .12 below; padding is8 reference pixels at960x540. Animated weapons,
   sprite poses and VFX do not change those landmarks. CombatHUDLayout owns their
   projection for HUD and filmframe; typing/status sit on the lower bar and tutorial
-  highlights follow their targets. Original red overlay/tint remains.
+  highlights follow their targets. Authored red/tint/framing endpoints remain;
+  the HDR path differs from the legacy screenshot by one8-bit red level.
+  Duplicate requests do not restart; reversal begins at displayed values.
+  Unscaled presentation excludes Pause; results allow exit to finish.
+  Disable/unload/Restart/Menu cancel old progress and restore baseline immediately.
 - ScoreCluster stays at screen scale1 in both modes; its camera scale binder is disabled.
   ScoreUI_Flash retains the120ms award-only text pulse. ScoreRules still owns white/
   x2 yellow/x3 red, original points/rounding and x3 cap. Combo sits below the total;
   floating awards use the latest tier tint and the enemy-head anchor.
 - The SCORE caption and former corner labels stay hidden in both modes.
-  Exit/disable restores saved environment and tray background. HUD positions
+  Exit/disable restores saved background opacity and Volume/weather properties. HUD positions
   for actors/tray follow the camera; the total keeps canvas scale1 and uses the
   upper-frame layout during Slayer (revision5 below).
   Final builder migrates existing scenes and protects black bars from theme tint.
 - Quick46/46 and browser acceptance cover these paths; four render sizes and x3
   exit frames were inspected. See verification and the slayer-restore checkpoint.
   No gameplay timing, damage, scoring formula, public API, GUID or package changes.
+
+- Coordinated transition checks(2026-10-23): scoped Unity8/8, strict builder and
+  native32/32 at1280x720/640x360 pass. Reviewed479/479frames and471/471adjacent
+  transitions across full entry/exit, Pause/Resume with180ms hitch and lethal
+  exit with500ms hitch. Input/stun/Slayer/damage/scoring code is unchanged.
+  [Checkpoint](../plans/slayer-soft-transitions.md) records sources and limits.
 
 ## Combat HUD layout (2026-10-18, revision5)
 
@@ -730,11 +744,12 @@ Hanging combat lantern integrated2026-10-21 from branch
   depth-tested flame draw follows environment blur. Current replacement passes focused Unity2/native35checks; user demo approval
   remains pending. Integration receipts below refer to earlier art.
   Rear bodies reuse their existing fire-free shadow mesh; emission follows each local light.
-  Pause and Slayer freeze/resume phase; destruction releases only the private mesh.
+  Pause freezes/resumes phase; Slayer now keeps hidden room clocks active behind
+  its blended background. Destruction releases only the private mesh.
   Original fire mesh/material/GUIDs stay intact. Private fire material;
   iron/wood emission0. Glass URP Lit black/alpha.12/emission(1,.38,.08),
   no specular, ZWrite off, no cast/receive shadow. Environment child follows
-  Slayer hide/restore, excluded from flame flicker. Within the task dungeon baseline,
+  Slayer background blend, excluded from flame flicker. Within the task dungeon baseline,
   camera/floor/post/API receive no further lantern tuning.
   Isolated QA110751 strict twice-run builder and native22gameplay/9camera checks PASS;
   reused lighting lifecycle2/2. All9camera endpoints plus163frames/162transitions

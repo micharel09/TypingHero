@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -14,50 +14,52 @@ public class SlayerSilhouetteGroup : MonoBehaviour
     [SerializeField] Color silhouetteColor = Color.black;
 
     readonly List<SpriteRenderer> _targets = new();
-    readonly List<SpriteRenderer> _scanBuf = new();
     readonly Dictionary<SpriteRenderer, Color> _orig = new();
     bool _active;
+    MaterialPropertyBlock _block;
+    static readonly int TintWeightId = Shader.PropertyToID("_SlayerTintWeight");
+    void ApplyMaterialWeight(SpriteRenderer renderer, float weight)
+    {
+        if (_block == null) _block = new MaterialPropertyBlock();
+        renderer.GetPropertyBlock(_block);
+        _block.SetFloat(TintWeightId, weight);
+        renderer.SetPropertyBlock(_block);
+    }
 
     void Awake() { RescanTargets(); SnapshotOriginals(); }
     void OnEnable() { SlayerModeSignals.OnSetActive += SetActive; SetActive(SlayerModeSignals.Active); }
-    void OnDisable() { SlayerModeSignals.OnSetActive -= SetActive; if (_active) RestoreOriginals(); _active = false; }
+    void OnDisable() { SlayerModeSignals.OnSetActive -= SetActive; if (_active) RestoreOriginals(); _active = false; _weight = 0; }
 
+    float _weight;
     void LateUpdate()
     {
-        if (!_active) return;
-
-        for (int i = 0; i < _targets.Count; i++)
+        if (SlayerScreenFX.PresentationDriven) SetPresentationWeight(SlayerScreenFX.PresentationWeight);
+        if (_weight <= 0) return;
+        if (includeDynamicChildren) RescanTargets();
+        foreach (var sr in _targets)
         {
-            var sr = _targets[i]; if (!sr) continue;
-            if (!ShouldAffect(sr)) continue;
-            var c = sr.color; c.r = silhouetteColor.r; c.g = silhouetteColor.g; c.b = silhouetteColor.b;
-            sr.color = c;
+            if (!sr || !ShouldAffect(sr)) continue;
+            if (!_orig.ContainsKey(sr)) _orig[sr] = sr.color;
+            var current = sr.color;
+            var tint = Color.Lerp(_orig[sr], silhouetteColor, _weight);
+            tint.a = current.a; // animation/visibility still owns alpha
+            sr.color = tint;
+            ApplyMaterialWeight(sr, _weight);
         }
+    }
 
-        if (!includeDynamicChildren) return;
-
-        _scanBuf.Clear();
-        GetComponentsInChildren(true, _scanBuf);
-        for (int i = 0; i < _scanBuf.Count; i++)
-        {
-            var sr = _scanBuf[i]; if (!sr) continue;
-            if (!ShouldAffect(sr)) continue;
-            if (_orig.ContainsKey(sr)) continue;
-            var c = sr.color; c.r = silhouetteColor.r; c.g = silhouetteColor.g; c.b = silhouetteColor.b;
-            sr.color = c;
-        }
+    public void SetPresentationWeight(float weight)
+    {
+        weight = Mathf.Clamp01(weight);
+        if (_weight <= 0 && weight > 0) { RescanTargets(); SnapshotOriginals(); }
+        if (_weight > 0 && weight <= 0) RestoreOriginals();
+        _weight = weight;
+        _active = weight > 0;
     }
 
     void SetActive(bool on)
     {
-        if (on)
-        {
-            RescanTargets(); SnapshotOriginals(); _active = true; LateUpdate();
-        }
-        else
-        {
-            _active = false; RestoreOriginals();
-        }
+        if (!SlayerScreenFX.PresentationDriven) SetPresentationWeight(on ? 1 : 0);
     }
 
     // ---------- helpers ----------
@@ -109,6 +111,7 @@ public class SlayerSilhouetteGroup : MonoBehaviour
         {
             var sr = kv.Key; if (!sr) continue;
             sr.color = kv.Value;
+            ApplyMaterialWeight(sr, 0);
         }
     }
 }

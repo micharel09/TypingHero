@@ -10,6 +10,7 @@ Shader "CLACKBLADE/Dungeon Wet Stone"
    #pragma vertex Vert
    #pragma fragment Frag
    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+   float _DungeonSlayerWeight;
    TEXTURE2D(_ReflectionTex); SAMPLER(sampler_ReflectionTex);
    float4x4 _ReflectionVP; half _Strength;
    struct A { float4 positionOS:POSITION; float2 uv:TEXCOORD0; };
@@ -20,7 +21,7 @@ Shader "CLACKBLADE/Dungeon Wet Stone"
     half edge=saturate((1-length(i.uv*2-1))*5);
     half patches=smoothstep(-.5,.6,sin(i.world.x*2.1+sin(i.world.z*1.3))*cos(i.world.z*1.7));
     half4 c=SAMPLE_TEXTURE2D(_ReflectionTex,sampler_ReflectionTex,uv);
-    return half4(c.rgb,_Strength*edge*patches);
+    return half4(c.rgb,(1-_DungeonSlayerWeight)*_Strength*edge*patches);
    }
    ENDHLSL
   }

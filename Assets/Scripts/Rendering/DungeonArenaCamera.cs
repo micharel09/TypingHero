@@ -21,6 +21,8 @@ public sealed class DungeonArenaCamera : MonoBehaviour
     public RenderTexture WorldTexture { get; private set; }
     public Camera PresentationCamera { get; private set; }
     public Rect PresentationRect { get; private set; } = new Rect(0, 0, 1, 1);
+    public Color SlayerBackground { get; private set; }
+    public void SetSlayerBackground(Color color) => SlayerBackground = color;
     public bool Cinematic { get; private set; }
     internal RTHandle EnvironmentScratch;
     public float FocusDepth => view.WorldToViewportPoint(player ? player.position : Vector3.zero).z;
@@ -151,5 +153,6 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         if (WorldTexture) { WorldTexture.Release(); Destroy(WorldTexture); WorldTexture = null; }
         EnvironmentScratch?.Release(); EnvironmentScratch = null;
         Cinematic = false;
+        SlayerBackground = Color.clear;
     }
 }

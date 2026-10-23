@@ -45,6 +45,8 @@ public sealed class DungeonWorld : MonoBehaviour
     public void ResetView()
     {
         environment.gameObject.SetActive(true);
+        Arena.SetSlayerBackground(Color.clear);
+        Shader.SetGlobalFloat("_DungeonSlayerWeight", 0);
         var brain = view.GetComponent<CinemachineBrain>();
         if (brain) brain.enabled = false;
         view.transform.SetPositionAndRotation(position, rotation);
