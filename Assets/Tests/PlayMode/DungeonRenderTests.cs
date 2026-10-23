@@ -55,6 +55,9 @@ public sealed class DungeonRenderTests
         typeof(DungeonEnvironmentMotion).GetField("banner",flags).SetValue(motion,filter);
         typeof(DungeonEnvironmentMotion).GetField("atmosphere",flags).SetValue(motion,new Renderer[]{renderer});
         typeof(DungeonEnvironmentMotion).GetField("weather",flags).SetValue(motion,new[]{rain});
+        var clothProfile = Object.Instantiate(LightingTestAssets.Definition.lighting);
+        clothProfile.clothAmplitude = .08f; clothProfile.clothSpeed = 2; clothProfile.clothFrequency = 3;
+        clothProfile.clothDirection = Vector3.right; motion.profile = clothProfile;
         float previous=Time.timeScale;
         try
         {
@@ -68,6 +71,8 @@ public sealed class DungeonRenderTests
             float heldGain=block.GetFloat("_DungeonPulse");
             Assert.That(rune.intensity,Is.EqualTo(.7f*heldGain).Within(.000001f));
             var heldCloth=filter.sharedMesh.vertices;
+            Assert.That(heldCloth[2].z, Is.Zero);
+            Assert.That(heldCloth[2].x, Is.EqualTo(mesh.vertices[2].x + .08f * Mathf.Sin(held * 2 - 3)).Within(.000001f));
             rain.Emit(1);
             Time.timeScale=0;yield return null;yield return null;
             float particleTime=rain.time;
@@ -93,7 +98,7 @@ public sealed class DungeonRenderTests
             renderer.GetPropertyBlock(block);Assert.That(block.GetFloat("_DungeonAge"),Is.GreaterThan(held));
             Assert.That(rain.isPlaying,Is.True);
         }
-        finally {Time.timeScale=previous;Object.Destroy(mesh);}
+        finally {Time.timeScale=previous;Object.Destroy(mesh);Object.Destroy(clothProfile);}
     }
     [Test, Category("Quick")]
     public void RuneNoiseReachesRendererAndLightAndIsRepeatableOverTwoEnvelopes()

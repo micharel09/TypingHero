@@ -17695,7 +17695,7 @@ GameObject:
   - component: {fileID: 1098703405}
   - component: {fileID: 1098703404}
   m_Layer: 0
-  m_Name: DungeonWorldOwner
+  m_Name: Alternate World Owner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31579,7 +31579,7 @@ GameObject:
   - component: {fileID: 1784889893}
   - component: {fileID: 1784889895}
   m_Layer: 0
-  m_Name: DungeonArena3D
+  m_Name: Alternate Authored Hall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

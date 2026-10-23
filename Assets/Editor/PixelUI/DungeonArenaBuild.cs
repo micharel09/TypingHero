@@ -7,18 +7,17 @@ using UnityEngine.Rendering;
 internal static class DungeonArenaBuild
 {
     internal const string Art = "Assets/Art/Environment/KayKitDungeon/";
-    internal static void Apply()
+    internal static void Apply(Pose cameraPose)
     {
         var scene = EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
         var world = Object.FindObjectOfType<DungeonWorld>(true);
         if (!world) throw new System.InvalidOperationException("Missing authored world");
         WorldLightingAuthoring.Validate(world);
         var p = world.Profile; var camera = world.view;
+        // Legacy UI passes may reposition Camera.main; retain the world authored pose.
+        camera.transform.SetPositionAndRotation(cameraPose.position, cameraPose.rotation);
         var layout = Object.FindObjectOfType<CombatHUDLayout>(true);
-        var center = layout.BodyCenter;
-        float radians = p.pitch * Mathf.Deg2Rad;
-        var position = center + new Vector3(0, Mathf.Sin(radians) * p.FramingDistance, -Mathf.Cos(radians) * p.FramingDistance);
-        camera.transform.SetPositionAndRotation(position, Quaternion.Euler(p.pitch, 0, 0));
+        var position = camera.transform.position;
         var settings = new SerializedObject(world.Arena);
         settings.FindProperty("framingLayout").objectReferenceValue = layout; settings.ApplyModifiedPropertiesWithoutUndo();
         foreach (var vcam in Object.FindObjectsOfType<Cinemachine.CinemachineVirtualCamera>(true))

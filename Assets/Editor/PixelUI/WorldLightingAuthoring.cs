@@ -40,15 +40,23 @@ public static class WorldLightingAuthoring
     public static void PreviewLoaded()
     {
         if (Application.isPlaying) throw new InvalidOperationException("Stop Play Mode before applying authored scene changes");
-        foreach (var world in UnityEngine.Object.FindObjectsOfType<DungeonWorld>(true))
+        var activeScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        try
         {
-            var objects = world.environment.GetComponentsInChildren<Component>(true).Where(x => x).Cast<UnityEngine.Object>()
-                .Concat(new UnityEngine.Object[] { world, world.view, world.view.transform, world.Arena }).ToArray();
-            Undo.RecordObjects(objects, "Apply lighting profiles");
-            Apply(world);
-            EditorSceneManager.MarkSceneDirty(world.gameObject.scene);
+            foreach (var world in UnityEngine.Object.FindObjectsOfType<DungeonWorld>(true))
+            {
+                UnityEngine.SceneManagement.SceneManager.SetActiveScene(world.gameObject.scene);
+                var objects = world.environment.GetComponentsInChildren<Component>(true).Where(x => x).Cast<UnityEngine.Object>()
+                    .Concat(UnityEngine.Object.FindObjectsOfType<ClashLightingRig>(true).Where(x => x.gameObject.scene == world.gameObject.scene).Cast<UnityEngine.Object>())
+                    .Concat(new UnityEngine.Object[] { world, world.view, world.view.transform, world.Arena, world.view.GetUniversalAdditionalCameraData(), Unsupported.GetRenderSettings() }).ToArray();
+                Undo.RecordObjects(objects, "Apply lighting profiles");
+                Apply(world);
+                EditorSceneManager.MarkSceneDirty(world.gameObject.scene);
+            }
         }
+        finally { UnityEngine.SceneManagement.SceneManager.SetActiveScene(activeScene); }
     }
+
     public static void Apply(DungeonWorld world)
     {
         Validate(world);
@@ -83,7 +91,7 @@ public static class WorldLightingAuthoring
             EditorUtility.SetDirty(node); EditorUtility.SetDirty(torch);
         }
         foreach (var rig in UnityEngine.Object.FindObjectsOfType<ClashLightingRig>(true))
-            if (rig.gameObject.scene == world.gameObject.scene || rig.GetComponentInParent<DungeonSessionBindings>(true))
+            if (rig.gameObject.scene == world.gameObject.scene)
             { rig.profile = world.definition.combat; EditorUtility.SetDirty(rig); }
         foreach (var component in world.environment.GetComponentsInChildren<Component>(true))
             if (component && PrefabUtility.IsPartOfPrefabInstance(component))

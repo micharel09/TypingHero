@@ -9,10 +9,23 @@ public sealed class CombatCameraImpact : MonoBehaviour
     [SerializeField] DungeonArenaCamera arena;
     [SerializeField] PlayerHealth health;
     [SerializeField] CinemachineImpulseSource recoil;
+    public CameraImpactProfile profile;
+    AnimationCurve recoilCurve;
+    public void Configure(CameraImpactProfile value)
+    {
+        profile = value;
+        recoilCurve = value ? new AnimationCurve(value.recoilCurve.keys) {
+            preWrapMode = value.recoilCurve.preWrapMode, postWrapMode = value.recoilCurve.postWrapMode } : null;
+    }
+    Pulse Contact(Kind kind, CameraImpactProfile.Envelope envelope) => new Pulse {
+        kind = kind, peak = envelope.peak, attack = envelope.attack, hold = envelope.hold,
+        release = envelope.release, pixels = envelope.pixels, source = recoil,
+        recoilDuration = profile.recoilDuration, recoilCurve = recoilCurve };
     struct Pulse
     {
         internal Kind kind;
-        internal float peak, attack, hold, release, pixels, delay;
+        internal float peak, attack, hold, release, pixels, delay, recoilDuration;
+        internal AnimationCurve recoilCurve;
         internal Vector3 point, direction;
         internal CinemachineImpulseSource source;
         internal float Duration => attack + hold + release;
@@ -54,6 +67,7 @@ public sealed class CombatCameraImpact : MonoBehaviour
 
     void OnEnable()
     {
+        if (profile && recoilCurve == null) Configure(profile);
         view = arena ? arena.GetComponent<Camera>() : null;
         var manager = CinemachineImpulseManager.Instance;
         var warm = manager.NewImpulseEvent();
@@ -76,18 +90,15 @@ public sealed class CombatCameraImpact : MonoBehaviour
     {
         // The hitbox accepted this contact before TakeDamage could finish the match.
         if (!lethal && (wasSlayer || CombatSession.Finished)) return;
-        Queue(new Pulse { kind = lethal ? Kind.Lethal : Kind.Normal,
-            peak = lethal ? (wasSlayer ? .02f : .05f) : .02f,
-            attack = lethal ? .03f : .02f, hold = lethal ? .04f : .02f,
-            release = lethal ? .18f : .10f, pixels = lethal ? 2 : 0,
-            point = point, direction = direction, source = recoil });
+        var pulse = Contact(lethal ? Kind.Lethal : Kind.Normal,
+            lethal ? (wasSlayer ? profile.slayerLethal : profile.lethal) : profile.normal);
+        pulse.point = point; pulse.direction = direction; Queue(pulse);
     }
     internal void Parry(Vector3 point, Vector3 direction, float power)
     {
         if (CombatSession.Finished) return;
-        Queue(new Pulse { kind = Kind.Parry, peak = .03f, attack = .02f,
-            hold = .03f, release = .13f, pixels = Mathf.Clamp01(power),
-            point = point, direction = direction, source = recoil });
+        var pulse = Contact(Kind.Parry, profile.parry);
+        pulse.pixels *= Mathf.Clamp01(power); pulse.point = point; pulse.direction = direction; Queue(pulse);
     }
     void Received(Vector2 point, bool lethal)
     {
@@ -95,13 +106,13 @@ public sealed class CombatCameraImpact : MonoBehaviour
         Vector3 direction = body ? body.bounds.center - (Vector3)point :
             health ? health.transform.position - (Vector3)point : Vector3.left;
         if (direction.sqrMagnitude < .0001f) direction = Vector3.left;
-        Queue(new Pulse { kind = Kind.Received, release = .1f, pixels = 1,
-            point = point, direction = direction, source = recoil });
+        var pulse = Contact(Kind.Received, profile.received);
+        pulse.point = point; pulse.direction = direction; Queue(pulse);
     }
     internal void EnterSlayer(CinemachineImpulseSource source, float delay)
     {
         if (CombatSession.Finished) return;
-        Queue(new Pulse { kind = Kind.SlayerEnter, release = .35f,
+        Queue(new Pulse { kind = Kind.SlayerEnter, release = profile.slayerPriorityDuration,
             source = source, delay = delay, point = source ? source.transform.position : Vector3.zero });
     }
     internal void ExitSlayer()
@@ -187,8 +198,8 @@ public sealed class CombatCameraImpact : MonoBehaviour
             // Retire the cancelled predecessor before renting, so rapid preemption stays allocation-free.
             manager.GetImpulseAt(active.point, true, 2, out _, out _);
             ownedImpulse = manager.NewImpulseEvent();
-            kickSignal.curve = active.source.m_ImpulseDefinition.m_CustomImpulseShape;
-            kickSignal.duration = active.source.m_ImpulseDefinition.m_ImpulseDuration;
+            kickSignal.curve = active.recoilCurve;
+            kickSignal.duration = active.recoilDuration;
             kickSignal.velocity = velocity;
             ownedImpulse.m_Envelope = new CinemachineImpulseManager.EnvelopeDefinition { m_SustainTime = kickSignal.duration };
             ownedImpulse.m_SignalSource = kickSignal;

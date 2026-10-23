@@ -27,6 +27,10 @@ public sealed class WorldLightingProfile : ScriptableObject
     public float followLimit, followSmooth;
     public bool postProcessing;
     public float blurRadius, focusOffset, focusFalloff;
+    public float focusHalfWidth = .75f, depthEdgeDistance = .5f;
+    public float clothAmplitude = .025f, clothSpeed = 1.25f, clothFrequency = 2;
+    public Vector3 clothDirection = Vector3.forward;
+    public CameraImpactProfile cameraImpact;
     public LightProfile rune;
     public Vector2 runeNoiseOrigin, runeNoiseSpeed;
     public float runeBase, runeNoiseGain, runeEnvelopeGain, runeEnvelopePeriod;
@@ -48,9 +52,9 @@ public sealed class WorldLightingProfile : ScriptableObject
 #endif
     public void Validate()
     {
-        if (!post || !pipeline || !worldRenderer || !presentationRenderer || !actorMaterial ||
+        if (!cameraImpact || !post || !pipeline || !worldRenderer || !presentationRenderer || !actorMaterial ||
             resolution.x <= 0 || resolution.y <= 0 || fieldOfView <= 0 || fieldOfView >= 180 || normalOrtho <= 0 ||
-            nearClip <= 0 || farClip <= nearClip || followSmooth <= 0 || focusFalloff <= 0 || runeEnvelopePeriod <= 0)
+            nearClip <= 0 || farClip <= nearClip || followSmooth <= 0 || focusFalloff <= 0 || focusHalfWidth < 0 || depthEdgeDistance <= 0 || runeEnvelopePeriod <= 0)
             throw new InvalidOperationException(name + ": incomplete world lighting/presentation profile");
         if (rune) rune.Validate();
     }

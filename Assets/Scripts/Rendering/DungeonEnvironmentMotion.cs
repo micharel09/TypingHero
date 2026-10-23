@@ -12,7 +12,10 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
     Mesh original, deformed;
     Vector3[] rest, vertices;
     MaterialPropertyBlock block;
+    static readonly int AgeId = Shader.PropertyToID("_DungeonAge"), PulseId = Shader.PropertyToID("_DungeonPulse");
     float age;
+    float clothAmplitude, clothSpeed, clothFrequency;
+    Vector3 clothDirection;
     bool paused;
     ParticleSystem.Particle[][] particles;
     ParticleSystem.PlaybackState[] playback;
@@ -24,6 +27,8 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
         if (!profile) throw new System.InvalidOperationException(name + ": missing world lighting profile");
         if (runeLight && profile.rune) profile.rune.Apply(runeLight);
         block = new MaterialPropertyBlock();
+        clothAmplitude = profile.clothAmplitude; clothSpeed = profile.clothSpeed;
+        clothFrequency = profile.clothFrequency; clothDirection = profile.clothDirection;
         if (banner && banner.sharedMesh)
         {
             original = banner.sharedMesh; deformed = Instantiate(original);
@@ -89,7 +94,7 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
         foreach (var renderer in atmosphere) if (renderer)
         {
             renderer.GetPropertyBlock(block);
-            block.SetFloat("_DungeonAge", age); block.SetFloat("_DungeonPulse", pulse);
+            block.SetFloat(AgeId, age); block.SetFloat(PulseId, pulse);
             renderer.SetPropertyBlock(block);
         }
         if (runeLight) runeLight.intensity = profile.rune.intensity * pulse;
@@ -98,7 +103,7 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
         for (int i = 0; i < vertices.Length; i++)
         {
             float weight = Mathf.Clamp01((top - rest[i].y) / span);
-            vertices[i] = rest[i] + Vector3.forward * (.025f * weight * weight * Mathf.Sin(age * 1.25f + rest[i].y * 2));
+            vertices[i] = rest[i] + clothDirection * (clothAmplitude * weight * weight * Mathf.Sin(age * clothSpeed + rest[i].y * clothFrequency));
         }
         deformed.vertices = vertices; deformed.RecalculateBounds(); deformed.RecalculateNormals();
     }

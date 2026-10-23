@@ -196,7 +196,7 @@ public sealed class CombatFeedbackTests
         var box = player.AddComponent<PlayerWeaponHitbox>(); box.targetLayers = 1;
         var spawner = player.AddComponent<HitSparkSpawner>();
         Set(spawner, "sparkPrefab", Spark("normal")); Set(box, "hitSpark", spawner);
-        var cameraImpact = player.AddComponent<CombatCameraImpact>(); Set(box, "cameraImpact", cameraImpact);
+        var cameraImpact = player.AddComponent<CombatCameraImpact>(); cameraImpact.Configure(LightingTestAssets.Definition.lighting.cameraImpact); Set(box, "cameraImpact", cameraImpact);
         player.SetActive(true);
         var enemy = Host("enemy"); var damage = enemy.AddComponent<FeedbackDamageTarget>();
         var a = enemy.AddComponent<BoxCollider2D>(); var b = enemy.AddComponent<CircleCollider2D>(); enemy.SetActive(true);
@@ -224,7 +224,7 @@ public sealed class CombatFeedbackTests
         var box = player.AddComponent<PlayerWeaponHitbox>(); box.targetLayers = 1;
         Set(box, "hitSpark", spawner); Set(box, "slayer", slayer);
         box.hitStopper = player.AddComponent<HitStopper>();
-        var cameraImpact = player.AddComponent<CombatCameraImpact>(); Set(box, "cameraImpact", cameraImpact);
+        var cameraImpact = player.AddComponent<CombatCameraImpact>(); cameraImpact.Configure(LightingTestAssets.Definition.lighting.cameraImpact); Set(box, "cameraImpact", cameraImpact);
         player.SetActive(true); Set(slayer, "_active", true);
         var enemy = Host("enemy"); var damage = enemy.AddComponent<FeedbackDamageTarget>();
         var collider = enemy.AddComponent<BoxCollider2D>(); enemy.SetActive(true);

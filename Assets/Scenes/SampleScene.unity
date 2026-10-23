@@ -17781,6 +17781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2081cdcff54ce5bfc10807c7dadcab, type: 3}
   m_Name:
   m_EditorClassIdentifier:
+  profile: {fileID: 11400000, guid: 4bca0a930c3f4bd0abaf68135084484e, type: 2}
   arena: {fileID: 0}
   health: {fileID: 1837079558}
   recoil: {fileID: 3482038794572103695}

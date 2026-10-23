@@ -85,10 +85,6 @@ internal static class CombatFeedbackBuild
                 var source = child.gameObject.AddComponent<Cinemachine.CinemachineImpulseSource>();
                 source.m_ImpulseDefinition.m_ImpulseChannel = 2;
                 source.m_ImpulseDefinition.m_ImpulseType = Cinemachine.CinemachineImpulseDefinition.ImpulseTypes.Uniform;
-                source.m_ImpulseDefinition.m_ImpulseDuration = .1f;
-                source.m_ImpulseDefinition.m_ImpulseShape = (Cinemachine.CinemachineImpulseDefinition.ImpulseShapes)0;
-                source.m_ImpulseDefinition.m_CustomImpulseShape = new AnimationCurve(
-                    new Keyframe(0, 0), new Keyframe(.2f, 1), new Keyframe(1, 0));
                 Set(shake, "impulseSource", source); Value(shake, "power", 1f); Record(shake);
             }
             Set(shake, "impulseSource", child.GetComponent<Cinemachine.CinemachineImpulseSource>()); Record(shake);

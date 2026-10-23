@@ -18,10 +18,6 @@ internal static class CombatCameraImpactBuild
         var source = (CinemachineImpulseSource)new SerializedObject(shake).FindProperty("impulseSource").objectReferenceValue;
         if (!source || source.m_ImpulseDefinition.m_ImpulseChannel != 2)
             throw new System.InvalidOperationException("Dedicated ParryRecoil channel missing");
-        source.m_ImpulseDefinition.m_ImpulseDuration = .1f;
-        source.m_ImpulseDefinition.m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform;
-        EditorUtility.SetDirty(source);
-        PrefabUtility.RecordPrefabInstancePropertyModifications(source);
         CinemachineImpulseListener impactListener = null;
         foreach (var listener in camera.GetComponents<CinemachineImpulseListener>())
             if (listener.m_ChannelMask == 2) impactListener = listener;
@@ -35,6 +31,7 @@ internal static class CombatCameraImpactBuild
         settings.FindProperty("m_ReactionSettings.m_AmplitudeGain").floatValue = 0;
         settings.ApplyModifiedPropertiesWithoutUndo();
         EditorUtility.SetDirty(impactListener);
+        Set(impact, "profile", arena.profile.cameraImpact);
         Set(impact, "arena", arena); Set(impact, "health", health); Set(impact, "recoil", source);
         Set(arena, "impact", impact); Set(shake, "cameraImpact", impact);
         foreach (var box in Object.FindObjectsOfType<PlayerWeaponHitbox>(true)) Set(box, "cameraImpact", impact);
