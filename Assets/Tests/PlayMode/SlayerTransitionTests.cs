@@ -11,6 +11,140 @@ public sealed class SlayerTransitionTests
     static void Tick(SlayerScreenFX fx, float dt) => typeof(SlayerScreenFX)
         .GetMethod("AdvancePresentation", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(fx, new object[] { dt });
 
+    [TestCase(.5f), TestCase(.01684115f), Category("Quick")]
+    public void NormalFlashDuringExitSurvivesEndpointAndRestoresUntintedBaseline(float weight)
+    {
+        var root = new GameObject("flash exit"); root.SetActive(false);
+        var body = root.AddComponent<SpriteRenderer>();
+        var original = new Color(.7f, .4f, .2f, .8f); body.color = original;
+        var flash = root.AddComponent<EnemyHitFlash>();
+        var group = root.AddComponent<SlayerSilhouetteGroup>();
+        var late = typeof(SlayerSilhouetteGroup).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic);
+        var update = typeof(EnemyHitFlash).GetMethod("Update", BindingFlags.Instance | BindingFlags.NonPublic);
+        var ivory = new Color(1, .96f, .85f, 1); Set(flash, "flashColor", ivory);
+        try
+        {
+            root.SetActive(true); group.SetPresentationWeight(weight); late.Invoke(group, null);
+            flash.Tick(.06f); late.Invoke(group, null);
+            var expected = Color.Lerp(ivory, Color.black, weight); expected.a = original.a;
+            Assert.That(body.color, Is.EqualTo(expected), "normal-hit flash must compose with exit silhouette");
+            group.SetPresentationWeight(0);
+            expected = ivory; expected.a = original.a;
+            Assert.That(body.color, Is.EqualTo(expected), "ending silhouette must not erase an active flash");
+            Set(flash, "_flashUntil", -1f); Set(flash, "_flashFrameUntil", -1);
+            update.Invoke(flash, null); late.Invoke(group, null);
+            Assert.That(body.color, Is.EqualTo(original), "flash must never restore a tinted baseline");
+            update.Invoke(flash, null); late.Invoke(group, null);
+            Assert.That(body.color, Is.EqualTo(original));
+        }
+        finally { Object.DestroyImmediate(root); }
+    }
+
+    [UnityEngine.TestTools.UnityTest, Category("Quick")]
+    public System.Collections.IEnumerator FlashOverEndpointHoldsThroughPauseAndSlayerCancelsIt()
+    {
+        var root = new GameObject("paused flash exit"); root.SetActive(false);
+        var body = root.AddComponent<SpriteRenderer>(); var original = new Color(.4f, .7f, .6f, .65f); body.color = original;
+        var flash = root.AddComponent<EnemyHitFlash>();
+        var group = root.AddComponent<SlayerSilhouetteGroup>();
+        var gate = root.AddComponent<DisableHitFlashOnSlayer>();
+        Set(gate, "targets", new System.Collections.Generic.List<MonoBehaviour> { flash });
+        var late = typeof(SlayerSilhouetteGroup).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic);
+        float scale = Time.timeScale;
+        try
+        {
+            root.SetActive(true); group.SetPresentationWeight(.2f); late.Invoke(group, null); flash.Tick(.06f);
+            Time.timeScale = 0; yield return new WaitForSecondsRealtime(.1f);
+            group.SetPresentationWeight(0); var held = body.color;
+            yield return new WaitForSecondsRealtime(.1f);
+            Assert.That(body.color, Is.EqualTo(held), "pause/hitstop holds flash across endpoint");
+            Time.timeScale = 1; yield return new WaitForSecondsRealtime(.09f);
+            Assert.That(body.color, Is.EqualTo(original));
+            flash.Tick(); SlayerModeSignals.SetActive(true); yield return null;
+            Assert.That(flash.enabled, Is.False, "gameplay Slayer still cancels normal flash");
+            SlayerModeSignals.SetActive(false); yield return null;
+            Assert.That(body.color, Is.EqualTo(original));
+        }
+        finally { Time.timeScale = scale; SlayerModeSignals.SetActive(false); Object.DestroyImmediate(root); }
+    }
+
+    [Test, Category("Quick")]
+    public void FlashRetriggerAndEntryReversalNeverSnapshotFlashOrSilhouette()
+    {
+        var root = new GameObject("flash reversal"); root.SetActive(false);
+        var body = root.AddComponent<SpriteRenderer>();
+        var original = new Color(.2f, .6f, .7f, .55f); body.color = original;
+        var flash = root.AddComponent<EnemyHitFlash>();
+        var group = root.AddComponent<SlayerSilhouetteGroup>();
+        var late = typeof(SlayerSilhouetteGroup).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic);
+        var update = typeof(EnemyHitFlash).GetMethod("Update", BindingFlags.Instance | BindingFlags.NonPublic);
+        var ivory = new Color(1, .96f, .85f, 1); Set(flash, "flashColor", ivory);
+        try
+        {
+            root.SetActive(true); flash.Tick();
+            group.SetPresentationWeight(.4f); late.Invoke(group, null);
+            flash.Tick(); group.SetPresentationWeight(.8f); late.Invoke(group, null);
+            var expected = Color.Lerp(ivory, Color.black, .8f); expected.a = original.a;
+            Assert.That(body.color, Is.EqualTo(expected));
+            group.SetPresentationWeight(.2f); flash.Tick(); late.Invoke(group, null);
+            Set(flash, "_flashUntil", -1f); Set(flash, "_flashFrameUntil", -1);
+            update.Invoke(flash, null); late.Invoke(group, null);
+            expected = Color.Lerp(original, Color.black, .2f); expected.a = original.a;
+            Assert.That(body.color, Is.EqualTo(expected));
+            group.SetPresentationWeight(0); Assert.That(body.color, Is.EqualTo(original));
+        }
+        finally { Object.DestroyImmediate(root); }
+    }
+
+    [TestCase(true), TestCase(false), Category("Quick")]
+    public void FlashAndSilhouetteDisableInEitherOrderRestoreBaseline(bool flashFirst)
+    {
+        var root = new GameObject("flash teardown"); root.SetActive(false);
+        var body = root.AddComponent<SpriteRenderer>();
+        var original = new Color(.3f, .7f, .4f, .6f); body.color = original;
+        var flash = root.AddComponent<EnemyHitFlash>();
+        var group = root.AddComponent<SlayerSilhouetteGroup>();
+        var late = typeof(SlayerSilhouetteGroup).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic);
+        try
+        {
+            root.SetActive(true); group.SetPresentationWeight(.7f); late.Invoke(group, null); flash.Tick();
+            if (flashFirst) { flash.enabled = false; group.enabled = false; }
+            else { group.enabled = false; flash.enabled = false; }
+            Assert.That(body.color, Is.EqualTo(original));
+            var block = new MaterialPropertyBlock(); body.GetPropertyBlock(block);
+            Assert.That(block.GetFloat("_SlayerTintWeight"), Is.Zero);
+            group.enabled = true; flash.enabled = true; late.Invoke(group, null);
+            Assert.That(body.color, Is.EqualTo(original), "enable must not resurrect old flash");
+        }
+        finally { Object.DestroyImmediate(root); }
+    }
+
+    [Test, Category("Quick")]
+    public void DynamicRendererCapturedDuringFlashAndExcludedRendererKeepTheirOwnBaseline()
+    {
+        var root = new GameObject("dynamic flash"); root.SetActive(false);
+        var body = root.AddComponent<SpriteRenderer>(); body.color = Color.green;
+        var flash = root.AddComponent<EnemyHitFlash>();
+        var group = root.AddComponent<SlayerSilhouetteGroup>();
+        var late = typeof(SlayerSilhouetteGroup).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic);
+        try
+        {
+            var child = new GameObject("body child"); child.transform.SetParent(root.transform);
+            var dynamic = child.AddComponent<SpriteRenderer>(); dynamic.color = Color.cyan;
+            var spark = new GameObject("HitSpark"); spark.transform.SetParent(root.transform);
+            var excluded = spark.AddComponent<SpriteRenderer>(); excluded.color = Color.yellow;
+            Set(flash, "renderers", new System.Collections.Generic.List<SpriteRenderer> { body, dynamic });
+            child.transform.SetParent(null); // flash knows it; group will discover it later
+            root.SetActive(true); flash.Tick(); group.SetPresentationWeight(.5f);
+            child.transform.SetParent(root.transform); late.Invoke(group, null);
+            flash.enabled = false; late.Invoke(group, null); group.SetPresentationWeight(0);
+            Assert.That(dynamic.color, Is.EqualTo(Color.cyan));
+            Assert.That(excluded.color, Is.EqualTo(Color.yellow));
+            Assert.That(body.color, Is.EqualTo(Color.green));
+        }
+        finally { Object.DestroyImmediate(root); }
+    }
+
     [Test, Category("Quick")]
     public void CoordinatedEntryExitDuplicateReversalAndHitchesRestoreBaseline()
     {

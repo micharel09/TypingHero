@@ -22,7 +22,6 @@ public partial class ImpactVfxBurst : MonoBehaviour
     protected bool playing, paused;
     protected int debrisEmissionFrame = -1;
     bool analytical;
-    internal ImpactVfxCompletionPolicy CompletionPolicy { get; private set; }
     bool[] flashChannels;
     internal ParticleSystem[] Systems => systems;
 #if TYPINGHERO_AUTOMATION
@@ -78,7 +77,6 @@ public partial class ImpactVfxBurst : MonoBehaviour
         // An active prefab can Awake before the emitter supplies its missing lease.
         if (!lease) lease = GetComponent<PooledVFX>();
         Clear(); OnPlay();
-        CompletionPolicy = context.completionPolicy;
         appearance = profile.Capture(); analytical = true;
         pixelsPerUnit = profile.pixelsPerUnit; depthScale = profile.depthScale; depthLimits = profile.depthLimits;
         debrisEmissionFrame = Time.frameCount;
@@ -95,9 +93,7 @@ public partial class ImpactVfxBurst : MonoBehaviour
     protected void Update()
     {
         if (!playing) return;
-        if (GamePauseController.ResultOverlayVisible ||
-            (CombatSession.Finished && CompletionPolicy == ImpactVfxCompletionPolicy.StopOnCombatEnd))
-        { Release(); return; }
+        if (CombatSession.Finished) { Release(); return; }
         bool hold = GamePauseController.InputBlocked || Time.timeScale == 0f;
         if (hold != paused)
         {
@@ -133,7 +129,6 @@ public partial class ImpactVfxBurst : MonoBehaviour
         debrisAge = 0; debrisCount = 0; debrisEmissionFrame = -1;
         simulation.Clear(); Array.Clear(identities, 0, identities.Length); Array.Clear(debrisParticles, 0, debrisParticles.Length);
         playing = paused = analytical = false;
-        CompletionPolicy = ImpactVfxCompletionPolicy.StopOnCombatEnd;
         ClashLightingRig.Cancel(this);
     }
     protected void OnDisable() => Clear();

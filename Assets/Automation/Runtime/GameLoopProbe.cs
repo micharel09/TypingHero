@@ -57,6 +57,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public int effectSerial, peakRenderCount, shakePeakRenderCount, peakRenderFrame, worldWidth, worldHeight;
         public float impactZoom, cameraBase, cameraHalfHeight, cameraFov, unscaledNow;
         public float presentationWeight, backgroundAlpha;
+        public bool enemyFlash;
+        public Color enemyColor;
         public int parryParticleCount, parryBurstCount, parrySampleCount;
         public ParryParticleFrame[] parryParticles;
     }
@@ -169,6 +171,10 @@ public sealed class GameLoopProbe : MonoBehaviour
         combatFrame.unscaledNow = Time.unscaledTime;
         combatFrame.presentationWeight = SlayerScreenFX.PresentationWeight;
         combatFrame.backgroundAlpha = combatArena ? combatArena.SlayerBackground.a : 0;
+        var enemySprite = combatEnemy ? combatEnemy.GetComponent<SpriteRenderer>() : null;
+        var enemyFlash = combatEnemy ? combatEnemy.GetComponent<EnemyHitFlash>() : null;
+        combatFrame.enemyColor = enemySprite ? enemySprite.color : Color.clear;
+        combatFrame.enemyFlash = enemyFlash && enemyFlash.isActiveAndEnabled && Read<bool>(enemyFlash, "_active");
         ObserveRenderParry();
         combatFrame.playerHP = combatPlayer ? combatPlayer.Current : -1;
         combatFrame.parries = CombatSession.I ? CombatSession.I.Parries : 0;

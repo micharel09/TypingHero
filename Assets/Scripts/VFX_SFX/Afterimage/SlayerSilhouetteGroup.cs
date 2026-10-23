@@ -16,6 +16,7 @@ public class SlayerSilhouetteGroup : MonoBehaviour
     readonly List<SpriteRenderer> _targets = new();
     readonly Dictionary<SpriteRenderer, Color> _orig = new();
     bool _active;
+    EnemyHitFlash _flash;
     MaterialPropertyBlock _block;
     static readonly int TintWeightId = Shader.PropertyToID("_SlayerTintWeight");
     void ApplyMaterialWeight(SpriteRenderer renderer, float weight)
@@ -26,7 +27,7 @@ public class SlayerSilhouetteGroup : MonoBehaviour
         renderer.SetPropertyBlock(_block);
     }
 
-    void Awake() { RescanTargets(); SnapshotOriginals(); }
+    void Awake() { _flash = GetComponentInParent<EnemyHitFlash>(true); RescanTargets(); SnapshotOriginals(); }
     void OnEnable() { SlayerModeSignals.OnSetActive += SetActive; SetActive(SlayerModeSignals.Active); }
     void OnDisable() { SlayerModeSignals.OnSetActive -= SetActive; if (_active) RestoreOriginals(); _active = false; _weight = 0; }
 
@@ -39,9 +40,10 @@ public class SlayerSilhouetteGroup : MonoBehaviour
         foreach (var sr in _targets)
         {
             if (!sr || !ShouldAffect(sr)) continue;
-            if (!_orig.ContainsKey(sr)) _orig[sr] = sr.color;
+            if (!_orig.ContainsKey(sr)) _orig[sr] = ReadBaseline(sr);
             var current = sr.color;
-            var tint = Color.Lerp(_orig[sr], silhouetteColor, _weight);
+            var source = _flash && _flash.TryGetFlashColor(sr, out var flash) ? flash : _orig[sr];
+            var tint = Color.Lerp(source, silhouetteColor, _weight);
             tint.a = current.a; // animation/visibility still owns alpha
             sr.color = tint;
             ApplyMaterialWeight(sr, _weight);
@@ -56,6 +58,15 @@ public class SlayerSilhouetteGroup : MonoBehaviour
         _weight = weight;
         _active = weight > 0;
     }
+
+    internal bool TryGetBaseColor(SpriteRenderer renderer, out Color color)
+    {
+        color = default;
+        return isActiveAndEnabled && _weight > 0 && _orig.TryGetValue(renderer, out color);
+    }
+
+    Color ReadBaseline(SpriteRenderer renderer) => _flash && _flash.TryGetUnflashedColor(renderer, out var color)
+        ? color : renderer.color;
 
     void SetActive(bool on)
     {
@@ -101,7 +112,7 @@ public class SlayerSilhouetteGroup : MonoBehaviour
         for (int i = 0; i < _targets.Count; i++)
         {
             var sr = _targets[i]; if (!sr) continue;
-            _orig[sr] = sr.color;
+            _orig[sr] = ReadBaseline(sr);
         }
     }
 
@@ -110,7 +121,9 @@ public class SlayerSilhouetteGroup : MonoBehaviour
         foreach (var kv in _orig)
         {
             var sr = kv.Key; if (!sr) continue;
-            sr.color = kv.Value;
+            var color = _flash && _flash.TryGetFlashColor(sr, out var flash) ? flash : kv.Value;
+            color.a = sr.color.a;
+            sr.color = color;
             ApplyMaterialWeight(sr, 0);
         }
     }
