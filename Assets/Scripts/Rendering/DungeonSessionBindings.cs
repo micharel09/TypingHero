@@ -12,9 +12,10 @@ public sealed class DungeonSessionBindings : MonoBehaviour
     {
         public UnityEngine.Object local;
         public string field;
-        public int worldIndex;
+        [UnityEngine.Serialization.FormerlySerializedAs("worldIndex")] public DungeonWorld.Slot slot;
         public bool worldOwnsField;
     }
+    public WorldDefinition worldDefinition;
     public Link[] links = Array.Empty<Link>();
     public GameObject[] roots = Array.Empty<GameObject>();
     void Awake()
@@ -31,20 +32,35 @@ public sealed class DungeonSessionBindings : MonoBehaviour
     }
     public void Bind(DungeonWorld world, bool clear = false)
     {
+        if (!clear)
+        foreach (var root in roots)
+        {
+            foreach (var viewport in root.GetComponentsInChildren<CombatViewportCamera>(true)) viewport.lighting = world.Profile;
+            foreach (var fx in root.GetComponentsInChildren<SlayerScreenFX>(true)) fx.lighting = world.Profile;
+            foreach (var rig in root.GetComponentsInChildren<ClashLightingRig>(true)) rig.profile = world.definition.combat;
+            foreach (var actor in root.GetComponentsInChildren<PlayerHealth>(true)) ApplyActorMaterial(actor, world.Profile);
+            foreach (var actor in root.GetComponentsInChildren<SkeletonController>(true)) ApplyActorMaterial(actor, world.Profile);
+        }
         foreach (var link in links)
         {
-            var owner = link.worldOwnsField ? world.objects[link.worldIndex] as Component : link.local as Component;
+            var owner = link.worldOwnsField ? world.Resolve(link.slot) as Component : link.local as Component;
             // Death cleanup may already have removed a gameplay-side owner.
             if (!owner && clear && !link.worldOwnsField) continue;
             if (!owner) throw new InvalidOperationException("Missing dungeon binding owner: " + link.field);
             if (owner is Canvas canvas && link.field == "m_Camera")
             {
-                canvas.worldCamera = clear ? null : world.objects[link.worldIndex] as Camera;
+                canvas.worldCamera = clear ? null : world.Resolve(link.slot) as Camera;
                 continue;
             }
             var field = owner.GetType().GetField(link.field, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             if (field == null) throw new InvalidOperationException("Missing dungeon binding field: " + link.field);
-            field.SetValue(owner, clear ? null : link.worldOwnsField ? link.local : world.objects[link.worldIndex]);
+            field.SetValue(owner, clear ? null : link.worldOwnsField ? link.local : world.Resolve(link.slot));
         }
     }
+    static void ApplyActorMaterial(Component actor, WorldLightingProfile profile)
+    {
+        foreach (var renderer in actor.GetComponentsInChildren<SpriteRenderer>(true))
+            if (renderer.name != "ContactShadow") renderer.sharedMaterial = profile.actorMaterial;
+    }
+
 }

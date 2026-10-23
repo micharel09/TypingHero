@@ -89,7 +89,7 @@ public class HitSparkSpawner : MonoBehaviour
         SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, images ? images.CurrentTint : Color.clear);
         var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
         if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
-        if (lethal && lethalImpulse) lethalImpulse.GenerateImpulse(.015f);
+        // Confirmed contacts own camera impact independently of this visual emitter.
     }
 
     void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null)

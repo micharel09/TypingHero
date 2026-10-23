@@ -11,6 +11,56 @@ Dense frame/direction/speed/boundary coverage is Unity, not browser. Local demo
 only; original pixels retained, source contact table matches tested generated
 asset. Detailed failed attempts, font CRLF diagnosis, evidence limits and retained
 resources: [checkpoint](../plans/parry-main-demo.md).
+## Reusable world lighting profiles (2026-10-23)
+
+- Pinned Unity2022.3.25f1 / URP14.0.11:20/20 scoped profile/lifecycle/lighting checks,
+  independent native fixture registration2/2, camera-main integration19/19, final
+  light-only/fixture/lifecycle4/4;0fail/skip in these accepted runs. These overlap;
+  they are not one combined suite. Edited light/size/material/post values survive
+  two complete builder applications. A-to-B-to-A validates arbitrary fixture names,
+  four lights, independent style/fog and256x144 presentation without leaked UV/RT state.
+- Final input c25b03c0040fe852621521f45b6d41d93354f427a77f2e7f6802252e2c425626,
+  QA20261022T165927-webgl: WebGL and strict repeat builder PASS. Native player
+  a484cfa7f3a82e38, Edge155 / GTX1650Ti / ANGLE D3D11 /1280x720:34/34 actual-input
+  checks,0exceptions/provider reads/writes. Lamp bounds/emission/phase, Pause,
+  parry/following attack, Slayer/restore and menu pass.
+- Direct final visual review108/108selected encoded frames,106/106pairs in28native/2x
+  sheets. Colored local fire, fixed fixtures, warm3D surface pools and readable
+  player recovery pass. Earlier palette migration had zero thresholds; corrected
+  to original .03/.12/.3 before final player. Earlier palette acceptance is superseded.
+  No full suite, extra viewport, stress/soak or general performance claim.
+  Exact inputs/counts/segments/limitations and retained evidence: [checkpoint](../plans/combat-hanging-light.md).
+  Usage: [profile authoring](lighting-profiles.md).
+
+## Combat camera impact (2026-10-22)
+
+- Integrated input `d0fede39b9c7db8c593c3ae618f256b4888a25f1a163df390e0389c573ccb4d1`: pinned Unity2022.3.25f1 focused32/32 PASS,0failed/skipped (`20261022T160203-quick`). Confirms real hit consumers, bounded priority, channel isolation, projection/foot anchor, pooled-event ownership, warmed request allocation and Pause/dungeon lifecycle behavior.
+- Final WebGL/strict repeated builder PASS (`20261022T160608-webgl`);33/33 immutable player file hashes match local/server. Native Edge155 / Playwright1.58.2 / GTX1650Ti D3D11:86/86 checks PASS across1280x720 and640x360,0exceptions/provider calls, real keyboard/mouse and fixture/external-network isolation. Camera profiles, actual kick bounds, fixed HUD/typing and Pause/Resume/Restart/Menu pass.
+- Directly reviewed400/400 encoded frames and390/390 transitions in ten selected output windows,37/37 sheets; framing and recovery pass. Original WebM/PTS remain timing authority, including held spans; derived MP4 tails are not authoritative. Reference research remains separate. No full-suite/stress/soak, general performance or itch release claim. Sources, limits and retained demo: [camera checkpoint](../plans/camera-impact.md).
+
+## Reusable MetalClash preset (2026-10-22)
+
+- Integrated newer main5f371fa torch flames as7ef0da3, preserving all VFX/actor/
+  ParryClash/SampleScene inputs exactly. Integration145953 input1eb1cbe4 passes6/6
+  focused pulse/pause/pool/adapter/voxel-overlap/torch-lifecycle checks,0fail/skip.
+  Feature and merge commits verified ancestors of remote main7ef0da3. Existing
+  images below remain qualified by frozen inputs; no new torch-art claim.
+- Focused Unity2022.3.25f1/fly-server:72/72 PASS,0failed/skipped,
+  run20261022T144224-webgl input4e59bdb41d6d22a5c113353f270154ad746213e95691f084dc9d2ff4f9a50c8f.
+  ImpactVfxTests + ParryClashTests + PhysicalParticleTests only, using the existing
+  external filtered runner and shared exclusive lock. Standalone emitter, two
+  concurrent profiles, color/physics/fade/pulse snapshots, actual local light,
+  seed/recipient/both directions, pool cap/expiry, pause/reuse/cleanup and zero
+  managed allocations in warmed render updates pass. Initial70/70 and71/71 passes predate
+  the final builder-reference test and inactive voxel-light range assertion; final72
+  includes them. No full-suite/performance claim.
+- Solver/profile, approved physical asset and materials unchanged from916c752;
+  existing prefab/script GUIDs retained. Final normal144224 and mirror144950 WebGL/strict
+  repeated builder PASS; both32-file player hashes equal server artifacts. Native
+  Edge/Playwright1.58.2/Intel UHD D3D11 at1280x720:36/36 real-input checks PASS,
+  0exceptions/provider reads/writes. Direct162/162output frames/160/160pairs versus
+  128/128reference frames/126/126pairs retain contact, thin spray, orange floor tail
+  and expiry. Per-frame notes/timing/scope and artifacts: [preset checkpoint](../plans/metal-clash-preset.md).
 
 ## Separate tutorial HUD callouts (2026-10-22)
 
@@ -2545,3 +2595,40 @@ build. Reopened user page e98327a8-914c-45c1-8810-75f3e56380f7 at
 http://127.0.0.1:8136/; loading finished, no warning, actual menu observed.
 Owned private server workspace/results were removed after verifying task marker,
 snapshot and no active Docker mounts. Shared Library/cache/source/home preserved.
+## NYKNCK free main-lantern pixel flame (2026-10-22)
+
+Scoped Quick20261022T081730 passes2/2tests (front lifecycle/mesh/emission/clock and rear regression), strict repeated builder PASS; no full Quick profile claim. QA20261022T082242/player5f849262aed3f42e native Edge155/NVIDIA GTX1650Ti/ANGLE D3D11 at1280x720 passes21/21real-input checks,0exceptions/provider IO.481read-only samples, active intensity22.5750618..25.2119675, all5cels, stationary root, pause and Slayer phase verified.
+
+Source/output each5/5cels and5/5loop transitions reviewed separately; output native48x34/nearest2x. Actual canvas640frames decoded/exported with exact timestamps; selectedF77..116 andF166..223 reviewed98/98frames,96/96pairs at logical320x180/nearest2x640x360 plus40lamp detail crops. No room flash or whole-player parry/recovery blackout in those samples. Capture is25FPS VFR, not every engine frame or performance/FPS evidence. Earlier intro-race pilot is not acceptance. Direct-scene load audit20261022T084400 verifies the committed scene reference graph, front24/6percent, rear2percent, atlas/renderer bindings and disabled original flame. [Full checkpoint](../plans/combat-hanging-light.md).
+
+## All three NYKNCK flames — demo candidate (2026-10-22)
+
+- User extended the accepted central sprite approach to both rear torches. Main integration remains held for review; task branch `micharel09/lantern-pixel-fire` is retained.
+- Scoped Unity20261022T091031-quick: **2/2 PASS**, one lifecycle test now exercises all three intensity/offset configurations plus existing legacy flicker regression; strict repeated builder PASS. Input96cdf597d5b1589172ac543c058871e9b9f3f4c5f1df8095f51f7a5f6d318c4a.
+- QA WebGL20261022T091817, input195e9efb11661a6c2b14fb34307c7d4a1968f88e05298debbb3c395549177292, immutable playerf6eb222b78eb434e. Native Edge155/NVIDIA GTX1650Ti/ANGLE D3D11/1280x720:17 native action/assertion checks before the old aggregate telemetry assertion, zero exceptions/provider writes; completed real pause, parry, immediate following word attack, Slayer and menu return.
+- Raw harness status is retained as failed: it interleaved same-named dormant source-room age0 samples with the playing room. An earlier run also rejected valid float32 intensity22.559999465 at the22.56 boundary. Corrected read-only `all-torches/check-runtime.py` separates the advancing/active room, validates the recorded manual-pause and Slayer windows, and permits1e-5 float tolerance: **all3PASS**,483 samples each (301active/182hidden), all5cels, synchronized emission, fixed roots, frozen age/cel during pause/hiding. No product-code changes were needed for these harness issues.
+- Observed intensity: main22.5599995–25.2892056, rear-left15.6800003–16.2812004, rear-right15.6800003–16.2817173, within24+/-6percent and16+/-2percent modulo float representation.
+- Final video SHA256c61d35d0fe5752a381d1e4a79ca04220e84b752e3b8a6acf5e0eaecacbb554d6. Export641/641 frames with exact source timestamps; directly viewed normalF69–108 (5.483595–7.101765s) and parryF166–234 (9.438540–12.238540s):109/109frames,107/107within-segment adjacent pairs at320x180 and nearest2x640x360. Also viewed all40normal frames as three separate native-capture2x lamp crops, and1280x720 normal/guard/post-parry/restored stills. Per-frame observations and transition notes: `all-torches/selected/frame-evidence.csv`.
+- Roots stay attached to bodies/cage; local flame clusters change independently, warm wall/floor pools persist, and actors remain readable through parry/recovery without a scene-wide flash. Rear detail remains deliberately soft under existing DOF/bloom; VFR25FPS capture does not prove every engine frame, high-frequency shimmer absence or FPS/performance.
+- Atlas hash14b26a8dc4566e7c7079107054cfbcc9056432b0b33c3fe3a9cb857cf7cce910 unchanged: prior source/final-cel5/5 plus loop-transition review is reused. No new art or reference-match claim. Original scene records/IDs preserved; only7existing records changed and8new rear-card records added, with values copied from the verified builder output.
+- Evidence/demo root: `E:/CodexTemp/TypingHero/pixel-fire-review-20261022-m60wlc3t/all-torches`; local review URL `http://127.0.0.1:8228/all-torches/demo.html`. WebGL initially hit the3GiB free-space guard; only six task-owned older results were removed after checking their archived snapshots and absence of active mounts. Shared cache/toolchain and other jobs preserved. No full suite, extra viewport, stress run or publication.
+
+
+## Pinterest flame replacement - local checks passed, user demo pending (2026-10-22)
+
+User rejected NYKNCK runtime visibility and the Pixie composite style; their earlier
+receipts above are historical and do not accept the current art. Approved direction:
+https://www.pinterest.com/pin/1135681231035570556/, 10x100ms, brick red/warm orange/
+pale yellow, compact fixed-base flames for all three fixtures. Technical atlas identity
+check passes all10cells, colors/alpha/order/timing preserved,270x160 Point atlas.
+Final raw10/10cells/transitions reviewed; Unity2/2focused lifecycle checks and final
+QA140347/player5b494ce8e2ac2083 native35/35PASS on Edge155/Intel UHD/D3D11/1280x720.
+Zero exceptions/provider IO. Selected104/104frames and102/102pairs viewed at native
+world320x180and2x;39three-lamp native-capture2x crops also viewed. Normal-camera
+segment includes incoming hit/recovery; parry segment includes full preparation/contact/
+recovery and following word attack. Exact634frame export retained; no whole-video,
+every-engine-frame or FPS claim. Final size10/12pixels follows a rejected7/8pixel pilot.
+Source atlas/timing/runtime code unchanged, so2/2unit results reused. Final saved task
+records/material/quad match verified builder. User art review and main integration
+remain pending; no external distribution claim. Current source, per-frame reference observations,
+runner receipts and limitations belong to the existing hanging-light checkpoint.

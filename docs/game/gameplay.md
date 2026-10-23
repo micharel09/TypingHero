@@ -1,3 +1,25 @@
+## Reusable world lighting (2026-10-22)
+
+- Scene selection, world presentation, individual lights, flame sequences and combat
+  lighting now use authored profiles under `Assets/Data/Lighting`. Native materials,
+  post, bake and URP assets remain their authorities. Builders apply these values;
+  they do not regenerate the approved dungeon style. See [authoring guide](lighting-profiles.md).
+- World loading accepts a `WorldDefinition`; camera/arena/brain/environment bindings
+  use semantic roles. Fixture names/counts and atlas layouts are independent of the
+  default room. Profile changes require Editor apply/reload; this adds no map UI or
+  hardware quality tiers.
+- The approved ten-frame flame, palette, timing, fixed anchors, 24/16 light strengths
+  and pause/Slayer phase are preserved. Each instance owns its clock and UV mesh.
+  Existing camera impact tuning remains unchanged; pixel recoil uses the active
+  world's target height, and zoom composes with its profile lens.
+
+## Combat camera impact (2026-10-22)
+
+- CombatCameraImpact is gameplay-owned and bound to the persistent DungeonArenaCamera. Confirmed normal hits use2%/140ms, parry3%/180ms plus1native-pixel/100ms recoil, accepted received damage1pixel/100ms without zoom, outgoing lethal5%/250ms (2% for a captured Slayer hit) plus2pixels/100ms. Slayer entry retains5.625?3.3/350ms and authored source/delay; rapid Slayer hits add no pulse. Priority lethal>entry>received>parry>normal; equal/weaker events do not extend the single envelope.
+- Channel2/gain1 listener handles directional camera-plane kicks; original channel1/gain10 remains for Slayer entry. One warmed reusable signal avoids new per-contact managed allocation; owned event/start/signal checks prevent cancelling recycled events. ParryCameraShake forwards accepted context; PlayerHealth.DamageAccepted excludes rejection/i-frames; confirmed hitbox captures Slayer before damage and emits independently of visual prefabs. The visual lethal spawner no longer emits a duplicate impulse.
+- Final perspective half-height is base/(1+impactZoom), composed once at order995, with an analytic foot-anchor correction. Base virtual-camera lens,320x180 HDR/Point RT and fixed HUD/typing geometry remain. Manual Pause holds envelope/kick and Slayer tween; results/reading clear transient state, while existing unscaled Slayer exits complete. Restart/Menu/unbind clear only owned impulses. Public gameplay/provider/storage contracts and combat/audio timings unchanged.
+- Focused integrated Unity32/32 PASS; final native two-size verification and remote integration are recorded in [camera checkpoint](../plans/camera-impact.md).
+
 # Current gameplay
 
 ## Original parry on latest main (2026-10-22; local demo)
@@ -277,6 +299,25 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## World lighting / parry clash
 
+### Reusable MetalClash preset (2026-10-22)
+
+- `ImpactVfxEmitter.Play(ImpactVfxProfile, ImpactVfxContext)` emits without a player
+  or ParrySystem. Context captures point, left/right direction, floorY, seed,
+  optional recipient ellipse and optional world scale (1.25 default).
+- `Assets/Art/VFX/ParryClash/MetalClash.asset` references the approved existing
+  ParryPhysics/prefab. Profile stores hot/warm/cooled colors, final fade and local
+  pulse intensity/hold/duration/range/offset. Defaults preserve24particles,1px,
+  rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
+- `ImpactVfxBurst`/`ImpactVfxPixel` own rendering; `ParryClashBurst` retains its
+  serialized script GUID as a compatibility subclass, including historical presets.
+  Parry's adapter calls the shared emitter with existing leases; other callers use
+  the emitter's bounded eight-lease pool. Builder fills absent references only.
+- Physical states and appearance are copied at emission; simultaneous profiles
+  and later asset edits cannot change an existing burst/pulse. One-floor/one-bounce
+  solver, fixed buffers, unscaled pause-held updates and cleanup remain. Audio,
+  damage, recoil and hitstop remain owned by gameplay.
+- Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
+
 ### Pimen flash with thin separated physical sparks (2026-10-22)
 
 - Production BCompact emits24/clash,192/eight leases: contact1/fragments2/front12/
@@ -485,19 +526,14 @@ Full surface art, B/C and parent integration remain separate.
   by the latest gameplay/VFX systems. Final QA114427/native25 and6targeted offline
   checks pass. No integrated performance/FPS or publication claim.
 
-- WorldLightingBuild runs after ShogunTheme: lit actor/near-environment sprites,
-  ambient/key/fill plus clash rig, fixed-body-foot contact shadows and thresholded
-  world bloom. The preserved WorldMenuBackdrop is disabled by the final dungeon
-  UI pass; the menu uses four original gameplay dungeon layers as UGUI images.
-  Overlay HUD remains separate. Camera lens/zoom unchanged.
-- WorldLightingBuild also follows actual player/enemy Animator controller clip
-  references, including `Art/male_hero/individual_sheets/player_parry_success.anim`.
-  Its four recovery cels now have aligned normal/material companions; missing
-  material binding had made the whole cel metallic and dark. Albedo, pivots,
-  slicing and timing are unchanged. Parry hold70ms/end280ms is unchanged.
-- DungeonFullEffectsBuild no longer creates WetStoneReflection and disables the
-  serialized legacy node, renderer and component. Stone lighting/material highlights
-  and cast shadows remain; no reflection capture camera/RT through pause or Slayer.
+- The canonical builder applies ShogunTheme/CombatR7/UI, then DungeonArenaBuild
+  and WorldLightingAuthoring against existing authored assets. It preserves the
+  world definition, profile values, native materials/post/URP, disabled legacy
+  WetStoneReflection and secondary sprite-map bindings. The old procedural
+  WorldLightingBuild and room/style generators are not part of rebuilding.
+- Actor controller clips, including the four parry-recovery cels outside the
+  standard folders, retain their normal/material companions, albedo, pivots and
+  timing. Existing parry hold70ms/end280ms remains unchanged.
 - Secondary _NormalMap textures preserve source GUIDs/rects/pivots/PPU. Current
   maps are draft alpha/material-region bevels, independent of painted luminance;
   anatomical/armor/roof authoring and complete frame/mirror review remain milestone B.
@@ -550,7 +586,7 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
 
 ## UI presentation (dungeon skin 2026-10-19; legacy Shogun migration retained)
 
-- Final builder order is ShogunTheme, WorldLightingBuild, CombatR7Build, then
+- Final presentation order is ShogunTheme, CombatR7Build, then
   DungeonUISkin for menu/help/Collection/tutorial/pause/results/Continue only.
   Original Japan assets/objects remain preserved and disabled. The final
   BlackletterUILayout/DungeonMainMenuBuild pass presents a static320x180 dungeon
@@ -657,9 +693,18 @@ prototype bindings above. Nonparticle feedback and gameplay contracts remain.
 Hanging combat lantern integrated2026-10-21 from branch
 `micharel09/combat-hanging-light`:
   Original KayKit FBX472triangles unchanged; derived frame446 plus thin glass40,
-  total486submitted lantern triangles. Chamber center3.37WU above floor; actual
+  486frame/glass triangles plus2central pixel-flame triangles; two rear pixel cards add4triangles. Chamber center3.37WU above floor; actual
   fire/light center3.405WU, centered horizontally and2WU in front of combat.
-  Main24/range16/flicker0, rear16/range15/+/-2percent. Private fire material;
+  Main24/range16/+/-6percent; rear16/range15/+/-2percent, all continuous Perlin.
+  Current local review replaces rejected NYKNCK/Pixie art with the approved Pinterest
+  ten-frame loop (100ms/cel), material-tinted brick red/orange/pale yellow, bottom anchored
+  on individual private runtime UV meshes; animation offsets0/.17/.33seconds.
+  Maximum projected source height front10/rear12native pixels, width80percent;
+  depth-tested flame draw follows environment blur. Current replacement passes focused Unity2/native35checks; user demo approval
+  remains pending. Integration receipts below refer to earlier art.
+  Rear bodies reuse their existing fire-free shadow mesh; emission follows each local light.
+  Pause and Slayer freeze/resume phase; destruction releases only the private mesh.
+  Original fire mesh/material/GUIDs stay intact. Private fire material;
   iron/wood emission0. Glass URP Lit black/alpha.12/emission(1,.38,.08),
   no specular, ZWrite off, no cast/receive shadow. Environment child follows
   Slayer hide/restore, excluded from flame flicker. Within the task dungeon baseline,

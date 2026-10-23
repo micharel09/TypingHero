@@ -15,7 +15,7 @@ public sealed class ParryClashEmissionProbe : MonoBehaviour
     internal float birthDelta, birthAge, nextDelta, nextAge = -1, nextDisplacement;
     internal readonly Vector3[] birthPositions = new Vector3[24];
     readonly ParticleSystem.Particle[] particles = new ParticleSystem.Particle[40];
-    static readonly System.Reflection.FieldInfo Age = typeof(ParryClashBurst).GetField("debrisAge",
+    static readonly System.Reflection.FieldInfo Age = typeof(ImpactVfxBurst).GetField("debrisAge",
         System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
     void Update()
     {
@@ -50,7 +50,7 @@ public sealed partial class ParryClashTests
 {
     static PhysicalParticleSimulation.State ParticleState(ParryClashBurst burst, uint identity)
     {
-        var simulation = (PhysicalParticleSimulation)typeof(ParryClashBurst).GetField("simulation", Flags).GetValue(burst);
+        var simulation = (PhysicalParticleSimulation)typeof(ImpactVfxBurst).GetField("simulation", Flags).GetValue(burst);
         return simulation[(int)identity - 1];
     }
 
@@ -171,7 +171,7 @@ public sealed partial class ParryClashTests
         var spot = host.AddComponent<Light>();
         var child = new GameObject("Point"); child.transform.SetParent(host.transform);
         var point = child.AddComponent<Light>(); point.type = LightType.Point;
-        var rig = host.AddComponent<ClashLightingRig>(); Set(rig, "combatLight", spot); Set(rig, "parryLight", point); host.SetActive(true);
+        var rig = host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat; Set(rig, "combatLight", spot); Set(rig, "parryLight", point); host.SetActive(true);
         var compact = Burst(); compact.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
         Assert.That(point.intensity, Is.EqualTo(5)); Assert.That(spot.intensity, Is.Zero);
         Assert.That(point.range, Is.EqualTo(3.75f).Within(.001f));

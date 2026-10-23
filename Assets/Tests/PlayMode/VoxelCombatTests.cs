@@ -185,9 +185,14 @@ public sealed partial class ParryClashTests
     {
         var lightType=System.Type.GetType("UnityEngine.Rendering.Universal.Light2D, Unity.RenderPipelines.Universal.Runtime");
         var host=new GameObject("mixed lights");host.SetActive(false);owned.Add(host);var light=host.AddComponent(lightType);
-        var rig=host.AddComponent<ClashLightingRig>();Set(rig,"clashLight",light);host.SetActive(true);
-        for(int n=0;n<8;n++)Burst().Emit(Vector3.one,1,0,ParryClashBurst.Preset.BCompact);
+        var rig=host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat;Set(rig,"clashLight",light);
+        var localLight=host.AddComponent<Light>();Set(rig,"parryLight",localLight);host.SetActive(true);
         var weak=Voxel("Normal");weak.Emit(Vector3.up,1,0,9,Color.white);
+        Assert.That(localLight.range,Is.EqualTo(3.75f),"non-parry pulses retain the inactive local light range");
+        Assert.That(localLight.intensity,Is.Zero);
+        weak.Clear();
+        for(int n=0;n<8;n++)Burst().Emit(Vector3.one,1,0,ParryClashBurst.Preset.BCompact);
+        weak.Emit(Vector3.up,1,0,9,Color.white);
         var pulses=(System.Array)typeof(ClashLightingRig).GetField("pulses",Flags).GetValue(rig);
         for(int i=0;i<pulses.Length;i++)Assert.That(pulses.GetValue(i).GetType().GetField("owner").GetValue(pulses.GetValue(i)),Is.TypeOf<ParryClashBurst>());
         Assert.That((float)lightType.GetProperty("intensity").GetValue(light),Is.EqualTo(5));
@@ -196,7 +201,7 @@ public sealed partial class ParryClashTests
     public void ForwardArenaLightUsesCompactTimingAndClearsOnDisable()
     {
         var host=new GameObject("forward arena pulse");host.SetActive(false);owned.Add(host);
-        var light=host.AddComponent<Light>();var rig=host.AddComponent<ClashLightingRig>();
+        var light=host.AddComponent<Light>();var rig=host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat;
         Set(rig,"combatLight",light);host.SetActive(true);
         var burst=Burst();var point=new Vector3(2,3,0);burst.Emit(point,1,0,ParryClashBurst.Preset.BCompact);
         Assert.That(light.intensity,Is.EqualTo(5));Assert.That(light.transform.position,Is.EqualTo(point+new Vector3(0,2,-4)));

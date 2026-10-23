@@ -7,6 +7,7 @@ internal static class DungeonSceneTestFlow
 {
     internal static IEnumerator Start()
     {
+        yield return DungeonSession.I.LoadWorld(LightingTestAssets.Definition);
         DungeonSession.I.BeginGame();
         yield return Wait();
     }
@@ -20,7 +21,7 @@ internal static class DungeonSceneTestFlow
     internal static void Cleanup()
     {
         var session = DungeonSession.I;
-        var world = SceneManager.GetSceneByName(DungeonSession.WorldScene);
+        var world = SceneManager.GetSceneByName(LightingTestAssets.WorldScene);
         if (world.isLoaded) SceneManager.UnloadSceneAsync(world);
         Object.Destroy(session.gameObject);
     }

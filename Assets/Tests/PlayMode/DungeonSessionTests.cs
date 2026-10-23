@@ -11,7 +11,7 @@ public sealed class DungeonSessionTests
     [UnityTearDown]
     public IEnumerator Cleanup()
     {
-        foreach (var name in new[] { "MainMenu", DungeonSession.GameScene, DungeonSession.WorldScene })
+        foreach (var name in new[] { "MainMenu", DungeonSession.GameScene, LightingTestAssets.WorldScene })
         {
             var scene = SceneManager.GetSceneByName(name);
             if (scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
@@ -24,7 +24,7 @@ public sealed class DungeonSessionTests
     public IEnumerator WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause()
     {
         var session = owned = DungeonSession.I;
-        yield return session.LoadWorld();
+        yield return session.LoadWorld(LightingTestAssets.Definition);
         var world = session.World;
         var room = world.environment;
         var camera = world.view;
@@ -46,11 +46,16 @@ public sealed class DungeonSessionTests
             Assert.That(gate.links.Length, Is.GreaterThan(0));
             foreach (var link in gate.links)
             {
-                var owner = link.worldOwnsField ? world.objects[link.worldIndex] : link.local;
+                var owner = link.worldOwnsField ? world.Resolve(link.slot) : link.local;
                 var field = owner.GetType().GetField(link.field, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                 var actual = owner is Canvas canvas && link.field == "m_Camera" ? canvas.worldCamera : field.GetValue(owner);
-                Assert.That(actual, Is.EqualTo(link.worldOwnsField ? link.local : world.objects[link.worldIndex]), link.field);
+                Assert.That(actual, Is.EqualTo(link.worldOwnsField ? link.local : world.Resolve(link.slot)), link.field);
             }
+            var priorImpact = Object.FindObjectOfType<CombatCameraImpact>();
+            Assert.That(priorImpact, Is.Not.Null);
+            GamePauseController.SetEncounterReading(false);
+            priorImpact.Hit(Vector3.zero, Vector3.right, false, false); priorImpact.Advance(.03f);
+            Assert.That(priorImpact.Zoom, Is.EqualTo(.02f).Within(.00001f));
             EndlessRun.Restart();
             session.ReloadGameplay();
             yield return Wait(session);
@@ -59,12 +64,32 @@ public sealed class DungeonSessionTests
             Assert.That(world.view, Is.SameAs(camera));
             Assert.That(world.Arena.WorldTexture, Is.SameAs(texture));
             Assert.That(world.Arena.PresentationCamera, Is.SameAs(presenter));
+            var impact = Object.FindObjectOfType<CombatCameraImpact>();
+            Assert.That(impact, Is.Not.Null);
+            Assert.That(impact.Zoom, Is.Zero);
+            var listeners = impact.GetComponents<Cinemachine.CinemachineImpulseListener>();
+            Assert.That(listeners.Length, Is.EqualTo(2));
             GamePauseController.SetEncounterReading(false);
+            impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
+            Assert.That(impact.Zoom, Is.EqualTo(.02f).Within(.00001f));
             var slayer = Object.FindObjectOfType<PlayerSlayerMode>();
             slayer.Activate(10);
             Assert.That(slayer.IsActive, Is.True);
             Assert.That(world.environment.gameObject.activeSelf, Is.False);
             Assert.That(world.Arena.Cinematic, Is.True);
+            var virtualCamera = Object.FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
+            float heldLens = virtualCamera.m_Lens.OrthographicSize;
+            var pause = Object.FindObjectOfType<GamePauseController>();
+            pause.TogglePause(true);
+            yield return new WaitForSecondsRealtime(.12f);
+            Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(heldLens).Within(.00001f), "Slayer tween holds during Pause");
+            pause.Resume();
+            yield return new WaitForSecondsRealtime(.4f);
+            Assert.That(GamePauseController.IsPaused, Is.False);
+            Object.FindObjectOfType<SlayerScreenFX>().ExitSlayerFX();
+            GamePauseController.SetEncounterReading(true);
+            yield return new WaitForSecondsRealtime(.4f);
+            Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(5.625f).Within(.00001f), "Slayer exit completes through encounter results");
             GamePauseController.SetTutorialReading(true);
             session.ReturnToMenu();
             yield return Wait(session);
@@ -76,6 +101,8 @@ public sealed class DungeonSessionTests
             Assert.That(GamePauseController.InputBlocked, Is.False);
             Assert.That(Object.FindObjectsOfType<PlayerHealth>(), Is.Empty);
             Assert.That(Object.FindObjectsOfType<SkeletonController>(), Is.Empty);
+            Assert.That(Object.FindObjectsOfType<CombatCameraImpact>(), Is.Empty);
+            Assert.That(world.Arena.ImpactZoom, Is.Zero);
             Assert.That(Object.FindObjectsOfType<CombatHUDLayout>(), Is.Empty);
             Assert.That(Object.FindObjectsOfType<ClashLightingRig>(), Is.Empty);
             Assert.That(CombatSession.I, Is.Null);

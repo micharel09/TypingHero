@@ -392,7 +392,7 @@ public sealed partial class ParryClashTests
         var lightType = System.Type.GetType("UnityEngine.Rendering.Universal.Light2D, Unity.RenderPipelines.Universal.Runtime");
         var host = new GameObject("compact pulse rig"); host.SetActive(false); owned.Add(host);
         var light = host.AddComponent(lightType);
-        var rig = host.AddComponent<ClashLightingRig>(); Set(rig, "clashLight", light); host.SetActive(true);
+        var rig = host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat; Set(rig, "clashLight", light); host.SetActive(true);
         var burst = Burst(); burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
         var pulses = (System.Array)typeof(ClashLightingRig).GetField("pulses", Flags).GetValue(rig);
         var render = typeof(ClashLightingRig).GetMethod("Render", Flags);
@@ -418,7 +418,7 @@ public sealed partial class ParryClashTests
         var lightType = System.Type.GetType("UnityEngine.Rendering.Universal.Light2D, Unity.RenderPipelines.Universal.Runtime");
         var host = new GameObject("paused compact light"); host.SetActive(false); owned.Add(host);
         var light = host.AddComponent(lightType);
-        var rig = host.AddComponent<ClashLightingRig>(); Set(rig, "clashLight", light); host.SetActive(true);
+        var rig = host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat; Set(rig, "clashLight", light); host.SetActive(true);
         var burst = Burst(); burst.Emit(Vector3.one, 1, 0, ParryClashBurst.Preset.BCompact);
         var intensity = lightType.GetProperty("intensity");
         GamePauseController.SetTutorialReading(true);
@@ -440,7 +440,7 @@ public sealed partial class ParryClashTests
         Assert.That(lightType, Is.Not.Null);
         var host = new GameObject("pulse rig"); host.SetActive(false); owned.Add(host);
         var light = host.AddComponent(lightType);
-        var rig = host.AddComponent<ClashLightingRig>(); Set(rig,"clashLight",light);
+        var rig = host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat; Set(rig,"clashLight",light);
         host.SetActive(true);
         var first = Burst(); first.Emit(Vector3.one,1);
         var second = Burst(); second.Emit(Vector3.right*2,1);

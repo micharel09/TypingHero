@@ -13,7 +13,7 @@ using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 
 // Observation only: no command dispatcher, setters, or input injection.
-[DefaultExecutionOrder(1000)]
+[DefaultExecutionOrder(2000)]
 public sealed class GameLoopProbe : MonoBehaviour
 {
     [Serializable] sealed class SortingFrame
@@ -52,7 +52,9 @@ public sealed class GameLoopProbe : MonoBehaviour
         public float enemyContactIn, timeScale;
         public string cel, sparkCel;
         public Vector2 contact;
-        public Vector3 sparkPoint;
+        public Vector3 sparkPoint, cameraPosition, cameraCorrection;
+        public int impactKind, impactSerial, normalImpacts, parryImpacts, receivedImpacts, lethalImpacts, impulseCount;
+        public float impactZoom, cameraBase, cameraHalfHeight, cameraFov, unscaledNow;
         public int parryParticleCount, parryBurstCount, parrySampleCount;
         public ParryParticleFrame[] parryParticles;
     }
@@ -110,6 +112,8 @@ public sealed class GameLoopProbe : MonoBehaviour
     PlayerHealth combatPlayer;
     ParrySystem combatParry;
     PlayerSlayerMode combatSlayer;
+    CombatCameraImpact combatImpact;
+    DungeonArenaCamera combatArena;
     readonly System.Collections.Generic.List<AnimatorClipInfo> combatClips = new();
     readonly System.Collections.Generic.Dictionary<AnimationClip, float> contactTimes = new();
     float ContactInRender()
@@ -138,6 +142,23 @@ public sealed class GameLoopProbe : MonoBehaviour
         if (!combatPlayer) combatPlayer = FindObjectOfType<PlayerHealth>();
         if (!combatParry) combatParry = FindObjectOfType<ParrySystem>();
         if (!combatSlayer) combatSlayer = FindObjectOfType<PlayerSlayerMode>();
+        if (!combatImpact) combatImpact = FindObjectOfType<CombatCameraImpact>();
+        if (!combatArena && Camera.main) combatArena = Camera.main.GetComponent<DungeonArenaCamera>();
+        combatFrame.impactKind = combatImpact ? (int)combatImpact.ActiveKind : 0;
+        combatFrame.impactSerial = combatImpact ? combatImpact.Serial : 0;
+        combatFrame.normalImpacts = combatImpact ? combatImpact.NormalCount : 0;
+        combatFrame.parryImpacts = combatImpact ? combatImpact.ParryCount : 0;
+        combatFrame.receivedImpacts = combatImpact ? combatImpact.ReceivedCount : 0;
+        combatFrame.lethalImpacts = combatImpact ? combatImpact.LethalCount : 0;
+        combatFrame.impulseCount = combatImpact ? combatImpact.ImpulseCount : 0;
+        combatFrame.impactZoom = combatImpact ? combatImpact.Zoom : 0;
+        combatFrame.cameraBase = Camera.main ? Camera.main.orthographicSize : 0;
+        combatFrame.cameraHalfHeight = combatArena ? combatArena.EffectiveHalfHeight : 0;
+        combatFrame.cameraFov = Camera.main ? Camera.main.fieldOfView : 0;
+        combatFrame.cameraPosition = Camera.main ? Camera.main.transform.position : default;
+        var brain = Camera.main ? Camera.main.GetComponent<Cinemachine.CinemachineBrain>() : null;
+        combatFrame.cameraCorrection = brain ? brain.CurrentCameraState.PositionCorrection : default;
+        combatFrame.unscaledNow = Time.unscaledTime;
         ObserveRenderParry();
         combatFrame.playerHP = combatPlayer ? combatPlayer.Current : -1;
         combatFrame.parries = CombatSession.I ? CombatSession.I.Parries : 0;
@@ -273,7 +294,10 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Rect tutorialPanel;
         public GuideArrow[] tutorialArrows;
         public float cameraOrtho, multiplier, scorePulse, scoreZoom, redAlpha;
-        public float cameraFieldOfView;
+        public float cameraFieldOfView, cameraImpactZoom, cameraEffectiveHalfHeight;
+        public Vector3 cameraPosition;
+        public string cameraImpactKind, cameraImpactLastKind;
+        public int cameraImpactSerial, cameraNormalImpacts, cameraParryImpacts, cameraReceivedImpacts, cameraLethalImpacts, cameraImpulseCount;
         public bool cameraPerspective;
         public float worldRenderScale;
         public int worldWidth, worldHeight, worldTextureId, presentationCameras;
@@ -574,6 +598,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             var env = DungeonSession.Current && DungeonSession.Current.World
                 ? DungeonSession.Current.World.environment : Read<Transform>(fx, "environment");
             var arena = Camera.main ? Camera.main.GetComponent<DungeonArenaCamera>() : null;
+            var impact = FindObjectOfType<CombatCameraImpact>();
             var pulseRig = FindObjectsOfType<ClashLightingRig>(true).FirstOrDefault(rig => Read<Light>(rig, "combatLight"));
             var arenaPulse = Read<Light>(pulseRig, "combatLight");
             var red = Read<SpriteRenderer>(fx, "redOverlay");
@@ -723,6 +748,17 @@ public sealed class GameLoopProbe : MonoBehaviour
                 leaderboardOpen = LeaderboardModal.IsOpen, cameraOrtho = Camera.main ? Camera.main.orthographicSize : 0,
                 cameraFieldOfView = Camera.main ? Camera.main.fieldOfView : 0,
                 cameraPerspective = Camera.main && !Camera.main.orthographic,
+                cameraImpactZoom = impact ? impact.Zoom : 0,
+                cameraEffectiveHalfHeight = arena ? arena.EffectiveHalfHeight : 0,
+                cameraPosition = Camera.main ? Camera.main.transform.position : default,
+                cameraImpactKind = impact ? impact.ActiveKind.ToString() : "None",
+                cameraImpactLastKind = impact ? impact.LastKind.ToString() : "None",
+                cameraImpactSerial = impact ? impact.Serial : 0,
+                cameraNormalImpacts = impact ? impact.NormalCount : 0,
+                cameraParryImpacts = impact ? impact.ParryCount : 0,
+                cameraReceivedImpacts = impact ? impact.ReceivedCount : 0,
+                cameraLethalImpacts = impact ? impact.LethalCount : 0,
+                cameraImpulseCount = impact ? impact.ImpulseCount : 0,
                 worldWidth = arena && arena.WorldTexture ? arena.WorldTexture.width : 0,
                 worldHeight = arena && arena.WorldTexture ? arena.WorldTexture.height : 0,
                 worldTextureId = arena && arena.WorldTexture ? arena.WorldTexture.GetInstanceID() : 0,

@@ -12,6 +12,10 @@ using UnityEditor;
 [DefaultExecutionOrder(1000)]
 public class SlayerScreenFX : MonoBehaviour
 {
+    public WorldLightingProfile lighting;
+    float NormalOrtho => lighting ? lighting.normalOrtho : normalOrtho;
+    float SlayerOrtho => lighting ? lighting.slayerOrtho : slayerOrtho;
+
     [Header("Refs")]
     [SerializeField] CinemachineVirtualCamera vcam;
     [SerializeField] RectTransform topBar;
@@ -37,6 +41,7 @@ public class SlayerScreenFX : MonoBehaviour
     [SerializeField] bool useUnscaledTime = true;
     [SerializeField] bool logs = false;
     [SerializeField] CinemachineImpulseSource enterShake;
+    [SerializeField] CombatCameraImpact cameraImpact;
     [SerializeField, Range(0f, 0.2f)] float shakeDelay = 0.03f;
 
     // ---------- Simple Toggle Group ----------
@@ -177,7 +182,7 @@ public class SlayerScreenFX : MonoBehaviour
         if (typingPanel) typingPanel.enabled = _trayWasEnabled;
     }
 
-    void OnDisable() { StopAllCoroutines(); EndPresentation(); SetBarsInstant(0); SetRedInstant(0); SetZoomInstant(normalOrtho); }
+    void OnDisable() { if (cameraImpact) cameraImpact.ExitSlayer(); StopAllCoroutines(); EndPresentation(); SetBarsInstant(0); SetRedInstant(0); SetZoomInstant(NormalOrtho); }
 
 
     void Awake()
@@ -188,7 +193,7 @@ public class SlayerScreenFX : MonoBehaviour
 
         SetBarsInstant(0f);
         SetRedInstant(0f);
-        SetZoomInstant(normalOrtho);
+        SetZoomInstant(NormalOrtho);
     }
 
     // Public API
@@ -198,17 +203,11 @@ public class SlayerScreenFX : MonoBehaviour
         if (autoShowOnEnter) SetGroup(true);
 
         StopAllCoroutines();
-        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, slayerOrtho, zoomDuration, zoomCurve));
+        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, SlayerOrtho, zoomDuration, zoomCurve));
         StartCoroutine(CoBars(_barReveal * barHeight, barHeight, barDuration, barCurve));
         StartCoroutine(CoRed(GetRedAlpha(), redAlpha, redFade));
-        if (enterShake) StartCoroutine(CoShake());
+        if (cameraImpact) cameraImpact.EnterSlayer(enterShake, shakeDelay);
         if (logs) Debug.Log("[SlayerScreenFX] Enter");
-    }
-
-    IEnumerator CoShake()
-    {
-        if (shakeDelay > 0f) yield return new WaitForSecondsRealtime(shakeDelay);
-        enterShake.GenerateImpulse();
     }
 
     public void ExitSlayerFX()
@@ -216,9 +215,10 @@ public class SlayerScreenFX : MonoBehaviour
         // Teardown can disable this root before the player's exit notification.
         // OnDisable already restores the presentation instantly; no tween can run.
         if (!isActiveAndEnabled) { EndPresentation(); return; }
+        if (cameraImpact) cameraImpact.ExitSlayer();
         EndPresentation();
         StopAllCoroutines();
-        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, normalOrtho, zoomDuration, zoomCurve));
+        StartCoroutine(CoZoom(vcam.m_Lens.OrthographicSize, NormalOrtho, zoomDuration, zoomCurve));
         StartCoroutine(CoBars(_barReveal * barHeight, 0f, barDuration, barCurve));
         StartCoroutine(CoRed(GetRedAlpha(), 0f, redFade));
         if (autoHideOnExit) StartCoroutine(CoDisableAfter(redFade));
@@ -278,7 +278,7 @@ public class SlayerScreenFX : MonoBehaviour
     }
 
     // Helpers
-    float Dt(float dur) => (useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime) / Mathf.Max(0.0001f, dur);
+    float Dt(float dur) => GamePauseController.IsPaused && !GamePauseController.ResultOverlayVisible ? 0 : (useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime) / Mathf.Max(0.0001f, dur);
 
     void SetBarsInstant(float height)
     {

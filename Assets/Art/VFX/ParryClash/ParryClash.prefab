@@ -19451,6 +19451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494186e6ee0f44cb8feb13cd8e04231a, type: 3}
   m_Name:
   m_EditorClassIdentifier:
+  impactProfile: {fileID: 11400000, guid: 30c4a45210684307abf25edd76990d6d, type: 2}
   preset: 0
   lengthSupportVersion: 1
   compactVersion: 1

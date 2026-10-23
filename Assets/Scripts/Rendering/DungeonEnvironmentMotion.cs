@@ -3,10 +3,12 @@ using UnityEngine;
 // One scaled clock for atmosphere, hanging cloth and runes; no shader _Time drift.
 public sealed class DungeonEnvironmentMotion : MonoBehaviour
 {
+    public WorldLightingProfile profile;
     [SerializeField] Renderer[] atmosphere = new Renderer[0];
     [SerializeField] ParticleSystem[] weather = new ParticleSystem[0];
     [SerializeField] MeshFilter banner;
     [SerializeField] Light runeLight;
+    public Light RuneLight => runeLight;
     Mesh original, deformed;
     Vector3[] rest, vertices;
     MaterialPropertyBlock block;
@@ -19,6 +21,8 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
     bool restoreWeather;
     void OnEnable()
     {
+        if (!profile) throw new System.InvalidOperationException(name + ": missing world lighting profile");
+        if (runeLight && profile.rune) profile.rune.Apply(runeLight);
         block = new MaterialPropertyBlock();
         if (banner && banner.sharedMesh)
         {
@@ -81,16 +85,14 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
     }
     void Apply()
     {
-        float noise = Mathf.Clamp01(Mathf.PerlinNoise(11.17f + age * .11f, 29.31f + age * .07f));
-        float envelope = .5f + .5f * Mathf.Sin(2 * Mathf.PI * age / 12);
-        float pulse = .76f + .18f * noise + .06f * envelope;
+        float pulse = profile.RuneGain(age);
         foreach (var renderer in atmosphere) if (renderer)
         {
             renderer.GetPropertyBlock(block);
             block.SetFloat("_DungeonAge", age); block.SetFloat("_DungeonPulse", pulse);
             renderer.SetPropertyBlock(block);
         }
-        if (runeLight) runeLight.intensity = .7f * pulse;
+        if (runeLight) runeLight.intensity = profile.rune.intensity * pulse;
         if (!deformed) return;
         float top = original.bounds.max.y, span = Mathf.Max(.001f, original.bounds.size.y);
         for (int i = 0; i < vertices.Length; i++)

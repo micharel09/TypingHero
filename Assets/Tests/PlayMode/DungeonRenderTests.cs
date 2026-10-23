@@ -49,7 +49,7 @@ public sealed class DungeonRenderTests
         var weather=new GameObject("rain");weather.transform.SetParent(host.transform);
         var rain=weather.AddComponent<ParticleSystem>();
         var rune=host.AddComponent<Light>();
-        var motion=host.AddComponent<DungeonEnvironmentMotion>();
+        var motion=host.AddComponent<DungeonEnvironmentMotion>(); motion.profile = LightingTestAssets.Definition.lighting;
         var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
         typeof(DungeonEnvironmentMotion).GetField("runeLight",flags).SetValue(motion,rune);
         typeof(DungeonEnvironmentMotion).GetField("banner",flags).SetValue(motion,filter);
@@ -100,7 +100,7 @@ public sealed class DungeonRenderTests
     {
         host=new GameObject("rune gain contract");host.SetActive(false);
         var renderer=host.AddComponent<MeshRenderer>();var light=host.AddComponent<Light>();
-        var motion=host.AddComponent<DungeonEnvironmentMotion>();
+        var motion=host.AddComponent<DungeonEnvironmentMotion>(); motion.profile = LightingTestAssets.Definition.lighting;
         var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
         var type=typeof(DungeonEnvironmentMotion);
         type.GetField("atmosphere",flags).SetValue(motion,new Renderer[]{renderer});
@@ -131,6 +131,7 @@ public sealed class DungeonRenderTests
     {
         if (host) Object.Destroy(host);
         yield return null;
+        LightingTestAssets.Cleanup();
     }
     [UnityTest, Category("Quick")]
     public IEnumerator MainLampStaysConstantAcrossPauseAndCinematicRestore()
@@ -139,8 +140,8 @@ public sealed class DungeonRenderTests
         host=new GameObject("fixed key lifecycle");host.SetActive(false);
         var light=host.AddComponent<Light>();var torch=host.AddComponent<DungeonTorchLight>();
         var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
-        typeof(DungeonTorchLight).GetField("baseIntensity",flags).SetValue(torch,40f);
-        typeof(DungeonTorchLight).GetField("flickerAmplitude",flags).SetValue(torch,0f);
+        torch.profile = LightingTestAssets.Light(40, 0);
+
         try
         {
             Time.timeScale=1;host.SetActive(true);
@@ -156,9 +157,10 @@ public sealed class DungeonRenderTests
     public IEnumerator TorchFlickerIsBoundedAndPreservesPhaseAcrossPauseAndHiding()
     {
         float previousScale = Time.timeScale;
-        host = new GameObject("torch lifecycle test");
+        host = new GameObject("torch lifecycle test"); host.SetActive(false);
         var light = host.AddComponent<Light>();
         var torch = host.AddComponent<DungeonTorchLight>();
+        torch.profile = LightingTestAssets.Light(22, .02f);
         var renderer=host.AddComponent<MeshRenderer>();
         var material=new Material(Shader.Find("Universal Render Pipeline/Lit"));
         material.SetColor("_EmissionColor",new Color(3,1,.2f));renderer.sharedMaterial=material;
@@ -167,7 +169,7 @@ public sealed class DungeonRenderTests
         var block=new MaterialPropertyBlock();
         try
         {
-            Time.timeScale = 1;
+            Time.timeScale = 1; host.SetActive(true);
             float minimum = light.intensity, maximum = light.intensity;
             for (int i = 0; i < 20; i++)
             {
@@ -196,6 +198,85 @@ public sealed class DungeonRenderTests
     }
 
     [UnityTest, Category("Quick")]
+    public IEnumerator PixelLanternSharesClockAndPreservesItsSourceMesh()
+    {
+        foreach (var configuration in new[] { new Vector3(24, .06f, 0), new Vector3(16, .02f, .17f), new Vector3(16, .02f, .33f) })
+        {
+            float previousScale = Time.timeScale;
+            host = new GameObject("pixel lantern lifecycle"); host.SetActive(false);
+            var light = host.AddComponent<Light>();
+            var torch = host.AddComponent<DungeonTorchLight>();
+            var flame = new GameObject("pixel flame"); flame.transform.SetParent(host.transform, false);
+            var filter = flame.AddComponent<MeshFilter>();
+            var original = new Mesh();
+            original.vertices = new[] { Vector3.zero, Vector3.right, Vector3.up };
+            original.uv = new[] { new Vector2(0, .5f), new Vector2(.2f, .5f), Vector2.up };
+            original.triangles = new[] { 0, 2, 1 }; filter.sharedMesh = original;
+            var renderer = flame.AddComponent<MeshRenderer>();
+            var material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            material.SetColor("_EmissionColor", Color.white); renderer.sharedMaterial = material;
+            var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+            var type = typeof(DungeonTorchLight);
+            type.GetField("pixelFlame", flags).SetValue(torch, filter);
+            type.GetField("flameRenderers", flags).SetValue(torch, new Renderer[] { renderer });
+            torch.profile = LightingTestAssets.Light(configuration.x, configuration.y);
+            torch.profile.flame = LightingTestAssets.Flame(original, material);
+
+            type.GetField("flameTimeOffset", flags).SetValue(torch, configuration.z);
+
+
+
+            var age = type.GetField("age", flags);
+            var apply = type.GetMethod("Apply", flags);
+            var block = new MaterialPropertyBlock();
+            Mesh owned = null;
+            try
+            {
+                Time.timeScale = 1; host.SetActive(true); owned = filter.sharedMesh;
+                Assert.That(owned, Is.Not.SameAs(original));
+                float minimum = float.MaxValue, maximum = 0;
+                for (int i = 0; i < 300; i++)
+                {
+                    float seconds = i * .037f; age.SetValue(torch, seconds); apply.Invoke(torch, null);
+                    Assert.That(light.intensity, Is.InRange(configuration.x * (1 - configuration.y), configuration.x * (1 + configuration.y)));
+                    minimum = Mathf.Min(minimum, light.intensity); maximum = Mathf.Max(maximum, light.intensity);
+                    renderer.GetPropertyBlock(block);
+                    Assert.That(block.GetColor("_EmissionColor").r, Is.EqualTo(light.intensity / configuration.x).Within(.00001f));
+                    int cel = Mathf.FloorToInt((seconds + configuration.z) / .1f) % 10;
+                    Assert.That(owned.uv[0].x, Is.EqualTo((cel % 5) / 5f).Within(.00001f));
+                    Assert.That(owned.uv[0].y, Is.EqualTo(.5f - (cel / 5) / 2f).Within(.00001f));
+                    Assert.That(owned.vertices, Is.EqualTo(original.vertices), "flame geometry and root never deform");
+                }
+                Assert.That(maximum - minimum, Is.GreaterThan(.1f));
+                Time.timeScale = 0;
+                float heldAge = (float)age.GetValue(torch), heldLight = light.intensity;
+                var heldUV = owned.uv;
+                for (int i = 0; i < 3; i++) yield return null;
+                Assert.That(age.GetValue(torch), Is.EqualTo(heldAge));
+                Assert.That(light.intensity, Is.EqualTo(heldLight));
+                Assert.That(owned.uv, Is.EqualTo(heldUV));
+                host.SetActive(false); host.SetActive(true);
+                Assert.That(age.GetValue(torch), Is.EqualTo(heldAge));
+                Assert.That(light.intensity, Is.EqualTo(heldLight));
+                Assert.That(filter.sharedMesh, Is.SameAs(owned));
+                Time.timeScale = 1; yield return null;
+                Assert.That((float)age.GetValue(torch), Is.GreaterThan(heldAge));
+                Assert.That(original.uv[0], Is.EqualTo(new Vector2(0, .5f)));
+                Assert.That(original.uv[1], Is.EqualTo(new Vector2(.2f, .5f)));
+                Object.Destroy(host); yield return null; yield return null;
+                Assert.That(owned == null, Is.True, "private mesh is released with its owner");
+                Assert.That(original != null, Is.True);
+            }
+            finally
+            {
+                Time.timeScale = previousScale;
+                if (host) Object.Destroy(host);
+                Object.Destroy(material); Object.Destroy(original);
+            }
+        }
+    }
+
+    [UnityTest, Category("Quick")]
     public IEnumerator OwnedWorldTextureProjectsToRealViewportAndReleasesOnDisable()
     {
         host = new GameObject("arena projection test"); host.SetActive(false);
@@ -203,7 +284,7 @@ public sealed class DungeonRenderTests
         camera.orthographicSize = 5.625f; camera.transform.position = new Vector3(0, 4, -10);
         camera.transform.rotation = Quaternion.Euler(10, 0, 0);
         var originalRect = new Rect(.1f, .15f, .8f, .7f); camera.rect = originalRect;
-        var arena = host.AddComponent<DungeonArenaCamera>(); host.SetActive(true);
+        var arena = host.AddComponent<DungeonArenaCamera>(); arena.profile = LightingTestAssets.Definition.lighting; host.SetActive(true);
         var texture = arena.WorldTexture;
         Assert.That(texture.width, Is.EqualTo(320)); Assert.That(texture.height, Is.EqualTo(180));
         Assert.That(texture.format, Is.EqualTo(RenderTextureFormat.ARGBHalf));

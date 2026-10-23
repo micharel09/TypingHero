@@ -11189,13 +11189,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 278f07bd83d7b7e449387d2872c2aa16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   nameInput: {fileID: 1235208759}
   playButton: {fileID: 1055411944}
   tutorialButton: {fileID: 1513064614}
   difficultySelector: {fileID: 734397547}
   errorLabel: {fileID: 1720977400}
+  worldDefinition: {fileID: 11400000, guid: 7ae64698e641818e5b3ab2a77cbbc620, type: 2}
   gameSceneName: SampleScene
   autoFocusInput: 1
   help: {fileID: 1570127164}

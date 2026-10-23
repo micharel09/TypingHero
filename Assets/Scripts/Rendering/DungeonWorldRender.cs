@@ -5,7 +5,6 @@ using UnityEngine.Rendering.Universal;
 public sealed class DungeonWorldRender : ScriptableRendererFeature
 {
     [SerializeField] Shader blurShader;
-    [SerializeField, Range(0, .75f)] float blurRadius = .75f;
     Material blur;
     EnvironmentPass environment;
     ActorPass actors;
@@ -24,9 +23,9 @@ public sealed class DungeonWorldRender : ScriptableRendererFeature
             return;
         }
         if (!data.cameraData.camera.TryGetComponent<DungeonArenaCamera>(out var arena) || !arena.WorldTexture) return;
-        if (blur && blurRadius > 0 && !arena.Cinematic)
+        if (blur && arena.profile.blurRadius > 0 && !arena.Cinematic)
         {
-            environment.Configure(arena, blurRadius);
+            environment.Configure(arena, arena.profile.blurRadius);
             renderer.EnqueuePass(environment);
         }
         renderer.EnqueuePass(actors);
@@ -59,7 +58,7 @@ public sealed class DungeonWorldRender : ScriptableRendererFeature
             var color = data.cameraData.renderer.cameraColorTargetHandle;
             var scratch = arena.EnvironmentScratch;
             var cmd = CommandBufferPool.Get("Dungeon environment depth blur");
-            material.SetVector("_DungeonFocus", new Vector4(focus + .75f, 3f, radius, 0));
+            material.SetVector("_DungeonFocus", new Vector4(focus + arena.profile.focusOffset, arena.profile.focusFalloff, radius, 0));
             material.SetVector("_BlitTexture_TexelSize", new Vector4(1f / color.rt.width, 1f / color.rt.height, color.rt.width, color.rt.height));
             Blitter.BlitCameraTexture(cmd, color, scratch, material, 0);
             Blitter.BlitCameraTexture(cmd, scratch, color, material, 1);

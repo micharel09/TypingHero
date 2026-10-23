@@ -182,3 +182,22 @@ term_493bae17-a400-4301-9582-111f117ae4ee. Old e17 player, latest916 helpers,
 profiles and captures removed after verification. Source is locally committed;
 no push or remote merge. Retain branch until reviewed/integrated; stop owned host
 and delete this demo temp only when the user finishes play review.
+
+
+## Push to main (2026-10-23)
+
+User authorized pushing the reviewed original-sprite parry/typed follow-up to main.
+Merged origin/main bab5ee6 (lighting profiles, MetalClash, camera impact and flame
+updates); only verification documentation conflicted, both histories retained.
+Pinned Unity2022.3.25f1/fly-server input
+9b7d4191c6951aa543a79a4e8efe8e198d5cafccf1467d473292e88a102d1e69:
+strict repeat serialization and98/98 focused PlayMode tests PASS,0failed/skipped.
+Selection: PlayerParryTests, CombatCameraImpactTests, ParryClashTests,
+LightingProfileTests, CombatFeedbackTests and three actual parry/damage GameplayTests.
+No new WebGL player was built: prior33 Unity/20 native results remain specific to
+916c752 integration, and the running8136 demo remains that reviewed binary.
+Latest merge has new Unity integration evidence, no new rendered-motion claim.
+Private temporary runner uses same global lock and unchanged disk/toolchain gates.
+After remote ancestry verification, remove integrated child branch/worktree and
+owned private runner/results/helpers; retain8136 host/player for user review.
+Parent kaluga WIP is preserved.

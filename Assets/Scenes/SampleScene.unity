@@ -1567,7 +1567,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 557aafa8264161692ba32c3e2674426a, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2429,7 +2429,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 557aafa8264161692ba32c3e2674426a, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2999,8 +2999,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36ac91c22d5249ce90be47bc3875691f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
+  lighting: {fileID: 11400000, guid: 8dad05f8f56b4f23492f502d6ca0d526, type: 2}
   target: {fileID: 0}
   anchorFloorDuringZoom: 0
   normalOrtho: 5.625
@@ -5311,120 +5312,129 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ef60b29ff5846cebd832c910c82af56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
+  worldDefinition: {fileID: 11400000, guid: 7ae64698e641818e5b3ab2a77cbbc620, type: 2}
   links:
   - local: {fileID: 25143706}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 85698843}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 176316826}
     field: targetCam
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 198690470}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 265721051}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 300332694}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 463689133}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 89624897}
     field: player
-    worldIndex: 1
+    slot: 1
     worldOwnsField: 1
   - local: {fileID: 515790490}
     field: enemy
-    worldIndex: 1
+    slot: 1
     worldOwnsField: 1
   - local: {fileID: 962495698}
     field: framingLayout
-    worldIndex: 1
+    slot: 1
+    worldOwnsField: 1
+  - local: {fileID: 1604031849}
+    field: impact
+    slot: 1
     worldOwnsField: 1
   - local: {fileID: 567804062}
     field: targetCamera
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 567804062}
     field: cinemachineBrain
-    worldIndex: 2
+    slot: 2
     worldOwnsField: 0
   - local: {fileID: 598236419}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 627287390}
     field: m_Camera
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 782845587}
     field: environment
-    worldIndex: 3
+    slot: 3
     worldOwnsField: 0
   - local: {fileID: 818723652}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 841989436}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 948003975}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 952182903}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 962495698}
     field: targetCamera
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 976523869}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 1264025837}
     field: target
-    worldIndex: 0
+    slot: 0
+    worldOwnsField: 0
+  - local: {fileID: 1604031849}
+    field: arena
+    slot: 1
     worldOwnsField: 0
   - local: {fileID: 1628099933}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 1642727188}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 1715801283}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 1743526960}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 1841149051}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   - local: {fileID: 1941320483}
     field: target
-    worldIndex: 0
+    slot: 0
     worldOwnsField: 0
   roots:
   - {fileID: 11495570}
@@ -5942,7 +5952,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 557aafa8264161692ba32c3e2674426a, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7634,8 +7644,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e969c153b9044e4488c47f7ccca6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
+  lighting: {fileID: 11400000, guid: 8dad05f8f56b4f23492f502d6ca0d526, type: 2}
   vcam: {fileID: 1604031847}
   topBar: {fileID: 425705950}
   bottomBar: {fileID: 2059105651}
@@ -7698,6 +7709,7 @@ MonoBehaviour:
   useUnscaledTime: 1
   logs: 0
   enterShake: {fileID: 782845586}
+  cameraImpact: {fileID: 1604031849}
   shakeDelay: 0.03
   toggleGroup:
   - {fileID: 1606792141}
@@ -9138,7 +9150,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 557aafa8264161692ba32c3e2674426a, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9237,7 +9249,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 557aafa8264161692ba32c3e2674426a, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17670,6 +17682,8 @@ GameObject:
   - component: {fileID: 1604031848}
   - component: {fileID: 1604031847}
   - component: {fileID: 1604031846}
+  - component: {fileID: 1604031849}
+  - component: {fileID: 1604031850}
   m_Layer: 0
   m_Name: CM vcam
   m_TagString: Untagged
@@ -17747,14 +17761,52 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604031845}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.043619387, y: -0, z: -0, w: 0.99904823}
-  m_LocalPosition: {x: -0.17452347, y: -0.012647748, z: -17.763384}
+  m_LocalRotation: {x: 0.04361939, y: -0, z: -0, w: 0.99904823}
+  m_LocalPosition: {x: -0.17452347, y: -0.012647629, z: -17.763384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1364320445}
   m_Father: {fileID: 542294579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604031849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604031845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2081cdcff54ce5bfc10807c7dadcab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  arena: {fileID: 0}
+  health: {fileID: 1837079558}
+  recoil: {fileID: 3482038794572103695}
+--- !u!114 &1604031850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604031845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  m_ApplyAfter: 2
+  m_ChannelMask: 2
+  m_Gain: 1
+  m_Use2DDistance: 1
+  m_UseCameraSpace: 0
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 0
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1606471233
 GameObject:
   m_ObjectHideFlags: 0
@@ -18125,7 +18177,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 557aafa8264161692ba32c3e2674426a, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18507,7 +18559,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 557aafa8264161692ba32c3e2674426a, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24864,13 +24916,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 542ad72ff0444f978a30cae3b508515b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   clashLight: {fileID: 0}
   combatLight: {fileID: 1069669185}
   parryLight: {fileID: 1364607458}
-  duration: 0.14
-  maximumIntensity: 3
+  profile: {fileID: 11400000, guid: 1bc41744fb1afc15a84a0ef674de7f2a, type: 2}
 --- !u!4 &2032436158
 Transform:
   m_ObjectHideFlags: 0
@@ -25918,6 +25969,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8555203084426588525, guid: 9f7352f9e18e0aef6b629fdfa9277f67, type: 3}
+      propertyPath: profile
+      value:
+      objectReference: {fileID: 11400000, guid: 1bc41744fb1afc15a84a0ef674de7f2a, type: 2}
     - target: {fileID: 8995898044644220670, guid: 9f7352f9e18e0aef6b629fdfa9277f67, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -26393,6 +26448,10 @@ PrefabInstance:
       propertyPath: groundY
       value: -2.9025507
       objectReference: {fileID: 0}
+    - target: {fileID: 6140051893238759780, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: cameraImpact
+      value:
+      objectReference: {fileID: 1604031849}
     - target: {fileID: 7358457235006824576, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
       propertyPath: m_CastShadows
       value: 2
@@ -26413,6 +26472,10 @@ PrefabInstance:
       propertyPath: hitStopper
       value: 
       objectReference: {fileID: 75867772}
+    - target: {fileID: 8547728396154669619, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+      propertyPath: cameraImpact
+      value:
+      objectReference: {fileID: 1604031849}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -26444,6 +26507,17 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 7270377225842179987, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
   m_PrefabInstance: {fileID: 3482038794572103693}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3482038794572103695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6649342182655876260, guid: bbfeec1085ad0dd4d803764c252d07b3, type: 3}
+  m_PrefabInstance: {fileID: 3482038794572103693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!4 &4270550857376948404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1689848629239462568, guid: 2be969c4c7a135b49b7cbbbed3c0a0d1, type: 3}

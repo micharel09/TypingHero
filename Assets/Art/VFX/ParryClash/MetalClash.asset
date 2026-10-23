@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6269f58f878c4c1eaaaa146bb2acc8fd, type: 3}
+  m_Name: MetalClash
+  m_EditorClassIdentifier:
+  physics: {fileID: 11400000, guid: 5e34f178d2774a43b1750d15b3697efb, type: 2}
+  prefab: {fileID: 6713487999085554968, guid: 449d773a8c868d0f2b51dd70a5da1de9, type: 3}
+  hot: {r: 1, g: 0.8667, b: 0.5, a: 1}
+  warm: {r: 0.8, g: 0.25, b: 0.03, a: 1}
+  cooled: {r: 0.65, g: 0.2, b: 0.025, a: 1}
+  legacyCooled: {r: 0.18, g: 0.015, b: 0, a: 1}
+  fadeDuration: 0.08
+  lightIntensity: 5
+  lightDuration: 0.28
+  lightHold: 0.07
+  lightRange: 3
+  lightOffset: 0.15
