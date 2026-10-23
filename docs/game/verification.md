@@ -2951,3 +2951,19 @@ Runtime video selected3.548090?6.329125s before added-frame review: sourceF34?74
 41/41encoded frames and40/40pairs inspected normal and pixel-mirror preview.
 Pixel reflection does not verify mirrored runtime lighting. Source sprite/clip assets
 are unchanged; prior source/VFX-off review remains applicable. See checkpoint.
+
+## Explicit first follow-up cel removal (2026-10-24)
+
+User requested a quick removal of combo_2_0. Nine retained cels now start at
+combo_2_1, finish516.667ms; contact events shift50ms earlier (100/150/200ms).
+Pinned Unity42/42 PASS (`20261023T171621-webgl`); strict builder and
+source normal/mirror VFX-off review10keys/9pairs each complete. WebGL build,
+new real-input recording and final runtime join/playback were cancelled at the
+user's speed request and remain unverified. Existing demo is the preceding build.
+See [checkpoint](../plans/parry-main-demo.md).
+
+Tempo follow-up (2026-10-24): retained nine cels stretched34/31 to566.667ms;
+static serialized-reference/event/key/duration checks pass. Tests updated but
+not rerun in this quick preview iteration; prior42/42 is not new-build evidence.
+New sprite preview provided; runtime WebGL and complete timing visual acceptance
+remain unverified. [Checkpoint](../plans/parry-main-demo.md).

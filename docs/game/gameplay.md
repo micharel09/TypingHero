@@ -37,9 +37,9 @@ defense stays250ms and success holds its first cel800ms. One completed word in
 No word means no attack. Pause retains queue/budget; hit/death/Slayer/interruption/
 disable clear it. Ordinary words after idle still use combo_1; Slayer is unchanged.
 
-The full10cel combo_2 + combo_2_end sequence starts0 with fixed20ms crossfade,
-ends566.667ms, opens at150ms on combo_2_3, updates contact200ms and closes250ms.
-A repeated end_3 key550ms preserves its final66.667ms hold. Existing10damage,
+The nine-cel combo_2_1..5 + combo_2_end_0..3 sequence omits combo_2_0 at the
+user's request, starts0 with fixed20ms crossfade, ends566.667ms, opens at109.677ms
+on combo_2_3, updates contact164.516ms and closes219.355ms. A repeated end_3 key550ms preserves its final73.118ms hold. Existing10damage,
 stamina, deduplication, hitstop, contact/lighting/flash/camera/audio consumers remain.
 Follow-up end/exit cancels only its own opening cel; a newer normal/Slayer window
 and its delayed close survive. Replacement clears the old bypass before opening
