@@ -191,8 +191,12 @@ public sealed partial class ParryClashTests
         Assert.That(localLight.range,Is.EqualTo(3.75f),"non-parry pulses retain the inactive local light range");
         Assert.That(localLight.intensity,Is.Zero);
         weak.Clear();
-        for(int n=0;n<8;n++)Burst().Emit(Vector3.one,1,0,ParryClashBurst.Preset.BCompact);
-        weak.Emit(Vector3.up,1,0,9,Color.white);
+        // Construct all owners before sampling the simultaneous overlap budget.
+        var strong = new ParryClashBurst[8];
+        for (int n = 0; n < strong.Length; n++) strong[n] = Burst();
+        var clock = new ClashLightingRig.PulseClock(); clock.Reset(10, false); Set(rig, "clock", clock);
+        foreach (var burst in strong) rig.PulseAt(Vector3.one, burst.impactProfile.Capture(), burst, 10, false);
+        rig.PulseAt(Vector3.up, CombatLightingProfile.Event.Impact, weak, 10, false);
         var pulses=(System.Array)typeof(ClashLightingRig).GetField("pulses",Flags).GetValue(rig);
         for(int i=0;i<pulses.Length;i++)Assert.That(pulses.GetValue(i).GetType().GetField("owner").GetValue(pulses.GetValue(i)),Is.TypeOf<ParryClashBurst>());
         Assert.That((float)lightType.GetProperty("intensity").GetValue(light),Is.EqualTo(5));

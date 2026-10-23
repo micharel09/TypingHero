@@ -334,6 +334,11 @@ Change only behavior explicitly requested. Update this file after relevant verif
   flashes and registered local pulses finish; missing/disabled rigs or rejected/
   evicted pulses add no wait. Explicit cleanup and capacity eviction cancel immediately.
   Legacy 2D rig clear restores its captured base color before the next enable.
+  Each rig owns a double-precision realtime clock excluding pause/reading; pulses
+  capture their start timestamp, so a receiving frame's pre-emission time is not
+  charged to a new pulse. Post-emission stalls still count toward profile duration.
+  Freeze events preserve active fractions; directly observed timeScale0 transitions
+  conservatively rebase without catch-up. Positive-scale hitstop remains unscaled.
   One-floor/one-bounce solver, fixed buffers,
   unscaled pause-held updates and cleanup remain. Audio, damage, recoil and hitstop
   remain owned by gameplay. No new production material preset is introduced.

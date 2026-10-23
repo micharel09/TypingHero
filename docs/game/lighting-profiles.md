@@ -207,4 +207,14 @@ cancel immediately. Pool return may follow pulse expiry by one Update frame.
 Clearing a legacy 2D rig restores its captured base color; edits made while the
 rig is disabled become the base color on its next enable.
 
+Pulse age uses each rig's private double-precision realtime clock and the captured
+emission timestamp, not the whole receiving frame's delta. Pause/reading transitions
+exclude their exact interval through FreezeChanged; direct timeScale0 changes are
+observed conservatively without resume catch-up. Positive-scale hitstop still uses
+unscaled elapsed time. Existing pulses are sampled before overlap admission, so
+expired or weakened pulses cannot incorrectly block a new pulse. Disable unsubscribes
+freeze events; enable starts a fresh clock. Post-emission stalls count toward the
+authored duration: this is not a render-acknowledged peak-hold system. No new profile
+field or migration is required; MetalClash retains5intensity/70ms hold/280ms duration.
+
 Camera impact authoring, render acknowledgment and profile reload rules: [camera guide](camera-impact-profiles.md).

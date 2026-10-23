@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 #if UNITY_EDITOR
-public sealed class ImpactVfxTests
+public sealed partial class ImpactVfxTests
 {
     const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic;
     readonly List<Object> owned = new();
@@ -314,19 +314,22 @@ public sealed class ImpactVfxTests
         var second = Object.Instantiate(first); owned.Add(second);
         second.lightIntensity = 2; second.lightColor = Color.blue;
         second.lightDecay = AnimationCurve.Constant(0, 1, 1);
+        first.lightEnabled = second.lightEnabled = false;
+        var emitter = Emitter(); var a = emitter.Play(first, Context()); var b = emitter.Play(second, Context());
+        first.lightEnabled = second.lightEnabled = true;
         var host = new GameObject("profile pulse overlap"); owned.Add(host); host.SetActive(false);
         var light = host.AddComponent<Light>();
         var rig = host.AddComponent<ClashLightingRig>(); rig.profile = LightingTestAssets.Definition.combat;
         typeof(ClashLightingRig).GetField("parryLight", Flags).SetValue(rig, light); host.SetActive(true);
-        var emitter = Emitter(); var a = emitter.Play(first, Context()); emitter.Play(second, Context());
+        ResetPulseClock(rig, 10);
+        rig.PulseAt(Context().point, first.Capture(), a, 10, false);
+        rig.PulseAt(Context().point, second.Capture(), b, 10, false);
         Assert.That(light.color, Is.EqualTo(Color.red)); Assert.That(light.intensity, Is.EqualTo(4));
         first.lightDecay.MoveKey(1, new Keyframe(1, 1)); first.lightColor = Color.green;
         second.lightDecay.MoveKey(1, new Keyframe(1, 0)); second.lightColor = Color.magenta;
-        var pulses = (System.Array)typeof(ClashLightingRig).GetField("pulses", Flags).GetValue(rig);
-        var pulse = pulses.GetValue(0); pulse.GetType().GetField("age").SetValue(pulse, .25f); pulses.SetValue(pulse, 0);
-        typeof(ClashLightingRig).GetMethod("Render", Flags).Invoke(rig, null);
+        rig.SampleAt(10.25, false);
         Assert.That(light.intensity, Is.EqualTo(3)); Assert.That(light.color, Is.EqualTo(Color.red));
-        a.GetComponent<PooledVFX>().Release();
+        rig.CancelAt(a, 10.25, false);
         Assert.That(light.intensity, Is.EqualTo(2)); Assert.That(light.color, Is.EqualTo(Color.blue));
         emitter.Clear(); Assert.That(light.intensity, Is.Zero);
         first.lightEnabled = false; emitter.Play(first, Context()); Assert.That(light.intensity, Is.Zero);
