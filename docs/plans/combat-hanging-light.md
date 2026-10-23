@@ -1072,7 +1072,10 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   timings, not isolated GPU measurements. Raw samples and abba-receipt.json are
   preserved. The driver completed11 checks; this is not full native motion QA.
 - Current playable QA: http://127.0.0.1:8291, F8 toggles self-shadow.
-  Launcher20780 serves gameplay-build-163224/player; keep it while the user
+  launch-gameplay-current.py serves gameplay-build-163224/player; keep it while the user
   tests. The older8277 demo remains unchanged. Current review page:
   http://127.0.0.1:8291/depth-review/index.html (34 clips; embedded combat video
   remains the earlier native04 capture, not proof of updated-main behavior).
+  Review-page smoke check passed34 clips,320x180 images, non-loop ending,
+  facing/speed controls and no JavaScript errors. The first launcher closed
+  during startup; retry37072 reached ready and served the verified page.
