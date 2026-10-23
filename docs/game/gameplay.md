@@ -790,7 +790,7 @@ per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.
 
 `ParryCuePresenter` reads `SkeletonController.TryGetAttackTelegraph` and the existing
 `CanBeginParry`/`IsWindowActive`; it never changes combat or typing input. Original
-Kenney CC0 caps form a32?16 logical key at(23,153),6px left of the tray. Outline
+Kenney CC0 caps form a32?16 logical key at(23,133),6px left of the tray. The tray is fixed at(61,126),198x30; both sit20logical pixels above the original demo placement to stay near the fighters. Outline
 amber means wind-up, ivory fill begins200ms before authored contact, teal means
 an active parry window, gray/X hides the label while locked. No valid attack means
 hidden. Prediction caches Anim_DealDamage events by controller and follows Animator

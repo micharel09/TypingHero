@@ -67,7 +67,7 @@ internal static class ParryCueBuild
             }
             return key;
         }
-        var live = Key(presenter.transform, "SpaceKey", 69, 459);
+        var live = Key(presenter.transform, "SpaceKey", 69, 399);
         // Only fill missing bindings: preserve authored tuning and existing node geometry.
         void Bind(string field, Object value)
         {

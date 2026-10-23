@@ -2970,3 +2970,7 @@ Runtime video selected3.548090?6.329125s before added-frame review: sourceF34?74
 41/41encoded frames and40/40pairs inspected normal and pixel-mirror preview.
 Pixel reflection does not verify mirrored runtime lighting. Source sprite/clip assets
 are unchanged; prior source/VFX-off review remains applicable. See checkpoint.
+
+## Space cue HUD proximity follow-up (2026-10-24)
+
+Input4933a167: normal180518 and QA181516 WebGL builds PASS; strict repeat-builder PASS. Scoped native layout: normal5checks, QA19checks PASS; both640x360/1280x720, tutorial target arrows/copy, fixed tray bounds, real-parry Slayer, pause/resume, actual8-letter queue and cue switching. Direct screenshots inspected, no runtime suite repeated; [checkpoint](../plans/parry-cue-demo.md) distinguishes earlier animation clips from this layout update.
