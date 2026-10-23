@@ -17,11 +17,13 @@ public sealed class ImpactVfxProfile : ScriptableObject
     [System.Serializable] public sealed class FlashLayer
     {
         public int channel;
+        public int sortingOrder;
         [Min(0)] public int count = 1;
         [Min(.001f)] public float lifetime = .2f;
         public Color tint = Color.white;
         [Min(0)] public float sizePixels = 16, maxWorldSize;
         [Min(1)] public int columns = 1, rows = 1, cycles = 1;
+        [Min(.001f)] public float heightScale = 1;
         public float startFrame;
         public AnimationCurve frameOverTime = AnimationCurve.Constant(0, 1, 0);
         public Gradient colorOverLifetime = new Gradient();
@@ -50,6 +52,7 @@ public sealed class ImpactVfxProfile : ScriptableObject
         {
             var flash = flashes[i];
             if (flash == null || flash.count < 0 || flash.lifetime <= 0 || flash.sizePixels < 0 ||
+                flash.heightScale <= 0 || float.IsNaN(flash.heightScale) || float.IsInfinity(flash.heightScale) ||
                 flash.maxWorldSize < 0 || flash.columns < 1 || flash.rows < 1 || flash.cycles < 1 ||
                 flash.frameOverTime == null || flash.frameOverTime.length == 0 || flash.colorOverLifetime == null)
                 Fail("invalid flash layer");

@@ -2795,6 +2795,16 @@ strict WebGL/visual evidence. Stock runner serialize completion label is generic
 this follow-up does not claim another full builder repeat. Proof/receipt in checkpoint.
 
 
+## Enemy state VFX ? 2026-10-23
+
+GuardBreak/BodyFallDust:49 focused PlayMode cases (48+actual Slayer),1 Editor
+authoring/idempotence check and1 graphical fixture across8variants passed.
+Native review:1036/1036 frames,1028/1028 transitions,148 off-effect poses;
+all source cels and transitions inspected. Fixed-clock neutral appearance
+fixture is separate from realtime/pause/cleanup behavior. No full-suite,
+WebGL, room-lighting or hardware-performance claim. Source hashes, receipts,
+per-frame observations and limitations: [task checkpoint](../plans/enemy-state-vfx.md).
+
 Dynamic sprite shadow acceptance (2026-10-23): scoped43 Unity tests PASS; final
 2 SpriteShadowTests rerun includes zero warmed managed allocations. Editor
 custom-normal preservation and strict two-world repeat PASS. Frozen main1f22565

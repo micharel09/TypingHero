@@ -250,6 +250,8 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         OnDeathStarted?.Invoke(); // << báo cho SlayerMode thoát ngay
     }
 
+    public void Anim_DeathImpact() => GetComponent<EnemyStateVfxBinder>()?.DeathImpact();
+
     // Gọi bằng Animation Event ở FRAME CUỐI clip skeleton_die
     public void Anim_DieCleanup()
     {

@@ -4,3 +4,9 @@ Original free Hit Effect 01.rar; custom author license (see HitSpark-License.txt
 Battle Effects: https://pimen.itch.io/pixel-battle-effects
 Original free Effects.rar; CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
 Changes by CLACKBLADE: animation timing, centered pivots, uniform scale; Battle Effects converted to white for Slayer. Original sheets retained.
+
+GuardBreak uses original Battle Effects Effect 2, unchanged pixels; flipbook timing/scale only.
+BodyFallDust uses original Smoke n Dust 03 VFX5 by pimen: https://pimen.itch.io/smoke-n-dust-03
+Author permits personal/commercial game use; standalone asset redistribution/resale prohibited.
+Changes: playback timing, uniform scale and common-canvas pivot only; PNG unchanged.
+See SmokeNDust03/LICENSE.txt for source/archive hashes and permission record.
