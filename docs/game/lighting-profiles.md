@@ -7,6 +7,8 @@ the approved dungeon/Pinterest flame, not a runtime fallback.
 The selected DungeonWorld disables the RearRune decoration and its RuneLight.
 The user rejected that blue rear glow; keep the existing torch lighting as the
 environment light sources. Shared rune assets remain available to other worlds.
+RearHaze and LowHaze are also disabled: their blue decorative overlays produced
+the remaining horizontal glow after the rune was removed.
 
 ## Ownership
 
