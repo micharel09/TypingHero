@@ -2793,3 +2793,17 @@ since the passing QA input (then indentation only); production Apply method,
 runtime/shaders/profiles/materials/scenes are byte-identical. Reuse39Unity/53native/
 strict WebGL/visual evidence. Stock runner serialize completion label is generic;
 this follow-up does not claim another full builder repeat. Proof/receipt in checkpoint.
+
+
+Dynamic sprite shadow acceptance (2026-10-23): scoped43 Unity tests PASS; final
+2 SpriteShadowTests rerun includes zero warmed managed allocations. Editor
+custom-normal preservation and strict two-world repeat PASS. Frozen main1f22565
+and candidate QA WebGL builds passed; native GPU1280x720 each14 real-input checks
+cover hits/parry/follow-up/Pause/Slayer/Menu. All261 poses were inspected in1044
+left/right/mirror GPU cells, plus10 above/below diagnostics. Complete selected
+normal/parry/Slayer windows have per-frame native/2x review; initial normal video
+gap was replaced with continuous recording. Static pose coverage does not claim
+every full runtime clip. Non-recording401-sample active comparisons: RAF p95
+19.025 to19.020ms; observed draws median277 to165; no FPS gain claim. Exact snapshots,
+timestamps, limitations and retained evidence are in the existing
+[lighting checkpoint](../plans/combat-hanging-light.md).

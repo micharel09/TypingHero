@@ -7,12 +7,28 @@ using UnityEngine;
 // Secondary UVs preserve the source frame/rect/pivot and Unity's flipped tangent basis.
 internal static class SurfaceNormalAssets
 {
-    internal static void Prepare(string sourcePath)
+    [MenuItem("CLACKBLADE/Lighting/Replace Selected Normal With Generated Draft")]
+    static void ReplaceSelectedDraft()
     {
+        foreach (var texture in Selection.GetFiltered<Texture2D>(SelectionMode.Assets))
+        {
+            string path = AssetDatabase.GetAssetPath(texture);
+            if (path.EndsWith(".png", System.StringComparison.OrdinalIgnoreCase) &&
+                AssetImporter.GetAtPath(path) is TextureImporter importer && importer.textureType == TextureImporterType.Sprite)
+                Prepare(path, true);
+        }
+    }
+
+    internal static void Prepare(string sourcePath, bool replaceDraft = false)
+    {
+        var sourceImporter = (TextureImporter)AssetImporter.GetAtPath(sourcePath);
+        // Secondary maps are authored data. Routine builders must not regenerate
+        // a painted map, or replace a custom binding with the conventional path.
+        if (!replaceDraft && sourceImporter.secondarySpriteTextures.Any(t => t.name == "_NormalMap" && t.texture)) return;
         string guid = AssetDatabase.AssetPathToGUID(sourcePath);
         string output = WorldLightingBuild.Root + "Normals/" + guid + ".png";
         bool actor = sourcePath.Contains("male_hero") || sourcePath.ToLowerInvariant().Contains("skeleton");
-        if (!File.Exists(output) || actor)
+        if (!File.Exists(output) || replaceDraft)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var source = new Texture2D(2, 2, TextureFormat.RGBA32, false);
