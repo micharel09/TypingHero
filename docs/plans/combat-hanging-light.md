@@ -333,7 +333,7 @@ one additional QA WebGL and integration into main; no game publication.
 - Task branch micharel09/lantern-pixel-fire, base origin/main 4e62ea2. Preserve the dirty parent checkout.
 - Isolate each largest 8-connected alpha body on the authored native pixel grid, bottom-anchor in 48x34 cels, keep original colors and 100ms timing. Main lamp only: private runtime quad/UV flipbook and continuous bounded Perlin noise; base24, amplitude6percent, emission synchronized. Rear sine/+/-2percent behavior unchanged.
 - Original lantern/mesh/material GUIDs retained. No gameplay/UI/floor reflection changes. Full source and final output frame review remain separate.
-- Acceptance pending: scoped front/rear Unity tests, strict repeated builder and persisted DungeonWorld configuration, all five output frames/transitions at game size/2x, one short real-input gameplay capture including parry/recovery and pause/Slayer restoration. No broad suite/multi-viewport/stress acceptance.
+- Original acceptance (waived by user): scoped front/rear Unity tests, strict repeated builder and persisted DungeonWorld configuration, all five output frames/transitions at game size/2x, one short real-input gameplay capture including parry/recovery and pause/Slayer restoration. No broad suite/multi-viewport/stress acceptance.
 - Local evidence: E:/CodexTemp/TypingHero/pixel-fire-review-20261022-m60wlc3t. Source five frames/transitions inspected; paid promotional preview is excluded from output. Runtime verification is not yet complete.
 
 ### Pixel flame verification
@@ -1225,3 +1225,41 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   Retain original reported images, immutable players, observations and failed fixture
   result. Reused private runner cache predates this task; preserve it and its results
   for reproducibility. Standalone demo/evidence stay outside the task worktree.
+
+
+### Pillar torches, 2026-10-24 (implemented; QA waived by user)
+
+- User selected two total torches: one at each outer front stone pillar, facing
+  the arena. Retain cinematic yellow flame style and existing rear/main lamps.
+- Independent branch micharel09/pillar-torches from ae1271d. Reuse authored
+  holder mesh, flame atlas/material, and DungeonTorchLight; new PillarTorch profile
+  starts intensity8/range10/no shadows, projected flame12 internal pixels,
+  SinePair amplitude.18, phases1.6/4.2, flame offsets.17/.43 seconds.
+- Fixtures are parented to FrontPillar_-1/1 with inverse parent-scale compensation.
+  Room positions are x=+-8.55,y=2.7,z=-1.2, on the inner faces; holder yaw is
+  -90/+90degrees, flame cards counter-rotate toward the camera. Lamps are at
+  x=+-8.3,y=3.02666,z=-1.45. Flame scale1.26313648 follows the authoring projection
+  formula at the saved35degree camera/180logical height; appearance is unverified.
+- Keep ambient/exposure, old lamps, shaders, combat, rune/haze/beam disabled state,
+  GUIDs and sprite animation unchanged. Repeated builder must retain both fixtures.
+- Original acceptance (waived by user): repeated builder/profile preservation, native1280x720 A/B
+  and10s temporal review, actual-input combat/Pause/Slayer/world return, conservative
+ 8light/object budget,15s on/off p95 (ABBA if >10%), production QA exclusion.
+- External artifact root: E:/CodexTemp/TypingHero/pillar-torches-20261024.
+  Disposable render-only QA fixture toggles only the new holders/lamps using F9;
+  read-only F7 reports phase/emission/lights. No recording/full animation review.
+  Reuse previous runner cache only under its global lock; preserve unrelated jobs.
+
+- User explicitly requested "skip QA" after the shared runner queue remained busy.
+  Canceled only this task's queued runner before it acquired the lock; no Unity
+  checks/builds/browser/performance ran for this revision. Earlier snapshots were
+  replaced in the queue to reduce upload and include the affected test assertion;
+  all other jobs were preserved.
+- Updated the existing main-world lifecycle expectation from3to5lamps; the distinct
+  four-lamp fixture is unchanged. Test execution, repeated-builder preservation,
+  visual placement/brightness, Pause/Slayer/world return, performance and production
+  QA exclusion remain UNVERIFIED for this change. No passing result is claimed.
+- Static diff/references/projection reviewed; preserve the old demo because it is
+  the previous immutable build. New scene/profile data ships on the next build;
+  current live demo does not contain the pillar torches. Remote/cleanup receipt
+  stays in the external artifact root.

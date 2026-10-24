@@ -1,3 +1,13 @@
+## Pillar torches (2026-10-24; QA waived)
+
+Two authored inner-face fixtures added at FrontPillar_-1/1 with independent
+PillarTorch style (8intensity/10range/no shadows), cinematic SinePair phases and
+shared original flame assets. Existing lighting lifecycle test expects5main-world
+lamps; alternate four-lamp world retained. User explicitly waived QA;
+task runner canceled while queued, before Unity work. Static diff/bindings checked;
+no runtime, builder, visual, performance or production verification for this
+revision. Existing demo remains the old build. Details: [checkpoint](../plans/combat-hanging-light.md).
+
 ## Cinematic wall torches (2026-10-24)
 
 - Data-only change: RearTorch SinePair amplitude.18, frequencies5.8/13.7,

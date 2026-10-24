@@ -132,7 +132,7 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
         Assert.That(impact.Zoom, Is.EqualTo(.02f));
         var previousWorld = session.World; var previousRT = previousWorld.Arena.WorldTexture;
-        Assert.That(previousWorld.environment.GetComponentsInChildren<DungeonTorchLight>().Length, Is.EqualTo(3));
+        Assert.That(previousWorld.environment.GetComponentsInChildren<DungeonTorchLight>().Length, Is.EqualTo(5), "main room includes its two authored pillar lamps");
         yield return session.LoadWorld(second); yield return null;
         Assert.That(previousWorld == null, Is.True); Assert.That(previousRT == null, Is.True);
         gate.Bind(session.World);

@@ -131,6 +131,27 @@ introduced; flame atlas/palette/UV timing remain the authored10x100ms sequence.
 Pause and Slayer preserve the existing phase clock; this preset changes data only.
 Evidence and final integration status: [lighting checkpoint](../plans/combat-hanging-light.md).
 
+### Front pillar torches
+
+Each outer front pillar owns one additional holder/flame and one local lamp.
+The PillarTorch profile is independent from RearTorch and MainLantern: warm Point
+Light, intensity8, range10, no shadows, projected flame height12 logical pixels.
+It shares the rear flame atlas/material and cinematic SinePair settings; phases
+1.6/4.2 and flame offsets.17/.43 seconds keep the two fixtures independent.
+
+Holders face inward at x=+-8.55,y=2.7,z=-1.2 in room space; flame cards
+counter-rotate toward the camera. Move each holder and its lamp together relative
+to FrontPillar_-1/1. Their root
+scales compensate the existing nonuniform pillar scale; do not stretch the flame
+by copying the pillar scale into it. Apply/Preview recalculates flame height for
+its actual depth. Save scene/profile changes before building; the normal builder
+preserves these authored instances and creates no additional torches.
+
+The new lights illuminate the stone and nearby floor directly, without beam
+cards or extra shadow maps. Preserve the existing8additional-lights/object limit;
+check combat/parry flashes as well as steady lighting when adding more fixtures.
+Verification status and final tuning: [lighting checkpoint](../plans/combat-hanging-light.md).
+
 ## Add a world/map without changing C#
 
 1. Save a copy of the default world scene. Author the new room layout and fixtures
