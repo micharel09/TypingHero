@@ -1,3 +1,13 @@
+## Final current-main parry demo (2026-10-24)
+
+Production043100/source4121c10/input92dc65f7 PASS, Unity2022.3.25f1. Includes the
+upstream terminal-result HUD change plus parry lift depth registration; only docs
+change after this frozen build. QA=false/JS bridge exclusion and33immutable local
+player SHA256 checks PASS. Final menu, Play setup, live Swordsman combat/received
+hit and manual Pause inspected in Orca using real input. Demo8151 retained paused;
+retired kaluga8148 removed. No full animation/shadow/performance or new terminal-
+result regression claim. [Version, attempts and resources](../plans/parry-main-demo.md).
+
 ## Latest-main parry demo and depth completion (2026-10-24)
 
 Main9c48f5d + authored lift depth registration: production041305/input023fb6b8

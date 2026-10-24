@@ -1,5 +1,18 @@
 # Latest-main demo correction ? 2026-10-24
 
+Final synchronized player: main4121c10438862f4a7fd72babf96a6ea53d8b42a7, including
+bfa165f terminal-result HUD changes that landed during the first build. Production
+043100 PASS on input
+`92dc65f78c0da92b0a0d631140ec38723f39ebb19f4bdc564be6a4cdd8a54a64`;
+normal QA=false/JS-bridge scan and33downloaded file hashes PASS. Final player menu,
+Play/name setup, live Swordsman combat/received-hit rendering and Escape Pause
+actually inspected in Orca. Earlier white overhead cue observation remains on023f
+with unchanged cue sources. No complete terminal-result regression or temporal
+parry-depth/shadow review is claimed by this smoke check. Final hostPID25472,
+player-next/ in the retained folder below; old8148/inputa867b145 host/player retired.
+This supersedes the intermediate041305 player for user review.
+
+
 Reopening8148 incorrectly served the old kaluga inputa867b145, despite the source
 parry integration being on main. Replaced it with a fresh production build from
 main9c48f5d plus the missing lift depth registration. No runtime/core, scene,
@@ -30,9 +43,9 @@ URP helper shaders report unsupported-GPU logs; the gameplay world renders.
 
 Active replacement: http://127.0.0.1:8151/ (paused; Resume to play).
 Retain E:/CodexTemp/TypingHero/parry-main-latest-9c48f5d: player, fixture host,
-manifest, session and ready metadata while user reviews; stop its verified PID27776
+manifest, session and ready metadata while user reviews; stop its verified PID25472
 and remove that exact folder after review. Pagec28a71bc-1bf5-4a57-b498-02435470c68e.
-Verification captures/transfer helper and the three owned server result folders
+Verification captures/transfer helper and the four owned server result folders
 removed after recording observations. Build worktree/branch removed after verified
 main integration; original kaluga checkout/WIP and historical user assets preserved.
 
