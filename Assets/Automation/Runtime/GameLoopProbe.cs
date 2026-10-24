@@ -51,6 +51,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool canParry, parryWindow, enemyAttacking, slayer;
         public float enemyContactIn, timeScale, cueImpactIn;
         public bool spaceCueVisible, spaceCueFilled, spaceCueLocked, legacyCueVisible;
+        public int cueAttackId;
+        public Rect spaceCueRect;
         public string cel, sparkCel;
         public Vector2 contact;
         public Vector3 sparkPoint, cameraPosition, cameraCorrection;
@@ -182,9 +184,11 @@ public sealed class GameLoopProbe : MonoBehaviour
         combatFrame.canParry = combatParry && combatParry.CanBeginParry;
         combatFrame.parryWindow = combatParry && combatParry.IsWindowActive;
         combatFrame.enemyAttacking = combatEnemy && combatEnemy.IsAttacking;
+        combatFrame.cueAttackId = combatEnemy ? combatEnemy.AttackSequenceId : 0;
         combatFrame.cueImpactIn = combatEnemy && combatEnemy.TryGetAttackTelegraph(out float cueImpact) ? cueImpact : -1;
         var presenter = FindObjectOfType<ParryCuePresenter>();
         var cueKey = presenter ? Read<RectTransform>(presenter, "key") : null;
+        combatFrame.spaceCueRect = cueKey ? ScreenRect(cueKey) : default;
         var cueLeft = presenter ? Read<Image>(presenter, "left") : null;
         var cueLock = presenter ? Read<Image>(presenter, "locked") : null;
         combatFrame.spaceCueVisible = cueKey && cueKey.gameObject.activeInHierarchy;
