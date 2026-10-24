@@ -1,3 +1,23 @@
+## Shared lantern shader startup optimization (2026-10-24)
+
+- Frozen c86d72f production A/B + ABBA, Edge156/Intel UHD D3D11/1280x720:
+  five fresh and five reload observations per build. Fresh world-to-background
+  median 2337.01 -> 1829.30ms (-21.72%); per-run longest-task median 1931 -> 1409ms
+  (-27.03%), largest observed 2373 -> 2014ms. Reload 761.81 -> 507.19ms (-33.42%).
+  No screenshots/readbacks during timing; phase markers are diagnostic only.
+- Pooled menu-frame p95 +4.74%fresh/+1.56%reload; matched10s normal gameplay
+  33.19 -> 35.35ms (+6.51%), within10%. No general FPS/stress/soak claim.
+- Fixed-light forward reflection fixture094239 passes direct alpha/emission/
+  shadow/reflection comparison; repeated capture identical. Actual menu/normal/
+  Slayer and Play -> gameplay -> menu inspected on A/B; world/camera/RT reused.
+  A/B WASM/framework bytes match; only shader/material data differs.
+- Clean integrated main3d6b74a production090837, input
+  e59a86dcb2f4d9bf30c3965f3182f912dd6c5cabfe0fff736847f6e7381209f4,
+  build/QA-startup marker exclusion/native real-input smoke PASS; zero errors or
+  provider writes. Temporary diagnostic/fixture sources removed. No itch release.
+- [Full diagnostic report](../plans/startup-render-profile.md) contains phase and
+  raw-run evidence, source/build identities, excluded pilots and retained resources.
+
 ## Final current-main parry demo (2026-10-24)
 
 Production043100/source4121c10/input92dc65f7 PASS, Unity2022.3.25f1. Includes the

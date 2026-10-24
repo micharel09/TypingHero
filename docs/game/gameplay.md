@@ -835,7 +835,8 @@ Hanging combat lantern integrated2026-10-21 from branch
   Pause freezes/resumes phase; Slayer now keeps hidden room clocks active behind
   its blended background. Destruction releases only the private mesh.
   Original fire mesh/material/GUIDs stay intact. Private fire material;
-  iron/wood emission0. Glass URP Lit black/alpha.12/emission(1,.38,.08),
+  iron/wood emission0. Three lantern materials share LanternLit (URP14 PBR);
+  glass black/alpha.12/emission(1,.38,.08),
   no specular, ZWrite off, no cast/receive shadow. Environment child follows
   Slayer background blend, excluded from flame flicker. Within the task dungeon baseline,
   camera/floor/post/API receive no further lantern tuning.

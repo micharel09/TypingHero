@@ -1,13 +1,14 @@
 # WebGL startup render diagnosis — 2026-10-24
 
-## Lantern optimization result — final visual/integration gates pending
+## Lantern optimization result — accepted
 
 The shared lantern candidate meets the measured startup gate on the frozen
 `c86d72f` baseline: five fresh profiles per build give world-to-first-background
 medians **2337.01 → 1829.30 ms (21.72% lower)**; the longest overlapping blocking
 task median is **1931 → 1409 ms (27.03% lower)**. These include the prescribed
 initial alternating runs and the ABBA follow-up, rather than selecting the best
-runs. Fixed-light fixture and final integrated-player acceptance remain pending.
+runs. Fixed-light material/reflection review and clean integrated-player smoke
+also pass. Retain the three-material shader change; no itch release is included.
 
 ### Scope and immutable inputs
 
@@ -105,8 +106,20 @@ above retain every original and follow-up observation. Pilots are excluded.
   build, positions them outside the sample geometry, and uses the actual scene's
   iron/glass meshes. Input
   `eedd03a5b59ec92ea6054e745145e5ba7d7bdaf251661bf1a82d54e60d049d29`
-  is building as `20261024T093335-production`. Game quality/settings and reflection
-  camera cadence are unchanged. No reflection-fixture PASS yet.
+  passed as `20261024T093335-production`, but its native probes still used the
+  project's default Renderer2D, so its reflection comparison is excluded. Final
+  fixture `20261024T094239-production`, input
+  `16ddea2f20a13bdb472af2550c4b246476ed1ee2a52fff17ce23b32cfddc615e`,
+  explicitly uses forward-rendered, box-projected probes outside the geometry.
+  Both sides retain the same fixed lighting; actual scene iron/glass meshes,
+  wood, cutoff controls at.25/.5/.75, transparent glass, emission, shadows and
+  their floor reflections were directly inspected. Visual PASS. Two captures
+  separated by2seconds are byte-identical; A/B halves have99.422% equal pixels,
+  mean absolute RGB difference0.0259/255 and0.119% pixels differing by more than
+  8levels. Remaining differences are localized to shadow/reflection raster edges;
+  the two fixtures are30world units apart, so no pixel-identity claim is made.
+  Game quality/settings, default renderer and reflection camera cadence are
+  unchanged; these probe overrides exist only in the temporary diagnostic build.
 - New main `3d6b74a` was merged into the task branch. Its changes concern parry
   assets/runtime flipping and editor-only depth inventory, with no lantern,
   floor/actor shader, world lighting/camera or world/menu scene changes. The
@@ -117,6 +130,24 @@ above retain every original and follow-up observation. Pilots are excluded.
   fixture writes. The normal room, stable Slayer silhouette and restored menu
   were directly inspected; QA is undefined and startup marks are absent.
 
+### Acceptance and retained resources
+
+Startup threshold, reduced longest blocking task, fixed-light material/reflection
+comparison, normal/Slayer presentation, retained-world return flow and the scoped
+menu/gameplay p95 limit pass. All diagnostic/fixture code has been removed from
+the runtime source. Only three material shader/keyword edits and the new shared
+shader/includes/metas are retained; no scene, actor/floor material, gameplay API,
+lighting, camera frequency, package or loading-cover change is introduced.
+The existing material-preserving builder was verified by the production builds;
+no redundant builder mutation was added. This is machine-specific evidence, not
+a general FPS or cross-device guarantee. No itch upload/deployment was performed.
+
+Keep the accepted A/B inputs/players, integrated player and final fixture plus
+timings, images and build receipts in the evidence directory until a reviewed
+follow-up replaces this experiment. Owned build requests and native test browsers
+have ended; remove the clean task worktree/local branch only after Git remote
+integration verification. Remote task branch and shared runner caches are retained.
+
 Raw inputs, per-run values, player hashes, harness source and images are retained
 under `E:/CodexTemp/TypingHero/startup-render-profile/lantern-experiment/`.
 `timings.json`, `abba.json`, `analysis.json`, `source-delta.json`,
@@ -124,7 +155,7 @@ under `E:/CodexTemp/TypingHero/startup-render-profile/lantern-experiment/`.
 `A-slayer2`/`B-slayer` captures distinguish measurements from visual checks.
 Keep this evidence until a reviewed follow-up replaces the experiment.
 
-## Request and conclusion
+## Original investigation — request and conclusion
 
 Investigate the delay between entering the menu and seeing the live dungeon
 background. Preserve the shared 3D world, lighting and gameplay.
@@ -237,7 +268,7 @@ Unity2022.3 references:
 [shader loading](https://docs.unity3d.com/2022.3/Documentation/Manual/shader-loading.html),
 [targeted WarmUp](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/ShaderVariantCollection.WarmUp.html).
 
-## Shared lantern shader experiment — blocked before baseline (2026-10-24)
+## Historical baseline blocker (2026-10-24)
 
 - Fresh fetch and independent Orca worktree use main commit
   `213e67d6861d83116d62d960906d35bb11efe6ff`, branch
@@ -305,7 +336,7 @@ The previous baseline-lock blocker is no longer the current state. No shader
 candidate has been applied. Preserve this result for the next checkpoint and
 inspect its completion before launching another build.
 
-### Lantern A/B execution checkpoint (2026-10-24, in progress)
+### Historical A/B execution checkpoint (2026-10-24)
 
 - Production baseline `20261024T073226-production` succeeded; normal-player QA
   exclusion passed. Native Edge visual smoke has no page/console errors or
