@@ -3289,9 +3289,31 @@ visuals retain their own receipts; this task adds no sprite review certification
 - Real QA-mode serializer/repeat builder PASS; two actor bindings, world clear,
   world without depth and return PASS. All99lighting PNGs and10checked
   source/config/index files match.281mapped actor frames unchanged; the newly
-  discovered ContactShadow child has no map and uses ordinary fallback.
+  discovered ContactShadow child had no map. This overbroad discovery allowed
+  production fallback but broke strict audit/CaptureAll input validation; the
+  receiver-scope correction below supersedes that classification.
 - Editor-only change; no shader/runtime/combat/schema/data-image edits. Full QA,
   WebGL, animation review and profiling were not run. Earlier compile/fixture
   failures, exact XML/logs, source identity and integration receipt are retained at
   E:/CodexTemp/TypingHero/depth-scene-sync-20261024. Details in the
   [lighting checkpoint](../plans/combat-hanging-light.md).
+
+## Receiver-scoped depth audit (2026-10-24)
+
+- Unity2022.3.25f1/fly-server20261024T074545-quick, input3d80507630403c0db3c5bcf5d2b1e2b9ed6861614dd85ab89cf4d231607d30df:
+  31/31Editor PASS,0failed/skipped. Main actor renderers auto-qualify before
+  builder binding; secondary/external renderers require SpriteDepthBinding.
+  Disabled binding/renderer and zero strength retain authoring requirements.
+  Mixed actor/VFX curves, persistent prefab references, shared sprite identity,
+  controller/override/hurt/contact/Endless and scene-state checks pass.
+- Public AuditCoverage and CaptureAll's exact strict Validate(library,true) PASS.
+  Missing actor map still rejects strictly while production permits fallback.
+  Production frame set equals authored index,281mapped/0missing; previous
+  unbound ContactShadow is excluded, with no lost authored frame.
+- Actual QA-mode two-pass builder and world bind/clear/no-depth/restore PASS.
+  All99lighting PNGs, library/world/material and12checked source/config/index
+  files match after serialization. Runtime/test/config/index unchanged, reusing
+  prior2/2runtime tests from071611; no new runtime suite, WebGL build, all-frame
+  render, full QA or sprite-review claim. Exact XML/logs/hash/inventory delta and
+  integration receipt: E:/CodexTemp/TypingHero/depth-receiver-scope-20261024.
+  See [lighting checkpoint](../plans/combat-hanging-light.md).

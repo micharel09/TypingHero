@@ -341,11 +341,27 @@ and actor instances in enabled build/world scenes, including scene controller,
 clip, initial-sprite and contact-library overrides and non-prefab actors.
 Loaded scenes are read in memory (including unsaved overrides); unopened scenes
 are inspected in temporary additive scenes and closed without saving. Actor
-references to renderers/animators outside their subtree are followed. Unreferenced
-project art is not included. Inventory export, sync and audit share this source.
+references to renderers/animators outside their subtree are followed, including
+prefab component references. The main SpriteRenderer on a GameObject with
+PlayerHealth or SkeletonController is automatically a depth receiver, before
+builder binding. Secondary and external renderers must have SpriteDepthBinding
+to opt in. Component presence owns authoring scope even when the binding or
+renderer is disabled, material strength is zero, or the material changes.
+Names (including ContactShadow), shader names and texture paths do not classify
+receivers. Unbound shadow/VFX sprites are excluded; a sprite shared with a valid
+receiver is still included once by asset identity.
+
+Animation inventory includes only SpriteRenderer.m_Sprite curves targeting a
+valid receiver relative to that Animator. Controller/override and direct
+hurt/recovery clips keep their Animator context; runtime Endless controller,
+idle/hurt and actor contact/defense cels remain included. Temporary scenes close
+only after receiver paths are resolved. Unreferenced project art is not included.
+Inventory export, sync, metadata validation and audit share this source.
 
 The Console summary lists mapped/missing sprites. **Audit Complete Gameplay Depth**
-is the explicit art-coverage gate: missing maps fail that audit, not normal builds.
+is the explicit art-coverage gate: missing receiver maps fail that audit and
+CaptureAll's strict input validation, while normal builds permit fallback.
+Unbound shadows/VFX need no map to pass either strict gate.
 Build validation runs after builder synchronization and still rejects invalid map
 dimensions/imports, broken/conflicting bindings and build atlas packing. Unselected
 world libraries are not scanned. Packed/rotated runtime atlases are not supported
