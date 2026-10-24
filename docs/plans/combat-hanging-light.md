@@ -1388,3 +1388,35 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
 - Full QA, sprite-animation review and performance profiling remain outside scope.
   Current evidence/demo stay under the artifact root above; remote integration and
   clean worktree removal are recorded in receipt.json after push verification.
+
+
+## Scene depth discovery and map replacement fix (2026-10-24)
+
+- Approved follow-up: collect scene-specific actor references and treat a valid
+  source `_DepthMap` binding as authoritative over stale derived library metadata.
+- Preserve prefab/Endless discovery; read enabled build/world scenes, loaded
+  instances in memory and unopened scenes through temporary additive scenes.
+  Include loose actors, child components and explicitly referenced external
+  SpriteRenderer/Animator components. Do not save scenes or unrelated dirty assets.
+- Keep broken/duplicate bindings, invalid map imports/dimensions/packing and
+  ambiguous unbound legacy maps as errors. Preserve authored PNGs/GUIDs, stable
+  index ordering and write-on-change. No runtime/shader/combat/schema changes.
+- Verification: result20261024T071611-quick, inputa3609b88,17/17Editor and
+  2/2runtime PASS,0failed/skipped. Real QA-mode serializer/repeat builder PASS,
+  two actor bindings and selected-world bind/clear/no-depth/restore PASS.
+  Full QA, WebGL, animation review and profiling are outside this change.
+- Task worktree: depth-scene-sync; external receipt/artifacts:
+  E:/CodexTemp/TypingHero/depth-scene-sync-20261024.
+- All10checked source/config/index files match the tested/generated snapshot.
+  All99lighting PNG hashes match; ActorDepth, DungeonWorld and material bytes
+  unchanged. Inventory now also sees the ContactShadow child sprite without a
+  depth map; ordinary fallback is expected. All281authored rows remain unchanged.
+- Six map/inventory checks passed before scene fixtures could run; fix NUnit
+  assertion compatibility and Unity Untitled scene restrictions in fixtures. Use
+  only native scene-settings documents from a saved scene, then open additively.
+  NewPreviewScene is not needed; opening a saved preview scene is not public in
+  pinned Unity2022.3. Preserve loaded/unloaded entries and active/dirty state.
+  Earlier compile/fixture failures and one safely withdrawn queued snapshot remain
+  in the external receipt; they are not counted as passes.
+- Main advanced only by startup-profile documentation213e67d; build inputs,
+  dependencies and environment are unchanged, so the19tests/serializer remain valid.

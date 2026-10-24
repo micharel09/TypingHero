@@ -20,18 +20,9 @@ public static class SpriteDepthAuthoring
         try { SynchronizeSelectedWorlds(); }
         catch (Exception error) { EditorApplication.isPlaying = false; Debug.LogException(error); }
     }
-    static string[] ActorDependencies()
+    static string[] ActorDependencies(SpriteDepthSources sources)
     {
-        // EndlessRun.Definition selects these by Resources path at runtime;
-        // serialized scene dependencies alone miss every swapped opponent.
-        var roles = Enum.GetValues(typeof(EndlessRole)).Cast<EndlessRole>()
-            .Select(role => Resources.Load<EndlessOpponent>("Endless/" + role)).Where(x => x)
-            .Select(AssetDatabase.GetAssetPath).ToArray();
-        var actors = LightingBuildValidation.Dependencies()
-            .Select(AssetDatabase.LoadAssetAtPath<GameObject>).Where(x => x &&
-                (x.GetComponentInChildren<PlayerHealth>(true) || x.GetComponentInChildren<SkeletonController>(true)))
-            .Select(AssetDatabase.GetAssetPath).Concat(roles).Distinct().ToArray();
-        return AssetDatabase.GetDependencies(actors, true).Distinct().ToArray();
+        return AssetDatabase.GetDependencies(sources.paths.ToArray(), true).Distinct().ToArray();
     }
     [Serializable] sealed class KeyRecord
     {
@@ -50,8 +41,10 @@ public static class SpriteDepthAuthoring
     [Serializable] sealed class Inventory { public int uniqueSprites; public KeyRecord[] keys; public FrameRecord[] frames; }
     public static void ExportInventory(string destination)
     {
+        var sources = SpriteDepthSources.Collect();
+        var dependencies = ActorDependencies(sources);
         var keys = new List<KeyRecord>();
-        foreach (var clip in ActorDependencies()
+        foreach (var clip in dependencies
             .Select(AssetDatabase.LoadAssetAtPath<AnimationClip>).Where(x => x))
         foreach (var binding in AnimationUtility.GetObjectReferenceCurveBindings(clip))
         {
@@ -66,7 +59,7 @@ public static class SpriteDepthAuthoring
                     loop = AnimationUtility.GetAnimationClipSettings(clip).loopTime });
             }
         }
-        var frames = ReferencedSprites().Select(sprite => {
+        var frames = ReferencedSprites(sources, dependencies).Select(sprite => {
             AssetDatabase.TryGetGUIDAndLocalFileIdentifier(sprite, out string guid, out long id);
             return new FrameRecord { sprite = sprite.name, source = AssetDatabase.GetAssetPath(sprite),
                 localId = id, rect = sprite.rect, pixelsPerUnit = sprite.pixelsPerUnit };
@@ -122,8 +115,7 @@ public static class SpriteDepthAuthoring
                 throw new BuildFailedException(path + ": duplicate or broken " + MapName + " binding");
             var depth = secondary.Length == 1 ? secondary[0].texture : null;
             var legacy = library.frames.Where(x => x.sprite && AssetDatabase.GetAssetPath(x.sprite) == path).ToArray();
-            if (legacy.Any(x => !x.depth) || legacy.Select(x => x.depth).Distinct().Count() > 1 ||
-                (depth && legacy.Any(x => x.depth != depth)))
+            if (!depth && (legacy.Any(x => !x.depth) || legacy.Select(x => x.depth).Distinct().Count() > 1))
                 throw new BuildFailedException(path + ": conflicting or broken depth library/binding; resolve the authored map explicitly");
             if (!depth)
             {
@@ -164,7 +156,11 @@ public static class SpriteDepthAuthoring
     }
     public static Sprite[] ReferencedSprites()
     {
-        var dependencies = ActorDependencies();
+        var sources = SpriteDepthSources.Collect();
+        return ReferencedSprites(sources, ActorDependencies(sources));
+    }
+    static Sprite[] ReferencedSprites(SpriteDepthSources sources, string[] dependencies)
+    {
         // Include directly referenced hurt/parry clips as well as controller clips.
         var clips = dependencies.Select(AssetDatabase.LoadAssetAtPath<AnimationClip>).Where(x => x);
         var initial = dependencies.Select(AssetDatabase.LoadAssetAtPath<EndlessOpponent>)
@@ -181,7 +177,7 @@ public static class SpriteDepthAuthoring
         return clips
             .SelectMany(clip => AnimationUtility.GetObjectReferenceCurveBindings(clip)
                 .SelectMany(binding => AnimationUtility.GetObjectReferenceCurve(clip, binding)))
-            .Select(x => x.value as Sprite).Concat(initial).Where(x => x)
+            .Select(x => x.value as Sprite).Concat(initial).Concat(sources.sprites).Where(x => x)
             .Concat(contacts).Distinct().ToArray();
     }
     public static SpriteDepthLibrary.Frame Describe(Sprite sprite, Texture2D depth)
