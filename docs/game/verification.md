@@ -3172,6 +3172,20 @@ complete merged scenes match generated semantic records; all61result records and
 UI code match the native-reviewed d11258b8 player. Main's cue/lighting evidence is
 preserved separately; UI preview does not certify those newer visuals.
 
+
+## Result HUD suppression (2026-10-24)
+
+Unity2022.3.25f1/fly-server run035514-webgl/input4a9a713b:5/5scoped PlayMode
+checks PASS,0failed/skipped,3.7247909s; strict repeated builder and QA build PASS.
+Thirteen valid authored groups hide visuals/interaction at terminal results,
+retaining logic and ordinary Pause. All generated scene records and33downloaded
+player hashes match. Native Edge155/Intel UHD ANGLE D3D11,1280x720:229checks PASS
+in121.9313421s,0exceptions,2intercepted Endless fixture writes. Seven complete
+images inspected; result/modals hide HUD, Restart/Menu/new gameplay restore it.
+Earlier builder-null and test-wait failures, external probe false positive, scope
+and retained artifacts are recorded in the [checkpoint](../plans/compact-menus.md).
+No performance/full production/sprite-motion or publication claim.
+
 ## Per-strike white Space warning above enemy (2026-10-24)
 
 Phase025930/input02175c97:5/5 scoped Unity tests PASS, including14 real manual
@@ -3190,3 +3204,12 @@ coverage and subjective playtest limits are explicit in the
 Normal native1280x720 smoke5/5 PASS,0exceptions/provider writes; eight images
 directly inspected, including the live head cue. Both players match33remote hashes
 each; five normal JS/WASM/data payloads exclude ASCII/UTF16 QA/depth markers.
+
+Integrated main9c48f5d through merge51c9e7b, retaining upstream parry recovery and
+enemy-head Space warning. Only the verification append conflicted; both receipts
+were retained. GamePauseController, HUD builder/test code and both full UI scenes
+are byte-identical to the native-reviewed UI commit10b7f0f. Integrated Quick042228
+/inputb9eacfd1:5/5scoped PlayMode PASS,0failed/skipped,3.6638901s, strict
+repeat PASS; both complete scenes match every generated semantic record. Native
+229-check evidence is reused for unchanged HUD behavior. Newer upstream parry/cue
+visuals retain their own receipts; this task adds no sprite review certification.

@@ -430,3 +430,72 @@ Entire merged SampleScene and MainMenu match generated semantic records exactly.
 Native203-check UI evidence is reused for the unchanged UI; newer cue/torch visuals
 retain their own main receipts. UI QA preview is intentionally scoped to results;
 no new production/world/performance certification or itch upload.
+
+
+## Result-only HUD suppression (2026-10-24)
+
+User approved hiding the surrounding combat HUD on Game Over/Victory. Keep the
+world/dimmer and compact result card, and preserve ordinary Pause presentation.
+GamePauseController hides thirteen explicitly bound CanvasGroups once when a
+terminal overlay opens; logic objects stay active. Visibility remains latched
+through Settings/Top1000 and camera exit, then scene reload supplies fresh authored
+groups. No per-frame work, public API, scoring/input or provider changes.
+CombatR7Build binds the existing visual nodes after ParryCueBuild; no reparenting
+or GUID replacement. Initial implementation is awaiting scoped Unity and native
+checks; do not treat the earlier result-layout receipts as proof of this change.
+Task evidence: E:/CodexTemp/TypingHero/result-hide-hud.
+
+Initial input401cbca3 / run034053: strict builder completed, but PlayMode3/5
+passed and both result cases rejected null HUD references. Serialized scene
+contained thirteen null entries and no added CanvasGroups. Replaced the native
+Unity-object null-coalescing expression with its boolean existence check, and
+explicitly mark/save the authored scene. Tests and required reference count remain
+unchanged. Intermediate346a646b waiter was stopped only after verifying the
+task-specific helper marker and locks_lock_inode_wait; it executed no Unity work.
+Final candidatea86a182f is awaiting checks. All other runner jobs were preserved.
+
+Candidatea86a182f / run035006 serialized all thirteen valid groups and passed
+strict repeat; result cases then exposed an incorrect new test wait:250ms versus
+the authored295ms Resume camera exit. The result call was correctly rejected
+while resuming, so HUD remained visible. Replaced that fixed test delay with a
+bounded wait for IsPaused=false plus an explicit result-visible assertion. No
+product transition timing or HUD acceptance was relaxed. Candidate4a9a713b pending.
+
+Final Unity candidate4a9a713b / run20261024T035514-webgl:5/5selected PlayMode
+cases PASS,0failed/skipped,3.7247909s, and strict repeated builder PASS. Native
+image/integration review remains pending while the QA player compiles.
+
+Final4a9a713b QA WebGL PASS;33downloaded player hashes match the immutable remote
+artifact. Both authored scenes match every generated semantic record. SampleScene
+preserves all old IDs, changing15records/adding14 (thirteen CanvasGroups and one
+stripped prefab identity). Native Edge155.0.4283.62/Playwright1.58.2/Intel UHD ANGLE
+D3D11 at1280x720:229checks PASS in121.9313421s,0exceptions,2intercepted Endless
+fixture writes. Real no-input death, result Settings/Top1000, Restart, Pause/Resume,
+six-opponent victory, result restore, Menu and new gameplay covered. Seven full
+images directly inspected: game-over, game-over-restored, result-settings,
+pause-unchanged, victory, victory-restored, menu-new-game. HUD is absent at results
+and result Settings, restored for gameplay and retained in ordinary Pause. Victory
+3814points/6defeated/62.4s/99.7%/9parries/40HP matches the captured run.
+
+Native startup initially lacked copied toolchain/helper metadata (no game started).
+First actual native attempt stopped at3checks because its new assertion also
+matched legacy zero-scale PlayerHP controls exposed by the read-only probe.
+Corrected the external driver to identify the unique PauseIconR7; all thirteen
+groups remain asserted hidden/noninteractive in Unity and all seven images were
+inspected directly. Failed attempt preserved separately as native-initial-probe.
+No product change or threshold relaxation followed this probe-identification fix.
+
+Evidence retained at E:/CodexTemp/TypingHero/result-hide-hud until user review is
+complete; then remove that task artifact directory. Native contexts/server exited.
+No performance measurement, production build, sprite-motion certification or itch
+publication is claimed. Native player precedes newer main parry/cue revisions;
+those retain their own upstream receipts. Integrated UI checks follow separately.
+
+Integrated main9c48f5d through merge51c9e7b, retaining upstream parry recovery and
+enemy-head Space warning. Only the verification append conflicted; both receipts
+were retained. GamePauseController, HUD builder/test code and both full UI scenes
+are byte-identical to the native-reviewed UI commit10b7f0f. Integrated Quick042228
+/inputb9eacfd1:5/5scoped PlayMode PASS,0failed/skipped,3.6638901s, strict
+repeat PASS; both complete scenes match every generated semantic record. Native
+229-check evidence is reused for unchanged HUD behavior. Newer upstream parry/cue
+visuals retain their own receipts; this task adds no sprite review certification.
