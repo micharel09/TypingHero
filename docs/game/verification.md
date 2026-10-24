@@ -3253,3 +3253,23 @@ are byte-identical to the native-reviewed UI commit10b7f0f. Integrated Quick0422
 repeat PASS; both complete scenes match every generated semantic record. Native
 229-check evidence is reused for unchanged HUD behavior. Newer upstream parry/cue
 visuals retain their own receipts; this task adds no sprite review certification.
+
+
+## ParryImpact burst (2026-10-24)
+
+- Integrated main d6d99dd + scoped ParryImpact change: final immutable input
+  b5a3b7ab9460c7e453252c2a5dfd7e971262b53adf5fb12672332e12747228fd,
+  Unity2022.3.25f1/fly-server result20261024T055845-serialize. Strict repeated
+  builder PASS; focused ImpactVfxTests40/40 PASS,0failed/0skipped,8.361289s.
+  Whole generated Player/SampleScene and profile equal reviewed inputs.
+- Both40px flash sizes/core2.5WU clamp,100+100ms alpha/200ms expiry, contact,
+  pause/resume/pool and same-seed physical traces in both directions pass.
+  MetalClash standalone and custom-profile/custom-prefab binding remain covered.
+- Native Edge156/Intel UHD D3D11: actual1280x720 real Space parry both directions,
+ 9checks each PASS,0exceptions/provider writes.197/197displayed PNGs and195/195
+  transitions reviewed. Final audible1x/.25x movie398/398frames/397/397transitions
+  inspected and played through; original timestamps/held frames retained.
+- Later main's281depth entries are float32/reference-equivalent; new letterbox
+  pass clears only outside the viewport. Reuse scoped visual evidence after exact
+  final generated-output comparison. No performance/full-suite/production build
+  or itch upload. [Receipts, cache correction and clip](../plans/parry-impact-burst.md).

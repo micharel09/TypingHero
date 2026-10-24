@@ -385,6 +385,13 @@ Change only behavior explicitly requested. Update this file after relevant verif
   world cap/grid/start frame/frame curve/color-alpha gradient), and local light
   enabled/color/intensity/hold/duration/decay/range/offset. MetalClash preserves
   24particles,1px,rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
+- Production Player uses `ParryImpact.asset`, a separate MetalClash copy: both
+  Pimen flash quads40px (previously16), core cap2.5world units (previously1),
+  unchanged200ms lifetime with full alpha through100ms then fade to zero by200ms.
+  Physics/prefab, sprite sheet/curves, local light, audio, camera and hitstop remain.
+  The builder migrates the stock prefab's MetalClash reference or fills its null
+  default; custom Inspector profiles and custom-prefab defaults remain authored.
+  Standalone MetalClash stays unchanged. [Evidence](../plans/parry-impact-burst.md).
 - Prefab renderer bindings supply unique IDs, particle systems and materials;
   generic rendering reserves no contact slots and supports zero or multiple flashes.
   Camera/world configuration supplies the native raster width. PPU supplies the

@@ -42,6 +42,23 @@ internal static class CombatFeedbackBuild
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 
+    static void BindParryProfile(ParrySparkVFX_Pooled parry)
+    {
+        var profile = Get<ImpactVfxProfile>(parry, "impactProfile");
+        if (profile && profile == AssetDatabase.LoadAssetAtPath<ImpactVfxProfile>(ParryClashAssets.Root + "MetalClash.asset") &&
+            Get<GameObject>(parry, "sparkPrefab") == ParryClashAssets.Load())
+            Set(parry, "impactProfile", AssetDatabase.LoadAssetAtPath<ImpactVfxProfile>(ParryClashAssets.Root + "ParryImpact.asset"));
+        else if (!profile)
+        {
+            var prefab = Get<GameObject>(parry, "sparkPrefab");
+            var template = prefab ? prefab.GetComponent<ImpactVfxBurst>() : null;
+            if (template && template.impactProfile)
+                Set(parry, "impactProfile", prefab == ParryClashAssets.Load()
+                    ? AssetDatabase.LoadAssetAtPath<ImpactVfxProfile>(ParryClashAssets.Root + "ParryImpact.asset")
+                    : template.impactProfile);
+        }
+    }
+
     static SfxEvent ImpactEvent(string name, string kind, float gain)
     {
         string path = Events + name + ".asset";
@@ -135,12 +152,7 @@ internal static class CombatFeedbackBuild
         foreach (var parry in root.GetComponentsInChildren<ParrySparkVFX_Pooled>(true))
         {
             if (!Get<GameObject>(parry, "sparkPrefab")) Set(parry, "sparkPrefab", ParryClashAssets.Load());
-            if (!Get<ImpactVfxProfile>(parry, "impactProfile"))
-            {
-                var prefab = Get<GameObject>(parry, "sparkPrefab");
-                var template = prefab ? prefab.GetComponent<ImpactVfxBurst>() : null;
-                if (template && template.impactProfile) Set(parry, "impactProfile", template.impactProfile);
-            }
+            BindParryProfile(parry);
             var system = Get<ParrySystem>(parry, "parrySystem");
             if (system) { Set(system, "contactLibrary", ParryPixelAssets.Contacts()); Record(system); }
             foreach (var audio in parry.GetComponentsInParent<SfxOnParrySuccess>(true)) { Value(audio, "duckSeconds", .08f); Record(audio); }

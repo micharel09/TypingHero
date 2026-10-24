@@ -37,6 +37,115 @@ public sealed partial class ImpactVfxTests
         Assert.That(Object.FindObjectsOfType<ImpactVfxBurst>(), Is.Empty);
     }
 
+    ImpactVfxProfile Parry => UnityEditor.AssetDatabase.LoadAssetAtPath<ImpactVfxProfile>(
+        "Assets/Art/VFX/ParryClash/ParryImpact.asset");
+
+    [Test, Category("Quick")]
+    public void ParryImpactEnlargesBothFlashesAndPreservesSeededParticles()
+    {
+        Assert.That(Parry.physics, Is.SameAs(Metal.physics));
+        Assert.That(Parry.prefab, Is.SameAs(Metal.prefab));
+        Assert.That(Parry.lightDuration, Is.EqualTo(Metal.lightDuration));
+        Assert.That(Parry.lightIntensity, Is.EqualTo(Metal.lightIntensity));
+        var camera = Camera.main;
+        if (!camera)
+        {
+            var cameraHost = new GameObject("parry size camera"); owned.Add(cameraHost);
+            cameraHost.tag = "MainCamera"; camera = cameraHost.AddComponent<Camera>();
+        }
+        float previousSize = camera.orthographicSize;
+        bool previousOrthographic = camera.orthographic; camera.orthographic = true;
+        var previousTarget = camera.targetTexture;
+        var texture = new RenderTexture(1280, 720, 0); owned.Add(texture);
+        camera.targetTexture = texture;
+        try
+        {
+            var emitter = Emitter();
+            foreach (float size in new[] { 6f, 40f })
+            foreach (float direction in new[] { -1f, 1f })
+            {
+                camera.orthographicSize = size;
+                var context = Context(direction);
+                var original = emitter.Play(Metal, context);
+                var actual = emitter.Play(Parry, context);
+                foreach (int channel in new[] { 0, 3 })
+                {
+                    var layer = Parry.flashes[channel == 0 ? 0 : 1];
+                    Assert.That(layer.sizePixels, Is.EqualTo(40));
+                    Assert.That(layer.lifetime, Is.EqualTo(.2f));
+                    float expected = Mathf.Max(1 / Parry.pixelsPerUnit, size * 2 * camera.aspect / 1280) * 40;
+                    if (channel == 0) expected = Mathf.Min(expected, 2.5f);
+                    Assert.That(Particles(actual, channel)[0].startSize, Is.EqualTo(expected).Within(.00001f));
+                    Assert.That(Particles(actual, channel)[0].position, Is.EqualTo(context.point));
+                    Assert.That(layer.colorOverLifetime.Evaluate(.5f).a, Is.EqualTo(1).Within(.0001f));
+                    Assert.That(layer.colorOverLifetime.Evaluate(.75f).a, Is.EqualTo(.5f).Within(.0001f));
+                    Assert.That(layer.colorOverLifetime.Evaluate(1).a, Is.Zero);
+                    actual.Systems[channel].Simulate(.201f, false, false, false);
+                    Assert.That(Particles(actual, channel), Is.Empty);
+                }
+                for (int step = 0; step <= 66; step++)
+                {
+                    foreach (int channel in new[] { 1, 2, 4 })
+                    {
+                        var a = Particles(actual, channel); var b = Particles(original, channel);
+                        Assert.That(a.Length, Is.EqualTo(b.Length));
+                        for (int n = 0; n < a.Length; n++)
+                        {
+                            Assert.That(a[n].position, Is.EqualTo(b[n].position));
+                            Assert.That(a[n].velocity, Is.EqualTo(b[n].velocity));
+                            Assert.That(a[n].startSize3D, Is.EqualTo(b[n].startSize3D));
+                            Assert.That(a[n].startColor, Is.EqualTo(b[n].startColor));
+                        }
+                    }
+                    actual.AdvanceDebris(1f / 60); original.AdvanceDebris(1f / 60);
+                }
+                emitter.Clear();
+            }
+        }
+        finally { camera.orthographicSize = previousSize; camera.targetTexture = previousTarget; camera.orthographic = previousOrthographic; }
+
+    }
+
+    [Test, Category("Quick")]
+    public void ParryBuilderMigratesDefaultAndPreservesCustomReferencesOnRepeat()
+    {
+        System.Type builder = null;
+        foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies())
+            if (assembly.GetType("CombatFeedbackBuild") != null) builder = assembly.GetType("CombatFeedbackBuild");
+        var bind = builder.GetMethod("BindParryProfile", BindingFlags.Static | BindingFlags.NonPublic);
+        var host = new GameObject("parry owner"); owned.Add(host); host.SetActive(false);
+        var owner = host.AddComponent<ParrySparkVFX_Pooled>();
+        var custom = Object.Instantiate(Metal); owned.Add(custom);
+        var so = new UnityEditor.SerializedObject(owner);
+        so.FindProperty("sparkPrefab").objectReferenceValue = Metal.prefab;
+        foreach (var input in new[] { null, Metal, Parry, custom })
+        {
+            so.FindProperty("impactProfile").objectReferenceValue = input; so.ApplyModifiedPropertiesWithoutUndo();
+            for (int i = 0; i < 2; i++)
+            {
+                bind.Invoke(null, new object[] { owner }); so.Update();
+                Assert.That(so.FindProperty("impactProfile").objectReferenceValue, Is.SameAs(input == custom ? custom : Parry));
+            }
+        }
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator ParryImpactPauseResumeReturnsLease()
+    {
+        var emitter = Emitter(); var burst = emitter.Play(Parry, Context());
+        GamePauseController.SetTutorialReading(true);
+        yield return null;
+        var before = Particles(burst, 0)[0];
+        yield return new WaitForSecondsRealtime(.25f);
+        Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
+        GamePauseController.SetTutorialReading(false);
+        yield return new WaitForSecondsRealtime(.3f);
+        Assert.That(Particles(burst, 0), Is.Empty);
+        Assert.That(Particles(burst, 3), Is.Empty);
+        yield return new WaitForSecondsRealtime(1.1f);
+        Assert.That(emitter.active, Is.Empty);
+    }
+
     [Test, Category("Quick")]
     public void MetalClashPlaysWithoutPlayerOrParryAndRetainsApprovedLimits()
     {
