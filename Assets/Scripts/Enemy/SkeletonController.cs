@@ -52,7 +52,9 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     int pattern, remainingSwings, swingIndex;
     int[] chain;
     float prepareUntil = -1;
-    bool preparing;
+    bool preparing, attackPending, cueAnnounced, thrustCue;
+    public int AttackSequenceId { get; private set; }
+    const float WarningSeconds = 1f;
     float swingEndsAt;
     float attackOneLength, attackTwoLength;
     int chainParries;
@@ -82,7 +84,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         animator.Update(0);
         var slayerPose = GetComponent<EnemySlayerHitPose>();
         if (slayerPose) slayerPose.ConfigureHurt(definition.hurt);
-        pattern = remainingSwings = 0; preparing = false;
+        pattern = remainingSwings = 0; preparing = false; HideCue();
         _attacking = false; _nextAttackAt = Now + .5f;
 
     }
@@ -101,11 +103,11 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
                 { impactTimes[clip] = evt.time; break; }
     }
 
-    // Presentation only: seconds of game time until the authored strike event.
+    // Read-only: seconds of game time until the current attack's authored strike event.
     public bool TryGetAttackTelegraph(out float secondsToImpact)
     {
         secondsToImpact = 0;
-        if (!isActiveAndEnabled || !_attacking || IsDead || CombatSession.Finished || !CueActive || !animator) return false;
+        if (!isActiveAndEnabled || !_attacking || IsDead || CombatSession.Finished || !attackPending || !animator) return false;
         if (telegraphController != animator.runtimeAnimatorController) CacheAttackEvents();
         if (!AnimatorUtil.IsInState(animator, attackStatePath, out var state)) return false;
         if (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).fullPathHash != state.fullPathHash) return false;
@@ -137,18 +139,20 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     }
     void RevealCue()
     {
+        if (cueAnnounced || !attackPending) return;
+        cueAnnounced = true;
         if (attackCue) attackCue.SetActive(true);
         var sound = GetComponent<SfxOnEnemyAttack>();
         if (sound) sound.Anim_EnemyAttackSfx();
     }
     internal bool CueActive => attackCue && attackCue.activeInHierarchy;
-    public void HideCue() { if (attackCue) attackCue.SetActive(false); }
+    public void HideCue() { attackPending = false; if (attackCue) attackCue.SetActive(false); }
     void OnDisable()
     {
         _attacking = false; remainingSwings = 0; preparing = false;
         var strike = GetComponent<AttackStrike>();
         if (strike) strike.CancelSwing();
-        if (animator && endless != null) animator.speed = 1;
+        if (animator) animator.speed = 1;
         HideCue();
     }
 
@@ -163,6 +167,17 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     void Update()
     {
         if (practiceIdle || IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
+        if (preparing && (!AnimatorUtil.IsInState(animator, attackStatePath, out var heldState) ||
+            (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).fullPathHash != heldState.fullPathHash)))
+        {
+            preparing = false; animator.speed = 1;
+            HideCue();
+            var canceledStrike = GetComponent<AttackStrike>();
+            if (canceledStrike) canceledStrike.CancelSwing();
+        }
+        // Thrust has no telegraph event; retain its original final-300ms sound/cue.
+        if (thrustCue && !cueAnnounced && TryGetAttackTelegraph(out float contactIn) && contactIn <= .3f)
+            RevealCue();
         if (preparing)
         {
             if (Now < prepareUntil) return;
@@ -203,17 +218,28 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         }
         _attacking = true;
         _queuedHitReact = false;
+        attackPending = true; cueAnnounced = false;
+        AttackSequenceId++;
+        if (attackCue) attackCue.SetActive(false);
+        thrustCue = endless != null && LastAttack == "Attack2" &&
+            definition.role != EndlessRole.Heavy && definition.role != EndlessRole.Berserker;
         if (animator && !string.IsNullOrEmpty(attackStatePath))
         {
             animator.speed = 1;
             animator.Play(attackStatePath, 0, 0f);
+            animator.Update(0);
             if (endless != null) swingEndsAt = Now + (LastAttack == "Attack1" ? attackOneLength : attackTwoLength);
-            if (endless != null && LastAttack == "Attack2" && definition.role != EndlessRole.Heavy && definition.role != EndlessRole.Berserker)
+            // Extend preparation only. Authored swing frames, speed and event offsets stay intact.
+            if (TryGetAttackTelegraph(out float authoredContact))
             {
-                animator.Update(0); animator.speed = 0;
-                preparing = true; prepareUntil = Now + .1f;
-                swingEndsAt += .1f;
-                RevealCue();
+                float hold = Mathf.Max(0, WarningSeconds - authoredContact);
+                preparing = hold > 0;
+                if (preparing)
+                {
+                    prepareUntil = Now + hold;
+                    animator.speed = 0;
+                    swingEndsAt += hold;
+                }
             }
         }
         var strike = GetComponent<AttackStrike>();
@@ -276,7 +302,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         remainingSwings = 0; preparing = false;
         var strike = GetComponent<AttackStrike>();
         if (strike) strike.CancelSwing();
-        if (animator && endless != null) animator.speed = 1;
+        if (animator) animator.speed = 1;
         HideCue();
         if (CombatSession.I) CombatSession.I.Complete(true);
         onDied?.Invoke();

@@ -279,6 +279,18 @@ see verification for profile status. These are current behaviors, not new requir
 - PlayerInputGate combines hit, dead and multiple parry-pose locks; dead/hit/pose
   block attacks and opening a parry. typing continues during parry. PlayerController keeps at most one completed-word
   slash until the pose ends and CanAttack is true; pause holds it, death/Slayer/exit clears it.
+- Every Classic/Endless strike, including each combo hit, warns at least1s before
+  contact at authored speed by extending the existing preparation cel as needed.
+  The32x16logical key sits above the enemy's stable collider head, with a4px gap
+  and pixel-snapped projection through the rendered camera/viewport. It first shows
+  a white outline and white SPACE text;
+  at200ms before contact it fills ivory to signal the press timing. Teal means an
+  active parry window, gray/X means locked. Pause holds the displayed state.
+  **The outline is advance warning, not buffered input**: early Space retains the
+  existing manual pose/window and may expire before impact. Each strike needs a
+  separately timed press. Legacy cue/audio stays in the final300ms, once per strike;
+  Esc/F8/Esc compares the cue visuals for this session only.
+  [Verification and visual scope](../plans/parry-cue-demo.md).
 - Space triggers the parry pose configured by `Assets/Data/Attack/PC_Parry.asset`.
   Animation events open/close the window; strikes have early/late grace. Successful
   parries cancel enemy strikes briefly, grant an iframe and emit scoring/VFX events.
