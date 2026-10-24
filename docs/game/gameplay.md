@@ -600,13 +600,16 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Slayer hit slash (2026-10-24)
+### Slayer hit slash (2026-10-25)
 
 - Production Slayer hit and lethal contacts use `SlayerHits/SlayerHit.prefab` and
-  `SlayerFinisher.prefab`: original tbbk CC0 nine-frame64x47 sheet, row-major,
-  fixed center pivot,150/180ms unscaled simulation age and32/40reference-pixel
-  maximum visible width at16PPU. Pixel.mat/order3; uniform scale and direction
-  mirror only. No particles, random transforms or additional lights.
+  `SlayerFinisher.prefab`: Met.Pxl B white64x64 artwork extracted losslessly from
+  the approved public preview. Fixed center pivot; F4/80ms→F5/F0/F1/F2/F3 at100ms
+  each, one580ms unscaled lifetime. Unrotated maximum visible width remains32/40
+  reference pixels at16PPU. Pixel.mat/order3; Point/no-mips/uncompressed.
+  Each impact selects one of eight clockwise45-degree directions, excluding the
+  immediately previous direction for that owner, shared across hit/finisher.
+  Hold angle throughout the effect; no extra mirror, particles or lights.
 - Hitbox snapshots Slayer state and afterimage RGB tint before damage; emitted
   tint stays opaque and immutable through Slayer exit. Lethal audio/camera still
   follow the damage outcome. Optional `slayerLethalPrefab` falls back to the old
@@ -614,10 +617,13 @@ Full surface art, B/C and parent integration remain separate.
   their existing bindings. Voxel assets remain available for compatibility.
 - `SlayerHitVfx` uses the existing PooledVFX/owner impact budget of eight; oldest
   impact is reclaimed, with dust/parry pools independent. Pause/tutorial reading
-  holds age; Slayer exit allows the150?180ms tail, result overlay/disable/restart/
-  unload reclaim it. Runtime frames quantize visible endpoints.
-- Scoped Unity50/50, strict two-pass builder and real-input WebGL1280x720 PASS;
-  full source-variant/selected runtime-frame review is recorded in [the task checkpoint](../plans/slayer-slash-vfx.md).
+  holds age; Slayer exit allows the580ms tail, result overlay/disable/restart/
+  unload reclaim it. Owner disable resets direction history. Runtime frames
+  quantize visible endpoints.
+- B integration: scoped Unity52/52, strict two-pass builder and real-input
+  WebGL1280x720/3153checks PASS. Both prefab and actual scene-override tint
+  matrices plus198encoded runtime frames were reviewed; evidence and scope
+  are recorded in [the task checkpoint](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 

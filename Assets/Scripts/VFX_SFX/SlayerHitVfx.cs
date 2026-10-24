@@ -6,29 +6,33 @@ public sealed class SlayerHitVfx : MonoBehaviour
     [SerializeField] Sprite[] frames;
     [SerializeField] SpriteRenderer image;
     [SerializeField] float uniformScale;
-    [SerializeField] float duration = .15f;
+    [SerializeField] float[] frameDurations;
     PooledVFX lease;
     float age;
     int bornFrame;
     internal float Age => age;
     void Awake() => lease = GetComponent<PooledVFX>();
-    internal void Emit(Vector3 point, float direction, Color tint)
+    internal void Emit(Vector3 point, float clockwiseAngle, Color tint)
     {
         age = 0;
         bornFrame = Time.frameCount;
-        transform.SetPositionAndRotation(point, Quaternion.identity);
+        transform.SetPositionAndRotation(point, Quaternion.Euler(0, 0, -clockwiseAngle));
         transform.localScale = Vector3.one * uniformScale;
         tint.a = 1;
         image.color = tint;
-        image.flipX = direction < 0;
-        image.flipY = false;
+        image.flipX = image.flipY = false;
         image.sprite = frames[0];
     }
     internal void Advance(float delta)
     {
         age += delta;
-        if (age >= duration) { lease.Release(); return; }
-        image.sprite = frames[Mathf.Min(frames.Length - 1, Mathf.FloorToInt(age * frames.Length / duration))];
+        float end = 0;
+        for (int i = 0; i < frames.Length; i++)
+        {
+            end += frameDurations[i];
+            if (age < end) { image.sprite = frames[i]; return; }
+        }
+        lease.Release();
     }
     void Update()
     {
@@ -37,5 +41,10 @@ public sealed class SlayerHitVfx : MonoBehaviour
         if (GamePauseController.InputBlocked || Time.timeScale == 0 || bornFrame == Time.frameCount) return;
         Advance(Time.unscaledDeltaTime);
     }
-    void OnDisable() { age = 0; if (image) { image.sprite = null; image.color = Color.white; image.flipX = image.flipY = false; } }
+    void OnDisable()
+    {
+        age = 0;
+        transform.localRotation = Quaternion.identity;
+        if (image) { image.sprite = null; image.color = Color.white; image.flipX = image.flipY = false; }
+    }
 }

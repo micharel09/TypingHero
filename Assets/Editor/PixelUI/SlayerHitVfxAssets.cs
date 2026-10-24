@@ -10,7 +10,7 @@ internal static class SlayerHitVfxAssets
     internal static GameObject Load(bool lethal) => AssetDatabase.LoadAssetAtPath<GameObject>(Root + (lethal ? "SlayerFinisher" : "SlayerHit") + ".prefab");
     internal static void Prepare()
     {
-        const string path = Root + "pixel_art_sword_slash_sprites.png";
+        const string path = Root + "metpxl-white.png";
         var importer = (TextureImporter)AssetImporter.GetAtPath(path);
         importer.textureType = TextureImporterType.Sprite;
         importer.spriteImportMode = SpriteImportMode.Multiple;
@@ -21,9 +21,9 @@ internal static class SlayerHitVfxAssets
         importer.textureCompression = TextureImporterCompression.Uncompressed;
         importer.npotScale = TextureImporterNPOTScale.None;
         importer.alphaIsTransparency = false;
-        importer.maxTextureSize = 256;
+        importer.maxTextureSize = 512;
         var web = importer.GetPlatformTextureSettings("WebGL");
-        web.overridden = true; web.format = TextureImporterFormat.RGBA32; web.maxTextureSize = 256;
+        web.overridden = true; web.format = TextureImporterFormat.RGBA32; web.maxTextureSize = 512;
         importer.SetPlatformTextureSettings(web);
         var settings = new TextureImporterSettings(); importer.ReadTextureSettings(settings);
         settings.spriteMeshType = SpriteMeshType.FullRect; importer.SetTextureSettings(settings);
@@ -31,16 +31,16 @@ internal static class SlayerHitVfxAssets
         var factory = new SpriteDataProviderFactories(); factory.Init();
         var provider = factory.GetSpriteEditorDataProviderFromObject(importer); provider.InitSpriteEditorDataProvider();
         var previous = provider.GetSpriteRects();
-        var slices = new SpriteRect[9];
+        var slices = new SpriteRect[6];
         for (int i = 0; i < slices.Length; i++)
             slices[i] = new SpriteRect { name = "frame_" + i, alignment = SpriteAlignment.Center, pivot = Vector2.one * .5f,
-                rect = new Rect(i % 3 * 64, 141 - (i / 3 + 1) * 47, 64, 47),
+                rect = new Rect(i * 64, 0, 64, 64),
                 spriteID = previous.FirstOrDefault(s => s.name == "frame_" + i)?.spriteID ?? GUID.Generate() };
         provider.SetSpriteRects(slices);
         provider.GetDataProvider<ISpriteNameFileIdDataProvider>().SetNameFileIdPairs(slices.Select(s => new SpriteNameFileIdPair(s.name, s.spriteID)));
         provider.Apply(); importer.SaveAndReimport();
         var frames = AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().OrderBy(s => s.name).ToArray();
-        if (frames.Length != 9) throw new System.InvalidOperationException("Slayer slash requires all nine source frames");
+        if (frames.Length != 6) throw new System.InvalidOperationException("Slayer B requires all six source frames");
         var texture = new Texture2D(2, 2); int widest = 0;
         try
         {
@@ -48,16 +48,17 @@ internal static class SlayerHitVfxAssets
             foreach (var frame in frames)
             {
                 var rect = frame.rect; int left = 64, right = -1;
-                for (int y = 0; y < 47; y++) for (int x = 0; x < 64; x++)
+                for (int y = 0; y < 64; y++) for (int x = 0; x < 64; x++)
                     if (texture.GetPixel((int)rect.x + x, (int)rect.y + y).a > 0) { left = Mathf.Min(left, x); right = Mathf.Max(right, x); }
                 widest = Mathf.Max(widest, right - left + 1);
             }
         }
         finally { Object.DestroyImmediate(texture); }
-        Build(false, frames, 32f / widest, .15f);
-        Build(true, frames, 40f / widest, .18f);
+        var sequence = new[] { frames[4], frames[5], frames[0], frames[1], frames[2], frames[3] };
+        Build(false, sequence, 32f / widest);
+        Build(true, sequence, 40f / widest);
     }
-    static void Build(bool lethal, Sprite[] frames, float scale, float duration)
+    static void Build(bool lethal, Sprite[] frames, float scale)
     {
         var path = Root + (lethal ? "SlayerFinisher" : "SlayerHit") + ".prefab";
         bool existing = Load(lethal);
@@ -74,7 +75,8 @@ internal static class SlayerHitVfxAssets
             for (int i = 0; i < frames.Length; i++) list.GetArrayElementAtIndex(i).objectReferenceValue = frames[i];
             so.FindProperty("image").objectReferenceValue = image;
             so.FindProperty("uniformScale").floatValue = scale;
-            so.FindProperty("duration").floatValue = duration;
+            var durations = so.FindProperty("frameDurations"); durations.arraySize = frames.Length;
+            for (int i = 0; i < frames.Length; i++) durations.GetArrayElementAtIndex(i).floatValue = i == 0 ? .08f : .1f;
             so.ApplyModifiedPropertiesWithoutUndo(); PrefabUtility.SaveAsPrefabAsset(root, path);
         }
         finally { if (existing) PrefabUtility.UnloadPrefabContents(root); else Object.DestroyImmediate(root); }
