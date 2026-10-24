@@ -1,5 +1,45 @@
 # WebGL startup render diagnosis — 2026-10-24
 
+## Follow-up compiler/splash experiment blocked (2026-10-25)
+
+- Fresh `origin/main` source: `903344c39a13448da41e0b18af5a777de880d186`.
+  Independent Orca branch `micharel09/webgl-startup-opt`, worktree
+  `C:/Users/ADMIN/orca/workspaces/TypingHero/webgl-startup-opt`.
+  The original dirty checkout was preserved.
+- `python tools/game_loop/run.py doctor` and two subsequent read-only SSH
+  connectivity attempts each ended with `Connection timed out` on the configured
+  `fly-server` SSH endpoint, before remote execution. This is a connectivity
+  blocker; runner lock, license entitlement and installed Editor optimization
+  settings have not been verified. No setup, toolchain change or job termination
+  was attempted. No remote build/result/player was created by this task.
+- Source audit: Unity remains 2022.3.25f1. `GameLoopBuild.WebGL` explicitly sets
+  production Brotli/native decompression and restores both settings in `finally`;
+  it does not explicitly set WASM optimization. Serialized splash flags are both
+  enabled; serialized WebGL managed-stripping value is `1`. These raw settings
+  do not establish license entitlement or the effective Editor optimization
+  mode. Do not infer either without Editor evidence.
+- No compiler, splash, stripping, resource or runtime candidate was applied.
+  The historical 4411.80ms local / 10377.70ms network results above remain
+  historical results, not a new baseline on current main. Additional startup
+  improvement, including the requested 20% target, remains **unverified**.
+
+Resume this worktree when SSH is reachable. First run doctor and inspect the
+exclusive runner/license state without exposing credentials, then obtain actual
+Editor optimization mode/API and splash entitlement. Reuse the timing drivers
+under `E:/CodexTemp/TypingHero/webgl-delivery-startup/`; add the requested startup
+phase and per-navigation GPU observations in temporary diagnostic inputs only.
+Measure a fresh current-source baseline, followed by eligible splash-only,
+Disk Size and Disk Size with LTO candidates one at a time. Audit stripping and
+packed resources only after selecting WASM configuration. Retain only candidates
+meeting the user's startup, blocking-task, frame-time, Play latency and behavior
+gates; finish with a clean production build and decoded diagnostic exclusion
+scan. Keep Brotli, streaming WASM, rendering quality and preloaded gameplay
+assets unchanged. No itch.io release is authorized by this follow-up.
+
+This checkpoint contains documentation only. Keep the clean task worktree for
+continuation; remove it after verified implementation/integration or explicit
+abandonment. No task helper or player needs cleanup at this checkpoint.
+
 ## Production delivery result — accepted (2026-10-24)
 
 Retain production Brotli/native decompression: fresh navigation to complete,
