@@ -1335,3 +1335,9 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   Full QA/performance/video remain waived; this is scoped rendering acceptance.
 - Artifact root E:/CodexTemp/TypingHero/clean-letterbox-20261024; keep original user
   screenshot, baseline attempts, immutable build/receipts and final demo separately.
+- Integration pending: merged newer main9c48f5d into task e8aee8a. Rendering sources
+  remain identical, but integrated production035339/inputedfe35fe is blocked by
+  main65852c2's new male_hero-parry_lift sprite lacking authored depth. Validation
+  was not bypassed. Ask whether to extend scope to depth authoring or retain the
+  verified pre-parry demo. Demo8341 uses034449, not the failed integrated build.
+  Keep this worktree/branch until that decision and verified remote integration.
