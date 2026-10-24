@@ -73,8 +73,8 @@
 ## Original parry and dedicated follow-up (2026-10-23)
 
 Parry enters original combo_3_end_2; unsuccessful recovery stays2->3->4->5->idle
-at400ms. Success recovers2->3->4->4->idle/follow-up at950ms: user-image
-combo_3_end_5 is omitted from both success clips, with cel4 held through the end;
+at400ms. Success uses combo_3_1 -> parry_lift -> combo_3_0 -> combo_2_end_0..3
+-> idle/follow-up at950ms; both success clips share this seven-cel sequence;
 defense stays250ms and success holds its first cel800ms. One completed word in
 [0,800) unpaused real ms queues one dedicated `parry_followup` after recovery.
 No word means no attack. Pause retains queue/budget; hit/death/Slayer/interruption/
@@ -176,7 +176,8 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
   Stun, Slayer and death cancel remaining strikes; recovery starts a fresh pattern.
 - All18 approved gif-pack strips are imported unchanged:96x64 cels,100ms/cel,
   Point/16PPU/uncompressedRGBA32. Sword/shield contact cels5/2; axe6/4 (zero-based).
-  Early sword/shield thrust holds pose0 for100ms before playback to retain300ms cue.
+  Sword/shield thrust now holds pose0 for800ms for the per-strike1s warning;
+  the legacy cue/audio still begins in the final300ms.
   Each form owns Idle/Walk/Attack1/Attack2/Hurt/Die; stun/Slayer reuse that form's Hurt.
   The original skeleton controller/GUIDs remain for the tutorial configuration.
 - Initial Fight only. Continue after the first five death animations loads AND starts the
@@ -289,6 +290,18 @@ see verification for profile status. These are current behaviors, not new requir
 - PlayerInputGate combines hit, dead and multiple parry-pose locks; dead/hit/pose
   block attacks and opening a parry. typing continues during parry. PlayerController keeps at most one completed-word
   slash until the pose ends and CanAttack is true; pause holds it, death/Slayer/exit clears it.
+- Every Classic/Endless strike, including each combo hit, warns at least1s before
+  contact at authored speed by extending the existing preparation cel as needed.
+  The32x16logical key sits above the enemy's stable collider head, with an8px gap
+  and pixel-snapped projection through the rendered camera/viewport. It first shows
+  a white outline and white SPACE text;
+  at200ms before contact it fills ivory to signal the press timing. Teal means an
+  active parry window, gray/X means locked. Pause holds the displayed state.
+  **The outline is advance warning, not buffered input**: early Space retains the
+  existing manual pose/window and may expire before impact. Each strike needs a
+  separately timed press. Legacy cue/audio stays in the final300ms, once per strike;
+  Esc/F8/Esc compares the cue visuals for this session only.
+  [Verification and visual scope](../plans/parry-cue-demo.md).
 - Space triggers the parry pose configured by `Assets/Data/Attack/PC_Parry.asset`.
   Animation events open/close the window; strikes have early/late grace. Successful
   parries cancel enemy strikes briefly, grant an iframe and emit scoring/VFX events.
@@ -833,12 +846,15 @@ per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.
 
 `ParryCuePresenter` reads `SkeletonController.TryGetAttackTelegraph` and the existing
 `CanBeginParry`/`IsWindowActive`; it never changes combat or typing input. Original
-Kenney CC0 caps form a 32x16 logical key at (23,133), 6px left of the tray. The tray
-is fixed at (61,126), 198x30, near the fighters. Amber outline means wind-up;
+Kenney CC0 caps form a 32x16 logical key above the enemy collider head, with an8px
+gap and pixel-snapped rendered-camera projection. The tray is fixed at (61,126),
+198x30, near the fighters. White outline/text means advance warning for each strike;
 ivory fill begins 200ms before authored contact; teal means an active parry window;
 gray/X hides the label while locked. No valid attack means hidden.
 Prediction caches Anim_DealDamage events by controller and follows Animator
-speed/progress plus the 100ms thrust hold; outgoing transitions cancel the cue.
+speed/progress plus the calculated preparation hold to provide1s at authored speed;
+outgoing transitions cancel the cue. Early Space is not buffered; the existing
+manual250ms window can expire before contact. Each strike needs its own press.
 The original cue object/SFX stay intact; only its Graphics are suppressed.
 Previous actor Graphics are restored and released on target rebind/disable.
 Esc -> F8 -> Esc compares key/legacy ! in-session, default key on application start;
