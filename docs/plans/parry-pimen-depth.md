@@ -181,5 +181,39 @@ receipts and diagnostic/pilot distinctions); remove after user no longer needs Q
 Immutable Unity result archives remain on fly-server under
 `/data/typinghero-game-loop/results/{20261024T111935-webgl,20261024T112344-webgl,20261024T114327-webgl}`
 for reproducibility. No runner/build/browser task process remains intentionally
-running. Task worktree/local branch are removed only after verified remote integration;
+running. Task worktree/local branch are retained until verified remote integration;
 remote task branch remains. Original dirty checkout preserved.
+
+
+### Integration checkpoint: awaiting runner
+
+Implemented commit34ef5ee; merged newer origin/main903344c in2d346ce. The sole
+conflict was the VFX systems-memory row: retained the Pimen section plus upstream
+Slayer class/bindings/verification. Upstream Slayer effects and production Brotli
+settings remain untouched. All26task build-input delta paths are byte-identical to
+34ef5ee (including intentional deletions), recorded in external
+`integration-checkpoint.json`.
+
+Additional integration ImpactVfxTests and strict builder execution is **UNVERIFIED**:
+SSH10s timeout, Tailscale peer quanubutu100.115.189.84 offline (last seen
+2026-10-24T11:54:12.1Z). This does not invalidate the pre-integration43cases,
+normal/mirror builds and full native/frame/GPU evidence; it prevents final main
+integration acceptance. No local Unity installation was found. No server/service
+configuration was changed. Main push is withheld pending these checks.
+
+Resume in the retained clean Orca worktree
+`C:/Users/ADMIN/orca/workspaces/TypingHero/parry-pimen-depth`, branch
+`micharel09/parry-pimen-depth`. Once the existing runner is online, execute the
+scoped normalized-input adapter below (same repo runner, no runtime changes):
+
+```powershell
+python E:/CodexTemp/TypingHero/parry-pimen-depth/run-integration.py quick --test-filter ImpactVfxTests --wait-seconds 600
+python E:/CodexTemp/TypingHero/parry-pimen-depth/run-integration.py serialize --wait-seconds 600
+```
+
+Then record actual results, fetch/integrate any newer main and recheck only affected
+behavior, push verified task HEAD to origin/main fast-forward, verify task ancestry
+on remote, remove clean task worktree/local branch via Orca. Remote task branch is
+retained. Task Edge cache and temporary MJPEG exports removed after final clip packet/
+decode verification; source PNGs, clips and evidence remain. No task browser/node/
+Python process was found still running at cleanup.

@@ -3464,3 +3464,10 @@ visuals retain their own receipts; this task adds no sprite review certification
 - Full sources, qualifications, hashes, per-frame evidence and exclusions:
   [Pimen/depth checkpoint](../plans/parry-pimen-depth.md). Artifacts retained at
   `E:/CodexTemp/TypingHero/parry-pimen-depth`. No itch.io upload or performance claim.
+
+- Integration checkpoint:34ef5ee merged newer origin/main903344c in2d346ce; all26
+  task build-input delta paths unchanged. Additional integrated ImpactVfxTests/
+  strict-builder checks could not execute: fly-server SSH timeout, peer offline.
+  Integrated revision remains **UNVERIFIED** for these checks; main push withheld.
+  Pre-integration scoped results above remain valid only for their immutable inputs.
+  Resume commands and retained worktree are in the checkpoint.
