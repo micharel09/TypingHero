@@ -298,3 +298,37 @@ After verified candidate normal/mirror QA builds, create hash-backed
 verified players in `variation-player-{right,left}`, then execute
 `python E:/CodexTemp/TypingHero/parry-pimen-depth/native-multi.py right` and `left`.
 Review/export every recorded frame and pair using the complete-scope rules above.
+
+
+### Offline preview while server unavailable
+
+User cannot turn fly-server back on. Delivered local visual alternative
+`E:/CodexTemp/TypingHero/parry-pimen-depth/Parry-3-seeds-offline.webm`:
+1280x720,6seconds,25FPS, three different seeds0/1/2 emitted at0.4/2.4/4.4s.
+This is explicitly labeled OFFLINE VFX PREVIEW throughout, not a game recording.
+Original Pimen PNGs and the current core sampling values are used. Original
+PhysicalParticleSimulation/Profile source is compiled with existing Framework csc
+via syntax-only C#5 lowering and small Unity vector/math substitutes; group values
+come from ParryImpactPhysics.asset. No simulation equations/random draws changed.
+Source hashes, generated adapter/compiler inputs and CSV at `offline-preview/`.
+Presentation is an approximate standalone pinhole projection/additive pixel renderer,
+not Unity camera/material/bloom/depth. No characters or audio. It demonstrates
+per-seed variation and complete flash/tail, not successful input or in-game occlusion.
+No Unity/runtime acceptance is inferred; existing integration block remains.
+
+Full clip scope selected before review:0-6s, all150frames/149pairs including ready,
+every80ms core cel/480ms expiry, complete22particle trajectories, floor/tail fade and
+clear intervals. All150decoded frames and149consecutive transitions directly viewed
+at320x180normal and4xnearest crop; original held/repeated40ms frames retained.
+Per-frame observations in `offline-preview/review/frame-review.csv`, numbered PNGs
+and sheets alongside. All150encoded PTS0..5960ms/40ms verified and150frames decoded.
+Native Edge playback to end at1x/0.25x,150frames and0presentation drops at each rate
+(`playback-offline.json`); intentionally silent. Observed different particle fans,
+floor positions and core size/angle; tail remains after480ms, full clear before each
+next event, no observed floor penetration in this simplified preview. No invented
+player pose/contact/counter evidence. SHA256: 68ec97f38126325503b0b4dc86492b49b4c673a5b9d2a3e14e24e49dbab53e00.
+
+Reproduction scripts at the existing artifact root:make-offline-preview-data.py,
+render-offline-preview.py,prepare-offline-review.py. Runtime/product source remains
+unchanged by preview generation. Retain final clip,source/frame evidence and recipes
+for user review; temporary MJPEG and executable removed after encoded/decode proof.
