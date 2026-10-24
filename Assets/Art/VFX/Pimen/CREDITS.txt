@@ -4,3 +4,4 @@ Original free Hit Effect 01.rar; custom author license (see HitSpark-License.txt
 Battle Effects: https://pimen.itch.io/pixel-battle-effects
 Original free Effects.rar; CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
 Changes by CLACKBLADE: animation timing, centered pivots, uniform scale; Battle Effects converted to white for Slayer. Original sheets retained.
+Parry Pimen derivatives: Hit Effect + Color layers F0-F6, original Particle/Particle 2 clusters; lossless extraction only. Recipe and SHA256: ../ParryClash/PimenSource.json; exporter: tools/game_loop/export_parry_pimen.py.

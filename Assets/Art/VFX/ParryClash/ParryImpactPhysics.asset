@@ -160,7 +160,7 @@ MonoBehaviour:
       restDuration: 0.4
   - name: Player specks
     count: 4
-    channel: 2
+    channel: 3
     small: 1
     spawnRegion: 1
     towardPlayer: 1

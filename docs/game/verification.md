@@ -3401,3 +3401,30 @@ visuals retain their own receipts; this task adds no sprite review certification
   No frame rendering, WebGL build, full QA or new animation/performance claim.
   XML/logs, source/artifact/protected SHA256 and runtime reuse evidence:
   E:/CodexTemp/TypingHero/depth-preflight-fix-20261024/receipt.json.
+
+
+## Pimen parry core and physical depth (2026-10-24)
+
+- Scoped Unity ImpactVfxTests:43cases qualified,42/43 first run plus corrected float
+  assertion1/1 retry;0skips. Only1e-6 lifetime assertion tolerance changed between
+  immutable inputs;2433file comparison confirms runtime/assets identical.
+  Covers480ms core/cell timing/mirror/size cap, materials/importers, all22physical
+  position/velocity seed traces, pause/hitstop/pool/restart, missing-default/repeated
+  builder/custom Inspector and independent MetalClash. No broad suite added.
+- Normal20261024T112344 and mirror20261024T114327 WebGL/strict repeated builder PASS;
+ 33files/player hash-verified; same compiled WASM/framework and68VFX files.
+- Native1280x720 real-input right16/left18checks PASS,0exceptions; GPU10checks PASS
+  establish actor depth-write before Pimen LEqual against same depth attachment.
+- Direct original-frame review147+131frames/146+130pairs, full and4x logical crop;
+  final video148+132frames/147+131pairs decoded and directly inspected. Final VP9
+  exports preserve all source timestamps and original Opus payloads, with1ms terminal
+  held duplicate only. Clip playback to end at1x/0.25x unmuted has nonzero audio;
+  subjective human listening not claimed. Viewer presentation drops are recorded,
+  while separate decoding verifies every encoded frame. Supplemental diagnostic
+ 254normal frames/253pairs and48zoom frames includes earlier missed strike explicitly.
+- Actual tail visible after480ms, no observed floor penetration or abrupt expiry;
+  guard/counter readable. Pimen source/crops remain exact RGBA and source SHA-backed;
+  no synthetic arc. Existing MetalClash/runtime clocks/camera/audio unchanged.
+- Full sources, qualifications, hashes, per-frame evidence and exclusions:
+  [Pimen/depth checkpoint](../plans/parry-pimen-depth.md). Artifacts retained at
+  `E:/CodexTemp/TypingHero/parry-pimen-depth`. No itch.io upload or performance claim.

@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-// One-time stock migration; subsequent builds retain authored assets and bindings.
+// Only creates a missing stock prefab; authored profiles and prefabs remain authoritative.
 internal static class ParryImpactAssets
 {
     internal static void Prepare()
@@ -15,30 +15,27 @@ internal static class ParryImpactAssets
             instance.name = "ParryImpact"; instance.SetActive(false);
             try
             {
-                var burst = instance.GetComponent<ImpactVfxBurst>();
-                var so = new SerializedObject(burst);
+                var so = new SerializedObject(instance.GetComponent<ImpactVfxBurst>());
                 so.FindProperty("impactProfile").objectReferenceValue = profile;
-                so.FindProperty("directionalFlashChannel").intValue = 5;
+                so.FindProperty("directionalFlashChannel").intValue = 0;
                 var bindings = so.FindProperty("rendererBindings");
-                var source = (ParticleSystem)bindings.GetArrayElementAtIndex(0).FindPropertyRelative("particles").objectReferenceValue;
-                var arc = Object.Instantiate(source.gameObject, instance.transform).GetComponent<ParticleSystem>();
-                arc.name = "ShockArc";
-                var main = arc.main; main.maxParticles = 1; main.loop = false;
-                main.playOnAwake = false; main.useUnscaledTime = true;
-                var emission = arc.emission; emission.enabled = false;
-                var material = AssetDatabase.LoadAssetAtPath<Material>(root + "ParryArc.mat");
-                arc.GetComponent<ParticleSystemRenderer>().sharedMaterial = material;
-                int index = bindings.arraySize; bindings.arraySize++;
-                var binding = bindings.GetArrayElementAtIndex(index);
-                binding.FindPropertyRelative("id").intValue = 5;
-                binding.FindPropertyRelative("particles").objectReferenceValue = arc;
-                binding.FindPropertyRelative("material").objectReferenceValue = material;
+                string[] materials = { "PimenCore", "PimenFragment", "PimenRay", "PimenSpeck", "PimenRay" };
+                for (int i = 0; i < bindings.arraySize; i++)
+                {
+                    var binding = bindings.GetArrayElementAtIndex(i);
+                    int id = binding.FindPropertyRelative("id").intValue;
+                    var ps = (ParticleSystem)binding.FindPropertyRelative("particles").objectReferenceValue;
+                    var material = AssetDatabase.LoadAssetAtPath<Material>(root + materials[id] + ".mat");
+                    binding.FindPropertyRelative("material").objectReferenceValue = material;
+                    ps.GetComponent<ParticleSystemRenderer>().sharedMaterial = material;
+                    if (id == 3) { var main = ps.main; main.maxParticles = 4; }
+                }
                 so.ApplyModifiedPropertiesWithoutUndo();
                 prefab = PrefabUtility.SaveAsPrefabAsset(instance, root + "ParryImpact.prefab");
             }
             finally { Object.DestroyImmediate(instance); }
         }
-        if (profile.prefab == ParryClashAssets.Load())
+        if (!profile.prefab || profile.prefab == ParryClashAssets.Load())
         {
             profile.prefab = prefab;
             EditorUtility.SetDirty(profile);

@@ -385,19 +385,26 @@ Change only behavior explicitly requested. Update this file after relevant verif
   world cap/grid/start frame/frame curve/color-alpha gradient), and local light
   enabled/color/intensity/hold/duration/decay/range/offset. MetalClash preserves
   24particles,1px,rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
-- Production Player uses `ParryImpact.asset`, a separate MetalClash copy: both
-  Pimen flash quads40px (previously16), core cap2.5world units (previously1),
-  unchanged200ms lifetime with full alpha through100ms then fade to zero by200ms.
-    Dedicated prefab/physics now keep leads10-14px long/2px initial width,
-    cooling450-550ms/lifetime550-700ms; secondary4-7px/cooling400-550ms and brighter
-    orange embers retain their launch/flight/bounce settings and counts.
-    One hollow120-degree shock arc uses8pixel cels/320ms,64px canvas/cap4WU,
-    mirrored toward the opponent at emission. Existing pool/pause clocks own it;
-    no new public API or frame handler. Pimen flashes, local light, audio, camera
-    and hitstop remain unchanged. [Spark/arc evidence](../plans/parry-spark-arc.md).
-  The builder migrates the stock prefab's MetalClash reference or fills its null
-  default; custom Inspector profiles and custom-prefab defaults remain authored.
-  Standalone MetalClash stays unchanged. [Evidence](../plans/parry-impact-burst.md).
+- Production Player uses the dedicated `ParryImpact.asset` and prefab/physics:
+  one40logical-pixel Pimen core capped2.5world units, fixed48x48 canvas/pivot24,24,
+  six visible cells at80ms each and a seventh transparent cell; expiry480ms.
+  Frame curve0->6/7 over480ms preserves the full six-cell timing. Core layers are
+  only Hit Effect+Color, with white tint/material gain1 and constant alpha; original
+  white/yellow/orange RGBA retained. Detached ray/fragment/speck PNGs are exact
+  original Pimen layer crops, Point/Clamp/no mipmaps; recipe and hashes are in
+  `PimenSource.json` and `tools/game_loop/export_parry_pimen.py`.
+  Five bindings: core0,fragment1,near rays2,body specks3,far rays4; no shock arc.
+  There are22unchanged physical trajectories plus one core,23total/184at eight
+  leases. Leads10-14px/initial2px live550-700ms; secondary4-7px live850-1100ms,
+  with unchanged cooling, final80ms fade, gravity/drag/bounce/floor rest and seed.
+  NearZ velocities-6..-4 and far2..4 remain actual world-space perspective/depth;
+  actor cutout writes depth and Pimen uses the same depth buffer with LEqual.
+  Detached contact/recipient snapshots, local light, bloom, audio, hitstop and camera
+  remain unchanged. Mirror is captured on core0 at emission; pool/pause clocks own
+  the complete tail. [Pimen/depth evidence](../plans/parry-pimen-depth.md).
+  Builder creates only a missing stock prefab and fills null/stock profile defaults;
+  repeated runs preserve authored prefab/custom Inspector references. Standalone
+  MetalClash remains unchanged. [Earlier evidence](../plans/parry-impact-burst.md).
 - Prefab renderer bindings supply unique IDs, particle systems and materials;
   generic rendering reserves no contact slots and supports zero or multiple flashes.
   Camera/world configuration supplies the native raster width. PPU supplies the
@@ -424,7 +431,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
   conservatively rebase without catch-up. Positive-scale hitstop remains unscaled.
   One-floor/one-bounce solver, fixed buffers,
   unscaled pause-held updates and cleanup remain. Audio, damage, recoil and hitstop
-  remain owned by gameplay. No new production material preset is introduced.
+  remain owned by gameplay.
 - Authoring/API: [lighting and impact profiles](lighting-profiles.md).
   Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
 
