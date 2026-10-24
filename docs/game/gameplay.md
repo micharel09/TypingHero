@@ -1,5 +1,13 @@
 ## Reusable world lighting (2026-10-22)
 
+- Wall torches use authored cinematic SinePair flicker: base8/range15/amplitude.18,
+  independent phases and matching flame emission. Two fixed TorchBeam cards are
+  inactive and no longer receive atmosphere updates. Central lantern, flame
+  atlas/timing and actor self-shadow remain unchanged. Pause holds the clock;
+  Slayer composite conceals the continuing world phase and restores it without
+  resetting. [Evidence](../plans/combat-hanging-light.md).
+
+
 - DungeonWorld selects the authored ActorDepth library for normal-player self-shadow.
   DungeonSprite saves strength0.65/depth scale0.15/bias0.01; world without a library
   retains the previous rendering path. The user accepted demo8293 with rune and
@@ -815,3 +823,22 @@ real-input VFX/hidden variants pass64 checks, with direct995frame/991transition
 review of the complete parry/counter/physical tail. Dense recipient-backward fan
 passes behind player on both sides. Final source/clip/timestamp limits and
 per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.
+
+
+## Space attack warning
+
+`ParryCuePresenter` reads `SkeletonController.TryGetAttackTelegraph` and the existing
+`CanBeginParry`/`IsWindowActive`; it never changes combat or typing input. Original
+Kenney CC0 caps form a 32x16 logical key at (23,133), 6px left of the tray. The tray
+is fixed at (61,126), 198x30, near the fighters. Amber outline means wind-up;
+ivory fill begins 200ms before authored contact; teal means an active parry window;
+gray/X hides the label while locked. No valid attack means hidden.
+Prediction caches Anim_DealDamage events by controller and follows Animator
+speed/progress plus the 100ms thrust hold; outgoing transitions cancel the cue.
+The original cue object/SFX stay intact; only its Graphics are suppressed.
+Previous actor Graphics are restored and released on target rebind/disable.
+Esc -> F8 -> Esc compares key/legacy ! in-session, default key on application start;
+no PlayerPrefs/settings/tutorial state added. Pause holds presentation;
+terminal/Slayer/encounter state clears it. The user accepted this default after
+the isolated demo and requested pre-main review. Acceptance and captures:
+[checkpoint](../plans/parry-cue-demo.md).

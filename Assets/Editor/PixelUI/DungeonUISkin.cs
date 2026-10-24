@@ -94,6 +94,7 @@ internal static class DungeonUISkin
     {
         foreach (var image in root.GetComponentsInChildren<Image>(true))
         {
+            if (ParryCueBuild.Owns(image)) continue;
             if (image.name.StartsWith("HighlightEdge")) continue;
             if (image.name == "key-enter" || image.name == "key-r")
             {
@@ -125,6 +126,7 @@ internal static class DungeonUISkin
         }
         foreach (var text in root.GetComponentsInChildren<TMP_Text>(true))
         {
+            if (ParryCueBuild.Owns(text)) continue;
             text.color = Hex(text.name == "NameError" ? "f16b67" :
                 text.name == "Title" || text.name == "Heading" ? "dcc18a" :
                 text.name.Contains("Label") || text.name == "DifficultyHint" ? "afa1b3" : "f2e7cf");

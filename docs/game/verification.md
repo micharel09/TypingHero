@@ -1,3 +1,42 @@
+## Pillar torches (2026-10-24; QA waived)
+
+Two authored inner-face fixtures added at FrontPillar_-1/1 with independent
+PillarTorch style (8intensity/10range/no shadows), cinematic SinePair phases and
+shared original flame assets. Existing lighting lifecycle test expects5main-world
+lamps; alternate four-lamp world retained. User explicitly waived QA;
+task runner canceled while queued, before Unity work. Static diff/bindings checked;
+no runtime, builder, visual, performance or production verification for this
+revision. Existing demo remains the old build. Details: [checkpoint](../plans/combat-hanging-light.md).
+
+## Cinematic wall torches (2026-10-24)
+
+- Data-only change: RearTorch SinePair amplitude.18, frequencies5.8/13.7,
+  weights.7/.3, phase factors1/2.37; two TorchBeam cards/update refs disabled.
+  Unity2022.3.25f1/URP14.0.11, world320x180/presentation1280x720 retained.
+- QA014122/inputf31be374: repeated builder/authored preservation and16/16focused
+  LightingProfileTests/SlayerTransitionTests PASS,0failed/skipped. Native diagnosis
+  26checks PASS; all7same-phase variants and11paired wall samples directly inspected.
+  Beam removal fixes reported long pools; shadow/fog/blur toggles do not. No geometry,
+  ambient, flame frame/timing or actor depth/normal change; no recording.
+- Edge155.0.4283.62/Intel UHD/ANGLE D3D11,15s living-combat conditions on the same
+  immutable player: baseline471samples/p95=33.39386ms; candidate460/p95=33.39005ms,
+  ratio.999886.11checks PASS; no ABBA trigger, exceptions or provider writes.
+  This is browser cadence and a relative torch comparison on pre-cue-HUD source;
+  lighting/rendering sources remain identical after the reviewed HUD integration.
+- Final4b57eb6-base QA/production015428 share complete input
+  `8380b12e410423a53d5e234e96b9decca2d5206047a04510cd8424ea7099134f`.
+  Final builder/authored preservation PASS;33QA and33production player hashes match
+  remote.232exported lighting files match source; both beams/rune/light/hazes stay off.
+  Current-player native lifecycle16/16PASS: real parry/follow-up, Pause/Resume,
+  Slayer composite/continuous phase, received hit and menu/world return,0exceptions/
+  provider writes. Initial fixture's wrong GameObject-hide assertion is retained
+  separately; only that external assertion was corrected to actual composite behavior.
+- Normal WebGL build PASS;48stripped assemblies exclude QA probe/depth demo/controls
+  and TorchQaControl; JS bridge absent. Normal player menu/gameplay/pause inspected,
+  F9 paused-canvas bytes identical,0exceptions/provider writes. No device-FPS,
+  full animation review, stress/soak or publication claim.
+  [Checkpoint and receipt](../plans/combat-hanging-light.md).
+
 ## Production sprite self-shadow integration (2026-10-24)
 
 - User accepted demo8293 with rune/light and both blue haze layers disabled;
@@ -22,6 +61,24 @@
 
 ## Latest-main original parry demo (2026-10-22; local)
 
+
+## Space cue demo, isolated review branch (2026-10-24)
+
+- Immutable input00adef3c: QA172219, normal172820, Unity2022.3.25f1/fly-server.
+  Two scoped Unity tests PASS: seven real Classic/sword/shield/axe attacks with
+  pause/speed/thrust/contact/disable and crossfade cancellation. Strict repeat-builder
+  PASS;39new scene objects,0old IDs removed; existing changes only tutorial text/parents.
+- Native mute: completed640scope reused from first row of native-final2 (whole report
+  retains its1280polling failure); fresh native-1280-final16checks PASS. Real Space
+  fill/early/late/locked, pause/F8, typing error/timeout, different9-letter queue at
+  both sizes, Slayer/win/next duel/restart/menu;0exceptions/production writes.
+- All194selected capture frames and191adjacent transitions directly inspected,
+  including holds/repeats.7.76s/25fps clip full decode/count PASS. Normal smoke2
+  five checks plus actual menu/tutorial/combat/pause/mode/menu image review and
+  visible cue proof; qa=false, five JS/WASM/data payloads exclude ASCII/UTF16 QA markers.
+- No full-suite/balance/stress/performance or human-attention claim. Fixtures block
+  external writes. Exact sources, valid/failed receipts, timestamps, clock-calibration
+  caveat, clip hash and retained resources: [checkpoint](../plans/parry-cue-demo.md).
 
 ## Pause and redundant guidance cleanup (2026-10-24)
 
@@ -2989,6 +3046,10 @@ Runtime video selected3.548090?6.329125s before added-frame review: sourceF34?74
 Pixel reflection does not verify mirrored runtime lighting. Source sprite/clip assets
 are unchanged; prior source/VFX-off review remains applicable. See checkpoint.
 
+## Space cue HUD proximity follow-up (2026-10-24)
+
+Input4933a167: normal180518 and QA181516 WebGL builds PASS; strict repeat-builder PASS. Scoped native layout: normal5checks, QA19checks PASS; both640x360/1280x720, tutorial target arrows/copy, fixed tray bounds, real-parry Slayer, pause/resume, actual8-letter queue and cue switching. Direct screenshots inspected, no runtime suite repeated; [checkpoint](../plans/parry-cue-demo.md) distinguishes earlier animation clips from this layout update.
+
 ## Explicit first follow-up cel removal (2026-10-24)
 
 User requested a quick removal of combo_2_0. Nine retained cels now start at
@@ -3021,6 +3082,10 @@ d1188082e78510a576d2d56a5e03bc27cf92038a6981b304e7b57a903811bc7f:
 shadow visuals retain their separate main receipts. Initial test teardown name
 collision and unsuccessful native pilots are superseded by these final runs.
 [Scope, failed-attempt attribution and retained UI preview](../plans/compact-menus.md).
+
+## Space cue pre-main integration review (2026-10-24)
+
+Integrated main3cd7293 with cue/HUD. Inputa880ecef: Quick0119563/3 and QA0120597/7 scoped tests PASS; strict repeat-builder, QA WebGL and normal013118 PASS. Native integrated1280x72016checks PASS (real parry/early/late/lock, Pause/F8, errors/timeout, Slayer/win/next encounter/restart/menu). Normal5checks PASS and both-size images directly inspected;33remote hashes match each player,5payloads exclude QA/depth-preview markers. Scene records match generated output after canonicalizing four inactive font-bound values. Fixed bounded legacy-Graphic ownership on target rebind;20-target regression covered. No remaining merge blocker found; [checkpoint](../plans/parry-cue-demo.md) records evidence and limits.
 
 
 ## Result hierarchy revision (2026-10-24)

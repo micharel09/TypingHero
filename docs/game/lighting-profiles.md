@@ -113,6 +113,45 @@ There is no normal generation or material lookup added to gameplay updates.
    Scene changes support Undo. Apply validates first and never overwrites profile,
    material, atlas or post-process values.
 
+### Cinematic wall torch preset
+
+The two wall sources share RearTorch: Point Light, base intensity8, range15,
+shadows disabled, with synchronized flame emission. Flicker uses SinePair,
+amplitude0.18, angular frequencies(5.8,13.7)rad/s, weights(0.7,0.3) and phase
+factors(1,2.37). Instance phases0.7/2.9 remain independent. Noise speed/row apply
+only to Perlin mode; no runtime constants replace these authored settings.
+Intensity stays within6.56..9.44; the central MainLantern preset is unchanged.
+
+TorchBeam1/TorchBeam-1 are saved inactive and removed from the atmosphere update
+array. Their old additive cards caused the long fixed-looking pools under the
+flames. Retain their assets for authoring; enabling a card again also requires an
+explicit atmosphere binding if it should animate. The Point Lights illuminate the
+wall directly. No extra lights, shadow maps, RTs, shader passes or volumetrics are
+introduced; flame atlas/palette/UV timing remain the authored10x100ms sequence.
+Pause and Slayer preserve the existing phase clock; this preset changes data only.
+Evidence and final integration status: [lighting checkpoint](../plans/combat-hanging-light.md).
+
+### Front pillar torches
+
+Each outer front pillar owns one additional holder/flame and one local lamp.
+The PillarTorch profile is independent from RearTorch and MainLantern: warm Point
+Light, intensity8, range10, no shadows, projected flame height12 logical pixels.
+It shares the rear flame atlas/material and cinematic SinePair settings; phases
+1.6/4.2 and flame offsets.17/.43 seconds keep the two fixtures independent.
+
+Holders face inward at x=+-8.55,y=2.7,z=-1.2 in room space; flame cards
+counter-rotate toward the camera. Move each holder and its lamp together relative
+to FrontPillar_-1/1. Their root
+scales compensate the existing nonuniform pillar scale; do not stretch the flame
+by copying the pillar scale into it. Apply/Preview recalculates flame height for
+its actual depth. Save scene/profile changes before building; the normal builder
+preserves these authored instances and creates no additional torches.
+
+The new lights illuminate the stone and nearby floor directly, without beam
+cards or extra shadow maps. Preserve the existing8additional-lights/object limit;
+check combat/parry flashes as well as steady lighting when adding more fixtures.
+Verification status and final tuning: [lighting checkpoint](../plans/combat-hanging-light.md).
+
 ## Add a world/map without changing C#
 
 1. Save a copy of the default world scene. Author the new room layout and fixtures
@@ -169,8 +208,11 @@ The strict PASS message is emitted only after the QA two-pass check returns.
 
 ## Lifecycle and checks
 
-Pause and Slayer hiding preserve each instance's animation/flicker phase. Resume
-continues it; source meshes/materials are never animated in place. World unload
+Pause freezes each instance's animation/flicker clock. Current Slayer presentation
+covers the world with its composite while the world objects and their clocks remain
+active; exiting reveals the continuing phase without resetting it. Disabling and
+re-enabling a fixture retains its accumulated age. Source meshes/materials are never
+animated in place. World unload
 releases owned meshes, cameras and render textures. Structural profile changes use
 Editor apply and scene/session reload, not a runtime settings menu.
 

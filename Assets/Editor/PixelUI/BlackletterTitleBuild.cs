@@ -218,6 +218,7 @@ internal static class BlackletterTitleBuild
                     throw new System.InvalidOperationException("Unexpected Cobblestone material: " + face.name);
             foreach (var label in roots.SelectMany(r => r.GetComponentsInChildren<TMP_Text>(true)))
             {
+                if (ParryCueBuild.Owns(label)) continue;
                 var expected = label == title ? font : uiFont;
                 // The title reference belongs to the previous scene instance.
                 if (path.EndsWith("MainMenu.unity") && label.name == "Logo" &&
@@ -329,6 +330,7 @@ internal static class BlackletterTitleBuild
         }
         foreach (var label in root.GetComponentsInChildren<TMP_Text>(true))
         {
+            if (ParryCueBuild.Owns(label)) continue;
             bool typingWord = words.Contains(label);
             float maximum = label.enableAutoSizing ? label.fontSizeMax : label.fontSize;
             label.font = font;

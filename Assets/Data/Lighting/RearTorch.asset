@@ -29,13 +29,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   shadowResolutionTier: 0
-  flicker: 1
-  amplitude: 0.02
+  flicker: 2
+  amplitude: 0.18
   noiseSpeed: 4.7
   noiseRow: 11.73
-  sineFrequency: {x: 0, y: 0}
-  sineWeight: {x: 0, y: 0}
-  sinePhase: {x: 0, y: 0}
+  sineFrequency: {x: 5.8, y: 13.7}
+  sineWeight: {x: 0.7, y: 0.3}
+  sinePhase: {x: 1, y: 2.37}
   synchronizeEmission: 1
   flame: {fileID: 11400000, guid: 105d0d11c039c5dbf9792a7cd59011bd, type: 2}
   projectedFlameHeight: 12

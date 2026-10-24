@@ -98,7 +98,7 @@ internal static class CombatR7Build
         RectTransform Item(string name) => hud.GetComponentsInChildren<RectTransform>(true).First(t => t.name == name);
         var typing = Find<TypingManager>();
         var tray = Get<Slider>(typing, "countdownSlider").transform.parent as RectTransform;
-        Box(tray, root, 183, 438, 594, 90);
+        Box(tray, root, 183, 378, 594, 90);
         var board = Image(tray, Color.white); board.sprite = Sprite("typing-frame");
         PrefabUtility.RecordPrefabInstancePropertyModifications(board);
         var feedback = tray.GetComponent<TypingPanelFeedback>(); if (feedback) feedback.enabled = false;

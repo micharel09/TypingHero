@@ -101,6 +101,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             CombatR7Build.ApplyResourceInk();
             BlackletterTitleBuild.AssertTypingComponents(originalTyping);
             TutorialBuild.Guide();
+            ParryCueBuild.Apply();
             CombatCameraImpactBuild.Apply();
             DungeonSessionBuild.Apply();
             LightingBuildValidation.ApplySelected();

@@ -23,7 +23,10 @@ def main():
     parser.add_argument("--seconds", type=int, default=1800)
     parser.add_argument("--profile-allocations", action="store_true", help="Development QA player with per-frame allocation counters (WebGL only)")
     parser.add_argument("--browser-scenario", choices=["tutorial", "skeleton-art", "attack-sorting", "score-layout", "score-cluster", "pixel-sparks", "pixel-sparks-parry", "endless", "combat-r7", "parry-clash", "camera-impact"], help="Targeted WebGL acceptance using the existing isolated harness")
+    parser.add_argument("--test-filter", default="", help="Unity test name filter (quick only)")
     args = parser.parse_args()
+    if args.test_filter and args.profile != "quick":
+        parser.error("--test-filter requires quick")
     if not 0 <= args.wait_seconds <= 3600:
         parser.error('--wait-seconds must be between 0 and 3600')
     if args.browser_scenario and args.profile != 'webgl':
@@ -56,7 +59,7 @@ def main():
         tar.addfile(info, io.BytesIO(marker))
     # Server helper takes the lock before unpacking; concurrent clients cannot mix snapshots.
     helper = (ROOT / "tools/game_loop/server.py").read_text(encoding="utf-8")
-    command = "python3 -c " + shlex.quote(helper) + " " + " ".join(map(shlex.quote, [args.profile, args.license or "-", str(args.seconds), args.browser_scenario or 'full', '1' if args.profile_allocations else '0', str(args.wait_seconds)]))
+    command = "python3 -c " + shlex.quote(helper) + " " + " ".join(map(shlex.quote, [args.profile, args.license or "-", str(args.seconds), args.browser_scenario or 'full', '1' if args.profile_allocations else '0', str(args.wait_seconds), args.test_filter]))
     ssh_options = [item for option in args.ssh_option for item in ("-o", option)]
     completed = subprocess.run(["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=10", *ssh_options, args.host, command], input=archive.getvalue())
     return completed.returncode

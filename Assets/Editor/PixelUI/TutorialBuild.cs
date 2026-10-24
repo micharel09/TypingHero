@@ -97,14 +97,14 @@ internal static class TutorialBuild
         Card("ScoreCard", 328, 116, 304, 96);
         Card("HealthCard", 24, 176, 288, 120);
         Card("EnemyCard", 648, 176, 288, 144);
-        Card("TypingCard", 24, 310, 396, 120);
+        Card("TypingCard", 24, 300, 396, 72);
         var score = Text("ScoreGuide", "<color=#DCC47C>Score / Combo</color>\nPoints and successful action streaks.", 340, 128, 280, 72, 24);
         var hp = Text("HealthGuide", "<color=#DCC47C>Your HP</color>\nYour health. When it runs out, you lose.", 36, 188, 264, 96, 24);
         var enemy = Text("EnemyGuide", "<color=#DCC47C>Enemy HP / Guard</color>\nDrain HP to win. Parry lowers guard. Break guard for Slayer.", 660, 188, 264, 120, 24);
-        var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 36, 322, 372, 96, 24);
-        Text("Shortcuts", "Space: parry on the yellow cue \u00b7 Esc: pause", 452, 326, 460, 64, 24).alignment = TextAlignmentOptions.Top;
+        var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 36, 306, 372, 60, 18);
+        Text("Shortcuts", "Space: parry when the key fills.\nEsc: pause", 452, 326, 460, 46, 18).alignment = TextAlignmentOptions.Top;
         var next = panel.Find("PracticeButton").GetComponent<Button>();
-        Box((RectTransform)next.transform, panel, 500, 392, 360, 36);
+        Box((RectTransform)next.transform, panel, 500, 480, 360, 36);
         next.navigation = new Navigation { mode = Navigation.Mode.None };
         var action = next.GetComponentInChildren<TMP_Text>(true);
         Box(action.rectTransform, next.transform, 8, 0, 344, 36);

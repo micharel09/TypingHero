@@ -1,0 +1,3 @@
+Kenney Input Prompts Pixel 1-Bit 1.1
+https://kenney.nl/assets/input-prompts-pixel-1-bit
+CC0. Original white tiles 15, 235, 237, 507, 509; unchanged.

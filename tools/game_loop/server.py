@@ -67,6 +67,8 @@ def main():
     if profile_allocations and profile != 'webgl': raise ValueError('Allocation profiling requires WebGL QA')
     if scenario not in ('full', 'tutorial', 'skeleton-art', 'attack-sorting', 'score-layout', 'score-cluster', 'pixel-sparks', 'pixel-sparks-parry', 'endless', 'combat-r7', 'parry-clash', 'camera-impact') or (scenario != 'full' and profile != 'webgl'):
         raise ValueError('Unsupported browser scenario/profile')
+    test_filter = sys.argv[7] if len(sys.argv) > 7 else ""
+    if test_filter and profile != "quick": raise ValueError("Test filter requires quick")
     BASE.mkdir(parents=True, exist_ok=True)
     with (BASE / "runner.lock").open("w") as lock:
         wait_seconds = int(sys.argv[6]) if len(sys.argv) > 6 else 0
@@ -210,7 +212,8 @@ def main():
             return
         if profile in ("quick", "stress"):
             unity(["-runTests", "-testPlatform", "PlayMode", "-testResults", "/results/tests.xml",
-                   "-testCategory", "Stress" if profile == "stress" else "Quick"])
+                   "-testCategory", "Stress" if profile == "stress" else "Quick",
+                   *(["-testFilter", test_filter] if test_filter else [])])
             verify_xml(result / "tests.xml")
             if profile == "quick": return
         production = profile == "production"
