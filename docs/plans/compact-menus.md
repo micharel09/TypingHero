@@ -326,3 +326,107 @@ Retain E:/CodexTemp/TypingHero/compact-results player, screenshots and receipts
 until user review is complete; then stop only its preview host and remove the task
 artifact directory. This UI player predates the concurrent shadow merge; its UI
 records match the integrated source exactly. No itch publication.
+
+
+## Result hierarchy revision - 2026-10-24
+
+User rejected dense centered summary in both result screenshots. Approved layout:
+600x366 card; red/gold outcome title, short difficulty/outcome context without
+internal Attack1 state, prominent score40, four label/value stats in two columns,
+separate NEW BEST or historical best line, Restart primary / Main Menu secondary,
+smaller Top1000 and Settings footer. Existing pixel font/palette and handlers stay.
+No combat/sprite/tutorial/Continue redesign. Read-only best metadata feeds the new
+CombatResultView directly; diagnostic MatchResult string/reference retained hidden
+for existing QA consumers. Pause hides/restores the result group.
+
+Reference checklist: win/loss heading; grouped stats and label/value alignment;
+record placement; primary/secondary actions; complete result entry/settling/exit.
+Directly inspected Brotato win screenshot (Steam guide2896126855, image9E244DD2),
+loss screenshot https://note.com/osama/n/nd5034b2948d6 and Hades screenshot
+https://sixohthree.com/media/2020/11/hades.jpg. Brotato motivates left labels/right
+values and bottom actions; Hades motivates grouping records with result statistics.
+No assets copied. Motion reference selected BEFORE exhaustive review:
+https://www.youtube.com/watch?v=PvU_HBp2D48, 01:14:53?01:15:05 (4493-4505s):
+final combat, win banner, full summary entry/settling, Return to Main Menu/settling.
+Original-rate60fps stream requested; 30fps tail used only to locate this segment,
+not counted as review. Frame/transition inspection and loss motion still pending.
+Research artifacts: E:/CodexTemp/TypingHero/result-layout-research.
+Implementation/check artifacts: E:/CodexTemp/TypingHero/result-layout.
+
+Reference review completed for the downloaded60fps stream:900/900frames and
+899/899consecutive transitions directly inspected in30ordered sheets, including
+held/repeated frames. Stream-copy request4493-4505s retained approximately3s of
+keyframe preroll (15s local clip); exact source alignment of frame0 is not certified.
+Sheet timestamps initially assumed no preroll; frame numbers are authoritative.
+Frames1-297 final combat;298-330 RUN WON letter reveal;331-478 banner hold and
+coin collection;479-867 grouped result panel with tooltip/button hover;
+868-900 return and settled main menu. No result motion copied. Static win/loss
+layout and Hades grouping inspected; loss-motion/Hades-motion comparison remains
+unverified and is not a timing target for this UI-only revision.
+
+
+Initial Unity result20261024T015153-webgl / inputf06e458b: strict repeated builder
+PASS. Five selected PlayMode cases ran:3pass,2result-layout failures. Both detected
+DefeatedLabel ink atx=-1.25 against the left boundary tolerance; added2units of
+horizontal text padding in the new result group, leaving test bounds unchanged.
+Endless terminal save/queue idempotency, Pause modal/focus and Resume sequencing
+passed. Rerun on eb86454c is queued. Long shared-runner waits preserved other tasks;
+only the task's cancelled lock-waiter1637770 was stopped after verifying its
+command marker and locks_lock_inode_wait state. No other task was interrupted.
+
+
+Body layout verification020755 / inputeb86454c:5/5scoped PlayMode PASS in3.1103252s,
+0fail/skip; strict repeat builder and QA WebGL PASS. New text uses2-unit horizontal
+padding for negative font bearings. Scene changes remain within the result subtree:
+10existing records updated,51new records for the12labels/group/presenter; all old
+IDs retained and all semantic records match Unity serialization.
+
+Additional primary-action check022158/input97e12566 ran5cases:3pass,2fail because
+the attempted gold sprite still saved as the common secondary frame, including
+with explicit SerializedObject/SetDirty. Removed that styling attempt. Final
+primary emphasis uses authored width304 for Restart versus232 for Main Menu,
+retaining the common skin and existing hover/focus states; footer controls180x32.
+The check now proves that intended size hierarchy survives serialization and
+retains the existing card/glyph/action/modal checks. This is a static visual choice,
+not a runtime fallback or a claimed fix to shared skin behavior. Final rerun
+inputd11258b8 passed; final receipt follows. No runtime source changed since the verified body build.
+
+
+Final UI build023638 / input
+`d11258b89f9b209e18a3c8af7cfb14a775f0907651e484ec928da267f9dc1da2`:
+5/5selected Unity2022.3.25f1 PlayMode cases PASS,0failed/skipped,3.0599973s;
+strict repeated builder and QA WebGL PASS. Committed scene keeps all old IDs,
+changes10existing UI records/adds51, and matches every generated semantic record;
+MainMenu scene unchanged. No sprite/animation/public-provider contract changes.
+
+Native Edge155.0.4283.62 / Playwright1.58.2 / Intel UHD Graphics ANGLE D3D11,
+1280x720:203checks PASS in124.9356567s,0JS/managed exceptions,2intercepted
+Endless fixture writes and0production writes. Actual input: no-word natural death,
+all four result actions, Settings Back/Escape/shortcut guards, leaderboard Escape,
+Restart, unframed Pause/Resume, real six-opponent victory and Main Menu return.
+Victory3629points,6defeated,63.9s,100.0%accuracy,10parries,40HP; NEW BEST shown
+once without repeating score/count. Six complete screenshots directly inspected:
+game-over,game-over-restored,result-settings,pause-unchanged,victory,victory-restored.
+All text/buttons fit; labels/values align in two columns; score dominant and
+Restart visibly wider; no internal Attack1 or legacy multiline summary visible.
+The helper's legacy scenario field says tutorial; the dedicated compact-results
+module and captured per-image states establish the actual scope above.
+
+UI review http://127.0.0.1:8295/review.html, playable QA at root. Artifacts and
+receipts E:/CodexTemp/TypingHero/result-layout; reference research in sibling
+result-layout-research. Keep until user review completes, then stop only preview
+terminalterm_d3ab3d3f-1825-462d-86f1-2c9c19c52b9f and remove these task artifacts.
+Merged newer cue/torch main4e7ccc6; this player certifies
+result UI only, not the newer main world/cue appearance. No itch publication.
+
+
+Integrated newer main4e7ccc6 (Space cue HUD and torch profiles) via merge27639ad.
+Only a verification-document append conflicted; retained both evidence sections.
+All61result UI records and result UI code remain identical to the native-reviewed
+player. Integrated Quick030507 / input
+`1b30dee76923dbebf6de5590e080489913fd5e569c9746f69169b1f0aa5f59a4`:
+5/5same scoped PlayMode cases PASS,0fail/skip,3.3917055s; strict repeat PASS.
+Entire merged SampleScene and MainMenu match generated semantic records exactly.
+Native203-check UI evidence is reused for the unchanged UI; newer cue/torch visuals
+retain their own main receipts. UI QA preview is intentionally scoped to results;
+no new production/world/performance certification or itch upload.

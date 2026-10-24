@@ -133,19 +133,19 @@ Evidence and final integration status: [lighting checkpoint](../plans/combat-han
 
 ### Front pillar torches
 
-Each outer front pillar owns one additional holder/flame and one local lamp.
-The PillarTorch profile is independent from RearTorch and MainLantern: warm Point
-Light, intensity8, range10, no shadows, projected flame height12 logical pixels.
-It shares the rear flame atlas/material and cinematic SinePair settings; phases
-1.6/4.2 and flame offsets.17/.43 seconds keep the two fixtures independent.
+Each visible pixel-room FrontPier-1/FrontPier1 owns one holder/flame and one
+local lamp. Bind these actual mesh nodes, not the hidden legacy KayKit
+FrontPillar_-1/1 containers. PillarTorch remains independent from RearTorch and
+MainLantern: warm Point Light, intensity8, range10, no shadows, projected flame
+height12 logical pixels, shared original atlas/material and cinematic SinePair.
+Phases1.6/4.2 and flame offsets.17/.43 seconds remain independent.
 
-Holders face inward at x=+-8.55,y=2.7,z=-1.2 in room space; flame cards
-counter-rotate toward the camera. Move each holder and its lamp together relative
-to FrontPillar_-1/1. Their root
-scales compensate the existing nonuniform pillar scale; do not stretch the flame
-by copying the pillar scale into it. Apply/Preview recalculates flame height for
-its actual depth. Save scene/profile changes before building; the normal builder
-preserves these authored instances and creates no additional torches.
+Holder positions relative to each pier are x=+-.25 toward the center, y=-.25,
+z=-.82: just in front of its .7-unit half-depth face. Lamps use the same x,
+y=.08,z=-1.08 to illuminate the front stone surface and nearby floor. Pier
+transforms have unit scale and yaw-18/+18degrees; flame cards counter-rotate this
+yaw to keep facing the camera. Apply/Preview sets projected flame scale at depth.
+The normal builder preserves these scene-authored instances.
 
 The new lights illuminate the stone and nearby floor directly, without beam
 cards or extra shadow maps. Preserve the existing8additional-lights/object limit;

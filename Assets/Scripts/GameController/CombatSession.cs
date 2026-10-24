@@ -76,6 +76,20 @@ public sealed class CombatSession : MonoBehaviour
         if (resultLabel)
         {
             resultLabel.text = survival + $"SCORE {finalScore}    TIME {seconds:0.0}s\nACCURACY {accuracy}    PARRIES {parries}";
+            var view = resultLabel.GetComponentInParent<CombatResultView>(true);
+            if (view)
+            {
+                var duel = EndlessDuel.I;
+                view.Present(new CombatResultData
+                {
+                    Context = duel ? $"{duel.Run.Difficulty.Label()} · {(RunWon ? "Boss defeated" : "Defeated by " + duel.Run.Enemy.Name)}"
+                        : won ? "Encounter cleared" : "Run ended",
+                    Score = finalScore, Defeated = duel ? duel.Run.Defeated : won ? 1 : 0,
+                    Seconds = seconds, Letters = letters, Correct = correct, Parries = parries,
+                    NewBest = duel && duel.NewBest,
+                    BestDefeated = duel ? duel.BestDefeated : 0, BestScore = duel ? duel.BestScore : 0
+                });
+            }
         }
     }
 }

@@ -169,20 +169,62 @@ internal static class BlackletterUILayout
             Size(title, 30);
             title.alignment = TextAlignmentOptions.Midline;
         }
-        Place(panel, "MatchResult", 24, 64, 552, 176);
-        var result = panel.Find("MatchResult").GetComponent<TMP_Text>();
-        Size(result, 24, true);
-        result.lineSpacing = 0;
-        ButtonAt(panel, "ResumeButton", 24, 254, 268, 36, 24);
-        ButtonAt(panel, "RestartButton", 24, 254, 268, 36, 24);
-        ButtonAt(panel, "Main MenuButton", 308, 254, 268, 36, 24);
+        // Keep the existing summary reference for diagnostic consumers, not visual layout.
+        panel.Find("MatchResult").gameObject.SetActive(false);
+        ResultContent(panel);
+        ButtonAt(panel, "ResumeButton", 24, 264, 268, 36, 24);
+        ButtonAt(panel, "RestartButton", 24, 264, 304, 36, 24);
+        ButtonAt(panel, "Main MenuButton", 344, 264, 232, 36, 24);
         // Results share the existing Settings modal instead of embedding sliders.
         CompactMenusBuild.Settings(design, panel, true);
-        ButtonAt(panel, "Top 1000Button", 24, 302, 268, 36, 24);
-        ButtonAt(panel, "SettingsButton", 308, 302, 268, 36, 24);
+        ButtonAt(panel, "Top 1000Button", 110, 314, 180, 32, 20);
+        ButtonAt(panel, "SettingsButton", 310, 314, 180, 32, 20);
         panel.Find("SettingsButton").gameObject.SetActive(true);
         foreach (string name in new[] { "AudioPreferences", "KeyHint", "RestartButton/key-r" })
             panel.Find(name).gameObject.SetActive(false);
+    }
+
+    static void ResultContent(Transform panel)
+    {
+        var group = At(panel, "ResultContent") ?? Rect("ResultContent", panel);
+        Box(group, panel, 24, 54, 552, 194);
+        var view = panel.GetComponent<CombatResultView>() ?? panel.gameObject.AddComponent<CombatResultView>();
+        var serialized = new SerializedObject(view);
+        serialized.FindProperty("content").objectReferenceValue = group.gameObject;
+        var template = panel.Find("MatchResult").GetComponent<TMP_Text>();
+        TMP_Text Text(string name, string caption, float x, float y, float width, float height,
+            float size, TextAlignmentOptions align, bool muted = false)
+        {
+            var node = group.Find(name);
+            var label = node ? node.GetComponent<TMP_Text>()
+                : Label(name, caption, group, x, y, width, height, size);
+            Box(label.rectTransform, group, x, y, width, height);
+            label.font = template.font; label.fontSharedMaterial = template.fontSharedMaterial;
+            label.text = caption; label.alignment = align;
+            label.color = Hex(muted ? "b8ac94" : "f2e7cf");
+            // The pixel font has negative left bearings on several capitals.
+            label.margin = new Vector4(2, 0, 2, 0); label.raycastTarget = false;
+            label.overflowMode = TextOverflowModes.Ellipsis;
+            Size(label, size);
+            return label;
+        }
+        void Bind(string field, TMP_Text label) => serialized.FindProperty(field).objectReferenceValue = label;
+        Bind("context", Text("Context", "", 0, 0, 552, 24, 20, TextAlignmentOptions.Midline, true));
+        Text("ScoreLabel", "SCORE", 0, 28, 552, 22, 20, TextAlignmentOptions.Midline, true);
+        Bind("score", Text("Score", "0", 0, 50, 552, 44, 40, TextAlignmentOptions.Midline));
+        void Stat(string field, string name, string caption, float x, float y)
+        {
+            Text(name + "Label", caption, x, y, 140, 30, 20, TextAlignmentOptions.MidlineLeft, true);
+            Bind(field, Text(name, "0", x + 140, y, 112, 30, 24, TextAlignmentOptions.MidlineRight));
+        }
+        Stat("defeated", "Defeated", "Defeated", 8, 98);
+        Stat("time", "Time", "Time", 292, 98);
+        Stat("accuracy", "Accuracy", "Accuracy", 8, 134);
+        Stat("parries", "Parries", "Parries", 292, 134);
+        var best = Text("Best", "", 0, 170, 552, 24, 20, TextAlignmentOptions.Midline);
+        best.color = Hex("dcc47c"); Bind("best", best);
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+        group.gameObject.SetActive(false);
     }
 
     static void Combat(Transform design)
