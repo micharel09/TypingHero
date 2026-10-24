@@ -21,7 +21,7 @@ public sealed class ParryCuePresentationTests
         var face = Part("Face"); var right = Part("Unused"); var locked = Part("Lock");
         var label = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>(); label.transform.SetParent(key);
         Set(presenter, "key", key); Set(presenter, "left", face); Set(presenter, "right", right);
-        Set(presenter, "locked", locked); Set(presenter, "label", label);
+        Set(presenter, "locked", locked);
         var texture = new Texture2D(4, 1);
         var frames = new Sprite[4];
         foreach (int i in new[] { 0, 1, 2, 3 }) frames[i] = Sprite.Create(texture, new Rect(i, 0, 1, 1), Vector2.zero);
@@ -66,7 +66,7 @@ public sealed class ParryCuePresentationTests
             parry.Anim_ParryOpen(); Draw(presenter);
             Assert.That(face.sprite, Is.SameAs(frames[3])); Assert.That(locked.gameObject.activeSelf, Is.False);
             parry.Anim_ParryClose(); Set(parry, "poseRequestedFrame", Time.frameCount); Draw(presenter);
-            Assert.That(locked.gameObject.activeSelf, Is.True); Assert.That(label.gameObject.activeSelf, Is.False);
+            Assert.That(locked.gameObject.activeSelf, Is.True);
             Set(parry, "poseRequestedFrame", -1); brain.HideCue(); Draw(presenter);
             Assert.That(key.gameObject.activeSelf, Is.False, "contact or cancellation clears the key");
             Set(brain, "attackPending", true); At(.9f);

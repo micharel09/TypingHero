@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,6 @@ public sealed class ParryCuePresenter : MonoBehaviour
     [SerializeField] float fillLeadSeconds = .2f;
     [SerializeField] RectTransform key;
     [SerializeField] Image left, right, locked;
-    [SerializeField] TMP_Text label;
     [SerializeField] Sprite released, pressed, readyReleased, readyPressed;
     [SerializeField] float pressCycleSeconds = .1f;
     [System.Serializable]
@@ -93,11 +91,6 @@ public sealed class ParryCuePresenter : MonoBehaviour
         left.color = color;
         right.gameObject.SetActive(false);
         locked.gameObject.SetActive(blocked); locked.color = color;
-        label.gameObject.SetActive(!blocked);
-        label.color = fill ? Hex("211c19") : color;
-        var labelPosition = label.rectTransform.anchoredPosition;
-        labelPosition.y = (down || open) ? -3 : 0;
-        label.rectTransform.anchoredPosition = labelPosition;
     }
 
     void PositionKey()

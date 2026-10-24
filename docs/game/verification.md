@@ -3213,3 +3213,10 @@ are byte-identical to the native-reviewed UI commit10b7f0f. Integrated Quick0422
 repeat PASS; both complete scenes match every generated semantic record. Native
 229-check evidence is reused for unchanged HUD behavior. Newer upstream parry/cue
 visuals retain their own receipts; this task adds no sprite review certification.
+# Compact Space cue preview receipt (2026-10-24)
+
+Final28x11logical cap: QA `20261024T063401-webgl` passes3/3 scoped tests, strict repeat-builder and compiled observation bridge. Normal `20261024T064636-production` builds and excludes QA markers from all five JS/WASM/data payloads;33 downloaded files match remote hashes. Canonical serialized scene/import metadata checked against generated output. Runtime framework/WASM unchanged from preceding validated candidate; shrink changes serialized UI only.
+
+Muted native Edge156/Playwright1.58.2: focused Guard route17/17 PASS; final direct capture19/19 PASS; normal smoke5/5 PASS with all8 screenshots visually inspected. Earlier native-head32 assertions remain useful but its profile ended on an incorrect harness route expectation, so it is not reported as a complete pass. Reuse existing seven-attack prediction/real input results for unchanged combat. See [trial checkpoint](../plans/parry-cue-demo.md) for boundaries and superseded candidates.
+
+Artifacts `E:/CodexTemp/TypingHero/space-press-cue`: `native-direct-review/selection.json` and `review.md` register complete selected intervals, original PNG timestamps/hashes and direct visual review of392/392frames,386/386pairs. Old Playwright video had stale-frame replay and is superseded by chronologically timestamped CDP originals. Final silent clip235frames/9.733s,960x540; served payload hash matches local. Normal demo bootstrap active fixture worker/no QA globals/no exceptions PASS at http://127.0.0.1:8303/. Trial branch retained off main for subjective size/distraction review; no full performance or all-seven new lit-scene claim.

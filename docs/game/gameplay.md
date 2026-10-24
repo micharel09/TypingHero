@@ -292,10 +292,10 @@ see verification for profile status. These are current behaviors, not new requir
   slash until the pose ends and CanAttack is true; pause holds it, death/Slayer/exit clears it.
 - Every Classic/Endless strike, including each combo hit, warns at least1s before
   contact at authored speed by extending the existing preparation cel as needed.
-  The32x16logical key sits above the enemy's stable collider head, with an8px gap
-  and pixel-snapped projection through the rendered camera/viewport. It first shows
-  a white outline and white SPACE text;
-  at200ms before contact it fills ivory to signal the press timing. Teal means an
+  The28x11logical SimpleKeys cap sits above an authored idle-skull landmark for
+  Classic, sword, axe and shield, with an8px gap and pixel-snapped rendered-camera
+  projection. The dark raised cap with white SPACE letters warns in advance;
+  in the final200ms the light cap repeats released/pressed frames every100ms. Teal means an
   active parry window, gray/X means locked. Pause holds the displayed state.
   **The outline is advance warning, not buffered input**: early Space retains the
   existing manual pose/window and may expire before impact. Each strike needs a
@@ -846,11 +846,13 @@ per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.
 
 `ParryCuePresenter` reads `SkeletonController.TryGetAttackTelegraph` and the existing
 `CanBeginParry`/`IsWindowActive`; it never changes combat or typing input. Original
-Kenney CC0 caps form a 32x16 logical key above the enemy collider head, with an8px
-gap and pixel-snapped rendered-camera projection. The tray is fixed at (61,126),
-198x30, near the fighters. White outline/text means advance warning for each strike;
-ivory fill begins 200ms before authored contact; teal means an active parry window;
-gray/X hides the label while locked. No valid attack means hidden.
+SimpleKeys Classic frames form a28x11logical key above the authored idle-skull
+landmark (Classic/sword/axe/shield), with an8px gap and pixel-snapped camera projection. The tray is fixed at (61,126),
+198x30, near the fighters. The dark raised cap and white SPACE letters warn for each strike. In the final
+200ms, the light released/pressed pair repeats100ms cycles. Teal holds the pressed
+face during an active parry window; gray/X uses the blank cap while locked.
+The native baked SPACE glyphs remain unsmoothed; Unity9-slice and Point sampling compact the original
+frames to the requested size. [Asset source/custom permission](../../Assets/Art/UI/ParryCue/SimpleKeys/SOURCE.txt). No valid attack means hidden.
 Prediction caches Anim_DealDamage events by controller and follows Animator
 speed/progress plus the calculated preparation hold to provide1s at authored speed;
 outgoing transitions cancel the cue. Early Space is not buffered; the existing

@@ -32,7 +32,7 @@ internal static class ParryCueBuild
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.SaveAndReimport();
         }
-        foreach (var tone in new[] { "dark", "light" })
+        foreach (var tone in new[] { "dark", "light", "warning" })
         {
             var importer = (TextureImporter)AssetImporter.GetAtPath(Art + "SimpleKeys/space-" + tone + ".png");
             importer.textureType = TextureImporterType.Sprite;
@@ -43,7 +43,8 @@ internal static class ParryCueBuild
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.spritesheet = new[] { "released", "pressed" }.Select((state, i) => new SpriteMetaData {
                 name = tone + "_" + state, rect = new Rect(i * 67, 0, 67, 16),
-                alignment = 0, pivot = Vector2.one * .5f, border = new Vector4(3, 3, 3, 3)
+                alignment = 0, pivot = Vector2.one * .5f,
+                border = tone == "dark" ? new Vector4(3, 3, 3, 3) : new Vector4(34, 4, 3, 10)
             }).ToArray();
             importer.SaveAndReimport();
         }
@@ -90,20 +91,18 @@ internal static class ParryCueBuild
         {
             // Migrate the previous two-tile key once; keep later authored tuning.
             var face = key.Find("Left").GetComponent<Image>();
-            bool migrate = face.sprite && AssetDatabase.GetAssetPath(face.sprite).EndsWith("tile_0235.png") ||
-                face.sprite && AssetDatabase.GetAssetPath(face.sprite).EndsWith("tile_0507.png");
-            if (migrate) key.sizeDelta = new Vector2(96, 42); // 32x14 logical, 1x source-pixel borders.
+            var label = key.Find("Label").GetComponent<TMP_Text>();
+            bool migrate = label.gameObject.activeSelf;
+            if (migrate) key.sizeDelta = new Vector2(84, 33); // 28x11 logical; compact Point-filtered cap.
             var rect = face.rectTransform;
             rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one;
             rect.offsetMin = rect.offsetMax = Vector2.zero;
             face.type = UnityEngine.UI.Image.Type.Sliced;
             face.pixelsPerUnitMultiplier = 1f / 3f;
-            face.sprite = Cap("dark", "released"); face.color = Foreground;
+            face.sprite = Cap("warning", "released"); face.color = Foreground;
             key.Find("Right").gameObject.SetActive(false);
-            var label = key.Find("Label").GetComponent<TMP_Text>();
-            if (migrate) { Box(label.rectTransform, key, 0, 0, 96, 36); label.fontSize = 24; }
-            label.color = Foreground;
-            if (migrate) Box((RectTransform)key.Find("Locked"), key, 33, 6, 30, 30);
+            label.gameObject.SetActive(false); // SPACE is baked into the supplied cap frames.
+            if (migrate) Box((RectTransform)key.Find("Locked"), key, 30, 4.5f, 24, 24);
         }
         StyleKey(live);
         // Only fill missing bindings: preserve authored tuning and existing node geometry.
@@ -114,8 +113,10 @@ internal static class ParryCueBuild
         }
         Bind("key", live); Bind("left", live.Find("Left").GetComponent<Image>());
         Bind("right", live.Find("Right").GetComponent<Image>()); Bind("locked", live.Find("Locked").GetComponent<Image>());
-        Bind("label", live.Find("Label").GetComponent<TMP_Text>());
-        Bind("released", Cap("dark", "released")); Bind("pressed", Cap("dark", "pressed"));
+        var currentRelease = new SerializedObject(presenter).FindProperty("released").objectReferenceValue;
+        if (currentRelease && AssetDatabase.GetAssetPath(currentRelease).EndsWith("space-dark.png"))
+            Set(presenter, "released", Cap("warning", "released"));
+        Bind("released", Cap("warning", "released")); Bind("pressed", Cap("dark", "pressed"));
         Bind("readyReleased", Cap("light", "released")); Bind("readyPressed", Cap("light", "pressed"));
         var authored = new SerializedObject(presenter);
         var landmarks = authored.FindProperty("headLandmarks");
@@ -143,7 +144,6 @@ internal static class ParryCueBuild
         var sample = Key(panel, "SpaceCueSample", 452, 270);
         StyleKey(sample);
         sample.Find("Left").GetComponent<Image>().sprite = Cap("light", "released");
-        sample.Find("Label").GetComponent<TMP_Text>().color = Hex("211c19");
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 }
