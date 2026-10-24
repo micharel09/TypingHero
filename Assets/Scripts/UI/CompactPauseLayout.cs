@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Only Pause changes geometry. Restore the authored result layout before gameplay resumes.
 public sealed class CompactPauseLayout : MonoBehaviour
@@ -12,12 +13,17 @@ public sealed class CompactPauseLayout : MonoBehaviour
         restore.Add(() => { rt.anchoredPosition = position; rt.sizeDelta = size; });
         rt.anchoredPosition = new Vector2(x, -y); rt.sizeDelta = new Vector2(w, h);
     }
-    void Awake() { transform.Find("SettingsButton").gameObject.SetActive(false); }
+    void Awake() { transform.Find("SettingsButton").gameObject.SetActive(true); }
     public void Apply(bool paused)
     {
         foreach (var reset in restore) reset();
         restore.Clear();
         if (!paused) return;
+        // The panel sprite includes its enclosing border. Results still use it.
+        var face = GetComponent<Image>();
+        bool visible = face.enabled;
+        restore.Add(() => face.enabled = visible);
+        face.enabled = false;
         Place((RectTransform)transform, 270, 100, 420, 340);
         var title = transform.Find("PauseLabel").GetComponent<TMP_Text>();
         Place(title.rectTransform, 24, 20, 372, 40);

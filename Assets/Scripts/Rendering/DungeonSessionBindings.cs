@@ -32,6 +32,10 @@ public sealed class DungeonSessionBindings : MonoBehaviour
     }
     public void Bind(DungeonWorld world, bool clear = false)
     {
+        var depth = !clear && world.definition.spriteDepth ? world.definition.spriteDepth.CreateLookup() : null;
+        foreach (var root in roots)
+            if (root)
+                foreach (var binding in root.GetComponentsInChildren<SpriteDepthBinding>(true)) binding.Bind(depth);
         if (!clear)
         foreach (var root in roots)
         {

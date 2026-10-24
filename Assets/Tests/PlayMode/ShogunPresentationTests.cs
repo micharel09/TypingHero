@@ -290,9 +290,74 @@ public sealed class ShogunPresentationTests
         yield return null;
     }
 
+    [UnityTest, Category("Quick")]
+    public IEnumerator CompactGameOverKeepsSummaryAndResultActionsInsideCard() => CompactResult(false);
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator CompactVictoryKeepsSummaryAndResultActionsInsideCard() => CompactResult(true);
+
+    static IEnumerator CompactResult(bool victory)
+    {
+        var oldMusic = MusicPlayer.I; var oldSfx = SfxPlayer.I;
+        TutorialRun.Begin();
+        yield return DungeonSceneTestFlow.Start();
+        try
+        {
+            var pause = Object.FindObjectOfType<GamePauseController>();
+            var layout = Object.FindObjectOfType<CompactPauseLayout>(true);
+            var panel = (RectTransform)layout.transform;
+            var result = panel.Find("MatchResult").GetComponent<TMP_Text>();
+            result.text = victory
+                ? "Very Hard ? BOSS DEFEATED\nDEFEATED 6\nNEW BEST 6 DEFEATED ? 999999 POINTS\nSCORE 999999    TIME 999.9s\nACCURACY 100.0%    PARRIES 999"
+                : "Very Hard ? FELL TO DOUBLE STRIKE / Attack2\nDEFEATED 5\nBEST 6 DEFEATED ? 999999 POINTS\nSCORE 999999    TIME 999.9s\nACCURACY 100.0%    PARRIES 999";
+            if (victory) pause.ShowVictory(); else pause.ShowGameOverAfterPlayerDie();
+            yield return new WaitForSecondsRealtime(.2f);
+            Canvas.ForceUpdateCanvases(); result.ForceMeshUpdate();
+            Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(600, 366)));
+            Assert.That(panel.GetComponent<Image>().enabled, Is.True);
+            Assert.That(panel.Find("PauseLabel").GetComponent<TMP_Text>().text,
+                Is.EqualTo(victory ? "VICTORY" : "GAME OVER"));
+            Assert.That(result.preferredHeight, Is.LessThanOrEqualTo(result.rectTransform.rect.height));
+            var ink = VisibleGlyphs(result); var bounds = result.rectTransform.rect;
+            Assert.That(ink.min.x, Is.GreaterThanOrEqualTo(bounds.xMin - 1));
+            Assert.That(ink.max.x, Is.LessThanOrEqualTo(bounds.xMax + 1));
+            Assert.That(ink.min.y, Is.GreaterThanOrEqualTo(bounds.yMin - 1));
+            Assert.That(ink.max.y, Is.LessThanOrEqualTo(bounds.yMax + 1));
+            Assert.That(panel.Find("ResumeButton").gameObject.activeSelf, Is.False);
+            foreach (string name in new[] { "RestartButton", "Main MenuButton", "Top 1000Button", "SettingsButton" })
+            {
+                var button = panel.Find(name).GetComponent<Button>();
+                Assert.That(button.gameObject.activeInHierarchy && button.IsInteractable(), Is.True, name);
+                var corners = new Vector3[4]; ((RectTransform)button.transform).GetWorldCorners(corners);
+                foreach (var corner in corners) Assert.That(panel.rect.Contains(panel.InverseTransformPoint(corner)), Is.True, name);
+            }
+            Assert.That(panel.Find("AudioPreferences").gameObject.activeSelf, Is.False);
+            Assert.That(panel.Find("KeyHint").gameObject.activeSelf, Is.False);
+            var settings = Object.FindObjectOfType<SettingsModal>(true);
+            settings.Open(); yield return null;
+            Assert.That(panel.Find("AudioPreferences"), Is.Null, "Sliders move into Settings");
+            settings.Close(); yield return null;
+            Assert.That(panel.Find("AudioPreferences").gameObject.activeSelf, Is.False);
+            Assert.That(panel.GetComponent<Image>().enabled, Is.True);
+            Assert.That(Time.timeScale, Is.Zero);
+        }
+        finally
+        {
+            TutorialRun.End(); GamePauseController.SetTutorialReading(false);
+            var clean = UnityEngine.SceneManagement.SceneManager.CreateScene("CompactResultCleanup" + victory);
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(clean);
+            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("SampleScene");
+            DungeonSceneTestFlow.Cleanup();
+            if (!oldMusic && MusicPlayer.I) Object.Destroy(MusicPlayer.I.gameObject);
+            if (!oldSfx && SfxPlayer.I) Object.Destroy(SfxPlayer.I.gameObject);
+            AudioListener.pause = false; Time.timeScale = 1;
+        }
+        yield return null; yield return null;
+    }
+
     static GameObject PausePanel(Transform parent)
     {
-        var panel = new GameObject("pause panel", typeof(RectTransform), typeof(CanvasGroup));
+        var panel = new GameObject("pause panel", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
         panel.SetActive(false); panel.transform.SetParent(parent, false);
         foreach (var name in new[] { "PauseLabel", "ResumeButton", "RestartButton", "SettingsButton", "Top 1000Button", "Main MenuButton", "AudioPreferences", "KeyHint" })
         {
@@ -363,6 +428,9 @@ public sealed class ShogunPresentationTests
         try
         {
             host.SetActive(true); pause.TogglePause(true);
+            Assert.That(panel.GetComponent<Image>().enabled, Is.False, "Pause has no enclosing panel");
+            pause.TogglePause(true);
+            Assert.That(panel.GetComponent<Image>().enabled, Is.False);
             panel.transform.Find("ResumeButton").GetComponent<Button>().Select();
             pause.Resume(); pause.Resume(); pause.Restart(); pause.ReturnToMenu(); pause.TogglePause(true);
             Assert.That(pause.IsRestarting, Is.False);
@@ -378,6 +446,7 @@ public sealed class ShogunPresentationTests
             Assert.That(GamePauseController.InputBlocked, Is.True); GamePauseController.SetTutorialReading(false);
             Assert.That(GamePauseController.InputBlocked, Is.False); Assert.That(Time.timeScale, Is.EqualTo(1));
             pause.ShowVictory(); Assert.That(rect.sizeDelta, Is.EqualTo(new Vector2(600, 500)));
+            Assert.That(panel.GetComponent<Image>().enabled, Is.True, "Results retain the authored panel");
             Assert.That(canvas.GetComponent<Canvas>().enabled, Is.True);
         }
         finally { Object.DestroyImmediate(host); Object.DestroyImmediate(canvas); Object.DestroyImmediate(cameraHost); Object.DestroyImmediate(events); GamePauseController.ResetSessionState(); }

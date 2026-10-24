@@ -14,7 +14,7 @@ internal static class TutorialBuild
         var menu = Object.FindObjectOfType<MainMenuUI>(true);
         if (!root.Find("TutorialButton")) Button("Tutorial", root, 411, 398, 138, menu.Tutorial);
         Set(menu, "tutorialButton", root.Find("TutorialButton").GetComponent<Button>());
-        foreach (var entry in new[] { ("How to PlayButton", 264f), ("TutorialButton", 411f), ("Top 1000Button", 558f) })
+        foreach (var entry in new[] { ("TutorialButton", 411f), ("Top 1000Button", 558f) })
         {
             var rect = (RectTransform)root.Find(entry.Item1);
             Box(rect, root, entry.Item2, 398, 138, 40);

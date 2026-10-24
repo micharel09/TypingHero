@@ -46,9 +46,9 @@ public sealed class DungeonEditorEntryTests
         Assert.That(PlayerPrefs.GetInt("TutorialProgress_v1", 0), Is.EqualTo(progress));
         Assert.That(EndlessDuel.I.Run.Score, Is.Zero);
         Assert.That(EndlessDuel.I.Run.Difficulty, Is.EqualTo(EndlessDifficulties.Selected));
-        Assert.That(CombatSession.I.Seconds, Is.Zero);
+        Assert.That(CombatSession.I.Seconds, Is.InRange(0f, 1f), "Fresh encounter clock starts immediately");
         Assert.That(GamePauseController.IsPaused, Is.False);
-        Assert.That(GamePauseController.EncounterReading, Is.True, "wait for Fight");
+        Assert.That(GamePauseController.EncounterReading, Is.False, "combat starts without Fight");
         Assert.That(Object.FindObjectsOfType<PlayerHealth>().Length, Is.EqualTo(1));
         Assert.That(Object.FindObjectsOfType<SkeletonController>().Length, Is.EqualTo(1));
         Assert.That(Object.FindObjectsOfType<AudioListener>().Length, Is.EqualTo(1));

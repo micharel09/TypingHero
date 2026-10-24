@@ -6,6 +6,19 @@ using UnityEngine;
 
 public static class GameLoopBuild
 {
+    static bool depthPreview;
+    // QA controls over the same serialized world/material configuration as production.
+    public static void DepthPreview()
+    {
+        if (Environment.GetEnvironmentVariable("TYPINGHERO_QA") != "1")
+            throw new InvalidOperationException("Depth preview requires the isolated QA runner");
+        try
+        {
+            depthPreview = true;
+            WebGL();
+        }
+        finally { depthPreview = false; }
+    }
     public static void Windows64()
     {
         var output = Environment.GetEnvironmentVariable("TYPINGHERO_BUILD_PATH");
@@ -70,7 +83,9 @@ public static class GameLoopBuild
                 target = BuildTarget.WebGL,
                 options = qa && Environment.GetEnvironmentVariable("TYPINGHERO_PROFILE_ALLOCATIONS") == "1"
                     ? BuildOptions.Development : BuildOptions.None,
-                extraScriptingDefines = qa ? new[] { "TYPINGHERO_AUTOMATION" } : Array.Empty<string>()
+                extraScriptingDefines = qa ? (depthPreview
+                    ? new[] { "TYPINGHERO_AUTOMATION", "TYPINGHERO_DEPTH_PREVIEW" }
+                    : new[] { "TYPINGHERO_AUTOMATION" }) : Array.Empty<string>()
             });
             if (report.summary.result != BuildResult.Succeeded)
                 throw new InvalidOperationException("WebGL build failed: " + report.summary.result);

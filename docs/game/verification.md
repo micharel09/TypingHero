@@ -1,3 +1,25 @@
+## Production sprite self-shadow integration (2026-10-24)
+
+- User accepted demo8293 with rune/light and both blue haze layers disabled;
+  scope is saved production configuration and integration, without full animation
+  review. DungeonWorld selects ActorDepth; material saves0.65/0.15/0.01.
+- Unity2022.3.25f1:49/49focused depth/F8/parry/Slayer tests PASS,0failed/skipped.
+  Final-main QA182529/inputd0403f7:280sprites/289keys/34clips/32atlases validated;
+  repeated builder, map/config/reference preservation and world/no-depth/return PASS.
+- Native Edge/GTX1650Ti/D3D11,1280x720:18/18real-input integration checks PASS in
+  38.25s,0exceptions/provider writes, no video. Parry->queued slash, hurt,
+  Pause/Resume, Slayer/restore, F8 and menu/world return covered.204exported lighting
+  files match source; all four rejected rune/haze objects remain inactive.
+- QA and production183215 use the same complete input SHA256
+  `d0403f7cf73aa00e821d13dd00d2a67955d1458ec565ac72611614739fd1ed8e`.
+  Both WebGL builds PASS;33files per downloaded player match remote hashes.
+  Production48assembly scan excludes QA probe/depth controls/demo; native production
+  gameplay/pause directly inspected, bridge absent, F8 canvas unchanged,0exceptions.
+- Historical visual/performance evidence remains scoped to its recorded source;
+  unchanged probe sequence and lighting need no new measurement. Failed lock wait,
+  port conflict and helper startup are recorded separately, not gameplay passes.
+  [Checkpoint and receipt location](../plans/combat-hanging-light.md).
+
 ## Latest-main original parry demo (2026-10-22; local)
 
 
@@ -18,6 +40,20 @@
 - No full-suite/balance/stress/performance or human-attention claim. Fixtures block
   external writes. Exact sources, valid/failed receipts, timestamps, clock-calibration
   caveat, clip hash and retained resources: [checkpoint](../plans/parry-cue-demo.md).
+
+## Pause and redundant guidance cleanup (2026-10-24)
+
+Unity2022.3.25f1 result20261023T174743-webgl/input
+d90abc079611723cb0556589b74770f96563c3e29dee9a94cc796a4ca6be0922:
+12/12 scoped PlayMode PASS,0failed/skipped,10.564191s; strict repeat builder and QA
+WebGL PASS. Native Edge/ANGLE D3D11 at1280x720:22/22 real-input checks PASS,
+0JS/managed exceptions, fixture interception/external blocking enabled.
+Nine screenshots inspected: unframed Pause, four-action menu, preserved tutorial,
+Settings/results, clean combat and Continue without duel numbering. Tutorial entry/
+replay, pause/modals, direct battle start, typing defeat/Continue, Restart/death/menu
+verified. No balance/performance/sprite suite or itch publication.
+Source scenes semantically match generated records; retained original ordering and
+unrelated values/GUIDs. [Receipt and resources](../plans/compact-menus.md).
 
 Base origin/main fd3f21d; original2->3->4->5->idle integration on a separate child.
 Pinned Unity2022.3.25f1/fly-server141745: strict builder/font protection and31/31
@@ -2974,3 +3010,40 @@ are unchanged; prior source/VFX-off review remains applicable. See checkpoint.
 ## Space cue HUD proximity follow-up (2026-10-24)
 
 Input4933a167: normal180518 and QA181516 WebGL builds PASS; strict repeat-builder PASS. Scoped native layout: normal5checks, QA19checks PASS; both640x360/1280x720, tutorial target arrows/copy, fixed tray bounds, real-parry Slayer, pause/resume, actual8-letter queue and cue switching. Direct screenshots inspected, no runtime suite repeated; [checkpoint](../plans/parry-cue-demo.md) distinguishes earlier animation clips from this layout update.
+
+## Explicit first follow-up cel removal (2026-10-24)
+
+User requested a quick removal of combo_2_0. Nine retained cels now start at
+combo_2_1, finish516.667ms; contact events shift50ms earlier (100/150/200ms).
+Pinned Unity42/42 PASS (`20261023T171621-webgl`); strict builder and
+source normal/mirror VFX-off review10keys/9pairs each complete. WebGL build,
+new real-input recording and final runtime join/playback were cancelled at the
+user's speed request and remain unverified. Existing demo is the preceding build.
+See [checkpoint](../plans/parry-main-demo.md).
+
+Tempo follow-up (2026-10-24): retained nine cels stretched34/31 to566.667ms;
+static serialized-reference/event/key/duration checks pass. Tests updated but
+not rerun in this quick preview iteration; prior42/42 is not new-build evidence.
+New sprite preview provided; runtime WebGL and complete timing visual acceptance
+remain unverified. [Checkpoint](../plans/parry-main-demo.md).
+
+
+## Compact Game Over / Victory (2026-10-24)
+
+QA20261023T184327/input43e1f3b6a5dafd1609a3f9e3ad48e569b9c310191a56f2bf16869970d18d730a:
+Unity2022.3.25f1 strict repeat and4/4 focused result/pause PlayMode PASS.
+Native Edge155/NVIDIA GTX1650Ti/D3D11 at1280x720:191 checks PASS, zero exceptions/production
+writes, actual typing/parry through six opponents to Victory plus natural death,
+result Settings/modal/Restart/Menu and Pause/Resume. Six final UI images inspected.
+Card600x366/title30/summary24, four actions, audio in existing Settings, no clipping.
+After integrating main cb54e5f, Quick185318/input
+d1188082e78510a576d2d56a5e03bc27cf92038a6981b304e7b57a903811bc7f:
+4/4 PASS,2.887987s and strict repeat PASS. Full SampleScene semantic records match;
+18 result records and all UI code unchanged from native-reviewed player. Actor
+shadow visuals retain their separate main receipts. Initial test teardown name
+collision and unsuccessful native pilots are superseded by these final runs.
+[Scope, failed-attempt attribution and retained UI preview](../plans/compact-menus.md).
+
+## Space cue pre-main integration review (2026-10-24)
+
+Integrated main3cd7293 with cue/HUD. Inputa880ecef: Quick0119563/3 and QA0120597/7 scoped tests PASS; strict repeat-builder, QA WebGL and normal013118 PASS. Native integrated1280x72016checks PASS (real parry/early/late/lock, Pause/F8, errors/timeout, Slayer/win/next encounter/restart/menu). Normal5checks PASS and both-size images directly inspected;33remote hashes match each player,5payloads exclude QA/depth-preview markers. Scene records match generated output after canonicalizing four inactive font-bound values. Fixed bounded legacy-Graphic ownership on target rebind;20-target regression covered. No remaining merge blocker found; [checkpoint](../plans/parry-cue-demo.md) records evidence and limits.

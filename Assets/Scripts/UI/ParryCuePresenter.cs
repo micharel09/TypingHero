@@ -44,6 +44,7 @@ public sealed class ParryCuePresenter : MonoBehaviour
         var enemy = parry && parry.enemy ? parry.enemy.GetComponentInParent<SkeletonController>() : null;
         if (enemy != boundEnemy)
         {
+            RestoreLegacyGraphics();
             boundEnemy = enemy;
             if (enemy && enemy.AttackCueObject)
                 foreach (var graphic in enemy.AttackCueObject.GetComponentsInChildren<Graphic>(true))
@@ -77,10 +78,14 @@ public sealed class ParryCuePresenter : MonoBehaviour
     }
 
     static Color Hex(string value) { ColorUtility.TryParseHtmlString("#" + value, out var color); return color; }
-    void OnDisable()
+    void RestoreLegacyGraphics()
     {
         foreach (var pair in legacyGraphics) if (pair.Key) pair.Key.enabled = pair.Value;
         legacyGraphics.Clear();
+    }
+    void OnDisable()
+    {
+        RestoreLegacyGraphics();
         boundEnemy = null; lastVisible = false;
         if (key) key.gameObject.SetActive(false);
     }

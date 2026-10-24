@@ -1,5 +1,30 @@
 ## Reusable world lighting (2026-10-22)
 
+- DungeonWorld selects the authored ActorDepth library for normal-player self-shadow.
+  DungeonSprite saves strength0.65/depth scale0.15/bias0.01; world without a library
+  retains the previous rendering path. The user accepted demo8293 with rune and
+  blue haze disabled. QA F8 restores each material's configured value; normal
+  builds exclude the control. Integration evidence/status is in the
+  [lighting checkpoint](../plans/combat-hanging-light.md).
+
+## Pause and guidance cleanup (2026-10-24)
+
+- Manual Pause shows PAUSE plus Resume/Restart/Settings/Top 1000/Main Menu without
+  an enclosing panel face or rim. Game Over/Victory use a centered600x366 card,
+  title30/summary24 and two action rows: Restart/Main Menu, Top1000/Settings.
+  Result audio uses the existing Settings modal; embedded sliders/duplicate key hints
+  are hidden. Resume restores these authored result bounds. Modal freeze rules remain.
+- The single current tutorial is the only how-to screen. Main Menu has Play,
+  Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
+- Fresh/restarted encounters begin immediately after DungeonSession initialization,
+  including after tutorial completion. There is no initial Fight/Enter gate.
+- Combat has no DUEL x/6 label/backplate. Between-enemy results retain cleared/HP,
+  NEXT opponent name and Continue, without tactical hints or duel numbering.
+  Combat cues, typing feedback, finite six-opponent progression and scoring remain.
+- Scoped Unity 12/12 and repeat builder pass; native WebGL acceptance is recorded
+  in [the menu checkpoint](../plans/compact-menus.md).
+
+
 - Scene selection, world presentation, individual lights, flame sequences and combat
   lighting use authored profiles (defaults under `Assets/Data/Lighting`; selected
   assets may live elsewhere). Native materials,
@@ -37,9 +62,9 @@ defense stays250ms and success holds its first cel800ms. One completed word in
 No word means no attack. Pause retains queue/budget; hit/death/Slayer/interruption/
 disable clear it. Ordinary words after idle still use combo_1; Slayer is unchanged.
 
-The full10cel combo_2 + combo_2_end sequence starts0 with fixed20ms crossfade,
-ends566.667ms, opens at150ms on combo_2_3, updates contact200ms and closes250ms.
-A repeated end_3 key550ms preserves its final66.667ms hold. Existing10damage,
+The nine-cel combo_2_1..5 + combo_2_end_0..3 sequence omits combo_2_0 at the
+user's request, starts0 with fixed20ms crossfade, ends566.667ms, opens at109.677ms
+on combo_2_3, updates contact164.516ms and closes219.355ms. A repeated end_3 key550ms preserves its final73.118ms hold. Existing10damage,
 stamina, deduplication, hitstop, contact/lighting/flash/camera/audio consumers remain.
 Follow-up end/exit cancels only its own opening cel; a newer normal/Slayer window
 and its delayed close survive. Replacement clears the old bypass before opening
@@ -786,17 +811,20 @@ passes behind player on both sides. Final source/clip/timestamp limits and
 per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.
 
 
-## Space cue demo (isolated review branch)
+## Space attack warning
 
 `ParryCuePresenter` reads `SkeletonController.TryGetAttackTelegraph` and the existing
 `CanBeginParry`/`IsWindowActive`; it never changes combat or typing input. Original
-Kenney CC0 caps form a32?16 logical key at(23,133),6px left of the tray. The tray is fixed at(61,126),198x30; both sit20logical pixels above the original demo placement to stay near the fighters. Outline
-amber means wind-up, ivory fill begins200ms before authored contact, teal means
-an active parry window, gray/X hides the label while locked. No valid attack means
-hidden. Prediction caches Anim_DealDamage events by controller and follows Animator
-speed/progress plus the100ms thrust hold; outgoing transitions cancel the cue.
+Kenney CC0 caps form a 32x16 logical key at (23,133), 6px left of the tray. The tray
+is fixed at (61,126), 198x30, near the fighters. Amber outline means wind-up;
+ivory fill begins 200ms before authored contact; teal means an active parry window;
+gray/X hides the label while locked. No valid attack means hidden.
+Prediction caches Anim_DealDamage events by controller and follows Animator
+speed/progress plus the 100ms thrust hold; outgoing transitions cancel the cue.
 The original cue object/SFX stay intact; only its Graphics are suppressed.
-Esc?F8?Esc compares key/legacy! in-session, default key on application start;
-no PlayerPrefs/settings/tutorial state added. Pause holds presentation, terminal/
-Slayer/encounter state clears it. This remains a separate review branch, not a
-production default declaration. Acceptance and captures: [demo checkpoint](../plans/parry-cue-demo.md).
+Previous actor Graphics are restored and released on target rebind/disable.
+Esc -> F8 -> Esc compares key/legacy ! in-session, default key on application start;
+no PlayerPrefs/settings/tutorial state added. Pause holds presentation;
+terminal/Slayer/encounter state clears it. The user accepted this default after
+the isolated demo and requested pre-main review. Acceptance and captures:
+[checkpoint](../plans/parry-cue-demo.md).

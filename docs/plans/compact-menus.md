@@ -220,3 +220,109 @@ form verification receipts at `E:/CodexTemp/TypingHero/pause-itch-release/` and
 ends. Shared cache and previous artifacts stay untouched. The clean release
 worktree/local branch can be removed after these documentation commits are pushed,
 merged and verified on origin/main; retain the remote release branch.
+
+
+## Pause and redundant guidance cleanup ? 2026-10-24
+
+Approved scope: remove the enclosing Pause face/rim, retain its five actions;
+keep the single current tutorial, remove How to Play and the initial Fight gate;
+remove DUEL x/6 from HUD and between-encounter copy, retain Continue/results.
+No combat/animation/provider/save-schema changes or itch publication.
+
+Implementation: CompactPauseLayout snapshots/restores the shared panel Image.enabled
+alongside geometry. Settings/results keep their own authored surfaces. CoreMatchBuild
+removes the legacy help canvas/button/component; menu navigation contains four actions.
+All layout passes stop addressing retired help/round nodes. CombatR7Build removes both
+round label/backplate; the QA observer checks the actual hierarchy without retired fields.
+EndlessDuel starts after initialization, preserving DungeonSession transition input
+suppression; Continue still advances only a completed encounter. The result shows the
+next opponent name without tactical hints or duel numbering. Tutorial guide/template,
+replay, completion and persisted preferences remain intact.
+
+Worktree: C:/Users/ADMIN/orca/workspaces/TypingHero/clean-pause-guidance,
+branch micharel09/clean-pause-guidance, based on origin/main 8a7b498.
+Evidence/helpers: E:/CodexTemp/TypingHero/clean-pause-guidance.
+Verification: Unity2022.3.25f1/fly-server result20261023T174743-webgl,
+input d90abc079611723cb0556589b74770f96563c3e29dee9a94cc796a4ca6be0922:
+12/12 filtered PlayMode PASS, zero failures/skips, 10.564191s. Strict repeated builder
+and QA WebGL PASS; all2231 input files match before generated scene import. Initial
+builder caught a retired Round node in ApplyCompactStatus; corrected before acceptance.
+Generated scene records match final checkout after ignoring ordering/trailing whitespace;
+37 legacy help records and8 round records removed, zero new records, all other IDs kept.
+Original record ordering retained to avoid unrelated Unity serialization churn.
+
+Native Edge/ANGLE D3D11, Playwright1.58.2,1280x720:22/22 PASS with actual keyboard/mouse,
+read-only probe and fixture interception. Tutorial first-run/replay/Start Battle,
+pause during tutorial/combat, Resume, Settings/R/M guards/Back, Top1000/Escape,
+real typing defeat, Continue to next opponent, Restart, death/results and Main Menu.
+Nine screenshots directly inspected: menu,tutorial,combat,pause,pause-tutorial,
+pause-restored,settings,continue,defeat. Pause shows title/buttons without enclosing
+face/rim; Settings/results retain their surfaces; no Help/DUEL x/6/initial Fight gate.
+Zero JS/managed exceptions or production writes. No full balance, sprite or performance
+suite; actual Editor EnterPlayMode tests updated but not rerun (direct-entry PlayMode
+coverage passes). No merge-conflict cause established for the original visible panel.
+
+
+Preview retained: http://127.0.0.1:8291/ with its player, fixture service worker,
+source snapshot,12-test XML,22-check native report and nine screenshots under
+E:/CodexTemp/TypingHero/clean-pause-guidance. Keep until user review is complete;
+then stop only its preview host and remove that task artifact directory. Shared
+Unity cache/source and pre-existing previews remain untouched.
+
+
+## Compact Game Over / Victory ? 2026-10-24
+
+User requested review and shrink of the result card after the Pause cleanup.
+Prior results used864x540 with48-unit summary text, embedded volume sliders and
+full-width actions. New authored result card600x366 at(180,87) on960x540, title30,
+summary24 with176-high wrap area, two268x36 action columns: Restart/Main Menu,
+Top1000/Settings. Audio preferences use the existing Settings modal. Redundant
+R/M footer and restart keycap are hidden; keyboard shortcuts remain owned by
+GamePauseController. Same result bounds for Game Over and Victory. Pause continues
+its unframed420x340 runtime layout and restores the compact result geometry.
+
+Base origin/main b0534d5; task branch micharel09/compact-results. Scoped checks:
+two real-scene result layout/long-statistics/Settings round-trip tests plus existing
+pause/modal restoration cases, strict repeated builder, and one1280x720 native
+visual/real-input flow for defeat and actual six-opponent victory. No timing,
+progression, damage, save/provider/public API, asset GUID or animation changes.
+Artifacts/helpers: E:/CodexTemp/TypingHero/compact-results.
+Unity2022.3.25f1/fly-server result20261023T184327-webgl, input
+43e1f3b6a5dafd1609a3f9e3ad48e569b9c310191a56f2bf16869970d18d730a:
+4/4 filtered PlayMode PASS,0failed/skipped,2.6974057s; strict repeated builder PASS.
+Tests use both real result callbacks, long five-line summaries, glyph/card bounds,
+four active actions/no Resume, Settings/Back/hidden sliders, and Pause restoration.
+Initial run183939 passed3/4 but Victory teardown reused the first test cleanup scene
+name; fixed only the test scene name and reran. No product layout correction needed.
+QA WebGL/strict repeated builder PASS. Native image review still pending; shared runner contention accounted for
+most waiting before the scoped tests. No other task processes were stopped.
+
+
+Final native UI review: Edge155/ANGLE D3D11/NVIDIA GTX1650Ti, Playwright1.58.2,
+1280x720, native-complete/browser.json PASS191 checks, zero JS/managed exceptions.
+Real mouse/keyboard: natural death, result Settings/R/M guards/Back, Top1000/Escape,
+Restart, unframed Pause/Resume, six actual Very Easy opponent defeats and Victory,
+Victory Settings/Escape restoration, Main Menu. Six full screenshots directly
+inspected: game-over, game-over-restored, result-settings, pause-unchanged, victory,
+victory-restored. Both result titles, five summary lines and four actions fit;
+embedded sliders/key hints absent. Fixture interception retained; no production writes.
+Earlier native pilots are not overall PASS: one assumed HP stayed0 after corpse
+cleanup (probe correctly returns-1), then conservative typing pilots lost before
+Victory. Corrected only the real-input driver (allow legal Slayer/Parry typing,
+acknowledge held character input); no game rules/timing/assets were changed to win.
+
+Integrated newer origin/main cb54e5f authored actor shadows without conflicts.
+Result UI code and all18 modified scene records are unchanged from the reviewed
+QA player43e1f3...; UGUI remains separate from the actor shadow material.
+Integrated Quick20261023T185318/input
+d1188082e78510a576d2d56a5e03bc27cf92038a6981b304e7b57a903811bc7f:
+4/4 same scoped PlayMode tests PASS,0fail/skip,2.887987s; strict repeat builder PASS.
+The complete integrated SampleScene matches Unity's generated records, ignoring
+record order/trailing whitespace only. No actor-shadow visual certification is
+claimed by this UI task; its existing main receipts remain authoritative.
+
+UI review page: http://127.0.0.1:8293/review.html (links to the UI QA player).
+Retain E:/CodexTemp/TypingHero/compact-results player, screenshots and receipts
+until user review is complete; then stop only its preview host and remove the task
+artifact directory. This UI player predates the concurrent shadow merge; its UI
+records match the integrated source exactly. No itch publication.

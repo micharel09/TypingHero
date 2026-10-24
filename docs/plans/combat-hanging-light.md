@@ -642,3 +642,512 @@ adds only Editor capture warm-up and test changes relative to QA runtime inputs.
 Final source audit preserves that snapshot; only two serialized rear-light records
 now mirror tested builder output. Remote integration/cleanup receipt: acceptance.json
 in the evidence root, populated after publication.
+
+
+## Per-frame depth self-shadow implementation (2026-10-23, in progress)
+
+Task base origin/main `69ed62c`; visual baseline `1a7895c`. Independent Orca
+worktree `sprite-self-shadow`, branch `micharel09/sprite-self-shadow`. Dirty
+primary checkout preserved. Evidence root:
+`E:/CodexTemp/TypingHero/sprite-self-shadow-20261023`.
+
+Contract: authored linear R depth (front = local -Z), alpha occluder coverage,
+Point/no mip/no compression, matching sprite atlas UV. Material defaults .65
+strength/.15 local depth/.01 local bias. Eight probes/light, at most12 source
+texels, bounded to the current frame. Ambient/emission and existing alpha/depth/
+shadow-caster passes remain unchanged. URP14.0.11 installed Lighting.hlsl was read
+from fly-server package cache; direct lighting uses its existing BRDF/AO/shadow
+helpers. This is planar approximate self-occlusion, not character geometry.
+
+Production is not enabled: world definitions have no depth library. Current
+fixtures author only hero combo_3 frame1 and sword Attack1 frame2, with explicit
+pose polygons recorded in `Assets/Tests/Fixtures/Lighting/SelfShadow/poses.json`.
+These are prototypes, not full-clip or all-actor acceptance. Required next gates:
+48 same-pose GPU captures (two actors, four white-light directions, two facings,
+flat normal/off, authored normal/off, authored normal/on), prototype performance,
+then controller-derived complete authoring and per-frame/transition/loop reviews;
+real1280x720 WebGL input/lifecycle and separate same-build on/off p95 comparison.
+If >10%, confirm ABBA, then only four-probe fallback is permitted. No visual,
+performance, runtime or integration pass is claimed yet.
+
+First focused test attempt stopped before Unity: private runner copy was still
+in progress and activation state had not reached its private HOME. No test ran.
+Private runner `/data/typinghero-game-loop/task-self-shadow-20261023` uses the
+shared exclusive lock, pinned image, copied Library/cache/HOME; no shared data
+is modified. Retain until verification completes, then remove only owned runner
+and clean integrated worktree. Local A/B evidence must remain for review.
+
+
+Prototype verification receipts (not full acceptance):
+
+- Focused Unity run `20261023T115125-quick`, input
+  `3aab147d599954c4b49d59687614bb1a69ab3074db721f57439aa9a658ad4d93`:
+  3/3 tests passed (SpriteDepthTests and two SpriteShadowTests), zero failed/skipped.
+  Frame/facing refresh, missing-frame fallback, clear/rebind, combat flash/Slayer
+  property preservation and256 warmed updates with zero managed bytes passed.
+  The subsequent explicit second-library A/B/A assertion was not in this first run.
+- GPU pilots `20261023T115449-serialize` and `20261023T120022-serialize` each
+  exported48 images successfully. The first had incorrect skeleton ground placement;
+  the second corrected it. These used hero combo_2 frame0, which is superseded by
+  combo_3 frame1 (hand/hilt over waist). No full pilot visual pass is claimed.
+  First-pilot hero sheet was opened but cropped the mirrored weapon; not acceptance.
+- Current fixture PNG structural audit passes dimensions, exact selected-cel alpha,
+  transparent unpainted cels and data channels; hashes in `prototype-inputs.json`.
+  Existing source albedo/normal/importer files have not been edited. New GUID
+  collision audit and `git diff --check` pass.
+- Run `20261023T120901-serialize`, input
+  `b96abc3c1272f4b01e9a4855cd26324cb5dd1bb902273bdd27ee1f2a6f14f2b2`,
+  produced no capture directory after over5minutes. Unity was still using~103% CPU;
+  log stopped after scene-manager initialization and contained a Unity TLS error.
+  Cause is not established. Stopped exactly its container after verifying the
+  private `/project` mount; exit143 is an interrupted failure, not a pass. Latest
+  source is being retried without changing shared cache/other jobs.
+- Orca-created default terminal was read, confirmed idle, closed. Worktree remains
+  dirty intentionally because full feature/asset acceptance is incomplete; no commit,
+  push, main integration or production activation has occurred.
+
+
+Latest prototype receipt `20261023T121521-serialize`, input
+`5815fa884768f373416632903daca28a49509b1441b753d0cee447f3db1b0a92`:
+
+- Retry completed without changing shared data; prior interruption remains failed.
+  Final prototype shader compiles/renders on llvmpipe LLVM15.0.7. Export48/48
+  snapshots; directly inspected48/48 on4 sheets at native and nearest2x. Two
+  source poses only: hero combo_3 F1 and sword Attack1 F2; four white-light
+  directions, both facings, flat-normal/off, authored-normal/off and authored-
+  normal/on. No animation sequence or transition acceptance (0 reviewed).
+- Localized hand/chest/waist differences track the selected light/facing; face,
+  blade and silhouette remain readable in these stills. No visible fringe in this
+  selected scope. Subtle1-2pixel changes do not establish temporal stability,
+  independent parry-fill behavior or adversarial neighboring-frame rejection.
+- Latest scoped3/3 Unity tests PASS, zero failed/skipped, including the added
+  second-library A -> B -> A property check and256 warmed binding updates with
+  zero managed allocation. This is binding-level evidence, not full world-session
+  A/B/A or native GPU performance evidence.
+- `prototype-verified/receipt.json`, `visual-observations.csv`, four sheets,
+ 48 raw PNGs, exact input snapshot receipt, test XML and logs are retained in the
+  task evidence root. Source/depth hashes are in `prototype-inputs.json`.
+- After this receipt, only Editor inventory export and its CLI entry point were
+  added; runtime, shader, maps and tests are unchanged. Inventory-only compilation
+  is separate; it does not rerun or expand visual/PlayMode acceptance.
+
+Remaining: complete production depth atlases and secondary bindings/library,
+full frame/transition/loop review and original-speed/slowed playback, strict twice-
+run builder preservation with complete depth data, one native1280x720 WebGL
+lifecycle/input run, and separate same-build on/off p95 measurement (ABBA if>10%,
+then only4 samples if confirmed). No production activation or main merge until
+those gates pass. The retained dirty worktree and private runner remain task-owned
+continuation resources; remove them after verified integration, retaining A/B evidence.
+
+
+Final inventory-only compile/export `20261023T122418-serialize`, input
+`28099165de958d4a4539c2e1bd6e2bde05b4161eb1ffba5ddb3e82b2027626f7`,
+PASS:268 unique referenced sprites,279 serialized sprite keys across33 clips and
+30 source atlases. The initial94-sprite scene-only inventory was incomplete:
+`EndlessRun.Definition` loads the six `EndlessRole` resources dynamically. The
+final collector includes exactly those role assets/dependencies, plus selected
+scene/world references and direct hurt/parry clips, without scanning unused art
+folders or hardcoding261. Original key times, held/repeated keys and clip loop
+flags are retained in `inventory-final/depth-inventory.json`. This is an inventory,
+not visual review of268 sprites. Only2 of268 have prototype depth data; no complete
+production atlas/library is supplied yet. The final inventory compile adds no
+runtime/shader/map change, so the previous3-test/48-static-image evidence is reused
+only within its stated scope. Whitespace/GUID checks remain passing.
+
+Next work remains authorized: establish the representative native performance
+comparison, author all remaining referenced depth cels with pose-specific overlap,
+then finish the full review/runtime/builder/performance gates above. Do not treat
+this prototype checkpoint as completion or as permission to enable production.
+
+
+## Self-shadow diagnosis and interactive two-pose demo (2026-10-23, in progress)
+
+User rejected the visual distinction in the static viewer. This supersedes any
+interpretation that the earlier two-pose images passed visual acceptance. The
+agreed immediate scope is diagnosis, correction of the two existing poses, and
+an interactive WebGL light demo; production/full-animation gates above remain.
+
+Evidence: `E:/CodexTemp/TypingHero/sprite-self-shadow-20261023/diagnosis`.
+`before.tar.gz` freezes the pre-diagnosis inputs. Source albedo, normal maps and
+all existing Art importer bytes are unchanged; existing ShadowCaster/DepthOnly
+pass text is unchanged after LF normalization. No GUID collisions found.
+
+- Extracted the existing, byte-equivalent ray function to
+  `SpriteDepthVisibility.hlsl` so diagnostic shaders exercise the real function.
+  GPU run20261023T124740, input86a021217135b058ad6ca16e6d058cf48560364bb9b62f96c1edde417c0f1060:
+  eight analytical cases pass (flat, four ledge directions, explicit uniform
+  mirror, transparent blocker, hostile neighboring cel), plus3/3 scoped Unity
+  binding/shadow tests. The uniform mirror case does NOT establish that an actual
+  SpriteRenderer supplies that flip uniform; this gap is being investigated.
+- Initial photometric run20261023T125714 failed because the diagnostic created
+  transient textures before NewScene, then cleanup obscured their destroyed
+  references. Fixed diagnostic resource ordering; not a runtime shader fix.
+- Run20261023T130934, inpute7bdfb5597f0c3ed8b11e5d7ed652d1d47e753957b1cf3167668ae17296a3ebd:
+  analytical cases and photometric checks pass. Flat-depth PBR and missing-map
+  output errors are0. Occluded main-light receiver changes red0.222->0.078;
+  independent fill blue0.432 and emission green0.040 remain unchanged.
+  Scoped Unity3/3 pass. WebGL demo build succeeded; native inspection exposed
+  an incorrectly elevated neutral floor (hiding the actor) and missing font
+  glyphs. This candidate is not the accepted demo.
+- Two numeric depth fixtures were re-authored: torso32, head165, foreground
+  arm240, blade250, rear scarf80, other silhouette24 (0..255). Hero arm polygon
+  now follows the upper gray forearm/grip instead of extending across the lower
+  tunic. Material defaults remain0.65/0.15/0.01 and8 probes. Both selected alpha
+  masks exactly match source; unpainted cels remain transparent. These are still
+  ONLY two static pose fixtures, not production atlases.
+- Viewed all48 new color captures on four native-2x sheets and all48 diagnostics
+  on four sheets, plus the enlarged hero overhead comparison. Increased localized
+  shade is visible under the arm/grip and on upper ribs; facial/weapon silhouettes
+  remain. This is not yet a visual pass at gameplay conditions. Critically, the
+  debug local-ray colors do not reverse X with SpriteRenderer.flipX. A direct
+  SpriteRenderer photometric mirror regression was added and queued to distinguish
+  a debug-only error from a production shader binding error. Do not ignore it.
+- The isolated QA builder copies DungeonWorld and uses actual SampleScene actor
+  transforms, existing arena/presentation cameras and profile; only two frozen
+  sprites are installed. White-light/dungeon, facing, three normal/shadow modes,
+  moving light, blue fill and diagnostic views are implemented. Demo code is
+  guarded by UNITY_EDITOR or TYPINGHERO_DEPTH_DEMO; no gameplay bridge/API changed.
+  No playable demo or native GPU acceptance is claimed until the build is opened
+  and verified. Main integration remains blocked by the original feature gates.
+
+Actual-SpriteRenderer regression run20261023T132711,
+inputeeaa8b4f92c5bf65c6d27e303bf650ba57a776f93cdab88b61475f604de36361,
+FAILED: mirrored ledge casts towards the light, maximum channel error0.1441458.
+The earlier explicit-uniform mirror test missed this runtime binding defect.
+The pending fix supplies `_DepthFacing` from SpriteRenderer.flipX/flipY through
+the existing merged property block and uses it for mapped actors' rays and normals.
+Unmapped actors retain the original normal path. Added real SpriteRenderer flip,
+negative transform scale, combined scale/flip, and known tilted-normal regressions.
+These additions require a new passing run; the earlier analytical pass is not
+evidence that the fix works.
+
+The next demo candidate places the neutral floor at the authored pose's lowest
+opaque texel, freezes dungeon time for reproducible A/B, and uses ASCII labels
+supported by the built-in font. Its source was reviewed after correcting a local
+text-conversion error. The superseded queued snapshots were cancelled before
+execution; `diagnosis/fixed-run-verified-source.log` tracks the fresh snapshot.
+
+Verification continuation:
+
+- Run20261023T134736 passed8 analytical GPU cases, then stopped progressing.
+  The main Unity thread was waiting while its ALSA Mixer thread consumed99% CPU.
+  Stopped only the verified task-owned container; this run is aborted, not passed.
+- Retry20261023T135928 uses identical input
+  `d5f0ca1e9e31dfe1c99cc939a399194909fa21f13685c33e6a3c0546c2c2fb08`.
+  Eight analytical cases, real renderer flip/negative scale/double flip/tilted
+  normal checks, and3/3 scoped Unity tests PASS. Mirror max error is now0;
+  flat-depth and missing-map errors remain0; red receiver0.222->0.078 while
+  blue fill0.432 and green emission0.040 remain unchanged. The retry included
+  an unverified `-noaudio` flag; its effectiveness is not claimed. Future runner
+  invocations use `-disableaudio`, found in the pinned Editor binary. No project
+  audio configuration was changed.
+- Downloaded48 color and48 diagnostic images into
+  `diagnosis/fixed-20261023T135928`. Viewed every case on four color and four debug
+  sheets (nearest3x crop containing the full actor). Ray X reverses correctly
+  with facing; the head and silhouette remain readable and the mask stays local
+  to overlaps. Color differences remain subtle in this soft offscreen capture;
+  this is not native-gameplay visual acceptance. The WebGL build and native
+  review are still pending at this checkpoint.
+- Rechecked1304 existing Art files against the frozen input: zero byte changes.
+  All1204 current asset GUIDs are unique. `git diff --check` passes.
+
+Native two-pose review (candidate2):
+
+- WebGL build20261023T135928 succeeded, including the existing strict repeat
+  builder. Downloaded archive SHA256 matches the runner:
+  `f89a3cf1a7ba882b0fc0d094dae80448a1b69a768f7b1ee1d336699a74078dd5`.
+- Browser:1280x720 canvas/viewport, device scale1, WebGL2, ANGLE NVIDIA
+  GeForce GTX1650Ti/D3D11. All resources are localhost; the demo server blocks
+  external connections. Evidence is `diagnosis/native-final/`.
+- Directly viewed all48 white-light captures (two poses, two SpriteRenderer
+  facings, four directions, three modes) on nearest2x full-actor crops. Native
+  images are crisp. Existing normals visibly shape scarf/skull/arms. Self-shadow
+  adds a localized band beneath the hero's crossing gray forearm and darkens the
+  sword skeleton's upper ribs beneath the foreground arm/weapon. It changes with
+  light direction, retains faces/silhouettes, and does not darken the entire actor.
+  Bottom/right cases can be subtle; the effect is not a large volumetric shadow.
+- Also viewed both dungeon ON/OFF pairs and native depth/mask/ray views.
+  Dungeon differences are subtler under the original warm lighting. Repeated
+  paused white-light captures are pixel-identical; repeated frozen dungeon
+  captures differ by one red-channel value of1/255 at one pixel per pose.
+  Moving-light captures differ; fill ON adds light to the actor. These are render
+  controls, not gameplay Pause/Resume or parry acceptance.
+- Found two demo-only defects during browser QA: runtime CreatePrimitive logs
+  missing MeshCollider after stripping, and hiding zoom leaves stale pixels
+  outside the production combat viewport. The next build serializes only the
+  built-in floor mesh and clears that unused right margin before drawing UI.
+  Shader/binding/maps are unchanged and hash-match the passing render run.
+  Build20261023T141723, input
+  `c9a6d6bc16567d07814b9f5b12cb4744ef5abdf9c048f9e3243b597f2d459382`,
+  is pending. It must pass native floor/zoom/console checks before demo handoff.
+
+Technical and static-pose visual evidence above does not cover268 production
+frames, transitions, combat lifecycle, or same-build native performance. Production
+remains disabled; no main integration is claimed.
+
+Final-demo follow-up: build20261023T141723 succeeded; archive SHA256
+`ca1b810a0a3c904d830782a2e1fcea9297405744d439bcff999dec82e620eb71`.
+The MeshCollider error is gone. Both poses' overhead-white-light OFF/ON world
+captures match candidate2 pixel-for-pixel, confirming the serialized floor mesh
+preserves the reviewed rendering. However, hiding zoom still leaves its image:
+the initial clear used Unity's transparent-black texture. Corrected the margin
+to draw the opaque white texture tinted Color.black and restore GUI.color.
+See [Unity's blackTexture definition](https://docs.unity3d.com/ja/2022.3/ScriptReference/Texture2D-blackTexture.html).
+Only this QA UI clear changed; next build input
+`8064bfd3423e1786932b67b334fd81b48c8a9987dda1262c442cfeb4810ea608`
+must verify show/change-actor/hide zoom and console before handoff. All132 normal,
+surface/depth PNGs and metadata match source after the runner's LF normalization
+for metadata; authored PNGs are byte-exact. The old static-viewer server was
+stopped; its A/B evidence is retained. The interactive server remains on58936.
+
+### Two-pose lab handoff (2026-10-23)
+
+Build20261023T142920, input8064bfd3423e1786932b67b334fd81b48c8a9987dda1262c442cfeb4810ea608,
+PASS. Downloaded archive matches runner SHA256
+`27c3434d0f5e9c6596c3df1a5bf8076308d65fc632e4428dfd284be4264a3ad9`.
+Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
+
+- Rechecked native1280x720 floor and zoom show/change-actor/hide. Hidden zoom
+  region has zero non-black pixels; no stale actor remains. Both poses' overhead
+  OFF/ON world captures match the reviewed candidate2 exactly (zero changed pixels
+  in all four comparisons). No MeshCollider error or script exception remains.
+  Console still logs unsupported optional URP Edge Adaptive Spatial Upsampling
+  and HDRDebugView shaders; these are not the actor shader or active lab passes.
+  Do not describe this as an entirely warning-free URP console.
+- Scope complete: diagnose binding/data/capture, correct two authored depth poses,
+  fix real SpriteRenderer ray/normal facing, eight analytical GPU checks plus
+  photometric/flip/scale tests and3 scoped Unity tests,48 offscreen color +48
+  diagnostic +48 native white-light views, two native dungeon comparisons and
+  interactive lab controls. See `diagnosis/native-final/receipt.json`, per-case
+  observations, final-regressions, console and environment records.
+- Runtime rendering acceptance is reused across the last two demo-only fixes;
+  no normal/albedo image or material art default changed. After the final build,
+  only trailing whitespace in three NEW .meta files and these documentation
+  records changed; their GUID/importer values are unchanged.
+- Full feature remains incomplete: only2/268 referenced sprites have depth,
+  no animation transitions/loops/playback or full combat lifecycle/performance
+  acceptance. Keep production disabled and do not merge main at this checkpoint.
+- Retain task branch/worktree `micharel09/sprite-self-shadow` at
+  `C:/Users/ADMIN/orca/workspaces/TypingHero/sprite-self-shadow` and private runner
+  `/data/typinghero-game-loop/task-self-shadow-20261023` for the remaining feature
+  gates. No task Unity job remains after the build. Remove those resources after
+  verified full integration; preserve A/B evidence. Local demo serverPID2024 is
+  retained for user review and can be stopped when that review is finished.
+
+### Full gameplay depth expansion (2026-10-23, in progress)
+
+- Merged origin/main e5bbc76 into the existing task branch, preserving the upstream
+  hit-flash/Slayer composition and removed guard-break/body-fall VFX.
+- Found and fixed a dead hookup: the active PixelUI pipeline calls
+  DungeonSessionBuild, not WorldLightingBuild. The active builder now serializes
+  exactly one SpriteDepthBinding on each actor. Run20261023T150555-serialize,
+  input01b97e7e1ccdafd93f57f2f341e0d69f01d7f0b564a9e7c94cedc74cc24cf448,
+  passed repeated builder, two serialized bindings, unassigned-world bind/clear,
+  and13 SpriteDepthTests/SlayerTransitionTests. That run predates full-library bind
+  assertions; it does not establish the later A-to-B-to-A result.
+- Inventory now follows ParryContactLibrary replacements too:274 distinct cels
+  on31 atlases, including six gameplay parry cels formerly missed by clip-only
+  collection. No hardcoded expected frame count in the builder.
+- Added draft anatomical masks and31 depth PNGs, plus ActorDepth.asset. Source
+  cels were inspected to place head/arm/weapon/shield masks; final rendered frame,
+  transition, loop and playback review remains pending. Hero's non-anatomical
+  final soul fragments do not occlude light. The two approved prototype cels
+  preserve every visible depth pixel (including their24-valued rear plane).
+  Original31 source GUIDs, slicing, pivots/import settings and prior secondary
+  bindings compare unchanged; only _DepthMap links were added. No albedo or
+  normal PNG was edited. Draft recipe and asset hashes are under task evidence
+  depth-authoring/draft-map-receipt.json (regenerate after mask edits).
+- Full-library checks initially exposed incorrect empty-list secondary texture
+  names; fixed. Full-library bind initially failed because scene opening unloaded
+  the test's library asset, which deliberately is not a production dependency.
+  Reacquiring it after both scenes open fixes the test without a runtime/shader
+  change. Run20261023T154159-webgl input6d9099ac242a638df7a72bd7efd7da6d5453b2808a3c16b5170d13249a5d8e9b
+  passes repeated builder, painted PNG byte preservation, full-library bind,
+  clear, no-map bind and return. CaptureAll and the QA gameplay build are running;
+  no full-game visual/performance acceptance yet. Production remains unassigned.
+- Two-pose native lab RAF measurements, no capture: hero ON/OFF p95 both33.1ms,
+  sword OFF31.6ms/ON31.7ms. Same existing lab build/viewport1280x720; raw samples
+  are diagnosis/*-dungeon-*-perf.json. This is static-pose browser cadence, not
+  final combat/GPU performance acceptance.
+- Retain the task worktree, private runner, original two-pose lab and evidence
+  roots listed above while full gameplay work continues. No main integration or
+  complete-feature acceptance is claimed by this checkpoint.
+
+### Full-map QA checkpoint, 2026-10-23
+
+- Build20261023T155618-webgl, input
+  `f15cd2ac15c99709af18110ac0276d6006fe1cdd60a9452d40f11998e4c6589a`,
+  passed repeated builder, PNG preservation, selected-library bind/clear/no-map/
+  return,6576 GPU captures and actual gameplay WebGL build. The previous154159
+  build failed after compilation while restoring unloaded world editor objects;
+  restore now reacquires assets by path. Downloaded player archive SHA256:
+  `b5cc7a12ae979c108a517ea8d2f3c00af4646d683808dbe020ff5e1f5050f21a`.
+- Inspected274 cels in both facings under top white light, native and nearest2x.
+  Found a dark stripe on tutorial Attack1 F5/F6's non-anatomical smear; excluded
+  that VFX from blocker coverage, rebuilt and re-inspected the full10-cel clip.
+  All other captures compare byte-identical. No source albedo/normal PNG changed.
+  Evidence: depth-authoring/frame-observations.csv (548 rows), review-wide,
+  tutorial-revised and review-tutorial. Updated hashes: draft-map-receipt.json.
+- Inspected all279 animation keys in33 clips, both facings, in actual clip order,
+  including held/repeated keys and514 adjacent/loop pairs across both facings.
+  Evidence: depth-authoring/clip-order and clip-observations.csv (558 rows).
+  These are static adjacent-pose observations, not timed playback acceptance.
+  Non-loop outgoing state joins are not inferred from isolated clip sheets.
+- Serialize20261023T162033, input
+  `9d52f4aca4abbbfd7532a2457fda867b67e5720ee964a66d2d96605f39c4f434`,
+  passed full-library/editor checks and13 SpriteDepthTests/SlayerTransitionTests,
+  including warmed binding zero-allocation and property-block preservation.
+  Copied only the two tested added-component overrides into SampleScene;
+  preserved existing serialized IDs and avoided unrelated builder churn.
+- Native gameplay QA runs gameplay-native-03 and -04 passed14 checks each:
+  real parry, typed follow-up, Slayer, Pause/Resume, restoration, managed errors,
+  restart, menu unload and return. Recorded received hits too. Earlier01/02
+  drivers failed to parry: they used an obsolete normalized animation contact
+  formula. Switching the driver to actual enemyContactIn fixes input scheduling;
+  no combat code was changed. User demo: http://127.0.0.1:8277 (F8 A/B).
+- Native04 video exports788 decoded frames with exact timestamp agreement.
+  Before visual review, selected0–3.2s (parry/slash),9.4–12s (Slayer entry and
+  Pause/Resume),20.5–22.9s (exit, slash and hurt). Inspected every decoded frame
+  in these intervals:220 frames,217 within-segment pairs,400x260 native crops.
+  Observations: pulse lights contact/face and decays; flash survives depth binding;
+  Slayer tint restores; hurt returns to lit idle. Selected crop/row evidence is
+  gameplay-native-04/video-review/selected. The zoom crop excludes parts of the
+  full silhouette. Native03 only frames0–44 were viewed before recapture.
+- Capture limitation remains: even after warm-up, native04 has gaps0.337–0.809s,
+  2.025–2.181s and21.807–21.963s. Recording was continuous with no screenshots;
+  decoded-frame coverage does not prove coverage of every game-rendered frame.
+  Do not claim full motion acceptance or infer images inside those gaps.
+- Same-build native Intel UHD Graphics/D3D11, Edge155.0.4283.62,1280x720,
+  no recording: gameplay-perf/browser.json contains480 OFF and481 ON combat
+  samples. p95 OFF31.8451ms, ON31.7593ms (ratio0.9973). No >10% regression;
+  ABBA/four-sample fallback were not triggered. This is player frame cadence,
+  not isolated GPU timing. Existing interactive demo remained open in both runs.
+- Timed1x/slow playback remains unverified. A review page at
+  http://127.0.0.1:8277/depth-review/index.html preserves original clip key times,
+  durations, non-loop endings and mirrored A/B images, plus the native video.
+  Production is still unassigned; do not merge main or report full acceptance.
+- origin/main advanced to b1a0df6 during QA with a changed parry follow-up and
+  recovery clip. Integrate it and recheck inventory/affected parry motion before
+  treating this candidate demo as current. Other static cel observations remain
+  reusable only where source/depth/render configuration is unchanged.
+
+### Updated-main candidate checkpoint, 2026-10-23
+
+- Integrated b1a0df6 as 6f1754b. Its new queued parry follow-up references six
+  additional cels. Authored those explicitly: combo2 F4/F5 and combo2_end F0-F3.
+  Existing combo2 F0-F3 depth pixels remain byte-identical. Inventory now covers
+  280 distinct cels,32 atlases,290 animation keys and34 clips. Production remains
+  unassigned; these maps are still a QA candidate.
+- Build20261023T163224-webgl, input
+  `0b498d6dc72976333ddf92168acdd71e9061609c565b04b5afc087e9c55cfbc4`,
+  passed repeated builder/preservation/binding checks,36 SpriteDepthTests and
+  PlayerParryTests,6720 GPU captures and WebGL compilation. All6576 prior
+  captures are byte-identical, recorded in reused-capture-comparison.json.
+  Downloaded player archive SHA256:
+  `486c3385b216e1a93751cc9fc714128850744d44b695fe938ed948f1731f52b1`.
+  The earlier162840 build correctly rejected missing newly referenced maps.
+- Inspected six added cels in both facings at native/nearest2x and all changed
+  parry_success/parry_followup ordered sheets. Evidence under depth-authoring:
+  current-map-receipt.json, current-frame-observations.csv (560 rows),
+  current-clip-observations.csv (580 rows), review-current-new and
+  current-clip-order. Combined static coverage is534 adjacent/loop pairs.
+  Timed playback remains unverified; static sheets do not establish motion pass.
+- Native gameplay-native-05 confirmed queued typing during successful parry and
+  reaching male_hero-combo_2_4. The longer scenario failed to reach Slayer before
+  death: measured input frames often took93-296ms during recording and parries
+  were missed. Preserve this failed run/video; do not claim full current-build
+  native acceptance. Earlier03/04 passes belong to the earlier gameplay source.
+- Current review page includes34 clips and original key timing. Retain the
+  independent worktree and private runner/evidence while motion acceptance and
+  the current-build native scenario remain outstanding. No main integration.
+- Current-build performance: gameplay-perf-current initially stopped when its
+  input driver missed a short parry pose. gameplay-perf-current-02 used a100ms
+  real key hold without requiring that transient pose to be observed. Both
+  conditions contain living combat frames; no video or screenshots were taken.
+  Initial OFF/ON p95 were54.8706/61.7752ms, triggering ABBA. Confirmation p95:
+  OFF54.9164, ON55.5649, ON59.0973, OFF53.1464ms. Mean condition p95 is
+  OFF54.0314/ON57.3311ms (+6.107%). This does not confirm a >10% regression,
+  so the four-sample fallback was not triggered. Native environment/viewport
+  match the earlier run, but absolute cadence is worse; these are browser frame
+  timings, not isolated GPU measurements. Raw samples and abba-receipt.json are
+  preserved. The driver completed11 checks; this is not full native motion QA.
+- Current playable QA: http://127.0.0.1:8291, F8 toggles self-shadow.
+  launch-gameplay-current.py serves gameplay-build-163224/player; keep it while the user
+  tests. The older8277 demo remains unchanged. Current review page:
+  http://127.0.0.1:8291/depth-review/index.html (34 clips; embedded combat video
+  remains the earlier native04 capture, not proof of updated-main behavior).
+  Review-page smoke check passed34 clips,320x180 images, non-loop ending,
+  facing/speed controls and no JavaScript errors. The first launcher closed
+  during startup; retry37072 reached ready and served the verified page.
+
+
+### Production integration, 2026-10-24 (verification complete)
+
+- User accepted demo8293 as visual acceptance, with rear rune/light and both blue
+  haze layers disabled. Explicit scope: finish saved production configuration,
+  scoped integration tests and one1280x720 real-input run without video; no full
+  animation review. Earlier complete-playback gate is superseded by this choice,
+  not reported as having passed. Existing evidence and failed runs are retained.
+- Merged origin/main8a7b498 into the existing sprite-self-shadow worktree, retaining
+  upstream trimmed parry follow-up cel and normal-attack-matched duration.
+- DungeonWorld now selects ActorDepth; DungeonSprite saves strength0.65,
+  depth scale0.15 and bias0.01. DepthPreview only adds QA controls to those saved
+  assets. F8 captures per-material values and restores them on ON/disable/destroy.
+- Named shader limits remain8samples/light and12source texels; probe sequence,
+  light configuration and authored depth/normal images are unchanged. Reuse the
+  existing performance evidence; this constant extraction is not a shader fix or
+  lighting change. No new performance claim.
+- Pending: current reference inventory, repeated builder/map/reference preservation,
+  focused binding/F8/parry/Slayer tests, native integration, production QA exclusion,
+  commit/push/remote verification and retained-demo handoff.
+
+- Offline run20261023T180003, input9d1d29426c2fe2f41f603354c1563c233a60c5528e9b28c7dbc9a5c94b4d172d:
+  49/49 SpriteDepthTests/PlayerParryTests/SlayerTransitionTests PASS,0failed/skipped;
+  actual inventory280sprites, repeated builder, PNG/config/reference preservation,
+  serialized world bind/clear/no-depth/return PASS. Reused for unchanged depth,
+  parry and Slayer source below. WebGL compilation from this snapshot was stopped
+  deliberately (exit143) after newer main arrived; it is not a passing build.
+- Integrated mainb0534d5 (pause chrome/menu/encounter guidance cleanup). Two depth
+  component overrides remain through the scene merge. Recheck current builder and
+  actual menu/Pause/Resume/encounter flow on a new QA build; no full-suite expansion.
+
+- Build queue: the first latest-main attempt expired waiting600s for the shared
+  Unity lock; it executed no Unity stage and is not a failed gameplay result.
+  QA and production were resubmitted with3600s lock waits, preserving other jobs.
+
+- Final-main QA20261023T182529, input
+  `d0403f7cf73aa00e821d13dd00d2a67955d1458ec565ac72611614739fd1ed8e`:
+  repeated builder,280sprite metadata/map validation, painted-map and saved
+  config/reference preservation, selected world bind/clear/no-map/return, and
+  WebGL build PASS. Inventory289keys/34clips/32atlases; no fixed-count gate.
+- Native integration-native-02: Edge/GTX1650Ti/ANGLE D3D11,1280x720,18/18PASS.
+  Real keyboard/mouse parry -> queued combo2 follow-up, received hit, Pause/Resume,
+  Slayer entry/restore, F8 OFF/ON, menu and world return passed; enemyFlash and
+  expected follow-up/hurt cels observed in the read-only trace. No video recording,
+  no full animation review,0exceptions/provider writes; fixture interception and
+  external blocking remain enabled. Initial native launch01 did not start because
+  port8295 was occupied; preserved that process and selected a free port for02.
+- Downloaded33player files match the immutable server player. All204 exported
+  lighting files match source (text line endings normalized); RuneLight,RearRune,
+  RearHaze,LowHaze are inactive in serialized build output. Paused OFF/restored
+  stills inspected only as integration evidence, not a new animation/style gate.
+  Evidence: `E:/CodexTemp/TypingHero/sprite-self-shadow-20261023/`:
+  integration-offline, integration-qa-build, integration-native-02 and their
+  receipts. Production build and remote integration remain pending.
+
+- Production20261023T183215 uses the same d0403f7 input; normal WebGL build PASS.
+  Scanned48stripped managed assemblies: GameLoopProbe,SpriteDepthPreviewControl
+  and SpriteDepthDemo absent; JS QA bridge absent. All33downloaded player files
+  match the remote. Final local build-input digest also matches both builds.
+- Normal-player native smoke: actual menu/name/tutorial skip/gameplay/pause opened
+  with keyboard/mouse, no QA bridge or JS/managed exceptions,0provider writes.
+  Gameplay and paused images directly inspected: actors render in the saved
+  dungeon with rune/haze off. Pressing F8 leaves the paused canvas byte-identical.
+  Production helper's first launch had a local tutorial-hash path error before
+  browser startup; corrected only the external helper, without changing the player.
+- Acceptance is complete for the user's scoped integration and approved demo;
+  no new full-animation or performance claim. Final remote commit/ancestry and
+  cleanup are recorded in `E:/CodexTemp/TypingHero/sprite-self-shadow-20261023/integration-receipt.json`.
+  Retain evidence and the standalone integration-qa-build/player demo outside the
+  worktree. Private runner results remain for reproducibility; remove its cache
+  and source only when no longer needed, preserving evidence/player artifacts.

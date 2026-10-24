@@ -489,3 +489,63 @@ recorded below separately.
 - Retain demo port8287 from this evidence root via original-checkout Orca terminal
   `term_c4960853-21a8-43b7-85df-4a0b88abf58b`; stop after user review. Old owned
   host33644 was verified against its exact script and stopped. No itch upload.
+
+## Explicit follow-up first-cel removal (2026-10-24)
+
+User requests removing one first frame from the actual follow-up, after viewing
+the direct-handoff clip. Remove combo_2_0 only; keep combo_2_1..5 and end_0..3.
+Shift every remaining key/event50ms earlier: start0, slash/open100ms, contact150ms,
+close200ms, end516.667ms; terminal end_3 hold remains66.667ms. Recovery950ms,
+first success hold800ms, queue window, direct Animator handoff, damage10 and
+normal/Slayer remain. Preserve PNGs, pivots, palettes, GUIDs and references.
+
+Verification scope: focused PlayerParryTests and directly affected contact/queue
+consumers; repeated builder. Rebuild QA WebGL for updated real-input visual/clip
+evidence because sprite sequence and contact timing changed. No full browser
+profile/performance sweep. Source cels reviewed normal/mirror with VFX off;
+existing original PNG hashes match. Evidence root
+`E:/CodexTemp/TypingHero/parry-trim-followup-cel/`; `source-frame-review.csv` has
+ten keys per direction (nine unique cels plus terminal hold),9pairs each.
+The old source-sheet parry-exit thumbnail shows the superseded pose5 and is
+excluded from join acceptance; new runtime must cover actual cel4->combo_2_1.
+
+User requested a faster finish; new WebGL recording/build is cancelled rather
+than required for this one-cel change. Source/VFX-off review completed for nine
+retained cels and repeated terminal key in both directions (10keys/9pairs each).
+Unity generated the final serialized clip; PNGs/pivots/palette/GUID unchanged.
+Initial focused run `20261023T170348-webgl` passed40/42: only two contact test
+expectations still asserted150ms instead of the newly required100ms. Those
+expectations are corrected; no product-code fix was needed. Final rerun and
+remaining evidence are recorded below. New real-input runtime/video review is
+unverified; the old demo/clip still shows the preceding ten-cel build.
+
+Final rerun `20261023T171621-webgl`, snapshot
+`ce37f38fb9c211150c409ab1f9b1e20e29917cdce094de5da8e6e0419f880397`:
+focused Unity42/42 PASS. Builder generated the final clip and strict repeat
+completed before tests. The task-owned runner was interrupted immediately after
+the42-test receipt, cancelling further WebGL build/recording per user speed request.
+Local tests.xml/builder.log/snapshot.json and Unity-authored clip retained in the
+evidence root. Static diff/whitespace and preserved serialized references checked.
+Runtime join/playback on this shortened build remains unverified; no fresh-demo claim.
+
+## Follow-up tempo matched to normal duration (2026-10-24)
+
+User accepted stretching the retained nine cels to566.667ms. Authored key/event
+times use34/31 of the preceding shortened sequence; no Animator runtime speed
+change. First cel stays combo_2_1; normal attack and950ms parry recovery unchanged.
+Open/contact/close109.677/164.516/219.355ms align with the same combo_2_3/4/5
+keys. Final repeated key550ms gives the Unity clip34samples total.
+
+Static verification passes: same ordered sprite/event references, no removed cel,
+monotonic10keys, event-to-cel times,34/60duration and clean diff. Existing focused
+Unity tests updated to the new authored timing; they were not rerun for this quick
+preview iteration. Previous42/42 belongs to the preceding516.667ms build.
+Unchanged source pose observations reused for10keys/9pairs per direction with
+updated durations in `E:/CodexTemp/TypingHero/parry-followup-tempo/source-frame-review.csv`.
+Full new runtime/frame/playback acceptance remains unverified.
+
+Quick sprite preview `http://127.0.0.1:8287/parry-tempo-preview.mp4` uses121frames
+at60FPS:950ms parry,34samples follow-up,500ms idle. Subframe authored times
+round to the next presentation sample. No runtime hitstop/lighting/VFX simulation.
+Retained preview/artifacts are for user review; existing port8287 host serves the
+file from `E:/CodexTemp/TypingHero/parry-direct-followup/player/`.

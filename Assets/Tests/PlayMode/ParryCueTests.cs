@@ -99,4 +99,48 @@ public sealed class ParryCueTests
         yield return null;
     }
 
+    [Test, Category("Quick")]
+    public void RebindingEncountersRestoresOldCueAndRetainsOnlyCurrentGraphics()
+    {
+        var host = new GameObject("Presenter lifecycle"); host.SetActive(false);
+        var parry = host.AddComponent<ParrySystem>();
+        var presenter = host.AddComponent<ParryCuePresenter>();
+        var key = new GameObject("Key", typeof(RectTransform));
+        Set(presenter, "parry", parry); Set(presenter, "key", key.GetComponent<RectTransform>());
+        var mode = typeof(ParryCuePresenter).GetField("useKey", BindingFlags.Static | BindingFlags.NonPublic);
+        bool previousMode = (bool)mode.GetValue(null);
+        GameObject actor = null;
+        UnityEngine.UI.Image previousGraphic = null;
+        try
+        {
+            mode.SetValue(null, true);
+            for (int encounter = 0; encounter < 20; encounter++)
+            {
+                var oldActor = actor;
+                actor = new GameObject("Encounter " + encounter);
+                var brain = actor.AddComponent<SkeletonController>();
+                var cue = new GameObject("Cue", typeof(RectTransform), typeof(UnityEngine.UI.Image));
+                cue.transform.SetParent(actor.transform);
+                var graphic = cue.GetComponent<UnityEngine.UI.Image>();
+                Set(brain, "attackCue", cue);
+                parry.enemy = actor.AddComponent<ParryTarget>();
+                Call(presenter, "LateUpdate");
+                Assert.That(graphic.enabled, Is.False, "new mode suppresses current legacy cue");
+                if (previousGraphic) Assert.That(previousGraphic.enabled, Is.True, "old actor restored on rebind");
+                var retained = (System.Collections.IDictionary)presenter.GetType().GetField("legacyGraphics", Flags).GetValue(presenter);
+                Assert.That(retained.Count, Is.EqualTo(1), "do not retain prior encounter graphics");
+                if (oldActor) Object.DestroyImmediate(oldActor);
+                previousGraphic = graphic;
+            }
+            Call(presenter, "OnDisable");
+            Assert.That(previousGraphic.enabled, Is.True, "disable restores current actor");
+        }
+        finally
+        {
+            mode.SetValue(null, previousMode);
+            Object.DestroyImmediate(host); Object.DestroyImmediate(key);
+            if (actor) Object.DestroyImmediate(actor);
+        }
+    }
+
 }
