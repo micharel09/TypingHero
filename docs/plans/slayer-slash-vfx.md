@@ -109,7 +109,23 @@ Browser playback-clock check of the full pause/resume window at1×/0.25×:
 Presented callbacks can coalesce held video frames; they do not replace the
 complete decoded-frame review. No complete-video/full-animation/performance/
 broad-suite/production-release or itch publication claim. Implementation and
-scoped verification complete; remote integration is recorded after push below.
+scoped verification complete; remote integration is recorded below.
+
+### B remote integration and retained evidence
+
+Feature commit753c90505a6c589067785e08e028978cb8064030 pushed to the task branch
+and origin/main as fast-forward18e03a2→753c905. Fetched and verified HEAD equals
+origin/main; feature commit is an ancestor. No runtime or asset changed after
+accepted checks. This receipt update is documentation-only.
+
+Keep `E:/CodexTemp/TypingHero/slayer-b-integration/` for user review: immutable QA
+player, input archive, tests/logs, original video and selected-frame/static ledgers.
+Delete that evidence directory when user review no longer needs it. No task demo
+server is left running. Task-owned Unity source/Library and out-of-scope decoded
+frame caches are removed after archiving; shared editor, activation, packages,
+other projects and the pre-existing dirty checkout are retained. Remove only the
+clean task-created worktree/local branch once this receipt is preserved remotely;
+leave the remote task branch. Final cleanup/remote HEAD is in the local receipt.
 
 Base origin/main46d4dda. Worktree C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-slash-vfx.
 Original dirty checkout preserved; no itch.io publication.
