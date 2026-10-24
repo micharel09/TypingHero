@@ -490,3 +490,12 @@ complete; then remove that task artifact directory. Native contexts/server exite
 No performance measurement, production build, sprite-motion certification or itch
 publication is claimed. Native player precedes newer main parry/cue revisions;
 those retain their own upstream receipts. Integrated UI checks follow separately.
+
+Integrated main9c48f5d through merge51c9e7b, retaining upstream parry recovery and
+enemy-head Space warning. Only the verification append conflicted; both receipts
+were retained. GamePauseController, HUD builder/test code and both full UI scenes
+are byte-identical to the native-reviewed UI commit10b7f0f. Integrated Quick042228
+/inputb9eacfd1:5/5scoped PlayMode PASS,0failed/skipped,3.6638901s, strict
+repeat PASS; both complete scenes match every generated semantic record. Native
+229-check evidence is reused for unchanged HUD behavior. Newer upstream parry/cue
+visuals retain their own receipts; this task adds no sprite review certification.

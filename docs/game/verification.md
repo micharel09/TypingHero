@@ -3193,3 +3193,12 @@ coverage and subjective playtest limits are explicit in the
 Normal native1280x720 smoke5/5 PASS,0exceptions/provider writes; eight images
 directly inspected, including the live head cue. Both players match33remote hashes
 each; five normal JS/WASM/data payloads exclude ASCII/UTF16 QA/depth markers.
+
+Integrated main9c48f5d through merge51c9e7b, retaining upstream parry recovery and
+enemy-head Space warning. Only the verification append conflicted; both receipts
+were retained. GamePauseController, HUD builder/test code and both full UI scenes
+are byte-identical to the native-reviewed UI commit10b7f0f. Integrated Quick042228
+/inputb9eacfd1:5/5scoped PlayMode PASS,0failed/skipped,3.6638901s, strict
+repeat PASS; both complete scenes match every generated semantic record. Native
+229-check evidence is reused for unchanged HUD behavior. Newer upstream parry/cue
+visuals retain their own receipts; this task adds no sprite review certification.
