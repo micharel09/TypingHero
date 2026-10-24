@@ -3240,3 +3240,24 @@ Final28x11logical cap: QA `20261024T063401-webgl` passes3/3 scoped tests, strict
 Muted native Edge156/Playwright1.58.2: focused Guard route17/17 PASS; final direct capture19/19 PASS; normal smoke5/5 PASS with all8 screenshots visually inspected. Earlier native-head32 assertions remain useful but its profile ended on an incorrect harness route expectation, so it is not reported as a complete pass. Reuse existing seven-attack prediction/real input results for unchanged combat. See [trial checkpoint](../plans/parry-cue-demo.md) for boundaries and superseded candidates.
 
 Artifacts `E:/CodexTemp/TypingHero/space-press-cue`: `native-direct-review/selection.json` and `review.md` register complete selected intervals, original PNG timestamps/hashes and direct visual review of392/392frames,386/386pairs. Old Playwright video had stale-frame replay and is superseded by chronologically timestamped CDP originals. Final silent clip235frames/9.733s,960x540; served payload hash matches local. Normal demo bootstrap active fixture worker/no QA globals/no exceptions PASS at http://127.0.0.1:8303/. Trial branch retained off main for subjective size/distraction review; no full performance or all-seven new lit-scene claim.
+
+
+## Two-step tutorial parry modal (2026-10-24; isolated preview)
+
+Unity2022.3.25f1: serialize102925 strict repeat PASS; QA103338/input494d9c04
+passes8/8focused Unity cases in3.5205443s and strict repeat/WebGL build.
+Native Edge real keyboard/mouse29/29PASS at640x360/1280x720: Next/held Enter,
+Back, exact Pause/Resume frame/clock, entry reset, Restart/Menu/replay/viewed,
+input/score/provider lock, selected-difficulty fresh battle, no clone leak and
+one actual parry. Zero exceptions/provider reads/writes; fixtures retained.
+
+Normal110858/input770b5a63 PASS;33file hashes match remote and five payloads
+exclude QA markers. All2382runtime inputs match QA except three caption strings
+in source scene/manifest; generated scene/PNG/importer/durations equality proved.
+Reuse unchanged runtime evidence. Normal native5/5PASS and all10images inspected.
+Final asset77/77frames,76/76pairs plus loop reviewed; complete normal capture
+222/222frames,221/221pairs on19sheets reviewed. Encoded223frame/4.979s MP4 decodes,
+with explicit500ms terminal hold. Actual source/frame observations, failed
+attempts, adapter recovery and retention: [checkpoint](../plans/parry-cue-demo.md).
+Demo http://127.0.0.1:8303/ and /Tutorial-Parry-Modal.mp4 use the verified normal
+player, local fixture worker and no QA globals. Main integration remains deferred.
