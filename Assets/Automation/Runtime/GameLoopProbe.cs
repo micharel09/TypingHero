@@ -330,6 +330,10 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool tutorial, stunned;
         public bool audioPaused;
         public int tutorialStatus;
+        public bool tutorialParry;
+        public double tutorialClipTime;
+        public string tutorialClipFrame;
+        public Rect tutorialModal, tutorialClipRect;
         public Rect tutorialPanel;
         public GuideArrow[] tutorialArrows;
         public float cameraOrtho, multiplier, scorePulse, scoreZoom, redAlpha;
@@ -388,7 +392,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     static GuideArrow[] ObserveGuide(TutorialOverlay overlay)
     {
         if (!overlay || !overlay.gameObject.activeInHierarchy) return Array.Empty<GuideArrow>();
-        return Read<TutorialOverlay.Arrow[]>(overlay, "arrows").Select(a => new GuideArrow {
+        return Read<TutorialOverlay.Arrow[]>(overlay, "arrows").Where(a => a.shaft.gameObject.activeInHierarchy).Select(a => new GuideArrow {
             target = a.target.name,
             start = a.shaft.TransformPoint(new Vector3(a.shaft.rect.xMin, 0, 0)),
             end = a.shaft.TransformPoint(new Vector3(a.shaft.rect.xMax, 0, 0)),
@@ -736,6 +740,11 @@ public sealed class GameLoopProbe : MonoBehaviour
                 tutorial = TutorialRun.Active, tutorialStatus = (int)TutorialRun.Status,
                 tutorialPanel = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/TutorialPrompt")) : default,
                 tutorialArrows = ObserveGuide(guide),
+                tutorialParry = guide && Read(guide, "parryStep", false),
+                tutorialClipTime = Read(guide, "clipTime", 0d),
+                tutorialClipFrame = guide && Read<Image>(guide, "clipImage") && Read<Image>(guide, "clipImage").sprite ? Read<Image>(guide, "clipImage").sprite.name : "",
+                tutorialModal = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/ParryModal/Panel")) : default,
+                tutorialClipRect = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/ParryModal/Panel/Clip")) : default,
                 stunned = enemy && enemy.GetComponent<EnemyStunController>() && enemy.GetComponent<EnemyStunController>().IsStunned,
                 scene = SceneManager.GetActiveScene().name, frame = Time.frameCount,
                 endless = endless != null,

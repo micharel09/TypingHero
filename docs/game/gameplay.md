@@ -32,7 +32,7 @@
   are hidden. Manual Pause hides/restores the result-only group; Resume restores
   these authored result bounds. Modal freeze rules remain. Scoped verification is
   recorded in the compact-menus checkpoint.
-- The single current tutorial is the only how-to screen. Main Menu has Play,
+- The current two-step tutorial is the only how-to flow. Main Menu has Play,
   Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
 - Fresh/restarted encounters begin immediately after DungeonSession initialization,
   including after tutorial completion. There is no initial Fight/Enter gate.
@@ -347,38 +347,33 @@ see verification for profile status. These are current behaviors, not new requir
 
 Change only behavior explicitly requested. Update this file after relevant verified changes.
 
-## Single HUD tutorial guide
+## Two-step tutorial guide
 
-- TutorialRun selects a frozen SampleScene guide without lesson/practice/retry
-  state or combat preparation. Four separate callout cards sit beside the HUD
-  instead of sharing one large background. All groups are visible together: Your HP,
-  Enemy HP / Guard, Typing / Timer and Score / Combo. Five static gold arrows
-  follow real HUD RectTransforms after layout, including separate HP and guard
-  destinations. Existing dungeon, HUD, fonts, panel style and Continue listener remain.
-- The callouts explain HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
-  with Space/parry and Esc/pause copy plus one Start Battle / Enter action.
-  No mandatory practice or additional pages; How to Play is separate.
-- SPACE · EXAMPLE reuses the existing28x11logical cap inside the transparent
-  reference960x540 frame(328,216,304,80). Its2750ms loop shows warning800ms,
-  light press/release200ms (100ms cycles), teal open250ms, gray/X unavailable750ms,
-  then a hidden cap/release reminder750ms. Teal means the parry window is open,
-  not a successful parry. Captions and shortcuts explain when to press/release.
-  TutorialOverlay uses unscaled time; Pause holds the illustration, Resume
-  continues, and reopening/restart resets to warning. The encounter clone hides
-  the entire example and disables its TutorialOverlay; combat timing is unchanged.
-- Reading uses the existing GamePauseController input/time/audio/score lock.
-  Pause hides the guide; Resume preserves the lock and returns to the same panel.
-  Restart reloads the guide. Menu abandons it without marking it viewed.
-- Start Battle guards repeated confirmation, saves Completed, ends tutorial mode
-  and reloads through DungeonSession. The reading lock remains through teardown;
-  held Enter is consumed before fresh gameplay activation. The selected-difficulty
-  encounter intro starts with40HP,180enemy HP,100guard and zero score/statistics.
-- LeaderboardSubmitter still rejects tutorial submissions before resolving a
-  provider. Public gameplay/provider APIs, Firebase schema and saved key stay unchanged.
-- EndlessOverlay clones only the original encounter intro content: all guide copy
-  and the guide panel background remain hidden in the clone. Intro width/action
-  typography retain their original bounds; live combat has no reading panel.
-- Verification and scoped scene/asset evidence: [tutorial guide checkpoint](../plans/tutorial-hud-guide.md).
+- TutorialRun opens frozen SampleScene in HUD step1/2. Four existing cards and
+  five real-HUD arrows remain; the old center illustration is hidden. Next / Enter
+  opens step2/2 without saving viewed. TutorialDirector guards same-frame
+  confirmation and waits for Enter release between steps.
+- Parry with Space uses the existing modal skin,816x480 at960x540. Cards/arrows
+  hide behind its dimmer. A720x240 UGUI Image loops77real-combat capture frames
+  from a Point-filtered atlas, preserving original durations (3926.166ms total),
+  sprites, colors and28x11logical Space key. Idle, warning, preparation, defense,
+  successful contact, recovery and idle are included. Four English captions
+  explain waiting, tapping, success and releasing. No practice, live combat
+  instance or GIF decoder runs inside the modal.
+- TutorialOverlay uses unscaled time. Pause hides the tutorial and holds its
+  exact frame/clock; Resume continues. Back returns to step1; entering step2
+  resets the clip. Restart and menu replay open step1. Existing reading
+  input/time/audio/score locks cover both steps; Menu abandons without completion.
+- Only Start Battle / Enter on step2 saves Completed through TutorialRun and
+  reloads DungeonSession with the selected difficulty. Existing held-Enter
+  consumption, fresh40HP/180enemy HP/100guard and zero score/statistics remain.
+  Encounters begin immediately after initialization, without a Fight gate.
+- LeaderboardSubmitter rejects tutorial submissions before resolving a provider.
+  Existing TutorialProgress_v1 and legacy viewed values remain; no new saved key
+  or public gameplay/provider API. EndlessOverlay disables its cloned
+  TutorialOverlay and hides both steps; live combat has no modal/clip.
+- Source, per-frame observations and scoped verification:
+  [existing parry checkpoint](../plans/parry-cue-demo.md).
 
 ## World lighting / parry clash
 

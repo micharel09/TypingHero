@@ -1,0 +1,5 @@
+Real keyboard-driven successful parry, recorded from trial branch gameplay.
+Source: E:/CodexTemp/TypingHero/space-press-cue/native-direct-final/compositor/
+Chronological CDP PNG timestamps, source segment actual-filled-parry plus 500ms before/after.
+Crop (160,180)-(1120,500), nearest 1/4 to native logical pixels; no recoloring, retiming or sprite reconstruction.
+Per-frame source SHA256 and durations: parry.json. Review: docs/plans/parry-cue-demo.md.

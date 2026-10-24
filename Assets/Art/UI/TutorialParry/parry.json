@@ -1,0 +1,471 @@
+{
+  "columns": 8,
+  "cellWidth": 244,
+  "cellHeight": 84,
+  "width": 240,
+  "height": 80,
+  "frames": [
+    {
+      "duration": 0.03326900000683963,
+      "caption": "Wait for the attack.",
+      "source": "frame-000173.png",
+      "sha256": "913d0414094770097760d82432cf452b01a214f3219af0169b0bad86bc4b4793"
+    },
+    {
+      "duration": 0.03301199999987148,
+      "caption": "Wait for the attack.",
+      "source": "frame-000174.png",
+      "sha256": "aa1b9344d037919ca93a01625658d61ecca20bec52e11151a184bc07b8a87d57"
+    },
+    {
+      "duration": 0.0330989999929443,
+      "caption": "Wait for the attack.",
+      "source": "frame-000175.png",
+      "sha256": "d1b42bcbac75db5ec1891ad1bb2c77f29f79df2f3509b59de48d0b828c8d2ed5"
+    },
+    {
+      "duration": 0.03282100000069477,
+      "caption": "Wait for the attack.",
+      "source": "frame-000176.png",
+      "sha256": "7279d39983753a91ce5ac7b8c161a301bd5161db5314ff0d93c9d6c852ae9912"
+    },
+    {
+      "duration": 0.032472999999299645,
+      "caption": "Wait for the attack.",
+      "source": "frame-000177.png",
+      "sha256": "931a8f9dcdcf9c474511d3603e37c8baeb7c6c0c54d09a0d28edcfcce29335d3"
+    },
+    {
+      "duration": 0.03274500000406988,
+      "caption": "Wait for the attack.",
+      "source": "frame-000178.png",
+      "sha256": "39ea9fb87045d6d5a40ef1bab084cb6b427925847a84f46438757add0a9fe8b9"
+    },
+    {
+      "duration": 0.03283400001237169,
+      "caption": "Wait for the attack.",
+      "source": "frame-000179.png",
+      "sha256": "e325f677ff56042b432be615704147957a15c33904f9e7e83c8031e2c0bdb686"
+    },
+    {
+      "duration": 0.032460999995237216,
+      "caption": "Wait for the attack.",
+      "source": "frame-000181.png",
+      "sha256": "73398319bf2175c610c1c9dc3c2c140807ff1ffef64de92463c7b780ecabdd3d"
+    },
+    {
+      "duration": 0.033355999999912456,
+      "caption": "Wait for the attack.",
+      "source": "frame-000180.png",
+      "sha256": "55f510f06487db1309af0e554b59f33babfc97fa3db4e862588561475d1921a8"
+    },
+    {
+      "duration": 0.03277600000728853,
+      "caption": "Wait for the attack.",
+      "source": "frame-000183.png",
+      "sha256": "2c9fe91d0a3a64abdc31488211729f65e204e6cd2225b4fb6d0b28631ce21dc8"
+    },
+    {
+      "duration": 0.03311499999836087,
+      "caption": "Wait for the attack.",
+      "source": "frame-000182.png",
+      "sha256": "03315164bd73043a62ddc86a660292cc73315912d2ffd0b2f540db50bad44e14"
+    },
+    {
+      "duration": 0.03313500000513159,
+      "caption": "Wait for the attack.",
+      "source": "frame-000184.png",
+      "sha256": "cf51e6041ba316207639b7384b8a6965b6c643c53c39809ab887ea67297fc2a0"
+    },
+    {
+      "duration": 0.03284400000120513,
+      "caption": "Wait for the attack.",
+      "source": "frame-000185.png",
+      "sha256": "bdb1a421ffc766c7da7e011553ce49133337298aa491c77763fb44c317bc80cb"
+    },
+    {
+      "duration": 0.03275399998528883,
+      "caption": "Wait for the attack.",
+      "source": "frame-000186.png",
+      "sha256": "6483542717f7ba3acdace095e446c464a164ebf05b3f7f324341b4fc528f9466"
+    },
+    {
+      "duration": 0.03290900000138208,
+      "caption": "Wait for the attack.",
+      "source": "frame-000187.png",
+      "sha256": "5d52b7d4449cb78c58f00f3936bb38a29b9b42f99c5d1328a49612429fb050f9"
+    },
+    {
+      "duration": 0.03285300001152791,
+      "caption": "Wait for the attack.",
+      "source": "frame-000188.png",
+      "sha256": "d7b13007e06ac544c67d14613c7d57346a85085361a9741925e840199fee9044"
+    },
+    {
+      "duration": 0.03286499998648651,
+      "caption": "Wait for the attack.",
+      "source": "frame-000189.png",
+      "sha256": "a0be6d9f4d6305dc5ebd48711332d758afd173d5eb4dbed78d963da5bba81c78"
+    },
+    {
+      "duration": 0.03274900000542402,
+      "caption": "Wait for the attack.",
+      "source": "frame-000190.png",
+      "sha256": "8331cf72f1ec17d6241a5428d86050ccaa211add29757d8a95d2a4cf0eb5e233"
+    },
+    {
+      "duration": 0.033220000012079254,
+      "caption": "Wait for the attack.",
+      "source": "frame-000191.png",
+      "sha256": "bdb81a83d32efde9850b329ea087366386f7a5c2a0dca633297a9739d15cafd4"
+    },
+    {
+      "duration": 0.03293899999698624,
+      "caption": "Wait for the attack.",
+      "source": "frame-000192.png",
+      "sha256": "a9f1b9829665a77c7bc4f343692c34f877dd082a2c90821f1df614ad71a340b6"
+    },
+    {
+      "duration": 0.03298199997516349,
+      "caption": "Wait for the attack.",
+      "source": "frame-000193.png",
+      "sha256": "412eb46e2aa19bf03ad91267bc2cd5a22230699c3f004c4d5e87324397dbc375"
+    },
+    {
+      "duration": 0.03336100000888109,
+      "caption": "Wait for the attack.",
+      "source": "frame-000194.png",
+      "sha256": "f61798bc1db65c911dcccf963dbfb52a2f568ce09f8ad6f0886be1c61f4bd172"
+    },
+    {
+      "duration": 0.03253900000709109,
+      "caption": "Wait for the attack.",
+      "source": "frame-000195.png",
+      "sha256": "5d7039ce26d629ca8474ffacfa643b82baca4fca9cb8e4069b6460463659a405"
+    },
+    {
+      "duration": 0.03314799998770468,
+      "caption": "Wait for the attack.",
+      "source": "frame-000196.png",
+      "sha256": "2fecc77080c62c043c6bd49622762f3196c740d9fa1563a635603cc6ffdf46fd"
+    },
+    {
+      "duration": 0.03300600001239218,
+      "caption": "Wait for the attack.",
+      "source": "frame-000197.png",
+      "sha256": "b858dcb634e619defb24fd4bb3f0e0156ea5c18f2525486d31f096c5fff702ee"
+    },
+    {
+      "duration": 0.03279699999256991,
+      "caption": "Wait for the attack.",
+      "source": "frame-000198.png",
+      "sha256": "b798b2f39abfcc83cb28da5c3ebee45fe725630c1f8796a1f341241da075ed7c"
+    },
+    {
+      "duration": 0.03311799999210052,
+      "caption": "Wait for the attack.",
+      "source": "frame-000200.png",
+      "sha256": "dcba6374edb6e87d48ec24d88084e648ed67da23b1fa0aeea0c31818b5a6b31f"
+    },
+    {
+      "duration": 0.0331609999993816,
+      "caption": "Wait for the attack.",
+      "source": "frame-000199.png",
+      "sha256": "5fbb051140d2bf75b9c9eb58823b86b48a798432347e54828409b3d6862433a2"
+    },
+    {
+      "duration": 0.03353800001787022,
+      "caption": "Wait for the attack.",
+      "source": "frame-000202.png",
+      "sha256": "4e7763fdc6d981eeb51b05b6afa85dc2b7dfe189978685275f231013e0f68549"
+    },
+    {
+      "duration": 0.03240399999776855,
+      "caption": "Wait for the attack.",
+      "source": "frame-000201.png",
+      "sha256": "3a44178693c1caa77459ce8e2269f4ba3a09da33a237b3bbd537763b2fa74433"
+    },
+    {
+      "duration": 0.03342600000905804,
+      "caption": "Wait for the attack.",
+      "source": "frame-000203.png",
+      "sha256": "e92fbca4067c6b8aa0b676bf922ebf4e7196be190ffb20f3c2341f23070043d9"
+    },
+    {
+      "duration": 0.033322000002954155,
+      "caption": "Wait for the attack.",
+      "source": "frame-000204.png",
+      "sha256": "28e5bc3890a5412c44eefdc97fc2e77bc35c9922c085ee818ad8dc607facd1c4"
+    },
+    {
+      "duration": 0.032764999981736764,
+      "caption": "Wait for the attack.",
+      "source": "frame-000206.png",
+      "sha256": "8d9fcf78e18c2093e641d6012184310b97011e64be0e17186fd14572498bbc9f"
+    },
+    {
+      "duration": 0.03254200000083074,
+      "caption": "Wait for the attack.",
+      "source": "frame-000205.png",
+      "sha256": "1f49faa650cf42c47ecb0242b6dcd89a70b98fb3858129291b3956980c5503fb"
+    },
+    {
+      "duration": 0.032519000000320375,
+      "caption": "Wait for the attack.",
+      "source": "frame-000207.png",
+      "sha256": "014ec8e2c7d1cea00dcec07d1a82d92c8aa4220edff4493f783502b726247b62"
+    },
+    {
+      "duration": 0.033186999993631616,
+      "caption": "Wait for the attack.",
+      "source": "frame-000208.png",
+      "sha256": "8add8419b44e2a1c2cfa24f9fed1e06d809cc61998331431794089b988b56d96"
+    },
+    {
+      "duration": 0.033205000014277175,
+      "caption": "Wait for the attack.",
+      "source": "frame-000209.png",
+      "sha256": "f79d632b955ef9c3d750fd6030ab1572f98e6471f2e166f6ab364e305d1fb420"
+    },
+    {
+      "duration": 0.03280699998140335,
+      "caption": "Wait for the attack.",
+      "source": "frame-000210.png",
+      "sha256": "5afac955a60b83ddc5b10399ce205b3346bed579c38ecd7b9e8f8a9f5879e942"
+    },
+    {
+      "duration": 0.03290200000628829,
+      "caption": "Wait for the attack.",
+      "source": "frame-000211.png",
+      "sha256": "af113e8c3cb85e070ab2cf26f3d52bb7f306e8d9ede82230063deb5e8bdbf46f"
+    },
+    {
+      "duration": 0.03254200000083074,
+      "caption": "Wait for the attack.",
+      "source": "frame-000212.png",
+      "sha256": "e094db5c0ec570bfd17b29f9ff0059b7cd88dcdfeae3ff7beca4b575490c01a3"
+    },
+    {
+      "duration": 0.03241300000809133,
+      "caption": "Wait for the attack.",
+      "source": "frame-000213.png",
+      "sha256": "2a0cd23131b7e723557a49d2e974c5abc2fee0dfa9e6951059a1fa668c8d959a"
+    },
+    {
+      "duration": 0.03246600000420585,
+      "caption": "Wait for the attack.",
+      "source": "frame-000214.png",
+      "sha256": "3460743b79cf3d36a30a413011ff743303d75dd04053a1f933741b5f017f6bc6"
+    },
+    {
+      "duration": 0.03296700000646524,
+      "caption": "Wait for the attack.",
+      "source": "frame-000215.png",
+      "sha256": "ce2ecd7e0a1da1c910d61410271c62bfeb002e73bf99fdc2399b9c302edb85fc"
+    },
+    {
+      "duration": 0.03276699999696575,
+      "caption": "Wait for the attack.",
+      "source": "frame-000216.png",
+      "sha256": "0640162895cb9a5ebb93642f14168a1720f2140a860012b97d550bd5066be8b1"
+    },
+    {
+      "duration": 0.03242499998304993,
+      "caption": "Wait for the attack.",
+      "source": "frame-000217.png",
+      "sha256": "671cd402e8a242db4e7a87d7bee45a4407c539a968dc2746319036621f9fd317"
+    },
+    {
+      "duration": 0.032940000004600734,
+      "caption": "Tap Space now.",
+      "source": "frame-000218.png",
+      "sha256": "b15e082c3d454076f8a8bdf1cf0621dd7ea6274d47f0735ba75c0dad3c3ac741"
+    },
+    {
+      "duration": 0.03266600001370534,
+      "caption": "Tap Space now.",
+      "source": "frame-000219.png",
+      "sha256": "0275427d12a51c5ff1b94b0b56a1594c191b1ce316687f708fc5003afa22a665"
+    },
+    {
+      "duration": 0.22352599998703226,
+      "caption": "Tap Space now.",
+      "source": "frame-000220.png",
+      "sha256": "e7e2f67a6f73ad06b0dd33dce4ccd923fa9198a4b36d9cd9d18361e877101f02"
+    },
+    {
+      "duration": 0.09362800000235438,
+      "caption": "Parry!",
+      "source": "frame-000221.png",
+      "sha256": "8f41deec9bc213a3f23b061bbfd9221869f9734867f51d1be2c8a4bfb46487c9"
+    },
+    {
+      "duration": 0.031365000002551824,
+      "caption": "Parry!",
+      "source": "frame-000223.png",
+      "sha256": "112c6c0708240851de13e117fd000aa15451452a5bbc8402a7ed392b03144aa8"
+    },
+    {
+      "duration": 0.03148099998361431,
+      "caption": "Parry!",
+      "source": "frame-000222.png",
+      "sha256": "6642aa90539ad71753f8c69718bc2ae396e4a29f0cb5d96525dd058bdbb64db1"
+    },
+    {
+      "duration": 0.1559430000197608,
+      "caption": "Parry!",
+      "source": "frame-000224.png",
+      "sha256": "4c882ee4a72585c188786537aac47b87a683a8c22de14c80ff656b8737516953"
+    },
+    {
+      "duration": 0.03127799998037517,
+      "caption": "Parry!",
+      "source": "frame-000227.png",
+      "sha256": "89a0595a846a76206d1848b5f87f2edc86ef82064821925f937fa8a06bd0b7cf"
+    },
+    {
+      "duration": 0.03163700000732206,
+      "caption": "Parry!",
+      "source": "frame-000225.png",
+      "sha256": "e9af06936897b87b05ddeef69664e421b2757ccb2ef2ed39a6c09a9d49ac11dd"
+    },
+    {
+      "duration": 0.09353199999895878,
+      "caption": "Parry!",
+      "source": "frame-000226.png",
+      "sha256": "f30c1063b911d0af5b366e49f5d09ce5423cccaf43bd5353a80c1f7998962f64"
+    },
+    {
+      "duration": 0.03127100001438521,
+      "caption": "Parry!",
+      "source": "frame-000232.png",
+      "sha256": "adf93ea49772d1f12748165532566acb57050b31b00944c3fe63baa76e4d20e6"
+    },
+    {
+      "duration": 0.031110999989323318,
+      "caption": "Parry!",
+      "source": "frame-000229.png",
+      "sha256": "48fc6885ecb84fce94316f1adf66cec6acf8870ea1d488ae948b0eb4c6088534"
+    },
+    {
+      "duration": 0.2814019999932498,
+      "caption": "Parry!",
+      "source": "frame-000228.png",
+      "sha256": "593e51c0f06965b3c61ccff1949b94164e18b19d2ca2cc7315e4560696e92f3f"
+    },
+    {
+      "duration": 0.031125000008614734,
+      "caption": "Parry!",
+      "source": "frame-000230.png",
+      "sha256": "c047750154395470b4217e9474f91540f0c6b53bc37f6bbb3e210a9d942993d5"
+    },
+    {
+      "duration": 0.09405600000172853,
+      "caption": "Parry!",
+      "source": "frame-000231.png",
+      "sha256": "efcb666f7c02c7de12db33b1da56514eb1f15802720894967e9a65074e6ff568"
+    },
+    {
+      "duration": 0.03109000000404194,
+      "caption": "Release between hits.",
+      "source": "frame-000235.png",
+      "sha256": "a12f0a3a85904669b2a81c8c166ddc75dc486423a2d3bf137ca29044cada1dd3"
+    },
+    {
+      "duration": 0.031180999998468906,
+      "caption": "Release between hits.",
+      "source": "frame-000233.png",
+      "sha256": "5a64988ed7dd5b944f2140c75af2934fc3c601d69989f56b9970284e7415952d"
+    },
+    {
+      "duration": 0.06259499999578111,
+      "caption": "Release between hits.",
+      "source": "frame-000239.png",
+      "sha256": "b4f9643dcda41b446c85d9e111eaec16fdde9164c1bd5b3e8d7e104f6e5bb605"
+    },
+    {
+      "duration": 0.06241700000828132,
+      "caption": "Release between hits.",
+      "source": "frame-000234.png",
+      "sha256": "3d9b14f5aec2f6aad983f670a98106184e00ab4e7acd39030c47fed19f0915bb"
+    },
+    {
+      "duration": 0.18754399998579174,
+      "caption": "Release between hits.",
+      "source": "frame-000236.png",
+      "sha256": "abfbaa21492874f26b77a78b99283ef05277168035d3456321599fe71388cd57"
+    },
+    {
+      "duration": 0.030931999994209036,
+      "caption": "Release between hits.",
+      "source": "frame-000240.png",
+      "sha256": "31fdd500dfdb384877df4fd6ecc1623a264238c72e27ce07e3d228fc0675ef98"
+    },
+    {
+      "duration": 0.06297000002814457,
+      "caption": "Release between hits.",
+      "source": "frame-000237.png",
+      "sha256": "56f7ccc69439e1b6437dcb2a8b530ba82328d5471e85957b90b6d9e01a990e7c"
+    },
+    {
+      "duration": 0.12478199999895878,
+      "caption": "Release between hits.",
+      "source": "frame-000238.png",
+      "sha256": "5f0d59acc8362d282adfe94ed35a63a558c02ff3591227867fb822b01b188095"
+    },
+    {
+      "duration": 0.03134299998055212,
+      "caption": "Release between hits.",
+      "source": "frame-000241.png",
+      "sha256": "ea232eda5b21ddf9fbf9e4a204a3a39daf6a662716fee6caf084b9a7218f5a51"
+    },
+    {
+      "duration": 0.031279000017093495,
+      "caption": "Release between hits.",
+      "source": "frame-000243.png",
+      "sha256": "ec77d280ec3dffab36e8017582837830c32cc4aadafe990294d28c6f54a09143"
+    },
+    {
+      "duration": 0.03140700000221841,
+      "caption": "Release between hits.",
+      "source": "frame-000242.png",
+      "sha256": "eb84f78bc7760ee17e61db7095e02867451f74c38efd6b8ab16507ee34ff8bb0"
+    },
+    {
+      "duration": 0.09360699998796917,
+      "caption": "Release between hits.",
+      "source": "frame-000244.png",
+      "sha256": "2bdbc59e7d96c2885a63b0e3e74cdd34963853b5f8647e258c333c2bbd2dc81c"
+    },
+    {
+      "duration": 0.03137700000661425,
+      "caption": "Release between hits.",
+      "source": "frame-000245.png",
+      "sha256": "e85603452e31693c99c9381066dca11c81d062b6a3e306a71c58e08b79ae2d36"
+    },
+    {
+      "duration": 0.06220399998710491,
+      "caption": "Release between hits.",
+      "source": "frame-000246.png",
+      "sha256": "0b77c61bf49153b369819a498a4a1d8f76f0c6818c3156a27a4b937d8617d99e"
+    },
+    {
+      "duration": 0.06275199999799952,
+      "caption": "Release between hits.",
+      "source": "frame-000249.png",
+      "sha256": "b8ae6d364c85406c001fe9bb79bc4830a24305d422cd44512a8a82445a7ed823"
+    },
+    {
+      "duration": 0.03113000001758337,
+      "caption": "Release between hits.",
+      "source": "frame-000248.png",
+      "sha256": "2d5f4e482ab12cb45e59b2405f1583c71c9438e9464b3754e826f6f0f363bf1f"
+    },
+    {
+      "duration": 0.25005699999746867,
+      "caption": "Release between hits.",
+      "source": "frame-000247.png",
+      "sha256": "4cad0e5db6e845e230161880f47f5f78cff9b2e1808a1734348f6e7ad381210c"
+    }
+  ]
+}

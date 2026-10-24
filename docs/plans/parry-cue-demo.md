@@ -251,3 +251,103 @@ Task artifacts: E:/CodexTemp/TypingHero/space-press-cue; earlier clips preserved
   8303host after review. Remove only clean task resources after acceptance and
   verified integration. Main integration is intentionally deferred by this plan;
   original dirty checkout and unrelated jobs/servers remain untouched.
+
+
+## Two-step tutorial with captured parry modal (2026-10-24)
+
+User plan supersedes the single-page example: HUD step 1/2 retains four cards/five arrows; Next or Enter opens step 2/2, an 816x480 modal on 960x540. Back restores HUD; only Start Battle completes existing TutorialProgress_v1. Held Enter/same-frame duplicate confirmations cannot skip a step. Esc/Pause retains reading/input/score lock. Restart/replay starts on step 1. No main integration; continue existing space-press-cue branch.
+
+Capture checklist: idle >=500ms, enemy preparation, Space warning/light/press-release, player defense, successful contact, recovery of both actors, idle >=500ms, loop boundary. Source is the real keyboard-driven native-direct-final successful parry recording from this trial; no actor/combat changes since that capture. Source directory E:/CodexTemp/TypingHero/space-press-cue/native-direct-final/compositor, original frames.json timestamps. Registered prior full successful segment trace18.770230..21.519835s; expanded source window starts 500ms before its first original PNG and ends after >=500ms after its final PNG. Scope/selection recorded BEFORE review in modal-review/selection.json. All 77 chronological source PNGs frame-000173..frame-000247 (arrival order differs from timestamp order), no omitted in-window frame. Each original inter-frame duration retained, including long holds; last frame retains its full250.057ms original hold instead of truncating at the selection boundary. Total3926.166ms. Crop160,180..1120,500, nearest1/4 to240x80 native pixels; atlas1952x840 with2px gutters, no recoloring/sprite reconstruction. Source SHA256 and exact durations in Assets/Art/UI/TutorialParry/parry.json. At720x240 reference display, Space remains28x11logical pixels. No external-game/reference-match claim.
+
+Directly inspected all77source frames/76pairs on sheets00..06, then every final atlas cel at3x nearest-neighbor on modal-review/final-00..12, including page boundaries and final->first. Both actors remain inside crop; no HUD fragment; original lighting/impact preserved. Source-capture cadence contains held frames (e.g. F47/F57); no synthetic in-between poses or timing smoothing. Last hold correction changes duration only; image unchanged, idle->idle join retains actor positions and scarf cycle. Below are manual per-frame visual observations, not script-derived asset checks. Runtime playback/pause/input/layout/builder verification pending.
+
+| Clip | Frame | Duration ms | Reference | Frame observation | Next transition | Status | Evidence |
+|---|---:|---:|---|---|---|---|---|
+| Parry modal | 0 | 33.269 | frame-000173.png | Idle, scarf left and blade low | To F1: Idle held, boots fixed | đạt | modal-review/final-00.png |
+| Parry modal | 1 | 33.012 | frame-000174.png | Idle held, boots fixed | To F2: Idle scarf lifts, feet fixed | đạt | modal-review/final-00.png |
+| Parry modal | 2 | 33.099 | frame-000175.png | Idle scarf lifts, feet fixed | To F3: Idle torso settles | đạt | modal-review/final-00.png |
+| Parry modal | 3 | 32.821 | frame-000176.png | Idle torso settles | To F4: Scarf extends left | đạt | modal-review/final-00.png |
+| Parry modal | 4 | 32.473 | frame-000177.png | Scarf extends left | To F5: Scarf levels, enemy upright | đạt | modal-review/final-00.png |
+| Parry modal | 5 | 32.745 | frame-000178.png | Scarf levels, enemy upright | To F6: Scarf raised left | đạt | modal-review/final-00.png |
+| Parry modal | 6 | 32.834 | frame-000179.png | Scarf raised left | To F7: Scarf held high | đạt | modal-review/final-01.png |
+| Parry modal | 7 | 32.461 | frame-000181.png | Scarf held high | To F8: Scarf begins lowering | đạt | modal-review/final-01.png |
+| Parry modal | 8 | 33.356 | frame-000180.png | Scarf begins lowering | To F9: Scarf slants down | đạt | modal-review/final-01.png |
+| Parry modal | 9 | 32.776 | frame-000183.png | Scarf slants down | To F10: Scarf low, legs stable | đạt | modal-review/final-01.png |
+| Parry modal | 10 | 33.115 | frame-000182.png | Scarf low, legs stable | To F11: Low scarf hold | đạt | modal-review/final-01.png |
+| Parry modal | 11 | 33.135 | frame-000184.png | Low scarf hold | To F12: Scarf low, head unobscured | đạt | modal-review/final-01.png |
+| Parry modal | 12 | 32.844 | frame-000185.png | Scarf low, head unobscured | To F13: Scarf low continuation | đạt | modal-review/final-02.png |
+| Parry modal | 13 | 32.754 | frame-000186.png | Scarf low continuation | To F14: Scarf reaches low point | đạt | modal-review/final-02.png |
+| Parry modal | 14 | 32.909 | frame-000187.png | Scarf reaches low point | To F15: Low scarf, enemy sword upright | đạt | modal-review/final-02.png |
+| Parry modal | 15 | 32.853 | frame-000188.png | Low scarf, enemy sword upright | To F16: Scarf rises left | đạt | modal-review/final-02.png |
+| Parry modal | 16 | 32.865 | frame-000189.png | Scarf rises left | To F17: Scarf stretches left | đạt | modal-review/final-02.png |
+| Parry modal | 17 | 32.749 | frame-000190.png | Scarf stretches left | To F18: Scarf rises, both grounded | đạt | modal-review/final-02.png |
+| Parry modal | 18 | 33.220 | frame-000191.png | Scarf rises, both grounded | To F19: Scarf held up | đạt | modal-review/final-03.png |
+| Parry modal | 19 | 32.939 | frame-000192.png | Scarf held up | To F20: Warning Space appears above skull | đạt | modal-review/final-03.png |
+| Parry modal | 20 | 32.982 | frame-000193.png | Warning Space appears above skull | To F21: Raised cap and white SPACE readable | đạt | modal-review/final-03.png |
+| Parry modal | 21 | 33.361 | frame-000194.png | Raised cap and white SPACE readable | To F22: Warning still, scarf lowers | đạt | modal-review/final-03.png |
+| Parry modal | 22 | 32.539 | frame-000195.png | Warning still, scarf lowers | To F23: Warning still, arms connected | đạt | modal-review/final-03.png |
+| Parry modal | 23 | 33.148 | frame-000196.png | Warning still, arms connected | To F24: Warning still, feet stable | đạt | modal-review/final-03.png |
+| Parry modal | 24 | 33.006 | frame-000197.png | Warning still, feet stable | To F25: Warning still, scarf settling | đạt | modal-review/final-04.png |
+| Parry modal | 25 | 32.797 | frame-000198.png | Warning still, scarf settling | To F26: Warning still, low scarf | đạt | modal-review/final-04.png |
+| Parry modal | 26 | 33.118 | frame-000200.png | Warning still, low scarf | To F27: Warning still, low scarf held | đạt | modal-review/final-04.png |
+| Parry modal | 27 | 33.161 | frame-000199.png | Warning still, low scarf held | To F28: Warning still, scarf near waist | đạt | modal-review/final-04.png |
+| Parry modal | 28 | 33.538 | frame-000202.png | Warning still, scarf near waist | To F29: Warning still, enemy idle | đạt | modal-review/final-04.png |
+| Parry modal | 29 | 32.404 | frame-000201.png | Warning still, enemy idle | To F30: Warning still, low scarf | đạt | modal-review/final-04.png |
+| Parry modal | 30 | 33.426 | frame-000203.png | Warning still, low scarf | To F31: Warning still, low scarf held | đạt | modal-review/final-05.png |
+| Parry modal | 31 | 33.322 | frame-000204.png | Warning still, low scarf held | To F32: Warning still, scarf begins rising | đạt | modal-review/final-05.png |
+| Parry modal | 32 | 32.765 | frame-000206.png | Warning still, scarf begins rising | To F33: Warning still, scarf low left | đạt | modal-review/final-05.png |
+| Parry modal | 33 | 32.542 | frame-000205.png | Warning still, scarf low left | To F34: Warning still, scarf raised | đạt | modal-review/final-05.png |
+| Parry modal | 34 | 32.519 | frame-000207.png | Warning still, scarf raised | To F35: Warning still, scarf extends | đạt | modal-review/final-05.png |
+| Parry modal | 35 | 33.187 | frame-000208.png | Warning still, scarf extends | To F36: Warning still, scarf stretched | đạt | modal-review/final-05.png |
+| Parry modal | 36 | 33.205 | frame-000209.png | Warning still, scarf stretched | To F37: Warning still, torso upright | đạt | modal-review/final-06.png |
+| Parry modal | 37 | 32.807 | frame-000210.png | Warning still, torso upright | To F38: Warning still before preparation | đạt | modal-review/final-06.png |
+| Parry modal | 38 | 32.902 | frame-000211.png | Warning still before preparation | To F39: Enemy draws blade back, player idle | đạt | modal-review/final-06.png |
+| Parry modal | 39 | 32.542 | frame-000212.png | Enemy draws blade back, player idle | To F40: Enemy preparation, hilt at waist | đạt | modal-review/final-06.png |
+| Parry modal | 40 | 32.413 | frame-000213.png | Enemy preparation, hilt at waist | To F41: Enemy preparing, head and feet stable | đạt | modal-review/final-06.png |
+| Parry modal | 41 | 32.466 | frame-000214.png | Enemy preparing, head and feet stable | To F42: Enemy blade across chest, raised cap | đạt | modal-review/final-06.png |
+| Parry modal | 42 | 32.967 | frame-000215.png | Enemy blade across chest, raised cap | To F43: Enemy preparation held, depressed cap | đạt | modal-review/final-07.png |
+| Parry modal | 43 | 32.767 | frame-000216.png | Enemy preparation held, depressed cap | To F44: Cap released, blade drawn across shoulder | đạt | modal-review/final-07.png |
+| Parry modal | 44 | 32.425 | frame-000217.png | Cap released, blade drawn across shoulder | To F45: Cap lights, enemy extends lead leg | đạt | modal-review/final-07.png |
+| Parry modal | 45 | 32.940 | frame-000218.png | Cap lights, enemy extends lead leg | To F46: Depressed cap, player still standing | đạt | modal-review/final-07.png |
+| Parry modal | 46 | 32.666 | frame-000219.png | Depressed cap, player still standing | To F47: Teal pressed cap, player lifts defense blade | đạt | modal-review/final-07.png |
+| Parry modal | 47 | 223.526 | frame-000220.png | Teal pressed cap, player lifts defense blade; original223.526ms hold | To F48: Contact spark at joined blades, +30 visible | đạt | modal-review/final-07.png |
+| Parry modal | 48 | 93.628 | frame-000221.png | Contact spark at joined blades, +30 visible | To F49: Contact spark retained, original93.628ms prior hold | đạt | modal-review/final-08.png |
+| Parry modal | 49 | 31.365 | frame-000223.png | Contact spark retained, original93.628ms prior hold | To F50: Player low recovery, enemy slash | đạt | modal-review/final-08.png |
+| Parry modal | 50 | 31.481 | frame-000222.png | Player low recovery, enemy slash | To F51: Wide enemy slash, player crouch | đạt | modal-review/final-08.png |
+| Parry modal | 51 | 155.943 | frame-000224.png | Wide enemy slash, player crouch | To F52: Enemy follow-through, particles left | đạt | modal-review/final-08.png |
+| Parry modal | 52 | 31.278 | frame-000227.png | Enemy follow-through, particles left | To F53: Enemy returns blade diagonally | đạt | modal-review/final-08.png |
+| Parry modal | 53 | 31.637 | frame-000225.png | Enemy returns blade diagonally | To F54: Enemy lowers sword, player remains low | đạt | modal-review/final-08.png |
+| Parry modal | 54 | 93.532 | frame-000226.png | Enemy lowers sword, player remains low | To F55: Enemy upright, player recovery low | đạt | modal-review/final-09.png |
+| Parry modal | 55 | 31.271 | frame-000232.png | Enemy upright, player recovery low | To F56: Enemy idle, player low, residual sparks | đạt | modal-review/final-09.png |
+| Parry modal | 56 | 31.111 | frame-000229.png | Enemy idle, player low, residual sparks | To F57: Player low hold, original281.402ms duration | đạt | modal-review/final-09.png |
+| Parry modal | 57 | 281.402 | frame-000228.png | Player low hold, original281.402ms duration | To F58: Player low, particles fade | đạt | modal-review/final-09.png |
+| Parry modal | 58 | 31.125 | frame-000230.png | Player low, particles fade | To F59: Player low recovery endpoint | đạt | modal-review/final-09.png |
+| Parry modal | 59 | 94.056 | frame-000231.png | Player low recovery endpoint | To F60: Player lifts torso and rear arm, enemy idle | đạt | modal-review/final-09.png |
+| Parry modal | 60 | 31.090 | frame-000235.png | Player lifts torso and rear arm, enemy idle | To F61: Player upright recovery, scarf connected | đạt | modal-review/final-10.png |
+| Parry modal | 61 | 31.181 | frame-000233.png | Player upright recovery, scarf connected | To F62: Player settles into idle | đạt | modal-review/final-10.png |
+| Parry modal | 62 | 62.595 | frame-000239.png | Player settles into idle | To F63: Idle low scarf, no cue | đạt | modal-review/final-10.png |
+| Parry modal | 63 | 62.417 | frame-000234.png | Idle low scarf, no cue | To F64: Idle scarf begins rising | đạt | modal-review/final-10.png |
+| Parry modal | 64 | 187.544 | frame-000236.png | Idle scarf begins rising | To F65: Idle scarf extends left | đạt | modal-review/final-10.png |
+| Parry modal | 65 | 30.932 | frame-000240.png | Idle scarf extends left | To F66: Idle scarf high left | đạt | modal-review/final-10.png |
+| Parry modal | 66 | 62.970 | frame-000237.png | Idle scarf high left | To F67: Idle scarf high, original124.782ms hold | đạt | modal-review/final-11.png |
+| Parry modal | 67 | 124.782 | frame-000238.png | Idle scarf high, original124.782ms hold | To F68: Idle scarf lowers | đạt | modal-review/final-11.png |
+| Parry modal | 68 | 31.343 | frame-000241.png | Idle scarf lowers | To F69: Idle low scarf | đạt | modal-review/final-11.png |
+| Parry modal | 69 | 31.279 | frame-000243.png | Idle low scarf | To F70: Idle low scarf continuation | đạt | modal-review/final-11.png |
+| Parry modal | 70 | 31.407 | frame-000242.png | Idle low scarf continuation | To F71: Idle low, original193.607ms hold | đạt | modal-review/final-11.png |
+| Parry modal | 71 | 93.607 | frame-000244.png | Idle low, original193.607ms hold | To F72: Idle scarf low, feet fixed | đạt | modal-review/final-11.png |
+| Parry modal | 72 | 31.377 | frame-000245.png | Idle scarf low, feet fixed | To F73: Idle scarf starts rising | đạt | modal-review/final-12.png |
+| Parry modal | 73 | 62.204 | frame-000246.png | Idle scarf starts rising | To F74: Idle scarf extends left | đạt | modal-review/final-12.png |
+| Parry modal | 74 | 62.752 | frame-000249.png | Idle scarf extends left | To F75: Idle scarf high | đạt | modal-review/final-12.png |
+| Parry modal | 75 | 31.130 | frame-000248.png | Idle scarf high | To F76: Idle scarf high, both actors at original positions | đạt | modal-review/final-12.png |
+| Parry modal | 76 | 250.057 | frame-000247.png | Idle scarf high, both actors at original positions | Idle->idle loop: F0 scarf/feet align; preserve250.057ms terminal hold | đạt | modal-review/final-12.png |
+
+### Implementation verification checkpoint
+
+- First serialize102509 failed strict repeat: newly created buttons acquired skin/feedback only on pass2. Corrected by cloning the existing fully skinned PracticeButton, retaining the existing skin/listener conventions. Serialize102925/inputf6ee6664 passes strict repeated builder. Scoped scene projection changes5existing tutorial records, adds49records, removes0original IDs; MainMenu remains unchanged. Added explicit prefab-modification recording for newly created action labels/bindings before final runtime checks.
+- QA103338/input494d9c0472226da9bab14c58f56469e84cba13dff1c022036912bf419f8d61ea:8/8actual focused Unity cases PASS,0failed/skipped,3.5205443s. Covers all77sprite/duration lookups and loop, unscaled pause/resume, Back/reentry reset, duplicate confirmation, reading/restart/menu/fresh encounter, viewed/provider lock plus directly affected live-cue consumers. WebGL/browser acceptance remains pending.
+- Final caption-only correction: F42..44 stay Wait for the attack; Tap Space now starts at F45, the first bright cap. PNGs, source sprites and every duration unchanged. Final normal-player generated-record comparison must prove this three-string-only delta before reusing unchanged runtime/clock evidence. No new actor animation was authored; no independent VFX-off/mirrored variant is claimed.
+
+- QA103338 strict repeat-builder and compiled WebGL build succeed. Caller omitted --browser-scenario tutorial; adapter then raised unassigned immutable after Unity exited successfully. Preserved only its separate build-qa output while the next job built production in build-production; verified latest QA result, output mtimes and all33file hashes before/after copy. Local download matches33remote hashes. Recovery receipt is adapter-recovery.json; no other job/source/cache/lock was modified. Two task-only preservation watchers were stopped after checking their exact command fingerprints.
+- Native1 inadvertently invoked the previous tutorial-driver entry point;1check then timeout looking for obsolete SpaceExample. Corrected external entry path. Native2 passes20checks, both-size strict layout/caption/arrow/lock assertions, held Enter, complete automatic loop, exact Pause/Resume, Back/reset, restart and menu abandon. It stops at the second deliberate Enter: the driver released/repressed within one Unity frame, so the intended release guard rejected it. Added80ms up-time between separate test key presses; held-Enter and same-frame rejection assertions remain unchanged. No production/runtime change from either driver correction. Native3 continues on the identical immutable player.
+
+- Native3 passes24checks including a real successful Space parry and durable viewed status, then its first Play click after page reload only focuses the newly created canvas. Native4 explicitly focuses an empty canvas corner and waits350ms for menu layout before its real menu click; no acceptance assertion removed. Native4:29/29PASS in39.704763s, zero exceptions/provider reads/writes/blocked external requests, fixture interception retained. Both640x360/1280x720 strict modal bounds, all five text/action bounds, four cards/five arrows and old-example absence pass. Held Enter does not skip step2; Back, exact pause frame/clock, Resume, reentry reset, restart, menu abandonment/replay, keyboard and mouse completion, persisted viewed/automatic bypass, fresh selected-difficulty40HP/180enemyHP/100guard/zero score, clean encounter and actual manual parry pass. All six current screenshots directly inspected (layout/parry/pause); no scene/card/modal leakage. Runtime source is unchanged; final normal caption-only delta/build/render and preview clip remain pending.

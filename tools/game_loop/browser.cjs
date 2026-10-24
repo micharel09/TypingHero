@@ -100,6 +100,8 @@ async function start(page, skipTutorial = true) {
   let s = await until(page, s => s.scene === 'SampleScene' && s.hp > 0 && s.current.length > 0);
   if (s.tutorial && skipTutorial) {
     await clickControl(page, 'PracticeButton', 'button');
+    await until(page, s => s.tutorialParry);
+    await clickControl(page, 'Start Battle \u00b7 EnterButton', 'button');
     s = await until(page, s => s.scene === 'SampleScene' && !s.tutorial && s.hp === 40 && s.score === 0);
   }
   check(s.playerName === 'LoopQA', 'name persisted into gameplay');

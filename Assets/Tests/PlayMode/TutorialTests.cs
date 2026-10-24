@@ -64,50 +64,55 @@ public sealed class TutorialTests
     }
 
     [UnityTest, Category("Quick")]
-    public IEnumerator SpaceExampleUsesUnscaledClockHoldsPauseAndResetsOnReopen()
+    public IEnumerator ParryModalUsesCapturedDurationsHoldsPauseAndResetsOnBack()
     {
         TutorialRun.Begin();
         yield return DungeonSceneTestFlow.Start();
         var overlay = Object.FindObjectOfType<TutorialOverlay>();
+        var director = Object.FindObjectOfType<TutorialDirector>();
         var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
-        var clock = typeof(TutorialOverlay).GetField("exampleTime", flags);
-        var render = typeof(TutorialOverlay).GetMethod("RenderExample", flags);
-        var panel = overlay.transform.Find("Reference960x540/TutorialPrompt/SpaceExample");
-        Assert.That(panel, Is.Not.Null);
-        Assert.That(((RectTransform)panel).anchoredPosition, Is.EqualTo(new Vector2(328, -216)));
-        Assert.That(((RectTransform)panel).sizeDelta, Is.EqualTo(new Vector2(304, 80)));
-        var key = panel.Find("SpaceCueSample");
-        var face = key.Find("Left").GetComponent<Image>();
-        var caption = panel.Find("Caption").GetComponent<TMPro.TMP_Text>();
-        foreach (var state in new[] {
-            (.0, "Get ready.", "warning_released", false, true),
-            (.8, "Tap Space now.", "light_released", false, true),
-            (.86, "Tap Space now.", "light_pressed", false, true),
-            (1.0, "Parry window open.", "light_pressed", false, true),
-            (1.25, "X: parry unavailable.", "dark_pressed", true, true),
-            (2.0, "Release between hits.", "warning_released", false, false),
-            (2.75, "Get ready.", "warning_released", false, true) })
+        var clock = typeof(TutorialOverlay).GetField("clipTime", flags);
+        var render = typeof(TutorialOverlay).GetMethod("RenderClip", flags);
+        var modal = overlay.transform.Find("Reference960x540/ParryModal");
+        Assert.That(modal.gameObject.activeSelf, Is.False);
+        director.Continue(); director.Continue();
+        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
+        Assert.That(modal.gameObject.activeSelf, Is.True, "same-frame confirmation cannot skip the second step");
+        var panel = (RectTransform)modal.Find("Panel");
+        Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(816, 480)));
+        var image = panel.Find("Clip").GetComponent<Image>();
+        var frames = (Sprite[])typeof(TutorialOverlay).GetField("clipFrames", flags).GetValue(overlay);
+        var durations = (float[])typeof(TutorialOverlay).GetField("clipDurations", flags).GetValue(overlay);
+        Assert.That(frames.Length, Is.EqualTo(77));
+        Assert.That(frames.All(f => f && f.texture.filterMode == FilterMode.Point), Is.True);
+        double time = 0;
+        for (int i = 0; i < frames.Length; i++)
         {
-            clock.SetValue(overlay, state.Item1); render.Invoke(overlay, null);
-            Assert.That(caption.text, Is.EqualTo(state.Item2));
-            Assert.That(face.sprite.name, Is.EqualTo(state.Item3));
-            Assert.That(key.Find("Locked").gameObject.activeSelf, Is.EqualTo(state.Item4));
-            Assert.That(key.gameObject.activeSelf, Is.EqualTo(state.Item5));
+            clock.SetValue(overlay, time + durations[i] * .5); render.Invoke(overlay, null);
+            Assert.That(image.sprite, Is.SameAs(frames[i]), "captured frame/duration " + i);
+            Assert.That(durations[i], Is.GreaterThan(0));
+            time += durations[i];
         }
-        Assert.That(((RectTransform)key).sizeDelta, Is.EqualTo(new Vector2(84, 33)));
-        clock.SetValue(overlay, .86); render.Invoke(overlay, null);
+        clock.SetValue(overlay, time + .001); render.Invoke(overlay, null);
+        Assert.That(image.sprite, Is.SameAs(frames[0]), "loop boundary");
+        clock.SetValue(overlay, 1.5); render.Invoke(overlay, null);
+        var held = image.sprite;
         var pause = Object.FindObjectOfType<GamePauseController>();
         pause.TogglePause(true);
         yield return new WaitForSecondsRealtime(.15f);
-        Assert.That((double)clock.GetValue(overlay), Is.EqualTo(.86));
-        Assert.That(face.sprite.name, Is.EqualTo("light_pressed"));
+        Assert.That((double)clock.GetValue(overlay), Is.EqualTo(1.5));
+        Assert.That(image.sprite, Is.SameAs(held));
         pause.Resume();
         yield return new WaitForSecondsRealtime(.35f);
-        Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(.86));
+        Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(1.5));
         Assert.That(Time.timeScale, Is.Zero);
-        overlay.gameObject.SetActive(false); overlay.gameObject.SetActive(true);
+        panel.Find("BackButton").GetComponent<Button>().onClick.Invoke();
+        Assert.That(modal.gameObject.activeSelf, Is.False);
+        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
+        yield return null;
+        director.Continue();
         Assert.That((double)clock.GetValue(overlay), Is.Zero);
-        Assert.That(caption.text, Is.EqualTo("Get ready."));
+        Assert.That(image.sprite, Is.SameAs(frames[0]));
     }
 
     [UnityTest, Category("Quick")]
@@ -145,6 +150,9 @@ public sealed class TutorialTests
         yield return DungeonSceneTestFlow.Start();
         director = Object.FindObjectOfType<TutorialDirector>();
         director.Continue(); director.Continue();
+        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
+        yield return null;
+        director.Continue(); director.Continue();
         yield return DungeonSceneTestFlow.Wait();
         Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Completed));
         Assert.That(TutorialRun.Active, Is.False);
@@ -159,6 +167,7 @@ public sealed class TutorialTests
         var panel = encounter.transform.Find("Reference960x540/TutorialPrompt");
         foreach (string name in new[] { "HealthGuide", "EnemyGuide", "TypingGuide", "ScoreGuide", "Shortcuts", "SpaceExample" })
             Assert.That(panel.Find(name).gameObject.activeInHierarchy, Is.False, "guide must not leak into the encounter clone");
+        Assert.That(encounter.transform.Find("Reference960x540/ParryModal").gameObject.activeSelf, Is.False);
         EndlessDuel.I.Continue();
         yield return null;
         Assert.That(panel.GetComponentsInChildren<Graphic>().Any(g => g.isActiveAndEnabled), Is.False,

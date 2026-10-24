@@ -108,11 +108,13 @@ internal static class TutorialBuild
         next.navigation = new Navigation { mode = Navigation.Mode.None };
         var action = next.GetComponentInChildren<TMP_Text>(true);
         Box(action.rectTransform, next.transform, 8, 0, 344, 36);
-        action.text = "Start Battle \u00b7 Enter"; action.fontSize = action.fontSizeMin = action.fontSizeMax = 24;
+        action.text = "Next \u00b7 Enter"; action.fontSize = action.fontSizeMin = action.fontSizeMax = 24;
         action.enableAutoSizing = false;
         PrefabUtility.RecordPrefabInstancePropertyModifications(next.transform);
         PrefabUtility.RecordPrefabInstancePropertyModifications(action);
         PrefabUtility.RecordPrefabInstancePropertyModifications(action.rectTransform);
+        Text("Step", "1/2", 428, 484, 60, 32, 24).alignment = TextAlignmentOptions.Center;
+        BuildParry(overlay, bounds, panel, font);
         var hud = GameObject.Find("PixelUI/Reference960x540/HUD").transform;
         var so = new SerializedObject(overlay);
         var arrows = so.FindProperty("arrows"); arrows.arraySize = 5;
@@ -141,6 +143,104 @@ internal static class TutorialBuild
         Arrow(4, typing.rectTransform, Get<RectTransform>(overlay, "typingTray"), new Vector2(.1f, -.15f), new Vector2(0, 1));
         so.ApplyModifiedPropertiesWithoutUndo();
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+    }
+
+    [System.Serializable] sealed class CaptureFrame { public float duration; public string caption; }
+    [System.Serializable] sealed class Capture { public int columns, cellWidth, cellHeight, width, height; public CaptureFrame[] frames; }
+
+    static void BuildParry(TutorialOverlay overlay, Transform bounds, Transform hud, TMP_FontAsset font)
+    {
+        const string path = "Assets/Art/UI/TutorialParry/parry.png";
+        var capture = JsonUtility.FromJson<Capture>(System.IO.File.ReadAllText("Assets/Art/UI/TutorialParry/parry.json"));
+        var importer = (TextureImporter)AssetImporter.GetAtPath(path);
+        importer.textureType = TextureImporterType.Sprite; importer.spriteImportMode = SpriteImportMode.Multiple;
+        importer.filterMode = FilterMode.Point; importer.wrapMode = TextureWrapMode.Clamp;
+        importer.mipmapEnabled = false; importer.npotScale = TextureImporterNPOTScale.None;
+        importer.textureCompression = TextureImporterCompression.Uncompressed; importer.maxTextureSize = 2048;
+        var sheet = new SpriteMetaData[capture.frames.Length];
+        int height = ((capture.frames.Length + capture.columns - 1) / capture.columns) * capture.cellHeight;
+        for (int i = 0; i < sheet.Length; i++) sheet[i] = new SpriteMetaData {
+            name = "parry_" + i.ToString("D3"), alignment = 0, pivot = Vector2.one * .5f,
+            rect = new Rect(i % capture.columns * capture.cellWidth + 2,
+                height - (i / capture.columns * capture.cellHeight + 2) - capture.height, capture.width, capture.height)
+        };
+        importer.spritesheet = sheet; importer.SaveAndReimport();
+        RectTransform Node(string name, Transform parent, float x, float y, float w, float h)
+        {
+            var rt = parent.Find(name) as RectTransform;
+            if (!rt) { rt = Rect(name, parent); Box(rt, parent, x, y, w, h); }
+            return rt;
+        }
+        var modal = Node("ParryModal", bounds, 0, 0, 960, 540);
+        if (!modal.GetComponent<Image>()) Image(modal, new Color(0, 0, 0, .8f), true);
+        var panel = Node("Panel", modal, 72, 30, 816, 480);
+        if (!panel.GetComponent<Image>())
+        {
+            var bg = Image(panel, Color.white, true);
+            bg.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(DungeonUISkin.Art + "modal-normal.png");
+            bg.type = UnityEngine.UI.Image.Type.Sliced;
+        }
+        TMP_Text Copy(string name, string text, float x, float y, float w, float h, float size)
+        {
+            var existing = panel.Find(name);
+            if (existing) return existing.GetComponent<TMP_Text>();
+            var label = Label(name, text, panel, x, y, w, h, size);
+            label.font = font; label.fontSharedMaterial = font.material; label.color = Hex("f2e7cf");
+            label.fontSize = label.fontSizeMin = label.fontSizeMax = size;
+            label.enableAutoSizing = false; label.alignment = TextAlignmentOptions.Center;
+            label.raycastTarget = false;
+            return label;
+        }
+        Copy("Title", "Parry with Space", 48, 22, 640, 48, 36);
+        Copy("Step", "2/2", 708, 26, 60, 40, 24);
+        var clip = Node("Clip", panel, 48, 100, 720, 240);
+        var clipImage = clip.GetComponent<Image>();
+        if (!clipImage) clipImage = Image(clip, Color.white);
+        var caption = Copy("Caption", "Wait for the attack.", 48, 358, 720, 36, 24);
+        var director = Object.FindObjectOfType<TutorialDirector>(true);
+        Button Action(string name, float x, float w, UnityEngine.Events.UnityAction listener)
+        {
+            var existing = panel.Find(name + "Button");
+            if (existing) return existing.GetComponent<Button>();
+            var button = Object.Instantiate(hud.Find("PracticeButton").GetComponent<Button>(), panel);
+            button.name = name + "Button";
+            Box((RectTransform)button.transform, panel, x, 414, w, 40);
+            button.onClick = new Button.ButtonClickedEvent();
+            if (listener != null) UnityEditor.Events.UnityEventTools.AddPersistentListener(button.onClick, listener);
+            button.navigation = new Navigation { mode = Navigation.Mode.None };
+            var label = button.GetComponentInChildren<TMP_Text>();
+            Box(label.rectTransform, button.transform, 8, 0, w - 16, 40);
+            label.text = name;
+            label.font = font; label.fontSharedMaterial = font.material;
+            label.fontSize = label.fontSizeMin = label.fontSizeMax = 24; label.enableAutoSizing = false;
+            PrefabUtility.RecordPrefabInstancePropertyModifications(button);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(button.transform);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(label);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(label.rectTransform);
+            return button;
+        }
+        var back = Action("Back", 48, 192, null);
+        var start = Action("Start Battle \u00b7 Enter", 288, 480, director.Continue);
+        var so = new SerializedObject(overlay);
+        void Bind(string field, Object value) { var p = so.FindProperty(field); if (!p.objectReferenceValue) p.objectReferenceValue = value; }
+        Bind("parryModal", modal.gameObject); Bind("backButton", back); Bind("startButton", start);
+        Bind("clipImage", clipImage); Bind("clipCaption", caption);
+        var nodes = new[] { "ScoreCard", "HealthCard", "EnemyCard", "TypingCard", "ScoreGuide", "HealthGuide", "EnemyGuide", "TypingGuide", "Shortcuts", "PracticeButton", "Step" };
+        var content = so.FindProperty("hudContent"); content.arraySize = nodes.Length;
+        for (int i = 0; i < nodes.Length; i++) content.GetArrayElementAtIndex(i).objectReferenceValue = hud.Find(nodes[i]).gameObject;
+        var sprites = new System.Collections.Generic.Dictionary<string, Sprite>();
+        foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(path)) if (asset is Sprite sprite) sprites.Add(sprite.name, sprite);
+        var frames = so.FindProperty("clipFrames"); var durations = so.FindProperty("clipDurations"); var captions = so.FindProperty("clipCaptions");
+        frames.arraySize = durations.arraySize = captions.arraySize = sheet.Length;
+        for (int i = 0; i < sheet.Length; i++)
+        {
+            frames.GetArrayElementAtIndex(i).objectReferenceValue = sprites[sheet[i].name];
+            durations.GetArrayElementAtIndex(i).floatValue = capture.frames[i].duration;
+            captions.GetArrayElementAtIndex(i).stringValue = capture.frames[i].caption;
+        }
+        so.ApplyModifiedPropertiesWithoutUndo();
+        clipImage.sprite = sprites[sheet[0].name];
+        modal.gameObject.SetActive(false);
     }
 
     static void Skin(GameObject root) => ShogunTheme.Skin(root,

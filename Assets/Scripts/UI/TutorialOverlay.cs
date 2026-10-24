@@ -17,28 +17,42 @@ public sealed class TutorialOverlay : MonoBehaviour
     // Retained builder bindings for the live typing and guard HUD.
     [SerializeField] RectTransform typingTray, staminaTarget;
     [SerializeField] Arrow[] arrows = Array.Empty<Arrow>();
-    [SerializeField] RectTransform exampleKey;
-    [SerializeField] Image exampleFace, exampleLocked;
-    [SerializeField] TMP_Text exampleCaption;
-    [SerializeField] Sprite exampleWarning, exampleLight, exampleDown, exampleBlocked;
-    double exampleTime;
-    void OnEnable() { exampleTime = 0; RenderExample(); }
+    [SerializeField] GameObject parryModal;
+    [SerializeField] GameObject[] hudContent;
+    [SerializeField] Button backButton, startButton;
+    [SerializeField] Image clipImage;
+    [SerializeField] TMP_Text clipCaption;
+    [SerializeField] Sprite[] clipFrames = Array.Empty<Sprite>();
+    [SerializeField] float[] clipDurations = Array.Empty<float>();
+    [SerializeField] string[] clipCaptions = Array.Empty<string>();
+    double clipTime;
+    bool parryStep;
+    void OnEnable() => ShowStep(false);
 
-    void RenderExample()
+    internal void BindBack(UnityEngine.Events.UnityAction action) => backButton.onClick.AddListener(action);
+
+    internal void ShowStep(bool parry)
     {
-        if (!exampleKey || !exampleCaption) return;
-        double t = exampleTime % 2.75;
-        bool tap = t >= .8 && t < 1;
-        bool open = t >= 1 && t < 1.25;
-        bool blocked = t >= 1.25 && t < 2;
-        exampleKey.gameObject.SetActive(TutorialRun.Active && t < 2);
-        exampleFace.sprite = blocked ? exampleBlocked : open ? exampleDown : tap ?
-            ((t - .8) % .1 >= .05 ? exampleDown : exampleLight) : exampleWarning;
-        ColorUtility.TryParseHtmlString(blocked ? "#817b73" : open ? "#73b6aa" : "#f4eeda", out var color);
-        exampleFace.color = color;
-        exampleLocked.gameObject.SetActive(blocked); exampleLocked.color = color;
-        exampleCaption.text = t < .8 ? "Get ready." : tap ? "Tap Space now." : open ?
-            "Parry window open." : blocked ? "X: parry unavailable." : "Release between hits.";
+        parryStep = parry;
+        foreach (var node in hudContent) node.SetActive(!parry);
+        foreach (var arrow in arrows)
+            foreach (var part in new[] { arrow.shaft, arrow.tipA, arrow.tipB }) part.gameObject.SetActive(!parry);
+        parryModal.SetActive(parry);
+        clipTime = 0;
+        RenderClip();
+        ClearSelection();
+    }
+
+    void RenderClip()
+    {
+        if (!parryStep || clipFrames.Length == 0) return;
+        double duration = 0;
+        foreach (float hold in clipDurations) duration += hold;
+        double time = clipTime % duration;
+        int frame = 0;
+        while (frame < clipFrames.Length - 1 && time >= clipDurations[frame]) time -= clipDurations[frame++];
+        clipImage.sprite = clipFrames[frame];
+        clipCaption.text = clipCaptions[frame];
     }
 
     Canvas canvas;
@@ -50,13 +64,13 @@ public sealed class TutorialOverlay : MonoBehaviour
         canvas.enabled = !GamePauseController.IsPaused;
         interaction.interactable = interaction.blocksRaycasts = canvas.enabled;
         if (!canvas.enabled) return;
-        if (TutorialRun.Active)
+        if (TutorialRun.Active && parryStep)
         {
-            exampleTime += Time.unscaledDeltaTime;
-            RenderExample();
+            clipTime += Time.unscaledDeltaTime;
+            RenderClip();
         }
-        else if (exampleKey) exampleKey.gameObject.SetActive(false);
         Canvas.ForceUpdateCanvases();
+        if (parryStep) return;
         foreach (var arrow in arrows)
         {
             var root = (RectTransform)arrow.shaft.parent;
@@ -85,8 +99,8 @@ public sealed class TutorialOverlay : MonoBehaviour
 
     internal void SubmitContinue()
     {
-        if (continueButton.gameObject.activeInHierarchy && continueButton.IsInteractable())
-            continueButton.onClick.Invoke();
+        var button = parryStep ? startButton : continueButton;
+        if (button.gameObject.activeInHierarchy && button.IsInteractable()) button.onClick.Invoke();
     }
 
     internal void ClearSelection()
