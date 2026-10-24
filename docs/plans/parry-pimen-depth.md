@@ -1,5 +1,9 @@
 # Pimen parry core and physical depth
 
+Current acceptance: Windows verification completed for the seeded38-40px,
++/-3degree candidate; see [final local verification](#final-local-verification-2026-10-25).
+Earlier offline-runner blocks below are historical and superseded by this evidence.
+
 ## Contract and checkpoint
 
 - Base: origin/main 46d4dda1; isolated Orca worktree `parry-pimen-depth`, branch
@@ -332,3 +336,112 @@ Reproduction scripts at the existing artifact root:make-offline-preview-data.py,
 render-offline-preview.py,prepare-offline-review.py. Runtime/product source remains
 unchanged by preview generation. Retain final clip,source/frame evidence and recipes
 for user review; temporary MJPEG and executable removed after encoded/decode proof.
+
+
+## Final local verification (2026-10-25)
+
+Scope: preserve approved38/39/40logical pixels,+/-3degrees,six80ms cells/480ms,
+22physical particles; no new random draw, gameplay API or rendering changes.
+Merged latest origin/main into the existing branch before source freeze: a23ff3f.
+The primary dirty checkout was preserved. Existing Editor at
+`E:/Unity/Hub/Editor/2022.3.25f1/Editor/Unity.exe` and WebGL support already matched
+530ae0ba3889; no installation/package/version/license change was needed. Disk
+capacity checked (C:46GB,E:13GB free initially); no unrelated data removed.
+
+`tools/game_loop/local_windows.py` provides snapshot/tests/build actions using the
+existing GameLoopBuild and ImpactVfxTests. Example, from task root:
+
+```powershell
+python tools/game_loop/local_windows.py snapshot --workspace C:/CodexTemp/TypingHero/parry-pimen-depth/local-unity
+python tools/game_loop/local_windows.py tests --workspace C:/CodexTemp/TypingHero/parry-pimen-depth/local-unity
+python tools/game_loop/local_windows.py build --workspace C:/CodexTemp/TypingHero/parry-pimen-depth/local-unity
+python tools/game_loop/local_windows.py build --workspace C:/CodexTemp/TypingHero/parry-pimen-depth/local-unity --mirror-fixture E:/CodexTemp/TypingHero/metal-clash-preset/PixelSparkMirrorQA.cs
+```
+
+Snapshot keeps GUIDs and normalizes UTF-8 text to LF:2447tracked input files,
+SHA256 `623263f2269939765a37af4690a677a270c929f069b0f8808dcfb3fdb48ac562`.
+Manifest at `C:/CodexTemp/TypingHero/parry-pimen-depth/local-unity/snapshot.json`.
+Final comparison confirms every frozen Assets/Packages/ProjectSettings file still
+matches. New adapter and documentation are outside Unity compilation.
+PixelUIBuild diagnostics now honor TYPINGHERO_RESULTS_PATH, defaulting to /results
+for Linux. Gameplay API and production assets did not change in this final pass.
+
+One ImpactVfxTests invocation:44total,44passed,0failed,0inconclusive,0skipped,
+10.6163225seconds. XML and tests.log under local-unity/results. Includes seeded
+variation/replay/mirror, all22unchanged paths, pool, pause/resume, builder and
+independent MetalClash. Normal build.log and mirror build-left.log both PASS,
+including automatic strict repeated-builder validation; no separate serialize run.
+Builds reused Library/cache sequentially. Same WASM SHA256 for both orientations:
+`dcf2589de2855b7286547640f3f75b136af1d506ba69db5f110307ac72f71d6f`.
+Mirror preprocessing changes scene actor placement/orientation only in the isolated
+snapshot. It is not installed into production source.
+
+All remaining artifact paths below are relative to
+`E:/CodexTemp/TypingHero/parry-pimen-depth`.
+`variation-build-receipt.json`, `variation-snapshot-right.json` and
+`variation-snapshot-left.json` bind players to frozen source and mirror fixture.
+`native-multi.py` now checks those input hashes plus every player file hash instead
+of a fixed historical commit. Players are `variation-player-right/left`.
+Existing native harness reused with actual Space and typed words, QA reads only.
+Warmup occurs before real Escape/R restart; captured fights start at score0.
+
+Final continuous scopes selected before review:
+
+| Orientation | Source | Frames/pairs inspected | Scope |
+|---|---|---|---|
+| Right | multi-right-reset |330/330;329/329|Entire capture, preparation/three parries/counters/all tails/recovered idle|
+| Left | multi-left-reset2 |331/331;330/330|Entire mirrored capture, same sequence|
+
+Each browser.json:24checks PASS,0exceptions,0fixture writes. Parry count1/2/3,
+HP40 preserved. Real typed words right:last/public/had; left:because/on/same.
+Source frames.json retains original timing and held frames. Every PNG and adjacent
+pair directly inspected at320x180logical size and4xnearest contact crop; per-frame
+observations/durations/phase mapping in each `review/frame-review.csv` and scope.json.
+No sampled frames or ordinary playback substituted for this inspection.
+
+Observed: contact glint stays at crossed blades, size/rotation variations remain
+subtle; mirrored fans leave contact correctly. Orange physical tails persist beyond
+480ms core expiry, descend/bounce/fade with no observed floor penetration; fully
+clear before next event. No observed pixel jitter or detached grip. Brief intentional
+blade/flash overlap leaves actor bodies readable. Existing counter-hit star/slash is
+separate from parry. Third typed counter triggers existing Slayer after the third
+parry tail already clears; clips continue to recovered idle silhouettes on red.
+Pool lifecycle is supported by focused tests and observed empty intervals, rather
+than inferred solely from particle visibility. Approved offline preview remains a
+phase/variation reference, not substituted for Unity runtime evidence. No new
+external-game match or reference-research claim.
+
+Exports use every source PNG/PTS, nearest4x upscale, JPEG100/4:4:4 intermediate and
+high-quality all-keyframe VP9, original Opus packets copied without resampling.
+These are not lossless pixel archives; source PNGs are retained. A1ms final held
+copy at capture end preserves last-frame duration. No interpolation or frame drop.
+
+| Clip | Duration | Encoded frames/pairs directly inspected | SHA256 |
+|---|---|---|---|
+| ParryPimen-3-right.webm |10.782s|331/331;330/330|c3e4c20774fbde55a0168078b285ab7da46670c8e78c77de2bfb87e62d422421|
+| ParryPimen-3-left.webm |10.838s|332/332;331/331|e166e6968c4ed287e64eb0b1a6ca48eec09a5129e72cd0cb313665445d36bbda|
+
+`final-multi-media-right/left.json`:all source timestamps preserved, original Opus
+payloads identical, every encoded frame decoded. `final-multi-decoded-right/left`
+contains every decoded frame, contact sheets and per-frame review CSV/scope. Every
+encoded frame/pair directly inspected at logical size; source4xreview provides
+additional pixel/contact evidence. No encoded motion/phase change observed.
+`playback-multi-right/left.json`:Edge native1280x720 playback ended at1x and0.25x,
+unmuted volume1, audio peaks approximately0.49. Right presentation drops3at0.25x,
+40at1x; left18at0.25x,16at1x. These viewer drops are recorded honestly and do not
+replace the complete decoded review. No subjective human listening or performance
+claim. Presentation-only `decoded-multi-*` captures are not full-frame evidence.
+
+Earlier capture attempts are diagnostics, not acceptance:multi-right timed out on a
+transient parryWindow poll; multi-left-cue missed second input; multi-left-reset
+failed menu startup. Harness waits for cueImpactIn, uses real60ms Space, waits for
+menu readiness, restarts before recording and waits for recovered idle at end.
+Successful multi-right-cue/multi-left-cue2 are superseded by final reset captures
+because final scopes include all endings. Right-cue diagnostic review coverage is
+recorded separately; no uninspected diagnostic is counted in acceptance.
+
+Reproduction: native-multi.py,driver-multi/parry_clash.cjs,export-multi.py,
+verify-multi-media.py,prepare-multi-final-review.py,play-multi.cjs retained at artifact
+root, with media receipts and source evidence. No full suite, stress/soak,
+production build or itch.io upload. Windows runtime acceptance now PASS; remote
+integration and cleanup receipt follows after final fetch/ancestry verification.

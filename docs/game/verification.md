@@ -3482,3 +3482,22 @@ all22unchanged trajectories. Runner remains offline: Unity44cases, strict builde
 QA build and three consecutive real-input parries per orientation have NOT executed.
 Zero new variation runtime frames inspected. Prior unvaried results are not evidence
 for this candidate. Main push withheld. [Resume/checkpoint](../plans/parry-pimen-depth.md).
+
+
+### Parry variation local acceptance (2026-10-25)
+
+Supersedes the candidate runtime block above. Existing Windows Unity2022.3.25f1
+(530ae0ba3889), WebGL module and valid local Personal entitlement reused.
+ImpactVfxTests ran once:44/44passed,0skipped. Normal and mirror QA builds both
+passed their strict repeated builder. Frozen Unity inputs remain identical.
+Each orientation:24browser checks,0exceptions,0fixture writes, three consecutive
+Space parries and real typed counters in one fresh fight at1280x720.
+Source visual review:330/330frames+329/329pairs right;331/331+330/330 left,
+at logical size and4xnearest crop. Encoded review:331/331+330/330 right,
+332/332+331/331 left, including1ms final held duplicate. All source timestamps
+and original Opus payloads preserved. Both clips ended at1x/0.25x unmuted with
+nonzero audio output; viewer presentation drops recorded separately from complete
+decode inspection. No subjective human-listening or performance claim.
+Contact/mirror/tails/clear intervals pass;22physical paths,480ms/six80ms cells,
+38-40px core and+/-3degrees unchanged. No broader suite or production build.
+[Final evidence, diagnostics and reproduction](../plans/parry-pimen-depth.md#final-local-verification-2026-10-25).

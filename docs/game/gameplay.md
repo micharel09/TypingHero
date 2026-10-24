@@ -386,7 +386,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
   enabled/color/intensity/hold/duration/decay/range/offset. MetalClash preserves
   24particles,1px,rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
 - Production Player uses the dedicated `ParryImpact.asset` and prefab/physics:
-  one40logical-pixel Pimen core capped2.5world units, fixed48x48 canvas/pivot24,24,
+  one seeded38/39/40logical-pixel Pimen core with +/-3degree rotation,
+  capped2.5world units, fixed48x48 canvas/pivot24,24,
   six visible cells at80ms each and a seventh transparent cell; expiry480ms.
   Frame curve0->6/7 over480ms preserves the full six-cell timing. Core layers are
   only Hit Effect+Color, with white tint/material gain1 and constant alpha; original
@@ -402,6 +403,9 @@ Change only behavior explicitly requested. Update this file after relevant verif
   Detached contact/recipient snapshots, local light, bloom, audio, hitstop and camera
   remain unchanged. Mirror is captured on core0 at emission; pool/pause clocks own
   the complete tail. [Pimen/depth evidence](../plans/parry-pimen-depth.md).
+  Windows Unity2022.3.25f1 verification:44/44focused tests, strict repeated builder
+  in both QA builds, and three consecutive real-input parries per orientation PASS.
+  Complete source/frame/transition and encoded-clip review is recorded in that checkpoint.
   Builder creates only a missing stock prefab and fills null/stock profile defaults;
   repeated runs preserve authored prefab/custom Inspector references. Standalone
   MetalClash remains unchanged. [Earlier evidence](../plans/parry-impact-burst.md).
