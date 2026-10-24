@@ -53,6 +53,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool spaceCueVisible, spaceCueFilled, spaceCueLocked, legacyCueVisible;
         public int cueAttackId;
         public Rect spaceCueRect;
+        public bool spaceCuePressed;
+        public Vector2 spaceCueHeadPoint;
         public string cel, sparkCel;
         public Vector2 contact;
         public Vector3 sparkPoint, cameraPosition, cameraCorrection;
@@ -192,7 +194,11 @@ public sealed class GameLoopProbe : MonoBehaviour
         var cueLeft = presenter ? Read<Image>(presenter, "left") : null;
         var cueLock = presenter ? Read<Image>(presenter, "locked") : null;
         combatFrame.spaceCueVisible = cueKey && cueKey.gameObject.activeInHierarchy;
-        combatFrame.spaceCueFilled = cueLeft && cueLeft.sprite && cueLeft.sprite.name == "tile_0507";
+        combatFrame.spaceCueFilled = cueLeft && cueLeft.sprite && cueLeft.sprite.name.StartsWith("light_");
+        combatFrame.spaceCuePressed = cueLeft && cueLeft.sprite && cueLeft.sprite.name.EndsWith("_pressed");
+        var cueEnemy = presenter ? Read<Transform>(presenter, "enemyTransform") : null;
+        combatFrame.spaceCueHeadPoint = cueEnemy ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main,
+            cueEnemy.TransformPoint(Read<Vector2>(presenter, "headLocal"))) : default;
         combatFrame.spaceCueLocked = cueLock && cueLock.gameObject.activeInHierarchy;
         var legacy = combatEnemy && combatEnemy.AttackCueObject ? combatEnemy.AttackCueObject.GetComponent<Graphic>() : null;
         combatFrame.legacyCueVisible = legacy && legacy.enabled && legacy.gameObject.activeInHierarchy;

@@ -11,7 +11,7 @@ public sealed class ParryCueTests
     static void Call(object target, string name) => target.GetType().GetMethod(name, Flags).Invoke(target, null);
 
     [Test, Category("Quick")]
-    public void HeadAnchorTracksColliderAndCameraViewportWithoutFollowingWeaponBounds()
+    public void HeadAnchorTracksAuthoredSkullAndCameraViewportWithoutFollowingWeaponOrColliderBounds()
     {
         var canvas = new GameObject("Head cue canvas", typeof(RectTransform), typeof(Canvas));
         canvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
@@ -28,14 +28,14 @@ public sealed class ParryCueTests
         var texture = new Texture2D(20, 4);
         var small = Sprite.Create(texture, new Rect(0, 0, 4, 4), Vector2.one * .5f, 1);
         var wide = Sprite.Create(texture, new Rect(0, 0, 20, 4), Vector2.one * .5f, 1);
-        Set(presenter, "enemyBody", body); Set(presenter, "viewCamera", camera);
+        var landmark = new Vector2(-.1f, 1.235f);
+        Set(presenter, "enemyTransform", actor.transform); Set(presenter, "headLocal", landmark); Set(presenter, "viewCamera", camera);
         void Verify()
         {
             Physics2D.SyncTransforms();
             Call(presenter, "PositionKey");
-            var bounds = body.bounds;
             var expected = CombatViewportCamera.WorldToScreenPoint(camera,
-                new Vector3(bounds.center.x, bounds.max.y, bounds.center.z));
+                actor.transform.TransformPoint(landmark));
             RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)canvas.transform, expected, null, out var head);
             var corners = new Vector3[4]; key.GetWorldCorners(corners);
             var bottom = canvas.transform.InverseTransformPoint((corners[0] + corners[3]) * .5f);
@@ -46,6 +46,8 @@ public sealed class ParryCueTests
         {
             Canvas.ForceUpdateCanvases(); renderer.sprite = small; Verify(); var before = key.position;
             renderer.sprite = wide; Verify(); Assert.That(key.position, Is.EqualTo(before), "weapon width cannot shift cue");
+            body.offset = new Vector2(3, 2); Verify(); Assert.That(key.position, Is.EqualTo(before), "collider offset cannot shift skull cue");
+            actor.transform.localScale = Vector3.one; Verify();
             actor.transform.position += new Vector3(1, .5f, 0); Verify();
             Assert.That(key.position, Is.Not.EqualTo(before), "follows current enemy");
             camera.rect = new Rect(.1f, .2f, .8f, .6f); Verify();
