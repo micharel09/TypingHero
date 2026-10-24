@@ -287,7 +287,7 @@ see verification for profile status. These are current behaviors, not new requir
   slash until the pose ends and CanAttack is true; pause holds it, death/Slayer/exit clears it.
 - Every Classic/Endless strike, including each combo hit, warns at least1s before
   contact at authored speed by extending the existing preparation cel as needed.
-  The32x16logical key sits above the enemy's stable collider head, with a4px gap
+  The32x16logical key sits above the enemy's stable collider head, with an8px gap
   and pixel-snapped projection through the rendered camera/viewport. It first shows
   a white outline and white SPACE text;
   at200ms before contact it fills ivory to signal the press timing. Teal means an

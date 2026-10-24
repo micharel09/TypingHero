@@ -40,7 +40,7 @@ public sealed class ParryCueTests
             var corners = new Vector3[4]; key.GetWorldCorners(corners);
             var bottom = canvas.transform.InverseTransformPoint((corners[0] + corners[3]) * .5f);
             Assert.That(bottom.x, Is.EqualTo(head.x).Within(1.51f), "key centered above enemy within one logical-pixel snap");
-            Assert.That(bottom.y - head.y, Is.EqualTo(12).Within(1.51f), "four logical pixels clear the head");
+            Assert.That(bottom.y - head.y, Is.EqualTo(24).Within(1.51f), "eight logical pixels clear the raised axe blade");
         }
         try
         {

@@ -92,7 +92,7 @@ public sealed class ParryCuePresenter : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
             CombatViewportCamera.WorldToScreenPoint(viewCamera, head), null, out var point);
         point += new Vector2((key.pivot.x - .5f) * key.rect.width,
-            key.pivot.y * key.rect.height + 12); // 4 logical pixels above the head.
+            key.pivot.y * key.rect.height + 24); // 8 logical pixels clear the raised axe blade.
         point = new Vector2(Mathf.Round(point.x / 3) * 3, Mathf.Round(point.y / 3) * 3);
         key.position = parent.TransformPoint(point);
     }
