@@ -158,3 +158,25 @@ camera cadence and gameplay APIs unchanged; no loading cover or warmup credit.
 Retain this worktree for continuation; remove it only after verified integration
 or explicit abandonment. Commit/push this checkpoint separately from any future
 runtime acceptance; merge runtime changes only after every gate passes.
+
+### Runner retry and baseline build (2026-10-24, 07:32 UTC)
+
+The runner queue advanced and the retry acquired the lock. Production attempt
+`/data/typinghero-game-loop/results/20261024T072716-production`, snapshot
+`8c4dd3c1e1612955895015b4933c55b5f7aff7e4107a43c4f8f14ce6697d1a4c`,
+failed during preprocessing: `Protected typing font/material asset changed:
+Assets/Art/UI/Branding/CobblestoneUI64.asset`. No player or timing was produced.
+The Windows checkout has `core.autocrlf=true`; this font had 6014 CRLF line
+endings. This matches the previously documented baseline issue in
+[parry-main-demo](parry-main-demo.md) and [dungeon-3d](dungeon-3d.md).
+
+Restored only this worktree's font file to the exact `git show HEAD:<path>` blob
+(LF). Git reports no font content diff; no guard or font settings were changed.
+Fetched and merged newer main `c86d72f` (scene-aware sprite depth work). The next
+production baseline acquired the lock at
+`/data/typinghero-game-loop/results/20261024T073226-production`, snapshot
+`26aab389f0b29f724718bfdce0d4c12bf2c10082771742161c754b67b6ea1b86`.
+Unity is running; build success and startup measurements are still pending.
+The previous baseline-lock blocker is no longer the current state. No shader
+candidate has been applied. Preserve this result for the next checkpoint and
+inspect its completion before launching another build.
