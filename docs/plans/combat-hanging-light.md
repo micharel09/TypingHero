@@ -1341,3 +1341,25 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   was not bypassed. Ask whether to extend scope to depth authoring or retain the
   verified pre-parry demo. Demo8341 uses034449, not the failed integrated build.
   Keep this worktree/branch until that decision and verified remote integration.
+
+### Automatic depth feature, 2026-10-24 (implementation / verification pending)
+
+- User approved automatic recognition of authored maps, not draft image generation.
+  Missing depth is an allowed per-frame fallback; mapped frames retain self-shadow.
+  Keep the clean-letterbox implementation and merge current main on this worktree.
+- SpriteDepthAuthoring resolves existing source bindings, preserves legacy custom
+  maps and discovers conventional GUID-named maps only when unbound. Conflicts,
+  broken bindings, invalid maps and build atlas packing still fail; absent maps do
+  not. Resolve/validate a library before writing bindings/index; preserve all PNGs.
+- Synchronize through the same menu/Enter Play Mode/builder path. Builder sync is
+  after clip/world authoring, validation callback -500 follows PixelUIBuild -1000.
+  Runtime schema/shader/combat stay unchanged. Stable GUID/local-ID index ordering,
+  pruning only unreachable metadata and write-on-change prevent repeat drift.
+- Actor inventory follows actor prefab/opponent dependencies and contact libraries,
+  without actor folder-name filters or fixed frame counts. Explicit coverage audit
+  remains strict; CaptureAll still requires complete coverage rather than claiming
+  a partial inventory as full visual acceptance.
+- Pending scoped Editor synchronization tests, existing runtime frame/facing/world
+  tests with stronger missing->mapped property checks, actual builder preservation,
+  production build/QA exclusion and real-input native parry smoke. No full QA,
+  sprite-animation changes, performance profile or video requested.

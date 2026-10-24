@@ -105,6 +105,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             CombatCameraImpactBuild.Apply();
             DungeonSessionBuild.Apply();
             LightingBuildValidation.ApplySelected();
+            SpriteDepthAuthoring.SynchronizeSelectedWorlds();
             AssetDatabase.SaveAssets();
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");

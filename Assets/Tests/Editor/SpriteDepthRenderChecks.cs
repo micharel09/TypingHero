@@ -94,7 +94,7 @@ public static class SpriteDepthRenderChecks
                 "Assets/Art/EndlessSkeletons/sword/Attack1.png"
             };
             var authored = AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>("Assets/Data/Lighting/ActorDepth.asset");
-            if (allFrames) SpriteDepthAuthoring.Validate(authored);
+            if (allFrames) SpriteDepthAuthoring.Validate(authored, true);
             for (int actorIndex = 0; actorIndex < (allFrames ? authored.frames.Length : sources.Length); actorIndex++)
             {
                 string path = allFrames ? AssetDatabase.GetAssetPath(authored.frames[actorIndex].sprite) : sources[actorIndex];

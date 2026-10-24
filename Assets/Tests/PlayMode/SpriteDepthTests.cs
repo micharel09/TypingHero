@@ -97,6 +97,13 @@ public sealed class SpriteDepthTests
             Assert.That(block.GetVector(rect), Is.EqualTo(library.frames[1].uvRect));
             renderer.sprite = missing; binding.Refresh(false); renderer.GetPropertyBlock(block);
             Assert.That(block.GetFloat(ready), Is.Zero);
+            Assert.That(block.GetTexture(Shader.PropertyToID("_DepthMap")), Is.EqualTo(Texture2D.blackTexture));
+            Assert.That(block.GetVector(rect), Is.EqualTo(Vector4.zero));
+            Assert.That(block.GetVector(Shader.PropertyToID("_DepthTexel")), Is.EqualTo(Vector4.zero));
+            renderer.sprite = b; binding.Refresh(false); renderer.GetPropertyBlock(block);
+            Assert.That(block.GetFloat(ready), Is.EqualTo(1));
+            Assert.That(block.GetFloat(flash), Is.EqualTo(.75f));
+            Assert.That(block.GetFloat(tint), Is.EqualTo(.3f));
             for (int i=0;i<32;i++) { renderer.sprite = i%2==0?a:b; binding.Refresh(false); }
             long before = GC.GetAllocatedBytesForCurrentThread();
             for (int i=0;i<256;i++) { renderer.sprite = i%2==0?a:b; renderer.flipX = i%2==0; binding.Refresh(false); }

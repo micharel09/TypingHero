@@ -9,7 +9,8 @@ using UnityEngine;
 // Only worlds reachable from enabled scenes participate. Unused templates are free to be incomplete.
 public sealed class LightingBuildValidation : IPreprocessBuildWithReport
 {
-    public int callbackOrder => -2000;
+    // PixelUIBuild (-1000) updates clips and synchronizes depth metadata first.
+    public int callbackOrder => -500;
     internal static WorldDefinition[] SelectedWorlds()
     {
         var paths = EditorBuildSettings.scenes.Where(x => x.enabled).Select(x => x.path).ToArray();

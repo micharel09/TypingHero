@@ -306,7 +306,9 @@ Camera impact authoring, render acknowledgment and profile reload rules: [camera
 baseline, with the rear rune/light and both blue haze overlays disabled. Acceptance
 for this integration is the approved demo plus scoped integration checks; it does
 not claim a new complete animation review. The builder collects current gameplay
-references and rejects missing/stale metadata or maps, without a fixed cel count.
+references without a fixed cel count. Missing maps are allowed: that sprite keeps
+normal lighting and combat tint/flash, with self-shadow disabled for that frame.
+Invalid authored maps/bindings still reject a build.
 This approximates occlusion on a planar sprite; it does not add character geometry
 or replace the existing silhouette shadow caster. Leave `spriteDepth` unassigned
 for a world that should use the previous rendering path.
@@ -316,13 +318,29 @@ local -Z (0 back,1 front), A is valid opaque coverage. Use linear Default textur
 Point, no mipmaps, no compression. Paint anatomical/weapon overlap per pose; do
 not convert albedo brightness into depth. Keep source albedo, pivot, PPU and GUIDs.
 Bind it as `_DepthMap`, or put the authored map at
-`Assets/Art/Lighting/Depths/<source-texture-guid>.png`. Select the depth library and
-use **CLACKBLADE / Lighting / Rebuild Selected Depth Library Metadata** to bind
-existing maps and serialize frame UV rect/texture dimensions/PPU. This command
-never generates or overwrites painted PNGs. Routine builds validate selected
-world libraries and do not regenerate maps; incomplete unselected libraries do
-not opt into validation. Packed/rotated runtime atlases are not supported by this
-original-UV metadata path.
+`Assets/Art/Lighting/Depths/<source-texture-guid>.png`. `_DepthMap` on the source
+texture is authoritative; the library is a derived runtime index, not a table to
+edit by hand. One sheet/map pair serves every referenced frame using its own UVs.
+Existing custom bindings win over conventional paths. Legacy metadata-only custom
+maps are rebound without replacing the art; a conflicting or broken binding/map
+must be resolved explicitly, not silently replaced.
+
+**CLACKBLADE / Lighting / Sync Gameplay Depth**, Enter Play Mode and the end of the
+gameplay builder run the same synchronization. New map files are picked up at the
+next synchronization, not hot-loaded in an already running player. Synchronization
+binds available maps, updates stale UV/size/PPU and removes unreachable index rows;
+it preserves PNGs, GUIDs, other secondary textures and sprite imports. Stable
+GUID/local-ID order and write-on-change keep repeated runs unchanged. The old
+selected-library command uses the same operation. No PNG is generated/rewritten.
+
+The Console summary lists mapped/missing sprites. **Audit Complete Gameplay Depth**
+is the explicit art-coverage gate: missing maps fail that audit, not normal builds.
+Build validation runs after builder synchronization and still rejects invalid map
+dimensions/imports, broken/conflicting bindings and build atlas packing. Unselected
+world libraries are not scanned. Packed/rotated runtime atlases are not supported
+by this original-UV metadata path. To disable depth for an entire world, clear its
+library reference. To update a custom map, keep its asset GUID; resolve any deliberate
+map replacement in the binding and library together before synchronization.
 
 The actor material saves `_SelfShadowStrength` = 0.65, `_DepthScale` = 0.15
 local units and `_SelfShadowBias` = 0.01 local units. Authors may tune each
