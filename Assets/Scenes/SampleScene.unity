@@ -1378,6 +1378,7 @@ GameObject:
   - component: {fileID: 175680816}
   - component: {fileID: 175680818}
   - component: {fileID: 175680817}
+  - component: {fileID: 175680819}
   m_Layer: 0
   m_Name: EnemyReadabilityR7
   m_TagString: Untagged
@@ -3338,6 +3339,7 @@ GameObject:
   - component: {fileID: 364860781}
   - component: {fileID: 364860783}
   - component: {fileID: 364860782}
+  - component: {fileID: 364860784}
   m_Layer: 0
   m_Name: ClockReadabilityR7
   m_TagString: Untagged
@@ -4605,6 +4607,7 @@ GameObject:
   - component: {fileID: 494717920}
   - component: {fileID: 494717922}
   - component: {fileID: 494717921}
+  - component: {fileID: 494717923}
   m_Layer: 0
   m_Name: PlayerHpR7
   m_TagString: Untagged
@@ -5201,7 +5204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7453570297080720561, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
       propertyPath: m_Sprite
-      value: 
+      value:
       objectReference: {fileID: 21300000, guid: 7713cbdf395a87027ae052d1a2a042f3, type: 3}
     - target: {fileID: 7453570297080720561, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
       propertyPath: m_Color.b
@@ -5244,6 +5247,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8990716869390612540, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 530958668}
+    - targetCorrespondingSourceObject: {fileID: 8990716869390612540, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 530958670}
   m_SourcePrefab: {fileID: 100100000, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
 --- !u!224 &530958666 stripped
 RectTransform:
@@ -5577,6 +5583,7 @@ GameObject:
   - component: {fileID: 545915263}
   - component: {fileID: 545915265}
   - component: {fileID: 545915264}
+  - component: {fileID: 545915266}
   m_Layer: 0
   m_Name: ClockR7
   m_TagString: Untagged
@@ -5815,8 +5822,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 281115d19356a5847b95c1213bd69a7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   toggleKey: 27
   restartKey: 114
   menuKey: 109
@@ -5852,6 +5859,20 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   uiRoot: {fileID: 0}
+  resultHiddenHud:
+  - {fileID: 1720977402}
+  - {fileID: 530958670}
+  - {fileID: 2120870008}
+  - {fileID: 1082511723}
+  - {fileID: 175680819}
+  - {fileID: 364860784}
+  - {fileID: 494717923}
+  - {fileID: 1393682044}
+  - {fileID: 1803777301}
+  - {fileID: 930965412}
+  - {fileID: 545915266}
+  - {fileID: 1725653522}
+  - {fileID: 1740704527}
   pauseCanvas: {fileID: 863378714}
   pauseLabel: {fileID: 1402363787}
   restartHintLabel: {fileID: 0}
@@ -8751,6 +8772,7 @@ GameObject:
   - component: {fileID: 930965409}
   - component: {fileID: 930965411}
   - component: {fileID: 930965410}
+  - component: {fileID: 930965412}
   m_Layer: 0
   m_Name: ParryKeyR7
   m_TagString: Untagged
@@ -11783,6 +11805,7 @@ GameObject:
   - component: {fileID: 1082511720}
   - component: {fileID: 1082511722}
   - component: {fileID: 1082511721}
+  - component: {fileID: 1082511723}
   m_Layer: 0
   m_Name: PlayerReadabilityR7
   m_TagString: Untagged
@@ -15041,6 +15064,7 @@ GameObject:
   - component: {fileID: 1393682041}
   - component: {fileID: 1393682043}
   - component: {fileID: 1393682042}
+  - component: {fileID: 1393682044}
   m_Layer: 0
   m_Name: EnemyHpR7
   m_TagString: Untagged
@@ -19774,7 +19798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7453570297080720561, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
       propertyPath: m_Sprite
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 7453570297080720561, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
       propertyPath: m_Color.b
@@ -19817,7 +19841,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1875839818844925440, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 251735559}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8990716869390612540, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1720977402}
   m_SourcePrefab: {fileID: 100100000, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
 --- !u!224 &1720977399 stripped
 RectTransform:
@@ -19829,12 +19856,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7453570297080720561, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
   m_PrefabInstance: {fileID: 1720977398}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1720977401}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1725653516
 GameObject:
   m_ObjectHideFlags: 0
@@ -19848,6 +19875,7 @@ GameObject:
   - component: {fileID: 1725653518}
   - component: {fileID: 1725653521}
   - component: {fileID: 1725653520}
+  - component: {fileID: 1725653522}
   m_Layer: 0
   m_Name: PauseIconR7
   m_TagString: Untagged
@@ -21143,6 +21171,7 @@ GameObject:
   - component: {fileID: 1803777298}
   - component: {fileID: 1803777300}
   - component: {fileID: 1803777299}
+  - component: {fileID: 1803777301}
   m_Layer: 0
   m_Name: ParryR7
   m_TagString: Untagged
@@ -25770,6 +25799,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2120870006}
   - component: {fileID: 2120870007}
+  - component: {fileID: 2120870008}
   m_Layer: 0
   m_Name: FloatingScores
   m_TagString: Untagged
@@ -29296,6 +29326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1740704525}
   - component: {fileID: 1740704526}
+  - component: {fileID: 1740704527}
   m_Layer: 0
   m_Name: ParryCuePresenter
   m_TagString: Untagged
@@ -31273,3 +31304,164 @@ MonoBehaviour:
   accuracy: {fileID: 520756662}
   parries: {fileID: 546363993}
   best: {fileID: 1779815742}
+--- !u!225 &175680819
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175680815}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &364860784
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364860780}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &494717923
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494717919}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &530958670
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530958667}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &545915266
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545915262}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &930965412
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930965408}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &1082511723
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082511719}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &1393682044
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393682040}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!1 &1720977401 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8990716869390612540, guid: aae10732a90b255d59e02c3c2cec74ee, type: 3}
+  m_PrefabInstance: {fileID: 1720977398}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1720977402
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720977401}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &1725653522
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725653516}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &1740704527
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740704524}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &1803777301
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803777297}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &2120870008
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120870005}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

@@ -26,6 +26,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     [Header("UI (Pause Canvas)")]
     [SerializeField] RectTransform uiRoot;
+    [SerializeField] CanvasGroup[] resultHiddenHud;
     [SerializeField] Canvas pauseCanvas;
     [SerializeField] TextMeshProUGUI pauseLabel;
     [SerializeField] TextMeshProUGUI restartHintLabel;
@@ -278,6 +279,7 @@ public sealed class GamePauseController : MonoBehaviour
     // ===== OVERLAY HELPERS =====
     void ShowOverlay_PauseLabel(string text, Color color, bool showRestart)
     {
+        if (_overlayLocked) HideResultHud();
         if (resumeButton) resumeButton.gameObject.SetActive(!_overlayLocked);
         if (uiRoot) uiRoot.gameObject.SetActive(false);
         SetPauseCanvasVisible(true);
@@ -292,6 +294,7 @@ public sealed class GamePauseController : MonoBehaviour
 
     void ShowOverlay_ThanksLabel(bool showRestart)
     {
+        HideResultHud();
         if (resumeButton) resumeButton.gameObject.SetActive(false);
         if (uiRoot) uiRoot.gameObject.SetActive(false);
         SetPauseCanvasVisible(true);
@@ -302,6 +305,19 @@ public sealed class GamePauseController : MonoBehaviour
         if (menuHintLabel) menuHintLabel.enabled    = true; // NEW
 
         SnapshotCam(); Freeze(true); ZoomIn();
+    }
+
+    // Results are terminal: retain the hidden HUD through modals and camera exit.
+    // Restart/Menu unload this scene; manual Pause never changes these groups.
+    void HideResultHud()
+    {
+        if (resultHiddenHud == null) return;
+        foreach (var group in resultHiddenHud)
+        {
+            if (!group) continue;
+            group.alpha = 0;
+            group.interactable = group.blocksRaycasts = false;
+        }
     }
 
     // ===== RESTART =====

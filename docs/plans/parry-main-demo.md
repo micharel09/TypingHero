@@ -1,3 +1,43 @@
+# Latest-main demo correction ? 2026-10-24
+
+Reopening8148 incorrectly served the old kaluga inputa867b145, despite the source
+parry integration being on main. Replaced it with a fresh production build from
+main9c48f5d plus the missing lift depth registration. No runtime/core, scene,
+shader, material, parry timing or albedo change. Older sections below are historical.
+
+Added only128x128 authored depth for male_hero-parry_lift, its linear Point import,
+_DepthMap secondary reference, one ActorDepth library row and an explicit mask
+recipe in tools/lighting/actor_depth_poses.json. Existing maps/library entries are
+preserved; source-alpha coverage matches exactly. Static depth/albedo context for
+combo_3_1 -> lift -> combo_3_0 directly inspected at8x nearest-neighbor: rear scarf,
+head, near forearm and sword remain registered. This is not full rendered animation
+or temporal shadow acceptance. No new art pose or gameplay behavior was introduced.
+
+Initial production040652/inputd893a6b failed on missing lift depth. Retry041028/
+inputcf76d8f failed protected-font byte equality: Windows CRLF checkout vs Unity LF.
+Restored CobblestoneUI64.asset to exact main Git blob; no Git font/content diff,
+validator bypass or builder edit. Final production041305 PASS on Unity2022.3.25f1:
+`023fb6b85706caac4957c02e28cca5171a44008c06f6048c7233c2e49ff91e97`.
+Normal QA=false/JS bridge exclusion PASS; all33 downloaded player SHA256 hashes
+match the immutable result. No broad test/performance/full sprite-motion pass claimed.
+
+Actual Orca player inspected: current lit dungeon/pillar fixtures at main menu,
+Play/name setup, initial tutorial, live Swordsman combat with the white outline
+SPACE cue above the enemy, then unframed manual Pause. Real Enter/mouse/Escape
+inputs used; no gameplay mutation. Service worker controls before Unity loads;
+leaderboard uses local fixtures. No managed exception/abort observed. Two unused
+URP helper shaders report unsupported-GPU logs; the gameplay world renders.
+
+Active replacement: http://127.0.0.1:8151/ (paused; Resume to play).
+Retain E:/CodexTemp/TypingHero/parry-main-latest-9c48f5d: player, fixture host,
+manifest, session and ready metadata while user reviews; stop its verified PID27776
+and remove that exact folder after review. Pagec28a71bc-1bf5-4a57-b498-02435470c68e.
+Verification captures/transfer helper and the three owned server result folders
+removed after recording observations. Build worktree/branch removed after verified
+main integration; original kaluga checkout/WIP and historical user assets preserved.
+
+---
+
 # Latest main + original parry playable demo ? 2026-10-22
 
 User requested fetching the latest primary branch and reopening the demo.
