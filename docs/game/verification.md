@@ -1,3 +1,13 @@
+## Pillar visibility correction (2026-10-24)
+
+Production030724/input8cfaf3ac PASS;2384source manifest hashes and33downloaded
+player hashes match. Rebound fixtures from hidden legacy FrontPillar nodes to
+actual PixelRoom/FrontPier meshes, outside their front faces. Native1280x720
+production gameplay image directly inspected: both new flames and lit stone
+faces visible, central actors/UI readable. Demo8333 retained paused. One targeted
+visibility still only; QA suites/performance remain waived, no video.
+[Checkpoint](../plans/combat-hanging-light.md).
+
 ## Pillar torches (2026-10-24; QA waived)
 
 Two authored inner-face fixtures added at FrontPillar_-1/1 with independent

@@ -1263,3 +1263,34 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   the previous immutable build. New scene/profile data ships on the next build;
   current live demo does not contain the pillar torches. Remote/cleanup receipt
   stays in the external artifact root.
+
+
+### Pillar visibility correction, 2026-10-24 (production image verified)
+
+- User's actual gameplay screenshot showed no new torches in production025704,
+  despite the two fixtures existing in serialized build data. Previous completion
+  claim was too broad: data presence is not visibility acceptance.
+- Root cause from source: fixtures were attached to hidden legacy KayKit
+  FrontPillar_-1/1, while the visible room uses PixelRoom/FrontPier-1/FrontPier1
+  at different positions. Old lights were placed outside/behind visible piers.
+- Reparent holder/light pairs to actual pixel-pier transforms (unit scales,
+  yaw-18/+18). Holder local x points .25units inward,y=-.25,z=-.82, outside the
+  front face (.7half-depth). Lights y=.08,z=-1.08. Counter-rotate flame cards by
+  pier yaw, preserve style/phase/offset and12pixel projected height.
+- User waived QA suites; run only the production build and one directly inspected
+  gameplay image with real menu input. No full tests/performance/recording.
+- Retain rejected build/demo8332, user screenshot reported-pillar-invisible.png,
+  new visibility-build/visibility-demo artifacts under existing external root.
+  Do not integrate or report visible torches until the actual gameplay image passes.
+
+- Production030724/input8cfaf3ac: build PASS, QA excluded; all2384source files
+  matched the snapshot manifest and all33downloaded player files match remote.
+  Actual serialized scene binds both holder/light pairs to the visible FrontPier
+  transforms. Copied only Unity-rounded flame scales back to local scene data.
+- Native Edge1280x720 demo8333 entered gameplay using real menu/name/tutorial
+  inputs. Directly inspected visibility-demo/pillar-gameplay.png: both flames
+  visible on the left/right pier front faces, warm light reveals stone tiles and
+  nearby floor, center actors/UI remain readable. Held in Pause for user review.
+  This is one still-image visibility check, not animation/lifecycle/performance QA.
+- Keep the rejected025704build/demo8332 and the user's image as failure evidence.
+  Integration commit, endpoint/PID and cleanup are in the external receipt.
