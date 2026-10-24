@@ -1,4 +1,32 @@
-## Slayer hit slash replacement (2026-10-24)
+## Slayer B integration (2026-10-25)
+
+Existing local Unity2022.3.25f1/WebGL module; independent snapshot/Library at
+E:/CodexTemp/TypingHero/slayer-b-integration/unity-source. fly-server was offline;
+no toolchain/package installation or changes to other running Unity projects.
+serialize-retry.log: strict two-pass builder PASS. tests.xml:52/52PlayMode PASS,
+0failed/skipped,6.210376s (20Slayer cases plus32directly affected regressions).
+Covers original B white pixels/hash/native64x64 slices/Point/pivot/32–40px scale,
+source80/100/100/100/100/100ms schedule, all56nonrepeat choices, all8angles and
+21prefab progression tints, fixed contact/tint/rotation, role routing, pooling/reuse,
+pause/reading/result/unload and lethal pre-damage capture.
+
+QA WebGL build/strict repeat PASS;33player hashes saved, version9b813909fdd2dab1.
+All C# inputs match the accepted worktree after LF normalization; package locks/
+manifest/Unity version unchanged. Native Edge156.0.4314.42/Intel UHD/D3D11 at
+1280x720:3153checks PASS,0exceptions/provider requests/writes; all8angles observed,
+179stable lease samples and maximum8active Slayer effects. Real keyboard/mouse
+covers overlap, live pause/resume, natural exit, restart, lethal hit and clean result.
+All20emitted progression colors match the scene's authored white→gold→red ramp;
+the scene overrides the prefab's cyan key. Both21-color static matrices inspected:
+4032/4032cels,3360/3360within-effect pairs. Scene matrix alone2016/1680.
+198/198selected encoded runtime frames and194/194pairs reviewed at original PTS,
+including held frames; expanded crop encloses all observed B bounds. Browser video
+clock check at1×/0.25× differs by<15ms over2.2/8.8seconds; presented callbacks may
+coalesce held frames and are not the per-frame inspection evidence. No runtime,
+source or asset changes after these passing checks; no broad suite/performance/
+production release/itch claim. [Receipt and retained evidence](../plans/slayer-slash-vfx.md).
+
+## Previous Slayer hit slash replacement (2026-10-24)
 
 Unity2022.3.25f1/fly-server20261024T113433-webgl, input
 `dc32bba70c576eaf074b00dc3e38f6ba9e675fe7ddf5f4f45c610270ee5d24f1`:

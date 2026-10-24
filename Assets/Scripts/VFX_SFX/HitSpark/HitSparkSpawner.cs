@@ -31,6 +31,10 @@ public class HitSparkSpawner : MonoBehaviour
     float nextAt;
     int slayerIndex;
     int voxelSequence;
+    int lastSlayerDirection = -1;
+
+    internal static int SelectSlayerDirection(int previous, int choice)
+        => previous >= 0 && choice >= previous ? choice + 1 : choice;
 
     void Awake()
     {
@@ -109,10 +113,10 @@ public class HitSparkSpawner : MonoBehaviour
         if (go.TryGetComponent<SlayerHitVfx>(out var slash))
         {
             t.SetParent(poolRoot, true);
-            float direction = directionOverride ?? (attacker ? (targetRoot ? targetRoot.position.x : point.x) - attacker.position.x : 1);
-            if (direction == 0) direction = attacker ? attacker.lossyScale.x : 1;
+            lastSlayerDirection = SelectSlayerDirection(lastSlayerDirection,
+                Random.Range(0, lastSlayerDirection < 0 ? 8 : 7));
             var tint = impactTint ?? Color.white;
-            slash.Emit(point, direction, tint.a > 0 ? tint : Color.white);
+            slash.Emit(point, lastSlayerDirection * 45f, tint.a > 0 ? tint : Color.white);
             return;
         }
         if (go.TryGetComponent<NormalHitSpark>(out var normal))
@@ -178,6 +182,7 @@ public class HitSparkSpawner : MonoBehaviour
             if (go) go.GetComponent<PooledVFX>().Release();
         }
         nextAt = 0;
+        lastSlayerDirection = -1;
     }
     void OnDestroy()
     {

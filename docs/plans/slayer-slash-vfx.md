@@ -1,5 +1,116 @@
 # Slayer slash impact replacement
 
+## Met.Pxl B integration — 2026-10-25
+
+This follow-up supersedes the tbbk artwork/timing/mirror contract below only for
+SlayerHit and SlayerFinisher. User approved reusing existing B preview pixels,
+Slayer-only routing, captured progression tint, and the full 580ms source timing.
+No purchase, normal/parry replacement, gameplay/API change or itch publication.
+
+Source: approved [A/B preview](../../design/slash-hit-ab-preview/README.md), full
+B GIF0–580ms/6frames; original hash9a6e0a01cefb1b10a7db3b6c250259a1a1b3f414861f136654395674ab5cb139.
+White crop640,640–896,896 contains only black/white and exactly uniform4x blocks
+in all6frames. `extract_white.py` reduces to64x64 without pixel loss, turns black
+into alpha0, and stores white RGB plus binary alpha in384x64 source-order strip.
+PNG SHA25662ad20c15fb52b44b4b49f6aa0bb5e583c1ddc5209964530724edc43350f7356.
+Original tbbk PNG/license and prefab GUIDs retained; new source notice/credits added.
+
+Runtime contract: F4/80ms→F5/F0/F1/F2/F3 at100ms each, once, then pool release.
+Fixed center32,32 at16PPU, Point/no-mips/uncompressed; unrotated visible widths32/40px.
+Each confirmed hit chooses an absolute clockwise0/45/90/135/180/225/270/315degree
+direction without mirroring. History belongs to the HitSparkSpawner owner and is
+shared between hit/finisher; seven equally likely alternatives, eight for first hit.
+Rotation/tint/contact remain fixed; owner disable resets history. Existing shared
+eight-impact oldest-first reclaim, pause/reading/hitstop and cleanup remain.
+
+Checklist: extraction/source equality; six cel durations; all56 nonrepeat choices;
+both role sizes; all21 combo colors0–20 from authored gradient; pool reuse/overlap;
+real contact/finisher/tint capture; pause/resume/exit/result/restart; builder stability;
+native WebGL1280x720; remote integration and task resource cleanup.
+
+### Static output review
+
+Evidence root: `E:/CodexTemp/TypingHero/slayer-b-integration/`.
+Directly opened static-review/combo-00.png through combo-20.png, every cell at
+nominal native size and2x nearest zoom. Each sheet contains8angle columns and
+12rows: hit F4/F5/F0/F1/F2/F3, then finisher in the same order.
+Inspected2016/2016cels and1680/1680within-effect adjacent pairs (336variants).
+No static clipping/blur; F4short leading seed grows through F5/F0, breaks in F1,
+shrinks in F2 and leaves sparse dots in F3. Every orientation retains its axis
+through those phases. Small final fragments intentionally become very sparse at
+32px nominal size. Static previews approximate raster scaling; they do not prove
+Unity rendering, final release, timing or playback. Final runtime checks are below.
+Per-frame observations: static-review/frame-review.csv; source/variant manifest:
+static-review/manifest.json. Reference GIF research remains separate from this
+output review; no new game/video-reference match is claimed.
+
+### Execution checkpoint
+
+Branch micharel09/slayer-b-integration from origin/main18e03a2; original dirty
+checkout preserved. fly-server SSH timed out, Tailscale peer reported offline.
+Found existing local Unity2022.3.25f1 plus WebGL module; isolated LF snapshot and
+Library under evidence root/unity-source, without touching other Unity jobs.
+Initial compile caught an NUnit collection assertion using a string-only overload;
+corrected to Has.No.Member. No runtime PASS claimed for that initial attempt.
+Snapshot b52a71cfab995666fb2dbf5285968bff050d34ec7ae0dc2646d549960184cb13:
+serialize-retry.log PASS (strict two-pass builder); tests.xml52/52PlayMode PASS,
+0failed/skipped,6.210376s:20SlayerHitVfxTests,18CombatFeedbackTests,
+9NormalStrikeEffectsTests,5affected ParryClashTests. Only generated B texture meta
+and two role prefabs imported; Player.prefab differs only in trailing whitespace,
+Skeleton.prefab is identical. Unrelated scene regeneration was not imported.
+The generated role scale precision is canonical Unity serialization of the same
+float values; whitespace stripped for diff-check. All C# files match tested input
+after LF normalization; manifests/locks/Unity version are unchanged.
+
+### Final native and visual receipt
+
+QA WebGL build.log PASS, including repeated builder during build. Immutable33-file
+player hashes are in player-manifest.json; build version9b813909fdd2dab1.
+Native Edge156.0.4314.42/Intel UHD/ANGLE D3D11/1280x720:3153checks PASS,
+0managed/JS exceptions/provider requests/writes. Real keyboard/mouse covers live
+pause/resume, first Slayer natural exit, Restart, second entry, rapid typing,
+Slayer finisher and result cleanup. All8directions observed,179stable observations
+of immutable rotation/tint/contact, maximum8concurrent Slayer effects.
+
+Scene tint audit found authored SampleScene overrides: white→gold→red with
+21discrete progression states0–20, distinct from the prefab cyan gradient used
+by the parameterized unit fixture. No palette was changed. All20colors actually
+emitted by typed steps1–20 match the scene ramp; state0white covered statically.
+Directly inspected a second complete matrix in scene-static-review/combo-00.png
+through combo-20.png:2016/2016cels,1680/1680pairs. Same observations and no
+clipping/blur; per-frame ledger/manifest beside those sheets. Including the
+retained prefab-color matrix totals4032cels/3360pairs, with evidence kept separate.
+
+Video video/a3b85b4d9b537c9dbe55df710be4ff00.webm:
+SHA2568e8ba98118db578bf6cf1bcc4d7ce18810a3c1dca2685d05d1ad069bd33b55df.
+Decoded original25fps PTS with the existing Playwright FFmpeg; no resampling,
+discarded held frames or inferred frame counts. Selected windows were recorded
+before direct review from input events and screenshot/PTS anchors:
+
+| Segment | Start/end seconds | Inspected frames/pairs | Purpose |
+|---|---|---|---|
+| hit-pause-resume |20.75–23.00|57/56|Preparation, first contact, pause hold, resume and full tail|
+| normal-exit-restart |31.80–33.30|38/37|Natural exit, actual Restart and clean restored encounter|
+| rapid-first-word |44.95–46.55|40/39|Both impacts of first word “on” through release, with neighboring overlap|
+| red-finisher-result |49.20–51.70|63/62|Last two words, lethal red tail, death and clean result|
+
+Directly opened all19contact sheets:198/198encoded frames,194/194adjacent pairs.
+Initial actor crop was expanded to330,160–950,640 to include all B bounds; no
+time window was narrowed. See runtime-review/manifest.json and frame-review.csv.
+Pause controls naturally obscure part of the sprites; repeated visible state and
+read-only age/cel/tint/angle observations establish the freeze. The thin B strokes
+grow on fixed axes, break into aligned fragments/dots and vanish cleanly. Overlap
+retains separate axes/colors; red persists through mode exit and fades before
+the result. Original broad ivory sword trails are separate, retained artwork.
+Every observed B renderer bound stays inside the1280x720 canvas.
+
+Browser playback-clock check of the full pause/resume window at1×/0.25×:
+2213.4/8785.3ms versus nominal2200/8800ms; runtime-review/playback.json.
+Presented callbacks can coalesce held video frames; they do not replace the
+complete decoded-frame review. No complete-video/full-animation/performance/
+broad-suite/production-release or itch publication claim. Implementation and
+scoped verification complete; remote integration is recorded after push below.
+
 Base origin/main46d4dda. Worktree C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-slash-vfx.
 Original dirty checkout preserved; no itch.io publication.
 
