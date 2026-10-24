@@ -3529,3 +3529,13 @@ decode inspection. No subjective human-listening or performance claim.
 Contact/mirror/tails/clear intervals pass;22physical paths,480ms/six80ms cells,
 38-40px core and+/-3degrees unchanged. No broader suite or production build.
 [Final evidence, diagnostics and reproduction](../plans/parry-pimen-depth.md#final-local-verification-2026-10-25).
+
+
+- New main79f5052 integrated as9556fd3:44/44focused tests and both strict QA builds
+  pass again. Parry source/assets unchanged by12Unity-input Slayer delta, so full
+  reviewed Parry clips above remain valid for their exact recorded inputs. Additional
+  native24checks/orientation verify three consecutive real parries after integration;
+  preparation includes HP40->35 hit, then35preserved across each parry. A failed
+  left input attempt is retained. Only affected ending fully reviewed: right82frames/
+  81pairs, left88/87, logical+4x; supplementary captures are not full-reviewed exports.
+  Exact hashes, review exclusions and remote receipt are in the same checkpoint.

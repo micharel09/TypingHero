@@ -445,3 +445,64 @@ verify-multi-media.py,prepare-multi-final-review.py,play-multi.cjs retained at a
 root, with media receipts and source evidence. No full suite, stress/soak,
 production build or itch.io upload. Windows runtime acceptance now PASS; remote
 integration and cleanup receipt follows after final fetch/ancestry verification.
+
+
+### Integration recheck against newer main
+
+Final fetch found main79f5052 (Slayer B integration753c905 plus its evidence).
+Merged into task as9556fd3. Resolved systems.md by preserving this task's Pimen
+contract and main's approved Slayer B timing/direction paragraphs. No product
+conflict or new art decision. Delta receipt `integrated-input-delta.json` shows
+12Unity input paths changed, all Slayer assets/build binding/probe/shared hit-spawner
+or Slayer tests; no Parry source/profile/prefab/physics/contact or character animation
+changed. One additional path is the Windows adapter, outside Unity compilation.
+The shared HitSparkSpawner delta selects directions only inside its SlayerHitVfx
+branch and resets that state on clear; normal/parry emission paths are unchanged.
+Therefore the complete original Parry source/encoded/frame/audio acceptance above
+is retained. Its source/build manifests still identify those exact recorded players;
+no old clip is relabeled as a recording of the newer integrated player.
+
+Because main changed the adjacent Slayer transition, rebuilt both orientations and
+reran scoped ImpactVfxTests:44/44,0skips,11.4862253seconds. Both builds again pass
+strict repeated builder and exit0. Latest logs/XML at `integrated-unity-results`.
+Reused the same Library; no full suite, serialize-only run or production build.
+Integrated2452file source SHA256:
+`31315cd90e2dbecf0d01ebc3c7f91b5c5d1d1246650915ab5434e3d10f1e9e32`.
+`integrated-source-snapshot.json`, `integrated-build-receipt.json` and
+`integrated-snapshot-right/left.json` bind source/fixture to every new player file.
+Both integrated WASM hashes:
+`709d53e57fcc43ef387bcf461208637a6d2617ceffd953338eb642a0eacc47f2`.
+
+Additional interaction recheck: `multi-right-integrated` and
+`multi-left-integrated2`, each24checks PASS,0exceptions,0fixture writes, actual
+Space and real typed counters, three consecutive accepted parries in one fight.
+Right words hold/light/close; left of/answer/work. Each capture includes an incoming
+hit during preparation before the accepted three-parry sequence (HP40->35), then
+HP35 remains unchanged through all three. Do not mistake these for full-HP captures
+or hide that preparation hit. Right source shows a407ms capture interval at that
+first incoming contact; no performance or root-cause claim. First integrated-left
+attempt failed real-input HP assertion and is retained as diagnostic; retry moved
+external harness input earlier from80-160ms to160-240ms before impact. No gameplay
+input, random sequence or timing changed. Browser assertion checks per-parry HP,
+not full-fight HP. Canonical full-HP clips above remain separate.
+
+Visual recheck is limited to the affected ending, as required by repo testing scope:
+right F656-737 (82/82frames,81/81pairs); left F640-727 (88/88,87/87). Entire selected
+segments inspected at logical size and4xnearest, including remaining third tail,
+normal typed-counter arc, entry into Slayer and complete recovery to idle. Selection
+retains preparation and all transitions of this ending; no frames sampled or hidden.
+Orange tails thin/clear before Slayer transition; grip/feet remain attached and
+coherent; no ParryImpact residue in final red idle. Source and scope/one-row-per-frame
+CSV retained in each review folder. Remaining integrated capture frames are NOT
+claimed fully visually reviewed: right0-63normal-only diagnostic plus64-655unreviewed;
+left0-639unreviewed. Those recordings are supplementary interaction/ending evidence,
+not replacement full-reviewed deliverable clips. No new Slayer hit/finisher sprite
+was authored by this task; main's full B acceptance remains in its own checkpoint.
+
+Reproduction uses `prepare-integrated-builds.py`, `native-integrated.py` (right),
+`native-integrated2.py` (left), same builder/harness and hash checks. Full-reviewed
+ParryPimen-3-right/left.webm deliverables and their exact players/manifests remain
+unchanged. Remote integration SHA/ancestry and cleanup are recorded after push in
+`integration-receipt.json` at the artifact root. Keep Unity installation, final clips,
+PNG evidence, manifests and logs; remove only this task's clean worktree/local branch
+and isolated Unity source/Library/build-cache copies after verified remote integration.
