@@ -33,6 +33,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(PixelSparkAssets.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(ParryClashAssets.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(CombatVoxelAssets.Root, "*", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles(SlayerHitVfxAssets.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Art/VFX/SlashVolume", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(WorldLightingBuild.Root, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(DungeonArenaBuild.Art, "*", SearchOption.AllDirectories))

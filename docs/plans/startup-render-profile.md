@@ -1,5 +1,135 @@
 # WebGL startup render diagnosis — 2026-10-24
 
+## Production delivery result — accepted (2026-10-24)
+
+Retain production Brotli/native decompression: fresh navigation to complete,
+interactive menu at20Mbps/50ms is **14282.60 -> 10377.70ms (-27.34%)**. Localhost
+improves only **4614.50 -> 4411.80ms (-4.39%)**. This is principally a delivery
+improvement; it does not establish a faster rendering pipeline or general FPS
+gain. The earlier approximately5.7s local observation used a different host/GPU
+session and background-only boundary; do not treat it as this comparison's A.
+
+### Inputs and packaging contract
+
+Freshly fetched source: `46d4dda1aac491210ae5408fb40f77d1a2d4f5a1`.
+Unity2022.3.25f1/fly-server exclusive runner, production `BuildOptions.None`:
+
+| Player | Result ID | Complete input SHA256 |
+| --- | --- | --- |
+| A, original production + temporary diagnostics | 20261024T104607-production | `ddf53bc6d690e3b519fbe5b73d27d9836bd2c2d184b471e768311a3ddc762fc5` |
+| B, Brotli + identical diagnostics | 20261024T105711-production | `91621d514c3fbb62d38daa14c670adfc39e55c1f90238db891d8ea5900d2770a` |
+| Clean production, diagnostics removed | 20261024T110109-production | `87b8f073c025a34cc1bac7580dee6cd397db4493eb20df6419974cc027f0f665` |
+
+- `GameLoopBuild.WebGL` uses Brotli and disables decompression fallback only for
+  production. QA remains uncompressed; both previous editor settings are restored
+  in `finally`. Gameplay APIs, all runtime source and asset inputs are unchanged.
+- Release artifacts now include `.wasm.br`, `.data.br`, `.framework.js.br`.
+  Hosting must return `Content-Encoding: br`, underlying MIME types (especially
+  `application/wasm`) and HTTPS. A plain file server without these headers is not
+  a compatible production preview. QA browser tooling still consumes plain files.
+- A serving configuration already gzip-compressing JS/WASM is the baseline,
+  following [itch's compression contract](https://itch.io/docs/creators/html5#compression).
+  `.data` remains uncompressed in A. Tested B headers and streaming behavior match
+  [Unity2022.3 deployment guidance](https://docs.unity3d.com/2022.3/Documentation/Manual/webgl-deploying.html).
+- Decoded A/B WASM and framework JS are byte-identical. `.data` has eight entries:
+  the header and seven non-`boot.config` entries are byte-identical; only the
+  per-build GUID differs in `boot.config`. No reduced textures/lights/shadows,
+  reflections, quality, scene contents or deferred gameplay assets fund the gain.
+- Production bridge scanning now decodes `.js.br` in the existing Playwright
+  image using Node's built-in Brotli decoder. Four raw/Brotli clean/contaminated
+  fixtures pass. Actual clean production scan and decoded JS/WASM/data scans for
+  ASCII/UTF16 QA/startup-probe markers pass. QA branch preservation is source
+  verified; no additional broad QA player/suite was run for production packaging.
+
+### Timing protocol and results
+
+Windows native headless Edge156.0.4314.42,1280x720, fixed `--use-angle=d3d11`.
+Separate later flow queries report NVIDIA GTX1650Ti/D3D11; adapter identity was
+not queried per timing navigation. No driver/OS cache purge. The initial network
+A frame cadence was slower; all samples remain included and ABBA was added.
+No general frame-rate improvement is inferred from that variation.
+
+Both HTTPS localhost and CDP20Mbps download/upload,50ms latency use `ABABAB`
+then `ABBA`: **five new browser/profile launches and five same-context reloads
+per build per condition**,40 navigations. HTTP routing disables the HTTP cache;
+reload retains browser/shader/Unity caches rather than establishing HTTP-cache
+savings. Service workers are blocked consistently. Firebase fixtures and external
+blocking remain enabled; zero provider writes/page errors/console errors.
+No screenshots or canvas readbacks occur during these timing runs.
+
+The temporary signal combines menu input enabled/selection ready with the first
+complete URP presentation submission, then waits for a strictly newer rAF.
+It is a presentation proxy, not isolated GPU execution time. Separate visual-only
+capture at that boundary shows the complete room, title and all four menu actions.
+
+| Metric, medians unless stated | A | B | Change |
+| --- | ---: | ---: | ---: |
+| Network fresh navigation -> menu, ms | 14282.60 | 10377.70 | -27.34% |
+| Network reload navigation -> menu, ms | 13375.50 | 9475.10 | -29.16% |
+| Local fresh navigation -> menu, ms | 4614.50 | 4411.80 | -4.39% |
+| Local reload navigation -> menu, ms | 3201.80 | 3013.80 | -5.87% |
+| Local fresh longest blocking task, ms | 987 | 984 | -0.30% |
+| Local reload longest blocking task, ms | 418 | 273 | -34.69% |
+| Network fresh longest blocking task, ms | 998 | 1001 | +0.30% |
+| Network reload longest blocking task, ms | 459 | 473 | +3.05% |
+| Local fresh pooled menu frame p95, ms | 21.00 | 20.10 | -4.29% |
+| Local reload pooled menu frame p95, ms | 20.40 | 19.90 | -2.45% |
+| Encoded resource bytes per navigation | 24744473 | 14867108 | -39.92% |
+
+Network `.data` response-end median is10524.60 ->6574.30ms; WASM response-end
+7944.70 ->5705.90ms. A uses whole-buffer instantiation; every fresh B run records
+actual `WebAssembly.instantiateStreaming`, with validated br/MIME headers.
+Network runtime-promise ->world-start stays2045.40 ->2038.10ms; local equivalent
+2039.80 ->2040.60ms. Heap growth totals only a few milliseconds per run; memory
+configuration stays unchanged. Download, streaming compilation and initialization
+overlap: phase medians must not be summed, and streaming duration includes transfer.
+
+### Visual, gameplay and final-player acceptance
+
+- First-menu boundary capture and compositor screenshot directly inspected:
+  complete room, lantern/torches, floor/shadows, title and four actions visible.
+  Initial default-backbuffer readback was black on a skipped render tick and
+  discarded; visual-only repeat used `preserveDrawingBuffer` to obtain valid
+  readback, corroborated by the compositor. This option never enters timing runs
+  or shipping source. Stable normal-context menu captures also pass.
+- A/B real keyboard/mouse Play -> preparation -> battle guide ->10s living normal
+  combat ->Pause ->Main Menu pass. Normal, guide and returned menu captures are
+  retained; paused A/B and returned B menu directly inspected. Gameplay p95:
+  **19.70 ->19.50ms (-1.02%)**. Different random prompt words are expected.
+- A and clean production each reach Slayer through **four successful real Space
+  parries**; red field/black silhouettes and returned clean menu directly inspected.
+  No QA gameplay mutation. Zero exceptions/console errors/provider writes in all
+  four flows. No loading stage or asset deferral was added to Play.
+- A/B world-load, camera/RT init, scene-loaded and world-initialized markers remain
+  exactly once after return; menu-ready occurs twice. World continues to be reused.
+- Clean player has no diagnostic source/probe markers; its complete build-input
+  digest matches the final tracked implementation inputs. Decoded clean WASM and
+  framework also match the previously accepted integrated normal player exactly.
+  The previous fixed-light lantern fixture remains applicable: no rendering input
+  changed and A/B decoded serialized asset payloads are identical.
+
+All gates pass: retain packaging/scan changes, with no claim that blocking work
+or Play latency became substantially faster. Public-page HTTP inspection returned
+403; actual CDN headers/current-release timing remain **unverified**. No itch
+upload, publication or hosting configuration change occurred.
+
+### Evidence, exclusions and resources
+
+Evidence: `E:/CodexTemp/TypingHero/webgl-delivery-startup/` contains source archives,
+`builds.json`, `network.json`, `local.json`, both `*-abba.json`, `analysis.json`,
+`phase-analysis.json`, frozen measurement driver, payload/scanner receipts,
+`first-menu*.png/json`, and `A/B-normal`, `A/clean-slayer` flow captures/receipts.
+Clean local player: `clean/`; immutable remote players are under the result IDs
+above in `/data/typinghero-game-loop/results/<id>/player`.
+
+Initial incomplete diagnostic build103135 failed the existing protected-font
+byte guard after a CRLF checkout; canonical Git LF bytes fixed subsequent input
+without a content change or weakening the guard. It and old-player harness pilots
+are excluded. No other timing samples are discarded. Retain evidence/players for
+review and follow-up measurements; remove task evidence only after superseded.
+No task server/browser/build job needs to remain running. Temporary TLS material
+is test-only; regenerate a self-signed certificate to rerun the HTTPS harness.
+
 ## Lantern optimization result — accepted
 
 The shared lantern candidate meets the measured startup gate on the frozen

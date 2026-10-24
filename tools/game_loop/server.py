@@ -226,9 +226,23 @@ def main():
         marker = json.loads((build / "game-loop-build.json").read_text())
         if marker["qa"] == production: raise RuntimeError("Build QA flag mismatch")
         if production:
-            for path in build.rglob("*.js"):
-                if "typingHeroQA" in path.read_text(errors="replace"):
-                    raise RuntimeError("QA bridge present in production JavaScript")
+            # Inspect decoded payloads too: release JavaScript may be Brotli compressed.
+            container(["--network", "none", "-v", f"{build}:/build:ro", config["playwright"],
+                       "node", "-e", """
+const fs = require('node:fs'), path = require('node:path'), zlib = require('node:zlib');
+function scan(dir) {
+  for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) { scan(file); continue; }
+    if (!file.endsWith('.js') && !file.endsWith('.js.br')) continue;
+    let data = fs.readFileSync(file);
+    if (file.endsWith('.br')) data = zlib.brotliDecompressSync(data);
+    if (data.includes(Buffer.from('typingHeroQA')))
+      throw new Error('QA bridge present in production JavaScript: ' + file);
+  }
+}
+scan('/build');
+"""], 120)
             print("PASS: normal WebGL build excludes QA bridge", flush=True)
             shutil.copytree(build, result / 'player')
             print(f"Production player preserved: {result / 'player'}", flush=True)

@@ -73,9 +73,12 @@ public static class GameLoopBuild
         var output = Environment.GetEnvironmentVariable("TYPINGHERO_BUILD_PATH");
         if (string.IsNullOrEmpty(output)) throw new InvalidOperationException("Missing build output");
         var compression = PlayerSettings.WebGL.compressionFormat;
+        var decompressionFallback = PlayerSettings.WebGL.decompressionFallback;
         try
         {
-            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
+            PlayerSettings.WebGL.compressionFormat = qa
+                ? WebGLCompressionFormat.Disabled : WebGLCompressionFormat.Brotli;
+            if (!qa) PlayerSettings.WebGL.decompressionFallback = false;
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
                 scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
@@ -96,7 +99,11 @@ public static class GameLoopBuild
             CopyCredits(output);
             Debug.Log("CLACKBLADE WebGL build complete; QA=" + qa);
         }
-        finally { PlayerSettings.WebGL.compressionFormat = compression; }
+        finally
+        {
+            PlayerSettings.WebGL.compressionFormat = compression;
+            PlayerSettings.WebGL.decompressionFallback = decompressionFallback;
+        }
     }
 
     static void CopyCredits(string output)
@@ -122,6 +129,7 @@ public static class GameLoopBuild
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Art/VFX/Pimen/CREDITS.txt"));
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Art/VFX/CodeManu/CREDITS.txt"));
         System.IO.File.Copy("Assets/Art/VFX/CodeManu/LICENSE.txt", output + "/CodeManu-License.txt", true);
+        System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Art/VFX/SlayerHits/SOURCE.txt"));
         foreach (var license in new[] { "HitSpark-License.txt", "BattleEffects-License.txt" })
             System.IO.File.Copy("Assets/Art/VFX/Pimen/" + license, output + "/Pimen-" + license, true);
     }

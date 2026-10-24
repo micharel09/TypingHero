@@ -92,6 +92,8 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
         bool wasSlayer = slayer && slayer.IsActive;
         bool ignoreHitstop = wasSlayer && slayer.IgnoreHitstop;
+        var images = wasSlayer ? transform.root.GetComponentInChildren<SlayerAfterimagePool>() : null;
+        Color impactTint = images ? images.CurrentTint : Color.clear;
 
         // === Reaction rules ===
         if (wasSlayer)
@@ -129,7 +131,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
 
         // === HIT SPARK (tùy chọn) ===
-        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, root);
+        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, root, capturedTint: wasSlayer ? impactTint : (Color?)null);
 
 
 
