@@ -3118,3 +3118,15 @@ scoped tests in3.3917055s,0failed/skipped, with strict repeat builder PASS. Both
 complete merged scenes match generated semantic records; all61result records and
 UI code match the native-reviewed d11258b8 player. Main's cue/lighting evidence is
 preserved separately; UI preview does not certify those newer visuals.
+
+## Clean gameplay letterbox (2026-10-24)
+
+Normal WebGL034449/inputd7f29cd2 passes build and QA exclusion;33downloaded
+player hashes match remote. Native Edge/D3D11 real-input gameplay/Pause/Resume,
+1280x720 ->1920x900 ->960x900 ->1280x720, wide MainMenu return/re-entry pass.
+Directly reviewed images preserve16:9actors/torches/HUD/typing; bar interiors in
+four wide/tall image pairs contain0nonblack pixels,0captured runtime exceptions.
+Old normal030724reproduces stale menu pier/torch strips on wide gameplay entry.
+Final generated world/profile/meta match that baseline; only presentation render
+code/shader changed. Full QA/performance/video waived. Snapshot receipts, pixel
+measurement bounds and retained demo: [lighting checkpoint](../plans/combat-hanging-light.md).

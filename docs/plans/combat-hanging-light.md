@@ -1294,3 +1294,44 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   This is one still-image visibility check, not animation/lifecycle/performance QA.
 - Keep the rejected025704build/demo8332 and the user's image as failure evidence.
   Integration commit, endpoint/PID and cleanup are in the external receipt.
+
+
+### Clean letterbox, 2026-10-24 (production verification passed)
+
+- User showed duplicated torch/pier strips at wide browser edges and selected
+  black bars outside the existing16:9frame, not a wider scene/camera composition.
+- Branch micharel09/clean-letterbox from9d41188. Pinned URP14FinalBlitPass uses
+  Load on non-default viewports, preserving uncovered backbuffer pixels. Source
+  presentation camera clears only its own rect; no full-output bar clear exists.
+- Keep world RT/camera/profiles/point presentation unchanged. Add a backbuffer-only
+  letterbox pass at AfterRendering+2, after FinalBlit(+1) and before overlay UI
+  (+2,enqueued after features). One existing material's new black pass discards
+  interior pixels, paints only outside PresentationRect, handlesUVorigin and
+  restores viewport. Skip when rect is full. RTHandle wraps built-in camera target;
+  no new camera/texture, public API, quality setting or lighting/torch changes.
+- Reuse prior production030724for baseline. First menu navigation using cached
+  coordinates missed Start; not a gameplay check. Corrected1280entry worked;
+  paused1280->1920x900->960x900->1280resize did not reproduce edge residue. Check
+  wide menu-to-game entry as the relevant viewport-shrink transition as well.
+- Baseline wide menu-to-game entry reproduces the reported duplicate strips after
+  waiting for menu readiness and using real Enter inputs. Reviewed image:
+  baseline-entry/wide-entry-reviewed.png. Earlier startup inputs were too early;
+  preparation-dialog captures are not gameplay evidence.
+- First build033055 failed because URP14CameraData.pixelRect is internal; use
+  public cameraData.camera.pixelRect. Production034449/inputd7f29cd2 passes,
+  all2386snapshot inputs verified,33downloaded player hashes match remote and
+  QA bridge/depth-preview types are excluded. Both changed rendering sources
+  exactly match the build snapshot. Generated DungeonWorld/PillarTorch/meta
+  exactly match the prior accepted030724production; builder serialization differs
+  from raw authoring scene IDs, so raw scene byte equality is not claimed.
+- Native Edge/D3D11 production: real Enter/Escape/M input,1280x720 gameplay,
+  Pause,1920x900/960x900/1280x720resize, Resume, wide menu return/re-entry and
+  Pause pass. Directly inspected gameplay, wide/tall/back/resumed/menu/re-entry
+  images: bars contain no duplicate scene, actors/torches/HUD/typing remain visible.
+  Four image pairs of bar interiors have0nonblack pixels, max channel0
+  (135584pixels/side wide;163744top/bottom tall). Exclude the outer4px screenshot
+  rim and4px gameplay boundary margin; raw first measurements included a dark
+  outer screenshot rim, not leaked scene imagery.0captured runtime exceptions.
+  Full QA/performance/video remain waived; this is scoped rendering acceptance.
+- Artifact root E:/CodexTemp/TypingHero/clean-letterbox-20261024; keep original user
+  screenshot, baseline attempts, immutable build/receipts and final demo separately.
