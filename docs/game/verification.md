@@ -3021,3 +3021,18 @@ d1188082e78510a576d2d56a5e03bc27cf92038a6981b304e7b57a903811bc7f:
 shadow visuals retain their separate main receipts. Initial test teardown name
 collision and unsuccessful native pilots are superseded by these final runs.
 [Scope, failed-attempt attribution and retained UI preview](../plans/compact-menus.md).
+
+
+## Result hierarchy revision (2026-10-24)
+
+Unity2022.3.25f1 result023638/inputd11258b8:5/5focused result/Pause/Resume/terminal
+save tests PASS,0failed/skipped,3.0599973s; strict repeated builder and QA WebGL PASS.
+Both scenes semantically match generated records; only the result subtree changed
+(10existing records,51new,all old IDs retained). Native Edge155/Intel UHD/D3D11,
+1280x720:203checks PASS in124.94s,0exceptions or production writes. Natural defeat,
+actual six-opponent victory, four actions, Settings/leaderboard roundtrips,
+Pause/Resume/Restart/Menu verified. Six full screenshots inspected; primary width
+304versus232 and aligned stat rows are readable. Victory3629/6/63.9s/100%/10parries.
+Reference source/video review and failed candidate checks remain in the
+[existing checkpoint](../plans/compact-menus.md). UI preview and retained receipts:
+E:/CodexTemp/TypingHero/result-layout, http://127.0.0.1:8295/review.html.

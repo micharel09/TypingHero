@@ -11,9 +11,15 @@
 
 - Manual Pause shows PAUSE plus Resume/Restart/Settings/Top 1000/Main Menu without
   an enclosing panel face or rim. Game Over/Victory use a centered600x366 card,
-  title30/summary24 and two action rows: Restart/Main Menu, Top1000/Settings.
+  title30, score40, secondary text20 and stat values24. Results group Defeated/Time
+  and Accuracy/Parries in two aligned label/value columns. The short difficulty/
+  outcome line excludes internal attack-state names; NEW BEST replaces the historical
+  best line when a record is set. Restart is wider than Main Menu (304/232); smaller
+  Top1000/Settings controls sit below. MatchResult remains hidden for diagnostics.
   Result audio uses the existing Settings modal; embedded sliders/duplicate key hints
-  are hidden. Resume restores these authored result bounds. Modal freeze rules remain.
+  are hidden. Manual Pause hides/restores the result-only group; Resume restores
+  these authored result bounds. Modal freeze rules remain. Scoped verification is
+  recorded in the compact-menus checkpoint.
 - The single current tutorial is the only how-to screen. Main Menu has Play,
   Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
 - Fresh/restarted encounters begin immediately after DungeonSession initialization,

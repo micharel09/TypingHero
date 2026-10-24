@@ -6,6 +6,9 @@ public sealed class EndlessDuel : MonoBehaviour
 {
     internal static EndlessDuel I { get; private set; }
     internal EndlessRun Run { get; private set; }
+    internal bool NewBest { get; private set; }
+    internal int BestDefeated { get; private set; }
+    internal int BestScore { get; private set; }
     EndlessOverlay overlay;
     GamePauseController pause;
     PlayerHealth player;
@@ -102,6 +105,7 @@ public sealed class EndlessDuel : MonoBehaviour
         if (overlay) overlay.gameObject.SetActive(false);
         int cleared = PlayerPrefs.GetInt(EndlessDifficulties.StorageKey(Run.Difficulty, EndlessRun.BestDefeatedKey), 0);
         int score = PlayerPrefs.GetInt(EndlessDifficulties.StorageKey(Run.Difficulty, EndlessRun.BestScoreKey), 0);
+        NewBest = best; BestDefeated = cleared; BestScore = score;
         string outcome = won ? "BOSS DEFEATED" : "FELL TO " + cause;
         return resultSummary = $"{Run.Difficulty.Label()} · {outcome}\nDEFEATED {Run.Defeated}\n{(best ? "NEW BEST" : "BEST")} {cleared} DEFEATED · {score} POINTS";
     }

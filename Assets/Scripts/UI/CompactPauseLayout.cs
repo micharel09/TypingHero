@@ -38,9 +38,11 @@ public sealed class CompactPauseLayout : MonoBehaviour
             Place(label.rectTransform, 8, 0, 356, 36);
             float size = label.fontSize; restore.Add(() => label.fontSize = size); label.fontSize = 24;
         }
-        foreach (string name in new[] { "AudioPreferences", "KeyHint", "RestartButton/key-r" })
+        foreach (string name in new[] { "AudioPreferences", "KeyHint", "RestartButton/key-r", "ResultContent" })
         {
-            var child = transform.Find(name).gameObject; bool active = child.activeSelf;
+            var node = transform.Find(name);
+            if (!node) continue;
+            var child = node.gameObject; bool active = child.activeSelf;
             restore.Add(() => child.SetActive(active)); child.SetActive(false);
         }
     }
