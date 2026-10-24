@@ -306,24 +306,55 @@ public sealed class ShogunPresentationTests
             var pause = Object.FindObjectOfType<GamePauseController>();
             var layout = Object.FindObjectOfType<CompactPauseLayout>(true);
             var panel = (RectTransform)layout.transform;
-            var result = panel.Find("MatchResult").GetComponent<TMP_Text>();
-            result.text = victory
-                ? "Very Hard ? BOSS DEFEATED\nDEFEATED 6\nNEW BEST 6 DEFEATED ? 999999 POINTS\nSCORE 999999    TIME 999.9s\nACCURACY 100.0%    PARRIES 999"
-                : "Very Hard ? FELL TO DOUBLE STRIKE / Attack2\nDEFEATED 5\nBEST 6 DEFEATED ? 999999 POINTS\nSCORE 999999    TIME 999.9s\nACCURACY 100.0%    PARRIES 999";
+            var view = panel.GetComponent<CombatResultView>();
+            var content = panel.Find("ResultContent");
+            Assert.That(panel.Find("MatchResult").gameObject.activeSelf, Is.False);
+            var session = CombatSession.I;
+            Set(session, "letters", 4); Set(session, "correct", 3); Set(session, "parries", 2);
+            Set(session, "seconds", 12.5f);
+            session.Complete(victory);
+            Assert.That(content.gameObject.activeSelf, Is.True, "Complete binds structured result directly");
+            Assert.That(content.Find("Score").GetComponent<TMP_Text>().text, Is.EqualTo(session.FinalScore.ToString()));
+            Assert.That(content.Find("Accuracy").GetComponent<TMP_Text>().text, Is.EqualTo("75.0%"));
             if (victory) pause.ShowVictory(); else pause.ShowGameOverAfterPlayerDie();
             yield return new WaitForSecondsRealtime(.2f);
-            Canvas.ForceUpdateCanvases(); result.ForceMeshUpdate();
             Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(600, 366)));
             Assert.That(panel.GetComponent<Image>().enabled, Is.True);
             Assert.That(panel.Find("PauseLabel").GetComponent<TMP_Text>().text,
                 Is.EqualTo(victory ? "VICTORY" : "GAME OVER"));
-            Assert.That(result.preferredHeight, Is.LessThanOrEqualTo(result.rectTransform.rect.height));
-            var ink = VisibleGlyphs(result); var bounds = result.rectTransform.rect;
-            Assert.That(ink.min.x, Is.GreaterThanOrEqualTo(bounds.xMin - 1));
-            Assert.That(ink.max.x, Is.LessThanOrEqualTo(bounds.xMax + 1));
-            Assert.That(ink.min.y, Is.GreaterThanOrEqualTo(bounds.yMin - 1));
-            Assert.That(ink.max.y, Is.LessThanOrEqualTo(bounds.yMax + 1));
+            foreach (bool newBest in new[] { false, true })
+            foreach (bool empty in new[] { false, true })
+            {
+                view.Present(new CombatResultData {
+                    Context = victory ? "Very Hard \u00b7 Boss defeated" : "Very Hard \u00b7 Defeated by ELITE / DOUBLE STRIKE",
+                    Score = empty ? 0 : int.MaxValue, Defeated = victory ? 6 : 5,
+                    Seconds = 9999.9f, Letters = empty ? 0 : 100, Correct = 100, Parries = 999,
+                    NewBest = newBest, BestDefeated = 6, BestScore = int.MaxValue
+                });
+                Canvas.ForceUpdateCanvases();
+                Assert.That(content.Find("Accuracy").GetComponent<TMP_Text>().text, Is.EqualTo(empty ? "\u2014" : "100.0%"));
+                Assert.That(content.Find("Best").GetComponent<TMP_Text>().text,
+                    Is.EqualTo(newBest ? "NEW BEST" : "BEST  6 defeated \u00b7 2147483647 pts"));
+                foreach (var text in content.GetComponentsInChildren<TMP_Text>())
+                {
+                    text.ForceMeshUpdate();
+                    Assert.That(text.isTextTruncated, Is.False, text.name);
+                    Assert.That(text.textInfo.characterCount, Is.GreaterThan(0), text.name);
+                    var ink = VisibleGlyphs(text); var bounds = text.rectTransform.rect;
+                    Assert.That(ink.min.x, Is.GreaterThanOrEqualTo(bounds.xMin - 1), text.name);
+                    Assert.That(ink.max.x, Is.LessThanOrEqualTo(bounds.xMax + 1), text.name);
+                    Assert.That(ink.min.y, Is.GreaterThanOrEqualTo(bounds.yMin - 1), text.name);
+                    Assert.That(ink.max.y, Is.LessThanOrEqualTo(bounds.yMax + 1), text.name);
+                }
+            }
+            layout.Apply(true);
+            Assert.That(content.gameObject.activeSelf, Is.False, "Pause hides result statistics");
+            layout.Apply(false);
+            Assert.That(content.gameObject.activeSelf, Is.True, "Result content restored after Pause");
             Assert.That(panel.Find("ResumeButton").gameObject.activeSelf, Is.False);
+            Assert.That(((RectTransform)panel.Find("RestartButton")).rect.width,
+                Is.GreaterThan(((RectTransform)panel.Find("Main MenuButton")).rect.width),
+                "Restart has greater visual weight than the secondary action");
             foreach (string name in new[] { "RestartButton", "Main MenuButton", "Top 1000Button", "SettingsButton" })
             {
                 var button = panel.Find(name).GetComponent<Button>();
