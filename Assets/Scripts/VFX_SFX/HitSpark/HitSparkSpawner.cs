@@ -9,6 +9,7 @@ public class HitSparkSpawner : MonoBehaviour
     [SerializeField] GameObject sparkPrefab;
     [SerializeField] GameObject[] slayerPrefabs;
     [SerializeField] GameObject lethalPrefab;
+    [SerializeField] GameObject slayerLethalPrefab;
     [SerializeField] SfxEvent normalImpact, slayerImpact, lethalImpact;
     [SerializeField] CinemachineImpulseSource lethalImpulse;
     [SerializeField] bool parentUnderAttacker;
@@ -77,16 +78,17 @@ public class HitSparkSpawner : MonoBehaviour
         SpawnPrefab(sparkPrefab, worldPoint, attacker, targetRoot);
     }
 
-    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null)
+    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null, Color? capturedTint = null)
     {
         if (!isActiveAndEnabled || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         GameObject prefab = sparkPrefab;
         // Existing serialized consumers retain their spark until role prefabs are assigned.
-        if (lethal && lethalPrefab) prefab = lethalPrefab;
+        if (wasSlayer && lethal && slayerLethalPrefab) prefab = slayerLethalPrefab;
+        else if (lethal && lethalPrefab) prefab = lethalPrefab;
         else if (!lethal && wasSlayer && slayerPrefabs != null && slayerPrefabs.Length > 0)
             prefab = slayerPrefabs[slayerIndex++ % slayerPrefabs.Length];
         var images = wasSlayer && attacker ? attacker.GetComponentInChildren<SlayerAfterimagePool>() : null;
-        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, images ? images.CurrentTint : Color.clear);
+        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, capturedTint ?? (images ? images.CurrentTint : Color.clear));
         var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
         if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
         // Confirmed contacts own camera impact independently of this visual emitter.
@@ -95,7 +97,7 @@ public class HitSparkSpawner : MonoBehaviour
     void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null)
     {
         if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
-        if (prefab.GetComponent<NormalHitSpark>() || prefab.GetComponent<PixelSparkBurst>() || prefab.GetComponent<VoxelImpactBurst>())
+        if (prefab.GetComponent<SlayerHitVfx>() || prefab.GetComponent<NormalHitSpark>() || prefab.GetComponent<PixelSparkBurst>() || prefab.GetComponent<VoxelImpactBurst>())
         {
             int count = 0; GameObject oldest = null;
             foreach (var item in active)
@@ -104,6 +106,15 @@ public class HitSparkSpawner : MonoBehaviour
         }
         var go = PoolFor(prefab).Get();
         var t = go.transform;
+        if (go.TryGetComponent<SlayerHitVfx>(out var slash))
+        {
+            t.SetParent(poolRoot, true);
+            float direction = directionOverride ?? (attacker ? (targetRoot ? targetRoot.position.x : point.x) - attacker.position.x : 1);
+            if (direction == 0) direction = attacker ? attacker.lossyScale.x : 1;
+            var tint = impactTint ?? Color.white;
+            slash.Emit(point, direction, tint.a > 0 ? tint : Color.white);
+            return;
+        }
         if (go.TryGetComponent<NormalHitSpark>(out var normal))
         {
             t.SetParent(poolRoot, true);

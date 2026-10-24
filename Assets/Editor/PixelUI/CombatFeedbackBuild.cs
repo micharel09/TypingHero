@@ -17,6 +17,7 @@ internal static class CombatFeedbackBuild
         CombatVoxelAssets.Prepare();
         StrikeAccentAssets.Prepare();
         NormalHitSparkAssets.Prepare();
+        SlayerHitVfxAssets.Prepare();
         SlashVolumeAssets.Prepare();
         var normal = ImpactEvent("ev_impact_normal", "medium", .65f);
         var slayer = ImpactEvent("ev_impact_slayer", "medium", .45f);
@@ -117,10 +118,11 @@ internal static class CombatFeedbackBuild
         {
             Set(spark, "sparkPrefab", NormalHitSparkAssets.Load());
             Set(spark, "lethalPrefab", CombatVoxelAssets.Load("Lethal"));
+            Set(spark, "slayerLethalPrefab", SlayerHitVfxAssets.Load(true));
             Value(spark, "groundY", Ground(root));
             var profiles = new SerializedObject(spark);
             var variants = profiles.FindProperty("slayerPrefabs"); variants.arraySize = 1;
-            variants.GetArrayElementAtIndex(0).objectReferenceValue = CombatVoxelAssets.Load("Slayer");
+            variants.GetArrayElementAtIndex(0).objectReferenceValue = SlayerHitVfxAssets.Load(false);
             profiles.ApplyModifiedPropertiesWithoutUndo();
             Value(spark, "zRotationOffset", 0f); Vector(spark, "angleJitter", Vector2.zero);
             Set(spark, "normalImpact", normal); Set(spark, "slayerImpact", slayer); Set(spark, "lethalImpact", lethal);

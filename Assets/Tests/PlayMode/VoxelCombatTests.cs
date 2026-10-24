@@ -45,7 +45,9 @@ public sealed partial class ParryClashTests
                 var variants = so.FindProperty("slayerPrefabs");
                 Assert.That(variants.arraySize, Is.EqualTo(1));
                 Assert.That(variants.GetArrayElementAtIndex(0).objectReferenceValue,
-                    Is.EqualTo(UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/CombatVoxel/Slayer.prefab")));
+                    Is.EqualTo(UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/SlayerHits/SlayerHit.prefab")));
+                Assert.That(so.FindProperty("slayerLethalPrefab").objectReferenceValue,
+                    Is.EqualTo(UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/SlayerHits/SlayerFinisher.prefab")));
                 var hitbox = new UnityEditor.SerializedObject(root.GetComponentInChildren<PlayerWeaponHitbox>(true));
                 Assert.That(hitbox.FindProperty("hitSpark").objectReferenceValue, Is.EqualTo(outgoing[0]));
                 var parry = new UnityEditor.SerializedObject(root.GetComponentInChildren<ParrySparkVFX_Pooled>(true));
@@ -60,7 +62,7 @@ public sealed partial class ParryClashTests
 #endif
     static void PrepareVoxel()
     {
-        foreach (string name in new[] { "ParryClashAssets", "CombatVoxelAssets", "SlashVolumeAssets", "NormalHitSparkAssets" })
+        foreach (string name in new[] { "ParryClashAssets", "CombatVoxelAssets", "SlashVolumeAssets", "NormalHitSparkAssets", "SlayerHitVfxAssets" })
         foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies())
         {
             var type = assembly.GetType(name);

@@ -589,6 +589,25 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
+### Slayer hit slash (2026-10-24)
+
+- Production Slayer hit and lethal contacts use `SlayerHits/SlayerHit.prefab` and
+  `SlayerFinisher.prefab`: original tbbk CC0 nine-frame64x47 sheet, row-major,
+  fixed center pivot,150/180ms unscaled simulation age and32/40reference-pixel
+  maximum visible width at16PPU. Pixel.mat/order3; uniform scale and direction
+  mirror only. No particles, random transforms or additional lights.
+- Hitbox snapshots Slayer state and afterimage RGB tint before damage; emitted
+  tint stays opaque and immutable through Slayer exit. Lethal audio/camera still
+  follow the damage outcome. Optional `slayerLethalPrefab` falls back to the old
+  lethal role for unassigned consumers; non-Slayer normal/lethal and parry retain
+  their existing bindings. Voxel assets remain available for compatibility.
+- `SlayerHitVfx` uses the existing PooledVFX/owner impact budget of eight; oldest
+  impact is reclaimed, with dust/parry pools independent. Pause/tutorial reading
+  holds age; Slayer exit allows the150?180ms tail, result overlay/disable/restart/
+  unload reclaim it. Runtime frames quantize visible endpoints.
+- Scoped Unity50/50, strict two-pass builder and real-input WebGL1280x720 PASS;
+  full source-variant/selected runtime-frame review is recorded in [the task checkpoint](../plans/slayer-slash-vfx.md).
+
 ### Normal strike accents and contact confirmation (2026-10-22)
 
 - `NormalStrikeEffects` listens to the existing attack-window opening: one

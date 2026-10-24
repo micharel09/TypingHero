@@ -1,3 +1,20 @@
+## Slayer hit slash replacement (2026-10-24)
+
+Unity2022.3.25f1/fly-server20261024T113433-webgl, input
+`dc32bba70c576eaf074b00dc3e38f6ba9e675fe7ddf5f4f45c610270ee5d24f1`:
+50/50scoped PlayMode PASS,0failed/skipped,8.8784652s; strict repeated builder
+including new metadata PASS before tests and during QA WebGL build. Both roles
+use original nine-cel tbbk CC0 artwork; source PNG SHA256 verified unchanged.
+33/33immutable player hashes match local/server, version9b76edc5beddd984.
+Native Edge156/GTX1650Ti/ANGLE D3D11/1280x720 real-input Slayer/rapid hits/
+Pause-Resume/normal return/lethal ending PASS,0exceptions/provider calls.
+72/72static cels/64pairs and407/407encoded output frames/403pairs directly
+inspected, preserving held frames and original PTS. Production right-facing
+runtime plus full static mirror/tint/duration matrix; no full animation,
+performance, broad-suite or itch publication claim. Pilot fixture teardown and
+late-pause driver failures remain distinguished from accepted evidence.
+[Full receipt, limits and retained demo](../plans/slayer-slash-vfx.md).
+
 ## Shared lantern shader startup optimization (2026-10-24)
 
 - Frozen c86d72f production A/B + ABBA, Edge156/Intel UHD D3D11/1280x720:

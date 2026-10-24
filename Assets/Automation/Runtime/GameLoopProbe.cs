@@ -24,7 +24,9 @@ public sealed class GameLoopProbe : MonoBehaviour
     }
     [Serializable] sealed class SparkFrame
     {
-        public string role, preset;
+        public string role, preset, cel;
+        public Color tint;
+        public bool flipX, voxel;
         public int id, frame, order;
         public Vector3 position, scale;
         public Rect screenRect;
@@ -249,6 +251,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             var clash = effect.GetComponent<ParryClashBurst>();
             var voxel = effect.GetComponent<VoxelImpactBurst>();
             var accent = effect.GetComponent<StrikeAccentBurst>();
+            var slash = effect.GetComponent<SlayerHitVfx>();
             if (burst && (!burst.Systems[0] || !burst.Systems[1])) return null;
             float minY = float.PositiveInfinity, maxY = float.NegativeInfinity, maxAge = 0;
             float velocityX = 0, depthSpeed = 0; int observedCount = 0;
@@ -272,14 +275,15 @@ public sealed class GameLoopProbe : MonoBehaviour
                 }
             var min = camera ? CombatViewportCamera.WorldToScreenPoint(camera, bounds.min) : Vector3.zero;
             var max = camera ? CombatViewportCamera.WorldToScreenPoint(camera, bounds.max) : Vector3.zero;
-            return new SparkFrame { role = role, preset = clash ? clash.EmittedPreset.ToString() : "", id = effect.GetInstanceID(), frame = Time.frameCount,
+            return new SparkFrame { role = role, cel = sprite && sprite.sprite ? sprite.sprite.name : "",
+                tint = sprite ? sprite.color : Color.clear, flipX = sprite && sprite.flipX, voxel = voxel, preset = clash ? clash.EmittedPreset.ToString() : "", id = effect.GetInstanceID(), frame = Time.frameCount,
                 order = sprite ? sprite.sortingOrder : particle.sortingOrder,
                 position = effect.transform.position, scale = effect.transform.lossyScale,
                 contactGap = clash ? clash.Visual.separation : 0,
                 defenseCel = clash && clash.Visual.defenseCel ? clash.Visual.defenseCel.name : "",
                 attackCel = clash && clash.Visual.attackCel ? clash.Visual.attackCel.name : "",
                 particles = burst ? burst.ParticleCount : clash ? clash.ParticleCount : voxel ? voxel.ParticleCount : accent ? accent.ParticleCount : 0, groundY = burst ? burst.GroundY : 0,
-                minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = accent ? accent.Age : maxAge,
+                minY = observedCount > 0 ? minY : 0, maxY = observedCount > 0 ? maxY : 0, maxAge = slash ? slash.Age : accent ? accent.Age : maxAge,
                 meanVelocityX = observedCount > 0 ? velocityX / observedCount : 0,
                 meanDepthSpeed = observedCount > 0 ? depthSpeed / observedCount : 0,
                 screenRect = Rect.MinMaxRect(min.x, min.y, max.x, max.y) };
