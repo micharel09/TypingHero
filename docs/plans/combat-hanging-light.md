@@ -1342,7 +1342,7 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   verified pre-parry demo. Demo8341 uses034449, not the failed integrated build.
   Keep this worktree/branch until that decision and verified remote integration.
 
-### Automatic depth feature, 2026-10-24 (implementation / verification pending)
+### Automatic depth feature, 2026-10-24 (production verification passed)
 
 - User approved automatic recognition of authored maps, not draft image generation.
   Missing depth is an allowed per-frame fallback; mapped frames retain self-shadow.
@@ -1359,7 +1359,32 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   without actor folder-name filters or fixed frame counts. Explicit coverage audit
   remains strict; CaptureAll still requires complete coverage rather than claiming
   a partial inventory as full visual acceptance.
-- Pending scoped Editor synchronization tests, existing runtime frame/facing/world
-  tests with stronger missing->mapped property checks, actual builder preservation,
-  production build/QA exclusion and real-input native parry smoke. No full QA,
-  sprite-animation changes, performance profile or video requested.
+- Save only the derived library with SaveAssetIfDirty; automatic Play Mode sync
+  must not save unrelated dirty author assets. The Editor test covers this explicitly.
+- Production050935/inputb2ddfed:5/5Editor (4.7034938s) and2/2runtime
+  (0.0654234s) PASS,0failed/skipped. Actual serializer preserves painted PNGs,
+  selected world/material configuration and stable index on repeat. Production
+  succeeds with280mapped/1missing (parry_lift), proving missing art no longer
+  blocks a normal player; QA bridge/depth preview types are excluded.
+- Main advanced to168ae6b: retain its authored lift depth d6eb563 and terminal HUD
+  suppression. Mergecd7db69 keeps both changes and final depth sync after builders.
+  Synchronizer/validator/binding/focused test sources are unchanged; reuse the7
+  passing tests and main's documented HUD checks, rerun actual serialization.
+- Integrated production052952/inputaf65179 passes serialization/build/QA exclusion,
+ 281mapped/0missing. All33downloaded player files match remote. All99lighting
+  PNG hashes match current source, including main's added map; no PNG generated or
+  rewritten. All281sprite/depth references and float32 metadata values match input.
+  Copy back only the verified generated index: one-time stable row order/Unity
+  numeric serialization, with asset GUID, bindings and semantic values unchanged.
+- Native Edge/D3D11,1280x720: real Enter/Space/Escape, one successful parry
+  ([PARRY] OK, score30), recovery and Pause/Resume PASS;0captured exceptions.
+  Gameplay/parry/recovery/pause/resume images inspected; bodies, warm pier torches,
+  HUD and typing remain visible. No bridge/gameplay setters or video used. Reuse
+  clean-letterbox wide/tall evidence because render code/camera contracts unchanged.
+- Earlier compiler API-name, helper hashlib and fixture-import-type failures are
+  retained in the external receipt. Correct the fixture to linear Default rather
+  than weakening map validation; packing rejection now asserts its actual reason.
+  Two stale queued jobs were withdrawn only after PID/helper-hash/lock-wait checks.
+- Full QA, sprite-animation review and performance profiling remain outside scope.
+  Current evidence/demo stay under the artifact root above; remote integration and
+  clean worktree removal are recorded in receipt.json after push verification.

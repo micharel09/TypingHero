@@ -3208,6 +3208,24 @@ Earlier builder-null and test-wait failures, external probe false positive, scop
 and retained artifacts are recorded in the [checkpoint](../plans/compact-menus.md).
 No performance/full production/sprite-motion or publication claim.
 
+## Automatic authored sprite depth (2026-10-24)
+
+Production050935/inputb2ddfed:5/5Editor synchronization tests and2/2runtime depth
+tests PASS,0failed/skipped. Covers missing->mapped discovery, custom/migrated
+bindings, invalid maps/packing, stable frame metadata/rename/prune, unrelated dirty
+asset preservation, facing/world clear/restore, combat property blocks and warmed
+allocation guard. Normal build succeeds with280mapped/1missing; QA excluded.
+
+Integrated main168ae6b adds the authored lift map and verified result HUD behavior.
+Unchanged feature/test sources reuse those7tests; actual serializer and normal
+052952/inputaf65179 PASS with281mapped/0missing.33player hashes match remote;
+99lighting PNGs and all281mapping references/float32 values are preserved. The
+saved generated index matches production output; only stable order/number format
+changes. Native Edge/D3D11 production1280x720 real-input parry success/recovery,
+Pause/Resume and5inspected images PASS,0exceptions, no QA setters/video. Reuse
+unchanged renderer's wide/tall letterbox evidence. Full suites/animation/performance
+remain waived; [checkpoint and retained receipts](../plans/combat-hanging-light.md).
+
 ## Per-strike white Space warning above enemy (2026-10-24)
 
 Phase025930/input02175c97:5/5 scoped Unity tests PASS, including14 real manual
