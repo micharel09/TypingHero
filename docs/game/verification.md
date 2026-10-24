@@ -15,6 +15,25 @@ performance, broad-suite or itch publication claim. Pilot fixture teardown and
 late-pause driver failures remain distinguished from accepted evidence.
 [Full receipt, limits and retained demo](../plans/slayer-slash-vfx.md).
 
+## Production Brotli delivery (2026-10-24)
+
+- Frozen main46d4dda, Unity2022.3.25f1: production104607 A,105711 diagnostic B,
+  clean110109/input87b8f073c025a34cc1bac7580dee6cd397db4493eb20df6419974cc027f0f665
+  PASS. Decode-aware production bridge guard and four raw/Brotli scanner cases pass;
+  clean JS/WASM/data excludes ASCII/UTF16 QA/startup markers. No broad QA suite.
+- Edge156/D3D11/1280x720, ABABAB+ABBA: five fresh/five reload per build per
+  condition.20Mbps/50ms navigation-to-interactive-menu median14282.60 ->10377.70ms
+  (-27.34%); HTTPS localhost4614.50 ->4411.80ms(-4.39%). Encoded bytes-39.92%.
+  No timing screenshots/readbacks. Local longest-task and pooled menu p95 gates pass.
+- Real-input A/B Normal10s p9519.70 ->19.50ms; world/camera/RT reused on return.
+  Four real parries trigger Slayer in A/clean production. First complete menu,
+  Normal/Pause, Slayer and return inspected; zero errors/provider writes.
+  Decoded A/B executable/framework and serialized assets match, apart from build GUID.
+- Production uses br/native decompression and requires HTTPS,Content-Encoding:br
+  and underlying MIME(application/wasm). QA stays plain; editor settings restored.
+  No Play asset deferral or rendering change. Public CDN inspection403; no itch
+  publication or public-load-time claim. [Evidence and limits](../plans/startup-render-profile.md).
+
 ## Shared lantern shader startup optimization (2026-10-24)
 
 - Frozen c86d72f production A/B + ABBA, Edge156/Intel UHD D3D11/1280x720:

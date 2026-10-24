@@ -42,6 +42,14 @@ results, with no intro or tactical hint. No save/provider contract changes.
 | UI interaction | `Assets/Scripts/UI/LeaderboardModal.cs`, `UIButtonFeedback.cs`, `PanelReveal.cs`, `TypingPanelFeedback.cs` | Modal focus/shortcut ownership, existing SFX pool for pause-safe UI audio, unscaled panel reveal and stable typing error border. CombatResultView binds completed statistics and record metadata without parsing the hidden diagnostic summary. Its result-only group is hidden/restored by CompactPauseLayout. Terminal results latch thirteen authored combat-only CanvasGroups hidden/noninteractive through modals and exit; logic stays active, and a fresh gameplay scene restores HUD. Ordinary Pause leaves those groups unchanged. Settings/Leaderboard deactivate the compact Pause panel and restore audio/focus on close. GamePauseController owns one camera tween, locks actions during Resume, restores result layout only after hiding the canvas, and clears hidden selection. |
 | Desktop packaging | `Assets/Automation/Editor/GameLoopBuild.cs`, `tools/game_loop/` | windows profile builds production Windows64 Mono on Ubuntu with pinned module; windowed1280x720/resizable and restores project settings. Complete player ZIP, credits and QA exclusion; Wine64 startup verified, real Windows interaction/audio unverified. |
 
+WebGL production delivery uses Brotli `.data.br`/`.wasm.br`/`.framework.js.br`
+with native browser decompression; hosts must serve HTTPS, `Content-Encoding: br`
+and underlying MIME types (`application/wasm` for WASM). The QA runner retains
+plain output. `GameLoopBuild.WebGL` restores both editor compression settings;
+production bridge scanning decodes compressed JavaScript. No runtime API,
+rendering input or Play asset-readiness change. Matched network/local startup,
+payload equivalence and real-input flow evidence: [startup report](../plans/startup-render-profile.md).
+
 Scene serialized values override class defaults. Preserve `.meta` GUIDs when editing
 or moving assets. Runtime assembly owns Assets scripts; editor automation and tests
 have separate assembly boundaries. Package references: TextMeshPro, UGUI,
