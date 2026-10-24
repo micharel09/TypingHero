@@ -1,3 +1,14 @@
+## Latest-main parry demo and depth completion (2026-10-24)
+
+Main9c48f5d + authored lift depth registration: production041305/input023fb6b8
+PASS, Unity2022.3.25f1; normal QA=false/JS bridge exclusion and33downloaded file
+hashes verified. Original failure was missing depth on the newly reachable lift;
+only its map/import/binding/library/recipe added. No core, scene, shader or albedo
+change. Font CRLF checkout corrected to canonical Git bytes, without a content diff.
+Actual menu/tutorial/live combat/overhead white Space cue/Pause inspected on8151.
+No new full animation, performance or broad-suite claim. Receipt, failed attempts,
+limits and retained demo resources: [latest-main demo](../plans/parry-main-demo.md).
+
 ## Approved parry art integration (2026-10-24)
 
 Test base origin/main9d41188; then merged latest main87aa6da (enemy warning/cue).
