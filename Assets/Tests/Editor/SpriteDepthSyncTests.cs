@@ -192,6 +192,42 @@ public sealed class SpriteDepthSyncTests
         Assert.That(sprites.Any(x => AssetDatabase.GetAssetPath(x).Contains("PixelWeaponContacts")), Is.True);
     }
 
+    [Test]
+    public void ProductionInventoryMatchesAuthoredIndexAndPassesPublicStrictAudit()
+    {
+        var production = AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>("Assets/Data/Lighting/ActorDepth.asset");
+        var expected = production.frames.Select(x => x.sprite).ToArray();
+        var inventory = SpriteDepthAuthoring.ReferencedSprites();
+        Assert.That(inventory, Is.EquivalentTo(expected), "Keep every authored frame, without adding unbound effects");
+        foreach (var role in Enum.GetValues(typeof(EndlessRole)).Cast<EndlessRole>())
+        {
+            var opponent = Resources.Load<EndlessOpponent>("Endless/" + role);
+            Assert.That(inventory.Contains(opponent.idle), Is.True);
+            var clips = opponent.controller.animationClips.Concat(new[] { opponent.hurt }).Where(x => x);
+            foreach (var clip in clips)
+            foreach (var binding in AnimationUtility.GetObjectReferenceCurveBindings(clip)
+                .Where(x => x.path == "" && x.type == typeof(SpriteRenderer) && x.propertyName == "m_Sprite"))
+            foreach (var frame in AnimationUtility.GetObjectReferenceCurve(clip,binding).Select(x => x.value as Sprite).Where(x => x))
+                Assert.That(inventory.Contains(frame), Is.True, role + "/" + clip.name);
+        }
+        Assert.DoesNotThrow(SpriteDepthAuthoring.AuditCoverage);
+        // This is the strict validation invoked by CaptureAll before rendering.
+        Assert.DoesNotThrow(() => SpriteDepthAuthoring.Validate(production,true));
+    }
+
+    [TestCase("excludedChild", false)]
+    [TestCase("excludedChild", true)]
+    [TestCase("boundChild", false)]
+    [TestCase("boundChild", true)]
+    [TestCase("excludedExternal", false)]
+    [TestCase("prefabExternal", false)]
+    [TestCase("excludedPrefabExternal", false)]
+    [TestCase("boundCurves", false)]
+    [TestCase("mixedCurves", false)]
+    [TestCase("mixedCurves", true)]
+    [TestCase("overrideController", false)]
+    [TestCase("hurt", true)]
+    [TestCase("shared", false)]
     [TestCase("controller", false)]
     [TestCase("controller", true)]
     [TestCase("unloaded", false)]
@@ -226,6 +262,12 @@ public sealed class SpriteDepthSyncTests
             var prefab = PrefabUtility.SaveAsPrefabAsset(actor,Root + "/actor.prefab");
             UnityEngine.Object.DestroyImmediate(actor);
             actor = (GameObject)PrefabUtility.InstantiatePrefab(prefab,scene);
+            var world = ScriptableObject.CreateInstance<WorldDefinition>();
+            world.spriteDepth = library;
+            AssetDatabase.CreateAsset(world,Root + "/world.asset");
+            var gate = new GameObject("depth selection",typeof(DungeonSessionBindings));
+            SceneManager.MoveGameObjectToScene(gate,scene);
+            gate.GetComponent<DungeonSessionBindings>().worldDefinition = world;
             EditorSceneManager.SaveScene(scene,scenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(scenePath,true) };
             Assert.That(SpriteDepthAuthoring.ReferencedSprites().Contains(Sprites[1]), Is.False,
@@ -247,10 +289,50 @@ public sealed class SpriteDepthSyncTests
                 SceneManager.MoveGameObjectToScene(loose,scene);
                 loose.GetComponent<SpriteRenderer>().sprite = Sprites[1];
             }
+            else if (variant == "overrideController")
+            {
+                var animator = actor.GetComponent<Animator>();
+                var replacement = Controller("replacement", Sprites[1]).animationClips.Single();
+                var controller = new AnimatorOverrideController(animator.runtimeAnimatorController);
+                controller[animator.runtimeAnimatorController.animationClips.Single()] = replacement;
+                AssetDatabase.CreateAsset(controller,Root + "/override.overrideController");
+                animator.runtimeAnimatorController = controller;
+            }
+            else if (variant == "hurt")
+            {
+                var pose = new SerializedObject(actor.AddComponent<EnemySlayerHitPose>());
+                pose.FindProperty("hitClip").objectReferenceValue = Controller("hurt",Sprites[1]).animationClips.Single();
+                pose.ApplyModifiedPropertiesWithoutUndo();
+            }
+            else if (variant == "excludedChild" || variant == "boundChild" || variant == "mixedCurves" || variant == "boundCurves" || variant == "shared")
+            {
+                var child = new GameObject(variant == "boundChild" ? "ContactShadow" : "arbitrary effect",typeof(SpriteRenderer));
+                child.transform.SetParent(actor.transform);
+                child.GetComponent<SpriteRenderer>().sprite = (variant == "mixedCurves" || variant == "boundCurves") ? null : Sprites[1];
+                if (variant == "boundChild" || variant == "boundCurves")
+                {
+                    child.AddComponent<SpriteDepthBinding>().enabled = false;
+                    var material = new Material(AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/Environment/KayKitDungeon/DungeonSprite.mat"));
+                    material.SetFloat("_SelfShadowStrength",0);
+                    AssetDatabase.CreateAsset(material,Root + "/disabled.mat");
+                    child.GetComponent<SpriteRenderer>().sharedMaterial = material;
+                    child.GetComponent<SpriteRenderer>().enabled = false;
+                }
+                if (variant == "shared") actor.GetComponent<SpriteRenderer>().sprite = Sprites[1];
+                if (variant == "mixedCurves" || variant == "boundCurves")
+                {
+                    var clip = actor.GetComponent<Animator>().runtimeAnimatorController.animationClips.Single();
+                    AnimationUtility.SetObjectReferenceCurve(clip,EditorCurveBinding.PPtrCurve(child.name,typeof(SpriteRenderer),"m_Sprite"),
+                        new[] { new ObjectReferenceKeyframe { time = 0, value = Sprites[1] } });
+                    AssetDatabase.SaveAssetIfDirty(clip);
+                }
+            }
             else
             {
-                var external = new GameObject("external",typeof(Animator),typeof(SpriteRenderer));
+                var external = new GameObject("ContactShadow",typeof(Animator),typeof(SpriteRenderer));
                 SceneManager.MoveGameObjectToScene(external,scene);
+                if (variant != "excludedExternal" && variant != "excludedPrefabExternal")
+                    external.AddComponent<SpriteDepthBinding>().enabled = false;
                 if (variant == "externalAnimator")
                 {
                     external.GetComponent<Animator>().runtimeAnimatorController = Controller("external",Sprites[1]);
@@ -261,7 +343,10 @@ public sealed class SpriteDepthSyncTests
                     external.GetComponent<SpriteRenderer>().sprite = Sprites[1];
                     var target = actor.AddComponent<NormalHitSpark>();
                     var serialized = new SerializedObject(target);
-                    serialized.FindProperty("image").objectReferenceValue = external.GetComponent<SpriteRenderer>();
+                    var receiver = external.GetComponent<SpriteRenderer>();
+                    if (variant == "prefabExternal" || variant == "excludedPrefabExternal")
+                        receiver = PrefabUtility.SaveAsPrefabAsset(external,Root + "/external.prefab").GetComponent<SpriteRenderer>();
+                    serialized.FindProperty("image").objectReferenceValue = receiver;
                     serialized.ApplyModifiedPropertiesWithoutUndo();
                 }
             }
@@ -281,7 +366,12 @@ public sealed class SpriteDepthSyncTests
             bool dirty = loaded && scene.isDirty;
             byte[] savedScene = File.ReadAllBytes(scenePath);
             var inventory = SpriteDepthAuthoring.ReferencedSprites();
-            Assert.That(inventory.Contains(Sprites[1]), Is.True, "Missing scene-specific " + variant);
+            bool included = !variant.StartsWith("excluded",StringComparison.Ordinal) && variant != "mixedCurves";
+            Assert.That(inventory.Contains(Sprites[1]), Is.EqualTo(included), "Scene-specific " + variant);
+            Assert.That(inventory.Count(x => x == Sprites[1]), Is.EqualTo(included ? 1 : 0));
+            string export = Root + "/inventory.json";
+            SpriteDepthAuthoring.ExportInventory(export);
+            if (variant == "mixedCurves") Assert.That(File.ReadAllText(export), Does.Not.Contain("arbitrary effect"));
             Assert.That(EditorSceneManager.GetSceneManagerSetup().Select(SceneState), Is.EqualTo(setup.Select(SceneState)));
             Assert.That(File.ReadAllBytes(scenePath), Is.EqualTo(savedScene));
             if (loaded)
@@ -290,9 +380,17 @@ public sealed class SpriteDepthSyncTests
                 Assert.That(actor, Is.Not.Null);
             }
             Assert.That(EditorSceneManager.previewSceneCount, Is.EqualTo(previewCount));
+            var scoped = inventory.Where(x => AssetDatabase.GetAssetPath(x) == source).ToArray();
+            SpriteDepthAuthoring.Synchronize(library,scoped);
+            Assert.DoesNotThrow(() => SpriteDepthAuthoring.Validate(library,scoped));
+            Assert.Throws<BuildFailedException>(() => SpriteDepthAuthoring.Validate(library,scoped,true));
+            Assert.Throws<BuildFailedException>(SpriteDepthAuthoring.AuditCoverage);
             WriteTexture(conventional,16,8);
-            SpriteDepthAuthoring.Synchronize(library,inventory.Where(x => AssetDatabase.GetAssetPath(x) == source));
-            Assert.That(library.CreateLookup().ContainsKey(Sprites[1]), Is.True);
+            SpriteDepthAuthoring.Synchronize(library,scoped);
+            Assert.That(library.CreateLookup().ContainsKey(Sprites[1]), Is.EqualTo(included));
+            Assert.DoesNotThrow(() => SpriteDepthAuthoring.Validate(library,scoped,true));
+            Assert.DoesNotThrow(SpriteDepthAuthoring.AuditCoverage);
+            Assert.DoesNotThrow(() => SpriteDepthAuthoring.Validate(library,true));
         }
         finally
         {

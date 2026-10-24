@@ -13,7 +13,8 @@ public static class SpriteDepthAuthoringChecks
     {
         SpriteDepthAuthoring.SynchronizeSelectedWorlds();
         var library = AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>("Assets/Data/Lighting/ActorDepth.asset");
-        SpriteDepthAuthoring.Validate(library);
+        SpriteDepthAuthoring.AuditCoverage();
+        SpriteDepthAuthoring.Validate(library, true);
         var contactSprites = SpriteDepthAuthoring.ReferencedSprites().Where(x =>
             AssetDatabase.GetAssetPath(x).Contains("PixelWeaponContacts")).ToArray();
         if (!library || contactSprites.Length == 0 || contactSprites.Any(x => !library.CreateLookup().ContainsKey(x)))
@@ -28,7 +29,7 @@ public static class SpriteDepthAuthoringChecks
         var results = Environment.GetEnvironmentVariable("TYPINGHERO_RESULTS_PATH");
         if (!string.IsNullOrEmpty(results))
             SpriteDepthAuthoring.ExportInventory(Path.Combine(results, "depth-inventory.json"));
-        Debug.Log("Validated available depth maps; missing gameplay maps are reported by synchronization");
+        Debug.Log("PASS: public strict audit and CaptureAll strict input validation");
         var painted = Directory.GetFiles("Assets/Art/Lighting", "*.png", SearchOption.AllDirectories)
             .ToDictionary(path => path, Hash);
         var references = new[] { definitionPath, materialPath, AssetDatabase.GetAssetPath(library) }
