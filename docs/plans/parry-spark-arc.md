@@ -1,7 +1,7 @@
 # Parry spark and shock arc - 2026-10-24
 
-Current status: implementation, integrated scoped tests and visual/media verification
-PASS; verified main push and clean task-worktree removal pending.
+Current status: implemented, verified and integrated. Remote main b00b98a verified
+with code4309f64/qualificationb00b98a ancestry; final resource receipt is delivery.json.
 
 ## Intent and acceptance
 - User selected clearer metal sparks plus a thin directional shock arc after the
@@ -30,7 +30,7 @@ PASS; verified main push and clean task-worktree removal pending.
   cel observed. Runtime scale, overlap, timing and playback now qualified below.
 - Focused ImpactVfxTests, repeated builder, real input and final frame review PASS.
 - Task artifacts E:/CodexTemp/TypingHero/parry-spark-arc retained for reproduction.
-- No push/integration or itch.io upload yet.
+- Git integration verified below. No itch.io upload.
 
 ## Runner receipts and current queue
 - Initial serialize20261024T062239 on52f6081b: Unity compilation and strict repeated
@@ -42,9 +42,9 @@ PASS; verified main push and clean task-worktree removal pending.
   unchanged log for6minutes/one CPU. Stopped only its verified owned container
   typinghero-loop-2323000-1792823188130282056; exit143, no PASS claim.
 - Normal QA b7c11712 started20261024T063750-webgl with the preserved new prefab.
-  Focused ImpactVfxTests and external mirrored QA are queued behind shared work.
+  At that checkpoint, focused tests and mirrored QA were queued behind shared work.
 - Final formatting strips trailing whitespace in new assets; material importer main
-  object corrected to2100000. Final serialize/tests will qualify this exact source.
+  object corrected to2100000. Later final serialize/tests qualified this source.
   Earlier visual build uses identical material/texture payloads; verify equivalence
   against final serialized output before reusing that visual evidence.
 
@@ -63,7 +63,7 @@ PASS; verified main push and clean task-worktree removal pending.
   with hollow center, then clears while orange sparks fall without visible clipping.
 - Physical observations retain multi-pixel streaks through514ms (length2px), then
   orange1px embers through1066ms. This is observed sample coverage, not every RNG
-  outcome or a performance/FPS guarantee. Audio/1x/.25x playback not yet reviewed.
+  outcome or a performance/FPS guarantee. Audio/playback qualified in final receipts.
 - Earlier right attempt1 missed real input under redundant Playwright video capture;
   disabled only that extra recorder, retaining exact PNGs and destination audio.
   Attempt2 produced valid parry images but post-capture40ms Escape was missed;
@@ -79,7 +79,7 @@ PASS; verified main push and clean task-worktree removal pending.
   before SetTutorialReading(false), whose existing ApplyFreeze intentionally resets
   timeScale1. The test therefore resumed its own effect while claiming a hold.
 - Corrected fixture order: leave tutorial reading first, then set timeScale0.
-  Product runtime unchanged; final strict serialize plus all41focused tests queued
+  Product runtime unchanged; final strict serialize plus all41focused tests passed
   against corrected test and final importer/whitespace source.
 - Mirrored QA854d4967 started20261024T065830-webgl, adding only the external editor
   actor-mirror fixture to the original b7c11712 runtime input.
@@ -164,5 +164,17 @@ PASS; verified main push and clean task-worktree removal pending.
 - Temporary remote media-export directory, duplicate local transfer tarballs and
   four closed Edge profiles removed after verification of all five MP4 hashes;
   no owned Edge process remained. Original checkout/resources remain untouched.
-  Task worktree/local branch will be removed after remote proof;
+  Clean task-worktree/local-branch removal follows verified remote ancestry;
+  actual final path/branch cleanup is recorded in delivery.json.
   remote task branch is retained under repository policy until explicitly cleaned.
+
+## Remote integration
+- Code4309f64, merge67b691a (including7694ba1), and qualificationb00b98a pushed
+  to origin/micharel09/parry-spark-arc. Fast-forward main7694ba1->b00b98a succeeded.
+  Fetched remote and verified exact HEAD b00b98a267979994b06dff59610a8ebd6c154d1c
+  plus both code and qualification ancestry. Original dirty local main untouched.
+- A documentation-only receipt follows this proof; it changes no build input.
+  Final remote HEAD and clean worktree/local-branch removal proof are retained in
+  E:/CodexTemp/TypingHero/parry-spark-arc/delivery.json. Remote task branch retained
+  for reference until explicitly removed; review artifacts retained until no longer
+  needed for user review/reproduction. No itch.io upload.
