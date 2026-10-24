@@ -17,6 +17,30 @@ public sealed class TutorialOverlay : MonoBehaviour
     // Retained builder bindings for the live typing and guard HUD.
     [SerializeField] RectTransform typingTray, staminaTarget;
     [SerializeField] Arrow[] arrows = Array.Empty<Arrow>();
+    [SerializeField] RectTransform exampleKey;
+    [SerializeField] Image exampleFace, exampleLocked;
+    [SerializeField] TMP_Text exampleCaption;
+    [SerializeField] Sprite exampleWarning, exampleLight, exampleDown, exampleBlocked;
+    double exampleTime;
+    void OnEnable() { exampleTime = 0; RenderExample(); }
+
+    void RenderExample()
+    {
+        if (!exampleKey || !exampleCaption) return;
+        double t = exampleTime % 2.75;
+        bool tap = t >= .8 && t < 1;
+        bool open = t >= 1 && t < 1.25;
+        bool blocked = t >= 1.25 && t < 2;
+        exampleKey.gameObject.SetActive(TutorialRun.Active && t < 2);
+        exampleFace.sprite = blocked ? exampleBlocked : open ? exampleDown : tap ?
+            ((t - .8) % .1 >= .05 ? exampleDown : exampleLight) : exampleWarning;
+        ColorUtility.TryParseHtmlString(blocked ? "#817b73" : open ? "#73b6aa" : "#f4eeda", out var color);
+        exampleFace.color = color;
+        exampleLocked.gameObject.SetActive(blocked); exampleLocked.color = color;
+        exampleCaption.text = t < .8 ? "Get ready." : tap ? "Tap Space now." : open ?
+            "Parry window open." : blocked ? "X: parry unavailable." : "Release between hits.";
+    }
+
     Canvas canvas;
     CanvasGroup interaction;
 
@@ -26,6 +50,12 @@ public sealed class TutorialOverlay : MonoBehaviour
         canvas.enabled = !GamePauseController.IsPaused;
         interaction.interactable = interaction.blocksRaycasts = canvas.enabled;
         if (!canvas.enabled) return;
+        if (TutorialRun.Active)
+        {
+            exampleTime += Time.unscaledDeltaTime;
+            RenderExample();
+        }
+        else if (exampleKey) exampleKey.gameObject.SetActive(false);
         Canvas.ForceUpdateCanvases();
         foreach (var arrow in arrows)
         {

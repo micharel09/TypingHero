@@ -357,7 +357,15 @@ Change only behavior explicitly requested. Update this file after relevant verif
   destinations. Existing dungeon, HUD, fonts, panel style and Continue listener remain.
 - The callouts explain HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
   with Space/parry and Esc/pause copy plus one Start Battle / Enter action.
-  No lesson tests, additional pages, animation or illustrations; How to Play is separate.
+  No mandatory practice or additional pages; How to Play is separate.
+- SPACE · EXAMPLE reuses the existing28x11logical cap inside the transparent
+  reference960x540 frame(328,216,304,80). Its2750ms loop shows warning800ms,
+  light press/release200ms (100ms cycles), teal open250ms, gray/X unavailable750ms,
+  then a hidden cap/release reminder750ms. Teal means the parry window is open,
+  not a successful parry. Captions and shortcuts explain when to press/release.
+  TutorialOverlay uses unscaled time; Pause holds the illustration, Resume
+  continues, and reopening/restart resets to warning. The encounter clone hides
+  the entire example and disables its TutorialOverlay; combat timing is unchanged.
 - Reading uses the existing GamePauseController input/time/audio/score lock.
   Pause hides the guide; Resume preserves the lock and returns to the same panel.
   Restart reloads the guide. Menu abandons it without marking it viewed.

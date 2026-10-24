@@ -13,7 +13,7 @@ internal static class ParryCueBuild
     internal static bool Owns(Component component)
     {
         for (var node = component.transform; node; node = node.parent)
-            if (node.name == "SpaceCueSample" || node.GetComponent<ParryCuePresenter>()) return true;
+            if (node.name == "SpaceCueSample" || node.name == "SpaceExample" || node.GetComponent<ParryCuePresenter>()) return true;
         return false;
     }
 
@@ -141,9 +141,48 @@ internal static class ParryCueBuild
         live.gameObject.SetActive(false);
         var tutorial = Object.FindObjectOfType<TutorialOverlay>(true);
         var panel = tutorial.transform.Find("Reference960x540/TutorialPrompt");
-        var sample = Key(panel, "SpaceCueSample", 452, 270);
+        var sampleParent = panel.Find("SpaceExample");
+        var sample = Key(sampleParent ? sampleParent : panel, "SpaceCueSample", 452, 270);
         StyleKey(sample);
-        sample.Find("Left").GetComponent<Image>().sprite = Cap("light", "released");
+        var example = panel.Find("SpaceExample") as RectTransform;
+        if (!example)
+        {
+            example = Rect("SpaceExample", panel);
+            Box(example, panel, 328, 216, 304, 80);
+        }
+        TMP_Text ExampleText(string name, string text, float y)
+        {
+            var existing = example.Find(name);
+            if (existing) return existing.GetComponent<TMP_Text>();
+            var label = Label(name, text, example, 0, y, 304, 24, 18);
+            label.font = panel.Find("Shortcuts").GetComponent<TMP_Text>().font;
+            label.fontSharedMaterial = label.font.material;
+            label.alignment = TextAlignmentOptions.Center;
+            label.raycastTarget = false;
+            return label;
+        }
+        ExampleText("Heading", "SPACE \u00b7 EXAMPLE", 0);
+        var caption = ExampleText("Caption", "Get ready.", 56);
+        if (sample.parent != example)
+        {
+            sample.SetParent(example, false);
+            Box(sample, example, 110, 24, 84, 33);
+        }
+        var bindings = new SerializedObject(tutorial);
+        void ExampleBind(string field, Object value)
+        {
+            var property = bindings.FindProperty(field);
+            if (!property.objectReferenceValue) property.objectReferenceValue = value;
+        }
+        ExampleBind("exampleKey", sample);
+        ExampleBind("exampleFace", sample.Find("Left").GetComponent<Image>());
+        ExampleBind("exampleLocked", sample.Find("Locked").GetComponent<Image>());
+        ExampleBind("exampleCaption", caption);
+        ExampleBind("exampleWarning", Cap("warning", "released"));
+        ExampleBind("exampleLight", Cap("light", "released"));
+        ExampleBind("exampleDown", Cap("light", "pressed"));
+        ExampleBind("exampleBlocked", Cap("dark", "pressed"));
+        bindings.ApplyModifiedPropertiesWithoutUndo();
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 }

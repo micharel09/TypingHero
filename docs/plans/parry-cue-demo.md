@@ -171,3 +171,83 @@ Clip `SpaceCue-Demo.mp4`:7.76s,25fps,194frame,1280?752 (header32px ngo?i game);6
 - Old Playwright recording replays older frames and is superseded. Final direct CDP capture retains all2332 original PNGs ordered by original presentation timestamps; zero Unity frame regressions. Registered six complete segments and directly inspected all392frames/386pairs on67 sheets. `E:/CodexTemp/TypingHero/space-press-cue/native-direct-review/review.md` records observed transitions, source hashes and timing. Technical visuals pass; subjective distraction awaits user play.
 - Clip `SpaceCue-Demo.mp4`:9.733s,960x540 crop,235 original frames/235 encoded frames, silent H.264; SHA256 `d1bfa7316e81ddb84ec2132a8c95e35a06961077d7d9f477a4a9c90eda3085f5`. Source timing retained. HTTP200/video-mp4 hash verified. Demo bootstrap PASS, active fixture service worker,1280x720, no QA globals/errors. Demo http://127.0.0.1:8303/; clip /SpaceCue-Demo.mp4. Esc -> F8 -> Esc compares modes for this session.
 - Keep branch `micharel09/space-press-cue`, worktree `C:/Users/ADMIN/orca/workspaces/TypingHero/space-press-cue` and artifact/owned8303host for user preview. Main integration intentionally deferred by demo scope; newer main213e67d fetched but not merged into the reviewed trial. After visual acceptance/integration, stop owned host via artifact Stop-Demo.ps1 and remove only clean preserved task resources. Original checkout and unrelated servers preserved.
+
+## Tutorial Space example continuation (2026-10-24)
+
+User-approved scope: replace the static tutorial cap with an in-place loop,
+reference960x540 (328,216),304x80. Keep cap28x11logical, all four HUD cards,
+typing tray and Start Battle. Existing sprite assets only; no combat changes.
+Timeline: warning800ms, light press/release200ms (100ms cycles), teal open250ms,
+gray/X unavailable750ms, hidden release750ms; total2750ms. Teal means an open
+parry window, not a successful parry. English captions follow the approved plan.
+Unscaled tutorial clock; Pause holds, Resume continues, reopening/restart resets.
+Builder adds missing nodes/bindings and retains existing example tuning. Encounter
+clone disables TutorialOverlay and hides SpaceExample with the other guide nodes.
+
+Acceptance checklist: five phases and wrap; input/score lock and viewed storage;
+Pause/F8/Resume; restart/menu replay; Enter->fresh encounter with no guide leak;
+real Space parry; repeated builder; readable640x360/1280x720; complete-loop and
+Pause/Resume captures with all selected frames/consecutive transitions inspected.
+Verification is in progress; no pass claimed yet. Continue on the existing
+micharel09/space-press-cue worktree. Keep isolated demo before main integration.
+Task artifacts: E:/CodexTemp/TypingHero/space-press-cue; earlier clips preserved.
+
+- Builder first attempt072916 failed strict repeat comparison: global typography
+  changed the new Heading/Caption18->48 on pass2. Owns now covers SpaceExample,
+  preserving its authored labels. Corrected serialize074234/inputbd10f7ed PASS;
+  only5existing SampleScene records changed and10added,0removed. Other records
+  are preserved in original order; changed/new records have whitespace normalized.
+- QA082204/inputa820ba0399c0ec4334a70fc781fd849001380ca55fd9c9a5b20200d45fd257c0:
+  8/8Unity tests PASS,0failed/skipped,3.5245101s. Includes all5TutorialTests and
+  3directly affected cue presentation/head-anchor/rebind tests. First180s serializer
+  wait and first1800s QA wait expired before Unity ran; retries preserve other jobs.
+  Player/native/frame-review acceptance remains pending at this checkpoint.
+
+- QA082204 WebGL/compiled bridge/strict repeated builder PASS;33downloaded player
+  hashes match remote. Current scene records match generated output ignoring only
+  document order/trailing whitespace; no further source changes after tests.
+- Native Edge156.0.4314.42/Intel UHD/ANGLE D3D11, muted: tutorial-native-final2
+  22/22checks PASS at1280x720/640x360,56.5015s,0exceptions/provider reads/writes.
+  Five phases, score lock, Pause/F8/Resume reading lock, restart, Enter/viewed,
+  example absence in combat, one real parry per size and menu replay verified.
+  Native-1 passed9checks but stopped at menu replay's preparation card, which the
+  driver omitted. Final pilot then missed teal while synchronous screenshots
+  blocked polling. Driver now observes every read-only QA publication during the
+  same5.7s capture; all five captions remain required. Both failed reports retained.
+- Full selected recordings directly reviewed on all13sheets:1280 180/180frames,
+  179/179pairs,0..9.656381s;640 272/272frames,271/271pairs,0..8.531490s. Total452/452
+  and450/450; no sampling, all holds and sheet boundaries included. Labels/key do
+  not overlap cards/tray, wrap clears X, pause hides guide and restores same teal
+  or gray/X state. Per-frame CSV observations/PTS/hashes and scope are in
+  E:/CodexTemp/TypingHero/space-press-cue/tutorial-native-final2/review/review.md.
+  This is UI capture review, not a new actor animation/performance/usability claim.
+- Loop export uses complete warning->tap->open->lock->release frames26..94 at1280;
+  original period2.750392s. Tutorial-Space-Example.mp4:69original frames +1terminal
+  repeat to retain final hold,2.751s, SHA256
+  6bf62ab888038f61bab86ba7e59c6809f86cd66593ccd8a18f100ad7bfdf5563.
+  Companion Tutorial-Space-PauseResume.mp4:180original+1terminal repeat,9.689s,
+  SHA256 d947ab3da7c5617d623aaccb9177dc43478e31085e547fd73ded2a36a6c9e964.
+  Both decode completely; no source frames dropped, millisecond encoding timebase.
+  Earlier B-frame export lost terminal hold in container duration and was replaced.
+  Normal player/demo update remains pending at this checkpoint.
+
+### Tutorial example delivery verified
+
+- Normal083354 uses the same a820ba03 input as QA082204; WebGL build/QA exclusion
+  PASS.33downloaded hashes match; all5JS/WASM/data payloads exclude ASCII/UTF16
+  QA/depth markers. Native tutorial-normal5/5checks PASS,44.3385s,0exceptions/
+  provider reads/writes. Actual tutorial/release phase, live combat without guide,
+  Pause and mode/menu images directly inspected. No new full-suite run.
+- Final encoded loops also directly inspected after decode:70/70frames69/69pairs
+  and181/181frames180/180pairs on all8encoded sheets; terminal holds preserved.
+- Demo8303 now serves immutable083354/player. Host bootstrap PASS: service worker
+  active,1280x720, QA/combat globals undefined,0page errors; actual menu inspected.
+  /Tutorial-Space-Example.mp4 and /Tutorial-Space-PauseResume.mp4 return200/video-mp4
+  with exact local SHA256s above. Old SpaceCue-Demo.mp4 and old player are retained;
+  old clip hash d1bfa7316e81ddb84ec2132a8c95e35a06961077d7d9f477a4a9c90eda3085f5.
+- Keep worktree/branch micharel09/space-press-cue and
+  E:/CodexTemp/TypingHero/space-press-cue (players, raw frames, reports, per-frame
+  review, clips, host/helper) for requested preview. Stop-Demo.ps1 stops the owned
+  8303host after review. Remove only clean task resources after acceptance and
+  verified integration. Main integration is intentionally deferred by this plan;
+  original dirty checkout and unrelated jobs/servers remain untouched.

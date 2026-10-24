@@ -1,3 +1,23 @@
+## Tutorial Space example (2026-10-24; isolated preview)
+
+Unity2022.3.25f1/fly-server QA082204 and normal083354 share immutable input
+`a820ba0399c0ec4334a70fc781fd849001380ca55fd9c9a5b20200d45fd257c0`.
+8/8focused Unity tests PASS,0failed/skipped,3.5245s; strict repeat-builder,
+WebGL/compiled observation bridge and normal QA exclusion PASS. Both downloaded
+players match33remote file hashes;5normal JS/WASM/data payloads exclude QA markers.
+
+Edge156.0.4314.42/Intel UHD/ANGLE D3D11, native-final2:22/22checks PASS at640x360
+and1280x720,0exceptions/provider reads/writes. All five example phases, input/score
+lock, Pause/F8/Resume, restart, Enter/viewed/clean combat, real parry per size and
+menu replay covered. Every selected capture frame directly inspected:452/452frames,
+450/450adjacent pairs, all13sheets; original timing/holds retained. Final MP4s also
+reviewed70/70 and181/181frames, including explicit terminal hold repeats. Native
+normal5/5PASS plus actual tutorial/combat/Pause/menu image review; demo8303 bootstrap,
+QA absence, clip HTTP type/hash verified. No full-suite/performance/actor-motion
+or new-player usability claim. Failed builder/driver/lock waits and precise scope,
+per-frame CSVs, clips and retention: [checkpoint](../plans/parry-cue-demo.md).
+Main integration remains deferred for preview.
+
 ## Latest-main parry demo and depth completion (2026-10-24)
 
 Main9c48f5d + authored lift depth registration: production041305/input023fb6b8

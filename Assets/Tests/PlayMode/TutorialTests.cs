@@ -64,6 +64,53 @@ public sealed class TutorialTests
     }
 
     [UnityTest, Category("Quick")]
+    public IEnumerator SpaceExampleUsesUnscaledClockHoldsPauseAndResetsOnReopen()
+    {
+        TutorialRun.Begin();
+        yield return DungeonSceneTestFlow.Start();
+        var overlay = Object.FindObjectOfType<TutorialOverlay>();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        var clock = typeof(TutorialOverlay).GetField("exampleTime", flags);
+        var render = typeof(TutorialOverlay).GetMethod("RenderExample", flags);
+        var panel = overlay.transform.Find("Reference960x540/TutorialPrompt/SpaceExample");
+        Assert.That(panel, Is.Not.Null);
+        Assert.That(((RectTransform)panel).anchoredPosition, Is.EqualTo(new Vector2(328, -216)));
+        Assert.That(((RectTransform)panel).sizeDelta, Is.EqualTo(new Vector2(304, 80)));
+        var key = panel.Find("SpaceCueSample");
+        var face = key.Find("Left").GetComponent<Image>();
+        var caption = panel.Find("Caption").GetComponent<TMPro.TMP_Text>();
+        foreach (var state in new[] {
+            (.0, "Get ready.", "warning_released", false, true),
+            (.8, "Tap Space now.", "light_released", false, true),
+            (.86, "Tap Space now.", "light_pressed", false, true),
+            (1.0, "Parry window open.", "light_pressed", false, true),
+            (1.25, "X: parry unavailable.", "dark_pressed", true, true),
+            (2.0, "Release between hits.", "warning_released", false, false),
+            (2.75, "Get ready.", "warning_released", false, true) })
+        {
+            clock.SetValue(overlay, state.Item1); render.Invoke(overlay, null);
+            Assert.That(caption.text, Is.EqualTo(state.Item2));
+            Assert.That(face.sprite.name, Is.EqualTo(state.Item3));
+            Assert.That(key.Find("Locked").gameObject.activeSelf, Is.EqualTo(state.Item4));
+            Assert.That(key.gameObject.activeSelf, Is.EqualTo(state.Item5));
+        }
+        Assert.That(((RectTransform)key).sizeDelta, Is.EqualTo(new Vector2(84, 33)));
+        clock.SetValue(overlay, .86); render.Invoke(overlay, null);
+        var pause = Object.FindObjectOfType<GamePauseController>();
+        pause.TogglePause(true);
+        yield return new WaitForSecondsRealtime(.15f);
+        Assert.That((double)clock.GetValue(overlay), Is.EqualTo(.86));
+        Assert.That(face.sprite.name, Is.EqualTo("light_pressed"));
+        pause.Resume();
+        yield return new WaitForSecondsRealtime(.35f);
+        Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(.86));
+        Assert.That(Time.timeScale, Is.Zero);
+        overlay.gameObject.SetActive(false); overlay.gameObject.SetActive(true);
+        Assert.That((double)clock.GetValue(overlay), Is.Zero);
+        Assert.That(caption.text, Is.EqualTo("Get ready."));
+    }
+
+    [UnityTest, Category("Quick")]
     public IEnumerator ReadingRestartMenuAndRepeatedConfirmationUseFreshDungeonLifecycle()
     {
         TutorialRun.Begin();
@@ -110,7 +157,7 @@ public sealed class TutorialTests
         Assert.That(GamePauseController.EncounterReading, Is.False);
         var encounter = Object.FindObjectOfType<EndlessOverlay>();
         var panel = encounter.transform.Find("Reference960x540/TutorialPrompt");
-        foreach (string name in new[] { "HealthGuide", "EnemyGuide", "TypingGuide", "ScoreGuide", "Shortcuts" })
+        foreach (string name in new[] { "HealthGuide", "EnemyGuide", "TypingGuide", "ScoreGuide", "Shortcuts", "SpaceExample" })
             Assert.That(panel.Find(name).gameObject.activeInHierarchy, Is.False, "guide must not leak into the encounter clone");
         EndlessDuel.I.Continue();
         yield return null;
