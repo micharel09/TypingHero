@@ -19,7 +19,7 @@ public sealed class PlayerParryTests
     PlayerController controller;
     PlayerAttackEvents attacks;
     TypingManager typing;
-    Sprite[] sprites;
+    Sprite[] sprites, successSprites;
 
     static void Set(object o, string field, object value) => o.GetType().GetField(field, Private).SetValue(o, value);
     static T Get<T>(object o, string field) => (T)o.GetType().GetField(field, Private).GetValue(o);
@@ -55,6 +55,12 @@ public sealed class PlayerParryTests
         player.SetActive(true);
         sprites = AssetDatabase.LoadAllAssetsAtPath(Original + "male_hero-combo_3_end.png").OfType<Sprite>()
             .OrderBy(s => s.name).Skip(2).ToArray();
+        var combo = AssetDatabase.LoadAllAssetsAtPath(Original + "male_hero-combo_3.png").OfType<Sprite>()
+            .ToDictionary(s => s.name);
+        successSprites = new[] { combo["male_hero-combo_3_1"],
+            AssetDatabase.LoadAssetAtPath<Sprite>(Original + "male_hero-parry_lift.png"), combo["male_hero-combo_3_0"] }
+            .Concat(AssetDatabase.LoadAllAssetsAtPath(Original + "male_hero-combo_2_end.png").OfType<Sprite>()
+                .OrderBy(s => s.name)).ToArray();
         yield return null;
         typing.enabled = false;
         typing.SetPractice(new[] { "type", "next", "third" }, false, true);
@@ -74,7 +80,7 @@ public sealed class PlayerParryTests
         Assert.That(parry.TryBeginParry(), Is.True);
         animator.Update(0); animator.Update(.000001f);
         if (success) { parry.ParrySuccess(); animator.Update(0); animator.Update(.000001f); }
-        Assert.That(renderer.sprite, Is.SameAs(sprites[0]), "entry must be original frame 2");
+        Assert.That(renderer.sprite, Is.SameAs(success ? successSprites[0] : sprites[0]), "authored parry entry");
     }
 
     void Advance(float seconds)
@@ -103,7 +109,7 @@ public sealed class PlayerParryTests
         var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(success ? Original + "player_parry_success.anim" : "Assets/Characters/Player/player_parry.anim");
         var binding = AnimationUtility.GetObjectReferenceCurveBindings(clip).Single();
         var keys = AnimationUtility.GetObjectReferenceCurve(clip, binding);
-        var expected = success ? new[] { sprites[0], sprites[1], sprites[2], sprites[2] } : sprites;
+        var expected = success ? successSprites : sprites;
         Assert.That(keys.Select(k => k.value), Is.EqualTo(expected));
         Assert.That(clip.length, Is.EqualTo(end).Within(.00001f));
         float current = .000002f;
@@ -173,7 +179,10 @@ public sealed class PlayerParryTests
         {
             Advance(1f / 120f);
             Assert.That(renderer.sprite.name, Does.Not.StartWith("male_hero-idle_"), "idle blink at step " + frame);
-            if (renderer.sprite.name.StartsWith("male_hero-combo_2")) sawFollowUp = true;
+            // Recovery now also uses combo_2_end cels; identify the attack by its state.
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.parry_followup") ||
+                (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).IsName("Base Layer.parry_followup")))
+                sawFollowUp = true;
             if (frame < 112) Assert.That(sawFollowUp, Is.False, "recovery remains950ms");
         }
         Assert.That(sawFollowUp, Is.True);

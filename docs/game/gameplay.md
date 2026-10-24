@@ -69,8 +69,8 @@
 ## Original parry and dedicated follow-up (2026-10-23)
 
 Parry enters original combo_3_end_2; unsuccessful recovery stays2->3->4->5->idle
-at400ms. Success recovers2->3->4->4->idle/follow-up at950ms: user-image
-combo_3_end_5 is omitted from both success clips, with cel4 held through the end;
+at400ms. Success uses combo_3_1 -> parry_lift -> combo_3_0 -> combo_2_end_0..3
+-> idle/follow-up at950ms; both success clips share this seven-cel sequence;
 defense stays250ms and success holds its first cel800ms. One completed word in
 [0,800) unpaused real ms queues one dedicated `parry_followup` after recovery.
 No word means no attack. Pause retains queue/budget; hit/death/Slayer/interruption/

@@ -13,9 +13,20 @@ internal static class PlayerParryAssets
         var sprites = AssetDatabase.LoadAllAssetsAtPath(Source + "male_hero-combo_3_end.png")
             .OfType<Sprite>().ToDictionary(sprite => sprite.name);
         var frames = Enumerable.Range(2, 4).Select(i => sprites["male_hero-combo_3_end_" + i]).ToArray();
-        Clip("Assets/Characters/Player/player_parry.anim", frames, .25f, .4f, true);
-        Clip(Source + "player_parry_success.anim", frames, .8f, .95f, false);
-        Clip("Assets/Characters/Player/player_parry_success.anim", frames, .8f, .95f, false);
+        Clip("Assets/Characters/Player/player_parry.anim", frames,
+            new[] { 0f, .25f, 19f / 60f, 23f / 60f }, .4f, true);
+        const string liftPath = Source + "male_hero-parry_lift.png";
+        SurfaceNormalAssets.Prepare(liftPath);
+        var combo = AssetDatabase.LoadAllAssetsAtPath(Source + "male_hero-combo_3.png")
+            .OfType<Sprite>().ToDictionary(sprite => sprite.name);
+        var end = AssetDatabase.LoadAllAssetsAtPath(Source + "male_hero-combo_2_end.png")
+            .OfType<Sprite>().OrderBy(sprite => sprite.name).ToArray();
+        var success = new[] { combo["male_hero-combo_3_1"], AssetDatabase.LoadAssetAtPath<Sprite>(liftPath),
+            combo["male_hero-combo_3_0"] }.Concat(end).ToArray();
+        // Preserve the 800ms follow-up window and 950ms lock; only the art changes.
+        var successTimes = new[] { 0f, .8f, 50f / 60f, 52f / 60f, 54f / 60f, 55f / 60f, 56f / 60f };
+        Clip(Source + "player_parry_success.anim", success, successTimes, .95f, false);
+        Clip("Assets/Characters/Player/player_parry_success.anim", success, successTimes, .95f, false);
 
         var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>("Assets/Characters/Player/AC_Controller.controller");
         FollowUp(controller);
@@ -101,14 +112,13 @@ internal static class PlayerParryAssets
         finally { PrefabUtility.UnloadPrefabContents(prefab); }
     }
 
-    static void Clip(string path, Sprite[] sprites, float hold, float end, bool opensWindow)
+    static void Clip(string path, Sprite[] sprites, float[] times, float end, bool opensWindow)
     {
         // Update the existing objects: their GUIDs, controller states and original sprite imports survive.
         var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
         var binding = EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite");
-        var times = new[] { 0f, hold, hold + 4f / 60f, end - 1f / 60f };
         AnimationUtility.SetObjectReferenceCurve(clip, binding, sprites.Select((sprite, i) =>
-            new ObjectReferenceKeyframe { time = times[i], value = !opensWindow && i == 3 ? sprites[2] : sprite }).ToArray());
+            new ObjectReferenceKeyframe { time = times[i], value = sprite }).ToArray());
         clip.frameRate = 60;
         var settings = AnimationUtility.GetAnimationClipSettings(clip);
         settings.startTime = 0; settings.stopTime = end; settings.loopTime = false;

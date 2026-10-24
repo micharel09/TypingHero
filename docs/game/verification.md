@@ -1,3 +1,42 @@
+## Approved parry art integration (2026-10-24)
+
+Base origin/main9d41188; only success sprite keys, dedicated lift/normal assets,
+asset builder and matching assertions changed. Runtime scripts, scene, controller,
+normal parry, attack configuration and original character PNGs remain byte-identical.
+Success remains950ms/800ms hold; defense250ms and existing70ms contact presentation,
+queued follow-up, damage and cancellation contracts are preserved.
+
+Unity2022.3.25f1/fly-server quick034322, input
+`dcc4cdea6f01d00e6832d2087d82ef419c88fd49deb5a04c60f0fc95e025fb89`:
+35/35PlayerParryTests PASS,0failed/skipped,0.9614194s. Covers seven sprite keys,
+real Animator idle/direct follow-up exits, mirror,1x/.5x, pause, queue/deadline,
+contact snapshot, interruption and damage-window lifecycle. Initial031703 had33/35:
+two obsolete sprite-name assertions mistook recovery combo_2_end for the attack;
+changed recognition to the actual Animator state, without runtime edits. One later
+lock wait timed out before executing Unity; final retry passed. No new WebGL build,
+performance measurement or full latest-main rendered-motion review claimed.
+
+All seven cels directly inspected at native/3x nearest-neighbor and compared to the
+user-approved local demo sheet: visible RGBA equal (transparent hidden RGB excluded).
+Lift PNG also matches the approved bridge byte-for-byte. Both success clip events
+and settings match main; source PNGs and asset GUIDs unchanged. Per-cel observations
+below describe the accepted artwork, not a new redesign or a new motion-quality pass.
+
+| Cel | Source | Hold ms | Observed drawing / next transition |
+|---|---|---:|---|
+| F0 | combo_3_1 | 800 | Low left blade, forward torso, both boots intact; F1 raises forearms/blade while feet remain planted. |
+| F1 | parry_lift | 33.333 | Left horizontal blade, connected grip/forearms and waist; F2 rotates blade upward at the hands. |
+| F2 | combo_3_0 | 33.333 | Original diagonal upper-left sword, small face/hair and connected shoulder; F3 straightens the chest. |
+| F3 | combo_2_end_0 | 33.333 | Original raised rear arm, diminishing blade behind shoulder, two grounded legs; F4 lowers the forearm. |
+| F4 | combo_2_end_1 | 16.667 | Scarf remains connected, original short blade trail, upright torso; F5 continues arm lowering. |
+| F5 | combo_2_end_2 | 16.667 | Original residual trail, waist/boots remain intact; F6 settles the scarf and hand. |
+| F6 | combo_2_end_3 | 16.667 | Original upright recovery, no detached limbs; Animator idle/direct queued-follow-up boundary verified by tests. |
+
+No independent slash-effect variant was added. User approved the earlier playable
+demo; latest-main visual scope here is exact cel preservation/static adjacency.
+Transient review image and both task-owned remote test result folders were removed
+after recording this receipt; original kaluga WIP and its playable demo are retained.
+
 ## Pillar visibility correction (2026-10-24)
 
 Production030724/input8cfaf3ac PASS;2384source manifest hashes and33downloaded
