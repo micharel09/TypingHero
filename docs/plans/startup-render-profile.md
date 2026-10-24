@@ -112,3 +112,49 @@ measurement evidence until the proposed startup fix is reviewed/replaces it.
 Unity2022.3 references:
 [shader loading](https://docs.unity3d.com/2022.3/Documentation/Manual/shader-loading.html),
 [targeted WarmUp](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/ShaderVariantCollection.WarmUp.html).
+
+## Shared lantern shader experiment — blocked before baseline (2026-10-24)
+
+- Fresh fetch and independent Orca worktree use main commit
+  `213e67d6861d83116d62d960906d35bb11efe6ff`, branch
+  `micharel09/webgl-startup-lantern`, checkout
+  `C:/Users/ADMIN/orca/workspaces/TypingHero/webgl-startup-lantern`.
+  The original dirty checkout remains untouched.
+- `python tools/game_loop/run.py doctor` failed with
+  `[Errno 11] Resource temporarily unavailable` while acquiring the shared runner
+  lock. `python tools/game_loop/run.py production --wait-seconds 300` then failed
+  with `Timed out waiting for shared runner lock`, before snapshot unpacking or
+  Unity execution. No baseline build, build result directory or new timing data
+  was produced. SSH works; `/data` has 76 GiB available and memory has roughly
+  8.6 GiB available. Read-only lock inspection showed another Python process
+  holding `/data/typinghero-game-loop/runner.lock`, with multiple queued waiters
+  and an active Unity task container. Existing jobs were preserved.
+- Source inspection: `DungeonHangingLanternBuild.cs` now only declares the art
+  path and explicitly preserves authored assets. It no longer assigns shaders;
+  do not introduce a builder mutation without evidence that one is necessary.
+  All three lantern materials use URP Lit and disable specular highlights and
+  environment reflections. Iron uses alpha cutoff 0.5 and writes depth; wood
+  is opaque and writes depth. Glass uses SrcAlpha/OneMinusSrcAlpha, no depth
+  writes, emission `(1, .38, .08)`, no receive shadows, and disabled DepthOnly
+  and ShadowCaster passes. Preserve material GUIDs, queues, textures and culling.
+- No runtime candidate was applied. The shader experiment, phase instrumentation,
+  visual fixture, menu/Normal/Slayer checks, world reuse and frame-time checks
+  remain **unverified**. This is an infrastructure block, not evidence that a
+  candidate failed the performance threshold. No main integration or itch release.
+
+Resume this same branch/worktree when the runner is available. First build the
+fresh-main baseline, then use identical diagnostic instrumentation for baseline
+and candidate to distinguish world load, camera/RenderTexture initialization,
+shader waits and the first complete background frame. Exclude instrumentation
+from the final runtime change. Alternate baseline/candidate: three fresh browser
+processes/profiles and three same-context reloads each, same machine, viewport and
+production configuration, without screenshots during timing. Require at least
+20% lower median world-load-to-first-background time and a lower longest blocking
+task; use ABBA if results are noisy. Require fixed-light visual equivalence for
+all three materials (alpha, emission, shadows, reflections), menu/Normal/Slayer,
+Play → gameplay → menu world reuse, and no more than 10% frame-time p95 regression
+in short menu/gameplay runs. Keep character/floor shaders, lighting, reflection
+camera cadence and gameplay APIs unchanged; no loading cover or warmup credit.
+Retain this worktree for continuation; remove it only after verified integration
+or explicit abandonment. Commit/push this checkpoint separately from any future
+runtime acceptance; merge runtime changes only after every gate passes.
