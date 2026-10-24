@@ -17,6 +17,8 @@ public sealed class ParryCuePresenter : MonoBehaviour
     static bool useKey = true;
     bool lastVisible;
     SkeletonController boundEnemy;
+    BoxCollider2D enemyBody;
+    Camera viewCamera;
     readonly Dictionary<Graphic, bool> legacyGraphics = new Dictionary<Graphic, bool>();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -46,6 +48,8 @@ public sealed class ParryCuePresenter : MonoBehaviour
         {
             RestoreLegacyGraphics();
             boundEnemy = enemy;
+            enemyBody = enemy ? enemy.GetComponent<BoxCollider2D>() : null;
+            viewCamera = Camera.main;
             if (enemy && enemy.AttackCueObject)
                 foreach (var graphic in enemy.AttackCueObject.GetComponentsInChildren<Graphic>(true))
                     if (!legacyGraphics.ContainsKey(graphic))
@@ -65,16 +69,32 @@ public sealed class ParryCuePresenter : MonoBehaviour
         lastVisible = visible;
         key.gameObject.SetActive(useKey && visible);
         if (!visible) return;
+        PositionKey();
         bool open = parry.IsWindowActive;
         bool blocked = !open && !parry.CanBeginParry;
         bool fill = !blocked && (open || remaining <= fillLeadSeconds);
         left.sprite = fill ? filledLeft : outlineLeft;
         right.sprite = fill ? filledRight : outlineRight;
-        Color color = blocked ? Hex("817b73") : open ? Hex("73b6aa") : fill ? Hex("f2e7cf") : Hex("dcc47c");
+        Color color = blocked ? Hex("817b73") : open ? Hex("73b6aa") : fill ? Hex("f2e7cf") : Color.white;
         left.color = right.color = color;
         locked.gameObject.SetActive(blocked); locked.color = color;
         label.gameObject.SetActive(!blocked);
         label.color = fill ? Hex("211c19") : color;
+    }
+
+    void PositionKey()
+    {
+        if (!enemyBody || !viewCamera) return;
+        // Stable collider landmark: weapon/sprite frame changes must not move the cue.
+        var bounds = enemyBody.bounds;
+        var head = new Vector3(bounds.center.x, bounds.max.y, bounds.center.z);
+        var parent = (RectTransform)key.parent;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parent,
+            CombatViewportCamera.WorldToScreenPoint(viewCamera, head), null, out var point);
+        point += new Vector2((key.pivot.x - .5f) * key.rect.width,
+            key.pivot.y * key.rect.height + 24); // 8 logical pixels clear the raised axe blade.
+        point = new Vector2(Mathf.Round(point.x / 3) * 3, Mathf.Round(point.y / 3) * 3);
+        key.position = parent.TransformPoint(point);
     }
 
     static Color Hex(string value) { ColorUtility.TryParseHtmlString("#" + value, out var color); return color; }
@@ -86,7 +106,7 @@ public sealed class ParryCuePresenter : MonoBehaviour
     void OnDisable()
     {
         RestoreLegacyGraphics();
-        boundEnemy = null; lastVisible = false;
+        boundEnemy = null; enemyBody = null; viewCamera = null; lastVisible = false;
         if (key) key.gameObject.SetActive(false);
     }
 }

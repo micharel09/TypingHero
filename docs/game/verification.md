@@ -1,3 +1,45 @@
+## Approved parry art integration (2026-10-24)
+
+Test base origin/main9d41188; then merged latest main87aa6da (enemy warning/cue).
+Parry runtime/controller/config and the tested player paths are unchanged by that
+upstream merge; its warning behavior and verification receipts are retained.
+No rerun or rendered-motion claim for the combined full player. Only success sprite keys, dedicated lift/normal assets,
+asset builder and matching assertions changed. Runtime scripts, scene, controller,
+normal parry, attack configuration and original character PNGs remain byte-identical.
+Success remains950ms/800ms hold; defense250ms and existing70ms contact presentation,
+queued follow-up, damage and cancellation contracts are preserved.
+
+Unity2022.3.25f1/fly-server quick034322, input
+`dcc4cdea6f01d00e6832d2087d82ef419c88fd49deb5a04c60f0fc95e025fb89`:
+35/35PlayerParryTests PASS,0failed/skipped,0.9614194s. Covers seven sprite keys,
+real Animator idle/direct follow-up exits, mirror,1x/.5x, pause, queue/deadline,
+contact snapshot, interruption and damage-window lifecycle. Initial031703 had33/35:
+two obsolete sprite-name assertions mistook recovery combo_2_end for the attack;
+changed recognition to the actual Animator state, without runtime edits. One later
+lock wait timed out before executing Unity; final retry passed. No new WebGL build,
+performance measurement or full latest-main rendered-motion review claimed.
+
+All seven cels directly inspected at native/3x nearest-neighbor and compared to the
+user-approved local demo sheet: visible RGBA equal (transparent hidden RGB excluded).
+Lift PNG also matches the approved bridge byte-for-byte. Both success clip events
+and settings match main; source PNGs and asset GUIDs unchanged. Per-cel observations
+below describe the accepted artwork, not a new redesign or a new motion-quality pass.
+
+| Cel | Source | Hold ms | Observed drawing / next transition |
+|---|---|---:|---|
+| F0 | combo_3_1 | 800 | Low left blade, forward torso, both boots intact; F1 raises forearms/blade while feet remain planted. |
+| F1 | parry_lift | 33.333 | Left horizontal blade, connected grip/forearms and waist; F2 rotates blade upward at the hands. |
+| F2 | combo_3_0 | 33.333 | Original diagonal upper-left sword, small face/hair and connected shoulder; F3 straightens the chest. |
+| F3 | combo_2_end_0 | 33.333 | Original raised rear arm, diminishing blade behind shoulder, two grounded legs; F4 lowers the forearm. |
+| F4 | combo_2_end_1 | 16.667 | Scarf remains connected, original short blade trail, upright torso; F5 continues arm lowering. |
+| F5 | combo_2_end_2 | 16.667 | Original residual trail, waist/boots remain intact; F6 settles the scarf and hand. |
+| F6 | combo_2_end_3 | 16.667 | Original upright recovery, no detached limbs; Animator idle/direct queued-follow-up boundary verified by tests. |
+
+No independent slash-effect variant was added. User approved the earlier playable
+demo; latest-main visual scope here is exact cel preservation/static adjacency.
+Transient review image and both task-owned remote test result folders were removed
+after recording this receipt; original kaluga WIP and its playable demo are retained.
+
 ## Pillar visibility correction (2026-10-24)
 
 Production030724/input8cfaf3ac PASS;2384source manifest hashes and33downloaded
@@ -3130,3 +3172,22 @@ Old normal030724reproduces stale menu pier/torch strips on wide gameplay entry.
 Final generated world/profile/meta match that baseline; only presentation render
 code/shader changed. Full QA/performance/video waived. Snapshot receipts, pixel
 measurement bounds and retained demo: [lighting checkpoint](../plans/combat-hanging-light.md).
+
+## Per-strike white Space warning above enemy (2026-10-24)
+
+Phase025930/input02175c97:5/5 scoped Unity tests PASS, including14 real manual
+early/fill contacts across Classic and all six weapon attacks, independent next
+press, prediction/speed/pause/cancel and20rebinds. Head031855/input3ee81546:
+1/1 anchor/viewport/weapon-bounds test PASS; strict repeated builder and QA WebGL
+PASS. Normal033136 builds the same3ee81546 tree and excludes the QA bridge.
+Native muted Edge155/D3D11/Playwright1.58.2:26/26 checks PASS, real keyboard/mouse,
+640x360/1280x720 head geometry, parry/early/late/held input, Pause/F8, typing,
+Slayer/results/combo/restart/menu;0exceptions/provider writes. All9screenshots
+directly inspected. Full selected live capture278/278frames and274/274transitions
+directly reviewed; separate seven-attack mirrored314frames/307pairs and original
+300frames/293pairs reviewed. Authored sprites unchanged. Representative lit-scene
+coverage and subjective playtest limits are explicit in the
+[checkpoint](../plans/parry-cue-demo.md); no all-seven VFX or performance claim.
+Normal native1280x720 smoke5/5 PASS,0exceptions/provider writes; eight images
+directly inspected, including the live head cue. Both players match33remote hashes
+each; five normal JS/WASM/data payloads exclude ASCII/UTF16 QA/depth markers.
