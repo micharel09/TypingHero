@@ -3101,3 +3101,10 @@ Pause/Resume/Restart/Menu verified. Six full screenshots inspected; primary widt
 Reference source/video review and failed candidate checks remain in the
 [existing checkpoint](../plans/compact-menus.md). UI preview and retained receipts:
 E:/CodexTemp/TypingHero/result-layout, http://127.0.0.1:8295/review.html.
+
+
+Integrated cue/torch main4e7ccc6: Quick030507/input1b30dee7 passes the same5/5
+scoped tests in3.3917055s,0failed/skipped, with strict repeat builder PASS. Both
+complete merged scenes match generated semantic records; all61result records and
+UI code match the native-reviewed d11258b8 player. Main's cue/lighting evidence is
+preserved separately; UI preview does not certify those newer visuals.

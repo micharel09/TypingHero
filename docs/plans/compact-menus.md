@@ -416,5 +416,17 @@ UI review http://127.0.0.1:8295/review.html, playable QA at root. Artifacts and
 receipts E:/CodexTemp/TypingHero/result-layout; reference research in sibling
 result-layout-research. Keep until user review completes, then stop only preview
 terminalterm_d3ab3d3f-1825-462d-86f1-2c9c19c52b9f and remove these task artifacts.
-Integration with newer cue/torch main changes is pending; this player certifies
+Merged newer cue/torch main4e7ccc6; this player certifies
 result UI only, not the newer main world/cue appearance. No itch publication.
+
+
+Integrated newer main4e7ccc6 (Space cue HUD and torch profiles) via merge27639ad.
+Only a verification-document append conflicted; retained both evidence sections.
+All61result UI records and result UI code remain identical to the native-reviewed
+player. Integrated Quick030507 / input
+`1b30dee76923dbebf6de5590e080489913fd5e569c9746f69169b1f0aa5f59a4`:
+5/5same scoped PlayMode cases PASS,0fail/skip,3.3917055s; strict repeat PASS.
+Entire merged SampleScene and MainMenu match generated semantic records exactly.
+Native203-check UI evidence is reused for the unchanged UI; newer cue/torch visuals
+retain their own main receipts. UI QA preview is intentionally scoped to results;
+no new production/world/performance certification or itch upload.
