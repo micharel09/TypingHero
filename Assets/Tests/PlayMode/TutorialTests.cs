@@ -64,7 +64,7 @@ public sealed class TutorialTests
     }
 
     [UnityTest, Category("Quick")]
-    public IEnumerator ParryModalUsesCapturedDurationsHoldsPauseAndResetsOnBack()
+    public IEnumerator EveryLessonUsesCapturedDurationsHoldsPauseAndResetsOnBack()
     {
         TutorialRun.Begin();
         yield return DungeonSceneTestFlow.Start();
@@ -81,38 +81,48 @@ public sealed class TutorialTests
         var panel = (RectTransform)modal.Find("Panel");
         Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(816, 480)));
         var image = panel.Find("Clip").GetComponent<Image>();
-        var frames = (Sprite[])typeof(TutorialOverlay).GetField("clipFrames", flags).GetValue(overlay);
-        var durations = (float[])typeof(TutorialOverlay).GetField("clipDurations", flags).GetValue(overlay);
-        Assert.That(frames.Length, Is.EqualTo(77));
-        Assert.That(frames.All(f => f && f.texture.filterMode == FilterMode.Point), Is.True);
-        double time = 0;
-        for (int i = 0; i < frames.Length; i++)
+        var lessons = (TutorialOverlay.Lesson[])typeof(TutorialOverlay).GetField("lessons", flags).GetValue(overlay);
+        Assert.That(lessons.Length, Is.EqualTo(5));
+        for (int lesson = 0; lesson < lessons.Length; lesson++)
         {
-            clock.SetValue(overlay, time + durations[i] * .5); render.Invoke(overlay, null);
-            Assert.That(image.sprite, Is.SameAs(frames[i]), "captured frame/duration " + i);
-            Assert.That(durations[i], Is.GreaterThan(0));
-            time += durations[i];
+            if (lesson > 0) { yield return null; director.Continue(); }
+            var frames = lessons[lesson].frames;
+            var durations = lessons[lesson].durations;
+            Assert.That(frames.Length, Is.GreaterThan(1));
+            Assert.That(durations.Length, Is.EqualTo(frames.Length));
+            Assert.That(lessons[lesson].captions.Length, Is.EqualTo(frames.Length));
+            Assert.That(frames.All(f => f && f.texture.filterMode == FilterMode.Point), Is.True);
+            double time = 0;
+            for (int i = 0; i < frames.Length; i++)
+            {
+                clock.SetValue(overlay, time + durations[i] * .5); render.Invoke(overlay, null);
+                Assert.That(image.sprite, Is.SameAs(frames[i]), "captured frame/duration " + i);
+                Assert.That(durations[i], Is.GreaterThan(0));
+                time += durations[i];
+            }
+            clock.SetValue(overlay, time + .001); render.Invoke(overlay, null);
+            Assert.That(image.sprite, Is.SameAs(frames[0]), "loop boundary");
+            clock.SetValue(overlay, 1.5); render.Invoke(overlay, null);
+            var held = image.sprite;
+            var pause = Object.FindObjectOfType<GamePauseController>();
+            pause.TogglePause(true);
+            yield return new WaitForSecondsRealtime(.15f);
+            Assert.That((double)clock.GetValue(overlay), Is.EqualTo(1.5));
+            Assert.That(image.sprite, Is.SameAs(held));
+            pause.Resume();
+            yield return new WaitForSecondsRealtime(.35f);
+            Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(1.5));
+            Assert.That(Time.timeScale, Is.Zero);
+            Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
+            yield return null;
+            panel.Find("BackButton").GetComponent<Button>().onClick.Invoke();
+            Assert.That(modal.gameObject.activeSelf, Is.EqualTo(lesson > 0));
+            Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
+            yield return null;
+            director.Continue();
+            Assert.That((double)clock.GetValue(overlay), Is.Zero);
+            Assert.That(image.sprite, Is.SameAs(frames[0]));
         }
-        clock.SetValue(overlay, time + .001); render.Invoke(overlay, null);
-        Assert.That(image.sprite, Is.SameAs(frames[0]), "loop boundary");
-        clock.SetValue(overlay, 1.5); render.Invoke(overlay, null);
-        var held = image.sprite;
-        var pause = Object.FindObjectOfType<GamePauseController>();
-        pause.TogglePause(true);
-        yield return new WaitForSecondsRealtime(.15f);
-        Assert.That((double)clock.GetValue(overlay), Is.EqualTo(1.5));
-        Assert.That(image.sprite, Is.SameAs(held));
-        pause.Resume();
-        yield return new WaitForSecondsRealtime(.35f);
-        Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(1.5));
-        Assert.That(Time.timeScale, Is.Zero);
-        panel.Find("BackButton").GetComponent<Button>().onClick.Invoke();
-        Assert.That(modal.gameObject.activeSelf, Is.False);
-        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
-        yield return null;
-        director.Continue();
-        Assert.That((double)clock.GetValue(overlay), Is.Zero);
-        Assert.That(image.sprite, Is.SameAs(frames[0]));
     }
 
     [UnityTest, Category("Quick")]
@@ -151,8 +161,12 @@ public sealed class TutorialTests
         director = Object.FindObjectOfType<TutorialDirector>();
         director.Continue(); director.Continue();
         Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
-        yield return null;
-        director.Continue(); director.Continue();
+        for (int step = 2; step <= 6; step++)
+        {
+            yield return null;
+            Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
+            director.Continue(); director.Continue();
+        }
         yield return DungeonSceneTestFlow.Wait();
         Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Completed));
         Assert.That(TutorialRun.Active, Is.False);

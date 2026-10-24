@@ -22,22 +22,38 @@ public sealed class TutorialOverlay : MonoBehaviour
     [SerializeField] Button backButton, startButton;
     [SerializeField] Image clipImage;
     [SerializeField] TMP_Text clipCaption;
-    [SerializeField] Sprite[] clipFrames = Array.Empty<Sprite>();
-    [SerializeField] float[] clipDurations = Array.Empty<float>();
-    [SerializeField] string[] clipCaptions = Array.Empty<string>();
+    [Serializable]
+    internal sealed class Lesson
+    {
+        public string title;
+        public Sprite[] frames;
+        public float[] durations;
+        public string[] captions;
+    }
+    [SerializeField] Lesson[] lessons = Array.Empty<Lesson>();
+    [SerializeField] TMP_Text clipTitle, modalStep, hudStep, actionLabel;
     double clipTime;
-    bool parryStep;
-    void OnEnable() => ShowStep(false);
+    int step;
+    internal int StepCount => lessons.Length + 1;
+    void OnEnable() => ShowStep(0);
 
     internal void BindBack(UnityEngine.Events.UnityAction action) => backButton.onClick.AddListener(action);
 
-    internal void ShowStep(bool parry)
+    internal void ShowStep(int index)
     {
-        parryStep = parry;
-        foreach (var node in hudContent) node.SetActive(!parry);
+        step = index;
+        bool modal = step > 0;
+        foreach (var node in hudContent) node.SetActive(!modal);
         foreach (var arrow in arrows)
-            foreach (var part in new[] { arrow.shaft, arrow.tipA, arrow.tipB }) part.gameObject.SetActive(!parry);
-        parryModal.SetActive(parry);
+            foreach (var part in new[] { arrow.shaft, arrow.tipA, arrow.tipB }) part.gameObject.SetActive(!modal);
+        parryModal.SetActive(modal);
+        if (hudStep) hudStep.text = "1/" + StepCount;
+        if (modal)
+        {
+            clipTitle.text = lessons[step - 1].title;
+            modalStep.text = (step + 1) + "/" + StepCount;
+            actionLabel.text = step == StepCount - 1 ? "Start Battle \u00b7 Enter" : "Next \u00b7 Enter";
+        }
         clipTime = 0;
         RenderClip();
         ClearSelection();
@@ -45,14 +61,15 @@ public sealed class TutorialOverlay : MonoBehaviour
 
     void RenderClip()
     {
-        if (!parryStep || clipFrames.Length == 0) return;
+        if (step == 0) return;
+        var lesson = lessons[step - 1];
         double duration = 0;
-        foreach (float hold in clipDurations) duration += hold;
+        foreach (float hold in lesson.durations) duration += hold;
         double time = clipTime % duration;
         int frame = 0;
-        while (frame < clipFrames.Length - 1 && time >= clipDurations[frame]) time -= clipDurations[frame++];
-        clipImage.sprite = clipFrames[frame];
-        clipCaption.text = clipCaptions[frame];
+        while (frame < lesson.frames.Length - 1 && time >= lesson.durations[frame]) time -= lesson.durations[frame++];
+        clipImage.sprite = lesson.frames[frame];
+        clipCaption.text = lesson.captions[frame];
     }
 
     Canvas canvas;
@@ -64,13 +81,13 @@ public sealed class TutorialOverlay : MonoBehaviour
         canvas.enabled = !GamePauseController.IsPaused;
         interaction.interactable = interaction.blocksRaycasts = canvas.enabled;
         if (!canvas.enabled) return;
-        if (TutorialRun.Active && parryStep)
+        if (TutorialRun.Active && step > 0)
         {
             clipTime += Time.unscaledDeltaTime;
             RenderClip();
         }
         Canvas.ForceUpdateCanvases();
-        if (parryStep) return;
+        if (step > 0) return;
         foreach (var arrow in arrows)
         {
             var root = (RectTransform)arrow.shaft.parent;
@@ -99,7 +116,7 @@ public sealed class TutorialOverlay : MonoBehaviour
 
     internal void SubmitContinue()
     {
-        var button = parryStep ? startButton : continueButton;
+        var button = step > 0 ? startButton : continueButton;
         if (button.gameObject.activeInHierarchy && button.IsInteractable()) button.onClick.Invoke();
     }
 

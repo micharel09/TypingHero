@@ -331,6 +331,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool audioPaused;
         public int tutorialStatus;
         public bool tutorialParry;
+        public int tutorialStep;
         public double tutorialClipTime;
         public string tutorialClipFrame;
         public Rect tutorialModal, tutorialClipRect;
@@ -740,7 +741,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 tutorial = TutorialRun.Active, tutorialStatus = (int)TutorialRun.Status,
                 tutorialPanel = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/TutorialPrompt")) : default,
                 tutorialArrows = ObserveGuide(guide),
-                tutorialParry = guide && Read(guide, "parryStep", false),
+                tutorialParry = guide && Read(guide, "step", 0) == 3,
+                tutorialStep = Read(guide, "step", 0),
                 tutorialClipTime = Read(guide, "clipTime", 0d),
                 tutorialClipFrame = guide && Read<Image>(guide, "clipImage") && Read<Image>(guide, "clipImage").sprite ? Read<Image>(guide, "clipImage").sprite.name : "",
                 tutorialModal = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/ParryModal/Panel")) : default,

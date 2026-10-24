@@ -1,4 +1,6 @@
 using TMPro;
+using System.Linq;
+using UnityEditor.U2D.Sprites;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -113,7 +115,7 @@ internal static class TutorialBuild
         PrefabUtility.RecordPrefabInstancePropertyModifications(next.transform);
         PrefabUtility.RecordPrefabInstancePropertyModifications(action);
         PrefabUtility.RecordPrefabInstancePropertyModifications(action.rectTransform);
-        Text("Step", "1/2", 428, 484, 60, 32, 24).alignment = TextAlignmentOptions.Center;
+        Text("Step", "1/6", 428, 484, 60, 32, 24).alignment = TextAlignmentOptions.Center;
         BuildParry(overlay, bounds, panel, font);
         var hud = GameObject.Find("PixelUI/Reference960x540/HUD").transform;
         var so = new SerializedObject(overlay);
@@ -145,26 +147,56 @@ internal static class TutorialBuild
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 
-    [System.Serializable] sealed class CaptureFrame { public float duration; public string caption; }
-    [System.Serializable] sealed class Capture { public int columns, cellWidth, cellHeight, width, height; public CaptureFrame[] frames; }
+    [System.Serializable] sealed class CaptureFrame { public float duration; public string caption; public int atlas, width, height; }
+    [System.Serializable] sealed class Capture { public int columns, cellWidth, cellHeight, width, height; public string[] atlases; public CaptureFrame[] frames; }
+
+    static Sprite[] ImportCapture(string name, out Capture capture)
+    {
+        const string folder = "Assets/Art/UI/TutorialParry/";
+        capture = JsonUtility.FromJson<Capture>(System.IO.File.ReadAllText(folder + name + ".json"));
+        var result = new Sprite[capture.frames.Length];
+        var files = capture.atlases ?? new[] { name + ".png" };
+        for (int page = 0; page < files.Length; page++)
+        {
+            string path = folder + files[page];
+            var importer = (TextureImporter)AssetImporter.GetAtPath(path);
+            importer.textureType = TextureImporterType.Sprite; importer.textureShape = TextureImporterShape.Texture2D;
+            importer.spriteImportMode = SpriteImportMode.Multiple;
+            importer.filterMode = FilterMode.Point; importer.wrapMode = TextureWrapMode.Clamp;
+            importer.mipmapEnabled = false; importer.npotScale = TextureImporterNPOTScale.None;
+            importer.textureCompression = TextureImporterCompression.Uncompressed; importer.maxTextureSize = 2048;
+            var indices = new System.Collections.Generic.List<int>();
+            for (int i = 0; i < capture.frames.Length; i++) if (capture.frames[i].atlas == page) indices.Add(i);
+            int height = ((indices.Count + capture.columns - 1) / capture.columns) * capture.cellHeight;
+            importer.SaveAndReimport();
+            var factory = new SpriteDataProviderFactories(); factory.Init();
+            var provider = factory.GetSpriteEditorDataProviderFromObject(importer);
+            provider.InitSpriteEditorDataProvider();
+            var previous = provider.GetSpriteRects();
+            var sheet = new SpriteRect[indices.Count];
+            for (int j = 0; j < sheet.Length; j++) sheet[j] = new SpriteRect {
+                name = name + "_" + indices[j].ToString("D3"), alignment = SpriteAlignment.Center, pivot = Vector2.one * .5f,
+                rect = new Rect(j % capture.columns * capture.cellWidth + 2,
+                    height - (j / capture.columns * capture.cellHeight + 2) - (capture.frames[indices[j]].height > 0 ? capture.frames[indices[j]].height : capture.height),
+                    capture.frames[indices[j]].width > 0 ? capture.frames[indices[j]].width : capture.width,
+                    capture.frames[indices[j]].height > 0 ? capture.frames[indices[j]].height : capture.height)
+            };
+            foreach (var slice in sheet)
+                slice.spriteID = previous.FirstOrDefault(s => s.name == slice.name)?.spriteID ?? GUID.Generate();
+            provider.SetSpriteRects(sheet);
+            provider.GetDataProvider<ISpriteNameFileIdDataProvider>().SetNameFileIdPairs(
+                sheet.Select(s => new SpriteNameFileIdPair(s.name, s.spriteID)));
+            provider.Apply();
+            importer.SaveAndReimport();
+            var sprites = new System.Collections.Generic.Dictionary<string, Sprite>();
+            foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(path)) if (asset is Sprite sprite) sprites.Add(sprite.name, sprite);
+            for (int j = 0; j < sheet.Length; j++) result[indices[j]] = sprites[sheet[j].name];
+        }
+        return result;
+    }
 
     static void BuildParry(TutorialOverlay overlay, Transform bounds, Transform hud, TMP_FontAsset font)
     {
-        const string path = "Assets/Art/UI/TutorialParry/parry.png";
-        var capture = JsonUtility.FromJson<Capture>(System.IO.File.ReadAllText("Assets/Art/UI/TutorialParry/parry.json"));
-        var importer = (TextureImporter)AssetImporter.GetAtPath(path);
-        importer.textureType = TextureImporterType.Sprite; importer.spriteImportMode = SpriteImportMode.Multiple;
-        importer.filterMode = FilterMode.Point; importer.wrapMode = TextureWrapMode.Clamp;
-        importer.mipmapEnabled = false; importer.npotScale = TextureImporterNPOTScale.None;
-        importer.textureCompression = TextureImporterCompression.Uncompressed; importer.maxTextureSize = 2048;
-        var sheet = new SpriteMetaData[capture.frames.Length];
-        int height = ((capture.frames.Length + capture.columns - 1) / capture.columns) * capture.cellHeight;
-        for (int i = 0; i < sheet.Length; i++) sheet[i] = new SpriteMetaData {
-            name = "parry_" + i.ToString("D3"), alignment = 0, pivot = Vector2.one * .5f,
-            rect = new Rect(i % capture.columns * capture.cellWidth + 2,
-                height - (i / capture.columns * capture.cellHeight + 2) - capture.height, capture.width, capture.height)
-        };
-        importer.spritesheet = sheet; importer.SaveAndReimport();
         RectTransform Node(string name, Transform parent, float x, float y, float w, float h)
         {
             var rt = parent.Find(name) as RectTransform;
@@ -191,11 +223,17 @@ internal static class TutorialBuild
             label.raycastTarget = false;
             return label;
         }
-        Copy("Title", "Parry with Space", 48, 22, 640, 48, 36);
-        Copy("Step", "2/2", 708, 26, 60, 40, 24);
+        var title = Copy("Title", "Type to Attack", 48, 22, 640, 48, 36);
+        var step = Copy("Step", "2/6", 708, 26, 60, 40, 24);
         var clip = Node("Clip", panel, 48, 100, 720, 240);
+        // Migrate the old default once; retain any independently authored geometry.
+        if (clip.sizeDelta == new Vector2(720, 240) && clip.anchoredPosition == new Vector2(48, -100))
+            Box(clip, panel, 48, 80, 720, 270);
         var clipImage = clip.GetComponent<Image>();
         if (!clipImage) clipImage = Image(clip, Color.white);
+        clipImage.preserveAspect = true;
+        clip.anchoredPosition += Vector2.Scale(clip.sizeDelta, Vector2.one * .5f - clip.pivot);
+        clip.pivot = Vector2.one * .5f;
         var caption = Copy("Caption", "Wait for the attack.", 48, 358, 720, 36, 24);
         var director = Object.FindObjectOfType<TutorialDirector>(true);
         Button Action(string name, float x, float w, UnityEngine.Events.UnityAction listener)
@@ -225,21 +263,32 @@ internal static class TutorialBuild
         void Bind(string field, Object value) { var p = so.FindProperty(field); if (!p.objectReferenceValue) p.objectReferenceValue = value; }
         Bind("parryModal", modal.gameObject); Bind("backButton", back); Bind("startButton", start);
         Bind("clipImage", clipImage); Bind("clipCaption", caption);
+        Bind("clipTitle", title); Bind("modalStep", step); Bind("hudStep", hud.Find("Step").GetComponent<TMP_Text>());
+        Bind("actionLabel", start.GetComponentInChildren<TMP_Text>(true));
         var nodes = new[] { "ScoreCard", "HealthCard", "EnemyCard", "TypingCard", "ScoreGuide", "HealthGuide", "EnemyGuide", "TypingGuide", "Shortcuts", "PracticeButton", "Step" };
         var content = so.FindProperty("hudContent"); content.arraySize = nodes.Length;
         for (int i = 0; i < nodes.Length; i++) content.GetArrayElementAtIndex(i).objectReferenceValue = hud.Find(nodes[i]).gameObject;
-        var sprites = new System.Collections.Generic.Dictionary<string, Sprite>();
-        foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(path)) if (asset is Sprite sprite) sprites.Add(sprite.name, sprite);
-        var frames = so.FindProperty("clipFrames"); var durations = so.FindProperty("clipDurations"); var captions = so.FindProperty("clipCaptions");
-        frames.arraySize = durations.arraySize = captions.arraySize = sheet.Length;
-        for (int i = 0; i < sheet.Length; i++)
+        var names = new[] { "typing", "mistakes", "parry-health", "slayer", "score" };
+        var titles = new[] { "Type to Attack", "Mistakes & Timer", "Parry with Space", "Break Guard \u00b7 Slayer", "Score & Combo" };
+        var lessons = so.FindProperty("lessons"); lessons.arraySize = names.Length;
+        Sprite first = null;
+        for (int lesson = 0; lesson < names.Length; lesson++)
         {
-            frames.GetArrayElementAtIndex(i).objectReferenceValue = sprites[sheet[i].name];
-            durations.GetArrayElementAtIndex(i).floatValue = capture.frames[i].duration;
-            captions.GetArrayElementAtIndex(i).stringValue = capture.frames[i].caption;
+            var sprites = ImportCapture(names[lesson], out var capture);
+            if (lesson == 0) first = sprites[0];
+            var data = lessons.GetArrayElementAtIndex(lesson);
+            data.FindPropertyRelative("title").stringValue = titles[lesson];
+            var frames = data.FindPropertyRelative("frames"); var durations = data.FindPropertyRelative("durations"); var captions = data.FindPropertyRelative("captions");
+            frames.arraySize = durations.arraySize = captions.arraySize = sprites.Length;
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                frames.GetArrayElementAtIndex(i).objectReferenceValue = sprites[i];
+                durations.GetArrayElementAtIndex(i).floatValue = capture.frames[i].duration;
+                captions.GetArrayElementAtIndex(i).stringValue = capture.frames[i].caption;
+            }
         }
         so.ApplyModifiedPropertiesWithoutUndo();
-        clipImage.sprite = sprites[sheet[0].name];
+        clipImage.sprite = first;
         modal.gameObject.SetActive(false);
     }
 

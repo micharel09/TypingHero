@@ -40,9 +40,13 @@ module.exports = async function embedding(api, browser) {
     }
     check(s.tutorial && s.timeScale === 0, 'fullscreen/focus return preserves reading lock');
     await page.screenshot({path:report.outputDirectory + '/tutorial-fullscreen.png'});
-    await page.keyboard.press('Enter', {delay:120});
-    s = await until(game, s => !s.tutorial && s.encounterReading);
-    check(s.tutorialStatus === 2 && s.inputLetters === 0, 'fullscreen Start Battle opens a fresh encounter intro');
+    for (let n = 1; n <= 6; n++) {
+      await page.keyboard.press('Enter', {delay:120});
+      s = await until(game, s => n === 6 ? !s.tutorial : s.tutorialStep === n);
+      await page.waitForTimeout(80);
+    }
+    s = await until(game, s => !s.tutorial && !s.dungeonTransitioning && s.hp > 0);
+    check(s.tutorialStatus === 2 && s.inputLetters === 0, 'fullscreen Start Battle opens a fresh encounter');
     check(report.fixtureWrites === writes, 'iframe/fullscreen tutorial produces zero score writes');
   } catch(error) {
     await page.screenshot({path:report.outputDirectory + '/tutorial-embedding-failure.png'});

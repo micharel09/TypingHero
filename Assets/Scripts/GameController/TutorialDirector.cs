@@ -5,7 +5,8 @@ public sealed class TutorialDirector : MonoBehaviour
 {
     [SerializeField] TutorialOverlay overlay;
     GamePauseController pause;
-    bool initialized, starting, parryStep, waitForEnterRelease;
+    bool initialized, starting, waitForEnterRelease;
+    int step;
     int changedFrame = -1;
     bool ControlsBlocked => DungeonSession.InputSuppressed || !initialized || starting ||
         GamePauseController.IsPaused || LeaderboardModal.IsOpen || (pause && pause.IsRestarting);
@@ -17,7 +18,7 @@ public sealed class TutorialDirector : MonoBehaviour
         pause = FindObjectOfType<GamePauseController>();
         GamePauseController.SetTutorialReading(true);
         overlay.BindBack(Back);
-        overlay.ShowStep(false);
+        overlay.ShowStep(0);
     }
 
     void Update()
@@ -30,7 +31,7 @@ public sealed class TutorialDirector : MonoBehaviour
     public void Continue()
     {
         if (ControlsBlocked || changedFrame == Time.frameCount || waitForEnterRelease) return;
-        if (!parryStep) { ChangeStep(true); return; }
+        if (step < overlay.StepCount - 1) { ChangeStep(step + 1); return; }
         starting = true;
         TutorialRun.Complete();
         TutorialRun.End();
@@ -41,15 +42,15 @@ public sealed class TutorialDirector : MonoBehaviour
 
     void Back()
     {
-        if (!ControlsBlocked && changedFrame != Time.frameCount) ChangeStep(false);
+        if (!ControlsBlocked && changedFrame != Time.frameCount && step > 0) ChangeStep(step - 1);
     }
 
-    void ChangeStep(bool parry)
+    void ChangeStep(int next)
     {
-        parryStep = parry;
+        step = next;
         changedFrame = Time.frameCount;
         waitForEnterRelease = Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter);
-        overlay.ShowStep(parry);
+        overlay.ShowStep(step);
     }
 
     void OnDestroy()

@@ -24,7 +24,7 @@ module.exports=async function difficultyAudio(api,browser){
     await until(page,s=>s.tutorial&&s.tutorialStatus===0);
     let before=await sounds();await page.keyboard.type('bz',{delay:100});await page.waitForTimeout(250);
     check(typingSounds((await sounds()).slice(before.length)).length===0,'tutorial reading rejects typing without tick/error buffers');
-    await clickControl(page,'PracticeButton','button');await until(page,s=>s.tutorialParry); await clickControl(page,'Start Battle \u00b7 EnterButton','button');await until(page,s=>!s.tutorial&&!s.dungeonTransitioning&&s.timeScale===1);
+    for(let n=1;n<=6;n++){await clickControl(page,n===1?'PracticeButton':'Start Battle \u00b7 EnterButton','button');await until(page,t=>n===6?!t.tutorial:t.tutorialStep===n);}await until(page,t=>!t.dungeonTransitioning);
     await page.waitForTimeout(300);before=await sounds();
     const accepted=await state(page);
     await key(accepted.current[0].toLowerCase());await until(page,s=>s.inputCorrect>accepted.inputCorrect);await page.waitForTimeout(150);

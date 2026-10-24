@@ -1,0 +1,3834 @@
+{
+  "columns": 6,
+  "cellWidth": 324,
+  "cellHeight": 184,
+  "width": 320,
+  "height": 180,
+  "atlases": [
+    "slayer-0.png",
+    "slayer-1.png",
+    "slayer-2.png",
+    "slayer-3.png",
+    "slayer-4.png",
+    "slayer-5.png",
+    "slayer-6.png"
+  ],
+  "frames": [
+    {
+      "duration": 0.031028032302856445,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00697.png",
+      "sha256": "44b455c25c9fd78f78bf95a417dc3bb7d1a96ee8bb5304792b9c3e0fdf505892",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031310081481933594,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00698.png",
+      "sha256": "4af85fbdde74af80feb4f67000ea7b6c3f6d46a5c6424597bd87dabb427e328a",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031056880950927734,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00699.png",
+      "sha256": "d97084ae6a1e9044847134693016a0edba9a7db8e377d90e2cad3f298415f8ba",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031651973724365234,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00700.png",
+      "sha256": "164e953ac77b8231163ce5f2b98a3c56ecdd3a05f947f3349c3dca76fd647a44",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030863046646118164,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00701.png",
+      "sha256": "83dceabf660ec140a3a95cf709792087061f8f8d932c74108c6c31232aa95c3a",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031738996505737305,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00702.png",
+      "sha256": "45da14d4fd7f5c504bb7b4b369398fa553ab3603d5464c992e93a473ae4faa63",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03105902671813965,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00703.png",
+      "sha256": "5bc22973f2dc371b3c4c7ba20590b89f2fbfd68be181cf1c94262fbc1377a65c",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031172990798950195,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00704.png",
+      "sha256": "da67236da66a4336431a4e6b0909ca6ca06ec03ca38fc8f47480ea60bfb3fbaa",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031004905700683594,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00705.png",
+      "sha256": "3e793a6e5b1475ae44ddc6805e87ddfaaf8c3c88cbff0ec5be60868298a07598",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03156614303588867,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00706.png",
+      "sha256": "10bde4289e550b9660fee1f575520bdf3628b1ae128774e45dba0fbfb549a8fe",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031050920486450195,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00707.png",
+      "sha256": "3fbc241bdfa2e48e10021b49c4a3ed1b15a226e7d5e39393b7f00c2112aab2c4",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031249046325683594,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00708.png",
+      "sha256": "2ce3dc8744638f76a280f85ed70c8b5941264d65bf967201c0e9a2968e006ed7",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031187057495117188,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00709.png",
+      "sha256": "0c41e3fe132ad57eb6c665f4e20d9273f87ca7d0b39c2956fd673fb106f099ea",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03160285949707031,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00710.png",
+      "sha256": "e0f17ca5505fa9e5594c6477be7d0e2cf6124fee6155db1d3efd818066dc267e",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030936002731323242,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00711.png",
+      "sha256": "82114dbc9f301f5297cd7bf9e3292d8f818ff0bee3c7857335dd4bb8cfe36b12",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127598762512207,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00712.png",
+      "sha256": "a63ee561f27f9e288864c4f099321ae874feb19a58b76e5e234a421dac23ed48",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031556129455566406,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00713.png",
+      "sha256": "89d70dbbe7e5e13d8c0ec3f456561119e3e295519aca0b34bc6a7a1c3ba3b0d9",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03096795082092285,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00714.png",
+      "sha256": "05a741c08a9f4591a84a65d2e632a1afa1a63e755006f1c9553cb94d5bb1e740",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031501054763793945,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00715.png",
+      "sha256": "b502683f601036dd1a80132f2786420e3642a2bf739c7e7da302ce8b6b8039f1",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031199932098388672,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00716.png",
+      "sha256": "da1ac1af927fe540afb2dab94f2e308c935c4a5b577a4cc005a466773ff23303",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130292892456055,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00717.png",
+      "sha256": "a54bd1e7c2489d7f89091239ed1a22a0bfc12d3110571b4b516b05463843f905",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031176090240478516,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00718.png",
+      "sha256": "d57a549c1a1b9027524f94a92db1cd315f5762e80ada0332a3f478fb50dda10f",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031332969665527344,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00719.png",
+      "sha256": "c78842cc51f020f04913acabbbd7c611883f39acb993a5f4d1a50bae4d096434",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03155708312988281,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00720.png",
+      "sha256": "6fc6c5ab8ff1aaa12b6f3ae8d3942d45900b55ba6b29042e0165c2e91665dd24",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03063488006591797,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00721.png",
+      "sha256": "bce343e2f14e9d753572d33058023662fd18a19589466c3edf9163686f2461c1",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03128504753112793,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00722.png",
+      "sha256": "069784a53e3205569855043f82d6975427cd5e0bf4f067956eb8a8f70a327385",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031510114669799805,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00723.png",
+      "sha256": "fe730687ff1426ac0e76f55ab3af4f56eaad5788b5638715f94b2c758f7d97bd",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030925989151000977,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00724.png",
+      "sha256": "4c17f149707bb5475484cfb168a7eb97c95750d081094bed9beb1e2a17f574d3",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03128480911254883,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00725.png",
+      "sha256": "0819f239b2a0366f36bc55ef542a3709927dee4047ede21a5c4fd3bafbc1c5d2",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031475067138671875,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00726.png",
+      "sha256": "6729b995ea9c66602694de78f16b5bfd397ec04b1d06fa07eae2e58c9a4345da",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031131982803344727,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00727.png",
+      "sha256": "bfe6866ea4c18546c94b79f0c208657d1275b2ecb44fb848e4d83e073d5d6d21",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127598762512207,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00728.png",
+      "sha256": "cedea3b38fcf7914245adcc365dbefdc7199924e1bb5ae7e7a64c5a352d61486",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03117513656616211,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00729.png",
+      "sha256": "c695527aceab83a899149536dc539d441bd8f3278e45df52866dd001478e8f47",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03154301643371582,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00730.png",
+      "sha256": "dd19b38a38a1f3824304dbf85ab405a208d37a47f4e2ebc2de53d79fd4eedd54",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030993938446044922,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00731.png",
+      "sha256": "638a31415ed0808f8d3a0f851ac9a176450c69dc2788f7330d5a3776eb9fa878",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031497955322265625,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00732.png",
+      "sha256": "74f1275d312e20873970cfcb7fce10f5eeeff6a6b5175affd006de8021e9f997",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030970096588134766,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00733.png",
+      "sha256": "18c512edbd22ec1ae9357f4c867d7aba9ea3aa4d0e129f5d91f26057e816987b",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312809944152832,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00734.png",
+      "sha256": "9d9e42efc8fe767bbd7f4d5826255b18f01abfb5ee9962879505e7f914f0b371",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127884864807129,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00735.png",
+      "sha256": "671e1860e9abec98fe91e225e3bdc2c591693850edbdaf13ae2b81c321d47384",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03135108947753906,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00736.png",
+      "sha256": "49155b67f65f21a8fc5edbe77aeebe382c9ca9a082a3a31ba4376a0669389a27",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03120708465576172,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00737.png",
+      "sha256": "11a8bb81ac2b62fb143cc42580c6e384bc7e40aef543e79b52f9d4072b6fe26d",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031297922134399414,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00738.png",
+      "sha256": "d86ca67d695761d7dd2c802bf47e922cf2906fb6df312037ff65ae9d603f2522",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03131103515625,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00739.png",
+      "sha256": "0cb630a65f3d8ffac0d84bdb006bfd53137a9c4a46301f7e3b72300751d5054f",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031024932861328125,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00740.png",
+      "sha256": "8f9363bed58ca09e3c44fa149454c1129260a89bc69939fbd816d8bb721d15d4",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031105995178222656,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00741.png",
+      "sha256": "9526aab4c7041c18f2494ad74a4bfeeaacb2046cdfb0140697694352a7147991",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031577110290527344,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00742.png",
+      "sha256": "0d8bfb2679590e04be75c3875bf9d67dba089a6d7cc3be8e9a236fa878c9ea39",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030972957611083984,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00743.png",
+      "sha256": "031562ca2c3574aef939a72fc8e5f40bc2ae0a57c186f11192e9c1933ec0502e",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0313718318939209,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00744.png",
+      "sha256": "fd6a826e12638db55b591c92bcb14c14a12e5b5310b81d78170e16d801a31a13",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03162717819213867,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00745.png",
+      "sha256": "ba30295daec314eb58ed61540e7b4bda266420efbac3ab3335d82065c7cbecbd",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031038999557495117,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00746.png",
+      "sha256": "79dea399fd03587e7c5e0d781903f3d1cbbdc17ee1fad88e53ed1f7e2c021104",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03107285499572754,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00747.png",
+      "sha256": "ba8cb186486a3249d7f31fc1fc636fba5c844106b365bc2defac3f798cf1221c",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031157970428466797,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00748.png",
+      "sha256": "444db9c537bf851d976c46ff1f59ea4f184925591a775a7e039b5065d2fe10da",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03149008750915527,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00749.png",
+      "sha256": "31809871ce7b1ab3ac9cb7a0ae105bb2b67fb5061d5152f657c38fc122194994",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031373023986816406,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00750.png",
+      "sha256": "d0a07814d07008605a6288bc6b880f76f626c98215c2bd1fde44ff82e02af79c",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03092789649963379,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00751.png",
+      "sha256": "3d7d794e430239e5eaa64655dfe1546b317bce0a6c6e566d97eccc350c719d7b",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127408027648926,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00752.png",
+      "sha256": "463ea75ad2c070c6de57423a0f93e38f54493987fffb293227aeb2014ae9e991",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031362056732177734,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00753.png",
+      "sha256": "d85dccaea2dff2b812818ec97f66a3fca6675ac42c4b882220785f75087aedfe",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03137993812561035,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00754.png",
+      "sha256": "50336810ea8893de34d29240d08da5a914a9901f04e9927d23a5eda6d7df119f",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031230926513671875,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00755.png",
+      "sha256": "10d053ae5a8b8a7920b82382398c58125edeef2394e218cf87e355211087d5b7",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031040191650390625,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00756.png",
+      "sha256": "72adf00ab4d899ba35acc7253f0e1d20c277f61d10da50d7a12c05b4ccfdf991",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031071901321411133,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00757.png",
+      "sha256": "571c45a83d46eb4e185aea39ef511e0fa901073ed4d775539ac0d83d0004c27e",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03180098533630371,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00758.png",
+      "sha256": "437848cef9a3a90b1e03ad9d614d371e09630734528ede24fd5a08a9a7dac602",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03124403953552246,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00759.png",
+      "sha256": "714a3d91ffe6705703437ef9b9bf082feab6bd1931df37c14cfbf2ae074bc8fc",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030905961990356445,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00760.png",
+      "sha256": "a6ca1e448ea341698e94f6f5ea798efa01d1b810fdc4ee6155627b2ff0ffaaf3",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03139090538024902,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00761.png",
+      "sha256": "2cf706b05ef011f64a2e908240d0c51726ea5ba5bc4985ec349f0469b355678d",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03105306625366211,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00762.png",
+      "sha256": "50404bd72f4e26deef1d86f001a473985fa865a2e47247feccd84bef59a3c453",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031237125396728516,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00763.png",
+      "sha256": "bba13f1419a42c1ccaf1ecb32ebf53eb1e14b5206a80b098641afe82d8fd1a33",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03139495849609375,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00764.png",
+      "sha256": "02e7a44cde568334f3eb477a4106dca3140bb00e3cd532b96d3a47dbd379461a",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031045913696289062,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00765.png",
+      "sha256": "e87ba9da865e06d0b1523313cb54668e9c77383a9cb88b47d5ea79edf22f1c3f",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031523942947387695,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00766.png",
+      "sha256": "11349dcd3f7a8443b961a055a19942923e69f754122a49a0dff5bbe045dd5eef",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03151416778564453,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00767.png",
+      "sha256": "275038611b1b035181d1eced837e0ecca6d635e0be06a9a4e66ed0e6d1436a0d",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031009912490844727,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00768.png",
+      "sha256": "3db7499d52985988e9abb645633d8292768d1e96106e47ee71598132f6515c02",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0313410758972168,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00769.png",
+      "sha256": "f2265b9062cc917b87228065b7a71c4ea27421c7215e97298338b67a8159fd86",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031056880950927734,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00770.png",
+      "sha256": "1dfb354abbad42a57b907357fe4f72cfdeacb65a2370961894a30f7093152ef5",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03166699409484863,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00771.png",
+      "sha256": "598ddc7a5f47c4a24e5492415302bb7cb26e23bab756f11a6079783bca3d122e",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031005144119262695,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00772.png",
+      "sha256": "e7846d94592be326c617ae69b9087ef1e1ad7f1c43c604a48ca6884476625e22",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03098893165588379,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00773.png",
+      "sha256": "3352694511f0b47bbac079b7e93fbb4de1165b7b6c55c38680f7230843e2d170",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03151106834411621,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00774.png",
+      "sha256": "d3e78c95d86beef696535c8907620fd97051ec4da546811752e3b7e5569b6675",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03129887580871582,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00775.png",
+      "sha256": "556a048055c01fa65386717ced0570450ffb9b1ea05320b8beb8e3177fa9db82",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030997037887573242,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00776.png",
+      "sha256": "305541fadca005ffb3021a636e21054a7370e15da290e1316e18e583381c096c",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122401237487793,
+      "caption": "Parry to lower Guard.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00777.png",
+      "sha256": "621ef89623a6967267b56c27d050fa82eac6c707c3d388467f96ecdb4ddd19d8",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031488895416259766,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00778.png",
+      "sha256": "ebf87e25f897b773137d5bdf4a3f2dcc53c8679ba926f5fd143caad23a608700",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031243085861206055,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00779.png",
+      "sha256": "48f85b39ca6da88dcc60748d6bffd94a4697a4869a357d2b271258eb587a278b",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031054019927978516,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00780.png",
+      "sha256": "548eb39ff49ccd036797a83e50f93bec3505944156bcaddb44307dc196bae172",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03098893165588379,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00781.png",
+      "sha256": "68c1c7e7ce6438cf27cc7b200c00843ecf7f36f9c297936f64a933b7240f656b",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03134799003601074,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00782.png",
+      "sha256": "2c1b462503b45c89ecd4c330e5de521005d811d7570e700e4532b86a9463377f",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03156018257141113,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00783.png",
+      "sha256": "e9263b3cff90bdface7096b4da94f2ea3f8d53dd7680940bbd182cfc79d0c682",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031036853790283203,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00784.png",
+      "sha256": "e35b183c2b8bfc7491634f78229b4ec7b8f762b116f90b3e8e10f0f981c2c0b6",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312349796295166,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00785.png",
+      "sha256": "e12641190a4c305f9568228a8db3877a8b0e78fb532860bdc2535cdc104d0d84",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031260013580322266,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00786.png",
+      "sha256": "e3f7f5e6f5b9bc58be05c9013c15d850f7e614ddf6fe808d3a6c1bd2073b0aeb",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031640052795410156,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00787.png",
+      "sha256": "105d4c13270788b07b0c483300c1e8121ff5f404547e17cdfbea9300046f08df",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030853986740112305,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00788.png",
+      "sha256": "a0586c7cbf06c5d418b464234b6fe7973e872badcf42cec626a95f05c21369cc",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03138303756713867,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00789.png",
+      "sha256": "f7357b73af55c382f46d20310c19720bbd822551dcbd59c2400750745278230f",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03124094009399414,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00790.png",
+      "sha256": "1be524d1db79e1409d6106e8c2766dfbe67d0ae74b9a6448bd3a8322864263ba",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031068086624145508,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00791.png",
+      "sha256": "243dfd6eb8b371f55bc15b29914eeb16263109a55b1ccd00e3f2615c0ac48430",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03124403953552246,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00792.png",
+      "sha256": "7142a6a4966dc10816dc8fd2bbb1e633ad3de6aef0bf7f24097c2e7d8f7eabfc",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03156399726867676,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00793.png",
+      "sha256": "5234f43dbbcb05489ff5c5886907569d88c8979e57d5233af48eca4f54b08589",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031061887741088867,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00794.png",
+      "sha256": "95459194b9376fd285b33d34f7c84d1eadc07c1d9318ca0b66d0dc754101e45e",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031100988388061523,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00795.png",
+      "sha256": "72d29b82825992d4c1aafbad2ecc1bcae96ec45de89c5dfe84f007157c862068",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03154706954956055,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00796.png",
+      "sha256": "b616be345251073eb51261c433410257b7269176a5aa8e259f7b8eeffd4ade02",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031007051467895508,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00797.png",
+      "sha256": "2522a481b0ac1e221baf81090d9ab0b50f06f139d0da0ee28427e3ca45764d86",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03142881393432617,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00798.png",
+      "sha256": "12b2c541d7bf9b052d2bdb6f99378d4350520f3c73af526f51c16d41626b5609",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03136610984802246,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00799.png",
+      "sha256": "dd4a615c94bb06a78263cac2c2963294450bf6e4425cfd3a3e30275750279a38",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031030893325805664,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00800.png",
+      "sha256": "a1f6a636a6adf54fcb6ce0b3965472619976e27e2715220710f872d676760aa0",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125405311584473,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00801.png",
+      "sha256": "518f33f5cbdd679e405f35313d621b800fd015d946bb4f6ecd941aae30b909da",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03137493133544922,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00802.png",
+      "sha256": "40563e65e5ccec7eaf0b86727113b9c60a54f5e25507e7436a3a5e9ba7157a93",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03100419044494629,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00803.png",
+      "sha256": "e5bf91de3868c00248b7ee702288bda95701f012bf748ad23f44c5c4ee4af8fd",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031141996383666992,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00804.png",
+      "sha256": "dc6ab59873ce9d051a5b5e3fdf1f94b9117359797d92504bf3f66d8a042141a5",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03144693374633789,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00805.png",
+      "sha256": "ae63be68c5d0e73c5028cfbc514ace292828c92f42642b3c0935ad4a4885ee7c",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125500679016113,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00806.png",
+      "sha256": "557f2ef862af13190b578852d22484451752ff0e3526e3a2c6850b82242fa93c",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0315859317779541,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00807.png",
+      "sha256": "ac9242b772d0f2db5bf8b1d181b845351d233c6e4e8cdfe1fcfc2ea1751f8b7a",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03092503547668457,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00808.png",
+      "sha256": "10ebda174c617a2343b5545d67bfeb30797e694b2eb43a7df9fde28f6c07852f",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00809.png",
+      "sha256": "d40d1871283b6f3abe43caf948dda44a4fd16c21dc2dc90eba62b94a7665778e",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03170490264892578,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00810.png",
+      "sha256": "367e8760a828cb28e7975579866667ddfa98d736357f5ebc40902849658afa23",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030736207962036133,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00811.png",
+      "sha256": "26fd7a1eccbba0ea8c612d8bfe684e6f8d35f4b8733752321bf398515cee3b83",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03110980987548828,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00812.png",
+      "sha256": "cb34cd7f1f0457d0f41a9fb9eda7d0c89546361dc3d6a69c4dcbed9ced6ed35b",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03177309036254883,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00813.png",
+      "sha256": "e0eed4df6d33e081831285828fa64f165f7f4a7aa3f852adf8688cc319df3b76",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03114604949951172,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00814.png",
+      "sha256": "f697f0a1d9d2bd74616f98beebdc01da05efabac07934c2216c2105e2cc0b3a6",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03112196922302246,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00815.png",
+      "sha256": "ae16007eb6533a97a45a3f54697dff8cb17197509627807d8c29c0d4b4a79e34",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031195878982543945,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00816.png",
+      "sha256": "64beada6d773b61c06dc72db237bfd29c4132c1b32b256916a1ae91207379a2f",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03159308433532715,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00817.png",
+      "sha256": "2e6f29e3727863df461f94fbeceb4def35dbb716fd80fbfb02695add3788a536",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03112196922302246,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00818.png",
+      "sha256": "24a53e40e8e752e69e23e1b9a03a3465de7536c3ab0efff299966bbea8374f15",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03147697448730469,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00819.png",
+      "sha256": "f57323aca4364b26c5f7b654cec3a6adebe5440edc9c79a24d5864524e487125",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03068709373474121,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00820.png",
+      "sha256": "6347d5aeb901ca78973a46d4bf405bcf7a5b77a6c9b847ba446d7f58fbb91daf",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03161907196044922,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00821.png",
+      "sha256": "87050301a2a53c835d1859d171b659076d3a1303dd2a24608283b5e81236232a",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031019926071166992,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00822.png",
+      "sha256": "b9a26eac8a5b14ea324ab34d7cf65644616da2c1b1a27203b7afa2daae85c38e",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031722068786621094,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00823.png",
+      "sha256": "5b6b1a3f834a365df3949a80a60808c2a9d0feefd4a8d72deba9ed89fa84fdf4",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030920982360839844,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00824.png",
+      "sha256": "34796c75f2a92530dae5736574f46dc37c4236057cba758f2d10c60eb999b408",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0314488410949707,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00825.png",
+      "sha256": "7e19df6284a76bf7273aac92d56e0a01d997fe4a819b64eefd2446c74da0c0d6",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030614137649536133,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00826.png",
+      "sha256": "0afe38c852b2db3453633abcae7bde2158de78699646a1f2d459d6fe3d1940b7",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03126692771911621,
+      "caption": "Guard broken. Slayer is active!",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00827.png",
+      "sha256": "1b61db4b75ffdcd3d8f0c970719b0e1c9b866f2949d287724af88ace3c6f71e4",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031497955322265625,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00828.png",
+      "sha256": "cfe7dfd7a1ee77ca5a2bdc7c121911e8b92caa85bd1bd53ef2a692050a9590eb",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03112196922302246,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00829.png",
+      "sha256": "5b7ce42df68479abbd018b7e0b0c6f76e2589e2f034d0d8f9ddf5ea80aafe783",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0315861701965332,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00830.png",
+      "sha256": "0a801f7ab548087ab7160c9574c0a5f2b475895845312e3f2a467aa42e69ce54",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031410932540893555,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00831.png",
+      "sha256": "5df06ed9ba32d6160a5d8df6a542cc99c2192238323cc78bb2110c83f5c2f6fa",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031045913696289062,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00832.png",
+      "sha256": "367ef6c4c11a964e9447612691e363eec42f7e25e51ffe8a97db5d155d0f8681",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031298160552978516,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00833.png",
+      "sha256": "4140899eca690861ff75e2b35c6f67d225e05563feab5611c515fa27ae165a09",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03147602081298828,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00834.png",
+      "sha256": "e8f168075ff23dfdd9a2b62508068ad7f46234baff6c9e29ad5cf8537d0c9539",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030704975128173828,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00835.png",
+      "sha256": "973c78b0a71bc79d52946b6e052f0d2fc8bd84a996fca23b762d8a8f5402f60b",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03129005432128906,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00836.png",
+      "sha256": "c765f41e1d318694dfa5624fe97a036777029b030596c7ba1d1589810da8f54f",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031122922897338867,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00837.png",
+      "sha256": "1275fe542b9d6b21ec35a3490bbf20515d86b2da6a3c8bfb133bd5ad83492aaa",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03178596496582031,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00838.png",
+      "sha256": "42cf9a836218506dc8b0b3aad0229d13b410027c18fde9fb34dd21cead796165",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030762910842895508,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00839.png",
+      "sha256": "37de86a94b5dcdf8c73f848e5c792b3aff7743dcc592435351de9a4961276813",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031565189361572266,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00840.png",
+      "sha256": "5d2c337df2fa7c7399d01c0021b7f34516c33cd7c3dfbce399319de8286b65e9",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03084588050842285,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00841.png",
+      "sha256": "c0804f93c017bd253bc1f6b3ca7616a136c88ec7bab8af76946689a4a8cf32dc",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03180503845214844,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00842.png",
+      "sha256": "5317cc9aef496f9d5826f9d3fba86c42d38fc0d1d87273e1951c816dbc5010cb",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03106999397277832,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00843.png",
+      "sha256": "8f33037d095a4960fd5f01ecd210ce05e0775a805db0555a1627583751942d8a",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031404972076416016,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00844.png",
+      "sha256": "e71aad737c5c5594cc852b14d73ed47394216d1cc53f9a97914d8d50ff4d360c",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030991077423095703,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00845.png",
+      "sha256": "17f7574f0ed269d1d6d8ba2e94f22b381d6e7c9253e46724e12e7a8af6f6e47e",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031154870986938477,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00846.png",
+      "sha256": "338490f4bf1d71ddd90b9611011cdf541be2d17ba8db63e94cd3aa1038ca8b95",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031339168548583984,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00847.png",
+      "sha256": "928fff8cfab2979138f13c4fc1541ae46af128c3837c9c2bb072a6bac0b01e4b",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031125783920288086,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00848.png",
+      "sha256": "908d11a549fbf99e27583270659bdb5ae3185026fb33f09a4851c40df5a1dc65",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031362056732177734,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00849.png",
+      "sha256": "a32cf7a0ca637411d76cca561e20a0dafab20bc5ce40c33f87fdcde9cc105a0e",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130602836608887,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00850.png",
+      "sha256": "35a62293ebd1f74e6e1e8c10aff97c238d66adf2a1c3263836646a74d79f5110",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031297922134399414,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00851.png",
+      "sha256": "3cd95bd4516827ad6bcea917e29e4e039cd84b4861dedc18b0e2738f9ca08784",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031327009201049805,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00852.png",
+      "sha256": "4fbd690e5c786b015cf3592dccf4c70e1c7edc5866ab648b451d4f2460aabfb7",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030924081802368164,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00853.png",
+      "sha256": "a61471647522953be1496bdcc1edd2510d4d8e104c192de23c26de05aa1f7c64",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03140401840209961,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00854.png",
+      "sha256": "048f30080d447c1f01012c7e35764e581efaf43f1400fb390692715e607cd967",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312650203704834,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00855.png",
+      "sha256": "7c15a7b57760406b362c14130cd4828369379366b94c1eb5e35c25bd05886720",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122091293334961,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00856.png",
+      "sha256": "d9527bb8db1c46cb0d7c9476ede359bc65af7f6bf0b8d1fd7db71bd64b8c00ab",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125905990600586,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00857.png",
+      "sha256": "fcfc1293c049b23147b4ced4c116ea35c2492bf6451a3b045e5ec9ddee34346b",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03109288215637207,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00858.png",
+      "sha256": "50169d59b6b1b62d7421b0502c0d3c8b4968f7ab2a964544ad1e83172da1f3ca",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031211137771606445,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00859.png",
+      "sha256": "5c61cbed9b33c5c2e5eb94ece4e1a9a3cfff64f72d4b61fa6b63bac50f5e235a",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03162503242492676,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00860.png",
+      "sha256": "882e9587374b614fd5b797b7b05978201cc34983c6fed9af02b8692abd2f828d",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03095102310180664,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00861.png",
+      "sha256": "ee4e78ee8c9e437a562026814e01d58a4813b9bbab3edfe86feb903218f16cb4",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031138896942138672,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00862.png",
+      "sha256": "4da71ed54f3349c888cf6df9c60c90e525fcbcb5fcd4e2ca8680aace9cdb9cbe",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031466007232666016,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00863.png",
+      "sha256": "86e70f55270f3676aeec9eacf37930015e35c03c6287ac32be58ea1698d2290c",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031033992767333984,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00864.png",
+      "sha256": "8c247cf110a5c8720edb89a7425acb3ec7d169ecda0a008e7e6baa05d0ce50f9",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031229019165039062,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00865.png",
+      "sha256": "b259347a9f5dd06a4f01aa7ed13a1ca70fadd89cc330abfc365dc8a578858e26",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031234025955200195,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00866.png",
+      "sha256": "748725737dcec3ce2bf50474f53b566563132c5a08c2da28b382ab1dee1223a4",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03142094612121582,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00867.png",
+      "sha256": "f47783f5020201da5e26589c10e021e832a23a8753b77621083dd11001d3c4cb",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03113102912902832,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00868.png",
+      "sha256": "d557cb0ae5eef5c53af58d3634b123f52901ec9dd089cafea29b686d164527fa",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03146791458129883,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00869.png",
+      "sha256": "4c4dfdb14ec3d14f0ecd15aae591cf3eb1c5b1d4a88c0bd2d457523a73c24f3d",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031200170516967773,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00870.png",
+      "sha256": "8e3350cbd95a2dc8bd6d28bed4505f7f3437c7a1959766e7172242b197640650",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031395912170410156,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00871.png",
+      "sha256": "8b30b880b73d2357bc6b4b124e496e20466a799e1c8ed29151ab7176686e2ed8",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030889034271240234,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00872.png",
+      "sha256": "f5690060b6eefd548945ecf517b34b8ff0346f488b28e167b965be47bfef31b2",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03165292739868164,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00873.png",
+      "sha256": "a2a5265218ea1f34a3d7c9460347d54d30f6348ccfb1e3d7e930bb98af766b69",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130292892456055,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00874.png",
+      "sha256": "fcec12655d1538d81105687e74bc37826cfda147ee43bf553d71a3c9905cb0f4",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031219005584716797,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00875.png",
+      "sha256": "fa37ece7bf3e4590ce7ebea292495b3ee4288d0fe112ce3e9638681d0b856b51",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03118109703063965,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00876.png",
+      "sha256": "b27344cb1eee0430e2fc0b5b136e1ee8fab932d9a94c36a598cd343d38f91705",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03088212013244629,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00877.png",
+      "sha256": "d4fe7df0f2ef7b065288d4f3ee58d38fb91930ad78f3b18693c5404b52f949da",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03173685073852539,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00878.png",
+      "sha256": "a8b7e47561db0c1bfb7dfa817c340a4c5d512af46edb8bc7ba7c96c596a36912",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031211137771606445,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00879.png",
+      "sha256": "a8016869e1a10e439ff92f9a7feb5e4c92291b68393b6912ba7aa4ceb53065f4",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03118586540222168,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00880.png",
+      "sha256": "9485986ec9f6bcd7a82a786bfe9db99bf9d7cfb8c6f887c393750faae18d2f52",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130507469177246,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00881.png",
+      "sha256": "ce86676211aad945277b546f5934f8dad7c835944fdb38fce43a58b65cb4aa7f",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03142905235290527,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00882.png",
+      "sha256": "30aa3bcc775ba2edeb530187b0ffbb363e24b6de9db8068e42a97d6457ccd7fd",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03074502944946289,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00883.png",
+      "sha256": "b980e80fb0c462c0c6c41f118978d18f440007a31ebf85d665c2ff710fa08a8a",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03121185302734375,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00884.png",
+      "sha256": "b508e24060b8cd80b6506970a204e8df2844ee03efbfe7bd8ed381ddf6befe4c",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031588077545166016,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00885.png",
+      "sha256": "b128536c3eca82e772245e8f3ae2dd458c3a9db69a58a74309bc441b93bc873b",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031117916107177734,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00886.png",
+      "sha256": "37ea9527c27e9122dc72c2611bb70eaa7246e0738762ab4443b28b2de217cacf",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03154492378234863,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00887.png",
+      "sha256": "102b8996f6beec04701c4c3a19bc67038119d504945c8ecc4cedc08a3b478f8b",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03077101707458496,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00888.png",
+      "sha256": "603cbf35fe78783da737ba951324cf9a801aa9ebe7f57c1b64e7e9049366f1d7",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031213045120239258,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00889.png",
+      "sha256": "1546a7f683efbfc2c43b266354e016485198f8d8920b786a5023b4ab66a6cd27",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03145003318786621,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00890.png",
+      "sha256": "79093be0ce6895d66b279d3bef64703177da7b14f74f1cd7b6bcb0d195427d5b",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031155109405517578,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00891.png",
+      "sha256": "3dd1d8a6bca3b889cc504abb3074b9198956d136d993f6754c865de1d4698627",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03140902519226074,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00892.png",
+      "sha256": "0d2a0b4df5526a90f9b3b42aa662b8c927ff2950163f2a05d19f4b2310ef7a4f",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03123784065246582,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00893.png",
+      "sha256": "5b9b1696f0050ac4c0c7740a1b913aebd495d908b098b31c998c5083de47d476",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031161069869995117,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00894.png",
+      "sha256": "76935453cdbe2c4dc5645683e2f79559e8026b4a401e34ecfd246281de1716a1",
+      "atlas": 2,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03137493133544922,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00895.png",
+      "sha256": "c859d1cfdaa8d89bc7faa5fb4b203f2e44d78b6eea804f4a334d2321dd3dd865",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03129100799560547,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00896.png",
+      "sha256": "daf6318056d82f38c5cce7786eb66e5af750191aa498a4ce6d85804493d936d4",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03138399124145508,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00897.png",
+      "sha256": "9c485ba5664e7cea662c836317374849c5020735bddd1f440a3812eb8ac53bf1",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031230926513671875,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00898.png",
+      "sha256": "0fce016698d7de2c5e10cae453b160574902d16ed8d9947679c4cf84e7946771",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031112194061279297,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00899.png",
+      "sha256": "2e4b17432d9d1f5efb999df228025ab00541fee34f474f49e59da5ed3364281a",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03121185302734375,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00900.png",
+      "sha256": "1ed6b8c6d4b00c405d55ec4deb3a9a152d23d91222672e2eeee277276174f9bc",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031231164932250977,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00901.png",
+      "sha256": "9ea95ff1849909fea82c271447949475192f5ffcd83da046e1f0fa6d80ebcb8f",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03104996681213379,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00902.png",
+      "sha256": "4b2ff7df2a302d2b0a452c471f1ef3149872668d450d682839d7b66f3f5dd3bb",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03157997131347656,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00903.png",
+      "sha256": "8068ac7157f60d207a2ccaccef0b38ee93269bcd3fb1f652ab7c1a7bc94c41ec",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127598762512207,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00904.png",
+      "sha256": "7dddf5075f19d8147b494530ee0c7a00152fb181f7a86285c8ebab0acc17afca",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03099203109741211,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00905.png",
+      "sha256": "b23c42f37b73a3c076f14406361e588d128836aae38f773d2b1d3b54cfeadec9",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031239986419677734,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00906.png",
+      "sha256": "5f8532cf9e14a37b758c9d8ef1791299d467d2fc346d2b8e1d143b2fd9e4f851",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031161069869995117,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00907.png",
+      "sha256": "090fa76b15e8a77912046a48f39a6d996b2cc00687a0c15fe699c0dedced1201",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031271934509277344,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00908.png",
+      "sha256": "77c251cbdf716aaf4ad60da487b2a6fef97717095adcec1d627a03376aebc65f",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03150486946105957,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00909.png",
+      "sha256": "dc2623887c90720ee4240f68cacb940bac2a2e612e68d6aa505602528e414641",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031238079071044922,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00910.png",
+      "sha256": "c629cdebe3128e8645319c46c5ef98d7053a2a4dc791b8b014da8a4431d956ef",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03139901161193848,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00911.png",
+      "sha256": "a1a22f3654309bdbe31f70f7e7c35cc3584055e2103432576412e45e354741e9",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030890941619873047,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00912.png",
+      "sha256": "3d4861f4818038775b6dc0ceeaca2a917f179a342de18a06b8140555dd24c621",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031265974044799805,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00913.png",
+      "sha256": "075576ed9b690dadec473c0ee5358dd6fef9009b30468de5f13f2454696d1577",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03128504753112793,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00914.png",
+      "sha256": "1d6ee31326fdcd004056d2b7af6ecc09f7754924c27dc5da81f9a27ffd451194",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0316929817199707,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00915.png",
+      "sha256": "f701b5292de81c7571129c8184019639daabb1106dd1733ae18d9979db00d85c",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030979156494140625,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00916.png",
+      "sha256": "ac0858b072b78afd2e7322347c052484644c2f214feef154b35dd28034486288",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031206846237182617,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00917.png",
+      "sha256": "23dacad103967044f7596dc980e4e77a7f6b4f6c2644989453a088ff48c3a1c1",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03171396255493164,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00918.png",
+      "sha256": "06096ac8a3eb7eb492331b86c9cdefdc0c5fcbd873c123ed17c781c4f7152476",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03086400032043457,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00919.png",
+      "sha256": "c98691c51d7c735dbc02490401a9237a9dd828b55d26c29aca804535f5064c9b",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030866146087646484,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00920.png",
+      "sha256": "b628e92eedbbeead2a5ce54bfd0a56c7f5e5b1d84ddf26363ecef05f3ee13b1d",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03170490264892578,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00921.png",
+      "sha256": "bbfd911191285069abe57ddccf592e685a3e95ec16fdd8c0fd134f2606017795",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03078007698059082,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00922.png",
+      "sha256": "c521362fed2adef44af90e741b75d31e6934c1a47f6cc668ebf972488ec6a537",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03133988380432129,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00923.png",
+      "sha256": "54906a68030ed62588194af19846f0d97fa027082d4793a9371ff80aca950c0d",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03156113624572754,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00924.png",
+      "sha256": "0233c5dfd4391bd4f8fdf7e0e00114f3f4aff06f0f0abc4edeef7243c5e7e513",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030902862548828125,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00925.png",
+      "sha256": "82646ca7fcbe87acbd083e3e198440a86fcf75181c33fbc62d7e315c86b85cdb",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03180217742919922,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00926.png",
+      "sha256": "358718ab2ecff36f6f6eeee225d2a52f5777ddc19cccad2738f3897ba0f470e1",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03123784065246582,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00927.png",
+      "sha256": "204dcca3fe38ad1afab14f37d4325f6ef1ce999896b32cdbb38e410ef9b4ce2b",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031070947647094727,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00928.png",
+      "sha256": "814018049a2dcdb662a6c447d307ffe5107de7c70e84d05f37c0a97e43bab847",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0314791202545166,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00929.png",
+      "sha256": "04a7660cc1218282e26728cf1083e2e3bc1446b50b1c6a6a15ec65fc7f6dc593",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030920982360839844,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00930.png",
+      "sha256": "143270179e041a2565e57f2c7e1166fc396227091c8745e81da03e1241fec80c",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312809944152832,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00931.png",
+      "sha256": "9fabb7c7059f21403ac548c3d5f741014bd50309423205a5d8cc3d5d155101b7",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03108501434326172,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00932.png",
+      "sha256": "347addd116becc0d1c11da70811d1d75369beeeef54938f359d2cb0fb75fa285",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03126692771911621,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00933.png",
+      "sha256": "f2352d865b9a5008c1a1f4a9edb315ba3bbef97a3d5aa3743db513ed3cc8066c",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00934.png",
+      "sha256": "8ac386c63cdd46125e4519e0a6db94ecd8b83b319f64623abe424972d3220e0f",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031092166900634766,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00935.png",
+      "sha256": "4d3f2b59c1716cc4c0e3ffeb4f881d68d9fea12a2dd3d92696327cdfd5fd69a2",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130984306335449,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00936.png",
+      "sha256": "33b0cd56c7853cea98ad12a71b9df9b8b4acdf608675d564c6a0ec63a54022f8",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031733036041259766,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00937.png",
+      "sha256": "04dd1fdbd14e062669ebd0e3b0f655005c0a8e590931514c3c02820727de5730",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03081798553466797,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00938.png",
+      "sha256": "d03fe32c89fc2571b4c24f00f14f874a1c955ce6f3dd1fceb89c0d0b10d3a26b",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03166794776916504,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00939.png",
+      "sha256": "c347a56ad16c36ed189adac89e6f37a04c7775452ee72afe7b6ab9e9152a95ff",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03075098991394043,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00940.png",
+      "sha256": "8ddeb6c6b70b0c77555586e4db4f706be5f47fa20416f8a8990b49568aca46fa",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031231164932250977,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00941.png",
+      "sha256": "5265b342e4fc5f1d1956aec06f918ae08dcf2ffc97c452e1b166ad9afb903619",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03176403045654297,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00942.png",
+      "sha256": "8d70f62c31f995f601e35b734153b25c50b55c32577f01e5aa96ba7a05944dfe",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030995845794677734,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00943.png",
+      "sha256": "de13896b2b8e10d54b8d70c22951ca098606384db1811c92add586a2efab4b3f",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03112196922302246,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00944.png",
+      "sha256": "302207d3865c58560a2811964b5a2e38bbaddbab45321ea3e062989329946912",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127312660217285,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00945.png",
+      "sha256": "7b89299d3647e6ca95a9182b80e7d69a4d8ceef58c71952e4a999e7f7c1b7281",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312809944152832,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00946.png",
+      "sha256": "2a481a62804b41eba2927e1226087ef9a3de4f225dc8f89dfc598f4ea593f882",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03140401840209961,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00947.png",
+      "sha256": "35a61dfe5e324c299eef6efdbd5cdf5450737476758f83750860775bf13695cb",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03097987174987793,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00948.png",
+      "sha256": "ef972e12b11123b4a0243690dbd5dca574b642c24ffe85c77482a8e5c688a865",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031182050704956055,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00949.png",
+      "sha256": "c8f9f1fd66657d040116d90426264202a100cdb5dc17448b622ec019b3cc95f9",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03137612342834473,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00950.png",
+      "sha256": "5fa906e7caae48bbca523822b67c42dd9af48fa517d6ee6ab6826c361ef8308c",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03152799606323242,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00951.png",
+      "sha256": "07a19e3ec6256333cf4b5a40971cf6a69c4d9e0af377e20c07990ef97f166ac3",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030977964401245117,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00952.png",
+      "sha256": "99006fca466c646df4ebe518446ff4f279b530cad4896acf43fbcde3d306bde8",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03144192695617676,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00953.png",
+      "sha256": "717d0631cd9a3ec80a9f04c49db94c4cf68df908c6f6eb0fe19e93ac9ddd631a",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03099799156188965,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00954.png",
+      "sha256": "21121aa19e361ea9fc053977533e8494f1d63f92acfe3e5c60487acd920fa094",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031187057495117188,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00955.png",
+      "sha256": "d1ba40ab69097b4091f31e181cbb4ea383aadc3d973a8057850dfe991cb1a536",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03142499923706055,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00956.png",
+      "sha256": "f742675b7be31175a2dc63c2cb3dfa58a74e051af8cc69d89380f2ab45d37952",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031488895416259766,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00957.png",
+      "sha256": "fbec9ec268d0dc2bd32538cd4e9c6b10461e290b42ea8a25e356fe4cf27ae23a",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00958.png",
+      "sha256": "28795556926b8ebb9c2241451ae64732559d63192b28f112f3ff10af9f698df9",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03119206428527832,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00959.png",
+      "sha256": "517d89cfc4fc0d52e04a828cd39cc779714c079d1b1d930d035814c29def4e71",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031110048294067383,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00960.png",
+      "sha256": "78893c6a54f6ddfff2682bd92deae941b133d5f332713df929eec99603cdea86",
+      "atlas": 3,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031206846237182617,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00961.png",
+      "sha256": "cbaf36523ffc323ffae7b4b21660d9055cbbefec07cb81cf481a1581d5f5816f",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031072139739990234,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00962.png",
+      "sha256": "62e7a3e3349a85315ae9fdc615d7728b20ea9643ecb22aaed3f2615019f7b5d7",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130388259887695,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00963.png",
+      "sha256": "3ddeff3bdf777b230c8362632f241a2c7a17b6973865609fc071d80ee24b249d",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03131413459777832,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00964.png",
+      "sha256": "aecb6334839f75f0fa5b5bc550d4bd91a107b1eab042be68949ae66525da6750",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031067848205566406,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00965.png",
+      "sha256": "884f81dd44f8d934b6abb8c5cd2e666b61c69fa1303a31f373f39db273b82887",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031675100326538086,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00966.png",
+      "sha256": "cd8aeb5c5d38d23008de8d7acab875f392ede7e194d33eb03e31f323012e52a4",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031295061111450195,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00967.png",
+      "sha256": "2671d4f13785d4237232bcc9f8d314ae7ef556f234faf4cc49300ca1eff2935c",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031228065490722656,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00968.png",
+      "sha256": "41adb794a3e90ad3686ba0b95071609c9a1f4503cb89c33f20bd71fd049c9602",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030995845794677734,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00969.png",
+      "sha256": "6e9d690cdcda3bdc9de4d08d16bbdab4659ed392765fb45f6ff51b5d1b705f26",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03142213821411133,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00970.png",
+      "sha256": "93a086596867cb484a364d086ac7612fe7c0aa51d48213a0eb264106f9ec3de9",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03111886978149414,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00971.png",
+      "sha256": "2426cbe3e1813366a31de55765cf397a0f4485bdafcfa75fcde0339b5bf37661",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03148198127746582,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00972.png",
+      "sha256": "de079583b89fca1d8b5c0b64473741b516b4e5642b598f1ac58f2155558c1666",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030874967575073242,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00973.png",
+      "sha256": "23b355009f9462091674aaaf34e5cf22b4c5822a6a45b0c89525185e5de854ee",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130817413330078,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00974.png",
+      "sha256": "1eb83cc54cea4598dff92690a5be93b918f790817be362ab3daacb51e48d3b04",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03126096725463867,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00975.png",
+      "sha256": "0d762ff7f427681fb15089e001ca34afe407d03e4027ff5c24640d1968a15540",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031514883041381836,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00976.png",
+      "sha256": "8973e5d8ee8af8ba87dca630b6c5557971215aa44e72085590c168f489bc09d6",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127002716064453,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00977.png",
+      "sha256": "bd80ed8dca3ef4dad1aef197e50f25b0923494f03f8f743d88718bb08d7e0ebd",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031225919723510742,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00978.png",
+      "sha256": "f58cbd847eb5220e2a99c56b09555f3c8cd3b5b71e62aaf29331348dd3a18f45",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030999183654785156,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00979.png",
+      "sha256": "8e4317e04dd1f27e06454ffc23622b9d7a865038642d9851569d0cb1051bb7be",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031308889389038086,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00980.png",
+      "sha256": "f9c4dc56b078a54181ffbf1244d79f0012b5a498593306c04a88180fddc5a9c1",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0313870906829834,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00981.png",
+      "sha256": "a71225c3a69a622c61cf9dfe4402a1ee77707ae03a73d2ee11f44155546a8dff",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030925989151000977,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00982.png",
+      "sha256": "c24b6f2c488de8fc4ecc66f2d238f1fee7bce3dd9b3cf23add5d36c8f792bb75",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031516075134277344,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00983.png",
+      "sha256": "6797a6e0663b78ade24fb2826a3d803fd881102ccb828dc0e5e548af1665c47b",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031384944915771484,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00984.png",
+      "sha256": "8e965ccc0a4dfefb61f883acf636a28321b406036f444e4f88702206daeb1a76",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122091293334961,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00985.png",
+      "sha256": "6eb34d3044686d60d5e2b943355d79a18e6e23681ad7e2f615247937d94bf371",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031050920486450195,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00986.png",
+      "sha256": "ad0f64bd3c19b1967b0c01412cd36337a860e8a3b413b312161f87b49ea26751",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031040191650390625,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00987.png",
+      "sha256": "fd4cff5531694afb3ea7287dc4a74beefd09de15c030aa3c3f5dc758e83e4ffc",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03129696846008301,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00988.png",
+      "sha256": "9cdcda9d2b5758b1af4357c1c325b44d1de4da8afbbd863e90f809468112329c",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03151082992553711,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00989.png",
+      "sha256": "b983834f99e10aa3923c2721f491831e961a942c54580737fc43ce0f2ec47436",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030953168869018555,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00990.png",
+      "sha256": "5d9b114efa1805106e9c180a358db09d5a0f09e9cd3c5fa610a86a28340c6b62",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031291961669921875,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00991.png",
+      "sha256": "e9ad2851c17a02b5eb0da630e96dc64f46692845b71c74ee34ef828efcc70f2e",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0316319465637207,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00992.png",
+      "sha256": "1eb1c7edd6399bc6f71003a2829c194007cecb99f0cf31d4d7b97eadd8159c58",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0308530330657959,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00993.png",
+      "sha256": "a983e173e22c05130120792b87c9a92b31153ac8c3c3c63e27de540cf46e088e",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03129696846008301,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00994.png",
+      "sha256": "3774e23190414ecd7c88a56480609e99909451886de4440bde8cbbbdc2d56b02",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03142905235290527,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00995.png",
+      "sha256": "b7b3ab56e00108c490c0081447d89b6ba965626d26f445dd8b0b8ec3a2a68996",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03115987777709961,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00996.png",
+      "sha256": "0fb7bef97ae34e1480f178f996ef7772a0acc867244ba7fb89a1fb6228f7aa24",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031241178512573242,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00997.png",
+      "sha256": "0a91cfb750684a117be0362040c2619b8cd5f5fdbfcbb3252eb12850c7c0fdb1",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031581878662109375,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00998.png",
+      "sha256": "467f17e1fb5838537d0c743f0ea6a8c6de539188602a7a7b8958cbb71235b432",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031078100204467773,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00999.png",
+      "sha256": "2c10561131a1fe6f337761d13b1d04fd5b15460f2f4e7f306e5c4b18f28f4041",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03105783462524414,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01000.png",
+      "sha256": "73996d4230416cf0265fe2d511afd149416224d7c68bb1c12a97fc35ff7e2546",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03131914138793945,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01001.png",
+      "sha256": "33f5ee10ad597276fecc109a7a73f41f3316b6d76f7ba7c1915ca1aadb1c9159",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03149700164794922,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01002.png",
+      "sha256": "c8b8f3a48aefc4d5b31a29e7c4904df0170476bd7fd0bedf7f14da1ec463f628",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031095027923583984,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01003.png",
+      "sha256": "973ed99f9f9a21c7dd89a3d08d03c767588284202202899660ffb00332098d86",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03140091896057129,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01004.png",
+      "sha256": "f85365f2a8506d24ac4c13d8f5096f80a4d17755ffec2f003ea22d69507a84a6",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030993938446044922,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01005.png",
+      "sha256": "def4d96e925a29cfc63bd19da8c233926f62e16e429c9b2db86f9752c70421a4",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031104087829589844,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01006.png",
+      "sha256": "8acc6977d6291e1bfe662c920228a7e5481aa0576749b3c13e134884023f9ea0",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03142690658569336,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01007.png",
+      "sha256": "c5c34b44ad092219c7d77b985c2a6c83be7276b579e86ac6c55ec986fcd35d20",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03162717819213867,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01008.png",
+      "sha256": "fd42cc0890c07b97caef910bae6f156560ccb054c4efb6101499dfec92a4b15a",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03075098991394043,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01009.png",
+      "sha256": "df539399bf84ff7f7fabf223756b8df678669f1093d4b7e107fc434d94ad0453",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03131103515625,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01010.png",
+      "sha256": "b77c6a9ad87fcb314d797ec97e8ba204cac40960dd862230bbe10c5653d76133",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031224966049194336,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01011.png",
+      "sha256": "7e2d695b8baf9b93d8009c2c193bacef5e408d55d166cf6afaa7f05fea086dc8",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031466007232666016,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01012.png",
+      "sha256": "aa0cdf54a119ec00b388c6e24c0521cb99e06669c8c9aa1f9ae7e0d20e7678ca",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031033992767333984,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01013.png",
+      "sha256": "5d4b508c6e185301882825391222390bbb811a7514b6fa012c34b211664388f3",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03167390823364258,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01014.png",
+      "sha256": "10b44ef36df2208fbc75ead4675c366afdc420705aa9cef3b8704b21b4868ede",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03084111213684082,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01015.png",
+      "sha256": "0503c9e2ec634809d3d29cbb4c8262a3be13a54281985bdcca2db49f242cd638",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03119683265686035,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01016.png",
+      "sha256": "d17cf3b589e16bda6cdc56674b6a6d82caa2c8f558d03451202b7d36a157ebb2",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031154155731201172,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01017.png",
+      "sha256": "08ae2a3c5df8764fbc963e152d0565cd40daaadde7262e6f2c066df1b4724b89",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03168082237243652,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01018.png",
+      "sha256": "c3302715bb3abc99f3557fe93ae579abf183db2e0ca9795e98dda3df86702258",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031347036361694336,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01019.png",
+      "sha256": "14a8ce5b4fa55cdb16f7c0127efeeb30e5050aea41b16f55987b498e7af3a1bd",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0307309627532959,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01020.png",
+      "sha256": "c35d61780ff60127c71cbe762bd2b73c4578aaedd92fd0f2db4067afad2abbb7",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03145909309387207,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01021.png",
+      "sha256": "6b81406b7bec4a3fb313f4cd2ce0c18e1ff50ac7c5c65283900beb3c278c141f",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031373023986816406,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01022.png",
+      "sha256": "bad6d1e3d139868ebcdbe058244e9397bcfc2a3d17977528674efff938cad937",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03132891654968262,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01023.png",
+      "sha256": "915cd108c131c47d9dbb94a2621a91d0e06761d279f7435c837e4eba4e75397a",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03118610382080078,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01024.png",
+      "sha256": "50557f43544529ce3b6c24547f0ca944dd6e9d4a2cd1d021939144e62f48efb8",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03098297119140625,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01025.png",
+      "sha256": "4559659c0ba50c1901804d52ea9a0255b29f786adc63678fcdfdf350b369d931",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03129100799560547,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01026.png",
+      "sha256": "a3665e6999b6a4e87ca725d88bb4bd9c3d7ddba39904b841041ade959c819590",
+      "atlas": 4,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031349897384643555,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01027.png",
+      "sha256": "b73fb258e8de7f649edfa68c420ad9fd75d3a45c41622c9892a7d139f3b10e9d",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031597137451171875,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01028.png",
+      "sha256": "60b2377d7096db05a6615873aaf423ac969c4f1a069c0cde33fd9fe7e5170b47",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030863046646118164,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01029.png",
+      "sha256": "502c7073cb2903bddd4861328cb2866f5d80d93e55b8a0b5bc7b96f46b1e07b9",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03146791458129883,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01030.png",
+      "sha256": "ad7f34eb01a7f764cabb821527f230df24039794fd238e28857cdc9d8f42573d",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030864953994750977,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01031.png",
+      "sha256": "1b7607bb10f4db3c279102e9b928a3f512eccc6cda924c9487791bfe16692d6f",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031436920166015625,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01032.png",
+      "sha256": "7f6a115d6a0bd40cdd12781ab494721d0416dc613db1d664a7f9b3fb0224420d",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0314180850982666,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01033.png",
+      "sha256": "2c563a6da91fb7843c1e37c06d556fcee54a01af5012a34e21db9ad495b38ac3",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03131890296936035,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01034.png",
+      "sha256": "5e32a3fb97bc8abd19f5e4abcccd846a09526d23a8f12bf3f0f53c153e6419c1",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03111720085144043,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01035.png",
+      "sha256": "5e3a9c7052bef9bfb29c8e1dde09bdf7643fcf89c3995c90fb0227c5620b77ef",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031282901763916016,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01036.png",
+      "sha256": "86acdc8da4cf32eaddfdb80286206054d4563ca09a25e56bfa56e46da08a3311",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122711181640625,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01037.png",
+      "sha256": "4883c43f8d00ef7462848f585a066509ab291fd3dff1cdd779406136359df76e",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03150200843811035,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01038.png",
+      "sha256": "6ee317aa2ea0744266d07222f6ff1d8ede0231be955a696fe0c586612be439dd",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030861854553222656,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01039.png",
+      "sha256": "df68967e8607e1dbed8778deed91d3704eda5db1ce03b8dfe06c2d11c9b4bae1",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031177043914794922,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01040.png",
+      "sha256": "c009743d9e0ca3e2fdd3275e36887697f5b74bb586e7820323c7ca95e8c92ef9",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031235933303833008,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01041.png",
+      "sha256": "e0177a657c78c210433c6d683083f4917811eca2359af9e748de68f1f260d0fc",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031449079513549805,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01042.png",
+      "sha256": "bb4e631f2f775636f5e285d166990b4ca46e026683978f027ea8573dc512c3c1",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031071901321411133,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01043.png",
+      "sha256": "231b9087fb0bc7684f6b4358843f04265fa90220e84f981ccc19f7fce7a962c5",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03152012825012207,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01044.png",
+      "sha256": "46cc1b92d0fff397b54ea94c8df1208e9829fae34a01c1c357f68ebad3ffcd64",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03124690055847168,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01045.png",
+      "sha256": "3c5fbeb70a308e45e044234b362a4d81829d8dd6d6cfb60ebfb78391fc216d15",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031110048294067383,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01046.png",
+      "sha256": "a2277aad07d6d98fc7443e5de83042de1bdfe4d925a6870ee199fe74fcac39d6",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125905990600586,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01047.png",
+      "sha256": "163f35f4e8282ae321b98298913707c4afbb6d6a80c010a01babf57721c4cb04",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03113698959350586,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01048.png",
+      "sha256": "8b4334236abc8b09a20123971752cd4b1ff82d8fd39080284df564c68017a34d",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03138399124145508,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01049.png",
+      "sha256": "31c92a30c458e41bec06e3ced8943be0ba1f604f2827460ed11dba0dbecc27eb",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03143191337585449,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01050.png",
+      "sha256": "05ce97c13dd9266870e4e003310d5df0b7f665a2ac669e5ec9459b8f13c25bc6",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030792951583862305,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01051.png",
+      "sha256": "a47a19fecac0da11e8569ef2b00e35da6a9ce453a5783e2a34fd6463372eab4c",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031517982482910156,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01052.png",
+      "sha256": "d62e6bdaca04f812c11910045ed376dd11163dbf7d0a14fd5ca7869fa0d16501",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031356096267700195,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01053.png",
+      "sha256": "05e948b597b6a927966b6108f06cc811095ceef10535faf288e0157288ffd8c7",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03107905387878418,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01054.png",
+      "sha256": "c64a55a1fdbbba195c6313c0fb55ab58a2f9e0a18ab4abe223bb42e10376e274",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031456947326660156,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01055.png",
+      "sha256": "869bdfa282f734f217dfee408fe5e0fc529ae5de602215d7c68cbd502292b4c4",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030844926834106445,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01056.png",
+      "sha256": "f1a32494b2b7c059a90c6aca6e4dbdfcbc878d6d2b66e1ae9c714a6a00763fab",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03141903877258301,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01057.png",
+      "sha256": "7eb4922b7b7fb4a76e8da4496af16b01cc36b61cafd3aedb605c2bbb913e93dc",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031617164611816406,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01058.png",
+      "sha256": "55876c18aa148ce67e1cb261f8b6b1c1098ebca06a2ac95b54922988e3a9f298",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030809879302978516,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01059.png",
+      "sha256": "98f01a8c4e2451805a7eac272c385d9df3dcdec981e1860958d5bddcee7d362d",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031327009201049805,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01060.png",
+      "sha256": "1173465ce027417e21862eef523d6c48eae4d9a74c5bad54d16d25053fde12cd",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03145909309387207,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01061.png",
+      "sha256": "baf93ed9074fc8e637bbec0a2f519b90a051fa0e2f97197629cb08efca3bb80c",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031021833419799805,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01062.png",
+      "sha256": "c8f7afb0eb66d000d232638a575b09df3478bb774699ade5bf3555b01a24fb44",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312809944152832,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01063.png",
+      "sha256": "364f50c9458419a2b1e06f525cb39da875c0cd94932a33d78b8a127092685667",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03151416778564453,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01064.png",
+      "sha256": "5c5059888988c13a1e278eb552eaa1185cea1d7fb840a026472777aeae50c2c1",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030908823013305664,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01065.png",
+      "sha256": "d28b508511a1d3e035bbd57fe5a138d001e79443d2732dc404a9ef621c9654a4",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031530141830444336,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01066.png",
+      "sha256": "e77bca2dc7c292e2f5e8cdb807c4ac52f08d6766b0848ed0981b95975a7c9551",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030972003936767578,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01067.png",
+      "sha256": "3ee04160f6e84b0d247fc76c141ceb2a652ab9eac763928bdf297ef4509a48a7",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03149700164794922,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01068.png",
+      "sha256": "04f2340115d43ee3775389bd23145ebc4f235235d872e16354af102a85548227",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031000852584838867,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01069.png",
+      "sha256": "ce97f75f5d5bd8ef854164ca24a58fde7446dfe58a0bfb93db5252c371f76df2",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03161001205444336,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01070.png",
+      "sha256": "a5e4545a72c3382c73a2058268c376231ccc938f97ae0e76094365aaf9e04bc7",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030907154083251953,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01071.png",
+      "sha256": "e1de7888ce1b44e6063395bb17f8f17b37d926a702d7f5d552f51229ae5477ee",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03145790100097656,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01072.png",
+      "sha256": "e9d2c9849f8c240dfa92eb5a52a4346e63a4cf85e0f658929405ec8dacb629bf",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03102397918701172,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01073.png",
+      "sha256": "6f21888da52406b7b674f7bb9e475019565608d2b43e5a456ee168f5caa51156",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03161907196044922,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01074.png",
+      "sha256": "a3d18209ba2c0e44682fa4a10e36c2e17d088d9409e06af8b3c45d031e41c042",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031401872634887695,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01075.png",
+      "sha256": "aa9ef9aec7f5046cbef85549c32866593b459e12996ad7e6dc62751132817719",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030761003494262695,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01076.png",
+      "sha256": "ed3b1a205480ff4dcc74b7167c8420863cfad0468669774e8fab7c31b13fa010",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03135514259338379,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01077.png",
+      "sha256": "0c5b62cce7a9cf7b50c121684f2a019c528e5123dc44bab277d5fc30c76112d3",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03103804588317871,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01078.png",
+      "sha256": "961f1a9084cbeb0b62c237d7c88deeabce4252525cb6b6ba04bbde6d5cf00463",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03141188621520996,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01079.png",
+      "sha256": "c61266ba1aa470ebf98216a3bbdd575cd11956f882e1ce4a85be9212c03c319a",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130197525024414,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01080.png",
+      "sha256": "f53e5100f5ef1ce95601d73925b3b2acc5e1632ecc88b0ada6f653c115bd60a0",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03160810470581055,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01081.png",
+      "sha256": "cde44f03b312bb03b9dd2aa3b8bd8e971b2a1638d1cec88e4d7362e26ca72864",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03103184700012207,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01082.png",
+      "sha256": "a03d0285cc83e655a04ce9e4b71156418d9ea5245f9bf54d6189a58681b2a83a",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0309600830078125,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01083.png",
+      "sha256": "935129f2f014ffa4c51140c9bfc1b973b425ed5677d1101cb32d50effde733b0",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03141593933105469,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01084.png",
+      "sha256": "9e6cc8d3d1fc5b8ca45f08d3738bc0b8d4295e0792d33ff5df47c35b4dbce216",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031265974044799805,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01085.png",
+      "sha256": "0b90b7684a4033d012dcbd286089c9a336d4a383058a2d2d82991e130e36c94e",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0310671329498291,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01086.png",
+      "sha256": "15e23e22a6ab64e0a28cf387b4afe2c7b3399172b8ad3f735b705a06037a68c6",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312039852142334,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01087.png",
+      "sha256": "c17c2bd69ecdb8afb913274a96e2bbbd3a24246992557f1c125e0f7aa042e1a7",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031449079513549805,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01088.png",
+      "sha256": "2404c5e7701cd49c04c02dfaf02bf21509e32435b3bd6fc586829b8dd45828e0",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031358957290649414,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01089.png",
+      "sha256": "f118afd20c9c369f417bc1ab15b747f7d0ca86fc27bfa3ba569fe1efb1595f72",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031195878982543945,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01090.png",
+      "sha256": "e3f4de16da842ac6ef114f532f664b35274bea308746ce5101af258997cdea05",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125905990600586,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01091.png",
+      "sha256": "0e91550a685f1c929d207a5b013e41c8ab9e07496d2a70ff61a48203879030d1",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031075000762939453,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01092.png",
+      "sha256": "1c8be4aa938177dd5b6527ca031fd0d62d29bd1037aa4e6ab4ef20d7176feda8",
+      "atlas": 5,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127408027648926,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01093.png",
+      "sha256": "0b4e6767122cf329adead4fb84997fc49dcbf1530bcc3e8cce9992b107522a3b",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031229019165039062,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01094.png",
+      "sha256": "ffed6d1b88a44638fea3d317c7382be4a572922cdd54f1dfa6da214fe65aee4e",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031305789947509766,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01095.png",
+      "sha256": "082546384c703aa78be3d2a80b4c2913c824fb7fd429fce6c8ae1b7d9d114e89",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0316622257232666,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01096.png",
+      "sha256": "ef2d963703944aff07f0c8711b327605d6b300e78c829b3c98f75cd6a51638f9",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030946969985961914,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01097.png",
+      "sha256": "ab87ce6eae38a051ca4911047a42c39dcd85ff3c72914a2593e3c23736630e23",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031016826629638672,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01098.png",
+      "sha256": "998aef6f6a3355ccf5fe7902e4614ab2ead8ddb51232627d5c783239f2c05a8d",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03159308433532715,
+      "caption": "Each new correct letter strikes in Slayer.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01099.png",
+      "sha256": "0977fa8ee424aae76780f5c04b4ab114cb887d23ef3d2d2faf39eab0d392b2ee",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031029939651489258,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01100.png",
+      "sha256": "921f51e2ea78006c65a3eecb43596e060a65bbe1b364ea0def6ca70c8d3d329f",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127002716064453,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01101.png",
+      "sha256": "cfb442859f73680fd4645467b399ab9091612a2f71920039c1debcf911f0dee4",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031234025955200195,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01102.png",
+      "sha256": "d7bcbdb26053466842d7e7f497c68e5f99513dad354dfa1a495a10e2251098b4",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031533002853393555,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01103.png",
+      "sha256": "9bb1c309da8d010c03a062cf37932168873fec50bbdfe81fc311a16645ab8fbf",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0308380126953125,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01104.png",
+      "sha256": "c148801f2a0ec0aa6198811439b081d3c89b5409f66e2d71220aac7030bdb7b7",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03160905838012695,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01105.png",
+      "sha256": "a0a508eb54fa80561295accd9052501265f8ff66f416b0069b4f1a6ad1612592",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03094792366027832,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01106.png",
+      "sha256": "6db938f2d793f8ef94ff5fae5a1e2b547986d500abcb28107be432407f766342",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031235933303833008,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01107.png",
+      "sha256": "6bb109b094ee605575042d8584a509a0c3c39ff2a2019d85c365b76a8ef4ed12",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03178000450134277,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01108.png",
+      "sha256": "641169ea76e395d46a9b43171fe892e054be2d63e7fb55c0dff1ac8b87874789",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030846118927001953,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01109.png",
+      "sha256": "51cfa3ef38bcf04c32b0cb8caf5d820fe4a8bd4702eb3f96c84313a9e94801e8",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031064987182617188,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01110.png",
+      "sha256": "58248f5c9f5602bfb148b8e590a85ff03a853671c74e81adeaf8f66c7b1d6c2b",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03118586540222168,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01111.png",
+      "sha256": "ac8e8ba27dd5bbd2b73d7465e905d41421ce6f0f1b8f80038df425cd44dad2e0",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03133702278137207,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01112.png",
+      "sha256": "11d27d9bdf682f0ad611c9526d08b2de6544dc7b83e51999c8ec64b420ad7398",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03146100044250488,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01113.png",
+      "sha256": "3db138e8ab2829fd19218ca1e2e22681645a9a85bbb628d73b917977176f7df2",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03095698356628418,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01114.png",
+      "sha256": "c5464c7751e2d25ac7956349eb69bd06dffc0f50991e4f7c76c27e3cd7da65fd",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03168511390686035,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01115.png",
+      "sha256": "61686356231d816c2029ff5c11f3f100afe8654ffa6c5e115beb01e8130b4665",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030898094177246094,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01116.png",
+      "sha256": "c954dd9eaeda3110314928f79c2efe8590cf588833c0d64daab3b7c859a9a8bb",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03142380714416504,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01117.png",
+      "sha256": "55ee4b3cc4048e43ffb2bc4076746327ab7c9c893d8e3594242de7504b641305",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03113102912902832,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01118.png",
+      "sha256": "8c2d459b8d7be5664ffc0dc48de1d5db1b33c328989efd5af1171f6129a8ebde",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03126096725463867,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01119.png",
+      "sha256": "072425cd00935df59832d10e3ccb7f02d3e4c412c6b90bfa9397fa0d5f3e4a87",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.021821022033691406,
+      "caption": "Slayer ends. Return to word attacks.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f01120.png",
+      "sha256": "d66f8b7e3da1b8d356a77c96af642b10f1e0e20686b4cfc56fe227f01174c556",
+      "atlas": 6,
+      "width": 320,
+      "height": 180
+    }
+  ]
+}

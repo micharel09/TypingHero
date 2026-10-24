@@ -36,7 +36,7 @@ module.exports=async function({session,state,until,clickControl,check,report},br
       await clickControl(page,'NameInput','input');await page.keyboard.press('Control+A');
       await page.keyboard.type('CameraQA',{delay:60});await key('Enter');
       let s=await until(page,t=>t.scene==='SampleScene'&&!t.dungeonTransitioning);
-      if(s.tutorial){await clickControl(page,'PracticeButton','button');await until(page,s=>s.tutorialParry); await clickControl(page,'Start Battle \u00b7 EnterButton','button');await until(page,t=>!t.tutorial&&!t.dungeonTransitioning);}
+      if(s.tutorial){for(let n=1;n<=6;n++){await clickControl(page,n===1?'PracticeButton':'Start Battle \u00b7 EnterButton','button');await until(page,t=>n===6?!t.tutorial:t.tutorialStep===n);}await until(page,t=>!t.dungeonTransitioning);}
       s=await live();check(s.width===width&&s.height===height,'camera viewport matches render');
       // Warm the real render paths, then reset through the normal UI before recording.
       s=await until(page,t=>!t.enemyAttacking&&t.canParry&&t.current.length>0&&t.wordTime>1);

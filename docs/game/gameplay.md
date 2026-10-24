@@ -32,7 +32,7 @@
   are hidden. Manual Pause hides/restores the result-only group; Resume restores
   these authored result bounds. Modal freeze rules remain. Scoped verification is
   recorded in the compact-menus checkpoint.
-- The current two-step tutorial is the only how-to flow. Main Menu has Play,
+- The current six-page tutorial is the only how-to flow. Main Menu has Play,
   Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
 - Fresh/restarted encounters begin immediately after DungeonSession initialization,
   including after tutorial completion. There is no initial Fight/Enter gate.
@@ -347,33 +347,33 @@ see verification for profile status. These are current behaviors, not new requir
 
 Change only behavior explicitly requested. Update this file after relevant verified changes.
 
-## Two-step tutorial guide
+## Six-page tutorial guide
 
-- TutorialRun opens frozen SampleScene in HUD step1/2. Four existing cards and
-  five real-HUD arrows remain; the old center illustration is hidden. Next / Enter
-  opens step2/2 without saving viewed. TutorialDirector guards same-frame
-  confirmation and waits for Enter release between steps.
-- Parry with Space uses the existing modal skin,816x480 at960x540. Cards/arrows
-  hide behind its dimmer. A720x240 UGUI Image loops77real-combat capture frames
-  from a Point-filtered atlas, preserving original durations (3926.166ms total),
-  sprites, colors and28x11logical Space key. Idle, warning, preparation, defense,
-  successful contact, recovery and idle are included. Four English captions
-  explain waiting, tapping, success and releasing. No practice, live combat
-  instance or GIF decoder runs inside the modal.
-- TutorialOverlay uses unscaled time. Pause hides the tutorial and holds its
-  exact frame/clock; Resume continues. Back returns to step1; entering step2
-  resets the clip. Restart and menu replay open step1. Existing reading
-  input/time/audio/score locks cover both steps; Menu abandons without completion.
-- Only Start Battle / Enter on step2 saves Completed through TutorialRun and
-  reloads DungeonSession with the selected difficulty. Existing held-Enter
-  consumption, fresh40HP/180enemy HP/100guard and zero score/statistics remain.
-  Encounters begin immediately after initialization, without a Fight gate.
-- LeaderboardSubmitter rejects tutorial submissions before resolving a provider.
-  Existing TutorialProgress_v1 and legacy viewed values remain; no new saved key
-  or public gameplay/provider API. EndlessOverlay disables its cloned
-  TutorialOverlay and hides both steps; live combat has no modal/clip.
-- Source, per-frame observations and scoped verification:
-  [existing parry checkpoint](../plans/parry-cue-demo.md).
+- TutorialRun opens frozen SampleScene on HUD page1/6. Four cards and five
+  real-HUD arrows remain; the old center illustration is hidden. Next / Enter
+  advances through Type to Attack, Mistakes & Timer, Parry with Space,
+  Break Guard / Slayer, and Score & Combo. TutorialDirector rejects same-frame
+  confirmations and requires Enter release between pages.
+- Five lessons share the existing816x480 modal skin at960x540. Cards/arrows hide
+  behind its dimmer. A centered720x270 Image preserves each frame's aspect ratio.
+  Seventeen Point-filtered atlas pages contain930 real-gameplay frames with their
+  original durations and English captions. Parry retains the approved77-frame
+  success example and adds a full-HUD missed-hit/HP-loss example. Typing, wrong
+  letters/timeouts, Guard break/full Slayer recovery, score/combo expiry are shown.
+  No practice, live combat instance or GIF decoder runs inside the modal.
+- Playback uses unscaled time. Pause hides the guide and holds its exact frame
+  and clock; Resume continues. Back returns one page; every entry resets that
+  page's clip. Restart/menu replay open HUD1/6. Existing input/time/audio/score
+  reading locks cover all pages; Menu abandons without completion.
+- Only Start Battle / Enter on page6 saves Completed through the existing
+  TutorialRun key and reloads DungeonSession with selected difficulty. Existing
+  held-Enter consumption, fresh40HP/180enemy HP/100guard and zero score/statistics
+  remain. Encounters begin immediately, without a Fight gate.
+- Local Unity2022.3.25f1: focused8/8PlayMode and strict repeat builder pass.
+  Edge native74/74checks pass with actual input at640x360 and1280x720, including
+  real parry after final Start; all12page screenshots directly inspected.
+  Final normal build/demo status and frame-review evidence are in
+  [checkpoint](../plans/parry-cue-demo.md).
 
 ## World lighting / parry clash
 

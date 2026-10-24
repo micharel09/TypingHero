@@ -1,0 +1,1084 @@
+{
+  "columns": 6,
+  "cellWidth": 324,
+  "cellHeight": 184,
+  "width": 320,
+  "height": 180,
+  "atlases": [
+    "mistakes-0.png",
+    "mistakes-1.png"
+  ],
+  "frames": [
+    {
+      "duration": 0.03130006790161133,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00130.png",
+      "sha256": "7c6c8946f4554a6ec96e13fb41a63252b09e048f06014d77669823f021e60a0e",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031672000885009766,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00131.png",
+      "sha256": "e5f244656273b93c537fb50ba035fb11cd9afab7b64c192bdcc42b72b239ffaa",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122997283935547,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00132.png",
+      "sha256": "b0839fa55c9ca89c1d4503b28d4424a3532b597e3c36233b683e39d99e4a47d7",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03104710578918457,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00133.png",
+      "sha256": "9355bc9cf5e7527446ad5b86ee1a58dee5063b70f300fbc415f48ac0dda83a16",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031219005584716797,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00134.png",
+      "sha256": "d5d5e794d525719b8c2e96012e7546a6d60ef9878768b5ddd161ca27092e2bf3",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03160595893859863,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00135.png",
+      "sha256": "775e9041b84188ecbef3e3a81b137706cfcf0119d33e21824fd34c0bb9c27661",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030946969985961914,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00136.png",
+      "sha256": "11c8a8cd0f5908f0e15d4ea5b9831a566ab3a9cc88d3638d57fbe74225e8b41f",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031475067138671875,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00137.png",
+      "sha256": "2ab01a2541d70e4abee4dab974e72dd24c99dfde4419e80ca8c0521b1aca83ba",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030835866928100586,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00138.png",
+      "sha256": "368676689fbdb87986c574ae9300cf71549bdcd8dc80e8cced3f7783da95c275",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03135108947753906,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00139.png",
+      "sha256": "cc843e8167a1e98354541956cc3ffcd9b2c1b55c5a4d52dfebe36ea4f1cf5b00",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03160500526428223,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00140.png",
+      "sha256": "34c1193e6406e4d4fe3a7a491204941377681b37634f8eadaf835453b3c790be",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03112006187438965,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00141.png",
+      "sha256": "de693f8e30f73531aeae65caf8d3752dd94a4948b851ef258caa4cc97370ace2",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031077861785888672,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00142.png",
+      "sha256": "e288602dab78f35818400ee44a63e63b64a03a8aeb17aa83086753801147498a",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0314030647277832,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00143.png",
+      "sha256": "3d07fed966ce4ca0d4c3af6c1ef33593ca4f20f500caaca1d8d3716362631ce4",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122997283935547,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00144.png",
+      "sha256": "8c35d1489a6ff9f3e9d17b8d44d732ad347f2a77cf39409965db10338af7aed6",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03141307830810547,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00145.png",
+      "sha256": "ef7c19a4449396be291067c42af1dd7e36664530c4633ad20672e0fe84637d13",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030726909637451172,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00146.png",
+      "sha256": "46d8d3f114c58160e642c6d54145e545e1f80025b2638ba52d7f7627be715ced",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03160810470581055,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00147.png",
+      "sha256": "27b06f522b872b6097294d1f3d941be39f16185d135e6e3f19e15a4fc456bb4e",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03100895881652832,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00148.png",
+      "sha256": "b394160fb47b90d07ff47ac687478b9f48fe7e2afce19fcb86fb37f7e5747581",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031177043914794922,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00149.png",
+      "sha256": "a7fa0ec2eecb72147c01b595d66c0db19ccac075417ce1ade2c7426822fdad14",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031572818756103516,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00150.png",
+      "sha256": "a3e86fcd1bc1302bcecdf4fc1363e553aea892abae7a98d86f2b6d87dc947583",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031239032745361328,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00151.png",
+      "sha256": "9c4c6168861449528bd9fd501a7cc0129687c39fea81eb13951157a27db86317",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031378984451293945,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00152.png",
+      "sha256": "adff01c0d6b6927d52948489377f005442f546630664ac3d9052a748d5716527",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03133106231689453,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00153.png",
+      "sha256": "e3ba5f445a0d8989f781cf22d2042993cdcf37ee4e7c9cfe419d15854a207ebd",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03101515769958496,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00154.png",
+      "sha256": "3fa73a84632fdbacddbf09887882ae872ace580cea76db6b348f36a55f06f045",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03097987174987793,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00155.png",
+      "sha256": "266877809d7078d5c2a49195fe3cfaf3d27d923e1499f1b69440d06e32369f65",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0316309928894043,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00156.png",
+      "sha256": "8879495e74722a1cd93769c35c78c687617c411ef6e10cc3eda92c6a41b4cc34",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0310211181640625,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00157.png",
+      "sha256": "ac6cf4dc4b0fea3da3af20ac2884b603ba75921279813b39050a42c7b1ec3634",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031129837036132812,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00158.png",
+      "sha256": "3fe5f1a0ea8daafb5977c3725c9d85b5bf34b59696320e5b8823067f660546e2",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312650203704834,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00159.png",
+      "sha256": "7107188d4c8a8e9e0e94bf3585b11638457f6a8aba56e000cf8f4315dfb03b73",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031491994857788086,
+      "caption": "Type the current word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00160.png",
+      "sha256": "3b45c0cfbbad29a675080ab2b49164c69df1b542d9c95750f169c06d90407c10",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031069040298461914,
+      "caption": "Wrong letters reset the word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00161.png",
+      "sha256": "d1dae74364da86aaaf7ba2df874dca85e9c688eb5490ef1febf22995fa83c246",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03145790100097656,
+      "caption": "Wrong letters reset the word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00162.png",
+      "sha256": "8c0684007f4dc30bbe90233d5b256c444adc61a1919472ccf9b996d2922292ac",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03120112419128418,
+      "caption": "Wrong letters reset the word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00163.png",
+      "sha256": "29ad5a6a8f51411d536f5c35eb06dfc566bf5bcbd51492fc56e4c897791f341a",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031116962432861328,
+      "caption": "Wrong letters reset the word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00164.png",
+      "sha256": "1b48ab126f6656eb19b4d894ac31d36c10d6436263ab0050d2febfae869edebd",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03117513656616211,
+      "caption": "Wrong letters reset the word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00165.png",
+      "sha256": "463b1e4d00f2c1c0f30166f3cdedfced04bed201f03bdf43cf1567db4915e0b9",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03145599365234375,
+      "caption": "Wrong letters reset the word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00166.png",
+      "sha256": "31995792397a9172b6f66ce1dc18329dad9b3d2889dc0c6054d557870db20b69",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031085968017578125,
+      "caption": "Wrong letters reset the word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00167.png",
+      "sha256": "36acb9c703e4f0cab35f7a0a562282c6e29993b83182ce5ee8f598783c2b79a9",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03117203712463379,
+      "caption": "Wrong letters reset the word.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00168.png",
+      "sha256": "f6cca18283537010cedbab2d5cfeede351d2ff745a85a59daeacf14f74f5383c",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031503915786743164,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00169.png",
+      "sha256": "2876631a5992b388f6325bc5bd3001444854ecd74844ed6b97205b239a4ba288",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03095388412475586,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00170.png",
+      "sha256": "719aa5ef00c0bb3e6bff9d25519edb38510b75b51d289ef53f6ac3d887b21bc7",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130602836608887,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00171.png",
+      "sha256": "39330da4c3369a64ff0f3b0a3210b857d7d9f73be0134a5a7d9e730e9550eabf",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031252145767211914,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00172.png",
+      "sha256": "e0aa0a1ae34046dfe92e4891820b0ec9fc4f4d083c7cc1fbacdff3ea5579702a",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031720876693725586,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00173.png",
+      "sha256": "9e184acbc86232c2c4b4735d768da530c1c6a5ef3a4d4ffa6faa703632f433ba",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030825138092041016,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00174.png",
+      "sha256": "7da0f94b7c41ad4bdb9e3b24b5d5e838a118212bd340856ec64a4037fc9546b3",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03158879280090332,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00175.png",
+      "sha256": "82eac1059a9aabe2f4a8ff8b9b2d807e25fff93773b76f0bcf5ddfcd083368ed",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031033039093017578,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00176.png",
+      "sha256": "d71cd46afd1b13f312c64f8c16021b8583a2446fb6c035d93b39a71c22b951aa",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03144216537475586,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00177.png",
+      "sha256": "7dcdb094f532942afe9bccafe1ff02d2fe685d394c25c84be1515aa9a2f376a2",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125786781311035,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00178.png",
+      "sha256": "357fe9bfaa0de129a2f34104e556612456d830e5e15c86cca803e3b0d937b251",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030884981155395508,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00179.png",
+      "sha256": "c6cd7dde07d0bdd139276cfecf3f0e4419e59919b3120a1412868c94c3852c10",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031278133392333984,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00180.png",
+      "sha256": "ef0bbe5782422554d2d75e28150f7b3909fd605c7cfc03c71ae2f1afbedbc8b0",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03145480155944824,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00181.png",
+      "sha256": "19c4130b98f2da8f23527abc9e17790b82cd0f94c28ff3961130720d11351769",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03098011016845703,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00182.png",
+      "sha256": "a5c2cd49b867ae0f94df33989465c9c0b3bc379ef84e081ad3766e1741f80096",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03169989585876465,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00183.png",
+      "sha256": "fd9e517aae23b1523824a7de6cb2ea5a72717f73e923e8603bbf4718a7c40e29",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03090214729309082,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00184.png",
+      "sha256": "bc721621a4c48ad5d2faa38e9988396971161976f99a827e9fc1761194ebea02",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03136706352233887,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00185.png",
+      "sha256": "dd793671f23ba5a79e8f1a7805141f7ac42260a514120329f77bbfd6f9b278a1",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03132200241088867,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00186.png",
+      "sha256": "8be2640fa60d327a7382cad3c1f0b9d4c23fbbbe58312a72f365db8c07e11c8c",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127288818359375,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00187.png",
+      "sha256": "ea30815f45284ed463b7f0ea3f91efa5a158958418ed2d7ad06af18e3c6cd9b3",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03127908706665039,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00188.png",
+      "sha256": "e1e6d9c0b01eefe2603ab75db7cee3284d8e641ee68e09dedead7494bbd921a4",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031122922897338867,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00189.png",
+      "sha256": "79ce6f318479c8a2377337e875069b832b2900801a04dfbe745ce46de5f60555",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0313260555267334,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00190.png",
+      "sha256": "6549db431c898ce1770ad5521ad96a162e7ea75788ef707d544c08b33dcc9091",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03129386901855469,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00191.png",
+      "sha256": "46f9eb1ba0dad5b1bc4891c43e4d27c50398c382debe972ddadca9b3f2209925",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03106999397277832,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00192.png",
+      "sha256": "6c0ebee6e700d610099126b1920c2c0582ac77818b95daa6ab8059094c04143a",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03146100044250488,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00193.png",
+      "sha256": "bcef212f13c80c060f7917fbf16940c41038ac26c98e208ada97655ae4f7cef9",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031044960021972656,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00194.png",
+      "sha256": "e835b4c6e010b9bdc97d3dcdd69f3322c89c636abe5f7d0e672d81f6656bd587",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031109094619750977,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00195.png",
+      "sha256": "3d910c26fee2b74bd9f3cb88531e2c139beeb8a754f51196052abdf775904a14",
+      "atlas": 0,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031649112701416016,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00196.png",
+      "sha256": "11c27feda53e50157a8c720a7cdb1c6cacdfd4d20d4013c099e4dea02a1d0e5d",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03080582618713379,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00197.png",
+      "sha256": "00a0cd9d59529516354ef8ce0278b9ae438aefea2ab4e0d27c0036fecbbadce1",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03139615058898926,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00198.png",
+      "sha256": "b58cec080a13198a2f81c44d7294118b280f454f336281decc0052b45533c634",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03116583824157715,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00199.png",
+      "sha256": "b1ee1056dd25402020610b1b638744eb4aea08d061c5b5e5ad8b7eb8ad6f27b7",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031165122985839844,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00200.png",
+      "sha256": "f4000452013d3ed2f6114110740352f90f22ddf9d7c0e6e3a0657615462d592a",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031336069107055664,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00201.png",
+      "sha256": "bcf5b399c1738936bfd9ae356a8b4c3d32b0536f31e9a0843b8ffb2752bbc0e4",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0314028263092041,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00202.png",
+      "sha256": "48d5afa8c3f926167b6832752889d99a76ae32cc636fca623dbf376cb5b3821f",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03144502639770508,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00203.png",
+      "sha256": "dd2939298f5b90995964b4728830fd7e87c5d488b24bb451d12d9560b2c49627",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030791044235229492,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00204.png",
+      "sha256": "94afa8affb9992283f1b651c65c7d51e8206cf8c25371db658807a9415435108",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03125905990600586,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00205.png",
+      "sha256": "b917571a51a46feed875d2c587783a5958de01fe9bae2176accd3a409dc71e66",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03139901161193848,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00206.png",
+      "sha256": "0b6dff01e6bdbda52d7acfd97b369e9609587e13fc5f6b979ecdeecf692a8d0b",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130698204040527,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00207.png",
+      "sha256": "3ef68854408048b9dcc2a6d976cfc2d847c388d93272255b7e1a33d28dc56aea",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122997283935547,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00208.png",
+      "sha256": "bf6a6045e8011c29dc25553f952f9dad65db1fdc053f1fb8916d8420d643bd79",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122091293334961,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00209.png",
+      "sha256": "55c30f5321f488576c0c349056f5e7118eb4d1ceb5b76b5140d1b6d93e37d4c9",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031382083892822266,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00210.png",
+      "sha256": "4cfd791fb05a63eed2d2ff841bc27d7b33ccda67b930230da8756b6992abe7b0",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030989885330200195,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00211.png",
+      "sha256": "9c38c767f2a785b6dea922ff3d53bcf3a0e02abd431e924324e89a6554a99d52",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03163719177246094,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00212.png",
+      "sha256": "c98c0ab8730eb6a8ef02a52a5b28b72a9380ab865a19172bae3dbc6edcb1bfb2",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030998945236206055,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00213.png",
+      "sha256": "d8a50594bfe31c4e05e07bdd646bd1ac5e9a664fece37f47d473e73e510df03e",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03151106834411621,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00214.png",
+      "sha256": "f394b613191ee25d7a9f93c9eca0b437642a6581e21b729c2e5de164ab69191a",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030963897705078125,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00215.png",
+      "sha256": "4a0d98e7963ef9c5acd0336dd34cc5513129f76163c8e5e3ebd608ffe0e265c6",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031642913818359375,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00216.png",
+      "sha256": "ce21d7b53dd45ec30883b8b4709f8ab7de808cb623f80055d6ddec0929ffbbea",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030941009521484375,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00217.png",
+      "sha256": "20484c497c5e081b6b09f4da335e0748ab2370db21356048240b994312a37295",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031072139739990234,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00218.png",
+      "sha256": "e52985a6ecb1bfdabd599b053ec7e2f0adf5ffde5ad9c3bfdde422a76dd0c450",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03161001205444336,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00219.png",
+      "sha256": "9f6c9ed9380fd8c5429cd0e3762ee493cdd095f2dc92cb55ddcc3bb9c4567a95",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031055927276611328,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00220.png",
+      "sha256": "552ea553421cc470a6fc76abff5fc230dea0ee87d4871a25e29318623de691e4",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03131508827209473,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00221.png",
+      "sha256": "290744f2ca9699bede42741d6319d6c8ff4fe1f5aa00ab96440c548006efb786",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03122091293334961,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00222.png",
+      "sha256": "78731e24b4e0b8393538cb619259477596c80d7980e451905d673aa1a9f947dc",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031174898147583008,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00223.png",
+      "sha256": "25ee63ed0d6f6fce9f1ad68140ca7d206ea0779eec80d140562083ea6a555186",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031423091888427734,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00224.png",
+      "sha256": "0b290699f6c6299f74a164f4f24c6bb267b50d0c15c122640ca0a4979e6b5b10",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03091597557067871,
+      "caption": "The timer keeps running.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00225.png",
+      "sha256": "ff66ba70abc0675b3c873c05d0722fc77db9d1c2053401b59dcd004087152611",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031271934509277344,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00226.png",
+      "sha256": "1501593d25e5e81ebf9e1e00228bb0c8f7648808ac81468b9e2012196bf95b1d",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03159904479980469,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00227.png",
+      "sha256": "84e6ee826e8e17227d26e44354384d29ad08ff0e5f2e6276866241f3ba3174fe",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03137803077697754,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00228.png",
+      "sha256": "12eb4c66beafe998e72050fbf6c2bb1869e498f67ac77065fff697ef0db973b2",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031104087829589844,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00229.png",
+      "sha256": "75cb9cffdc1de885c6959d77afc7a3d6da254538eb261e7a5028bc9a0590ee6e",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031343936920166016,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00230.png",
+      "sha256": "482efeca6edef9e6d3d6f9f23d1e064a0b6f3fbe75f10da2be323fe66b090b1b",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031213998794555664,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00231.png",
+      "sha256": "01754be7ccf14c078b115e58d519a1bd5111fc92d18a05a8448ad1722b306449",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031065940856933594,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00232.png",
+      "sha256": "6c82b22c5a0bc27cad69749134fc6920893d5e86e89713179c0c6dfaa506dbb5",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031217098236083984,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00233.png",
+      "sha256": "55294611888dfb04f8948c659cea679da87ba0907471248b6f49ac8a60406bb1",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03154897689819336,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00234.png",
+      "sha256": "11d99e64ab0345afc250b4eea8d53e0c2bdd80cea26f2183823e5678a9ccaa7e",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03130698204040527,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00235.png",
+      "sha256": "819d18c3b09978128e7a53317bfbcfd159d7902d520eade7967351fb74687806",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030798912048339844,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00236.png",
+      "sha256": "aa8c815222f9219b39adabfe2b3c35dc06e665efc3b1442c2416c08463263f82",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031701087951660156,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00237.png",
+      "sha256": "945651aca29b4308fe1445a91a3ebd5cfd4415a641bc7bd353502b9bd3cec6b0",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031138896942138672,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00238.png",
+      "sha256": "daf7fc7dbb358d929b82a0b8545f19286671be3f56796b6114a447d931914e8c",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030964136123657227,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00239.png",
+      "sha256": "01bbc082b3e0c7b878e5ae3a189b8fe513e021eaa3c2a2d94a8dd5a4c54fb311",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03128790855407715,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00240.png",
+      "sha256": "9f74265034b8252c956f652e495a6dac396dd29cbd29df8c9e73dde409de4c74",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03145599365234375,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00241.png",
+      "sha256": "46ee8d54abcb4a5c0f9250bdde5c7e2e9f86462c3a84d549b4d289c390053258",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.0312960147857666,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00242.png",
+      "sha256": "a5d5ae96a417e33a1f30aa4a1cfedfa23d4de6a4abffce6ca82ae9283dc931f1",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031013011932373047,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00243.png",
+      "sha256": "96dc563f994bf840deba9c6ad82ab9fbb966249898b26b0a8619cc905a39074d",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.03148913383483887,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00244.png",
+      "sha256": "742f7c19e0641024b33ea6d1521162d2794cff588d68dc67905571b3d96e062a",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031075000762939453,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00245.png",
+      "sha256": "3c6dd70089c113f2ab3f3d4a1d4ac8e2068fefb15c0e353002a98d5d75c27e65",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.031430959701538086,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00246.png",
+      "sha256": "3925c82799f37c0dfc3bec8189e5afe49c5d0bcd160a3cafd5be549e2d7c0375",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.030896902084350586,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00247.png",
+      "sha256": "0e8e0aefff9a0240750a3026768fbe1350838017fad0dd26f3d94217d707810e",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    },
+    {
+      "duration": 0.025103092193603516,
+      "caption": "Time up: a new word, no points.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-capture-1\\capture\\f00248.png",
+      "sha256": "b7a89d9add56590df27ee993ea18e227e694c513bdb7b3fbf6bc291ca78515b5",
+      "atlas": 1,
+      "width": 320,
+      "height": 180
+    }
+  ]
+}
