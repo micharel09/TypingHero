@@ -308,6 +308,17 @@ public sealed class ShogunPresentationTests
             var panel = (RectTransform)layout.transform;
             var view = panel.GetComponent<CombatResultView>();
             var content = panel.Find("ResultContent");
+            var hud = (CanvasGroup[])typeof(GamePauseController).GetField("resultHiddenHud",
+                BindingFlags.Instance | BindingFlags.NonPublic).GetValue(pause);
+            Assert.That(hud.Length, Is.EqualTo(13), "All combat-only visual groups are authored");
+            AssertResultHud(hud, false);
+            pause.TogglePause(true); yield return null;
+            AssertResultHud(hud, false);
+            pause.TogglePause(false);
+            float resumeDeadline = Time.realtimeSinceStartup + 2;
+            while (GamePauseController.IsPaused && Time.realtimeSinceStartup < resumeDeadline) yield return null;
+            Assert.That(GamePauseController.IsPaused, Is.False, "Resume completed before opening results");
+            AssertResultHud(hud, false);
             Assert.That(panel.Find("MatchResult").gameObject.activeSelf, Is.False);
             var session = CombatSession.I;
             Set(session, "letters", 4); Set(session, "correct", 3); Set(session, "parries", 2);
@@ -318,6 +329,10 @@ public sealed class ShogunPresentationTests
             Assert.That(content.Find("Accuracy").GetComponent<TMP_Text>().text, Is.EqualTo("75.0%"));
             if (victory) pause.ShowVictory(); else pause.ShowGameOverAfterPlayerDie();
             yield return new WaitForSecondsRealtime(.2f);
+            Assert.That(GamePauseController.ResultOverlayVisible, Is.True);
+            AssertResultHud(hud, true);
+            Assert.That(Object.FindObjectOfType<CombatHUDLayout>().isActiveAndEnabled, Is.True);
+            Assert.That(Object.FindObjectOfType<TypingManager>().isActiveAndEnabled, Is.True);
             Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(600, 366)));
             Assert.That(panel.GetComponent<Image>().enabled, Is.True);
             Assert.That(panel.Find("PauseLabel").GetComponent<TMP_Text>().text,
@@ -366,8 +381,15 @@ public sealed class ShogunPresentationTests
             Assert.That(panel.Find("KeyHint").gameObject.activeSelf, Is.False);
             var settings = Object.FindObjectOfType<SettingsModal>(true);
             settings.Open(); yield return null;
+            AssertResultHud(hud, true);
             Assert.That(panel.Find("AudioPreferences"), Is.Null, "Sliders move into Settings");
             settings.Close(); yield return null;
+            AssertResultHud(hud, true);
+            var leaderboard = Object.FindObjectOfType<LeaderboardModal>(true);
+            leaderboard.Open(); yield return null;
+            AssertResultHud(hud, true);
+            leaderboard.Close(); yield return null;
+            AssertResultHud(hud, true);
             Assert.That(panel.Find("AudioPreferences").gameObject.activeSelf, Is.False);
             Assert.That(panel.GetComponent<Image>().enabled, Is.True);
             Assert.That(Time.timeScale, Is.Zero);
@@ -403,6 +425,19 @@ public sealed class ShogunPresentationTests
         var key = new GameObject("key-r"); key.transform.SetParent(panel.transform.Find("RestartButton"), false);
         panel.AddComponent<CompactPauseLayout>(); panel.AddComponent<PanelReveal>(); panel.SetActive(true);
         return panel;
+    }
+
+    static void AssertResultHud(CanvasGroup[] groups, bool hidden)
+    {
+        foreach (var group in groups)
+        {
+            Assert.That(group, Is.Not.Null);
+            Assert.That(group.alpha, Is.EqualTo(hidden ? 0 : 1), group.name);
+            if (hidden)
+            {
+                Assert.That(group.interactable || group.blocksRaycasts, Is.False, group.name);
+            }
+        }
     }
 
     [UnityTest, Category("Quick")]

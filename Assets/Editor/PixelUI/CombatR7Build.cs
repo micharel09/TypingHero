@@ -13,6 +13,30 @@ using static PixelUIFactory;
 internal static class CombatR7Build
 {
     internal const string Art = "Assets/Art/UI/CombatR7/";
+    internal static void BindResultHud()
+    {
+        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
+        var root = GameObject.Find("PixelUI/Reference960x540").transform;
+        var pause = new SerializedObject(Find<GamePauseController>());
+        var groups = pause.FindProperty("resultHiddenHud");
+        string[] names = { "HUD", "TypingTray", "FloatingScores", "PlayerReadabilityR7",
+            "EnemyReadabilityR7", "ClockReadabilityR7", "PlayerHpR7", "EnemyHpR7",
+            "ParryR7", "ParryKeyR7", "ClockR7", "PauseIconR7", "ParryCuePresenter" };
+        // The typing tray retains its original identity/name across prefab migrations.
+        var tray = Get<Slider>(Find<TypingManager>(), "countdownSlider").transform.parent;
+        groups.arraySize = names.Length;
+        for (int i = 0; i < names.Length; i++)
+        {
+            var node = names[i] == "TypingTray" ? tray : root.Find(names[i]);
+            var group = node.GetComponent<CanvasGroup>();
+            if (!group) group = node.gameObject.AddComponent<CanvasGroup>();
+            groups.GetArrayElementAtIndex(i).objectReferenceValue = group;
+        }
+        pause.ApplyModifiedPropertiesWithoutUndo();
+        EditorSceneManager.MarkSceneDirty(root.gameObject.scene);
+        EditorSceneManager.SaveScene(root.gameObject.scene);
+    }
+
     static T Find<T>() where T : Object => Object.FindObjectOfType<T>(true);
     static RectTransform Node(Transform parent, string name)
     {

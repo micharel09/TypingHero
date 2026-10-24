@@ -24,6 +24,10 @@
   outcome line excludes internal attack-state names; NEW BEST replaces the historical
   best line when a record is set. Restart is wider than Main Menu (304/232); smaller
   Top1000/Settings controls sit below. MatchResult remains hidden for diagnostics.
+  Terminal results hide the surrounding combat HUD, typing tray and Pause icon
+  through thirteen CanvasGroups; world/dimmer and result controls remain visible.
+  HUD stays hidden through result modals and camera exit. Restart/Menu supply a
+  fresh scene; ordinary Pause does not alter HUD visibility or disable its logic.
   Result audio uses the existing Settings modal; embedded sliders/duplicate key hints
   are hidden. Manual Pause hides/restores the result-only group; Resume restores
   these authored result bounds. Modal freeze rules remain. Scoped verification is
