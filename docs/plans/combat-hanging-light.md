@@ -1151,3 +1151,77 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   Retain evidence and the standalone integration-qa-build/player demo outside the
   worktree. Private runner results remain for reproducibility; remove its cache
   and source only when no longer needed, preserving evidence/player artifacts.
+
+
+### Cinematic wall torches, 2026-10-24 (verification complete)
+
+- User reported fixed-looking triangular pools below both wall flames and chose
+  cinematic, clearly visible flicker. Keep central lantern, flame atlas/timing,
+  actor depth/normal data, rune and blue haze settings unchanged.
+- Branch/worktree: micharel09/cinematic-wall-torches, from main3cd7293.
+  Retain current Point Lights (base8/range15/no shadows); author SinePair amplitude
+  .18/frequencies5.8,13.7/weights.7,.3/phase factors1,2.37; retain instance phases
+  .7,2.9. Disable two TorchBeam objects and remove their atmosphere update refs.
+- Use disposable QA render-only controls for same-player baseline/candidate and
+  independent beam/wall-light/key-shadow/fog/blur diagnosis. QA controls never
+  mutate combat and are absent from production. No recording or full sprite review.
+- Pending: source-of-dark-region diagnosis, scoped lighting lifecycle/builder checks,
+  native10s visual samples and real-input lifecycle,15s/condition performance
+  (ABBA confirmation only above10% p95), production and remote integration.
+- Evidence/artifacts: E:/CodexTemp/TypingHero/cinematic-wall-torches-20261024.
+
+- Initial snapshotf31be374 passed repeated builder/authored-byte preservation and
+ 16/16 LightingProfileTests/SlayerTransitionTests. Native A/B diagnosis and relative
+ performance use that immutable player. Main then advanced to c36e591 with reviewed
+ Space cue/HUD; rendering scripts, lighting profiles/assets and cameras are unchanged.
+ Integrated that main and queued final QA builder/player for its actual input flow;
+ reuse the16passing unchanged lighting/lifecycle tests.
+
+- Diagnosis on immutable QA20261024T014122/inputf31be374:26checks PASS.
+  Directly inspected candidate and all six same-phase diagnostic images.
+  Baseline-no-beam removes the long diagonal/vertical pools; disabling the key
+  shadow leaves them visible, and disabling wall lights still leaves the beam
+  cards. Fog/blur changes do not remove their geometry. No room geometry, shadow
+  proxy or ambient adjustment is needed; keep legitimate dark wall/floor regions.
+- Inspected11paired wall crops at0.12..10.13s, both wall torches, plus full-scene
+  diagnostic stills. Intensity ranges6.663..9.153 and6.685..9.285; actual emission
+  equals each light multiplier, both phases differ, wall texture remains visible
+  without the long beam cards. This is sampled lighting observation, not full
+  animation review or video capture.
+- Same-player native Edge/Intel UHD/ANGLE D3D11,1280x720:15s/condition live combat,
+  no captures/recording during measurement. Baseline471samples/p95=33.3938599ms;
+  candidate460samples/p95=33.3900452ms, ratio0.999886.11checks PASS,0exceptions/
+  provider writes. ABBA not triggered. Browser cadence, not GPU/device-FPS claim.
+  Relative torch comparison uses the immutable pre-cue-HUD player; final-main
+  rendering/lighting sources are identical and final input/lifecycle is checked
+  separately on the current player.
+
+- Final-main QA20261024T015428/input8380b12e (base4b57eb6) passed the repeated
+  builder, cinematic profile/disabled beam checks and authored lighting preservation.
+ 33downloaded QA files match remote; all232exported lighting files match current
+ source after newline normalization. Both beam nodes plus RuneLight/RearRune/
+ RearHaze/LowHaze are inactive in actual serialized output.
+- Native lifecycle-final-02:16/16PASS on current cue/HUD player; real parry/queued
+ slash, Slayer endpoint, Pause/Resume, no phase reset or pause catch-up, received
+ hit and menu/world return. Actual pause holds age/frame/emission/intensity.
+ Slayer composite endpoint and returned gameplay stills directly inspected;
+ 0exceptions/provider writes, no recording. First lifecycle-final fixture failed
+ after5checks because it incorrectly expected inactive light GameObjects during
+ Slayer. Source uses a full background composite and keeps world clocks active;
+ corrected only the external assertion and clarified the authoring guide, without
+ changing production behavior or weakening the no-reset/Pause acceptance.
+
+- Final normal player from the same015428/8380b12e input built successfully;
+  48stripped assemblies exclude GameLoopProbe,SpriteDepthPreviewControl,
+  SpriteDepthDemo,TorchQaControl, and JS QA bridge is absent.33downloaded production
+  files match remote. Native production smoke PASS: actual menu/name/tutorial skip,
+  gameplay and Pause opened; gameplay image directly inspected, no long beam cards,
+  F9 leaves paused canvas byte-identical,0exceptions/provider writes.
+- Final local source plus the declared disposable QA fixture hashes match both final
+  build inputs. Production repository changes are only RearTorch.asset and four
+  serialized scene edits (two active flags/two update refs), plus documentation.
+- Remote commit/ancestry, independent demo endpoint and clean-worktree cleanup are
+  recorded in E:/CodexTemp/TypingHero/cinematic-wall-torches-20261024/receipt.json.
+  Retain original reported images, immutable players, observations and failed fixture
+  result. Reused private runner cache predates this task; preserve it and its results
+  for reproducibility. Standalone demo/evidence stay outside the task worktree.

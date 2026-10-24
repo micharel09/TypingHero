@@ -1,3 +1,32 @@
+## Cinematic wall torches (2026-10-24)
+
+- Data-only change: RearTorch SinePair amplitude.18, frequencies5.8/13.7,
+  weights.7/.3, phase factors1/2.37; two TorchBeam cards/update refs disabled.
+  Unity2022.3.25f1/URP14.0.11, world320x180/presentation1280x720 retained.
+- QA014122/inputf31be374: repeated builder/authored preservation and16/16focused
+  LightingProfileTests/SlayerTransitionTests PASS,0failed/skipped. Native diagnosis
+  26checks PASS; all7same-phase variants and11paired wall samples directly inspected.
+  Beam removal fixes reported long pools; shadow/fog/blur toggles do not. No geometry,
+  ambient, flame frame/timing or actor depth/normal change; no recording.
+- Edge155.0.4283.62/Intel UHD/ANGLE D3D11,15s living-combat conditions on the same
+  immutable player: baseline471samples/p95=33.39386ms; candidate460/p95=33.39005ms,
+  ratio.999886.11checks PASS; no ABBA trigger, exceptions or provider writes.
+  This is browser cadence and a relative torch comparison on pre-cue-HUD source;
+  lighting/rendering sources remain identical after the reviewed HUD integration.
+- Final4b57eb6-base QA/production015428 share complete input
+  `8380b12e410423a53d5e234e96b9decca2d5206047a04510cd8424ea7099134f`.
+  Final builder/authored preservation PASS;33QA and33production player hashes match
+  remote.232exported lighting files match source; both beams/rune/light/hazes stay off.
+  Current-player native lifecycle16/16PASS: real parry/follow-up, Pause/Resume,
+  Slayer composite/continuous phase, received hit and menu/world return,0exceptions/
+  provider writes. Initial fixture's wrong GameObject-hide assertion is retained
+  separately; only that external assertion was corrected to actual composite behavior.
+- Normal WebGL build PASS;48stripped assemblies exclude QA probe/depth demo/controls
+  and TorchQaControl; JS bridge absent. Normal player menu/gameplay/pause inspected,
+  F9 paused-canvas bytes identical,0exceptions/provider writes. No device-FPS,
+  full animation review, stress/soak or publication claim.
+  [Checkpoint and receipt](../plans/combat-hanging-light.md).
+
 ## Production sprite self-shadow integration (2026-10-24)
 
 - User accepted demo8293 with rune/light and both blue haze layers disabled;

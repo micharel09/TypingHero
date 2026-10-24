@@ -1,5 +1,13 @@
 ## Reusable world lighting (2026-10-22)
 
+- Wall torches use authored cinematic SinePair flicker: base8/range15/amplitude.18,
+  independent phases and matching flame emission. Two fixed TorchBeam cards are
+  inactive and no longer receive atmosphere updates. Central lantern, flame
+  atlas/timing and actor self-shadow remain unchanged. Pause holds the clock;
+  Slayer composite conceals the continuing world phase and restores it without
+  resetting. [Evidence](../plans/combat-hanging-light.md).
+
+
 - DungeonWorld selects the authored ActorDepth library for normal-player self-shadow.
   DungeonSprite saves strength0.65/depth scale0.15/bias0.01; world without a library
   retains the previous rendering path. The user accepted demo8293 with rune and
