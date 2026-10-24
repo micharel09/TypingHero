@@ -70,8 +70,6 @@ internal sealed class SpriteDepthSources
         foreach (var binding in root.GetComponentsInChildren<SpriteDepthBinding>(true))
         {
             ReadComponent(binding.GetComponent<SpriteRenderer>(), visited);
-            var animator = binding.GetComponentInParent<Animator>(true);
-            if (animator) ReadComponent(animator, visited);
         }
     }
 
@@ -81,7 +79,9 @@ internal sealed class SpriteDepthSources
         if (component is SpriteRenderer renderer)
         {
             // Do not read m_Sprite again through SerializedObject on excluded receivers.
-            if (IsReceiver(renderer)) AddSprite(renderer.sprite);
+            if (!IsReceiver(renderer)) return;
+            AddSprite(renderer.sprite);
+            ReadComponent(renderer.GetComponentInParent<Animator>(true), visited);
             return;
         }
         var animator = component as Animator ?? AnimatorFor(component);

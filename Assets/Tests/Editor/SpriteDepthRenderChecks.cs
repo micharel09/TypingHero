@@ -21,6 +21,7 @@ public static class SpriteDepthRenderChecks
     }
     public static void Investigate()
     {
+        Preflight(false);
         SpriteDepthGpuChecks.Verify();
         SpriteDepthLightChecks.Verify();
         diagnostics=true;
@@ -40,8 +41,23 @@ public static class SpriteDepthRenderChecks
         public Vector3 light;
     }
     [Serializable] sealed class CaptureRecord { public string device; public Cell[] cells; }
+    internal static void Preflight(bool requireComplete)
+    {
+        if (requireComplete)
+            SpriteDepthAuthoring.Validate(AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>(
+                "Assets/Data/Lighting/ActorDepth.asset"), true);
+        var dirty = Enumerable.Range(0, UnityEngine.SceneManagement.SceneManager.sceneCount)
+            .Select(UnityEngine.SceneManagement.SceneManager.GetSceneAt)
+            .Where(scene => scene.isLoaded && scene.isDirty)
+            .Select(scene => string.IsNullOrEmpty(scene.path) ? scene.name + " (unsaved)" : scene.path)
+            .ToArray();
+        if (dirty.Length != 0)
+            throw new InvalidOperationException("Save all open dirty scenes before lighting capture: " +
+                string.Join(", ", dirty));
+    }
     public static void Capture()
     {
+        Preflight(allFrames);
         if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null)
             throw new InvalidOperationException("Shadow/normal verification requires an actual graphics device");
         string output = Environment.GetEnvironmentVariable("TYPINGHERO_LIGHTING_CAPTURE") ?? "/results/lighting-capture";
@@ -94,7 +110,6 @@ public static class SpriteDepthRenderChecks
                 "Assets/Art/EndlessSkeletons/sword/Attack1.png"
             };
             var authored = AssetDatabase.LoadAssetAtPath<SpriteDepthLibrary>("Assets/Data/Lighting/ActorDepth.asset");
-            if (allFrames) SpriteDepthAuthoring.Validate(authored, true);
             for (int actorIndex = 0; actorIndex < (allFrames ? authored.frames.Length : sources.Length); actorIndex++)
             {
                 string path = allFrames ? AssetDatabase.GetAssetPath(authored.frames[actorIndex].sprite) : sources[actorIndex];

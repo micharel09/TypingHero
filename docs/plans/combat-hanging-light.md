@@ -1451,3 +1451,34 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
 - Remote integration/cleanup receipt is retained in the evidence root below.
 - Worktree depth-receiver-scope; evidence root
   E:/CodexTemp/TypingHero/depth-receiver-scope-20261024.
+
+
+## Renderer discovery and capture preflight (2026-10-24)
+
+- Referenced prefab receivers include the nearest self/ancestor Animator even
+  when the reference is unsaved and absent from disk dependencies. Excluded
+  renderers still stop before following the Animator; receiver curve filtering
+  and map selection/migration/pruning are unchanged.
+- CaptureAll strict-validates the current scene state before checking every
+  loaded scene for dirty changes. Capture/Investigate share that dirty-scene
+  guard, including scenes outside Build Settings. No auto-save, library sync,
+  GPU check, output or destructive scene replacement precedes preflight success.
+- Unity2022.3.25f1/fly-server Editor20261024T101721-quick:38/38PASS,0failed/skipped,
+  56.8565823s. Seven new cases cover unsaved prefab animation on self/inactive
+  ancestor, no-binding exclusion, disabled/zero-strength authoring, strict missing
+  map before dirty/GPU guards, actual CaptureAll/Capture/Investigate entry points,
+  scene/override/output preservation and clean complete preflight without GPU.
+  Existing31sync/discovery cases include production inventory equality against
+  the saved index without a fixed frame count.
+- Builder20261024T102114-quick/input
+  942e01c8184ae0cb02c39a035d347a5b58d99ae094c95b3de914e07b2b2a93cb:
+  QA-mode repeated builder and selected-world bind/clear/no-depth/restore PASS.
+  All209protected files (including99lighting PNG and library/world/material)
+  remain byte-identical. First builder failed existing font protection on CRLF
+  archive input; canonical LF snapshot passes without changing that protection.
+  The38passing Editor cases are reused across this normalization-only retry.
+- Prior2/2runtime depth cases from071611 reused after Git comparison confirms
+  runtime/test/shader/library/material/package/project inputs remain unchanged.
+  No frame rendering, WebGL build, full QA or new animation/performance claim.
+  XML/logs, source/artifact/protected SHA256 and runtime reuse evidence:
+  E:/CodexTemp/TypingHero/depth-preflight-fix-20261024/receipt.json.

@@ -342,7 +342,9 @@ clip, initial-sprite and contact-library overrides and non-prefab actors.
 Loaded scenes are read in memory (including unsaved overrides); unopened scenes
 are inspected in temporary additive scenes and closed without saving. Actor
 references to renderers/animators outside their subtree are followed, including
-prefab component references. The main SpriteRenderer on a GameObject with
+prefab component references. A referenced receiver includes its current sprite and
+curves from the nearest Animator on itself or an ancestor, including inactive
+prefabs that are reachable only through unsaved scene references. The main SpriteRenderer on a GameObject with
 PlayerHealth or SkeletonController is automatically a depth receiver, before
 builder binding. Secondary and external renderers must have SpriteDepthBinding
 to opt in. Component presence owns authoring scope even when the binding or
@@ -361,6 +363,11 @@ Inventory export, sync, metadata validation and audit share this source.
 The Console summary lists mapped/missing sprites. **Audit Complete Gameplay Depth**
 is the explicit art-coverage gate: missing receiver maps fail that audit and
 CaptureAll's strict input validation, while normal builds permit fallback.
+CaptureAll validates the currently open scene state before GPU checks, output or
+scene replacement. Capture, CaptureAll and Investigate require every loaded scene
+to be saved, including scenes outside Build Settings. Dirty scenes cause an
+InvalidOperationException listing the scenes to save; capture never auto-saves or
+synchronizes the library. Audits can still inspect unsaved overrides.
 Unbound shadows/VFX need no map to pass either strict gate.
 Build validation runs after builder synchronization and still rejects invalid map
 dimensions/imports, broken/conflicting bindings and build atlas packing. Unselected
