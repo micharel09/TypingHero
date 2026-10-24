@@ -278,3 +278,23 @@ clips with audio at1x/0.25x. Verify visible per-impact difference, stable contac
 visible post480ms embers, floor bounce/fade and pool/pause/restart. Fix any observed
 artifact and re-review the affected complete variants. Main integration remains
 withheld until those checks and the existing integration checks pass. No itch.io.
+
+
+### Continuous multi-parry clip request
+
+User explicitly requires multiple real parries to judge variation; single-impact
+clips are insufficient and must not be resent as proof. Prepared external
+`driver-multi/parry_clash.cjs` plus `native-multi.py` at the same evidence root:
+three consecutive successful real Space parries and typed counters in one continuous
+recording, full preparation/core/tail each, no restart/duplicated segments. Same
+1280x720 native harness, fixture interception, PNG timestamps and original audio.
+Launcher requires NEW variation player directories and a receipt for daa995f's
+source/input hashes; it cannot silently fall back to the old unvaried player.
+Node syntax/Python parse PASS only. No browser/game capture executed.
+SSH timeout and Tailscale offline reconfirmed for quanubutu; no local Unity Hub
+editor/WSL installation available. New multi-parry clip remains blocked on runner.
+After verified candidate normal/mirror QA builds, create hash-backed
+`variation-build-receipt.json` and `variation-snapshot-{right,left}.json`, place
+verified players in `variation-player-{right,left}`, then execute
+`python E:/CodexTemp/TypingHero/parry-pimen-depth/native-multi.py right` and `left`.
+Review/export every recorded frame and pair using the complete-scope rules above.
