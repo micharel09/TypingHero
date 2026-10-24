@@ -20,10 +20,6 @@ public static class SpriteDepthAuthoring
         try { SynchronizeSelectedWorlds(); }
         catch (Exception error) { EditorApplication.isPlaying = false; Debug.LogException(error); }
     }
-    static string[] ActorDependencies(SpriteDepthSources sources)
-    {
-        return AssetDatabase.GetDependencies(sources.paths.ToArray(), true).Distinct().ToArray();
-    }
     [Serializable] sealed class KeyRecord
     {
         public string clip, sprite, source, binding;
@@ -42,12 +38,11 @@ public static class SpriteDepthAuthoring
     public static void ExportInventory(string destination)
     {
         var sources = SpriteDepthSources.Collect();
-        var dependencies = ActorDependencies(sources);
         var keys = new List<KeyRecord>();
-        foreach (var clip in dependencies
-            .Select(AssetDatabase.LoadAssetAtPath<AnimationClip>).Where(x => x))
-        foreach (var binding in AnimationUtility.GetObjectReferenceCurveBindings(clip))
+        foreach (var source in sources.curves)
         {
+            var clip = source.clip;
+            var binding = source.binding;
             var curve = AnimationUtility.GetObjectReferenceCurve(clip, binding);
             for (int i = 0; i < curve.Length; i++)
             {
@@ -59,7 +54,7 @@ public static class SpriteDepthAuthoring
                     loop = AnimationUtility.GetAnimationClipSettings(clip).loopTime });
             }
         }
-        var frames = ReferencedSprites(sources, dependencies).Select(sprite => {
+        var frames = sources.sprites.Select(sprite => {
             AssetDatabase.TryGetGUIDAndLocalFileIdentifier(sprite, out string guid, out long id);
             return new FrameRecord { sprite = sprite.name, source = AssetDatabase.GetAssetPath(sprite),
                 localId = id, rect = sprite.rect, pixelsPerUnit = sprite.pixelsPerUnit };
@@ -154,32 +149,7 @@ public static class SpriteDepthAuthoring
         AssetDatabase.TryGetGUIDAndLocalFileIdentifier(sprite, out string guid, out long id);
         return guid + ":" + id;
     }
-    public static Sprite[] ReferencedSprites()
-    {
-        var sources = SpriteDepthSources.Collect();
-        return ReferencedSprites(sources, ActorDependencies(sources));
-    }
-    static Sprite[] ReferencedSprites(SpriteDepthSources sources, string[] dependencies)
-    {
-        // Include directly referenced hurt/parry clips as well as controller clips.
-        var clips = dependencies.Select(AssetDatabase.LoadAssetAtPath<AnimationClip>).Where(x => x);
-        var initial = dependencies.Select(AssetDatabase.LoadAssetAtPath<EndlessOpponent>)
-            .Where(x => x).Select(x => x.idle)
-            .Concat(dependencies.Select(AssetDatabase.LoadAssetAtPath<GameObject>).Where(x => x)
-                .SelectMany(x => x.GetComponentsInChildren<PlayerHealth>(true).Cast<Component>()
-                    .Concat(x.GetComponentsInChildren<SkeletonController>(true)))
-                .Select(x => x.GetComponent<SpriteRenderer>()).Where(x => x).Select(x => x.sprite));
-        // Parry temporarily replaces animation cels with clean weapon-contact poses.
-        // Their atlas lives under VFX, but these sprites render on the actual actor.
-        var contacts = dependencies.Select(AssetDatabase.LoadAssetAtPath<ParryContactLibrary>)
-            .Where(x => x).SelectMany(x => x.frames)
-            .SelectMany(x => new[] { x.sprite, x.contactCel, x.defenseCel }).Where(x => x);
-        return clips
-            .SelectMany(clip => AnimationUtility.GetObjectReferenceCurveBindings(clip)
-                .SelectMany(binding => AnimationUtility.GetObjectReferenceCurve(clip, binding)))
-            .Select(x => x.value as Sprite).Concat(initial).Concat(sources.sprites).Where(x => x)
-            .Concat(contacts).Distinct().ToArray();
-    }
+    public static Sprite[] ReferencedSprites() => SpriteDepthSources.Collect().sprites.ToArray();
     public static SpriteDepthLibrary.Frame Describe(Sprite sprite, Texture2D depth)
     {
         var source = sprite.texture;

@@ -388,7 +388,13 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Production Player uses `ParryImpact.asset`, a separate MetalClash copy: both
   Pimen flash quads40px (previously16), core cap2.5world units (previously1),
   unchanged200ms lifetime with full alpha through100ms then fade to zero by200ms.
-  Physics/prefab, sprite sheet/curves, local light, audio, camera and hitstop remain.
+    Dedicated prefab/physics now keep leads10-14px long/2px initial width,
+    cooling450-550ms/lifetime550-700ms; secondary4-7px/cooling400-550ms and brighter
+    orange embers retain their launch/flight/bounce settings and counts.
+    One hollow120-degree shock arc uses8pixel cels/320ms,64px canvas/cap4WU,
+    mirrored toward the opponent at emission. Existing pool/pause clocks own it;
+    no new public API or frame handler. Pimen flashes, local light, audio, camera
+    and hitstop remain unchanged. [Spark/arc evidence](../plans/parry-spark-arc.md).
   The builder migrates the stock prefab's MetalClash reference or fills its null
   default; custom Inspector profiles and custom-prefab defaults remain authored.
   Standalone MetalClash stays unchanged. [Evidence](../plans/parry-impact-burst.md).

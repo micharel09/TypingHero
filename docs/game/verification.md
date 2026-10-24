@@ -3274,6 +3274,39 @@ visuals retain their own receipts; this task adds no sprite review certification
   final generated-output comparison. No performance/full-suite/production build
   or itch upload. [Receipts, cache correction and clip](../plans/parry-impact-burst.md).
 
+## Parry sparks and directional shock arc (2026-10-24)
+
+- Final input6331af8e49955345088499ef92351e3e3b92a6171836a265ba6eab413c4cc4ed,
+  Unity2022.3.25f1/fly-server20261024T070951-serialize: strict repeated builder PASS;
+  ImpactVfxTests41/41PASS,0failed/skipped,8.7500326s. Covers same-seed trajectories,
+  24seeds/two directions with readable streaks after350ms, flash/arc size and expiry,
+  tutorial/timeScale pause, reuse/mirror reset, MetalClash trace and custom bindings.
+- Normal QA063750/b7c11712 and mirrored QA065830/854d4967 build/repeat PASS.
+  Both have identical VFX payloads. Final rendered assets/importer match source;
+  qualification delta is whitespace/native main-object metadata and corrected test
+  fixture order, with unchanged runtime code/material/texture/physics values.
+- Native Edge156.0.4314.42/Intel UHD D3D11 at1280x720:11/11checks per direction,
+  actual Space/40HP/+30, post200ms multi-pixel streaks, tail expiry and real Escape
+  Pause/Resume pass;0exceptions/provider writes, fixture interception retained.
+  Direct review covers252/252runtime frames and250/250transitions plus8/8arc cels
+  and7/7transitions per direction. Hollow arc opens toward enemy; longer orange
+  streaks/embers remain after core clears, player eye/body/feet stay readable.
+- Audible1280x720 preview retains508/508decoded frames/507/507transitions;
+  all directly inspected, including40contact crops. Original displayed timestamps
+  retained to1ms, terminal idle repeated40ms per1x block, no interpolation. Both
+  directional files played through in headed Edge at1x/.25x, unmuted/volume1;
+  measured decoded audio peaks0.47-0.53. Independent subjective listening approval
+  is not claimed. No performance/full-suite/production build or itch upload.
+  [Detailed receipts, failed pilots and artifact paths](../plans/parry-spark-arc.md).
+
+- Integrated c86d72f: serialize074942/input65e72571, strict builder and41/41PASS,
+  8.7472983s. ActorDepth/Player/VFX match source; all1121generated scene records,
+  GUID/local/listener refs and float32 values match reviewed QA after canonical ID
+  mapping. Later editor-only7694ba1 qualification reused after reading31/31actual
+  XML and matching11source/config/index hashes;281mapped frames/render data unchanged,
+  ParticleSystem effects excluded from receiver discovery. Shared Node parry-role
+  filter accepts old/new prefab names; all252captured frames/53live frames pass.
+
 
 ## Scene-aware depth synchronization (2026-10-24)
 
@@ -3289,9 +3322,31 @@ visuals retain their own receipts; this task adds no sprite review certification
 - Real QA-mode serializer/repeat builder PASS; two actor bindings, world clear,
   world without depth and return PASS. All99lighting PNGs and10checked
   source/config/index files match.281mapped actor frames unchanged; the newly
-  discovered ContactShadow child has no map and uses ordinary fallback.
+  discovered ContactShadow child had no map. This overbroad discovery allowed
+  production fallback but broke strict audit/CaptureAll input validation; the
+  receiver-scope correction below supersedes that classification.
 - Editor-only change; no shader/runtime/combat/schema/data-image edits. Full QA,
   WebGL, animation review and profiling were not run. Earlier compile/fixture
   failures, exact XML/logs, source identity and integration receipt are retained at
   E:/CodexTemp/TypingHero/depth-scene-sync-20261024. Details in the
   [lighting checkpoint](../plans/combat-hanging-light.md).
+
+## Receiver-scoped depth audit (2026-10-24)
+
+- Unity2022.3.25f1/fly-server20261024T074545-quick, input3d80507630403c0db3c5bcf5d2b1e2b9ed6861614dd85ab89cf4d231607d30df:
+  31/31Editor PASS,0failed/skipped. Main actor renderers auto-qualify before
+  builder binding; secondary/external renderers require SpriteDepthBinding.
+  Disabled binding/renderer and zero strength retain authoring requirements.
+  Mixed actor/VFX curves, persistent prefab references, shared sprite identity,
+  controller/override/hurt/contact/Endless and scene-state checks pass.
+- Public AuditCoverage and CaptureAll's exact strict Validate(library,true) PASS.
+  Missing actor map still rejects strictly while production permits fallback.
+  Production frame set equals authored index,281mapped/0missing; previous
+  unbound ContactShadow is excluded, with no lost authored frame.
+- Actual QA-mode two-pass builder and world bind/clear/no-depth/restore PASS.
+  All99lighting PNGs, library/world/material and12checked source/config/index
+  files match after serialization. Runtime/test/config/index unchanged, reusing
+  prior2/2runtime tests from071611; no new runtime suite, WebGL build, all-frame
+  render, full QA or sprite-review claim. Exact XML/logs/hash/inventory delta and
+  integration receipt: E:/CodexTemp/TypingHero/depth-receiver-scope-20261024.
+  See [lighting checkpoint](../plans/combat-hanging-light.md).

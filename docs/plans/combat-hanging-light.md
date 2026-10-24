@@ -1410,7 +1410,9 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
 - All10checked source/config/index files match the tested/generated snapshot.
   All99lighting PNG hashes match; ActorDepth, DungeonWorld and material bytes
   unchanged. Inventory now also sees the ContactShadow child sprite without a
-  depth map; ordinary fallback is expected. All281authored rows remain unchanged.
+  depth map. This was incorrectly classified as expected fallback: production
+  remained usable, but strict audit/CaptureAll rejected it. Receiver-scope
+  correction below addresses this; all authored rows must remain unchanged.
 - Six map/inventory checks passed before scene fixtures could run; fix NUnit
   assertion compatibility and Unity Untitled scene restrictions in fixtures. Use
   only native scene-settings documents from a saved scene, then open additively.
@@ -1420,3 +1422,32 @@ Live local lab: `http://127.0.0.1:58936/demo-review/demo/`.
   in the external receipt; they are not counted as passes.
 - Main advanced only by startup-profile documentation213e67d; build inputs,
   dependencies and environment are unchanged, so the19tests/serializer remain valid.
+
+## Depth receiver scope correction (2026-10-24)
+
+- Main SpriteRenderer on PlayerHealth/SkeletonController is automatic; secondary
+  and external receivers opt in via existing SpriteDepthBinding. No name, shader,
+  path, enabled-state or material-strength classification.
+- Direct/serialized/persistent renderer references share classification. Clip
+  curves resolve SpriteRenderer.m_Sprite against the live Animator hierarchy
+  before temporary scenes close; export retains asset/path records only.
+  Controllers/overrides, direct hurt/recovery, Endless controller/idle/hurt and
+  contact/defense cels retain coverage. One shared inventory serves sync/export/
+  validation/audit. Production fallback and strict missing-map rejection remain.
+- Unity2022.3.25f1/fly-server result20261024T074545-quick,
+  input3d80507630403c0db3c5bcf5d2b1e2b9ed6861614dd85ab89cf4d231607d30df:
+  31/31Editor tests PASS,0failed/skipped. Public strict audit and the exact
+  CaptureAll strict validator PASS; missing actor maps still fail strict audit
+  while production validation allows fallback. Bound/disabled/strength-zero and
+  external/persistent receivers, mixed curves, shared sprites, overrides/hurt/
+  contact/Endless and loaded/unloaded/dirty scene-state preservation all pass.
+- Production inventory equals the saved authored index:281mapped/0missing;
+  only the unbound ContactShadow sprite is removed from the previous inventory.
+  Real QA-mode two-pass builder and selected-world bind/clear/no-depth/restore
+  PASS. All99lighting PNGs and12checked source/config/index files match after
+  serialization; library/world/material bytes unchanged. Reuse prior2/2runtime
+  tests because runtime/test/config/index sources are unchanged. No WebGL build,
+  full-frame rendering, full QA or animation-review claim.
+- Remote integration/cleanup receipt is retained in the evidence root below.
+- Worktree depth-receiver-scope; evidence root
+  E:/CodexTemp/TypingHero/depth-receiver-scope-20261024.

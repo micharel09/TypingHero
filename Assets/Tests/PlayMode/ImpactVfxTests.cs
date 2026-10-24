@@ -41,10 +41,10 @@ public sealed partial class ImpactVfxTests
         "Assets/Art/VFX/ParryClash/ParryImpact.asset");
 
     [Test, Category("Quick")]
-    public void ParryImpactEnlargesBothFlashesAndPreservesSeededParticles()
+    public void ParryImpactPreservesFlashAndSeededTrajectoriesWhileExtendingSparks()
     {
-        Assert.That(Parry.physics, Is.SameAs(Metal.physics));
-        Assert.That(Parry.prefab, Is.SameAs(Metal.prefab));
+        Assert.That(Parry.physics, Is.Not.SameAs(Metal.physics));
+        Assert.That(Parry.prefab, Is.Not.SameAs(Metal.prefab));
         Assert.That(Parry.lightDuration, Is.EqualTo(Metal.lightDuration));
         Assert.That(Parry.lightIntensity, Is.EqualTo(Metal.lightIntensity));
         var camera = Camera.main;
@@ -68,6 +68,9 @@ public sealed partial class ImpactVfxTests
                 var context = Context(direction);
                 var original = emitter.Play(Metal, context);
                 var actual = emitter.Play(Parry, context);
+                float arcSize = Mathf.Min(4, Mathf.Max(1 / Parry.pixelsPerUnit,
+                    size * 2 * camera.aspect / 1280) * 64);
+                Assert.That(Particles(actual, 5)[0].startSize, Is.EqualTo(arcSize).Within(.00001f));
                 foreach (int channel in new[] { 0, 3 })
                 {
                     var layer = Parry.flashes[channel == 0 ? 0 : 1];
@@ -85,16 +88,17 @@ public sealed partial class ImpactVfxTests
                 }
                 for (int step = 0; step <= 66; step++)
                 {
-                    foreach (int channel in new[] { 1, 2, 4 })
+                    var a = Simulation(actual); var b = Simulation(original);
+                    Assert.That(a.Count, Is.EqualTo(b.Count));
+                    for (int n = 0; n < a.Count; n++)
                     {
-                        var a = Particles(actual, channel); var b = Particles(original, channel);
-                        Assert.That(a.Length, Is.EqualTo(b.Length));
-                        for (int n = 0; n < a.Length; n++)
+                        Assert.That(a[n].origin, Is.EqualTo(b[n].origin));
+                        Assert.That(a[n].launch, Is.EqualTo(b[n].launch));
+                        var x = a.Evaluate(n, step / 60f); var y = b.Evaluate(n, step / 60f);
+                        if (x.alive && y.alive)
                         {
-                            Assert.That(a[n].position, Is.EqualTo(b[n].position));
-                            Assert.That(a[n].velocity, Is.EqualTo(b[n].velocity));
-                            Assert.That(a[n].startSize3D, Is.EqualTo(b[n].startSize3D));
-                            Assert.That(a[n].startColor, Is.EqualTo(b[n].startColor));
+                            Assert.That(Vector3.Distance(x.position, y.position), Is.LessThan(.00002f));
+                            Assert.That(Vector3.Distance(x.velocity, y.velocity), Is.LessThan(.00002f));
                         }
                     }
                     actual.AdvanceDebris(1f / 60); original.AdvanceDebris(1f / 60);
@@ -136,14 +140,56 @@ public sealed partial class ImpactVfxTests
         GamePauseController.SetTutorialReading(true);
         yield return null;
         var before = Particles(burst, 0)[0];
+        var arcBefore = Particles(burst, 5)[0];
         yield return new WaitForSecondsRealtime(.25f);
         Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
+        Assert.That(Particles(burst, 5)[0].remainingLifetime, Is.EqualTo(arcBefore.remainingLifetime));
         GamePauseController.SetTutorialReading(false);
-        yield return new WaitForSecondsRealtime(.3f);
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(.2f);
+        Assert.That(Particles(burst, 5)[0].remainingLifetime, Is.EqualTo(arcBefore.remainingLifetime));
+        Time.timeScale = 1;
+        yield return new WaitForSecondsRealtime(.38f);
         Assert.That(Particles(burst, 0), Is.Empty);
         Assert.That(Particles(burst, 3), Is.Empty);
+        Assert.That(Particles(burst, 5), Is.Empty);
         yield return new WaitForSecondsRealtime(1.1f);
         Assert.That(emitter.active, Is.Empty);
+        Assert.That(emitter.Play(Parry, Context(-1)), Is.SameAs(burst));
+        Assert.That(burst.Systems[5].GetComponent<ParticleSystemRenderer>().flip.x, Is.EqualTo(1));
+        emitter.Clear();
+        Assert.That(emitter.Play(Parry, Context(1)), Is.SameAs(burst));
+        Assert.That(burst.Systems[5].GetComponent<ParticleSystemRenderer>().flip.x, Is.Zero);
+    }
+
+    [Test, Category("Quick")]
+    public void ParryArcMirrorsAtContactAndHotStreaksRemainAfterFlash()
+    {
+        var emitter = Emitter();
+        foreach (float side in new[] { -1f, 1f })
+        for (int seed = 0; seed < 24; seed++)
+        {
+            var context = Context(side); context.seed = seed;
+            var burst = emitter.Play(Parry, context);
+            Assert.That(burst.ParticleCount, Is.EqualTo(25));
+            var arc = Particles(burst, 5)[0];
+            Assert.That(arc.position, Is.EqualTo(context.point));
+            Assert.That(arc.startLifetime, Is.EqualTo(.32f));
+            Assert.That(burst.Systems[5].GetComponent<ParticleSystemRenderer>().flip.x, Is.EqualTo(side < 0 ? 1 : 0));
+            var sheet = burst.Systems[5].textureSheetAnimation;
+            Assert.That(sheet.numTilesX, Is.EqualTo(8));
+            for (int frame = 0; frame < 8; frame++)
+                Assert.That(Mathf.FloorToInt(sheet.frameOverTime.curve.Evaluate((frame + .5f) / 8) * 8), Is.EqualTo(frame));
+            burst.AdvanceDebris(.35f);
+            bool readable = false;
+            foreach (int channel in new[] { 2, 4 })
+            foreach (var p in Particles(burst, channel))
+                readable |= p.startSize3D.y >= 2 / Parry.pixelsPerUnit && p.startColor.a > 200;
+            Assert.That(readable, Is.True, "Visible multi-pixel streak after 200ms flash, seed=" + seed);
+            burst.Systems[5].Simulate(.321f, false, false, false);
+            Assert.That(Particles(burst, 5), Is.Empty);
+            emitter.Clear();
+        }
     }
 
     [Test, Category("Quick")]
