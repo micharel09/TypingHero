@@ -3118,3 +3118,22 @@ scoped tests in3.3917055s,0failed/skipped, with strict repeat builder PASS. Both
 complete merged scenes match generated semantic records; all61result records and
 UI code match the native-reviewed d11258b8 player. Main's cue/lighting evidence is
 preserved separately; UI preview does not certify those newer visuals.
+
+## Per-strike white Space warning above enemy (2026-10-24)
+
+Phase025930/input02175c97:5/5 scoped Unity tests PASS, including14 real manual
+early/fill contacts across Classic and all six weapon attacks, independent next
+press, prediction/speed/pause/cancel and20rebinds. Head031855/input3ee81546:
+1/1 anchor/viewport/weapon-bounds test PASS; strict repeated builder and QA WebGL
+PASS. Normal033136 builds the same3ee81546 tree and excludes the QA bridge.
+Native muted Edge155/D3D11/Playwright1.58.2:26/26 checks PASS, real keyboard/mouse,
+640x360/1280x720 head geometry, parry/early/late/held input, Pause/F8, typing,
+Slayer/results/combo/restart/menu;0exceptions/provider writes. All9screenshots
+directly inspected. Full selected live capture278/278frames and274/274transitions
+directly reviewed; separate seven-attack mirrored314frames/307pairs and original
+300frames/293pairs reviewed. Authored sprites unchanged. Representative lit-scene
+coverage and subjective playtest limits are explicit in the
+[checkpoint](../plans/parry-cue-demo.md); no all-seven VFX or performance claim.
+Normal native1280x720 smoke5/5 PASS,0exceptions/provider writes; eight images
+directly inspected, including the live head cue. Both players match33remote hashes
+each; five normal JS/WASM/data payloads exclude ASCII/UTF16 QA/depth markers.
