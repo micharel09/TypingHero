@@ -1,8 +1,0 @@
-Pixel art sword slash effect
-Author: tbbk
-License: CC0
-https://opengameart.org/content/pixel-art-sword-slash-effect
-https://opengameart.org/sites/default/files/pixel_art_sword_slash_sprites.png
-SHA256: 7642aa4698828f6cc908b3fd2873c3b3d8555138bae188991c6b775ae0c96915
-Original 192x141 RGBA; all nine 64x47 cells, row-major from top left.
-Artwork and alpha unchanged.

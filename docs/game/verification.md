@@ -1,4 +1,13 @@
-## Slayer hit slash replacement (2026-10-24)
+## Slayer recipient-hit spark correction (2026-10-25 ? pending runtime)
+
+Both Slayer roles reuse existing NormalHitSpark source cels1..6, replacing rejected
+crescent artwork. Static reference/size/duration/source-integrity checks PASS;
+48/48static cels and40/40adjacent transitions inspected. Updated PlayMode cases,
+strict repeated builder and real-input1280x720 WebGL remain UNVERIFIED: fly-server
+is offline and SSH times out. Old slash tests/demo below are historical and do not
+validate this correction. [Checkpoint and evidence](../plans/slayer-slash-vfx.md).
+
+## Historical rejected Slayer hit slash replacement (2026-10-24)
 
 Unity2022.3.25f1/fly-server20261024T113433-webgl, input
 `dc32bba70c576eaf074b00dc3e38f6ba9e675fe7ddf5f4f45c610270ee5d24f1`:

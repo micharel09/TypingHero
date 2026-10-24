@@ -1,9 +1,114 @@
+# Slayer recipient-hit spark correction
+
+## Current correction ? 2026-10-25
+
+User rejected the sword-crescent artwork: this effect must confirm Skeleton receiving
+player damage. User selected the existing contact spark, with the previous Slayer-only
+scope (normal and lethal contacts). Historical slash acceptance below is superseded;
+it does not validate the corrected asset.
+
+Base origin/main903344c; isolated worktree
+`C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-received-hit-spark`, branch
+`micharel09/slayer-received-hit-spark`. Original dirty checkout and old demo preserved.
+
+Implemented: both stable prefab GUIDs now reference exactly NormalHitSpark's existing
+Pimen source cels1..6 (48x48, center pivot,100PPU). Hit150ms/32reference pixels,
+finisher180ms/40pixels at16PPU; per-cel25/30ms, common scale5.5555556/6.9444444.
+Existing pre-damage tint capture, optional lethal fallback, eight-impact pool,
+recipient-contact position, pause and result cleanup code are unchanged. Builder
+reuses stable source IDs without reimport/slicing; removed rejected tbbk sheet,
+its notice and the extra build credits append. Existing Pimen packaging remains.
+
+Source SHA256 `9c5e7e9b1776e982263b993861be1f239c315e5e77644d7883aeb92eab03dc08`.
+Static validation PASS: exact six-frame references match normal prefab; widths,
+durations and no rejected GUID verified; source PNG/importer, Player prefab,
+spawner and runtime component bytes match base. `git diff --check` passes.
+Scoped PlayMode assertions updated to require contact-spark references and six-cel
+playback. They have NOT been executed for this revision.
+
+Artifacts: `E:/CodexTemp/TypingHero/slayer-received-hit-spark/` contains eight
+numbered preview sheets, source-review.json, static-checks.json, and isolated runner
+adapters run.py/server.py. Previews show reference-pixel scale and3x nearest zoom;
+they do not establish WebGL renderer output or playback timing.
+
+BLOCKED: SSH fly-server100.115.189.84 and its configured LAN192.168.11.17 both
+connect-timeout; Tailscale reports quanubutu offline, last seen2026-10-24T11:54:12.1Z.
+Scoped `run.py webgl` also fails before reaching Unity. No local Unity Editor found.
+Unity tests, strict two-pass builder, real-input1280x720 WebGL, appearance/disappearance/
+overlap comparison with VFX disabled and demo remain UNVERIFIED. No integration
+into main until these acceptance checks pass. The old demo is NOT the corrected build.
+
+Resume: run the retained isolated runner when fly-server is online (no setup needed),
+import only scoped generated prefab serialization if it differs, inspect actual
+spark contacts/rapid hits/lethal tint/Pause-Resume/normal return, complete per-frame
+runtime evidence, then fetch/integrate/recheck/push main and verify ancestry. Retain
+this worktree and artifacts until acceptance and remote integration are complete.
+
+### Static frame evidence ? corrected asset
+
+Directly inspected all48/48 cels and40/40 consecutive pairs, eight sheets below.
+F5 is transparent; release follows without a loop. Static silhouette/continuity
+passes; playback, renderer and gameplay acceptance remain unverified.
+
+| Variant | Frame | Duration | Source phase | Observed frame | Next transition | Status | Evidence |
+|---|---|---|---|---|---|---|---|
+| hit-right-white | F0 | 25ms | Existing spark source cel1 | Compact star, white core and short amber rays; right mirror | Core opens into warmer separated rays | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-white.png F0 |
+| hit-right-white | F1 | 25ms | Existing spark source cel2 | Warm star, open core and separated short flecks; right mirror | Central light shrinks while rays thin | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-white.png F1 |
+| hit-right-white | F2 | 25ms | Existing spark source cel3 | Thin central core with short surrounding rays; right mirror | Core breaks into sparse orange traces | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-white.png F2 |
+| hit-right-white | F3 | 25ms | Existing spark source cel4 | Sparse orange rays and points around fixed pivot; right mirror | Remaining traces reduce to isolated points | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-white.png F3 |
+| hit-right-white | F4 | 25ms | Existing spark source cel5 | Few isolated small points; center largely clear; right mirror | All residual points disappear | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-white.png F4 |
+| hit-right-white | F5 | 25ms | Existing spark source cel6 | Fully transparent cell; right mirror | No loop; release after final cell | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-white.png F5 |
+| hit-right-red | F0 | 25ms | Existing spark source cel1 | Compact star, red core and short red rays; right mirror | Core opens into warmer separated rays | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-red.png F0 |
+| hit-right-red | F1 | 25ms | Existing spark source cel2 | Red star, open core and separated short flecks; right mirror | Central light shrinks while rays thin | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-red.png F1 |
+| hit-right-red | F2 | 25ms | Existing spark source cel3 | Thin central core with short surrounding rays; right mirror | Core breaks into sparse orange traces | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-red.png F2 |
+| hit-right-red | F3 | 25ms | Existing spark source cel4 | Sparse red rays and points around fixed pivot; right mirror | Remaining traces reduce to isolated points | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-red.png F3 |
+| hit-right-red | F4 | 25ms | Existing spark source cel5 | Few isolated small points; center largely clear; right mirror | All residual points disappear | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-red.png F4 |
+| hit-right-red | F5 | 25ms | Existing spark source cel6 | Fully transparent cell; right mirror | No loop; release after final cell | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-right-red.png F5 |
+| hit-left-white | F0 | 25ms | Existing spark source cel1 | Compact star, white core and short amber rays; left mirror | Core opens into warmer separated rays | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-white.png F0 |
+| hit-left-white | F1 | 25ms | Existing spark source cel2 | Warm star, open core and separated short flecks; left mirror | Central light shrinks while rays thin | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-white.png F1 |
+| hit-left-white | F2 | 25ms | Existing spark source cel3 | Thin central core with short surrounding rays; left mirror | Core breaks into sparse orange traces | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-white.png F2 |
+| hit-left-white | F3 | 25ms | Existing spark source cel4 | Sparse orange rays and points around fixed pivot; left mirror | Remaining traces reduce to isolated points | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-white.png F3 |
+| hit-left-white | F4 | 25ms | Existing spark source cel5 | Few isolated small points; center largely clear; left mirror | All residual points disappear | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-white.png F4 |
+| hit-left-white | F5 | 25ms | Existing spark source cel6 | Fully transparent cell; left mirror | No loop; release after final cell | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-white.png F5 |
+| hit-left-red | F0 | 25ms | Existing spark source cel1 | Compact star, red core and short red rays; left mirror | Core opens into warmer separated rays | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-red.png F0 |
+| hit-left-red | F1 | 25ms | Existing spark source cel2 | Red star, open core and separated short flecks; left mirror | Central light shrinks while rays thin | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-red.png F1 |
+| hit-left-red | F2 | 25ms | Existing spark source cel3 | Thin central core with short surrounding rays; left mirror | Core breaks into sparse orange traces | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-red.png F2 |
+| hit-left-red | F3 | 25ms | Existing spark source cel4 | Sparse red rays and points around fixed pivot; left mirror | Remaining traces reduce to isolated points | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-red.png F3 |
+| hit-left-red | F4 | 25ms | Existing spark source cel5 | Few isolated small points; center largely clear; left mirror | All residual points disappear | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-red.png F4 |
+| hit-left-red | F5 | 25ms | Existing spark source cel6 | Fully transparent cell; left mirror | No loop; release after final cell | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/hit-left-red.png F5 |
+| finisher-right-white | F0 | 30ms | Existing spark source cel1 | Compact star, white core and short amber rays; right mirror | Core opens into warmer separated rays | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-white.png F0 |
+| finisher-right-white | F1 | 30ms | Existing spark source cel2 | Warm star, open core and separated short flecks; right mirror | Central light shrinks while rays thin | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-white.png F1 |
+| finisher-right-white | F2 | 30ms | Existing spark source cel3 | Thin central core with short surrounding rays; right mirror | Core breaks into sparse orange traces | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-white.png F2 |
+| finisher-right-white | F3 | 30ms | Existing spark source cel4 | Sparse orange rays and points around fixed pivot; right mirror | Remaining traces reduce to isolated points | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-white.png F3 |
+| finisher-right-white | F4 | 30ms | Existing spark source cel5 | Few isolated small points; center largely clear; right mirror | All residual points disappear | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-white.png F4 |
+| finisher-right-white | F5 | 30ms | Existing spark source cel6 | Fully transparent cell; right mirror | No loop; release after final cell | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-white.png F5 |
+| finisher-right-red | F0 | 30ms | Existing spark source cel1 | Compact star, red core and short red rays; right mirror | Core opens into warmer separated rays | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-red.png F0 |
+| finisher-right-red | F1 | 30ms | Existing spark source cel2 | Red star, open core and separated short flecks; right mirror | Central light shrinks while rays thin | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-red.png F1 |
+| finisher-right-red | F2 | 30ms | Existing spark source cel3 | Thin central core with short surrounding rays; right mirror | Core breaks into sparse orange traces | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-red.png F2 |
+| finisher-right-red | F3 | 30ms | Existing spark source cel4 | Sparse red rays and points around fixed pivot; right mirror | Remaining traces reduce to isolated points | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-red.png F3 |
+| finisher-right-red | F4 | 30ms | Existing spark source cel5 | Few isolated small points; center largely clear; right mirror | All residual points disappear | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-red.png F4 |
+| finisher-right-red | F5 | 30ms | Existing spark source cel6 | Fully transparent cell; right mirror | No loop; release after final cell | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-right-red.png F5 |
+| finisher-left-white | F0 | 30ms | Existing spark source cel1 | Compact star, white core and short amber rays; left mirror | Core opens into warmer separated rays | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-white.png F0 |
+| finisher-left-white | F1 | 30ms | Existing spark source cel2 | Warm star, open core and separated short flecks; left mirror | Central light shrinks while rays thin | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-white.png F1 |
+| finisher-left-white | F2 | 30ms | Existing spark source cel3 | Thin central core with short surrounding rays; left mirror | Core breaks into sparse orange traces | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-white.png F2 |
+| finisher-left-white | F3 | 30ms | Existing spark source cel4 | Sparse orange rays and points around fixed pivot; left mirror | Remaining traces reduce to isolated points | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-white.png F3 |
+| finisher-left-white | F4 | 30ms | Existing spark source cel5 | Few isolated small points; center largely clear; left mirror | All residual points disappear | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-white.png F4 |
+| finisher-left-white | F5 | 30ms | Existing spark source cel6 | Fully transparent cell; left mirror | No loop; release after final cell | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-white.png F5 |
+| finisher-left-red | F0 | 30ms | Existing spark source cel1 | Compact star, red core and short red rays; left mirror | Core opens into warmer separated rays | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-red.png F0 |
+| finisher-left-red | F1 | 30ms | Existing spark source cel2 | Red star, open core and separated short flecks; left mirror | Central light shrinks while rays thin | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-red.png F1 |
+| finisher-left-red | F2 | 30ms | Existing spark source cel3 | Thin central core with short surrounding rays; left mirror | Core breaks into sparse orange traces | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-red.png F2 |
+| finisher-left-red | F3 | 30ms | Existing spark source cel4 | Sparse red rays and points around fixed pivot; left mirror | Remaining traces reduce to isolated points | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-red.png F3 |
+| finisher-left-red | F4 | 30ms | Existing spark source cel5 | Few isolated small points; center largely clear; left mirror | All residual points disappear | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-red.png F4 |
+| finisher-left-red | F5 | 30ms | Existing spark source cel6 | Fully transparent cell; left mirror | No loop; release after final cell | static pass | E:/CodexTemp/TypingHero/slayer-received-hit-spark/finisher-left-red.png F5 |
+
+## Historical rejected slash implementation
+
 # Slayer slash impact replacement
 
 Base origin/main46d4dda. Worktree C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-slash-vfx.
 Original dirty checkout preserved; no itch.io publication.
 
-## Approved contract
+## Historical contract (rejected artwork)
 
 Original tbbk CC0 nine-frame64x47 sheet; hit150ms/finisher180ms; visible width32/40px
 at16PPU. Center pivot, direction mirror, immutable captured hit tint, no random transforms.

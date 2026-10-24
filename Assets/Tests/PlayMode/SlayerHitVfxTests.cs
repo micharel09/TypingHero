@@ -20,7 +20,7 @@ public sealed class SlayerHitVfxTests
     static SlayerHitVfx[] Active() => UnityEngine.Object.FindObjectsOfType<SlayerHitVfx>();
     HitSparkSpawner Owner(out GameObject go)
     {
-        go = Host("slash owner"); var spawner = go.AddComponent<HitSparkSpawner>();
+        go = Host("contact spark owner"); var spawner = go.AddComponent<HitSparkSpawner>();
         Set(spawner, "slayerPrefabs", new[] { Prefab(false) }); Set(spawner, "slayerLethalPrefab", Prefab(true));
         go.SetActive(true); return spawner;
     }
@@ -31,41 +31,31 @@ public sealed class SlayerHitVfxTests
         owned.Clear(); yield return null; Assert.That(Active(), Is.Empty);
     }
     [TestCase(false, .15f, 32f), TestCase(true, .18f, 40f), Category("Quick")]
-    public void OriginalArtworkSlicePivotTimingAndVisibleScale(bool lethal, float duration, float width)
+    public void ExistingContactSparkSequenceTimingAndVisibleScale(bool lethal, float duration, float width)
     {
         var effect = Prefab(lethal).GetComponent<SlayerHitVfx>(); Assert.That(effect, Is.Not.Null);
         Assert.That(Prefab(lethal).GetComponentsInChildren<ParticleSystem>(true), Is.Empty);
-        var frames = Get<Sprite[]>(effect, "frames"); Assert.That(frames.Length, Is.EqualTo(9));
-        var importer = (TextureImporter)AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(frames[0]));
-        Assert.That(importer.filterMode, Is.EqualTo(FilterMode.Point)); Assert.That(importer.mipmapEnabled, Is.False);
-        Assert.That(importer.textureCompression, Is.EqualTo(TextureImporterCompression.Uncompressed));
-        Assert.That(importer.npotScale, Is.EqualTo(TextureImporterNPOTScale.None));
-        Assert.That(frames[0].texture.width, Is.EqualTo(192)); Assert.That(frames[0].texture.height, Is.EqualTo(141));
-        Assert.That(effect.GetComponent<SpriteRenderer>().sharedMaterial, Is.SameAs(AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/VFX/PixelSparks/Pixel.mat")));
-        for (int i = 0; i < 9; i++)
-        {
-            Assert.That(frames[i].rect, Is.EqualTo(new Rect(i % 3 * 64, 141 - (i / 3 + 1) * 47, 64, 47)));
-            Assert.That(frames[i].pivot, Is.EqualTo(new Vector2(32, 23.5f)));
-            Assert.That(frames[i].pixelsPerUnit, Is.EqualTo(16));
-        }
+        var frames = Get<Sprite[]>(effect, "frames");
+        var normal = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Art/VFX/CombatVoxel/NormalHitSpark.prefab").GetComponent<NormalHitSpark>();
+        Assert.That(frames, Is.EqualTo(Get<Sprite[]>(normal, "frames")), "Slayer must use recipient contact sparks, not a sword arc");
+        Assert.That(AssetDatabase.GetAssetPath(frames[0]), Is.EqualTo("Assets/Art/VFX/Pimen/HitSpark/Hit Effect 01/Hit Effect 01 1.png"));
+        Assert.That(effect.GetComponent<SpriteRenderer>().sharedMaterial, Is.SameAs(normal.GetComponent<SpriteRenderer>().sharedMaterial));
         Assert.That(Get<float>(effect, "duration"), Is.EqualTo(duration));
         var texture = new Texture2D(2, 2); int widest = 0;
         try
         {
             var bytes = System.IO.File.ReadAllBytes(AssetDatabase.GetAssetPath(frames[0]));
-            using (var hash = System.Security.Cryptography.SHA256.Create())
-                Assert.That(BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(), Is.EqualTo("7642aa4698828f6cc908b3fd2873c3b3d8555138bae188991c6b775ae0c96915"));
             texture.LoadImage(bytes);
             foreach (var frame in frames)
             {
-                int left = 64, right = -1;
-                for (int y = 0; y < 47; y++) for (int x = 0; x < 64; x++)
+                int left = (int)frame.rect.width, right = -1;
+                for (int y = 0; y < frame.rect.height; y++) for (int x = 0; x < frame.rect.width; x++)
                     if (texture.GetPixel((int)frame.rect.x + x, (int)frame.rect.y + y).a > 0) { left = Mathf.Min(left, x); right = Mathf.Max(right, x); }
                 widest = Mathf.Max(widest, right - left + 1);
             }
         }
         finally { UnityEngine.Object.DestroyImmediate(texture); }
-        Assert.That(Get<float>(effect, "uniformScale") * widest, Is.EqualTo(width).Within(.0001));
+        Assert.That(Get<float>(effect, "uniformScale") * widest / frames[0].pixelsPerUnit * 16, Is.EqualTo(width).Within(.0001));
     }
     [TestCase(false, 1f), TestCase(false, -1f), TestCase(true, 1f), TestCase(true, -1f), Category("Quick")]
     public void EveryFrameKeepsContactTintAndMirrorUntilRelease(bool lethal, float direction)
@@ -76,20 +66,21 @@ public sealed class SlayerHitVfxTests
         Assert.That(effect.GetComponent<VoxelImpactBurst>(), Is.Null);
         float duration = lethal ? .18f : .15f;
         SlayerModeSignals.SetActive(false);
-        effect.Advance(duration / 18);
-        for (int i = 0; i < 9; i++)
+        var frames = Get<Sprite[]>(effect, "frames");
+        effect.Advance(duration / (frames.Length * 2));
+        for (int i = 0; i < frames.Length; i++)
         {
-            if (i > 0) effect.Advance(duration / 9);
-            Assert.That(image.sprite.name, Is.EqualTo("frame_" + i));
+            if (i > 0) effect.Advance(duration / frames.Length);
+            Assert.That(image.sprite, Is.SameAs(frames[i]));
             Assert.That(image.color, Is.EqualTo(Color.red)); Assert.That(image.flipX, Is.EqualTo(direction < 0));
             Assert.That(effect.transform.position, Is.EqualTo(new Vector3(3, 4, 0)));
             Assert.That(effect.transform.rotation, Is.EqualTo(Quaternion.identity));
         }
-        effect.Advance(duration / 9 + .00001f); Assert.That(Active(), Is.Empty);
+        effect.Advance(duration / frames.Length + .00001f); Assert.That(Active(), Is.Empty);
         spawner.SpawnImpact(Vector2.zero, go.transform, true, lethal, directionOverride: -direction, capturedTint: Color.white);
         Assert.That(Active().Single(), Is.SameAs(effect)); Assert.That(effect.Age, Is.Zero);
         Assert.That(image.color, Is.EqualTo(Color.white)); Assert.That(image.flipX, Is.EqualTo(direction > 0));
-        Assert.That(image.sprite.name, Is.EqualTo("frame_0"));
+        Assert.That(image.sprite, Is.SameAs(frames[0]));
     }
     [UnityTest, Category("Quick")]
     public IEnumerator TutorialPauseHoldsAndResultClearsEvenWhenFinished()
@@ -152,7 +143,7 @@ public sealed class SlayerHitVfxTests
     [UnityTest, Category("Quick")]
     public IEnumerator FinishedSessionAllowsTailAndSceneUnloadReclaimsActiveAndIdle()
     {
-        var scene = UnityEngine.SceneManagement.SceneManager.CreateScene("Slayer slash lifecycle");
+        var scene = UnityEngine.SceneManagement.SceneManager.CreateScene("Slayer contact spark lifecycle");
         var spawner = Owner(out var go);
         UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(go, scene);
         // The pool root is created in Awake, so move its independent root as a scene owner would.
