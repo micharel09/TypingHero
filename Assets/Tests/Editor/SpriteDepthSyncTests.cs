@@ -7,6 +7,10 @@ using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEditor.U2D;
+using UnityEditor.Animations;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 public sealed class SpriteDepthSyncTests
 {
@@ -108,15 +112,42 @@ public sealed class SpriteDepthSyncTests
         Assert.That(File.Exists(conventional), Is.True, "Pruning the index must not delete authored art");
     }
     [Test]
-    public void CustomBindingWinsOverConventionalAndConflictingLegacyMapIsRejected()
+    public void ValidReplacementBindingUpdatesDerivedIndexAndIsStable()
     {
         var custom = WriteTexture(Root + "/custom.png",16,8);
         WriteTexture(conventional,16,8); Bind(custom);
         SpriteDepthAuthoring.Synchronize(library, Sprites);
         Assert.That(library.frames.All(x => x.depth == custom), Is.True);
-        Bind(AssetDatabase.LoadAssetAtPath<Texture2D>(conventional));
-        Assert.Throws<BuildFailedException>(() => SpriteDepthAuthoring.Synchronize(library, Sprites));
-        Assert.That(library.frames.All(x => x.depth == custom), Is.True);
+        var replacement = AssetDatabase.LoadAssetAtPath<Texture2D>(conventional);
+        byte[] original = File.ReadAllBytes(Root + "/custom.png");
+        Bind(replacement);
+        SpriteDepthAuthoring.Synchronize(library, Sprites);
+        Assert.That(library.frames.All(x => x.depth == replacement), Is.True);
+        string index = File.ReadAllText(Root + "/library.asset");
+        byte[] binding = File.ReadAllBytes(source + ".meta");
+        SpriteDepthAuthoring.Synchronize(library, Sprites.Reverse());
+        Assert.That(File.ReadAllText(Root + "/library.asset"), Is.EqualTo(index));
+        Assert.That(File.ReadAllBytes(source + ".meta"), Is.EqualTo(binding));
+        Assert.That(File.ReadAllBytes(Root + "/custom.png"), Is.EqualTo(original));
+    }
+    [Test]
+    public void InvalidReplacementDoesNotWriteIndexAndUnboundLegacyConflictIsRejected()
+    {
+        var custom = WriteTexture(Root + "/custom.png",16,8); Bind(custom);
+        SpriteDepthAuthoring.Synchronize(library, Sprites);
+        string index = File.ReadAllText(Root + "/library.asset");
+        Bind(WriteTexture(Root + "/wrong.png",8,8));
+        var error = Assert.Throws<BuildFailedException>(() => SpriteDepthAuthoring.Synchronize(library, Sprites));
+        Assert.That(error.Message, Does.Contain("requires aligned"));
+        Assert.That(File.ReadAllText(Root + "/library.asset"), Is.EqualTo(index));
+        var second = WriteTexture(Root + "/second.png",16,8);
+        library.frames[1].depth = second;
+        var importer = (TextureImporter)AssetImporter.GetAtPath(source);
+        importer.secondarySpriteTextures = Array.Empty<SecondarySpriteTexture>(); importer.SaveAndReimport();
+        error = Assert.Throws<BuildFailedException>(() => SpriteDepthAuthoring.Synchronize(library, Sprites));
+        Assert.That(error.Message, Does.Contain("conflicting or broken"));
+        Assert.That(importer.secondarySpriteTextures, Is.Empty);
+        Assert.That(File.ReadAllText(Root + "/library.asset"), Is.EqualTo(index));
     }
     [Test]
     public void LegacyCustomBindingMigratesAndInvalidMapsCannotSilentlyFallBack()
@@ -159,5 +190,127 @@ public sealed class SpriteDepthSyncTests
         Assert.That(frames, Is.Not.Empty);
         Assert.That(frames.All(sprites.Contains), Is.True, "Inventory must cover actor dependencies regardless of folder names");
         Assert.That(sprites.Any(x => AssetDatabase.GetAssetPath(x).Contains("PixelWeaponContacts")), Is.True);
+    }
+
+    [TestCase("controller", false)]
+    [TestCase("controller", true)]
+    [TestCase("unloaded", false)]
+    [TestCase("sprite", false)]
+    [TestCase("sprite", true)]
+    [TestCase("contact", false)]
+    [TestCase("contact", true)]
+    [TestCase("externalAnimator", true)]
+    [TestCase("externalRenderer", false)]
+    [TestCase("loose", false)]
+    [TestCase("loose", true)]
+    public void InventoryFollowsSceneActorReferencesWithoutChangingSceneState(string variant, bool loaded)
+    {
+        var settings = EditorBuildSettings.scenes;
+        var active = SceneManager.GetActiveScene();
+        string scenePath = Root + "/actors.unity";
+        // NewScene(Additive) rejects the test runner's unsaved Untitled scene.
+        // Reuse only the native settings header of a valid saved scene, without any objects.
+        string template = File.ReadAllText("Assets/Scenes/DungeonWorld.unity");
+        int objects = Regex.Match(template,@"^--- !u!(?!(29|104|157|196) )",RegexOptions.Multiline).Index;
+        Assert.That(objects, Is.GreaterThan(0));
+        File.WriteAllText(scenePath,template.Substring(0,objects));
+        AssetDatabase.ImportAsset(scenePath);
+        var scene = EditorSceneManager.OpenScene(scenePath,OpenSceneMode.Additive);
+        SceneManager.SetActiveScene(scene);
+        try
+        {
+            var actor = new GameObject("actor",typeof(SpriteRenderer),typeof(Animator),typeof(PlayerHealth));
+            SceneManager.MoveGameObjectToScene(actor, scene);
+            actor.GetComponent<SpriteRenderer>().sprite = Sprites[0];
+            actor.GetComponent<Animator>().runtimeAnimatorController = Controller("base",Sprites[0]);
+            var prefab = PrefabUtility.SaveAsPrefabAsset(actor,Root + "/actor.prefab");
+            UnityEngine.Object.DestroyImmediate(actor);
+            actor = (GameObject)PrefabUtility.InstantiatePrefab(prefab,scene);
+            EditorSceneManager.SaveScene(scene,scenePath);
+            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(scenePath,true) };
+            Assert.That(SpriteDepthAuthoring.ReferencedSprites().Contains(Sprites[1]), Is.False,
+                "An unreferenced sprite in the same sheet must not enter the inventory");
+            if (variant == "controller" || variant == "unloaded") actor.GetComponent<Animator>().runtimeAnimatorController = Controller("override",Sprites[1]);
+            else if (variant == "sprite") actor.GetComponent<SpriteRenderer>().sprite = Sprites[1];
+            else if (variant == "contact")
+            {
+                var contacts = ScriptableObject.CreateInstance<ParryContactLibrary>();
+                contacts.frames = new[] { new ParryContactLibrary.Frame { sprite = Sprites[0], contactCel = Sprites[1], defenseCel = Sprites[1] } };
+                AssetDatabase.CreateAsset(contacts,Root + "/contacts.asset");
+                var parry = new SerializedObject(actor.AddComponent<ParrySystem>());
+                parry.FindProperty("contactLibrary").objectReferenceValue = contacts;
+                parry.ApplyModifiedPropertiesWithoutUndo();
+            }
+            else if (variant == "loose")
+            {
+                var loose = new GameObject("loose",typeof(SpriteRenderer),typeof(PlayerHealth));
+                SceneManager.MoveGameObjectToScene(loose,scene);
+                loose.GetComponent<SpriteRenderer>().sprite = Sprites[1];
+            }
+            else
+            {
+                var external = new GameObject("external",typeof(Animator),typeof(SpriteRenderer));
+                SceneManager.MoveGameObjectToScene(external,scene);
+                if (variant == "externalAnimator")
+                {
+                    external.GetComponent<Animator>().runtimeAnimatorController = Controller("external",Sprites[1]);
+                    actor.GetComponent<PlayerHealth>().animator = external.GetComponent<Animator>();
+                }
+                else
+                {
+                    external.GetComponent<SpriteRenderer>().sprite = Sprites[1];
+                    var target = actor.AddComponent<NormalHitSpark>();
+                    var serialized = new SerializedObject(target);
+                    serialized.FindProperty("image").objectReferenceValue = external.GetComponent<SpriteRenderer>();
+                    serialized.ApplyModifiedPropertiesWithoutUndo();
+                }
+            }
+            // Persist overrides only for the unopened-scene case; loaded scenes deliberately remain unsaved.
+            foreach (var component in actor.GetComponents<Component>())
+                if (PrefabUtility.IsPartOfPrefabInstance(component)) PrefabUtility.RecordPrefabInstancePropertyModifications(component);
+            EditorSceneManager.MarkSceneDirty(scene);
+            if (!loaded)
+            {
+                EditorSceneManager.SaveScene(scene);
+                if (active.IsValid() && active.isLoaded) SceneManager.SetActiveScene(active);
+                EditorSceneManager.CloseScene(scene,variant != "unloaded");
+            }
+            if (active.IsValid() && active.isLoaded) SceneManager.SetActiveScene(active);
+            var setup = EditorSceneManager.GetSceneManagerSetup();
+            int previewCount = EditorSceneManager.previewSceneCount;
+            bool dirty = loaded && scene.isDirty;
+            byte[] savedScene = File.ReadAllBytes(scenePath);
+            var inventory = SpriteDepthAuthoring.ReferencedSprites();
+            Assert.That(inventory.Contains(Sprites[1]), Is.True, "Missing scene-specific " + variant);
+            Assert.That(EditorSceneManager.GetSceneManagerSetup().Select(SceneState), Is.EqualTo(setup.Select(SceneState)));
+            Assert.That(File.ReadAllBytes(scenePath), Is.EqualTo(savedScene));
+            if (loaded)
+            {
+                Assert.That(scene.isDirty, Is.EqualTo(dirty));
+                Assert.That(actor, Is.Not.Null);
+            }
+            Assert.That(EditorSceneManager.previewSceneCount, Is.EqualTo(previewCount));
+            WriteTexture(conventional,16,8);
+            SpriteDepthAuthoring.Synchronize(library,inventory.Where(x => AssetDatabase.GetAssetPath(x) == source));
+            Assert.That(library.CreateLookup().ContainsKey(Sprites[1]), Is.True);
+        }
+        finally
+        {
+            EditorBuildSettings.scenes = settings;
+            if (scene.IsValid()) EditorSceneManager.CloseScene(scene,true);
+            if (active.IsValid() && active.isLoaded) SceneManager.SetActiveScene(active);
+        }
+    }
+    static string SceneState(SceneSetup scene) => scene.path + ":" + scene.isLoaded + ":" + scene.isActive;
+    static AnimatorController Controller(string name, Sprite sprite)
+    {
+        var clip = new AnimationClip();
+        AnimationUtility.SetObjectReferenceCurve(clip,EditorCurveBinding.PPtrCurve("",typeof(SpriteRenderer),"m_Sprite"),
+            new[] { new ObjectReferenceKeyframe { time = 0, value = sprite } });
+        AssetDatabase.CreateAsset(clip,Root + "/" + name + ".anim");
+        var controller = AnimatorController.CreateAnimatorControllerAtPath(Root + "/" + name + ".controller");
+        controller.AddMotion(clip);
+        AssetDatabase.SaveAssetIfDirty(controller);
+        return controller;
     }
 }

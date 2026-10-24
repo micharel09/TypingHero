@@ -3273,3 +3273,25 @@ visuals retain their own receipts; this task adds no sprite review certification
   pass clears only outside the viewport. Reuse scoped visual evidence after exact
   final generated-output comparison. No performance/full-suite/production build
   or itch upload. [Receipts, cache correction and clip](../plans/parry-impact-burst.md).
+
+
+## Scene-aware depth synchronization (2026-10-24)
+
+- Isolated pinned Unity2022.3.25f1, result20261024T071611-quick,
+  inputa3609b88b8b993edeb99baffa493be50ce882eaa29e060e42644904658395a95:
+  17/17Editor +2/2runtime PASS,0failed/skipped. Controller/sprite/contact
+  overrides, non-prefab actors, external animator/renderer references, saved and
+  unsaved scenes and unloaded scene entries retain scene setup/active/dirty state.
+- Valid replacement `_DepthMap` updates the derived index without editing it;
+  invalid replacements and ambiguous unbound legacy maps still reject without
+  index writes. Existing migration/pruning/import/packing/map-preservation checks
+  and runtime frame/facing/flash/tint/world switch/missing-map checks pass.
+- Real QA-mode serializer/repeat builder PASS; two actor bindings, world clear,
+  world without depth and return PASS. All99lighting PNGs and10checked
+  source/config/index files match.281mapped actor frames unchanged; the newly
+  discovered ContactShadow child has no map and uses ordinary fallback.
+- Editor-only change; no shader/runtime/combat/schema/data-image edits. Full QA,
+  WebGL, animation review and profiling were not run. Earlier compile/fixture
+  failures, exact XML/logs, source identity and integration receipt are retained at
+  E:/CodexTemp/TypingHero/depth-scene-sync-20261024. Details in the
+  [lighting checkpoint](../plans/combat-hanging-light.md).

@@ -322,8 +322,11 @@ Bind it as `_DepthMap`, or put the authored map at
 texture is authoritative; the library is a derived runtime index, not a table to
 edit by hand. One sheet/map pair serves every referenced frame using its own UVs.
 Existing custom bindings win over conventional paths. Legacy metadata-only custom
-maps are rebound without replacing the art; a conflicting or broken binding/map
-must be resolved explicitly, not silently replaced.
+maps are rebound without replacing the art. A valid explicit `_DepthMap` binding
+replaces stale derived library entries automatically, including when selecting a
+different authored map asset. Duplicate/broken bindings and invalid maps still
+fail. Without an explicit binding, conflicting/broken legacy maps require explicit
+resolution before migration.
 
 **CLACKBLADE / Lighting / Sync Gameplay Depth**, Enter Play Mode and the end of the
 gameplay builder run the same synchronization. New map files are picked up at the
@@ -333,14 +336,23 @@ it preserves PNGs, GUIDs, other secondary textures and sprite imports. Stable
 GUID/local-ID order and write-on-change keep repeated runs unchanged. The old
 selected-library command uses the same operation. No PNG is generated/rewritten.
 
+Inventory includes reachable actor prefabs, runtime-selected Endless opponents,
+and actor instances in enabled build/world scenes, including scene controller,
+clip, initial-sprite and contact-library overrides and non-prefab actors.
+Loaded scenes are read in memory (including unsaved overrides); unopened scenes
+are inspected in temporary additive scenes and closed without saving. Actor
+references to renderers/animators outside their subtree are followed. Unreferenced
+project art is not included. Inventory export, sync and audit share this source.
+
 The Console summary lists mapped/missing sprites. **Audit Complete Gameplay Depth**
 is the explicit art-coverage gate: missing maps fail that audit, not normal builds.
 Build validation runs after builder synchronization and still rejects invalid map
 dimensions/imports, broken/conflicting bindings and build atlas packing. Unselected
 world libraries are not scanned. Packed/rotated runtime atlases are not supported
 by this original-UV metadata path. To disable depth for an entire world, clear its
-library reference. To update a custom map, keep its asset GUID; resolve any deliberate
-map replacement in the binding and library together before synchronization.
+library reference. To update a custom map in place, keep its asset GUID. To select a
+different map, change its `_DepthMap` binding; synchronization updates the
+derived library automatically.
 
 The actor material saves `_SelfShadowStrength` = 0.65, `_DepthScale` = 0.15
 local units and `_SelfShadowBias` = 0.01 local units. Authors may tune each
