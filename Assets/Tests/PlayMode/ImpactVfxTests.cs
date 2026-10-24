@@ -75,7 +75,9 @@ public sealed partial class ImpactVfxTests
                 Assert.That(layer.lifetime, Is.EqualTo(.48f));
                 float expected = Mathf.Min(2.5f, Mathf.Max(1 / Parry.pixelsPerUnit,
                     size * 2 * camera.aspect / 1280) * 40);
-                Assert.That(Particles(actual, 0)[0].startSize, Is.EqualTo(expected).Within(.00001f));
+                float minimum = Mathf.Min(2.5f, Mathf.Max(1 / Parry.pixelsPerUnit,
+                    size * 2 * camera.aspect / 1280) * 38);
+                Assert.That(Particles(actual, 0)[0].startSize, Is.InRange(minimum - .00001f, expected + .00001f));
                 Assert.That(Particles(actual, 0)[0].position, Is.EqualTo(context.point));
                 Assert.That(layer.colorOverLifetime.Evaluate(.99f).a, Is.EqualTo(1));
                 actual.Systems[0].Simulate(.479f, false, false, false);
@@ -104,6 +106,63 @@ public sealed partial class ImpactVfxTests
         }
         finally { camera.orthographicSize = previousSize; camera.targetTexture = previousTarget; camera.orthographic = previousOrthographic; }
 
+    }
+
+    [Test, Category("Quick")]
+    public void ParryVariationIsRepeatableMirroredAndLeavesPhysicsAndGameplayRandomUnchanged()
+    {
+        var baseline = Object.Instantiate(Parry); owned.Add(baseline);
+        var serialized = new UnityEditor.SerializedObject(baseline);
+        serialized.FindProperty("flashSizeReductionPixels").intValue = 0;
+        serialized.FindProperty("flashRotationDegrees").floatValue = 0;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+        var emitter = Emitter();
+        emitter.Play(baseline, Context()); emitter.Play(Parry, Context()); emitter.Clear();
+        var savedRandom = Random.state;
+        var rotations = new HashSet<float>(); var pixelSizes = new HashSet<float>();
+        var launches = new HashSet<Vector3>();
+        for (int seed = 0; seed < 24; seed++)
+        {
+            emitter.Clear(); var context = Context(); context.seed = seed;
+            var old = emitter.Play(baseline, context);
+            var actual = emitter.Play(Parry, context);
+            var core = Particles(actual, 0)[0];
+            float ratio = core.startSize / Particles(old, 0)[0].startSize;
+            Assert.That(ratio, Is.InRange(.95f - .00001f, 1f + .00001f));
+            Assert.That(core.startSize, Is.LessThanOrEqualTo(2.5f + .00001f));
+            Assert.That(core.rotation, Is.InRange(-3.00001f, 3.00001f));
+            Assert.That(core.position, Is.EqualTo(context.point));
+            rotations.Add(core.rotation);
+            float pixels = 40;
+            Assert.That(Parry.TryVaryFlash(seed, 0, ref pixels, out _), Is.True);
+            pixelSizes.Add(pixels);
+            var a = Simulation(actual); var b = Simulation(old);
+            Assert.That(a.Count, Is.EqualTo(22)); launches.Add(a[2].launch);
+            for (int particle = 0; particle < a.Count; particle++)
+            for (int step = 0; step <= 66; step++)
+            {
+                var x = a.Evaluate(particle, step / 60f); var y = b.Evaluate(particle, step / 60f);
+                Assert.That(x.alive, Is.EqualTo(y.alive));
+                Assert.That(x.position, Is.EqualTo(y.position));
+                Assert.That(x.velocity, Is.EqualTo(y.velocity));
+            }
+            emitter.Clear();
+            var repeated = emitter.Play(Parry, context);
+            Assert.That(Particles(repeated, 0)[0].startSize, Is.EqualTo(core.startSize));
+            Assert.That(Particles(repeated, 0)[0].rotation, Is.EqualTo(core.rotation).Within(.00001f));
+            emitter.Clear(); context.direction = -1;
+            var mirrored = emitter.Play(Parry, context);
+            Assert.That(Particles(mirrored, 0)[0].startSize, Is.EqualTo(core.startSize));
+            Assert.That(Particles(mirrored, 0)[0].rotation, Is.EqualTo(-core.rotation).Within(.00001f));
+            emitter.Clear();
+            var unvaried = emitter.Play(baseline, context);
+            Assert.That(Particles(unvaried, 0)[0].rotation, Is.EqualTo(0).Within(.00001f));
+            Assert.That(Random.state, Is.EqualTo(savedRandom));
+        }
+        // Camera caps may collapse size choices; angle must still vary on every impact.
+        Assert.That(rotations.Count, Is.EqualTo(24));
+        Assert.That(launches.Count, Is.EqualTo(24));
+        CollectionAssert.AreEquivalent(new[] { 38f, 39f, 40f }, pixelSizes);
     }
 
     [Test, Category("Quick")]
@@ -138,10 +197,14 @@ public sealed partial class ImpactVfxTests
         var before = Particles(burst, 0)[0];
         yield return new WaitForSecondsRealtime(.25f);
         Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
+        Assert.That(Particles(burst, 0)[0].rotation, Is.EqualTo(before.rotation));
+        Assert.That(Particles(burst, 0)[0].startSize, Is.EqualTo(before.startSize));
         GamePauseController.SetTutorialReading(false);
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(.2f);
         Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
+        Assert.That(Particles(burst, 0)[0].rotation, Is.EqualTo(before.rotation));
+        Assert.That(Particles(burst, 0)[0].startSize, Is.EqualTo(before.startSize));
         Time.timeScale = 1;
         yield return new WaitForSecondsRealtime(.50f);
         Assert.That(Particles(burst, 0), Is.Empty);

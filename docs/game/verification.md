@@ -3471,3 +3471,14 @@ visuals retain their own receipts; this task adds no sprite review certification
   Integrated revision remains **UNVERIFIED** for these checks; main push withheld.
   Pre-integration scoped results above remain valid only for their immutable inputs.
   Resume commands and retained worktree are in the checkpoint.
+
+
+### Parry variation candidate (2026-10-25; runtime unverified)
+
+Per-impact core38/39/40logical pixels and +/-3degrees implemented on task branch.
+Local compiled sampling check2050seeds PASS, physics/seed producer/MetalClash inputs
+unchanged; focused Unity coverage added for deterministic replay/mirror/pool and
+all22unchanged trajectories. Runner remains offline: Unity44cases, strict builder,
+QA build and three consecutive real-input parries per orientation have NOT executed.
+Zero new variation runtime frames inspected. Prior unvaried results are not evidence
+for this candidate. Main push withheld. [Resume/checkpoint](../plans/parry-pimen-depth.md).

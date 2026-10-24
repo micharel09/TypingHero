@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6269f58f878c4c1eaaaa146bb2acc8fd, type: 3}
   m_Name: ParryImpact
   m_EditorClassIdentifier:
+  flashSizeReductionPixels: 2
+  flashRotationDegrees: 3
   physics: {fileID: 11400000, guid: a4335d1b5e37493fa5e7f5db154c6a46, type: 2}
   prefab: {fileID: 5099034901754403701, guid: db0076913c9a95782babb9977fbf0987, type: 3}
   hot: {r: 1, g: 0.8667, b: 0.5, a: 1}

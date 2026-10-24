@@ -217,3 +217,64 @@ on remote, remove clean task worktree/local branch via Orca. Remote task branch 
 retained. Task Edge cache and temporary MJPEG exports removed after final clip packet/
 decode verification; source PNGs, clips and evidence remain. No task browser/node/
 Python process was found still running at cleanup.
+
+
+## Per-parry variation follow-up (2026-10-25)
+
+User clarified variation must happen between successive parries within one fight,
+not merely between sessions. The existing incrementing parry seed is retained;
+no session salt/random-source change. Implemented candidate adds two private
+serialized profile settings: size reduction0..2logical pixels in whole-pixel steps
+and initial rotation-3..3degrees. Only ParryImpact enables them; missing fields in
+MetalClash/custom profiles default0, preserving authored particle rotation and size.
+Sampling mixes impact seed/channel independently of Unity/gameplay random and the
+physical PRNG. Mirror reverses the initial angle; cap2.5WU applies after sizing.
+No new public API/dependency/update loop, no asset redrawing/reordering/retiming.
+Core is still the original six80ms visible cells, total480ms, same tint/contact;
+22physical particles retain all current group settings and random draw order.
+
+### Review and available verification
+
+- Source review: particles already randomize independent angles/speed/depth/length/
+  lifetime on each increasing seed. The previously fixed core was the remaining
+  visibly repeated component. No physical random expansion is required.
+- Local actual sampling method compiled with existing .NET Framework csc /checked+;
+  2050seed cases including negative/extreme int seeds pass repeatability,38/39/40
+  discrete size choices and +/-3degree bounds; first24seeds have24distinct angles.
+  Default settings return without changing size or authored rotation.
+  Artifact `variation-local-check.json`, actual-source-method SHA and sample CSV at
+  the existing evidence root. This is algorithm/static evidence, NOT Unity pass.
+- Physical simulation/profile, parry seed producer and standalone MetalClash profile
+  match the previous task commit byte-for-byte after newline normalization. The
+  renderer's physical path is untouched. Gameplay Random is not sampled by new code.
+- Focused Unity test added:24seeds, same-seed replay, mirrored angle/size,38-40range,
+  2.5WU cap,22particles x67time samples exact position/velocity/alive against cloned
+  variation-disabled profile, different seeded launches, pool reuse/default reset,
+  gameplay Random preservation. Existing size assertions now cover the intentional
+  range; pause/timeScale0 assertions additionally hold rotation/size.
+
+### Still blocked / acceptance retained
+
+Unity44scoped cases (43previous +1new), integrated strict builder, new QA build and
+new runtime/frame review are **UNVERIFIED**. Targeted runner invocation again times
+out connecting to100.115.189.84:22; Tailscale confirms quanubutu offline, last seen
+2026-10-24T11:54:12.1Z. No Unity test executed for this candidate. Local dotnet has
+no SDK; the existing framework compiler only qualifies the isolated sampling method.
+Previous43Unity cases and278reviewed runtime frames refer to the unvaried build;
+they must not be reported as verification of this changed renderer/profile.
+New variation frames actually inspected:0. No claim of pixel stability at +/-3deg.
+No authoritative gameplay/system-memory acceptance update until runtime verified.
+
+Resume: run the existing normalized input adapter's targeted ImpactVfxTests and
+strict serialize commands above; its helper reflects the integrated repo runner.
+Then build QA from this candidate and record THREE CONSECUTIVE real Space parries
+and real-word counters per direction in actual1280x720. Select complete clips from
+idle/preparation through every contact/core/full physical tail/recovered idle before
+review; no timing/frame sampling. Keep all held/repeated frames and timestamps.
+Review every frame and adjacent pair at logical play size and integer nearest zoom;
+record one observation/transition row per frame in this task evidence. Open final
+clips with audio at1x/0.25x. Verify visible per-impact difference, stable contact and
+480ms timing, no rotation raster jitter, no body/counter occlusion, correct depth,
+visible post480ms embers, floor bounce/fade and pool/pause/restart. Fix any observed
+artifact and re-review the affected complete variants. Main integration remains
+withheld until those checks and the existing integration checks pass. No itch.io.
