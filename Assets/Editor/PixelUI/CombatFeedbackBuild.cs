@@ -13,6 +13,7 @@ internal static class CombatFeedbackBuild
     {
         CombatFeedbackAssets.Prepare();
         ParryClashAssets.Prepare();
+        ParryImpactAssets.Prepare();
         CombatVoxelAssets.Prepare();
         StrikeAccentAssets.Prepare();
         NormalHitSparkAssets.Prepare();

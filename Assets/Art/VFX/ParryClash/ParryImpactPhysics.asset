@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363c1d8afddd40ca82091bdefd4cd4ce, type: 3}
+  m_Name: ParryImpactPhysics
+  m_EditorClassIdentifier:
+  groups:
+  - name: Fragments
+    count: 2
+    channel: 1
+    small: 0
+    spawnRegion: 0
+    towardPlayer: 1
+    pastRecipient: 1
+    angleSampling: 1
+    pixelScaleMode: 1
+    coolingDuration: {x: 0.08, y: 0.12}
+    angles: {x: -35, y: 35}
+    angleJitter: 0
+    speed: {x: 8, y: 12}
+    depthSpeed: {x: -1, y: 1}
+    spawnRadius: 0
+    playerOffset: 0
+    longPixels: {x: 1, y: 3}
+    shortPixels: {x: 1, y: 3}
+    widthPixels: 1
+    lifetime: {x: 0.1, y: 0.16}
+    physics:
+      gravity: 9.81
+      launchDuration: 0.12
+      launchDrag: 5
+      flightDrag: 3
+      collideWithFloor: 0
+      restitution: 0
+      tangentRetention: 0
+      restDuration: 0
+  - name: Near leads
+    count: 2
+    channel: 2
+    small: 0
+    spawnRegion: 0
+    towardPlayer: 1
+    pastRecipient: 1
+    angleSampling: 1
+    pixelScaleMode: 1
+    coolingDuration: {x: 0.45, y: 0.55}
+    angles: {x: -12, y: 18}
+    angleJitter: 0
+    speed: {x: 24, y: 28}
+    depthSpeed: {x: -6, y: -4}
+    spawnRadius: 0
+    playerOffset: 0
+    longPixels: {x: 10, y: 14}
+    shortPixels: {x: 10, y: 14}
+    widthPixels: 2
+    lifetime: {x: 0.55, y: 0.7}
+    physics:
+      gravity: 9.81
+      launchDuration: 0.12
+      launchDrag: 5
+      flightDrag: 3
+      collideWithFloor: 1
+      restitution: 0.22
+      tangentRetention: 0.55
+      restDuration: 0.08
+  - name: Far leads
+    count: 2
+    channel: 4
+    small: 0
+    spawnRegion: 0
+    towardPlayer: 1
+    pastRecipient: 1
+    angleSampling: 1
+    pixelScaleMode: 1
+    coolingDuration: {x: 0.45, y: 0.55}
+    angles: {x: -12, y: 18}
+    angleJitter: 0
+    speed: {x: 24, y: 28}
+    depthSpeed: {x: 2, y: 4}
+    spawnRadius: 0
+    playerOffset: 0
+    longPixels: {x: 10, y: 14}
+    shortPixels: {x: 10, y: 14}
+    widthPixels: 2
+    lifetime: {x: 0.55, y: 0.7}
+    physics:
+      gravity: 9.81
+      launchDuration: 0.12
+      launchDrag: 5
+      flightDrag: 3
+      collideWithFloor: 1
+      restitution: 0.22
+      tangentRetention: 0.55
+      restDuration: 0.08
+  - name: Near secondary
+    count: 6
+    channel: 2
+    small: 0
+    spawnRegion: 0
+    towardPlayer: 1
+    pastRecipient: 1
+    angleSampling: 1
+    pixelScaleMode: 1
+    coolingDuration: {x: 0.4, y: 0.55}
+    angles: {x: -30, y: 35}
+    angleJitter: 0
+    speed: {x: 14, y: 20}
+    depthSpeed: {x: -6, y: -4}
+    spawnRadius: 0
+    playerOffset: 0
+    longPixels: {x: 4, y: 7}
+    shortPixels: {x: 4, y: 7}
+    widthPixels: 1
+    lifetime: {x: 0.85, y: 1.1}
+    physics:
+      gravity: 9.81
+      launchDuration: 0.12
+      launchDrag: 5
+      flightDrag: 3
+      collideWithFloor: 1
+      restitution: 0.22
+      tangentRetention: 0.55
+      restDuration: 0.4
+  - name: Far secondary
+    count: 6
+    channel: 4
+    small: 0
+    spawnRegion: 0
+    towardPlayer: 1
+    pastRecipient: 1
+    angleSampling: 1
+    pixelScaleMode: 1
+    coolingDuration: {x: 0.4, y: 0.55}
+    angles: {x: -30, y: 35}
+    angleJitter: 0
+    speed: {x: 14, y: 20}
+    depthSpeed: {x: 2, y: 4}
+    spawnRadius: 0
+    playerOffset: 0
+    longPixels: {x: 4, y: 7}
+    shortPixels: {x: 4, y: 7}
+    widthPixels: 1
+    lifetime: {x: 0.85, y: 1.1}
+    physics:
+      gravity: 9.81
+      launchDuration: 0.12
+      launchDrag: 5
+      flightDrag: 3
+      collideWithFloor: 1
+      restitution: 0.22
+      tangentRetention: 0.55
+      restDuration: 0.4
+  - name: Player specks
+    count: 4
+    channel: 2
+    small: 1
+    spawnRegion: 1
+    towardPlayer: 1
+    pastRecipient: 0
+    angleSampling: 1
+    pixelScaleMode: 1
+    coolingDuration: {x: 0.14, y: 0.22}
+    angles: {x: 0, y: 360}
+    angleJitter: 0
+    speed: {x: 1, y: 2.5}
+    depthSpeed: {x: -0.2, y: 0.2}
+    spawnRadius: 0
+    playerOffset: 0
+    longPixels: {x: 1, y: 2}
+    shortPixels: {x: 1, y: 2}
+    widthPixels: 1
+    lifetime: {x: 0.45, y: 0.45}
+    physics:
+      gravity: 9.81
+      launchDuration: 0
+      launchDrag: 6
+      flightDrag: 6
+      collideWithFloor: 1
+      restitution: 0
+      tangentRetention: 0
+      restDuration: 0

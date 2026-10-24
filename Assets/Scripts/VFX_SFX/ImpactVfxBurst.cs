@@ -15,6 +15,7 @@ public partial class ImpactVfxBurst : MonoBehaviour
     }
     [SerializeField] internal ImpactVfxProfile impactProfile;
     [SerializeField] RendererBinding[] rendererBindings = Array.Empty<RendererBinding>();
+    [SerializeField] int directionalFlashChannel = -1;
     protected ParticleSystem[] systems;
     protected ParticlePresetState[] original;
     protected readonly List<Vector4> shapeData = new(64);

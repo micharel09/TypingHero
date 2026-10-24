@@ -3273,3 +3273,28 @@ visuals retain their own receipts; this task adds no sprite review certification
   pass clears only outside the viewport. Reuse scoped visual evidence after exact
   final generated-output comparison. No performance/full-suite/production build
   or itch upload. [Receipts, cache correction and clip](../plans/parry-impact-burst.md).
+
+## Parry sparks and directional shock arc (2026-10-24)
+
+- Final input6331af8e49955345088499ef92351e3e3b92a6171836a265ba6eab413c4cc4ed,
+  Unity2022.3.25f1/fly-server20261024T070951-serialize: strict repeated builder PASS;
+  ImpactVfxTests41/41PASS,0failed/skipped,8.7500326s. Covers same-seed trajectories,
+  24seeds/two directions with readable streaks after350ms, flash/arc size and expiry,
+  tutorial/timeScale pause, reuse/mirror reset, MetalClash trace and custom bindings.
+- Normal QA063750/b7c11712 and mirrored QA065830/854d4967 build/repeat PASS.
+  Both have identical VFX payloads. Final rendered assets/importer match source;
+  qualification delta is whitespace/native main-object metadata and corrected test
+  fixture order, with unchanged runtime code/material/texture/physics values.
+- Native Edge156.0.4314.42/Intel UHD D3D11 at1280x720:11/11checks per direction,
+  actual Space/40HP/+30, post200ms multi-pixel streaks, tail expiry and real Escape
+  Pause/Resume pass;0exceptions/provider writes, fixture interception retained.
+  Direct review covers252/252runtime frames and250/250transitions plus8/8arc cels
+  and7/7transitions per direction. Hollow arc opens toward enemy; longer orange
+  streaks/embers remain after core clears, player eye/body/feet stay readable.
+- Audible1280x720 preview retains508/508decoded frames/507/507transitions;
+  all directly inspected, including40contact crops. Original displayed timestamps
+  retained to1ms, terminal idle repeated40ms per1x block, no interpolation. Both
+  directional files played through in headed Edge at1x/.25x, unmuted/volume1;
+  measured decoded audio peaks0.47-0.53. Independent subjective listening approval
+  is not claimed. No performance/full-suite/production build or itch upload.
+  [Detailed receipts, failed pilots and artifact paths](../plans/parry-spark-arc.md).

@@ -77,7 +77,10 @@ public partial class ImpactVfxBurst
         {
             float size = pixelUnit * flash.sizePixels;
             if (flash.maxWorldSize > 0) size = Mathf.Min(size, flash.maxWorldSize);
-            systems[RequireBinding(flash.channel)].Emit(new ParticleSystem.EmitParams {
+            var ps = systems[RequireBinding(flash.channel)];
+            if (flash.channel == directionalFlashChannel)
+                ps.GetComponent<ParticleSystemRenderer>().flip = new Vector3(context.direction < 0 ? 1 : 0, 0, 0);
+            ps.Emit(new ParticleSystem.EmitParams {
                 position = transform.position, velocity = Vector3.zero, startSize = size,
                 startLifetime = flash.lifetime, startColor = flash.tint }, flash.count);
         }
@@ -165,6 +168,7 @@ public partial class ImpactVfxBurst
     protected sealed class ParticlePresetState
     {
         readonly Material material;
+        readonly Vector3 flip;
         readonly Mesh mesh;
         readonly ParticleSystemRenderMode mode;
         readonly ParticleSystemRenderSpace alignment;
@@ -184,6 +188,7 @@ public partial class ImpactVfxBurst
         internal ParticlePresetState(ParticleSystem ps)
         {
             var r = ps.GetComponent<ParticleSystemRenderer>(); material = r.sharedMaterial; mesh = r.mesh;
+            flip = r.flip;
             mode = r.renderMode; alignment = r.alignment; r.GetActiveVertexStreams(streams);
             length = r.lengthScale; velocity = r.velocityScale; order = r.sortingOrder;
             var m = ps.main; size3D = m.startSize3D; rotation3D = m.startRotation3D;
@@ -201,6 +206,7 @@ public partial class ImpactVfxBurst
         internal void Restore(ParticleSystem ps)
         {
             var r = ps.GetComponent<ParticleSystemRenderer>(); r.sharedMaterial = material; r.renderMode = mode;
+            r.flip = flip;
             r.mesh = mesh; r.alignment = alignment; r.SetActiveVertexStreams(streams);
             r.lengthScale = length; r.velocityScale = velocity; r.sortingOrder = order;
             var m = ps.main; m.startSize3D = size3D; m.startRotation3D = rotation3D;
