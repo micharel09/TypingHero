@@ -21,7 +21,7 @@ to the previous recorded scope; no complete reference-match claim.
 Scoped Unity routing/contact/pool/lifecycle; stable two-pass LF builder; direct
 per-frame/per-transition review of all eight duration/direction/tint variants;
 WebGL1280x720 real input with read-only bridge/provider isolation; local demo;
-commit/push/integration/remote ancestry/cleanup. Runtime/asset verification is complete in the final receipts below; integration follows.
+commit/push/integration/remote ancestry/cleanup. Runtime/asset verification is complete in the final receipts below; integration is verified in the final receipt below.
 
 ## Static visual review (2026-10-24)
 
@@ -275,3 +275,23 @@ QA remains uncompressed; runtime VFX/gameplay sources and assets are unaffected.
 Preserve both that upstream behavior and this task's appended source notice when
 integrating. Reuse the scoped/runtime results for that unrelated merge; no second
 QA/full-suite build is required by an unchanged QA path.
+
+## Remote integration receipt
+
+Feature commit67a94d9; merged upstream7d69938 as09e3389. Push to origin/main was
+fast-forward7d69938?09e33897fe27aee15d024648f57b891f6f64e286, then fetched and
+verified HEAD==origin/main and67a94d9is an ancestor. Both verification entries
+were kept when resolving their documentation-only conflict. All245C#source files
+other than the reviewed production build helper still match the accepted LF input.
+No VFX/gameplay source or asset changed after the passing build; QA compression
+semantics stay unchanged. Source PNG hash and generated sprite/prefab bindings
+were rechecked. The original dirty checkout was never checked out or modified.
+
+A final documentation-only receipt commit records this integration and cleanup.
+Retain remote task branch micharel09/slayer-slash-vfx (no automatic remote deletion).
+Remove the clean task-created worktree/local branch after confirming that receipt
+on remote main. Remove only /tmp/typinghero-slayer-slash-vfx after verifying no
+active container mounts it; all required player/source/receipts are already archived
+under the local demo/evidence root. Shared Library/toolchain/cache/license and all
+pre-existing resources remain untouched. Demo host/evidence retention is described
+above; its cleanup condition is completion of user review.
