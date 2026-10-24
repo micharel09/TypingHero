@@ -1413,3 +1413,8 @@ MonoBehaviour:
     uvRect: {x: 0.75, y: 0, z: 1.0, w: 1}
     textureSize: {x: 512, y: 128}
     pixelsPerUnit: 16
+  - sprite: {fileID: 21300000, guid: 751874d2767140c29532b8eaf0124627, type: 3}
+    depth: {fileID: 2800000, guid: 77a641eddccf43a6bb356014a2913e36, type: 3}
+    uvRect: {x: 0.0, y: 0.0, z: 1.0, w: 1.0}
+    textureSize: {x: 128, y: 128}
+    pixelsPerUnit: 16.0

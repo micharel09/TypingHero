@@ -1,3 +1,24 @@
+## Final current-main parry demo (2026-10-24)
+
+Production043100/source4121c10/input92dc65f7 PASS, Unity2022.3.25f1. Includes the
+upstream terminal-result HUD change plus parry lift depth registration; only docs
+change after this frozen build. QA=false/JS bridge exclusion and33immutable local
+player SHA256 checks PASS. Final menu, Play setup, live Swordsman combat/received
+hit and manual Pause inspected in Orca using real input. Demo8151 retained paused;
+retired kaluga8148 removed. No full animation/shadow/performance or new terminal-
+result regression claim. [Version, attempts and resources](../plans/parry-main-demo.md).
+
+## Latest-main parry demo and depth completion (2026-10-24)
+
+Main9c48f5d + authored lift depth registration: production041305/input023fb6b8
+PASS, Unity2022.3.25f1; normal QA=false/JS bridge exclusion and33downloaded file
+hashes verified. Original failure was missing depth on the newly reachable lift;
+only its map/import/binding/library/recipe added. No core, scene, shader or albedo
+change. Font CRLF checkout corrected to canonical Git bytes, without a content diff.
+Actual menu/tutorial/live combat/overhead white Space cue/Pause inspected on8151.
+No new full animation, performance or broad-suite claim. Receipt, failed attempts,
+limits and retained demo resources: [latest-main demo](../plans/parry-main-demo.md).
+
 ## Approved parry art integration (2026-10-24)
 
 Test base origin/main9d41188; then merged latest main87aa6da (enemy warning/cue).
@@ -3173,6 +3194,20 @@ Final generated world/profile/meta match that baseline; only presentation render
 code/shader changed. Full QA/performance/video waived. Snapshot receipts, pixel
 measurement bounds and retained demo: [lighting checkpoint](../plans/combat-hanging-light.md).
 
+
+## Result HUD suppression (2026-10-24)
+
+Unity2022.3.25f1/fly-server run035514-webgl/input4a9a713b:5/5scoped PlayMode
+checks PASS,0failed/skipped,3.7247909s; strict repeated builder and QA build PASS.
+Thirteen valid authored groups hide visuals/interaction at terminal results,
+retaining logic and ordinary Pause. All generated scene records and33downloaded
+player hashes match. Native Edge155/Intel UHD ANGLE D3D11,1280x720:229checks PASS
+in121.9313421s,0exceptions,2intercepted Endless fixture writes. Seven complete
+images inspected; result/modals hide HUD, Restart/Menu/new gameplay restore it.
+Earlier builder-null and test-wait failures, external probe false positive, scope
+and retained artifacts are recorded in the [checkpoint](../plans/compact-menus.md).
+No performance/full production/sprite-motion or publication claim.
+
 ## Per-strike white Space warning above enemy (2026-10-24)
 
 Phase025930/input02175c97:5/5 scoped Unity tests PASS, including14 real manual
@@ -3191,3 +3226,12 @@ coverage and subjective playtest limits are explicit in the
 Normal native1280x720 smoke5/5 PASS,0exceptions/provider writes; eight images
 directly inspected, including the live head cue. Both players match33remote hashes
 each; five normal JS/WASM/data payloads exclude ASCII/UTF16 QA/depth markers.
+
+Integrated main9c48f5d through merge51c9e7b, retaining upstream parry recovery and
+enemy-head Space warning. Only the verification append conflicted; both receipts
+were retained. GamePauseController, HUD builder/test code and both full UI scenes
+are byte-identical to the native-reviewed UI commit10b7f0f. Integrated Quick042228
+/inputb9eacfd1:5/5scoped PlayMode PASS,0failed/skipped,3.6638901s, strict
+repeat PASS; both complete scenes match every generated semantic record. Native
+229-check evidence is reused for unchanged HUD behavior. Newer upstream parry/cue
+visuals retain their own receipts; this task adds no sprite review certification.

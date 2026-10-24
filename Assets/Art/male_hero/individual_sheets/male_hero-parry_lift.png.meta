@@ -121,6 +121,8 @@ TextureImporter:
     secondaryTextures:
     - texture: {fileID: 2800000, guid: d4c3e13c6fdb1c58791071a294f13fb6, type: 3}
       name: _NormalMap
+    - texture: {fileID: 2800000, guid: 77a641eddccf43a6bb356014a2913e36, type: 3}
+      name: _DepthMap
     nameFileIdTable: {}
   mipmapLimitGroupName:
   pSDRemoveMatte: 0

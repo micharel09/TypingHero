@@ -472,6 +472,13 @@
         {"name":"male_hero-combo_2_end_2","rect":[256,0,128,128],"layers":[{"name":"rear cloth","shape":"polygon","points":[[43,48],[48,48],[58,54],[60,64],[52,61]],"depth":80},{"name":"head","shape":"ellipse","points":[56,44,72,62],"depth":165},{"name":"near arm","shape":"line","points":[[60,59],[54,66]],"width":5,"depth":240}]},
         {"name":"male_hero-combo_2_end_3","rect":[384,0,128,128],"layers":[{"name":"rear cloth","shape":"polygon","points":[[43,50],[48,50],[58,54],[60,64],[52,61]],"depth":80},{"name":"head","shape":"ellipse","points":[56,44,72,62],"depth":165},{"name":"near arm","shape":"line","points":[[60,59],[55,67]],"width":5,"depth":240}]}
       ]
+    },
+    {
+      "source": "Assets/Art/male_hero/individual_sheets/male_hero-parry_lift.png",
+      "sourceSha256": "14c17dbfc7c7475110aceb05fe92332dd98e638dc822a9a03e13e16649986dca",
+      "frames": [
+        {"name":"male_hero-parry_lift","rect":[0,0,128,128],"baseDepth":24,"layers":[{"name":"torso","shape":"polygon","points":[[63,63],[75,63],[77,70],[72,75],[61,75],[59,68]],"depth":32},{"name":"rear scarf","shape":"polygon","points":[[50,46],[60,46],[66,53],[66,62],[62,66],[53,66],[50,59],[54,54]],"depth":80},{"name":"head","shape":"polygon","points":[[68,50],[77,49],[86,53],[87,60],[82,64],[73,65],[67,61],[65,56]],"depth":165},{"name":"blade and guard","shape":"polygon","points":[[36,60],[62,60],[64,63],[64,66],[58,66],[58,65],[36,65]],"depth":250},{"name":"foreground forearm and fingers","shape":"polygon","points":[[61,61],[66,62],[67,66],[64,69],[61,68],[59,65]],"depth":240}]}
+      ]
     }
   ]
 }
