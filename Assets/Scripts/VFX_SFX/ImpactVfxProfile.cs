@@ -14,6 +14,24 @@ public sealed class ImpactVfxProfile : ScriptableObject
     [Min(1)] public float pixelsPerUnit = 16, unitsPerMeter = 1.25f;
     [Min(0)] public float depthScale = .7f;
     public Vector2 depthLimits = new Vector2(.75f, 1.5f);
+    [SerializeField, Min(0)] int flashSizeReductionPixels;
+    [SerializeField, Min(0)] float flashRotationDegrees;
+
+    // Presentation-only samples; never advance the physical or gameplay random stream.
+    internal bool TryVaryFlash(int seed, int channel, ref float size, out float rotation)
+    {
+        rotation = 0;
+        if (flashSizeReductionPixels == 0 && flashRotationDegrees == 0) return false;
+        uint value = unchecked((uint)seed * 747796405u + (uint)channel * 2891336453u + 277803737u);
+        value = unchecked((value ^ (value >> 16)) * 2246822519u);
+        value = unchecked((value ^ (value >> 13)) * 3266489917u);
+        value ^= value >> 16;
+        int reduction = (int)(value % ((uint)flashSizeReductionPixels + 1));
+        size = Mathf.Max(0, size - reduction);
+        rotation = (((value >> 8) & 0xffffff) / 16777215f * 2 - 1) * flashRotationDegrees;
+        return true;
+    }
+
     [System.Serializable] public sealed class FlashLayer
     {
         public int channel;

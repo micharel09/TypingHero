@@ -37,7 +37,35 @@ remain unchanged. No rendering fix is included in this performance scope, and
 the requested red-field visual acceptance is not claimed.
 [Full results, attempts and retained evidence](../plans/startup-render-profile.md).
 
-## Slayer hit slash replacement (2026-10-24)
+## Slayer B integration (2026-10-25)
+
+Existing local Unity2022.3.25f1/WebGL module; independent snapshot/Library at
+E:/CodexTemp/TypingHero/slayer-b-integration/unity-source. fly-server was offline;
+no toolchain/package installation or changes to other running Unity projects.
+serialize-retry.log: strict two-pass builder PASS. tests.xml:52/52PlayMode PASS,
+0failed/skipped,6.210376s (20Slayer cases plus32directly affected regressions).
+Covers original B white pixels/hash/native64x64 slices/Point/pivot/32–40px scale,
+source80/100/100/100/100/100ms schedule, all56nonrepeat choices, all8angles and
+21prefab progression tints, fixed contact/tint/rotation, role routing, pooling/reuse,
+pause/reading/result/unload and lethal pre-damage capture.
+
+QA WebGL build/strict repeat PASS;33player hashes saved, version9b813909fdd2dab1.
+All C# inputs match the accepted worktree after LF normalization; package locks/
+manifest/Unity version unchanged. Native Edge156.0.4314.42/Intel UHD/D3D11 at
+1280x720:3153checks PASS,0exceptions/provider requests/writes; all8angles observed,
+179stable lease samples and maximum8active Slayer effects. Real keyboard/mouse
+covers overlap, live pause/resume, natural exit, restart, lethal hit and clean result.
+All20emitted progression colors match the scene's authored white→gold→red ramp;
+the scene overrides the prefab's cyan key. Both21-color static matrices inspected:
+4032/4032cels,3360/3360within-effect pairs. Scene matrix alone2016/1680.
+198/198selected encoded runtime frames and194/194pairs reviewed at original PTS,
+including held frames; expanded crop encloses all observed B bounds. Browser video
+clock check at1×/0.25× differs by<15ms over2.2/8.8seconds; presented callbacks may
+coalesce held frames and are not the per-frame inspection evidence. No runtime,
+source or asset changes after these passing checks; no broad suite/performance/
+production release/itch claim. [Receipt and retained evidence](../plans/slayer-slash-vfx.md).
+
+## Previous Slayer hit slash replacement (2026-10-24)
 
 Unity2022.3.25f1/fly-server20261024T113433-webgl, input
 `dc32bba70c576eaf074b00dc3e38f6ba9e675fe7ddf5f4f45c610270ee5d24f1`:
@@ -3476,3 +3504,77 @@ visuals retain their own receipts; this task adds no sprite review certification
   No frame rendering, WebGL build, full QA or new animation/performance claim.
   XML/logs, source/artifact/protected SHA256 and runtime reuse evidence:
   E:/CodexTemp/TypingHero/depth-preflight-fix-20261024/receipt.json.
+
+
+## Pimen parry core and physical depth (2026-10-24)
+
+- Scoped Unity ImpactVfxTests:43cases qualified,42/43 first run plus corrected float
+  assertion1/1 retry;0skips. Only1e-6 lifetime assertion tolerance changed between
+  immutable inputs;2433file comparison confirms runtime/assets identical.
+  Covers480ms core/cell timing/mirror/size cap, materials/importers, all22physical
+  position/velocity seed traces, pause/hitstop/pool/restart, missing-default/repeated
+  builder/custom Inspector and independent MetalClash. No broad suite added.
+- Normal20261024T112344 and mirror20261024T114327 WebGL/strict repeated builder PASS;
+ 33files/player hash-verified; same compiled WASM/framework and68VFX files.
+- Native1280x720 real-input right16/left18checks PASS,0exceptions; GPU10checks PASS
+  establish actor depth-write before Pimen LEqual against same depth attachment.
+- Direct original-frame review147+131frames/146+130pairs, full and4x logical crop;
+  final video148+132frames/147+131pairs decoded and directly inspected. Final VP9
+  exports preserve all source timestamps and original Opus payloads, with1ms terminal
+  held duplicate only. Clip playback to end at1x/0.25x unmuted has nonzero audio;
+  subjective human listening not claimed. Viewer presentation drops are recorded,
+  while separate decoding verifies every encoded frame. Supplemental diagnostic
+ 254normal frames/253pairs and48zoom frames includes earlier missed strike explicitly.
+- Actual tail visible after480ms, no observed floor penetration or abrupt expiry;
+  guard/counter readable. Pimen source/crops remain exact RGBA and source SHA-backed;
+  no synthetic arc. Existing MetalClash/runtime clocks/camera/audio unchanged.
+- Full sources, qualifications, hashes, per-frame evidence and exclusions:
+  [Pimen/depth checkpoint](../plans/parry-pimen-depth.md). Artifacts retained at
+  `E:/CodexTemp/TypingHero/parry-pimen-depth`. No itch.io upload or performance claim.
+
+- Integration checkpoint:34ef5ee merged newer origin/main903344c in2d346ce; all26
+  task build-input delta paths unchanged. Additional integrated ImpactVfxTests/
+  strict-builder checks could not execute: fly-server SSH timeout, peer offline.
+  Integrated revision remains **UNVERIFIED** for these checks; main push withheld.
+  Pre-integration scoped results above remain valid only for their immutable inputs.
+  Resume commands and retained worktree are in the checkpoint.
+
+
+### Parry variation candidate (2026-10-25; runtime unverified)
+
+Per-impact core38/39/40logical pixels and +/-3degrees implemented on task branch.
+Local compiled sampling check2050seeds PASS, physics/seed producer/MetalClash inputs
+unchanged; focused Unity coverage added for deterministic replay/mirror/pool and
+all22unchanged trajectories. Runner remains offline: Unity44cases, strict builder,
+QA build and three consecutive real-input parries per orientation have NOT executed.
+Zero new variation runtime frames inspected. Prior unvaried results are not evidence
+for this candidate. Main push withheld. [Resume/checkpoint](../plans/parry-pimen-depth.md).
+
+
+### Parry variation local acceptance (2026-10-25)
+
+Supersedes the candidate runtime block above. Existing Windows Unity2022.3.25f1
+(530ae0ba3889), WebGL module and valid local Personal entitlement reused.
+ImpactVfxTests ran once:44/44passed,0skipped. Normal and mirror QA builds both
+passed their strict repeated builder. Frozen Unity inputs remain identical.
+Each orientation:24browser checks,0exceptions,0fixture writes, three consecutive
+Space parries and real typed counters in one fresh fight at1280x720.
+Source visual review:330/330frames+329/329pairs right;331/331+330/330 left,
+at logical size and4xnearest crop. Encoded review:331/331+330/330 right,
+332/332+331/331 left, including1ms final held duplicate. All source timestamps
+and original Opus payloads preserved. Both clips ended at1x/0.25x unmuted with
+nonzero audio output; viewer presentation drops recorded separately from complete
+decode inspection. No subjective human-listening or performance claim.
+Contact/mirror/tails/clear intervals pass;22physical paths,480ms/six80ms cells,
+38-40px core and+/-3degrees unchanged. No broader suite or production build.
+[Final evidence, diagnostics and reproduction](../plans/parry-pimen-depth.md#final-local-verification-2026-10-25).
+
+
+- New main79f5052 integrated as9556fd3:44/44focused tests and both strict QA builds
+  pass again. Parry source/assets unchanged by12Unity-input Slayer delta, so full
+  reviewed Parry clips above remain valid for their exact recorded inputs. Additional
+  native24checks/orientation verify three consecutive real parries after integration;
+  preparation includes HP40->35 hit, then35preserved across each parry. A failed
+  left input attempt is retained. Only affected ending fully reviewed: right82frames/
+  81pairs, left88/87, logical+4x; supplementary captures are not full-reviewed exports.
+  Exact hashes, review exclusions and remote receipt are in the same checkpoint.

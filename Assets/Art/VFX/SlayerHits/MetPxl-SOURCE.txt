@@ -1,0 +1,24 @@
+Pixel Art Slash VFX - 8 Color Animation Pack
+Author: Met.Pxl
+https://metpxl.itch.io/pixel-art-slash-vfx-8-color-animation-pack
+Public promotional GIF:
+https://img.itch.zone/aW1nLzI4MDAzMDI0LmdpZg==/original/1%2B4p2y.gif
+GIF SHA256: 9a6e0a01cefb1b10a7db3b6c250259a1a1b3f414861f136654395674ab5cb139
+
+User-approved adaptation of the existing B preview, 2026-10-25.
+Only the white tile (640,640)-(896,896) is used. All six frames contain only
+black/white RGB; their 4x blocks reduce exactly to native 64x64 pixels.
+Black becomes alpha 0; white becomes alpha 255. RGB remains white throughout.
+No interpolation, generated pixels, altered silhouette or reconstructed motion.
+Source cels are stored F0-F5 left to right in metpxl-white.png (384x64 RGBA).
+Playback: F4 80ms, F5/F0/F1/F2/F3 100ms each; once per confirmed Slayer hit.
+PNG SHA256: 62ad20c15fb52b44b4b49f6aa0bb5e583c1ddc5209964530724edc43350f7356
+Reproduce with design/slash-hit-ab-preview/build.py then extract_white.py.
+
+Author's published license: free for personal and commercial use;
+reselling or redistributing the files is not allowed; credit appreciated.
+No paid package was downloaded or represented as owned. Original source archive
+and eight-color promotional montage are not included in the game assets.
+This adaptation is used as an integrated game effect; not a standalone asset pack.
+
+The older tbbk CC0 PNG and its SOURCE.txt remain for historical provenance.

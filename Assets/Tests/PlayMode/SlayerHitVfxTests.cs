@@ -30,66 +30,130 @@ public sealed class SlayerHitVfxTests
         foreach (var o in owned) if (o) UnityEngine.Object.Destroy(o);
         owned.Clear(); yield return null; Assert.That(Active(), Is.Empty);
     }
-    [TestCase(false, .15f, 32f), TestCase(true, .18f, 40f), Category("Quick")]
-    public void OriginalArtworkSlicePivotTimingAndVisibleScale(bool lethal, float duration, float width)
+    [TestCase(false, 32f), TestCase(true, 40f), Category("Quick")]
+    public void WhiteBArtworkSlicePivotTimingAndVisibleScale(bool lethal, float width)
     {
-        var effect = Prefab(lethal).GetComponent<SlayerHitVfx>(); Assert.That(effect, Is.Not.Null);
+        var effect = Prefab(lethal).GetComponent<SlayerHitVfx>();
         Assert.That(Prefab(lethal).GetComponentsInChildren<ParticleSystem>(true), Is.Empty);
-        var frames = Get<Sprite[]>(effect, "frames"); Assert.That(frames.Length, Is.EqualTo(9));
+        var frames = Get<Sprite[]>(effect, "frames"); Assert.That(frames.Length, Is.EqualTo(6));
         var importer = (TextureImporter)AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(frames[0]));
         Assert.That(importer.filterMode, Is.EqualTo(FilterMode.Point)); Assert.That(importer.mipmapEnabled, Is.False);
         Assert.That(importer.textureCompression, Is.EqualTo(TextureImporterCompression.Uncompressed));
         Assert.That(importer.npotScale, Is.EqualTo(TextureImporterNPOTScale.None));
-        Assert.That(frames[0].texture.width, Is.EqualTo(192)); Assert.That(frames[0].texture.height, Is.EqualTo(141));
+        Assert.That(frames[0].texture.width, Is.EqualTo(384)); Assert.That(frames[0].texture.height, Is.EqualTo(64));
         Assert.That(effect.GetComponent<SpriteRenderer>().sharedMaterial, Is.SameAs(AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/VFX/PixelSparks/Pixel.mat")));
-        for (int i = 0; i < 9; i++)
+        var order = new[] { 4, 5, 0, 1, 2, 3 };
+        for (int i = 0; i < 6; i++)
         {
-            Assert.That(frames[i].rect, Is.EqualTo(new Rect(i % 3 * 64, 141 - (i / 3 + 1) * 47, 64, 47)));
-            Assert.That(frames[i].pivot, Is.EqualTo(new Vector2(32, 23.5f)));
+            Assert.That(frames[i].name, Is.EqualTo("frame_" + order[i]));
+            Assert.That(frames[i].rect, Is.EqualTo(new Rect(order[i] * 64, 0, 64, 64)));
+            Assert.That(frames[i].pivot, Is.EqualTo(new Vector2(32, 32)));
             Assert.That(frames[i].pixelsPerUnit, Is.EqualTo(16));
         }
-        Assert.That(Get<float>(effect, "duration"), Is.EqualTo(duration));
+        Assert.That(Get<float[]>(effect, "frameDurations"), Is.EqualTo(new[] { .08f, .1f, .1f, .1f, .1f, .1f }));
         var texture = new Texture2D(2, 2); int widest = 0;
         try
         {
             var bytes = System.IO.File.ReadAllBytes(AssetDatabase.GetAssetPath(frames[0]));
             using (var hash = System.Security.Cryptography.SHA256.Create())
-                Assert.That(BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(), Is.EqualTo("7642aa4698828f6cc908b3fd2873c3b3d8555138bae188991c6b775ae0c96915"));
+                Assert.That(BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(), Is.EqualTo("62ad20c15fb52b44b4b49f6aa0bb5e583c1ddc5209964530724edc43350f7356"));
             texture.LoadImage(bytes);
             foreach (var frame in frames)
             {
                 int left = 64, right = -1;
-                for (int y = 0; y < 47; y++) for (int x = 0; x < 64; x++)
-                    if (texture.GetPixel((int)frame.rect.x + x, (int)frame.rect.y + y).a > 0) { left = Mathf.Min(left, x); right = Mathf.Max(right, x); }
+                for (int y = 0; y < 64; y++) for (int x = 0; x < 64; x++)
+                {
+                    var pixel = texture.GetPixel((int)frame.rect.x + x, (int)frame.rect.y + y);
+                    Assert.That(pixel.r == 1 && pixel.g == 1 && pixel.b == 1 && (pixel.a == 0 || pixel.a == 1), Is.True);
+                    if (pixel.a > 0) { left = Mathf.Min(left, x); right = Mathf.Max(right, x); }
+                }
                 widest = Mathf.Max(widest, right - left + 1);
             }
         }
         finally { UnityEngine.Object.DestroyImmediate(texture); }
         Assert.That(Get<float>(effect, "uniformScale") * widest, Is.EqualTo(width).Within(.0001));
     }
-    [TestCase(false, 1f), TestCase(false, -1f), TestCase(true, 1f), TestCase(true, -1f), Category("Quick")]
-    public void EveryFrameKeepsContactTintAndMirrorUntilRelease(bool lethal, float direction)
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void EveryFrameKeepsContactTintAndAngleUntilRelease(bool lethal)
     {
         var spawner = Owner(out var go);
-        spawner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal, directionOverride: direction, capturedTint: Color.red);
+        spawner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal, directionOverride: -1, capturedTint: Color.red);
         var effect = Active().Single(); var image = effect.GetComponent<SpriteRenderer>();
         Assert.That(effect.GetComponent<VoxelImpactBurst>(), Is.Null);
-        float duration = lethal ? .18f : .15f;
+        var rotation = effect.transform.rotation;
+        var durations = Get<float[]>(effect, "frameDurations");
+        var order = new[] { 4, 5, 0, 1, 2, 3 };
         SlayerModeSignals.SetActive(false);
-        effect.Advance(duration / 18);
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 6; i++)
         {
-            if (i > 0) effect.Advance(duration / 9);
-            Assert.That(image.sprite.name, Is.EqualTo("frame_" + i));
-            Assert.That(image.color, Is.EqualTo(Color.red)); Assert.That(image.flipX, Is.EqualTo(direction < 0));
+            Assert.That(image.sprite.name, Is.EqualTo("frame_" + order[i]));
+            effect.Advance(durations[i] - .001f);
+            Assert.That(image.sprite.name, Is.EqualTo("frame_" + order[i]), "frame held for full source duration");
+            Assert.That(image.color, Is.EqualTo(Color.red)); Assert.That(image.flipX || image.flipY, Is.False);
             Assert.That(effect.transform.position, Is.EqualTo(new Vector3(3, 4, 0)));
-            Assert.That(effect.transform.rotation, Is.EqualTo(Quaternion.identity));
+            Assert.That(effect.transform.rotation, Is.EqualTo(rotation));
+            effect.Advance(.00101f);
         }
-        effect.Advance(duration / 9 + .00001f); Assert.That(Active(), Is.Empty);
-        spawner.SpawnImpact(Vector2.zero, go.transform, true, lethal, directionOverride: -direction, capturedTint: Color.white);
+        Assert.That(Active(), Is.Empty);
+        Assert.That(effect.transform.rotation, Is.EqualTo(Quaternion.identity));
+        spawner.SpawnImpact(Vector2.zero, go.transform, true, lethal, directionOverride: 1, capturedTint: Color.white);
         Assert.That(Active().Single(), Is.SameAs(effect)); Assert.That(effect.Age, Is.Zero);
-        Assert.That(image.color, Is.EqualTo(Color.white)); Assert.That(image.flipX, Is.EqualTo(direction > 0));
-        Assert.That(image.sprite.name, Is.EqualTo("frame_0"));
+        Assert.That(image.color, Is.EqualTo(Color.white)); Assert.That(image.flipX || image.flipY, Is.False);
+        Assert.That(effect.transform.rotation, Is.Not.EqualTo(rotation));
+        Assert.That(image.sprite.name, Is.EqualTo("frame_4"));
+    }
+    [Test, Category("Quick")]
+    public void EveryDirectionHasExactlySevenOtherChoicesAndEightInitialChoices()
+    {
+        Assert.That(Enumerable.Range(0, 8).Select(i => HitSparkSpawner.SelectSlayerDirection(-1, i)), Is.EqualTo(Enumerable.Range(0, 8)));
+        for (int previous = 0; previous < 8; previous++)
+        {
+            var choices = Enumerable.Range(0, 7).Select(i => HitSparkSpawner.SelectSlayerDirection(previous, i)).ToArray();
+            Assert.That(choices.Distinct().Count(), Is.EqualTo(7));
+            Assert.That(choices, Has.No.Member(previous));
+            Assert.That(choices.All(i => i >= 0 && i < 8), Is.True);
+        }
+    }
+    [Test, Category("Quick")]
+    public void AlternatingHitAndFinisherShareDirectionHistoryAndOwnersStayIndependent()
+    {
+        var a = Owner(out var go); var b = Owner(out var other);
+        int previous = -1;
+        for (int i = 0; i < 64; i++)
+        {
+            a.SpawnImpact(Vector2.zero, go.transform, true, i % 2 == 0);
+            var direction = Get<int>(a, "lastSlayerDirection");
+            Assert.That(direction, Is.InRange(0, 7)); Assert.That(direction, Is.Not.EqualTo(previous));
+            previous = direction;
+            Assert.That(Get<int>(b, "lastSlayerDirection"), Is.EqualTo(-1));
+            foreach (var effect in Active()) effect.GetComponent<PooledVFX>().Release();
+        }
+        go.SetActive(false); Assert.That(Get<int>(a, "lastSlayerDirection"), Is.EqualTo(-1));
+    }
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void EveryAngleAndProgressionTintKeepsAllSixFrames(bool lethal)
+    {
+        var owner = Owner(out var go);
+        var player = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Characters/Player/Player.prefab");
+        var gradient = Get<Gradient>(player.GetComponent<SlayerAfterimagePool>(), "comboGradient");
+        for (int direction = 0; direction < 8; direction++) for (int combo = 0; combo <= 20; combo++)
+        {
+            owner.SpawnImpact(Vector2.zero, go.transform, true, lethal);
+            var effect = Active().Single();
+            var tint = gradient.Evaluate(combo / 20f); tint.a = 1;
+            effect.Emit(new Vector3(3, 4, 0), direction * 45, tint);
+            var sprite = effect.GetComponent<SpriteRenderer>();
+            foreach (int frame in new[] { 4, 5, 0, 1, 2, 3 })
+            {
+                Assert.That(sprite.sprite.name, Is.EqualTo("frame_" + frame));
+                Assert.That(sprite.color, Is.EqualTo(tint));
+                Assert.That(sprite.flipX || sprite.flipY, Is.False);
+                Assert.That(Quaternion.Angle(effect.transform.rotation, Quaternion.Euler(0, 0, -direction * 45)), Is.LessThan(.001));
+                Assert.That(effect.transform.position, Is.EqualTo(new Vector3(3, 4, 0)));
+                effect.Advance(frame == 4 ? .08f : .1f);
+            }
+            Assert.That(Active(), Is.Empty);
+        }
     }
     [UnityTest, Category("Quick")]
     public IEnumerator TutorialPauseHoldsAndResultClearsEvenWhenFinished()
@@ -165,7 +229,7 @@ public sealed class SlayerHitVfxTests
         yield return null; yield return null;
         Assert.That(effect.Age, Is.GreaterThan(0));
         Assert.That(effect.gameObject.activeSelf, Is.True);
-        effect.Advance(.2f); Assert.That(Active(), Is.Empty);
+        effect.Advance(.6f); Assert.That(Active(), Is.Empty);
         spawner.SpawnImpact(Vector2.zero, go.transform, true, true);
         yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(scene);
         Assert.That(go == null && idle == null && effect == null, Is.True);

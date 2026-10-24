@@ -385,19 +385,30 @@ Change only behavior explicitly requested. Update this file after relevant verif
   world cap/grid/start frame/frame curve/color-alpha gradient), and local light
   enabled/color/intensity/hold/duration/decay/range/offset. MetalClash preserves
   24particles,1px,rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
-- Production Player uses `ParryImpact.asset`, a separate MetalClash copy: both
-  Pimen flash quads40px (previously16), core cap2.5world units (previously1),
-  unchanged200ms lifetime with full alpha through100ms then fade to zero by200ms.
-    Dedicated prefab/physics now keep leads10-14px long/2px initial width,
-    cooling450-550ms/lifetime550-700ms; secondary4-7px/cooling400-550ms and brighter
-    orange embers retain their launch/flight/bounce settings and counts.
-    One hollow120-degree shock arc uses8pixel cels/320ms,64px canvas/cap4WU,
-    mirrored toward the opponent at emission. Existing pool/pause clocks own it;
-    no new public API or frame handler. Pimen flashes, local light, audio, camera
-    and hitstop remain unchanged. [Spark/arc evidence](../plans/parry-spark-arc.md).
-  The builder migrates the stock prefab's MetalClash reference or fills its null
-  default; custom Inspector profiles and custom-prefab defaults remain authored.
-  Standalone MetalClash stays unchanged. [Evidence](../plans/parry-impact-burst.md).
+- Production Player uses the dedicated `ParryImpact.asset` and prefab/physics:
+  one seeded38/39/40logical-pixel Pimen core with +/-3degree rotation,
+  capped2.5world units, fixed48x48 canvas/pivot24,24,
+  six visible cells at80ms each and a seventh transparent cell; expiry480ms.
+  Frame curve0->6/7 over480ms preserves the full six-cell timing. Core layers are
+  only Hit Effect+Color, with white tint/material gain1 and constant alpha; original
+  white/yellow/orange RGBA retained. Detached ray/fragment/speck PNGs are exact
+  original Pimen layer crops, Point/Clamp/no mipmaps; recipe and hashes are in
+  `PimenSource.json` and `tools/game_loop/export_parry_pimen.py`.
+  Five bindings: core0,fragment1,near rays2,body specks3,far rays4; no shock arc.
+  There are22unchanged physical trajectories plus one core,23total/184at eight
+  leases. Leads10-14px/initial2px live550-700ms; secondary4-7px live850-1100ms,
+  with unchanged cooling, final80ms fade, gravity/drag/bounce/floor rest and seed.
+  NearZ velocities-6..-4 and far2..4 remain actual world-space perspective/depth;
+  actor cutout writes depth and Pimen uses the same depth buffer with LEqual.
+  Detached contact/recipient snapshots, local light, bloom, audio, hitstop and camera
+  remain unchanged. Mirror is captured on core0 at emission; pool/pause clocks own
+  the complete tail. [Pimen/depth evidence](../plans/parry-pimen-depth.md).
+  Windows Unity2022.3.25f1 verification:44/44focused tests, strict repeated builder
+  in both QA builds, and three consecutive real-input parries per orientation PASS.
+  Complete source/frame/transition and encoded-clip review is recorded in that checkpoint.
+  Builder creates only a missing stock prefab and fills null/stock profile defaults;
+  repeated runs preserve authored prefab/custom Inspector references. Standalone
+  MetalClash remains unchanged. [Earlier evidence](../plans/parry-impact-burst.md).
 - Prefab renderer bindings supply unique IDs, particle systems and materials;
   generic rendering reserves no contact slots and supports zero or multiple flashes.
   Camera/world configuration supplies the native raster width. PPU supplies the
@@ -424,7 +435,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
   conservatively rebase without catch-up. Positive-scale hitstop remains unscaled.
   One-floor/one-bounce solver, fixed buffers,
   unscaled pause-held updates and cleanup remain. Audio, damage, recoil and hitstop
-  remain owned by gameplay. No new production material preset is introduced.
+  remain owned by gameplay.
 - Authoring/API: [lighting and impact profiles](lighting-profiles.md).
   Scoped evidence/status: [preset checkpoint](../plans/metal-clash-preset.md).
 
@@ -589,13 +600,16 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Slayer hit slash (2026-10-24)
+### Slayer hit slash (2026-10-25)
 
 - Production Slayer hit and lethal contacts use `SlayerHits/SlayerHit.prefab` and
-  `SlayerFinisher.prefab`: original tbbk CC0 nine-frame64x47 sheet, row-major,
-  fixed center pivot,150/180ms unscaled simulation age and32/40reference-pixel
-  maximum visible width at16PPU. Pixel.mat/order3; uniform scale and direction
-  mirror only. No particles, random transforms or additional lights.
+  `SlayerFinisher.prefab`: Met.Pxl B white64x64 artwork extracted losslessly from
+  the approved public preview. Fixed center pivot; F4/80ms→F5/F0/F1/F2/F3 at100ms
+  each, one580ms unscaled lifetime. Unrotated maximum visible width remains32/40
+  reference pixels at16PPU. Pixel.mat/order3; Point/no-mips/uncompressed.
+  Each impact selects one of eight clockwise45-degree directions, excluding the
+  immediately previous direction for that owner, shared across hit/finisher.
+  Hold angle throughout the effect; no extra mirror, particles or lights.
 - Hitbox snapshots Slayer state and afterimage RGB tint before damage; emitted
   tint stays opaque and immutable through Slayer exit. Lethal audio/camera still
   follow the damage outcome. Optional `slayerLethalPrefab` falls back to the old
@@ -603,10 +617,13 @@ Full surface art, B/C and parent integration remain separate.
   their existing bindings. Voxel assets remain available for compatibility.
 - `SlayerHitVfx` uses the existing PooledVFX/owner impact budget of eight; oldest
   impact is reclaimed, with dust/parry pools independent. Pause/tutorial reading
-  holds age; Slayer exit allows the150?180ms tail, result overlay/disable/restart/
-  unload reclaim it. Runtime frames quantize visible endpoints.
-- Scoped Unity50/50, strict two-pass builder and real-input WebGL1280x720 PASS;
-  full source-variant/selected runtime-frame review is recorded in [the task checkpoint](../plans/slayer-slash-vfx.md).
+  holds age; Slayer exit allows the580ms tail, result overlay/disable/restart/
+  unload reclaim it. Owner disable resets direction history. Runtime frames
+  quantize visible endpoints.
+- B integration: scoped Unity52/52, strict two-pass builder and real-input
+  WebGL1280x720/3153checks PASS. Both prefab and actual scene-override tint
+  matrices plus198encoded runtime frames were reviewed; evidence and scope
+  are recorded in [the task checkpoint](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 

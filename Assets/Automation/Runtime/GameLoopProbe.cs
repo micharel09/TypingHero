@@ -31,7 +31,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Vector3 position, scale;
         public Rect screenRect;
         public int particles;
-        public float groundY, minY, maxY, maxAge, meanVelocityX, meanDepthSpeed;
+        public float groundY, minY, maxY, maxAge, meanVelocityX, meanDepthSpeed, clockwiseAngle;
         public float contactGap;
         public string defenseCel, attackCel;
     }
@@ -279,6 +279,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 tint = sprite ? sprite.color : Color.clear, flipX = sprite && sprite.flipX, voxel = voxel, preset = clash ? clash.EmittedPreset.ToString() : "", id = effect.GetInstanceID(), frame = Time.frameCount,
                 order = sprite ? sprite.sortingOrder : particle.sortingOrder,
                 position = effect.transform.position, scale = effect.transform.lossyScale,
+                clockwiseAngle = Mathf.Repeat(-effect.transform.eulerAngles.z, 360),
                 contactGap = clash ? clash.Visual.separation : 0,
                 defenseCel = clash && clash.Visual.defenseCel ? clash.Visual.defenseCel.name : "",
                 attackCel = clash && clash.Visual.attackCel ? clash.Visual.attackCel.name : "",

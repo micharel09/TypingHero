@@ -68,24 +68,22 @@ public sealed partial class ImpactVfxTests
                 var context = Context(direction);
                 var original = emitter.Play(Metal, context);
                 var actual = emitter.Play(Parry, context);
-                float arcSize = Mathf.Min(4, Mathf.Max(1 / Parry.pixelsPerUnit,
-                    size * 2 * camera.aspect / 1280) * 64);
-                Assert.That(Particles(actual, 5)[0].startSize, Is.EqualTo(arcSize).Within(.00001f));
-                foreach (int channel in new[] { 0, 3 })
-                {
-                    var layer = Parry.flashes[channel == 0 ? 0 : 1];
-                    Assert.That(layer.sizePixels, Is.EqualTo(40));
-                    Assert.That(layer.lifetime, Is.EqualTo(.2f));
-                    float expected = Mathf.Max(1 / Parry.pixelsPerUnit, size * 2 * camera.aspect / 1280) * 40;
-                    if (channel == 0) expected = Mathf.Min(expected, 2.5f);
-                    Assert.That(Particles(actual, channel)[0].startSize, Is.EqualTo(expected).Within(.00001f));
-                    Assert.That(Particles(actual, channel)[0].position, Is.EqualTo(context.point));
-                    Assert.That(layer.colorOverLifetime.Evaluate(.5f).a, Is.EqualTo(1).Within(.0001f));
-                    Assert.That(layer.colorOverLifetime.Evaluate(.75f).a, Is.EqualTo(.5f).Within(.0001f));
-                    Assert.That(layer.colorOverLifetime.Evaluate(1).a, Is.Zero);
-                    actual.Systems[channel].Simulate(.201f, false, false, false);
-                    Assert.That(Particles(actual, channel), Is.Empty);
-                }
+                Assert.That(actual.Systems.Length, Is.EqualTo(5));
+                Assert.That(Parry.flashes.Length, Is.EqualTo(1));
+                var layer = Parry.flashes[0];
+                Assert.That(layer.sizePixels, Is.EqualTo(40));
+                Assert.That(layer.lifetime, Is.EqualTo(.48f));
+                float expected = Mathf.Min(2.5f, Mathf.Max(1 / Parry.pixelsPerUnit,
+                    size * 2 * camera.aspect / 1280) * 40);
+                float minimum = Mathf.Min(2.5f, Mathf.Max(1 / Parry.pixelsPerUnit,
+                    size * 2 * camera.aspect / 1280) * 38);
+                Assert.That(Particles(actual, 0)[0].startSize, Is.InRange(minimum - .00001f, expected + .00001f));
+                Assert.That(Particles(actual, 0)[0].position, Is.EqualTo(context.point));
+                Assert.That(layer.colorOverLifetime.Evaluate(.99f).a, Is.EqualTo(1));
+                actual.Systems[0].Simulate(.479f, false, false, false);
+                Assert.That(Particles(actual, 0).Length, Is.EqualTo(1));
+                actual.Systems[0].Simulate(.002f, false, false, false);
+                Assert.That(Particles(actual, 0), Is.Empty);
                 for (int step = 0; step <= 66; step++)
                 {
                     var a = Simulation(actual); var b = Simulation(original);
@@ -108,6 +106,63 @@ public sealed partial class ImpactVfxTests
         }
         finally { camera.orthographicSize = previousSize; camera.targetTexture = previousTarget; camera.orthographic = previousOrthographic; }
 
+    }
+
+    [Test, Category("Quick")]
+    public void ParryVariationIsRepeatableMirroredAndLeavesPhysicsAndGameplayRandomUnchanged()
+    {
+        var baseline = Object.Instantiate(Parry); owned.Add(baseline);
+        var serialized = new UnityEditor.SerializedObject(baseline);
+        serialized.FindProperty("flashSizeReductionPixels").intValue = 0;
+        serialized.FindProperty("flashRotationDegrees").floatValue = 0;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+        var emitter = Emitter();
+        emitter.Play(baseline, Context()); emitter.Play(Parry, Context()); emitter.Clear();
+        var savedRandom = Random.state;
+        var rotations = new HashSet<float>(); var pixelSizes = new HashSet<float>();
+        var launches = new HashSet<Vector3>();
+        for (int seed = 0; seed < 24; seed++)
+        {
+            emitter.Clear(); var context = Context(); context.seed = seed;
+            var old = emitter.Play(baseline, context);
+            var actual = emitter.Play(Parry, context);
+            var core = Particles(actual, 0)[0];
+            float ratio = core.startSize / Particles(old, 0)[0].startSize;
+            Assert.That(ratio, Is.InRange(.95f - .00001f, 1f + .00001f));
+            Assert.That(core.startSize, Is.LessThanOrEqualTo(2.5f + .00001f));
+            Assert.That(core.rotation, Is.InRange(-3.00001f, 3.00001f));
+            Assert.That(core.position, Is.EqualTo(context.point));
+            rotations.Add(core.rotation);
+            float pixels = 40;
+            Assert.That(Parry.TryVaryFlash(seed, 0, ref pixels, out _), Is.True);
+            pixelSizes.Add(pixels);
+            var a = Simulation(actual); var b = Simulation(old);
+            Assert.That(a.Count, Is.EqualTo(22)); launches.Add(a[2].launch);
+            for (int particle = 0; particle < a.Count; particle++)
+            for (int step = 0; step <= 66; step++)
+            {
+                var x = a.Evaluate(particle, step / 60f); var y = b.Evaluate(particle, step / 60f);
+                Assert.That(x.alive, Is.EqualTo(y.alive));
+                Assert.That(x.position, Is.EqualTo(y.position));
+                Assert.That(x.velocity, Is.EqualTo(y.velocity));
+            }
+            emitter.Clear();
+            var repeated = emitter.Play(Parry, context);
+            Assert.That(Particles(repeated, 0)[0].startSize, Is.EqualTo(core.startSize));
+            Assert.That(Particles(repeated, 0)[0].rotation, Is.EqualTo(core.rotation).Within(.00001f));
+            emitter.Clear(); context.direction = -1;
+            var mirrored = emitter.Play(Parry, context);
+            Assert.That(Particles(mirrored, 0)[0].startSize, Is.EqualTo(core.startSize));
+            Assert.That(Particles(mirrored, 0)[0].rotation, Is.EqualTo(-core.rotation).Within(.00001f));
+            emitter.Clear();
+            var unvaried = emitter.Play(baseline, context);
+            Assert.That(Particles(unvaried, 0)[0].rotation, Is.EqualTo(0).Within(.00001f));
+            Assert.That(Random.state, Is.EqualTo(savedRandom));
+        }
+        // Camera caps may collapse size choices; angle must still vary on every impact.
+        Assert.That(rotations.Count, Is.EqualTo(24));
+        Assert.That(launches.Count, Is.EqualTo(24));
+        CollectionAssert.AreEquivalent(new[] { 38f, 39f, 40f }, pixelSizes);
     }
 
     [Test, Category("Quick")]
@@ -140,30 +195,83 @@ public sealed partial class ImpactVfxTests
         GamePauseController.SetTutorialReading(true);
         yield return null;
         var before = Particles(burst, 0)[0];
-        var arcBefore = Particles(burst, 5)[0];
         yield return new WaitForSecondsRealtime(.25f);
         Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
-        Assert.That(Particles(burst, 5)[0].remainingLifetime, Is.EqualTo(arcBefore.remainingLifetime));
+        Assert.That(Particles(burst, 0)[0].rotation, Is.EqualTo(before.rotation));
+        Assert.That(Particles(burst, 0)[0].startSize, Is.EqualTo(before.startSize));
         GamePauseController.SetTutorialReading(false);
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(.2f);
-        Assert.That(Particles(burst, 5)[0].remainingLifetime, Is.EqualTo(arcBefore.remainingLifetime));
+        Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
+        Assert.That(Particles(burst, 0)[0].rotation, Is.EqualTo(before.rotation));
+        Assert.That(Particles(burst, 0)[0].startSize, Is.EqualTo(before.startSize));
         Time.timeScale = 1;
-        yield return new WaitForSecondsRealtime(.38f);
+        yield return new WaitForSecondsRealtime(.50f);
         Assert.That(Particles(burst, 0), Is.Empty);
         Assert.That(Particles(burst, 3), Is.Empty);
-        Assert.That(Particles(burst, 5), Is.Empty);
         yield return new WaitForSecondsRealtime(1.1f);
         Assert.That(emitter.active, Is.Empty);
         Assert.That(emitter.Play(Parry, Context(-1)), Is.SameAs(burst));
-        Assert.That(burst.Systems[5].GetComponent<ParticleSystemRenderer>().flip.x, Is.EqualTo(1));
+        Assert.That(burst.Systems[0].GetComponent<ParticleSystemRenderer>().flip.x, Is.EqualTo(1));
         emitter.Clear();
         Assert.That(emitter.Play(Parry, Context(1)), Is.SameAs(burst));
-        Assert.That(burst.Systems[5].GetComponent<ParticleSystemRenderer>().flip.x, Is.Zero);
+        Assert.That(burst.Systems[0].GetComponent<ParticleSystemRenderer>().flip.x, Is.Zero);
     }
 
     [Test, Category("Quick")]
-    public void ParryArcMirrorsAtContactAndHotStreaksRemainAfterFlash()
+    public void MissingParryPrefabBuilderCreatesFiveBindingsAndPreservesCustomOnRepeat()
+    {
+        const string path = "Assets/Art/VFX/ParryClash/ParryImpact.prefab";
+        const string backup = "Assets/Art/VFX/ParryClash/__ParryImpactBuilderFixture.prefab";
+        Assert.That(UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(backup), Is.Null);
+        System.Type builder = null;
+        foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies())
+            if (assembly.GetType("ParryImpactAssets") != null) builder = assembly.GetType("ParryImpactAssets");
+        var prepare = builder.GetMethod("Prepare", BindingFlags.Static | BindingFlags.NonPublic);
+        var profile = Parry; var originalPrefab = profile.prefab;
+        Assert.That(UnityEditor.AssetDatabase.MoveAsset(path, backup), Is.Empty);
+        try
+        {
+            profile.prefab = null;
+            prepare.Invoke(null, null);
+            var generated = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            Assert.That(generated, Is.Not.Null);
+            Assert.That(profile.prefab, Is.SameAs(generated));
+            var so = new UnityEditor.SerializedObject(generated.GetComponent<ImpactVfxBurst>());
+            var bindings = so.FindProperty("rendererBindings");
+            Assert.That(bindings.arraySize, Is.EqualTo(5));
+            Assert.That(so.FindProperty("directionalFlashChannel").intValue, Is.Zero);
+            string[] names = { "PimenCore", "PimenFragment", "PimenRay", "PimenSpeck", "PimenRay" };
+            for (int i = 0; i < 5; i++)
+            {
+                var binding = bindings.GetArrayElementAtIndex(i);
+                Assert.That(binding.FindPropertyRelative("id").intValue, Is.EqualTo(i));
+                Assert.That(binding.FindPropertyRelative("material").objectReferenceValue.name, Is.EqualTo(names[i]));
+            }
+            Assert.That(generated.transform.Find("ShockArc"), Is.Null);
+            var before = System.IO.File.ReadAllBytes(path);
+            for (int repeat = 0; repeat < 2; repeat++)
+            {
+                prepare.Invoke(null, null);
+                Assert.That(profile.prefab, Is.SameAs(generated));
+                CollectionAssert.AreEqual(before, System.IO.File.ReadAllBytes(path));
+            }
+            profile.prefab = originalPrefab;
+            prepare.Invoke(null, null); prepare.Invoke(null, null);
+            Assert.That(profile.prefab, Is.SameAs(originalPrefab), "Custom Inspector prefab must survive");
+        }
+        finally
+        {
+            profile.prefab = originalPrefab;
+            UnityEditor.EditorUtility.SetDirty(profile);
+            UnityEditor.AssetDatabase.SaveAssetIfDirty(profile);
+            UnityEditor.AssetDatabase.DeleteAsset(path);
+            Assert.That(UnityEditor.AssetDatabase.MoveAsset(backup, path), Is.Empty);
+        }
+    }
+
+    [Test, Category("Quick")]
+    public void PimenCoreMirrorsAtContactAndHotStreaksRemainAfterFlash()
     {
         var emitter = Emitter();
         foreach (float side in new[] { -1f, 1f })
@@ -171,24 +279,64 @@ public sealed partial class ImpactVfxTests
         {
             var context = Context(side); context.seed = seed;
             var burst = emitter.Play(Parry, context);
-            Assert.That(burst.ParticleCount, Is.EqualTo(25));
-            var arc = Particles(burst, 5)[0];
-            Assert.That(arc.position, Is.EqualTo(context.point));
-            Assert.That(arc.startLifetime, Is.EqualTo(.32f));
-            Assert.That(burst.Systems[5].GetComponent<ParticleSystemRenderer>().flip.x, Is.EqualTo(side < 0 ? 1 : 0));
-            var sheet = burst.Systems[5].textureSheetAnimation;
-            Assert.That(sheet.numTilesX, Is.EqualTo(8));
-            for (int frame = 0; frame < 8; frame++)
-                Assert.That(Mathf.FloorToInt(sheet.frameOverTime.curve.Evaluate((frame + .5f) / 8) * 8), Is.EqualTo(frame));
-            burst.AdvanceDebris(.35f);
+            Assert.That(burst.ParticleCount, Is.EqualTo(23));
+            var core = Particles(burst, 0)[0];
+            Assert.That(core.position, Is.EqualTo(context.point));
+            Assert.That(core.startLifetime, Is.EqualTo(.48f).Within(.000001f));
+            Assert.That(burst.Systems[0].GetComponent<ParticleSystemRenderer>().flip.x, Is.EqualTo(side < 0 ? 1 : 0));
+            var sheet = burst.Systems[0].textureSheetAnimation;
+            Assert.That(sheet.numTilesX, Is.EqualTo(7));
+            for (int frame = 0; frame < 6; frame++)
+                Assert.That(Mathf.FloorToInt(sheet.frameOverTime.curve.Evaluate((frame + .5f) / 6) * 7), Is.EqualTo(frame));
+            burst.AdvanceDebris(.49f);
             bool readable = false;
             foreach (int channel in new[] { 2, 4 })
             foreach (var p in Particles(burst, channel))
-                readable |= p.startSize3D.y >= 2 / Parry.pixelsPerUnit && p.startColor.a > 200;
-            Assert.That(readable, Is.True, "Visible multi-pixel streak after 200ms flash, seed=" + seed);
-            burst.Systems[5].Simulate(.321f, false, false, false);
-            Assert.That(Particles(burst, 5), Is.Empty);
+                readable |= p.startSize3D.y >= 1 / Parry.pixelsPerUnit && p.startColor.a > 200;
+            Assert.That(readable, Is.True, "Visible physical tail after 480ms core, seed=" + seed);
+            burst.Systems[0].Simulate(.481f, false, false, false);
+            Assert.That(Particles(burst, 0), Is.Empty);
             emitter.Clear();
+        }
+    }
+
+    [Test, Category("Quick")]
+    public void PimenMaterialsUseOriginalTexturesAndSpecksKeepTheOldTrajectory()
+    {
+        var emitter = Emitter(); var burst = emitter.Play(Parry, Context());
+        string[] names = { "PimenCore", "PimenFragment", "PimenRay", "PimenSpeck", "PimenRay" };
+        int[] widths = { 336, 4, 3, 1, 3 }, heights = { 48, 3, 5, 1, 5 };
+        for (int i = 0; i < names.Length; i++)
+        {
+            var material = burst.Systems[i].GetComponent<ParticleSystemRenderer>().sharedMaterial;
+            Assert.That(material.name, Is.EqualTo(names[i]));
+            Assert.That(material.shader.name, Is.EqualTo("Universal Render Pipeline/Particles/Unlit"));
+            Assert.That(material.GetColor("_BaseColor"), Is.EqualTo(Color.white));
+            var texture = material.GetTexture("_BaseMap");
+            Assert.That(texture.width, Is.EqualTo(widths[i]));
+            Assert.That(texture.height, Is.EqualTo(heights[i]));
+            Assert.That(texture.filterMode, Is.EqualTo(FilterMode.Point));
+            Assert.That(texture.wrapMode, Is.EqualTo(TextureWrapMode.Clamp));
+            var importer = (UnityEditor.TextureImporter)UnityEditor.AssetImporter.GetAtPath(UnityEditor.AssetDatabase.GetAssetPath(texture));
+            Assert.That(importer.mipmapEnabled, Is.False);
+        }
+        Assert.That(Particles(burst, 3).Length, Is.EqualTo(4));
+        Assert.That(burst.Systems[3].main.maxParticles, Is.GreaterThanOrEqualTo(4));
+        Assert.That(burst.transform.Find("ShockArc"), Is.Null);
+        var baseline = Object.Instantiate(Parry.physics); owned.Add(baseline);
+        baseline.groups[5].channel = 2;
+        var old = new PhysicalParticleSimulation(40);
+        var context = Context();
+        old.Emit(baseline, context.point, context.direction, 0, .5f / Parry.pixelsPerUnit, context.seed);
+        var current = Simulation(burst);
+        Assert.That(current.Count, Is.EqualTo(22));
+        for (int i = 0; i < 22; i++)
+        for (int step = 0; step <= 66; step++)
+        {
+            var a = current.Evaluate(i, step / 60f); var b = old.Evaluate(i, step / 60f);
+            Assert.That(a.alive, Is.EqualTo(b.alive));
+            Assert.That(a.position, Is.EqualTo(b.position));
+            Assert.That(a.velocity, Is.EqualTo(b.velocity));
         }
     }
 

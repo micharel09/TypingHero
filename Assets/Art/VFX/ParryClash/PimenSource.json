@@ -1,0 +1,70 @@
+{
+  "source": "Assets/Art/VFX/Pimen/HitSpark/Hit Effect 01/Hit Effect 1.aseprite",
+  "url": "https://pimen.itch.io/battle-vfx-hit-spark",
+  "sha256": "0f229a12d863aadd383e37b82aa877d853416b19778add300f7e291e95c7691b",
+  "core": {
+    "layers": [
+      "Hit Effect",
+      "Color"
+    ],
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "cell": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "duration_ms": 80
+  },
+  "crops": [
+    {
+      "name": "PimenRay",
+      "layer": "Particle 2",
+      "frame": 2,
+      "box_top_left_exclusive": [
+        35,
+        2,
+        38,
+        7
+      ]
+    },
+    {
+      "name": "PimenFragment",
+      "layer": "Particle",
+      "frame": 1,
+      "box_top_left_exclusive": [
+        26,
+        13,
+        30,
+        16
+      ]
+    },
+    {
+      "name": "PimenSpeck",
+      "layer": "Particle",
+      "frame": 1,
+      "box_top_left_exclusive": [
+        26,
+        13,
+        27,
+        14
+      ]
+    }
+  ],
+  "outputs": {
+    "PimenCore.png": "6c1da49111be71756d0daca76e55078c2f369f91d6fd92301abba57b4003fed8",
+    "PimenFragment.png": "b75a48a8af6f6dd30bfdbe4b2487b534dd983e5300217735901a8d8d47548a19",
+    "PimenRay.png": "762816486a69c4222105bef14ca23ec6cd944762f39c6062c271d68e27daa4c6",
+    "PimenSpeck.png": "d5a51b6aed15684ec8c123e30fe5703155359d6543b6d7b47cb5766ef44939de"
+  }
+}

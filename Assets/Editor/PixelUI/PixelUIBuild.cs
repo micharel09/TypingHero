@@ -63,8 +63,10 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             {
                 if (paths[i].EndsWith(".unity") || paths[i].EndsWith(".prefab") || paths[i].EndsWith(".mat"))
                 {
-                    File.WriteAllBytes("/results/" + Path.GetFileNameWithoutExtension(paths[i]) + "-first" + Path.GetExtension(paths[i]), before[i]);
-                    File.Copy(paths[i], "/results/" + Path.GetFileNameWithoutExtension(paths[i]) + "-second" + Path.GetExtension(paths[i]), true);
+                    var results = System.Environment.GetEnvironmentVariable("TYPINGHERO_RESULTS_PATH") ?? "/results";
+                    Directory.CreateDirectory(results);
+                    File.WriteAllBytes(Path.Combine(results, Path.GetFileNameWithoutExtension(paths[i]) + "-first" + Path.GetExtension(paths[i])), before[i]);
+                    File.Copy(paths[i], Path.Combine(results, Path.GetFileNameWithoutExtension(paths[i]) + "-second" + Path.GetExtension(paths[i])), true);
                 }
                 throw new BuildFailedException("UI builder is not idempotent: " + paths[i]);
             }

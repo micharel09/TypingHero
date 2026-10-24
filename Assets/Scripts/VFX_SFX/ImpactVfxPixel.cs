@@ -75,14 +75,18 @@ public partial class ImpactVfxBurst
         }
         foreach (var flash in profile.flashes)
         {
-            float size = pixelUnit * flash.sizePixels;
+            float pixels = flash.sizePixels;
+            bool varied = profile.TryVaryFlash(context.seed, flash.channel, ref pixels, out float rotation);
+            float size = pixelUnit * pixels;
             if (flash.maxWorldSize > 0) size = Mathf.Min(size, flash.maxWorldSize);
             var ps = systems[RequireBinding(flash.channel)];
             if (flash.channel == directionalFlashChannel)
                 ps.GetComponent<ParticleSystemRenderer>().flip = new Vector3(context.direction < 0 ? 1 : 0, 0, 0);
-            ps.Emit(new ParticleSystem.EmitParams {
+            var emission = new ParticleSystem.EmitParams {
                 position = transform.position, velocity = Vector3.zero, startSize = size,
-                startLifetime = flash.lifetime, startColor = flash.tint }, flash.count);
+                startLifetime = flash.lifetime, startColor = flash.tint };
+            if (varied) emission.rotation = rotation * (context.direction < 0 ? -1 : 1);
+            ps.Emit(emission, flash.count);
         }
         EmitPhysical(context.direction < 0 ? -1 : 1,
             context.recipient.valid ? context.recipient.center.x - context.point.x : 0,
