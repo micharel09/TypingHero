@@ -1,5 +1,95 @@
 # Preview A/B vết nhận chém
 
+## B đổi góc mỗi nhát — 25/10/2026
+
+Phạm vi mới: chỉ player/template preview. Dùng lại nguồn B và SHA-256 đã khóa bên
+ dưới; không mua asset, sửa GIF, tích hợp Unity hoặc đổi API game. Những nhận xét
+không xoay ở phần kiểm bản gốc bên dưới được thay bằng contract sau.
+
+- Mặc định Trắng, “Đổi góc mỗi nhát”; chọn đều tám góc 0°–315°, bước 45°,
+  loại góc liền trước. Góc tính theo chiều kim đồng hồ trên canvas; 0° là artwork gốc.
+- Chu kỳ B: F4 (80 ms) → F5 → F0 → F1 → F2 → F3 (mỗi frame còn lại 100 ms).
+  Tổng 580 ms ở 1×, 2.320 ms ở 0,25×. Chỉ F3→F4 chọn góc mới khi phát/tiến frame.
+  Bước lùi giữ góc để kiểm hình; dừng/tiếp tục giữ góc. Phát lại bắt đầu F4, nhát mới.
+- Canvas B 384×384; ô nguồn 256×256 xoay quanh tâm (192,192), không nội suy.
+  Góc chéo có răng cưa/hạt dạng hình thoi do nearest-neighbor, không làm mờ.
+  “Góc gốc” luôn 0°. Montage tám màu vẽ nguyên nguồn, không xoay cả bảng.
+- A giữ artwork, lựa chọn và thời gian cũ. Cả hai vùng xem cao 410 px để chứa B.
+
+### Kiểm đầu ra và bằng chứng
+
+Mở HTML offline bằng Microsoft Edge 156 headless, xác nhận controls được bật và
+“Sẵn sàng · dữ liệu offline từ preview tác giả.”; không có page error. Ảnh UI:
+[edge-ready.png](local/edge-ready.png). Dựng lại bằng `build.py`, SHA-256 cả ba nguồn
+khớp; `node --check player.js` và `git diff --check` đạt.
+
+Kiểm biên thời gian bằng đồng hồ chủ động: 16 chu kỳ mỗi tốc độ, giữ frame tới
+đúng duration, đổi góc chỉ ở nhát mới. Kiểm đủ 56 cặp lựa chọn trước→sau, mỗi góc
+có đúng bảy khả năng còn lại. Kiểm dừng, tiếp tục/phát lại, tiến/lùi, tám màu,
+Góc gốc và montage. Kiểm riêng requestAnimationFrame thực trong Edge: 2,6 giây
+mỗi tốc độ, đủ sáu frame, sai lệch từng khoảng hoàn chỉnh <50 ms; giữ góc giữa
+nhát, đổi ở F3→F4. Số đo và script cục bộ: [verification.json](local/verification.json),
+[verify.cjs](local/verify.cjs) (dùng playwright-core có sẵn của môi trường).
+
+Trực tiếp mở tám bảng canvas Edge bên dưới, mỗi bảng có sáu ô 384×384, đọc theo
+hàng F4→F5→F0→F1→F2→F3. Đã xem 48/48 frame và 48/48 cặp chuyển tiếp của tám góc,
+gồm pha tan→nhát mới. Bảng ghi quan sát trực tiếp; số đo timing là kiểm kỹ thuật
+riêng, không thay thế kiểm hình. Không thấy clipping hoặc pixel bị nội suy.
+Giới hạn: đây là preview quảng bá trên nền đen; runtime Unity vẫn chưa kiểm chứng.
+Media và bằng chứng nằm trong `local/`, không đưa lên remote. Có thể dựng lại HTML;
+bảng ảnh/số đo là bằng chứng của lần kiểm này.
+
+| Góc | Frame | Duration 1× / 0,25× | Đối chiếu | Quan sát frame | Chuyển tiếp kế | Trạng thái | Bằng chứng |
+|---|---|---|---|---|---|---|---|
+| 0° | F4 | 80 / 320 ms | B nguồn F4, xoay tâm ô | Đầu vệt đặc ở trên phải, chấm nhỏ phía đuôi; còn khoảng đệm quanh ô. | F5 kéo dài từ cùng đầu vệt, góc giữ nguyên. | đạt | [0° F4](local/angle-0.png) |
+| 0° | F5 | 100 / 400 ms | B nguồn F5, xoay tâm ô | Vệt dài hơn dọc trục chéo lên phải, lõi liền và đuôi nhọn. | F0 dài thêm và xuất hiện hạt; nối F5→F0 không đổi hướng. | đạt | [0° F5](local/angle-0.png) |
+| 0° | F0 | 100 / 400 ms | B nguồn F0, xoay tâm ô | Vệt đạt chiều dài lớn, hạt tách cạnh đầu vệt; không chạm mép canvas. | F1 lõi đứt thành nhiều đoạn trên cùng trục. | đạt | [0° F0](local/angle-0.png) |
+| 0° | F1 | 100 / 400 ms | B nguồn F1, xoay tâm ô | Lõi đã tắt, còn đoạn ngắn và hạt rời dọc trục chéo lên phải. | F2 các đoạn co ngắn, không trượt tâm hoặc đổi hướng. | đạt | [0° F1](local/angle-0.png) |
+| 0° | F2 | 100 / 400 ms | B nguồn F2, xoay tâm ô | Chỉ còn mảnh nhỏ và chấm rời, cạnh sắc trên nền đen. | F3 giảm còn chấm thưa, giữ nguyên hướng. | đạt | [0° F2](local/angle-0.png) |
+| 0° | F3 | 100 / 400 ms | B nguồn F3, xoay tâm ô | Hai chấm thưa, không còn vệt đặc; vùng quanh hoàn toàn tối. | F4 nhát mới hiện lại ở góc mới; giữ tâm ô, không xoay vệt cũ. | đạt | [0° F3](local/angle-0.png) |
+| 45° | F4 | 80 / 320 ms | B nguồn F4, xoay tâm ô | Đầu vệt đặc ở bên phải, chấm nhỏ phía đuôi; còn khoảng đệm quanh ô. | F5 kéo dài từ cùng đầu vệt, góc giữ nguyên. | đạt | [45° F4](local/angle-45.png) |
+| 45° | F5 | 100 / 400 ms | B nguồn F5, xoay tâm ô | Vệt dài hơn dọc trục ngang, lõi liền và đuôi nhọn. | F0 dài thêm và xuất hiện hạt; nối F5→F0 không đổi hướng. | đạt | [45° F5](local/angle-45.png) |
+| 45° | F0 | 100 / 400 ms | B nguồn F0, xoay tâm ô | Vệt đạt chiều dài lớn, hạt tách cạnh đầu vệt; không chạm mép canvas. | F1 lõi đứt thành nhiều đoạn trên cùng trục. | đạt | [45° F0](local/angle-45.png) |
+| 45° | F1 | 100 / 400 ms | B nguồn F1, xoay tâm ô | Lõi đã tắt, còn đoạn ngắn và hạt rời dọc trục ngang. | F2 các đoạn co ngắn, không trượt tâm hoặc đổi hướng. | đạt | [45° F1](local/angle-45.png) |
+| 45° | F2 | 100 / 400 ms | B nguồn F2, xoay tâm ô | Chỉ còn mảnh nhỏ và chấm rời, cạnh sắc trên nền đen. | F3 giảm còn chấm thưa, giữ nguyên hướng. | đạt | [45° F2](local/angle-45.png) |
+| 45° | F3 | 100 / 400 ms | B nguồn F3, xoay tâm ô | Hai chấm thưa, không còn vệt đặc; vùng quanh hoàn toàn tối. | F4 nhát mới hiện lại ở góc mới; giữ tâm ô, không xoay vệt cũ. | đạt | [45° F3](local/angle-45.png) |
+| 90° | F4 | 80 / 320 ms | B nguồn F4, xoay tâm ô | Đầu vệt đặc ở dưới phải, chấm nhỏ phía đuôi; còn khoảng đệm quanh ô. | F5 kéo dài từ cùng đầu vệt, góc giữ nguyên. | đạt | [90° F4](local/angle-90.png) |
+| 90° | F5 | 100 / 400 ms | B nguồn F5, xoay tâm ô | Vệt dài hơn dọc trục chéo xuống phải, lõi liền và đuôi nhọn. | F0 dài thêm và xuất hiện hạt; nối F5→F0 không đổi hướng. | đạt | [90° F5](local/angle-90.png) |
+| 90° | F0 | 100 / 400 ms | B nguồn F0, xoay tâm ô | Vệt đạt chiều dài lớn, hạt tách cạnh đầu vệt; không chạm mép canvas. | F1 lõi đứt thành nhiều đoạn trên cùng trục. | đạt | [90° F0](local/angle-90.png) |
+| 90° | F1 | 100 / 400 ms | B nguồn F1, xoay tâm ô | Lõi đã tắt, còn đoạn ngắn và hạt rời dọc trục chéo xuống phải. | F2 các đoạn co ngắn, không trượt tâm hoặc đổi hướng. | đạt | [90° F1](local/angle-90.png) |
+| 90° | F2 | 100 / 400 ms | B nguồn F2, xoay tâm ô | Chỉ còn mảnh nhỏ và chấm rời, cạnh sắc trên nền đen. | F3 giảm còn chấm thưa, giữ nguyên hướng. | đạt | [90° F2](local/angle-90.png) |
+| 90° | F3 | 100 / 400 ms | B nguồn F3, xoay tâm ô | Hai chấm thưa, không còn vệt đặc; vùng quanh hoàn toàn tối. | F4 nhát mới hiện lại ở góc mới; giữ tâm ô, không xoay vệt cũ. | đạt | [90° F3](local/angle-90.png) |
+| 135° | F4 | 80 / 320 ms | B nguồn F4, xoay tâm ô | Đầu vệt đặc ở phía dưới, chấm nhỏ phía đuôi; còn khoảng đệm quanh ô. | F5 kéo dài từ cùng đầu vệt, góc giữ nguyên. | đạt | [135° F4](local/angle-135.png) |
+| 135° | F5 | 100 / 400 ms | B nguồn F5, xoay tâm ô | Vệt dài hơn dọc trục dọc, lõi liền và đuôi nhọn. | F0 dài thêm và xuất hiện hạt; nối F5→F0 không đổi hướng. | đạt | [135° F5](local/angle-135.png) |
+| 135° | F0 | 100 / 400 ms | B nguồn F0, xoay tâm ô | Vệt đạt chiều dài lớn, hạt tách cạnh đầu vệt; không chạm mép canvas. | F1 lõi đứt thành nhiều đoạn trên cùng trục. | đạt | [135° F0](local/angle-135.png) |
+| 135° | F1 | 100 / 400 ms | B nguồn F1, xoay tâm ô | Lõi đã tắt, còn đoạn ngắn và hạt rời dọc trục dọc. | F2 các đoạn co ngắn, không trượt tâm hoặc đổi hướng. | đạt | [135° F1](local/angle-135.png) |
+| 135° | F2 | 100 / 400 ms | B nguồn F2, xoay tâm ô | Chỉ còn mảnh nhỏ và chấm rời, cạnh sắc trên nền đen. | F3 giảm còn chấm thưa, giữ nguyên hướng. | đạt | [135° F2](local/angle-135.png) |
+| 135° | F3 | 100 / 400 ms | B nguồn F3, xoay tâm ô | Hai chấm thưa, không còn vệt đặc; vùng quanh hoàn toàn tối. | F4 nhát mới hiện lại ở góc mới; giữ tâm ô, không xoay vệt cũ. | đạt | [135° F3](local/angle-135.png) |
+| 180° | F4 | 80 / 320 ms | B nguồn F4, xoay tâm ô | Đầu vệt đặc ở dưới trái, chấm nhỏ phía đuôi; còn khoảng đệm quanh ô. | F5 kéo dài từ cùng đầu vệt, góc giữ nguyên. | đạt | [180° F4](local/angle-180.png) |
+| 180° | F5 | 100 / 400 ms | B nguồn F5, xoay tâm ô | Vệt dài hơn dọc trục chéo xuống trái, lõi liền và đuôi nhọn. | F0 dài thêm và xuất hiện hạt; nối F5→F0 không đổi hướng. | đạt | [180° F5](local/angle-180.png) |
+| 180° | F0 | 100 / 400 ms | B nguồn F0, xoay tâm ô | Vệt đạt chiều dài lớn, hạt tách cạnh đầu vệt; không chạm mép canvas. | F1 lõi đứt thành nhiều đoạn trên cùng trục. | đạt | [180° F0](local/angle-180.png) |
+| 180° | F1 | 100 / 400 ms | B nguồn F1, xoay tâm ô | Lõi đã tắt, còn đoạn ngắn và hạt rời dọc trục chéo xuống trái. | F2 các đoạn co ngắn, không trượt tâm hoặc đổi hướng. | đạt | [180° F1](local/angle-180.png) |
+| 180° | F2 | 100 / 400 ms | B nguồn F2, xoay tâm ô | Chỉ còn mảnh nhỏ và chấm rời, cạnh sắc trên nền đen. | F3 giảm còn chấm thưa, giữ nguyên hướng. | đạt | [180° F2](local/angle-180.png) |
+| 180° | F3 | 100 / 400 ms | B nguồn F3, xoay tâm ô | Hai chấm thưa, không còn vệt đặc; vùng quanh hoàn toàn tối. | F4 nhát mới hiện lại ở góc mới; giữ tâm ô, không xoay vệt cũ. | đạt | [180° F3](local/angle-180.png) |
+| 225° | F4 | 80 / 320 ms | B nguồn F4, xoay tâm ô | Đầu vệt đặc ở bên trái, chấm nhỏ phía đuôi; còn khoảng đệm quanh ô. | F5 kéo dài từ cùng đầu vệt, góc giữ nguyên. | đạt | [225° F4](local/angle-225.png) |
+| 225° | F5 | 100 / 400 ms | B nguồn F5, xoay tâm ô | Vệt dài hơn dọc trục ngang, lõi liền và đuôi nhọn. | F0 dài thêm và xuất hiện hạt; nối F5→F0 không đổi hướng. | đạt | [225° F5](local/angle-225.png) |
+| 225° | F0 | 100 / 400 ms | B nguồn F0, xoay tâm ô | Vệt đạt chiều dài lớn, hạt tách cạnh đầu vệt; không chạm mép canvas. | F1 lõi đứt thành nhiều đoạn trên cùng trục. | đạt | [225° F0](local/angle-225.png) |
+| 225° | F1 | 100 / 400 ms | B nguồn F1, xoay tâm ô | Lõi đã tắt, còn đoạn ngắn và hạt rời dọc trục ngang. | F2 các đoạn co ngắn, không trượt tâm hoặc đổi hướng. | đạt | [225° F1](local/angle-225.png) |
+| 225° | F2 | 100 / 400 ms | B nguồn F2, xoay tâm ô | Chỉ còn mảnh nhỏ và chấm rời, cạnh sắc trên nền đen. | F3 giảm còn chấm thưa, giữ nguyên hướng. | đạt | [225° F2](local/angle-225.png) |
+| 225° | F3 | 100 / 400 ms | B nguồn F3, xoay tâm ô | Hai chấm thưa, không còn vệt đặc; vùng quanh hoàn toàn tối. | F4 nhát mới hiện lại ở góc mới; giữ tâm ô, không xoay vệt cũ. | đạt | [225° F3](local/angle-225.png) |
+| 270° | F4 | 80 / 320 ms | B nguồn F4, xoay tâm ô | Đầu vệt đặc ở trên trái, chấm nhỏ phía đuôi; còn khoảng đệm quanh ô. | F5 kéo dài từ cùng đầu vệt, góc giữ nguyên. | đạt | [270° F4](local/angle-270.png) |
+| 270° | F5 | 100 / 400 ms | B nguồn F5, xoay tâm ô | Vệt dài hơn dọc trục chéo lên trái, lõi liền và đuôi nhọn. | F0 dài thêm và xuất hiện hạt; nối F5→F0 không đổi hướng. | đạt | [270° F5](local/angle-270.png) |
+| 270° | F0 | 100 / 400 ms | B nguồn F0, xoay tâm ô | Vệt đạt chiều dài lớn, hạt tách cạnh đầu vệt; không chạm mép canvas. | F1 lõi đứt thành nhiều đoạn trên cùng trục. | đạt | [270° F0](local/angle-270.png) |
+| 270° | F1 | 100 / 400 ms | B nguồn F1, xoay tâm ô | Lõi đã tắt, còn đoạn ngắn và hạt rời dọc trục chéo lên trái. | F2 các đoạn co ngắn, không trượt tâm hoặc đổi hướng. | đạt | [270° F1](local/angle-270.png) |
+| 270° | F2 | 100 / 400 ms | B nguồn F2, xoay tâm ô | Chỉ còn mảnh nhỏ và chấm rời, cạnh sắc trên nền đen. | F3 giảm còn chấm thưa, giữ nguyên hướng. | đạt | [270° F2](local/angle-270.png) |
+| 270° | F3 | 100 / 400 ms | B nguồn F3, xoay tâm ô | Hai chấm thưa, không còn vệt đặc; vùng quanh hoàn toàn tối. | F4 nhát mới hiện lại ở góc mới; giữ tâm ô, không xoay vệt cũ. | đạt | [270° F3](local/angle-270.png) |
+| 315° | F4 | 80 / 320 ms | B nguồn F4, xoay tâm ô | Đầu vệt đặc ở phía trên, chấm nhỏ phía đuôi; còn khoảng đệm quanh ô. | F5 kéo dài từ cùng đầu vệt, góc giữ nguyên. | đạt | [315° F4](local/angle-315.png) |
+| 315° | F5 | 100 / 400 ms | B nguồn F5, xoay tâm ô | Vệt dài hơn dọc trục dọc, lõi liền và đuôi nhọn. | F0 dài thêm và xuất hiện hạt; nối F5→F0 không đổi hướng. | đạt | [315° F5](local/angle-315.png) |
+| 315° | F0 | 100 / 400 ms | B nguồn F0, xoay tâm ô | Vệt đạt chiều dài lớn, hạt tách cạnh đầu vệt; không chạm mép canvas. | F1 lõi đứt thành nhiều đoạn trên cùng trục. | đạt | [315° F0](local/angle-315.png) |
+| 315° | F1 | 100 / 400 ms | B nguồn F1, xoay tâm ô | Lõi đã tắt, còn đoạn ngắn và hạt rời dọc trục dọc. | F2 các đoạn co ngắn, không trượt tâm hoặc đổi hướng. | đạt | [315° F1](local/angle-315.png) |
+| 315° | F2 | 100 / 400 ms | B nguồn F2, xoay tâm ô | Chỉ còn mảnh nhỏ và chấm rời, cạnh sắc trên nền đen. | F3 giảm còn chấm thưa, giữ nguyên hướng. | đạt | [315° F2](local/angle-315.png) |
+| 315° | F3 | 100 / 400 ms | B nguồn F3, xoay tâm ô | Hai chấm thưa, không còn vệt đặc; vùng quanh hoàn toàn tối. | F4 nhát mới hiện lại ở góc mới; giữ tâm ô, không xoay vệt cũ. | đạt | [315° F3](local/angle-315.png) |
+
 Ngày kiểm: 25/10/2026. Phạm vi: preview quảng bá tác giả, không mua gói asset,
 không đưa vào Unity, không dựng lại animation thiếu dữ liệu.
 
