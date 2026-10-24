@@ -3299,6 +3299,14 @@ visuals retain their own receipts; this task adds no sprite review certification
   is not claimed. No performance/full-suite/production build or itch upload.
   [Detailed receipts, failed pilots and artifact paths](../plans/parry-spark-arc.md).
 
+- Integrated c86d72f: serialize074942/input65e72571, strict builder and41/41PASS,
+  8.7472983s. ActorDepth/Player/VFX match source; all1121generated scene records,
+  GUID/local/listener refs and float32 values match reviewed QA after canonical ID
+  mapping. Later editor-only7694ba1 qualification reused after reading31/31actual
+  XML and matching11source/config/index hashes;281mapped frames/render data unchanged,
+  ParticleSystem effects excluded from receiver discovery. Shared Node parry-role
+  filter accepts old/new prefab names; all252captured frames/53live frames pass.
+
 
 ## Scene-aware depth synchronization (2026-10-24)
 

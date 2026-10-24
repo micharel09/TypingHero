@@ -1,7 +1,7 @@
 # Parry spark and shock arc - 2026-10-24
 
-Current status: implementation, scoped tests and visual/media verification PASS;
-Git integration and task-resource cleanup pending. Final receipts supersede pilots.
+Current status: implementation, integrated scoped tests and visual/media verification
+PASS; verified main push and clean task-worktree removal pending.
 
 ## Intent and acceptance
 - User selected clearer metal sparks plus a thin directional shock arc after the
@@ -88,7 +88,7 @@ Git integration and task-resource cleanup pending. Final receipts supersede pilo
 - Final serialize20261024T070951, immutable input
   6331af8e49955345088499ef92351e3e3b92a6171836a265ba6eab413c4cc4ed:
   strict repeated builder and41/41ImpactVfxTests PASS,0failed/0skipped,8.7500326s.
-  Current build inputs exactly match this qualified digest. All final new rendered
+  Before main integration, build inputs exactly matched this digest. All new rendered
   assets, physics and material importer match generated output after whitespace
   normalization; no authored settings changed after qualification.
 - Left native11/11PASS,0exceptions/provider writes, same Edge156/Intel UHD/D3D11/
@@ -117,8 +117,43 @@ Git integration and task-resource cleanup pending. Final receipts supersede pilo
   FPS metadata without resampling and verified H264level4.2 plus508frame mapping.
   No product code changed for export. No broad performance/full suite, normal
   production build or itch.io upload; no new public API or per-frame handler.
-- Latest origin/main213e67d adds only docs/plans/startup-render-profile.md;
-  implementation remains qualified by the exact final build-input digest.
+- Origin/main first advanced to213e67d with startup documentation, then to c86d72f
+  with the independently verified scene-aware depth editor fix5a663cd. Merged into
+  task at d54c05f after code4309f64 was pushed to the task branch; retained both
+  sections of the verification-document conflict. No shaders/runtime/assets were
+  changed upstream. Re-running strict builder/41tests and comparing generated
+  ActorDepth/Player/scene/VFX before final main push.
+- Shared historical parry driver filtered only the old prefab name ParryClash;
+  updated its private role predicate to accept ParryImpact too, retaining the same
+  particle limit and rejection of other effects. Actual captured151right/101left
+  frames (30/23live frames) pass; old ParryClash accepted and Normal rejected.
+  Node syntax/VM checks PASS. This Node-only consumer correction is independent of
+  Unity rendering/tests and does not require another player build or frame review.
+
+## Integrated qualification
+- Merged c86d72f then7694ba1; final code line includes4309f64 and both depth-editor
+  fixes. Actual integration run20261024T074942-serialize on
+  65e72571444019f0768dd8e9188d7fe2f82839361ea6d9198976bf16500f23f8:
+  strict two-pass builder and41/41focused tests PASS,0failed/skipped,8.7472983s.
+  ActorDepth/Player/VFX payloads match source, including untouched MetalClash.
+- Generated scene IDs differ between independent builder processes. Canonical
+  hierarchy/component identity comparison covers all1121records, every local/GUID
+  reference/listener and float32 value:0added/0removed/0changed versus the reviewed
+  normal QA scene. This is not acceptance based on selected scene fields.
+- The later receiver-scope editor fix7694ba1 has verified31/31Editor tests and a
+  real two-pass builder, preserving281mapped frames/0missing, library/world/material
+  output and99lighting PNGs. Read its actual XML and independently matched all11
+  listed source/config/index hashes to this checkout. ParticleSystem effects are
+  outside SpriteRenderer receiver collection; our contact library/actors remain
+  unchanged. Reuse the integrated41tests and reviewed images for unchanged runtime
+  and render data; no extra WebGL/full profile is necessary for this editor-only fix.
+- Private Node role-filter correction verified separately over all252captured
+  frames, including53live-effect frames. It is the only tool-input delta after the
+  integration snapshot; Unity source/assets tested by that run are unchanged apart
+  from the independently qualified upstream editor fix above.
+- Detailed machine receipts: integration-equivalence.json, scene-equivalence.json,
+  latest-upstream-equivalence.json, upstream-editor-tests.xml and qa-consumer.json
+  under the retained task artifact root. Final Git/cleanup receipt is delivery.json.
 
 ## Retained review resources
 - E:/CodexTemp/TypingHero/parry-spark-arc contains final combined/per-direction
@@ -126,7 +161,8 @@ Git integration and task-resource cleanup pending. Final receipts supersede pilo
   decoded final images, driver/author/export scripts and receipts. Keep until user
   review/reproduction is no longer needed; then these task-owned artifacts may be
   removed. Final source/input archives remain in the named isolated server results.
-- Temporary remote media-export directory, local transfer tarballs and closed Edge
-  profiles will be removed after hash verification; original checkout/resources
-  remain untouched. Task worktree/local branch will be removed after remote proof;
+- Temporary remote media-export directory, duplicate local transfer tarballs and
+  four closed Edge profiles removed after verification of all five MP4 hashes;
+  no owned Edge process remained. Original checkout/resources remain untouched.
+  Task worktree/local branch will be removed after remote proof;
   remote task branch is retained under repository policy until explicitly cleaned.

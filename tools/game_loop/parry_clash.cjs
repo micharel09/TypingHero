@@ -1,4 +1,5 @@
 const path=require('node:path');
+const parryRole=p=>p.role==='ParryClash'||p.role==='ParryImpact';
 module.exports=async function({session,start,state,until,check,report},browser){
  report.clashes=[];
  for(const [width,height] of [[1280,720],[640,360]]){
@@ -20,11 +21,11 @@ module.exports=async function({session,start,state,until,check,report},browser){
    const end=performance.now()+65000;
    while(performance.now()<end){
     s=await state(page);
-    check(s.sparks.every(p=>p.role==='ParryClash'),'only successful parry owns sparks');
+    check(s.sparks.every(parryRole),'only successful parry owns sparks');
     if(row.samples.at(-1)?.frame!==s.frame) row.samples.push({frame:s.frame,frameMs:s.frameMs,allocatedBytes:s.allocatedBytes,
      objects:s.objects,slayer:s.slayer,parries:s.parries,sparks:s.sparks});
     if(s.sparks.some(p=>p.particles>0)){
-     const p=s.sparks.find(p=>p.particles>0); check(p.particles<=66,'bounded five-system count');
+     const p=s.sparks.find(p=>p.particles>0); check(p.particles<=66,'bounded parry particle count');
      check(p.meanDepthSpeed>0,'clash carries depth velocity');
      if(!captured){
       captured=true; row.first=p;
@@ -33,7 +34,7 @@ module.exports=async function({session,start,state,until,check,report},browser){
     }
     if(s.slayer&&captured){
      await page.keyboard.type(s.current,{delay:4}); await page.waitForTimeout(160);
-     s=await state(page);check(s.sparks.every(p=>p.role==='ParryClash'),'Slayer has no hit burst');
+     s=await state(page);check(s.sparks.every(parryRole),'Slayer has no hit burst');
      await page.screenshot({path:path.join(report.outputDirectory,`lighting-${width}-slayer.png`)}); break;
     }
     if(s.hp<40) throw Error('Player took damage before art sequence completed');
