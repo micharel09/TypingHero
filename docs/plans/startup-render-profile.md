@@ -1,6 +1,226 @@
 # WebGL startup render diagnosis — 2026-10-24
 
-## Follow-up compiler/splash experiment blocked (2026-10-25)
+## Windows-local follow-up — no optimization retained (2026-10-25)
+
+User authorized local Windows builds after fly-server became unreachable.
+Frozen baseline source: `18e03a211c04106c54d695b7476ef73126d8b72b`.
+Worktree remains `micharel09/webgl-startup-opt`; original dirty checkout preserved.
+
+- Installed Editor: `E:/Unity/Hub/Editor/2022.3.25f1/Editor/Unity.exe`, with WebGL
+  Support and Emscripten present. Independent snapshot/Library, players, logs and
+  measurement scripts: `C:/Users/ADMIN/AppData/Local/Temp/TypingHero-webgl-startup-opt/`.
+  Initial Git archive applies Windows CRLF conversion; see the font/source-check
+  corrections below. Final clean C# inputs are restored using git cat-file bytes.
+- Editor probe completed successfully: Unity2022.3.25f1, `HasPro=False`, splash
+  enabled, managed stripping **Low**, actual WebGL optimization **BuildTimes**.
+  Splash entitlement is not confirmed; leave splash enabled and skip disabling it.
+  Installed WebGL extension exposes `WasmCodeOptimization` values RuntimeSpeed,
+  RuntimeSpeedLTO, DiskSize, DiskSizeLTO, BuildTimes, via
+  `UnityEditor.WebGL.UserBuildSettings.codeOptimization`. Its underlying platform
+  setting key is `CodeOptimization` (confirmed from the installed assembly).
+- Diagnostic baseline A uses BuildTimes/Low, production Brotli/native
+  decompression. Temporary startup markers cover before splash, first scene,
+  MainMenu.Start, world load, camera/RT and presentation/menu input. The HTTPS
+  measurement harness records renderer/vendor after every navigation. No marker
+  or experiment helper has been added to tracked runtime/build source.
+- Other local Unity jobs were preserved; formal timing waited until they finished.
+  Compiler/stripping decisions and scoped clean-player evidence follow below.
+  Full plan acceptance is not achieved; see the baseline visual gap. Do not reuse historical Linux build
+  measurements as the new Windows baseline.
+- First diagnostic A stopped at the existing protected-font guard, before WASM
+  compilation. Its input CobblestoneUI64 SHA256 was
+  `c73dd92cb0391055b670f56eef4af4bf20c9352c0cf42c21965264af2625077f`
+  (the exact CRLF-converted Git blob hash); the builder returned it to canonical Git
+  `937cdeb37c66fd87164ef7f8f6482ef27cdcd758fde48160badeb59f5dd2f328`.
+  The current bytes equal Git exactly. Retain `failed-preprocess-A.log` and its
+  receipt; no guard was weakened. Retry uses the stabilized private snapshot.
+  Later byte checks establish archive newline conversion as the font cause,
+  correcting the initial attribution to Editor import.
+  A transient ILPP connection retry then recovered without killing processes or
+  changing the toolchain; the retry reached player/shader compilation.
+
+### Current local build receipts
+
+- Diagnostic A retry **PASS**, input SHA256
+  `640a5c071e8e2dfea545e77a442d0412ae529c08a77e979a4e214cc779d60e02`;
+  normal-player JS bridge scan passes. WASM Brotli 6,251,301 bytes, data Brotli
+  8,582,296 bytes. Build duration 1229.5s is not startup time.
+- Harness pilot only (`pilot-A.json`, excluded from formal A/B): native Edge156,
+  Intel UHD/ANGLE D3D11,1280x720, fresh menu4736.90ms/reload3051.60ms. All startup
+  boundaries arrived, no page/console errors/provider writes. Fresh
+  runtime-promise1362.10ms to MainMenu.Start3433.70ms is2071.60ms. Splash.isFinished
+  remains false at the recorded before-splash/scene/world boundaries; this is
+  insufficient to attribute the entire gap to splash or claim it can be removed.
+- Diagnostic B DiskSize/Low **PASS**, settings restored to BuildTimes/splash on/Low.
+  WASM Brotli6,028,624bytes, data Brotli8,578,809bytes. Smaller payload alone is
+  not performance acceptance.
+- Diagnostic C DiskSizeLTO/Low **PASS**, WASM Brotli5,676,234bytes and data
+  Brotli8,579,727bytes. Its longer build cost does not count as startup savings.
+
+Retain the task directory for review/reproduction, including players, source,
+private Library, drivers and receipts. Remove it only after review or superseding
+measurements make it unnecessary. Reuse the receipts before repeating builds;
+do not delete other jobs' Library/caches/players/processes. No itch.io publication.
+
+### Compiler comparison — reject DiskSize and DiskSizeLTO
+
+Native Edge156,1280x720,D3D11; every one of the **60 formal navigations** reports
+the same NVIDIA GTX1650Ti adapter/vendor. The earlier Intel-UHD pilot was a
+harness check before formal sampling, not part of A/B. No formal sample was
+excluded. Each build/condition has five fresh profiles and five reloads:
+ABCABCABC followed by ABCCBA (extracting any pair gives an ABBA confirmation).
+The confirmation was added for observed frame-time variation/inconsistent metric
+direction. No screenshots/readbacks or task build/helper workloads during timing;
+HTTP cache disabled by fixture routing, service workers blocked. All four raw
+reports complete without page/console errors or provider writes.
+
+| Median metric | A BuildTimes | B DiskSize | C DiskSizeLTO |
+| --- | ---: | ---: | ---: |
+| Local fresh menu, ms | 4282.70 | 4304.90 | 4400.10 |
+| Local reload menu, ms | 2954.80 | 2975.60 | 2961.70 |
+| Network fresh menu, ms | 10224.40 | 10226.40 | 10177.20 |
+| Network reload menu, ms | 9411.70 | 9397.50 | 9303.10 |
+| Local fresh longest task, ms | 944 | 929 | 935 |
+| Local reload longest task, ms | 249 | 295 | 283 |
+| Network fresh longest task, ms | 919 | 922 | 923 |
+| Network reload longest task, ms | 427 | 511 | 543 |
+| Local fresh pooled menu p95, ms | 20.6 | 21.8 | 23.3 |
+| Local reload pooled menu p95, ms | 21.3 | 21.0 | 21.9 |
+| Network fresh pooled menu p95, ms | 21.4 | 20.8 | 20.8 |
+| Network reload pooled menu p95, ms | 21.4 | 21.0 | 20.4 |
+| Encoded resource bytes/navigation | 14914677 | 14688070 | 14336803 |
+
+Neither candidate meets 5% **and**100ms startup improvement in either condition.
+B local fresh is0.52%slower; C is2.74%slower and saves only47.2ms/0.46%on network
+fresh. Reload longest-task medians also regress beyond10%for both; C local fresh
+pooled menu p95 regresses13.1%. Reject both configurations. Do not spend additional
+gameplay/latency acceptance runs on candidates already failing necessary gates.
+Keep the existing BuildTimes configuration as the reference for stripping.
+
+Raw evidence: `local-ABC.json`, `network-ABC.json`, `local-abba.json`,
+`network-abba.json`, `measurement-receipt.json`, `abba-receipt.json`, and
+`compiler-analysis.json` under the task directory. All three builds have separate input
+and immutable output hashes in `A-receipt.json`, `B-receipt.json` and
+`C-receipt.json`; temporary phase markers are
+the same in all three players. Streaming durations include transfer and must not
+be added to overlapping phase medians to reconstruct total startup.
+
+### Resource/reflection audit and Medium trial — reject Medium
+
+`asset-assembly-audit.json` ranks4337packed entries/2478source paths from A's
+BuildReport and48stripped assembly files from C's equivalent Low managed inputs.
+Asset sizes are Unity serialized packedSize (duplicates summed by source path),
+not Brotli wire contributions; DLL size is not its compiled WASM contribution.
+All six Endless Resources assets are present: Swordsman,DoubleStrike,Heavy,
+Berserker,Guard,Captain. No safely removable packed asset has been proved unused
+by scenes,prefabs,Resources or dynamic loading; no assets/GUIDs are removed.
+
+Largest serialized inputs include dungeon palette/emission textures, required
+Unity splash logo, menu/game music, actor death sheet/depth/normal maps and the
+UI font. Quality/source assets remain unchanged. Low stripped assemblies retain
+serialized `SlayerAfterimagePool.comboMax` and URP14
+`UniversalAdditionalLightData.m_AdditionalLightsShadowResolutionTier`.
+World binding uses serialized owner fields; Endless uses the existing generic
+Resources.Load path; afterimages find Sprite-Unlit-Default by name. Recheck these
+paths on Medium before accepting it; do not preserve whole assemblies.
+
+D is a separate **BuildTimes + Medium** diagnostic trial. All prior modes remain
+Low. D builds successfully, excludes the JS QA bridge, and restores
+BuildTimes/splash on/Low. Its stripped assemblies still contain both serialized
+reflection fields above (`medium-members.json`); no link.xml is needed for those
+members. No production configuration change has been applied.
+
+Separate ADADAD comparisons, same NVIDIA adapter/browser/viewport/cache/fixture
+policy: three fresh profiles and three reloads per build/condition,24navigations,
+no screenshots/readbacks, zero page/console errors/provider writes. All samples
+retained. No additional ABBA is necessary: neither startup condition is near the
+5% acceptance boundary and the observed variation cannot justify retention.
+
+| Median metric | A BuildTimes/Low | D BuildTimes/Medium |
+| --- | ---: | ---: |
+| Local fresh menu, ms | 4219.00 | 4190.60 |
+| Local reload menu, ms | 2928.70 | 2898.10 |
+| Network fresh menu, ms | 10246.80 | 10021.90 |
+| Network reload menu, ms | 9418.00 | 9165.80 |
+| Local fresh/reload longest task, ms | 912 / 249 | 913 / 239 |
+| Network fresh/reload longest task, ms | 915 / 431 | 920 / 441 |
+| Local fresh/reload pooled menu p95, ms | 21.0 / 19.9 | 21.3 / 21.4 |
+| Network fresh/reload pooled menu p95, ms | 20.4 / 21.4 | 19.7 / 20.3 |
+| Encoded resource bytes/navigation | 14914677 | 14405980 |
+
+D saves only28.4ms/0.67%local fresh and224.9ms/2.19%network fresh; both fail the
+required5%startup improvement. Reject Medium and retain Low. Its smaller WASM
+(5,863,532Brotli bytes) and data(8,461,549bytes) do not override the threshold.
+Full candidate gameplay/Slayer/Play-latency acceptance is not claimed for this
+rejected trial. Evidence: `D-receipt.json`, `local-medium.json`, `network-medium.json`,
+`medium-measurement-receipt.json`, `medium-analysis.json`.
+
+### Clean production and outcome
+
+No candidate meets the startup gate. Keep existing production behavior/settings;
+additional accepted startup improvement is **0%**, so the requested20%target is
+not achieved. Do not pin a rejected compiler/stripping candidate or remove assets
+to disguise the result. No texture, lighting, shadow, reflection, effect, heap,
+gameplay API, input, save data or Play-readiness change is retained.
+
+The first clean launch was stopped after an independent byte check reported
+CRLF-only differences. This was a check/orchestration issue, not a completed
+production player or performance sample. Preserve `aborted-clean-source-check*`.
+All246affected C# files were checked for newline-only differences and restored
+to exact frozen Git bytes using git cat-file; all runtime C# and the original
+GameLoopBuild match Git. Temporary C#/jslib diagnostic files and Editor helpers
+are removed. `clean-source-check.json` and `line-ending-normalization.json`
+record this correction. Replacement clean production **PASS**, input SHA256
+`ce98020bed7f2fbe5f5d065132a4a9f867ff62b732fea4d27b454a476baa6994`.
+All33output hashes match the immutable receipt. Decoded HTML/JS/WASM/data exclude
+UTF8/UTF16 QA and startup markers (`clean-payload-scan.json`). Manifest/package
+lock match frozen Git; all C# and the original builder match exact Git bytes.
+
+Separate native real-input A/clean runs execute preparation, guide, Normal,
+Pause/Resume and menu return; each enters Slayer through four real Space parries
+and shows120points/black silhouettes. A further clean run waits for Slayer expiry
+and directly shows colored Normal restored. Five flow reports have no page/
+console errors, exceptions or provider reads/writes; no new Build asset requests
+occur after gameplay entry. Matched GTX1650Ti/D3D11 Normal10s p95 is26.8ms(A) and
+26.6ms(clean), with534/531frames. This is a scoped sample, not a general FPS claim.
+The first-complete-menu proxy was captured/read back in a separate visual-only
+run and directly inspected: full dungeon, title and all four menu actions.
+Those captures are excluded from timing, and are not animation review.
+
+**Baseline visual gap:** A and clean both show black Slayer silhouettes over the
+visible dungeon instead of the requested red field. Do not mark that requirement
+passed or call it a new optimization regression. No rendering fix is made in
+this build/configuration scope. Numerical Play/Start Battle latency acceptance
+for rejected candidates is not claimed; no candidate is retained.
+
+### Owner-ID diagnostic — world/camera/RT reuse verified
+
+Generic A markers show one world load but three camera/RT creations. Counts
+without owner identity are insufficient, so a separate P diagnostic was built
+after the clean player was frozen. Read-only markers record object IDs, without
+changing gameplay or entering the final player. `owner-identity.json` establishes
+the same world12504,camera11136,arena12542,RT-450 across initial menu, guide,
+ordinary gameplay and returned menu. The world camera creates its RT once.
+The other creations are two separate SampleScene camera/RT owners15698/-712 and
+21434/-930, disabled when their respective guide/gameplay scenes unload. World,
+world camera and world RT reuse therefore **PASS** on the frozen baseline.
+
+P has its own receipt/source archive and native flow. Identity sources were
+archived under `identity-inputs/` and removed from the private build snapshot;
+all C# again matches frozen Git. `identity-restore-check.json` verifies all33clean
+player hashes remain unchanged; strict decoded exclusion scanning passes again.
+No diagnostic source, compiler/stripping setting or asset change is committed.
+
+Evidence and clean player remain under
+`C:/Users/ADMIN/AppData/Local/Temp/TypingHero-webgl-startup-opt/` (`clean/` is the
+normal player, `P/` is diagnostic and must not ship). Keep the private source/
+Library for reproducibility until review or replacement; all task browser/build/
+HTTP helpers have ended. Remove the clean task worktree/local branch only after
+verified remote integration; preserve the remote task branch and evidence.
+All results refer to frozen18e03a2; later unrelated main changes are not claimed
+to have been benchmarked here. No itch.io release/CDN timing claim.
+
+## Historical fly-server blocker — superseded by Windows-local work (2026-10-25)
 
 - Fresh `origin/main` source: `903344c39a13448da41e0b18af5a777de880d186`.
   Independent Orca branch `micharel09/webgl-startup-opt`, worktree

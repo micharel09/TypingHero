@@ -1,3 +1,42 @@
+## Windows-local startup follow-up (2026-10-25)
+
+Frozen18e03a2, local Unity2022.3.25f1/WebGL Support, Edge156/GTX1650Ti/D3D11,
+1280x720:84formal navigations, per-navigation adapter matching, HTTPS local and
+20Mbps/50ms, fresh/reload separate, no timing screenshots/readbacks, all samples
+retained and no page/console errors/provider writes. Compiler ABCABCABC+ABCCBA
+rejects DiskSize/DiskSizeLTO: neither reaches5%and100ms improvement. Separate
+ADADAD rejects Medium: local fresh4219.0 ->4190.6ms(-0.67%), network10246.8 ->
+10021.9ms(-2.19%). Keep original production configuration; **no additional
+optimization accepted;20%target not achieved**. Editor reports BuildTimes/Low,
+HasPro=False/splash on; no splash disable trial or license/toolchain change.
+
+4337packed entries/48assemblies audited; six Endless Resources assets present;
+serialized Slayer comboMax and URP shadow-resolution field survive Medium.
+No resource removal or broad link.xml preservation. Clean production input
+ce98020bed7f2fbe5f5d065132a4a9f867ff62b732fea4d27b454a476baa6994 PASS;
+33immutable file hashes verified and decoded HTML/JS/WASM/data exclude UTF8/UTF16
+QA/startup markers. Runtime C# and builder match frozen Git exactly after
+CRLF-only normalization; manifest/package lock match. Original dirty checkout
+preserved. No runtime/build configuration changes retained.
+
+Real-input baseline/clean Normal and Slayer flows execute without errors or
+provider writes: preparation, guide, Normal, Pause/Resume, four Space parries
+(120points), menu return; separate clean Slayer expiry returns colored Normal.
+Matched10s Normal p9526.8 ->26.6ms, not a general FPS claim. No new Build asset
+requests after entering gameplay. First-complete-menu proxy independently
+captured and inspected: full dungeon/title/four actions.
+
+Acceptance gaps are explicit: both frozen baseline and clean show black Slayer
+silhouettes over the dungeon instead of the requested red field. This is not
+claimed as a visual pass or newly introduced regression. World loads once;
+generic camera/RT markers appear three times. Separate read-only owner-ID P
+diagnostic confirms one world camera/RT creation and the same world/camera/arena/
+RT across menu, guide, gameplay and menu return; two extra RTs belong to separate
+SampleScene cameras. Identity sources are archived/removed and all33clean hashes
+remain unchanged. No rendering fix is included in this performance scope, and
+the requested red-field visual acceptance is not claimed.
+[Full results, attempts and retained evidence](../plans/startup-render-profile.md).
+
 ## Slayer hit slash replacement (2026-10-24)
 
 Unity2022.3.25f1/fly-server20261024T113433-webgl, input
