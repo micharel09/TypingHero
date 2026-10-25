@@ -173,3 +173,13 @@ probe auto-merge keeps both sets of read-only diagnostics. Native58 checks and t
 recapture of the newer Slayer visuals. The intro implementation is unchanged.
 Targeted merged-source intro/music/session/tutorial tests are recorded separately
 in merged-consumers.xml; final outcome is appended below before integration.
+
+Final main integration also retained5085b32 and its authored combo recovery/lighting
+asset updates. Merged-source run merged-consumers.xml passed10/11: the focus test
+assumed Resume's camera tween completed in300ms. The fixture now waits (max3s)
+for the actual unpaused/progressing state, preserving both assertions. A subsequent
+-nographics run stalled entering Play Mode and was terminated without result XML;
+it is not a pass. Final D3D11 merged-d3d.xml:11/11 PASS, including all four intro,
+two music, one shared-session and four tutorial cases. No runtime change was needed.
+The other six scoped cases retain their earlier recorded evidence, not a claim of
+17 cases in the final invocation. Source/doc links and git diff --check pass.

@@ -5,6 +5,8 @@ Continue/retry use the short sequence. Intro locks combat/statistics/input witho
 freezing idle or music; Pause/focus holds the presentation and Menu cancels it.
 Unity2022.3.25f1:17 distinct scoped PlayMode cases PASS across targeted runs,
 including 5/5 scene/tutorial consumers after the audio-host correction.
+After integrating origin/main5085b32,11/11 intro/music/session/tutorial cases
+PASS on D3D11 (merged-d3d.xml).
 Pre-merge QA WebGL strict repeated build PASS;252 source/config inputs matched
 the captured revision. Later origin/main Slayer changes are retained; the clip
 and native checks below describe that pre-merge player.
