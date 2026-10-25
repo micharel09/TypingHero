@@ -310,7 +310,7 @@ public class PlayerSlayerMode : MonoBehaviour
         StrikeDirection = direction.normalized;
 
         if (strikeTrail) strikeTrail.BeginSlayerSwing();
-        attackEvents.OnSlayerAttackStart();
+        attackEvents.OnAttackStart();
         attackEvents.OnAttackEnd();
         _didFirstSwing = true;
     }

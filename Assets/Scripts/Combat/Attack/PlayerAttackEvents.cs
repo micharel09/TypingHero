@@ -37,7 +37,6 @@ public class PlayerAttackEvents : MonoBehaviour
     }
 
     public void OnAttackStart() => StartAttack(null, false);
-    internal void OnSlayerAttackStart() => StartAttack(null, true);
 
     public void OnAttackStartCel(Sprite cel) => StartAttack(cel, true);
     public void OnAttackContact(Sprite cel) { if (hitbox) hitbox.SetContactCel(cel); }

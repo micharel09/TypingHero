@@ -2,7 +2,7 @@
 
 Supersedes the old580ms/eight-random-angle Slayer presentation in the historical
 VFX row below. `PlayerSlayerMode` applies one of three contact-first120ms clips,
-then opens/immediately confirms the same deduplicated hitbox. Direction follows
+then opens the same deduplicated hitbox with its original collision timing. Direction follows
 that chosen swing/facing. `SlayerHitVfx` uses four original B cels,120/160ms,
 one primary plus one30ms residual per recipient. `SlashVolume` expires held player
 Slayer trails; enemy/normal cel-driven geometry remains. `SlayerSilhouetteGroup`

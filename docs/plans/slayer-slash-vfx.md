@@ -35,7 +35,17 @@ Worktree:`C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-hit-feel`, branch
 `micharel09/slayer-hit-feel`, base7dc84f9. Original dirty checkout remains intact.
 Build/capture cache:`E:/CodexTemp/TypingHero/slayer-hit-feel`.
 
-### Build and immediate clip delivery
+### Collision-order compatibility before integration
+
+Retain the original `OnAttackStart()`/physics confirmation timing for Slayer.
+Do not confirm damage reentrantly inside `TypingManager.OnCorrectChar`: lethal
+Slayer exit unmutes word completion while that callback is still processing its
+last letter. Retaining the old window avoids changing the final-character event
+order. Contact-first poses, B, pulse, tint and overlap budgets are unchanged.
+The first delivered clip remains a preview; rebuild/capture the final input after
+this small compatibility correction. User test waiver remains in force.
+
+### First build and immediate clip delivery
 
 Pinned Unity2022.3.25f1 WebGL build completed with exit0; player fingerprint
 `b1ba91ff3a8e7223`. The normal build's existing preprocess/repeated serialization ran;

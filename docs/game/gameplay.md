@@ -607,7 +607,7 @@ Full surface art, B/C and parent integration remain separate.
   remains six-frame580ms; it is no longer the game schedule.
 - Slayer S1 starts combo_1_0 then1/2; S2 starts combo_2_3 then4/5; S3 starts
   combo_3_3 then4. All end120ms. Apply the contact pose before the existing
-  deduplicated damage window and immediately confirm overlapping colliders.
+  deduplicated damage window; collision/damage ordering remains unchanged.
   Local impact axes(1,-1),(1,0),(1,1) follow the selected swing and source facing;
   no independent eight-angle random selection. Snapshot center/direction/tint before
   damage; B retains its fixed world anchor and captured RGB through lethal exit.
