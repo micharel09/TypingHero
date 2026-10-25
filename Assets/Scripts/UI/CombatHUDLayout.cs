@@ -14,6 +14,8 @@ public sealed class CombatHUDLayout : MonoBehaviour
     [SerializeField] TMP_Text scoreText, multiplierText;
     [SerializeField] RectTransform comboRoot, comboDecay;
 
+    internal RectTransform IntroTypingTray => typingTray;
+
     public Vector3 Head(BoxCollider2D body) => new Vector3(body.bounds.center.x,
         body.bounds.max.y - bodyVerticalInset.x, body.bounds.center.z);
     public Vector3 Foot(BoxCollider2D body) => new Vector3(body.bounds.center.x,

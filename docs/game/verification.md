@@ -1,3 +1,22 @@
+## Restrained duel intro polish (2026-10-25)
+
+Menu/cover ease upward together;18small staggered dust puffs replace overlapping
+large quads;120ms body-landmark reveal shares the actor color/depth/shadow clip.
+Opponent heading moves6reference pixels; HUD precedes word tray by80ms. Intro
+canvas39 stays below Pause40. Same full/short timing and input/combat contracts.
+Unity2022.3.25f1:10distinct scoped cases PASS across recorded targeted runs;
+latest reveal/lock2/2 and final Pause-layer/focus1/1 pass. QA WebGL strict repeated
+builder PASS;253C#/shader/package/version inputs match the task source.
+Final native Edge156/Intel UHD/D3D11/1280x720 player46e41cff3648399e:61assertions
+PASS, zero exceptions/provider reads/writes. Actual keys/mouse cover Play, held
+Enter/letters/Space, Continue/retry, partial-reveal Pause/Resume, focus and Menu.
+All572/572encoded frame visits and567/567consecutive pair visits directly reviewed
+on31sequential sheets, original25fps PTS/held frames preserved. Covers full Play,
+short Continue, retry/pause, partial reveal cancellation and actual focus loss.
+Shared world10752/camera11162/RT-458 remain stable. No FPS/performance, speaker
+listening, full-suite or itch.io claim. Earlier failed builds/drivers and visually
+rejected pilots are retained separately in [the checkpoint](../plans/duel-intro.md).
+
 ## REPLACED-inspired dungeon lighting (2026-10-25)
 
 Warm key16 plus constant shadowless cool Spot64/range16, and Floor1..8 palette

@@ -19,6 +19,7 @@ Shader "CLACKBLADE/Dungeon Sprite"
   [PerRendererData] _SlayerTintWeight("Slayer silhouette", Range(0,1)) = 0
   [PerRendererData] _SlayerHitFlashAmount("Slayer hit flash", Range(0,1)) = 0
   [PerRendererData] _SlayerHitFlashColor("Slayer hit color", Color) = (1,0.953,0.812,1)
+  [PerRendererData] _IntroReveal("Intro reveal enable / world height", Vector) = (0,0,0,0)
   _FlashAmount("Flash", Range(0,1)) = 0
   _FlashColor("Flash color", Color) = (1,1,1,1)
  }
@@ -37,6 +38,7 @@ Shader "CLACKBLADE/Dungeon Sprite"
   half _Cutoff, _FlashAmount, _NormalStrength, _Metallic, _Roughness;
   float _SelfShadowStrength, _DepthScale, _SelfShadowBias;
   CBUFFER_END
+  float4 _IntroReveal;
   float _SlayerTintWeight;
   float _SlayerHitFlashAmount;
   half4 _SlayerHitFlashColor;
@@ -49,7 +51,7 @@ Shader "CLACKBLADE/Dungeon Sprite"
    o.positionWS = TransformObjectToWorld(v.positionOS.xyz); o.positionCS = TransformWorldToHClip(o.positionWS);
    o.uv=v.uv; o.color=v.color*_Color*_RendererColor; return o;
   }
-  half4 Sample(Varyings i) { half4 c=SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv)*i.color; clip(c.a-_Cutoff); return c; }
+  half4 Sample(Varyings i) { half4 c=SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv)*i.color; clip(c.a-_Cutoff); if (_IntroReveal.x > .5) clip(_IntroReveal.y-i.positionWS.y); return c; }
   ENDHLSL
   Pass {
    Name "ForwardLit" Tags { "LightMode"="DungeonActor" }

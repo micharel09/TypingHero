@@ -183,3 +183,105 @@ it is not a pass. Final D3D11 merged-d3d.xml:11/11 PASS, including all four intr
 two music, one shared-session and four tutorial cases. No runtime change was needed.
 The other six scoped cases retain their earlier recorded evidence, not a claim of
 17 cases in the final invocation. Source/doc links and git diff --check pass.
+
+## Restrained motion polish ? accepted follow-up (2026-10-25)
+
+User feedback: correct sequence feels rough/basic. Chosen direction: smooth and
+restrained, same duration, no new audio, camera movement or actor sprite/clip edits.
+Implementation: smoothstep cover/menu/reveal; private three-cluster foot dust;
+120ms pixel-aligned world-height reveal1.04-1.16s/full,.34-.46s/short; default-off
+per-renderer shader clip shared by forward/depth/shadow. Unclipped child shadow
+waits until body completion. Existing property blocks retain lighting/hit values.
+Name fades and moves6reference pixels in/out; existing HUD groups fade before
+word tray by80ms. Same lock/handoff and pause/navigation lifecycle.
+
+Acceptance checklist: full Play and short Continue/retry; partial reveal vs shadow;
+no early HUD/word/cue; title pixel stability; pause/resume at spawn; focus loss;
+Menu cancellation/restored property blocks; normal combat after handoff; tutorial
+reading unchanged. Reuse existing Shogun research scope, without a new match claim.
+New output evidence is distinct from the earlier accepted capture above.
+
+fly-server doctor with ConnectTimeout8 failed SSH timeout; use installed pinned
+Unity2022.3.25f1 locally, isolated task source/build under
+C:/Users/ADMIN/AppData/Local/Temp/TypingHero-duel-intro-polish-20261025/.
+Do not count unexecuted or failed checks as passes. Verification pending.
+
+### Follow-up implementation and pilot findings
+
+Initial Unity intro-tests.xml:3/8 passed; five failures exposed MaterialPropertyBlock
+construction in a MonoBehaviour field initializer. Moved allocation to canvas
+initialization. polish-tests.log then caught a misplaced test assertion before
+execution; corrected it without changing product behavior. polish-final.xml:
+10/10 PASS (five intro cases, four tutorial, one Slayer property-block consumer).
+
+First WebGL attempt failed protected font byte equality: CobblestoneUI64 text was
+identical after CRLF/LF normalization. Normalized only isolated YAML/meta inputs;
+no repository asset/guard changes. The next attempt began from partial generated
+state and failed scene idempotence; first/second scene diffs are retained. Restoring
+pristine task inputs before build passed the strict repeated builder and produced
+pilot player867010b35d382014. Native pilot39 checks PASS, zero exceptions/provider
+reads/writes. All124 pilot frames/123 consecutive pairs were directly inspected on
+seven sequential sheets, with original25fps decoder PTS/repeated frames retained.
+Pilot visual acceptance FAILED: overlapping large dust quads formed a slab; broad
+renderer bounds included invisible padding/other renderers and compressed the body
+reveal into too few visible steps. No visual pass is claimed for that player.
+
+Correction:18 small irregular quads in three clusters, staggered per-particle
+lifetimes/heights and lower opacity; body-collider foot/head landmarks define the
+120ms reveal. No change to the total timing or shader pass contract. Targeted
+reveal-final.xml:2/2 PASS for preactivation lock/first attack and property restoration.
+The final build/capture/review outcome is appended after actual verification.
+
+### Final polish acceptance
+
+Playerae7ca2579d0b544e passed65native assertions but its complete562frame/557pair
+review exposed the intro curtain50 occluding Pause40 during early focus loss.
+That is a visual FAIL despite the passing input driver. Lowered only the intro
+canvas to39; the focus test now checks the actual authored layer relation.
+
+Two driver failures are separate from product acceptance: startup-attempt.json
+clicked before MainMenuUI.Start finished shared-world loading/EventSystem enable;
+partial-observation-attempt.json polled a120ms interval through100ms QA snapshots
+and missed it. The latter waited into a fixture-only game-over (one intercepted
+read/write; no real provider traffic). Startup synchronization and timestamp-based
+real Escape scheduling corrected the driver, without gameplay setters.
+
+Final build-pause-layer-result.json exits0 with index.html; strict repeated builder
+passes. player-manifest.json hashes33files. source-comparison.json verifies253
+C#/shader/package/version inputs against the task worktree (BOM/CRLF normalized).
+Final player46e41cff3648399e, Edge156.0.4314.42, Intel UHD/ANGLE D3D11,1280x720:
+accepted.json61assertions PASS, zero exceptions/provider reads/writes. Counts vary
+with repeated intro polling; the same complete scenario/explicit checks ran.
+Unity latest passing results per10distinct cases are in unity-results.json; the
+final two reveal/lock and one Pause/focus cases were rechecked after their changes.
+No combined13-case invocation or new runtime behavior beyond this follow-up claimed.
+
+Final output scopes below were declared before review, with all frames and every
+adjacent pair directly inspected on31sequential sheets (page overlaps included).
+Original25fps decoder PTS and held/repeated frames retained; encoded-frame visits
+are not engine-frame/FPS measurements. Intentional overlap between scopes remains.
+
+| Scope | Encoded first-last PTS | Frames inspected/total | Pairs inspected/total |
+|---|---|---:|---:|
+| full-play | 13.12-18.16s | 127/127 | 126/126 |
+| short-continue | 26.56-30.36s | 96/96 | 95/95 |
+| short-pause-resume | 17.40-21.64s | 107/107 | 106/106 |
+| cancel-intro | 34.92-38.96s | 102/102 | 101/101 |
+| focus-resume | 38.40-43.96s | 140/140 | 139/139 |
+
+Totals:572frame visits/567pair visits. Per-frame ledger and observations are in
+runtime-review/. Full Pause menu now remains visible over the frozen partial cover;
+Resume continues at the held milestone. Enemy emerges in several visible steps,
+small low dust has no slab, title is stable, HUD leads word tray, no intro hit flash,
+shake or early cue/word. Manual Pause, combat cue and actual hit flashes in the
+preserved test tails occur after handoff and are expected. Cancel keeps the partial
+body until the cover closes, then leaves a clean menu. Same world10752/camera11162/
+RT-458 across all observed navigation. No runtime changes after final native capture.
+
+Delivery-only excerpts (subsets of the broader fully reviewed scopes):
+E:/CodexTemp/TypingHero/duel-intro-polish/intro-play.mp4,86frames, original14.00<=t<17.44;
+intro-continue.mp4,47frames, original27.68<=t<29.56. Both preserve decoded relative
+PTS/counts, without interpolation/resampling; video-only. Full review scopes/tails
+and source video remain at the isolated task root. No sprite/clip/prefab/font,
+package, camera framing, balance, provider/save contract edits or itch.io release.
+Integration/cleanup receipt is recorded externally after remote verification.

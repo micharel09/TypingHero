@@ -18,19 +18,28 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     RectTransform curtain;
     TMP_Text label;
     ParticleSystem dust;
-    readonly ParticleSystem.Particle[] puffs = new ParticleSystem.Particle[12];
+    readonly ParticleSystem.Particle[] puffs = new ParticleSystem.Particle[18];
+    static readonly int IntroReveal = Shader.PropertyToID("_IntroReveal");
+    readonly Dictionary<Renderer, Vector4> revealState = new Dictionary<Renderer, Vector4>();
+    readonly HashSet<CanvasGroup> wordHud = new HashSet<CanvasGroup>();
+    MaterialPropertyBlock revealBlock;
+    float revealBottom, revealTop, revealProgress, wordAlpha;
+    bool revealBoundsReady;
+    static float Ease(float t) { t = Mathf.Clamp01(t); return t * t * (3 - 2 * t); }
+    static float Pixel(float position) => Mathf.Round(position / 3) * 3;
     bool enemyVisible, tutorial;
     float hudAlpha;
 
     void EnsureCanvas()
     {
+        if (revealBlock == null) revealBlock = new MaterialPropertyBlock();
         if (canvas) return;
         var root = new GameObject("Duel presentation", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
         root.transform.SetParent(transform, false);
         canvas = root.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         // Pause remains above the opponent label. The cover is only used during scene changes.
-        canvas.sortingOrder = 50;
+        canvas.sortingOrder = 39; // Authored Pause canvas is40 and must remain fully visible.
         var scaler = root.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(960, 540);
@@ -63,8 +72,11 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
             double now = Time.realtimeSinceStartupAsDouble;
             t += (float)(now - previous); previous = now;
             float k = Mathf.Clamp01(t / duration);
-            if (rect) rect.anchoredPosition = start + Vector2.up * (540 * k * k);
-            SetCover(k);
+            if (rect) rect.anchoredPosition = start + Vector2.up * Pixel(540 * Ease(k));
+            SetCover(Ease(k));
+            // Close upward with the departing menu; uncover also lifts upward.
+            curtain.anchorMin = Vector2.zero;
+            curtain.anchorMax = new Vector2(1, Ease(k));
             yield return null;
         }
         SetCover(1);
@@ -77,7 +89,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
             double now = Time.realtimeSinceStartupAsDouble;
             float delta = (float)(now - previous); previous = now;
             if (!GamePauseController.IsPaused && (!pauseOwner || !pauseOwner.IsRestarting)) t += delta;
-            SetCover(1 - t / duration);
+            SetCover(1 - Ease(t / duration));
             yield return null;
         }
         SetCover(0);
@@ -86,7 +98,8 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     {
         EnsureCanvas(); SetCover(1);
         tutorial = isTutorial; Running = true; Elapsed = 0;
-        enemyVisible = isTutorial; hudAlpha = isTutorial ? 1 : 0;
+        enemyVisible = isTutorial; hudAlpha = wordAlpha = isTutorial ? 1 : 0;
+        revealProgress = 0; revealBoundsReady = false; wordHud.Clear(); revealState.Clear();
         enemyRenderers.Clear(); hud.Clear(); pauseOwner = null;
         foreach (var root in gate.roots)
         {
@@ -97,6 +110,15 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
                 foreach (var group in pause.IntroHud)
                     if (group && !hud.ContainsKey(group)) { hud.Add(group, group.alpha); group.alpha = 0; }
         }
+        if (!isTutorial)
+        {
+            var layout = gate.GetComponentInChildren<CombatHUDLayout>(true);
+            if (!layout) foreach (var root in gate.roots)
+            { layout = root.GetComponentInChildren<CombatHUDLayout>(true); if (layout) break; }
+            if (layout && layout.IntroTypingTray)
+                foreach (var group in hud.Keys)
+                    if (group.transform == layout.IntroTypingTray || group.transform.IsChildOf(layout.IntroTypingTray)) wordHud.Add(group);
+        }
         if (!isTutorial && enemy) HideEnemy();
     }
     void HideEnemy()
@@ -106,10 +128,44 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
         {
             if (!enemyRenderers.ContainsKey(renderer)) enemyRenderers.Add(renderer, renderer.forceRenderingOff);
             renderer.forceRenderingOff = true;
+            if (!revealState.ContainsKey(renderer) && renderer.sharedMaterial && renderer.sharedMaterial.HasProperty(IntroReveal))
+            {
+                renderer.GetPropertyBlock(revealBlock);
+                revealState.Add(renderer, revealBlock.GetVector(IntroReveal));
+            }
         }
+    }
+    void PaintEnemyReveal(float progress)
+    {
+        revealProgress = progress;
+        if (progress <= 0) return;
+        if (!revealBoundsReady)
+        {
+            // Stable body landmarks exclude transparent cel padding, so the visible
+            // body receives the full120ms rather than a near-instant middle slice.
+            var body = enemy.GetComponent<BoxCollider2D>();
+            revealBottom = body.bounds.min.y - .04f;
+            revealTop = body.bounds.max.y + .08f;
+            revealBoundsReady = true;
+        }
+        foreach (var pair in revealState) if (pair.Key)
+        {
+            pair.Key.GetPropertyBlock(revealBlock);
+            float height = Mathf.Lerp(revealBottom, revealTop, Ease(progress));
+            revealBlock.SetVector(IntroReveal, new Vector4(1, Mathf.Round(height * 32) / 32, 0, 0));
+            pair.Key.SetPropertyBlock(revealBlock);
+            pair.Key.forceRenderingOff = enemyRenderers[pair.Key];
+        }
+        if (progress >= 1) RevealEnemy();
     }
     void RevealEnemy()
     {
+        foreach (var pair in revealState) if (pair.Key)
+        {
+            pair.Key.GetPropertyBlock(revealBlock);
+            revealBlock.SetVector(IntroReveal, pair.Value);
+            pair.Key.SetPropertyBlock(revealBlock);
+        }
         foreach (var pair in enemyRenderers) if (pair.Key) pair.Key.forceRenderingOff = pair.Value;
         enemyVisible = true;
     }
@@ -157,21 +213,29 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     void PaintDust(float age, float duration)
     {
         if (!dust) return;
-        float t = Mathf.Clamp01(age / duration);
+        int count = 0;
         for (int i = 0; i < puffs.Length; i++)
         {
+            int cluster = i / 6;
+            float delay = (cluster == 0 ? 0 : cluster == 1 ? .055f : .12f) + (i % 3) * .009f;
+            float life = duration - delay;
+            float t = (age - delay) / life;
+            if (t < 0 || t >= 1) continue;
             float side = i % 2 == 0 ? -1 : 1;
-            float width = (4 + i % 3) / 16f;
-            puffs[i] = new ParticleSystem.Particle {
-                position = dust.transform.position + new Vector3(side * (.03f * (i / 2) + .4f * t),
-                    .06f + (i % 3) * .04f + Mathf.Sin(t * Mathf.PI) * .10f, -.05f),
-                startSize3D = new Vector3(width, width * .5f, 1),
-                startColor = new Color(.48f, .46f, .42f, (1 - t) * .9f),
-                startLifetime = duration, remainingLifetime = duration - age + .1f,
+            float spread = cluster == 0 ? .26f : cluster == 1 ? .48f : .34f;
+            float width = (2 + (i * 7) % 3) / 32f;
+            float outward = 1 - Mathf.Pow(1 - t, 2);
+            float alpha = Mathf.Clamp01(t / .10f) * Mathf.Pow(1 - t, cluster == 2 ? .8f : 1.4f);
+            puffs[count++] = new ParticleSystem.Particle {
+                position = dust.transform.position + new Vector3(side * (.035f * ((i * 5) % 6) + spread * outward),
+                    .015f + ((i * 7) % 5) * .022f + Mathf.Sin(t * Mathf.PI) * (cluster == 0 ? .13f : .07f), -.05f),
+                startSize3D = new Vector3(width * (1 + .3f * t), width * (.65f + .16f * t), 1),
+                startColor = new Color(.48f, .46f, .42f, alpha * (cluster == 0 ? .65f : .45f)),
+                startLifetime = life, remainingLifetime = life * (1 - t) + .1f,
                 randomSeed = (uint)(i + 1)
             };
         }
-        dust.SetParticles(puffs, age >= duration ? 0 : puffs.Length);
+        dust.SetParticles(puffs, count);
     }
     internal IEnumerator Play(bool shortened, bool isTutorial)
     {
@@ -198,13 +262,15 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
                 if (!GamePauseController.PresentationFrozen && (!pauseOwner || !pauseOwner.IsRestarting))
                 {
                     Elapsed = Mathf.Min(duration, Elapsed + delta);
-                    SetCover(1 - Elapsed / reveal);
+                    SetCover(1 - Ease(Elapsed / reveal));
                     if (Elapsed >= spawn && !dust) CreateDust();
                     PaintDust(Elapsed - spawn, spawnDuration);
-                    if (!enemyVisible && Elapsed >= spawn + spawnDuration * .5f) RevealEnemy();
-                    float inAlpha = Mathf.Clamp01((Elapsed - title) / .12f);
-                    hudAlpha = Mathf.Clamp01((Elapsed - hudStart) / (duration - hudStart));
+                    if (!enemyVisible) PaintEnemyReveal(Mathf.Clamp01((Elapsed - (shortened ? .34f : 1.04f)) / .12f));
+                    float inAlpha = Ease((Elapsed - title) / .12f);
+                    hudAlpha = Ease((Elapsed - hudStart) / (duration - hudStart));
+                    wordAlpha = Ease((Elapsed - hudStart - .08f) / (duration - hudStart - .08f));
                     label.alpha = inAlpha * (1 - hudAlpha);
+                    label.rectTransform.anchoredPosition = Vector2.up * Pixel(-6 * (1 - inAlpha) + 6 * hudAlpha);
                 }
                 yield return null;
             }
@@ -218,15 +284,15 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     void LateUpdate()
     {
         if (!Running) return;
-        if (!tutorial && enemy && !enemyVisible) HideEnemy();
-        foreach (var pair in hud) if (pair.Key) pair.Key.alpha = pair.Value * hudAlpha;
+        if (!tutorial && enemy && !enemyVisible) { HideEnemy(); PaintEnemyReveal(revealProgress); }
+        foreach (var pair in hud) if (pair.Key) pair.Key.alpha = pair.Value * (wordHud.Contains(pair.Key) ? wordAlpha : hudAlpha);
         if (label) label.enabled = !GamePauseController.IsPaused;
     }
     void Finish()
     {
         RevealEnemy();
         foreach (var pair in hud) if (pair.Key) pair.Key.alpha = pair.Value;
-        hud.Clear(); enemyRenderers.Clear(); enemy = null;
+        hud.Clear(); wordHud.Clear(); revealState.Clear(); enemyRenderers.Clear(); enemy = null;
         if (dust) Destroy(dust.gameObject);
         if (label) Destroy(label.gameObject);
         dust = null; label = null; Running = false; SetCover(0);

@@ -31,6 +31,12 @@ results, with no reading intro or tactical hint. No save/provider contract chang
 `DuelIntroPresentation` is a child component of the retained session, with one
 screen-space cover/heading and a private spawn-dust variant. It suppresses only
 enemy renderers (including the child shadow) and existing combat HUD CanvasGroups.
+The cover/heading canvas uses order39, below authored Pause40 and above menu/HUD.
+The intro-only `_IntroReveal` property clips actor color/depth/shadow together in
+DungeonSprite; its default is off. The session merges/restores only its own vector
+in live property blocks. Unsupported child shadows wait until the body is complete.
+CombatHUDLayout exposes the existing typing-tray reference internally for the80ms
+stagger; HUD geometry, materials and serialized bindings are retained.
 `GamePauseController.InputBlocked` includes intro/handoff; `PresentationFrozen`
 excludes intro and controls timeScale/audio/environment motion. Actual Pause and
 reading still freeze presentation. Typing stays in `TypingManager.ProcessInput`;

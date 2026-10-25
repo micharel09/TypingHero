@@ -2,10 +2,16 @@
 
 - Play lifts the menu and covers the transition250ms. After gameplay initialization,
   arena/player reveal0-450ms, settle to850ms, low opponent-foot dust850-1350ms
-  (opponent and shadow reveal halfway), opponent name/DUEL x/6 at1350ms, then
+  (120ms feet-up body reveal1040-1160ms; child shadow follows completion),
+  opponent name/DUEL x/6 at1350ms, then
   title/HUD crossfade2000-2400ms. Camera stays at the existing gameplay framing.
 - Continue/retry:200ms cover plus scene load, then200ms reveal,400ms spawn and
-  400ms title/HUD handoff. Existing result/Continue controls are retained.
+  400ms title/HUD handoff, with body reveal340-460ms after loading. Existing
+  result/Continue controls are retained.
+- Menu and cover close upward together, then the cover opens upward with eased
+  endpoints. Spawn dust uses three staggered low clusters. Opponent name moves
+  6reference pixels in/out, snapped to the game pixel grid. Status HUD fades before
+  the word tray by80ms; all reach their authored opacity at the same handoff.
 - Gameplay locks before gate activation. Words/configuration initialize normally;
   HP, typing timer, score, letters and combat time cannot advance in the intro.
   At handoff the first attack is scheduled500ms after combat opens; typing/parry
@@ -19,10 +25,12 @@
 - Shared Audio_Services preserves its music component when menu SFX already exists.
   Same-cue music keeps its live voice/playhead across Continue/retry. Music stopped
   by the existing Menu action can start on the next Play. No new cue or clip is added.
-- Core/music acceptance:17distinct scoped Unity cases passed across focused
-  runs. Final WebGL05832092f73446d6 passes58real-input checks at1280x720;
-  all509frame visits/504adjacent pairs in five complete intro/lifecycle scopes
-  were directly reviewed (original video timing/held frames retained);
+- Restrained motion follow-up:10distinct scoped Unity cases pass across targeted
+  runs; final WebGL46e41cff3648399e passes61real-input assertions at1280x720.
+  All572frame visits/567adjacent pairs in five complete intro/lifecycle scopes
+  were directly reviewed with original25fps video timing/held frames retained.
+  Pause canvas remains above the cover throughout focus loss. The earlier draft
+  dust slab and clipped Pause menu were rejected and corrected before acceptance;
   [checkpoint and evidence scope](../plans/duel-intro.md).
 
 ## Reusable world lighting (2026-10-22)

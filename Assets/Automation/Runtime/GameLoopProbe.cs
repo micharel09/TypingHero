@@ -322,6 +322,8 @@ public sealed class GameLoopProbe : MonoBehaviour
     {
         public bool introRunning, introEnemyHidden, introInputBlocked;
         public float introElapsed, introHudAlpha, introLabelAlpha, introCover;
+        public float introRevealProgress, introWordAlpha;
+        public int introWordHudGroups;
         public int introDustParticles, introMusicPlayerId, introMusicVoiceId, introMusicSample;
         public bool endless, encounterReading;
         public int endlessRound, endlessSlot, defeated;
@@ -688,6 +690,9 @@ public sealed class GameLoopProbe : MonoBehaviour
                 introMusicVoiceId = MusicPlayer.I && MusicPlayer.I.GetComponentsInChildren<AudioSource>().FirstOrDefault(s => s.isPlaying) ? MusicPlayer.I.GetComponentsInChildren<AudioSource>().First(s => s.isPlaying).GetInstanceID() : 0,
                 introMusicSample = MusicPlayer.I && MusicPlayer.I.GetComponentsInChildren<AudioSource>().FirstOrDefault(s => s.isPlaying) ? MusicPlayer.I.GetComponentsInChildren<AudioSource>().First(s => s.isPlaying).timeSamples : 0,
                 introRunning = FindObjectOfType<DuelIntroPresentation>() && FindObjectOfType<DuelIntroPresentation>().Running,
+                introRevealProgress = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "revealProgress"),
+                introWordAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "wordAlpha"),
+                introWordHudGroups = Read<System.Collections.Generic.HashSet<CanvasGroup>>(FindObjectOfType<DuelIntroPresentation>(), "wordHud")?.Count ?? 0,
                 introElapsed = FindObjectOfType<DuelIntroPresentation>() ? FindObjectOfType<DuelIntroPresentation>().Elapsed : 0,
                 introHudAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "hudAlpha"),
                 introLabelAlpha = Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label") ? Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label").alpha : 0,

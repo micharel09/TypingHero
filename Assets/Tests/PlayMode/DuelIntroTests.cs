@@ -55,6 +55,7 @@ public sealed class DuelIntroTests
         int hp = player.Current, enemyHp = enemy.Current;
         string word = (string)Field(typing, "current"); float timer = (float)Field(typing, "timer");
         Assert.That(GamePauseController.InputBlocked, Is.True);
+        Assert.That(((System.Collections.Generic.HashSet<CanvasGroup>)Field(intro, "wordHud")).Count, Is.GreaterThan(0), "word tray is bound independently from status HUD");
         Assert.That(Time.timeScale, Is.EqualTo(1)); Assert.That(AudioListener.pause, Is.False);
         foreach (var renderer in enemy.GetComponentsInChildren<Renderer>(true))
             Assert.That(renderer.forceRenderingOff, Is.True, renderer.name + " is hidden before reveal");
@@ -66,6 +67,7 @@ public sealed class DuelIntroTests
             player.TakeDamage(5, Vector2.zero); enemy.TakeDamage(5, Vector2.zero);
             Assert.That(player.Current, Is.EqualTo(hp)); Assert.That(enemy.Current, Is.EqualTo(enemyHp));
             Assert.That(CombatSession.I.Seconds, Is.Zero); Assert.That(CombatSession.I.Letters, Is.Zero);
+            Assert.That((float)Field(intro, "wordAlpha"), Is.LessThanOrEqualTo((float)Field(intro, "hudAlpha")), "word tray follows status HUD");
             Assert.That(ScoreSystem.I.Score, Is.Zero); Assert.That(enemy.IsAttacking, Is.False);
             Assert.That(Field(typing, "current"), Is.EqualTo(word)); Assert.That(Field(typing, "timer"), Is.EqualTo(timer));
             yield return null;
@@ -87,7 +89,10 @@ public sealed class DuelIntroTests
         float deadline = Time.realtimeSinceStartup + 6;
         while (intro.Elapsed < .96f && Time.realtimeSinceStartup < deadline) yield return null;
         Assert.That(intro.Elapsed, Is.GreaterThanOrEqualTo(.96f));
-        var pause = Find<GamePauseController>(); pause.SendMessage("OnApplicationFocus", false);
+        var pause = Find<GamePauseController>();
+        Assert.That(((Canvas)Field(intro, "canvas")).sortingOrder,
+            Is.LessThan(((Canvas)Field(pause, "pauseCanvas")).sortingOrder), "Pause stays above the partially closed cover");
+        pause.SendMessage("OnApplicationFocus", false);
         float held = intro.Elapsed;
         var dust = Find<ParticleSystem>();
         yield return new WaitForSecondsRealtime(.25f);
@@ -119,6 +124,36 @@ public sealed class DuelIntroTests
         Assert.That(Object.FindObjectOfType<SkeletonController>(), Is.Null);
         Assert.That(intro.Running, Is.False);
         Assert.That(intro.transform.Find("Duel presentation/Scene cover").gameObject.activeSelf, Is.False);
+    }
+    [UnityTest, Category("Quick")]
+    public IEnumerator RevealPreservesLiveLightingPropertiesAndRestoresOnCompletionAndCancel()
+    {
+        session.BeginGame(); yield return Activated();
+        var intro = Find<DuelIntroPresentation>(); var enemy = Find<SkeletonController>();
+        var renderer = enemy.GetComponent<SpriteRenderer>();
+        int reveal = Shader.PropertyToID("_IntroReveal"), marker = Shader.PropertyToID("_FlashAmount");
+        Assert.That(renderer.sharedMaterial.GetVector(reveal), Is.EqualTo(Vector4.zero), "default actor material stays fully visible");
+        var block = new MaterialPropertyBlock(); renderer.GetPropertyBlock(block); block.SetFloat(marker, .123f); renderer.SetPropertyBlock(block);
+        var paint = typeof(DuelIntroPresentation).GetMethod("PaintEnemyReveal", BindingFlags.Instance | BindingFlags.NonPublic);
+        paint.Invoke(intro, new object[] { .5f });
+        renderer.GetPropertyBlock(block);
+        Assert.That(block.GetVector(reveal).x, Is.EqualTo(1));
+        Assert.That(block.GetVector(reveal).y, Is.InRange(renderer.bounds.min.y, renderer.bounds.max.y));
+        Assert.That(block.GetFloat(marker), Is.EqualTo(.123f));
+        Assert.That(renderer.forceRenderingOff, Is.False);
+        foreach (var child in enemy.GetComponentsInChildren<Renderer>())
+            if (!child.sharedMaterial.HasProperty(reveal)) Assert.That(child.forceRenderingOff, Is.True, "unclipped shadow waits until body is complete");
+        paint.Invoke(intro, new object[] { 1f });
+        renderer.GetPropertyBlock(block);
+        Assert.That(block.GetVector(reveal), Is.EqualTo(Vector4.zero));
+        Assert.That(block.GetFloat(marker), Is.EqualTo(.123f));
+        // Simulate a live property change by another owner; cancellation must not replace its block.
+        renderer.GetPropertyBlock(block); block.SetFloat(marker, .234f); renderer.SetPropertyBlock(block);
+        paint.Invoke(intro, new object[] { .5f }); session.StopAllCoroutines(); intro.Cancel();
+        renderer.GetPropertyBlock(block);
+        Assert.That(block.GetVector(reveal), Is.EqualTo(Vector4.zero));
+        Assert.That(block.GetFloat(marker), Is.EqualTo(.234f));
+        Assert.That(renderer.forceRenderingOff, Is.False);
     }
     [UnityTest, Category("Quick")]
     public IEnumerator TutorialOnlyUncoversAndRetainsItsOwnReadingLock()
