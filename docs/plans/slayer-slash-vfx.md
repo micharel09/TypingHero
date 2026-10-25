@@ -21,7 +21,7 @@ cels (96cels/80internal pairs); native real-keyboard hits/overlap/pause/resume/
 expiry/restart/finisher/result; 1x/0.25x playback and clean center overlay. Review
 every original encoded frame/adjacent pair in declared native windows, retaining
 held frames/PTS; source-cel/static review is distinct from native video review.
-Unity tests, build and direct visual review completed below; integration pending.
+Unity tests, build, direct visual review and remote integration completed below.
 
 Static output review: opened all four `static-review/{hit,finisher}-{0,1}.png`
 sheets at native/2x nearest size, 96/96cels and80/80internal adjacent pairs.
@@ -32,7 +32,7 @@ exit-side dots, F2/F3 leave a terminal speck. All eight orientations preserve
 body-relative pivot and clear canvas borders. Per-cel notes/durations/transitions:
 `static-review/frame-review.csv`; exact source SHA256 and cells in manifest.json.
 This is a model-space composition, not native runtime evidence or a new palette
-review. Original source pixels/import/prefabs are unchanged. Native checks pending.
+review. Original source pixels/import/prefabs are unchanged. Native results below.
 
 Scoped Unity2022.3.25f1 tests:51/51PASS,0failed/skipped,5.2562155s in tests.xml.
 24SlayerHitVfxTests,18CombatFeedbackTests,9NormalStrikeEffectsTests. New cases
@@ -96,10 +96,23 @@ Fetched newer main2fc3e6a before integration. Its Windows adapter/retry changes
 touch only tooling and separate receipts; no Assets/Packages/ProjectSettings
 change. Preserve those updates and reuse passing game tests/player/visual evidence.
 
-Implementation and scoped verification complete; remote integration/cleanup
-receipt follows after commit/push. Retain this task evidence directory for user
-review; delete only after review. Disposable isolated Unity source/Library can be
-removed once its accepted input archive and tests/player/ledgers are verified.
+Remote integration verified: feature5fccdcd merged current main2fc3e6a as3f6a5e6;
+fast-forward push2fc3e6a ->3f6a5e69e0cc5afcaec58844c0d488ed69b9283c, then fetch
+confirmed HEAD==origin/main and feature ancestry.249source/config inputs still
+match the tested player; merged tooling changes do not alter game inputs.
+
+Accepted input archive: accepted-unity-input.tar.gz,20,775,537bytes, SHA256
+d748e942a844a22cd2c5135142cb5ed19e36e0473fa3c16caae18abca994f983.
+Archived changed sources/source PNG and all33player hashes verified before
+disposable source/Library cleanup. Keep video, selected460PNGs,40native sheets,
+96-cel static review, per-frame ledgers, tests/build logs, player/source archive and
+rejected/corrected stills under the evidence root for user review; delete that
+directory only after review. No demo host was started. Browser contexts closed.
+After this documentation-only receipt is remotely verified, remove the clean
+task-created Orca worktree/local branch and isolated Unity source/Library plus
+unselected decoded frame cache. Remote task branch remains; original dirty
+checkout and all preexisting resources remain untouched. External completion.json
+records final receipt commit and actual cleanup results.
 
 ## Met.Pxl B integration — 2026-10-25
 

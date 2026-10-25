@@ -628,6 +628,9 @@ Full surface art, B/C and parent integration remain separate.
   WebGL1280x720/3153checks PASS. Both prefab and actual scene-override tint
   matrices plus198encoded runtime frames were reviewed; evidence and scope
   are recorded in [the task checkpoint](../plans/slayer-slash-vfx.md).
+- Body-center follow-up: scoped Unity51/51 and WebGL2772checks PASS;96source cels
+  and460selected native frames reviewed, including pause/exit/restart/finisher.
+  Existing body jitter remains independent of the captured world anchor.
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 
