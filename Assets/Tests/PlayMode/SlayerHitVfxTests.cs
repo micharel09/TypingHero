@@ -324,19 +324,20 @@ public sealed class SlayerHitVfxTests
         Set(slayer, "_active", false);
     }
 
-    [TestCase(1, "male_hero-combo_1_0", "male_hero-combo_1_1", "male_hero-combo_1_2")]
-    [TestCase(2, "male_hero-combo_2_3", "male_hero-combo_2_4", "male_hero-combo_2_5")]
-    [TestCase(3, "male_hero-combo_3_3", "male_hero-combo_3_4", "male_hero-combo_3_4")]
+    [TestCase(1, "0,1,2", 4)]
+    [TestCase(2, "3,4,5", 4)]
+    [TestCase(3, "11", 6)]
     [Category("Quick")]
-    public void SlayerClipsStartAtContactAndFinishIn120Milliseconds(int variant, string first, string second, string last)
+    public void SlayerClipsUseFinalStrikeAndCompleteRecoveryIn280Milliseconds(int variant, string attackCels, int endFrames)
     {
         var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>($"Assets/Characters/Player/player_slayer/attackS{variant}.anim");
         var keys = AnimationUtility.GetObjectReferenceCurve(clip, AnimationUtility.GetObjectReferenceCurveBindings(clip).Single());
-        Assert.That(keys[0].time, Is.Zero); Assert.That(keys[0].value.name, Is.EqualTo(first));
-        Assert.That(keys[1].time, Is.EqualTo(.04f).Within(.0001)); Assert.That(keys[1].value.name, Is.EqualTo(second));
-        Assert.That(keys.Last().value.name, Is.EqualTo(last));
-        if (variant != 3) { Assert.That(keys[2].time, Is.EqualTo(.08f).Within(.0001)); Assert.That(keys[2].value.name, Is.EqualTo(last)); }
-        Assert.That(clip.length, Is.EqualTo(.12f).Within(.0001));
+        var poses = attackCels.Split(',').Select(i => $"male_hero-combo_{variant}_{i}")
+            .Concat(Enumerable.Range(0, endFrames).Select(i => $"male_hero-combo_{variant}_end_{i}")).ToArray();
+        Assert.That(keys.Select(k => k.value.name), Is.EqualTo(poses.Concat(new[] { poses.Last() })));
+        var times = new[] { 0f, .04f, .08f, .12f, .16f, .20f, .24f, .27f };
+        for (int i = 0; i < keys.Length; i++) Assert.That(keys[i].time, Is.EqualTo(times[i]).Within(.0001));
+        Assert.That(clip.length, Is.EqualTo(.28f).Within(.0001));
         Assert.That(clip.isLooping, Is.False);
     }
     [Test, Category("Quick")]
@@ -353,7 +354,7 @@ public sealed class SlayerHitVfxTests
         rig.SetActive(true); weapon.SetActive(true); Set(mode, "_active", true);
         typeof(PlayerSlayerMode).GetMethod("OnCorrectChar", Flags).Invoke(mode, new object[] { 'a' });
         int variant = Get<int>(mode, "selectedAttackIndex");
-        var expected = new[] { "male_hero-combo_1_0", "male_hero-combo_2_3", "male_hero-combo_3_3" }[variant];
+        var expected = new[] { "male_hero-combo_1_0", "male_hero-combo_2_3", "male_hero-combo_3_11" }[variant];
         Assert.That(sr.sprite.name, Is.EqualTo(expected));
         Assert.That(mode.StrikeDirection, Is.EqualTo(PlayerSlayerMode.LocalStrikeDirection(variant).normalized));
         var recipient = Host("damage recipient"); var damage = recipient.AddComponent<FeedbackDamageTarget>();

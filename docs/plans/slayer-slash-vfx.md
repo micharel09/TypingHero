@@ -1,3 +1,59 @@
+## Final strike and combo_end correction (2026-10-25)
+
+The user identified the screenshot's pose as an unfinished combo. Source inspection
+confirms the prior S3 held combo_3_4 and none of the three Slayer clips used the
+authored combo_end sheets. Approved choice: one final strike plus complete sword
+recovery per typed key, rather than playing all remaining combo rotations.
+
+S1: combo_1_0/1/2 then combo_1_end_0..3. S2: combo_2_3/4/5 then combo_2_end_0..3.
+S3: combo_3_11 then combo_3_end_0..5. Every clip has seven40ms poses at
+0/40/80/120/160/200/240ms and ends280ms; an unchanged final-sprite key270ms
+preserves the last hold at100samples/second. The Player prefab's serialized
+AttackSpeedMul remains1. Nonlooping clips hold the recovered final pose. Another
+correct key immediately interrupts recovery through the existing animator.Play.
+Damage-window/collision/word-event order, B120/160ms, body pulse40ms and trail
+envelope120ms are unchanged. No public API or source-art/importer changes.
+
+Worktree: C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-combo-end,
+branch micharel09/slayer-combo-end, base669df07. Reuse the retained private Unity
+source/Library; new artifacts go under E:/CodexTemp/TypingHero/slayer-hit-feel/combo-end.
+Existing clip expectations are updated, not executed. User waiver still applies:
+no test suite or exhaustive output-frame/runtime acceptance claim. Build and
+real-input clip with separated S1/S2/S3 and rapid typing are the delivery route.
+### Build and immediate clip delivery
+
+Accepted immutable input9cfab4727b4ee61b4bfa387fdd8cff0396d39b45d90c68fd6b6d292fadd3012f
+is archived in combo-end/accepted-unity-input.tar.gz with snapshot.json. Pinned
+Unity2022.3.25f1 serialization and WebGL build both exited0. The derived depth
+index has281mapped/0missing; only ActorDepth.asset is imported from generated
+metadata. Source PNGs/importers, controllers, production C# and game APIs are
+unchanged. git diff --check is clean. Existing clip assertions were updated but
+not run, matching the user's explicit waiver.
+
+Actual canvas/audio clip: combo-end/slayer-combo-end.webm,3134643bytes,
+SHA256 d557afc546d5ecee9b09322225065b83b070e255376623aa82789ba9a58b912f.
+Player fingerprint8c5e1a2c4f3d302c; Edge156.0.4314.42/Intel UHD/D3D11.
+Real keyboard capture includes separate S3/S1/S2 at0.916/1.426/1.927s, each with
+460ms after its key before another input. Recorded final poses are respectively
+combo_3_end_5, combo_1_end_3, combo_2_end_3. Twelve rapid-word entries follow.
+One preceding key recorded no classified strike; it is retained in the clip,
+not counted as an isolated variant.324render observations and0captured runtime
+exceptions/provider reads/provider writes are capture data, not test results.
+
+Opened combo-end/open-clip.html in a visible Edge window at
+2026-10-25T04:26:53.016940+00:00. It supplies1x/0.25x and S1/S2/S3/rapid-typing
+jump buttons. User visual approval and exhaustive encoded-frame/transition review
+remain unverified; do not label this as a complete sprite-review pass.
+Retain this clip, the earlier clips and warm private source/Library while the user
+reviews or requests adjustments; remove after review/reproduction is finished.
+Feature commit4519935abc980548fbeb6df27d4f271238374e88 was pushed to
+micharel09/slayer-combo-end. A fresh fetch still had origin/main669df07; direct
+fast-forward push to main succeeded. Subsequent fetch confirmed feature HEAD is
+an ancestor of origin/main4519935abc980548fbeb6df27d4f271238374e88. This receipt
+changes documentation only; the built/captured Unity input is unchanged.
+After preserving this receipt remotely, remove only the clean task-created
+worktree/local branch; retain the remote task branch and review artifacts.
+
 ## Contact-first B revision (2026-10-25; clip delivered, tests waived)
 
 The user rejected the body-centered580ms/random-eight-angle result as flying
