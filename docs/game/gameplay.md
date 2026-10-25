@@ -605,8 +605,12 @@ Full surface art, B/C and parent integration remain separate.
 - Retain original Met.Pxl B PNG/GUIDs/center pivot and32/40reference-pixel scale.
   Game hit uses F0/F1/F2/F3 at40/30/30/20ms; finisher60/40/30/30ms. Source preview
   remains six-frame580ms; it is no longer the game schedule.
-- Slayer S1 starts combo_1_0 then1/2; S2 starts combo_2_3 then4/5; S3 starts
-  combo_3_3 then4. All end120ms. Apply the contact pose before the existing
+- Slayer S1 uses combo_1_0/1/2 then combo_1_end_0..3; S2 uses combo_2_3/4/5
+  then combo_2_end_0..3; S3 uses the final strike combo_3_11 then combo_3_end_0..5.
+  Each has seven40ms poses, ends280ms and holds its recovered final pose; the
+  duplicate key270ms preserves the last hold at100samples/second. The current
+  Player prefab's AttackSpeedMul is1. Each new correct key interrupts recovery
+  immediately. Apply the contact pose before the existing
   deduplicated damage window; collision/damage ordering remains unchanged.
   Local impact axes(1,-1),(1,0),(1,1) follow the selected swing and source facing;
   no independent eight-angle random selection. Snapshot center/direction/tint before
