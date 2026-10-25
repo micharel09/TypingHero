@@ -46,7 +46,13 @@ jump buttons. User visual approval and exhaustive encoded-frame/transition revie
 remain unverified; do not label this as a complete sprite-review pass.
 Retain this clip, the earlier clips and warm private source/Library while the user
 reviews or requests adjustments; remove after review/reproduction is finished.
-Integration receipt follows after remote verification.
+Feature commit4519935abc980548fbeb6df27d4f271238374e88 was pushed to
+micharel09/slayer-combo-end. A fresh fetch still had origin/main669df07; direct
+fast-forward push to main succeeded. Subsequent fetch confirmed feature HEAD is
+an ancestor of origin/main4519935abc980548fbeb6df27d4f271238374e88. This receipt
+changes documentation only; the built/captured Unity input is unchanged.
+After preserving this receipt remotely, remove only the clean task-created
+worktree/local branch; retain the remote task branch and review artifacts.
 
 ## Contact-first B revision (2026-10-25; clip delivered, tests waived)
 
