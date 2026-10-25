@@ -3617,7 +3617,29 @@ with the same workspace and Library. Restoration errors are failures: use the
 retained `.backup` files to recover source before retrying. Preserve an existing
 successful player or select a new workspace; the adapter never overwrites it.
 
-Adapter contracts: `python -m unittest tools/game_loop/test_local_windows.py`.
+All actions take an exclusive, nonblocking Windows byte-range lock on
+`.local-windows.lock` before source preflight; a busy workspace fails immediately.
+The lock stays held until the owned Editor exits, source cleanup finishes and
+successful output is published. Keep the lock file: its presence is normal and the
+OS releases the actual lock when its owner exits. It does not coordinate manually
+launched Editors or older adapter versions; use one adapter version per workspace.
+
+Ctrl+C is deferred through source cleanup. The owned Editor is terminated and
+awaited (30seconds before kill), scene/meta are restored through sibling temporary
+files with atomic per-file replace and byte verification, then the created
+fixture/meta are removed. A cancelled run exits130 and keeps partial output under
+its result directory. Repeated Ctrl+C does not interrupt cleanup. If terminate/kill
+fails, the adapter keeps waiting with the workspace locked until the Editor exits.
+Cancellation after completed output publication does not undo a finished run.
+
+Restore errors return failure and list the retained backup paths; recover both
+source files from their invocation's backups before retrying. A failed temporary
+file deletion reports its exact path. Scene and meta are restored separately, not
+as a two-file transaction. Forced termination/power loss cannot guarantee cleanup;
+inspect backups and fixture state before reuse. Cancellation during snapshot may
+leave an incomplete source directory without a manifest; use a fresh workspace.
+
+Adapter contracts: `python -B -m unittest tools/game_loop/test_local_windows.py`.
 
 Adapter follow-up (2026-10-25): seven adapter unittest methods passed, real Unity
 retry passed44/44ImpactVfxTests using fresh XML; mirror QA build and strict repeated
@@ -3625,3 +3647,12 @@ builder completed, scene/meta restoration and fixture cleanup verified. Initial
 PlayMode attempt produced no XML and was stopped; external mirror fixture logged
 an empty-previous-scene exception after saving mirror, despite build success.
 Exact receipts and limitations: [adapter checkpoint](../plans/windows-unity-adapter.md).
+
+
+Workspace/cancellation follow-up:19/19Windows adapter tests pass. Actual Unity
+mirror cancelled after fixture-save exits130, waits for the owned Editor and
+restores source exactly; same-Library retry builds QA successfully with strict
+repeat and fixture-completion markers and no fixture exception. Both attempts
+restore scene/meta byte-for-byte and remove the fixture/meta. Prior44/44ImpactVfx
+receipt is reused; no new gameplay-suite claim. Exact evidence and cleanup are in
+[the adapter checkpoint](../plans/windows-unity-adapter.md#workspace-lock-and-deferred-cancellation-follow-up-2026-10-25).
