@@ -7,6 +7,9 @@ public sealed class SlayerHitVfx : MonoBehaviour
     [SerializeField] SpriteRenderer image;
     [SerializeField] float uniformScale;
     [SerializeField] float[] frameDurations;
+    [SerializeField] Vector2[] frameCenters;
+    EnemyHitAnchor anchor;
+    uint anchorLifetime;
     PooledVFX lease;
     float age;
     float fadeAge = -1;
@@ -15,18 +18,19 @@ public sealed class SlayerHitVfx : MonoBehaviour
     internal Transform Recipient { get; private set; }
     internal bool IsFading => fadeAge >= 0;
     void Awake() => lease = GetComponent<PooledVFX>();
-    internal void Emit(Vector3 point, float clockwiseAngle, Color tint, Transform recipient = null)
+    internal void Emit(Vector3 point, float clockwiseAngle, Color tint, Transform recipient = null, EnemyHitAnchor hitAnchor = null, uint lifetime = 0)
     {
         age = 0;
         fadeAge = -1;
         Recipient = recipient;
+        anchor = hitAnchor;
+        anchorLifetime = lifetime;
         bornFrame = Time.frameCount;
         transform.SetPositionAndRotation(point, Quaternion.Euler(0, 0, -clockwiseAngle));
         transform.localScale = Vector3.one * uniformScale;
-        tint.a = 1;
-        image.color = tint;
+        image.color = Color.black;
         image.flipX = image.flipY = false;
-        image.sprite = frames[0];
+        ApplyFrame(0);
     }
     internal void Retire()
     {
@@ -46,9 +50,21 @@ public sealed class SlayerHitVfx : MonoBehaviour
         for (int i = 0; i < frames.Length; i++)
         {
             end += frameDurations[i];
-            if (age < end) { image.sprite = frames[i]; return; }
+            if (age < end) { ApplyFrame(i); return; }
         }
         lease.Release();
+    }
+    void ApplyFrame(int index)
+    {
+        image.sprite = frames[index];
+        image.transform.localPosition = -frameCenters[index];
+    }
+    void LateUpdate()
+    {
+        // Animator and hit-pose jitter finish before this world-space attachment.
+        if (anchor && anchor.Lifetime != anchorLifetime) { lease.Release(); return; }
+        if (GamePauseController.InputBlocked || Time.timeScale == 0) return;
+        if (anchor && anchor.TryGetWorldPoint(out var point)) transform.position = point;
     }
     void Update()
     {
@@ -62,7 +78,9 @@ public sealed class SlayerHitVfx : MonoBehaviour
         age = 0;
         fadeAge = -1;
         Recipient = null;
+        anchor = null;
+        anchorLifetime = 0;
         transform.localRotation = Quaternion.identity;
-        if (image) { image.sprite = null; image.color = Color.white; image.flipX = image.flipY = false; }
+        if (image) { image.transform.localPosition = Vector3.zero; image.sprite = null; image.color = Color.white; image.flipX = image.flipY = false; }
     }
 }

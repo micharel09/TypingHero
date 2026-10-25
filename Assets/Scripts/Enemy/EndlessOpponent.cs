@@ -12,6 +12,7 @@ public sealed class EndlessOpponent : ScriptableObject
     public RuntimeAnimatorController controller;
     public Sprite idle;
     public AnimationClip hurt;
+    public EnemyHitAnchorProfile hitAnchor;
     public int[] opening = { 1 }, alternate = { 1 };
     public int[] triple = { 2, 1, 2 };
 

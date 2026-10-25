@@ -761,3 +761,135 @@ active container mounts it; all required player/source/receipts are already arch
 under the local demo/evidence root. Shared Library/toolchain/cache/license and all
 pre-existing resources remain untouched. Demo host/evidence retention is described
 above; its cleanup condition is completion of user review.
+
+
+## Shared chest anchor implementation (2026-10-25; active)
+
+User intent: B follows the center of the visible rib cage; non-chest enemies author
+main-body center. EnemyHitAnchor lives beside IDamageable, explicitly binds a body
+renderer and a sprite-pose profile. Keep public IDamageable/Spawn, PNG/GUIDs, black,
+120/160ms, overlap/fade and combo_end. No test suite execution authorized.
+
+Worktree C:/Users/ADMIN/orca/workspaces/TypingHero/enemy-chest-anchor,
+branch micharel09/enemy-chest-anchor, base origin/main24f74e0. Original dirty checkout
+is preserved. Evidence: E:/CodexTemp/TypingHero/enemy-chest-anchor.
+
+Coverage required: ske plus sword/axe/sword-shield, all reachable authored poses;
+single strike, pose change, rapid hits, lethal tail, pause, actor lifecycle/pool reset.
+Three current Endless forms share profiles across six roles. Sprite coordinates are
+bottom-left rect pixels, converted using actual pivot/PPU/flip/body transform.
+Root follows in LateUpdate; child compensates alpha-weighted pixel-center centroid
+baked by SlayerHitVfxAssets for every scheduled B cel. Rotation/world scale stay
+fixed. Missing/invalid/duplicate pose entries fail the build. New enemies supply
+profile data and an explicit renderer; VFX has no enemy-name/type dispatch.
+
+Direct static inspection: all210 numbered original poses and210 marked-anchor
+poses were opened at3x nearest, with original alpha. Inventory and22 source/anchor
+sheets are in the evidence folder: sword58, axe58, sword-shield58, ske36. Chest
+tracks the rib cage, excluding weapons/shields/head; collapsed Die poses use the
+remaining torso pile. This is anchor-authoring evidence, not an exhaustive review
+or modification of existing character animation timing. No reference game research
+is needed: the user's landmark and the existing project sprites are authoritative.
+
+Cache/build: copying the prior task's existing Unity Library was stopped after
+copying usable artifacts because disk space was low. Automatic approval rejected
+recursive deletion/junction replacement; no deletion/replacement was performed.
+The copied cache is retained. Shared source/cache and earlier task evidence remain.
+Build/native clip/Edge playback/integration receipts are pending; no test PASS or
+runtime/visual acceptance is claimed at this checkpoint.
+
+
+### Chest anchor coverage and output review
+
+Extended coverage after native evidence revealed held ParryWeaponContact sprites,
+assigned by ParrySystem outside controller curves. Directly inspected all6 original
+held cels and their marked anchors, adding7 profile entries (ske uses contact0;
+sword0/1, shield2/3, axe4/5). Final217 entries: ske37 and60 per Endless form.
+Build validation now follows ParryContactLibrary source-to-contact substitutions,
+so future held cels cannot silently miss the profile. No sprite artwork was changed.
+
+Unity2022.3.25f1 builds reviewed and parry-complete exit0; strict repeated builder
+passes. Final input1e261d0d48ebb2a603b0859f41b3d8d3b1b95495cc92ef8c123c9d0fe0c6077b,
+player a0bdc30c8ff8344a. All252 C# files and final profiles match the build snapshot.
+PNG B SHA25662ad20c15fb52b44b4b49f6aa0bb5e583c1ddc5209964530724edc43350f7356
+matches HEAD. Exported only the task prefab/resource bindings; scene/UI IDs stay at
+HEAD because the scene inherits the anchor through Skeleton.prefab.
+
+Native full capture105d5465563bb43d: Edge156.0.4314.42 / Intel UHD / ANGLE D3D11 /
+1280x720, real keyboard/mouse, observation-only bridge and external/provider fixture
+interception. Four duels cleared, HP35;225/228correct letters,18parries. Zero observed
+JS/managed exceptions or fixture reads/writes in this qualified capture. All645
+active samples have a valid chest and exact root-to-chest distance0; all four B cels
+observed, maximum2 simultaneous impacts. Pause holds identical age0.03528/frame0/
+position/tint over30 observed frames. No test suite was executed.
+
+Three output scopes were declared before decoding/review; original variable PTS and
+held/repeated frames were retained. Directly opened every sequential sheet at a
+readable crop, including all adjacent pairs and segment boundaries:
+
+| Form | Source video seconds | Frames inspected/selected | Pairs inspected/selected |
+|---|---|---|---|
+| sword |11.758–21.893|239/239|238/238|
+| axe |67.080–77.772|293/293|292/292|
+| sword-shield |90.845–101.551|276/276|275/275|
+
+Exact declared timestamps and original numbered PNGs/PTS/sheet hashes are in
+runtime-review/manifest.json; per-frame observations/transitions are in
+runtime-review/per-frame-review.csv. Source/marked pose evidence is distinct in
+anchor-review.csv and the22 original/marked sheets plus parry-poses/parry-anchors.
+Static B offset review covers48 composites/36 adjacent B-cel pairs across three
+Hurt poses for each of the four profiles, with per-frame notes in b-static-review.csv.
+
+The black cut stays in the torso during isolated letters, Hurt pose changes and
+rapid swings; the final tail clears during death without a stationary patch left
+at the former body position. The preserved large ivory weapon arc is separate.
+Some black-on-black and arc-occluded frames cannot visually isolate the tiny B;
+those limits are explicit in the frame notes. Chest geometry is checked against
+visible source ribs and authored markers, never collider center. Body pulse is
+opaque ivory in some frames, so it exposes torso placement rather than individual
+rib lines. No subjective game-feel, speaker, performance or subframe claim.
+
+The final augmentation changes only the Editor validator and adds previously
+missing held-parry entries. All210 previously captured anchor entries and runtime
+code remain identical; no active B in the qualified capture used a missing entry.
+Source-comparison.json records this reuse boundary. Thus the three-form clips and
+exhaustive selected-frame review remain applicable to their unchanged poses; they
+are not mislabeled as a full capture of the augmented player's new held-pose path.
+
+Unverified synthetic cases: destroying/hiding an enemy within its120/160ms tail,
+reusing the same live actor while old slashes remain, and reverse-facing native
+combat. The implementation handles these through captured point/lifetime, enable
+revision and pool cleanup; the real capture exercises ordinary death, scene reload
+and pause, not those artificial cases. Build validation is not a runtime test pass.
+
+Authoring a new enemy: create Combat/Enemy Hit Anchor Profile, add a pixel point for
+its body sprite and each reachable pose (main torso center if it has no chest),
+then bind body/profile on EnemyHitAnchor beside IDamageable. New EndlessOpponent
+assets reference the matching profile; ConfigureEndless starts a new lifetime.
+No VFX enemy-name/type dispatch is required.
+
+### Pending final integration / supplemental smoke investigation
+
+All three exported clips completed playback in Edge at1x and0.25x (playback.json),
+and open-clips.html was opened in a visible Edge window. The full-capture visual
+review above remains qualified for its stated revision and unchanged active poses.
+Supplemental augmented-player smoke attempts did not reach Slayer: one tutorial
+handoff timing failure, then failed parries/player death. Reports native-smoke*.json
+are retained as failures, never counted as successful acceptance. Diagnostic video
+shows a delay between the driver's key marker and the visible pose; focus calls in
+the critical timing path were removed for the latest attempt. Outcome of that
+attempt remains pending. No runtime code changed during this investigation.
+
+At this checkpoint, local command execution became nonresponsive, including a
+minimal cmd.exe echo. Several owned command sessions remain pending; do not rerun
+mutations until their actual outcome is checked. Source/build/clip artifacts and
+the task worktree are retained. No task commit, push or main integration has been
+verified. Do not report the task complete or merge while the supplemental behavior
+and final Git state remain unresolved.
+
+Recovery narrowed the command issue: cmd.exe from C:/ and Git against the task
+worktree respond immediately; reading the evidence directory on E:/ still hangs.
+The supplemental smoke outcome therefore remains unavailable. Preserve the task
+branch/worktree and evidence cache until E:/ is accessible and the smoke result
+has been inspected. Saving a task commit does not authorize calling acceptance
+complete; main integration remains withheld for this unresolved verification.

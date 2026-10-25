@@ -69,6 +69,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         var stamina = GetComponent<EnemyStamina>();
         if (stamina) { stamina.max = run.Enemy.Stamina; stamina.PreparePractice(stamina.max); }
         definition = run.Definition;
+        GetComponent<EnemyHitAnchor>().Configure(definition.hitAnchor);
         if (stamina) { stamina.hitCost = definition.hitCost; stamina.parryCost = 25; }
         var sprite = GetComponent<SpriteRenderer>();
         if (sprite) { sprite.color = Color.white; sprite.sprite = definition.idle; }

@@ -654,8 +654,13 @@ Full surface art, B/C and parent integration remain separate.
   immediately. Apply the contact pose before the existing
   deduplicated damage window; collision/damage ordering remains unchanged.
   Local impact axes(1,-1),(1,0),(1,1) follow the selected swing and source facing;
-  no independent eight-angle random selection. Snapshot center/direction/tint before
-  damage; B retains its fixed world anchor and black RGB through lethal exit.
+  no independent eight-angle random selection. Capture the actual damage recipient's
+  EnemyHitAnchor point/lifetime and direction/tint before damage. B follows its
+  authored chest after Animator poses, with fixed angle/world size and black RGB.
+  A child renderer compensates each cel's baked alpha centroid; no collider-center
+  placement. Hidden/destroyed recipients leave the last point; new lifetimes reclaim
+  old slashes. Four pose profiles cover ske and the three Endless forms, including
+  held parry cels assigned outside Animator; six roles reuse those profiles.
 - Each recipient has one primary plus one<=35%alpha residual lasting<=30ms;
   finisher replaces both. Original luminous sword geometry expires120ms per swing
   even when the final cel is held; another typed strike resets that envelope.

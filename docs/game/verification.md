@@ -1,3 +1,27 @@
+## Shared chest anchor for Slayer B (2026-10-25; no test suites)
+
+Pinned Unity2022.3.25f1 WebGL/strict repeated builder pass; final input
+1e261d0d48ebb2a603b0859f41b3d8d3b1b95495cc92ef8c123c9d0fe0c6077b,
+player a0bdc30c8ff8344a. All252 C# files and four final profiles match snapshot;
+B PNG/GUIDs/120/160ms schedules remain.217 authored entries cover ske and three
+Endless forms, including held parry cels outside Animator curves.
+
+Qualified three-form capture105d5465563bb43d (same runtime code and all210 existing
+anchor entries; final augmentation adds7 held cels): native Edge156 / Intel UHD /
+D3D11 /1280x720; four duels, HP35,225/228correct letters,18parries; zero exceptions
+or fixture reads/writes.645 active observations have valid chest points and zero
+root-to-chest distance; all4 B cels, maximum2 overlapping.30 pause observations
+hold the same age/frame/position/tint. This is capture evidence, not a test pass.
+
+Direct selected output review808/808frames,805/805pairs (sword239/238, axe293/292,
+shield276/275), original variable PTS/held frames retained.217 static profile
+entries and48 B composites reviewed separately. Edge plays all three exported
+clips through at1x and0.25x. Authoritative records, failed driver attempts, reuse
+boundary and synthetic-lifecycle/reverse-facing/occlusion limits are in
+[the existing checkpoint](../plans/slayer-slash-vfx.md). Latest augmented-player
+native smoke and Git integration receipts follow there; no broad runtime suite,
+performance result or itch.io publication is claimed.
+
 ## Restrained duel intro polish (2026-10-25)
 
 Menu/cover ease upward together;18small staggered dust puffs replace overlapping

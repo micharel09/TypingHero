@@ -41,7 +41,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(importer.textureCompression, Is.EqualTo(TextureImporterCompression.Uncompressed));
         Assert.That(importer.npotScale, Is.EqualTo(TextureImporterNPOTScale.None));
         Assert.That(frames[0].texture.width, Is.EqualTo(384)); Assert.That(frames[0].texture.height, Is.EqualTo(64));
-        Assert.That(effect.GetComponent<SpriteRenderer>().sharedMaterial, Is.SameAs(AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/VFX/PixelSparks/Pixel.mat")));
+        Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sharedMaterial, Is.SameAs(AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/VFX/PixelSparks/Pixel.mat")));
         var order = new[] { 0, 1, 2, 3 };
         for (int i = 0; i < 4; i++)
         {
@@ -78,7 +78,7 @@ public sealed class SlayerHitVfxTests
     {
         var spawner = Owner(out var go);
         spawner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal, directionOverride: -1, capturedTint: Color.red);
-        var effect = Active().Single(); var image = effect.GetComponent<SpriteRenderer>();
+        var effect = Active().Single(); var image = effect.GetComponentInChildren<SpriteRenderer>(true);
         Assert.That(effect.GetComponent<VoxelImpactBurst>(), Is.Null);
         var rotation = effect.transform.rotation;
         var durations = Get<float[]>(effect, "frameDurations");
@@ -127,9 +127,9 @@ public sealed class SlayerHitVfxTests
         var first = Active().Single();
         owner.SpawnImpact(Vector2.zero, go.transform, true, false, target.transform);
         Assert.That(first.IsFading, Is.True);
-        Assert.That(first.GetComponent<SpriteRenderer>().color.a, Is.EqualTo(.35f));
+        Assert.That(first.GetComponentInChildren<SpriteRenderer>(true).color.a, Is.EqualTo(.35f));
         first.Advance(.015f);
-        Assert.That(first.GetComponent<SpriteRenderer>().color.a, Is.EqualTo(.175f).Within(.0001));
+        Assert.That(first.GetComponentInChildren<SpriteRenderer>(true).color.a, Is.EqualTo(.175f).Within(.0001));
         owner.SpawnImpact(Vector2.zero, go.transform, true, false, other.transform);
         Assert.That(Active().Count(v => v.Recipient == target.transform), Is.EqualTo(2));
         owner.SpawnImpact(Vector2.zero, go.transform, true, true, target.transform);
@@ -153,7 +153,7 @@ public sealed class SlayerHitVfxTests
             var effect = Active().Single();
             var tint = gradient.Evaluate(combo / 20f); tint.a = 1;
             effect.Emit(new Vector3(3, 4, 0), direction * 45, tint);
-            var sprite = effect.GetComponent<SpriteRenderer>();
+            var sprite = effect.GetComponentInChildren<SpriteRenderer>(true);
             foreach (int frame in new[] { 0, 1, 2, 3 })
             {
                 Assert.That(sprite.sprite.name, Is.EqualTo("frame_" + frame));
@@ -171,9 +171,9 @@ public sealed class SlayerHitVfxTests
     {
         var spawner = Owner(out var go); spawner.SpawnImpact(Vector2.zero, go.transform, true, true);
         var effect = Active().Single(); GamePauseController.SetTutorialReading(true);
-        float age = effect.Age; var sprite = effect.GetComponent<SpriteRenderer>().sprite;
+        float age = effect.Age; var sprite = effect.GetComponentInChildren<SpriteRenderer>(true).sprite;
         yield return new WaitForSecondsRealtime(.22f);
-        Assert.That(effect.Age, Is.EqualTo(age)); Assert.That(effect.GetComponent<SpriteRenderer>().sprite, Is.SameAs(sprite));
+        Assert.That(effect.Age, Is.EqualTo(age)); Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sprite, Is.SameAs(sprite));
         spawner.SpawnImpact(Vector2.zero, go.transform, true, true); Assert.That(Active().Length, Is.EqualTo(1));
         GamePauseController.SetTutorialReading(false); yield return null; yield return null;
         Assert.That(effect.Age, Is.GreaterThan(age));
@@ -280,12 +280,12 @@ public sealed class SlayerHitVfxTests
         var hit = typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Flags);
         hit.Invoke(box, new object[] { a }); hit.Invoke(box, new object[] { b });
         Assert.That(damage.hits, Is.EqualTo(1)); var effect = Active().Single();
-        Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponent<SpriteRenderer>().color, Is.EqualTo(Color.black));
+        Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).color, Is.EqualTo(Color.black));
         Assert.That(Time.timeScale, Is.EqualTo(1));
     }
 
     [TestCase(false), TestCase(true), Category("Quick")]
-    public void HitboxCapturesBodyCenterBeforeDamageAndKeepsContactSeparate(bool lethal)
+    public void HitboxCapturesChestBeforeDamageAndKeepsContactSeparate(bool lethal)
     {
         var spawner = Owner(out var go); go.SetActive(false); go.AddComponent<BoxCollider2D>();
         var slayer = go.AddComponent<PlayerSlayerMode>();
@@ -295,16 +295,21 @@ public sealed class SlayerHitVfxTests
         var enemy = Host("offset body"); enemy.transform.position = new Vector3(5, 3, 0);
         enemy.transform.localScale = new Vector3(-1.5f, 1.2f, 1);
         var damage = enemy.AddComponent<FeedbackDamageTarget>();
+        var renderer = enemy.AddComponent<SpriteRenderer>();
+        var profile = AssetDatabase.LoadAssetAtPath<EnemyHitAnchorProfile>("Assets/Art/EnemyHitAnchors/sword.asset");
+        renderer.sprite = profile.poses[0].sprite;
+        var anchor = enemy.AddComponent<EnemyHitAnchor>(); Set(anchor, "body", renderer); Set(anchor, "profile", profile);
         var body = enemy.AddComponent<BoxCollider2D>(); body.offset = new Vector2(.4f, .2f);
         body.size = new Vector2(2, 3); enemy.SetActive(true); Physics2D.SyncTransforms();
-        Vector2 center = body.bounds.center, contact = body.ClosestPoint(go.transform.position);
+        anchor.TryGetWorldPoint(out var chest);
+        Vector2 center = chest, contact = body.ClosestPoint(go.transform.position);
         Assert.That(Vector2.Distance(center, contact), Is.GreaterThan(.5f));
         Assert.That(Vector2.Distance(center, enemy.transform.position), Is.GreaterThan(.1f));
         damage.onDamage = () =>
         {
             damage.dead = lethal;
             enemy.transform.position += Vector3.right * 7;
-            body.enabled = false;
+            body.enabled = false; renderer.enabled = false;
             Physics2D.SyncTransforms();
         };
         box.BeginAttack(1);
