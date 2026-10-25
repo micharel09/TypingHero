@@ -39,14 +39,16 @@ def role(color, hero):
     if g > r*1.2 or b > r*1.3: return 'accent'
     return 'steel' if max(r,g,b) > 125 else 'cloth'
 
-def author(source):
+def author(source, allow_new=False):
     meta = Path(str(source)+'.meta').read_text()
     guid = re.search(r'^guid: (.+)$',meta,re.M).group(1)
     target = ROOT/'Assets/Art/Lighting/Normals'/(guid+'.png')
-    if not target.is_file(): return None
+    if not allow_new and not target.is_file(): return None
     rects = re.findall(r'      rect:\n        serializedVersion: 2\n        x: ([0-9]+)\n        y: ([0-9]+)\n        width: ([0-9]+)\n        height: ([0-9]+)',meta)
-    if not rects: raise ValueError('Missing sprite rectangles: '+str(source))
     albedo = Image.open(source).convert('RGBA'); pix = albedo.load()
+    if not rects and re.search(r'^  spriteMode: 1$',meta,re.M):
+        rects = [(0,0,albedo.width,albedo.height)]
+    if not rects: raise ValueError('Missing sprite rectangles: '+str(source))
     output = Image.new('RGBA',albedo.size,(128,128,255,255)); out = output.load()
     hero = 'male_hero' in str(source)
     for values in rects:
@@ -69,12 +71,28 @@ def author(source):
     return target,output,len(rects)
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--write',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--write',action='store_true')
+    parser.add_argument('--source',action='append',type=Path,
+                        help='Only process this source atlas (repeatable; relative to repository root)')
+    args=parser.parse_args()
     results=[]
-    for meta in sorted((ROOT/'Assets/Art').rglob('*.png.meta')):
+    if args.source:
+        sources=sorted({(ROOT/source).resolve() for source in args.source})
+        for source in sources:
+            if not source.is_relative_to(ROOT/'Assets/Art') or source.suffix.lower() != '.png':
+                parser.error('--source must be a PNG atlas under Assets/Art: '+str(source))
+            if not source.is_file() or not Path(str(source)+'.meta').is_file():
+                parser.error('Missing source atlas or metadata: '+str(source))
+            if not any(k in str(source).lower() for k in ('male_hero','skeleton')):
+                parser.error('Unsupported actor atlas: '+str(source))
+        metas=[Path(str(source)+'.meta') for source in sources]
+    else:
+        metas=sorted((ROOT/'Assets/Art').rglob('*.png.meta'))
+    for meta in metas:
         if not any(k in str(meta).lower() for k in ('male_hero','skeleton')): continue
-        if '_NormalMap' not in meta.read_text(errors='replace'): continue
-        source=Path(str(meta)[:-5]); result=author(source)
+        if not args.source and '_NormalMap' not in meta.read_text(errors='replace'): continue
+        source=Path(str(meta)[:-5]); result=author(source, allow_new=bool(args.source))
         if result is None: continue
         target,image,count=result
         if args.write: image.save(target)

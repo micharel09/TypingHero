@@ -1,3 +1,90 @@
+## REPLACED quality/performance follow-up — candidate, not integrated (2026-10-25)
+
+Task branch `micharel09/replaced-dungeon-lighting-2`, independent Orca worktree
+`C:/Users/ADMIN/orca/workspaces/TypingHero/replaced-dungeon-lighting-2`, based on
+`origin/main` `24f74e0901d51a44e7f58bcca0007ba8d4f0b31c`. Original dirty checkout
+is preserved. Evidence root:
+`C:/CodexTemp/TypingHero/replaced-lighting-final-20261025`.
+
+Implementation:
+
+- Current controller/world/scene inventory is **281 unique cels, 306 keys, 34 clips**;
+  all six current Endless definitions are recorded in `inventory-scope.json`.
+  Current tutorial is a reading guide with Start Battle; do not restore obsolete
+  lessons to fit older QA drivers. Tutorial Attack1/Die remain in the inventory.
+- Tutorial With_VFX Attack1/Die now have normal/material companions for **10/13
+  cels**. Same bone/steel/wood recipe as idle/hurt; only their secondary-texture
+  lists changed. GUIDs, rects, pivots, local IDs and depth bindings are preserved.
+  Explicit Unity preparation generated/bound the two material maps successfully.
+- `author_actor_normals.py` supports repeated `--source`, deduplicates sources,
+  and retains read-only/default CLI behavior. A real default-run failure exposed
+  the single-sprite parry_lift case; it now uses the full image rectangle.
+- Floor1–8 keep their original albedos, surface masks and smoothness scalar **.5**.
+  New linear Point normal maps keep broad tops/mortar flat and tilt chipped rims
+  gently (slope .16); no luminance-to-height conversion. Versioned recipes, channel
+  meanings, parameters and output hashes are under `tools/lighting/`.
+  The old external floor recipe's prototype `.65` was corrected to `.5`, with its
+  original bytes retained as `floor-surface-recipe-prototype-original.json`.
+- Dungeon-only profiles: front lantern **2/range16**, left pillar side key
+  **32/range13**, opposite pillar **4/range10**, both rear torches **4/range15**.
+  Existing six fixture anchors/flames are retained; shared original profiles are
+  unchanged. Fixed cool fill stays **64/range16**, original position/cone/color.
+  Fog RGB **(.004,.009,.018)**; camera/exposure/focus, shadow resolution, scheduler,
+  haze/rune/beam/reflection disabled states, gameplay and original timing unchanged.
+- DungeonSprite clips alpha/intro first, returns directly at Slayer weight exactly
+  1, and skips self-shadow probes for zero attenuation/back-facing lights.
+  Partial weights retain the original full path; contributing lights retain all
+  eight probes. No gameplay API, runtime CLI or quality tier was added.
+
+Verified technical/static evidence:
+
+- GPU: actual **NVIDIA GeForce GTX 1650 Ti**. Controlled shader A/B uses the old
+  shader with the same current material/maps, camera, poses and frozen scene.
+  **614 comparisons, maximum rendered RGB error 0/255**, including partial/full
+  Slayer, hit flash and intro clipping. `final-poses/images/shader-ab.json`.
+- Exported **562 pose images**; **624/624 key/reference rows and 566/566 consecutive
+  or loop pairs actually inspected**, native crops and nearest2x. Includes held/
+  repeated keys, both facings and **22 loop wraps**. Per-row notes:
+  [static frame review](evidence/replaced-lighting-20261025/static-frame-review.csv),
+  [scope/counts](evidence/replaced-lighting-20261025/static-review-summary.json).
+  Mirrored axe metal is substantially dimmer when turned away, then catches the
+  key during execution; this is recorded separately from facing0 observations.
+  Contact-library cels use diagnostic actor staging, not runtime contact placement.
+- Same-framing previews: [baseline](evidence/replaced-lighting-20261025/baseline.png)
+  and [candidate](evidence/replaced-lighting-20261025/candidate.png). Nine controlled
+  light variants were inspected before selecting side32/front2. Warm edges/dark
+  cores remain separated; the room-fixed cold floor pool does not follow poses.
+- **348 existing PNGs byte-identical; 59 animation/controller files identical after
+  Git LF normalization**. All eight floor scalars remain .5. Tool dry-run/source
+  selection/deduplication/outside-path rejection and eight output hashes passed.
+- Original baseline WebGL build exited0. This is **not** a candidate build result.
+  Prior REPLACED research remains in its separate reference-study record; this
+  follow-up does not claim a new trailer-frame or original-speed playback review.
+
+Acceptance blockers / remaining work:
+
+- Two white-light GPU jobs could not execute to completion (0 diagnostic images).
+  A subsequent headless Editor launched through Node also remained before log/test
+  execution (CPU .03125s, no log). No Unity test, strict repeated-builder, candidate
+  WebGL, original-speed playback, controller state-join or six-opponent runtime PASS
+  is claimed. Interrupted jobs/owned temporary fixtures are tracked in the evidence
+  root. The existing fly-server fallback SSH connection timed out.
+- Edge on the selected NVIDIA GPU is available, but even an empty focused/visible
+  page measured **32.000 FPS / p95 31.7ms** (321 samples over10s). This is a host
+  pacing limitation observation, not a measured game bottleneck or proof of60FPS.
+  Required15s warm-up/60s ABBA normal and parry/Slayer runs remain unverified.
+  Prepared fixture-only drivers record CPU callback/GPU timer/draws/memory and
+  intercept provider traffic; they have not been used to claim acceptance.
+- Resume with four-direction white-light checks/both facings, targeted companion/
+  world-switch/Slayer/intro checks, strict two-pass builder and final candidate build;
+  then real-input current tutorial/all six opponents, full intro/retry/pause/Slayer/
+  menu, original-speed playback and the specified GTX1650Ti performance protocol on
+  a60Hz-capable session. Preserve target320x180/1280x720 and the original criteria.
+- **Do not integrate into main while these gates are unverified.** Keep the task
+  worktree/branch for completion and immutable baseline player, logs, captures and
+  receipts for review. Remove only task-owned cache/worktree after verified remote
+  integration and after no reader needs the cache; never touch the dirty checkout.
+
 ## REPLACED dungeon lighting - implementation checkpoint, 2026-10-25
 
 User approved REPLACED-inspired floor pools, directional actor highlights and dark

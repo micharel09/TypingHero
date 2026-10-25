@@ -10,6 +10,37 @@ localized, constant cool floor fill; this does not re-enable the rune or haze. S
 RearHaze and LowHaze are also disabled: their blue decorative overlays produced
 the remaining horizontal glow after the rune was removed.
 
+## REPLACED follow-up candidate (not runtime-accepted)
+
+The follow-up branch uses dungeon-specific front/side/rear LightProfiles rather
+than editing shared fixture profiles: front2/range16, left side32/range13,
+opposite side4/range10, rear4/range15. The sixth, fixed cool fill stays64/range16.
+Anchors, authored flames, shadow atlas, combat scheduler and camera stay unchanged.
+Fog is a very dark cool RGB(.004,.009,.018). Haze/rune/beam/planar reflection remain off.
+Static preview/shader evidence is complete; candidate runtime, neutral-light,
+repeated-builder and60FPS acceptance remain pending in the
+[checkpoint](../plans/combat-hanging-light.md).
+
+Normal authoring is explicit/offline. Repeat `--source <atlas.png>` with
+`tools/lighting/author_actor_normals.py`; omit `--write` for a read-only run.
+Without `--source`, the existing bound-actor selection remains in use. Single-sprite
+sources use the full image, sliced atlases their original rectangles. The tutorial
+Attack1/Die recipes and output hashes are in
+`tools/lighting/tutorial-companion-recipe.json`.
+
+`tools/lighting/author_floor_normals.py` similarly defaults to read-only and uses
+`--write` explicitly. It keeps broad stone/mortar planes flat and uses .16 slope
+only on authored chipped rims. RGB encodes tangent normals, A=255; import linear
+NormalMap, Point/no mips/uncompressed. Existing surface R is metallic0, A is
+smoothness; preserve scalar **.5** (stone tops .306–.369, bevel .141, mortar .012).
+`tools/lighting/floor-recipe.json` records palette-role bytes and PNG hashes.
+The historical `.65` recipe value was a prototype, not the final material scalar.
+
+The actor shader's full Slayer shortcut runs after alpha/intro clipping; partial
+weights still use complete lighting. Zero-attenuation/back-facing lights skip only
+self-shadow probes; contributing lights retain eight. Controlled old/new shader
+renders match exactly; this does not substitute for target WebGL performance QA.
+
 ## Ownership
 
 | Data | Authoritative owner |

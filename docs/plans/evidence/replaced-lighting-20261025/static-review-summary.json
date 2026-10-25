@@ -1,0 +1,20 @@
+{
+  "source_commit": "24f74e0901d51a44e7f58bcca0007ba8d4f0b31c",
+  "gpu": "NVIDIA GeForce GTX 1650 Ti",
+  "source_inventory_keys": 306,
+  "unique_cels": 281,
+  "unique_pose_images": 562,
+  "review_rows_exported": 624,
+  "review_rows_actually_viewed": 624,
+  "within_clip_and_loop_pairs_expected": 566,
+  "within_clip_and_loop_pairs_actually_viewed": 566,
+  "loop_pairs_actually_viewed": 22,
+  "shader_ab": {
+    "comparisons": 614,
+    "maximum_delta_255": 0
+  },
+  "scope": "Static current-world rendered frame and adjacent-pose inspection only. Actual-duration playback, controller state joins, native WebGL and performance are separate gates.",
+  "overall": "unverified: static pose/adjacent/loop coverage is complete; original-speed playback, controller joins and new WebGL acceptance are not established.",
+  "manifest_sha256": "5f6b7b12b68c09e417715f33079250e936d7bf3e12bb0fc993903ae5d6cde029",
+  "external_evidence_root": "C:\\CodexTemp\\TypingHero\\replaced-lighting-final-20261025"
+}

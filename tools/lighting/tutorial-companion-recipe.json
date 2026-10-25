@@ -1,0 +1,139 @@
+{
+  "normal_recipe": "author_actor_normals.py --write plus repeated --source for the two sources below",
+  "normal_tool_sha256_lf": "d9f9b415a212d2a5ec246a7a8f50a22f30bc68d5697810cd1970fa9fd2faff58",
+  "normal_channels": "RGB tangent vector encoded 0..1; A=255; linear NormalMap importer",
+  "forms": {
+    "outline": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "skin": [
+      0.65,
+      0.4,
+      0.05,
+      0.05
+    ],
+    "cloth": [
+      0.45,
+      0.25,
+      0,
+      0
+    ],
+    "steel": [
+      0.25,
+      0.15,
+      0.08,
+      0.18
+    ],
+    "bone": [
+      0.6,
+      0.4,
+      0,
+      0.05
+    ],
+    "wood": [
+      0.45,
+      0.2,
+      0,
+      0
+    ],
+    "accent": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "distance_limit": 16,
+  "plane_quantization_steps": 8,
+  "bone_palette": [
+    [
+      103,
+      108,
+      134
+    ],
+    [
+      105,
+      121,
+      158
+    ],
+    [
+      139,
+      152,
+      170
+    ],
+    [
+      160,
+      172,
+      197
+    ],
+    [
+      191,
+      203,
+      214
+    ],
+    [
+      192,
+      213,
+      220
+    ],
+    [
+      250,
+      250,
+      250
+    ]
+  ],
+  "wood_palette": [
+    [
+      49,
+      4,
+      4
+    ],
+    [
+      73,
+      16,
+      9
+    ],
+    [
+      95,
+      26,
+      9
+    ],
+    [
+      112,
+      39,
+      7
+    ]
+  ],
+  "material_recipe": "Explicit SurfaceNormalAssets.PrepareMaterials for these two sources only, same bone/steel/wood rules as existing tutorial idle/hurt",
+  "material_channels": "R metallic mask, G roughness mask, B emission=0, A=255; linear Default importer",
+  "material_rules": {
+    "neutral_204_connected_highlights": "steel R=.7 G=.28",
+    "warm_grip": "wood R=0 G=.65",
+    "pale_blue_and_white": "bone R=0 G=.9"
+  },
+  "sources": [
+    {
+      "source": "Assets/Art/Skeletons_Free_Pack/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Attack1.png",
+      "source_guid": "1a1b37ac36b89394492c859d829adbcd",
+      "source_sha256": "c4f23fc08ed377d3f6c3e18f591ad3199994a3ce2b5102dabba96d81b1c122aa",
+      "normal": "Assets/Art/Lighting/Normals/1a1b37ac36b89394492c859d829adbcd.png",
+      "normal_sha256": "03297c6e694076a3d74bc8c3cad19d4c91ccbfa588731aff2093bb0c444772b5",
+      "material": "Assets/Art/Lighting/Normals/1a1b37ac36b89394492c859d829adbcd-surface.png",
+      "material_sha256": "cb5505ed24dee3faf0b970a2185ea9d9f4a0261689ab5ea0f43c04654a779ec0",
+      "cels": 10
+    },
+    {
+      "source": "Assets/Art/Skeletons_Free_Pack/Skeleton_Sword/Skeleton_White/Skeleton_With_VFX/Skeleton_01_White_Die.png",
+      "source_guid": "ac7553ba405f3f94d871eb4a3cb857dc",
+      "source_sha256": "3a391ac5463f62dc78c8c9d08017687770aab1cab2521925f1136235d56ee559",
+      "normal": "Assets/Art/Lighting/Normals/ac7553ba405f3f94d871eb4a3cb857dc.png",
+      "normal_sha256": "17fb6b8f49b18d39c6cffe420a4c7ada67433efba2671cbd5bf620af63a2f872",
+      "material": "Assets/Art/Lighting/Normals/ac7553ba405f3f94d871eb4a3cb857dc-surface.png",
+      "material_sha256": "957518238835cfee6d05d1f858c458ff0996c164e8549f78740e39afbe99500c",
+      "cels": 13
+    }
+  ]
+}
