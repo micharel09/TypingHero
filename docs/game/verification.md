@@ -5,7 +5,9 @@ Continue/retry use the short sequence. Intro locks combat/statistics/input witho
 freezing idle or music; Pause/focus holds the presentation and Menu cancels it.
 Unity2022.3.25f1:17 distinct scoped PlayMode cases PASS across targeted runs,
 including 5/5 scene/tutorial consumers after the audio-host correction.
-QA WebGL strict repeated build PASS;252 source/config inputs match the worktree.
+Pre-merge QA WebGL strict repeated build PASS;252 source/config inputs matched
+the captured revision. Later origin/main Slayer changes are retained; the clip
+and native checks below describe that pre-merge player.
 Native Edge156/Intel UHD/D3D11/1280x720 player05832092f73446d6:58 checks PASS,
 zero exceptions/provider reads/writes. Music voice/sample continuity confirmed.
 Output:509/509 encoded frame visits and504/504 consecutive-pair visits directly
@@ -13,6 +15,7 @@ reviewed across five declared scopes; original PTS/held frames retained.
 Reference research and output evidence are separate; no performance, speaker
 listening, full-suite or itch.io release claim. Full scope/limitations and evidence
 paths: [duel intro checkpoint](../plans/duel-intro.md).
+
 ## Contact-first Slayer B (2026-10-25; tests waived)
 
 Final pinned Unity WebGL build exits0, input3272ecc39ea954d4e9e55850b31d3c8acb5dbc68a2ffb6e6476a72710e10aaaa,

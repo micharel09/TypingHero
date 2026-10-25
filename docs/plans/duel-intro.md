@@ -162,3 +162,14 @@ After the shared audio-host correction, scene ownership/tutorial consumers passe
 5/5 targeted PlayMode cases (audio-scene-consumers.xml). All 17 distinct scoped
 cases pass across the recorded runs. Integration status is recorded externally in
 RECEIPT.md after remote verification. No runtime changes after final player QA.
+
+## Concurrent main integration
+
+Fetched origin/main advanced from7dc84f9 to669df07 during finalization. Its Slayer
+contact-first VFX, poses, shader, fixtures and capture-only receipt are retained.
+The sole manual conflict was adjacent verification receipts; both are kept. The
+probe auto-merge keeps both sets of read-only diagnostics. Native58 checks and the
+509/504 visual review apply to player05832092f73446d6 before this merge, not a
+recapture of the newer Slayer visuals. The intro implementation is unchanged.
+Targeted merged-source intro/music/session/tutorial tests are recorded separately
+in merged-consumers.xml; final outcome is appended below before integration.

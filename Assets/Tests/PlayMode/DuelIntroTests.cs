@@ -93,7 +93,12 @@ public sealed class DuelIntroTests
         yield return new WaitForSecondsRealtime(.25f);
         Assert.That(intro.Elapsed, Is.EqualTo(held)); Assert.That(GamePauseController.IsPaused, Is.True);
         Assert.That(Time.timeScale, Is.Zero); Assert.That(AudioListener.pause, Is.True);
-        pause.Resume(); yield return new WaitForSecondsRealtime(.3f);
+        pause.Resume();
+        // Resume completes the existing camera tween before releasing the pause.
+        // Wait for the behavior rather than assuming a fixed number of editor frames.
+        deadline = Time.realtimeSinceStartup + 3;
+        while (intro.Elapsed <= held && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(GamePauseController.IsPaused, Is.False);
         Assert.That(intro.Elapsed, Is.GreaterThan(held));
         yield return Finished(); Assert.That(GamePauseController.InputBlocked, Is.False);
     }
