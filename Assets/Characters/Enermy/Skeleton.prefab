@@ -312,7 +312,7 @@ MonoBehaviour:
   backToStunAfter: 2
   jitterRoot: {fileID: 5316290525864657520}
   jitterDuration: 0.12
-  jitterAmplitude: 0.2
+  jitterAmplitude: 0
   jitterDamping: 0.85
   jitterFreqRange: {x: 80, y: 120}
 --- !u!114 &6335462748226833986

@@ -3,8 +3,20 @@ const ranges = [[0, 6], [6, 12], [12, 19], [0, 26]];
 let playing = true, speed = 1, previousTime;
 const clips = {};
 let angle = null;
+const gameplay = () => $('timing').value !== 'source' && Number($('color').value) < 8;
+function duration(name, clip) {
+  const index = clip.sequence[clip.cursor];
+  if (index < 0) return 300; // Preview spacing only; not a gameplay frame.
+  if (name === 'b' && gameplay()) return ($('timing').value === 'finisher' ? [60, 40, 30, 30] : [40, 30, 30, 20])[index];
+  return DATA[name].frames[index].ms;
+}
 
 function newStroke() {
+  const authored = {s1: 90, s2: 45, s3: 0}[$('direction').value];
+  if (authored !== undefined && Number($('color').value) < 8) {
+    angle = $('facing').value === 'left' ? (270 - authored) % 360 : authored;
+    return;
+  }
   if ($('direction').value === 'original' || Number($('color').value) === 8) {
     angle = 0;
     return;
@@ -18,7 +30,7 @@ function newStroke() {
 
 function advance(name, clip, delta = 1) {
   clip.cursor = (clip.cursor + delta + clip.sequence.length) % clip.sequence.length;
-  if (name === 'b' && delta === 1 && clip.sequence[clip.cursor] === 4) newStroke();
+  if (name === 'b' && delta === 1 && clip.cursor === 0) newStroke();
 }
 
 function sequenceA() {
@@ -29,7 +41,7 @@ function sequenceA() {
 function reset() {
   if (!clips.a) return;
   clips.a.sequence = sequenceA();
-  clips.b.sequence = [4, 5, 0, 1, 2, 3];
+  clips.b.sequence = gameplay() ? [0, 1, 2, 3, -1] : [4, 5, 0, 1, 2, 3];
   newStroke();
   for (const clip of Object.values(clips)) { clip.cursor = 0; clip.elapsed = 0; }
   previousTime = undefined;
@@ -40,10 +52,12 @@ function render() {
   for (const [name, clip] of Object.entries(clips)) {
     const index = clip.sequence[clip.cursor];
     const canvas = $(name), ctx = canvas.getContext('2d');
-    const frame = DATA[name].frames[index];
+    const ms = duration(name, clip);
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (name === 'b' && Number($('color').value) < 8) {
+    if (index < 0) {
+      // The stroke has fully cleared.
+    } else if (name === 'b' && Number($('color').value) < 8) {
       const color = Number($('color').value);
       // Each 64x64 color tile is already 4x in the original public montage.
       ctx.save();
@@ -55,7 +69,7 @@ function render() {
     } else {
       ctx.drawImage(clip.images[index], 0, 0);
     }
-    $(name + '-status').textContent = `Frame nguồn F${index} · ${frame.ms} ms gốc / ${frame.ms / speed} ms đang phát · ${clip.cursor + 1}/${clip.sequence.length}${name === 'b' ? (Number($('color').value) === 8 ? ' · Montage gốc · không xoay' : ` · Góc ${angle}°`) : ''}`;
+    $(name + '-status').textContent = `${index < 0 ? 'Tan hết · khoảng nghỉ preview' : 'Frame nguồn F' + index} · ${ms} ms / ${ms / speed} ms đang phát${name === 'b' ? (Number($('color').value) === 8 ? ' · Montage gốc · không xoay' : ` · Góc ${angle}° · ${gameplay() ? 'Nhịp trong game' : 'Timing nguồn'}`) : ''}`;
   }
 }
 
@@ -64,8 +78,8 @@ function tick(now) {
     const dt = (now - previousTime) * speed;
     for (const [name, clip] of Object.entries(clips)) {
       clip.elapsed += dt;
-      while (clip.elapsed >= DATA[name].frames[clip.sequence[clip.cursor]].ms) {
-        clip.elapsed -= DATA[name].frames[clip.sequence[clip.cursor]].ms;
+      while (clip.elapsed >= duration(name, clip)) {
+        clip.elapsed -= duration(name, clip);
         advance(name, clip);
       }
     }
@@ -100,6 +114,8 @@ async function init() {
     reset();
   };
   $('direction').onchange = reset;
+  $('timing').onchange = reset;
+  $('facing').onchange = reset;
   $('pause').onclick = () => pause(playing);
   $('restart').onclick = () => { pause(false); reset(); };
   for (const [id, delta] of [['previous', -1], ['next', 1]]) {

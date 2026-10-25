@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Duel entry presentation (2026-10-25)
 
 Full Play uses the 2.4s player -> dust/enemy -> opponent label -> HUD sequence;
@@ -13,6 +14,24 @@ reviewed across five declared scopes; original PTS/held frames retained.
 Reference research and output evidence are separate; no performance, speaker
 listening, full-suite or itch.io release claim. Full scope/limitations and evidence
 paths: [duel intro checkpoint](../plans/duel-intro.md).
+=======
+## Contact-first Slayer B (2026-10-25; tests waived)
+
+Final pinned Unity WebGL build exits0, input3272ecc39ea954d4e9e55850b31d3c8acb5dbc68a2ffb6e6476a72710e10aaaa,
+player03a0033e57fdf3a2. Capture-only real keys reach enemyHP0/playerHP40 with
+50/51correct letters and4parries,0observed exceptions/provider reads/writes.
+Final canvas/audio clip and1x/0.25x viewer opened in Edge; paths and immutable
+receipts are in the checkpoint. Source gameplay retains the original collision
+window/event ordering. Feature6227d17 is verified on remote main. No test-pass,
+frame-review, reverse-facing or subjective game-feel acceptance is claimed.
+
+User requested: finish and open the clip immediately, with no tests. Scoped test
+startup was cancelled during project initialization before any result XML; authored
+cases remain for future use, and no pass count is claimed. Build and capture are
+required to produce the requested gameplay clip, not substitutes for behavioral or
+frame-review acceptance. Older receipts below qualify their original revisions.
+See [the Slayer checkpoint](../plans/slayer-slash-vfx.md) for current status.
+>>>>>>> origin/main
 
 ## Slayer body-center correction (2026-10-25)
 
@@ -81,7 +100,7 @@ E:/CodexTemp/TypingHero/slayer-b-integration/unity-source. fly-server was offlin
 no toolchain/package installation or changes to other running Unity projects.
 serialize-retry.log: strict two-pass builder PASS. tests.xml:52/52PlayMode PASS,
 0failed/skipped,6.210376s (20Slayer cases plus32directly affected regressions).
-Covers original B white pixels/hash/native64x64 slices/Point/pivot/32–40px scale,
+Covers original B white pixels/hash/native64x64 slices/Point/pivot/32â€“40px scale,
 source80/100/100/100/100/100ms schedule, all56nonrepeat choices, all8angles and
 21prefab progression tints, fixed contact/tint/rotation, role routing, pooling/reuse,
 pause/reading/result/unload and lethal pre-damage capture.
@@ -92,12 +111,12 @@ manifest/Unity version unchanged. Native Edge156.0.4314.42/Intel UHD/D3D11 at
 1280x720:3153checks PASS,0exceptions/provider requests/writes; all8angles observed,
 179stable lease samples and maximum8active Slayer effects. Real keyboard/mouse
 covers overlap, live pause/resume, natural exit, restart, lethal hit and clean result.
-All20emitted progression colors match the scene's authored white→gold→red ramp;
+All20emitted progression colors match the scene's authored whiteâ†’goldâ†’red ramp;
 the scene overrides the prefab's cyan key. Both21-color static matrices inspected:
 4032/4032cels,3360/3360within-effect pairs. Scene matrix alone2016/1680.
 198/198selected encoded runtime frames and194/194pairs reviewed at original PTS,
 including held frames; expanded crop encloses all observed B bounds. Browser video
-clock check at1×/0.25× differs by<15ms over2.2/8.8seconds; presented callbacks may
+clock check at1Ã—/0.25Ã— differs by<15ms over2.2/8.8seconds; presented callbacks may
 coalesce held frames and are not the per-frame inspection evidence. No runtime,
 source or asset changes after these passing checks; no broad suite/performance/
 production release/itch claim. [Receipt and retained evidence](../plans/slayer-slash-vfx.md).
@@ -638,7 +657,7 @@ IDs; no full suite rerun. [Receipt](../../design/hud-dark-fantasy/main-integrati
 Earlier local8245/ZIP receipts below retain the approved2D preview; the integration
 artifact is preserved separately as recorded in the checkpoint.
 
-## Uniform side HUD scale — local only (2026-10-21)
+## Uniform side HUD scale â€” local only (2026-10-21)
 
 Production075801/input0f97006d: strict repeat and production QA exclusion PASS.
 Six original-HTML combat/damage captures at320/640/400x300 DPR1 PASS, zero JS/shader
@@ -651,7 +670,7 @@ Stamina highlight serialized scale also80%, matching its existing TransformPoint
 follow contract. No gameplay code edits, full tutorial/suite or upload.
 Latest player/ZIP/hash: [delivery](../../design/hud-dark-fantasy/delivery.json).
 
-## Compact health HUD follow-up — local only (2026-10-21)
+## Compact health HUD follow-up â€” local only (2026-10-21)
 
 Production070959/input77f90925: strict repeated builder and normal QA exclusion
 PASS. Four original-HTML combat/damage captures at320/640 DPR1 PASS, zero JS/shader
@@ -663,7 +682,7 @@ all874IDs, fonts and bindings retained. No gameplay code changes or full suite.
 Latest local ZIP/hash: [delivery](../../design/hud-dark-fantasy/delivery.json);
 [before/after](../../design/hud-dark-fantasy/compact.html). No upload.
 
-## Dark fantasy HUD — local only (2026-10-21)
+## Dark fantasy HUD â€” local only (2026-10-21)
 
 Source56433a4 on `micharel09/cobblestone-itch-release`. QA062108/72528e35 strict
 repeat PASS; native focused11 checks/30.014s on Edge155/GTX1650Ti D3D11 at320/640
@@ -754,7 +773,7 @@ Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, 
   No new WebGL/native/visual/performance claim. Exact scope and retained receipts:
   [physics checkpoint](../plans/parry-physical-particles.md#near-zero-drag-correction-2026-10-22).
 
-## Dungeon main menu — 2026-10-21
+## Dungeon main menu â€” 2026-10-21
 
 Cached Unity2022.3.25f1 WebGL153008 and strict repeat-builder PASS on input
 `b2b63f11963989f3e233cdbd4da8c43faddf1952287260c2a6f5069b9f37b020`.
@@ -936,8 +955,8 @@ remains unresolved. Asset prompt, mapping, corrections, evidence and preview:
   All6 clean weapon cels equal original RGBA crops. Blade centerline gaps sampled
   sword1=0,sword2=.084WU,axe1=.071WU,shield~0, within visible blade thickness.
 - No-capture `parry-cinematic-final-perf` PASS14 on the same native configuration:
-  1280 p95 13.435→13.485ms(n646→633), live13.420→13.520(n341→309);
-  640 p95 13.510→13.505(n640→646), live13.515→13.505(n350→314).
+  1280 p95 13.435â†’13.485ms(n646â†’633), live13.420â†’13.520(n341â†’309);
+  640 p95 13.510â†’13.505(n640â†’646), live13.515â†’13.505(n350â†’314).
   Baseline is the prior757f20fb voxel player. Short RAF samples, no performance
   guarantee; no increase above10%, so no ABBA run.
 - Actual AV `parry-cinematic-final-audio` PASS12, native25fps1280x720 plus
@@ -971,7 +990,7 @@ remains unresolved. Asset prompt, mapping, corrections, evidence and preview:
 - Static assets: no duplicate GUIDs; all12 original KayKit model/atlas hashes match durable SOURCE.json; all9 actor sheet metadata files match70d789d by content. Durable slash layers recompose original RGBA, with no changes outside authored masks; body/weapon source composite reviewed. Final new-world samples are described below. Old physics clips retained; no publication performed.
 - Native Edge155.0.4283.62/Playwright1.58.2 on the final757f20fb player:70scoped checks passed and `preview-ready`. Actual keyboard/mouse, default BCompact/noF6; Swordsman/DoubleStrike/Heavy/Guard, accepted damage/normal/Slayer/lethal profiles, held pause positions/ages, scene Continue cleanup,1280x720 plus640x360Slayer sample. Zero JS/managed exceptions and fixture writes; external blocking/read-only QA retained. Inspected contact/cubes/slash poses, enemy axe grip/trail, lethal palette, red silhouettes/640 and the fresh1280paused review window. This is sampled visual QA, not human art approval, broad game/performance acceptance or all-RNG proof.
 - Driver-only failures r1-r3 retained in the checkpoint: Continue reloads straight into combat, Run.Win advances the next-opponent label before Continue, and the QA spark snapshot can lag the state by one frame during reload. Corrected observation to wait for live HP/not-finished and two fresh frames before asserting cleanup. R4 passes without any product change to satisfy the driver. Copied112generated assets preserving GUID pairs; original407menu/853combat IDs and all9source sprite metadata preserved. MainMenu bytes restored after proving its generated diff was whitespace-only. Preview/player/helpers and prior physics clips remain task-temp for review; no source push/merge/publication.
-- R4's interactive page closed at10:51local; final browser report is `passed`,72/72checks,0exceptions/fixture reads/writes/external requests,250.243s including the paused review interval. Wrapper32008/server8142 exited normally. Retain final player/screenshots/launcher for visual feedback; obsolete r1-r3 browser profiles/captures and the closed r4 profile can be removed after these receipts. Original Strong24 physics MP4 hashes rechecked unchanged (6405ff54e05…/128070df4057…). No further runtime checks launched.
+- R4's interactive page closed at10:51local; final browser report is `passed`,72/72checks,0exceptions/fixture reads/writes/external requests,250.243s including the paused review interval. Wrapper32008/server8142 exited normally. Retain final player/screenshots/launcher for visual feedback; obsolete r1-r3 browser profiles/captures and the closed r4 profile can be removed after these receipts. Original Strong24 physics MP4 hashes rechecked unchanged (6405ff54e05â€¦/128070df4057â€¦). No further runtime checks launched.
 
 ## Non-combat dungeon skin (2026-10-19; publication pending)
 
@@ -1128,7 +1147,7 @@ See [release checkpoint](../plans/clackblade-rebrand.md) for receipt/rollback.
   Slayer, results and tables inspected at960x540/640x360. Audio routing is not an
   isolated loudness/clipping measurement. Fixtures block external Firebase traffic.
 - Combo samples721/794/834/240/248 and recovery samples9/9/8/2/4 in order
-  VeryHard/Normal/VeryEasy/Easy/Hard. Median frame13.36â€“13.38ms; largest combo
+  VeryHard/Normal/VeryEasy/Easy/Hard. Median frame13.36Ã¢â‚¬â€œ13.38ms; largest combo
   decay-minus-clock error <.00003s, recovery deadlines within sampled frames.
   Per-win role/elite/boss/round formula, HP/stat carry and10HP boss heal checked.
 - Post-Slayer lock reproduced on QA054721: outgoing SlayerS2 frozen at state
@@ -1137,7 +1156,7 @@ See [release checkpoint](../plans/clackblade-rebrand.md) for receipt/rollback.
   active Slayer3.5/clips/contact/cue/parry unchanged. Actual lifecycle regression
   fails on old0 and passes on1. Fixed full matrix includes positive state-speed
   checks and deliberate hits. Latest optional-hit driver cancels observations at
-  encounter end: focused Normal6wins2476checksPASS, actual Heavy hit35â†’27.
+  encounter end: focused Normal6wins2476checksPASS, actual Heavy hit35Ã¢â€ â€™27.
 - Frozen source archive/player/reproduction commands:
   `Builds/EndlessDifficulty-20261019/README.md` (ignored QA artifact).
   `python harness/verify_frozen.py` reruns exact-input Quick through shared runner
@@ -1169,7 +1188,7 @@ See [release checkpoint](../plans/clackblade-rebrand.md) for receipt/rollback.
   .0670586/.1341172, error.1878652. These are signal measurements, not speaker QA.
 - **Final native profile failed**,74checks executed before the audio gate failed
   during Slayer: stereo pre-destination peak1.0988642. Maximum occurs at14.04696s,
-  before first typing buffer14.12063s; the14.12063â€“16.42177s typing/overlap window
+  before first typing buffer14.12063s; the14.12063Ã¢â‚¬â€œ16.42177s typing/overlap window
   peaks.9178221 with0samples>=1. This distinguishes existing combat mix from typing;
   it does not establish an overall no-clipping PASS. x2/x3/exit behavior checks
   completed, but clipping invalidates the combined acceptance. Controlled tutorial
@@ -1205,13 +1224,13 @@ See [release checkpoint](../plans/clackblade-rebrand.md) for receipt/rollback.
   Final result typography Quick74/74, source
   `c65964ff9d500fe713121c04620f7bf1cc659a1c35bb47b7896366a858f7c200`.
   Includes actual scene transition35HP/123points, fresh enemy/parry/Slayer, real
-  heavy8HP impact/cue240â€“400ms under frame sampling, hidden dead-enemy stamina,
+  heavy8HP impact/cue240Ã¢â‚¬â€œ400ms under frame sampling, hidden dead-enemy stamina,
   boss-heal cap, bounded patterns and progress-before-score record ordering.
 - QA WebGL20261018T143344, source
   `0b72b04665673ec594fb6dc0d7323a53a9f3deb9fa5370c5275ad13122cae822`:
   build and repeat-builder pass. Native Edge155.0.4283.62, Playwright1.58.2,
   NVIDIA GTX1650Ti/ANGLE D3D11: **41checks PASS**,217.24s. Real letters, Space,
-  mouse Continue, intro/pause locks, Slayer pause, six victories, boss heal35â†’40,
+  mouse Continue, intro/pause locks, Slayer pause, six victories, boss heal35Ã¢â€ â€™40,
   round2 death, restart, fresh zero-letter death retaining best6/4412, return menu.
   Zero JS/managed exceptions and zero fixture writes; external blocking retained.
 - Inspected actual normal, blue double-strike, larger warm heavy, Slayer and
@@ -1221,7 +1240,7 @@ See [release checkpoint](../plans/clackblade-rebrand.md) for receipt/rollback.
   no-letter accuracy while best6/4412 remains. No old floating stamina after cleanup.
 - Automated reference cadence >=200ms/letter plus action time: normal duels
   19.18/16.98/20.25/16.48s, elite26.16s, boss48.32s. Earlier software Chromium153/
-  SwiftShader40checks passed the same six-opponent loop with normals21â€“29s and
+  SwiftShader40checks passed the same six-opponent loop with normals21Ã¢â‚¬â€œ29s and
   boss61.83s. These are controlled reference runs, not human WPM or replay-desire
   evidence. Human recognition, preference and desire to retry still need playtest.
 - Final software attempt on143344 stopped at intro: its60ms key hold could fall
@@ -1888,7 +1907,7 @@ HTML template. Leaderboard refresh checks actual row instance IDs and Top fetche
 as well as pool size and retained scroll position.
 Firebase reads/writes are fulfilled by fixtures; other external requests abort.
 Stress uses large pool/1,000 word/VFX tests and leaderboard fixtures 500/1,000 rows
-at 960Ã—600 and 400Ã—600. Soak defaults to 1,800 elapsed seconds, repeatedly completes
+at 960Ãƒâ€”600 and 400Ãƒâ€”600. Soak defaults to 1,800 elapsed seconds, repeatedly completes
 words and restarts rounds, checks progress deadlines and records frame time,
 memory and object count. Exceptions, missing state/results, timeouts and zero tests fail.
 Production builds without `TYPINGHERO_AUTOMATION` and the build hook checks exclusion.
@@ -2020,15 +2039,15 @@ Final WebGL: 54 checks passed on snapshot
 `c0ecf7d502deb7718350596766730c74ffbb925609ccb0a3ee4441a948c45a5f`.
 Only enemy HP/editor serialization changed after the Quick runtime checks.
 Three actual keyboard rounds at850HP won in86.524/94.404/90.706 combat seconds,
-median90.706s,44.716â€“44.935WPM,94.334â€“95.266%accuracy,78.571â€“81.250%successful parries.
+median90.706s,44.716Ã¢â‚¬â€œ44.935WPM,94.334Ã¢â‚¬â€œ95.266%accuracy,78.571Ã¢â‚¬â€œ81.250%successful parries.
 These are reference balance runs, not novice human playtests.
 
 Chromium153.0.8010.12/SwiftShader, 2CPU/8GiB, shm1GiB, network none;
 Firebase fixtures cover reads/writes. Read-only probe/frame sampling affects timings.
 Real focus loss was checked separately in headed Xvfb Chromium (7 checks passed);
 headless focus emulation is not evidence of real focus loss.
-Edge61a46c05/155 was inspected at960Ã—540,1280Ã—720,1920Ã—1080,
-iframe960Ã—600 and native iframe fullscreen1280Ã—720. No stress/soak rerun for this task.
+Edge61a46c05/155 was inspected at960Ãƒâ€”540,1280Ãƒâ€”720,1920Ãƒâ€”1080,
+iframe960Ãƒâ€”600 and native iframe fullscreen1280Ãƒâ€”720. No stress/soak rerun for this task.
 See [core-match checkpoint](../plans/core-match.md) for acceptance, fixes, HP selection,
 fixture incident/remediation and production artifact status.
 
@@ -2049,13 +2068,13 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
   fixes; the final visual integration checks below verify those fixes.
 - Final visual/interaction profile:21 checks, QA source
   `6ff902abd1477b6266314f91b2343e3491f41f36a8cf2b951f965fa7c5dcedc3`.
-  Reviewed960Ã—540,1280Ã—720,1920Ã—1080,640Ã—360, quiet HUD/typing, native ornate
+  Reviewed960Ãƒâ€”540,1280Ãƒâ€”720,1920Ãƒâ€”1080,640Ãƒâ€”360, quiet HUD/typing, native ornate
   corners/tiled edges, button states, full/half/empty bars, help, defeat/victory,
-  restart/menu and actual Unicode keyboard entry/persistence of Nguyá»…n.
+  restart/menu and actual Unicode keyboard entry/persistence of NguyÃ¡Â»â€¦n.
   Visible-row pool19 for1,000 long-name fixtures; native wheel/thumb to rank1000,
   ellipsis, column alignment and refresh retaining scroll verified.
 - Supplementary iframe/fullscreen:5 checks on the same QA build; native name entry,
-  Enter/help/game/pause at960Ã—540 and native fullscreen1280Ã—720, images inspected.
+  Enter/help/game/pause at960Ãƒâ€”540 and native fullscreen1280Ãƒâ€”720, images inspected.
   Host fullscreen-button focus must be returned by a native canvas click so the
   iframe player resumes publishing actual render dimensions. An earlier splash
   capture and an earlier insertText-only attempt were rejected as visual/input evidence.
@@ -2724,19 +2743,19 @@ Production smoke on Edge61a46c05 passed first-help, pause/resume, defeat25.5s/no
 ## Unified score cluster acceptance (2026-10-19; local only)
 
 - Unity2022.3.25f1/fly-server: serialize20261019T151210 strict repeat PASS on input787a50f32b27808fb84641307aaa8ff32b4d8d8f30676d938bff996a120a6853. QA20261019T151409 compiles/builds/repeats PASS on input`62da79d2242a0ad8691df7190c96ae2d271ee973c9171eedfa3ea7aa9222adf9`. Imported Unity's SampleScene serialization;853/853 IDs, scripts and persistent event blocks retained. All art, ScoreSystem, ScoreRules and typing core bytes unchanged.
-- Final Edge155.0.4283.62/Playwright1.58.2, NVIDIA GTX1650Ti ANGLE D3D11: **209/209 PASS in66.194s** on that exact QA player with the final worktree score-cluster driver. Actual keyboard/mouse only; bridge observes binding/visibility/geometry/value. Normal/Slayer states at320×180,640×360,1280×720,400×300; fifth-word activation, hidden×1, live fill, unchanged total position/pulse, pause/resume, expiry, timeout, normal/Slayer restart, actual parry renewal, natural Slayer exit and subsequent normal fill. Native live captures inspected at all four sizes; gold Slayer and restored normal fill are clear. Zero managed/JS exceptions; fixture/provider reads0/writes0, interception/external blocking retained. Battle uses VeryEasy pacing for multi-size live capture; earlier Normal activation also observed. No performance/balance claim.
+- Final Edge155.0.4283.62/Playwright1.58.2, NVIDIA GTX1650Ti ANGLE D3D11: **209/209 PASS in66.194s** on that exact QA player with the final worktree score-cluster driver. Actual keyboard/mouse only; bridge observes binding/visibility/geometry/value. Normal/Slayer states at320Ã—180,640Ã—360,1280Ã—720,400Ã—300; fifth-word activation, hiddenÃ—1, live fill, unchanged total position/pulse, pause/resume, expiry, timeout, normal/Slayer restart, actual parry renewal, natural Slayer exit and subsequent normal fill. Native live captures inspected at all four sizes; gold Slayer and restored normal fill are clear. Zero managed/JS exceptions; fixture/provider reads0/writes0, interception/external blocking retained. Battle uses VeryEasy pacing for multi-size live capture; earlier Normal activation also observed. No performance/balance claim.
 - Software profile FAILED43checks at tutorial parry timeout; do not label it passed. Earlier native pilot runs also failed on driver cue timing, rapid pause/zoom transitions, encounter completion or assumed stun/timeout lifecycle. Corrected driver observes actual Endless contact, fully completed pause transitions and natural mode exit; no gameplay changes or relaxed product acceptance. Final native PASS above supersedes those incomplete pilots.
 - `python tools/game_loop/run.py webgl --browser-scenario score-cluster` selects the focused profile and preserves an immutable QA player; native execution uses the existing browser.cjs fixture harness with `TYPINGHERO_NATIVE=1`, `TYPINGHERO_SCORE_CLUSTER_ONLY=1`, explicit build/runner/results paths. Runtime C#/scene did not change after that build; subsequent edits were the browser driver only. No full Quick/balance/stress/soak or production/release run. [Checkpoint](../plans/score-hud-cluster.md).
 
 
-## Combat HUD clarity and feedback — local implementation (2026-10-20)
+## Combat HUD clarity and feedback â€” local implementation (2026-10-20)
 
-- QA022355 Unity2022.3.25f1/fly-server compile/build/strict repeat PASS, input fb80c4104397ce860097599777f60ba6c81020895d67a5da802c7782546a250a. Scene/CombatR7 bằng checkout,853 old IDs/scripts/listeners giữ nguyên,858 final. Hai PNG10×10 khớp v2, Point/Clamp/no-mips/border0; iframe80ms không đổi.
-- Scoped HUDFeedback4/4 PASS022316; gate/cue/window/Tutorial assertions4/4 PASS022957, input a4282a59ec4fe432ba8d2e20277b1448de23595ca23bc9b31627f17417bbfc7a. Kiểm damage/restore, HP11/10/9, pause, setup-zero vs cost+stun, lần break thứ hai, icon recovery và lifecycle. Không full Quick.
-- Native Edge155.0.4283.62/GTX1650Ti ANGLE D3D11/Playwright1.58.2:2353/2353 PASS,169.701s. Năm difficulty, Space thật, finite Normal6duels giữ10HP tới victory(2961points/8parries), Continue/reset, restart/death. Bốn kích thước320×180,640×360,1280×720,400×300 đã xem normal/Slayer và các reduced-only case lúc đó.0exceptions,6fixture reads/2intercepted writes,0production writes; external blocking bật.
-- Software score-cluster dừng53checks tại tutorial parry retries, không tính PASS. Các pilot snapshot/tween và lỗi timer frame đầu đã ghi trong checkpoint; timer fix có4/4 regression PASS. HUD mode không yêu cầu balance recovery-sample gate; chế độ Endless/balance gốc vẫn giữ assert. Không balance matrix/stress/soak/performance claim.
-- Sau QA user bỏ reduced-motion riêng: chỉ xóa hai conditional BrowserMotion.Reduced, giữ nguyên normal Lerp/fade đã kiểm. Lượt Unity bổ sung hủy khi còn chờ lock; không tuyên bố build lại sau thao tác xóa. Native receipt dùng driver26f85e88d086c28b03475550465769f46dff316da5fd814513c7fee983bca98f; driver mới bỏ reduced-only cases21fca2980d324c446c965043ef82c3914df1c4f125a26b0eb984fa0fafccb995 syntax PASS.
-- Native selector: TYPINGHERO_NATIVE=1/TYPINGHERO_HUD_FEEDBACK_ONLY=1 với immutable build/runner/results roots. [Mapping, commands và cleanup](../plans/score-hud-cluster.md). Kết quả publication ghi riêng khi hoàn tất release được user yêu cầu sau đó.
+- QA022355 Unity2022.3.25f1/fly-server compile/build/strict repeat PASS, input fb80c4104397ce860097599777f60ba6c81020895d67a5da802c7782546a250a. Scene/CombatR7 báº±ng checkout,853 old IDs/scripts/listeners giá»¯ nguyÃªn,858 final. Hai PNG10Ã—10 khá»›p v2, Point/Clamp/no-mips/border0; iframe80ms khÃ´ng Ä‘á»•i.
+- Scoped HUDFeedback4/4 PASS022316; gate/cue/window/Tutorial assertions4/4 PASS022957, input a4282a59ec4fe432ba8d2e20277b1448de23595ca23bc9b31627f17417bbfc7a. Kiá»ƒm damage/restore, HP11/10/9, pause, setup-zero vs cost+stun, láº§n break thá»© hai, icon recovery vÃ  lifecycle. KhÃ´ng full Quick.
+- Native Edge155.0.4283.62/GTX1650Ti ANGLE D3D11/Playwright1.58.2:2353/2353 PASS,169.701s. NÄƒm difficulty, Space tháº­t, finite Normal6duels giá»¯10HP tá»›i victory(2961points/8parries), Continue/reset, restart/death. Bá»‘n kÃ­ch thÆ°á»›c320Ã—180,640Ã—360,1280Ã—720,400Ã—300 Ä‘Ã£ xem normal/Slayer vÃ  cÃ¡c reduced-only case lÃºc Ä‘Ã³.0exceptions,6fixture reads/2intercepted writes,0production writes; external blocking báº­t.
+- Software score-cluster dá»«ng53checks táº¡i tutorial parry retries, khÃ´ng tÃ­nh PASS. CÃ¡c pilot snapshot/tween vÃ  lá»—i timer frame Ä‘áº§u Ä‘Ã£ ghi trong checkpoint; timer fix cÃ³4/4 regression PASS. HUD mode khÃ´ng yÃªu cáº§u balance recovery-sample gate; cháº¿ Ä‘á»™ Endless/balance gá»‘c váº«n giá»¯ assert. KhÃ´ng balance matrix/stress/soak/performance claim.
+- Sau QA user bá» reduced-motion riÃªng: chá»‰ xÃ³a hai conditional BrowserMotion.Reduced, giá»¯ nguyÃªn normal Lerp/fade Ä‘Ã£ kiá»ƒm. LÆ°á»£t Unity bá»• sung há»§y khi cÃ²n chá» lock; khÃ´ng tuyÃªn bá»‘ build láº¡i sau thao tÃ¡c xÃ³a. Native receipt dÃ¹ng driver26f85e88d086c28b03475550465769f46dff316da5fd814513c7fee983bca98f; driver má»›i bá» reduced-only cases21fca2980d324c446c965043ef82c3914df1c4f125a26b0eb984fa0fafccb995 syntax PASS.
+- Native selector: TYPINGHERO_NATIVE=1/TYPINGHERO_HUD_FEEDBACK_ONLY=1 vá»›i immutable build/runner/results roots. [Mapping, commands vÃ  cleanup](../plans/score-hud-cluster.md). Káº¿t quáº£ publication ghi riÃªng khi hoÃ n táº¥t release Ä‘Æ°á»£c user yÃªu cáº§u sau Ä‘Ã³.
 
 ## HUD production publication (2026-10-20)
 
@@ -3031,14 +3050,14 @@ Scoped Quick20261022T081730 passes2/2tests (front lifecycle/mesh/emission/clock 
 
 Source/output each5/5cels and5/5loop transitions reviewed separately; output native48x34/nearest2x. Actual canvas640frames decoded/exported with exact timestamps; selectedF77..116 andF166..223 reviewed98/98frames,96/96pairs at logical320x180/nearest2x640x360 plus40lamp detail crops. No room flash or whole-player parry/recovery blackout in those samples. Capture is25FPS VFR, not every engine frame or performance/FPS evidence. Earlier intro-race pilot is not acceptance. Direct-scene load audit20261022T084400 verifies the committed scene reference graph, front24/6percent, rear2percent, atlas/renderer bindings and disabled original flame. [Full checkpoint](../plans/combat-hanging-light.md).
 
-## All three NYKNCK flames — demo candidate (2026-10-22)
+## All three NYKNCK flames â€” demo candidate (2026-10-22)
 
 - User extended the accepted central sprite approach to both rear torches. Main integration remains held for review; task branch `micharel09/lantern-pixel-fire` is retained.
 - Scoped Unity20261022T091031-quick: **2/2 PASS**, one lifecycle test now exercises all three intensity/offset configurations plus existing legacy flicker regression; strict repeated builder PASS. Input96cdf597d5b1589172ac543c058871e9b9f3f4c5f1df8095f51f7a5f6d318c4a.
 - QA WebGL20261022T091817, input195e9efb11661a6c2b14fb34307c7d4a1968f88e05298debbb3c395549177292, immutable playerf6eb222b78eb434e. Native Edge155/NVIDIA GTX1650Ti/ANGLE D3D11/1280x720:17 native action/assertion checks before the old aggregate telemetry assertion, zero exceptions/provider writes; completed real pause, parry, immediate following word attack, Slayer and menu return.
 - Raw harness status is retained as failed: it interleaved same-named dormant source-room age0 samples with the playing room. An earlier run also rejected valid float32 intensity22.559999465 at the22.56 boundary. Corrected read-only `all-torches/check-runtime.py` separates the advancing/active room, validates the recorded manual-pause and Slayer windows, and permits1e-5 float tolerance: **all3PASS**,483 samples each (301active/182hidden), all5cels, synchronized emission, fixed roots, frozen age/cel during pause/hiding. No product-code changes were needed for these harness issues.
-- Observed intensity: main22.5599995–25.2892056, rear-left15.6800003–16.2812004, rear-right15.6800003–16.2817173, within24+/-6percent and16+/-2percent modulo float representation.
-- Final video SHA256c61d35d0fe5752a381d1e4a79ca04220e84b752e3b8a6acf5e0eaecacbb554d6. Export641/641 frames with exact source timestamps; directly viewed normalF69–108 (5.483595–7.101765s) and parryF166–234 (9.438540–12.238540s):109/109frames,107/107within-segment adjacent pairs at320x180 and nearest2x640x360. Also viewed all40normal frames as three separate native-capture2x lamp crops, and1280x720 normal/guard/post-parry/restored stills. Per-frame observations and transition notes: `all-torches/selected/frame-evidence.csv`.
+- Observed intensity: main22.5599995â€“25.2892056, rear-left15.6800003â€“16.2812004, rear-right15.6800003â€“16.2817173, within24+/-6percent and16+/-2percent modulo float representation.
+- Final video SHA256c61d35d0fe5752a381d1e4a79ca04220e84b752e3b8a6acf5e0eaecacbb554d6. Export641/641 frames with exact source timestamps; directly viewed normalF69â€“108 (5.483595â€“7.101765s) and parryF166â€“234 (9.438540â€“12.238540s):109/109frames,107/107within-segment adjacent pairs at320x180 and nearest2x640x360. Also viewed all40normal frames as three separate native-capture2x lamp crops, and1280x720 normal/guard/post-parry/restored stills. Per-frame observations and transition notes: `all-torches/selected/frame-evidence.csv`.
 - Roots stay attached to bodies/cage; local flame clusters change independently, warm wall/floor pools persist, and actors remain readable through parry/recovery without a scene-wide flash. Rear detail remains deliberately soft under existing DOF/bloom; VFR25FPS capture does not prove every engine frame, high-frequency shimmer absence or FPS/performance.
 - Atlas hash14b26a8dc4566e7c7079107054cfbcc9056432b0b33c3fe3a9cb857cf7cce910 unchanged: prior source/final-cel5/5 plus loop-transition review is reused. No new art or reference-match claim. Original scene records/IDs preserved; only7existing records changed and8new rear-card records added, with values copied from the verified builder output.
 - Evidence/demo root: `E:/CodexTemp/TypingHero/pixel-fire-review-20261022-m60wlc3t/all-torches`; local review URL `http://127.0.0.1:8228/all-torches/demo.html`. WebGL initially hit the3GiB free-space guard; only six task-owned older results were removed after checking their archived snapshots and absence of active mounts. Shared cache/toolchain and other jobs preserved. No full suite, extra viewport, stress run or publication.

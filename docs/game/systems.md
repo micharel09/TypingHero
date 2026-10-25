@@ -1,3 +1,17 @@
+## Contact-first Slayer presentation implementation (2026-10-25)
+
+Supersedes the old580ms/eight-random-angle Slayer presentation in the historical
+VFX row below. `PlayerSlayerMode` applies one of three contact-first120ms clips,
+then opens the same deduplicated hitbox with its original collision timing. Direction follows
+that chosen swing/facing. `SlayerHitVfx` uses four original B cels,120/160ms,
+one primary plus one30ms residual per recipient. `SlashVolume` expires held player
+Slayer trails; enemy/normal cel-driven geometry remains. `SlayerSilhouetteGroup`
+composes a40ms ivory body pulse through private DungeonSprite properties; jitter
+on the default Skeleton root is disabled. Shader defaults keep other materials'
+previous output. QA observations add no gameplay setters. Public contracts remain.
+Tests and exhaustive frame review are unexecuted at the user's request; status and
+clip are recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
+
 # System and configuration map
 
 ## Pause and guidance ownership (2026-10-24)

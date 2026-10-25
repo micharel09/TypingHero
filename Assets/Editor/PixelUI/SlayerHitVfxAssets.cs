@@ -54,7 +54,7 @@ internal static class SlayerHitVfxAssets
             }
         }
         finally { Object.DestroyImmediate(texture); }
-        var sequence = new[] { frames[4], frames[5], frames[0], frames[1], frames[2], frames[3] };
+        var sequence = new[] { frames[0], frames[1], frames[2], frames[3] };
         Build(false, sequence, 32f / widest);
         Build(true, sequence, 40f / widest);
     }
@@ -76,7 +76,8 @@ internal static class SlayerHitVfxAssets
             so.FindProperty("image").objectReferenceValue = image;
             so.FindProperty("uniformScale").floatValue = scale;
             var durations = so.FindProperty("frameDurations"); durations.arraySize = frames.Length;
-            for (int i = 0; i < frames.Length; i++) durations.GetArrayElementAtIndex(i).floatValue = i == 0 ? .08f : .1f;
+            var timing = lethal ? new[] { .06f, .04f, .03f, .03f } : new[] { .04f, .03f, .03f, .02f };
+            for (int i = 0; i < frames.Length; i++) durations.GetArrayElementAtIndex(i).floatValue = timing[i];
             so.ApplyModifiedPropertiesWithoutUndo(); PrefabUtility.SaveAsPrefabAsset(root, path);
         }
         finally { if (existing) PrefabUtility.UnloadPrefabContents(root); else Object.DestroyImmediate(root); }

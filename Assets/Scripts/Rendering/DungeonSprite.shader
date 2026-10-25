@@ -17,6 +17,8 @@ Shader "CLACKBLADE/Dungeon Sprite"
   [HideInInspector] _RendererColor("Renderer color", Color) = (1,1,1,1)
   [HideInInspector] _Flip("Flip", Vector) = (1,1,1,1)
   [PerRendererData] _SlayerTintWeight("Slayer silhouette", Range(0,1)) = 0
+  [PerRendererData] _SlayerHitFlashAmount("Slayer hit flash", Range(0,1)) = 0
+  [PerRendererData] _SlayerHitFlashColor("Slayer hit color", Color) = (1,0.953,0.812,1)
   _FlashAmount("Flash", Range(0,1)) = 0
   _FlashColor("Flash color", Color) = (1,1,1,1)
  }
@@ -36,6 +38,8 @@ Shader "CLACKBLADE/Dungeon Sprite"
   float _SelfShadowStrength, _DepthScale, _SelfShadowBias;
   CBUFFER_END
   float _SlayerTintWeight;
+  float _SlayerHitFlashAmount;
+  half4 _SlayerHitFlashColor;
   float _DepthReady;
   float4 _DepthRect, _DepthTexel, _DepthFacing;
   struct Attributes { float4 positionOS:POSITION; float2 uv:TEXCOORD0; half4 color:COLOR; };
@@ -114,7 +118,8 @@ Shader "CLACKBLADE/Dungeon Sprite"
     half4 lit=DepthLighting(input,surface,i.uv);
     half3 flashed = lerp(lit.rgb,_FlashColor.rgb,_FlashAmount);
     // Silhouette must not retain dielectric highlights from the active room.
-    return half4(lerp(flashed,c.rgb,_SlayerTintWeight),c.a);
+    half3 silhouette = lerp(flashed,c.rgb,_SlayerTintWeight);
+    return half4(lerp(silhouette,_SlayerHitFlashColor.rgb,_SlayerHitFlashAmount),c.a);
    }
    ENDHLSL
   }

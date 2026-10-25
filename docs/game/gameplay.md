@@ -627,37 +627,29 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Slayer hit slash (2026-10-25)
+### Slayer contact-first presentation (2026-10-25; tests waived)
 
-- Production Slayer hit and lethal contacts use `SlayerHits/SlayerHit.prefab` and
-  `SlayerFinisher.prefab`: Met.Pxl B white64x64 artwork extracted losslessly from
-  the approved public preview. Fixed center pivot; F4/80ms→F5/F0/F1/F2/F3 at100ms
-  each, one580ms unscaled lifetime. Unrotated maximum visible width remains32/40
-  reference pixels at16PPU. Pixel.mat/order3; Point/no-mips/uncompressed.
-  Each impact selects one of eight clockwise45-degree directions, excluding the
-  immediately previous direction for that owner, shared across hit/finisher.
-  Hold angle throughout the effect; no extra mirror, particles or lights.
-- Slayer visuals use the struck body collider's bounds center captured before
-  damage/hurt/death, held in world space through the lease. Contact remains
-  separate for damage/camera/audio and non-Slayer/legacy effects; no per-cel
-  recentering or following a moving target.
-- Hitbox snapshots Slayer state and afterimage RGB tint before damage; emitted
-  tint stays opaque and immutable through Slayer exit. Lethal audio/camera still
-  follow the damage outcome. Optional `slayerLethalPrefab` falls back to the old
-  lethal role for unassigned consumers; non-Slayer normal/lethal and parry retain
-  their existing bindings. Voxel assets remain available for compatibility.
-- `SlayerHitVfx` uses the existing PooledVFX/owner impact budget of eight; oldest
-  impact is reclaimed, with dust/parry pools independent. Pause/tutorial reading
-  holds age; Slayer exit allows the580ms tail, result overlay/disable/restart/
-  unload reclaim it. Owner disable resets direction history. Runtime frames
-  quantize visible endpoints.
-- B integration: scoped Unity52/52, strict two-pass builder and real-input
-  WebGL1280x720/3153checks PASS. Both prefab and actual scene-override tint
-  matrices plus198encoded runtime frames were reviewed; evidence and scope
-  are recorded in [the task checkpoint](../plans/slayer-slash-vfx.md).
-- Body-center follow-up: scoped Unity51/51 and WebGL2772checks PASS;96source cels
-  and460selected native frames reviewed, including pause/exit/restart/finisher.
-  Existing body jitter remains independent of the captured world anchor.
+- Retain original Met.Pxl B PNG/GUIDs/center pivot and32/40reference-pixel scale.
+  Game hit uses F0/F1/F2/F3 at40/30/30/20ms; finisher60/40/30/30ms. Source preview
+  remains six-frame580ms; it is no longer the game schedule.
+- Slayer S1 starts combo_1_0 then1/2; S2 starts combo_2_3 then4/5; S3 starts
+  combo_3_3 then4. All end120ms. Apply the contact pose before the existing
+  deduplicated damage window; collision/damage ordering remains unchanged.
+  Local impact axes(1,-1),(1,0),(1,1) follow the selected swing and source facing;
+  no independent eight-angle random selection. Snapshot center/direction/tint before
+  damage; B retains its fixed world anchor and captured RGB through lethal exit.
+- Each recipient has one primary plus one<=35%alpha residual lasting<=30ms;
+  finisher replaces both. Original luminous sword geometry expires120ms per swing
+  even when the final cel is held; another typed strike resets that envelope.
+- Skeleton positional jitter is disabled; existing hurt pose progression remains.
+  Compositor-owned ivory#FFF3CF body pulse holds20ms then fades20ms after silhouette,
+  preserving sprite alpha/depth, baseline RGB and unrelated property-block values.
+  Pause/reading hold presentation clocks. Results/disable/restart/unload clear them.
+- Public input/scoring/damage values/stamina/camera/audio and Slayer no-hitstop
+  policy remain. Normal/parry/legacy emitters retain their routes and shared budget.
+  User explicitly requested no tests and immediate clip. The initial test launch
+  was cancelled; this revision has no runtime/frame-review acceptance claim.
+  Build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 

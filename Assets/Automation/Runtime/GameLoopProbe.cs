@@ -64,8 +64,23 @@ public sealed class GameLoopProbe : MonoBehaviour
         public float presentationWeight, backgroundAlpha;
         public bool enemyFlash;
         public Color enemyColor;
+        public string enemyCel;
+        public float slayerBodyFlash;
+        public Vector2 slayerDirection;
+        public Vector3 enemyBodyCenter;
+        public bool slayerTrailVisible;
+        public SlayerRenderFrame[] slayerImpacts;
         public int parryParticleCount, parryBurstCount, parrySampleCount;
         public ParryParticleFrame[] parryParticles;
+    }
+    [Serializable] sealed class SlayerRenderFrame
+    {
+        public int id;
+        public string cel;
+        public float age, clockwiseAngle;
+        public Color tint;
+        public Vector3 position;
+        public bool fading;
     }
     [Serializable] sealed class ParryParticleFrame
     {
@@ -179,6 +194,19 @@ public sealed class GameLoopProbe : MonoBehaviour
         var enemySprite = combatEnemy ? combatEnemy.GetComponent<SpriteRenderer>() : null;
         var enemyFlash = combatEnemy ? combatEnemy.GetComponent<EnemyHitFlash>() : null;
         combatFrame.enemyColor = enemySprite ? enemySprite.color : Color.clear;
+        combatFrame.enemyCel = enemySprite && enemySprite.sprite ? enemySprite.sprite.name : "";
+        var silhouette = combatEnemy ? combatEnemy.GetComponent<SlayerSilhouetteGroup>() : null;
+        combatFrame.slayerBodyFlash = silhouette ? silhouette.HitFlashWeight : 0;
+        var body = combatEnemy ? combatEnemy.GetComponent<BoxCollider2D>() : null;
+        combatFrame.enemyBodyCenter = body ? body.bounds.center : default;
+        combatFrame.slayerDirection = combatSlayer ? combatSlayer.StrikeDirection : Vector2.zero;
+        var trail = combatSlayer ? combatSlayer.GetComponentInChildren<SlashVolume>() : null;
+        combatFrame.slayerTrailVisible = trail && trail.TrailVisible;
+        combatFrame.slayerImpacts = FindObjectsOfType<SlayerHitVfx>().Select(effect => new SlayerRenderFrame {
+            id = effect.GetInstanceID(), cel = effect.GetComponent<SpriteRenderer>().sprite ? effect.GetComponent<SpriteRenderer>().sprite.name : "",
+            age = effect.Age, clockwiseAngle = Mathf.Repeat(-effect.transform.eulerAngles.z, 360),
+            tint = effect.GetComponent<SpriteRenderer>().color, position = effect.transform.position, fading = effect.IsFading
+        }).ToArray();
         combatFrame.enemyFlash = enemyFlash && enemyFlash.isActiveAndEnabled && Read<bool>(enemyFlash, "_active");
         ObserveRenderParry();
         combatFrame.playerHP = combatPlayer ? combatPlayer.Current : -1;
