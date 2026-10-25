@@ -1,3 +1,51 @@
+## Black Slayer B impact (2026-10-25)
+
+Approved scope: only the B impact centered on the skeleton, pure black#000000,
+including normal Slayer hits and finishers. The large player sword trail,
+afterimages and ivory body pulse keep their existing colors. The source white
+PNG/importers, frame sequence,120/160ms timing, alpha/residual fade, pivot,
+direction and fixed body-center anchor remain unchanged.
+
+HitSparkSpawner supplies Color.black only in its SlayerHitVfx spawn branch;
+captured progression tint remains available to unrelated feedback/legacy routes.
+No public API, shader/material, animation, builder or prefab changes are needed.
+Existing color expectations are updated but not executed under the user's waiver.
+
+Worktree C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-black-impact,
+branch micharel09/slayer-black-impact, base2b07f3f includes the newly integrated
+duel intro. Reuse the private source/Library at
+E:/CodexTemp/TypingHero/slayer-hit-feel; new artifacts go under black-impact/.
+The real-input capture helper waits for the intro before tutorial controls.
+No test-suite or exhaustive visual-frame acceptance claim is made.
+
+### Build and clip receipt
+
+Pinned Unity2022.3.25f1 WebGL build exited0. Accepted input
+1954990d05567189c649d924807c80d09ea50b99e6c8b767b65ccab6ba53f0c1 is preserved in
+black-impact/snapshot.json and accepted-unity-input.tar.gz. Player fingerprint
+077f252553ba3b31 and per-file hashes are in player-manifest.json. Built source
+matches the scoped spawner/expectation changes and unchanged clips/depth index.
+
+Final actual canvas/audio clip black-impact/slayer-black-impact.webm is2426938bytes,
+SHA25653a61ea475ee3db1ee48f69ce4ab609e458d29f01081ebdd13ef50d7805831e6.
+Opened black-impact/open-clip.html in Edge at2026-10-25T04:54:58.597088+00:00,
+with1x/0.25x and S1/S2/S3/rapid-typing jump buttons. Isolated variants begin
+at0.902/1.869/1.391s and include their full authored recovery; rapid input follows
+at35ms per letter/100ms between words. Final capture reaches playerHP40/enemyHP0
+and includes five observations of B with enemyHP0.204render observations contain
+117B samples, all RGB(0,0,0);50birth samples coincide with recorded body center.
+No runtime exceptions or provider reads/writes were captured. These observations
+are capture evidence, not a test-suite or exhaustive encoded-frame-review pass.
+
+The first capture is retained under black-impact/first-capture: its slower typing
+exited Slayer with7enemyHP before the normal lethal hit, so it is not the finisher
+evidence. The final capture uses the same built player and records a Slayer B
+finisher. User visual approval and exhaustive frame/transition inspection remain
+unverified under the explicit waiver. git diff --check is clean; no tests ran.
+Keep the artifacts and warm private source/Library until user review/reproduction
+is finished; no earlier clip or original dirty checkout was changed.
+Integration receipt follows after remote verification.
+
 ## Final strike and combo_end correction (2026-10-25)
 
 The user identified the screenshot's pose as an unfinished combo. Source inspection

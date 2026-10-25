@@ -5,6 +5,7 @@ VFX row below. `PlayerSlayerMode` applies one of three contact-first280ms clips
 with the corresponding complete combo_end recovery (S3 starts combo_3_11),
 then opens the same deduplicated hitbox with its original collision timing. Direction follows
 that chosen swing/facing. `SlayerHitVfx` uses four original B cels,120/160ms,
+with black RGB supplied by the B-only spawn branch regardless of captured combo tint,
 one primary plus one30ms residual per recipient. `SlashVolume` expires held player
 Slayer trails; enemy/normal cel-driven geometry remains. `SlayerSilhouetteGroup`
 composes a40ms ivory body pulse through private DungeonSprite properties; jitter

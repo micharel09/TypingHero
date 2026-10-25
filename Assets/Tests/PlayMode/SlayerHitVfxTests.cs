@@ -74,7 +74,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(Get<float>(effect, "uniformScale") * widest, Is.EqualTo(width).Within(.0001));
     }
     [TestCase(false), TestCase(true), Category("Quick")]
-    public void EveryFrameKeepsContactTintAndAngleUntilRelease(bool lethal)
+    public void EveryFrameKeepsBlackAndAngleUntilRelease(bool lethal)
     {
         var spawner = Owner(out var go);
         spawner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal, directionOverride: -1, capturedTint: Color.red);
@@ -89,7 +89,7 @@ public sealed class SlayerHitVfxTests
             Assert.That(image.sprite.name, Is.EqualTo("frame_" + order[i]));
             effect.Advance(durations[i] - .001f);
             Assert.That(image.sprite.name, Is.EqualTo("frame_" + order[i]), "frame held for full source duration");
-            Assert.That(image.color, Is.EqualTo(Color.red)); Assert.That(image.flipX || image.flipY, Is.False);
+            Assert.That(image.color, Is.EqualTo(Color.black)); Assert.That(image.flipX || image.flipY, Is.False);
             Assert.That(effect.transform.position, Is.EqualTo(new Vector3(3, 4, 0)));
             Assert.That(effect.transform.rotation, Is.EqualTo(rotation));
             effect.Advance(.00101f);
@@ -98,7 +98,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(effect.transform.rotation, Is.EqualTo(Quaternion.identity));
         spawner.SpawnImpact(Vector2.zero, go.transform, true, lethal, directionOverride: 1, capturedTint: Color.white);
         Assert.That(Active().Single(), Is.SameAs(effect)); Assert.That(effect.Age, Is.Zero);
-        Assert.That(image.color, Is.EqualTo(Color.white)); Assert.That(image.flipX || image.flipY, Is.False);
+        Assert.That(image.color, Is.EqualTo(Color.black)); Assert.That(image.flipX || image.flipY, Is.False);
         Assert.That(effect.transform.rotation, Is.Not.EqualTo(rotation));
         Assert.That(image.sprite.name, Is.EqualTo("frame_0"));
     }
@@ -142,7 +142,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(residual.gameObject.activeSelf, Is.False);
     }
     [TestCase(false), TestCase(true), Category("Quick")]
-    public void AuthoredMirroredAnglesAndProgressionTintKeepAllFourFrames(bool lethal)
+    public void AuthoredMirroredAnglesKeepBlackAcrossProgressionTintsAndAllFourFrames(bool lethal)
     {
         var owner = Owner(out var go);
         var player = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Characters/Player/Player.prefab");
@@ -157,7 +157,7 @@ public sealed class SlayerHitVfxTests
             foreach (int frame in new[] { 0, 1, 2, 3 })
             {
                 Assert.That(sprite.sprite.name, Is.EqualTo("frame_" + frame));
-                Assert.That(sprite.color, Is.EqualTo(tint));
+                Assert.That(sprite.color, Is.EqualTo(Color.black));
                 Assert.That(sprite.flipX || sprite.flipY, Is.False);
                 Assert.That(Quaternion.Angle(effect.transform.rotation, Quaternion.Euler(0, 0, -direction * 45)), Is.LessThan(.001));
                 Assert.That(effect.transform.position, Is.EqualTo(new Vector3(3, 4, 0)));
@@ -267,7 +267,7 @@ public sealed class SlayerHitVfxTests
         Set(slayer, "_active", false); // Undo manual fixture activation; this fixture has no Animator.
     }
     [Test, Category("Quick")]
-    public void LethalHitCapturesSlayerAndTintBeforeDamageAndDeduplicatesColliders()
+    public void LethalHitKeepsBlackSlayerStyleAfterExitAndDeduplicatesColliders()
     {
         var spawner = Owner(out var go); go.SetActive(false); go.AddComponent<BoxCollider2D>();
         var slayer = go.AddComponent<PlayerSlayerMode>(); var images = go.AddComponent<SlayerAfterimagePool>();
@@ -280,7 +280,7 @@ public sealed class SlayerHitVfxTests
         var hit = typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Flags);
         hit.Invoke(box, new object[] { a }); hit.Invoke(box, new object[] { b });
         Assert.That(damage.hits, Is.EqualTo(1)); var effect = Active().Single();
-        Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponent<SpriteRenderer>().color, Is.EqualTo(Color.red));
+        Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponent<SpriteRenderer>().color, Is.EqualTo(Color.black));
         Assert.That(Time.timeScale, Is.EqualTo(1));
     }
 

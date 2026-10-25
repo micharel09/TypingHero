@@ -632,6 +632,8 @@ Full surface art, B/C and parent integration remain separate.
 - Retain original Met.Pxl B PNG/GUIDs/center pivot and32/40reference-pixel scale.
   Game hit uses F0/F1/F2/F3 at40/30/30/20ms; finisher60/40/30/30ms. Source preview
   remains six-frame580ms; it is no longer the game schedule.
+  Both Slayer B roles emit pure black#000000 independently of combo tint;
+  source alpha, residual fading, ivory body pulse, sword trail and afterimages remain.
 - Slayer S1 uses combo_1_0/1/2 then combo_1_end_0..3; S2 uses combo_2_3/4/5
   then combo_2_end_0..3; S3 uses the final strike combo_3_11 then combo_3_end_0..5.
   Each has seven40ms poses, ends280ms and holds its recovered final pose; the
@@ -641,7 +643,7 @@ Full surface art, B/C and parent integration remain separate.
   deduplicated damage window; collision/damage ordering remains unchanged.
   Local impact axes(1,-1),(1,0),(1,1) follow the selected swing and source facing;
   no independent eight-angle random selection. Snapshot center/direction/tint before
-  damage; B retains its fixed world anchor and captured RGB through lethal exit.
+  damage; B retains its fixed world anchor and black RGB through lethal exit.
 - Each recipient has one primary plus one<=35%alpha residual lasting<=30ms;
   finisher replaces both. Original luminous sword geometry expires120ms per swing
   even when the final cel is held; another typed strike resets that envelope.
