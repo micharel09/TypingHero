@@ -1,3 +1,55 @@
+## REPLACED dungeon lighting - implementation checkpoint, 2026-10-25
+
+User approved REPLACED-inspired floor pools, directional actor highlights and dark
+body cores, keeping the existing HD-2D dungeon. Floor choice: damp stone with mild
+specular response; planar reflection stays disabled. Preserve the rejected rune,
+blue haze and beam-card disabled states, authored flames, camera and gameplay.
+
+Independent Orca branch `micharel09/replaced-dungeon-lighting`, based on main
+`7dc84f918390bb826d9eae25fa0012f7d89821fc`; original dirty checkout preserved.
+Task evidence: `C:/CodexTemp/TypingHero/replaced-dungeon-lighting-20261025`.
+Baseline is an isolated LF snapshot with its own Library, input SHA256
+`ba6e904d535f6fd53c75b12b28696a69a1fb9d585862362bf7643037419e11af`.
+
+Reference: official Steam REPLACED Gameplay Trailer (movie257284443),
+https://store.steampowered.com/app/1663850/REPLACED/ . Interior source frames944..1088
+(15.733333..18.133333s),145frames/144pairs; combat1934..2036
+(32.233333..33.933333s),103frames/102pairs. All selected frames/pairs were inspected
+at320px thumbnails, plus native1280x720 anchors960,1048,1978; source SHA256
+12ac5730025e4e30f073624cb93df1d7e30a3354de326bf9da468323c8f80b9e.
+Includes shot boundaries; not a whole-trailer, timed-playback or rendering-technique
+claim. Original research record remains under the sibling lighting-reference-study
+task root. This reference review does not certify the changed game's appearance.
+
+Candidate uses one constant, shadowless cool Spot Light through existing
+LightProfile/DungeonTorchLight bindings: color789BB5, intensity64/range16,
+inner45/outer75degrees, environment-local(1.5,4,6), aimed at local floor origin.
+MainLantern24->16 retains its anchor/shadows/flame; rear/pillar torches are unchanged.
+GroundSurface actually uses Floor1..8, not the unused GroundStone material. Eight
+16x16 linear Point surface masks distinguish stone tops, chipped bevels and dry
+mortar using the source's explicit three-color palette. Metallic remains0;
+smoothness scalar.5 gives stone tops.306..369, bevel.141 and mortar.012. The
+original albedo PNGs and geometry remain unchanged; camera reflection stays off.
+
+Scoped tests found a pre-existing missing _MaterialMap on parry_lift (same input
+binding as main). Existing SurfaceNormalAssets.PrepareMaterials generated only its
+missing companion; preserve original albedo/normal/depth/pivot/GUID and timing.
+The initial10/11result remains a failure receipt. Final input
+c5c6c21d2c8d177e3555478367f1a75de1ebe5c7e20c74c1bcfeb4a3b76dd1c6:
+11/11LightingProfileTests/DungeonRenderTests PASS,0failed/skipped. World-switch
+regression distinguishes five flame fixtures from the independent light-only fill.
+Protected430existing art/animation/shader files remain unchanged.
+
+Offscreen GPU tuning used NVIDIA GTX1650Ti, actual world receivers/actor material,
+fixed poses and the native post volume. It excludes production environment blur,
+presentation framing and gameplay; previews are not final WebGL acceptance.
+Baseline native Edge156/Intel UHD/D3D11 observed Normal, parry/follow-up,
+Pause/Resume, Slayer/restore, restart and player death without runtime exceptions.
+Its pilot driver stopped on a wrong menu-control name before return; no full PASS
+is claimed. Corrected driver waits for actual result controls and uses Main MenuButton.
+Repeated builder, final WebGL A/B, complete selected motion review, performance and
+remote integration remain pending.
+
 ## Reusable world lighting profiles - integrated, 2026-10-23
 
 User requested reusable scene/map profiles for all 3D lighting, rune and combat
