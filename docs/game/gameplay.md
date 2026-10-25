@@ -336,7 +336,7 @@ see verification for profile status. These are current behaviors, not new requir
   full-body flash; Stun uses Hurt3/4/3 and hitBySlayer uses Hurt1/3. Source/native
   assets and the approved sample hashes live in `design/skeleton-hero/`.
 - First Play opens the single English HUD guide for unseen players. Menu Tutorial
-  reopens it; How to Play remains a separate quick reference. TutorialProgress_v1
+  reopens it; the legacy How to Play modal is removed. TutorialProgress_v1
   retains Unseen=0,Skipped=1,Completed=2; both legacy viewed values bypass first-Play
   onboarding. Only Start Battle saves Completed. MusicVolume/SfxVolume default to1,
   persist from menu/pause sliders and multiply independent fade/duck/scene envelopes.
@@ -354,13 +354,19 @@ Change only behavior explicitly requested. Update this file after relevant verif
   advances through Type to Attack, Mistakes & Timer, Parry with Space,
   Break Guard / Slayer, and Score & Combo. TutorialDirector rejects same-frame
   confirmations and requires Enter release between pages.
-- Five lessons share the existing816x480 modal skin at960x540. Cards/arrows hide
-  behind its dimmer. A centered720x270 Image preserves each frame's aspect ratio.
-  Seventeen Point-filtered atlas pages contain930 real-gameplay frames with their
-  original durations and English captions. Parry retains the approved77-frame
-  success example and adds a full-HUD missed-hit/HP-loss example. Typing, wrong
-  letters/timeouts, Guard break/full Slayer recovery, score/combo expiry are shown.
-  No practice, live combat instance or GIF decoder runs inside the modal.
+- Five lessons share the existing816x480 modal at(72,30) on960x540, with a
+  centered720x270 clip. Each240x90 Point-filtered frame uses the original captured
+  duration. A fixed English rule stays below it; one label, focus outline and arrow
+  inside the clip follow the same frame lookup. Left-HUD arrows route around values.
+  Atlas pages are lossless, no mipmaps, max2048, with2px gutters; existing GUIDs stay.
+- Typing shows a fresh word and real HP loss; mistakes show reset while the timer
+  continues and then replaces the word. Parry preserves all77approved success cels
+  and original timing, followed by a matching-crop miss and HP loss. Slayer shows
+  final Guard break, eight distributed character attacks, exit with a living enemy,
+  then normal word attack/recovery. Score starts clean, completes five words to
+  unlock multiplier, scores a sixth, and retains65points after expiry. HUD strips
+  use pixels from the same gameplay frame. No practice or live combat instance
+  runs inside the modal. Source/crop/event provenance lives in the five manifests.
 - Playback uses unscaled time. Pause hides the guide and holds its exact frame
   and clock; Resume continues. Back returns one page; every entry resets that
   page's clip. Restart/menu replay open HUD1/6. Existing input/time/audio/score
@@ -369,11 +375,10 @@ Change only behavior explicitly requested. Update this file after relevant verif
   TutorialRun key and reloads DungeonSession with selected difficulty. Existing
   held-Enter consumption, fresh40HP/180enemy HP/100guard and zero score/statistics
   remain. Encounters begin immediately, without a Fight gate.
-- Local Unity2022.3.25f1: focused8/8PlayMode and strict repeat builder pass.
-  Edge native74/74checks pass with actual input at640x360 and1280x720, including
-  real parry after final Start; all12page screenshots directly inspected.
-  Final normal build/demo status and frame-review evidence are in
-  [checkpoint](../plans/parry-cue-demo.md).
+- Current beat-guidance validation and per-frame review receipts are recorded in
+  [the tutorial checkpoint](../plans/parry-cue-demo.md). Historical results there
+  apply only to their recorded asset hashes; the review branch stays separate
+  from main until user review.
 
 ## World lighting / parry clash
 

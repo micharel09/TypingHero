@@ -81,7 +81,13 @@ public sealed class TutorialTests
         var panel = (RectTransform)modal.Find("Panel");
         Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(816, 480)));
         var image = panel.Find("Clip").GetComponent<Image>();
+        var rule = panel.Find("Rule").GetComponent<TMPro.TMP_Text>();
+        var caption = panel.Find("Clip/Guidance/Caption").GetComponent<TMPro.TMP_Text>();
+        var focus = (RectTransform)panel.Find("Clip/Focus");
+        var label = (RectTransform)panel.Find("Clip/Guidance");
+        Assert.That(image.GetComponentsInChildren<Graphic>(true).All(g => !g.raycastTarget), Is.True);
         var lessons = (TutorialOverlay.Lesson[])typeof(TutorialOverlay).GetField("lessons", flags).GetValue(overlay);
+        using var capture = TutorialFrameCapture.Open(overlay);
         Assert.That(lessons.Length, Is.EqualTo(5));
         for (int lesson = 0; lesson < lessons.Length; lesson++)
         {
@@ -91,24 +97,57 @@ public sealed class TutorialTests
             Assert.That(frames.Length, Is.GreaterThan(1));
             Assert.That(durations.Length, Is.EqualTo(frames.Length));
             Assert.That(lessons[lesson].captions.Length, Is.EqualTo(frames.Length));
+            Assert.That(lessons[lesson].guidance.Length, Is.EqualTo(frames.Length));
+            Assert.That(rule.text, Is.EqualTo(lessons[lesson].rule));
+            var initialFocus = new[] { new Rect(45, 174, 198, 75), new Rect(45, 174, 198, 75),
+                new Rect(399, 21, 93, 42), new Rect(45, 87, 198, 42), new Rect(45, 198, 198, 51) };
+            Assert.That(lessons[lesson].guidance[0].focus, Is.EqualTo(initialFocus[lesson]));
             Assert.That(frames.All(f => f && f.texture.filterMode == FilterMode.Point), Is.True);
+            Assert.That(frames.All(f => f.rect.size == new Vector2(240, 90)), Is.True);
             double time = 0;
             for (int i = 0; i < frames.Length; i++)
             {
                 clock.SetValue(overlay, time + durations[i] * .5); render.Invoke(overlay, null);
                 Assert.That(image.sprite, Is.SameAs(frames[i]), "captured frame/duration " + i);
+                Assert.That(caption.text, Is.EqualTo(lessons[lesson].captions[i]));
+                capture?.Save(lesson, i, image.rectTransform);
+                var guide = lessons[lesson].guidance[i];
+                Assert.That(guide.focus.width, Is.GreaterThan(0));
+                Assert.That(guide.focus.height, Is.GreaterThan(0));
+                Assert.That(focus.sizeDelta, Is.EqualTo(guide.focus.size));
+                Assert.That(focus.anchoredPosition, Is.EqualTo(new Vector2(guide.focus.x, -guide.focus.y)));
+                Assert.That(label.anchoredPosition, Is.EqualTo(new Vector2(guide.label.x, -guide.label.y)));
+                Assert.That(guide.focus.xMin, Is.GreaterThanOrEqualTo(0));
+                Assert.That(guide.focus.yMin, Is.GreaterThanOrEqualTo(0));
+                Assert.That(guide.focus.xMax, Is.LessThanOrEqualTo(720));
+                Assert.That(guide.focus.yMax, Is.LessThanOrEqualTo(270));
+                // Both sides of every boundary must select the same sprite and guidance index.
+                clock.SetValue(overlay, time + .000001); render.Invoke(overlay, null);
+                Assert.That(image.sprite, Is.SameAs(frames[i]));
+                Assert.That(caption.text, Is.EqualTo(lessons[lesson].captions[i]));
                 Assert.That(durations[i], Is.GreaterThan(0));
                 time += durations[i];
+                clock.SetValue(overlay, time - .000001); render.Invoke(overlay, null);
+                Assert.That(image.sprite, Is.SameAs(frames[i]), "before boundary " + i);
+                clock.SetValue(overlay, time); render.Invoke(overlay, null);
+                int next = (i + 1) % frames.Length;
+                Assert.That(image.sprite, Is.SameAs(frames[next]), "exact boundary " + i);
+                Assert.That(caption.text, Is.EqualTo(lessons[lesson].captions[next]));
             }
             clock.SetValue(overlay, time + .001); render.Invoke(overlay, null);
             Assert.That(image.sprite, Is.SameAs(frames[0]), "loop boundary");
+            Assert.That(caption.text, Is.EqualTo(lessons[lesson].captions[0]));
             clock.SetValue(overlay, 1.5); render.Invoke(overlay, null);
             var held = image.sprite;
+            string heldCaption = caption.text;
+            var heldFocus = focus.anchoredPosition;
             var pause = Object.FindObjectOfType<GamePauseController>();
             pause.TogglePause(true);
             yield return new WaitForSecondsRealtime(.15f);
             Assert.That((double)clock.GetValue(overlay), Is.EqualTo(1.5));
             Assert.That(image.sprite, Is.SameAs(held));
+            Assert.That(caption.text, Is.EqualTo(heldCaption));
+            Assert.That(focus.anchoredPosition, Is.EqualTo(heldFocus));
             pause.Resume();
             yield return new WaitForSecondsRealtime(.35f);
             Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(1.5));

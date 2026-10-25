@@ -1,1427 +1,3067 @@
 {
-  "columns": 6,
-  "cellWidth": 324,
-  "cellHeight": 184,
-  "width": 320,
-  "height": 180,
+  "columns": 8,
+  "cellWidth": 244,
+  "cellHeight": 94,
+  "width": 240,
+  "height": 90,
   "atlases": [
-    "score-0.png",
-    "score-1.png",
-    "score-2.png"
+    "score-0.png"
   ],
+  "composition": {
+    "arena": [
+      65,
+      43,
+      225,
+      130
+    ],
+    "arenaDestination": [
+      80,
+      3
+    ],
+    "notes": "Point nearest to320x180; HUD pixels always from same original frame. Arena starts below y42 to exclude duplicate combo-meter pixels while retaining the complete Space cue. Parry retains all77 approved source cels and uses identical arena crop/scale for the missed example.",
+    "word": [
+      65,
+      132,
+      121,
+      146
+    ],
+    "wordDestination": [
+      15,
+      67
+    ],
+    "scoreCombo": [
+      109,
+      2,
+      211,
+      44
+    ],
+    "scoreComboDestination": [
+      3,
+      23
+    ]
+  },
+  "selection": {
+    "folder": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture",
+    "start": 1792898899.395,
+    "end": 1792898910.285,
+    "events": [
+      {
+        "name": "score-start",
+        "wall": 1792898899.395,
+        "qa": {
+          "score": 0,
+          "words": 0,
+          "chars": 0,
+          "hp": 35,
+          "enemyHp": 180,
+          "stamina": 100,
+          "slayer": false,
+          "comboRemaining": 0,
+          "current": "was"
+        }
+      },
+      {
+        "name": "word-1",
+        "wall": 1792898900.533,
+        "qa": {
+          "score": 10,
+          "words": 1,
+          "chars": 3,
+          "hp": 35,
+          "enemyHp": 170,
+          "stamina": 88,
+          "slayer": false,
+          "comboRemaining": 1.5,
+          "current": "two"
+        }
+      },
+      {
+        "name": "word-2",
+        "wall": 1792898901.573,
+        "qa": {
+          "score": 20,
+          "words": 2,
+          "chars": 6,
+          "hp": 30,
+          "enemyHp": 170,
+          "stamina": 88,
+          "slayer": false,
+          "comboRemaining": 1.5,
+          "current": "should"
+        }
+      },
+      {
+        "name": "word-3",
+        "wall": 1792898902.803,
+        "qa": {
+          "score": 30,
+          "words": 3,
+          "chars": 12,
+          "hp": 30,
+          "enemyHp": 160,
+          "stamina": 76,
+          "slayer": false,
+          "comboRemaining": 1.5,
+          "current": "large"
+        }
+      },
+      {
+        "name": "word-4",
+        "wall": 1792898904.096,
+        "qa": {
+          "score": 40,
+          "words": 4,
+          "chars": 17,
+          "hp": 30,
+          "enemyHp": 150,
+          "stamina": 64,
+          "slayer": false,
+          "comboRemaining": 1.5,
+          "current": "place"
+        }
+      },
+      {
+        "name": "word-5",
+        "wall": 1792898905.51,
+        "qa": {
+          "score": 52,
+          "words": 5,
+          "chars": 22,
+          "hp": 25,
+          "enemyHp": 150,
+          "stamina": 64,
+          "slayer": false,
+          "comboRemaining": 1.3570899963378906,
+          "current": "your"
+        }
+      },
+      {
+        "name": "word-6",
+        "wall": 1792898906.869,
+        "qa": {
+          "score": 65,
+          "words": 6,
+          "chars": 26,
+          "hp": 25,
+          "enemyHp": 140,
+          "stamina": 52,
+          "slayer": false,
+          "comboRemaining": 1.4017349481582642,
+          "current": "there"
+        }
+      },
+      {
+        "name": "combo-end",
+        "wall": 1792898908.321,
+        "qa": {
+          "score": 65,
+          "words": 6,
+          "chars": 26,
+          "hp": 25,
+          "enemyHp": 140,
+          "stamina": 52,
+          "slayer": false,
+          "comboRemaining": 0,
+          "current": "there"
+        }
+      },
+      {
+        "name": "score-end",
+        "wall": 1792898910.285,
+        "qa": {
+          "score": 65,
+          "words": 6,
+          "chars": 26,
+          "hp": 20,
+          "enemyHp": 140,
+          "stamina": 52,
+          "slayer": false,
+          "comboRemaining": 0,
+          "current": "over"
+        }
+      }
+    ]
+  },
   "frames": [
     {
-      "duration": 0.03144693374633789,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00075.png",
-      "sha256": "18c66aa1498b9925160fad4556fa062f2dd4cf3378a79d40d886af422d0ed841",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03131699562072754,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00076.png",
-      "sha256": "92224cc55ef8ada26dd27904682c72599955cd009db406b276d6743161e550e1",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03097701072692871,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00077.png",
-      "sha256": "555ac88b28a14b05c92dce3c91165776a7fa2803474a74ff6ebb65e87782946e",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031610965728759766,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00078.png",
-      "sha256": "dc6d3cb2c89bf773b5e1adcebba3acf9d399b6281cc89497128da3939e8cfb89",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031019926071166992,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00079.png",
-      "sha256": "1024ce717541dc0fc8f676fdd23e100a77e94d10e532e1041a24c5865f68816c",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031397104263305664,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00080.png",
-      "sha256": "a2e8a4b2b528ab81234e0253a67353a64101c2c106cf03ef183aaef75073f523",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03127908706665039,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00081.png",
-      "sha256": "6f24258760c42c1a4aa5332c956d9c0331ed7c866a006fff7556715c279e4888",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03102588653564453,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00082.png",
-      "sha256": "a759f4bd08c710c5b20d18ce922aacc2cd0b2f3fc6caaf2861d57d08990eb071",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031019926071166992,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00083.png",
-      "sha256": "d10de7ec8d8a9d8a068804e3b0fac38251a210bf4abe11320db0f1e71a454cc2",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03154301643371582,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00084.png",
-      "sha256": "880825511f2135b9cbc185ec1341bd023aaa49f1ffbe4a2dbddffed0c2c02897",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031002044677734375,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00085.png",
-      "sha256": "a1bf766d164bd120bcac2476fc18cdbd2a80784be820b8109a7b37aef4850f27",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03140592575073242,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00086.png",
-      "sha256": "41622909f4423f6ee51c6976e85d3e3df37711ffcfb1ec362a03f52e9f923b6b",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031391143798828125,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00087.png",
-      "sha256": "315f38649ceff25c16f83ace0fa9ff61e88463ffb0aade62c211f4acb858e962",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031129837036132812,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00088.png",
-      "sha256": "bfcfe41bbfd9eff4d9160579036455faeb23dd89193f28d19996b2acdf8088ff",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03128218650817871,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00089.png",
-      "sha256": "8510b4330fd67ceabb157e2d91dc74eccba044bbadb3cd6725d135ae370cb192",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03129982948303223,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00090.png",
-      "sha256": "2e4c544673207145ad31e7133af07f5794b75101945e907c6f022ff2e314dffd",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031126022338867188,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00091.png",
-      "sha256": "2a17a2db7d06c07668a00791e5f7da0607a55c33ead61790a16d9649d9655cb7",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03127002716064453,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00092.png",
-      "sha256": "2ed4621bdbf5c5325e3ee02811010ac0b1e6b2de8b459515981854ddc0c25a85",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031092166900634766,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00093.png",
-      "sha256": "ec007563070a4fc26681cc440b1fdbc7782e118d99aa60c2fc2606fb11812d95",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031407833099365234,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00094.png",
-      "sha256": "074c342da3e78a1867a53bfbfd2d6ab6a8cb0e360a3c1d170c67d02f86d0d932",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03125500679016113,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00095.png",
-      "sha256": "93a1ce1d3c79a461e1a26150f98d4d47635f4c9f5990e201bf115f652f2cc084",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031190156936645508,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00096.png",
-      "sha256": "5167880a27b579c1ee70eba75dfc39ed04cdbcac39af6e008386f17f538296be",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03150296211242676,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00097.png",
-      "sha256": "0dc064d46b06818fd5253f3ce0f39e9f47a564d7f08480be036b961422bf7a75",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03122997283935547,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00098.png",
-      "sha256": "ea50a3b8db168307a1f48a6fd67702e57ad041acae3233a12a08c3db07f3426e",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030932903289794922,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00099.png",
-      "sha256": "3a6d203992a202d9d39fadc01dae26226f65b46358d178a9e34eaa89685d9628",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0311279296875,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00100.png",
-      "sha256": "4644fa4343099a17adf802789d7406efcd645babcf847fd46f26ee22e38d90a5",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03148317337036133,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00101.png",
-      "sha256": "18cf85c6b8f0d5242af6061d5c6431b74a6b8fc41ad24177417d093f007f1074",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03129291534423828,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00102.png",
-      "sha256": "a22715c1f796e6a1dc80d4f85d12e460787456e03ab5c26027d87f5a1c875d7a",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031291961669921875,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00103.png",
-      "sha256": "03a2d3ecb7c71d33b3cf8e4908181d1e3907f00883766c70f6d24e8e3b30edea",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0310971736907959,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00104.png",
-      "sha256": "620ec6c78c6e77cf308b09f2a45228e5facde374dee3e3cb9cc67ff4654c8153",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03143596649169922,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00105.png",
-      "sha256": "c3d7c184db71518c1fab14d7c1b83d5d4242e1864ff69f42080e48df6e66c4bd",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.15622591972351074,
-      "caption": "Complete words to earn points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00106.png",
-      "sha256": "6679f739ce77dd79245689682530d2eeba93ee233907c28916c612c44f499a88",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031094074249267578,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00107.png",
-      "sha256": "6a6223ce30e1454e2c4c1810be74091eea026a706a2d3b30206ca675357d959c",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0312960147857666,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00108.png",
-      "sha256": "dc5d809e5733dbc9a0a89190b256edcf6100150a459ad9b5e26eef28bb1a791a",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031044960021972656,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00109.png",
-      "sha256": "7e9596ccd62f0f309647594730193871302b90f6a69eba7e84d84b2466c11de6",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031295061111450195,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00110.png",
-      "sha256": "6e6b3c41e6d4368bedad2ca832053fa21e583f1246c8a0dfe6a8cff56abcc493",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031358957290649414,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00111.png",
-      "sha256": "6afe5a6bcec7825dc9ac3605ec4975ca43fd276061dd17e28482ce0528b87454",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031590938568115234,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00112.png",
-      "sha256": "b283a2fd9b431dae6e00224598a0583b133e926ae3d43e570d8529db130aede9",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030781030654907227,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00113.png",
-      "sha256": "e0cc49cecf98d1819dddc13030e7db7031c953272a92395a2c06060855d17ae3",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031607866287231445,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00114.png",
-      "sha256": "6f1362a53fbe814c252a409cb5d6a803d831ce3ba0a292a55d968ca02c81f3f9",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0314021110534668,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00115.png",
-      "sha256": "304ac228f52b4b647057eb0b088ae0d51f1edec6196f173b3ce399ed8a1c47a1",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03081488609313965,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00116.png",
-      "sha256": "47277f0837e47afc7f6c0b28a05c9f6cba16914df7f814d72d03f681ec439f98",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03128314018249512,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00117.png",
-      "sha256": "a49f6a4cc67c98ce486b4aefe58d7cea91bc98c5b247ea538dbe335b30a0dee1",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031202077865600586,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00118.png",
-      "sha256": "29fe1992a7f6a13c139aacf8e131b7a9815bfed597244928afd4c82ed0191488",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0315709114074707,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00119.png",
-      "sha256": "39027ee1aef650a79d66eaa6d9a4c9aa02d0d38c03bd968f38de2a42a5696d90",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03120589256286621,
-      "caption": "Five words unlock the combo multiplier.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00120.png",
-      "sha256": "b029e970c2dfe9229c8460069d8dc91edc48bfafe9aea095138192f731039607",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030999183654785156,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00121.png",
-      "sha256": "b44c5e56f9704081f1abdfcabd625142bbe2a9f180a589976fff5b753e6d45d9",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031164884567260742,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00122.png",
-      "sha256": "85f5999394acf13fd7fb18d99ca4c8fd5c914bfd6c98c30f182d7c1bca176443",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031601905822753906,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00123.png",
-      "sha256": "ebfa7a167e5ff4cc2eadcf02c70efc8505bb45a116ab175cb32686d5352b1fc3",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030794143676757812,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00124.png",
-      "sha256": "39e11f57cf5d79aebc3c3fbf7922cf9bded628b7c77cef78360c8f1310ed69bd",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031636953353881836,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00125.png",
-      "sha256": "f107f4584fa1a8928fa3c81a8a89a08c61f7fcb0b43df606af08ea4b46137b01",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03112196922302246,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00126.png",
-      "sha256": "40afeb942d132dd6a21dc8d2d7ede2c92f276211795daa689b08d3ca9dab2931",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031080007553100586,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00127.png",
-      "sha256": "eb787049df8f836b07fa0bbbe91e52a06e03431052c005cc3dd1c6bc9fdd3e81",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03158307075500488,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00128.png",
-      "sha256": "739bc50fdf7830ff05b195e3de609d625581728c8e8019d786a9126e46461c95",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03116607666015625,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00129.png",
-      "sha256": "fee4e38b2b187bfdad1fd64d9bacbe9e4a5964d5694857ecda5b348610ef3d12",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0311279296875,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00130.png",
-      "sha256": "529b5118fdb0cba4594c2c2fcfadc2567f20a66a2fcdfb1188d7f8e68189e673",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031126022338867188,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00131.png",
-      "sha256": "62551a281f51fa20a42a21a9e3d9d50f2bf5e226038b8ae3e5f7d5069932e013",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03122997283935547,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00132.png",
-      "sha256": "3c49f4cd55054efe2023577f6e6bb87a5a151ba290c71af6c3a4536c22921e79",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03156900405883789,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00133.png",
-      "sha256": "9eb111dc5710a60c8766f234a8aacf2d8d625376fa60eea50ce96c106bbc1f44",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031169891357421875,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00134.png",
-      "sha256": "e5f98f66c9c4538dc0401fa29a181c05d9e3f06ad32bc582fea85d9bee1dddfe",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.1560521125793457,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00135.png",
-      "sha256": "ffb7254bdd66c61d6bc1e7b3c66fcb6666fb1539876c68c87927427a92614dbe",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031245946884155273,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00136.png",
-      "sha256": "130814e1cb612de64aa625365a1933eb31b4a6113e134616268af90a2ba0dcef",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.06297707557678223,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00137.png",
-      "sha256": "a331e45794b635da56ca59df7e57091297cb9d990a897c1a9ea9745cc92dc415",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031070947647094727,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00138.png",
-      "sha256": "db024d9bf5b21739d0ec14201d0653dd3d6a79eb3ff6e5d3fa508cc015c4e032",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031321048736572266,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00139.png",
-      "sha256": "fac498b84b3a999e6d48f0ffc11f65b05efa8276e1a8fb4f6e8f9bb96705cc14",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031033039093017578,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00140.png",
-      "sha256": "39dd1f1741f1265b5445f8d1024c05d714e338bbb5e564735eaa37557d5b05a7",
-      "atlas": 0,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031172990798950195,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00141.png",
-      "sha256": "6602d46b57b160ae8eee347ccc5dae409b63e202dc2266e3fe02f8df97147b15",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03154492378234863,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00142.png",
-      "sha256": "ba6b2d77e5a5f1d1e17c694f8ed6283fc2e7343f010c6659ad705e59c249bf86",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031239032745361328,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00143.png",
-      "sha256": "66f238d8bcb9f8350f97b2524a96d4c77835b8a7aeb9a11b2c702d03a598cf50",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031184911727905273,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00144.png",
-      "sha256": "9e0abb79709890b1d0f37322b695da70dcdd4c1da8d5e3116e95b407327af62b",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031245946884155273,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00145.png",
-      "sha256": "e69c30e731b20a46f55ef145ff70fd516e1f4149592b2e92cad8356462d70254",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03105616569519043,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00146.png",
-      "sha256": "1e52604d1cca195ac89e76f0b5326b42986d19d1e4146ce0c8f6ff7f9aab5306",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03132987022399902,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00147.png",
-      "sha256": "e47dd673f14fbcb25051ab61ef0ee3ae7f4dd62980c4604a4b5a442f483495c0",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031286001205444336,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00148.png",
-      "sha256": "35a4db5edf25edd09751b3bf01026c2e8f03eca33ef0a678eed41d37a051a76a",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031065940856933594,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00149.png",
-      "sha256": "29c5cf35fa60b216bfea2c944f9273a3357334b07b42c99b90d2fd2248ec3364",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03177905082702637,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00150.png",
-      "sha256": "337602e707adf535fffc1100474d39fa7a0397e9f228fbdcebebdd0c718c455c",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03105306625366211,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00151.png",
-      "sha256": "ab70e3b2e82d71f38840dab3999d347d51c65b81d211ad97d1983c9501a5c605",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03099203109741211,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00152.png",
-      "sha256": "24a7bea2bc4dfd26ff8b7b081ab389d6fca6144b2497fe8be9db7d85831e243d",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031286001205444336,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00153.png",
-      "sha256": "498052d0179090a55ba24ca6e1189c86cff756ae634e9b8b478365413b645bae",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03110504150390625,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00154.png",
-      "sha256": "df938917400392d2ae3ff7147e805de1b4377e1890d2213eeabfc1f2b0250b6a",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031497955322265625,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00155.png",
-      "sha256": "e46bb2e9afd58878c3ff4239bb60dffe9a007a4256eb94ca1456bcd06c9ca196",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03137397766113281,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00156.png",
-      "sha256": "d503e9ad43392ad64a0122a1ae9a53227fb683fba288e76c2f5a6cc326e321a1",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03088998794555664,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00157.png",
-      "sha256": "4fa3f671818f633b9050ac3cbe1a9c3d4b8f4395a9d15fc078a7bc5686881e46",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0316920280456543,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00158.png",
-      "sha256": "8e01e4dcd09383adfcc1ebb0d2d9ca110f76ba09c4ef3ad54eadbd3e2a020e47",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031013011932373047,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00159.png",
-      "sha256": "135c14a823fb90d83e1ec01fd2e5b6e6de07e702bf10eedded929edfbc2a5268",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03109288215637207,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00160.png",
-      "sha256": "fdcd1be591a675524eefc72a43336e17f033eb9652bf68c5f8fa1a0a7c89d237",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031597137451171875,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00161.png",
-      "sha256": "8313e6915886fd37b8b2dd437df994f28163aab1ccd0a30dc20c9de8de830334",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031178951263427734,
-      "caption": "Keep the streak going for more points.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00162.png",
-      "sha256": "27fce812bfa34a9d1a516837967991f9199e2c13929fd0768f131f9febba1390",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03096294403076172,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00163.png",
-      "sha256": "41093925242799572c7cca781b13996e251b83aa60bac3d5be306b671ba392e4",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031249046325683594,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00164.png",
-      "sha256": "3aaecd23e171ee61b07e39b08f4b7d4c8243158c608527aa9440ce5f2c716152",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031562089920043945,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00165.png",
-      "sha256": "882dc31f2b4ae2eff95134a7b4a2a04169784b28cecd356677178d6dd6756d62",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.18755888938903809,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00166.png",
-      "sha256": "30b68d4870038d60a16c8944762582c2fb6cfd53413d26d3df59a9711da4c9f7",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03103804588317871,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00167.png",
-      "sha256": "e41ec4d86da97392821207bbaaba64302f09e7e83313222f4b7c808136621ea2",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031243085861206055,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00168.png",
-      "sha256": "8355f04bf283987f6b335d7e2f724d57dfb58e75e4bc1bb31b77d6bcea5a86b0",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03147578239440918,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00169.png",
-      "sha256": "ff22c6082030d17ad8c0d5f770125ee5ee4ecddccd985ad96fd740fa9badbe13",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030961990356445312,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00170.png",
-      "sha256": "54cd3926b6af07241f039a6183e18b3a645e857c9c9b16379054a0318ce4deae",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031081199645996094,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00171.png",
-      "sha256": "3b1d0272e03669a84cc80b003bbbf27a1fb9adcb68259269d889d8bea8da8b79",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03136086463928223,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00172.png",
-      "sha256": "7795471d8c19d2a40f539760bb607550ec9ad05296edd1406988dba9debdec17",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031491994857788086,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00173.png",
-      "sha256": "80cb6e78d6139c081026c4973672424ffc5a1cf1684d47dd6d1c99d570494fd6",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03116297721862793,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00174.png",
-      "sha256": "6a8d93e703f583f1237b453c69d1752b4ba96ed5e5f04253d7fb86cf2c7c8a66",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03145003318786621,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00175.png",
-      "sha256": "77c79a0e6f10ba58f8838aa38976c71ee234bd5d0082319b35ef1f038805c96a",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030833005905151367,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00176.png",
-      "sha256": "cff428a0dca8832f695214cf43e4695acd43b17e41cd7c580957890f1f05e3f4",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0312960147857666,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00177.png",
-      "sha256": "1e1a99a397b0194a50881d7cf8e5da3f9ac9c147a168c99bc8422d3f2fee43fa",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03136801719665527,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00178.png",
-      "sha256": "f14aa2ce43fba03f9ac79b1614225fad0753d2b26465005021f39a677da6a810",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031115055084228516,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00179.png",
-      "sha256": "517fa245b446a93255c2e3a921897bab5bd55f1f487f495f80fd82044d61aa81",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031453847885131836,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00180.png",
-      "sha256": "eab76acc0533e82a9aacbc6ab0e63de550f475005ad7e719482bf002e4646be8",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0309600830078125,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00181.png",
-      "sha256": "0c04eb672d9e17ba8e538fdea6d6e8e8f591e96eb58c31a242b47337959527e5",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031271934509277344,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00182.png",
-      "sha256": "d68f5b546ad1a1c442b5bffb72bcbb432a7fbfbc07c182ce31846246a4f9219b",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03138613700866699,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00183.png",
-      "sha256": "11897fd58deaa3629f8480de513c6ea8d3a878980cf3974ff16c4b67fd3e38e7",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03140401840209961,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00184.png",
-      "sha256": "6a9fcd71588e4fc0022b85a933247a9a42eeadf4493fbaeccdbfc1c65855431f",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03129887580871582,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00185.png",
-      "sha256": "538acab7ad25c4dea2019445e3238fa2a5c17f4e431f15e0774dd4f44e576a00",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03092503547668457,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00186.png",
-      "sha256": "fb164812d3d97e0304e45fad8dbd4c65dc3eee37dbf60d9c8af7630d1a896463",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031295061111450195,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00187.png",
-      "sha256": "917cfcc8778257e8c250cbef2981e914a8b69578f1ea0c606210705fe0c7c7e0",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031245946884155273,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00188.png",
-      "sha256": "797b0583067e77fbdd7993c90c3455e5f239c931050e7bae71f2ec7fc6b0eebd",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03152298927307129,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00189.png",
-      "sha256": "735a10917cd97fc2d0352460aebd4db86e2facc7a3c62b83651ef7238a4bc497",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031199932098388672,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00190.png",
-      "sha256": "b930e25c2263c835438e80599ef2536e19c2437a729a6fe020da00ce487bfb2c",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03095698356628418,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00191.png",
-      "sha256": "1140d12e16451676ea27e67144af0c1fe055d630735b95eb5cdf1d92896e3b60",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031640052795410156,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00192.png",
-      "sha256": "52f7a84ad3a79543a1ee40fe1cda051df0c621304fbc52b7eee4d45d3be3fd12",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031033039093017578,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00193.png",
-      "sha256": "0925e215a045415fcda89ef0f01acb5d0438b52ee3c8c1343b4c950dedd8eefb",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031167984008789062,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00194.png",
-      "sha256": "5a50a652c82faedaadd573a78b1e223da98bd007f15986579e3340957512e411",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.15634393692016602,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00195.png",
-      "sha256": "0a602c5b79fb1e6c4bd6e9e2ca74a70b91efcb0da58f418c35385f35cbc2b2d8",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03155803680419922,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00196.png",
-      "sha256": "444bcecfc9467132f5d9fd27b99bfefbd5d259a049fe019127e7c90759dd1b0e",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030853986740112305,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00197.png",
-      "sha256": "866724d84f9b31516440800a9c51488ccc72234b35f38fbe6c73c90a3873b696",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03113412857055664,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00198.png",
-      "sha256": "cb4ec12fc59aae728d0cab08cc9eb15734d9fe552a7f74216f1bffbbbd524548",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031388044357299805,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00199.png",
-      "sha256": "a55a33bb297d671d3e75a9bb47c399b95491703d10b78cab0ec6c17ce5fa9f2c",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031193017959594727,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00200.png",
-      "sha256": "28f1ca390fdf322053bb1b4937e585d4dd74d8e0fdb6329ad980bcaf59d6dcd9",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031514883041381836,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00201.png",
-      "sha256": "636c2cfc0f34e4598b0ade4ed074909c3e4559ac345cf12925dc107f1c331906",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030884981155395508,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00202.png",
-      "sha256": "da5b7b221754ac50fc42174136ca43cbe25c7fdbb5944286230cbeb3c3adddf5",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03160691261291504,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00203.png",
-      "sha256": "86a913fd6786664161fe5f92d7a47a78ea31a174c987d04dbfd1ce805f4955cd",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031219005584716797,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00204.png",
-      "sha256": "eb3891702b545df2d1277c8c75f781bb8841f4a67546b2cf29067193af8fdf0d",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031304121017456055,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00205.png",
-      "sha256": "52216b533e1b0a9f9b88c3db763bd3c5baf5245cfc978837b907fef70a881701",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03130507469177246,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00206.png",
-      "sha256": "d92ffc6a8ca3c46e4bde2190b7e91ebe6bae02b2be85e1301b1790733d98c7d2",
-      "atlas": 1,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03097701072692871,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00207.png",
-      "sha256": "a99bd5528111da5d144601b9bbbe44309657bbaec33b07f807bdfa489b5617c4",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031143903732299805,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00208.png",
-      "sha256": "26a08448d638d86082aa6cc082aadb96891b2a39fc343b2a8cc78b6c0defb35d",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031265974044799805,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00209.png",
-      "sha256": "045731a3754634d62e36ae557e72f470e63f306bfdd54b4458bc433a3545d621",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03165602684020996,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00210.png",
-      "sha256": "e1114861b3fa6e2b5da22923fbebbb0a7c5ca35d4b08c28c080af9bcf2d99ad2",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030781030654907227,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00211.png",
-      "sha256": "51359ef55ad3c47ffef256eccbbcbecbcd78dd0f04d8f039de08b9604dd9ce68",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03165102005004883,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00212.png",
-      "sha256": "f7640151c7c11b5265445ded6f2d64131b0045b864e7aa3c66d6e28e635d620c",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031241893768310547,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00213.png",
-      "sha256": "e0015cfcedb8665d1ab5df7c7c549d2cc3766cc4b55d536984b3d891968de2d0",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030833005905151367,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00214.png",
-      "sha256": "887d3d8c3afdf819ce3ee13344c1dbf1a528007012ca1299c75f62038a5831b2",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.0314791202545166,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00215.png",
-      "sha256": "85f12a7f0b33a2d4472a24dbd827574c46204e032f30faca4d88d53b10b2ae95",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03110790252685547,
-      "caption": "The combo expires. Your score stays.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00216.png",
-      "sha256": "76f7020d101610b1703cb8adab38d8567ed9c6f44fd5dcce91afa2b3a7c8ed9c",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03115105628967285,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00217.png",
-      "sha256": "a7cd08d88d40e9b925f7b462fa0d8c4c33993856b371cf147fa3cfeca509b181",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031456947326660156,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00218.png",
-      "sha256": "7c3e2fcdf51c026bb6cc4b67ce15d9d7d5c13dcfa4cbb89b02b9257cb24029c4",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03155207633972168,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00219.png",
-      "sha256": "82d1c068c3c17b5503b0d174053b8182e451d2ad99d425f36686190e17ec03d0",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.030987024307250977,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00220.png",
-      "sha256": "b6faea691530770a9ea79620bc1f49c93024c71004f86364ea4b469978b5f3c3",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031090974807739258,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00221.png",
-      "sha256": "0dc4d77c761ea3f64b40a3e08be19bf883981a29eaaa260f761e08072e10ceca",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03144693374633789,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00222.png",
-      "sha256": "fd574fbbf5c999723ad1d5474e64c3321cc2f8a39faab921c30b9edd5a830ffd",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03165888786315918,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00223.png",
-      "sha256": "abde882955042739748f13f7996b872ecc8074fbe3c4f2c0d62dbe6e38364f76",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03067922592163086,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00224.png",
-      "sha256": "da8083265ab18df03671306f924ebd05830c932c97915842a284595d403dbba9",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03144478797912598,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00225.png",
-      "sha256": "b7ba512ba4949d55c4c75d50a24aa903578de6d4882dcc0e0fb816d3569a2d4f",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031068086624145508,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00226.png",
-      "sha256": "ad6407fba70b204d67e5b53142d81159102c2b77f2947d84ac074355bc4969b9",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03158903121948242,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00227.png",
-      "sha256": "87074de3356ce362b09bca5d3243f91b5ee0ca792294c9e9143ab68df2ebdc44",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.031080007553100586,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00228.png",
-      "sha256": "11e0da7a268920738132498235c3c4600fc59f73b67b8043eaa1bca3ae708fbc",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.03115105628967285,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00229.png",
-      "sha256": "caeb821acf38151f9a9f188d0e0df8499035fa445f33b4693871843049c5c60a",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.18734383583068848,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00230.png",
-      "sha256": "d7bd607f1677f5772402fa46dd5db4140f1567365601c75049cdbb3858f5d70d",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
-    },
-    {
-      "duration": 0.017673969268798828,
-      "caption": "Time up also breaks the combo.",
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\six-score-2\\capture\\f00231.png",
-      "sha256": "eb4a58b5c1fe5e17627773f6ca5d42b6a1deddd5baa94ac58368ad66b1f78d3b",
-      "atlas": 2,
-      "width": 320,
-      "height": 180
+      "duration": 0.06518793106079102,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00075.png",
+      "timestamp": 1792898899.412249,
+      "sha256": "20f4e0f31b0696e3339d8f400a819e19be321b9ba4acc568927ed5b6b18ec08c",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06511998176574707,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00076.png",
+      "timestamp": 1792898899.477437,
+      "sha256": "d61191f5ac4f5b3bced9024b2dad2d4b3314ab3d58611ce17385b7defb7ce570",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06659293174743652,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00077.png",
+      "timestamp": 1792898899.542557,
+      "sha256": "85863bc389960e3339344d8903b48f9f911d4921fca53b84b7c088f3e7343f16",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03328704833984375,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00078.png",
+      "timestamp": 1792898899.60915,
+      "sha256": "db46ecb994183b328a9ee23fa7498f05f5a749ffd53c58313843893ce31a789c",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03302001953125,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00079.png",
+      "timestamp": 1792898899.642437,
+      "sha256": "6acbe639cabcfc6d19818d4f908b536cecfd3b571428f9ba5a37d2d339554941",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06615304946899414,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00080.png",
+      "timestamp": 1792898899.675457,
+      "sha256": "43806b184b58512e3447b1ae88da7d87c8d41f215f78f351d47bab4ff1ededd1",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0975639820098877,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00081.png",
+      "timestamp": 1792898899.74161,
+      "sha256": "4b78e66486cb41535d4fa54afe787093b140110192f380f0aecd5b4a020f08d9",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06536507606506348,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00082.png",
+      "timestamp": 1792898899.839174,
+      "sha256": "a060e7abe8d3c4225a24e266fc2ecfc3c506763792da3f9250ca909cd86ab85c",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06530499458312988,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00083.png",
+      "timestamp": 1792898899.904539,
+      "sha256": "66c6cebd77714aac5951fae5aa8d2fe99efc2d355d5e2b75f72819025f9d8096",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06521797180175781,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00084.png",
+      "timestamp": 1792898899.969844,
+      "sha256": "315ce155f6b8a2deccb7530e58a86578c61bb0fbdfcec33951970a7b7990a570",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03252983093261719,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00085.png",
+      "timestamp": 1792898900.035062,
+      "sha256": "e70dcd9911d79cb507d3bba4943fb46461e265d8a1533907216b078fd4d7ba55",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09802412986755371,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00086.png",
+      "timestamp": 1792898900.067592,
+      "sha256": "1d762c1d44136c4e1f6d50b8ec51fa4b272a360c29c510965b46e2988bd310d2",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03265094757080078,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00087.png",
+      "timestamp": 1792898900.165616,
+      "sha256": "5e23873cf78be7847945ee0ce4964dfccc0413e826834c1fdb625ac3e5221255",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06533098220825195,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00088.png",
+      "timestamp": 1792898900.198267,
+      "sha256": "cb7d2d95642e6351bec848646f3b44726864c26c9c914d376604de5bf30419b7",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09969711303710938,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00089.png",
+      "timestamp": 1792898900.263598,
+      "sha256": "b30595552c003a0f5cb50bf03e1c16927895350d28becdbae781a99f1c292d03",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03262495994567871,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00090.png",
+      "timestamp": 1792898900.363295,
+      "sha256": "9403382eaf171f0e0ab7675c4fa080eb77f1eea9a8fae306e6bbc170722ad05e",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.16365385055541992,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00091.png",
+      "timestamp": 1792898900.39592,
+      "sha256": "b57ec403dfa1c966288add5a1e2e25c40d6c5f614552958e217301e2ac76e610",
+      "caption": "Complete words.",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.19639015197753906,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00092.png",
+      "timestamp": 1792898900.559574,
+      "sha256": "f4b80afa136e999c0c0cbf42f3e01ee5c1b742d1857e8d7c652be453e66948cc",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09818601608276367,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00093.png",
+      "timestamp": 1792898900.755964,
+      "sha256": "f3404af16f8337ea633b76b9c4e197cbf9ac14be02004014ffe219d580dcb4c0",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06529688835144043,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00094.png",
+      "timestamp": 1792898900.85415,
+      "sha256": "c866fafe56180ab0b5abff84cce5a24f2b46269e61566e24bf2b53d23427f421",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06549596786499023,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00095.png",
+      "timestamp": 1792898900.919447,
+      "sha256": "c2c810e09e12449d821255a22e86319816872d08995b96d7166a760d73354b60",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.16305208206176758,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00096.png",
+      "timestamp": 1792898900.984943,
+      "sha256": "9ac88c576c50f26541dc6eadb4da6056f82aa883c7f583e1f8c6b8e35932518a",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06605100631713867,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00097.png",
+      "timestamp": 1792898901.147995,
+      "sha256": "8bd86a3ad441daaebe342cab8c6e0d6526f5a8ebd2c8bf683a414869391ecb80",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06603598594665527,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00098.png",
+      "timestamp": 1792898901.214046,
+      "sha256": "edf0331a487f838295814a98fb4a1bba8728245bcd3cd9c2238a03ab0c30d661",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03281211853027344,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00099.png",
+      "timestamp": 1792898901.280082,
+      "sha256": "371be333bbf5c4aa7b530521c93b8de76c03a7015a574d219ae92010ecfbd900",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06577396392822266,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00100.png",
+      "timestamp": 1792898901.312894,
+      "sha256": "f28115dde97ca0a1c79207ca0e18e2e6b4a889011fac49470ccb7c349b462c7f",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09843683242797852,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00101.png",
+      "timestamp": 1792898901.378668,
+      "sha256": "a1137c9b74e31c7e2aac38cdf20fc39c1b1384f92af0f052c67c59cab82d6008",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06605219841003418,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00102.png",
+      "timestamp": 1792898901.477105,
+      "sha256": "925aa547cb76631928e24663cf61b471da223f251e893574bbf95b4ae765f1f8",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.032666921615600586,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00103.png",
+      "timestamp": 1792898901.543157,
+      "sha256": "5940e398e092383125ea59389728f70c0a5d35a208cd7374cdcc023548deef6e",
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0974729061126709,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00104.png",
+      "timestamp": 1792898901.575824,
+      "sha256": "ae25b83ed4a9993ea1568ad7a2425c371ef6b679f3d894bf167cc10f339a2b9d",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06550812721252441,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00105.png",
+      "timestamp": 1792898901.673297,
+      "sha256": "7b195865f8322b8e8ac6c8f39b778325de6bb4c3ae4f1422fea02ea139e3b408",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03302001953125,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00106.png",
+      "timestamp": 1792898901.738805,
+      "sha256": "f9767e7acd409f1add5d5507e07911bb9d123bf9acc4e929bd17984dfc3b220f",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06518888473510742,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00107.png",
+      "timestamp": 1792898901.771825,
+      "sha256": "8e32c2121068596829205d798168adee95ffaacbddaff3194c2d00ff2039b967",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06531214714050293,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00108.png",
+      "timestamp": 1792898901.837014,
+      "sha256": "c2b557c56acb3634a76c184185a453e47640ca8e26929238baadf6a51c12d7e5",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06553196907043457,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00109.png",
+      "timestamp": 1792898901.902326,
+      "sha256": "57a81d1208e930e32cb7d3c0b15b062623439d1ba32b3744fc7a01d5ee44b094",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06602883338928223,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00110.png",
+      "timestamp": 1792898901.967858,
+      "sha256": "ca395c6451d1ac1629ac173dd5897f7b1fb8d90020fcb605d4f8b523b003b28e",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06750917434692383,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00111.png",
+      "timestamp": 1792898902.033887,
+      "sha256": "dcdd4b430b5270f6120a5b5c51bdbbe114f90a07fe3193c5e9f70827aa519ed0",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09750986099243164,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00112.png",
+      "timestamp": 1792898902.101396,
+      "sha256": "62310fc0ea2eafd013d35ab9390124e9f3851c3efb4633f7350285883b3d79ba",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06547212600708008,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00113.png",
+      "timestamp": 1792898902.198906,
+      "sha256": "3bd206a6efb1291d0eab6cfec6eb0b3251d305485a8f5b439f901d20e453573a",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06469297409057617,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00114.png",
+      "timestamp": 1792898902.264378,
+      "sha256": "f5ec03c753b8a19be250e21cebd463fd2b86b1105334334f1467e329f4332345",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03307986259460449,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00115.png",
+      "timestamp": 1792898902.329071,
+      "sha256": "4ead3f71e37cad1ba36e457071a8c38c68221225d8d6043936ff550fc7c08d79",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06558799743652344,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00116.png",
+      "timestamp": 1792898902.362151,
+      "sha256": "f44bcdb0ec987d85c7da660edebed4c39577488c955e04d4b0e36bb9041d6d5a",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03260517120361328,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00117.png",
+      "timestamp": 1792898902.427739,
+      "sha256": "223931cd5dec46dfd91da54c676ba04001755fa1542b5c98066247bd60ea787f",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06591486930847168,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00118.png",
+      "timestamp": 1792898902.460344,
+      "sha256": "8371cb40985bebe2d14b4166adb47ae2544d03e6f0b54cc59440fd584be2d752",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06589508056640625,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00119.png",
+      "timestamp": 1792898902.526259,
+      "sha256": "65f2cabdb9d2aaf1d55b24ef945030256b01631c1e5f19894fbaf54ac377f0e4",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06570696830749512,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00120.png",
+      "timestamp": 1792898902.592154,
+      "sha256": "086db9c1640edf6c691c687c80b26e6e70ab1444cdabdb917947cb1499eb54a7",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03243207931518555,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00121.png",
+      "timestamp": 1792898902.657861,
+      "sha256": "d5e0a3eb4086ba308ea85452f5a5836616855c978eca52009938a53d8b28a238",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06546592712402344,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00122.png",
+      "timestamp": 1792898902.690293,
+      "sha256": "bc5eed9b9279492c5152ba66fdd6c7002c51a668ce0edaab12fe656c47225f28",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06534409523010254,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00123.png",
+      "timestamp": 1792898902.755759,
+      "sha256": "ca8c674f2168bb5af15081c95ee4359df517c5033d30f8a92c63f3465780d7f6",
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06492996215820312,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00124.png",
+      "timestamp": 1792898902.821103,
+      "sha256": "ff95392b99bd594887c6029907ac7dd56e29f6e6c6ce49ba334fcd5048a63a71",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06612205505371094,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00125.png",
+      "timestamp": 1792898902.886033,
+      "sha256": "47dab9f5cd77d54b855810488d43624a93ea8e0ea4831950793acc317c9aa44b",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06525683403015137,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00126.png",
+      "timestamp": 1792898902.952155,
+      "sha256": "8fcdf9570b0c4ee2ba88e3c19b904d010a77ea2a9e19fd771672a43225c65851",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06493711471557617,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00127.png",
+      "timestamp": 1792898903.017412,
+      "sha256": "71a33e9b74bfdb27dad3e735378b3e651488b72b30ef9116db51881a9cd6c552",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06526684761047363,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00128.png",
+      "timestamp": 1792898903.082349,
+      "sha256": "b2f9cf3835e25ed7ce275df36120f10651c57a05df1270e1c55ac0882caddafe",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0655660629272461,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00129.png",
+      "timestamp": 1792898903.147616,
+      "sha256": "efc6ca5233d238edaedc27c3d0e4bed302c7d7d379ddb4680d57373a9a099054",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06529808044433594,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00130.png",
+      "timestamp": 1792898903.213182,
+      "sha256": "37e1e4ebd8b082d9a300e80930fe7675ddde76cba5c98798682630c65425dd46",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06481289863586426,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00131.png",
+      "timestamp": 1792898903.27848,
+      "sha256": "d66497ad6847875bdf5feb1f9526230869b032b17c85ddcd582b54591c02b094",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06553912162780762,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00132.png",
+      "timestamp": 1792898903.343293,
+      "sha256": "00537f55b078376c5cb016fb73365194e797a931c1c26fed9922c98d8323237e",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06525993347167969,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00133.png",
+      "timestamp": 1792898903.408832,
+      "sha256": "9d3a00b64f8ade2c87ab81fc5e94ad6fcd0769891d6ce858ef9f1ed66db60721",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06549787521362305,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00134.png",
+      "timestamp": 1792898903.474092,
+      "sha256": "0436b8106c8428f5ab2c7d1cae0a3132edb3a5f7ca1fdffd30b38a6f1dbb51c8",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06582117080688477,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00135.png",
+      "timestamp": 1792898903.53959,
+      "sha256": "2fd93eb00a82d786f78ac6c87c74372eaa3aec1efe59998a427ad1c6a5df67bf",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0659329891204834,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00136.png",
+      "timestamp": 1792898903.605411,
+      "sha256": "cc3a3026f47966079b48db106f4d7e5414a909540cbf4638b130c0222da89bd2",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03330206871032715,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00137.png",
+      "timestamp": 1792898903.671344,
+      "sha256": "13d38b845e3b7c7f7f00c0af2c38364061e52d5cef486329e91de34e3279d974",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.1316537857055664,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00138.png",
+      "timestamp": 1792898903.704646,
+      "sha256": "9ade59616a0a532131ef92af9f47f9beabd301aee0c4946955e49275d9dda96d",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09792113304138184,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00139.png",
+      "timestamp": 1792898903.8363,
+      "sha256": "a6509051cef7eb9fd7d38dd57e5751e10ce51a9f3083067f70216b69381c40ff",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09871506690979004,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00140.png",
+      "timestamp": 1792898903.934221,
+      "sha256": "8c1ed668b02fbe81a0302c4054ce551bbfc829bf378ebb41c99f051bbfc6cddb",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06619596481323242,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00141.png",
+      "timestamp": 1792898904.032936,
+      "sha256": "79fe298e662844ecb0dc799fd4a2be4fc3375d82d22b38b6d63fceebeca036b6",
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.132767915725708,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00142.png",
+      "timestamp": 1792898904.099132,
+      "sha256": "b2f81eed9d486a4c3a6e0689f81150b820b962071d3464afe66d5c21c182e76d",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.03279995918273926,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00143.png",
+      "timestamp": 1792898904.2319,
+      "sha256": "9ce50744f572e3153c93ee2577d90e41a90a7334cb0e613ccaa7254f8eb9e083",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09893918037414551,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00144.png",
+      "timestamp": 1792898904.2647,
+      "sha256": "f375c413a0faa426294ef70afc733ac221091fbe66e73c86ddb598dd173815a2",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06579399108886719,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00145.png",
+      "timestamp": 1792898904.363639,
+      "sha256": "09a1ebed48ffd5242fbf1af06bce5d3d9ea7ca741305811c0413e0b5bad0f361",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09829092025756836,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00146.png",
+      "timestamp": 1792898904.429433,
+      "sha256": "fc878d826a4e522bc878ed56bc6f56746a53bd7acf6148a056505140d1b173c7",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09793591499328613,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00147.png",
+      "timestamp": 1792898904.527724,
+      "sha256": "f17d5388830fe0a1ca9680c3fb4eb1b4ac0bd0543767751543b3df97dc24da54",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09763216972351074,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00148.png",
+      "timestamp": 1792898904.62566,
+      "sha256": "770bff29dbd477b1effea931f38f6e907efba4c0e62559a09639283c6e46d36a",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06599187850952148,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00149.png",
+      "timestamp": 1792898904.723292,
+      "sha256": "8b752b4992269d0b3c1711800a214297f35474ad80d1bc44928b834b7dfed743",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09937095642089844,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00150.png",
+      "timestamp": 1792898904.789284,
+      "sha256": "298de880ddff445c0f9c719a9e226f7ef479e841dfb5bd93498fc928f35576b2",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06525802612304688,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00151.png",
+      "timestamp": 1792898904.888655,
+      "sha256": "18fba684b98521ac018757ca97412968107cce4b2d7ad6197b25e407de890df6",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0648961067199707,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00152.png",
+      "timestamp": 1792898904.953913,
+      "sha256": "98640c30f781215f7f3b730a0314279b47aee8b94322c4dbc7c603414aac2da1",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06603693962097168,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00153.png",
+      "timestamp": 1792898905.018809,
+      "sha256": "dac75f313aa8923fa11e4c622e041b3badf3f5bb638abef61eefa9914a73d0eb",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06528186798095703,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00154.png",
+      "timestamp": 1792898905.084846,
+      "sha256": "631c339c04533cb58457b8669c5b59aab71186ae61c5169bc92ceef6894f523f",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06557321548461914,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00155.png",
+      "timestamp": 1792898905.150128,
+      "sha256": "1a5058c1afe13e2ce0a008490926e7e1ebc4da626f85b4992dbc1ab664c25cf3",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0660409927368164,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00156.png",
+      "timestamp": 1792898905.215701,
+      "sha256": "8987121938d3855590b79fe5ad5adf18d20b8237b8e11c51a23985966b06bfa3",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09877896308898926,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00157.png",
+      "timestamp": 1792898905.281742,
+      "sha256": "45b60b5f6361d283052c4b870c7e52db65b15666a96ad89b2a0bd685a8163b7f",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06503486633300781,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00158.png",
+      "timestamp": 1792898905.380521,
+      "sha256": "08d0d4508f76dde67788fa37421c388e091b6531437cd92b29879fab03eb2baa",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06550002098083496,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00159.png",
+      "timestamp": 1792898905.445556,
+      "sha256": "77fd1af71ee1c28fd881e4b348f9a059bafc37f2107ff93ea2894e8ae233bd3b",
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 45,
+        "y": 198,
+        "width": 198,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09835410118103027,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00160.png",
+      "timestamp": 1792898905.511056,
+      "sha256": "1f99586ee80abd67afdd8c7f72a832e9e6f99f08faea974900ac612573689f5b",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06528401374816895,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00161.png",
+      "timestamp": 1792898905.60941,
+      "sha256": "99694543c4506947e6add843745f7adfe87b9bd0a502de13d8fa2eed8d0f2067",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0657048225402832,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00162.png",
+      "timestamp": 1792898905.674694,
+      "sha256": "5a1609ed7e30806e1542f956830989fb2d5e9a5aa6a1ae3b32ee9042fc860d3e",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06572318077087402,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00163.png",
+      "timestamp": 1792898905.740399,
+      "sha256": "153b1aa97b0b923cc4f75fac0154746406302225498550598d14091e4d22350b",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0654759407043457,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00164.png",
+      "timestamp": 1792898905.806122,
+      "sha256": "09bb556582f523d34e1d26b3ab767da762a27be0839fabcb2fc44fb080d77bac",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06552410125732422,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00165.png",
+      "timestamp": 1792898905.871598,
+      "sha256": "1486b3fce9cebfc25b67a47c012018e6605a95c2fec835bf8d768fb72b72d3ed",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0656588077545166,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00166.png",
+      "timestamp": 1792898905.937122,
+      "sha256": "20e49da74fa125190c275686924032514d742dc10fc1b4ba0efeeea7c5dfbe1d",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06630396842956543,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00167.png",
+      "timestamp": 1792898906.002781,
+      "sha256": "3470307bcac29f20daa60120237fb57b5e2541d62b7b719f06c17142d5385942",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06484007835388184,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00168.png",
+      "timestamp": 1792898906.069085,
+      "sha256": "ebf485e82f70e300a5a44743120e8afbc480becd6c6314a49b71737c8ebc8039",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06530594825744629,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00169.png",
+      "timestamp": 1792898906.133925,
+      "sha256": "227997c11bcfe26672362f45a60091dc94f702249754b3b5befa33a8c4069aec",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0324251651763916,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00170.png",
+      "timestamp": 1792898906.199231,
+      "sha256": "1e0f3b8ec7d1ba44b20456f41d8958271fe02c4bd5401e724cfa38edbd1992e1",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.13059782981872559,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00171.png",
+      "timestamp": 1792898906.231656,
+      "sha256": "51fa6f7870254024c7432a1ffe927900db1058862cfd04219a30e5990a4e4d0d",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06519198417663574,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00172.png",
+      "timestamp": 1792898906.362254,
+      "sha256": "75e6bb8487135c291f473c12a26c869e687058806ff62bf8f8e6c9e950c87bb1",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09820222854614258,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00173.png",
+      "timestamp": 1792898906.427446,
+      "sha256": "e5618c684f5bc3a3251fc1348c0287883c07338fe300922796c5c6fec8c8b235",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09844493865966797,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00174.png",
+      "timestamp": 1792898906.525648,
+      "sha256": "836cc48a2a06e856b4c9675cbcb52d32b275b35a96a115ed63bc30766d4b5ba1",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0992579460144043,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00175.png",
+      "timestamp": 1792898906.624093,
+      "sha256": "bde7b58200798a9255b8601590ca2a42c6e60b6ad8ffbe05c85aa82bcf801bdd",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06633210182189941,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00176.png",
+      "timestamp": 1792898906.723351,
+      "sha256": "cfa36eb5fb795924a25ddcae811efb9c92d4a930eb30bbd23775dd3efbe11a2f",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09950089454650879,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00177.png",
+      "timestamp": 1792898906.789683,
+      "sha256": "70be7e6810b62b08ce210fc010186e03dd156ef8f5911392569ae1c787ce6d12",
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09826803207397461,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00178.png",
+      "timestamp": 1792898906.889184,
+      "sha256": "5385efd703cc5868199b86054ca46ef575f3fa714ac3fad125fbff0aa568b778",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09835100173950195,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00179.png",
+      "timestamp": 1792898906.987452,
+      "sha256": "d01c710ec104b68395a99f67053c1dcc401071557c2836fa2e7483066f516ee2",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06689000129699707,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00180.png",
+      "timestamp": 1792898907.085803,
+      "sha256": "2716d393b44f4aa46e55e6f52ad836aa15a4da2731e83162424352a799bf9e45",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09855389595031738,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00181.png",
+      "timestamp": 1792898907.152693,
+      "sha256": "d2765a2585b9525e3e0853e8a560221510bacf915f9947fc16294ff811127614",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06575512886047363,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00182.png",
+      "timestamp": 1792898907.251247,
+      "sha256": "ccbc25565d6647fb0c850b5d36ad937389781a9a082700468fc220afac6721ba",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09820795059204102,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00183.png",
+      "timestamp": 1792898907.317002,
+      "sha256": "628c0c903cb6682229d42aeeb63d85e38920e0c64d4e98ee9e097debfe8c021d",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09759902954101562,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00184.png",
+      "timestamp": 1792898907.41521,
+      "sha256": "5c2ff5ee34943565690413f9562af7b2b3a7c2a4bbf32295fef904623bbcd22b",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06648993492126465,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00185.png",
+      "timestamp": 1792898907.512809,
+      "sha256": "100d12f4f3b8ee95f6bee1f9b244eb841f5d2faa42d9e519e51cc3afbb68eb5a",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09802913665771484,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00186.png",
+      "timestamp": 1792898907.579299,
+      "sha256": "18c049df9e1454a966ab249379164391a28ad3aa40c71f8d001ff14a79080f16",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09827899932861328,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00187.png",
+      "timestamp": 1792898907.677328,
+      "sha256": "b997771e75361a659ce5e02ead2f2a954b683f71ac354985b57b798f1c31957a",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06554794311523438,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00188.png",
+      "timestamp": 1792898907.775607,
+      "sha256": "8bbf2b97ddeb4ad835990bec27a181bf3199882217d5a80def868b11a4a3049a",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09649491310119629,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00189.png",
+      "timestamp": 1792898907.841155,
+      "sha256": "f21720f8170df727533f0d55f5a0bd66494d4b7be704ff9a029694b128aadd99",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06760406494140625,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00190.png",
+      "timestamp": 1792898907.93765,
+      "sha256": "7de3a4c1f495e219452bda5e0212613dde6c89ee127f09caf9866bc14ca250f5",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09819889068603516,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00191.png",
+      "timestamp": 1792898908.005254,
+      "sha256": "a0c5604e3cf93e74580e1b66039244242cbe0b3293e398af0a71df1f28996983",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06627202033996582,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00192.png",
+      "timestamp": 1792898908.103453,
+      "sha256": "58cbcfad6fd2f7967948b70588f993ab1076c8a94b7bf7df0f4e95c1a7115641",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09762811660766602,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00193.png",
+      "timestamp": 1792898908.169725,
+      "sha256": "6b02e7e9e6d3fa271aaef6657662a2067cfbaf459d56a455ad9ce17514e37a92",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06636285781860352,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00194.png",
+      "timestamp": 1792898908.267353,
+      "sha256": "abd53e70f47f5048d57178e68c45b129a6773159a2caad96c3da150c9b0a20d3",
+      "caption": "Multiplier active.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09786701202392578,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00195.png",
+      "timestamp": 1792898908.333716,
+      "sha256": "d101944e3ec0608e6e23a9bfce42066fb84dd35fa69611371b7d64cea6b5d2c6",
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09877514839172363,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00196.png",
+      "timestamp": 1792898908.431583,
+      "sha256": "5cd4cf771e01f7087ef00fd73a555c1bb0bc4396ed3aa66920c33cd5e786c701",
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06550788879394531,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00197.png",
+      "timestamp": 1792898908.530358,
+      "sha256": "8c00b2919318e97de19d4f121f48f0a757b9e5f220af4b30b6c0c7974b65c2bb",
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 9,
+        "y": 144,
+        "width": 306,
+        "height": 51
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09905195236206055,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00198.png",
+      "timestamp": 1792898908.595866,
+      "sha256": "601e7d43f6ef65dbdd6743ed5f286a4cc68df0fbde29d091945a7e392fd25fdc",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09843897819519043,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00199.png",
+      "timestamp": 1792898908.694918,
+      "sha256": "aff3f13f87ddca16ea20ccd637a4f1ef42a0c5848ce114b716b91e57be25bcf5",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06578302383422852,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00200.png",
+      "timestamp": 1792898908.793357,
+      "sha256": "cd391da8ba2daef1ef071b4293513d6a4e8c1e9076447afd5fdc52eb9affc169",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09911608695983887,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00201.png",
+      "timestamp": 1792898908.85914,
+      "sha256": "bc4427fce76ad0177d2746ecffdde8dfaa9240376ad25e31a01f06c1c5387c43",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0648500919342041,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00202.png",
+      "timestamp": 1792898908.958256,
+      "sha256": "72f341d601eabb159d2075bb17f3896ba3d24036c0e46ed7bd092b7175ba50e5",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09889578819274902,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00203.png",
+      "timestamp": 1792898909.023106,
+      "sha256": "1a03da5c20ac407e7ef0e4ef32bcc3d83fc057a900e609a244c8bbf93afa2416",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0655372142791748,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00204.png",
+      "timestamp": 1792898909.122002,
+      "sha256": "73153a733713c256641a4227cc04834edddd3b6b74f6405d20eb2e7984abbb00",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0990748405456543,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00205.png",
+      "timestamp": 1792898909.187539,
+      "sha256": "529c4e48c475a2a1f1728ee6b73f12032bcb5712ea47da04db7e8ee88b4f3b6d",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06541705131530762,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00206.png",
+      "timestamp": 1792898909.286614,
+      "sha256": "253309881a93c9c3b880f6353a70ba4902a818241bccd7886ccc4e5dba414051",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09941291809082031,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00207.png",
+      "timestamp": 1792898909.352031,
+      "sha256": "eff27b177419fb56933dad693ee75ac77322e16b90e5fd8a942160c0b4005a7a",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06532120704650879,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00208.png",
+      "timestamp": 1792898909.451444,
+      "sha256": "015ba2c05aa2f325b691f3afee389363a16f1f8276b373c11f5aae3124c04761",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09747886657714844,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00209.png",
+      "timestamp": 1792898909.516765,
+      "sha256": "80abbabb45d1f1a1b9873c23041886d53b004355045a017e75f1710e36abbd9e",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06621694564819336,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00210.png",
+      "timestamp": 1792898909.614244,
+      "sha256": "903281942459f96fb83d0e8e7ba484b623a37b03b17a0fd11acd79a4f7b8585f",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09774899482727051,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00211.png",
+      "timestamp": 1792898909.680461,
+      "sha256": "50a16f51d2988f8b60ff5da12ee79d6e9595db724102fad2b371ab1deb34d51b",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06598901748657227,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00212.png",
+      "timestamp": 1792898909.77821,
+      "sha256": "41b3b1ae81b5594fea4ed4622dcad8e555cad349c569c6399fbffdce56bf851d",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.09986710548400879,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00213.png",
+      "timestamp": 1792898909.844199,
+      "sha256": "b2c697ab877fd095f67e81442642c463a79c54f57639200c36f809284366ee80",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06609106063842773,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00214.png",
+      "timestamp": 1792898909.944066,
+      "sha256": "b4993b73c6600424122ebddcb41078e8e74c8952e8ca6b0606085cbf7b98bb8f",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06592583656311035,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00215.png",
+      "timestamp": 1792898910.010157,
+      "sha256": "c8cc0354d338d15e8dc0ec0bdbebd5eef32029d0b3bf2cee8c71fdfa8abaa183",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.0990910530090332,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00216.png",
+      "timestamp": 1792898910.076083,
+      "sha256": "2757f55e70c9f6677169da5f10213d52ecf57e4e7d11c011707d8926e81aecae",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.06493711471557617,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00217.png",
+      "timestamp": 1792898910.175174,
+      "sha256": "550e0bf7418fc0931a6b5e9186f091c7d7d9e2d45580e93382875f9429a66bca",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
+    },
+    {
+      "duration": 0.044888973236083984,
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-score-6\\capture\\f00218.png",
+      "timestamp": 1792898910.240111,
+      "sha256": "74ce0cc66a8bb847c6cc0d9f627363ec3fd57c8406c050b1975b14069f40ba14",
+      "caption": "Score stays.",
+      "focus": {
+        "x": 9,
+        "y": 69,
+        "width": 306,
+        "height": 66
+      },
+      "label": {
+        "x": 6,
+        "y": 6
+      },
+      "atlas": 0,
+      "width": 240,
+      "height": 90
     }
   ]
 }

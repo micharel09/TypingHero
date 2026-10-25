@@ -1,18 +1,19 @@
-Real keyboard-driven successful parry, recorded from trial branch gameplay.
-Source: E:/CodexTemp/TypingHero/space-press-cue/native-direct-final/compositor/
-Chronological CDP PNG timestamps, source segment actual-filled-parry plus 500ms before/after.
-Crop (160,180)-(1120,500), nearest 1/4 to native logical pixels; no recoloring, retiming or sprite reconstruction.
-Per-frame source SHA256 and durations: parry.json. Review: docs/plans/parry-cue-demo.md.
+Real keyboard/mouse gameplay captures for the six-page tutorial.
+Pinned Unity2022.3.25f1; no combat simulation, tuning or animation changes.
+Canvas240x90, Point-filtered atlas sprites; original chronological frame durations.
+Arena and relevant HUD strips are copied from the SAME captured gameplay frame.
+Exact source hashes, timestamps, crop/destination coordinates, events and durations: five matching JSON manifests.
+Approved success reference: all77 original parry.json/parry.png cels, retained at native240x80 with10px top padding.
+Approved source: E:\CodexTemp\TypingHero\space-press-cue\native-direct-final\compositor
 
-Six-page tutorial extension (2026-10-25, pending Unity import/runtime acceptance):
-Same trial gameplay snapshot 494d9c0472226da9bab14c58f56469e84cba13dff1c022036912bf419f8d61ea.
-Real keyboard/mouse CDP PNG captures; no combat state mutations. Full HUD nearest 1/4 to320x180.
-Parry-health retains all77 approved cropped success cels/durations and appends a separately captioned missed-hit example.
-All original chronological holds retained inside each selected segment, including repeated frames; terminal duration clipped to end marker.
-Slayer omits only8 preceding-parry recovery cels before its first idle; entire Guard-breaking parry/Slayer/normal recovery retained.
-typing: 67 output frames; 2.112776995s; E:\CodexTemp\TypingHero\space-press-cue\six-type-3\capture; selected source timestamps 1792861457.134222984..1792861459.246999979.
-mistakes: 119 output frames; 3.712725163s; E:\CodexTemp\TypingHero\space-press-cue\six-capture-1\capture; selected source timestamps 1792861196.852274895..1792861200.565000057.
-parry-health: 163 output frames; 6.597002926s; E:\CodexTemp\TypingHero\space-press-cue\six-capture-1\capture; selected source timestamps 1792861201.540163040..1792861204.210999966.
-slayer: 424 output frames; 13.240350962s; E:\CodexTemp\TypingHero\space-press-cue\six-capture-1\capture; selected source timestamps 1792861214.602648973..1792861227.842999935.
-score: 157 output frames; 5.611195803s; E:\CodexTemp\TypingHero\space-press-cue\six-score-2\capture; selected source timestamps 1792861277.008804083..1792861282.619999886.
-Per-frame hashes, provenance, original durations and captions: matching JSON manifests. Native/2x direct review, every adjacency/loop: docs/plans/parry-cue-demo.md; evidence E:/CodexTemp/TypingHero/space-press-cue/six-review/.
+typing: 51 frames, 2.449949026s; E:\CodexTemp\TypingHero\space-press-cue\beat-type-11\capture
+mistakes: 119 frames, 3.712725163s; E:\CodexTemp\TypingHero\space-press-cue\six-capture-1\capture
+parry-health: 163 frames, 6.597002926s; E:\CodexTemp\TypingHero\space-press-cue\six-capture-1\capture
+slayer: 450 frames, 14.986407042s; E:\CodexTemp\TypingHero\space-press-cue\beat-capture-tail-3\capture
+score: 144 frames, 10.872750998s; E:\CodexTemp\TypingHero\space-press-cue\beat-score-6\capture
+
+Typing uses the existing Very Easy selector to preserve clean real preparation/recovery under capture load; all other examples retain their captured difficulty.
+Slayer arena crop50,25..250,130 is uniformly nearest-resized to160x84; irrelevant upper HUD is masked at the manifest coordinates; relevant HUD strips retain source pixels. This preserves head, feet and weapon at camera extremes.
+Slayer starts on the first confirmed idle after the preceding parry; the complete subsequent Guard-breaking attack, full Slayer and normal word attack remain.
+Score completes six real words from clean score/streak, then retains65points through combo expiration and a complete enemy attack/recovery.
+Evidence and direct per-frame UGUI review: docs/plans/parry-cue-demo.md and E:/CodexTemp/TypingHero/space-press-cue/beat-review/.

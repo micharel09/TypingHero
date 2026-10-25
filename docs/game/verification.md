@@ -3261,3 +3261,28 @@ with explicit500ms terminal hold. Actual source/frame observations, failed
 attempts, adapter recovery and retention: [checkpoint](../plans/parry-cue-demo.md).
 Demo http://127.0.0.1:8303/ and /Tutorial-Parry-Modal.mp4 use the verified normal
 player, local fixture worker and no QA globals. Main integration remains deferred.
+
+
+## Six-page tutorial beat guidance (2026-10-25; isolated review branch)
+
+Final assets:927/927 frames,922/922 consecutive transitions and5/5 loop joins
+visually inspected at480x180 and nearest2x with actual UGUI guidance. Final
+Slayer450 preview RGB buffers exactly match the final Unity exports; unchanged
+four clips retain inspected export hashes. Source/crop/event/duration hashes,
+per-frame observations and rejected candidates are registered in the
+[trial checkpoint](../plans/parry-cue-demo.md).
+
+Pinned local Unity2022.3.25f1:5/5 focused PlayMode cases PASS; final QA WebGL
+build and strict repeat builder PASS, atlas metadata unchanged.860 retained named
+sprite IDs stable. Final native browser94/94 PASS across640x360/1280x720, including
+six-page click/Enter, held-release gate, Back/reset, Pause/Resume, restart/menu,
+viewed/input/score/provider locks, fresh battle and actual Space parry. All13
+screenshots inspected; zero exceptions/provider reads/writes. Normal WebGL build PASS, qa:false and five JS/WASM/data payloads exclude QA
+markers. Final normal native7/7 PASS, zero exceptions/provider reads/writes;
+all11 screenshots inspected. Actual normal parry95/95frames and94/94transitions
+reviewed, showing full preparation, Space/contact/+30/Guard loss and recovery.
+New six-page51.164s VFR video includes full UGUI guidance and real parry;1474frames
+fully decode with increasing PTS, explicit2.5s HUD intro/500ms terminal holds.
+Demo8303 serves final normal player;31 served files and MP4 match local hashes.
+Receipts and retained resources are in the checkpoint. Main integration is deferred
+for user review.

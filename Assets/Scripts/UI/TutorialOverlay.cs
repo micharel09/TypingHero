@@ -22,13 +22,26 @@ public sealed class TutorialOverlay : MonoBehaviour
     [SerializeField] Button backButton, startButton;
     [SerializeField] Image clipImage;
     [SerializeField] TMP_Text clipCaption;
+    [SerializeField] TMP_Text clipRule;
+    [SerializeField] RectTransform captionPanel, clipFocus;
+    [SerializeField] RectTransform guideShaft, guideTipA, guideTipB;
+    [SerializeField] RectTransform guideBend, guideEnd;
+    [Serializable]
+    internal sealed class Guidance
+    {
+        // Top-left coordinates in the 720x270 clip, independent of viewport scale.
+        public Rect focus;
+        public Vector2 label;
+    }
     [Serializable]
     internal sealed class Lesson
     {
         public string title;
+        public string rule;
         public Sprite[] frames;
         public float[] durations;
         public string[] captions;
+        public Guidance[] guidance;
     }
     [SerializeField] Lesson[] lessons = Array.Empty<Lesson>();
     [SerializeField] TMP_Text clipTitle, modalStep, hudStep, actionLabel;
@@ -51,6 +64,7 @@ public sealed class TutorialOverlay : MonoBehaviour
         if (modal)
         {
             clipTitle.text = lessons[step - 1].title;
+            clipRule.text = lessons[step - 1].rule;
             modalStep.text = (step + 1) + "/" + StepCount;
             actionLabel.text = step == StepCount - 1 ? "Start Battle \u00b7 Enter" : "Next \u00b7 Enter";
         }
@@ -67,9 +81,43 @@ public sealed class TutorialOverlay : MonoBehaviour
         foreach (float hold in lesson.durations) duration += hold;
         double time = clipTime % duration;
         int frame = 0;
-        while (frame < lesson.frames.Length - 1 && time >= lesson.durations[frame]) time -= lesson.durations[frame++];
+        double boundary = lesson.durations[0];
+        while (frame < lesson.frames.Length - 1 && time >= boundary) boundary += lesson.durations[++frame];
         clipImage.sprite = lesson.frames[frame];
         clipCaption.text = lesson.captions[frame];
+        var guide = lesson.guidance[frame];
+        captionPanel.anchoredPosition = new Vector2(guide.label.x, -guide.label.y);
+        clipFocus.anchoredPosition = new Vector2(guide.focus.x, -guide.focus.y);
+        clipFocus.sizeDelta = guide.focus.size;
+        // Join the nearest edges of the label and focus, never crossing their text.
+        var label = new Rect(guide.label, captionPanel.sizeDelta);
+        Vector2 center = guide.focus.center;
+        Vector2 from = new Vector2(Mathf.Clamp(center.x, label.xMin, label.xMax),
+            Mathf.Clamp(center.y, label.yMin, label.yMax));
+        Vector2 to = new Vector2(Mathf.Clamp(from.x, guide.focus.xMin, guide.focus.xMax),
+            Mathf.Clamp(from.y, guide.focus.yMin, guide.focus.yMax));
+        // Route left-HUD callouts around the other strips instead of through their values.
+        bool aroundHud = guide.focus.x < 80 * 3;
+        guideBend.gameObject.SetActive(aroundHud); guideEnd.gameObject.SetActive(aroundHud);
+        Vector2 Local(Vector2 point) => new Vector2(point.x - 360, 135 - point.y);
+        if (aroundHud)
+        {
+            from = new Vector2(label.xMin, label.center.y);
+            to = new Vector2(guide.focus.xMin, guide.focus.center.y);
+            var bend = new Vector2(3, from.y);
+            var end = new Vector2(3, to.y);
+            Segment(guideShaft, Local(from), Local(bend), 3);
+            Segment(guideBend, Local(bend), Local(end), 3);
+            Segment(guideEnd, Local(end), Local(to), 3);
+            from = end;
+        }
+        from = Local(from); to = Local(to);
+        if (!aroundHud) Segment(guideShaft, from, to, 3);
+        var direction = (to - from).normalized;
+        var normal = new Vector2(-direction.y, direction.x);
+        float head = Mathf.Min(10, Vector2.Distance(from, to) * .5f);
+        Segment(guideTipA, to, to - direction * head + normal * head * .6f, 3);
+        Segment(guideTipB, to, to - direction * head - normal * head * .6f, 3);
     }
 
     Canvas canvas;
@@ -107,10 +155,10 @@ public sealed class TutorialOverlay : MonoBehaviour
         return root.InverseTransformPoint(rect.TransformPoint(local));
     }
 
-    static void Segment(RectTransform line, Vector2 from, Vector2 to)
+    static void Segment(RectTransform line, Vector2 from, Vector2 to, float thickness = 2)
     {
         line.localPosition = (from + to) * .5f;
-        line.sizeDelta = new Vector2(Vector2.Distance(from, to), 2);
+        line.sizeDelta = new Vector2(Vector2.Distance(from, to), thickness);
         line.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(to.y - from.y, to.x - from.x) * Mathf.Rad2Deg);
     }
 

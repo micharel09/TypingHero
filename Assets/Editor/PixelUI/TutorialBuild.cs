@@ -147,7 +147,8 @@ internal static class TutorialBuild
         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 
-    [System.Serializable] sealed class CaptureFrame { public float duration; public string caption; public int atlas, width, height; }
+    [System.Serializable] sealed class CaptureFocus { public float x, y, width, height; public Rect Bounds => new Rect(x, y, width, height); }
+    [System.Serializable] sealed class CaptureFrame { public float duration; public string caption; public int atlas, width, height; public CaptureFocus focus; public Vector2 label; }
     [System.Serializable] sealed class Capture { public int columns, cellWidth, cellHeight, width, height; public string[] atlases; public CaptureFrame[] frames; }
 
     static Sprite[] ImportCapture(string name, out Capture capture)
@@ -225,6 +226,13 @@ internal static class TutorialBuild
         }
         var title = Copy("Title", "Type to Attack", 48, 22, 640, 48, 36);
         var step = Copy("Step", "2/6", 708, 26, 60, 40, 24);
+        void Migrate(RectTransform rect, Vector2 oldPosition, Vector2 oldSize, float x, float y, float w, float h)
+        {
+            if (rect.anchoredPosition == oldPosition && rect.sizeDelta == oldSize) Box(rect, panel, x, y, w, h);
+        }
+        Migrate(title.rectTransform, new Vector2(48, -22), new Vector2(640, 48), 48, 18, 640, 44);
+        Migrate(step.rectTransform, new Vector2(708, -26), new Vector2(60, 40), 708, 22, 60, 32);
+        Copy("DemoBadge", "DEMO \u00b7 AUTO", 48, 60, 144, 20, 18).color = Gold;
         var clip = Node("Clip", panel, 48, 100, 720, 240);
         // Migrate the old default once; retain any independently authored geometry.
         if (clip.sizeDelta == new Vector2(720, 240) && clip.anchoredPosition == new Vector2(48, -100))
@@ -234,7 +242,48 @@ internal static class TutorialBuild
         clipImage.preserveAspect = true;
         clip.anchoredPosition += Vector2.Scale(clip.sizeDelta, Vector2.one * .5f - clip.pivot);
         clip.pivot = Vector2.one * .5f;
-        var caption = Copy("Caption", "Wait for the attack.", 48, 358, 720, 36, 24);
+        var rule = Copy("Rule", "Finish the word to attack.", 48, 360, 720, 48, 24);
+        var captionPanel = Node("Guidance", clip, 12, 12, 300, 54);
+        if (!captionPanel.GetComponent<Image>())
+        {
+            var bg = Image(captionPanel, Color.white);
+            bg.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(DungeonUISkin.Art + "modal-normal.png");
+            bg.type = UnityEngine.UI.Image.Type.Sliced;
+        }
+        // Retain the original caption object and binding when migrating it into the clip.
+        var captionNode = panel.Find("Caption") ?? captionPanel.Find("Caption");
+        var caption = captionNode ? captionNode.GetComponent<TMP_Text>() : Copy("Caption", "Wait for the attack.", 0, 0, 300, 54, 24);
+        if (caption.transform.parent != captionPanel)
+        {
+            caption.transform.SetParent(captionPanel, false);
+            Box(caption.rectTransform, captionPanel, 9, 3, 282, 48);
+        }
+        caption.enableWordWrapping = true;
+        var focus = Node("Focus", clip, 0, 0, 90, 30);
+        foreach (string edge in new[] { "Top", "Bottom", "Left", "Right" })
+        {
+            var border = Node(edge, focus, 0, 0, 3, 3);
+            Image(border, Gold).raycastTarget = false;
+            bool horizontal = edge == "Top" || edge == "Bottom";
+            border.anchorMin = new Vector2(0, edge == "Bottom" ? 0 : 1);
+            border.anchorMax = new Vector2(horizontal ? 1 : (edge == "Right" ? 1 : 0), horizontal ? border.anchorMin.y : 1);
+            if (edge == "Right") border.anchorMin = new Vector2(1, 0);
+            if (edge == "Left") border.anchorMin = Vector2.zero;
+            border.pivot = new Vector2(edge == "Right" ? 1 : 0, edge == "Bottom" ? 0 : 1);
+            border.anchoredPosition = Vector2.zero;
+            border.sizeDelta = horizontal ? new Vector2(0, 3) : new Vector2(3, 0);
+        }
+        RectTransform GuideLine(string name)
+        {
+            var line = Node(name, clip, 0, 0, 0, 3);
+            line.anchorMin = line.anchorMax = line.pivot = Vector2.one * .5f;
+            Image(line, Gold).raycastTarget = false;
+            return line;
+        }
+        var shaft = GuideLine("GuideShaft"); var tipA = GuideLine("GuideTipA"); var tipB = GuideLine("GuideTipB");
+        var bend = GuideLine("GuideBend"); var end = GuideLine("GuideEnd");
+        captionPanel.SetAsLastSibling();
+        foreach (var graphic in clip.GetComponentsInChildren<Graphic>(true)) graphic.raycastTarget = false;
         var director = Object.FindObjectOfType<TutorialDirector>(true);
         Button Action(string name, float x, float w, UnityEngine.Events.UnityAction listener)
         {
@@ -242,7 +291,7 @@ internal static class TutorialBuild
             if (existing) return existing.GetComponent<Button>();
             var button = Object.Instantiate(hud.Find("PracticeButton").GetComponent<Button>(), panel);
             button.name = name + "Button";
-            Box((RectTransform)button.transform, panel, x, 414, w, 40);
+            Box((RectTransform)button.transform, panel, x, 422, w, 40);
             button.onClick = new Button.ButtonClickedEvent();
             if (listener != null) UnityEditor.Events.UnityEventTools.AddPersistentListener(button.onClick, listener);
             button.navigation = new Navigation { mode = Navigation.Mode.None };
@@ -259,10 +308,15 @@ internal static class TutorialBuild
         }
         var back = Action("Back", 48, 192, null);
         var start = Action("Start Battle \u00b7 Enter", 288, 480, director.Continue);
+        Migrate((RectTransform)back.transform, new Vector2(48, -414), new Vector2(192, 40), 48, 422, 192, 40);
+        Migrate((RectTransform)start.transform, new Vector2(288, -414), new Vector2(480, 40), 288, 422, 480, 40);
         var so = new SerializedObject(overlay);
         void Bind(string field, Object value) { var p = so.FindProperty(field); if (!p.objectReferenceValue) p.objectReferenceValue = value; }
         Bind("parryModal", modal.gameObject); Bind("backButton", back); Bind("startButton", start);
         Bind("clipImage", clipImage); Bind("clipCaption", caption);
+        Bind("clipRule", rule); Bind("captionPanel", captionPanel); Bind("clipFocus", focus);
+        Bind("guideShaft", shaft); Bind("guideTipA", tipA); Bind("guideTipB", tipB);
+        Bind("guideBend", bend); Bind("guideEnd", end);
         Bind("clipTitle", title); Bind("modalStep", step); Bind("hudStep", hud.Find("Step").GetComponent<TMP_Text>());
         Bind("actionLabel", start.GetComponentInChildren<TMP_Text>(true));
         var nodes = new[] { "ScoreCard", "HealthCard", "EnemyCard", "TypingCard", "ScoreGuide", "HealthGuide", "EnemyGuide", "TypingGuide", "Shortcuts", "PracticeButton", "Step" };
@@ -270,6 +324,7 @@ internal static class TutorialBuild
         for (int i = 0; i < nodes.Length; i++) content.GetArrayElementAtIndex(i).objectReferenceValue = hud.Find(nodes[i]).gameObject;
         var names = new[] { "typing", "mistakes", "parry-health", "slayer", "score" };
         var titles = new[] { "Type to Attack", "Mistakes & Timer", "Parry with Space", "Break Guard \u00b7 Slayer", "Score & Combo" };
+        var rules = new[] { "Finish the word to attack.", "Wrong letters reset the word.\nThe timer keeps running.", "Tap Space as the attack lands.\nRelease between hits.", "Parry until Guard breaks.\nIn Slayer, each correct letter attacks.", "Complete words to score.\nFive words in a row unlock the multiplier." };
         var lessons = so.FindProperty("lessons"); lessons.arraySize = names.Length;
         Sprite first = null;
         for (int lesson = 0; lesson < names.Length; lesson++)
@@ -278,6 +333,8 @@ internal static class TutorialBuild
             if (lesson == 0) first = sprites[0];
             var data = lessons.GetArrayElementAtIndex(lesson);
             data.FindPropertyRelative("title").stringValue = titles[lesson];
+            data.FindPropertyRelative("rule").stringValue = rules[lesson];
+            var guidance = data.FindPropertyRelative("guidance"); guidance.arraySize = sprites.Length;
             var frames = data.FindPropertyRelative("frames"); var durations = data.FindPropertyRelative("durations"); var captions = data.FindPropertyRelative("captions");
             frames.arraySize = durations.arraySize = captions.arraySize = sprites.Length;
             for (int i = 0; i < sprites.Length; i++)
@@ -285,6 +342,9 @@ internal static class TutorialBuild
                 frames.GetArrayElementAtIndex(i).objectReferenceValue = sprites[i];
                 durations.GetArrayElementAtIndex(i).floatValue = capture.frames[i].duration;
                 captions.GetArrayElementAtIndex(i).stringValue = capture.frames[i].caption;
+                var guide = guidance.GetArrayElementAtIndex(i);
+                guide.FindPropertyRelative("focus").rectValue = capture.frames[i].focus.Bounds;
+                guide.FindPropertyRelative("label").vector2Value = capture.frames[i].label;
             }
         }
         so.ApplyModifiedPropertiesWithoutUndo();

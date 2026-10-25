@@ -18,6 +18,7 @@ module.exports = async function tutorialFlow(api,page,options={}) {
  if(!options.freshTutorial)await launch(false);
  let s=await until(page,at(0));const status=s.tutorialStatus;
  const titles=['Type to Attack','Mistakes & Timer','Parry with Space','Break Guard \u00b7 Slayer','Score & Combo'];
+ const rules=['Finish the word to attack.','Wrong letters reset the word.\nThe timer keeps running.','Tap Space as the attack lands.\nRelease between hits.','Parry until Guard breaks.\nIn Slayer, each correct letter attacks.','Complete words to score.\nFive words in a row unlock the multiplier.'];
  for(const [width,height] of options.viewports||[[1280,720],[640,360]]){
   await page.setViewportSize({width,height});await until(page,s=>s.width===width&&s.height===height);
   s=await state(page);check(s.tutorialArrows.length===5&&s.typography.some(t=>t.text==='1/6'),'HUD overview at '+width);await shot('tutorial-hud-'+width);
@@ -27,6 +28,9 @@ module.exports = async function tutorialFlow(api,page,options={}) {
    const text=s.typography.filter(t=>t.path.includes('/ParryModal/'));
    check(text.some(t=>t.text===titles[n-1])&&text.some(t=>t.text===`${n+1}/6`)&&text.some(t=>t.text===(n===5?'Start Battle \u00b7 Enter':'Next \u00b7 Enter')),'title/count/action page '+(n+1));
    const bounds=s.tutorialModal,clip=s.tutorialClipRect;
+   const caption=text.find(t=>t.path.endsWith('/Guidance/Caption'));
+   check(text.some(t=>t.path.endsWith('/Rule')&&t.text===rules[n-1])&&text.some(t=>t.text==='DEMO \u00b7 AUTO')&&caption&&caption.text.length>0,'fixed rule and phase guidance page '+(n+1));
+   check(Math.abs(clip.width-width*720/960)<2&&Math.abs(clip.height-height*270/540)<2&&caption.bounds.x>=clip.x&&caption.bounds.y>=clip.y&&caption.bounds.x+caption.bounds.width<=clip.x+clip.width+1&&caption.bounds.y+caption.bounds.height<=clip.y+clip.height+1,'8:3 clip and guidance inside it at '+width);
    check(Math.abs(bounds.width-width*816/960)<2&&Math.abs(bounds.height-height*480/540)<2&&clip.y>=bounds.y&&clip.y+clip.height<=bounds.y+bounds.height&&text.every(t=>!t.truncated&&t.glyphBounds.x>=t.bounds.x-1&&t.glyphBounds.y>=t.bounds.y-1&&t.glyphBounds.x+t.glyphBounds.width<=t.bounds.x+t.bounds.width+1&&t.glyphBounds.y+t.glyphBounds.height<=t.bounds.y+t.bounds.height+1),'modal layout page '+(n+1)+' at '+width);
    await page.keyboard.type('WRONG',{delay:20});await key('Space');s=await state(page);
    check(s.inputLetters===0&&s.combatSeconds===0&&s.score===0&&s.timeScale===0,'input/score lock page '+(n+1));await shot(`tutorial-${n+1}-${width}`);
@@ -48,6 +52,7 @@ module.exports = async function tutorialFlow(api,page,options={}) {
  check(!s.typography.some(t=>/SpaceExample|ParryModal|HealthGuide|EnemyGuide/.test(t.path)),'encounter clone has no tutorial');
  await page.waitForFunction(()=>{const f=window.typingHeroCombatFrame;return f?.spaceCueVisible&&f.spaceCueFilled&&f.canParry&&f.cueImpactIn>.12;},null,{polling:'raf',timeout:12000});
  const before=await page.evaluate(()=>window.typingHeroCombatFrame.parries);
+ report.normalCueGeometry={rect:await page.evaluate(()=>window.typingHeroCombatFrame.spaceCueRect),width:s.width,height:s.height};
  await page.keyboard.down('Space');try{await page.waitForFunction(()=>window.typingHeroCombatFrame?.parryWindow,null,{polling:'raf',timeout:700});}finally{await page.keyboard.up('Space');}
  await page.waitForFunction(n=>window.typingHeroCombatFrame.parries>n,before,{polling:'raf',timeout:2500});check(true,'real parry after final Start');await shot('tutorial-live-parry');
  await menu();await page.reload();await page.waitForFunction(()=>window.typingHeroQA?.frame>0,null,{timeout:120000});check((await state(page)).tutorialStatus===2,'viewed persists across reload');
