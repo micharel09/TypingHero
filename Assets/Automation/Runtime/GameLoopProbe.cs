@@ -358,6 +358,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public float scoreFont, comboFont, barReveal;
         public Rect playerStatusRect, enemyStatusRect, trayRect, scoreRect, multiplierRect, staminaRect;
         public Vector2 playerFootPoint, enemyFootPoint;
+        public Vector3 enemyBodyCenter;
+        public Vector2 enemyBodyCenterScreen;
         public float playerHpFill, enemyHpFill, staminaFill;
         public Rect[] wordRects, wordGlyphRects;
         public Rect popupRect, decayRect;
@@ -708,6 +710,9 @@ public sealed class GameLoopProbe : MonoBehaviour
                 staminaRect = staminaSlider ? ScreenRect((RectTransform)staminaSlider.transform) : default,
                 playerFootPoint = layout && bodyA ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.Foot(bodyA)) : default,
                 enemyFootPoint = layout && bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, layout.Foot(bodyB)) : default,
+                // Offset remains observable after a lethal hit disables the collider.
+                enemyBodyCenter = bodyB ? bodyB.transform.TransformPoint(bodyB.offset) : default,
+                enemyBodyCenterScreen = bodyB ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main, bodyB.transform.TransformPoint(bodyB.offset)) : default,
                 playerHpFill = playerHpSlider ? playerHpSlider.normalizedValue : -1,
                 enemyHpFill = enemyHpSlider ? enemyHpSlider.normalizedValue : -1,
                 staminaFill = staminaSlider ? staminaSlider.normalizedValue : -1,

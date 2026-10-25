@@ -1,3 +1,24 @@
+## Slayer body-center correction (2026-10-25)
+
+User rejected the B contact-edge anchor. Slayer hit/finisher now capture struck
+body collider center before damage/hurt/death and keep that world position;
+damage/camera/audio and legacy/non-Slayer consumers retain contact coordinates.
+Unity2022.3.25f1:51/51scoped PlayMode PASS,0failed/skipped,5.2562155s, including
+exact center capture when damage moves/disables a mirrored/scaled offset body.
+QA WebGL/strict repeated builder PASS;249C#/package/version inputs match source.
+Native Edge156/Intel UHD/D3D11/1280x720 playerb450043660a03328:2772checks PASS,
+0exceptions/provider reads/writes,all8angles and139stable leases observed.
+Existing0.2WU body hit jitter remains; frozen VFX does not follow later jitter.
+
+Static96/96source cels and80/80internal pairs reviewed around Hurt_0 body center;
+native460/460selected encoded frames and457/457pairs directly reviewed with held
+frames/originalPTS retained. Covers hit/pause/resume, exit/restart, rapid gold/red
+hits and lethal/death/result. Pale first-hit core is partly occluded by menu/old
+weapon trail; unoccluded rapid hits and read-only overlay establish placement.
+Edge1x/0.25x playback clock check PASS; no performance/full-suite/itch claim.
+Evidence: E:/CodexTemp/TypingHero/slayer-center-fix/; full scopes, hashes,
+per-frame ledgers and limitations in [existing checkpoint](../plans/slayer-slash-vfx.md).
+
 ## Windows-local startup follow-up (2026-10-25)
 
 Frozen18e03a2, local Unity2022.3.25f1/WebGL Support, Edge156/GTX1650Ti/D3D11,

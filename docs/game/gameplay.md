@@ -610,6 +610,10 @@ Full surface art, B/C and parent integration remain separate.
   Each impact selects one of eight clockwise45-degree directions, excluding the
   immediately previous direction for that owner, shared across hit/finisher.
   Hold angle throughout the effect; no extra mirror, particles or lights.
+- Slayer visuals use the struck body collider's bounds center captured before
+  damage/hurt/death, held in world space through the lease. Contact remains
+  separate for damage/camera/audio and non-Slayer/legacy effects; no per-cel
+  recentering or following a moving target.
 - Hitbox snapshots Slayer state and afterimage RGB tint before damage; emitted
   tint stays opaque and immutable through Slayer exit. Lethal audio/camera still
   follow the damage outcome. Optional `slayerLethalPrefab` falls back to the old

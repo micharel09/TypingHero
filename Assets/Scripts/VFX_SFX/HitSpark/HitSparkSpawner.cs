@@ -82,7 +82,7 @@ public class HitSparkSpawner : MonoBehaviour
         SpawnPrefab(sparkPrefab, worldPoint, attacker, targetRoot);
     }
 
-    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null, Color? capturedTint = null)
+    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null, Color? capturedTint = null, Vector2? slayerVisualPoint = null)
     {
         if (!isActiveAndEnabled || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         GameObject prefab = sparkPrefab;
@@ -92,13 +92,13 @@ public class HitSparkSpawner : MonoBehaviour
         else if (!lethal && wasSlayer && slayerPrefabs != null && slayerPrefabs.Length > 0)
             prefab = slayerPrefabs[slayerIndex++ % slayerPrefabs.Length];
         var images = wasSlayer && attacker ? attacker.GetComponentInChildren<SlayerAfterimagePool>() : null;
-        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, capturedTint ?? (images ? images.CurrentTint : Color.clear));
+        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, capturedTint ?? (images ? images.CurrentTint : Color.clear), wasSlayer ? slayerVisualPoint : null);
         var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
         if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
         // Confirmed contacts own camera impact independently of this visual emitter.
     }
 
-    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null)
+    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null, Vector2? slayerVisualPoint = null)
     {
         if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         if (prefab.GetComponent<SlayerHitVfx>() || prefab.GetComponent<NormalHitSpark>() || prefab.GetComponent<PixelSparkBurst>() || prefab.GetComponent<VoxelImpactBurst>())
@@ -116,7 +116,7 @@ public class HitSparkSpawner : MonoBehaviour
             lastSlayerDirection = SelectSlayerDirection(lastSlayerDirection,
                 Random.Range(0, lastSlayerDirection < 0 ? 8 : 7));
             var tint = impactTint ?? Color.white;
-            slash.Emit(point, lastSlayerDirection * 45f, tint.a > 0 ? tint : Color.white);
+            slash.Emit(slayerVisualPoint ?? point, lastSlayerDirection * 45f, tint.a > 0 ? tint : Color.white);
             return;
         }
         if (go.TryGetComponent<NormalHitSpark>(out var normal))

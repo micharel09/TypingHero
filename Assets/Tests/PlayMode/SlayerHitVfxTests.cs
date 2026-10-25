@@ -272,5 +272,57 @@ public sealed class SlayerHitVfxTests
         Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponent<SpriteRenderer>().color, Is.EqualTo(Color.red));
         Assert.That(Time.timeScale, Is.EqualTo(1));
     }
+
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void HitboxCapturesBodyCenterBeforeDamageAndKeepsContactSeparate(bool lethal)
+    {
+        var spawner = Owner(out var go); go.SetActive(false); go.AddComponent<BoxCollider2D>();
+        var slayer = go.AddComponent<PlayerSlayerMode>();
+        var box = go.AddComponent<PlayerWeaponHitbox>(); box.targetLayers = 1;
+        Set(box, "hitSpark", spawner); Set(box, "slayer", slayer);
+        go.SetActive(true); Set(slayer, "_active", true);
+        var enemy = Host("offset body"); enemy.transform.position = new Vector3(5, 3, 0);
+        enemy.transform.localScale = new Vector3(-1.5f, 1.2f, 1);
+        var damage = enemy.AddComponent<FeedbackDamageTarget>();
+        var body = enemy.AddComponent<BoxCollider2D>(); body.offset = new Vector2(.4f, .2f);
+        body.size = new Vector2(2, 3); enemy.SetActive(true); Physics2D.SyncTransforms();
+        Vector2 center = body.bounds.center, contact = body.ClosestPoint(go.transform.position);
+        Assert.That(Vector2.Distance(center, contact), Is.GreaterThan(.5f));
+        Assert.That(Vector2.Distance(center, enemy.transform.position), Is.GreaterThan(.1f));
+        damage.onDamage = () =>
+        {
+            damage.dead = lethal;
+            enemy.transform.position += Vector3.right * 7;
+            body.enabled = false;
+            Physics2D.SyncTransforms();
+        };
+        box.BeginAttack(1);
+        typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Flags).Invoke(box, new object[] { body });
+        var effect = Active().Single();
+        Assert.That(effect.name, Does.StartWith(lethal ? "SlayerFinisher" : "SlayerHit"));
+        Assert.That(damage.point, Is.EqualTo(contact)); Assert.That(box.LastContact, Is.EqualTo(contact));
+        var rotation = effect.transform.rotation;
+        foreach (float duration in new[] { .08f, .1f, .1f, .1f, .1f, .1f })
+        {
+            Assert.That((Vector2)effect.transform.position, Is.EqualTo(center));
+            Assert.That(effect.transform.rotation, Is.EqualTo(rotation));
+            enemy.transform.position += Vector3.up;
+            effect.Advance(duration);
+        }
+        Assert.That(Active(), Is.Empty);
+        Set(slayer, "_active", false);
+    }
+
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void BodyCenterOverrideDoesNotMoveNonSlayerOrLegacyImpacts(bool wasSlayer)
+    {
+        var spawner = Owner(out var go);
+        var legacy = Host("legacy contact"); legacy.AddComponent<SpriteRenderer>(); legacy.AddComponent<PooledVFX>();
+        Set(spawner, "sparkPrefab", legacy); Set(spawner, "slayerLethalPrefab", null); Set(spawner, "lethalPrefab", legacy);
+        Set(spawner, "verticalJitter", Vector2.zero);
+        var contact = new Vector2(2, 3);
+        spawner.SpawnImpact(contact, go.transform, wasSlayer, true, slayerVisualPoint: new Vector2(8, 9));
+        Assert.That(Get<List<GameObject>>(spawner, "active").Single().transform.position, Is.EqualTo((Vector3)contact));
+    }
 }
 #endif

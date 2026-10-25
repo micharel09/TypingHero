@@ -1,5 +1,106 @@
 # Slayer slash impact replacement
 
+## Slayer body-center correction — 2026-10-25
+
+User rejected the left-edge placement in the integrated B clip. Reference:
+`C:/Users/ADMIN/AppData/Local/Temp/orca-paste-1792891405560-f00d77d7-e507-4ed1-9bfb-e7f9bea09230.png`.
+The old visual review did not establish the newly clarified body-center requirement.
+Start from origin/main88953ab in independent Orca worktree slayer-center-fix.
+Evidence root: `E:/CodexTemp/TypingHero/slayer-center-fix/`.
+
+Capture the struck collider bounds center before damage/hurt/death; forward it only
+to the Slayer sprite branch. Preserve contact for damage/camera/audio and legacy
+consumers. Hold world center through each lease; no following/recentering per cel.
+Keep original PNG/hash/pivot/scales, six cels F4/F5/F0/F1/F2/F3, 80/100ms timing,
+eight nonrepeating angles, tint, pool and lifecycle unchanged. Read-only QA adds
+recipient world/screen center, including disabled BoxCollider2D offset observation.
+
+Acceptance checklist: nonlethal/lethal capture before recipient movement/disable;
+offset/mirrored/scaled body; unchanged contact consumers; all 8 angles x2 roles x6
+cels (96cels/80internal pairs); native real-keyboard hits/overlap/pause/resume/
+expiry/restart/finisher/result; 1x/0.25x playback and clean center overlay. Review
+every original encoded frame/adjacent pair in declared native windows, retaining
+held frames/PTS; source-cel/static review is distinct from native video review.
+Unity tests, build and direct visual review completed below; integration pending.
+
+Static output review: opened all four `static-review/{hit,finisher}-{0,1}.png`
+sheets at native/2x nearest size, 96/96cels and80/80internal adjacent pairs.
+Fixture uses actual sword Hurt_0,16PPU/pivot(.47,.41), mirrored prefab collider
+offset,32/40px B scales; gold hit/red finisher distinguish the two roles. F4
+starts on the incoming side, F5 reaches the torso, F0 crosses it, F1 breaks into
+exit-side dots, F2/F3 leave a terminal speck. All eight orientations preserve
+body-relative pivot and clear canvas borders. Per-cel notes/durations/transitions:
+`static-review/frame-review.csv`; exact source SHA256 and cells in manifest.json.
+This is a model-space composition, not native runtime evidence or a new palette
+review. Original source pixels/import/prefabs are unchanged. Native checks pending.
+
+Scoped Unity2022.3.25f1 tests:51/51PASS,0failed/skipped,5.2562155s in tests.xml.
+24SlayerHitVfxTests,18CombatFeedbackTests,9NormalStrikeEffectsTests. New cases
+exercise nonlethal/lethal damage moving the mirrored/scaled offset collider and
+disabling it synchronously; every cel retains the exact pre-damage center while
+damage/LastContact retain the original contact. Legacy/non-Slayer override cases
+also pass. Initial input6098dd4c; build inputfb987f97 differs only in the read-only
+QA probe fields added after tests began (probe excluded in PlayMode compilation).
+
+Existing Skeleton.prefab hit-pose jitterAmplitude is0.2WU, with jitterRoot on the
+same transform as the body. Therefore current collider center during a live tail
+is not its captured birth center: two successive jitter offsets can differ by
+<=0.4WU. Native current-center distance is bounded by that existing motion;
+exact pre-damage capture is established by the synchronous Unity cases. Do not
+claim a frozen VFX follows later body jitter or treat the offset as a new anchor.
+QA overlay cyan square=current body center, magenta cross=frozen VFX pivot.
+
+Final QA WebGL build PASS, strict repeated builder PASS; immutable33-file player
+`b450043660a03328`, hashes in player-manifest.json. Final249 C#/package/version
+inputs match the accepted worktree after CRLF normalization; no package/version
+or source PNG change. Native Edge156.0.4314.42/Intel UHD/ANGLE D3D11/1280x720:
+2772checks PASS,0exceptions/provider reads/writes. Real keyboard/mouse covers
+first hit, pause/resume, natural exit, restart, rapid words, lethal hit and result.
+All8angles observed;139stable lease observations retain position/tint/angle.
+Maximum current-body-to-frozen-pivot distance0.3518551WU is within the existing
+two-offset0.4WU jitter bound; it is not a tolerance on exact birth capture.
+
+Video: `video/778132f6ca8d0d3b9c22f71b80556c75.webm`,83.00s/25fps/2075encoded
+frames, SHA256787e85bce7b6c75fcca848b54c7bb28c38e4e43d2941f7e6462b61ab869d5e42.
+Native event-wall clock differs from encoded PTS; use original decoder timestamps
+for review/delivery, not inferred event latency. One-second locator images were
+used only to locate complete behaviors before declaring the review windows below.
+No window was shortened. Crop410,120–1100,640 encloses every observed B renderer
+bound (x599.83–1037.58,y141.75–603.62); full video/screenshots retain context.
+
+| Selected native segment | Original PTS seconds | Frames/pairs inspected | Purpose |
+|---|---|---|---|
+| hit-pause-resume | 37.00–41.00 | 101/100 | Preparation, first hit, pause hold, resume/full tail |
+| normal-exit-restart | 49.50–54.20 | 118/117 | Exit, restart, restored encounter and next normal parry |
+| rapid-finisher-result | 72.00–81.60 | 241/240 | Reentry, complete rapid sequence, lethal/death/result |
+
+Directly opened all40numbered native sheets in order,460/460frames and457/457pairs,
+including held/repeated frames and sheet boundaries. Per-frame observations and
+next-frame notes are in runtime-review/frame-review.csv; scopes/counts/PTS in
+manifest.json and video.json. Incoming strokes reach the torso, cross it and thin
+into exit-side flecks; no left-edge anchor, pivot spin or canvas clipping found.
+Old detached leases remain independent of later hit jitter. Pale first-hit core
+is partly occluded by the pause menu/retained weapon trail; overlay and read-only
+freeze observations supplement it, and unoccluded rapid gold/red hits establish
+actual placement. Broad ivory weapon crescent is unchanged preexisting artwork.
+Red lethal tail persists through mode exit and disappears cleanly as bones fall.
+
+Edge playback73.00–75.20s at1x/0.25x PASS: measured2155.8/8625.2ms versus media
+2159.9999/8639.9999ms; callbacks coalesce held frames and do not replace the full
+PNG review. Source timing is independently covered by Unity. No general FPS,
+subjective audio, full-suite, production release or itch.io publication claim.
+Delivery stills: centered-in-game.png, pause-center-overlay.png, finisher.png.
+Original rejected screenshot retained as rejected-contact-anchor.png.
+
+Fetched newer main2fc3e6a before integration. Its Windows adapter/retry changes
+touch only tooling and separate receipts; no Assets/Packages/ProjectSettings
+change. Preserve those updates and reuse passing game tests/player/visual evidence.
+
+Implementation and scoped verification complete; remote integration/cleanup
+receipt follows after commit/push. Retain this task evidence directory for user
+review; delete only after review. Disposable isolated Unity source/Library can be
+removed once its accepted input archive and tests/player/ledgers are verified.
+
 ## Met.Pxl B integration — 2026-10-25
 
 This follow-up supersedes the tbbk artwork/timing/mirror contract below only for

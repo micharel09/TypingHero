@@ -91,6 +91,8 @@ public class PlayerWeaponHitbox : MonoBehaviour
         Transform root = other.transform.root;
 
         bool wasSlayer = slayer && slayer.IsActive;
+        // Capture before damage/hit poses can move or disable the recipient.
+        Vector2? slayerVisualPoint = wasSlayer ? (Vector2)other.bounds.center : (Vector2?)null;
         bool ignoreHitstop = wasSlayer && slayer.IgnoreHitstop;
         var images = wasSlayer ? transform.root.GetComponentInChildren<SlayerAfterimagePool>() : null;
         Color impactTint = images ? images.CurrentTint : Color.clear;
@@ -131,7 +133,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
 
         // === HIT SPARK (tùy chọn) ===
-        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, root, capturedTint: wasSlayer ? impactTint : (Color?)null);
+        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, root, capturedTint: wasSlayer ? impactTint : (Color?)null, slayerVisualPoint: slayerVisualPoint);
 
 
 
