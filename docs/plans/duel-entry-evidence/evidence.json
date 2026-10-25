@@ -1,0 +1,362 @@
+{
+  "source_commit": "1ea74ffa7d79ed5227f7bc91f3249f53feecd423",
+  "checklist": [
+    "menu/selection",
+    "confirmation and scene transition",
+    "opponent identity",
+    "actor staging/ready pose",
+    "start cue",
+    "first combat action",
+    "next round/opponent",
+    "restart/skip",
+    "camera/HUD",
+    "audio and actual input unlock"
+  ],
+  "segments": [
+    {
+      "id": "samurai-entry",
+      "source": "https://www.youtube.com/watch?v=Z7Nglgj4-88",
+      "file": "samurai.webm",
+      "start": 33,
+      "end": 105,
+      "reason": "Complete title/difficulty menu to mandatory controls demonstration to player selection, opponent/map card, arena reveal, round cue, and active combat.",
+      "frame_count": 4320,
+      "transition_count": 4319,
+      "first_pts": 33.0,
+      "last_pts": 104.984,
+      "visual_inspected_frames": 4320,
+      "visual_inspected_transitions": 4319
+    },
+    {
+      "id": "lastblade-entry",
+      "source": "https://www.youtube.com/watch?v=H-XhaWrVkVU",
+      "file": "lastblade.webm",
+      "start": 53,
+      "end": 144,
+      "reason": "Complete title/options return to controls demonstration, player/ability selection, versus, stage establishing sequence, actor intros, cue, and active combat.",
+      "frame_count": 5460,
+      "transition_count": 5459,
+      "first_pts": 53.0,
+      "last_pts": 143.983,
+      "visual_inspected_frames": 5460,
+      "visual_inspected_transitions": 5459
+    },
+    {
+      "id": "nidhogg-entry",
+      "source": "https://www.youtube.com/watch?v=36UDLPPD_U0",
+      "file": "nidhogg.webm",
+      "start": 0,
+      "end": 46,
+      "reason": "Full title-to-customization-to-map-to-match path including all customization dwell, countdown/GO and first combat.",
+      "frame_count": 2760,
+      "transition_count": 2759,
+      "first_pts": 0.0,
+      "last_pts": 45.983,
+      "visual_inspected_frames": 2760,
+      "visual_inspected_transitions": 2759
+    },
+    {
+      "id": "samurai-round",
+      "source": "https://www.youtube.com/watch?v=Z7Nglgj4-88",
+      "file": "samurai.webm",
+      "start": 128,
+      "end": 150,
+      "reason": "Round ending including KO, result tally, reset, next round cue, combat; local capture ends at150, extend if action not yet complete.",
+      "frame_count": 1320,
+      "transition_count": 1319,
+      "first_pts": 128.0,
+      "last_pts": 149.984,
+      "visual_inspected_frames": 1320,
+      "visual_inspected_transitions": 1319
+    }
+  ],
+  "visual_ledger": [
+    {
+      "segment": "samurai-entry",
+      "pages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "observations": "33-36.25 title logo sheen; 36.27 black/brief demo arena; 36.97 difficulty selector; 38.2 cursor Normal->MVS; 41.17 black;41.42 controls scene and typed label; 43.3-44.2 light slash demo then idle. No missing sheet boundaries."
+    },
+    {
+      "segment": "samurai-entry",
+      "pages": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "observations": "45.28 label clears and types medium attack;47.3 medium slash and recovery;49.22 label clears/types strong attack;51.45 strong slash and recovery;53.2 weapon clash/disarm then stun;55.85 player falls and sword arcs out;56.8 text starts unarmed demo. All consecutive frames reviewed including duplicates."
+    },
+    {
+      "segment": "samurai-entry",
+      "pages": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "observations": "57s get-up and sword settles;58.08 light-punch typed label;60.3 light punch;61.85 medium label;64.1 medium punch;65.8 strong label;67.9 strong punch. Same two demonstration actors and sea background; not live-match entrance."
+    },
+    {
+      "segment": "samurai-entry",
+      "pages": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "observations": "69.8 light-kick instruction/demo then medium label;73.07 shutter closes controls;73.37 vertical reveal to character grid; cursor tours roster with per-character idle poses. No live arena yet. All frames and boundary overlaps inspected."
+    },
+    {
+      "segment": "samurai-entry",
+      "pages": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "observations": "Roster browse->Haohmaru name/portrait flash around83.5; portraits scatter84.6; chosen sprite retained; opponent Earthquake drops/rotates into pre-match card86.4; speech types87-88.4; map pans88.4-91.8 to destination; destination ribbon92.1 and player pose92.4. All consecutive frames reviewed."
+    },
+    {
+      "segment": "samurai-entry",
+      "pages": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "observations": "93.3 player name,93.55 VS,94.8 enemy name;95.4 white transition and actors jump/drop into arena;96.35 arena fades in;97 actors settle,98.4 zoom and EN GARDE;100.7 HUD slides in then DUEL1;102.08 BEGIN;103.2 first jumps while BEGIN fades;103.8 red hit flash and104 HP loss. No offscreen walk-in in this matchup. Entire33-105 interval complete."
+    },
+    {
+      "segment": "lastblade-entry",
+      "pages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "observations": "53 attract/demo Ready interrupted54.7;54.8 strip reveal to home title menu;57 wipe into options; level changed;62.85 tile shutter returns title63.3. Whole53-65 contains both demo exit and option detour, no active match start claimed."
+    },
+    {
+      "segment": "lastblade-entry",
+      "pages": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "observations": "65.05 title shutter -> controls legend65.6;69.05 horizontal shutter->duel demonstration;69.65 instruction;71 upper repel flash;73.2 follow-up instruction;74.5 repel->counter slash->fall->recover;76.8 next lesson. Full tutorial dwell retained."
+    },
+    {
+      "segment": "lastblade-entry",
+      "pages": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "observations": "77-80 crouch-repel demo;81-83 air repel;84-87 air-versus-ground repel;88.2 text changes to Power/Speed explanation and Power labels88.8. Every held/repeated frame retained and inspected; no presentation phase omitted."
+    },
+    {
+      "segment": "lastblade-entry",
+      "pages": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "observations": "89-92 animated Power/Speed comparison;92.2 combo explanation and combo demo92.8-94;95.5 single-hit explanation and yellow hit96.8;99.2 controls shutters;99.8 roster grid rotates in;100.5 roster headers and Kaede sprite reveal. No sampling, full53-101 reviewed so far."
+    },
+    {
+      "segment": "lastblade-entry",
+      "pages": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "observations": "101-104.5 Kaede idle preview;104.6 Yuki;105.4 Akari;106.3 Amano;107.2 Shigen? roster preview tour continues with large portrait name and sprite;108 Zantetsu then109 Lee,109.9 Okina,110.8 Shigen,111.7 hat actor,112.5 Mukuro. Names not needed for report; selected matchup still unconfirmed."
+    },
+    {
+      "segment": "lastblade-entry",
+      "pages": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "observations": "113-120 roster tour then settles Setsuna;121.9 ability select Power;123.4 briefly Speed then Power;124.3 horizontal shutter into black. Whole menu confirmation observed; no input logs, cannot assert which buttons triggered."
+    },
+    {
+      "segment": "lastblade-entry",
+      "pages": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "observations": "125 slash flash;125.5 silhouettes reveal into Setsuna/Kaede portraits;127.8 VS;130.4 shutter to stage vignette Shimeji Pass;131.8 ship angle;133.4 return and pan up;134.65 white;135.2 arena shutter,135.45 HUD; Kaede pre-fight lightning flourish136, settles136.6. No offscreen walk-in."
+    },
+    {
+      "segment": "lastblade-entry",
+      "pages": [
+        42,
+        43,
+        44,
+        45
+      ],
+      "observations": "137-137.9 Kaede finishing stance and draw;138.7 Stage1;139.15 Ready;140.43 Slash letters expand/reform/disperse;141.5 first controlled-looking movement/crouch,142.45 first strikes. Entire53-144 video frames inspected; exact engine unlock still unknown."
+    },
+    {
+      "segment": "nidhogg-entry",
+      "pages": [
+        0,
+        1
+      ],
+      "observations": "0-3.15 animated title and start prompt;3.2 title logo collapses into main menu with Arcade selected, horizontal black slash highlight. Source PTS, not approximate locator labels, used for report."
+    },
+    {
+      "segment": "nidhogg-entry",
+      "pages": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "observations": "4.3 main menu slides out, customization slides in while background darkens; palette orange->pink->purple->cyan->green5.2-6.7;7.3 appearance category list replaces palette; torso variants preview while idle character animates8-16. No combat during customization."
+    },
+    {
+      "segment": "nidhogg-entry",
+      "pages": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "observations": "16.9 category Torso->Legs, leg/foot variants;20.5 Hair category;20.6-26.9 hair variants;27.05 Accessory category and preview. All customization dwell inspected, no time compression."
+    },
+    {
+      "segment": "nidhogg-entry",
+      "pages": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "observations": "28-31.98 accessory variants;32 category returns Torso and variants;36.6 Accessory;39.10 organic wave wipe covers customization;39.33 reveals island map Castle, held through39.98."
+    },
+    {
+      "segment": "nidhogg-entry",
+      "pages": [
+        20,
+        21,
+        22
+      ],
+      "observations": "40-43.3 Castle map holds;43.33 black organic wipe;43.67 arena reveal and READY;45 GO;45.3 onward actors advance,45.8 close/jump. No numeric countdown. Full0-46 reviewed."
+    },
+    {
+      "segment": "samurai-round",
+      "pages": [
+        0,
+        1,
+        2
+      ],
+      "observations": "128-130.7 ongoing final exchange, jump/red impact;130.77 IPPON appears;132.9 Earthquake falls;133.5 Haohmaru begins victory pose. Full preparation to KO retained."
+    },
+    {
+      "segment": "samurai-round",
+      "pages": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "observations": "134-136.8 defeated actor fall completes;137 opponent stands and Haohmaru winner label/victory pose;139.3 score tally through146.8;146.85 horizontal shutter then vertical reveal reset;147.4 DUEL2;148.6 BEGIN;149.9 letters disperse. Capture150 cuts before first next-round action: next-round action unverified, no complete reset-to-combat claim."
+    }
+  ],
+  "sources": [
+    {
+      "id": "Z7Nglgj4-88",
+      "url": "https://www.youtube.com/watch?v=Z7Nglgj4-88",
+      "capture": "samurai.webm",
+      "sha256": "c75ede97b3208931e5b1c5b8251d90094c5da0a2be69e47f82582e726e070bd6",
+      "capture_scope": "first 150 seconds; source video capture at 60fps, not game simulation frames",
+      "exact_build": "unverified"
+    },
+    {
+      "id": "H-XhaWrVkVU",
+      "url": "https://www.youtube.com/watch?v=H-XhaWrVkVU",
+      "capture": "lastblade.webm",
+      "sha256": "a246e7bc5e86b8fa66860abc1a2514b2f0e368dc90d0e258ba6d9bda38265f15",
+      "capture_scope": "first 150 seconds; source video capture at 60fps, not game simulation frames",
+      "exact_build": "unverified"
+    },
+    {
+      "id": "36UDLPPD_U0",
+      "url": "https://www.youtube.com/watch?v=36UDLPPD_U0",
+      "capture": "nidhogg.webm",
+      "sha256": "2af649fb4c01dfa59231c5906cc7f783339c4bcefddcd7e6ebef56163af9353e",
+      "capture_scope": "first 150 seconds; source video capture at 60fps, not game simulation frames",
+      "exact_build": "unverified"
+    }
+  ],
+  "method": "All decoded frames in declared segments viewed sequentially, including held/repeated frames; sheets retain previous-frame overlap.192px-wide frames for scene-level review. Locator sheets are not full-review evidence.",
+  "rea": {
+    "session_open": false,
+    "game_artifact_supplied": false,
+    "gameplay_evidence_ids": [],
+    "ghidra": "not configured; Java unavailable",
+    "ida": "REA_IDA_MCP_CONFIG unset",
+    "hopper": "unsupported on win32",
+    "result": "Native decompilation not performed; visual observations are video evidence, not REA runtime traces."
+  },
+  "unverified": [
+    "exact game builds",
+    "audio",
+    "actual engine input unlock",
+    "skip/restart paths",
+    "next opponent path",
+    "Samurai round2 first combat action beyond capture150",
+    "Last Blade2 and Nidhogg2 later-round paths"
+  ]
+}
