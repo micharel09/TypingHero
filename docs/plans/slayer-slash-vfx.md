@@ -44,7 +44,24 @@ finisher. User visual approval and exhaustive frame/transition inspection remain
 unverified under the explicit waiver. git diff --check is clean; no tests ran.
 Keep the artifacts and warm private source/Library until user review/reproduction
 is finished; no earlier clip or original dirty checkout was changed.
-Integration receipt follows after remote verification.
+### Main integration receipt
+
+Feature8645a27 was pushed to micharel09/slayer-black-impact. A fresh fetch found
+new dungeon lighting on origin/main15f61fa; merged both sides as36aa2fd without
+conflicts. Inbound changes are floor surface maps/materials, cool fill, lantern,
+world scene and the existing parry-lift surface binding. All runtime scripts,
+character clips/prefabs, VFX assets/materials/shaders, B builder and ActorDepth
+are unchanged from the captured feature. B uses its unlit PixelSpark material;
+its black tint/body anchor do not depend on the new world-light parameters.
+Reused the scoped capture and checked the dependency diff/whitespace; no repeated
+build, suite or broad lighting profile was run. The clip's full-world baseline is
+2b07f3f plus the B change, not a claim of a new full merged-world visual review.
+
+Direct fast-forward main push15f61fa->36aa2fd7d556dba3dfb3bef87de8b617b48c1fcd
+succeeded. Subsequent fetch confirmed the feature is an ancestor of origin/main.
+This following receipt changes documentation only. After it is remotely preserved,
+remove only the clean task worktree/local branch; retain the remote task branch
+and review/cache artifacts until user review and reproduction are finished.
 
 ## Final strike and combo_end correction (2026-10-25)
 
