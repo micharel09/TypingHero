@@ -23,9 +23,26 @@ public sealed class DungeonSession : MonoBehaviour
     }
     public DungeonWorld World { get; private set; }
     public bool Transitioning { get; private set; }
-    public static bool InputSuppressed => instance && (instance.Transitioning || Time.frameCount <= instance.inputFrame);
+    public static bool InputSuppressed => instance && (instance.Transitioning || instance.heldInput.Count > 0 || Time.frameCount <= instance.inputFrame);
+    readonly System.Collections.Generic.List<KeyCode> heldInput = new System.Collections.Generic.List<KeyCode>();
+    internal void ConsumeIntroInput()
+    {
+        heldInput.Clear();
+        for (int key = (int)KeyCode.A; key <= (int)KeyCode.Z; key++)
+            if (Input.GetKey((KeyCode)key)) heldInput.Add((KeyCode)key);
+        foreach (var key in new[] { KeyCode.Space, KeyCode.Return, KeyCode.KeypadEnter })
+            if (Input.GetKey(key)) heldInput.Add(key);
+    }
+    void Update()
+    {
+        for (int i = heldInput.Count - 1; i >= 0; i--)
+            if (!Input.GetKey(heldInput[i])) heldInput.RemoveAt(i);
+    }
     int inputFrame = -1;
     DungeonSessionBindings gameplay;
+    DuelIntroPresentation intro;
+    Coroutine transitionRoutine;
+    bool shortIntro;
 
 #if UNITY_EDITOR
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -55,7 +72,7 @@ public sealed class DungeonSession : MonoBehaviour
         var gate = FindGameplayGate(scene);
         if (!gate || gate.gameObject.activeSelf) return false;
         Transitioning = true;
-        StartCoroutine(BeginEditorGameplay(scene));
+        transitionRoutine = StartCoroutine(BeginEditorGameplay(scene));
         return true;
     }
 
@@ -108,16 +125,26 @@ public sealed class DungeonSession : MonoBehaviour
         World.ResetView();
     }
     public void BeginGame(string scene = GameScene) => Request(scene);
-    public void ReloadGameplay() => Request(GameScene);
+    public void ReloadGameplay() => Request(GameScene, true);
     public void ReturnToMenu(string scene = "MainMenu") => Request(scene);
-    void Request(string scene)
+    void Request(string scene, bool reload = false)
     {
-        if (Transitioning) return;
+        if (Transitioning)
+        {
+            // Only explicit navigation may cancel a live intro; duplicate Play is ignored.
+            if (!intro || !intro.Running || (!reload && scene == GameScene)) return;
+            if (transitionRoutine != null) StopCoroutine(transitionRoutine);
+        }
+        GamePauseController.SetIntro(true);
+        shortIntro = reload;
         Transitioning = true;
-        StartCoroutine(Transition(scene));
+        transitionRoutine = StartCoroutine(Transition(scene));
     }
     IEnumerator Transition(string destination)
     {
+        if (!intro) intro = gameObject.AddComponent<DuelIntroPresentation>();
+        yield return intro.Cover(shortIntro ? .2f : .25f, !shortIntro && destination == GameScene);
+        intro.ClearCovered();
         yield return EnsureWorld();
         // Disable first: Slayer restores the environment while its actors still exist.
         if (gameplay) { gameplay.Deactivate(); gameplay.Bind(World, true); gameplay = null; }
@@ -135,6 +162,7 @@ public sealed class DungeonSession : MonoBehaviour
         World.ApplyEnvironment();
         if (destination == GameScene)
             yield return ActivateGameplay(loaded);
+        if (destination != GameScene) yield return intro.Uncover(.2f);
         Transitioning = false;
     }
 
@@ -150,11 +178,15 @@ public sealed class DungeonSession : MonoBehaviour
         gameplay = FindGameplayGate(scene);
         if (!gameplay) throw new System.InvalidOperationException("Gameplay scene has no binding gate");
         gameplay.Bind(World);
-        // Consume the launch/Continue key before any controller gets Awake/Start/Update.
-        while (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter)) yield return null;
+        if (!intro) intro = gameObject.AddComponent<DuelIntroPresentation>();
+        // Lock before Awake/OnEnable/Start, while preserving animation and VFX clocks.
+        GamePauseController.SetIntro(true);
+        intro.Prepare(gameplay, TutorialRun.Active);
         inputFrame = Time.frameCount + 1;
         gameplay.gameObject.SetActive(true);
         World.EnableGameplayCamera();
+        yield return intro.Play(shortIntro, TutorialRun.Active);
+        inputFrame = Time.frameCount + 1;
     }
-    void OnDestroy() { if (instance == this) instance = null; }
+    void OnDestroy() { if (intro) intro.Cancel(); if (instance == this) instance = null; }
 }

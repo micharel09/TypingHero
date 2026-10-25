@@ -76,8 +76,17 @@ public sealed class GamePauseController : MonoBehaviour
     }
 
     public bool IsRestarting => _restarting;
-    static bool pauseBlocked, readingBlocked, encounterBlocked;
-    public static bool InputBlocked => pauseBlocked || readingBlocked || encounterBlocked;
+    static bool pauseBlocked, readingBlocked, encounterBlocked, introBlocked;
+    static int introReleaseFrame = -1;
+    internal static bool PresentationFrozen => pauseBlocked || readingBlocked || encounterBlocked;
+    internal CanvasGroup[] IntroHud => resultHiddenHud;
+    internal static void SetIntro(bool active)
+    {
+        introBlocked = active;
+        introReleaseFrame = active ? -1 : Time.frameCount + 1;
+        if (ScoreSystem.I) ScoreSystem.I.SetPaused(PresentationFrozen || active);
+    }
+    public static bool InputBlocked => PresentationFrozen || introBlocked || Time.frameCount <= introReleaseFrame;
     internal static bool IsPaused => pauseBlocked;
     internal static event System.Action<bool> FreezeChanged;
     internal static bool EncounterReading => encounterBlocked;
@@ -99,7 +108,8 @@ public sealed class GamePauseController : MonoBehaviour
 
     internal static void ResetSessionState()
     {
-        pauseBlocked = readingBlocked = encounterBlocked = false;
+        pauseBlocked = readingBlocked = encounterBlocked = introBlocked = false;
+        introReleaseFrame = -1;
         ResultOverlayVisible = false;
         ApplyFreeze();
     }
@@ -112,10 +122,10 @@ public sealed class GamePauseController : MonoBehaviour
 
     static void ApplyFreeze()
     {
-        FreezeChanged?.Invoke(InputBlocked);
+        FreezeChanged?.Invoke(PresentationFrozen);
         if (ScoreSystem.I) ScoreSystem.I.SetPaused(InputBlocked);
-        AudioListener.pause = InputBlocked;
-        Time.timeScale = InputBlocked ? 0f : 1f;
+        AudioListener.pause = PresentationFrozen;
+        Time.timeScale = PresentationFrozen ? 0f : 1f;
     }
 
     public void Resume() => TogglePause(false);
@@ -406,10 +416,10 @@ public sealed class GamePauseController : MonoBehaviour
     {
         pauseBlocked = on;
         ResultOverlayVisible = on && _overlayLocked;
-        FreezeChanged?.Invoke(InputBlocked);
-        if (ScoreSystem.I) ScoreSystem.I.SetPaused(on);
-        Time.timeScale = InputBlocked ? 0f : 1f;
-        if (pauseAudioListener || readingBlocked || encounterBlocked) AudioListener.pause = InputBlocked;
+        FreezeChanged?.Invoke(PresentationFrozen);
+        if (ScoreSystem.I) ScoreSystem.I.SetPaused(InputBlocked);
+        Time.timeScale = PresentationFrozen ? 0f : 1f;
+        if (pauseAudioListener || readingBlocked || encounterBlocked) AudioListener.pause = PresentationFrozen;
     }
 
     void ZoomIn()

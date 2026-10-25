@@ -1,3 +1,30 @@
+## Duel opening (2026-10-25)
+
+- Play lifts the menu and covers the transition250ms. After gameplay initialization,
+  arena/player reveal0-450ms, settle to850ms, low opponent-foot dust850-1350ms
+  (opponent and shadow reveal halfway), opponent name/DUEL x/6 at1350ms, then
+  title/HUD crossfade2000-2400ms. Camera stays at the existing gameplay framing.
+- Continue/retry:200ms cover plus scene load, then200ms reveal,400ms spawn and
+  400ms title/HUD handoff. Existing result/Continue controls are retained.
+- Gameplay locks before gate activation. Words/configuration initialize normally;
+  HP, typing timer, score, letters and combat time cannot advance in the intro.
+  At handoff the first attack is scheduled500ms after combat opens; typing/parry
+  discard intro input, block the handoff frame and require held keys to be released.
+- Pause/focus loss hold intro and dust; Resume continues from the same milestone.
+  Menu/restart cover the displayed state before cancellation/cleanup. Tutorial
+  uses only the arena reveal and retains its own reading lock/confirmation.
+- Existing dust rendering and heading typography are reused. Strike dust prefab,
+  character sprites/clips, camera/world ownership, difficulty, providers and saved
+  contracts are unchanged. No VS/READY/FIGHT, skip, extra confirmation or new audio.
+- Shared Audio_Services preserves its music component when menu SFX already exists.
+  Same-cue music keeps its live voice/playhead across Continue/retry. Music stopped
+  by the existing Menu action can start on the next Play. No new cue or clip is added.
+- Core/music acceptance:17distinct scoped Unity cases passed across focused
+  runs. Final WebGL05832092f73446d6 passes58real-input checks at1280x720;
+  all509frame visits/504adjacent pairs in five complete intro/lifecycle scopes
+  were directly reviewed (original video timing/held frames retained);
+  [checkpoint and evidence scope](../plans/duel-intro.md).
+
 ## Reusable world lighting (2026-10-22)
 
 - Wall torches use authored cinematic SinePair flicker: base8/range15/amplitude.18,
@@ -34,9 +61,9 @@
   recorded in the compact-menus checkpoint.
 - The single current tutorial is the only how-to screen. Main Menu has Play,
   Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
-- Fresh/restarted encounters begin immediately after DungeonSession initialization,
-  including after tutorial completion. There is no initial Fight/Enter gate.
-- Combat has no DUEL x/6 label/backplate. Between-enemy results retain cleared/HP,
+- Fresh encounters now use the session-owned opening described below; Continue,
+  retry and tutorial completion use its short variant. There is no Fight/Enter gate.
+- Live combat has no persistent DUEL x/6 label/backplate. Between-enemy results retain cleared/HP,
   NEXT opponent name and Continue, without tactical hints or duel numbering.
   Combat cues, typing feedback, finite six-opponent progression and scoring remain.
 - Scoped Unity 12/12 and repeat builder pass; native WebGL acceptance is recorded
@@ -363,7 +390,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
   Restart reloads the guide. Menu abandons it without marking it viewed.
 - Start Battle guards repeated confirmation, saves Completed, ends tutorial mode
   and reloads through DungeonSession. The reading lock remains through teardown;
-  held Enter is consumed before fresh gameplay activation. The selected-difficulty
+  held Enter is discarded during the intro and requires release at handoff. The selected-difficulty
   encounter intro starts with40HP,180enemy HP,100guard and zero score/statistics.
 - LeaderboardSubmitter still rejects tutorial submissions before resolving a
   provider. Public gameplay/provider APIs, Firebase schema and saved key stay unchanged.

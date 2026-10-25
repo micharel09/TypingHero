@@ -162,11 +162,15 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         CacheAttackEvents();
     }
 
+    bool introHandoff;
+    internal void BeginIntroCombat() { introHandoff = true; _nextAttackAt = Now + .5f; }
+
     void OnEnable() { _attacking = false; _nextAttackAt = Now + 0.5f; }
 
     void Update()
     {
         if (practiceIdle || IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
+        if (introHandoff) { introHandoff = false; _nextAttackAt = Now + .5f; }
         if (preparing && (!AnimatorUtil.IsInState(animator, attackStatePath, out var heldState) ||
             (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).fullPathHash != heldState.fullPathHash)))
         {

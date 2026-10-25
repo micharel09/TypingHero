@@ -31,6 +31,8 @@ public sealed class MainMenuUI : MonoBehaviour
     Button opener;
     int lastMenuIndex;
 
+    internal RectTransform IntroMenuRoot => menuActions ? menuActions.transform as RectTransform : null;
+
     bool Blocked => LeaderboardModal.BlocksShortcuts || SettingsModal.BlocksShortcuts;
 
     public void OpenPlay() => OpenPreparation(false);

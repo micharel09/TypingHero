@@ -271,6 +271,6 @@ public class ParrySystem : MonoBehaviour
         // gate từ PlayerInputGate: không cho mở parry nếu đang bị khoá (chết/khác)
         if (gate && !gate.CanParry) return;
 
-        if (Input.GetKeyDown(config.parryKey)) TryBeginParry();
+        if (!DungeonSession.InputSuppressed && Input.GetKeyDown(config.parryKey)) TryBeginParry();
     }
 }

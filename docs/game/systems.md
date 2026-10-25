@@ -7,9 +7,23 @@ geometry: manual Pause is unframed, results retain the authored surface.
 CoreMatchBuild migrates away the legacy help canvas/button/component; final menu
 navigation binds four actions. CombatR7Build removes RoundR7/RoundReadabilityR7;
 CombatR7Status no longer owns those serialized fields. QA observes the hierarchy.
-EndlessDuel starts initialized encounters directly; DungeonSession still suppresses
-transition input. EndlessOverlay retains the tutorial clone only for Continue and
-results, with no intro or tactical hint. No save/provider contract changes.
+EndlessDuel initializes encounters under DungeonSession's preactivation intro lock;
+DungeonSession owns the timed arena/spawn/title/HUD presentation and input handoff. EndlessOverlay retains the tutorial clone only for Continue and
+results, with no reading intro or tactical hint. No save/provider contract changes.
+
+
+`DuelIntroPresentation` is a child component of the retained session, with one
+screen-space cover/heading and a private spawn-dust variant. It suppresses only
+enemy renderers (including the child shadow) and existing combat HUD CanvasGroups.
+`GamePauseController.InputBlocked` includes intro/handoff; `PresentationFrozen`
+excludes intro and controls timeScale/audio/environment motion. Actual Pause and
+reading still freeze presentation. Typing stays in `TypingManager.ProcessInput`;
+`DungeonSession` consumes held input and `SkeletonController` resets the first
+attack deadline at combat handoff. Tutorial owns its reading flow. No second world,
+camera, public API or serialized binding is added. MusicOnSceneStart retains a
+live same-cue voice. On the shared Audio_Services host, duplicate SfxPlayer or
+MusicPlayer destroys only its own component so it cannot remove its sibling;
+standalone duplicate hosts retain their existing cleanup behavior. See [intro checkpoint](../plans/duel-intro.md).
 
 
 | Owner | Source/config | Consumers and verification |

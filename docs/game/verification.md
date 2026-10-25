@@ -1,3 +1,19 @@
+## Duel entry presentation (2026-10-25)
+
+Full Play uses the 2.4s player -> dust/enemy -> opponent label -> HUD sequence;
+Continue/retry use the short sequence. Intro locks combat/statistics/input without
+freezing idle or music; Pause/focus holds the presentation and Menu cancels it.
+Unity2022.3.25f1:17 distinct scoped PlayMode cases PASS across targeted runs,
+including 5/5 scene/tutorial consumers after the audio-host correction.
+QA WebGL strict repeated build PASS;252 source/config inputs match the worktree.
+Native Edge156/Intel UHD/D3D11/1280x720 player05832092f73446d6:58 checks PASS,
+zero exceptions/provider reads/writes. Music voice/sample continuity confirmed.
+Output:509/509 encoded frame visits and504/504 consecutive-pair visits directly
+reviewed across five declared scopes; original PTS/held frames retained.
+Reference research and output evidence are separate; no performance, speaker
+listening, full-suite or itch.io release claim. Full scope/limitations and evidence
+paths: [duel intro checkpoint](../plans/duel-intro.md).
+
 ## Slayer body-center correction (2026-10-25)
 
 User rejected the B contact-edge anchor. Slayer hit/finisher now capture struck

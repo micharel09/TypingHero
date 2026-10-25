@@ -49,7 +49,7 @@ public sealed class DungeonTorchLight : MonoBehaviour
 
     void Update()
     {
-        if (GamePauseController.InputBlocked || Time.timeScale == 0) return;
+        if (GamePauseController.PresentationFrozen || Time.timeScale == 0) return;
         age += Time.deltaTime;
         Apply();
     }

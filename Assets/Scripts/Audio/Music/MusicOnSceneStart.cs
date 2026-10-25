@@ -9,7 +9,7 @@ public class MusicOnSceneStart : MonoBehaviour
 
     void Start()
     {
-        if (MusicPlayer.I && cue)
+        if (MusicPlayer.I && cue && !MusicPlayer.I.IsPlaying(cue))
             MusicPlayer.I.Play(cue, fadeOut, fadeIn);
     }
 }
