@@ -1,3 +1,18 @@
+## Contact-first Slayer presentation implementation (2026-10-25)
+
+Supersedes the old580ms/eight-random-angle Slayer presentation in the historical
+VFX row below. `PlayerSlayerMode` applies one of three contact-first280ms clips
+with the corresponding complete combo_end recovery (S3 starts combo_3_11),
+then opens the same deduplicated hitbox with its original collision timing. Direction follows
+that chosen swing/facing. `SlayerHitVfx` uses four original B cels,120/160ms,
+one primary plus one30ms residual per recipient. `SlashVolume` expires held player
+Slayer trails; enemy/normal cel-driven geometry remains. `SlayerSilhouetteGroup`
+composes a40ms ivory body pulse through private DungeonSprite properties; jitter
+on the default Skeleton root is disabled. Shader defaults keep other materials'
+previous output. QA observations add no gameplay setters. Public contracts remain.
+Tests and exhaustive frame review are unexecuted at the user's request; status and
+clip are recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
+
 # System and configuration map
 
 ## Pause and guidance ownership (2026-10-24)
@@ -7,9 +22,23 @@ geometry: manual Pause is unframed, results retain the authored surface.
 CoreMatchBuild migrates away the legacy help canvas/button/component; final menu
 navigation binds four actions. CombatR7Build removes RoundR7/RoundReadabilityR7;
 CombatR7Status no longer owns those serialized fields. QA observes the hierarchy.
-EndlessDuel starts initialized encounters directly; DungeonSession still suppresses
-transition input. EndlessOverlay retains the tutorial clone only for Continue and
-results, with no intro or tactical hint. No save/provider contract changes.
+EndlessDuel initializes encounters under DungeonSession's preactivation intro lock;
+DungeonSession owns the timed arena/spawn/title/HUD presentation and input handoff. EndlessOverlay retains the tutorial clone only for Continue and
+results, with no reading intro or tactical hint. No save/provider contract changes.
+
+
+`DuelIntroPresentation` is a child component of the retained session, with one
+screen-space cover/heading and a private spawn-dust variant. It suppresses only
+enemy renderers (including the child shadow) and existing combat HUD CanvasGroups.
+`GamePauseController.InputBlocked` includes intro/handoff; `PresentationFrozen`
+excludes intro and controls timeScale/audio/environment motion. Actual Pause and
+reading still freeze presentation. Typing stays in `TypingManager.ProcessInput`;
+`DungeonSession` consumes held input and `SkeletonController` resets the first
+attack deadline at combat handoff. Tutorial owns its reading flow. No second world,
+camera, public API or serialized binding is added. MusicOnSceneStart retains a
+live same-cue voice. On the shared Audio_Services host, duplicate SfxPlayer or
+MusicPlayer destroys only its own component so it cannot remove its sibling;
+standalone duplicate hosts retain their existing cleanup behavior. See [intro checkpoint](../plans/duel-intro.md).
 
 
 | Owner | Source/config | Consumers and verification |

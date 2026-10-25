@@ -37,7 +37,14 @@ public class SfxPlayer : MonoBehaviour
 
     void Awake()
     {
-        if (I && I != this) { Destroy(gameObject); return; }
+        if (I && I != this)
+        {
+            // Audio_Services shares the SFX and music components. A duplicate
+            // must not destroy its sibling when the menu already owns one service.
+            if (GetComponent<MusicPlayer>()) Destroy(this);
+            else Destroy(gameObject);
+            return;
+        }
         I = this;
 
         _root = new GameObject("SFX_AudioPool").transform;

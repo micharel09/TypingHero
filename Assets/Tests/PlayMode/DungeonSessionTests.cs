@@ -41,7 +41,7 @@ public sealed class DungeonSessionTests
             Assert.That(Object.FindObjectOfType<PlayerHealth>().transform.root,
                 Is.Not.EqualTo(Object.FindObjectOfType<SkeletonController>().transform.root), "actor root contract");
             Assert.That(CombatSession.I, Is.Not.Null);
-            Assert.That(CombatSession.I.Seconds, Is.EqualTo(0));
+            Assert.That(GamePauseController.InputBlocked, Is.False, "intro and its handoff frame completed");
             var gate = Object.FindObjectOfType<DungeonSessionBindings>();
             Assert.That(gate.links.Length, Is.GreaterThan(0));
             foreach (var link in gate.links)
@@ -125,6 +125,6 @@ public sealed class DungeonSessionTests
         float deadline = Time.realtimeSinceStartup + 30;
         while (session.Transitioning && Time.realtimeSinceStartup < deadline) yield return null;
         Assert.That(session.Transitioning, Is.False, "scene transition completed");
-        yield return null;
+        yield return null; yield return null;
     }
 }

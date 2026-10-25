@@ -19,23 +19,49 @@ public class SlayerSilhouetteGroup : MonoBehaviour
     EnemyHitFlash _flash;
     MaterialPropertyBlock _block;
     static readonly int TintWeightId = Shader.PropertyToID("_SlayerTintWeight");
+    static readonly int HitWeightId = Shader.PropertyToID("_SlayerHitFlashAmount");
+    static readonly int HitColorId = Shader.PropertyToID("_SlayerHitFlashColor");
+    static readonly Color HitColor = new Color32(255, 243, 207, 255);
+    float hitAge = -1;
+    int hitBornFrame;
+    internal float HitFlashWeight => hitAge < 0 ? 0 : Mathf.Clamp01((.04f - hitAge) / .02f);
+    internal void PulseSlayerHit()
+    {
+        if (!isActiveAndEnabled) return;
+        hitAge = 0;
+        hitBornFrame = Time.frameCount;
+    }
     void ApplyMaterialWeight(SpriteRenderer renderer, float weight)
     {
         if (_block == null) _block = new MaterialPropertyBlock();
         renderer.GetPropertyBlock(_block);
         _block.SetFloat(TintWeightId, weight);
+        _block.SetFloat(HitWeightId, HitFlashWeight);
+        _block.SetColor(HitColorId, HitColor);
         renderer.SetPropertyBlock(_block);
     }
 
     void Awake() { _flash = GetComponentInParent<EnemyHitFlash>(true); RescanTargets(); SnapshotOriginals(); }
     void OnEnable() { SlayerModeSignals.OnSetActive += SetActive; SetActive(SlayerModeSignals.Active); }
-    void OnDisable() { SlayerModeSignals.OnSetActive -= SetActive; if (_active) RestoreOriginals(); _active = false; _weight = 0; }
+    void OnDisable() { SlayerModeSignals.OnSetActive -= SetActive; bool pulsed = hitAge >= 0; hitAge = -1; if (_active || pulsed) RestoreOriginals(); _active = false; _weight = 0; }
 
     float _weight;
     void LateUpdate()
     {
         if (SlayerScreenFX.PresentationDriven) SetPresentationWeight(SlayerScreenFX.PresentationWeight);
-        if (_weight <= 0) return;
+        bool updatePulse = hitAge >= 0;
+        if (GamePauseController.ResultOverlayVisible) hitAge = -1;
+        else if (hitAge >= 0 && hitBornFrame != Time.frameCount && !GamePauseController.InputBlocked && Time.timeScale != 0)
+        {
+            hitAge += Time.unscaledDeltaTime;
+            if (hitAge >= .04f) hitAge = -1;
+        }
+        if (_weight <= 0)
+        {
+            // A first/lethal hit can land at an entry/exit endpoint.
+            if (updatePulse) foreach (var sr in _targets) if (sr && ShouldAffect(sr)) ApplyMaterialWeight(sr, 0);
+            return;
+        }
         if (includeDynamicChildren) RescanTargets();
         foreach (var sr in _targets)
         {
@@ -54,7 +80,7 @@ public class SlayerSilhouetteGroup : MonoBehaviour
     {
         weight = Mathf.Clamp01(weight);
         if (_weight <= 0 && weight > 0) { RescanTargets(); SnapshotOriginals(); }
-        if (_weight > 0 && weight <= 0) RestoreOriginals();
+        if (_weight > 0 && weight <= 0) { hitAge = -1; RestoreOriginals(); }
         _weight = weight;
         _active = weight > 0;
     }

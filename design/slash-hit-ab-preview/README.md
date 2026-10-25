@@ -1,3 +1,15 @@
+## Contact-first game timing (2026-10-25)
+
+Default B preview now shows the game adaptation F0/F1/F2/F3: hit40/30/30/20ms
+or finisher60/40/30/30ms, with a preview-only300ms blank interval. S1/S2/S3 use
+clockwise90/45/0degrees, mirrored to180/225/270degrees when facing left. The
+legacy eight-angle choice remains explicitly labeled as an old comparison.
+Source mode and the complete eight-color montage retain all six source frames
+and their original timing. A, original PNGs, color crops and filtering are unchanged.
+The player adds no game asset/API; actual skeleton/combat behavior belongs to the
+Unity gameplay clip. Latest user waived tests; preview/render acceptance is not
+claimed from a successful HTML build.
+
 # Preview A/B vết nhận chém
 
 ## B đổi góc mỗi nhát — 25/10/2026

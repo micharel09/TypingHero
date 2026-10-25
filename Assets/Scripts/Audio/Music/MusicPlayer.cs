@@ -20,11 +20,20 @@ public class MusicPlayer : MonoBehaviour
 
     public float TransitionGain { get; set; } = 1f;
     public MusicCue CurrentCue => _currentCue;
+    internal bool IsPlaying(MusicCue cue) => _currentCue == cue &&
+        ((_a && _a.isPlaying) || (_b && _b.isPlaying));
     public float CurrentMasterVolume => masterVolume;
 
     void Awake()
     {
-        if (I && I != this) { Destroy(gameObject); return; }
+        if (I && I != this)
+        {
+            // Audio_Services shares the SFX and music components. A duplicate
+            // must not destroy its sibling when the menu already owns one service.
+            if (GetComponent<SfxPlayer>()) Destroy(this);
+            else Destroy(gameObject);
+            return;
+        }
         I = this;
         DontDestroyOnLoad(gameObject);
 

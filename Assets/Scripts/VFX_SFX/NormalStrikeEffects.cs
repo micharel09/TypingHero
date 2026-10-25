@@ -10,6 +10,8 @@ public sealed class NormalStrikeEffects : MonoBehaviour
     [SerializeField] GameObject dustPrefab;
     [SerializeField] float groundY;
 
+    internal GameObject IntroDustTemplate => dustPrefab;
+
     void OnEnable()
     {
         if (attackEvents) attackEvents.OnWindowOpen += Open;

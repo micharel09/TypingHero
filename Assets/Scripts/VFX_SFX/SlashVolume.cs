@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// Animation owns the visible cel. No independent timer or damage-window approximation.
+// Animation owns geometry; Slayer additionally expires a held swing's luminous trail.
 [DefaultExecutionOrder(220)]
 public sealed class SlashVolume : MonoBehaviour
 {
@@ -11,8 +11,28 @@ public sealed class SlashVolume : MonoBehaviour
     readonly Dictionary<Sprite, SlashLibrary.Frame> lookup = new();
     MeshFilter front, back;
     MeshRenderer frontRenderer, backRenderer;
+    bool slayerSwing;
+    float slayerAge;
+    int bornFrame;
+    Sprite lastSlayerCel;
+    PlayerSlayerMode slayerOwner;
+    internal bool TrailVisible => (frontRenderer && frontRenderer.enabled) || (backRenderer && backRenderer.enabled);
+    internal void BeginSlayerSwing()
+    {
+        slayerSwing = true; slayerAge = 0; bornFrame = Time.frameCount;
+        lastSlayerCel = source ? source.sprite : null;
+    }
+    void OnEnable() => SlayerModeSignals.OnSetActive += OnSlayerChanged;
+    void OnSlayerChanged(bool active)
+    {
+        if (!slayerOwner) return;
+        // Entry must not retain a preceding parry; exit must not revive the held cel.
+        slayerSwing = true; slayerAge = .12f;
+        lastSlayerCel = source ? source.sprite : null;
+    }
     void Awake()
     {
+        slayerOwner = GetComponentInParent<PlayerSlayerMode>();
         if (normalPlayerMaterial)
         {
             // Prepare the declared lighting variants before the first visible swing.
@@ -44,6 +64,16 @@ public sealed class SlashVolume : MonoBehaviour
     }
     void LateUpdate()
     {
+        if (slayerSwing && !SlayerModeSignals.Active && source && source.sprite != lastSlayerCel)
+            slayerSwing = false;
+        if (slayerSwing)
+        {
+            if (!GamePauseController.InputBlocked && Time.timeScale != 0 && bornFrame != Time.frameCount)
+                slayerAge += Time.unscaledDeltaTime;
+            if (SlayerModeSignals.Active && source) lastSlayerCel = source.sprite;
+        }
+        if ((slayerOwner && SlayerModeSignals.Active && !slayerSwing) || (slayerSwing && slayerAge >= .12f))
+        { Hide(); return; }
         if (!source || !source.enabled || CombatSession.Finished || !source.sprite || !lookup.TryGetValue(source.sprite, out var frame))
         { Hide(); return; }
         var material = normalPlayerMaterial && !SlayerModeSignals.Active ? normalPlayerMaterial : library.material;
@@ -55,5 +85,5 @@ public sealed class SlashVolume : MonoBehaviour
         front.transform.localScale = back.transform.localScale = new Vector3(source.flipX ? -1 : 1, source.flipY ? -1 : 1, 1);
     }
     void Hide() { if (frontRenderer) frontRenderer.enabled = false; if (backRenderer) backRenderer.enabled = false; }
-    void OnDisable() => Hide();
+    void OnDisable() { SlayerModeSignals.OnSetActive -= OnSlayerChanged; slayerSwing = false; Hide(); }
 }

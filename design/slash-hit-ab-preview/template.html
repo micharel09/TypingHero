@@ -20,7 +20,7 @@ details {margin-top:16px} details img {display:block;max-width:100%;image-render
 </style>
 <main>
 <h1>Vết nhận chém — A/B</h1>
-<p>Preview công khai từ tác giả, chưa mua hoặc tích hợp asset. Độ rõ trên Ske cần kiểm trong game sau khi chọn mẫu.</p>
+<p>Đối chiếu nguồn tác giả với nhịp B dùng trong CLACKBLADE. Preview không thay thế clip gameplay trên skeleton.</p>
 <fieldset id="controls" disabled><legend>Điều khiển chung</legend>
 <div class="settings">
 <label>Tốc độ <select id="speed"><option value="1">Gốc · 1×</option><option value="0.25">Chậm 4 lần · 0,25×</option></select></label>
@@ -37,15 +37,17 @@ details {margin-top:16px} details img {display:block;max-width:100%;image-render
 </figure>
 <figure><h2>B · Met.Pxl</h2>
 <label>Màu B <select id="color"><option value="6">Trắng</option><option value="0">Đỏ</option><option value="1">Đen</option><option value="2">Xanh dương</option><option value="3">Xanh lá</option><option value="4">Hồng</option><option value="5">Tím</option><option value="7">Vàng</option><option value="8">Toàn bộ montage tám màu</option></select></label>
-<label>Hướng B <select id="direction"><option value="random">Đổi góc mỗi nhát</option><option value="original">Góc gốc</option></select></label>
+<label>Nhịp B <select id="timing"><option value="hit">Trong game · hit 120 ms</option><option value="finisher">Trong game · finisher 160 ms</option><option value="source">Nguồn gốc · đủ sáu frame</option></select></label>
+<label>Nhát kiếm <select id="direction"><option value="s1">S1 · chéo xuống</option><option value="s2">S2 · ngang</option><option value="s3">S3 · chéo lên</option><option value="original">Góc gốc nguồn</option><option value="random">Tám góc · đối chiếu cũ</option></select></label>
+<label>Phía đánh <select id="facing"><option value="right">Sang phải</option><option value="left">Sang trái</option></select></label>
 <div class="stage"><canvas id="b" width="384" height="384" aria-label="Preview B"></canvas></div>
 <figcaption id="b-status"></figcaption>
 <a href="https://metpxl.itch.io/pixel-art-slash-vfx-8-color-animation-pack" target="_blank" rel="noopener">Slash VFX — trang tác giả</a>
 </figure></div>
-<p class="note">A giữ cả slash đi kèm hit vì chúng nằm chung trong preview. Mỗi mẫu phát trọn đoạn nguồn, gồm frame trống. B bắt đầu F4→F5→F0→F1→F2→F3, giữ timing và thứ tự vòng nguồn. Đổi góc tại F3→F4, không lặp ngay góc trước; giữ nguyên góc trong mỗi nhát. Góc gốc là 0°.</p>
+<p class="note">A giữ nguyên preview nguồn. B trong game dùng F0→F1→F2→F3: hit 40/30/30/20 ms; finisher 60/40/30/30 ms, rồi tan hết. Khoảng nghỉ 300 ms chỉ giúp đọc từng nhát trong preview. Hướng theo S1/S2/S3 và phía đánh, cố định suốt nhát. Chế độ nguồn giữ đủ sáu frame và timing gốc; tám góc là đối chiếu cách phát cũ, không còn dùng trong game.</p>
 <p class="note">Nền đen chung; không đổi palette, nét hay nội suy. A hiển thị 376×314 px nguồn; B xoay ô 256×256 px quanh tâm canvas 384×384 (art 64×64 đã phóng 4×). Zoom nguồn không đồng nhất nên đây không phải so sánh kích thước trong game. Chế độ toàn bộ B thu nhỏ montage gốc, không xoay bảng.</p>
 <details><summary>Bảng ảnh gốc A — đủ ba slash_hit (ảnh tĩnh, không suy ra timing)</summary><img id="sheet" alt="Bảng ảnh công khai Small slash, slash hit 1–3, sting và sting hit"></details>
-<details><summary>Phạm vi và nguồn dữ liệu</summary><p>Chỉ dùng GIF quảng bá công khai. Không tải gói trả phí. A: toàn bộ 0–2.600 ms, 26 frame; B: toàn bộ 0–580 ms, 6 frame, đủ tám màu. Mỗi GIF giữ duration riêng; tốc độ chậm nhân duration với 4. Chuyển mẫu hoặc tốc độ sẽ phát lại cả hai từ đầu; bước frame dừng cả hai và đi một frame trong từng clip.</p><pre id="provenance"></pre></details>
+<details><summary>Phạm vi và nguồn dữ liệu</summary><p>Chỉ dùng GIF quảng bá công khai. Không tải gói trả phí. A: toàn bộ 0–2.600 ms, 26 frame. B nguồn: toàn bộ 0–580 ms, 6 frame, đủ tám màu. Montage tám màu luôn dùng timing nguồn; nhịp trong game là bản thích nghi riêng. Tốc độ chậm nhân duration với 4. Chuyển mẫu hoặc tốc độ sẽ phát lại cả hai từ đầu; bước frame dừng cả hai và đi một frame trong từng clip.</p><pre id="provenance"></pre></details>
 </main>
 <script>/*PREVIEW_DATA*/
 /*PREVIEW_PLAYER*/</script>

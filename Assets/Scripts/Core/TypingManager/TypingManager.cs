@@ -102,7 +102,7 @@ public class TypingManager : MonoBehaviour
 
     internal void ProcessInput(string s)
     {
-        if (!practiceInput || GamePauseController.InputBlocked || CombatSession.Finished || string.IsNullOrEmpty(s)) return;
+        if (!practiceInput || GamePauseController.InputBlocked || DungeonSession.InputSuppressed || CombatSession.Finished || string.IsNullOrEmpty(s)) return;
         int completed = 0;
         foreach (char c in s)
         {

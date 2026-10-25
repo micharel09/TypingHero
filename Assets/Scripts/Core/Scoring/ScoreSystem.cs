@@ -72,7 +72,7 @@ public class ScoreSystem : MonoBehaviour
 
     void Update()
     {
-        if (CombatSession.Finished || (_paused && stopDecayWhilePaused)) return;
+        if (CombatSession.Finished || GamePauseController.InputBlocked || (_paused && stopDecayWhilePaused)) return;
         if (Multiplier <= rules.startMultiplier && !_comboEnabled) { ComboRemain01 = 0f; return; }
 
         _windowRemain -= Time.unscaledDeltaTime;

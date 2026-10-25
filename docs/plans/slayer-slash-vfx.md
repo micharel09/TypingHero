@@ -1,3 +1,163 @@
+## Final strike and combo_end correction (2026-10-25)
+
+The user identified the screenshot's pose as an unfinished combo. Source inspection
+confirms the prior S3 held combo_3_4 and none of the three Slayer clips used the
+authored combo_end sheets. Approved choice: one final strike plus complete sword
+recovery per typed key, rather than playing all remaining combo rotations.
+
+S1: combo_1_0/1/2 then combo_1_end_0..3. S2: combo_2_3/4/5 then combo_2_end_0..3.
+S3: combo_3_11 then combo_3_end_0..5. Every clip has seven40ms poses at
+0/40/80/120/160/200/240ms and ends280ms; an unchanged final-sprite key270ms
+preserves the last hold at100samples/second. The Player prefab's serialized
+AttackSpeedMul remains1. Nonlooping clips hold the recovered final pose. Another
+correct key immediately interrupts recovery through the existing animator.Play.
+Damage-window/collision/word-event order, B120/160ms, body pulse40ms and trail
+envelope120ms are unchanged. No public API or source-art/importer changes.
+
+Worktree: C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-combo-end,
+branch micharel09/slayer-combo-end, base669df07. Reuse the retained private Unity
+source/Library; new artifacts go under E:/CodexTemp/TypingHero/slayer-hit-feel/combo-end.
+Existing clip expectations are updated, not executed. User waiver still applies:
+no test suite or exhaustive output-frame/runtime acceptance claim. Build and
+real-input clip with separated S1/S2/S3 and rapid typing are the delivery route.
+### Build and immediate clip delivery
+
+Accepted immutable input9cfab4727b4ee61b4bfa387fdd8cff0396d39b45d90c68fd6b6d292fadd3012f
+is archived in combo-end/accepted-unity-input.tar.gz with snapshot.json. Pinned
+Unity2022.3.25f1 serialization and WebGL build both exited0. The derived depth
+index has281mapped/0missing; only ActorDepth.asset is imported from generated
+metadata. Source PNGs/importers, controllers, production C# and game APIs are
+unchanged. git diff --check is clean. Existing clip assertions were updated but
+not run, matching the user's explicit waiver.
+
+Actual canvas/audio clip: combo-end/slayer-combo-end.webm,3134643bytes,
+SHA256 d557afc546d5ecee9b09322225065b83b070e255376623aa82789ba9a58b912f.
+Player fingerprint8c5e1a2c4f3d302c; Edge156.0.4314.42/Intel UHD/D3D11.
+Real keyboard capture includes separate S3/S1/S2 at0.916/1.426/1.927s, each with
+460ms after its key before another input. Recorded final poses are respectively
+combo_3_end_5, combo_1_end_3, combo_2_end_3. Twelve rapid-word entries follow.
+One preceding key recorded no classified strike; it is retained in the clip,
+not counted as an isolated variant.324render observations and0captured runtime
+exceptions/provider reads/provider writes are capture data, not test results.
+
+Opened combo-end/open-clip.html in a visible Edge window at
+2026-10-25T04:26:53.016940+00:00. It supplies1x/0.25x and S1/S2/S3/rapid-typing
+jump buttons. User visual approval and exhaustive encoded-frame/transition review
+remain unverified; do not label this as a complete sprite-review pass.
+Retain this clip, the earlier clips and warm private source/Library while the user
+reviews or requests adjustments; remove after review/reproduction is finished.
+Feature commit4519935abc980548fbeb6df27d4f271238374e88 was pushed to
+micharel09/slayer-combo-end. A fresh fetch still had origin/main669df07; direct
+fast-forward push to main succeeded. Subsequent fetch confirmed feature HEAD is
+an ancestor of origin/main4519935abc980548fbeb6df27d4f271238374e88. This receipt
+changes documentation only; the built/captured Unity input is unchanged.
+After preserving this receipt remotely, remove only the clean task-created
+worktree/local branch; retain the remote task branch and review artifacts.
+
+## Contact-first B revision (2026-10-25; clip delivered, tests waived)
+
+The user rejected the body-centered580ms/random-eight-angle result as flying
+around the skeleton. Reviewed reference evidence is retained separately at
+`E:/CodexTemp/TypingHero/slayer-hit-research`: Blasphemous official full0-6.05s,
+121/121frames+120/120pairs+promotional loop boundary; Moonscars melee1.5-4.5s,
+300/300frames+299/299pairs, with55additional spell frames excluded from sword-hit
+claims. REA verifies official page observation; no commercial game binary or
+native hitstop implementation was inspected.
+
+Approved decisions: retain B artwork; keep immediate typing/damage; start Slayer
+clips at contact. S1 uses combo_1_0/1/2, S2 combo_2_3/4/5, S3 combo_3_3/4.
+Each clip ends120ms; repeated final sprite key110ms preserves the last hold at
+100samples/second. Their local strike axes are(1,-1),(1,0),(1,1), mirrored by
+source transform. Apply the selected pose before opening the existing hitbox.
+B uses F0/F1/F2/F3:40/30/30/20ms hit,60/40/30/30ms finisher; common pivot,
+32/40reference-pixel width and original PNG/GUIDs preserved. Each recipient owns
+one primary plus one<=35% residual fading<=30ms; finisher replaces both. Captured
+RGB/center/direction survive lethal Slayer exit. Original weapon trail expires
+120ms even when its cel is held; a new swing resets that envelope.
+
+Skeleton root jitter is disabled. Its existing hurt poses remain; the silhouette
+compositor supplies an ivory#FFF3CF pulse20ms full+20ms fade, composed after the
+silhouette in DungeonSprite without changing alpha/depth or baseline color.
+Pause/reading hold these presentation clocks. Public input/damage/scoring/audio/
+camera/hitstop contracts remain unchanged. QA additions are observation-only.
+
+**Latest user instruction:** stop tests and open the clip immediately when ready.
+The initial scoped test launch was cancelled during first project initialization;
+no test-pass claim is made. Continue with the necessary game build and capture;
+full sprite/runtime acceptance and the authored test cases remain unexecuted.
+Do not present a built preview as verified game-feel acceptance.
+
+Worktree:`C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-hit-feel`, branch
+`micharel09/slayer-hit-feel`, base7dc84f9. Original dirty checkout remains intact.
+Build/capture cache:`E:/CodexTemp/TypingHero/slayer-hit-feel`.
+
+### Final build, clip and integration receipt
+
+Compatibility-corrected immutable input `3272ecc39ea954d4e9e55850b31d3c8acb5dbc68a2ffb6e6476a72710e10aaaa` builds with
+Unity2022.3.25f1 exit0, player`03a0033e57fdf3a2`. Final real-input capture records
+HP40/enemyHP0,50correct letters of51attempts and4parries; these are capture data,
+not test assertions. No new unit/runtime suite, mirror capture or exhaustive frame
+inspection was run. The user explicitly waived those checks.
+
+Final clip:`E:/CodexTemp/TypingHero/slayer-hit-feel/final/slayer-hit-feel.webm`
+(2816364bytes, SHA256`b82190675a58f0a2194a8a16510653e750a4cfcb9a92b992c923e32cf7a0d144`).
+Final viewer:`E:/CodexTemp/TypingHero/slayer-hit-feel/final/open-clip.html`.
+Opened directly in Edge at2026-10-25T03:47:05.960450+00:00, with1x/0.25x controls. The first capture
+remains separately available; final input preserves the original hitbox timing.
+The offline asset viewer is rebuilt and retained at the cache root/preview.html;
+its Edge-loading/interaction acceptance was not run under the waiver.
+
+Feature8cb68a5 plus collision-order correction6227d17 pushed to the task branch.
+Fetched origin/main7dc84f9 was already contained; direct fast-forward main push to
+6227d173c45b8dacbe8486cc3f32e44f5fbc092d succeeded. A subsequent fetch and ancestry
+check confirmed integration. This following receipt is documentation only; no
+Unity input changes follow the final captured build.
+
+Retain `E:/CodexTemp/TypingHero/slayer-hit-feel` for both clips, players, input
+archives/manifests/logs and the private warm `source/Library` cache. Keep it while
+the user reviews/requests visual adjustments; remove after visual review ends and
+reproduction is no longer needed. This avoids repeating the expensive first import.
+The abandoned first-import Library can be removed; the pre-existing space-press-cue
+cache was only read/copied and is preserved. Close no user clip window. After this
+receipt is remotely preserved, remove only the clean task worktree/local branch;
+retain the remote task branch. The original dirty main checkout remains untouched.
+
+### Collision-order compatibility before integration
+
+Retain the original `OnAttackStart()`/physics confirmation timing for Slayer.
+Do not confirm damage reentrantly inside `TypingManager.OnCorrectChar`: lethal
+Slayer exit unmutes word completion while that callback is still processing its
+last letter. Retaining the old window avoids changing the final-character event
+order. Contact-first poses, B, pulse, tint and overlap budgets are unchanged.
+The first delivered clip remains a preview; rebuild/capture the final input after
+this small compatibility correction. User test waiver remains in force.
+
+### First build and immediate clip delivery
+
+Pinned Unity2022.3.25f1 WebGL build completed with exit0; player fingerprint
+`b1ba91ff3a8e7223`. The normal build's existing preprocess/repeated serialization ran;
+no unit/runtime suite or exhaustive sprite review was run after the waiver.
+Capture-only real keyboard playback reached Slayer and typed through the finisher;
+276render observations retained,0captured runtime exceptions,
+0provider reads/writes. These observations are not a test-pass or visual-acceptance
+claim. Initial menu navigation missed Play before its reveal completed; the
+capture helper waits for the reveal and the successful retry is retained.
+
+Actual canvas/audio MediaRecorder clip: `E:/CodexTemp/TypingHero/slayer-hit-feel/slayer-hit-feel.webm`
+(2663768bytes, SHA256`cbe000a62cbc1a86861b78f67620ef5d9a7e965ff5ffd86dca214428abf9c630`).
+Opened in a normal Edge window at2026-10-25T03:26:35.922851+00:00; `open-clip.html` supplies1x/0.25x
+playback. It contains the isolated hit, rapid typed sequence and lethal ending.
+Encoded frame inspection, opposite-facing capture and subjective game-feel approval
+remain unverified. No mirror build, full suite, profiling or publication ran.
+
+The derived ActorDepth index now covers280referenced frames,0missing reported by
+the builder. Removing unused Slayer preparation cels prunes the derived index;
+authored atlas/depth images are unchanged. Only that index and the two generated
+Slayer role prefabs are imported from Unity output; unrelated generated scenes
+and UI/material rewrites are not imported.
+
+
+
 # Slayer slash impact replacement
 
 ## Slayer body-center correction — 2026-10-25

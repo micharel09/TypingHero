@@ -1,3 +1,30 @@
+## Duel opening (2026-10-25)
+
+- Play lifts the menu and covers the transition250ms. After gameplay initialization,
+  arena/player reveal0-450ms, settle to850ms, low opponent-foot dust850-1350ms
+  (opponent and shadow reveal halfway), opponent name/DUEL x/6 at1350ms, then
+  title/HUD crossfade2000-2400ms. Camera stays at the existing gameplay framing.
+- Continue/retry:200ms cover plus scene load, then200ms reveal,400ms spawn and
+  400ms title/HUD handoff. Existing result/Continue controls are retained.
+- Gameplay locks before gate activation. Words/configuration initialize normally;
+  HP, typing timer, score, letters and combat time cannot advance in the intro.
+  At handoff the first attack is scheduled500ms after combat opens; typing/parry
+  discard intro input, block the handoff frame and require held keys to be released.
+- Pause/focus loss hold intro and dust; Resume continues from the same milestone.
+  Menu/restart cover the displayed state before cancellation/cleanup. Tutorial
+  uses only the arena reveal and retains its own reading lock/confirmation.
+- Existing dust rendering and heading typography are reused. Strike dust prefab,
+  character sprites/clips, camera/world ownership, difficulty, providers and saved
+  contracts are unchanged. No VS/READY/FIGHT, skip, extra confirmation or new audio.
+- Shared Audio_Services preserves its music component when menu SFX already exists.
+  Same-cue music keeps its live voice/playhead across Continue/retry. Music stopped
+  by the existing Menu action can start on the next Play. No new cue or clip is added.
+- Core/music acceptance:17distinct scoped Unity cases passed across focused
+  runs. Final WebGL05832092f73446d6 passes58real-input checks at1280x720;
+  all509frame visits/504adjacent pairs in five complete intro/lifecycle scopes
+  were directly reviewed (original video timing/held frames retained);
+  [checkpoint and evidence scope](../plans/duel-intro.md).
+
 ## Reusable world lighting (2026-10-22)
 
 - Wall torches use authored cinematic SinePair flicker: base8/range15/amplitude.18,
@@ -34,9 +61,9 @@
   recorded in the compact-menus checkpoint.
 - The single current tutorial is the only how-to screen. Main Menu has Play,
   Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
-- Fresh/restarted encounters begin immediately after DungeonSession initialization,
-  including after tutorial completion. There is no initial Fight/Enter gate.
-- Combat has no DUEL x/6 label/backplate. Between-enemy results retain cleared/HP,
+- Fresh encounters now use the session-owned opening described below; Continue,
+  retry and tutorial completion use its short variant. There is no Fight/Enter gate.
+- Live combat has no persistent DUEL x/6 label/backplate. Between-enemy results retain cleared/HP,
   NEXT opponent name and Continue, without tactical hints or duel numbering.
   Combat cues, typing feedback, finite six-opponent progression and scoring remain.
 - Scoped Unity 12/12 and repeat builder pass; native WebGL acceptance is recorded
@@ -363,7 +390,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
   Restart reloads the guide. Menu abandons it without marking it viewed.
 - Start Battle guards repeated confirmation, saves Completed, ends tutorial mode
   and reloads through DungeonSession. The reading lock remains through teardown;
-  held Enter is consumed before fresh gameplay activation. The selected-difficulty
+  held Enter is discarded during the intro and requires release at handoff. The selected-difficulty
   encounter intro starts with40HP,180enemy HP,100guard and zero score/statistics.
 - LeaderboardSubmitter still rejects tutorial submissions before resolving a
   provider. Public gameplay/provider APIs, Firebase schema and saved key stay unchanged.
@@ -600,37 +627,33 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Slayer hit slash (2026-10-25)
+### Slayer contact-first presentation (2026-10-25; tests waived)
 
-- Production Slayer hit and lethal contacts use `SlayerHits/SlayerHit.prefab` and
-  `SlayerFinisher.prefab`: Met.Pxl B white64x64 artwork extracted losslessly from
-  the approved public preview. Fixed center pivot; F4/80ms→F5/F0/F1/F2/F3 at100ms
-  each, one580ms unscaled lifetime. Unrotated maximum visible width remains32/40
-  reference pixels at16PPU. Pixel.mat/order3; Point/no-mips/uncompressed.
-  Each impact selects one of eight clockwise45-degree directions, excluding the
-  immediately previous direction for that owner, shared across hit/finisher.
-  Hold angle throughout the effect; no extra mirror, particles or lights.
-- Slayer visuals use the struck body collider's bounds center captured before
-  damage/hurt/death, held in world space through the lease. Contact remains
-  separate for damage/camera/audio and non-Slayer/legacy effects; no per-cel
-  recentering or following a moving target.
-- Hitbox snapshots Slayer state and afterimage RGB tint before damage; emitted
-  tint stays opaque and immutable through Slayer exit. Lethal audio/camera still
-  follow the damage outcome. Optional `slayerLethalPrefab` falls back to the old
-  lethal role for unassigned consumers; non-Slayer normal/lethal and parry retain
-  their existing bindings. Voxel assets remain available for compatibility.
-- `SlayerHitVfx` uses the existing PooledVFX/owner impact budget of eight; oldest
-  impact is reclaimed, with dust/parry pools independent. Pause/tutorial reading
-  holds age; Slayer exit allows the580ms tail, result overlay/disable/restart/
-  unload reclaim it. Owner disable resets direction history. Runtime frames
-  quantize visible endpoints.
-- B integration: scoped Unity52/52, strict two-pass builder and real-input
-  WebGL1280x720/3153checks PASS. Both prefab and actual scene-override tint
-  matrices plus198encoded runtime frames were reviewed; evidence and scope
-  are recorded in [the task checkpoint](../plans/slayer-slash-vfx.md).
-- Body-center follow-up: scoped Unity51/51 and WebGL2772checks PASS;96source cels
-  and460selected native frames reviewed, including pause/exit/restart/finisher.
-  Existing body jitter remains independent of the captured world anchor.
+- Retain original Met.Pxl B PNG/GUIDs/center pivot and32/40reference-pixel scale.
+  Game hit uses F0/F1/F2/F3 at40/30/30/20ms; finisher60/40/30/30ms. Source preview
+  remains six-frame580ms; it is no longer the game schedule.
+- Slayer S1 uses combo_1_0/1/2 then combo_1_end_0..3; S2 uses combo_2_3/4/5
+  then combo_2_end_0..3; S3 uses the final strike combo_3_11 then combo_3_end_0..5.
+  Each has seven40ms poses, ends280ms and holds its recovered final pose; the
+  duplicate key270ms preserves the last hold at100samples/second. The current
+  Player prefab's AttackSpeedMul is1. Each new correct key interrupts recovery
+  immediately. Apply the contact pose before the existing
+  deduplicated damage window; collision/damage ordering remains unchanged.
+  Local impact axes(1,-1),(1,0),(1,1) follow the selected swing and source facing;
+  no independent eight-angle random selection. Snapshot center/direction/tint before
+  damage; B retains its fixed world anchor and captured RGB through lethal exit.
+- Each recipient has one primary plus one<=35%alpha residual lasting<=30ms;
+  finisher replaces both. Original luminous sword geometry expires120ms per swing
+  even when the final cel is held; another typed strike resets that envelope.
+- Skeleton positional jitter is disabled; existing hurt pose progression remains.
+  Compositor-owned ivory#FFF3CF body pulse holds20ms then fades20ms after silhouette,
+  preserving sprite alpha/depth, baseline RGB and unrelated property-block values.
+  Pause/reading hold presentation clocks. Results/disable/restart/unload clear them.
+- Public input/scoring/damage values/stamina/camera/audio and Slayer no-hitstop
+  policy remain. Normal/parry/legacy emitters retain their routes and shared budget.
+  User explicitly requested no tests and immediate clip. The initial test launch
+  was cancelled; this revision has no runtime/frame-review acceptance claim.
+  Build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 

@@ -53,7 +53,7 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
     void Update()
     {
         RestoreWeather();
-        bool freeze = GamePauseController.InputBlocked || Time.timeScale == 0;
+        bool freeze = GamePauseController.PresentationFrozen || Time.timeScale == 0;
         if (freeze != paused)
         {
             foreach (var system in weather) if (system)
@@ -66,7 +66,7 @@ public sealed class DungeonEnvironmentMotion : MonoBehaviour
     void RestoreWeather()
     {
         if (!restoreWeather) return;
-        paused = GamePauseController.InputBlocked || Time.timeScale == 0;
+        paused = GamePauseController.PresentationFrozen || Time.timeScale == 0;
         for (int i=0;i<weather.Length;i++) if (weather[i])
         {
             weather[i].Play(); weather[i].SetPlaybackState(playback[i]);

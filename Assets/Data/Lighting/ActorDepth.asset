@@ -193,11 +193,6 @@ MonoBehaviour:
     uvRect: {x: 0.5, y: 0, z: 0.625, w: 1}
     textureSize: {x: 768, y: 64}
     pixelsPerUnit: 16
-  - sprite: {fileID: -120341246, guid: 47269c996d71cb4449a14068e75a8707, type: 3}
-    depth: {fileID: 2800000, guid: 834aaec1a0a04e3a8e20609922be8372, type: 3}
-    uvRect: {x: 0.16666667, y: 0, z: 0.25, w: 1}
-    textureSize: {x: 1536, y: 128}
-    pixelsPerUnit: 16
   - sprite: {fileID: -1308470331, guid: 47269c996d71cb4449a14068e75a8707, type: 3}
     depth: {fileID: 2800000, guid: 834aaec1a0a04e3a8e20609922be8372, type: 3}
     uvRect: {x: 0, y: 0, z: 0.083333336, w: 1}
@@ -208,9 +203,9 @@ MonoBehaviour:
     uvRect: {x: 0.083333336, y: 0, z: 0.16666667, w: 1}
     textureSize: {x: 1536, y: 128}
     pixelsPerUnit: 16
-  - sprite: {fileID: 1001768405, guid: 47269c996d71cb4449a14068e75a8707, type: 3}
+  - sprite: {fileID: 898236762, guid: 47269c996d71cb4449a14068e75a8707, type: 3}
     depth: {fileID: 2800000, guid: 834aaec1a0a04e3a8e20609922be8372, type: 3}
-    uvRect: {x: 0.25, y: 0, z: 0.33333334, w: 1}
+    uvRect: {x: 0.9166667, y: 0, z: 1, w: 1}
     textureSize: {x: 1536, y: 128}
     pixelsPerUnit: 16
   - sprite: {fileID: 1524072070, guid: 4d98ab3bc9edfb6469dfa7d0972ab25a, type: 3}
@@ -488,11 +483,6 @@ MonoBehaviour:
     uvRect: {x: 0.5, y: 0, z: 0.6666667, w: 1}
     textureSize: {x: 768, y: 128}
     pixelsPerUnit: 16
-  - sprite: {fileID: -621818365, guid: 9a285e541f8bd3c43a2e4085c312b1b7, type: 3}
-    depth: {fileID: 2800000, guid: 749b106572fc46f6857b1a289d783c97, type: 3}
-    uvRect: {x: 0, y: 0, z: 0.16666667, w: 1}
-    textureSize: {x: 768, y: 128}
-    pixelsPerUnit: 16
   - sprite: {fileID: 1625544416, guid: 9a285e541f8bd3c43a2e4085c312b1b7, type: 3}
     depth: {fileID: 2800000, guid: 749b106572fc46f6857b1a289d783c97, type: 3}
     uvRect: {x: 0.16666667, y: 0, z: 0.33333334, w: 1}
@@ -626,6 +616,16 @@ MonoBehaviour:
   - sprite: {fileID: -1615060738, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
     depth: {fileID: 2800000, guid: cbf5d886ca1c4979b2554321372c4dd2, type: 3}
     uvRect: {x: 0.33333334, y: 0, z: 0.5, w: 1}
+    textureSize: {x: 768, y: 128}
+    pixelsPerUnit: 16
+  - sprite: {fileID: -338187803, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
+    depth: {fileID: 2800000, guid: cbf5d886ca1c4979b2554321372c4dd2, type: 3}
+    uvRect: {x: 0.16666667, y: 0, z: 0.33333334, w: 1}
+    textureSize: {x: 768, y: 128}
+    pixelsPerUnit: 16
+  - sprite: {fileID: -72709093, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}
+    depth: {fileID: 2800000, guid: cbf5d886ca1c4979b2554321372c4dd2, type: 3}
+    uvRect: {x: 0, y: 0, z: 0.16666667, w: 1}
     textureSize: {x: 768, y: 128}
     pixelsPerUnit: 16
   - sprite: {fileID: 1786144713, guid: ab0383fb37a41114dba343cfa0c6e919, type: 3}

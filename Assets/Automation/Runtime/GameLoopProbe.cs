@@ -64,8 +64,23 @@ public sealed class GameLoopProbe : MonoBehaviour
         public float presentationWeight, backgroundAlpha;
         public bool enemyFlash;
         public Color enemyColor;
+        public string enemyCel;
+        public float slayerBodyFlash;
+        public Vector2 slayerDirection;
+        public Vector3 enemyBodyCenter;
+        public bool slayerTrailVisible;
+        public SlayerRenderFrame[] slayerImpacts;
         public int parryParticleCount, parryBurstCount, parrySampleCount;
         public ParryParticleFrame[] parryParticles;
+    }
+    [Serializable] sealed class SlayerRenderFrame
+    {
+        public int id;
+        public string cel;
+        public float age, clockwiseAngle;
+        public Color tint;
+        public Vector3 position;
+        public bool fading;
     }
     [Serializable] sealed class ParryParticleFrame
     {
@@ -179,6 +194,19 @@ public sealed class GameLoopProbe : MonoBehaviour
         var enemySprite = combatEnemy ? combatEnemy.GetComponent<SpriteRenderer>() : null;
         var enemyFlash = combatEnemy ? combatEnemy.GetComponent<EnemyHitFlash>() : null;
         combatFrame.enemyColor = enemySprite ? enemySprite.color : Color.clear;
+        combatFrame.enemyCel = enemySprite && enemySprite.sprite ? enemySprite.sprite.name : "";
+        var silhouette = combatEnemy ? combatEnemy.GetComponent<SlayerSilhouetteGroup>() : null;
+        combatFrame.slayerBodyFlash = silhouette ? silhouette.HitFlashWeight : 0;
+        var body = combatEnemy ? combatEnemy.GetComponent<BoxCollider2D>() : null;
+        combatFrame.enemyBodyCenter = body ? body.bounds.center : default;
+        combatFrame.slayerDirection = combatSlayer ? combatSlayer.StrikeDirection : Vector2.zero;
+        var trail = combatSlayer ? combatSlayer.GetComponentInChildren<SlashVolume>() : null;
+        combatFrame.slayerTrailVisible = trail && trail.TrailVisible;
+        combatFrame.slayerImpacts = FindObjectsOfType<SlayerHitVfx>().Select(effect => new SlayerRenderFrame {
+            id = effect.GetInstanceID(), cel = effect.GetComponent<SpriteRenderer>().sprite ? effect.GetComponent<SpriteRenderer>().sprite.name : "",
+            age = effect.Age, clockwiseAngle = Mathf.Repeat(-effect.transform.eulerAngles.z, 360),
+            tint = effect.GetComponent<SpriteRenderer>().color, position = effect.transform.position, fading = effect.IsFading
+        }).ToArray();
         combatFrame.enemyFlash = enemyFlash && enemyFlash.isActiveAndEnabled && Read<bool>(enemyFlash, "_active");
         ObserveRenderParry();
         combatFrame.playerHP = combatPlayer ? combatPlayer.Current : -1;
@@ -292,6 +320,9 @@ public sealed class GameLoopProbe : MonoBehaviour
     }
     [Serializable] sealed class State
     {
+        public bool introRunning, introEnemyHidden, introInputBlocked;
+        public float introElapsed, introHudAlpha, introLabelAlpha, introCover;
+        public int introDustParticles, introMusicPlayerId, introMusicVoiceId, introMusicSample;
         public bool endless, encounterReading;
         public int endlessRound, endlessSlot, defeated;
         public string opponent;
@@ -653,6 +684,17 @@ public sealed class GameLoopProbe : MonoBehaviour
             int hitState = health ? Animator.StringToHash(health.hitStatePath) : 0;
             var state = new State
             {
+                introMusicPlayerId = MusicPlayer.I ? MusicPlayer.I.GetInstanceID() : 0,
+                introMusicVoiceId = MusicPlayer.I && MusicPlayer.I.GetComponentsInChildren<AudioSource>().FirstOrDefault(s => s.isPlaying) ? MusicPlayer.I.GetComponentsInChildren<AudioSource>().First(s => s.isPlaying).GetInstanceID() : 0,
+                introMusicSample = MusicPlayer.I && MusicPlayer.I.GetComponentsInChildren<AudioSource>().FirstOrDefault(s => s.isPlaying) ? MusicPlayer.I.GetComponentsInChildren<AudioSource>().First(s => s.isPlaying).timeSamples : 0,
+                introRunning = FindObjectOfType<DuelIntroPresentation>() && FindObjectOfType<DuelIntroPresentation>().Running,
+                introElapsed = FindObjectOfType<DuelIntroPresentation>() ? FindObjectOfType<DuelIntroPresentation>().Elapsed : 0,
+                introHudAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "hudAlpha"),
+                introLabelAlpha = Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label") ? Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label").alpha : 0,
+                introCover = Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain") && Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").gameObject.activeSelf ? 1 - Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").anchorMin.y : 0,
+                introDustParticles = Read<ParticleSystem>(FindObjectOfType<DuelIntroPresentation>(), "dust") ? Read<ParticleSystem>(FindObjectOfType<DuelIntroPresentation>(), "dust").particleCount : 0,
+                introEnemyHidden = sortingEnemy && sortingEnemy.forceRenderingOff,
+                introInputBlocked = GamePauseController.InputBlocked,
                 playerSorting = sortingFrame,
                 playerCurrentState = playerInfo.fullPathHash, playerNextState = playerNext,
                 playerAnimatorTime = playerInfo.normalizedTime,
