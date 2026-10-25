@@ -3578,3 +3578,29 @@ Contact/mirror/tails/clear intervals pass;22physical paths,480ms/six80ms cells,
   left input attempt is retained. Only affected ending fully reviewed: right82frames/
   81pairs, left88/87, logical+4x; supplementary captures are not full-reviewed exports.
   Exact hashes, review exclusions and remote receipt are in the same checkpoint.
+
+## Local Windows adapter isolation and retry
+
+`local_windows.py` prints a fresh `results/<UTC timestamp>-<UUID>-<action>`
+for every invocation. Tests accept only that invocation's XML, requiring root
+`Passed`, exactly 44 cases and every case `Passed`; missing/malformed XML fails
+regardless of Editor exit status. Earlier results remain untouched.
+
+Builds stage under the invocation's `player` directory. Existing `player-right`,
+`player-left`, mirror fixture or fixture meta causes rejection before source edits.
+Mirror builds back up SampleScene and its meta byte-for-byte, then restore both and
+remove the created fixture/meta after the owned Editor exits, including failures
+and Ctrl+C. A successful build is promoted only after restoration succeeds.
+Failed partial players/logs/backups remain in that invocation's directory; retry
+with the same workspace and Library. Restoration errors are failures: use the
+retained `.backup` files to recover source before retrying. Preserve an existing
+successful player or select a new workspace; the adapter never overwrites it.
+
+Adapter contracts: `python -m unittest tools/game_loop/test_local_windows.py`.
+
+Adapter follow-up (2026-10-25): seven adapter unittest methods passed, real Unity
+retry passed44/44ImpactVfxTests using fresh XML; mirror QA build and strict repeated
+builder completed, scene/meta restoration and fixture cleanup verified. Initial
+PlayMode attempt produced no XML and was stopped; external mirror fixture logged
+an empty-previous-scene exception after saving mirror, despite build success.
+Exact receipts and limitations: [adapter checkpoint](../plans/windows-unity-adapter.md).
