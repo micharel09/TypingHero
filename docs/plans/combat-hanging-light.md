@@ -110,8 +110,15 @@ reserialization/derived outputs. Post-build audit: all task asset payloads uncha
 apart from scene ordering/lighting-settings binding and Unity float serialization
 (rotation precision under2e-8); fill profile, light, controller and additional data
 remain equal. Both builder passes are stable. No task capture script ships.
-Final diff/UTF-8/relative links/whitespace checked. Remote integration verification
-is recorded after delivery; original dirty checkout remains untouched.
+Final diff/UTF-8/relative links/whitespace checked. Implementation8ab634c and
+verification a632b29 were fast-forwarded to origin/main and both ancestry plus
+`ls-remote refs/heads/main` confirmed a632b29c32f130f4793555de2a22ff997f8f94f0.
+Delivery/cleanup receipts remain in the task evidence root (`integration.json`,
+`cleanup.json`). Remove only this clean Orca worktree/local branch and isolated
+source/Library after verification. Retain logs, immutable players, review manifests,
+images/videos and helper recipes there for visual review/reproduction; they can be
+removed once review is accepted and evidence is archived. Original dirty checkout,
+other task resources and installed Unity are preserved.
 
 ## Reusable world lighting profiles - integrated, 2026-10-23
 
