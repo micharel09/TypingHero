@@ -29,8 +29,10 @@
 
 - Wall torches use authored cinematic SinePair flicker: base8/range15/amplitude.18,
   independent phases and matching flame emission. Two fixed TorchBeam cards are
-  inactive and no longer receive atmosphere updates. Central lantern, flame
-  atlas/timing and actor self-shadow remain unchanged. Pause holds the clock;
+  inactive and no longer receive atmosphere updates. Central lantern now uses intensity16; flame
+  atlas/timing and actor self-shadow remain unchanged. A constant shadowless cool
+  Spot fill and palette-masked damp Floor1..8 add localized floor response without
+  re-enabling the rejected rune, haze, beams or planar reflection. Pause holds the clock;
   Slayer composite conceals the continuing world phase and restores it without
   resetting. [Evidence](../plans/combat-hanging-light.md).
 
@@ -79,8 +81,10 @@
   use semantic roles. Fixture names/counts and atlas layouts are independent of the
   default room. Profile changes require Editor apply/reload; this adds no map UI or
   hardware quality tiers.
-- The approved ten-frame flame, palette, timing, fixed anchors, 24/16 light strengths
-  and pause/Slayer phase are preserved. Each instance owns its clock and UV mesh.
+- The approved ten-frame flame, palette, timing, fixed anchors
+  and pause/Slayer phase are preserved. The REPLACED-inspired pass changes the
+  MainLantern key24->16 and adds a separate constant cool floor fill64; other torch
+  profiles retain their authored strengths. Each instance owns its clock and UV mesh.
   Camera impacts now read `WorldDefinition.cameraImpact` (`CombatCameraProfile`); defaults
   remain unchanged. Presets and curves prepare at binding; accepted requests retain that snapshot.
   Pixel recoil uses the active world's target height; zoom composes with its lens.

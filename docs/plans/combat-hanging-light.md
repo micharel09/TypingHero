@@ -47,8 +47,71 @@ Baseline native Edge156/Intel UHD/D3D11 observed Normal, parry/follow-up,
 Pause/Resume, Slayer/restore, restart and player death without runtime exceptions.
 Its pilot driver stopped on a wrong menu-control name before return; no full PASS
 is claimed. Corrected driver waits for actual result controls and uses Main MenuButton.
-Repeated builder, final WebGL A/B, complete selected motion review, performance and
-remote integration remain pending.
+Pre-integration verification completed:
+
+- Strict preview/Undo/save-reopen/repeated builder PASS (`final-repeat`). Final QA
+  WebGL `final-build/player`, bundle321b30e604a19551;33file hashes retained alongside
+  baseline17eb20e48efd34b4. Build exited0 after Bee recovered a stale reference to
+  the removed task-only capture script; this diagnostic remains in the log.
+- Native Edge156/Intel UHD/D3D11,1280x720:16checks PASS (`candidate-qa-r2.json`),
+  zero runtime exceptions. Real keys cover word/hurt, Pause/Resume, four parries,
+  queued followup, Slayer entry/exit, retry, death/result and menu; world ID reused.
+  Provider reads/writes are intercepted local fixtures, no real provider mutation.
+  Earlier candidate pilot missed the input window while hurt-locked; driver now
+  waits for unlocked state. Baseline pilot's menu name failure remains recorded.
+- GPU pose inventory:281unique cels,292original keys,34clips;562pose images plus
+  scene/control/restored and5translation images. All596ordered review rows and
+  538within-clip transitions (including repeated/held keys and loop wraps) directly
+  inspected at native crop and nearest2x on50sheets. `pose-review/manifest.json`
+  records per-key findings. Static GPU diagnostics exclude gameplay blur/framing;
+  Slayer clips remain colored here and contact-card staging overlaps the foe.
+- Legacy tutorial Attack1/Die lack existing normal/material companions. Matched
+  GPU controls show the same dim-vs-Idle issue under baseline lighting; no claim
+  these inherited maps are fixed. Production Endless sword/axe/shield and the
+  repaired lift retain visible material regions in both facings. Five translations
+  keep the floor pool fixed as the player crosses it.
+- Runtime video dca942cd334d29f4ceb08f03b6d8d94922097d1702369fb8346fce978e54d095:
+  selected12..15.9s idle/word;16.7..19.5s hurt/pause;21..23.8s parry/followup;
+  31.8..33.3s Slayer entry;41.8..44s exit;67.5..73.9s death through result/menu.
+  Scope recorded before review; death-ending supplement extends the initial72s
+  boundary to include complete dissolution.491/491 decoded frames and485/485
+  consecutive pairs directly viewed, original25fps PTS/holds retained;21sheets at
+  320px width plus11native actor/floor crops. Warm/cool hierarchy returns after
+  flash/Slayer, contact stays on the stone, no moving player-attached floor glow.
+  Not human original-timing playback, full-video review or sub-frame60Hz assurance.
+- Matched Normal10s no-video ABBA (`timing-summary.json`):A p95=33.315/33.235ms,
+  B=33.255/33.195ms; mean delta-0.15%, within10% guard.304/306/306/305 samples,
+  all focused/visible, median166draws. Real words, no parry to avoid changing mode.
+  Earlier timing pilot entered Slayer and another menu input failed; retained and
+  excluded, driver corrected. Short rAF pacing samples are not GPU profiling or a
+  stable60FPS claim.
+
+Integration checkpoint:8ab634c contains task data/tests/docs. Latest origin/main
+2b07f3f brought intro, Slayer recovery/flash and presentation-clock updates; merged
+without conflict. Merged input e858775f4ef26a6358dc4677ac611ccc1666e3549f1dc91d69464bde0cdd750e:
+11/11focused cases PASS. Merged WebGL player961c878991127356 exits0 and strict
+repeated builder PASS. Native merged-qa-r2:16checks PASS,0exceptions; all real-input
+flows above repeated successfully. Initial merged driver clicked Practice before
+tutorial intro unlocked input and timed out; corrected to await intro/transition
+completion, with the failed receipt retained.22read-only intro samples cover
+Tutorial/Practice and retry short variants; no full2.4s returning-player reacceptance
+claim. Merged Normal10s sample:306frames, p95=33.275ms, all focused/visible, within
+the original baseline guard. Same local provider fixture isolation.
+
+Merged-motion scope recorded before review:9.8..13.1s tutorial/Practice entry,
+42.4..44.3s Slayer restore,44.4..46.8s retry.191/191frames and188/188pairs actually
+viewed on8sheets plus6native actor/floor crops. Original25fps PTS/holds preserved;
+source SHA256 6deb9021dc8196a608469bf217a0616f72843e353ca19ffefdb60279a650aff7. World fill stays fixed through actor/dust reveal,
+HUD handoff and Slayer restoration. Static pose coverage remains the named
+pre-merge library; newer main's Slayer clip changes are retained, not reauthored.
+
+Build provenance distinguishes initial LF input from the existing builder's
+reserialization/derived outputs. Post-build audit: all task asset payloads unchanged
+apart from scene ordering/lighting-settings binding and Unity float serialization
+(rotation precision under2e-8); fill profile, light, controller and additional data
+remain equal. Both builder passes are stable. No task capture script ships.
+Final diff/UTF-8/relative links/whitespace checked. Remote integration verification
+is recorded after delivery; original dirty checkout remains untouched.
 
 ## Reusable world lighting profiles - integrated, 2026-10-23
 

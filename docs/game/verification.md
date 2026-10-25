@@ -1,3 +1,21 @@
+## REPLACED-inspired dungeon lighting (2026-10-25)
+
+Warm key16 plus constant shadowless cool Spot64/range16, and Floor1..8 palette
+surface masks (metallic0, stone smoothness .306..369, mortar .012). Existing actors,
+flames, camera, disabled rune/haze/beams/reflection and gameplay are preserved.
+Missing parry-lift material companion restored through the existing palette recipe.
+Unity focused11/11 and strict repeated builder PASS. Pre-integration native WebGL
+321b30e604a19551:16checks,0exceptions; real word/parry/followup, Pause, Slayer restore,
+retry/death/menu.596/596 static pose rows,538/538 adjacent key pairs, plus491/491
+selected runtime video frames and485/485 adjacent pairs directly reviewed.
+Normal10s ABBA rAF p95 mean33.275->33.225ms (-0.15%, within10% guard); short samples,
+not GPU timing or60FPS assurance. Legacy tutorial missing-map dim poses remain an
+explicit inherited limitation; no exact REPLACED or timed-playback match claimed.
+Merged origin/main2b07f3f:11/11 focused cases and strict builder PASS; final player
+961c878991127356 repeats16checks with0exceptions.191/191selected merged frames
+and188/188pairs reviewed for tutorial/short entry, retry and Slayer restore;10s
+p95=33.275ms. Detailed scope/limits in the [lighting checkpoint](../plans/combat-hanging-light.md).
+
 ## Duel entry presentation (2026-10-25)
 
 Full Play uses the 2.4s player -> dust/enemy -> opponent label -> HUD sequence;
