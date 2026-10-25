@@ -600,7 +600,7 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Slayer contact-first presentation (2026-10-25; preview, tests waived)
+### Slayer contact-first presentation (2026-10-25; tests waived)
 
 - Retain original Met.Pxl B PNG/GUIDs/center pivot and32/40reference-pixel scale.
   Game hit uses F0/F1/F2/F3 at40/30/30/20ms; finisher60/40/30/30ms. Source preview

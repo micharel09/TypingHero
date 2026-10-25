@@ -1,4 +1,4 @@
-## Contact-first Slayer presentation candidate (2026-10-25)
+## Contact-first Slayer presentation implementation (2026-10-25)
 
 Supersedes the old580ms/eight-random-angle Slayer presentation in the historical
 VFX row below. `PlayerSlayerMode` applies one of three contact-first120ms clips,

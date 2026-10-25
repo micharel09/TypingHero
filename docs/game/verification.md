@@ -1,5 +1,13 @@
 ## Contact-first Slayer B (2026-10-25; tests waived)
 
+Final pinned Unity WebGL build exits0, input3272ecc39ea954d4e9e55850b31d3c8acb5dbc68a2ffb6e6476a72710e10aaaa,
+player03a0033e57fdf3a2. Capture-only real keys reach enemyHP0/playerHP40 with
+50/51correct letters and4parries,0observed exceptions/provider reads/writes.
+Final canvas/audio clip and1x/0.25x viewer opened in Edge; paths and immutable
+receipts are in the checkpoint. Source gameplay retains the original collision
+window/event ordering. Feature6227d17 is verified on remote main. No test-pass,
+frame-review, reverse-facing or subjective game-feel acceptance is claimed.
+
 User requested: finish and open the clip immediately, with no tests. Scoped test
 startup was cancelled during project initialization before any result XML; authored
 cases remain for future use, and no pass count is claimed. Build and capture are

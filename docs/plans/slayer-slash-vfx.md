@@ -35,6 +35,37 @@ Worktree:`C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-hit-feel`, branch
 `micharel09/slayer-hit-feel`, base7dc84f9. Original dirty checkout remains intact.
 Build/capture cache:`E:/CodexTemp/TypingHero/slayer-hit-feel`.
 
+### Final build, clip and integration receipt
+
+Compatibility-corrected immutable input `3272ecc39ea954d4e9e55850b31d3c8acb5dbc68a2ffb6e6476a72710e10aaaa` builds with
+Unity2022.3.25f1 exit0, player`03a0033e57fdf3a2`. Final real-input capture records
+HP40/enemyHP0,50correct letters of51attempts and4parries; these are capture data,
+not test assertions. No new unit/runtime suite, mirror capture or exhaustive frame
+inspection was run. The user explicitly waived those checks.
+
+Final clip:`E:/CodexTemp/TypingHero/slayer-hit-feel/final/slayer-hit-feel.webm`
+(2816364bytes, SHA256`b82190675a58f0a2194a8a16510653e750a4cfcb9a92b992c923e32cf7a0d144`).
+Final viewer:`E:/CodexTemp/TypingHero/slayer-hit-feel/final/open-clip.html`.
+Opened directly in Edge at2026-10-25T03:47:05.960450+00:00, with1x/0.25x controls. The first capture
+remains separately available; final input preserves the original hitbox timing.
+The offline asset viewer is rebuilt and retained at the cache root/preview.html;
+its Edge-loading/interaction acceptance was not run under the waiver.
+
+Feature8cb68a5 plus collision-order correction6227d17 pushed to the task branch.
+Fetched origin/main7dc84f9 was already contained; direct fast-forward main push to
+6227d173c45b8dacbe8486cc3f32e44f5fbc092d succeeded. A subsequent fetch and ancestry
+check confirmed integration. This following receipt is documentation only; no
+Unity input changes follow the final captured build.
+
+Retain `E:/CodexTemp/TypingHero/slayer-hit-feel` for both clips, players, input
+archives/manifests/logs and the private warm `source/Library` cache. Keep it while
+the user reviews/requests visual adjustments; remove after visual review ends and
+reproduction is no longer needed. This avoids repeating the expensive first import.
+The abandoned first-import Library can be removed; the pre-existing space-press-cue
+cache was only read/copied and is preserved. Close no user clip window. After this
+receipt is remotely preserved, remove only the clean task worktree/local branch;
+retain the remote task branch. The original dirty main checkout remains untouched.
+
 ### Collision-order compatibility before integration
 
 Retain the original `OnAttackStart()`/physics confirmation timing for Slayer.
