@@ -132,7 +132,13 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
         Assert.That(impact.Zoom, Is.EqualTo(.02f));
         var previousWorld = session.World; var previousRT = previousWorld.Arena.WorldTexture;
-        Assert.That(previousWorld.environment.GetComponentsInChildren<DungeonTorchLight>().Length, Is.EqualTo(5), "main room includes its two authored pillar lamps");
+        var fixtures = previousWorld.environment.GetComponentsInChildren<DungeonTorchLight>();
+        Assert.That(fixtures.Count(x => x.profile.flame), Is.EqualTo(5), "main room retains its five flame fixtures");
+        var fill = fixtures.Single(x => !x.profile.flame);
+        Assert.That(fill.Flame, Is.Null, "the cool fill owns no flame mesh");
+        Assert.That(fill.GetComponent<Light>().type, Is.EqualTo(LightType.Spot));
+        Assert.That(fill.GetComponent<Light>().shadows, Is.EqualTo(LightShadows.None));
+        Assert.That(fill.profile.flicker, Is.EqualTo(LightProfile.Flicker.Constant));
         yield return session.LoadWorld(second); yield return null;
         Assert.That(previousWorld == null, Is.True); Assert.That(previousRT == null, Is.True);
         gate.Bind(session.World);
@@ -159,6 +165,8 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         Assert.That(impact.Zoom, Is.EqualTo(.02f), "world A rebind restores its own profile");
         foreach (var filter in filters) Assert.That(filter == null, Is.True);
         Assert.That(session.World.Arena.WorldTexture.width, Is.EqualTo(320));
+        var restoredFill = session.World.environment.GetComponentsInChildren<DungeonTorchLight>().Single(x => !x.profile.flame);
+        Assert.That(restoredFill.GetComponent<Light>().intensity, Is.EqualTo(restoredFill.profile.intensity), "world A restores its independent constant fill");
         Assert.That(RenderSettings.fogColor, Is.EqualTo(first.lighting.fogColor));
         Assert.That(JsonUtility.ToJson(first.lighting), Is.EqualTo(a));
         Assert.That(JsonUtility.ToJson(second.lighting), Is.EqualTo(b));

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d63533e1abb4034947cb6fc0cf16379, type: 3}
+  m_Name: DungeonCoolFill
+  m_EditorClassIdentifier:
+  enabled: 1
+  type: 0
+  color: {r: 0.47058824, g: 0.60784316, b: 0.70980394, a: 1}
+  intensity: 64
+  range: 16
+  spotAngle: 75
+  innerSpotAngle: 45
+  shadows: 0
+  shadowBias: 0.015
+  shadowNormalBias: 0.02
+  shadowNearPlane: 0.2
+  shadowStrength: 1
+  bakeType: 4
+  cullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  shadowResolutionTier: 0
+  flicker: 0
+  amplitude: 0
+  noiseSpeed: 0
+  noiseRow: 0
+  sineFrequency: {x: 0, y: 0}
+  sineWeight: {x: 0, y: 0}
+  sinePhase: {x: 0, y: 0}
+  synchronizeEmission: 0
+  flame: {fileID: 0}
+  projectedFlameHeight: 0
