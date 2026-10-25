@@ -1,3 +1,12 @@
+## Contact-first Slayer B (2026-10-25; tests waived)
+
+User requested: finish and open the clip immediately, with no tests. Scoped test
+startup was cancelled during project initialization before any result XML; authored
+cases remain for future use, and no pass count is claimed. Build and capture are
+required to produce the requested gameplay clip, not substitutes for behavioral or
+frame-review acceptance. Older receipts below qualify their original revisions.
+See [the Slayer checkpoint](../plans/slayer-slash-vfx.md) for current status.
+
 ## Slayer body-center correction (2026-10-25)
 
 User rejected the B contact-edge anchor. Slayer hit/finisher now capture struck

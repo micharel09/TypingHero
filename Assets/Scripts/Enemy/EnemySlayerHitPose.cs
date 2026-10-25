@@ -166,6 +166,7 @@ public class EnemySlayerHitPose : MonoBehaviour
     {
         if (!jitterRoot) return;
         if (_jitterCo != null) StopCoroutine(_jitterCo);
+        if (jitterAmplitude <= 0) { RestoreJitterBase(); _jitterCo = null; return; }
         _jitterCo = StartCoroutine(JitterCo());
     }
 

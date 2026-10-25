@@ -88,6 +88,12 @@ public class PlayerSlayerMode : MonoBehaviour
     public bool IgnoreHitstop => ignoreHitstop;
 
     bool _active, _didFirstSwing;
+    int selectedAttackIndex;
+    SpriteRenderer strikeSource;
+    SlashVolume strikeTrail;
+    internal Vector2 StrikeDirection { get; private set; } = Vector2.right;
+    internal static Vector2 LocalStrikeDirection(int variant)
+        => variant == 0 ? new Vector2(1, -1) : variant == 1 ? Vector2.right : Vector2.one;
     float _remain, _lastTypedAt, _savedMinOpen, _savedSpeedMul;
     Coroutine _co;
 
@@ -288,9 +294,23 @@ public class PlayerSlayerMode : MonoBehaviour
 
         var st = PickRandomAttackState();
         if (!string.IsNullOrEmpty(st))
-            animator.CrossFadeInFixedTime(st, attackCrossfade, 0, 0f);
+        {
+            // Damage remains immediate; the selected clip now starts at contact.
+            animator.Play(st, 0, 0f);
+            animator.Update(0f);
+        }
 
-        attackEvents.OnAttackStart();
+        var direction = LocalStrikeDirection(selectedAttackIndex);
+        if (strikeSource)
+        {
+            if (strikeSource.flipX) direction.x = -direction.x;
+            if (strikeSource.flipY) direction.y = -direction.y;
+            direction = strikeSource.transform.TransformVector(direction);
+        }
+        StrikeDirection = direction.normalized;
+
+        if (strikeTrail) strikeTrail.BeginSlayerSwing();
+        attackEvents.OnSlayerAttackStart();
         attackEvents.OnAttackEnd();
         _didFirstSwing = true;
     }
@@ -303,14 +323,17 @@ public class PlayerSlayerMode : MonoBehaviour
         if (slayerAttackStates == null || slayerAttackStates.Length == 0) return null;
         for (int i = 0; i < 3; i++)
         {
-            var s = slayerAttackStates[Random.Range(0, slayerAttackStates.Length)];
-            if (!string.IsNullOrEmpty(s)) return s;
+            int index = Random.Range(0, slayerAttackStates.Length);
+            var s = slayerAttackStates[index];
+            if (!string.IsNullOrEmpty(s)) { selectedAttackIndex = index; return s; }
         }
         return null;
     }
 
     void Awake()
     {
+        strikeSource = GetComponentInChildren<SpriteRenderer>(true);
+        strikeTrail = GetComponentInChildren<SlashVolume>(true);
         if (!afterimage) afterimage = GetComponent<SlayerAfterimagePool>();
         if (!screenFX) screenFX = FindObjectOfType<SlayerScreenFX>();
     }

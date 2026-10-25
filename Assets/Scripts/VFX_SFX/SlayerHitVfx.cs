@@ -9,12 +9,17 @@ public sealed class SlayerHitVfx : MonoBehaviour
     [SerializeField] float[] frameDurations;
     PooledVFX lease;
     float age;
+    float fadeAge = -1;
     int bornFrame;
     internal float Age => age;
+    internal Transform Recipient { get; private set; }
+    internal bool IsFading => fadeAge >= 0;
     void Awake() => lease = GetComponent<PooledVFX>();
-    internal void Emit(Vector3 point, float clockwiseAngle, Color tint)
+    internal void Emit(Vector3 point, float clockwiseAngle, Color tint, Transform recipient = null)
     {
         age = 0;
+        fadeAge = -1;
+        Recipient = recipient;
         bornFrame = Time.frameCount;
         transform.SetPositionAndRotation(point, Quaternion.Euler(0, 0, -clockwiseAngle));
         transform.localScale = Vector3.one * uniformScale;
@@ -23,9 +28,20 @@ public sealed class SlayerHitVfx : MonoBehaviour
         image.flipX = image.flipY = false;
         image.sprite = frames[0];
     }
+    internal void Retire()
+    {
+        fadeAge = 0;
+        var color = image.color; color.a = Mathf.Min(color.a, .35f); image.color = color;
+    }
     internal void Advance(float delta)
     {
         age += delta;
+        if (IsFading)
+        {
+            fadeAge += delta;
+            if (fadeAge >= .03f) { lease.Release(); return; }
+            var color = image.color; color.a = .35f * (1 - fadeAge / .03f); image.color = color;
+        }
         float end = 0;
         for (int i = 0; i < frames.Length; i++)
         {
@@ -44,6 +60,8 @@ public sealed class SlayerHitVfx : MonoBehaviour
     void OnDisable()
     {
         age = 0;
+        fadeAge = -1;
+        Recipient = null;
         transform.localRotation = Quaternion.identity;
         if (image) { image.sprite = null; image.color = Color.white; image.flipX = image.flipY = false; }
     }

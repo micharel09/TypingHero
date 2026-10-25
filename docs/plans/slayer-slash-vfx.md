@@ -1,3 +1,66 @@
+## Contact-first B revision (2026-10-25; clip delivered, tests waived)
+
+The user rejected the body-centered580ms/random-eight-angle result as flying
+around the skeleton. Reviewed reference evidence is retained separately at
+`E:/CodexTemp/TypingHero/slayer-hit-research`: Blasphemous official full0-6.05s,
+121/121frames+120/120pairs+promotional loop boundary; Moonscars melee1.5-4.5s,
+300/300frames+299/299pairs, with55additional spell frames excluded from sword-hit
+claims. REA verifies official page observation; no commercial game binary or
+native hitstop implementation was inspected.
+
+Approved decisions: retain B artwork; keep immediate typing/damage; start Slayer
+clips at contact. S1 uses combo_1_0/1/2, S2 combo_2_3/4/5, S3 combo_3_3/4.
+Each clip ends120ms; repeated final sprite key110ms preserves the last hold at
+100samples/second. Their local strike axes are(1,-1),(1,0),(1,1), mirrored by
+source transform. Apply the selected pose before opening the existing hitbox.
+B uses F0/F1/F2/F3:40/30/30/20ms hit,60/40/30/30ms finisher; common pivot,
+32/40reference-pixel width and original PNG/GUIDs preserved. Each recipient owns
+one primary plus one<=35% residual fading<=30ms; finisher replaces both. Captured
+RGB/center/direction survive lethal Slayer exit. Original weapon trail expires
+120ms even when its cel is held; a new swing resets that envelope.
+
+Skeleton root jitter is disabled. Its existing hurt poses remain; the silhouette
+compositor supplies an ivory#FFF3CF pulse20ms full+20ms fade, composed after the
+silhouette in DungeonSprite without changing alpha/depth or baseline color.
+Pause/reading hold these presentation clocks. Public input/damage/scoring/audio/
+camera/hitstop contracts remain unchanged. QA additions are observation-only.
+
+**Latest user instruction:** stop tests and open the clip immediately when ready.
+The initial scoped test launch was cancelled during first project initialization;
+no test-pass claim is made. Continue with the necessary game build and capture;
+full sprite/runtime acceptance and the authored test cases remain unexecuted.
+Do not present a built preview as verified game-feel acceptance.
+
+Worktree:`C:/Users/ADMIN/orca/workspaces/TypingHero/slayer-hit-feel`, branch
+`micharel09/slayer-hit-feel`, base7dc84f9. Original dirty checkout remains intact.
+Build/capture cache:`E:/CodexTemp/TypingHero/slayer-hit-feel`.
+
+### Build and immediate clip delivery
+
+Pinned Unity2022.3.25f1 WebGL build completed with exit0; player fingerprint
+`b1ba91ff3a8e7223`. The normal build's existing preprocess/repeated serialization ran;
+no unit/runtime suite or exhaustive sprite review was run after the waiver.
+Capture-only real keyboard playback reached Slayer and typed through the finisher;
+276render observations retained,0captured runtime exceptions,
+0provider reads/writes. These observations are not a test-pass or visual-acceptance
+claim. Initial menu navigation missed Play before its reveal completed; the
+capture helper waits for the reveal and the successful retry is retained.
+
+Actual canvas/audio MediaRecorder clip: `E:/CodexTemp/TypingHero/slayer-hit-feel/slayer-hit-feel.webm`
+(2663768bytes, SHA256`cbe000a62cbc1a86861b78f67620ef5d9a7e965ff5ffd86dca214428abf9c630`).
+Opened in a normal Edge window at2026-10-25T03:26:35.922851+00:00; `open-clip.html` supplies1x/0.25x
+playback. It contains the isolated hit, rapid typed sequence and lethal ending.
+Encoded frame inspection, opposite-facing capture and subjective game-feel approval
+remain unverified. No mirror build, full suite, profiling or publication ran.
+
+The derived ActorDepth index now covers280referenced frames,0missing reported by
+the builder. Removing unused Slayer preparation cels prunes the derived index;
+authored atlas/depth images are unchanged. Only that index and the two generated
+Slayer role prefabs are imported from Unity output; unrelated generated scenes
+and UI/material rewrites are not imported.
+
+
+
 # Slayer slash impact replacement
 
 ## Slayer body-center correction — 2026-10-25
