@@ -43,6 +43,11 @@ DungeonSprite; its default is off. The session merges/restores only its own vect
 in live property blocks. Unsupported child shadows wait until the body is complete.
 CombatHUDLayout exposes the existing typing-tray reference internally for the80ms
 stagger; HUD geometry, materials and serialized bindings are retained.
+`TypingManager` owns an internal presentation-only preview flag and100ms start-ink
+transition in Paint. The presenter sets preview before activation, clears it with
+a cue only at combat handoff, and clears it without a cue on cancellation.
+Prepared words/queues are retained; the last300ms of either intro are readable
+while gameplay/timer stay locked. Accepted letters supersede the ink transition.
 `GamePauseController.InputBlocked` includes intro/handoff; `PresentationFrozen`
 excludes intro and controls timeScale/audio/environment motion. Actual Pause and
 reading still freeze presentation. Typing stays in `TypingManager.ProcessInput`;

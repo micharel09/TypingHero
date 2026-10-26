@@ -8,9 +8,11 @@ provider, saved data or audio-asset changes. Existing cue/voice lifecycle is cor
 
 Full Play: menu/cover 250ms before scene transition; after activation reveal450ms,
 settle until850ms, foot dust850-1350ms with opponent reveal halfway, title1350-2000ms,
-HUD/title handoff2000-2400ms. Combat remains locked through the handoff frame.
+status HUD1850-2000ms, word tray1930-2100ms, readable stationary preview2100-2400ms.
+Title exits1850-2000ms. Combat remains locked through the handoff frame.
 Continue/retry: cover200ms before loading, reveal200ms, dust200-600ms,
-title600-800ms, HUD800-1000ms (1200ms plus scene load in total).
+title enters460-540ms, holds until750ms, exits750-900ms; status HUD540-640ms,
+word tray620-700ms, stationary preview700-1000ms (1200ms plus scene load in total).
 Tutorial only uses the shared reveal; its reading/lesson state remains owned by
 TutorialDirector. Pause/focus loss hold the timeline; navigation cancels it.
 
@@ -285,3 +287,95 @@ PTS/counts, without interpolation/resampling; video-only. Full review scopes/tai
 and source video remain at the isolated task root. No sprite/clip/prefab/font,
 package, camera framing, balance, provider/save contract edits or itch.io release.
 Integration/cleanup receipt is recorded externally after remote verification.
+
+## First-word preparation follow-up (2026-10-26; verified)
+
+User chose to retain the total2.4s/1.2s timing. The last300ms now show the prepared
+first word at full authored opacity, using the existing next-word ink. At combat
+handoff it returns to the authored active ink over100ms. No countdown, extra wait,
+audio, geometry or word reinitialization. Accepted letters immediately supersede
+the cue with existing correct/error feedback. Intro/pause gates remain authoritative;
+Cancel clears preview without signaling combat. Tutorial does not enter preview.
+Implementation and pending focused checks are on micharel09/duel-word-preview,
+based on origin/main24f74e0; all Unity execution is on Ubuntu fly-server.
+
+Reference evidence remains separate from product output. Predeclared scope and
+per-frame PTS ledger: E:/CodexTemp/TypingHero/duel-word-preview/reference-review.json
+(original research cache: Clackblade-start-cue-research-20261025 under local Temp).
+Type Knight official Steam trailer5<=t<16s:660/660frames,659/659adjacent transitions
+directly inspected sequentially; official screenshot and full-resolution7s still
+also viewed. Words remain above approaching enemies; trailer is not a complete
+menu/start flow and cannot prove engine input-enable timing. Small contact-sheet
+glyph details do not establish a measured reading interval.
+Source: https://store.steampowered.com/app/1006220/Type_Knight/ . Developer confirms
+a word-appearance audio cue at https://itch.io/devlog/108069/type-knight-version-1001.amp .
+Nidhogg2 source https://www.youtube.com/watch?v=36UDLPPD_U0 ,38<=t<50s:
+720/720frames,719/719adjacent transitions directly inspected, including all page
+overlaps. Customization, stage selection, covered transition, READY during arena
+reveal, GO at44.983s, first exchange and continuation; source38s/44s stills viewed.
+No numeric3-2-1 observed; no engine input-enable or retry variant claim.
+osu! is a documentation-only comparator: https://osu.ppy.sh/wiki/en/Beatmap/Countdown
+describes countdown as optional/useful for abrupt openings. No osu motion review.
+The300ms preview is a CLACKBLADE design choice, not a duration copied from references.
+
+Ubuntu Unity2022.3.25f1 scoped `quick --test-filter DuelIntroTests`:6/6PASS,
+0failed/skipped, `/data/typinghero-game-loop/results/20261026T061302-quick`.
+Input snapshot f255f209b8ead2dce840bf59fea704de5bb3339e2c0b0a69ce394442438e3235.
+Shared runner was then occupied by another task; its source was preserved. The
+build-only helper extracts the exact same snapshot to the independent Ubuntu
+`/data/typinghero-game-loop/word-preview-20261026/source`, takes the shared Library
+lock, and builds an immutable QA player. No Windows Unity invocation. Build/runtime
+and visual acceptance remain pending; local evidence root is
+E:/CodexTemp/TypingHero/duel-word-preview/.
+
+First build failed font byte guard: CobblestoneUI64 differs only byCRLF/LF
+(normalized equality verified). Fresh isolated serialized inputs normalized toLF
+passed the unchanged strict repeat builder. Ubuntu build062625/player
+eea80fc084776dbd passed62native Edge156/NVIDIA D3D11 assertions,0exceptions or
+provider IO. Visual FAIL: all445frames/441pairs in the first four declared scopes
+were viewed, revealing the live opponent label above the closed Menu navigation
+cover at45.60-45.72s. Fifth focus scope unreviewed; no complete visual pass claimed.
+Pre-cover-fix evidence retained separately. Correction brings the existing curtain
+to the final sibling when Cover begins; Pause stays above the whole intro canvas.
+Focused cancellation test now begins during readable preview and checks that the
+cover occludes the heading. Final source7b86815e04628556532d9c7b077c8dd3bbcc0b84ddf6e2dcf6f59935564ea6bf
+was retested and rebuilt on Ubuntu; final acceptance below supersedes pending notes.
+
+### Final preparation acceptance
+
+Ubuntu2022.3.25f1 final source:6/6DuelIntroTests PASS,0failed/skipped; strict repeat
+builder and WebGL QA build PASS at word-preview-20261026/20261026T064955-build.
+All Unity processes ran on Ubuntu; no Windows Unity invocation. Final281C#/shader/
+package/version inputs match the worktree afterBOM/CRLF normalization. Final
+player7a03a2f20df3f514:65native real-input assertions PASS,0exceptions/provider IO,
+Edge156.0.4314.42/NVIDIA GTX1650Ti/ANGLE D3D11 at1280x720. Original prepared word,
+full timer and statistics preserved until handoff; preview uses authored secondary
+ink and returns to active ink; held Play/Continue Enter, letters/Space, retry,
+pause/resume, real focus loss, Menu cancellation and tutorial reading covered.
+
+All31sequential sheets below directly inspected, every frame and adjacent pair
+including page overlaps. Original25fps decoder PTS/held frames retained. Counts
+are encoded-frame visits, not engine FPS. Per-frame ledger and scope observations
+are in runtime-review/manifest.json; source research remains separate above.
+
+| Scope | Encoded first-last PTS | Frames inspected/total | Pairs inspected/total |
+|---|---|---:|---:|
+| full-play | 12.96-17.84s | 123/123 | 122/122 |
+| short-continue | 27.72-31.36s | 92/92 | 91/91 |
+| short-pause-resume | 17.16-20.96s | 96/96 | 95/95 |
+| cancel-intro | 36.40-40.80s | 111/111 | 110/110 |
+| focus-resume | 40.64-46.36s | 144/144 | 143/143 |
+
+Total566frame visits/561pair visits. Full-size readable preview and closed
+cancellation cover also viewed. Word geometry stays fixed; timer starts after
+the preview; no early shadow/cue/word, extra confirmation, heading leak on closed
+cover or activation flash during cancellation. Actual Pause overlays and combat
+effects in preserved tails are expected. Existing `F6 Spark` OnGUI is conditional
+on TYPINGHERO_AUTOMATION; it is not a product HUD leak.
+
+Delivery excerpts of the broader fully reviewed scopes, with original relative
+PTS/counts and no interpolation/resampling: intro-play.mp4,84frames,
+13.76<=t<17.12; intro-continue.mp4,42frames,28.96<=t<30.64. Video-only. Source/output
+hashes, tests and failed draft remain at E:/CodexTemp/TypingHero/duel-word-preview/.
+No production build, itch.io publication, package/art/font/sprite changes or full
+suite/performance claim. Integration and task-resource cleanup recorded externally.

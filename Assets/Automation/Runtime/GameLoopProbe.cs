@@ -328,6 +328,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public float introElapsed, introHudAlpha, introLabelAlpha, introCover;
         public float introRevealProgress, introWordAlpha;
         public int introWordHudGroups;
+        public bool introWordPreview;
+        public float introWordStartRemaining;
         public int introDustParticles, introMusicPlayerId, introMusicVoiceId, introMusicSample;
         public bool endless, encounterReading;
         public int endlessRound, endlessSlot, defeated;
@@ -696,6 +698,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 introRunning = FindObjectOfType<DuelIntroPresentation>() && FindObjectOfType<DuelIntroPresentation>().Running,
                 introRevealProgress = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "revealProgress"),
                 introWordAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "wordAlpha"),
+                introWordPreview = Read<bool>(typing, "introPreview"),
+                introWordStartRemaining = Read<float>(typing, "introStartRemaining"),
                 introWordHudGroups = Read<System.Collections.Generic.HashSet<CanvasGroup>>(FindObjectOfType<DuelIntroPresentation>(), "wordHud")?.Count ?? 0,
                 introElapsed = FindObjectOfType<DuelIntroPresentation>() ? FindObjectOfType<DuelIntroPresentation>().Elapsed : 0,
                 introHudAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "hudAlpha"),
