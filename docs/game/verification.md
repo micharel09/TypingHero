@@ -1,3 +1,42 @@
+## Tutorial playback hot path (2026-10-26; review branch)
+
+Ubuntu2022.3.25f1 quick160709/inputd0f5f956:9/9 scoped tutorial tests PASS,
+0failed/skipped,29.4497702s. All1,995 lookups,28 boundaries/five loops,
+loading/navigation/error/lifecycle and native handoff remain covered. Warmed
+cache/render/same-frame tick loops allocate0bytes; held and loading ticks produce
+zero new Image dirty callbacks. PNG/importer/descriptor/scene preservation checks
+cover149 files against ce9b87a5; unchanged three builder-fixture receipts are reused.
+
+Ubuntu QA153705/input728fddcf builds and passes strict repeat builder. Its initially
+mis-selected default browser harness fails NameInput and is not a profile pass.
+The preserved/downloaded33-file player passes the correct native tutorial trace:
+51/51, all33 explicit pairs, no buffer overflow, two slots and battle cleanup0.
+Five priority render gaps16.875–22.965ms; synchronous resource calls peak0.725ms.
+Separate normal capture34/34 and post-QA-metadata-removal normal17/17 pass on
+Windows/Edge156/D3D11. Peak tutorial texture objects2/30.019043MiB; HUD/menu/battle/
+viewed clone/restart/replay/late exit cleanup0. Final normal JS/WASM/data exclude
+QA globals and the trace type in ASCII/UTF16. Six pages at both requested sizes
+and actual Enter/Back/Pause/Resume/Start/parry are covered by104 native QA checks.
+
+Direct selected visual review:528/528 images and495/495 consecutive pairs across
+all33 boundary/loop intervals, retaining timestamps/repeats. No blank/wrong atlas
+observed. Existing1,995-cel review is reused for unchanged art/timing. Current trace
+and capture support continuous streaming in these measurements; every historical
+133–213ms capture gap's exact cause remains unverified. The Score loop's old133ms
+gap is after0→8, not the10→0 atlas pair. No clock clamp/slowdown or FPS guarantee.
+New4,992-frame VFR video fully decodes with increasing PTS; old videos/demos remain.
+
+Demo8305 and all receipts/failed attempts/input variance/retention are recorded in
+[the playback checkpoint](../plans/parry-cue-demo.md#playback-hot-path-follow-up-2026-10-26-review-candidate).
+Canonical Ubuntu normal160828/inputacf808ea: build/hash/QA exclusion PASS; exact
+player native17/17 PASS, all six640x360 pages inspected. Demo8305 serves this player
+with the existing offline fixture worker. Final current-source Windows QA passes
+strict repeat/build,58/58 lightweight trace checks (publisher frozen throughout
+tutorial and resumed afterward) and104/104 input checks again. Final priority
+render gaps18.455?19.955ms; resource calls peak0.355ms. Final QA source/binary
+provenance is the explicit post-build hash receipt in the checkpoint, not the
+inherited local snapshot marker. Main integration is deferred for review.
+
 ## Tutorial atlas streaming (2026-10-26; review branch)
 
 Ubuntu2022.3.25f1 scoped receipts cover eight unique tutorial tests, including all

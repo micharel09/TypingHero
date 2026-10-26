@@ -372,6 +372,17 @@ Change only behavior explicitly requested. Update this file after relevant verif
   HUD1/6, Start Battle, restart/menu, disable and destroy clear sprite references
   and unload owned sprites/textures/descriptors. Obsolete completions only clean up;
   future visits load fresh resource objects. No static cache or global asset sweep.
+- Atlas handoff protects the currently displayed page during `Get`, assigns the
+  destination sprite directly, then calls `CommitDisplay` to retire the old page
+  and prefetch again. Stable same-frame ticks leave Image/guidance/visibility
+  untouched; loading/error captions change only with their content. The cache
+  reuses its two-key retirement buffer; request closures are created only when a
+  load starts. Scoped warmed cache/render/tick operations allocate0bytes, with
+  zero Image dirty callbacks for held or loading frames. Modal Canvas rebuilding
+  follows Unity's normal cycle; HUD1/6 keeps its geometry-dependent forced update.
+  Playback retains original timing and the existing missing-load/Pause hold policy.
+  QA trace collection is compiled out of normal players. Evidence and limits:
+  [playback follow-up](../plans/parry-cue-demo.md#playback-hot-path-follow-up-2026-10-26-review-candidate).
 - Typing shows a fresh word and real HP loss; mistakes show reset while the timer
   continues and then replaces the word. A newly recorded complete parry sequence
   shows success, recovery, a missed parry and HP loss. Slayer shows

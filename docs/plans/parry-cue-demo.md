@@ -739,3 +739,165 @@ Host PID is recorded in `atlas-host.pid`; restart with `Start-Atlas-Demo.ps1` in
 evidence root. Stop/remove only these task resources after review or integration;
 do not remove the old demo before acceptance. No main merge is authorized for this
 handoff. Implementation/testing are complete; user visual acceptance remains open.
+
+### Playback hot-path follow-up (2026-10-26; review candidate)
+
+Continue `micharel09/tutorial-full-gameplay` from `ce9b87a5` in the same clean
+review worktree. Keep main unmerged and retain demos8303/8304. Candidate demo
+target8305; do not replace an accepted player before candidate verification.
+
+Implementation: `Get` protects the displayed atlas until the Image references its
+destination; `CommitDisplay` then retires the old page and starts next prefetch.
+The two-entry dictionary and reusable key buffer avoid temporary collections.
+Request completion closures live in `BeginLoad`, outside steady `Pump` calls.
+Unchanged frames return without Image/guidance/visibility writes; loading/error
+captions change only when text changes. Modal playback no longer forces Canvas
+rebuilds; HUD1/6 keeps its geometry-dependent rebuild. No clock-policy change yet:
+only confirmed resource-work contamination authorizes the proposed clock fix.
+
+QA-only trace uses16,384 struct records, monotonic timestamps, requested/accepted
+clock, displayed frame/atlas, waiting/session/slot state and resource call events.
+`Canvas.willRenderCanvases` records at most once per Unity frame. The observation
+bridge exports after measurement and synchronizes Unity/browser timestamps;
+overflow invalidates evidence. WebGL observer records upload/delete start/end
+and fixed-buffer rAF cadence. Capture acknowledges before asynchronous file IO;
+backlog/IO/ack failure invalidates capture rather than silently dropping images.
+
+Evidence root remains `E:/CodexTemp/TypingHero/space-press-cue`:
+
+- `streaming-review/preservation.json`:149 tracked tutorial PNG/manifest/importer/
+  descriptor/scene files match ce9b87a5 (text checkout newlines normalized).
+  Prior cel and builder-fixture evidence remains scoped to those unchanged files.
+- `streaming-baseline/browser.json`:10/10 checks PASS on the old normal player,
+  without screencast or synchronous PNG writes. Peak2 atlases/30.019043MiB,
+  battle cleanup0; no JavaScript/Unity exceptions. Per-clip rAF/event traces in
+  the same folder: Slayer max rAF20.07ms, Score20.40ms; largest wrapped WebGL
+  upload/delete call0.07ms. The historical133–213ms capture gaps did not recur
+  in this measurement. This suggests capture overhead but does not establish
+  Unity playback continuity or explain every historical gap.
+- Added focused tests for stable cache/render/tick allocation, Image dirty
+  callbacks, displayed-atlas protection and waiting-tick dirty suppression.
+  Supplemental Windows Unity2022.3.25f1: `streaming-local/tests.xml` passes8/9;
+  all1,995 lookups/28 boundaries/five loops and existing tutorial cases pass.
+  The new test passes its0-byte cache/render/tick and0-dirty assertions, then
+  fails an incorrect C# null-after-UnloadAsset assertion. Corrected that fixture
+  to inspect native residency by instance ID, matching the established cache
+  lifecycle test. `streaming-local/stable.xml` passes1/1 on the same runtime:
+  native old-sprite residency ends after Image handoff. Combined9 distinct
+  cases pass across these two runs, not a single9/9 run. Input manifests and
+  failed receipts are retained. First Ubuntu attempt timed out waiting for the
+  shared runner lock without executing Unity. Longer-wait scoped test requests,
+  QA and normal builds are queued; other jobs are preserved. Windows QA build
+  is supplemental early trace preparation and does not replace Ubuntu acceptance.
+- First queued Ubuntu input8bcebfae (`20261026T152903-quick`) passes8/9, with
+  the new test failing because the prefetched destination is null. This is the
+  intermediate `Get` implementation that evicted following when held==current,
+  already corrected before final build requests. Retained in `streaming-ubuntu-first`;
+  do not cite it as final runtime evidence. Current QA input728fddcf is building.
+- Windows QA strict repeat builder/build PASS in `streaming-local/qa.log`.
+  `streaming-local-trace/browser.json`:51/51 PASS, explicit coverage of all33
+  atlas boundary/loop pairs, no buffer overflow, GPU bound and battle cleanup0.
+  Each selected priority transition has adjacent render gap17.965–19.310ms:
+  Slayer2→3=19.310,4→5=18.745,9→10=17.965; Score9→10=18.280,10→0=18.315.
+  Synchronous resource calls across the measured clips peak0.440ms. Clip-only
+  tick gaps peak32.455ms; export/previous-lesson records are excluded by step/session
+  when computing these metrics, not silently discarded. Raw records remain.
+  No133–213ms gap or resource-caused clock jump was observed; keep existing clock.
+- `streaming-local-integration/browser.json`:104/104 real-input checks PASS,
+  six pages at1280x720/640x360, Enter-release/Back/Pause/Resume/Start, clean battle,
+  actual parry, viewed/replay/restart/navigation and no exceptions/provider IO.
+  Directly inspected all13 page/parry screenshots; hashes/manual observations
+  in `streaming-review/local-ui-review.json`. QA-only F6 overlay is expected.
+
+Current accepted evidence:
+
+- Ubuntu `20261026T160709-quick`, inputd0f5f956:9/9 tutorial tests PASS,
+  0failed/skipped,29.4497702s. All1,995 lookups/28 boundaries/five loops,
+ 0-byte warmed cache/render/tick loops,0 Image dirty callbacks, safe native
+  residency handoff and loading/navigation/error/lifecycle checks pass.
+- Ubuntu QA `20261026T153705-webgl`, input728fddcf: strict repeat builder and
+  build PASS. Initial invocation omitted the tutorial scenario and accidentally
+  entered the default browser harness, which failed finding NameInput; that whole
+  profile is NOT a pass. Preserved the still-unchanged build-qa output before any
+  later QA build, downloaded and verified all33 file hashes in `streaming-ubuntu-qa`.
+  Correct scoped native trace `streaming-ubuntu-trace/browser.json` passes51/51,
+  with all33 explicit pairs, fixed buffers valid, two slots and battle cleanup0.
+  Resource calls peak0.725ms; five priority render gaps16.875?22.965ms.
+- Windows normal capture `streaming-normal/browser.json`:34/34 PASS,
+  Edge156/D3D11; actual tutorial texture peak2/30.019043MiB. HUD, Back, battle,
+  menu, viewed encounter clone, restart/replay and exit-loading cleanup all0.
+  Real Space parry visibly reduces Guard; no QA globals/exceptions/provider IO.
+  Capture validity: no backlog, disk or ack errors. `streaming-driver/streaming-normal.cjs`
+  acknowledges before async writes; the tracked observer matches its deployed copy.
+- Initial normal exclusion found the empty TutorialPlaybackTrace type name in
+  metadata, despite no bridge/buffer. Wrapped the entire type in the QA define;
+  `streaming-local/normal-final-exclusion.json` verifies all33 final normal files
+  and excludes five QA/type markers in every JS/WASM/data payload (ASCII/UTF16).
+  Post-packaging normal `streaming-normal-final-small` passes17/17; six640x360
+  page images directly inspected. This packaging-only change does not alter
+  active normal playback or serialized assets, so existing capture/input coverage
+  remains applicable. One later QA-only provenance correction records the captured
+  request epoch on completion; stable-session measured traces are unaffected.
+  Final-source warmed allocation/dirty/handoff check passes again in
+  `streaming-local/stable-final.xml` (1/1,3.8508793s); source hashes/variance in
+  `streaming-review/final-source.json`.
+- Complete registered33-segment visual review:528/528 compositor images,
+  495/495 consecutive pairs directly inspected, including all held/repeated frames.
+  Selection policy was recorded before capture/review; each interval spans150ms
+  on either side of its boundary bracket midpoint, without sampling. Full-room
+  gameplay, captions and guidance remain visible. Source loop resets are deliberate;
+  original short cels may be skipped at real-time cadence, per agreed policy.
+  Sources/timestamps/hashes and manual interval observations are in
+  `streaming-review/boundaries/full-segment-review.json`. Existing1,995-cel art
+  review is reused for unchanged pixels/SpriteRects/durations, not recertified.
+- `streaming-review/priority-comparison.json` retains exact before/after values.
+  Old selected-window maximum gaps:213.021/186.828/200.301/133.370/132.943ms;
+  new maxima:19.065/19.137/19.229/19.780/19.439ms. The last old gap is AFTER
+  Score loop0?8; its actual atlas10?0 pair is13.769ms. Current no-capture Unity
+  traces and separate capture support continuous streaming in this measurement.
+  The exact cause of every historical gap remains UNVERIFIED, because the original
+  capture had no Unity render trace. Evidence suggests capture-path overhead;
+  do not call it a proven historic root cause. No clock fix/clamp/slowdown added.
+- New `Tutorial-Atlas-Playback.mp4`:4,991 chronological source PNGs,
+  4,992 encoded VFR frames, complete1280x720 UI,500ms terminal hold, full decode
+  and increasing PTS PASS; SHA256
+  `4f524a8357b3b2c89cc2660eaea705d2f9223a14f311e5ccc834b477d0f4efb3`.
+  `streaming-review/clip.json` records original timing. This video is a viewing aid;
+  direct frame review above covers the33 complete selected intervals.
+- Demo8305 now serves canonical Ubuntu160828/inputacf808ea normal and the new video.
+  HTTP31 player payload hashes/video MIME+hash and the intentional existing offline
+  fixture worker pass; browser bootstrap/worker/no QA globals/no exceptions pass.
+  Receipts: `streaming-review/demo-http.json`, `demo-browser.json`; host PID6136,
+  script `Start-Streaming-Demo.ps1`. Existing8303/8304/player/videos remain intact.
+- Superseded Ubuntu normal160210/input728fddcf was stopped only after verifying its
+  exact task container/result mount. It predates the metadata fix; exit143 is a
+  deliberate cancellation, not a build pass. Final Ubuntu normal160828/inputacf808ea
+  build PASS;33 downloaded hashes match remote, normal payload QA/type exclusion
+  PASS. Native `streaming-ubuntu-normal-small`17/17 PASS; all six640x360 images
+  directly inspected. The17-case smoke targets packaging/host change; unchanged
+  playback/lifecycle coverage is reused from normal34/QA104 and the33-segment
+  review. Other runner jobs/resources are preserved.
+
+Final QA-only refinement: suspend the existing per-frame combat JSON publisher
+while TutorialRun is active; the fixed tutorial trace and regular100ms state
+observation remain. Resume combat observation after Start Battle. This keeps the
+lightweight measurement from serializing unrelated combat JSON each tutorial frame.
+Final Windows QA build/strict repeat PASS (`streaming-local/qa-final.log`).
+`streaming-final-trace`58/58 PASS explicitly proves no per-frame combat publication
+through all five lessons and resumed publication after Start. All33 pairs/buffers/
+GPU cleanup pass; final priority render gaps18.455?19.955ms, synchronous resource
+calls peak0.355ms. `streaming-final-integration`104/104 PASS again, including actual
+parry after Start. No exceptions/provider IO. Final QA-only edits are compiled and
+verified here; normal results remain applicable because these types are excluded.
+The inherited local snapshot marker predates the last QA edits: reports explicitly
+flag it rather than claiming it is current. `streaming-review/final-qa-source.json`
+records actual final source hashes (matched to repository) and33 player hashes after
+build; this is a recovered post-build receipt, not a fabricated pre-build snapshot.
+
+Implementation and requested scoped checks are complete. Exact commit/push/remote
+verification is recorded at handoff in `streaming-review/handoff.json`. Keep the review worktree/branch and the streaming-* evidence/demo
+resources until user review/integration; remove only these owned resources afterward.
+The retained `streaming-local/source/Library` is a junction to the pre-existing
+`unity-local/source/Library` cache; preserve that older cache when cleaning the
+new source copy after review. No main merge, full-game FPS guarantee, combat
+optimization or external publication.

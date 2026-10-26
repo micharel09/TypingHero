@@ -16,6 +16,18 @@ using UnityEngine.Rendering.Universal;
 [DefaultExecutionOrder(2000)]
 public sealed class GameLoopProbe : MonoBehaviour
 {
+    // Observation request: export after the measured interval, never each frame.
+    public void ExportTutorialTrace()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        TypingHeroQA_TutorialClock(Time.realtimeSinceStartupAsDouble);
+        TypingHeroQA_TutorialTrace(TutorialPlaybackTrace.ReadAndClear());
+#endif
+    }
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")] static extern void TypingHeroQA_TutorialTrace(string json);
+    [DllImport("__Internal")] static extern void TypingHeroQA_TutorialClock(double now);
+#endif
     [Serializable] sealed class SortingFrame
     {
         public int order, enemyOrder, attackMask, parryMask, mismatches, frame;
@@ -221,6 +233,8 @@ public sealed class GameLoopProbe : MonoBehaviour
     }
     void LateUpdate()
     {
+        // Tutorial timing uses the fixed trace, not the per-frame combat JSON publisher.
+        if (TutorialRun.Active) return;
         PublishCombatFrame();
         if (!sortingAnimator || !sortingSprite) return;
         var info = sortingAnimator.IsInTransition(0) ? sortingAnimator.GetNextAnimatorStateInfo(0)

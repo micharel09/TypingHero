@@ -64,6 +64,72 @@ public sealed class TutorialTests
     }
 
     [UnityTest, Category("Quick")]
+    public IEnumerator StablePlaybackAndCacheAllocateNothingAndDoNotDirtyImage()
+    {
+        TutorialRun.Begin();
+        yield return DungeonSceneTestFlow.Start();
+        var overlay = Object.FindObjectOfType<TutorialOverlay>();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        var render = (System.Func<bool>)System.Delegate.CreateDelegate(typeof(System.Func<bool>), overlay,
+            typeof(TutorialOverlay).GetMethod("RenderClip", flags));
+        var advance = (System.Action<float>)System.Delegate.CreateDelegate(typeof(System.Action<float>), overlay,
+            typeof(TutorialOverlay).GetMethod("AdvanceClip", flags));
+        var cache = (TutorialAtlasCache)typeof(TutorialOverlay).GetField("atlasCache", flags).GetValue(overlay);
+        var image = overlay.transform.Find("Reference960x540/ParryModal/Panel/Clip").GetComponent<Image>();
+        Object.FindObjectOfType<GamePauseController>().TogglePause(true);
+        overlay.ShowStep(1);
+        float deadline = Time.realtimeSinceStartup + 15;
+        while (!render() && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(image.sprite, Is.Not.Null);
+        // Wait for prefetch too; resource request allocations are outside the measured loop.
+        var loading = typeof(TutorialAtlasCache).GetField("loading", flags);
+        while (loading.GetValue(cache) != null && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(loading.GetValue(cache), Is.Null);
+        int dirty = 0;
+        UnityEngine.Events.UnityAction onDirty = () => dirty++;
+        image.RegisterDirtyVerticesCallback(onDirty);
+        image.RegisterDirtyMaterialCallback(onDirty);
+        image.RegisterDirtyLayoutCallback(onDirty);
+        try
+        {
+            for (int i = 0; i < 32; i++) { render(); advance(0); cache.Get("Tutorial/typing-0", "Tutorial/typing-1", "Tutorial/typing-0"); }
+            long before = System.GC.GetAllocatedBytesForCurrentThread();
+            for (int i = 0; i < 1000; i++) render();
+            long renderBytes = System.GC.GetAllocatedBytesForCurrentThread() - before;
+            before = System.GC.GetAllocatedBytesForCurrentThread();
+            for (int i = 0; i < 1000; i++) advance(0);
+            long tickBytes = System.GC.GetAllocatedBytesForCurrentThread() - before;
+            before = System.GC.GetAllocatedBytesForCurrentThread();
+            for (int i = 0; i < 1000; i++) cache.Get("Tutorial/typing-0", "Tutorial/typing-1", "Tutorial/typing-0");
+            long cacheBytes = System.GC.GetAllocatedBytesForCurrentThread() - before;
+            Assert.That(renderBytes, Is.Zero, "same-frame render bytes");
+            Assert.That(tickBytes, Is.Zero, "same-frame tick bytes");
+            Assert.That(cacheBytes, Is.Zero, "stable cache bytes");
+            Assert.That(dirty, Is.Zero, "same frame never dirties Image");
+            var held = image.sprite;
+            int heldId = held.GetInstanceID();
+            var destination = cache.Get("Tutorial/typing-1", null, "Tutorial/typing-0");
+            Assert.That(destination, Is.Not.Null);
+            Assert.That(held && held.texture, Is.True, "Get protects displayed atlas even when destination is ready");
+            Assert.That(image.sprite, Is.SameAs(held));
+            Assert.That(dirty, Is.Zero);
+            image.sprite = destination.sprites[0];
+            Assert.That(dirty, Is.GreaterThan(0), "new sprite updates Image");
+            cache.CommitDisplay("Tutorial/typing-1");
+            Assert.That(image.sprite.texture, Is.SameAs(destination.texture));
+            Assert.That(Resources.FindObjectsOfTypeAll<Sprite>().Any(sprite => sprite.GetInstanceID() == heldId),
+                Is.False, "old sprite is no longer resident after handoff");
+        }
+        finally
+        {
+            image.UnregisterDirtyVerticesCallback(onDirty);
+            image.UnregisterDirtyMaterialCallback(onDirty);
+            image.UnregisterDirtyLayoutCallback(onDirty);
+            overlay.ReleaseClip();
+        }
+    }
+
+    [UnityTest, Category("Quick")]
     public IEnumerator AtlasCacheReloadsAndRetiresObsoleteRequestsWithinTwoSlots()
     {
         var cache = new TutorialAtlasCache();
@@ -199,12 +265,17 @@ public sealed class TutorialTests
         int distant = System.Array.FindIndex(lesson.frameAtlas, atlas => atlas == 4);
         double blockedTime = lesson.durations.Take(distant).Sum(value => (double)value);
         var held = image.sprite;
+        int dirty = 0;
+        UnityEngine.Events.UnityAction onDirty = () => dirty++;
+        image.RegisterDirtyVerticesCallback(onDirty);
         var caption = overlay.transform.Find("Reference960x540/ParryModal/Panel/Guidance/Caption").GetComponent<TMPro.TMP_Text>();
         string heldCaption = caption.text;
         clock.SetValue(overlay, blockedTime);
         var advance = typeof(TutorialOverlay).GetMethod("AdvanceClip", flags);
         advance.Invoke(overlay, new object[] { .01f });
         advance.Invoke(overlay, new object[] { 10f });
+        image.UnregisterDirtyVerticesCallback(onDirty);
+        Assert.That(dirty, Is.Zero, "waiting ticks preserve Image without dirtying it");
         Assert.That((double)clock.GetValue(overlay), Is.EqualTo(blockedTime), "waiting never accumulates wall time");
         Assert.That(image.sprite, Is.SameAs(held));
         Assert.That(caption.text, Is.EqualTo(heldCaption));

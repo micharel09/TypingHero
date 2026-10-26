@@ -51,8 +51,15 @@ public sealed class TutorialOverlay : MonoBehaviour
     string displayedAtlas;
     double clipTime, pendingTime;
     int step;
+    int displayedFrame = -1;
     internal int StepCount => lessons.Length + 1;
-    void OnEnable() => ShowStep(0);
+    void OnEnable()
+    {
+        ShowStep(0);
+#if TYPINGHERO_AUTOMATION
+        Canvas.willRenderCanvases += TraceRender;
+#endif
+    }
 
     internal void BindBack(UnityEngine.Events.UnityAction action) => backButton.onClick.AddListener(action);
 
@@ -84,10 +91,17 @@ public sealed class TutorialOverlay : MonoBehaviour
         SetClipVisible(false);
         frameReady = waitingForFrame = false;
         displayedAtlas = null;
+        displayedFrame = -1;
         atlasCache.Clear();
     }
 
-    void OnDisable() => ReleaseClip();
+    void OnDisable()
+    {
+#if TYPINGHERO_AUTOMATION
+        Canvas.willRenderCanvases -= TraceRender;
+#endif
+        ReleaseClip();
+    }
     void OnDestroy() => ReleaseClip();
 
     void SetClipVisible(bool visible)
@@ -111,25 +125,24 @@ public sealed class TutorialOverlay : MonoBehaviour
         int frame = 0;
         double boundary = lesson.durations[0];
         while (frame < lesson.frameAtlas.Length - 1 && time >= boundary) boundary += lesson.durations[++frame];
+        if (frameReady && frame == displayedFrame) return true;
         int atlas = lesson.frameAtlas[frame];
         string path = lesson.atlasPaths[atlas];
         string following = lesson.atlasPaths[(atlas + 1) % lesson.atlasPaths.Length];
-        // Remove the UI reference before Get can evict its atlas.
-        var previous = clipImage.sprite;
-        clipImage.sprite = null;
         var page = atlasCache.Get(path, following, displayedAtlas);
         if (!page)
         {
-            clipImage.sprite = previous;
-            if (!frameReady) { SetClipVisible(false); clipCaption.text = atlasCache.Error ?? "Loading..."; }
-            else if (atlasCache.Error != null) clipCaption.text = atlasCache.Error;
+            if (!frameReady) SetCaption(atlasCache.Error ?? "Loading...");
+            else if (atlasCache.Error != null) SetCaption(atlasCache.Error);
             return false;
         }
         clipImage.sprite = page.sprites[lesson.frameSprite[frame]];
         displayedAtlas = path;
+        displayedFrame = frame;
+        atlasCache.CommitDisplay(path);
         frameReady = true;
-        SetClipVisible(true);
-        clipCaption.text = lesson.captions[frame];
+        if (!clipImage.enabled) SetClipVisible(true);
+        SetCaption(lesson.captions[frame]);
         var guide = lesson.guidance[frame];
         clipFocus.anchoredPosition = new Vector2(guide.focus.x, -guide.focus.y);
         clipFocus.sizeDelta = guide.focus.size;
@@ -161,10 +174,16 @@ public sealed class TutorialOverlay : MonoBehaviour
         return true;
     }
 
+    void SetCaption(string value)
+    {
+        if (clipCaption.text != value) clipCaption.text = value;
+    }
+
     void AdvanceClip(float delta)
     {
         double previousTime = clipTime;
         if (frameReady) clipTime = waitingForFrame ? pendingTime : clipTime + delta;
+        double requested = clipTime;
         if (RenderClip()) waitingForFrame = false;
         else
         {
@@ -173,7 +192,27 @@ public sealed class TutorialOverlay : MonoBehaviour
             waitingForFrame = frameReady;
             clipTime = previousTime;
         }
+        TracePlayback("tick", requested);
     }
+
+    [System.Diagnostics.Conditional("TYPINGHERO_AUTOMATION")]
+    void TracePlayback(string kind, double requested)
+    {
+#if TYPINGHERO_AUTOMATION
+        TutorialPlaybackTrace.Playback(kind, step, requested, clipTime, displayedFrame,
+            displayedAtlas, waitingForFrame, atlasCache.Session, atlasCache.SlotCount);
+#endif
+    }
+
+#if TYPINGHERO_AUTOMATION
+    int lastRenderFrame = -1;
+    void TraceRender()
+    {
+        if (step == 0 || !canvas || !canvas.enabled || lastRenderFrame == Time.frameCount) return;
+        lastRenderFrame = Time.frameCount;
+        TracePlayback("render", clipTime);
+    }
+#endif
 
     Canvas canvas;
     CanvasGroup interaction;
@@ -185,8 +224,8 @@ public sealed class TutorialOverlay : MonoBehaviour
         interaction.interactable = interaction.blocksRaycasts = canvas.enabled;
         if (!canvas.enabled) return;
         if (TutorialRun.Active && step > 0) AdvanceClip(Time.unscaledDeltaTime);
-        Canvas.ForceUpdateCanvases();
         if (step > 0) return;
+        Canvas.ForceUpdateCanvases();
         foreach (var arrow in arrows)
         {
             var root = (RectTransform)arrow.shaft.parent;
