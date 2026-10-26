@@ -1,21 +1,37 @@
-## Slayer B contrast follow-up (2026-10-26; requalification pending)
+## Slayer B contrast follow-up (2026-10-27; technical checks pass, visual gate open)
 
 Candidate51b500d adds isolated130/150ms+20ms body flash, chained F0 contact20ms,
 and chained F4 contact20ms plus peak70-90ms. Artwork, black B, anchors, scale and
 240/280ms B timing remain unchanged. New contacts replace pending flash schedules.
-Initial74 plus final8 selected cases produced81distinct passes, but those results
-are provisional: private QA155415 executed a cached TutorialBuild.ImportCapture
-method absent from candidate source, then failed on missing TutorialParry/typing.json.
-No tutorial asset/fallback is added to conceal the foreign-assembly problem.
-All private compiled/import cache is isolated; only pinned PackageCache remains.
-A clean-source81-case run precedes the final QA under the same private runner lock.
+Authoritative clean-source161056-webgl:81/81selected PlayMode tests pass,0failed/
+skipped,4.3771984s. QA build and strict repeated builder pass under the same private
+runner lock. Input e99fe0c1965608aa352f29498621b192d8ec655c248f241fb134080285b3978f,
+player9f1c923ff0fa800e;2495/2495input files,252C# and33/33player hashes match.
+This supersedes provisional cached74/8runs. Failed155415's foreign editor assembly
+is preserved as evidence; clean editor assembly excludes the absent ImportCapture/
+TutorialParry methods. No tutorial fallback or unrelated asset was added.
 
 Lossless VFR exporter verifies decoded pixels, every PTS/duration, ending hold,
 and video/container length. Historical301/727/314-frame clips pass export checks;
 after the concrete export correction, shield1x passes technically, axe1x still
 drops4frames. Failed reports remain intact. New capture uses only canvas
 MediaRecorder, real keys/mouse, read-only QA and provider blocking, with browser
-timestamps and driver/scenario hashes. Runtime/frame/playback acceptance is pending.
+timestamps and driver/scenario hashes. Final1280x720 capture:0exceptions/provider
+reads/writes,1832QA samples,225observed births, all6cels/3angles,179identical pause
+pairs; sampled valid chest distance0, black RGB only. These are sampled observations.
+Requested35ms keys actually measure36.83-58.76ms (median46.8975); exact35/50/69/70/
+100/300ms decisions are covered by Unity, not claimed as runtime cadence.
+
+Final sword470/axe518/shield547frames export with exact decoded pixels, original
+PTS, every duration and final hold; durations9.465/10.539/10.792s. All six new
+technical playback rows at1x/.25x pass with0new dropped/corrupted frames and no
+waiting/stalled/focus/rate errors. Historical failed reports remain unchanged.
+Direct still review covers1535/1535frames and1532/1532pairs in declared segments;
+per-frame CSV records exposed/obscured ink. Readable peaks include axe3437-3441,
+shield4688-4691 and sword1233. Arc/Pause/dark torso obscure other portions.
+Eight of120full-start QA generations have no observed F5; nominal PTS association
+cannot prove the hidden/unsampled phases. Continuous direct motion observations
+at1x/.25x remain unverified, so six technical passes do not qualify visual acceptance.
 Evidence: E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/.
 Main integration remains withheld; [existing checkpoint](../plans/slayer-slash-vfx.md).
 

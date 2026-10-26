@@ -24,13 +24,16 @@ the same primary/recipient/lifetime check selects the schedule before pool mutat
 Legacy retains40ms; pause and existing lifecycle cleanup remain. Root jitter
 on the default Skeleton root is disabled. Shader defaults keep other materials'
 previous output. QA observations add no gameplay setters. Public contracts remain.
-The81distinct scoped Ubuntu results (74initial plus8final, one updated case
-overlaps) are provisional after a foreign cached editor assembly was detected.
-A clean-source81-case rerun and final QA/capture/visual acceptance are pending.
-Historical six-phase capture did not establish clear opening growth at1x; previous
-VP9 playback checks also omitted packet-duration qualification. Corrected lossless
-VFR exports pass pixels/PTS/durations/endpoints; historical shield1x now qualifies,
-axe1x still drops4frames. Main integration remains withheld. Status and clips are
+Clean-source Ubuntu161056-webgl supersedes the provisional cached runs:81/81
+selected tests pass, QA build and strict repeated builder pass. Input e99fe0c1,
+player9f1c923ff0fa800e;2495source files/252C# and33player file hashes match.
+Single canvas recorder capture has0exceptions/provider reads/writes. Final lossless
+VFR exports pass pixels/PTS/every duration/endpoints; all six technical playback
+rows (three weapons at1x/.25x) pass. Direct still review covers1535frames/1532pairs;
+arc/black-body/Pause occlusion and continuous subjective playback remain unverified.
+Eight full-start QA generations lack an observed F5; publication/encoder alignment
+does not establish visibility of those short phases. Historical failed reports
+remain intact. Main integration remains withheld. Status and clips are
 recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
 
 # System and configuration map

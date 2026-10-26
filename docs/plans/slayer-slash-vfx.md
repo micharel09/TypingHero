@@ -1497,3 +1497,90 @@ its compilation log, then builds QA with strict repeat-builder under the same
 private lock. It saves input snapshot even on failure and archives the successful
 player before release. Inpute99fe0c1 remains unchanged; cache isolation is the
 concrete cause-directed change for the retry. Final qualification is pending.
+
+#### Final contrast evidence (2026-10-27; visual acceptance remains unverified)
+
+This supersedes the pending clean-source/build/capture status above. Production
+code is51b500d2, evidence correction d48b860b. Clean private Library retained only
+pinned PackageCache; no old ScriptAssemblies/Bee/import DB. Authoritative run
+161056-webgl passed81/81selected tests,0failed/skipped,4.3771984s, then QA build
+and strict repeated-builder serialization/reference/listener checks. Input
+e99fe0c1965608aa352f29498621b192d8ec655c248f241fb134080285b3978f matches all2495
+files/252C#;33/33Ubuntu player hashes match archived player9f1c923ff0fa800e.
+Clean TypingHero.Editor assembly excludes the foreign ImportCapture/TutorialParry
+methods. Keep155415failure and prior provisional XML; no unrelated tutorial fix.
+
+Final capture uses one canvas MediaRecorder, no Playwright recordVideo. Native
+viewport/canvas1280x720,DPR1; Edge156.0.4314.42, GTX1650Ti ANGLE/D3D11.
+Real keyboard/mouse, read-only observer and provider blocking:0exceptions and
+0provider reads/writes.1832QA publications,225observed births, starts F4/F0,
+all6cels/angles0,45,90; max2impacts. Sampled valid root-to-chest distance0,
+black RGB only,179identical consecutive paused pairs. This does not establish
+every emission or pixel visibility.
+
+Measured within-word Slayer keydown intervals (browser timestamps):
+
+| Requested ms | n | Minimum ms | Median ms | Maximum ms |
+|---|---:|---:|---:|---:|
+|35|36|36.830|46.8975|58.760|
+|50|34|52.070|62.0425|74.440|
+|69|30|71.620|82.7500|90.420|
+|70|33|73.215|78.9850|98.280|
+|100|27|105.095|111.3350|117.600|
+
+67within-word intervals are below70ms,93at least70ms. Observed primary publication
+intervals include56below70 and161at least70, quantized by rendered frames and
+including gaps. Do not relabel requested35ms as achieved35ms. Exact35/50/69/70/
+100/300ms and69/70thresholds are Unity evidence. No production cadence estimator.
+Original B remains240/280ms from F4,170/210ms from F0; flash isolated130/150+20ms,
+chained F0 contact0-20ms, chained F4 contact0-20 plus70-90ms. New accepted contact
+replaces the whole schedule. Artwork/material/GUID/chest/size/direction unchanged.
+
+Segments were declared before extraction, with no skipped interior/repeated frames:
+
+| Clip | Requested source interval s | Frames / pairs inspected | Export duration s | Final hold ms |
+|---|---|---:|---:|---:|
+|sword|18.628-28.101|470/469|9.465|2|
+|axe|67.102-77.654|518/517|10.539|18|
+|sword-shield|90.393-101.194|547/546|10.792|7|
+
+Selection uses start<=PTS<end. First selected PTS may follow requested start by
+capture quantization; no synthetic start frame. The retained boundary-attempt
+failed on a zero ending duration before this rule was corrected. All final clips
+pass lossless decoded pixels, exact relative PTS, every packet duration, frame
+count, ending hold and stream/container duration. No CFR or deduplication.
+All six new technical playback rows pass: three weapons at1x and0.25x,0new
+dropped/corrupted frames, no waiting/stalled/focus/rate error. Old axe1x still has
+4drops after duration correction; old shield1x passes. Do not erase/retry unchanged
+failed reports or treat technical pass as subjective motion observation.
+
+Direct still inspection opened all98sheets with native chest crops and every
+consecutive pair:1535/1535frames,1532/1532pairs. Long peaks are readable on pale
+torso (axe3437-3441, shield4688-4691, sword1233); burst cells alternate ivory,
+gray and black, with exterior fragments shrinking. No large detached mark is
+seen in exposed recovery/death regions. Ink center remains obscured in arc,
+black-body and Pause cells, e.g. sword945-948, axe3491-3492, shield4583-4626.
+Do not claim the complete opening sweep or every core pixel is readable.
+`observer-ranges.json` has a native-pipe encoding failure after F981; preserved
+raw, superseded by English direct-observation notes and the per-frame CSV.
+
+1560phase samples are associated with nearest original PTS using browser recorder
+origin, with explicit alignment uncertainty. Eight of120observed F4-start
+generations have no observed F5; chaining can interrupt the sweep and QA/encoder
+sampling are separate. Those phases remain unverified, not filled from a contract
+or generated image. Continuous subjective1x/.25x playback observations are also
+unverified: still inspection and browser metrics cannot replace them. Consequently
+the original visual gate remains open and main must not be merged.
+
+Permanent evidence root: E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/.
+`review.html` pairs the previous six-phase/40ms-flash build with the final clips;
+`runtime-review/per-frame-review.csv`, `observer-english.txt`, `coverage.json`,
+`capture/cadence-summary.json`, `phase-capture-association.csv`,
+`playback-final-summary.json`, clean XML/build/source identity and failed attempts
+are preserved. Private Ubuntu task runner was removed after checking all4running
+containers had no task mounts; shared library/cache/home/toolchain/source remain.
+Candidate worktree/branch remain for the unverified visual gate; no main merge.
+Final fetch sees origin/main3bfb4f3f (duel-preview frame-stall fix), newer than the
+qualified candidate base. It is not overwritten or merged into this evidence-only
+checkpoint. Before eventual integration, merge that latest main into the candidate
+and recheck affected behavior; current81/build/native receipts qualify e99fe0c1 only.
