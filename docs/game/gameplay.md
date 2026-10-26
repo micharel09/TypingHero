@@ -1,17 +1,22 @@
-## Duel opening (2026-10-25)
+## Duel opening (2026-10-26)
 
 - Play lifts the menu and covers the transition250ms. After gameplay initialization,
   arena/player reveal0-450ms, settle to850ms, low opponent-foot dust850-1350ms
   (120ms feet-up body reveal1040-1160ms; child shadow follows completion),
   opponent name/DUEL x/6 at1350ms, then
-  title/HUD crossfade2000-2400ms. Camera stays at the existing gameplay framing.
+  title exit/status HUD1850-2000ms, word tray1930-2100ms, then a stationary
+  first-word preview2100-2400ms. Camera stays at the existing gameplay framing.
 - Continue/retry:200ms cover plus scene load, then200ms reveal,400ms spawn and
-  400ms title/HUD handoff, with body reveal340-460ms after loading. Existing
-  result/Continue controls are retained.
+  body reveal340-460ms after loading. Title enters460-540ms, holds to750ms,
+  exits750-900ms; status HUD540-640ms, word tray620-700ms, stationary preview
+  700-1000ms. Existing result/Continue controls and total1200ms are retained.
 - Menu and cover close upward together, then the cover opens upward with eased
   endpoints. Spawn dust uses three staggered low clusters. Opponent name moves
   6reference pixels in/out, snapped to the game pixel grid. Status HUD fades before
-  the word tray by80ms; all reach their authored opacity at the same handoff.
+  the word tray by80ms. The word is fully readable for300ms before combat,
+  using existing next-word ink; at handoff it returns to active ink over100ms.
+  Accepted letters immediately take over with normal correct/error feedback.
+  No countdown or first-key timer gate is added.
 - Gameplay locks before gate activation. Words/configuration initialize normally;
   HP, typing timer, score, letters and combat time cannot advance in the intro.
   At handoff the first attack is scheduled500ms after combat opens; typing/parry
@@ -32,6 +37,10 @@
   Pause canvas remains above the cover throughout focus loss. The earlier draft
   dust slab and clipped Pause menu were rejected and corrected before acceptance;
   [checkpoint and evidence scope](../plans/duel-intro.md).
+- First-word preparation follow-up: final Ubuntu Unity6/6 scoped cases and WebGL
+  7a03a2f20df3f514/native65checks pass. All566frame visits/561pairs in five complete
+  output scopes directly reviewed. Navigation cover now occludes the live heading;
+  full/short preview, pause/focus, held input, Menu cleanup and tutorial pass.
 
 ## Reusable world lighting (2026-10-22)
 

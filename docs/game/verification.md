@@ -750,6 +750,25 @@ Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, 
 
 # Verification and performance memory
 
+## Duel first-word preparation (2026-10-26)
+
+- All Unity execution on Ubuntu fly-server, pinned2022.3.25f1/2CPU/8GiB. Final
+  focused DuelIntroTests6/6PASS,0failed/skipped; strict repeat builder and QA build
+  pass at word-preview-20261026/20261026T064955-build under the shared runner root.
+- Source7b86815e04628556532d9c7b077c8dd3bbcc0b84ddf6e2dcf6f59935564ea6bf;
+  281C#/shader/package/version inputs match the worktree afterBOM/CRLF normalization.
+  Serialized build-copy LF normalization resolves an unchanged font byte guard;
+  no repository assets/guard edits. Final player7a03a2f20df3f514,33file manifest.
+- Edge156.0.4314.42/NVIDIA GTX1650Ti/ANGLE D3D11,1280x720:65real-input checks PASS,
+  0exceptions/provider IO. First-word preview/color/timer/input locks, held keys,
+  Continue/retry, pause/focus, Menu cancellation and tutorial reading covered.
+- All566frames/561adjacent pairs in five complete scopes directly reviewed at
+  original25fps PTS, including held frames/page overlaps. Pilot label-over-cover
+  visual failure corrected; final closed cover hides the heading. Existing F6
+  Spark debug label is automation-only. No new FPS/audio/full-suite/release claim.
+- Receipts, original video/ledger and84/42frame Play/Continue excerpts:
+  E:/CodexTemp/TypingHero/duel-word-preview/ . [Checkpoint](../plans/duel-intro.md).
+
 ## Impact pulse emission clock (2026-10-23)
 
 - Base95f978b. Red20261023T070541-quick reproduces1/1 expected failure: an actual
@@ -1875,8 +1894,8 @@ profiles, not a checklist to execute on every task.
   affected gameplay contracts and real-input browser checks when the changed
   integration or user flow needs them. Add viewports only when layout, camera,
   or responsive behavior is affected.
-- The current `quick` runner executes the entire Quick category and exposes no
-  per-test filter. WebGL supports `--browser-scenario skeleton-art` and
+- The `quick` runner supports `--test-filter` for Unity test names; use it for
+  directly affected cases instead of the entire Quick category. WebGL supports `--browser-scenario skeleton-art` and
   `--browser-scenario attack-sorting` and `--browser-scenario score-layout`
   (four-size near-tray HUD plus keyboard Slayer/popup/pause/restart). These do not
   cover arbitrary changes.

@@ -54,6 +54,9 @@ public sealed class DuelIntroTests
         var typing = Find<TypingManager>();
         int hp = player.Current, enemyHp = enemy.Current;
         string word = (string)Field(typing, "current"); float timer = (float)Field(typing, "timer");
+        var wordText = (TMPro.TMP_Text)Field(typing, "wordText");
+        string previewInk = ColorUtility.ToHtmlStringRGB((Color)Field(typing, "nextColor"));
+        float firstPreview = -1, lastPreview = -1;
         Assert.That(GamePauseController.InputBlocked, Is.True);
         Assert.That(((System.Collections.Generic.HashSet<CanvasGroup>)Field(intro, "wordHud")).Count, Is.GreaterThan(0), "word tray is bound independently from status HUD");
         Assert.That(Time.timeScale, Is.EqualTo(1)); Assert.That(AudioListener.pause, Is.False);
@@ -70,16 +73,61 @@ public sealed class DuelIntroTests
             Assert.That((float)Field(intro, "wordAlpha"), Is.LessThanOrEqualTo((float)Field(intro, "hudAlpha")), "word tray follows status HUD");
             Assert.That(ScoreSystem.I.Score, Is.Zero); Assert.That(enemy.IsAttacking, Is.False);
             Assert.That(Field(typing, "current"), Is.EqualTo(word)); Assert.That(Field(typing, "timer"), Is.EqualTo(timer));
+            Assert.That((bool)Field(typing, "introPreview"), Is.True);
+            Assert.That(wordText.text, Does.Contain("<color=#" + previewInk + ">" + word));
+            if ((float)Field(intro, "wordAlpha") == 1)
+            {
+                if (firstPreview < 0) firstPreview = intro.Elapsed;
+                lastPreview = intro.Elapsed;
+            }
             yield return null;
         }
         Assert.That(intro.Running, Is.False, $"intro elapsed={intro.Elapsed}, paused={GamePauseController.IsPaused}, frozen={GamePauseController.PresentationFrozen}");
         Assert.That(Time.realtimeSinceStartup - start, Is.InRange(2.1f, 3.5f));
+        Assert.That(firstPreview, Is.InRange(2.1f, 2.17f));
+        Assert.That(lastPreview - firstPreview, Is.GreaterThan(.22f), "readable stationary preview before combat");
+        Assert.That((bool)Field(typing, "introPreview"), Is.False);
+        Assert.That((float)Field(typing, "introStartRemaining"), Is.GreaterThan(0));
         Assert.That((float)Field(enemy, "_nextAttackAt") - Time.time, Is.InRange(.4f, .51f));
         yield return Finished();
         Assert.That(GamePauseController.InputBlocked, Is.False);
         Assert.That(enemy.GetComponent<Renderer>().forceRenderingOff, Is.False);
         typing.ProcessInput(word.Substring(0, 1)); Assert.That(CombatSession.I.Letters, Is.EqualTo(1));
+        Assert.That((float)Field(typing, "introStartRemaining"), Is.Zero, "typing feedback supersedes start cue");
         Assert.That(Field(ScoreSystem.I, "_paused"), Is.False);
+    }
+    [UnityTest, Category("Quick")]
+    public IEnumerator ShortPreviewPausesWithoutConsumingWordAndCancelDoesNotSignalCombat()
+    {
+        session.BeginGame(); yield return Finished();
+        EndlessRun.Restart(); session.ReloadGameplay();
+        yield return new WaitForSecondsRealtime(.3f); yield return Activated();
+        var intro = Find<DuelIntroPresentation>(); var typing = Find<TypingManager>();
+        float deadline = Time.realtimeSinceStartup + 6;
+        while (intro.Elapsed < .71f && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(intro.Running, Is.True); Assert.That(intro.Elapsed, Is.LessThan(.9f));
+        Assert.That((float)Field(intro, "wordAlpha"), Is.EqualTo(1));
+        string word = (string)Field(typing, "current"); float timer = (float)Field(typing, "timer");
+        var pause = Find<GamePauseController>(); pause.SendMessage("OnApplicationFocus", false);
+        float held = intro.Elapsed;
+        typing.ProcessInput(word); yield return new WaitForSecondsRealtime(.2f);
+        Assert.That(intro.Elapsed, Is.EqualTo(held));
+        Assert.That(Field(typing, "current"), Is.EqualTo(word)); Assert.That(Field(typing, "timer"), Is.EqualTo(timer));
+        Assert.That(CombatSession.I.Letters, Is.Zero);
+        pause.Resume(); yield return Finished();
+        Assert.That(intro.Elapsed, Is.EqualTo(1f));
+        // The real handoff starts its color cue; Pause must hold that cue as well.
+        typing.BeginIntroPreview(); typing.EndIntroPreview(true);
+        pause.SendMessage("OnApplicationFocus", false);
+        yield return new WaitForSecondsRealtime(.15f);
+        Assert.That((float)Field(typing, "introStartRemaining"), Is.EqualTo(.1f));
+        pause.Resume(); yield return new WaitForSecondsRealtime(.4f);
+        Assert.That((float)Field(typing, "introStartRemaining"), Is.Zero);
+        typing.BeginIntroPreview(); typing.EndIntroPreview(false);
+        Assert.That((bool)Field(typing, "introPreview"), Is.False);
+        Assert.That((float)Field(typing, "introStartRemaining"), Is.Zero);
+        string activeInk = ColorUtility.ToHtmlStringRGB((Color)Field(typing, "currentColor"));
+        Assert.That(((TMPro.TMP_Text)Field(typing, "wordText")).text, Does.Contain("<color=#" + activeInk + ">"));
     }
     [UnityTest, Category("Quick")]
     public IEnumerator PauseAndFocusFreezeIntroAndDustThenResumeAtSameMilestone()
@@ -117,9 +165,13 @@ public sealed class DuelIntroTests
         yield return new WaitForSecondsRealtime(.3f); yield return Activated();
         var intro = Find<DuelIntroPresentation>();
         float deadline = Time.realtimeSinceStartup + 6;
-        while (intro.Elapsed < .4f && Time.realtimeSinceStartup < deadline) yield return null;
-        Assert.That(intro.Elapsed, Is.GreaterThanOrEqualTo(.4f));
-        session.ReturnToMenu(); yield return Finished();
+        while (intro.Elapsed < .75f && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(intro.Elapsed, Is.GreaterThanOrEqualTo(.75f));
+        session.ReturnToMenu(); yield return null;
+        Assert.That(((RectTransform)Field(intro, "curtain")).GetSiblingIndex(),
+            Is.GreaterThan(((TMPro.TMP_Text)Field(intro, "label")).transform.GetSiblingIndex()),
+            "navigation cover also occludes the live opponent heading");
+        yield return Finished();
         Assert.That(session.World, Is.SameAs(world)); Assert.That(GamePauseController.InputBlocked, Is.False);
         Assert.That(Object.FindObjectOfType<SkeletonController>(), Is.Null);
         Assert.That(intro.Running, Is.False);
@@ -161,6 +213,7 @@ public sealed class DuelIntroTests
         TutorialRun.Begin(); session.BeginGame(); yield return Finished();
         Assert.That(TutorialRun.Active, Is.True); Assert.That(GamePauseController.InputBlocked, Is.True);
         Assert.That(Time.timeScale, Is.Zero);
+        Assert.That((bool)Field(Find<TypingManager>(), "introPreview"), Is.False);
         Assert.That(Find<DuelIntroPresentation>().Running, Is.False);
         Assert.That(Find<SkeletonController>().GetComponent<Renderer>().forceRenderingOff, Is.False);
         Assert.That(Find<DuelIntroPresentation>().transform.GetComponentsInChildren<ParticleSystem>().Length, Is.Zero);
