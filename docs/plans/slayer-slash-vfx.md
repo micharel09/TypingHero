@@ -1071,9 +1071,9 @@ observations, not exhaustive-review counts. Viewer: final-capture/open-clips.htm
 | Alpha centroid, frame offset and pool reset | Original texture weighted pixels transformed through actual renderer match root; four frames, both roles; real instance reuse |
 | Duration and overlap | Existing EveryFrame/Recipient tests plus native maximum2overlap |
 
-All requested scoped test and final-build/capture/review gates are satisfied with
-the explicit visibility limits above. Ready for commit/push/integration; remote
-integration verification remains a separate final step. Retain all prior failures,
+Historical acceptance statement, superseded by the playback-quality audit below:
+the scoped tests/build/capture and frame review were recorded as satisfied, but
+playback quality was not established by the old driver. Retain all prior failures,
 XML, player/input archives, clips and review artifacts under the existing E: root
 and the immutable remote result until user review/reproduction is complete.
 
@@ -1110,3 +1110,95 @@ No publication/deployment. Keep the existing E: evidence/cache and immutable Ubu
 result for review/reproduction; remove only the clean restored D: task checkout
 and local branch after final remote verification. Pre-existing worktrees and remote
 branches are preserved.
+
+### Playback-quality audit (2026-10-26)
+
+**Acceptance remains unverified.** This supersedes the earlier overall acceptance
+and the quality conclusion inferred from `playback.json`. No production defect
+was established; no gameplay/API, PNG/GUID, black color, 120/160ms lifetime,
+overlap limit or `combo_end` changed. This branch contains documentation only.
+
+Evidence root: `E:/CodexTemp/TypingHero/enemy-chest-anchor/`.
+All links below point to retained local evidence, not repository files.
+
+- [Hash/order/path/timing audit](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/evidence-audit-20261026.json):
+  all 33 player files match the build receipt; 2,490/2,494 normalized source
+  inputs match. The four differences are exactly the recorded upstream intro/
+  typing/probe/test changes. Player `104dd2400c6dba53` remains **pre-merge**,
+  input `15bd6781c5fc751631c7ae323a7eea1b03f577796d3d5256e301a831535e55bf`.
+  [Source/player receipt](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/final-build-receipt.json).
+- Reused selected evidence: 14 unchanged cases from
+  [062003 XML](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/ubuntu-062003-tests.xml),
+  six final cases from [063715 XML](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/ubuntu-063715-tests.xml)
+  and three affected cases from [074357 XML](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/ubuntu-074357-merged-tests.xml).
+  These are 23 distinct selected passing cases, not a whole-suite run on the final
+  commit. The first XML contains 18 cases; only its 14 unchanged cases are reused.
+  [Selected set](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/selected-final.json).
+  No new Unity run, build or capture was performed.
+- [Manifest](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/manifest.json)
+  and [export timing/hashes](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/export-timing.json)
+  match all three clips, all sheet hashes and ledger PTS/durations/image paths.
+  Original scopes stay sword 240/239, axe 273/272, shield 276/275 frames/pairs.
+  Raw-video SHA256 remains `9694e371970eecee90d61c40e955e62fcd16bc21af03d1202c12652cf496a560`.
+
+[Qualified frame ledger](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/per-frame-review-qualified.csv)
+separates reused inspection, visible-feature conclusions, occlusion, independent
+center conclusions and geometry evidence for all 789 rows. Original-frame hashes,
+next-frame paths and sheet boundaries are included. The original ledger is intact.
+[Supplementary image observations](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/supplementary-observations-20261026.json)
+record original frames 387/388/389, 1693/1694/1695 and 2311/2312/2313 with their
+adjacent pairs and three corresponding sheets opened again. Visible extensions
+and shortening tails agree with the prior torso-region observations. Black body/
+shield interiors, ivory arcs and Pause UI still prevent independent center review.
+This supplements the reused complete review; it is not a new 789-frame inspection.
+
+[Measurements](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/measurements.json)
+now separates geometry, visible-frame review and playback. Original measurements
+are preserved as `measurements-before-playback-audit.json`. Root-anchor distance
+zero and centroid tests support geometry only; they do not prove a hidden center
+was seen. Visible-frame conclusions apply only to the features actually recorded.
+
+[Revised driver](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-verified.cjs)
+creates a unique run ID and new video element, waits for load/seek/foreground and
+records clip hash, browser/version, viewport, speed, start time, callbackCount,
+per-callback presentedFrames/mediaTime/timestamps, quality counters and media/
+focus/visibility events. Callback data stays in memory. Results and partial
+timeout/error evidence are saved after each attempt. Media deadline is duration/
+rate +15s; the host watchdog adds 1s if the browser becomes unresponsive.
+Final attempts use Edge 156.0.4314.42 and the same driver with software video decoding requested,
+muted 1280x720 video inside a 1280x800 viewer with a clip/rate label. The game
+viewport is unchanged. Playwright 1.58.2 was restored in `playback-deps` because
+the old external dependency path no longer existed.
+
+[Playback audit and all 13 attempts](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-audit-20261026.json)
+index the latest six results below. All six ended at the requested rate, retained
+focus/visibility, had no media error and stayed inside max(0.5s, 5%) wall-time
+tolerance. Only axe 1x passed every technical gate. Direct playback-observer
+feedback was not obtained: all six motion observations remain **unverified**.
+Callback counts are diagnostic, not counts of directly inspected frames.
+
+| Clip | Rate | Expected / actual seconds | Dropped delta | Technical | Report |
+|---|---|---|---|---|---|
+| [sword](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/sword.mp4) | 1x | 10.626 / 10.690 | 5 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-sword-1-2026-10-26T08-37-22-946Z-71f4df1f-2557-4099-935d-4916136754b1.json) |
+| [sword](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/sword.mp4) | 0.25x | 42.504 / 42.756 | 4 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-sword-0.25-2026-10-26T08-38-09-778Z-632a7f4c-b21c-4670-b04d-4d2b587a53b6.json) |
+| [axe](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/axe.mp4) | 1x | 12.613 / 12.690 | 0 | pass | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-axe-1-2026-10-26T08-39-29-099Z-3cfa1929-9756-4caf-ba22-4885223a5cd5.json) |
+| [axe](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/axe.mp4) | 0.25x | 50.452 / 50.727 | 5 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-axe-0.25-2026-10-26T08-39-43-011Z-03818d50-c4fa-4566-a41a-d08663a5ae47.json) |
+| [sword-shield](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/sword-shield.mp4) | 1x | 12.405 / 12.505 | 4 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-sword-shield-1-2026-10-26T08-40-48-346Z-354892b7-0118-4665-8610-8fee252c2ba7.json) |
+| [sword-shield](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/sword-shield.mp4) | 0.25x | 49.620 / 50.089 | 6 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-sword-shield-0.25-2026-10-26T08-41-02-256Z-2cb8f044-fca2-484c-bc61-2e633e173655.json) |
+
+The initial six instrumented reports also misclassified natural end pause because
+initial duration differed slightly from final media time. They remain unchanged;
+the final driver records `ended` on each event and excludes only natural end pause.
+After compositor settling, sword 1x dropped one frame instead of four; software
+decoding still dropped five. Hardware decoding is not established as the cause.
+Final shield 0.25x logged `waiting` at media 5.8113s; readyState 2 recovered to 4
+after 7.5ms. Dropped-frame cause remains unresolved. Axe 0.25x took 50.727s, so
+the historical roughly 58s delay did not recur.
+
+Remaining acceptance: diagnose drops/waiting before retrying failed rates and
+obtain direct observations of isolated strikes, Hurt changes, rapid typing,
+pause/resume and lethal ending for all six qualified passes. Do not weaken the
+zero-drop criterion or infer motion quality from telemetry. Preserve clips, XML,
+source/player receipts, frames, failed reports and driver/dependencies until
+review/reproduction is complete. Owned Edge browsers were closed after runs.
+Documentation integration does not close this acceptance gate.
