@@ -1,0 +1,171 @@
+{
+  "old_main": "24f74e0901d51a44e7f58bcca0007ba8d4f0b31c",
+  "merged_main": "4506bb1cc5e5f58655b5a7c42629b1b4a3c3e77d",
+  "unique_cels": 281,
+  "keys": 306,
+  "clips": [
+    {
+      "path": "Assets/Art/EndlessSkeletons/axe/Attack1.anim",
+      "sha256_lf": "ebbe45c90930b03ad24990ff765a74dacbdc7eb052065c2f23c089a490eede9d"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/axe/Attack2.anim",
+      "sha256_lf": "ac406d7fcc587041dd42cae26fbf46e44b8ac040caf17c2bfd33cb5624c76287"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/axe/Die.anim",
+      "sha256_lf": "3312f934859195dd0251cfea2de35a4d672c03cdd55cc015753fbcfc35e0573e"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/axe/Hurt.anim",
+      "sha256_lf": "9976871b9a6c18342f553ba61c36bc8434569bf5a0f7f0d2fdc2ed4d41827a57"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/axe/Idle.anim",
+      "sha256_lf": "8ec315c4c996ce945194ad08858b22d0ac1f66596a47158b093d3c0fb854fdcd"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/axe/Walk.anim",
+      "sha256_lf": "05f83d0009e14255afe6f655d11aa7935f66d095ea6d52400aea66c787732590"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword-shield/Attack1.anim",
+      "sha256_lf": "1e0a832f0a7598d99fc4eaa6cb0b5f0d8a2fb2a92fd21d7df33bba2f8545a7a0"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword-shield/Attack2.anim",
+      "sha256_lf": "2feec4184f4119e4efdd2bd26bce7400c4c7a220f8b35b2b661bb3f61c590e95"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword-shield/Die.anim",
+      "sha256_lf": "35204aeee0eac1af2a491ad68c14d255ffb3e29bc001fa80bffae70c69013693"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword-shield/Hurt.anim",
+      "sha256_lf": "e8cad79b9849b4f6e71d2967eb3b4a81974a40744f6acbfa32b25abcf7341b5b"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword-shield/Idle.anim",
+      "sha256_lf": "1929254fd936036049f3803bf07b3ecf054934712f724f67c5dd85170f1f3af1"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword-shield/Walk.anim",
+      "sha256_lf": "51e7d18008449f25b29bbb130b245b487cea28943fa6fd76deefd71a2fdd2c55"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword/Attack1.anim",
+      "sha256_lf": "ad84227d63d5d1953bf2f73b6fe0e7a13cd68dc390bfb5d7cbf12d12224835bc"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword/Attack2.anim",
+      "sha256_lf": "5b96296c51a22fb097ce4f32cc23bce5c345e39491871913934f688e203cf7a1"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword/Die.anim",
+      "sha256_lf": "872d576a1a5617527e0feca8356dfe9370a27c8bbf313fe112b536e5debeb3d1"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword/Hurt.anim",
+      "sha256_lf": "3890add25b41a91b005a80bb0e1ed5c2fcad85d00c9ede355e0d9692a9771a82"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword/Idle.anim",
+      "sha256_lf": "45866d2d37613cc3caf630cc73a193ba10fbd295e0454178ad3c0632bbc57552"
+    },
+    {
+      "path": "Assets/Art/EndlessSkeletons/sword/Walk.anim",
+      "sha256_lf": "861280cf5e14dd5fb5453e853c1023aaa0ab95d213928ee5d6d77594549a1be1"
+    },
+    {
+      "path": "Assets/Art/VFX/skeleton_hitBySlayer.anim",
+      "sha256_lf": "b0b571a96eea9dc0795193c27d180209d5fe983436507d27ad759c5d82882b02"
+    },
+    {
+      "path": "Assets/Art/male_hero/individual_sheets/player_parry_success.anim",
+      "sha256_lf": "d2684dbd9446de31977891d99dac46bd58399fa52e16f6aede981b5cbbff906e"
+    },
+    {
+      "path": "Assets/Characters/Enermy/skeleton_idle.anim",
+      "sha256_lf": "9fa4c52be8f50d438d59691c3ad0dd5366b038455a90a29b0946786e894ed2e7"
+    },
+    {
+      "path": "Assets/Characters/Enermy/skeleton_stun.anim",
+      "sha256_lf": "3ad14145f0499624bdf649e81d450b070c047b19c20a9f92915c1d28342cfffc"
+    },
+    {
+      "path": "Assets/Characters/Player/attack1.anim",
+      "sha256_lf": "49af097388b5e63361ed3f877ce71439769877f38de9e38747505dd970e6f52e"
+    },
+    {
+      "path": "Assets/Characters/Player/parry_followup.anim",
+      "sha256_lf": "9c4078e2be0fb9712098b59cdb4130a47f4442f23f98b20971976c5b4207eca9"
+    },
+    {
+      "path": "Assets/Characters/Player/player_die.anim",
+      "sha256_lf": "095f2f9a409b617fedbfdf8f81916e60e73bc467c43a0303d76e076aac64aa81"
+    },
+    {
+      "path": "Assets/Characters/Player/player_hit.anim",
+      "sha256_lf": "ed1a85758e854139d4c7e99bac8d7c32f66e8a72bd5bdd56f7aa7bc59c5244d9"
+    },
+    {
+      "path": "Assets/Characters/Player/player_idle.anim",
+      "sha256_lf": "56155816e0df86102610012f864bdeceec378a9da9aed82a541506e83cfd19d3"
+    },
+    {
+      "path": "Assets/Characters/Player/player_parry.anim",
+      "sha256_lf": "9d79808b7c1a9b6c49089b65b6110f301cf87f55282660d69f0cf4f5fbc24b55"
+    },
+    {
+      "path": "Assets/Characters/Player/player_slayer/attackS1.anim",
+      "sha256_lf": "3757b6ca34adb685ab7cad0aa5fa69f4d4daebf14d1d06cd77080ad1aaf0ad9f"
+    },
+    {
+      "path": "Assets/Characters/Player/player_slayer/attackS2.anim",
+      "sha256_lf": "d0b2d695eb361444f64f439794a09ec63d5284f8be79f4872f0425ab09e7051c"
+    },
+    {
+      "path": "Assets/Characters/Player/player_slayer/attackS3.anim",
+      "sha256_lf": "af5c6dbbeb13de3def23e5fa72aed7060a44b818fbfcceb225fa9f3aacb10e3f"
+    },
+    {
+      "path": "Assets/Scripts/skeleton_attack_heavy.anim",
+      "sha256_lf": "1f2218b14b63d5c902405b1ab66e9e6ea8e8c45e05c33e7c58136dc0abfe1c3c"
+    },
+    {
+      "path": "Assets/Scripts/skeleton_die.anim",
+      "sha256_lf": "02ca2bb2b6349f4718d915dfad7d5508537f456eaf9fb6bf8885d17ff04a2af5"
+    },
+    {
+      "path": "Assets/Scripts/skeleton_hit.anim",
+      "sha256_lf": "522b7273a695686efa2c0c1bbe5017702c1724dfd55a0098fd2b52b15965cbb6"
+    }
+  ],
+  "definitions": [
+    {
+      "path": "Assets/Resources/Endless/Berserker.asset",
+      "only_change": "new hitAnchor reference; all controller, idle, hurt, attacks, sequencing and timings unchanged"
+    },
+    {
+      "path": "Assets/Resources/Endless/Captain.asset",
+      "only_change": "new hitAnchor reference; all controller, idle, hurt, attacks, sequencing and timings unchanged"
+    },
+    {
+      "path": "Assets/Resources/Endless/DoubleStrike.asset",
+      "only_change": "new hitAnchor reference; all controller, idle, hurt, attacks, sequencing and timings unchanged"
+    },
+    {
+      "path": "Assets/Resources/Endless/Guard.asset",
+      "only_change": "new hitAnchor reference; all controller, idle, hurt, attacks, sequencing and timings unchanged"
+    },
+    {
+      "path": "Assets/Resources/Endless/Heavy.asset",
+      "only_change": "new hitAnchor reference; all controller, idle, hurt, attacks, sequencing and timings unchanged"
+    },
+    {
+      "path": "Assets/Resources/Endless/Swordsman.asset",
+      "only_change": "new hitAnchor reference; all controller, idle, hurt, attacks, sequencing and timings unchanged"
+    }
+  ],
+  "verified": true
+}

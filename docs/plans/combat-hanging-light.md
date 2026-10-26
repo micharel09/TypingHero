@@ -1,3 +1,55 @@
+## Current integration checkpoint — not accepted/integrated (2026-10-26)
+
+Task HEAD merged newer main4506bb1 as084b38ee, retaining its authored chest-attached
+Slayer visual and first-word preparation. The single test conflict combines the
+task's production-spawner path with main's child SpriteRenderer; runtime source
+from main was preserved. **72/72focused Unity tests PASS**,0failed/skipped,
+23.5608316s, Ubuntu `20261026T083245-quick`, input
+`5595b34e9cbe343871d81bf96d6c61e5b3bd08d9320663bc8e358a5ed88603d2`.
+Strict two-world repeated builder PASS at `20261026T084131-serialize` on the same
+input; painted maps/custom bindings remain intact. Logs/XML/serialized outputs:
+`ubuntu-merged-{tests,repeat}-20261026/` in the existing evidence root.
+
+Inventory re-audit:34clips byte-identical after LF normalization between main24f
+and4506; all six definitions differ only by the new hitAnchor reference. Controller,
+idle/hurt/attack references, sequences and timings are unchanged:281cels/306keys
+remain current. Static pose/white-light/shader checks can be reused; the old native
+video does not certify the updated intro or chest VFX. Updated paired Ubuntu WebGL
+builds and final native runtime review remain pending.
+
+Reachability correction: production round1 contains six encounters but only five
+distinct definitions: Swordsman,DoubleStrike,Heavy,Guard,Elite/Swordsman,Captain.
+`EndlessRun.RepeatAfterBoss=false`; Berserker is selected only in unreachable round2.
+The earlier real-input run therefore establishes **six encounters, five unique
+definitions**, not six unique definitions. A separate serialized Berserker fixture
+is prepared for real-key combat without changing the production run or adding a
+runtime mutation API. Production Berserker reachability is outside this task.
+
+Host pacing remains unresolved: a scoped telemetry repeat stopped when its candidate
+run could not include Slayer under1s frame cadence. Chromium153 on the same NVIDIA
+GPU then measured parry ABBA74.52/74.56/**1.00**/73.54FPS, with p9513.495/13.505/
+**1000.63**/13.520ms. No image/export work ran during that protocol. Preserve these
+failures; no stable60FPS acceptance or code bottleneck attribution is claimed.
+An asynchronous request asks for a foreground,unlocked,quiet host session before
+another formal measurement. Continue independent Ubuntu/build/frame work meanwhile.
+
+Historical native-video inspection is now complete for the declared export:
+**1387/1387 frames and1370/1370 consecutive source-frame pairs**, retaining held
+frames and source PTS across17ranges. Per-frame observations are versioned in
+`evidence/replaced-lighting-20261025/premerge-runtime-frame-review.csv`, with
+source hash and limits in `premerge-runtime-review-summary.json`. This is player
+`eca5db436d689a34`, before the newer main merge. The initial intro range begins
+with the player already visible; full preparation and original-speed subjective
+playback remain unverified. These sheets do not certify the merged intro/chest VFX
+or target-GPU performance. No light-direction jump, closed bright rim or moving
+floor pool was observed within the inspected ranges; authored impact flashes,
+Slayer presentation and scene-cover transitions are intentional.
+
+Merged-main baseline WebGL build completed on Ubuntu at `20261026T084445-webgl`,
+input `9356c4be2ad703a4fc1046036e31b641609a899856bab93a48ef5e7e64c139b3`.
+All33 downloaded player files match their immutable remote SHA256 hashes; QA flag
+is true. Candidate build `20261026T090032-webgl` is running on Ubuntu.
+
 ## Target WebGL continuation — performance acceptance pending (2026-10-26)
 
 Unity executed on Ubuntu only for these players, using the private pinned runner
