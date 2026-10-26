@@ -67,7 +67,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public string enemyCel;
         public float slayerBodyFlash;
         public Vector2 slayerDirection;
-        public Vector3 enemyBodyCenter;
+        public Vector3 enemyBodyCenter, enemyChest;
+        public bool enemyChestValid;
         public bool slayerTrailVisible;
         public SlayerRenderFrame[] slayerImpacts;
         public int parryParticleCount, parryBurstCount, parrySampleCount;
@@ -202,10 +203,13 @@ public sealed class GameLoopProbe : MonoBehaviour
         combatFrame.slayerDirection = combatSlayer ? combatSlayer.StrikeDirection : Vector2.zero;
         var trail = combatSlayer ? combatSlayer.GetComponentInChildren<SlashVolume>() : null;
         combatFrame.slayerTrailVisible = trail && trail.TrailVisible;
+        var chestAnchor = sortingEnemy ? sortingEnemy.GetComponent<EnemyHitAnchor>() : null;
+        combatFrame.enemyChestValid = chestAnchor && chestAnchor.TryGetWorldPoint(out _);
+        combatFrame.enemyChest = chestAnchor && chestAnchor.TryGetWorldPoint(out var chestPoint) ? chestPoint : Vector3.zero;
         combatFrame.slayerImpacts = FindObjectsOfType<SlayerHitVfx>().Select(effect => new SlayerRenderFrame {
-            id = effect.GetInstanceID(), cel = effect.GetComponent<SpriteRenderer>().sprite ? effect.GetComponent<SpriteRenderer>().sprite.name : "",
+            id = effect.GetInstanceID(), cel = effect.GetComponentInChildren<SpriteRenderer>().sprite ? effect.GetComponentInChildren<SpriteRenderer>().sprite.name : "",
             age = effect.Age, clockwiseAngle = Mathf.Repeat(-effect.transform.eulerAngles.z, 360),
-            tint = effect.GetComponent<SpriteRenderer>().color, position = effect.transform.position, fading = effect.IsFading
+            tint = effect.GetComponentInChildren<SpriteRenderer>().color, position = effect.transform.position, fading = effect.IsFading
         }).ToArray();
         combatFrame.enemyFlash = enemyFlash && enemyFlash.isActiveAndEnabled && Read<bool>(enemyFlash, "_active");
         ObserveRenderParry();
@@ -271,7 +275,7 @@ public sealed class GameLoopProbe : MonoBehaviour
             string role = effect.name.Replace("(Clone)", "");
             int index = Array.IndexOf(SparkRoles, role);
             if (index >= 0) sparkMask |= 1 << index;
-            var sprite = effect.GetComponent<SpriteRenderer>();
+            var sprite = effect.GetComponentInChildren<SpriteRenderer>();
             var particle = effect.GetComponentInChildren<ParticleSystemRenderer>();
             if (!sprite && !particle) return null; // A renderer may already be gone during scene teardown.
             var bounds = sprite ? sprite.bounds : particle.bounds;
@@ -324,6 +328,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public float introElapsed, introHudAlpha, introLabelAlpha, introCover;
         public float introRevealProgress, introWordAlpha;
         public int introWordHudGroups;
+        public bool introWordPreview;
+        public float introWordStartRemaining;
         public int introDustParticles, introMusicPlayerId, introMusicVoiceId, introMusicSample;
         public bool endless, encounterReading;
         public int endlessRound, endlessSlot, defeated;
@@ -692,6 +698,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 introRunning = FindObjectOfType<DuelIntroPresentation>() && FindObjectOfType<DuelIntroPresentation>().Running,
                 introRevealProgress = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "revealProgress"),
                 introWordAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "wordAlpha"),
+                introWordPreview = Read<bool>(typing, "introPreview"),
+                introWordStartRemaining = Read<float>(typing, "introStartRemaining"),
                 introWordHudGroups = Read<System.Collections.Generic.HashSet<CanvasGroup>>(FindObjectOfType<DuelIntroPresentation>(), "wordHud")?.Count ?? 0,
                 introElapsed = FindObjectOfType<DuelIntroPresentation>() ? FindObjectOfType<DuelIntroPresentation>().Elapsed : 0,
                 introHudAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "hudAlpha"),

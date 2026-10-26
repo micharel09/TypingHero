@@ -61,6 +61,7 @@ internal static class EndlessAssets
         asset.opening = opening; asset.alternate = alternate;
         asset.controller = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(Art + form + "/Combat.controller");
         asset.hurt = AssetDatabase.LoadAssetAtPath<AnimationClip>(Art + form + "/Hurt.anim");
+        asset.hitAnchor = EnemyHitAnchorAssets.Load(form);
         asset.idle = AssetDatabase.LoadAllAssetsAtPath(Art + form + "/Idle.png").OfType<Sprite>().OrderBy(s => s.rect.x).First();
         EditorUtility.SetDirty(asset);
     }

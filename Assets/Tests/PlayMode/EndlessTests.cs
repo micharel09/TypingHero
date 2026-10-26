@@ -269,6 +269,12 @@ public sealed class EndlessTests
         var host = new GameObject("Riposte recovery fixture"); host.SetActive(false);
         var animator = host.AddComponent<Animator>(); host.AddComponent<SpriteRenderer>();
         host.AddComponent<AttackStrike>();
+        var anchor = host.AddComponent<EnemyHitAnchor>();
+        const System.Reflection.BindingFlags anchorFlags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        typeof(EnemyHitAnchor).GetField("body", anchorFlags).SetValue(anchor, host.GetComponent<SpriteRenderer>());
+#if UNITY_EDITOR
+        typeof(EnemyHitAnchor).GetField("profile", anchorFlags).SetValue(anchor, UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyHitAnchorProfile>("Assets/Art/EnemyHitAnchors/ske.asset"));
+#endif
         var brain = host.AddComponent<SkeletonController>();
         var cue = new GameObject("Cue"); cue.transform.SetParent(host.transform); cue.SetActive(false);
         const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
@@ -305,6 +311,12 @@ public sealed class EndlessTests
             var host = new GameObject("Real form cue fixture"); host.SetActive(false);
             var animator = host.AddComponent<Animator>();
             host.AddComponent<SpriteRenderer>(); host.AddComponent<AttackStrike>();
+            var anchor = host.AddComponent<EnemyHitAnchor>();
+            const System.Reflection.BindingFlags anchorFlags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+            typeof(EnemyHitAnchor).GetField("body", anchorFlags).SetValue(anchor, host.GetComponent<SpriteRenderer>());
+#if UNITY_EDITOR
+            typeof(EnemyHitAnchor).GetField("profile", anchorFlags).SetValue(anchor, UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyHitAnchorProfile>("Assets/Art/EnemyHitAnchors/ske.asset"));
+#endif
             var brain = host.AddComponent<SkeletonController>();
             var cue = new GameObject("Cue"); cue.transform.SetParent(host.transform); cue.SetActive(false);
             const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;

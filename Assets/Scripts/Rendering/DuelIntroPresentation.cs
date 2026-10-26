@@ -13,6 +13,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     readonly Dictionary<Renderer, bool> enemyRenderers = new Dictionary<Renderer, bool>();
     readonly Dictionary<CanvasGroup, float> hud = new Dictionary<CanvasGroup, float>();
     SkeletonController enemy;
+    TypingManager typing;
     GamePauseController pauseOwner;
     Canvas canvas;
     RectTransform curtain;
@@ -63,6 +64,8 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     internal IEnumerator Cover(float duration, bool liftMenu)
     {
         EnsureCanvas();
+        // Navigation can begin while the opponent heading is still visible.
+        curtain.SetAsLastSibling();
         var menu = liftMenu ? FindObjectOfType<MainMenuUI>() : null;
         var rect = menu ? menu.IntroMenuRoot : null;
         var start = rect ? rect.anchoredPosition : Vector2.zero;
@@ -100,10 +103,11 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
         tutorial = isTutorial; Running = true; Elapsed = 0;
         enemyVisible = isTutorial; hudAlpha = wordAlpha = isTutorial ? 1 : 0;
         revealProgress = 0; revealBoundsReady = false; wordHud.Clear(); revealState.Clear();
-        enemyRenderers.Clear(); hud.Clear(); pauseOwner = null;
+        enemyRenderers.Clear(); hud.Clear(); pauseOwner = null; typing = null;
         foreach (var root in gate.roots)
         {
             if (!enemy) enemy = root.GetComponentInChildren<SkeletonController>(true);
+            if (!isTutorial && !typing) typing = root.GetComponentInChildren<TypingManager>(true);
             var pause = root.GetComponentInChildren<GamePauseController>(true);
             if (pause) pauseOwner = pause;
             if (!isTutorial && pause && pause.IntroHud != null)
@@ -119,6 +123,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
                 foreach (var group in hud.Keys)
                     if (group.transform == layout.IntroTypingTray || group.transform.IsChildOf(layout.IntroTypingTray)) wordHud.Add(group);
         }
+        if (typing) typing.BeginIntroPreview();
         if (!isTutorial && enemy) HideEnemy();
     }
     void HideEnemy()
@@ -251,8 +256,13 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
             float reveal = shortened ? .2f : .45f;
             float spawn = shortened ? .2f : .85f;
             float spawnDuration = shortened ? .4f : .5f;
-            float title = shortened ? .6f : 1.35f;
-            float hudStart = shortened ? .8f : 2f;
+            float title = shortened ? .46f : 1.35f;
+            float titleIn = shortened ? .08f : .12f;
+            float titleOut = shortened ? .75f : 1.85f;
+            float hudStart = shortened ? .54f : 1.85f;
+            float hudEnd = shortened ? .64f : 2f;
+            float wordStart = shortened ? .62f : 1.93f;
+            float wordEnd = shortened ? .7f : 2.1f;
             float duration = shortened ? 1f : 2.4f; // short flow includes its .2s cover
             double previous = Time.realtimeSinceStartupAsDouble;
             while (Elapsed < duration)
@@ -266,11 +276,12 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
                     if (Elapsed >= spawn && !dust) CreateDust();
                     PaintDust(Elapsed - spawn, spawnDuration);
                     if (!enemyVisible) PaintEnemyReveal(Mathf.Clamp01((Elapsed - (shortened ? .34f : 1.04f)) / .12f));
-                    float inAlpha = Ease((Elapsed - title) / .12f);
-                    hudAlpha = Ease((Elapsed - hudStart) / (duration - hudStart));
-                    wordAlpha = Ease((Elapsed - hudStart - .08f) / (duration - hudStart - .08f));
-                    label.alpha = inAlpha * (1 - hudAlpha);
-                    label.rectTransform.anchoredPosition = Vector2.up * Pixel(-6 * (1 - inAlpha) + 6 * hudAlpha);
+                    float inAlpha = Ease((Elapsed - title) / titleIn);
+                    float outAlpha = Ease((Elapsed - titleOut) / .15f);
+                    hudAlpha = Ease((Elapsed - hudStart) / (hudEnd - hudStart));
+                    wordAlpha = Ease((Elapsed - wordStart) / (wordEnd - wordStart));
+                    label.alpha = inAlpha * (1 - outAlpha);
+                    label.rectTransform.anchoredPosition = Vector2.up * Pixel(-6 * (1 - inAlpha) + 6 * outAlpha);
                 }
                 yield return null;
             }
@@ -278,7 +289,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
         // No queued input or OS key repeat from keys held across the handoff.
         DungeonSession.Current.ConsumeIntroInput();
         if (enemy && !isTutorial) enemy.BeginIntroCombat();
-        Finish();
+        Finish(true);
         GamePauseController.SetIntro(false);
     }
     void LateUpdate()
@@ -288,8 +299,10 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
         foreach (var pair in hud) if (pair.Key) pair.Key.alpha = pair.Value * (wordHud.Contains(pair.Key) ? wordAlpha : hudAlpha);
         if (label) label.enabled = !GamePauseController.IsPaused;
     }
-    void Finish()
+    void Finish(bool combatHandoff = false)
     {
+        if (typing) typing.EndIntroPreview(combatHandoff);
+        typing = null;
         RevealEnemy();
         foreach (var pair in hud) if (pair.Key) pair.Key.alpha = pair.Value;
         hud.Clear(); wordHud.Clear(); revealState.Clear(); enemyRenderers.Clear(); enemy = null;

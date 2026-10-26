@@ -1,17 +1,22 @@
-## Duel opening (2026-10-25)
+## Duel opening (2026-10-26)
 
 - Play lifts the menu and covers the transition250ms. After gameplay initialization,
   arena/player reveal0-450ms, settle to850ms, low opponent-foot dust850-1350ms
   (120ms feet-up body reveal1040-1160ms; child shadow follows completion),
   opponent name/DUEL x/6 at1350ms, then
-  title/HUD crossfade2000-2400ms. Camera stays at the existing gameplay framing.
+  title exit/status HUD1850-2000ms, word tray1930-2100ms, then a stationary
+  first-word preview2100-2400ms. Camera stays at the existing gameplay framing.
 - Continue/retry:200ms cover plus scene load, then200ms reveal,400ms spawn and
-  400ms title/HUD handoff, with body reveal340-460ms after loading. Existing
-  result/Continue controls are retained.
+  body reveal340-460ms after loading. Title enters460-540ms, holds to750ms,
+  exits750-900ms; status HUD540-640ms, word tray620-700ms, stationary preview
+  700-1000ms. Existing result/Continue controls and total1200ms are retained.
 - Menu and cover close upward together, then the cover opens upward with eased
   endpoints. Spawn dust uses three staggered low clusters. Opponent name moves
   6reference pixels in/out, snapped to the game pixel grid. Status HUD fades before
-  the word tray by80ms; all reach their authored opacity at the same handoff.
+  the word tray by80ms. The word is fully readable for300ms before combat,
+  using existing next-word ink; at handoff it returns to active ink over100ms.
+  Accepted letters immediately take over with normal correct/error feedback.
+  No countdown or first-key timer gate is added.
 - Gameplay locks before gate activation. Words/configuration initialize normally;
   HP, typing timer, score, letters and combat time cannot advance in the intro.
   At handoff the first attack is scheduled500ms after combat opens; typing/parry
@@ -32,6 +37,10 @@
   Pause canvas remains above the cover throughout focus loss. The earlier draft
   dust slab and clipped Pause menu were rejected and corrected before acceptance;
   [checkpoint and evidence scope](../plans/duel-intro.md).
+- First-word preparation follow-up: final Ubuntu Unity6/6 scoped cases and WebGL
+  7a03a2f20df3f514/native65checks pass. All566frame visits/561pairs in five complete
+  output scopes directly reviewed. Navigation cover now occludes the live heading;
+  full/short preview, pause/focus, held input, Menu cleanup and tutorial pass.
 
 ## Reusable world lighting (2026-10-22)
 
@@ -654,8 +663,13 @@ Full surface art, B/C and parent integration remain separate.
   immediately. Apply the contact pose before the existing
   deduplicated damage window; collision/damage ordering remains unchanged.
   Local impact axes(1,-1),(1,0),(1,1) follow the selected swing and source facing;
-  no independent eight-angle random selection. Snapshot center/direction/tint before
-  damage; B retains its fixed world anchor and black RGB through lethal exit.
+  no independent eight-angle random selection. Capture the actual damage recipient's
+  EnemyHitAnchor point/lifetime and direction/tint before damage. B follows its
+  authored chest after Animator poses, with fixed angle/world size and black RGB.
+  A child renderer compensates each cel's baked alpha centroid; no collider-center
+  placement. Hidden/destroyed recipients leave the last point; new lifetimes reclaim
+  old slashes. Four pose profiles cover ske and the three Endless forms, including
+  held parry cels assigned outside Animator; six roles reuse those profiles.
 - Each recipient has one primary plus one<=35%alpha residual lasting<=30ms;
   finisher replaces both. Original luminous sword geometry expires120ms per swing
   even when the final cel is held; another typed strike resets that envelope.
@@ -665,9 +679,10 @@ Full surface art, B/C and parent integration remain separate.
   Pause/reading hold presentation clocks. Results/disable/restart/unload clear them.
 - Public input/scoring/damage values/stamina/camera/audio and Slayer no-hitstop
   policy remain. Normal/parry/legacy emitters retain their routes and shared budget.
-  User explicitly requested no tests and immediate clip. The initial test launch
-  was cancelled; this revision has no runtime/frame-review acceptance claim.
-  Build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
+  The original implementation waived tests; the authorized2026-10-26 continuation
+  passes20selected PlayMode cases on Ubuntu (five fixture repairs, chest geometry,
+  seven parry mappings, lifecycle/pool, damage callback capture and pause).
+  Final build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 

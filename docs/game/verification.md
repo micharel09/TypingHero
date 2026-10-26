@@ -1,3 +1,41 @@
+## Shared chest anchor for Slayer B (final2026-10-26)
+
+Ubuntu Unity2022.3.25f1:20unique scoped PlayMode cases PASS,0failed/skipped
+(14unchanged cases from062003 +6final geometry/callback cases from063715).
+Repairs the five inactive actor fixtures with explicit body/ske profile. Real
+prefab/profile checks cover all217poses, seven held-parry mappings, pivot/flip/
+parent transforms, fixed world angle/scale, original pixel alpha centroids,
+120/160ms lifetime, hide/destroy/death, re-enable/ConfigureEndless, pool reuse,
+pre-damage point capture and pause/resume. No public API or production fallback added.
+
+Final Ubuntu WebGL070505 and strict repeated/protected-font builder PASS. LF input
+15bd6781c5fc751631c7ae323a7eea1b03f577796d3d5256e301a831535e55bf;
+2494inputs/252C# match pre-integration source,33player hashes retained;
+player104dd2400c6dba53.
+B PNG/GUID, blackRGB,120/160ms, overlap and combo_end remain unchanged.
+
+Native Edge156/GTX1650Ti/D3D11/1280x720 final capture: four duels, HP32,17parries,
+0exceptions/provider reads/writes.1455impact samples have root-anchor distance0,
+all4B cels, maximum2overlap. Pause invariants hold for48/52/55observations across
+sword/axe/shield. One miss is diagnosed as driver Space delivery after already
+observed damage; no unexplained parry fault or gameplay timing change.
+
+Direct final output review789/789frames,786/786pairs; original variable PTS and
+held frames preserved, including one explicitly declared extra ending hold. Three
+MP4 clips match source frame counts/PTS and finish Edge playback at1x/0.25x.
+B center often merges into black torso/shield or is covered by ivory arcs/Pause UI;
+those exact frame limits are recorded separately from centroid/root measurements.
+No full suite, stress/soak, multiple viewports, full raw-video review, performance
+claim or publication. Final receipts, prior failures, authoring guidance and
+integration status: [existing checkpoint](../plans/slayer-slash-vfx.md).
+
+Merged current mainb68b020 as b975485; Ubuntu074357 passes3/3affected intro-lock,
+pause/cancel and accepted-character damage-window cases (23distinct scoped cases
+overall). All VFX/anchor/profile/render inputs are identical; only four upstream
+intro/typing/probe/test inputs differ. Pre-integration three-form capture and20
+cases are reused for unchanged B behavior, not represented as a merged-player
+build. Verified fast-forward main integration and final receipts are in the checkpoint.
+
 ## Restrained duel intro polish (2026-10-25)
 
 Menu/cover ease upward together;18small staggered dust puffs replace overlapping
@@ -749,6 +787,25 @@ Final94c4adbd: QA035043/production040103 strict repeat/bridge exclusion pass, ma
 Approved main b36b55a plus supplied Cobblestone UI/typing, Blackbit title only, hidden PARRY/key/clock. Exact input640a9871: QA020049 repeat-builder and complete typing behavior guard PASS; production021408 QA exclusion PASS. Native scoped633checks across four viewports and DPR1/2/1.25; six lessons/parry/Slayer/pause/restart/first win/Continue and current score cluster pass, Firebase fixture/blocking and zero real writes. Normal player48viewport-state captures pass; public Run game actual menu plus8native CDN combat/pause captures and Space pose,29payload hashes exact. Upload19915823 selected after native Save/reload;19893288 retained hidden for rollback. No full balance/performance claim. See [release receipt](../../marketing/itch-io/cobblestone-release-20261021.json) and [font checkpoint](../plans/itch-game-page-dark-fantasy.md). Older all-UI Blackbit font-quality conclusions are superseded by the user-approved Cobblestone choice; their behavioral evidence stays scoped to its frozen source.
 
 # Verification and performance memory
+
+## Duel first-word preparation (2026-10-26)
+
+- All Unity execution on Ubuntu fly-server, pinned2022.3.25f1/2CPU/8GiB. Final
+  focused DuelIntroTests6/6PASS,0failed/skipped; strict repeat builder and QA build
+  pass at word-preview-20261026/20261026T064955-build under the shared runner root.
+- Source7b86815e04628556532d9c7b077c8dd3bbcc0b84ddf6e2dcf6f59935564ea6bf;
+  281C#/shader/package/version inputs match the worktree afterBOM/CRLF normalization.
+  Serialized build-copy LF normalization resolves an unchanged font byte guard;
+  no repository assets/guard edits. Final player7a03a2f20df3f514,33file manifest.
+- Edge156.0.4314.42/NVIDIA GTX1650Ti/ANGLE D3D11,1280x720:65real-input checks PASS,
+  0exceptions/provider IO. First-word preview/color/timer/input locks, held keys,
+  Continue/retry, pause/focus, Menu cancellation and tutorial reading covered.
+- All566frames/561adjacent pairs in five complete scopes directly reviewed at
+  original25fps PTS, including held frames/page overlaps. Pilot label-over-cover
+  visual failure corrected; final closed cover hides the heading. Existing F6
+  Spark debug label is automation-only. No new FPS/audio/full-suite/release claim.
+- Receipts, original video/ledger and84/42frame Play/Continue excerpts:
+  E:/CodexTemp/TypingHero/duel-word-preview/ . [Checkpoint](../plans/duel-intro.md).
 
 ## Impact pulse emission clock (2026-10-23)
 
@@ -1875,8 +1932,8 @@ profiles, not a checklist to execute on every task.
   affected gameplay contracts and real-input browser checks when the changed
   integration or user flow needs them. Add viewports only when layout, camera,
   or responsive behavior is affected.
-- The current `quick` runner executes the entire Quick category and exposes no
-  per-test filter. WebGL supports `--browser-scenario skeleton-art` and
+- The `quick` runner supports `--test-filter` for Unity test names; use it for
+  directly affected cases instead of the entire Quick category. WebGL supports `--browser-scenario skeleton-art` and
   `--browser-scenario attack-sorting` and `--browser-scenario score-layout`
   (four-size near-tray HUD plus keyboard Slayer/popup/pause/restart). These do not
   cover arbitrary changes.

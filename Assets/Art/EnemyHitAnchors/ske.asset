@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77650cdd2bb44a8b398b74dcfa0e84d, type: 3}
+  m_Name: ske
+  m_EditorClassIdentifier:
+  poses:
+  - sprite: {fileID: -542790165, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -661975036, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -617104445, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 45, y: 26}
+  - sprite: {fileID: 371670811, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 43, y: 25}
+  - sprite: {fileID: 440837093, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 43, y: 25}
+  - sprite: {fileID: -2097475492, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 53, y: 28}
+  - sprite: {fileID: -1953612697, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 51, y: 29}
+  - sprite: {fileID: 2139548333, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 49, y: 28}
+  - sprite: {fileID: 1650818480, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 48, y: 28}
+  - sprite: {fileID: -1806675074, guid: 1a1b37ac36b89394492c859d829adbcd, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -1682580610, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -428002748, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}
+    chest: {x: 41, y: 25}
+  - sprite: {fileID: 1593274972, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}
+    chest: {x: 42, y: 25}
+  - sprite: {fileID: -2117652144, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}
+    chest: {x: 44, y: 26}
+  - sprite: {fileID: -736384975, guid: 7ec67ad34b59fcd418a1e7cf7aae7d13, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -891151701, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -978640347, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 29}
+  - sprite: {fileID: 1513758564, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 30}
+  - sprite: {fileID: 424201918, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 31}
+  - sprite: {fileID: -2016666721, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 32}
+  - sprite: {fileID: -1237369492, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 28}
+  - sprite: {fileID: 905225260, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 14}
+  - sprite: {fileID: 1806081011, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 5}
+  - sprite: {fileID: 383808434, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 1}
+  - sprite: {fileID: 640154010, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 1}
+  - sprite: {fileID: 827493865, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 1}
+  - sprite: {fileID: -2096704948, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 1}
+  - sprite: {fileID: 864875727, guid: ac7553ba405f3f94d871eb4a3cb857dc, type: 3}
+    chest: {x: 45, y: 1}
+  - sprite: {fileID: -1755233937, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -1169528332, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -2004213556, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}
+    chest: {x: 45, y: 26}
+  - sprite: {fileID: -1078706528, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}
+    chest: {x: 45, y: 25}
+  - sprite: {fileID: -1105176257, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}
+    chest: {x: 45, y: 26}
+  - sprite: {fileID: -527675185, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: 237744625, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -99755285, guid: fb5c7de69732e054bbea856089b9c6ee, type: 3}
+    chest: {x: 45, y: 27}
+  - sprite: {fileID: -4929353958491315206, guid: ddeb2dc883092b4759d1ed5797353cad, type: 3}
+    chest: {x: 53, y: 28}

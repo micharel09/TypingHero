@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77650cdd2bb44a8b398b74dcfa0e84d, type: 3}
+  m_Name: sword
+  m_EditorClassIdentifier:
+  poses:
+  - sprite: {fileID: 6934013284892070054, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: -7957278214813060823, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 1409549213185883415, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 44, y: 26}
+  - sprite: {fileID: 4976274401295337057, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 42, y: 25}
+  - sprite: {fileID: -5639509438907974925, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 42, y: 25}
+  - sprite: {fileID: 452926297546027425, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 52, y: 28}
+  - sprite: {fileID: 6238536850125145498, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 50, y: 29}
+  - sprite: {fileID: -7543445572115272496, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 48, y: 28}
+  - sprite: {fileID: 3650157944247549718, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 47, y: 28}
+  - sprite: {fileID: -7367232305435581187, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: -2140677535924406074, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 8783954347948720124, guid: f84dc508481d80121a2411a184a479be, type: 3}
+    chest: {x: 42, y: 26}
+  - sprite: {fileID: 7441861488978599509, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 38, y: 25}
+  - sprite: {fileID: 8288915215451595207, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 38, y: 24}
+  - sprite: {fileID: 4668938655123782945, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 50, y: 29}
+  - sprite: {fileID: 5683539909772271658, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 50, y: 29}
+  - sprite: {fileID: 5764228812365489207, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 50, y: 28}
+  - sprite: {fileID: -1191510351576865934, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 47, y: 27}
+  - sprite: {fileID: -8937499057154260928, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 5293088307283036655, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 1817195990524489003, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 9220252021294270350, guid: 913090d8dc76aeaebb43e7a7674faeb2, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: -1815625823664879899, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 8754631090437682804, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 29}
+  - sprite: {fileID: 5542297916538816281, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 30}
+  - sprite: {fileID: -1778436320341457493, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 31}
+  - sprite: {fileID: 2941528559377587764, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 32}
+  - sprite: {fileID: -6774703673271019300, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 28}
+  - sprite: {fileID: -7802031874308913144, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 14}
+  - sprite: {fileID: 3335774815661792231, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 5}
+  - sprite: {fileID: -2537646600967337308, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 1}
+  - sprite: {fileID: -6483290587002121509, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 1}
+  - sprite: {fileID: -6949803534596845211, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 1}
+  - sprite: {fileID: -5864110630867362179, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 1}
+  - sprite: {fileID: 1931568416614948922, guid: 9db2e3eecdde35751a6d50cd310c030a, type: 3}
+    chest: {x: 44, y: 1}
+  - sprite: {fileID: -2048800907179887802, guid: f275f4fb7107ab77f9018f58b686ee3a, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 490842205202310979, guid: f275f4fb7107ab77f9018f58b686ee3a, type: 3}
+    chest: {x: 40, y: 25}
+  - sprite: {fileID: -3720053754089064719, guid: f275f4fb7107ab77f9018f58b686ee3a, type: 3}
+    chest: {x: 41, y: 25}
+  - sprite: {fileID: 5649970053243570431, guid: f275f4fb7107ab77f9018f58b686ee3a, type: 3}
+    chest: {x: 43, y: 26}
+  - sprite: {fileID: -371187646486735994, guid: f275f4fb7107ab77f9018f58b686ee3a, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 4723107735738678597, guid: 615add6621b5342cda7da77899a57075, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: -7385789195546760866, guid: 615add6621b5342cda7da77899a57075, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 3234629978573100161, guid: 615add6621b5342cda7da77899a57075, type: 3}
+    chest: {x: 44, y: 26}
+  - sprite: {fileID: 6373048116405451881, guid: 615add6621b5342cda7da77899a57075, type: 3}
+    chest: {x: 44, y: 25}
+  - sprite: {fileID: 7264182050183361747, guid: 615add6621b5342cda7da77899a57075, type: 3}
+    chest: {x: 44, y: 26}
+  - sprite: {fileID: -2834552850196481573, guid: 615add6621b5342cda7da77899a57075, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 3278449094680734212, guid: 615add6621b5342cda7da77899a57075, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 3384493420599841878, guid: 615add6621b5342cda7da77899a57075, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 4035959289877228764, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 26}
+  - sprite: {fileID: -982904232830982447, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: -350908408369970039, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 28}
+  - sprite: {fileID: -5409570386352685021, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 29}
+  - sprite: {fileID: 1553940418269799609, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 2416434504916517810, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 26}
+  - sprite: {fileID: -6428935122508569504, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 27}
+  - sprite: {fileID: 7144598999076838305, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 28}
+  - sprite: {fileID: 7500509103958437945, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 29}
+  - sprite: {fileID: 1008816216748069464, guid: a70b97cdc2bfa3409b788a5578cc6183, type: 3}
+    chest: {x: 44, y: 29}
+  - sprite: {fileID: -4929353958491315206, guid: ddeb2dc883092b4759d1ed5797353cad, type: 3}
+    chest: {x: 53, y: 28}
+  - sprite: {fileID: 2228686698144229113, guid: ddeb2dc883092b4759d1ed5797353cad, type: 3}
+    chest: {x: 40, y: 26}

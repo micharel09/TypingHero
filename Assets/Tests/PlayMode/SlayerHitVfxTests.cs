@@ -41,7 +41,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(importer.textureCompression, Is.EqualTo(TextureImporterCompression.Uncompressed));
         Assert.That(importer.npotScale, Is.EqualTo(TextureImporterNPOTScale.None));
         Assert.That(frames[0].texture.width, Is.EqualTo(384)); Assert.That(frames[0].texture.height, Is.EqualTo(64));
-        Assert.That(effect.GetComponent<SpriteRenderer>().sharedMaterial, Is.SameAs(AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/VFX/PixelSparks/Pixel.mat")));
+        Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sharedMaterial, Is.SameAs(AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/VFX/PixelSparks/Pixel.mat")));
         var order = new[] { 0, 1, 2, 3 };
         for (int i = 0; i < 4; i++)
         {
@@ -78,7 +78,7 @@ public sealed class SlayerHitVfxTests
     {
         var spawner = Owner(out var go);
         spawner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal, directionOverride: -1, capturedTint: Color.red);
-        var effect = Active().Single(); var image = effect.GetComponent<SpriteRenderer>();
+        var effect = Active().Single(); var image = effect.GetComponentInChildren<SpriteRenderer>(true);
         Assert.That(effect.GetComponent<VoxelImpactBurst>(), Is.Null);
         var rotation = effect.transform.rotation;
         var durations = Get<float[]>(effect, "frameDurations");
@@ -127,9 +127,9 @@ public sealed class SlayerHitVfxTests
         var first = Active().Single();
         owner.SpawnImpact(Vector2.zero, go.transform, true, false, target.transform);
         Assert.That(first.IsFading, Is.True);
-        Assert.That(first.GetComponent<SpriteRenderer>().color.a, Is.EqualTo(.35f));
+        Assert.That(first.GetComponentInChildren<SpriteRenderer>(true).color.a, Is.EqualTo(.35f));
         first.Advance(.015f);
-        Assert.That(first.GetComponent<SpriteRenderer>().color.a, Is.EqualTo(.175f).Within(.0001));
+        Assert.That(first.GetComponentInChildren<SpriteRenderer>(true).color.a, Is.EqualTo(.175f).Within(.0001));
         owner.SpawnImpact(Vector2.zero, go.transform, true, false, other.transform);
         Assert.That(Active().Count(v => v.Recipient == target.transform), Is.EqualTo(2));
         owner.SpawnImpact(Vector2.zero, go.transform, true, true, target.transform);
@@ -157,7 +157,7 @@ public sealed class SlayerHitVfxTests
             owner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal,
                 capturedTint: tint, slayerDirection: strikeDirections[direction]);
             var effect = Active().Single();
-            var sprite = effect.GetComponent<SpriteRenderer>();
+            var sprite = effect.GetComponentInChildren<SpriteRenderer>(true);
             foreach (int frame in new[] { 0, 1, 2, 3 })
             {
                 Assert.That(sprite.sprite.name, Is.EqualTo("frame_" + frame));
@@ -175,9 +175,9 @@ public sealed class SlayerHitVfxTests
     {
         var spawner = Owner(out var go); spawner.SpawnImpact(Vector2.zero, go.transform, true, true);
         var effect = Active().Single(); GamePauseController.SetTutorialReading(true);
-        float age = effect.Age; var sprite = effect.GetComponent<SpriteRenderer>().sprite;
+        float age = effect.Age; var sprite = effect.GetComponentInChildren<SpriteRenderer>(true).sprite;
         yield return new WaitForSecondsRealtime(.22f);
-        Assert.That(effect.Age, Is.EqualTo(age)); Assert.That(effect.GetComponent<SpriteRenderer>().sprite, Is.SameAs(sprite));
+        Assert.That(effect.Age, Is.EqualTo(age)); Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sprite, Is.SameAs(sprite));
         spawner.SpawnImpact(Vector2.zero, go.transform, true, true); Assert.That(Active().Length, Is.EqualTo(1));
         GamePauseController.SetTutorialReading(false); yield return null; yield return null;
         Assert.That(effect.Age, Is.GreaterThan(age));
@@ -284,12 +284,12 @@ public sealed class SlayerHitVfxTests
         var hit = typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Flags);
         hit.Invoke(box, new object[] { a }); hit.Invoke(box, new object[] { b });
         Assert.That(damage.hits, Is.EqualTo(1)); var effect = Active().Single();
-        Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponent<SpriteRenderer>().color, Is.EqualTo(Color.black));
+        Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).color, Is.EqualTo(Color.black));
         Assert.That(Time.timeScale, Is.EqualTo(1));
     }
 
-    [TestCase(false), TestCase(true), Category("Quick")]
-    public void HitboxCapturesBodyCenterBeforeDamageAndKeepsContactSeparate(bool lethal)
+    [TestCase(false, false), TestCase(true, false), TestCase(false, true), TestCase(true, true), Category("Quick")]
+    public void HitboxCapturesChestBeforeDamageAndKeepsContactSeparate(bool lethal, bool destroyActor)
     {
         var spawner = Owner(out var go); go.SetActive(false); go.AddComponent<BoxCollider2D>();
         var slayer = go.AddComponent<PlayerSlayerMode>();
@@ -299,17 +299,24 @@ public sealed class SlayerHitVfxTests
         var enemy = Host("offset body"); enemy.transform.position = new Vector3(5, 3, 0);
         enemy.transform.localScale = new Vector3(-1.5f, 1.2f, 1);
         var damage = enemy.AddComponent<FeedbackDamageTarget>();
+        var renderer = enemy.AddComponent<SpriteRenderer>();
+        var profile = AssetDatabase.LoadAssetAtPath<EnemyHitAnchorProfile>("Assets/Art/EnemyHitAnchors/sword.asset");
+        renderer.sprite = profile.poses[0].sprite;
+        var anchor = enemy.AddComponent<EnemyHitAnchor>(); Set(anchor, "body", renderer); Set(anchor, "profile", profile);
         var body = enemy.AddComponent<BoxCollider2D>(); body.offset = new Vector2(.4f, .2f);
         body.size = new Vector2(2, 3); enemy.SetActive(true); Physics2D.SyncTransforms();
-        Vector2 center = body.bounds.center, contact = body.ClosestPoint(go.transform.position);
+        anchor.TryGetWorldPoint(out var chest);
+        Vector2 center = chest, contact = body.ClosestPoint(go.transform.position);
         Assert.That(Vector2.Distance(center, contact), Is.GreaterThan(.5f));
         Assert.That(Vector2.Distance(center, enemy.transform.position), Is.GreaterThan(.1f));
         damage.onDamage = () =>
         {
             damage.dead = lethal;
             enemy.transform.position += Vector3.right * 7;
-            body.enabled = false;
+            body.enabled = false; renderer.enabled = false;
             Physics2D.SyncTransforms();
+            if (destroyActor) UnityEngine.Object.DestroyImmediate(enemy);
+            else enemy.SetActive(false);
         };
         box.BeginAttack(1);
         typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Flags).Invoke(box, new object[] { body });
@@ -321,7 +328,7 @@ public sealed class SlayerHitVfxTests
         {
             Assert.That((Vector2)effect.transform.position, Is.EqualTo(center));
             Assert.That(effect.transform.rotation, Is.EqualTo(rotation));
-            enemy.transform.position += Vector3.up;
+            if (enemy) enemy.transform.position += Vector3.up;
             effect.Advance(duration);
         }
         Assert.That(Active(), Is.Empty);
@@ -422,5 +429,164 @@ public sealed class SlayerHitVfxTests
         spawner.SpawnImpact(contact, go.transform, wasSlayer, true, slayerVisualPoint: new Vector2(8, 9));
         Assert.That(Get<List<GameObject>>(spawner, "active").Single().transform.position, Is.EqualTo((Vector3)contact));
     }
+    EnemyHitAnchor AnchoredActor(string key, out GameObject actor)
+    {
+        actor = Host("anchored " + key);
+        var body = actor.AddComponent<SpriteRenderer>();
+        var profile = AssetDatabase.LoadAssetAtPath<EnemyHitAnchorProfile>("Assets/Art/EnemyHitAnchors/" + key + ".asset");
+        body.sprite = profile.poses[0].sprite;
+        var anchor = actor.AddComponent<EnemyHitAnchor>();
+        Set(anchor, "body", body); Set(anchor, "profile", profile); actor.SetActive(true);
+        return anchor;
+    }
+    static Vector3 Geometry(EnemyHitAnchor anchor)
+    {
+        var body = anchor.Body; var sprite = body.sprite;
+        Assert.That(anchor.Profile.TryGet(sprite, out var pixel), Is.True);
+        var x = (pixel.x - sprite.pivot.x) / sprite.pixelsPerUnit * (body.flipX ? -1 : 1);
+        var y = (pixel.y - sprite.pivot.y) / sprite.pixelsPerUnit * (body.flipY ? -1 : 1);
+        // Expand the transform basis independently from TransformPoint.
+        var matrix = body.transform.localToWorldMatrix;
+        return (Vector3)matrix.GetColumn(3) + (Vector3)matrix.GetColumn(0) * x + (Vector3)matrix.GetColumn(1) * y;
+    }
+    static void Near(Vector3 actual, Vector3 expected) => Assert.That(Vector3.Distance(actual, expected), Is.LessThanOrEqualTo(.0001f));
+    SlayerHitVfx EmitAttached(HitSparkSpawner owner, GameObject attacker, EnemyHitAnchor anchor, bool lethal)
+    {
+        Assert.That(anchor.TryGetWorldPoint(out var point), Is.True);
+        owner.SpawnImpact(point, attacker.transform, true, lethal, anchor.transform,
+            slayerVisualPoint: point, slayerDirection: new Vector2(-1, 1), hitAnchor: anchor, anchorLifetime: anchor.Lifetime);
+        return Active().Single();
+    }
+    static void Follow(SlayerHitVfx effect) => typeof(SlayerHitVfx).GetMethod("LateUpdate", Flags).Invoke(effect, null);
+
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void ChestGeometryAndEveryPosePreserveWorldAngleScaleAndAlphaCentroid(bool lethal)
+    {
+        var owner = Owner(out var attacker);
+        int heldMappings = 0;
+        var contacts = AssetDatabase.LoadAssetAtPath<ParryContactLibrary>("Assets/Art/VFX/ParryClash/ParryContacts.asset");
+        foreach (var key in new[] { "ske", "sword", "axe", "sword-shield" })
+        {
+            var anchor = AnchoredActor(key, out var actor);
+            var held = contacts.frames.Where(f => !f.defense && f.contactCel && anchor.Profile.TryGet(f.sprite, out _))
+                .Select(f => f.contactCel).Distinct().ToArray();
+            foreach (var cel in held) Assert.That(anchor.Profile.TryGet(cel, out _), Is.True, key + "/" + cel.name);
+            heldMappings += held.Length;
+            var parent = Host("rotated mirrored parent"); parent.SetActive(true);
+            actor.transform.SetParent(parent.transform, false);
+            parent.transform.SetPositionAndRotation(new Vector3(4, -2, 0), Quaternion.Euler(0, 0, 37));
+            parent.transform.localScale = new Vector3(-1.3f, .7f, 1);
+            actor.transform.localRotation = Quaternion.Euler(0, 0, -23);
+            actor.transform.localScale = new Vector3(.8f, 1.4f, 1);
+            var effect = EmitAttached(owner, attacker, anchor, lethal);
+            var rotation = effect.transform.rotation; var scale = effect.transform.lossyScale;
+            foreach (bool flipX in new[] { false, true }) foreach (bool flipY in new[] { false, true })
+            foreach (var pose in anchor.Profile.poses)
+            {
+                anchor.Body.flipX = flipX; anchor.Body.flipY = flipY; anchor.Body.sprite = pose.sprite;
+                actor.transform.localPosition += new Vector3(.01f, -.02f, 0);
+                Follow(effect); Near(effect.transform.position, Geometry(anchor));
+                Assert.That(effect.transform.rotation, Is.EqualTo(rotation)); Near(effect.transform.lossyScale, scale);
+            }
+            var image = effect.GetComponentInChildren<SpriteRenderer>();
+            var texture = new Texture2D(2, 2); owned.Add(texture);
+            texture.LoadImage(System.IO.File.ReadAllBytes(AssetDatabase.GetAssetPath(image.sprite)));
+            foreach (var duration in Get<float[]>(effect, "frameDurations"))
+            {
+                var sprite = image.sprite; double weight = 0, x = 0, y = 0;
+                for (int py = 0; py < sprite.rect.height; py++) for (int px = 0; px < sprite.rect.width; px++)
+                {
+                    var alpha = texture.GetPixel((int)sprite.rect.x + px, (int)sprite.rect.y + py).a;
+                    weight += alpha; x += (px + .5) * alpha; y += (py + .5) * alpha;
+                }
+                var center = new Vector3(((float)(x / weight) - sprite.pivot.x) / sprite.pixelsPerUnit,
+                    ((float)(y / weight) - sprite.pivot.y) / sprite.pixelsPerUnit, 0);
+                Near(image.transform.TransformPoint(center), effect.transform.position);
+                Near(effect.transform.position, Geometry(anchor)); effect.Advance(duration + .000001f);
+            }
+            Assert.That(effect.gameObject.activeSelf, Is.False);
+        }
+        Assert.That(heldMappings, Is.EqualTo(7), "ske + two contact cels for each Endless form");
+    }
+
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void HiddenDestroyedAndDeadActorsKeepLastPointAndReleaseOnSchedule(bool lethal)
+    {
+        var owner = Owner(out var attacker);
+        foreach (var mode in new[] { "dead", "renderer", "actor", "destroy" })
+        {
+            var anchor = AnchoredActor("sword", out var actor);
+            var damage = actor.AddComponent<FeedbackDamageTarget>();
+            var effect = EmitAttached(owner, attacker, anchor, lethal);
+            effect.Advance(.02f); actor.transform.position += Vector3.up; Follow(effect);
+            var last = effect.transform.position;
+            if (mode == "dead") damage.dead = true;
+            if (mode == "renderer") anchor.Body.enabled = false;
+            if (mode == "actor") actor.SetActive(false);
+            if (mode == "destroy") UnityEngine.Object.DestroyImmediate(actor);
+            if (actor) actor.transform.position += Vector3.right;
+            Follow(effect);
+            Near(effect.transform.position, mode == "dead" ? Geometry(anchor) : last);
+            effect.Advance((lethal ? .16f : .12f) - .0201f);
+            Assert.That(effect.gameObject.activeSelf, Is.True);
+            effect.Advance(.0002f); Assert.That(effect.gameObject.activeSelf, Is.False);
+        }
+    }
+
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void ActorNewLifetimeReclaimsOldSlashAndPoolReuseFollowsOnlyNewRecipient(bool lethal)
+    {
+        var owner = Owner(out var attacker);
+        foreach (bool configure in new[] { false, true })
+        {
+            var anchor = AnchoredActor("ske", out var actor);
+            var effect = EmitAttached(owner, attacker, anchor, lethal);
+            if (configure)
+            {
+                actor.SetActive(false);
+                var animator = actor.AddComponent<Animator>(); var brain = actor.AddComponent<SkeletonController>();
+                Set(brain, "animator", animator); actor.SetActive(true);
+                // Emit after enable, so ConfigureEndless itself must invalidate this lease.
+                Follow(effect); effect = EmitAttached(owner, attacker, anchor, lethal);
+                brain.ConfigureEndless(new EndlessRun { Defeated = 2 });
+                Assert.That(anchor.Profile, Is.SameAs(new EndlessRun { Defeated = 2 }.Definition.hitAnchor));
+            }
+            else { actor.SetActive(false); actor.SetActive(true); }
+            Follow(effect); Assert.That(effect.gameObject.activeSelf, Is.False);
+            var next = AnchoredActor("axe", out var newActor); newActor.transform.position = new Vector3(8, 6, 0);
+            var reused = EmitAttached(owner, attacker, next, lethal);
+            Assert.That(reused, Is.SameAs(effect)); Assert.That(reused.Age, Is.Zero);
+            Assert.That(reused.Recipient, Is.SameAs(newActor.transform));
+            actor.transform.position += Vector3.one * 20; newActor.transform.position += Vector3.left;
+            Follow(reused); Near(reused.transform.position, Geometry(next));
+            reused.Advance(.161f);
+        }
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator AttachedPauseHoldsAgeFramePositionAlphaAndResumesFollowing()
+    {
+        foreach (bool lethal in new[] { false, true })
+        {
+            var owner = Owner(out var attacker); var anchor = AnchoredActor("axe", out var actor);
+            var effect = EmitAttached(owner, attacker, anchor, lethal);
+            effect.Advance(.015f);
+            var image = effect.GetComponentInChildren<SpriteRenderer>();
+            var age = effect.Age; var frame = image.sprite; var alpha = image.color.a; var point = effect.transform.position;
+            GamePauseController.SetTutorialReading(true); actor.transform.position += Vector3.right;
+            anchor.Body.sprite = anchor.Profile.poses.Last().sprite;
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That(effect.Age, Is.EqualTo(age)); Assert.That(image.sprite, Is.SameAs(frame));
+            Assert.That(image.color.a, Is.EqualTo(alpha)); Near(effect.transform.position, point);
+            GamePauseController.SetTutorialReading(false);
+            // Real LateUpdate after resume; freeze age only via tutorial pause above.
+            yield return null;
+            Assert.That(effect.gameObject.activeSelf, Is.True);
+            Near(effect.transform.position, Geometry(anchor));
+            Assert.That(effect.Age, Is.GreaterThan(age));
+            yield return new WaitForSecondsRealtime(.18f); Assert.That(effect.gameObject.activeSelf, Is.False);
+        }
+    }
+
 }
 #endif

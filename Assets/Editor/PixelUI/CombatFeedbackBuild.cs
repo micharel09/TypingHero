@@ -85,6 +85,7 @@ internal static class CombatFeedbackBuild
 
     static void Configure(GameObject root, SfxEvent normal, SfxEvent slayer, SfxEvent lethal)
     {
+        foreach (var actor in root.GetComponentsInChildren<SkeletonController>(true)) EnemyHitAnchorAssets.Bind(actor);
         // Remove the retired damage route before configuring the outgoing hit spawners.
         foreach (var damage in root.GetComponentsInChildren<PlayerDamageVoxel>(true))
             Object.DestroyImmediate(damage);

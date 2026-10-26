@@ -92,7 +92,11 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
         bool wasSlayer = slayer && slayer.IsActive;
         // Capture before damage/hit poses can move or disable the recipient.
-        Vector2? slayerVisualPoint = wasSlayer ? (Vector2)other.bounds.center : (Vector2?)null;
+        var recipient = (dmg as Component).transform;
+        var hitAnchor = wasSlayer ? recipient.GetComponent<EnemyHitAnchor>() : null;
+        uint anchorLifetime = hitAnchor ? hitAnchor.Lifetime : 0;
+        Vector3? slayerVisualPoint = hitAnchor && hitAnchor.TryGetWorldPoint(out var chest) ? chest : (Vector3?)null;
+        Vector3 impactDirection = root.position - transform.root.position;
         bool ignoreHitstop = wasSlayer && slayer.IgnoreHitstop;
         var images = wasSlayer ? transform.root.GetComponentInChildren<SlayerAfterimagePool>() : null;
         Color impactTint = images ? images.CurrentTint : Color.clear;
@@ -120,28 +124,28 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
         LastHitFrame = Time.frameCount; LastContact = p;
         dmg.TakeDamage(applyDamage, p);
-        if (wasSlayer && !dmg.IsDead && root.TryGetComponent(out EnemySlayerHitPose pose))
+        if (wasSlayer && !dmg.IsDead && root && root.TryGetComponent(out EnemySlayerHitPose pose))
         {
             pose.OnSlayerHit();
         }
-        if (wasSlayer && root.TryGetComponent<SlayerSilhouetteGroup>(out var silhouette))
+        if (wasSlayer && root && root.TryGetComponent<SlayerSilhouetteGroup>(out var silhouette))
             silhouette.PulseSlayerHit();
 
         // (sau đó mới tới HitFlash, HitSpark, Stamina, Hitstop…)
 
         // === HIT FLASH (tùy chọn) ===
-        if (root.TryGetComponent<EnemyHitFlash>(out var flash))
+        if (root && root.TryGetComponent<EnemyHitFlash>(out var flash))
         {
             if (!wasSlayer) flash.Tick();
         }
 
         // === HIT SPARK (tùy chọn) ===
-        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, root, capturedTint: wasSlayer ? impactTint : (Color?)null, slayerVisualPoint: slayerVisualPoint, slayerDirection: slayerDirection);
+        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, recipient, capturedTint: wasSlayer ? impactTint : (Color?)null, slayerVisualPoint: slayerVisualPoint, slayerDirection: slayerDirection, hitAnchor: hitAnchor, anchorLifetime: anchorLifetime);
 
 
 
         // === STAMINA DRAIN ===
-        if (root.TryGetComponent(out EnemyStamina stam))
+        if (root && root.TryGetComponent(out EnemyStamina stam))
         {
             int before = stam.Current;
             if (staminaOnHit >= 0) stam.ConsumeHit(staminaOnHit);
@@ -156,7 +160,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
 
         if (cameraImpact && applyDamage > 0)
-            cameraImpact.Hit(p, root.position - transform.root.position, wasSlayer, dmg.IsDead);
+            cameraImpact.Hit(p, root ? root.position - transform.root.position : impactDirection, wasSlayer, dmg.IsDead);
 
         if (hitStopper && !ignoreHitstop)
         {

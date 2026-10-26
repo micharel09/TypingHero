@@ -61,6 +61,21 @@ public class TypingManager : MonoBehaviour
     [SerializeField] float referencePixel = 3f;
     [SerializeField] Color completedColor = new Color(.44f, .66f, .62f, 1);
     Color currentColor, nextColor, thirdColor;
+    bool introPreview;
+    float introStartRemaining;
+
+    internal void BeginIntroPreview()
+    {
+        introPreview = true;
+        introStartRemaining = 0;
+    }
+
+    internal void EndIntroPreview(bool combatHandoff)
+    {
+        introStartRemaining = introPreview && combatHandoff ? .1f : 0;
+        introPreview = false;
+        Paint();
+    }
 
     float DT => GamePauseController.InputBlocked || CombatSession.Finished ? 0 : Time.unscaledDeltaTime;
 
@@ -79,6 +94,7 @@ public class TypingManager : MonoBehaviour
         completedThisFrame = 0;
         slideRemaining = Mathf.Max(0, slideRemaining - DT);
         errorRemaining = Mathf.Max(0, errorRemaining - DT);
+        introStartRemaining = Mathf.Max(0, introStartRemaining - DT);
         ProcessInput(Input.inputString);
         if (practiceTimer && !GamePauseController.InputBlocked && !CombatSession.Finished) HandleTimer();
         Paint();
@@ -108,6 +124,8 @@ public class TypingManager : MonoBehaviour
         {
             if (!practiceInput || GamePauseController.InputBlocked || CombatSession.Finished) break;
             if (!char.IsLetter(c) || current.Length == 0) continue;
+            // Correct/error feedback owns the first accepted letter immediately.
+            introStartRemaining = 0;
             if (char.ToLowerInvariant(c) == char.ToLowerInvariant(current[0]))
             {
                 AcceptChar(c, originalCurrent.Length - current.Length, rewardedCurrent);
@@ -164,7 +182,8 @@ public class TypingManager : MonoBehaviour
         wordText.color = Color.white;
         string before = originalCurrent.Substring(0, Mathf.Clamp(progress, 0, originalCurrent.Length));
         string after = originalCurrent.Substring(before.Length);
-        string ink = ColorUtility.ToHtmlStringRGB(errorRemaining > 0 ? errorFlashColor : currentColor);
+        Color activeInk = introPreview ? nextColor : Color.Lerp(currentColor, nextColor, introStartRemaining / .1f);
+        string ink = ColorUtility.ToHtmlStringRGB(errorRemaining > 0 ? errorFlashColor : activeInk);
         wordText.text = "<color=#" + ColorUtility.ToHtmlStringRGB(completedColor) + ">" + before + "</color><color=#" + ink + ">" + after + "</color>";
         nextWordText.text = next; thirdWordText.text = third;
         nextWordText.color = nextColor; thirdWordText.color = thirdColor;

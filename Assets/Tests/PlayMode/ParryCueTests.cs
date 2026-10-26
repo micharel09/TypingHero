@@ -88,6 +88,11 @@ public sealed class ParryCueTests
                 animator.runtimeAnimatorController = UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/Characters/Enermy/AC_Skeleton.controller");
 #endif
                 var strike = host.AddComponent<AttackStrike>(); Set(strike, "damageReceiver", receiver);
+                var anchor = host.AddComponent<EnemyHitAnchor>();
+                Set(anchor, "body", host.GetComponent<SpriteRenderer>());
+#if UNITY_EDITOR
+                Set(anchor, "profile", UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyHitAnchorProfile>("Assets/Art/EnemyHitAnchors/ske.asset"));
+#endif
                 var brain = host.AddComponent<SkeletonController>(); Set(brain, "animator", animator);
                 var frames = new System.Collections.Generic.List<ReviewFrame>();
                 try
@@ -154,6 +159,11 @@ public sealed class ParryCueTests
             animator.runtimeAnimatorController = UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/Characters/Enermy/AC_Skeleton.controller");
 #endif
             var strike = actor.AddComponent<AttackStrike>(); Set(strike, "damageReceiver", health);
+            var anchor = actor.AddComponent<EnemyHitAnchor>();
+            Set(anchor, "body", actor.GetComponent<SpriteRenderer>());
+#if UNITY_EDITOR
+            Set(anchor, "profile", UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyHitAnchorProfile>("Assets/Art/EnemyHitAnchors/ske.asset"));
+#endif
             var brain = actor.AddComponent<SkeletonController>(); Set(brain, "animator", animator);
             var target = actor.AddComponent<ParryTarget>(); target.skeleton = brain; target.damageable = brain;
             parry.enemy = target;
@@ -203,6 +213,11 @@ public sealed class ParryCueTests
             animator.runtimeAnimatorController = UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/Characters/Enermy/AC_Skeleton.controller");
 #endif
             var strike = host.AddComponent<AttackStrike>(); Set(strike, "damageReceiver", receiver);
+            var anchor = host.AddComponent<EnemyHitAnchor>();
+            Set(anchor, "body", host.GetComponent<SpriteRenderer>());
+#if UNITY_EDITOR
+            Set(anchor, "profile", UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyHitAnchorProfile>("Assets/Art/EnemyHitAnchors/ske.asset"));
+#endif
             var brain = host.AddComponent<SkeletonController>();
             var cue = new GameObject("Cue"); cue.transform.SetParent(host.transform); cue.SetActive(false);
             Set(brain, "animator", animator); Set(brain, "attackCue", cue);

@@ -22,6 +22,7 @@ MonoBehaviour:
   controller: {fileID: 9100000, guid: 177a47d3d3f82dc919036928bd2664fa, type: 2}
   idle: {fileID: 4723107735738678597, guid: f2be2f415097b625d9a799fbd6a307cb, type: 3}
   hurt: {fileID: 7400000, guid: 50b877542a1b467c48e5ba621414ad2c, type: 2}
+  hitAnchor: {fileID: 11400000, guid: a3b5a0017d6842e09de6eb640d729d79, type: 2}
   opening: 01000000
   alternate: 0100000002000000
   triple: 020000000100000002000000

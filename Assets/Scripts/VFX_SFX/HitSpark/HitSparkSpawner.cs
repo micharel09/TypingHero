@@ -78,7 +78,7 @@ public class HitSparkSpawner : MonoBehaviour
         SpawnPrefab(sparkPrefab, worldPoint, attacker, targetRoot);
     }
 
-    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null, Color? capturedTint = null, Vector2? slayerVisualPoint = null, Vector2? slayerDirection = null)
+    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null, Color? capturedTint = null, Vector3? slayerVisualPoint = null, Vector2? slayerDirection = null, EnemyHitAnchor hitAnchor = null, uint anchorLifetime = 0)
     {
         if (!isActiveAndEnabled || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         GameObject prefab = sparkPrefab;
@@ -88,13 +88,13 @@ public class HitSparkSpawner : MonoBehaviour
         else if (!lethal && wasSlayer && slayerPrefabs != null && slayerPrefabs.Length > 0)
             prefab = slayerPrefabs[slayerIndex++ % slayerPrefabs.Length];
         var images = wasSlayer && attacker ? attacker.GetComponentInChildren<SlayerAfterimagePool>() : null;
-        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, capturedTint ?? (images ? images.CurrentTint : Color.clear), wasSlayer ? slayerVisualPoint : null, slayerDirection, wasSlayer && lethal);
+        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, capturedTint ?? (images ? images.CurrentTint : Color.clear), wasSlayer ? slayerVisualPoint : null, slayerDirection, wasSlayer && lethal, hitAnchor, anchorLifetime);
         var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
         if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
         // Confirmed contacts own camera impact independently of this visual emitter.
     }
 
-    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null, Vector2? slayerVisualPoint = null, Vector2? slayerDirection = null, bool slayerLethal = false)
+    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null, Vector3? slayerVisualPoint = null, Vector2? slayerDirection = null, bool slayerLethal = false, EnemyHitAnchor hitAnchor = null, uint anchorLifetime = 0)
     {
         if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         var recipient = targetRoot ? targetRoot : transform;
@@ -124,7 +124,7 @@ public class HitSparkSpawner : MonoBehaviour
             // The source B streak points up-right. Rotate that axis onto the authored swing.
             float clockwiseAngle = Mathf.Repeat(45 - Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, 360);
             // Slayer B stays black independently of combo tint and lethal mode exit.
-            slash.Emit(slayerVisualPoint ?? point, clockwiseAngle, Color.black, recipient);
+            slash.Emit(slayerVisualPoint ?? point, clockwiseAngle, Color.black, recipient, hitAnchor, anchorLifetime);
             return;
         }
         if (go.TryGetComponent<NormalHitSpark>(out var normal))
