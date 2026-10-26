@@ -24,10 +24,14 @@ the same primary/recipient/lifetime check selects the schedule before pool mutat
 Legacy retains40ms; pause and existing lifecycle cleanup remain. Root jitter
 on the default Skeleton root is disabled. Shader defaults keep other materials'
 previous output. QA observations add no gameplay setters. Public contracts remain.
-The new schedule passes61scoped Ubuntu cases; fresh QA/native capture and complete
-frame review are recorded. Clear opening sweep at1x is not established under black
-body/ivory arc occlusion; axe/shield1x playback still drops/waits. Visual acceptance
-is not achieved; main integration is withheld. Status and clips are recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
+The81distinct scoped Ubuntu results (74initial plus8final, one updated case
+overlaps) are provisional after a foreign cached editor assembly was detected.
+A clean-source81-case rerun and final QA/capture/visual acceptance are pending.
+Historical six-phase capture did not establish clear opening growth at1x; previous
+VP9 playback checks also omitted packet-duration qualification. Corrected lossless
+VFR exports pass pixels/PTS/durations/endpoints; historical shield1x now qualifies,
+axe1x still drops4frames. Main integration remains withheld. Status and clips are
+recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
 
 # System and configuration map
 

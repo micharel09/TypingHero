@@ -1476,3 +1476,24 @@ was renamed `aborted-shader-cache-copy` within the private root. Setup resumes
 with symlinks preserved and excludes ShaderCache/BurstCache/EditorInstance.json/
 ilpp.pid; Unity will regenerate shader cache. This is an environment attempt,
 not a build/test pass. Final private QA still pending.
+
+#### Cached-assembly failure supersedes the preceding qualification
+
+Private QA155415 failed before building a player: stack trace invoked
+TutorialBuild.ImportCapture/BuildParry and read TutorialParry/typing.json. Those
+methods/path do not exist in candidate TutorialBuild.cs (source search returned
+no matches). This proves a foreign cached editor assembly was executed; it is
+not a missing candidate tutorial asset. The prior74/8 results are therefore
+provisional for final-source qualification, despite their Passed XML, until
+repeated from a clean compiled cache. No source fallback/foreign asset is added.
+The failed unity log is retained as failed-private-stale-assembly.log.
+
+After confirming no running container mounts this private root, Library was
+renamed to invalid-library-cache-155415. Only pinned PackageCache was moved into
+a new empty Library; all ScriptAssemblies/Bee/import databases are excluded from
+reuse. Shared Library/HOME/toolchain remain untouched. The new external adapter
+build-private-verified.py runs the full81-case affected selection, saves XML and
+its compilation log, then builds QA with strict repeat-builder under the same
+private lock. It saves input snapshot even on failure and archives the successful
+player before release. Inpute99fe0c1 remains unchanged; cache isolation is the
+concrete cause-directed change for the retry. Final qualification is pending.

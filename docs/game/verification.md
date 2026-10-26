@@ -1,3 +1,24 @@
+## Slayer B contrast follow-up (2026-10-26; requalification pending)
+
+Candidate51b500d adds isolated130/150ms+20ms body flash, chained F0 contact20ms,
+and chained F4 contact20ms plus peak70-90ms. Artwork, black B, anchors, scale and
+240/280ms B timing remain unchanged. New contacts replace pending flash schedules.
+Initial74 plus final8 selected cases produced81distinct passes, but those results
+are provisional: private QA155415 executed a cached TutorialBuild.ImportCapture
+method absent from candidate source, then failed on missing TutorialParry/typing.json.
+No tutorial asset/fallback is added to conceal the foreign-assembly problem.
+All private compiled/import cache is isolated; only pinned PackageCache remains.
+A clean-source81-case run precedes the final QA under the same private runner lock.
+
+Lossless VFR exporter verifies decoded pixels, every PTS/duration, ending hold,
+and video/container length. Historical301/727/314-frame clips pass export checks;
+after the concrete export correction, shield1x passes technically, axe1x still
+drops4frames. Failed reports remain intact. New capture uses only canvas
+MediaRecorder, real keys/mouse, read-only QA and provider blocking, with browser
+timestamps and driver/scenario hashes. Runtime/frame/playback acceptance is pending.
+Evidence: E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/.
+Main integration remains withheld; [existing checkpoint](../plans/slayer-slash-vfx.md).
+
 ## Slayer B sweep timeline (2026-10-26; visual acceptance not achieved)
 
 Ubuntu Unity2022.3.25f1 filtered100329-quick:61/61Passed,0failed/skipped,
