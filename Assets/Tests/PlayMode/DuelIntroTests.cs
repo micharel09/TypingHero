@@ -66,6 +66,12 @@ public sealed class DuelIntroTests
         float start = Time.realtimeSinceStartup;
         while (intro.Running && Time.realtimeSinceStartup - start < 6)
         {
+            var heading = (TMPro.TMP_Text)Field(intro, "label");
+            var hudName = Find<CombatR7Status>().IntroEnemyLabel;
+            Assert.That(heading.alpha > 0 && hudName.alpha > 0, Is.False, "one opponent name at a time");
+            Assert.That(heading.rectTransform.anchoredPosition, Is.EqualTo(Vector2.zero));
+            foreach (var actorRenderer in enemy.GetComponentsInChildren<Renderer>(true))
+                Assert.That(actorRenderer.forceRenderingOff, Is.EqualTo(intro.Elapsed < 1.03f), "whole pose and shadow switch together");
             typing.ProcessInput(word + "wrong ");
             player.TakeDamage(5, Vector2.zero); enemy.TakeDamage(5, Vector2.zero);
             Assert.That(player.Current, Is.EqualTo(hp)); Assert.That(enemy.Current, Is.EqualTo(enemyHp));
@@ -92,6 +98,7 @@ public sealed class DuelIntroTests
         yield return Finished();
         Assert.That(GamePauseController.InputBlocked, Is.False);
         Assert.That(enemy.GetComponent<Renderer>().forceRenderingOff, Is.False);
+        Assert.That(Find<CombatR7Status>().IntroEnemyLabel.alpha, Is.EqualTo(1));
         typing.ProcessInput(word.Substring(0, 1)); Assert.That(CombatSession.I.Letters, Is.EqualTo(1));
         Assert.That((float)Field(typing, "introStartRemaining"), Is.Zero, "typing feedback supersedes start cue");
         Assert.That(Field(ScoreSystem.I, "_paused"), Is.False);
@@ -121,7 +128,9 @@ public sealed class DuelIntroTests
         pause.SendMessage("OnApplicationFocus", false);
         yield return new WaitForSecondsRealtime(.15f);
         Assert.That((float)Field(typing, "introStartRemaining"), Is.EqualTo(.1f));
-        pause.Resume(); yield return new WaitForSecondsRealtime(.4f);
+        pause.Resume();
+        deadline = Time.realtimeSinceStartup + 3;
+        while ((GamePauseController.IsPaused || (float)Field(typing, "introStartRemaining") > 0) && Time.realtimeSinceStartup < deadline) yield return null;
         Assert.That((float)Field(typing, "introStartRemaining"), Is.Zero);
         typing.BeginIntroPreview(); typing.EndIntroPreview(false);
         Assert.That((bool)Field(typing, "introPreview"), Is.False);
@@ -142,9 +151,20 @@ public sealed class DuelIntroTests
             Is.LessThan(((Canvas)Field(pause, "pauseCanvas")).sortingOrder), "Pause stays above the partially closed cover");
         pause.SendMessage("OnApplicationFocus", false);
         float held = intro.Elapsed;
-        var dust = Find<ParticleSystem>();
+        var dust = (ParticleSystem)Field(intro, "dust");
+        var mesh = (Mesh)Field(intro, "smokeMesh");
+        Assert.That(dust.GetComponent<ParticleSystemRenderer>().renderMode, Is.EqualTo(ParticleSystemRenderMode.Mesh));
+        Assert.That(mesh.vertexCount, Is.EqualTo(20));
+        var before = new ParticleSystem.Particle[18]; int count = dust.GetParticles(before);
         yield return new WaitForSecondsRealtime(.25f);
         Assert.That(intro.Elapsed, Is.EqualTo(held)); Assert.That(GamePauseController.IsPaused, Is.True);
+        var after = new ParticleSystem.Particle[18]; Assert.That(dust.GetParticles(after), Is.EqualTo(count));
+        for (int i = 0; i < count; i++)
+        {
+            Assert.That(after[i].position, Is.EqualTo(before[i].position));
+            Assert.That(after[i].startColor, Is.EqualTo(before[i].startColor));
+        }
+        Assert.That(Field(intro, "smokeMesh"), Is.SameAs(mesh));
         Assert.That(Time.timeScale, Is.Zero); Assert.That(AudioListener.pause, Is.True);
         pause.Resume();
         // Resume completes the existing camera tween before releasing the pause.
@@ -153,7 +173,35 @@ public sealed class DuelIntroTests
         while (intro.Elapsed <= held && Time.realtimeSinceStartup < deadline) yield return null;
         Assert.That(GamePauseController.IsPaused, Is.False);
         Assert.That(intro.Elapsed, Is.GreaterThan(held));
+        // Repeat at whole-pose reveal and the label -> HUD name handoff.
+        foreach (float milestone in new[] { 1.05f, 1.90f })
+        {
+            deadline = Time.realtimeSinceStartup + 4;
+            while (intro.Elapsed < milestone && Time.realtimeSinceStartup < deadline) yield return null;
+            Assert.That(intro.Running, Is.True);
+            var enemy = Find<SkeletonController>();
+            Assert.That(enemy.GetComponent<Renderer>().forceRenderingOff, Is.False);
+            var heading = (TMPro.TMP_Text)Field(intro, "label");
+            var hudName = Find<CombatR7Status>().IntroEnemyLabel;
+            pause.SendMessage("OnApplicationFocus", false);
+            yield return null; // Observe after presentation LateUpdate commits this frame.
+            float titleAlpha = heading.alpha, hudNameAlpha = hudName.alpha;
+            count = dust.GetParticles(before); held = intro.Elapsed;
+            yield return new WaitForSecondsRealtime(.15f);
+            Assert.That(intro.Elapsed, Is.EqualTo(held));
+            Assert.That(heading.alpha, Is.EqualTo(titleAlpha));
+            Assert.That(hudName.alpha, Is.EqualTo(hudNameAlpha));
+            Assert.That(dust.GetParticles(after), Is.EqualTo(count));
+            for (int i = 0; i < count; i++) Assert.That(after[i].position, Is.EqualTo(before[i].position));
+            Assert.That(Field(intro, "smokeMesh"), Is.SameAs(mesh), "Resume never respawns smoke");
+            Assert.That(enemy.GetComponent<Renderer>().forceRenderingOff, Is.False);
+            pause.Resume();
+            deadline = Time.realtimeSinceStartup + 3;
+            while (intro.Elapsed <= held && Time.realtimeSinceStartup < deadline) yield return null;
+        }
         yield return Finished(); Assert.That(GamePauseController.InputBlocked, Is.False);
+        Assert.That(Field(intro, "smokeMesh"), Is.Null);
+        Assert.That(intro.GetComponentsInChildren<ParticleSystem>().Length, Is.Zero);
     }
     [UnityTest, Category("Quick")]
     public IEnumerator RetryUsesShortIntroAndMenuCancelsWithoutLeakingWorldOrCover()
@@ -167,7 +215,17 @@ public sealed class DuelIntroTests
         float deadline = Time.realtimeSinceStartup + 6;
         while (intro.Elapsed < .75f && Time.realtimeSinceStartup < deadline) yield return null;
         Assert.That(intro.Elapsed, Is.GreaterThanOrEqualTo(.75f));
-        session.ReturnToMenu(); yield return null;
+        var pause = Find<GamePauseController>();
+        pause.TogglePause(true); yield return null;
+        pause.ReturnToMenu(); yield return null;
+        var heading = (TMPro.TMP_Text)Field(intro, "label");
+        var cover = (RectTransform)Field(intro, "curtain");
+        deadline = Time.realtimeSinceStartup + 6;
+        while (heading && cover.GetSiblingIndex() < heading.transform.GetSiblingIndex() && Time.realtimeSinceStartup < deadline)
+        {
+            Assert.That(heading.enabled, Is.False, "navigation never re-shows the paused heading before cover");
+            yield return null;
+        }
         Assert.That(((RectTransform)Field(intro, "curtain")).GetSiblingIndex(),
             Is.GreaterThan(((TMPro.TMP_Text)Field(intro, "label")).transform.GetSiblingIndex()),
             "navigation cover also occludes the live opponent heading");
@@ -175,6 +233,8 @@ public sealed class DuelIntroTests
         Assert.That(session.World, Is.SameAs(world)); Assert.That(GamePauseController.InputBlocked, Is.False);
         Assert.That(Object.FindObjectOfType<SkeletonController>(), Is.Null);
         Assert.That(intro.Running, Is.False);
+        Assert.That(Field(intro, "smokeMesh"), Is.Null);
+        Assert.That(intro.GetComponentsInChildren<ParticleSystem>().Length, Is.Zero);
         Assert.That(intro.transform.Find("Duel presentation/Scene cover").gameObject.activeSelf, Is.False);
     }
     [UnityTest, Category("Quick")]
@@ -186,26 +246,46 @@ public sealed class DuelIntroTests
         int reveal = Shader.PropertyToID("_IntroReveal"), marker = Shader.PropertyToID("_FlashAmount");
         Assert.That(renderer.sharedMaterial.GetVector(reveal), Is.EqualTo(Vector4.zero), "default actor material stays fully visible");
         var block = new MaterialPropertyBlock(); renderer.GetPropertyBlock(block); block.SetFloat(marker, .123f); renderer.SetPropertyBlock(block);
-        var paint = typeof(DuelIntroPresentation).GetMethod("PaintEnemyReveal", BindingFlags.Instance | BindingFlags.NonPublic);
-        paint.Invoke(intro, new object[] { .5f });
-        renderer.GetPropertyBlock(block);
-        Assert.That(block.GetVector(reveal).x, Is.EqualTo(1));
-        Assert.That(block.GetVector(reveal).y, Is.InRange(renderer.bounds.min.y, renderer.bounds.max.y));
-        Assert.That(block.GetFloat(marker), Is.EqualTo(.123f));
-        Assert.That(renderer.forceRenderingOff, Is.False);
-        foreach (var child in enemy.GetComponentsInChildren<Renderer>())
-            if (!child.sharedMaterial.HasProperty(reveal)) Assert.That(child.forceRenderingOff, Is.True, "unclipped shadow waits until body is complete");
-        paint.Invoke(intro, new object[] { 1f });
+        var originalMaterial = renderer.sharedMaterial;
+        var name = Find<CombatR7Status>().IntroEnemyLabel;
+        float originalAlpha = (float)Field(intro, "enemyHudNameAlpha");
+        var revealEnemy = typeof(DuelIntroPresentation).GetMethod("RevealEnemy", BindingFlags.Instance | BindingFlags.NonPublic);
+        revealEnemy.Invoke(intro, null);
         renderer.GetPropertyBlock(block);
         Assert.That(block.GetVector(reveal), Is.EqualTo(Vector4.zero));
         Assert.That(block.GetFloat(marker), Is.EqualTo(.123f));
-        // Simulate a live property change by another owner; cancellation must not replace its block.
+        foreach (var child in enemy.GetComponentsInChildren<Renderer>(true))
+            Assert.That(child.forceRenderingOff, Is.False, "whole pose and shadow restored together");
         renderer.GetPropertyBlock(block); block.SetFloat(marker, .234f); renderer.SetPropertyBlock(block);
-        paint.Invoke(intro, new object[] { .5f }); session.StopAllCoroutines(); intro.Cancel();
+        session.StopAllCoroutines(); intro.Cancel();
         renderer.GetPropertyBlock(block);
         Assert.That(block.GetVector(reveal), Is.EqualTo(Vector4.zero));
         Assert.That(block.GetFloat(marker), Is.EqualTo(.234f));
-        Assert.That(renderer.forceRenderingOff, Is.False);
+        Assert.That(renderer.sharedMaterial, Is.SameAs(originalMaterial));
+        Assert.That(name.alpha, Is.EqualTo(originalAlpha));
+        yield return null;
+        Assert.That(Field(intro, "smokeMesh"), Is.Null);
+        Assert.That(intro.GetComponentsInChildren<ParticleSystem>().Length, Is.Zero);
+    }
+    [UnityTest, Category("Quick")]
+    public IEnumerator PauseOnFinalPresentationFrameDefersCombatHandoffUntilResume()
+    {
+        session.BeginGame(); yield return Activated();
+        var intro = Find<DuelIntroPresentation>(); var pause = Find<GamePauseController>();
+        var boundary = session.gameObject.AddComponent<DuelIntroHandoffPause>();
+        boundary.Intro = intro; boundary.Pause = pause;
+        float deadline = Time.realtimeSinceStartup + 6;
+        while (!boundary.Triggered && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(boundary.Triggered, Is.True);
+        yield return null; yield return null;
+        Assert.That(intro.Elapsed, Is.EqualTo(2.4f));
+        Assert.That(intro.Running, Is.True, "the final presentation frame must not hand off while frozen");
+        Assert.That((bool)Field(Find<TypingManager>(), "introPreview"), Is.True);
+        Assert.That(CombatSession.I.Seconds, Is.Zero);
+        Assert.That(GamePauseController.InputBlocked, Is.True);
+        pause.Resume(); yield return Finished();
+        Assert.That(intro.Running, Is.False);
+        Assert.That(GamePauseController.InputBlocked, Is.False);
     }
     [UnityTest, Category("Quick")]
     public IEnumerator TutorialOnlyUncoversAndRetainsItsOwnReadingLock()
@@ -217,5 +297,22 @@ public sealed class DuelIntroTests
         Assert.That(Find<DuelIntroPresentation>().Running, Is.False);
         Assert.That(Find<SkeletonController>().GetComponent<Renderer>().forceRenderingOff, Is.False);
         Assert.That(Find<DuelIntroPresentation>().transform.GetComponentsInChildren<ParticleSystem>().Length, Is.Zero);
+    }
+}
+
+// Pause after the coroutine reaches its final frame, before its next continuation.
+[DefaultExecutionOrder(31999)]
+internal sealed class DuelIntroHandoffPause : MonoBehaviour
+{
+    internal DuelIntroPresentation Intro;
+    internal GamePauseController Pause;
+    internal bool Triggered;
+    void LateUpdate()
+    {
+        if (!Triggered && Intro && Intro.Running && Intro.Elapsed >= 2.4f)
+        {
+            Triggered = true;
+            Pause.SendMessage("OnApplicationFocus", false);
+        }
     }
 }

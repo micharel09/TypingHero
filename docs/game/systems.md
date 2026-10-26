@@ -38,11 +38,18 @@ results, with no reading intro or tactical hint. No save/provider contract chang
 screen-space cover/heading and a private spawn-dust variant. It suppresses only
 enemy renderers (including the child shadow) and existing combat HUD CanvasGroups.
 The cover/heading canvas uses order39, below authored Pause40 and above menu/HUD.
-The intro-only `_IntroReveal` property clips actor color/depth/shadow together in
-DungeonSprite; its default is off. The session merges/restores only its own vector
-in live property blocks. Unsupported child shadows wait until the body is complete.
-CombatHUDLayout exposes the existing typing-tray reference internally for the80ms
-stagger; HUD geometry, materials and serialized bindings are retained.
+The presenter never writes MaterialPropertyBlocks: the shared shader's default-off
+`_IntroReveal` and lighting/Slayer consumers remain unchanged. Renderer states,
+including contact shadow, restore together once at spawnu.36. The private18-puff
+ParticleSystem uses one five-strip stepped mesh, camera-plane alignment and the
+existing StrikeAccent material; Finish/cancel/session destruction release its mesh.
+CombatR7Status exposes only an internal enemy-label getter; the presenter saves
+and restores its authored alpha and gates the80ms HUD-name fade after the stationary
+intro label has fully faded. Status bars and typing tray keep separate CanvasGroup
+fades, without changing bindings/geometry/RGB/text. Navigation suppresses the label
+through the Pause owner's exit tween and Cover; Prepare resets suppression. The
+last intro frame remains locked while paused or navigating, so cancellation cannot
+signal combat. CombatHUDLayout retains its internal typing-tray reference.
 `TypingManager` owns an internal presentation-only preview flag and100ms start-ink
 transition in Paint. The presenter sets preview before activation, clears it with
 a cue only at combat handoff, and clears it without a cue on cancellation.
