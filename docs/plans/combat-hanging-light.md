@@ -1,3 +1,37 @@
+## Ubuntu verification continuation — acceptance pending (2026-10-26)
+
+Per user instruction, Unity execution now uses Ubuntu `fly-server` only. The
+task-owned Windows Editor was stopped before test execution; no result is claimed
+from it. The original dirty checkout and other server jobs remain untouched.
+Private runner: `/data/typinghero-game-loop/tasks/replaced-lighting-20261026-c590c73`;
+pinned Unity2022.3.25f1 WebGL Docker digest
+`cff6700de0d94127031a428e17c8c8df6dfd5c77850febf677ce39858ad34e4d`.
+Its private license/cache must be removed after integration and evidence retention.
+
+- Ubuntu focused lighting/depth/world/intro/Slayer tests:62 executed,60 passed,
+  two failed in the existing mirrored Slayer tint test. The same test/runtime
+  source exists on base main24f74e0. The test bypassed the production spawner's
+  black-tint policy by directly emitting progression colors. The repair exercises
+  actual `SpawnImpact` with captured progression tint and authored swing vectors;
+  all original black-color/four-frame/angle/position/no-flip assertions remain.
+- Fixed test: **2/2 PASS**,0failed/skipped,0.1310992s, Ubuntu result
+  `20261026T065758-quick`. Local receipt `ubuntu-fixed-tests-20261026/tests.xml`
+  under the existing evidence root. The preceding retry reused stale compiled
+  code because snapshot tar timestamps were fixed; adapter timestamps now change
+  on upload, and the successful rerun compiled the changed source. Runtime and
+  artwork did not change for this test correction.
+- Fresh focused empty-page Edge observation:73.47FPS,p9513.5ms,736/736 focused and
+  visible samples. This supersedes the earlier host-pacing observation only;
+  it is not game performance or acceptance against the60FPS target.
+- Strict repeated builder **PASS**, Ubuntu `20261026T065938-serialize`, same input
+  SHA256 `96479702f012497b74836733d28d28e0f5e03779b0323309107e8cd5e00b2800`.
+  Includes painted-map/custom-binding preservation, two-world Preview/Undo/Redo,
+  scene save/reopen and byte-stable authored maps through both builder passes.
+  Log and serialized outputs retained at `ubuntu-repeat-20261026/`.
+- Four-direction white-light output, Ubuntu-built paired
+  WebGL players, six-opponent real input/playback and GTX1650Ti ABBA measurements
+  remain pending. Do not integrate while these acceptance gates are unverified.
+
 ## REPLACED quality/performance follow-up — candidate, not integrated (2026-10-25)
 
 Task branch `micharel09/replaced-dungeon-lighting-2`, independent Orca worktree

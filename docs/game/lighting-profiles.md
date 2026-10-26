@@ -17,8 +17,8 @@ than editing shared fixture profiles: front2/range16, left side32/range13,
 opposite side4/range10, rear4/range15. The sixth, fixed cool fill stays64/range16.
 Anchors, authored flames, shadow atlas, combat scheduler and camera stay unchanged.
 Fog is a very dark cool RGB(.004,.009,.018). Haze/rune/beam/planar reflection remain off.
-Static preview/shader evidence is complete; candidate runtime, neutral-light,
-repeated-builder and60FPS acceptance remain pending in the
+Static preview/shader evidence and Ubuntu strict repeated-builder checks pass;
+candidate runtime, neutral-light and60FPS acceptance remain pending in the
 [checkpoint](../plans/combat-hanging-light.md).
 
 Normal authoring is explicit/offline. Repeat `--source <atlas.png>` with
