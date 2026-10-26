@@ -114,9 +114,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 1318
-        width: 240
-        height: 90
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: mistakes_001
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1318
-        width: 240
-        height: 90
+        x: 326
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: mistakes_002
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1318
-        width: 240
-        height: 90
+        x: 650
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: mistakes_003
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1318
-        width: 240
-        height: 90
+        x: 974
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: mistakes_004
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1318
-        width: 240
-        height: 90
+        x: 1298
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: mistakes_005
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1318
-        width: 240
-        height: 90
+        x: 1622
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +239,10 @@ TextureImporter:
       name: mistakes_006
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1318
-        width: 240
-        height: 90
+        x: 2
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +260,10 @@ TextureImporter:
       name: mistakes_007
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1318
-        width: 240
-        height: 90
+        x: 326
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,10 +281,10 @@ TextureImporter:
       name: mistakes_008
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1224
-        width: 240
-        height: 90
+        x: 650
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,10 +302,10 @@ TextureImporter:
       name: mistakes_009
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1224
-        width: 240
-        height: 90
+        x: 974
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,10 +323,10 @@ TextureImporter:
       name: mistakes_010
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1224
-        width: 240
-        height: 90
+        x: 1298
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,10 +344,10 @@ TextureImporter:
       name: mistakes_011
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1224
-        width: 240
-        height: 90
+        x: 1622
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,10 +365,10 @@ TextureImporter:
       name: mistakes_012
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1224
-        width: 240
-        height: 90
+        x: 2
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -386,10 +386,10 @@ TextureImporter:
       name: mistakes_013
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1224
-        width: 240
-        height: 90
+        x: 326
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -407,10 +407,10 @@ TextureImporter:
       name: mistakes_014
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1224
-        width: 240
-        height: 90
+        x: 650
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,10 +428,10 @@ TextureImporter:
       name: mistakes_015
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1224
-        width: 240
-        height: 90
+        x: 974
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -449,10 +449,10 @@ TextureImporter:
       name: mistakes_016
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1130
-        width: 240
-        height: 90
+        x: 1298
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -470,10 +470,10 @@ TextureImporter:
       name: mistakes_017
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1130
-        width: 240
-        height: 90
+        x: 1622
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -491,10 +491,10 @@ TextureImporter:
       name: mistakes_018
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1130
-        width: 240
-        height: 90
+        x: 2
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -512,10 +512,10 @@ TextureImporter:
       name: mistakes_019
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1130
-        width: 240
-        height: 90
+        x: 326
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -533,10 +533,10 @@ TextureImporter:
       name: mistakes_020
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1130
-        width: 240
-        height: 90
+        x: 650
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -554,10 +554,10 @@ TextureImporter:
       name: mistakes_021
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1130
-        width: 240
-        height: 90
+        x: 974
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -575,10 +575,10 @@ TextureImporter:
       name: mistakes_022
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1130
-        width: 240
-        height: 90
+        x: 1298
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -596,10 +596,10 @@ TextureImporter:
       name: mistakes_023
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1130
-        width: 240
-        height: 90
+        x: 1622
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -618,9 +618,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 1036
-        width: 240
-        height: 90
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -638,10 +638,10 @@ TextureImporter:
       name: mistakes_025
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1036
-        width: 240
-        height: 90
+        x: 326
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -659,10 +659,10 @@ TextureImporter:
       name: mistakes_026
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1036
-        width: 240
-        height: 90
+        x: 650
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -680,10 +680,10 @@ TextureImporter:
       name: mistakes_027
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1036
-        width: 240
-        height: 90
+        x: 974
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -701,10 +701,10 @@ TextureImporter:
       name: mistakes_028
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1036
-        width: 240
-        height: 90
+        x: 1298
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -722,10 +722,10 @@ TextureImporter:
       name: mistakes_029
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1036
-        width: 240
-        height: 90
+        x: 1622
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -743,10 +743,10 @@ TextureImporter:
       name: mistakes_030
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1036
-        width: 240
-        height: 90
+        x: 2
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -764,10 +764,10 @@ TextureImporter:
       name: mistakes_031
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1036
-        width: 240
-        height: 90
+        x: 326
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -785,10 +785,10 @@ TextureImporter:
       name: mistakes_032
       rect:
         serializedVersion: 2
-        x: 2
-        y: 942
-        width: 240
-        height: 90
+        x: 650
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -806,10 +806,10 @@ TextureImporter:
       name: mistakes_033
       rect:
         serializedVersion: 2
-        x: 246
-        y: 942
-        width: 240
-        height: 90
+        x: 974
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -827,10 +827,10 @@ TextureImporter:
       name: mistakes_034
       rect:
         serializedVersion: 2
-        x: 490
-        y: 942
-        width: 240
-        height: 90
+        x: 1298
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -848,10 +848,10 @@ TextureImporter:
       name: mistakes_035
       rect:
         serializedVersion: 2
-        x: 734
-        y: 942
-        width: 240
-        height: 90
+        x: 1622
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -869,10 +869,10 @@ TextureImporter:
       name: mistakes_036
       rect:
         serializedVersion: 2
-        x: 978
-        y: 942
-        width: 240
-        height: 90
+        x: 2
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -890,10 +890,10 @@ TextureImporter:
       name: mistakes_037
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 942
-        width: 240
-        height: 90
+        x: 326
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -911,10 +911,10 @@ TextureImporter:
       name: mistakes_038
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 942
-        width: 240
-        height: 90
+        x: 650
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -932,10 +932,10 @@ TextureImporter:
       name: mistakes_039
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 942
-        width: 240
-        height: 90
+        x: 974
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -953,10 +953,10 @@ TextureImporter:
       name: mistakes_040
       rect:
         serializedVersion: 2
-        x: 2
-        y: 848
-        width: 240
-        height: 90
+        x: 1298
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -974,10 +974,10 @@ TextureImporter:
       name: mistakes_041
       rect:
         serializedVersion: 2
-        x: 246
-        y: 848
-        width: 240
-        height: 90
+        x: 1622
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -995,10 +995,10 @@ TextureImporter:
       name: mistakes_042
       rect:
         serializedVersion: 2
-        x: 490
-        y: 848
-        width: 240
-        height: 90
+        x: 2
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1016,10 +1016,10 @@ TextureImporter:
       name: mistakes_043
       rect:
         serializedVersion: 2
-        x: 734
-        y: 848
-        width: 240
-        height: 90
+        x: 326
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1037,10 +1037,10 @@ TextureImporter:
       name: mistakes_044
       rect:
         serializedVersion: 2
-        x: 978
-        y: 848
-        width: 240
-        height: 90
+        x: 650
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1058,10 +1058,10 @@ TextureImporter:
       name: mistakes_045
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 848
-        width: 240
-        height: 90
+        x: 974
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1079,10 +1079,10 @@ TextureImporter:
       name: mistakes_046
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 848
-        width: 240
-        height: 90
+        x: 1298
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1100,10 +1100,10 @@ TextureImporter:
       name: mistakes_047
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 848
-        width: 240
-        height: 90
+        x: 1622
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1122,9 +1122,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 754
-        width: 240
-        height: 90
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1142,10 +1142,10 @@ TextureImporter:
       name: mistakes_049
       rect:
         serializedVersion: 2
-        x: 246
-        y: 754
-        width: 240
-        height: 90
+        x: 326
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1163,10 +1163,10 @@ TextureImporter:
       name: mistakes_050
       rect:
         serializedVersion: 2
-        x: 490
-        y: 754
-        width: 240
-        height: 90
+        x: 650
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1184,10 +1184,10 @@ TextureImporter:
       name: mistakes_051
       rect:
         serializedVersion: 2
-        x: 734
-        y: 754
-        width: 240
-        height: 90
+        x: 974
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1205,10 +1205,10 @@ TextureImporter:
       name: mistakes_052
       rect:
         serializedVersion: 2
-        x: 978
-        y: 754
-        width: 240
-        height: 90
+        x: 1298
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1226,10 +1226,10 @@ TextureImporter:
       name: mistakes_053
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 754
-        width: 240
-        height: 90
+        x: 1622
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1247,10 +1247,10 @@ TextureImporter:
       name: mistakes_054
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 754
-        width: 240
-        height: 90
+        x: 2
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1268,10 +1268,10 @@ TextureImporter:
       name: mistakes_055
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 754
-        width: 240
-        height: 90
+        x: 326
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1289,10 +1289,10 @@ TextureImporter:
       name: mistakes_056
       rect:
         serializedVersion: 2
-        x: 2
-        y: 660
-        width: 240
-        height: 90
+        x: 650
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1310,10 +1310,10 @@ TextureImporter:
       name: mistakes_057
       rect:
         serializedVersion: 2
-        x: 246
-        y: 660
-        width: 240
-        height: 90
+        x: 974
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1331,10 +1331,10 @@ TextureImporter:
       name: mistakes_058
       rect:
         serializedVersion: 2
-        x: 490
-        y: 660
-        width: 240
-        height: 90
+        x: 1298
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1352,10 +1352,10 @@ TextureImporter:
       name: mistakes_059
       rect:
         serializedVersion: 2
-        x: 734
-        y: 660
-        width: 240
-        height: 90
+        x: 1622
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1373,10 +1373,10 @@ TextureImporter:
       name: mistakes_060
       rect:
         serializedVersion: 2
-        x: 978
-        y: 660
-        width: 240
-        height: 90
+        x: 2
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1394,10 +1394,10 @@ TextureImporter:
       name: mistakes_061
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 660
-        width: 240
-        height: 90
+        x: 326
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1415,10 +1415,10 @@ TextureImporter:
       name: mistakes_062
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 660
-        width: 240
-        height: 90
+        x: 650
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1436,10 +1436,10 @@ TextureImporter:
       name: mistakes_063
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 660
-        width: 240
-        height: 90
+        x: 974
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1457,10 +1457,10 @@ TextureImporter:
       name: mistakes_064
       rect:
         serializedVersion: 2
-        x: 2
-        y: 566
-        width: 240
-        height: 90
+        x: 1298
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1478,10 +1478,10 @@ TextureImporter:
       name: mistakes_065
       rect:
         serializedVersion: 2
-        x: 246
-        y: 566
-        width: 240
-        height: 90
+        x: 1622
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1491,1119 +1491,6 @@ TextureImporter:
       bones: []
       spriteID: ec97b0b32d3866845b8cef379f06129d
       internalID: 1987770644
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_066
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9af41fc13adcb2949a807dca14f0b939
-      internalID: 655734634
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_067
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e84cb1fabf8cdc043912e3172c0b1744
-      internalID: 1322824176
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_068
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9ba464e64a071f7408aef9129f027430
-      internalID: 77929872
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_069
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 96b36415c2b966944a0e181473d7812e
-      internalID: -1598836422
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_070
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ad2b18d516029764384070ac507b4502
-      internalID: 1059605953
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_071
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d3e0b5a8cded275429568b11ff75d6c7
-      internalID: -211919864
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_072
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb3e0534fd26a2f44b92316b6be919e1
-      internalID: -310636783
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_073
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c2232a041eb8c094dbac71a759f018fe
-      internalID: -496078687
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_074
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9edd0c22e32a00a43a4c698c71fee00c
-      internalID: 607948235
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_075
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93ccb055d0a28994fbf2b63f095084d5
-      internalID: 1856463515
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_076
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2ab35b348917fd74584d8b029de36131
-      internalID: 1419464938
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_077
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c38b59371a7088546a47f964a2f34157
-      internalID: -2096016503
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_078
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0988343c1482f9b40afefbc5c2c88954
-      internalID: -194757003
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_079
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 277410921535e684c93b52a26c50c059
-      internalID: -1087436639
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_080
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36db2b399ff37584bab65c34b430ada8
-      internalID: -703587422
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_081
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e5d702d7d97bd349a076e60f63bfa60
-      internalID: 393791934
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_082
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f6da7e58783a9a04db0411305857f005
-      internalID: -1663393584
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_083
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 06aa9b5a5ea42fe438569b5a7e63cc9a
-      internalID: 1652167357
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_084
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c499b90291c0e541baace4ef4689d08
-      internalID: -926223734
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_085
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 66125846eabe8e54caa25294d8d1e6c2
-      internalID: -2086978127
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_086
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6dcef58059f60df4d8f4083c623d7790
-      internalID: -1112567556
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_087
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5fd408248fcadd34a81ca6e1aa677430
-      internalID: 1684135513
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_088
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 821b0376aa070764eb2ff766ca1162df
-      internalID: 925873432
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_089
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c9df1fdfe7c0e3d46a155a9569bafae1
-      internalID: -1921269046
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_090
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e15ac7e4112aa4d4f881936efb6bc281
-      internalID: 839982059
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_091
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2dedbf9cd5e6c2c43bd7452029dcc876
-      internalID: 1678711754
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_092
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a93c985098a9dc044b7831cb1f24215e
-      internalID: -923273506
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_093
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6fcfba833744da49a58dae697d4b0f4
-      internalID: -326971695
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_094
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 07a75040bffa22c4386ffc0a3d5fe68b
-      internalID: -1019669617
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_095
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1c08554d16dee9249a1754045e441778
-      internalID: -603854092
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_096
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2b90c55915d8c7446975e3f5b364679c
-      internalID: -571034546
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_097
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 56b9c2887e1546249b3f4c2c6d81bc8d
-      internalID: -1968720227
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_098
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 444cb1a4807e32244bdeec2a5c9e7056
-      internalID: 39172701
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_099
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 728bff31dfc3f0a428ce5fd67a9649d0
-      internalID: 2059345275
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_100
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 26e6e7d91c73997478ca512d945439df
-      internalID: -1890105135
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_101
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff62717b8de357842ad4ecdb78505a15
-      internalID: -51664338
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_102
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a33fc5d848f852341a73ed7d2e064c9c
-      internalID: -619529807
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_103
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 985537d2f5e7ec44ab3e957d4644851e
-      internalID: 759617244
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_104
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d8ad2c9ab2a18884382936c54ec04a3d
-      internalID: -295470303
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_105
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ecf01f2d215c27e4ea56ef205ba7f3d6
-      internalID: 1212952007
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_106
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f89ddedc37a110547b5767233f2e58aa
-      internalID: 608781800
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_107
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 762aca0dee7218f42a74517eff0a95ac
-      internalID: -1126651736
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_108
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8a5d01396207d344ea6f17032dede58d
-      internalID: 1320135882
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_109
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5d69ee8c80d91d846b7cc6282b21e9cd
-      internalID: 126300965
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_110
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 67c1c2f7d0e57664ab2bb92225e715d6
-      internalID: -283387557
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_111
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5304e80059aee704db7b9d37e20448db
-      internalID: -883272069
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_112
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 87fcb2c0282eb564bacbf914c58235cb
-      internalID: 1868971257
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_113
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d2447589654b0074fb20889f0c75b193
-      internalID: -229545220
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_114
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5d6259fc8d07c14ca65e9cab8f3b9b6
-      internalID: -837297129
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_115
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f00557ee5bf2b9647ad9e3f1d29e9257
-      internalID: 818250152
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_116
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c52097812d6ea64ca997e034bbd625c
-      internalID: 959511566
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_117
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a954eb75b5be2cb4e88365033c289947
-      internalID: -1727367172
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mistakes_118
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1d12d440385ffa246af14b5d93e7f507
-      internalID: 796739609
       vertices: []
       indices:
       edges: []
@@ -2685,59 +1572,6 @@ TextureImporter:
       mistakes_063: -2017451896
       mistakes_064: 1648705249
       mistakes_065: 1987770644
-      mistakes_066: 655734634
-      mistakes_067: 1322824176
-      mistakes_068: 77929872
-      mistakes_069: -1598836422
-      mistakes_070: 1059605953
-      mistakes_071: -211919864
-      mistakes_072: -310636783
-      mistakes_073: -496078687
-      mistakes_074: 607948235
-      mistakes_075: 1856463515
-      mistakes_076: 1419464938
-      mistakes_077: -2096016503
-      mistakes_078: -194757003
-      mistakes_079: -1087436639
-      mistakes_080: -703587422
-      mistakes_081: 393791934
-      mistakes_082: -1663393584
-      mistakes_083: 1652167357
-      mistakes_084: -926223734
-      mistakes_085: -2086978127
-      mistakes_086: -1112567556
-      mistakes_087: 1684135513
-      mistakes_088: 925873432
-      mistakes_089: -1921269046
-      mistakes_090: 839982059
-      mistakes_091: 1678711754
-      mistakes_092: -923273506
-      mistakes_093: -326971695
-      mistakes_094: -1019669617
-      mistakes_095: -603854092
-      mistakes_096: -571034546
-      mistakes_097: -1968720227
-      mistakes_098: 39172701
-      mistakes_099: 2059345275
-      mistakes_100: -1890105135
-      mistakes_101: -51664338
-      mistakes_102: -619529807
-      mistakes_103: 759617244
-      mistakes_104: -295470303
-      mistakes_105: 1212952007
-      mistakes_106: 608781800
-      mistakes_107: -1126651736
-      mistakes_108: 1320135882
-      mistakes_109: 126300965
-      mistakes_110: -283387557
-      mistakes_111: -883272069
-      mistakes_112: 1868971257
-      mistakes_113: -229545220
-      mistakes_114: -837297129
-      mistakes_115: 818250152
-      mistakes_116: 959511566
-      mistakes_117: -1727367172
-      mistakes_118: 796739609
   mipmapLimitGroupName:
   pSDRemoveMatte: 0
   userData:

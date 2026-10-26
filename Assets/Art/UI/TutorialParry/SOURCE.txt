@@ -1,19 +1,20 @@
-Real keyboard/mouse gameplay captures for the six-page tutorial.
-Pinned Unity2022.3.25f1; no combat simulation, tuning or animation changes.
-Canvas240x90, Point-filtered atlas sprites; original chronological frame durations.
-Arena and relevant HUD strips are copied from the SAME captured gameplay frame.
-Exact source hashes, timestamps, crop/destination coordinates, events and durations: five matching JSON manifests.
-Approved success reference: all77 original parry.json/parry.png cels, retained at native240x80 with10px top padding.
-Approved source: E:\CodexTemp\TypingHero\space-press-cue\native-direct-final\compositor
+Six-page tutorial: whole 16:9 gameplay captures from the normal player.
+Each source PNG is converted to RGBA and resized once to 320x180 with
+nearest-neighbor. No cropping, HUD composition, masking or component movement.
+Point-filtered atlases: six columns, at most eleven rows, two-pixel gutters,
+maximum 2048 pixels. Chronological source durations and repeated frames remain.
 
-typing: 51 frames, 2.449949026s; E:\CodexTemp\TypingHero\space-press-cue\beat-type-11\capture
-mistakes: 119 frames, 3.712725163s; E:\CodexTemp\TypingHero\space-press-cue\six-capture-1\capture
-parry-health: 163 frames, 6.597002926s; E:\CodexTemp\TypingHero\space-press-cue\six-capture-1\capture
-slayer: 450 frames, 14.986407042s; E:\CodexTemp\TypingHero\space-press-cue\beat-capture-tail-3\capture
-score: 144 frames, 10.872750998s; E:\CodexTemp\TypingHero\space-press-cue\beat-score-6\capture
+Matching JSON manifests record source files, original timestamps, durations,
+source/build paths, source hashes, resized RGBA hashes, atlas hashes and events.
+The reproducible packer is tools/game_loop/tutorial_pack.py.
 
-Typing uses the existing Very Easy selector to preserve clean real preparation/recovery under capture load; all other examples retain their captured difficulty.
-Slayer arena crop50,25..250,130 is uniformly nearest-resized to160x84; irrelevant upper HUD is masked at the manifest coordinates; relevant HUD strips retain source pixels. This preserves head, feet and weapon at camera extremes.
-Slayer starts on the first confirmed idle after the preceding parry; the complete subsequent Guard-breaking attack, full Slayer and normal word attack remain.
-Score completes six real words from clean score/streak, then retains65points through combo expiration and a complete enemy attack/recovery.
-Evidence and direct per-frame UGUI review: docs/plans/parry-cue-demo.md and E:/CodexTemp/TypingHero/space-press-cue/beat-review/.
+typing: full-capture-21/capture, 106 frames, 3.665239096s.
+mistakes: full-capture-3/capture, 160 frames, 5.489013910s.
+parry-health: full-capture-2/capture, 303 frames, 11.021524191s.
+slayer: full-capture-20/capture, 745 frames, 21.797986984s.
+score: full-capture-23/capture, 681 frames, 12.897993803s.
+Capture root: E:/CodexTemp/TypingHero/space-press-cue/.
+
+The old parry.png/parry.json and unused atlas pages remain for provenance and
+GUID preservation. Their earlier cropped reviews do not certify these clips.
+Current verification status and review evidence: docs/plans/parry-cue-demo.md.

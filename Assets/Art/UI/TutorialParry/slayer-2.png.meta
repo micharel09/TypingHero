@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: slayer_336
+      name: slayer_132
       rect:
         serializedVersion: 2
         x: 2
-        y: 1318
-        width: 240
-        height: 90
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df07604fd0be2674c821963fbb7a584e
-      internalID: 472171155
+      spriteID: 848a02bd8c479ad4b930712e30a23c16
+      internalID: -1159316292
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_337
+      name: slayer_133
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1318
-        width: 240
-        height: 90
+        x: 326
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ef6b24d4d253724fa3b7195ebf9269d
-      internalID: -1649855880
+      spriteID: b325c91d46a50cc409b8182fc58307c7
+      internalID: -908182049
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_338
+      name: slayer_134
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1318
-        width: 240
-        height: 90
+        x: 650
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e5456079ae961143b914456da816d52
-      internalID: 1256145039
+      spriteID: 4d249832a99b9f846aacefcef3f25e18
+      internalID: -1552471585
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_339
+      name: slayer_135
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1318
-        width: 240
-        height: 90
+        x: 974
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19198a4ee7371444496071f6707d2d95
-      internalID: -422202448
+      spriteID: 53b857a52e441044eaa8d4745305de42
+      internalID: -799639696
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_340
+      name: slayer_136
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1318
-        width: 240
-        height: 90
+        x: 1298
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7c8bcb7311b67e4893cc8682ad0a68b
-      internalID: -220701264
+      spriteID: 061d1c4f90f8c5f47a4de6fa3f7e7ecd
+      internalID: 42299833
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_341
+      name: slayer_137
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1318
-        width: 240
-        height: 90
+        x: 1622
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,62 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23a0924ee0be0534ba48135cc235707d
-      internalID: -1736026305
+      spriteID: ee92fe88f6814e6478f82fa83362888c
+      internalID: -848262007
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_342
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 1318
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d5b33b7a41f7744bb4d09599182e862
-      internalID: 11928240
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_343
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 1318
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff4850e55bb301e468cd4b307700dc3f
-      internalID: 1253429663
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_344
+      name: slayer_138
       rect:
         serializedVersion: 2
         x: 2
-        y: 1224
-        width: 240
-        height: 90
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1eeb9421946a5a34abc3c8d448df1c0f
-      internalID: 1598749330
+      spriteID: 9b1a564574674c2469966448089afe5c
+      internalID: -258323908
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_345
+      name: slayer_139
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1224
-        width: 240
-        height: 90
+        x: 326
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +271,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d860de79359f92040ab0637443e762ee
-      internalID: 1127232734
+      spriteID: 954e457c5b2b1284ca26c9b99360d7a3
+      internalID: -1984077163
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_346
+      name: slayer_140
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1224
-        width: 240
-        height: 90
+        x: 650
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,20 +292,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e428964d68a0fe24eb725f1e20d8c263
-      internalID: -471833932
+      spriteID: 038f392c4a10832439c5c29d4598c250
+      internalID: 1516860607
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_347
+      name: slayer_141
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1224
-        width: 240
-        height: 90
+        x: 974
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc35c97833808294898b9b2c02937f98
-      internalID: -784220060
+      spriteID: 0616c555606473c4fb7b5ef8cfc3db9f
+      internalID: -137789791
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_348
+      name: slayer_142
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1224
-        width: 240
-        height: 90
+        x: 1298
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,20 +334,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6705e4d88109134b863a1d00a9332f0
-      internalID: 1503715721
+      spriteID: 4fb9abec29832ca4ab07b7d08ed74806
+      internalID: -228721636
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_349
+      name: slayer_143
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1224
-        width: 240
-        height: 90
+        x: 1622
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -397,62 +355,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe7c6ee644fc4dd4b91df4c41c021f1f
-      internalID: 873461217
+      spriteID: 72ed1cf9a0968a240bf82ed19772e333
+      internalID: 956010704
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_350
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 1224
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 12cee91cccb9fb045b994f600db9adb6
-      internalID: -633022808
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_351
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 1224
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b58086e3aa39cec44aaa2e51f2b31845
-      internalID: 1383999422
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_352
+      name: slayer_144
       rect:
         serializedVersion: 2
         x: 2
-        y: 1130
-        width: 240
-        height: 90
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -460,20 +376,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2a86139f94bdaa42a74bc10ddfc7831
-      internalID: 315090556
+      spriteID: f4b972f46b8bc3f48a626968ca4cfd51
+      internalID: -1790511383
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_353
+      name: slayer_145
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1130
-        width: 240
-        height: 90
+        x: 326
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -481,20 +397,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22aff36703aa4704089f7ba341401b26
-      internalID: -679404402
+      spriteID: d593a30ba79979c429ed9db37154b4d2
+      internalID: 135203686
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_354
+      name: slayer_146
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1130
-        width: 240
-        height: 90
+        x: 650
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -502,20 +418,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef9e4d73bd56d5b4496a9cad7b1adb18
-      internalID: -657919330
+      spriteID: 593f1a9b9211ba947bd66c25b8b18d00
+      internalID: -25728088
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_355
+      name: slayer_147
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1130
-        width: 240
-        height: 90
+        x: 974
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -523,20 +439,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42759855bb3833844930ab400b82e2ec
-      internalID: 713655675
+      spriteID: 79f5d327dfc0c7445a601452b193fb5f
+      internalID: 622300580
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_356
+      name: slayer_148
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1130
-        width: 240
-        height: 90
+        x: 1298
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -544,20 +460,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01f1d8d0007040842af10c30d376c23b
-      internalID: 2106645943
+      spriteID: 4f492f5802446534c8d54ca617694efa
+      internalID: -97003287
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_357
+      name: slayer_149
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1130
-        width: 240
-        height: 90
+        x: 1622
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -565,62 +481,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b8b9854ac0f35a458572d479b1f95d4
-      internalID: -241385137
+      spriteID: be3913d7601fc4d4d9e318ba84612975
+      internalID: -407375904
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_358
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 1130
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ae37fa60c269bc4aa990e2406bbf0c3
-      internalID: -1942056394
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_359
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 1130
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81271a4b4dd040647beef6ffa52b389b
-      internalID: 1688132373
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_360
+      name: slayer_150
       rect:
         serializedVersion: 2
         x: 2
-        y: 1036
-        width: 240
-        height: 90
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -628,20 +502,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d1d65c2d65dd04439d52945e552753a
-      internalID: 618275393
+      spriteID: 3d3d396c0d279f146ba6345b7328268a
+      internalID: -680681314
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_361
+      name: slayer_151
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1036
-        width: 240
-        height: 90
+        x: 326
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -649,20 +523,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ac40744d7e24544c8f2b9cb632f85f0
-      internalID: 212832214
+      spriteID: 2d22ee5e1c5675e488890683d58e91f9
+      internalID: -1544836378
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_362
+      name: slayer_152
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1036
-        width: 240
-        height: 90
+        x: 650
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -670,20 +544,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5e2faa4e78a7cd4ba5ddb8492bf4b70
-      internalID: -457222105
+      spriteID: 43c368fa8f6975b4b9fb1c3a10e66c78
+      internalID: 468063818
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_363
+      name: slayer_153
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1036
-        width: 240
-        height: 90
+        x: 974
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -691,20 +565,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 708a9312831e86847a02abacd648398e
-      internalID: 1712236365
+      spriteID: fb9910897b0675045a6b3cf352e80ded
+      internalID: 1200590712
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_364
+      name: slayer_154
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1036
-        width: 240
-        height: 90
+        x: 1298
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -712,20 +586,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f52c3030cccd7ea4c82ebe8576e2f092
-      internalID: -1289673868
+      spriteID: 7f63269402924d74e9f0f08df55cbf78
+      internalID: 1448428962
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_365
+      name: slayer_155
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1036
-        width: 240
-        height: 90
+        x: 1622
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -733,62 +607,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ee0cdda94a79b0448362bffcf1a47dc
-      internalID: 1486619244
+      spriteID: 3835ada2581222d439f2fcf73258d7af
+      internalID: 257690166
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_366
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79080e75d3ec3914bbb31f96f760b664
-      internalID: -859541858
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_367
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 82dc971b42c4fdd4dba78dac334a7f4a
-      internalID: -1759225538
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_368
+      name: slayer_156
       rect:
         serializedVersion: 2
         x: 2
-        y: 942
-        width: 240
-        height: 90
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -796,20 +628,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7dce560579605c640977b67e7ed7e263
-      internalID: -987788981
+      spriteID: dd9165c356dda7c4ba77af5760cf0be7
+      internalID: 1499539805
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_369
+      name: slayer_157
       rect:
         serializedVersion: 2
-        x: 246
-        y: 942
-        width: 240
-        height: 90
+        x: 326
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -817,20 +649,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac02e1a4d54ce8d4ca942338ce120898
-      internalID: 2107320799
+      spriteID: 285c1ec6317b4de43b8b7488926a3835
+      internalID: -1955012057
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_370
+      name: slayer_158
       rect:
         serializedVersion: 2
-        x: 490
-        y: 942
-        width: 240
-        height: 90
+        x: 650
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -838,20 +670,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bc01cb0f45ae474c99dd9d3a543469f
-      internalID: -1702536969
+      spriteID: 60b927f01ce17ef48a9432c77317a0d3
+      internalID: 571506392
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_371
+      name: slayer_159
       rect:
         serializedVersion: 2
-        x: 734
-        y: 942
-        width: 240
-        height: 90
+        x: 974
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -859,20 +691,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a0f94d56b5b55d4eb1ffcc2e6705076
-      internalID: -28061482
+      spriteID: f1cdb32731d07964ea1d7dbf18ac38de
+      internalID: 1083056983
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_372
+      name: slayer_160
       rect:
         serializedVersion: 2
-        x: 978
-        y: 942
-        width: 240
-        height: 90
+        x: 1298
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -880,20 +712,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff915e224646be94daa7b74f12eca978
-      internalID: -1032262545
+      spriteID: fb31d2d141454df4cb20e016913df3a3
+      internalID: -1333462398
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_373
+      name: slayer_161
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 942
-        width: 240
-        height: 90
+        x: 1622
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -901,62 +733,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99b47fc4107c0704e91a94108c76809d
-      internalID: -1898760150
+      spriteID: 96bd7921d1f57ff44b1aae2b1499c543
+      internalID: 131756973
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_374
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 31a3a852e2b6acd479caf79e6a4040da
-      internalID: 467167436
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_375
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e44411564019e4c42abeda4089d5692a
-      internalID: -1092142256
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_376
+      name: slayer_162
       rect:
         serializedVersion: 2
         x: 2
-        y: 848
-        width: 240
-        height: 90
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -964,20 +754,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a82578f9c14c9c4099837da5e2c4b1a
-      internalID: 782847998
+      spriteID: c96b03c67a28e024fb9a5328dbb58a1b
+      internalID: -1785715827
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_377
+      name: slayer_163
       rect:
         serializedVersion: 2
-        x: 246
-        y: 848
-        width: 240
-        height: 90
+        x: 326
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -985,20 +775,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64a76e9e965eb7540b59f642f1d60ad6
-      internalID: 2032446096
+      spriteID: 927df83c7e2d70b4a80a3e2814d4bba7
+      internalID: -1445665279
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_378
+      name: slayer_164
       rect:
         serializedVersion: 2
-        x: 490
-        y: 848
-        width: 240
-        height: 90
+        x: 650
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1006,20 +796,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c363bbb590d847047afd8c78d2585835
-      internalID: 560551171
+      spriteID: 6d70454366565ca479f3cfb135882889
+      internalID: 1890076752
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_379
+      name: slayer_165
       rect:
         serializedVersion: 2
-        x: 734
-        y: 848
-        width: 240
-        height: 90
+        x: 974
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1027,20 +817,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddead35ea6e1c0b4b8d43682ce882c58
-      internalID: -930969760
+      spriteID: dfb8f47f7780d4c46af62d4a90c80c7c
+      internalID: -328849095
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_380
+      name: slayer_166
       rect:
         serializedVersion: 2
-        x: 978
-        y: 848
-        width: 240
-        height: 90
+        x: 1298
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1048,20 +838,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f33f9c1894a56574b841dbf8ddd0ce68
-      internalID: -1110237000
+      spriteID: 5dc3915a11089684b9546e12a5323f97
+      internalID: 20751557
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_381
+      name: slayer_167
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 848
-        width: 240
-        height: 90
+        x: 1622
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1069,62 +859,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f107a59c5091186499b29246dfab63dd
-      internalID: 1610872742
+      spriteID: 63cf631dda833d840aef5d9801a17f87
+      internalID: -1240112773
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_382
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: da1b402cde879ed4f893287aa4e3c2b9
-      internalID: 661443541
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_383
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: adc5b5bca07201c469d940f2dfadba37
-      internalID: 470516267
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_384
+      name: slayer_168
       rect:
         serializedVersion: 2
         x: 2
-        y: 754
-        width: 240
-        height: 90
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1132,20 +880,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8458e7ff11633204f811eb825a9da877
-      internalID: -108845881
+      spriteID: acae68875c4aae340a569a474ed1888f
+      internalID: 250605531
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_385
+      name: slayer_169
       rect:
         serializedVersion: 2
-        x: 246
-        y: 754
-        width: 240
-        height: 90
+        x: 326
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1153,20 +901,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f83cd4a227af8eb47b81d874b325f2f5
-      internalID: -140244103
+      spriteID: c05792778a776874aa5935e7da6427aa
+      internalID: -486144997
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_386
+      name: slayer_170
       rect:
         serializedVersion: 2
-        x: 490
-        y: 754
-        width: 240
-        height: 90
+        x: 650
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1174,20 +922,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abfb0eb185061494b961bc569b149321
-      internalID: -683715236
+      spriteID: 83c27f6fae532fe4d80eee4e2442cca5
+      internalID: 662877849
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_387
+      name: slayer_171
       rect:
         serializedVersion: 2
-        x: 734
-        y: 754
-        width: 240
-        height: 90
+        x: 974
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1195,20 +943,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9df07678597eb247ac54a2f72edf687
-      internalID: -1738396817
+      spriteID: ebe87a90a08ef644dacfbabf98f4e56f
+      internalID: -776762412
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_388
+      name: slayer_172
       rect:
         serializedVersion: 2
-        x: 978
-        y: 754
-        width: 240
-        height: 90
+        x: 1298
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1216,20 +964,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a249488dbdc6fc043b6882ab7da753c0
-      internalID: 1555119945
+      spriteID: 3916c3889cdcc7341976207e5428d5c6
+      internalID: -666483826
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_389
+      name: slayer_173
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 754
-        width: 240
-        height: 90
+        x: 1622
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1237,62 +985,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67e5510e834457146be0e429644677bd
-      internalID: 819444254
+      spriteID: 7b39b8175004f574db2c6036be4cc192
+      internalID: -545018588
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_390
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f34dbe1a2ce8ede4191d8c679aa6ae94
-      internalID: -715053291
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_391
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a7e8e749067968419aa580f2a0d3015
-      internalID: 1685397309
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_392
+      name: slayer_174
       rect:
         serializedVersion: 2
         x: 2
-        y: 660
-        width: 240
-        height: 90
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1300,20 +1006,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49f2dce3028f18c4b9f837e332988e39
-      internalID: -1160534240
+      spriteID: 91a97d452f08985479e7114623a933dc
+      internalID: 34493982
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_393
+      name: slayer_175
       rect:
         serializedVersion: 2
-        x: 246
-        y: 660
-        width: 240
-        height: 90
+        x: 326
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1321,20 +1027,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09c4a109688ef6a4881fe52eaf2ac482
-      internalID: 1921842852
+      spriteID: 6128f09d0740150499f52f5ae8b1ce8a
+      internalID: 194857933
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_394
+      name: slayer_176
       rect:
         serializedVersion: 2
-        x: 490
-        y: 660
-        width: 240
-        height: 90
+        x: 650
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1342,20 +1048,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1a14bd6534d2e546a3a228b17d4d94c
-      internalID: -1549949991
+      spriteID: 82eaeab0bb4c34b489ecf8b351d2281d
+      internalID: -912184490
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_395
+      name: slayer_177
       rect:
         serializedVersion: 2
-        x: 734
-        y: 660
-        width: 240
-        height: 90
+        x: 974
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1363,20 +1069,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ecf163938b8f3549b7175fa5d1290bd
-      internalID: -911153095
+      spriteID: d56b3d483f9725b4baa57c8d7bd6097c
+      internalID: -1431682334
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_396
+      name: slayer_178
       rect:
         serializedVersion: 2
-        x: 978
-        y: 660
-        width: 240
-        height: 90
+        x: 1298
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1384,20 +1090,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 564a2a03a0f8d4a49aa3cdd6a89de7b4
-      internalID: 1785398340
+      spriteID: 29234d99e5dc65245b2811886ab98934
+      internalID: -192309509
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_397
+      name: slayer_179
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 660
-        width: 240
-        height: 90
+        x: 1622
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1405,62 +1111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 841561c82a8333647a647641b7b547f0
-      internalID: 1848930586
+      spriteID: 9c8f189956dd41545969d6e1e37e9d7f
+      internalID: -429678849
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_398
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9441f21ef39b1714caa3c719da06339a
-      internalID: 2131985659
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_399
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17cd1ea2929427f4ba76232d46f332fc
-      internalID: 1299257863
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_400
+      name: slayer_180
       rect:
         serializedVersion: 2
         x: 2
-        y: 566
-        width: 240
-        height: 90
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1468,20 +1132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4465d3bac0997d448b57c819900c3dc9
-      internalID: 932718889
+      spriteID: 35100205a03093141a7fe3a8860294e6
+      internalID: -925009616
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_401
+      name: slayer_181
       rect:
         serializedVersion: 2
-        x: 246
-        y: 566
-        width: 240
-        height: 90
+        x: 326
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1489,20 +1153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3467455ccacde444fbfe0386abe72b69
-      internalID: -1630942070
+      spriteID: 3cac007468e682d488bca433c20caee0
+      internalID: -1944194675
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_402
+      name: slayer_182
       rect:
         serializedVersion: 2
-        x: 490
-        y: 566
-        width: 240
-        height: 90
+        x: 650
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1510,20 +1174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f265124cc14c8740b835dc4c4520b32
-      internalID: 1463270186
+      spriteID: 3af6e1d8b3453e4468167c756880b91c
+      internalID: -2073387452
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_403
+      name: slayer_183
       rect:
         serializedVersion: 2
-        x: 734
-        y: 566
-        width: 240
-        height: 90
+        x: 974
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1531,20 +1195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 268b53a8356320c4087049e38203bac3
-      internalID: 85209913
+      spriteID: 2d2341a68f62c2647b893dfbd6ebb644
+      internalID: -813076204
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_404
+      name: slayer_184
       rect:
         serializedVersion: 2
-        x: 978
-        y: 566
-        width: 240
-        height: 90
+        x: 1298
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1552,20 +1216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 766994bbd9efbb84a9565f5a76117664
-      internalID: -1383745917
+      spriteID: 4bfc62de9ab4f6e439c6a85a5b6c6b4f
+      internalID: 486538823
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_405
+      name: slayer_185
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 566
-        width: 240
-        height: 90
+        x: 1622
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1573,62 +1237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eba165d36021e244cb4a2e7c4b954b1b
-      internalID: 1823903320
+      spriteID: 2fbcf9141f24c344e951b7653b6e00d3
+      internalID: -347852578
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_406
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d92b05019e9abe940af03042c2e42a75
-      internalID: 1009057308
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_407
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9762bf16635771c4eb5dd44b377575cd
-      internalID: 1835783238
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_408
+      name: slayer_186
       rect:
         serializedVersion: 2
         x: 2
-        y: 472
-        width: 240
-        height: 90
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1636,20 +1258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d82f39b63ff81a40a4043dc341eb5e2
-      internalID: -1450002424
+      spriteID: f1629a58f1271764084c1d19783c7cd4
+      internalID: -386650389
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_409
+      name: slayer_187
       rect:
         serializedVersion: 2
-        x: 246
-        y: 472
-        width: 240
-        height: 90
+        x: 326
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1657,20 +1279,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2006d987f08192945a90971f4a71a45e
-      internalID: -462440192
+      spriteID: bc3959fa72b094f468d4e7cb36144bae
+      internalID: -1342489195
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_410
+      name: slayer_188
       rect:
         serializedVersion: 2
-        x: 490
-        y: 472
-        width: 240
-        height: 90
+        x: 650
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1678,20 +1300,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42b96bf940a9be5468f14a694919ab25
-      internalID: 1528954506
+      spriteID: 3dfa197f86ebb204ebfac703c3233c8c
+      internalID: -1741261387
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_411
+      name: slayer_189
       rect:
         serializedVersion: 2
-        x: 734
-        y: 472
-        width: 240
-        height: 90
+        x: 974
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1699,20 +1321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d0a6cff2e87e6b43b5f07daddfd932a
-      internalID: 1167547603
+      spriteID: 2c56df430c8d8064881ab0a6efae7731
+      internalID: -247963412
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_412
+      name: slayer_190
       rect:
         serializedVersion: 2
-        x: 978
-        y: 472
-        width: 240
-        height: 90
+        x: 1298
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1720,20 +1342,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25f60a09e8fd85847bd7d4509c4b122e
-      internalID: -80103730
+      spriteID: 9083682a7476e5c42b35df945a800855
+      internalID: 1217822461
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_413
+      name: slayer_191
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 472
-        width: 240
-        height: 90
+        x: 1622
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1741,734 +1363,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e2a5223e4eb6f24ab9a4006451b0f34
-      internalID: 637888663
+      spriteID: 33745d6f9d9398a4a909749155d8a584
+      internalID: -1913842007
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_414
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7117f5e740a0e6e40bb1e0d9e6fe8abb
-      internalID: 1562396249
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_415
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f8f15a13b935cd48a9101205c094866
-      internalID: -166946786
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_416
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ddde4a3b36a95f45893a588f9fe39ba
-      internalID: 772727898
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_417
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5fb1abfc4f825ed43b1d13586ea871ce
-      internalID: 1060256300
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_418
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7fd88a716f6c4f149b590c4c6162e8ef
-      internalID: -157135754
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_419
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f7970aee4b796044cb4acdee0168e9a7
-      internalID: -651447061
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_420
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c7819c2dfd557644b6a2ba1e885def9
-      internalID: 970504162
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_421
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1fd90c4ed2aa01948b5a4eae1f97a31d
-      internalID: 1160420409
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_422
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 90ad917ab4db66448ab15e49c8486d7b
-      internalID: 2134659130
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_423
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0c18ac307d526b6499dfbc8e360e6bba
-      internalID: 458221801
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_424
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2e82e92e714f6eb429a70626da7d7104
-      internalID: -1863183630
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_425
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1652f8e0715709441bed16fbb81c79eb
-      internalID: 1204257196
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_426
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41e07b611432cea48bdecd8b3969cf6b
-      internalID: -562772874
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_427
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1b338526ba0103140ad044283d41d06a
-      internalID: 484165813
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_428
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9009b3aa0c978d44bbc3c3c3a1bd296d
-      internalID: 378139416
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_429
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e7dc874f1ef8b84a855198c1e27250b
-      internalID: -2044238297
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_430
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 65736b07760c6154e9db507c1b04308f
-      internalID: 171497102
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_431
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5cb971b2d42bcc47a9d6afbb73bb262
-      internalID: 39594038
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_432
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 67a5305f7d2cb3549b2a5478779af831
-      internalID: 345039435
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_433
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fab38297dc6cf3e4b88462a7e4a0d10e
-      internalID: 595649399
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_434
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 487cf21a4781e5b4ab2cc8621c64d8c5
-      internalID: 2145142259
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_435
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 511a03c459753da4e89990ab4a04f2d1
-      internalID: -300569130
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_436
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0b3d0c2faf9cc394d969323a5cf5ff3a
-      internalID: 1206991062
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_437
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aee61b64c8df6ba4aa5edc66c54d81d8
-      internalID: 1603985232
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_438
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6a033578368c0e44a4af73854935f1a
-      internalID: 1238140559
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_439
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9eb94e166c38da942a4b94b3ebb8de50
-      internalID: -1717970321
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_440
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9bf08556d8203b54cac4a8fc8480610d
-      internalID: -1348633124
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_441
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6c9d1a0056aa5c5488ed66bbad5533ef
-      internalID: 1206151521
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_442
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 99af9454a76677747828babb7f935b1e
-      internalID: 839433555
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_443
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 92bdbf918edf220429dc5a86f16333aa
-      internalID: -654785712
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_444
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd795e49e7ab5ad4e86e657ade3348a3
-      internalID: -1546380615
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_445
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6108eb15f7745ce49b4c78a4b7b4f506
-      internalID: 326751423
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_446
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2273f86e774727d498a862fdf20340e8
-      internalID: 1482265295
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_447
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 29c3f2af77334674abfc315dd01e0d69
-      internalID: -1099536150
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slayer_448
+      name: slayer_192
       rect:
         serializedVersion: 2
         x: 2
         y: 2
-        width: 240
-        height: 90
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2476,20 +1384,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c27268c0c5a70c749b432645dbe1f06a
-      internalID: -1654740552
+      spriteID: dfa38ed31cab97a468a9e10973fb9de2
+      internalID: 1684005393
       vertices: []
       indices:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slayer_449
+      name: slayer_193
       rect:
         serializedVersion: 2
-        x: 246
+        x: 326
         y: 2
-        width: 240
-        height: 90
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2497,8 +1405,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47a5a5a6cdfd6264895bbd8fb3bbee27
-      internalID: -709793925
+      spriteID: e7314d6395a962f4abfb58bda3f80405
+      internalID: 427146447
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slayer_194
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed5e7025012200944ac43cda4a406eb6
+      internalID: 259411734
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slayer_195
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ed1858b12e14794fb3c9d9e339d4ec8
+      internalID: -1213003527
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slayer_196
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6708fdd97152d6b4eb0390107b477def
+      internalID: 238323928
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slayer_197
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb7282081f922054983bc56a1461ed8f
+      internalID: -451416074
       vertices: []
       indices:
       edges: []
@@ -2514,120 +1506,72 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      slayer_336: 472171155
-      slayer_337: -1649855880
-      slayer_338: 1256145039
-      slayer_339: -422202448
-      slayer_340: -220701264
-      slayer_341: -1736026305
-      slayer_342: 11928240
-      slayer_343: 1253429663
-      slayer_344: 1598749330
-      slayer_345: 1127232734
-      slayer_346: -471833932
-      slayer_347: -784220060
-      slayer_348: 1503715721
-      slayer_349: 873461217
-      slayer_350: -633022808
-      slayer_351: 1383999422
-      slayer_352: 315090556
-      slayer_353: -679404402
-      slayer_354: -657919330
-      slayer_355: 713655675
-      slayer_356: 2106645943
-      slayer_357: -241385137
-      slayer_358: -1942056394
-      slayer_359: 1688132373
-      slayer_360: 618275393
-      slayer_361: 212832214
-      slayer_362: -457222105
-      slayer_363: 1712236365
-      slayer_364: -1289673868
-      slayer_365: 1486619244
-      slayer_366: -859541858
-      slayer_367: -1759225538
-      slayer_368: -987788981
-      slayer_369: 2107320799
-      slayer_370: -1702536969
-      slayer_371: -28061482
-      slayer_372: -1032262545
-      slayer_373: -1898760150
-      slayer_374: 467167436
-      slayer_375: -1092142256
-      slayer_376: 782847998
-      slayer_377: 2032446096
-      slayer_378: 560551171
-      slayer_379: -930969760
-      slayer_380: -1110237000
-      slayer_381: 1610872742
-      slayer_382: 661443541
-      slayer_383: 470516267
-      slayer_384: -108845881
-      slayer_385: -140244103
-      slayer_386: -683715236
-      slayer_387: -1738396817
-      slayer_388: 1555119945
-      slayer_389: 819444254
-      slayer_390: -715053291
-      slayer_391: 1685397309
-      slayer_392: -1160534240
-      slayer_393: 1921842852
-      slayer_394: -1549949991
-      slayer_395: -911153095
-      slayer_396: 1785398340
-      slayer_397: 1848930586
-      slayer_398: 2131985659
-      slayer_399: 1299257863
-      slayer_400: 932718889
-      slayer_401: -1630942070
-      slayer_402: 1463270186
-      slayer_403: 85209913
-      slayer_404: -1383745917
-      slayer_405: 1823903320
-      slayer_406: 1009057308
-      slayer_407: 1835783238
-      slayer_408: -1450002424
-      slayer_409: -462440192
-      slayer_410: 1528954506
-      slayer_411: 1167547603
-      slayer_412: -80103730
-      slayer_413: 637888663
-      slayer_414: 1562396249
-      slayer_415: -166946786
-      slayer_416: 772727898
-      slayer_417: 1060256300
-      slayer_418: -157135754
-      slayer_419: -651447061
-      slayer_420: 970504162
-      slayer_421: 1160420409
-      slayer_422: 2134659130
-      slayer_423: 458221801
-      slayer_424: -1863183630
-      slayer_425: 1204257196
-      slayer_426: -562772874
-      slayer_427: 484165813
-      slayer_428: 378139416
-      slayer_429: -2044238297
-      slayer_430: 171497102
-      slayer_431: 39594038
-      slayer_432: 345039435
-      slayer_433: 595649399
-      slayer_434: 2145142259
-      slayer_435: -300569130
-      slayer_436: 1206991062
-      slayer_437: 1603985232
-      slayer_438: 1238140559
-      slayer_439: -1717970321
-      slayer_440: -1348633124
-      slayer_441: 1206151521
-      slayer_442: 839433555
-      slayer_443: -654785712
-      slayer_444: -1546380615
-      slayer_445: 326751423
-      slayer_446: 1482265295
-      slayer_447: -1099536150
-      slayer_448: -1654740552
-      slayer_449: -709793925
+      slayer_132: -1159316292
+      slayer_133: -908182049
+      slayer_134: -1552471585
+      slayer_135: -799639696
+      slayer_136: 42299833
+      slayer_137: -848262007
+      slayer_138: -258323908
+      slayer_139: -1984077163
+      slayer_140: 1516860607
+      slayer_141: -137789791
+      slayer_142: -228721636
+      slayer_143: 956010704
+      slayer_144: -1790511383
+      slayer_145: 135203686
+      slayer_146: -25728088
+      slayer_147: 622300580
+      slayer_148: -97003287
+      slayer_149: -407375904
+      slayer_150: -680681314
+      slayer_151: -1544836378
+      slayer_152: 468063818
+      slayer_153: 1200590712
+      slayer_154: 1448428962
+      slayer_155: 257690166
+      slayer_156: 1499539805
+      slayer_157: -1955012057
+      slayer_158: 571506392
+      slayer_159: 1083056983
+      slayer_160: -1333462398
+      slayer_161: 131756973
+      slayer_162: -1785715827
+      slayer_163: -1445665279
+      slayer_164: 1890076752
+      slayer_165: -328849095
+      slayer_166: 20751557
+      slayer_167: -1240112773
+      slayer_168: 250605531
+      slayer_169: -486144997
+      slayer_170: 662877849
+      slayer_171: -776762412
+      slayer_172: -666483826
+      slayer_173: -545018588
+      slayer_174: 34493982
+      slayer_175: 194857933
+      slayer_176: -912184490
+      slayer_177: -1431682334
+      slayer_178: -192309509
+      slayer_179: -429678849
+      slayer_180: -925009616
+      slayer_181: -1944194675
+      slayer_182: -2073387452
+      slayer_183: -813076204
+      slayer_184: 486538823
+      slayer_185: -347852578
+      slayer_186: -386650389
+      slayer_187: -1342489195
+      slayer_188: -1741261387
+      slayer_189: -247963412
+      slayer_190: 1217822461
+      slayer_191: -1913842007
+      slayer_192: 1684005393
+      slayer_193: 427146447
+      slayer_194: 259411734
+      slayer_195: -1213003527
+      slayer_196: 238323928
+      slayer_197: -451416074
   mipmapLimitGroupName:
   pSDRemoveMatte: 0
   userData:

@@ -1,1147 +1,2711 @@
 {
-  "columns": 8,
-  "cellWidth": 244,
-  "cellHeight": 94,
-  "width": 240,
-  "height": 90,
+  "columns": 6,
+  "cellWidth": 324,
+  "cellHeight": 184,
+  "width": 320,
+  "height": 180,
   "atlases": [
-    "typing-0.png"
+    "typing-0.png",
+    "typing-1.png"
   ],
-  "composition": {
-    "arena": [
-      65,
-      43,
-      225,
-      130
-    ],
-    "arenaDestination": [
-      80,
-      3
-    ],
-    "notes": "Point nearest to320x180; HUD pixels always from same original frame. Arena starts below y42 to exclude duplicate combo-meter pixels while retaining the complete Space cue. Parry retains all77 approved source cels and uses identical arena crop/scale for the missed example.",
-    "word": [
-      65,
-      132,
-      121,
-      146
-    ],
-    "wordDestination": [
-      15,
-      63
-    ],
-    "enemyHp": [
-      251,
-      17,
-      317,
-      31
-    ],
-    "enemyHpDestination": [
-      15,
-      29
-    ]
-  },
   "selection": {
-    "folder": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture",
-    "start": 1792897579.433,
-    "end": 1792897581.91,
+    "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture",
+    "start": 1792995197.650761,
+    "end": 1792995201.316,
+    "sourceBuild": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-production\\player",
+    "input": "real keyboard/mouse; normal player; QA bridge absent; complete let -> go, score0 ->10",
     "events": [
       {
-        "name": "type-start",
-        "wall": 1792897579.433,
-        "qa": {
-          "score": 0,
-          "words": 0,
-          "chars": 0,
-          "hp": 5,
-          "enemyHp": 180,
-          "stamina": 100,
-          "slayer": false,
-          "comboRemaining": 0,
-          "current": "part"
+        "timestamp": 1792995197.650761,
+        "caption": "Type the word.",
+        "focus": {
+          "x": 128,
+          "y": 260,
+          "width": 120,
+          "height": 36
         }
       },
       {
-        "name": "type-letters",
-        "wall": 1792897580.213,
-        "qa": {
-          "score": 0,
-          "words": 0,
-          "chars": 0,
-          "hp": 5,
-          "enemyHp": 180,
-          "stamina": 100,
-          "slayer": false,
-          "comboRemaining": 0,
-          "current": "part"
+        "timestamp": 1792995199.718184,
+        "caption": "Word complete!",
+        "focus": {
+          "x": 502,
+          "y": 34,
+          "width": 132,
+          "height": 28
         }
       },
       {
-        "name": "type-complete",
-        "wall": 1792897580.753,
-        "qa": {
-          "score": 10,
-          "words": 1,
-          "chars": 4,
-          "hp": 5,
-          "enemyHp": 170,
-          "stamina": 88,
-          "slayer": false,
-          "comboRemaining": 2.5,
-          "current": "of"
-        }
-      },
-      {
-        "name": "type-hp",
-        "wall": 1792897581.129,
-        "qa": {
-          "score": 10,
-          "words": 1,
-          "chars": 4,
-          "hp": 5,
-          "enemyHp": 170,
-          "stamina": 88,
-          "slayer": false,
-          "comboRemaining": 2.5,
-          "current": "of"
-        }
-      },
-      {
-        "name": "type-end",
-        "wall": 1792897581.91,
-        "qa": {
-          "score": 10,
-          "words": 1,
-          "chars": 4,
-          "hp": 5,
-          "enemyHp": 170,
-          "stamina": 88,
-          "slayer": false,
-          "comboRemaining": 2.5,
-          "current": "of"
+        "timestamp": 1792995200.1569998,
+        "caption": "Enemy HP drops.",
+        "focus": {
+          "x": 502,
+          "y": 34,
+          "width": 132,
+          "height": 28
         }
       }
-    ]
+    ],
+    "captureReportSha256": "816bf8bb98321ff61264628637112c28197499e65848e7801d6ad7fd780be730",
+    "normalBuildMarkerSha256": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+    "normalBuildQA": false
   },
   "frames": [
     {
-      "duration": 0.06636786460876465,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00460.png",
-      "timestamp": 1792897579.460051,
-      "sha256": "45ce0f43461612f9d9fa1320ff35ccac6c580be2c14363f730ab4b45f2c92381",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000000.png",
+      "sha256": "cacf6314307eb4c4937fb88d5aa1623fb0c7dc9c01ca751c30166d646151537a",
+      "timestamp": 1792995197.650761,
+      "duration": 0.013287067413330078,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "20a9940ee567421ab039404eb4d144960a2e027bc8b588d312f1290f07e99a07",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032447099685668945,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00461.png",
-      "timestamp": 1792897579.526419,
-      "sha256": "9359908a9ca192355d85ce313c7bac7591207bbb3625017c23e54755f88b01c8",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000001.png",
+      "sha256": "a4df13db393c91089a7bfae8751ad02ebc90db97d54a9042ccab3b9fadac606a",
+      "timestamp": 1792995197.664048,
+      "duration": 0.013432025909423828,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0b9c2b18f61ffe8be6af086b6de6f317537ca41e4335ed05829aa292c6642d5d",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03290605545043945,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00462.png",
-      "timestamp": 1792897579.558866,
-      "sha256": "a19fe352d891cc7ee5f9e8f77887dd11bd6fb7e5384802dc0d6e853679e8e167",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000002.png",
+      "sha256": "bbc30b6972add8630f333fbf56f017533c7665ebff99d01febe7aefff997c605",
+      "timestamp": 1792995197.67748,
+      "duration": 0.10667991638183594,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1549a8ffb74a0312669a057e101ed321ca5b58ba54410d409314a64dba4c0fb1",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.0322718620300293,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00463.png",
-      "timestamp": 1792897579.591772,
-      "sha256": "1098b6bf2f3b9806486e5d0cf516a14ed1e913a494591638aec6819d4cd2f83d",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000003.png",
+      "sha256": "3fa8baafdfa15b6a8a898aaffab127879ba641929e5d37af2a90e87fc16c7574",
+      "timestamp": 1792995197.78416,
+      "duration": 0.026763200759887695,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "72bd298febdb0502ab6ca244e0bd24b19df1674980ca546a06f3c47a5d778f17",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06528902053833008,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00464.png",
-      "timestamp": 1792897579.624044,
-      "sha256": "ea55ea6770e936714fc470f354e67c2f15d48783e31d56c79e201a45456c86cc",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000004.png",
+      "sha256": "f83898ed610690554c66ac9603a3c7624389d459d3518754de6750ed056cca89",
+      "timestamp": 1792995197.810923,
+      "duration": 0.01321101188659668,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "376651807ed3afda6d9131e09283c6708754461c0baad3afe1206cfb61f4e665",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03253912925720215,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00465.png",
-      "timestamp": 1792897579.689333,
-      "sha256": "d3068a927b54dfceb0ab3f38d933c9d36004d7bc52d0d7880d28e5d04e5e09c8",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000005.png",
+      "sha256": "d30c7cdfe725a577a1a2bd1f590d4be21b6c15544af2465c4ef115e6292ff8dd",
+      "timestamp": 1792995197.824134,
+      "duration": 0.013286828994750977,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9f795980d10d7d769b11cd564b251926a4cd75e8106b5858b62522a808f07a54",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032943010330200195,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00466.png",
-      "timestamp": 1792897579.721872,
-      "sha256": "60a3a4a807654a564a35d35bfd568bde6860960284cc1d92f926b98d4407641d",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000006.png",
+      "sha256": "f87fa4a99166726c701cc3d29d488d27f31c56f8cf184cedf4641e9b42e73cd5",
+      "timestamp": 1792995197.837421,
+      "duration": 0.013303995132446289,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2e4fc2fd441eb78561bd4379bb2774a92ff966cab869f0592138b384bb207142",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06513190269470215,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00467.png",
-      "timestamp": 1792897579.754815,
-      "sha256": "792b03f7658a72d8adfc2f4c70b7dd04ef1f8beb7e04b37c963792ff514b4c64",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000007.png",
+      "sha256": "4700e99bd46d1a6afa920a0299cfb3e72376802032a46f1bd6e79590e07ef7fc",
+      "timestamp": 1792995197.850725,
+      "duration": 0.02675604820251465,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8968504f7befb5a97bd870e971b3e55853bb79223793a3e8e2d276c38f89b13d",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032247066497802734,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00468.png",
-      "timestamp": 1792897579.819947,
-      "sha256": "4da7a67df41a55c1705db4000f335aaba4441ee0aed6200cd6e4fc2dbe8c186b",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000008.png",
+      "sha256": "916b3d40756a8fc28994a4f4b7f56b43f9b56c14a5d6586ef9faa190853709df",
+      "timestamp": 1792995197.877481,
+      "duration": 0.026775121688842773,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5bd80c65c71956a73a3bb50a2b71733621cb7d74facc8e402b11d8476576a773",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03256988525390625,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00469.png",
-      "timestamp": 1792897579.852194,
-      "sha256": "8f4426d52b7e81f9bcbe09b84cdc40915fd33138f28fa04a4579976762f1a910",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000009.png",
+      "sha256": "2974fe39553cb14ff07f4849c35c530aecfaffe444c2d35bbea29e270cc15f91",
+      "timestamp": 1792995197.904256,
+      "duration": 0.013218879699707031,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "728082e11adcd8be35cbfac25e978a47ffac3269096dc48e557bfb0a550537d8",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03269696235656738,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00470.png",
-      "timestamp": 1792897579.884764,
-      "sha256": "9895b247d9b0f96c12d7bef9d6e7e5f56be9754000bd47261b88a1f759a8d6fa",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000010.png",
+      "sha256": "847627c3c76ed56604100ff7eb7ec0f56de138e820b0525ab90fc00a58bc2c7d",
+      "timestamp": 1792995197.917475,
+      "duration": 0.01326894760131836,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ada5af48691ddd60dd19a155559f67cd059c6d29a8cf0383e7c8eb5456e4a0e7",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06565499305725098,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00471.png",
-      "timestamp": 1792897579.917461,
-      "sha256": "c5d44a4575f23fefcbed59065f431a12d805214b1acb4a8de8c91db87f3bc3be",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000011.png",
+      "sha256": "bde0347cd7939d88ec1048df94fcffc46c707df55479b5266ae4c7e1e1417455",
+      "timestamp": 1792995197.930744,
+      "duration": 0.013334035873413086,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "94effe98e2968a3ec7e2a39f00ee7e7e216e8a5a787d4ec3a097338da61ac7ca",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03247809410095215,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00472.png",
-      "timestamp": 1792897579.983116,
-      "sha256": "46d1f560a2a565c8ebadcb688ff1b35a915ac84c04994796837a39f715cdec24",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000012.png",
+      "sha256": "c76efedb7085d0849ecbda52623503bc1955ca316c1b614d320a01573a7a7c0f",
+      "timestamp": 1792995197.944078,
+      "duration": 0.13345003128051758,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c12f9f06f714c0354c85fcdf8da25443ba7a0eedf2574caa5f0c8a8b01dded5b",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032766103744506836,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00473.png",
-      "timestamp": 1792897580.015594,
-      "sha256": "e3db7f2ed36bf609c2bcacb7ef36f824595cb5fe8f415e11d7b1a3bbc5df00d9",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000013.png",
+      "sha256": "397eaf0696573e1986a06ea532e02b453aed51cd8cf4c7bd5bc2d9bdfce3aeaa",
+      "timestamp": 1792995198.077528,
+      "duration": 0.5868680477142334,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0e5fd2ab492278324afe72ac0bd0c71b85e89fb9249837581a0e505cb483edd5",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.0655059814453125,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00474.png",
-      "timestamp": 1792897580.04836,
-      "sha256": "ebc124114a4e0464d35a8b93cdc8396ad95661c2dca5cbb58588ae1eaf0044c6",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000014.png",
+      "sha256": "dd86d499cd42ad4724e270c2d6d293d8269e2c5b2b6cf4b25e09ea5c7c32a658",
+      "timestamp": 1792995198.664396,
+      "duration": 0.013278961181640625,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7ab93285eb7bc14c26acc8ad5a502cafa1c56c5b4e395652e8b0a920bf8b26b4",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03273582458496094,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00475.png",
-      "timestamp": 1792897580.113866,
-      "sha256": "800672cf2f141cae56acc155df5aa2584221deb88d875e71834d22a362b5d966",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000015.png",
+      "sha256": "f0d9846d3f322112e3bda4fb9ad675b0d98e0fbb8108ab288f64e6ee6fc90a1b",
+      "timestamp": 1792995198.677675,
+      "duration": 0.026712894439697266,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "103125f01bb3d1c4903b42b2375fb9d92330fc3a93ab504adbc6b19a8714245d",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03336906433105469,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00476.png",
-      "timestamp": 1792897580.146602,
-      "sha256": "5730f99ca1b3ccc3db5b87ebc14d12b7c9ecbf23c10356d6652a6241ebb64250",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000016.png",
+      "sha256": "2ee2947aca395308d15b208b01bbb3cb3bf4f903c04ceafb1c8437439c2e5f30",
+      "timestamp": 1792995198.704388,
+      "duration": 0.5868561267852783,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c3986bb8692b4e912b553481c7db71eb0174e1ba53a54ce3911fa522d0938994",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06525897979736328,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00477.png",
-      "timestamp": 1792897580.179971,
-      "sha256": "0fc137945cc8bd058406f7e5abbb431329149546925b232f4c4de3e10fcd9767",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000017.png",
+      "sha256": "ec6e86e869bb8922c8b22eadec588a24c0752904b3b6997272fd25b130f84a8f",
+      "timestamp": 1792995199.291244,
+      "duration": 0.026712894439697266,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4aba7748408b7bbab878469d286952fa57c9466e5f8e1c98caaeab8b5b6a51b4",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03228902816772461,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00478.png",
-      "timestamp": 1792897580.24523,
-      "sha256": "f886caa77d72acf09e32ffa488eadfec7d65c31a39b231f3b68100de3d0b1c5d",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000018.png",
+      "sha256": "f5a055ad603626d1c8b843d8d362353cb810958ca2180d0a318104cdad63160f",
+      "timestamp": 1792995199.317957,
+      "duration": 0.013360023498535156,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e98f101877058a7918fce83fb27126cfb39b115a8beb375003b9193ecfeeaebc",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06466007232666016,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00479.png",
-      "timestamp": 1792897580.277519,
-      "sha256": "2ca6895234bb1d3f222730c77bc4a248b47f79731975551f534fd4f590fcc7d9",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000019.png",
+      "sha256": "84ab4434d1be87a13692756a5ffe312a137cd149221b67bd8e7797079742fd29",
+      "timestamp": 1792995199.331317,
+      "duration": 0.013334035873413086,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4aafb85b6f44fe7e76539dee2728d569de4b9befbccb465f979c285a01290832",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032547950744628906,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00480.png",
-      "timestamp": 1792897580.342179,
-      "sha256": "591d870cf1266c174ab4884e8754db540ac67942f559e86a3ca32bd8d6aa1111",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000020.png",
+      "sha256": "4273a36fb82b462f011fff4c8f58faae321066ad77ab0f482127072259e8e5c7",
+      "timestamp": 1792995199.344651,
+      "duration": 0.026865005493164062,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "23d66bbf7bd1d0c49857593e8015576dc35af7550abc0f19ecd35b86af7a22bf",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03270697593688965,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00481.png",
-      "timestamp": 1792897580.374727,
-      "sha256": "d9a9c9ae5fc24aa31bb5b14641fa0eaad52a454884b8019e48d1843a9b1fea12",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000021.png",
+      "sha256": "24f9d664add242280a770f09875883352097d5b847137ca5d0f11eceddf97288",
+      "timestamp": 1792995199.371516,
+      "duration": 0.026462078094482422,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "10107fd9b402684ab0e0908e80986a6c511de240c8914ad37fb25d8ab9221cbf",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032273054122924805,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00482.png",
-      "timestamp": 1792897580.407434,
-      "sha256": "71dedd1f3729bc88aa68ef659a4d0b6cc08e875149e57c68c0b3567bf62af4ad",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000022.png",
+      "sha256": "f377fe5ba8c9362f6736d45cc801bd0b15d7d45fa9313ea1544da25fa44b1961",
+      "timestamp": 1792995199.397978,
+      "duration": 0.013306856155395508,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5a2e0729e8584efafa88eee575f78e481c2dffffe487012eabd49c8210304529",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06492996215820312,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00483.png",
-      "timestamp": 1792897580.439707,
-      "sha256": "b0ef852427ea844cdf73e1e3704c21647ad69e99d94fbe175fffd9ad4d360bf9",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000023.png",
+      "sha256": "8278ff85860e0bc77b8dd43cb1fe6928a9f8bf49eb7b28aba8ff17bb52f36df2",
+      "timestamp": 1792995199.411285,
+      "duration": 0.013776063919067383,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "376730072e9a9c2d854643f4c505fb58bde287f06fcdea95f448169087b1b96a",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03222489356994629,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00484.png",
-      "timestamp": 1792897580.504637,
-      "sha256": "45175817bd7f5169ee71b17377f0b1efb9e28731ec26baa8da3797244fd64909",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000024.png",
+      "sha256": "f91c0caabc3087b2b3e9addd2e6836f0b17cf891ed4920cb99be9b4c10030490",
+      "timestamp": 1792995199.425061,
+      "duration": 0.01299905776977539,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f132f391b0b7512965bc59d1b19016188e84f5f9d82220ea27980dbed4bea896",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03268003463745117,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00485.png",
-      "timestamp": 1792897580.536862,
-      "sha256": "7730b858b4d856219effd514210266ed4c0b801dc2bb71dea7a7b002e843a2d8",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000025.png",
+      "sha256": "a80b90708f59692abe642a288448e0c78d7b509cb414ad206dae4a7055edec59",
+      "timestamp": 1792995199.43806,
+      "duration": 0.013290882110595703,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b41b064ea4706f5a3dbec9a68e9a1302faa668276202808f46199c90b0e6cadf",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06510400772094727,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00486.png",
-      "timestamp": 1792897580.569542,
-      "sha256": "20a71fe474caebf96ec228b0a4e8de6f715deebde0bd690835586e76aa0b3e6b",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000026.png",
+      "sha256": "194b49cc6ce0524180b9f363ec2ba92c9bc7cfc2f693684373d1fde96138a3f0",
+      "timestamp": 1792995199.451351,
+      "duration": 0.013339042663574219,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "efdd675429dde9829c88f659d8b827226e77df2c60b33270a67f5b1288deaf40",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03274416923522949,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00487.png",
-      "timestamp": 1792897580.634646,
-      "sha256": "bc9c76bd33f9a1f5a37fa23949ca18667aa9bdfc7161c61db022829eeed119a1",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000027.png",
+      "sha256": "e71c67cd25b33edddf02df06729e6199013e3f41af16392c2501bad5a3918c90",
+      "timestamp": 1792995199.46469,
+      "duration": 0.013325929641723633,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "64f5f11e3b6552d5232b7cb3e01a8938dcc8aa0dbec05dc83aba8ee10d94a67a",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032388925552368164,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00488.png",
-      "timestamp": 1792897580.66739,
-      "sha256": "7c891bb63c62a46ff74bdb9f761579f8f8af81212f03e5e3c9145b0729d085b3",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000028.png",
+      "sha256": "17287184a7f654a93566db0b833b913ec9cc6b661fb2fb03017d363adb492275",
+      "timestamp": 1792995199.478016,
+      "duration": 0.01332998275756836,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f75bfb610c72a0a699d74a034b0d82fb2f151f1ed366f387a2587af8377c1dd2",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06505107879638672,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00489.png",
-      "timestamp": 1792897580.699779,
-      "sha256": "84558fcfa1129f4c9f4d0aae6ba9090a670939feac3839acfc21810f26289d27",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000029.png",
+      "sha256": "e4103428175dbe43b67cf3117d74bd0b2c224f395992b6613136c681412ebc6c",
+      "timestamp": 1792995199.491346,
+      "duration": 0.013403177261352539,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9b190e2e58def6cc5265b7bca5b7f2c0a462188d091e8f392a69b47d51bda8eb",
+      "atlas": 0,
       "caption": "Type the word.",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06518697738647461,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00490.png",
-      "timestamp": 1792897580.76483,
-      "sha256": "3dc87644f067e0bf2f1f1adaadb957378ab982c01129e93a97c60a0236f84dbd",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000030.png",
+      "sha256": "d0f3ae8f60aff441c093c71f9f1ff3bbfec8a3b1647de254a63d58e2b55fbdfe",
+      "timestamp": 1792995199.504749,
+      "duration": 0.01335000991821289,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c66b55afcdd62ed8b7db335f8a390faa96e4ea369fde4f2844862994d1f0ac9b",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000031.png",
+      "sha256": "68f7d8c9a579532cd5a3bbfbe24f87cea9de84f35351ec65684c8c9bac815334",
+      "timestamp": 1792995199.518099,
+      "duration": 0.01328587532043457,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "45519dc3cf90e86cc91c2022264f150819aaf0172a82de5be2d4252f848e306a",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000032.png",
+      "sha256": "7bc88426ec64dfa276eeab259eace7d8f84d9691ba064baea4d2b1e4454bffce",
+      "timestamp": 1792995199.531385,
+      "duration": 0.09350204467773438,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5cbc0cd24b8371e3fc9a1761e44c1874f1d140351ee117e69285d8798d32f752",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000033.png",
+      "sha256": "34eba5caefc23659121f3d5901243d73abce8416f79ac38314c9ede5c31fe89a",
+      "timestamp": 1792995199.624887,
+      "duration": 0.026649951934814453,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5380456260f6c942eb2659ad5a5bdb5dc407bb160e4c8271e48939913ee882b0",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000034.png",
+      "sha256": "0a3886b8c2a0b51537d48c0b2779ab46166bafb7baaed47b78dc912f8ab7745f",
+      "timestamp": 1792995199.651537,
+      "duration": 0.01335597038269043,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e2853c5478682a46156a872b5e71647fd448fc3a50c3dcf63aaf99ede505c356",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000035.png",
+      "sha256": "7edb24faf9c025430fd9738c7ce18812c542448e36f9a598bc2fdeb3685016f8",
+      "timestamp": 1792995199.664893,
+      "duration": 0.013244152069091797,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d435ba4c713d13b0e674203116be108c8356c4dc63529edf76dee8caa84272aa",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000036.png",
+      "sha256": "9ce6fd91364d4332421e3584a57c74e45bb6301b5ff3fa33a8f65563327e1a1b",
+      "timestamp": 1792995199.678137,
+      "duration": 0.013453960418701172,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f7f8911e1d1f6c3d0dab720c305552c7dd0e3adbbd85e909f80ca11a0051b6e3",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000037.png",
+      "sha256": "4ea4aeac943f48f2c485f54c233b275d7555d6a56c2aa5d47131ac8809c382cc",
+      "timestamp": 1792995199.691591,
+      "duration": 0.02659296989440918,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "717dafb9ba7a64b8eb5b9cace78cf9a4f44b430ea74d445fc90c4cee03b92ec5",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000038.png",
+      "sha256": "7a7ff33be1437365ee7b95b29c2a03f68ca21f388d27d054cd876ed473a27bac",
+      "timestamp": 1792995199.718184,
+      "duration": 0.013279914855957031,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "83e9806b4c42568e67f5faf5aa8f8eac59af99b0e4bc0c6ee62d4bfe20949a55",
+      "atlas": 0,
       "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.033101797103881836,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00491.png",
-      "timestamp": 1792897580.830017,
-      "sha256": "5803f753890be93eaf418a5e01d61612749a1302969809e6c70c9269bd3d66a4",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000039.png",
+      "sha256": "dab4468e7d7ed497b6a39df45fa86d588e73b6dcd49e76cf6e0bb09a01ee8177",
+      "timestamp": 1792995199.731464,
+      "duration": 0.013450145721435547,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e7ca4c20cf90c7343fbd3de84c28cea0050b3b33ebbd02d2bc033c739a7e3410",
+      "atlas": 0,
       "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.2283329963684082,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00492.png",
-      "timestamp": 1792897580.863119,
-      "sha256": "7ea65ef79d9f87966032d60a3dfe432a87c7f3fca673de349e368afd21f152eb",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000040.png",
+      "sha256": "f880fd10e48bd684b06991c96bcb67d79738c06e7b07d34eb3a774a8cc542ef2",
+      "timestamp": 1792995199.744914,
+      "duration": 0.013442039489746094,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a63ff015b3c290a5b21170e2de25b3d2b2617eeb3cd22b8732219df88e26c70a",
+      "atlas": 0,
       "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.0655522346496582,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00493.png",
-      "timestamp": 1792897581.091452,
-      "sha256": "b510c8c4230e98949da2842b62e6f0702bbb1502fab14400de4eb2c041a6b49f",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000041.png",
+      "sha256": "f779e77b74e0bae671c18caf66bfd23ea2e1320837bcc1c200915e09f02bb588",
+      "timestamp": 1792995199.758356,
+      "duration": 0.013188838958740234,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "80306dcc6bc3c3a8ecd3c6565b52a32b5811b8653587322fa91dc79ab591c7c7",
+      "atlas": 0,
       "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 174,
-        "width": 198,
-        "height": 75
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03254294395446777,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00494.png",
-      "timestamp": 1792897581.157004,
-      "sha256": "9533ee6166920960a1a78f0b4a2d35c61de309a55f1e67a0ae5ec7bcd3453a3e",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000042.png",
+      "sha256": "b1e943f6eb1afdc4218af434ae97a167d298c7969e5cff3f9bad5663f3e1fedd",
+      "timestamp": 1792995199.771545,
+      "duration": 0.013343095779418945,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ed0bd2b46b9077be6f8181fb5a46a01a4c3d3fa2ea45425a2b7f978947b5a73a",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03267693519592285,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00495.png",
-      "timestamp": 1792897581.189547,
-      "sha256": "f810a2e8e50eb7b60bbac739b4bfd0096fa79d2ad0e1a601c1a36120a584ee25",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000043.png",
+      "sha256": "42ad3582b45548aed6b34b6e82d8d2040846694e92daea173724e055a65b59e0",
+      "timestamp": 1792995199.784888,
+      "duration": 0.013351917266845703,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "333596afcab9fb1cbadfc96a3fe24a1651ef4f77ceb674292230cb96675627b3",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06509804725646973,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00496.png",
-      "timestamp": 1792897581.222224,
-      "sha256": "ab7cec4e1c6fda1ef98bb9b740327fa3725df079df01ebf2b5f949c415aa098c",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000044.png",
+      "sha256": "9ea95e4f6a849cab2c7c3bc2520fa9c905eef214b5f7a6d170f176e176b71963",
+      "timestamp": 1792995199.79824,
+      "duration": 0.01330113410949707,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b9f27306a7b2809c78e61e6eb9db8d12fcc9f1fd83646ca92357cb3c628f9126",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03276205062866211,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00497.png",
-      "timestamp": 1792897581.287322,
-      "sha256": "42e1efd334a521ffdc0f1da426483eb0fb5a598fe58fcb3d132322762e0ed6fa",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000045.png",
+      "sha256": "342aeeaaa5cff463911d5c078f00866eb8ec7fe62a25048b90a06b2af11f6b47",
+      "timestamp": 1792995199.811541,
+      "duration": 0.01329803466796875,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2900a9bfd36cb69707a8bcfb1c4adaa8fd8a875bebf3c9296e8c6d348a24d29b",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03275299072265625,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00498.png",
-      "timestamp": 1792897581.320084,
-      "sha256": "be0ffda5abeabb3f4d01874bf6cd5ced20d16891866ac6f836c966414814cccf",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000046.png",
+      "sha256": "090d9cda937493fca96c85c9447755af15ed11bb2f194587a8b4759a2e3d88b9",
+      "timestamp": 1792995199.824839,
+      "duration": 0.01356196403503418,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a65e28b9ed2d344d4bcee22a425be7a392129b7b3dccc2f24e8488ef1164a6a9",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.033212900161743164,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00499.png",
-      "timestamp": 1792897581.352837,
-      "sha256": "cd8b1aa56a7717ca1be1bf02e9bffec100c7e83e344db2d0b55922ef2393f70c",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000047.png",
+      "sha256": "eeceb717b065f6e67111966070ef1ee2ddd7204acf819536f820483483e965e4",
+      "timestamp": 1792995199.838401,
+      "duration": 0.01318502426147461,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a31cef9a0601140ef2e614f199d0151fd7f39b87c11fe81f7122874497bd4fcc",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06556391716003418,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00500.png",
-      "timestamp": 1792897581.38605,
-      "sha256": "164ff9b0476a2f13a2b24839c6bf75a64c0faea425e2867af52a14fec344137e",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000048.png",
+      "sha256": "106b84758c21de0299f54228a14acbd0b19e722ee3c96d4aa1e7335f2c1706bf",
+      "timestamp": 1792995199.851586,
+      "duration": 0.01329183578491211,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f42e779f73ee48563a55eaf84c1c4df941412cc9d0b2ea00f332f40191acd1d0",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032679080963134766,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00501.png",
-      "timestamp": 1792897581.451614,
-      "sha256": "217e765c4627030d8ae151a579d4dfaaefe5fcd5b1ad60802fc0f7c43034c328",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000049.png",
+      "sha256": "1fb762b9f25129810bfdf0585882fe97d5ae91c9a8ce481e67ed379ed38ff839",
+      "timestamp": 1792995199.864878,
+      "duration": 0.013373136520385742,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fe7641134d98ae717bd9266a0f3a97b2548a9770bdad5bf4828b8a9919610c5a",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03319191932678223,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00502.png",
-      "timestamp": 1792897581.484293,
-      "sha256": "332b8d895e125e2bc459dafc5c42aae1795bdc852f7362e5588a10bd75f68fc2",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000050.png",
+      "sha256": "750dfbb15c1a744e119e85a8cdc8e30d4665475ab75c6cdc43fd15002ea22687",
+      "timestamp": 1792995199.878251,
+      "duration": 0.013288021087646484,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "04d9cc33cb4556ecb157234f3cfc22e408bf6c2d54c46c6f81d66f236508cf2d",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06454920768737793,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00503.png",
-      "timestamp": 1792897581.517485,
-      "sha256": "23776c1ccef422294383a1468ccde14bf20c6248ee212d1be860063f9b655800",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000051.png",
+      "sha256": "441035f1191af4ec531db66276c3771e062413e705731f01b2cddd36e7e3fa80",
+      "timestamp": 1792995199.891539,
+      "duration": 0.013434886932373047,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fe0de71956753db8a1d5e91b1e13313ef62b5f7fe6c7a20a9e3f39519d4bb1a3",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03298687934875488,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00504.png",
-      "timestamp": 1792897581.582034,
-      "sha256": "58e61e88cd3372994b13904bcf0f46deb6ab12eb16db7123ce348f3f2e3c2b1b",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000052.png",
+      "sha256": "22658f6dcdab205581575daca44afa5a09fdfd3afe769b623693e86727308e78",
+      "timestamp": 1792995199.904974,
+      "duration": 0.01320791244506836,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8045c9c8eb0e47714306e6d04285e28cd87d7ec9237b047fca8cd746fa49d6a8",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.0971219539642334,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00505.png",
-      "timestamp": 1792897581.615021,
-      "sha256": "3566cfb1a348f4033537448aeec44a035031315053eebe50a31caa93a7555789",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000053.png",
+      "sha256": "b867ff886eb66267778efb9b67174401c4c0c44322292e507281178642cdb44d",
+      "timestamp": 1792995199.918182,
+      "duration": 0.01338505744934082,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a5fd02cb47856af731a46d1a9466c235ee38396743afa95df4a568677a59b468",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.032720088958740234,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00506.png",
-      "timestamp": 1792897581.712143,
-      "sha256": "10181d24ba8aaf5216e483b03e07129b15351097a51868f4dee5cc5bf24fb004",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000054.png",
+      "sha256": "2ae0a04f1ebd889ef75084a4f72ace4d36023ba94abb8678d13e3c7d8eb84e06",
+      "timestamp": 1792995199.931567,
+      "duration": 0.013532161712646484,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d5e2cc673f7c1579e14dae01950d21b8d8412c2d90fcdb06877c86a344150373",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.06476092338562012,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00507.png",
-      "timestamp": 1792897581.744863,
-      "sha256": "a24aa49bedff43748548c466b7384dc714f047d08f26f4ab6fad063ab1c69440",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000055.png",
+      "sha256": "64946043f2c650072aabc1ce328b38d44b8152e1f7f31600e8d0e046a4356dd3",
+      "timestamp": 1792995199.945099,
+      "duration": 0.013142824172973633,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "157430c97f5449d834ccc2d9e09966761026a45cfc46226baaf37043e7cef9cc",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.0325620174407959,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00508.png",
-      "timestamp": 1792897581.809624,
-      "sha256": "0f4d916e7901d57d021aad3a7523d07deb5d5cd60473e99b07337b2326ec7fe8",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000056.png",
+      "sha256": "42daf0845e928236a792a51a7c8ca227133692695bd47ac4e384f1f37c62fa55",
+      "timestamp": 1792995199.958242,
+      "duration": 0.013365030288696289,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0d0fd16a01c1bba1ede038f714c004103987ec66d22317b9e0eaae8d4f09eee5",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03258514404296875,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00509.png",
-      "timestamp": 1792897581.842186,
-      "sha256": "7fefb51ffbb8a7f5674a180d98564c11d2a57550b9a15e838af1da7a92e0b87d",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000057.png",
+      "sha256": "899b786d36b7b904b61105306b80a7f7ecdadc921f5cbf24f6acae20fb699552",
+      "timestamp": 1792995199.971607,
+      "duration": 0.013332128524780273,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d6e4fc7531bd0c438257ec91830efcf94fe923fb7c6cfe5308b17228c6cbeacf",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
-      "atlas": 0,
-      "width": 240,
-      "height": 90
+        "x": 144,
+        "y": 414
+      }
     },
     {
-      "duration": 0.03522896766662598,
-      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\beat-type-11\\capture\\f00510.png",
-      "timestamp": 1792897581.874771,
-      "sha256": "2829d961b0134984288660d69b4bdbc69a8c06e6874d9e0173d4f3217e6a2d23",
-      "caption": "Enemy HP drops.",
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000058.png",
+      "sha256": "4241a9b3370fd12d86aefaaa8bc52f422431d135ffdcafe6ca212a235a0c411b",
+      "timestamp": 1792995199.984939,
+      "duration": 0.013237953186035156,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "30471599b4f426592158fcfb62f4860c9ef1dd8247ae7d83931cf46f02ec6583",
+      "atlas": 0,
+      "caption": "Word complete!",
       "focus": {
-        "x": 45,
-        "y": 87,
-        "width": 198,
-        "height": 42
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
       },
       "label": {
-        "x": 6,
-        "y": 6
-      },
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000059.png",
+      "sha256": "106bd73c8567d469420222b263315de35f61035402ff9fb579ec91d4cf3747bb",
+      "timestamp": 1792995199.998177,
+      "duration": 0.09345889091491699,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b2ea11e4576f9a445672a4e906d27a062dbf384c30b11503b94839e65f7dc54d",
       "atlas": 0,
-      "width": 240,
-      "height": 90
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000060.png",
+      "sha256": "de9254ee1b705f6972f587190fe3cde0b98a79639bade7f2c62e8596646db368",
+      "timestamp": 1792995200.091636,
+      "duration": 0.01335000991821289,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5d26477c6df11facd7ebeb8c27aebfb8216022aea35736306479f5f096e6dfa3",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000061.png",
+      "sha256": "73a282317dc30cab0e0d2063eaf8265e6d001d8d1022195b43c7b545c77463fa",
+      "timestamp": 1792995200.104986,
+      "duration": 0.013347148895263672,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b49b0472074240cd26a675fe75d0cdae3fdeae7a7f423c5c9cc3fed9d2101b34",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000062.png",
+      "sha256": "afac852b3d68b110367938d3abc6860cd2101d44f05021bbab75c106c6dd7eea",
+      "timestamp": 1792995200.118333,
+      "duration": 0.01343679428100586,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "01fab0703f72d41c41451f24809e5f7b5109524563b66f8d0a19feb40b4e92cf",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000063.png",
+      "sha256": "18f1502570fe4ab55eb47f4304741a2727c77ef89527b680915e1aa8d1e397f2",
+      "timestamp": 1792995200.13177,
+      "duration": 0.01324605941772461,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9449f81f0bbbd4bde8fe6dc3023e0d4addf51adc1c7b448cb7986c7f39f44212",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000064.png",
+      "sha256": "ce143c17e6672e5bfa4d258f27b65992d45c950f94faf5a92236ff301df95ce1",
+      "timestamp": 1792995200.145016,
+      "duration": 0.01353597640991211,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bbdca69d55a92568f6ad6d041ef762e72a7abc334e15662fdcc2f231dff251a9",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000065.png",
+      "sha256": "b36465343e79b8b0a80b3bcc505bc5366d3d4f95655bcd7ca54d8a8c879fb962",
+      "timestamp": 1792995200.158552,
+      "duration": 0.013231039047241211,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a3dcf2746ea77a7549089d48128d6f5ebaf9bd6c6e1a64f57849b535a52ded83",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000066.png",
+      "sha256": "986501b86c3bfd1469e69ab46104b7c93e0e0b6e8ef1786bcc0b42dd62a9c1c0",
+      "timestamp": 1792995200.171783,
+      "duration": 0.013231992721557617,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "db56cbbf97bdf9b8bbff62b58ece6469424722d5ec06dcbc3ba859a0610c2083",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000067.png",
+      "sha256": "8affd348b127ebc7f2a7d3c0fbc568d6e06132b21dd57f36b787ed124e8213dd",
+      "timestamp": 1792995200.185015,
+      "duration": 0.013401031494140625,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "261f49dca64698690c2556563184422eaebe7f11f1509331f59d691b3672a49d",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000068.png",
+      "sha256": "ae164bce0e2a763f89028a98b96f53f43fd345b6add0143d5b2157e71cd76f2a",
+      "timestamp": 1792995200.198416,
+      "duration": 0.01326894760131836,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7ac1613231f2cb927c454c6d25b058407eec94da5b3994da09c322c08aec5665",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000069.png",
+      "sha256": "481452c33db0aa8864dafbc1b4d5a8c6dab74fbaa96bb4ae1ed91c0ba9ab10b3",
+      "timestamp": 1792995200.211685,
+      "duration": 0.013339996337890625,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4bd26def0ec23e5ad092ed8362e625c288f094afa6d4991fde777e188604d495",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000070.png",
+      "sha256": "5011d2c8c46370f445230410ebac302640fd5154c8eff122c08f105c178c9f96",
+      "timestamp": 1792995200.225025,
+      "duration": 0.013319015502929688,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fba142f6f20c36eb4ddfc83c88a40583596f52cfa81e92219f3318ec7e9197a5",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000071.png",
+      "sha256": "9df2b46c5a2c812da2f16c1b3b207eaff2b88c98ece7fad154abf9efa5d69c08",
+      "timestamp": 1792995200.238344,
+      "duration": 0.013381004333496094,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "55ccf187fe71af37887d356e82fcdfd9755f0726441a53bf925922b2ba02bd72",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000072.png",
+      "sha256": "7ca5a949b51bd08c69dfb7535bd7f6256ef8c078ad117a6fd93eb497bac8ac71",
+      "timestamp": 1792995200.251725,
+      "duration": 0.013390064239501953,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2da8b1760ac64212d63996c167d0fcf5a27f1a37d87d11d93df5d603d74f2cfc",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000073.png",
+      "sha256": "7028740dcdbef25fdb56748392ce651c1e75a8f9c777f933475f73f661f299b7",
+      "timestamp": 1792995200.265115,
+      "duration": 0.013223886489868164,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "85d83e269a4a8545e8f57676d500a861e9d29f294d80961e4568c086d588fe65",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000074.png",
+      "sha256": "4b576f389a4ba5398f01713ee6005e3904db4d3d37ec8304fc323c70de0439ea",
+      "timestamp": 1792995200.278339,
+      "duration": 0.013285160064697266,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "467bb647ee8556727f74ac43c48b2acf002b061b2a5153c309044c0098278227",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000075.png",
+      "sha256": "a2076e2b29a1324bf4a4358a5cecc9f345e7326bde251ecb1328c51fc060a904",
+      "timestamp": 1792995200.291624,
+      "duration": 0.013464927673339844,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7b35c757ffdc42f9e75fde897ace824cb951d8ac94d0d49909e33e86d5d67994",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000076.png",
+      "sha256": "3521a1174d2e64fc86ab4c40eac624cba187c93530803f57de802bd026d779d4",
+      "timestamp": 1792995200.305089,
+      "duration": 0.013284921646118164,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bae377d048024a97406cfd9556ea5a940d1fad98d8b505b0eaa6875e04982ffb",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000077.png",
+      "sha256": "33736bbfa1d435e0dc2b89ce453bf6f0b9463458ee421ac6f668d6cddc1d5440",
+      "timestamp": 1792995200.318374,
+      "duration": 0.013458967208862305,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d04035df36a45d95502291bddecf74dbb5c1d0778ca1d0378b8ee1d58c58242d",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000078.png",
+      "sha256": "1a57dd9a8e8c08324f65945066db1450992687da572a48eb1ab5d0e23fe34f5b",
+      "timestamp": 1792995200.331833,
+      "duration": 0.013234138488769531,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ecd97b62c1546b007ed3568899b3e3dea84d8f2563b30ed5c7c3f60fd2d0c56b",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000079.png",
+      "sha256": "d1009122308f0225486dce7c528a252087d34cbf778376c00bdcaea0a6909f34",
+      "timestamp": 1792995200.345067,
+      "duration": 0.013278007507324219,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7c76ce3bd22024750ce05efd5e2c1ffecfccc8756d1c9822d3db2fd2c37d8ca8",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000080.png",
+      "sha256": "efbd675e9cb4957d2746df910c08f542f840c5625709b6113077c2dfc10bd7d0",
+      "timestamp": 1792995200.358345,
+      "duration": 0.01341700553894043,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7224d9a04344b5e2687cca7d6fcd709a1efb8d4bc7ce7cb70a9f35c555bc2bde",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000081.png",
+      "sha256": "d416c5bc185eea6a361f5674af1dfd3ce063ff8d9bc6b24d8b65c62242ae9be6",
+      "timestamp": 1792995200.371762,
+      "duration": 0.01329493522644043,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bce6e6da0af417be5d424fcab22c4317cf63873c1a0a784d0aa7019edfe9f8a6",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000082.png",
+      "sha256": "5786bd6b4049e4622027d251d6a9ac56253f645073237b9d738993e1523e1677",
+      "timestamp": 1792995200.385057,
+      "duration": 0.013353109359741211,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "aa99f8131553ee1931551e0f84172e8fa1d3fab54fc96e23621c37e554ccc6d2",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000083.png",
+      "sha256": "0c7c8712145386a40c96ead97accd56e658427c8997b0bd5ed8b646109d09d5d",
+      "timestamp": 1792995200.39841,
+      "duration": 0.027163028717041016,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6e2f3c7a5c6c1d5c2ae9e4c6885cda17e857adae266ce8b31b937c100ad70867",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000084.png",
+      "sha256": "14ced4555dfe25206c8b4cb7873f6c29cd97c3c5677b62748bb2b4bc219f88ba",
+      "timestamp": 1792995200.425573,
+      "duration": 0.5596799850463867,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "29cb13ef2e52574790952b385474b3f2b2b0cfd35c935a4f3eaf6b404287ad4d",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000085.png",
+      "sha256": "8d3a62cd9494a911a6d47f8cc19118b525d1cd81b7aa34dea180d3f87d964518",
+      "timestamp": 1792995200.985253,
+      "duration": 0.0133209228515625,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "af05ca2de5bd70888d91186824654d76878a16c6450487b04ff17b753137b462",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000086.png",
+      "sha256": "dee95349c97a227879c861332e73f4459f0859c17b8c5de819e215d1b961179a",
+      "timestamp": 1792995200.998574,
+      "duration": 0.013493061065673828,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e3d5eba831a11c5a1ec8685c328a11c452d933028722e0eb9539916f3708a998",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000087.png",
+      "sha256": "01679d016d45668f50f64cee65a3f9ca5af02d7f8f3c00a3e6c578b2de02153a",
+      "timestamp": 1792995201.012067,
+      "duration": 0.01329493522644043,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7621e27a46efa8ff258e77650d90a325407f133cadd5d038d2de46094b2e2ed3",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000088.png",
+      "sha256": "cd34bfc7fc9e6c8d16bb697d2d291014dc3459ae8d7453d06117bbe91029f194",
+      "timestamp": 1792995201.025362,
+      "duration": 0.013314962387084961,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2a631f949136451749d263d0f35c6cb6bc1952dc474ce99627616cf93b5c2c3b",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000089.png",
+      "sha256": "5049074adae372caeebdb9d53659dbc225a61c447b61b7b8ccfc6a8fd59b633f",
+      "timestamp": 1792995201.038677,
+      "duration": 0.01328897476196289,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4ae774c0b71b6978b8fac56e0a91b4b6d5c9701b20c75116d82791c1233e9148",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000090.png",
+      "sha256": "0b9c01f558ad762539878e903a99ba8c4a8ba4fe7cdffcdb80826203059ea7b2",
+      "timestamp": 1792995201.051966,
+      "duration": 0.013335943222045898,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "af7a64ea6b4efc4d568d8af2b64ad80a2bc022fefce566be258eea06b4b7b6d3",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000091.png",
+      "sha256": "333e3271db3429e8273528c9040f2f6613d0e8af43aec3570f3473512dfeb780",
+      "timestamp": 1792995201.065302,
+      "duration": 0.013334989547729492,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8d560f9f9c6830d82bd348be6d9a0122959a621f191bc20150ff041603359f94",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000092.png",
+      "sha256": "6837f0ff610666bcf8c0d6bdf7e1776a8fe882d8b1ef69cf31fb4328c33ac0bc",
+      "timestamp": 1792995201.078637,
+      "duration": 0.013349056243896484,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cc159aac4e2fa0622f25c357f4bddd43856105cb7a22115ffbd74d1052e65f50",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000093.png",
+      "sha256": "d86c495888d9d499d43558d7b7590e6617e021cc328dfd26761db9773fc1bafb",
+      "timestamp": 1792995201.091986,
+      "duration": 0.013309955596923828,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ddcc9f291e5c17d0ef67f0e62b7a31549c2ca47b5503b012f157063a28ae86c6",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000094.png",
+      "sha256": "9ff2e5706381fb53bc55e30a97bc091177062173d9662f30baa3bc60851426c3",
+      "timestamp": 1792995201.105296,
+      "duration": 0.013384103775024414,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "144bd6d1c6356ffa9ebb15706d14f1ff7d95597bc74fb7363867214f3ff18a21",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000095.png",
+      "sha256": "6cbcd18de0f0e24da9fbfd2a9e9be8b0fed00ec98510a8450febcb8e12f95cf5",
+      "timestamp": 1792995201.11868,
+      "duration": 0.013422012329101562,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4ff5dfada00d99f325617099a261924d0e396f03b2b84eb093cbf5a20d691236",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000096.png",
+      "sha256": "c9fd733a39e707a1dac8a20d5b1bfc3b9f8df18d6f80783bceac0ab671994f9f",
+      "timestamp": 1792995201.132102,
+      "duration": 0.013220071792602539,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a2059ac96e19be3219274970e987e6160dd37fdc861d8f42d17788f9d57d4493",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000097.png",
+      "sha256": "e4f16cb6786380d137184263cf9c0ebff769bd589cf5f8979b9d9896cf29a167",
+      "timestamp": 1792995201.145322,
+      "duration": 0.013484954833984375,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "301d98d110c2cc86c9c0668bc6870a74c3c178ecfcc4def01b969a0747be0f89",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000098.png",
+      "sha256": "832e8417c7fb82717b68bb466786d8383ccb1a3c01dd537e5e5a8cb6b81780ab",
+      "timestamp": 1792995201.158807,
+      "duration": 0.0532078742980957,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "83d8acf1ea4f869c923d24c3a51bf4133f2138af1d9993a1b1a653cf8744a883",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000099.png",
+      "sha256": "e40d86f2451318633cabfd31295f827fe61dcf192b4bb1476f794febc1b133a1",
+      "timestamp": 1792995201.212015,
+      "duration": 0.026736974716186523,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "edcafa77b2b4bad45171923c07db6c2691301a8fcc542f4b75c95b74de73628a",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000100.png",
+      "sha256": "f22eed8e97807c57824ca2f5850a4d9341bc2a307510092144bdae739c17e029",
+      "timestamp": 1792995201.238752,
+      "duration": 0.013303995132446289,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0d90bd3864c15d0a96ce9ba4bdb31ac6956a1aa5d44934e2fc7815f354be0376",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000101.png",
+      "sha256": "b2cce961aab83efbd86c85f493bfaae78d57dcbed06a4a12faaea5d8a5b0cfd4",
+      "timestamp": 1792995201.252056,
+      "duration": 0.01338505744934082,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3efd5aa884ecc86795943204e565020af68c214377af454e396d413b458bb37d",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000102.png",
+      "sha256": "22c4bbe31454ceed5e177b5f54c28df9e62befa7bc0d5fab736f1a441886ac14",
+      "timestamp": 1792995201.265441,
+      "duration": 0.013437986373901367,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f069da58eb4b380034d3c583cac6c14eee48633e3fa0e3505010c86736675cff",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000103.png",
+      "sha256": "5240a38b09183f812d6c3e05d460689ce07d84af6019a020ef2a35a7454829a9",
+      "timestamp": 1792995201.278879,
+      "duration": 0.01324605941772461,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "29f7972c95572f7d5f2df826678525f72f80701d1211a97d1de510f58d1abec0",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000104.png",
+      "sha256": "a07cb67e770e6cfce820ad1d117d2a92be09198eff2f4854db78fc57391b41aa",
+      "timestamp": 1792995201.292125,
+      "duration": 0.013463973999023438,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9df45e3050185ad5e9b2b2e78f638baac2af845038811867d800ace161fa09f8",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "E:\\CodexTemp\\TypingHero\\space-press-cue\\full-capture-21\\capture\\000105.png",
+      "sha256": "82ec8b6df9f658d52e78bdbdeaca037a6ad55872ac205b1aa4ea5d37040e5c8e",
+      "timestamp": 1792995201.305589,
+      "duration": 0.01041102409362793,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "45608d02bff41311167a9d14cc8962978d14692f1ed2e9b99f09f2a8aa496c1d",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
     }
-  ]
+  ],
+  "transform": "full-frame RGBA resize 320x180 nearest-neighbor only",
+  "sourceTimelineSha256": "e7c3221c423efd9de5edeea76b99bb4b4fe2342275d76fe5c92b45b74710896b",
+  "atlasSha256": {
+    "typing-0.png": "e4b37731f706eec8280cc5c9207f04797ad5aa20c86bbc2346506031be88ec63",
+    "typing-1.png": "0a8eccaba97804cbbf7390d8bd260e1829fc8a2c74d28bc2f7e062f970d60d86"
+  }
 }

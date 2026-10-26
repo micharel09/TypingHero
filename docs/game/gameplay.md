@@ -354,19 +354,22 @@ Change only behavior explicitly requested. Update this file after relevant verif
   advances through Type to Attack, Mistakes & Timer, Parry with Space,
   Break Guard / Slayer, and Score & Combo. TutorialDirector rejects same-frame
   confirmations and requires Enter release between pages.
-- Five lessons share the existing816x480 modal at(72,30) on960x540, with a
-  centered720x270 clip. Each240x90 Point-filtered frame uses the original captured
-  duration. A fixed English rule stays below it; one label, focus outline and arrow
-  inside the clip follow the same frame lookup. Left-HUD arrows route around values.
-  Atlas pages are lossless, no mipmaps, max2048, with2px gutters; existing GUIDs stay.
+- Five lessons share a928x516 modal at(16,12) on960x540, with complete640x360
+  gameplay at(160,64). Each320x180 Point-filtered frame uses the original captured
+  duration and one whole-frame nearest-neighbor resize. The beat label, fixed
+  English rule and footer buttons sit outside gameplay. One outline and short
+  arrow use the same frame lookup, pointing at visible words, cues or HUD values.
+  Lossless atlases have six columns, at most11rows, no mipmaps, max2048 and2px
+  gutters; existing asset GUIDs and named frame identities stay.
 - Typing shows a fresh word and real HP loss; mistakes show reset while the timer
-  continues and then replaces the word. Parry preserves all77approved success cels
-  and original timing, followed by a matching-crop miss and HP loss. Slayer shows
+  continues and then replaces the word. A newly recorded complete parry sequence
+  shows success, recovery, a missed parry and HP loss. Slayer shows
   final Guard break, eight distributed character attacks, exit with a living enemy,
   then normal word attack/recovery. Score starts clean, completes five words to
   unlock multiplier, scores a sixth, and retains65points after expiry. HUD strips
-  use pixels from the same gameplay frame. No practice or live combat instance
-  runs inside the modal. Source/crop/event provenance lives in the five manifests.
+  remain in their original gameplay positions. No practice or live combat instance
+  runs inside the modal. Source/event/timestamp/duration/hash provenance lives in
+  the five manifests. The old77-frame parry is timing reference only.
 - Playback uses unscaled time. Pause hides the guide and holds its exact frame
   and clock; Resume continues. Back returns one page; every entry resets that
   page's clip. Restart/menu replay open HUD1/6. Existing input/time/audio/score

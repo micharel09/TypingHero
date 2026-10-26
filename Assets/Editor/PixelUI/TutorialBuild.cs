@@ -157,6 +157,17 @@ internal static class TutorialBuild
         capture = JsonUtility.FromJson<Capture>(System.IO.File.ReadAllText(folder + name + ".json"));
         var result = new Sprite[capture.frames.Length];
         var files = capture.atlases ?? new[] { name + ".png" };
+        // Preserve named frame identities when the atlas grid moves frames between pages.
+        var identities = new System.Collections.Generic.Dictionary<string, GUID>();
+        var factory = new SpriteDataProviderFactories(); factory.Init();
+        foreach (string existingPath in System.IO.Directory.GetFiles(folder, name + "-*.png"))
+        {
+            var existingImporter = AssetImporter.GetAtPath(existingPath.Replace('\\', '/')) as TextureImporter;
+            if (!existingImporter) continue;
+            var existingProvider = factory.GetSpriteEditorDataProviderFromObject(existingImporter);
+            existingProvider.InitSpriteEditorDataProvider();
+            foreach (var rect in existingProvider.GetSpriteRects()) identities[rect.name] = rect.spriteID;
+        }
         for (int page = 0; page < files.Length; page++)
         {
             string path = folder + files[page];
@@ -170,10 +181,8 @@ internal static class TutorialBuild
             for (int i = 0; i < capture.frames.Length; i++) if (capture.frames[i].atlas == page) indices.Add(i);
             int height = ((indices.Count + capture.columns - 1) / capture.columns) * capture.cellHeight;
             importer.SaveAndReimport();
-            var factory = new SpriteDataProviderFactories(); factory.Init();
             var provider = factory.GetSpriteEditorDataProviderFromObject(importer);
             provider.InitSpriteEditorDataProvider();
-            var previous = provider.GetSpriteRects();
             var sheet = new SpriteRect[indices.Count];
             for (int j = 0; j < sheet.Length; j++) sheet[j] = new SpriteRect {
                 name = name + "_" + indices[j].ToString("D3"), alignment = SpriteAlignment.Center, pivot = Vector2.one * .5f,
@@ -183,7 +192,7 @@ internal static class TutorialBuild
                     capture.frames[indices[j]].height > 0 ? capture.frames[indices[j]].height : capture.height)
             };
             foreach (var slice in sheet)
-                slice.spriteID = previous.FirstOrDefault(s => s.name == slice.name)?.spriteID ?? GUID.Generate();
+                slice.spriteID = identities.TryGetValue(slice.name, out var identity) ? identity : GUID.Generate();
             provider.SetSpriteRects(sheet);
             provider.GetDataProvider<ISpriteNameFileIdDataProvider>().SetNameFileIdPairs(
                 sheet.Select(s => new SpriteNameFileIdPair(s.name, s.spriteID)));
@@ -206,7 +215,7 @@ internal static class TutorialBuild
         }
         var modal = Node("ParryModal", bounds, 0, 0, 960, 540);
         if (!modal.GetComponent<Image>()) Image(modal, new Color(0, 0, 0, .8f), true);
-        var panel = Node("Panel", modal, 72, 30, 816, 480);
+        var panel = Node("Panel", modal, 16, 12, 928, 516);
         if (!panel.GetComponent<Image>())
         {
             var bg = Image(panel, Color.white, true);
@@ -224,40 +233,42 @@ internal static class TutorialBuild
             label.raycastTarget = false;
             return label;
         }
-        var title = Copy("Title", "Type to Attack", 48, 22, 640, 48, 36);
-        var step = Copy("Step", "2/6", 708, 26, 60, 40, 24);
+        var title = Copy("Title", "Type to Attack", 48, 8, 756, 36, 36);
+        var step = Copy("Step", "2/6", 820, 10, 60, 32, 24);
         void Migrate(RectTransform rect, Vector2 oldPosition, Vector2 oldSize, float x, float y, float w, float h)
         {
-            if (rect.anchoredPosition == oldPosition && rect.sizeDelta == oldSize) Box(rect, panel, x, y, w, h);
+            if (rect.anchoredPosition == oldPosition && rect.sizeDelta == oldSize) Box(rect, rect.parent, x, y, w, h);
         }
-        Migrate(title.rectTransform, new Vector2(48, -22), new Vector2(640, 48), 48, 18, 640, 44);
-        Migrate(step.rectTransform, new Vector2(708, -26), new Vector2(60, 40), 708, 22, 60, 32);
-        Copy("DemoBadge", "DEMO \u00b7 AUTO", 48, 60, 144, 20, 18).color = Gold;
-        var clip = Node("Clip", panel, 48, 100, 720, 240);
-        // Migrate the old default once; retain any independently authored geometry.
-        if (clip.sizeDelta == new Vector2(720, 240) && clip.anchoredPosition == new Vector2(48, -100))
-            Box(clip, panel, 48, 80, 720, 270);
+        if (panel.anchoredPosition == new Vector2(72, -30) && panel.sizeDelta == new Vector2(816, 480))
+            Box(panel, modal, 16, 12, 928, 516);
+        Migrate(title.rectTransform, new Vector2(48, -18), new Vector2(640, 44), 48, 8, 756, 36);
+        Migrate(step.rectTransform, new Vector2(708, -22), new Vector2(60, 32), 820, 10, 60, 32);
+        var badge = panel.Find("DemoBadge");
+        if (badge) badge.gameObject.SetActive(false);
+        var clip = Node("Clip", panel, 144, 52, 640, 360);
+        // Migrate only shipped defaults; retain independently authored geometry.
+        if (clip.sizeDelta == new Vector2(720, 270) && clip.anchoredPosition == new Vector2(408, -215))
+            Box(clip, panel, 144, 52, 640, 360);
         var clipImage = clip.GetComponent<Image>();
         if (!clipImage) clipImage = Image(clip, Color.white);
         clipImage.preserveAspect = true;
         clip.anchoredPosition += Vector2.Scale(clip.sizeDelta, Vector2.one * .5f - clip.pivot);
         clip.pivot = Vector2.one * .5f;
-        var rule = Copy("Rule", "Finish the word to attack.", 48, 360, 720, 48, 24);
-        var captionPanel = Node("Guidance", clip, 12, 12, 300, 54);
-        if (!captionPanel.GetComponent<Image>())
+        var rule = Copy("Rule", "Finish the word to attack.", 32, 444, 864, 36, 18);
+        Migrate(rule.rectTransform, new Vector2(48, -360), new Vector2(720, 48), 32, 444, 864, 36);
+        if (rule.fontSize == 24) rule.fontSize = rule.fontSizeMin = rule.fontSizeMax = 18;
+        var captionPanel = (clip.Find("Guidance") as RectTransform) ?? Node("Guidance", panel, 144, 414, 640, 30);
+        if (captionPanel.parent != panel)
         {
-            var bg = Image(captionPanel, Color.white);
-            bg.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(DungeonUISkin.Art + "modal-normal.png");
-            bg.type = UnityEngine.UI.Image.Type.Sliced;
+            captionPanel.SetParent(panel, false);
+            Box(captionPanel, panel, 144, 414, 640, 30);
         }
-        // Retain the original caption object and binding when migrating it into the clip.
+        var captionBackground = captionPanel.GetComponent<Image>();
+        if (captionBackground) captionBackground.enabled = false;
         var captionNode = panel.Find("Caption") ?? captionPanel.Find("Caption");
-        var caption = captionNode ? captionNode.GetComponent<TMP_Text>() : Copy("Caption", "Wait for the attack.", 0, 0, 300, 54, 24);
-        if (caption.transform.parent != captionPanel)
-        {
-            caption.transform.SetParent(captionPanel, false);
-            Box(caption.rectTransform, captionPanel, 9, 3, 282, 48);
-        }
+        var caption = captionNode ? captionNode.GetComponent<TMP_Text>() : Copy("Caption", "Wait for the attack.", 0, 0, 640, 30, 24);
+        if (caption.transform.parent != captionPanel) caption.transform.SetParent(captionPanel, false);
+        Migrate(caption.rectTransform, new Vector2(9, -3), new Vector2(282, 48), 0, 0, 640, 30);
         caption.enableWordWrapping = true;
         var focus = Node("Focus", clip, 0, 0, 90, 30);
         foreach (string edge in new[] { "Top", "Bottom", "Left", "Right" })
@@ -291,7 +302,7 @@ internal static class TutorialBuild
             if (existing) return existing.GetComponent<Button>();
             var button = Object.Instantiate(hud.Find("PracticeButton").GetComponent<Button>(), panel);
             button.name = name + "Button";
-            Box((RectTransform)button.transform, panel, x, 422, w, 40);
+            Box((RectTransform)button.transform, panel, x, 482, w, 28);
             button.onClick = new Button.ButtonClickedEvent();
             if (listener != null) UnityEditor.Events.UnityEventTools.AddPersistentListener(button.onClick, listener);
             button.navigation = new Navigation { mode = Navigation.Mode.None };
@@ -306,10 +317,15 @@ internal static class TutorialBuild
             PrefabUtility.RecordPrefabInstancePropertyModifications(label.rectTransform);
             return button;
         }
-        var back = Action("Back", 48, 192, null);
-        var start = Action("Start Battle \u00b7 Enter", 288, 480, director.Continue);
-        Migrate((RectTransform)back.transform, new Vector2(48, -414), new Vector2(192, 40), 48, 422, 192, 40);
-        Migrate((RectTransform)start.transform, new Vector2(288, -414), new Vector2(480, 40), 288, 422, 480, 40);
+        var back = Action("Back", 32, 192, null);
+        var start = Action("Start Battle \u00b7 Enter", 448, 448, director.Continue);
+        Migrate((RectTransform)back.transform, new Vector2(48, -422), new Vector2(192, 40), 32, 482, 192, 28);
+        Migrate((RectTransform)start.transform, new Vector2(288, -422), new Vector2(480, 40), 448, 482, 448, 28);
+        foreach (var button in new[] { back, start })
+        {
+            var labelRect = button.GetComponentInChildren<TMP_Text>(true).rectTransform;
+            if (labelRect.sizeDelta.y == 40) Box(labelRect, button.transform, 8, 0, ((RectTransform)button.transform).sizeDelta.x - 16, 28);
+        }
         var so = new SerializedObject(overlay);
         void Bind(string field, Object value) { var p = so.FindProperty(field); if (!p.objectReferenceValue) p.objectReferenceValue = value; }
         Bind("parryModal", modal.gameObject); Bind("backButton", back); Bind("startButton", start);

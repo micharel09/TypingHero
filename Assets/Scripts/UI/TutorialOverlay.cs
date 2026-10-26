@@ -29,7 +29,7 @@ public sealed class TutorialOverlay : MonoBehaviour
     [Serializable]
     internal sealed class Guidance
     {
-        // Top-left coordinates in the 720x270 clip, independent of viewport scale.
+        // Top-left coordinates in the 640x360 clip, independent of viewport scale.
         public Rect focus;
         public Vector2 label;
     }
@@ -86,33 +86,29 @@ public sealed class TutorialOverlay : MonoBehaviour
         clipImage.sprite = lesson.frames[frame];
         clipCaption.text = lesson.captions[frame];
         var guide = lesson.guidance[frame];
-        captionPanel.anchoredPosition = new Vector2(guide.label.x, -guide.label.y);
         clipFocus.anchoredPosition = new Vector2(guide.focus.x, -guide.focus.y);
         clipFocus.sizeDelta = guide.focus.size;
-        // Join the nearest edges of the label and focus, never crossing their text.
-        var label = new Rect(guide.label, captionPanel.sizeDelta);
+        // The beat label remains below the complete gameplay frame.
+        guideBend.gameObject.SetActive(false); guideEnd.gameObject.SetActive(false);
         Vector2 center = guide.focus.center;
-        Vector2 from = new Vector2(Mathf.Clamp(center.x, label.xMin, label.xMax),
-            Mathf.Clamp(center.y, label.yMin, label.yMax));
-        Vector2 to = new Vector2(Mathf.Clamp(from.x, guide.focus.xMin, guide.focus.xMax),
-            Mathf.Clamp(from.y, guide.focus.yMin, guide.focus.yMax));
-        // Route left-HUD callouts around the other strips instead of through their values.
-        bool aroundHud = guide.focus.x < 80 * 3;
-        guideBend.gameObject.SetActive(aroundHud); guideEnd.gameObject.SetActive(aroundHud);
-        Vector2 Local(Vector2 point) => new Vector2(point.x - 360, 135 - point.y);
-        if (aroundHud)
+        Vector2 to, from;
+        if (guide.focus.yMax > 300 || guide.focus.yMax < 94)
         {
-            from = new Vector2(label.xMin, label.center.y);
-            to = new Vector2(guide.focus.xMin, guide.focus.center.y);
-            var bend = new Vector2(3, from.y);
-            var end = new Vector2(3, to.y);
-            Segment(guideShaft, Local(from), Local(bend), 3);
-            Segment(guideBend, Local(bend), Local(end), 3);
-            Segment(guideEnd, Local(end), Local(to), 3);
-            from = end;
+            // Approach HUD strips sideways to avoid vertically stacked values.
+            bool right = center.x < 160;
+            to = new Vector2(right ? guide.focus.xMax : guide.focus.xMin, center.y);
+            from = to + new Vector2(right ? 12 : -12, 0);
         }
+        else
+        {
+            bool below = center.y < clipImage.rectTransform.sizeDelta.y * .5f;
+            to = new Vector2(center.x, below ? guide.focus.yMax : guide.focus.yMin);
+            from = to + new Vector2(0, below ? 12 : -12);
+        }
+        Vector2 Local(Vector2 point) => new Vector2(point.x - clipImage.rectTransform.sizeDelta.x * .5f,
+            clipImage.rectTransform.sizeDelta.y * .5f - point.y);
         from = Local(from); to = Local(to);
-        if (!aroundHud) Segment(guideShaft, from, to, 3);
+        Segment(guideShaft, from, to, 2);
         var direction = (to - from).normalized;
         var normal = new Vector2(-direction.y, direction.x);
         float head = Mathf.Min(10, Vector2.Distance(from, to) * .5f);

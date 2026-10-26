@@ -79,12 +79,12 @@ public sealed class TutorialTests
         Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
         Assert.That(modal.gameObject.activeSelf, Is.True, "same-frame confirmation cannot skip the second step");
         var panel = (RectTransform)modal.Find("Panel");
-        Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(816, 480)));
+        Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(928, 516)));
         var image = panel.Find("Clip").GetComponent<Image>();
         var rule = panel.Find("Rule").GetComponent<TMPro.TMP_Text>();
-        var caption = panel.Find("Clip/Guidance/Caption").GetComponent<TMPro.TMP_Text>();
+        var caption = panel.Find("Guidance/Caption").GetComponent<TMPro.TMP_Text>();
         var focus = (RectTransform)panel.Find("Clip/Focus");
-        var label = (RectTransform)panel.Find("Clip/Guidance");
+        var label = (RectTransform)panel.Find("Guidance");
         Assert.That(image.GetComponentsInChildren<Graphic>(true).All(g => !g.raycastTarget), Is.True);
         var lessons = (TutorialOverlay.Lesson[])typeof(TutorialOverlay).GetField("lessons", flags).GetValue(overlay);
         using var capture = TutorialFrameCapture.Open(overlay);
@@ -99,11 +99,12 @@ public sealed class TutorialTests
             Assert.That(lessons[lesson].captions.Length, Is.EqualTo(frames.Length));
             Assert.That(lessons[lesson].guidance.Length, Is.EqualTo(frames.Length));
             Assert.That(rule.text, Is.EqualTo(lessons[lesson].rule));
-            var initialFocus = new[] { new Rect(45, 174, 198, 75), new Rect(45, 174, 198, 75),
-                new Rect(399, 21, 93, 42), new Rect(45, 87, 198, 42), new Rect(45, 198, 198, 51) };
-            Assert.That(lessons[lesson].guidance[0].focus, Is.EqualTo(initialFocus[lesson]));
+            Assert.That(label.parent, Is.SameAs(panel));
+            Assert.That(label.anchoredPosition, Is.EqualTo(new Vector2(144, -414)));
+            Assert.That(label.GetComponent<Image>().enabled, Is.False);
+            Assert.That(image.rectTransform.sizeDelta, Is.EqualTo(new Vector2(640, 360)));
             Assert.That(frames.All(f => f && f.texture.filterMode == FilterMode.Point), Is.True);
-            Assert.That(frames.All(f => f.rect.size == new Vector2(240, 90)), Is.True);
+            Assert.That(frames.All(f => f.rect.size == new Vector2(320, 180)), Is.True);
             double time = 0;
             for (int i = 0; i < frames.Length; i++)
             {
@@ -116,11 +117,11 @@ public sealed class TutorialTests
                 Assert.That(guide.focus.height, Is.GreaterThan(0));
                 Assert.That(focus.sizeDelta, Is.EqualTo(guide.focus.size));
                 Assert.That(focus.anchoredPosition, Is.EqualTo(new Vector2(guide.focus.x, -guide.focus.y)));
-                Assert.That(label.anchoredPosition, Is.EqualTo(new Vector2(guide.label.x, -guide.label.y)));
+                Assert.That(label.anchoredPosition, Is.EqualTo(new Vector2(144, -414)));
                 Assert.That(guide.focus.xMin, Is.GreaterThanOrEqualTo(0));
                 Assert.That(guide.focus.yMin, Is.GreaterThanOrEqualTo(0));
-                Assert.That(guide.focus.xMax, Is.LessThanOrEqualTo(720));
-                Assert.That(guide.focus.yMax, Is.LessThanOrEqualTo(270));
+                Assert.That(guide.focus.xMax, Is.LessThanOrEqualTo(640));
+                Assert.That(guide.focus.yMax, Is.LessThanOrEqualTo(360));
                 // Both sides of every boundary must select the same sprite and guidance index.
                 clock.SetValue(overlay, time + .000001); render.Invoke(overlay, null);
                 Assert.That(image.sprite, Is.SameAs(frames[i]));
@@ -149,7 +150,9 @@ public sealed class TutorialTests
             Assert.That(caption.text, Is.EqualTo(heldCaption));
             Assert.That(focus.anchoredPosition, Is.EqualTo(heldFocus));
             pause.Resume();
-            yield return new WaitForSecondsRealtime(.35f);
+            float resumeDeadline = Time.realtimeSinceStartup + 3;
+            while ((double)clock.GetValue(overlay) <= 1.5 && Time.realtimeSinceStartup < resumeDeadline)
+                yield return null;
             Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(1.5));
             Assert.That(Time.timeScale, Is.Zero);
             Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));

@@ -114,9 +114,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 1882
-        width: 240
-        height: 90
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: parry-health_001
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1882
-        width: 240
-        height: 90
+        x: 326
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: parry-health_002
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1882
-        width: 240
-        height: 90
+        x: 650
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: parry-health_003
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1882
-        width: 240
-        height: 90
+        x: 974
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: parry-health_004
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1882
-        width: 240
-        height: 90
+        x: 1298
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: parry-health_005
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1882
-        width: 240
-        height: 90
+        x: 1622
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +239,10 @@ TextureImporter:
       name: parry-health_006
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1882
-        width: 240
-        height: 90
+        x: 2
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +260,10 @@ TextureImporter:
       name: parry-health_007
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1882
-        width: 240
-        height: 90
+        x: 326
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,10 +281,10 @@ TextureImporter:
       name: parry-health_008
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1788
-        width: 240
-        height: 90
+        x: 650
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,10 +302,10 @@ TextureImporter:
       name: parry-health_009
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1788
-        width: 240
-        height: 90
+        x: 974
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,10 +323,10 @@ TextureImporter:
       name: parry-health_010
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1788
-        width: 240
-        height: 90
+        x: 1298
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,10 +344,10 @@ TextureImporter:
       name: parry-health_011
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1788
-        width: 240
-        height: 90
+        x: 1622
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,10 +365,10 @@ TextureImporter:
       name: parry-health_012
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1788
-        width: 240
-        height: 90
+        x: 2
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -386,10 +386,10 @@ TextureImporter:
       name: parry-health_013
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1788
-        width: 240
-        height: 90
+        x: 326
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -407,10 +407,10 @@ TextureImporter:
       name: parry-health_014
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1788
-        width: 240
-        height: 90
+        x: 650
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,10 +428,10 @@ TextureImporter:
       name: parry-health_015
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1788
-        width: 240
-        height: 90
+        x: 974
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -449,10 +449,10 @@ TextureImporter:
       name: parry-health_016
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1694
-        width: 240
-        height: 90
+        x: 1298
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -470,10 +470,10 @@ TextureImporter:
       name: parry-health_017
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1694
-        width: 240
-        height: 90
+        x: 1622
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -491,10 +491,10 @@ TextureImporter:
       name: parry-health_018
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1694
-        width: 240
-        height: 90
+        x: 2
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -512,10 +512,10 @@ TextureImporter:
       name: parry-health_019
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1694
-        width: 240
-        height: 90
+        x: 326
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -533,10 +533,10 @@ TextureImporter:
       name: parry-health_020
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1694
-        width: 240
-        height: 90
+        x: 650
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -554,10 +554,10 @@ TextureImporter:
       name: parry-health_021
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1694
-        width: 240
-        height: 90
+        x: 974
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -575,10 +575,10 @@ TextureImporter:
       name: parry-health_022
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1694
-        width: 240
-        height: 90
+        x: 1298
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -596,10 +596,10 @@ TextureImporter:
       name: parry-health_023
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1694
-        width: 240
-        height: 90
+        x: 1622
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -618,9 +618,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 1600
-        width: 240
-        height: 90
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -638,10 +638,10 @@ TextureImporter:
       name: parry-health_025
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1600
-        width: 240
-        height: 90
+        x: 326
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -659,10 +659,10 @@ TextureImporter:
       name: parry-health_026
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1600
-        width: 240
-        height: 90
+        x: 650
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -680,10 +680,10 @@ TextureImporter:
       name: parry-health_027
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1600
-        width: 240
-        height: 90
+        x: 974
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -701,10 +701,10 @@ TextureImporter:
       name: parry-health_028
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1600
-        width: 240
-        height: 90
+        x: 1298
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -722,10 +722,10 @@ TextureImporter:
       name: parry-health_029
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1600
-        width: 240
-        height: 90
+        x: 1622
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -743,10 +743,10 @@ TextureImporter:
       name: parry-health_030
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1600
-        width: 240
-        height: 90
+        x: 2
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -764,10 +764,10 @@ TextureImporter:
       name: parry-health_031
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1600
-        width: 240
-        height: 90
+        x: 326
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -785,10 +785,10 @@ TextureImporter:
       name: parry-health_032
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1506
-        width: 240
-        height: 90
+        x: 650
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -806,10 +806,10 @@ TextureImporter:
       name: parry-health_033
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1506
-        width: 240
-        height: 90
+        x: 974
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -827,10 +827,10 @@ TextureImporter:
       name: parry-health_034
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1506
-        width: 240
-        height: 90
+        x: 1298
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -848,10 +848,10 @@ TextureImporter:
       name: parry-health_035
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1506
-        width: 240
-        height: 90
+        x: 1622
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -869,10 +869,10 @@ TextureImporter:
       name: parry-health_036
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1506
-        width: 240
-        height: 90
+        x: 2
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -890,10 +890,10 @@ TextureImporter:
       name: parry-health_037
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1506
-        width: 240
-        height: 90
+        x: 326
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -911,10 +911,10 @@ TextureImporter:
       name: parry-health_038
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1506
-        width: 240
-        height: 90
+        x: 650
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -932,10 +932,10 @@ TextureImporter:
       name: parry-health_039
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1506
-        width: 240
-        height: 90
+        x: 974
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -953,10 +953,10 @@ TextureImporter:
       name: parry-health_040
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1412
-        width: 240
-        height: 90
+        x: 1298
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -974,10 +974,10 @@ TextureImporter:
       name: parry-health_041
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1412
-        width: 240
-        height: 90
+        x: 1622
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -995,10 +995,10 @@ TextureImporter:
       name: parry-health_042
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1412
-        width: 240
-        height: 90
+        x: 2
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1016,10 +1016,10 @@ TextureImporter:
       name: parry-health_043
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1412
-        width: 240
-        height: 90
+        x: 326
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1037,10 +1037,10 @@ TextureImporter:
       name: parry-health_044
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1412
-        width: 240
-        height: 90
+        x: 650
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1058,10 +1058,10 @@ TextureImporter:
       name: parry-health_045
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1412
-        width: 240
-        height: 90
+        x: 974
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1079,10 +1079,10 @@ TextureImporter:
       name: parry-health_046
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1412
-        width: 240
-        height: 90
+        x: 1298
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1100,10 +1100,10 @@ TextureImporter:
       name: parry-health_047
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1412
-        width: 240
-        height: 90
+        x: 1622
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1122,9 +1122,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 1318
-        width: 240
-        height: 90
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1142,10 +1142,10 @@ TextureImporter:
       name: parry-health_049
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1318
-        width: 240
-        height: 90
+        x: 326
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1163,10 +1163,10 @@ TextureImporter:
       name: parry-health_050
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1318
-        width: 240
-        height: 90
+        x: 650
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1184,10 +1184,10 @@ TextureImporter:
       name: parry-health_051
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1318
-        width: 240
-        height: 90
+        x: 974
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1205,10 +1205,10 @@ TextureImporter:
       name: parry-health_052
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1318
-        width: 240
-        height: 90
+        x: 1298
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1226,10 +1226,10 @@ TextureImporter:
       name: parry-health_053
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1318
-        width: 240
-        height: 90
+        x: 1622
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1247,10 +1247,10 @@ TextureImporter:
       name: parry-health_054
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1318
-        width: 240
-        height: 90
+        x: 2
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1268,10 +1268,10 @@ TextureImporter:
       name: parry-health_055
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1318
-        width: 240
-        height: 90
+        x: 326
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1289,10 +1289,10 @@ TextureImporter:
       name: parry-health_056
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1224
-        width: 240
-        height: 90
+        x: 650
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1310,10 +1310,10 @@ TextureImporter:
       name: parry-health_057
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1224
-        width: 240
-        height: 90
+        x: 974
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1331,10 +1331,10 @@ TextureImporter:
       name: parry-health_058
       rect:
         serializedVersion: 2
-        x: 490
-        y: 1224
-        width: 240
-        height: 90
+        x: 1298
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1352,10 +1352,10 @@ TextureImporter:
       name: parry-health_059
       rect:
         serializedVersion: 2
-        x: 734
-        y: 1224
-        width: 240
-        height: 90
+        x: 1622
+        y: 186
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1373,10 +1373,10 @@ TextureImporter:
       name: parry-health_060
       rect:
         serializedVersion: 2
-        x: 978
-        y: 1224
-        width: 240
-        height: 90
+        x: 2
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1394,10 +1394,10 @@ TextureImporter:
       name: parry-health_061
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1224
-        width: 240
-        height: 90
+        x: 326
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1415,10 +1415,10 @@ TextureImporter:
       name: parry-health_062
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 1224
-        width: 240
-        height: 90
+        x: 650
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1436,10 +1436,10 @@ TextureImporter:
       name: parry-health_063
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 1224
-        width: 240
-        height: 90
+        x: 974
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1457,10 +1457,10 @@ TextureImporter:
       name: parry-health_064
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1130
-        width: 240
-        height: 90
+        x: 1298
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1478,10 +1478,10 @@ TextureImporter:
       name: parry-health_065
       rect:
         serializedVersion: 2
-        x: 246
-        y: 1130
-        width: 240
-        height: 90
+        x: 1622
+        y: 2
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1491,2043 +1491,6 @@ TextureImporter:
       bones: []
       spriteID: fde6cf63afbbc4745aa5dde2ee2e3108
       internalID: 1315909022
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_066
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 1130
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c454a1062ac16854b9b08eb76cff2ba3
-      internalID: -669638241
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_067
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 1130
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3fb630ea063e784ba844cd72017a012
-      internalID: 1647732515
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_068
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 1130
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e916c86f3a039b4468a6c49e7404939f
-      internalID: -160971012
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_069
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 1130
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 783fdeaccb5f2694b9b0715e3b6f5fd8
-      internalID: 1424067219
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_070
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 1130
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6f800c86bbcfd68459710096562d5450
-      internalID: 373153377
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_071
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 1130
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 78ea2b64a737c8b4f8322b850e4c5972
-      internalID: 1698331610
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_072
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 637be2cadd8b4394e95e5a47daa588cd
-      internalID: 1359477352
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_073
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cfda7ff3ce863e446af94489288464ea
-      internalID: -786044724
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_074
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f59526d6b7597b94e923aeeb306aea40
-      internalID: 1149181853
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_075
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ea146b91185cd734cb3aa3b5d52c08eb
-      internalID: 934722230
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_076
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 71e64f63c7aad8d46b4012d83014ceb2
-      internalID: 2111002554
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_077
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a43088001c97436429fc887e95b978b4
-      internalID: 547854952
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_078
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 00a8d78634e47cd498007f1e205ec150
-      internalID: -1350470508
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_079
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 1036
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7c797acded21abe44ab44cb477d7a595
-      internalID: 1802039190
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_080
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a1fe8aea07e71b045bebfa98909ced52
-      internalID: 1248591690
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_081
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0004077a659d6ea4e9bf5993f552b518
-      internalID: 1741095839
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_082
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8efa65f5eed4626489504c8c211cdf40
-      internalID: -268122132
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_083
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c84ae4c6a58e1343a70a56b97ab98bd
-      internalID: -1627078950
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_084
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6adb57f8f423a4a42be917a59f898b67
-      internalID: 1836470122
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_085
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 189660d6a613009448f2b856f80ca02b
-      internalID: 714179900
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_086
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13fd028f16f26f148b0aed42c2cd0732
-      internalID: -1236818840
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_087
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 942
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ceb1bd18f4da71449101690581860f6
-      internalID: -302979993
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_088
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc7d0de9458dc694abd8f053299b9dda
-      internalID: -182012360
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_089
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f8dd545240262f847859a65d8524d280
-      internalID: 1135744564
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_090
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5643169ab3a5ed64a882b532fd34cec3
-      internalID: 606573479
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_091
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e292f29015d2e149a173a0aa28d35bd
-      internalID: 1449855844
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_092
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17cdc2d4fe56c4a4ba1a498f26d46354
-      internalID: 1851821807
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_093
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 30537dea5ea78b14f839b6ac8c12c5b8
-      internalID: 798121369
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_094
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4e590da9d59c2be4faa0cb296007584a
-      internalID: -1150860204
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_095
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 848
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 59bc6ad4a5e3dec4c9ed0c9d11a0fec0
-      internalID: -758453466
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_096
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 88e83034568db9e4197349f868cbfce0
-      internalID: -811256994
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_097
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79ab8a359c288c445ad87c92db1cb0c6
-      internalID: 600190830
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_098
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 92e2f491f846f72448f329d63124f08b
-      internalID: -1502076979
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_099
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb7334bd42f453c418dcb48eaf88f1a3
-      internalID: -631991940
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_100
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 949d766d700d9294897ef563984d1716
-      internalID: -1652124829
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_101
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f8b4d7072951d3488fc0235d342a051
-      internalID: 625932226
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_102
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0332058ec478c324583ee3f1816224a5
-      internalID: -217273747
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_103
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 754
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 82e39f2d469f92043820a815de055778
-      internalID: -1084418658
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_104
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf2ef0b0d757df149929ebb8f6c1cc19
-      internalID: -1318847480
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_105
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 02f69c46af016d04d938f1b358c51162
-      internalID: 1283342278
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_106
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fbe0b9c9099454545aabdc856a1eb824
-      internalID: 1394209116
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_107
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8c0f4511ad71d374f9a007f7d26ea1e1
-      internalID: -181332356
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_108
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6455806179455054bb70da42cdcd9355
-      internalID: 1075860410
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_109
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 29af32ccbadb2c54080347810bd60fd3
-      internalID: -139329447
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_110
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b5342000f45768c4c8dc4c72dce4ccbd
-      internalID: -1783190751
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_111
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 660
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bd98499ed230c12468d5e11ba305614e
-      internalID: -1309200602
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_112
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: efd3a22f2898ec043bff294106e9f29f
-      internalID: -1393447525
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_113
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9bafba22c3cbb0843917d98aecaa94cf
-      internalID: -1562930736
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_114
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4eefebb797afed408f3e96576c399d6
-      internalID: -611037202
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_115
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ce4d84efd35bd3428a5c78c4e191ec2
-      internalID: -320993747
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_116
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a1d2c10f3bdbf1d4993158074c82da8c
-      internalID: 717638176
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_117
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 35777c477dfd33f47a2fa43a1349dc92
-      internalID: 204702762
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_118
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c587a694cf38b444aa115544e2753a98
-      internalID: -321311908
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_119
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 566
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e299fea13370084aa0a71b11792a723
-      internalID: 792854133
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_120
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6540cd0f9d81f2843be731baa2475d2b
-      internalID: -961276958
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_121
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 974d1924172504c46909c398ad9f24ba
-      internalID: -1480624656
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_122
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 235c171e8b51e964baa6b2c8d8246b2a
-      internalID: 535708576
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_123
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 468fa10176bff2447ae4d9881488afd1
-      internalID: -1853656975
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_124
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a7f85478ccd341e47a40bb02904cfd0b
-      internalID: -1876420924
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_125
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79eb2c0cad940ba4b84cd4ee538c9862
-      internalID: 1712238987
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_126
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 24ac0ada7aeb77a418ba92be645238ef
-      internalID: 245781182
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_127
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 472
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 73682c9db0ccaa2438c566dc44386ed6
-      internalID: -2131016925
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_128
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa026705f5004b7438386fb52c3ffa34
-      internalID: -715611696
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_129
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 74976583b8a89134b992cd2f5ff58b48
-      internalID: -1980613574
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_130
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8583dffee35562e4883d300be2f1b72a
-      internalID: 2083840096
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_131
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f8d0b0ee1c98834895fcaf973c1aa69
-      internalID: 272573378
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_132
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 71bb5b3173cf25843a0fe147be45d7f5
-      internalID: 858800488
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_133
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e05a3b858133eae41b1d0bf2a12f4448
-      internalID: -398393183
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_134
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3acb9e24e1d8d4e4eaab723a541492a8
-      internalID: 505557226
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_135
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 378
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a9f101a33290034bacbe29de68d3e66
-      internalID: -1395969463
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_136
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f182f8ba4ca23524f82a205482d51cff
-      internalID: 2032676796
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_137
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd627fd29a155b141a03a71a7066713a
-      internalID: -1235802777
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_138
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 10ea34aea2736d74eac87000951ccbd7
-      internalID: 326260872
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_139
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 24bd5a407c69e624dba765a34ece47cb
-      internalID: 2009436944
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_140
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8669de17a987ad14cbb01f8db9fe698f
-      internalID: -110952827
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_141
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2de7dba06def84240bed5c3c904d608d
-      internalID: -1819615803
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_142
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 94f874ba7c16ee24fa33dec7361f513b
-      internalID: 1433195330
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_143
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 284
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 761ebd73a26e3d34ab9217180610fbb9
-      internalID: 2104791003
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_144
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49d299f633357c944abf0b1f0b94f0d7
-      internalID: -1994381677
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_145
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc84715ecc1867943a41ccd8e71d3f88
-      internalID: 1169894825
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_146
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 07e9f5138ab0f554295927dbec170eb2
-      internalID: -650461588
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_147
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 208eca611868f5e41a153a9b4f0e9d49
-      internalID: 1007751442
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_148
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a92d7f4223747c145a69838078b0a7ff
-      internalID: 152142342
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_149
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 353c5b6b56f792b4b9e89e9756ce9dd6
-      internalID: -1358934376
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_150
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e1e62feb18635a34d9ca6ed32a43a833
-      internalID: -1556008916
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_151
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 190
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15f2bcf0db49ee74f851fe47e6917b93
-      internalID: 1992741261
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_152
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a6a6b1c95bfdbd5459008a9f9710dec0
-      internalID: 286143135
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_153
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1dfa3752db299374bb5388592f319269
-      internalID: -1692381267
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_154
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1e00156bd7cb2ed49ab5e6860ee5fd72
-      internalID: 964020421
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_155
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 25886a3b3a9be464e9ff694924a4c121
-      internalID: 301647661
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_156
-      rect:
-        serializedVersion: 2
-        x: 978
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9e4fc3a617b8084c8d9605db8f545e1
-      internalID: -12923865
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_157
-      rect:
-        serializedVersion: 2
-        x: 1222
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7eb3df1842776a24d9b88152ad4ce82a
-      internalID: -2107179540
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_158
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 43e0b054d113afa42af57b0017d40800
-      internalID: -1613078166
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_159
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 96
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4606ef8760cae894ca13d92f3a0eb80b
-      internalID: 862508845
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_160
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c6da2327e6353104baa60a2b44547b15
-      internalID: -1258616439
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_161
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 097cd8f159eb4cb4997b75a51e368187
-      internalID: 566160601
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: parry-health_162
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 2
-        width: 240
-        height: 90
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e0137163df6c1ca40a9ace47d0ccc843
-      internalID: -1445100626
       vertices: []
       indices:
       edges: []
@@ -3609,103 +1572,6 @@ TextureImporter:
       parry-health_063: 362569424
       parry-health_064: -2097002959
       parry-health_065: 1315909022
-      parry-health_066: -669638241
-      parry-health_067: 1647732515
-      parry-health_068: -160971012
-      parry-health_069: 1424067219
-      parry-health_070: 373153377
-      parry-health_071: 1698331610
-      parry-health_072: 1359477352
-      parry-health_073: -786044724
-      parry-health_074: 1149181853
-      parry-health_075: 934722230
-      parry-health_076: 2111002554
-      parry-health_077: 547854952
-      parry-health_078: -1350470508
-      parry-health_079: 1802039190
-      parry-health_080: 1248591690
-      parry-health_081: 1741095839
-      parry-health_082: -268122132
-      parry-health_083: -1627078950
-      parry-health_084: 1836470122
-      parry-health_085: 714179900
-      parry-health_086: -1236818840
-      parry-health_087: -302979993
-      parry-health_088: -182012360
-      parry-health_089: 1135744564
-      parry-health_090: 606573479
-      parry-health_091: 1449855844
-      parry-health_092: 1851821807
-      parry-health_093: 798121369
-      parry-health_094: -1150860204
-      parry-health_095: -758453466
-      parry-health_096: -811256994
-      parry-health_097: 600190830
-      parry-health_098: -1502076979
-      parry-health_099: -631991940
-      parry-health_100: -1652124829
-      parry-health_101: 625932226
-      parry-health_102: -217273747
-      parry-health_103: -1084418658
-      parry-health_104: -1318847480
-      parry-health_105: 1283342278
-      parry-health_106: 1394209116
-      parry-health_107: -181332356
-      parry-health_108: 1075860410
-      parry-health_109: -139329447
-      parry-health_110: -1783190751
-      parry-health_111: -1309200602
-      parry-health_112: -1393447525
-      parry-health_113: -1562930736
-      parry-health_114: -611037202
-      parry-health_115: -320993747
-      parry-health_116: 717638176
-      parry-health_117: 204702762
-      parry-health_118: -321311908
-      parry-health_119: 792854133
-      parry-health_120: -961276958
-      parry-health_121: -1480624656
-      parry-health_122: 535708576
-      parry-health_123: -1853656975
-      parry-health_124: -1876420924
-      parry-health_125: 1712238987
-      parry-health_126: 245781182
-      parry-health_127: -2131016925
-      parry-health_128: -715611696
-      parry-health_129: -1980613574
-      parry-health_130: 2083840096
-      parry-health_131: 272573378
-      parry-health_132: 858800488
-      parry-health_133: -398393183
-      parry-health_134: 505557226
-      parry-health_135: -1395969463
-      parry-health_136: 2032676796
-      parry-health_137: -1235802777
-      parry-health_138: 326260872
-      parry-health_139: 2009436944
-      parry-health_140: -110952827
-      parry-health_141: -1819615803
-      parry-health_142: 1433195330
-      parry-health_143: 2104791003
-      parry-health_144: -1994381677
-      parry-health_145: 1169894825
-      parry-health_146: -650461588
-      parry-health_147: 1007751442
-      parry-health_148: 152142342
-      parry-health_149: -1358934376
-      parry-health_150: -1556008916
-      parry-health_151: 1992741261
-      parry-health_152: 286143135
-      parry-health_153: -1692381267
-      parry-health_154: 964020421
-      parry-health_155: 301647661
-      parry-health_156: -12923865
-      parry-health_157: -2107179540
-      parry-health_158: -1613078166
-      parry-health_159: 862508845
-      parry-health_160: -1258616439
-      parry-health_161: 566160601
-      parry-health_162: -1445100626
   mipmapLimitGroupName:
   pSDRemoveMatte: 0
   userData:

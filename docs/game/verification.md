@@ -3286,3 +3286,32 @@ fully decode with increasing PTS, explicit2.5s HUD intro/500ms terminal holds.
 Demo8303 serves final normal player;31 served files and MP4 match local hashes.
 Receipts and retained resources are in the checkpoint. Main integration is deferred
 for user review.
+
+## Whole-frame tutorial replacement (2026-10-26; isolated review branch)
+
+Supersedes the cropped/composited tutorial acceptance above. New five real-input
+normal-player clips retain complete16:9 gameplay, one nearest320x180 resize,
+original timing/holds, Point atlases and2px gutters. Direct visual review:
+1995/1995cels,1990/1990adjacent pairs and5/5loop joins on69sheets; independent
+pixel equality passes all1995sources. Final37UGUI guide/pose variants inspected.
+All1995UGUI frame lookups, boundaries/loops, Pause clock/frame hold, Resume and
+Back reset PASS on Ubuntu quick073902. Four other tutorial lifecycle/provider
+cases passed063923; the fixed350ms Resume-wait failure was corrected with a
+bounded actual-clock wait and the all-lesson case rerun, without changing gameplay.
+
+Ubuntu Unity2022.3.25f1 QA074535 and normal075759 WebGL builds PASS, input87210702.
+Strict twice-builder PASS;82tutorial outputs/full generated scene byte-identical
+between final quick and QA runs.18asset GUIDs,1018named frame IDs,1231scene IDs
+and2persistent listeners retained; only15existing tutorial records change.
+Native QA104/104PASS at640x360/1280x720, including six pages, lifecycle/viewed,
+clean40/180/100battle and real Space parry; all13screenshots inspected. Normal
+native6/6PASS, all11screenshots inspected;0exceptions/provider reads/writes in
+both runs. qa:false and all five JS/WASM/data payloads exclude QA globals.
+Actual normal parry101/101frames,100/100pairs directly reviewed. New73.902s
+VFR walkthrough2223frames fully decodes with increasing PTS and500ms ending hold.
+Demo8303 serves the new normal player:31served files/video match hashes, existing
+offline fixture worker active, QA absent. Scope, failed/cancelled attempts,
+source timestamps/hashes and retained review resources: [checkpoint](../plans/parry-cue-demo.md).
+Final Unity tests, serialization and builds used for acceptance ran on Ubuntu;
+main integration stays deferred for user review. No full runtime/performance
+suite or combat changes.

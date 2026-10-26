@@ -114,9 +114,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 566
-        width: 240
-        height: 90
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: typing_001
       rect:
         serializedVersion: 2
-        x: 246
-        y: 566
-        width: 240
-        height: 90
+        x: 326
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: typing_002
       rect:
         serializedVersion: 2
-        x: 490
-        y: 566
-        width: 240
-        height: 90
+        x: 650
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: typing_003
       rect:
         serializedVersion: 2
-        x: 734
-        y: 566
-        width: 240
-        height: 90
+        x: 974
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: typing_004
       rect:
         serializedVersion: 2
-        x: 978
-        y: 566
-        width: 240
-        height: 90
+        x: 1298
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: typing_005
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 566
-        width: 240
-        height: 90
+        x: 1622
+        y: 1842
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +239,10 @@ TextureImporter:
       name: typing_006
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 566
-        width: 240
-        height: 90
+        x: 2
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +260,10 @@ TextureImporter:
       name: typing_007
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 566
-        width: 240
-        height: 90
+        x: 326
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,10 +281,10 @@ TextureImporter:
       name: typing_008
       rect:
         serializedVersion: 2
-        x: 2
-        y: 472
-        width: 240
-        height: 90
+        x: 650
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,10 +302,10 @@ TextureImporter:
       name: typing_009
       rect:
         serializedVersion: 2
-        x: 246
-        y: 472
-        width: 240
-        height: 90
+        x: 974
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,10 +323,10 @@ TextureImporter:
       name: typing_010
       rect:
         serializedVersion: 2
-        x: 490
-        y: 472
-        width: 240
-        height: 90
+        x: 1298
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,10 +344,10 @@ TextureImporter:
       name: typing_011
       rect:
         serializedVersion: 2
-        x: 734
-        y: 472
-        width: 240
-        height: 90
+        x: 1622
+        y: 1658
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,10 +365,10 @@ TextureImporter:
       name: typing_012
       rect:
         serializedVersion: 2
-        x: 978
-        y: 472
-        width: 240
-        height: 90
+        x: 2
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -386,10 +386,10 @@ TextureImporter:
       name: typing_013
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 472
-        width: 240
-        height: 90
+        x: 326
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -407,10 +407,10 @@ TextureImporter:
       name: typing_014
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 472
-        width: 240
-        height: 90
+        x: 650
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,10 +428,10 @@ TextureImporter:
       name: typing_015
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 472
-        width: 240
-        height: 90
+        x: 974
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -449,10 +449,10 @@ TextureImporter:
       name: typing_016
       rect:
         serializedVersion: 2
-        x: 2
-        y: 378
-        width: 240
-        height: 90
+        x: 1298
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -470,10 +470,10 @@ TextureImporter:
       name: typing_017
       rect:
         serializedVersion: 2
-        x: 246
-        y: 378
-        width: 240
-        height: 90
+        x: 1622
+        y: 1474
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -491,10 +491,10 @@ TextureImporter:
       name: typing_018
       rect:
         serializedVersion: 2
-        x: 490
-        y: 378
-        width: 240
-        height: 90
+        x: 2
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -512,10 +512,10 @@ TextureImporter:
       name: typing_019
       rect:
         serializedVersion: 2
-        x: 734
-        y: 378
-        width: 240
-        height: 90
+        x: 326
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -533,10 +533,10 @@ TextureImporter:
       name: typing_020
       rect:
         serializedVersion: 2
-        x: 978
-        y: 378
-        width: 240
-        height: 90
+        x: 650
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -554,10 +554,10 @@ TextureImporter:
       name: typing_021
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 378
-        width: 240
-        height: 90
+        x: 974
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -575,10 +575,10 @@ TextureImporter:
       name: typing_022
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 378
-        width: 240
-        height: 90
+        x: 1298
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -596,10 +596,10 @@ TextureImporter:
       name: typing_023
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 378
-        width: 240
-        height: 90
+        x: 1622
+        y: 1290
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -618,9 +618,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 284
-        width: 240
-        height: 90
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -638,10 +638,10 @@ TextureImporter:
       name: typing_025
       rect:
         serializedVersion: 2
-        x: 246
-        y: 284
-        width: 240
-        height: 90
+        x: 326
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -659,10 +659,10 @@ TextureImporter:
       name: typing_026
       rect:
         serializedVersion: 2
-        x: 490
-        y: 284
-        width: 240
-        height: 90
+        x: 650
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -680,10 +680,10 @@ TextureImporter:
       name: typing_027
       rect:
         serializedVersion: 2
-        x: 734
-        y: 284
-        width: 240
-        height: 90
+        x: 974
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -701,10 +701,10 @@ TextureImporter:
       name: typing_028
       rect:
         serializedVersion: 2
-        x: 978
-        y: 284
-        width: 240
-        height: 90
+        x: 1298
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -722,10 +722,10 @@ TextureImporter:
       name: typing_029
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 284
-        width: 240
-        height: 90
+        x: 1622
+        y: 1106
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -743,10 +743,10 @@ TextureImporter:
       name: typing_030
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 284
-        width: 240
-        height: 90
+        x: 2
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -764,10 +764,10 @@ TextureImporter:
       name: typing_031
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 284
-        width: 240
-        height: 90
+        x: 326
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -785,10 +785,10 @@ TextureImporter:
       name: typing_032
       rect:
         serializedVersion: 2
-        x: 2
-        y: 190
-        width: 240
-        height: 90
+        x: 650
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -806,10 +806,10 @@ TextureImporter:
       name: typing_033
       rect:
         serializedVersion: 2
-        x: 246
-        y: 190
-        width: 240
-        height: 90
+        x: 974
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -827,10 +827,10 @@ TextureImporter:
       name: typing_034
       rect:
         serializedVersion: 2
-        x: 490
-        y: 190
-        width: 240
-        height: 90
+        x: 1298
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -848,10 +848,10 @@ TextureImporter:
       name: typing_035
       rect:
         serializedVersion: 2
-        x: 734
-        y: 190
-        width: 240
-        height: 90
+        x: 1622
+        y: 922
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -869,10 +869,10 @@ TextureImporter:
       name: typing_036
       rect:
         serializedVersion: 2
-        x: 978
-        y: 190
-        width: 240
-        height: 90
+        x: 2
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -890,10 +890,10 @@ TextureImporter:
       name: typing_037
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 190
-        width: 240
-        height: 90
+        x: 326
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -911,10 +911,10 @@ TextureImporter:
       name: typing_038
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 190
-        width: 240
-        height: 90
+        x: 650
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -932,10 +932,10 @@ TextureImporter:
       name: typing_039
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 190
-        width: 240
-        height: 90
+        x: 974
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -953,10 +953,10 @@ TextureImporter:
       name: typing_040
       rect:
         serializedVersion: 2
-        x: 2
-        y: 96
-        width: 240
-        height: 90
+        x: 1298
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -974,10 +974,10 @@ TextureImporter:
       name: typing_041
       rect:
         serializedVersion: 2
-        x: 246
-        y: 96
-        width: 240
-        height: 90
+        x: 1622
+        y: 738
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -995,10 +995,10 @@ TextureImporter:
       name: typing_042
       rect:
         serializedVersion: 2
-        x: 490
-        y: 96
-        width: 240
-        height: 90
+        x: 2
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1016,10 +1016,10 @@ TextureImporter:
       name: typing_043
       rect:
         serializedVersion: 2
-        x: 734
-        y: 96
-        width: 240
-        height: 90
+        x: 326
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1037,10 +1037,10 @@ TextureImporter:
       name: typing_044
       rect:
         serializedVersion: 2
-        x: 978
-        y: 96
-        width: 240
-        height: 90
+        x: 650
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1058,10 +1058,10 @@ TextureImporter:
       name: typing_045
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 96
-        width: 240
-        height: 90
+        x: 974
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1079,10 +1079,10 @@ TextureImporter:
       name: typing_046
       rect:
         serializedVersion: 2
-        x: 1466
-        y: 96
-        width: 240
-        height: 90
+        x: 1298
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1100,10 +1100,10 @@ TextureImporter:
       name: typing_047
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 96
-        width: 240
-        height: 90
+        x: 1622
+        y: 554
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1122,9 +1122,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 2
-        width: 240
-        height: 90
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1142,10 +1142,10 @@ TextureImporter:
       name: typing_049
       rect:
         serializedVersion: 2
-        x: 246
-        y: 2
-        width: 240
-        height: 90
+        x: 326
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1163,10 +1163,10 @@ TextureImporter:
       name: typing_050
       rect:
         serializedVersion: 2
-        x: 490
-        y: 2
-        width: 240
-        height: 90
+        x: 650
+        y: 370
+        width: 320
+        height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1176,6 +1176,321 @@ TextureImporter:
       bones: []
       spriteID: 18d950008acaf9ad0800000000000000
       internalID: -2693244214589416063
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_051
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 370
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ac8be85bda6bc535a2532d98a0f37e5
+      internalID: 436523625
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_052
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 370
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 571c9fa5345ea043d9d2933b22d7e027
+      internalID: -25003639
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_053
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 370
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f78e866ec092b2581bfa20ffe9a34eef
+      internalID: 1288546628
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_054
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 186
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2e1e6f558f31d389a3704965948fa6b
+      internalID: -721890332
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_055
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 186
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1b7f199aa258339f94ad89f79c1cc33
+      internalID: 1086817409
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_056
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 186
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65e796153dbd590028a2ca49424b7d7c
+      internalID: -933587317
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_057
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 186
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 649f65ddc7ae3b372b62eb685d4d2bcf
+      internalID: 712868941
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_058
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 186
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cce94469276684a7fb454bd002d3ac76
+      internalID: 600035701
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_059
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 186
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed7ac5d6dae88ce49e42334fa857257
+      internalID: 1559751314
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_060
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c65483f93cc1f85d9d64698ebeb9c6c
+      internalID: 60405823
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_061
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdaea27140c7c61c1bdeacb68329d70e
+      internalID: 353660125
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_062
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8f140a1bc3f6208aef4fe3c9744123
+      internalID: -91297368
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_063
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc73d3d9d6a1cc6e2adb05f73fd38efe
+      internalID: 179600471
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_064
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8cef1b92f2968d1d8585c7e36b3c694
+      internalID: -969956154
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: typing_065
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 2
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c55d37d2203cb440ba5cb6fc60844f7e
+      internalID: -1640954401
       vertices: []
       indices:
       edges: []
@@ -1242,6 +1557,21 @@ TextureImporter:
       typing_048: 4307614228014989201
       typing_049: -1742948352732392658
       typing_050: -2693244214589416063
+      typing_051: 436523625
+      typing_052: -25003639
+      typing_053: 1288546628
+      typing_054: -721890332
+      typing_055: 1086817409
+      typing_056: -933587317
+      typing_057: 712868941
+      typing_058: 600035701
+      typing_059: 1559751314
+      typing_060: 60405823
+      typing_061: 353660125
+      typing_062: -91297368
+      typing_063: 179600471
+      typing_064: -969956154
+      typing_065: -1640954401
   mipmapLimitGroupName:
   pSDRemoveMatte: 0
   userData:

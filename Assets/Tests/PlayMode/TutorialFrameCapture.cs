@@ -33,7 +33,7 @@ internal sealed class TutorialFrameCapture : IDisposable
         camera.allowHDR = camera.allowMSAA = false;
         target = new RenderTexture(640, 360, 24, RenderTextureFormat.ARGB32);
         target.Create(); camera.targetTexture = target;
-        pixels = new Texture2D(480, 180, TextureFormat.RGB24, false);
+        pixels = new Texture2D(640, 360, TextureFormat.RGB24, false);
     }
 
     internal void Save(int lesson, int frame, RectTransform clip)
@@ -48,10 +48,8 @@ internal sealed class TutorialFrameCapture : IDisposable
             scaler.enabled = false; canvas.renderMode = RenderMode.ScreenSpaceCamera;
             canvas.worldCamera = camera; canvas.planeDistance = 1; canvas.scaleFactor = 2f / 3f;
             Canvas.ForceUpdateCanvases(); camera.Render();
-            var corners = new Vector3[4]; clip.GetWorldCorners(corners);
-            var corner = RectTransformUtility.WorldToScreenPoint(camera, corners[0]);
             RenderTexture.active = target;
-            pixels.ReadPixels(new Rect(Mathf.Round(corner.x), Mathf.Round(corner.y), 480, 180), 0, 0);
+            pixels.ReadPixels(new Rect(0, 0, 640, 360), 0, 0);
             pixels.Apply();
             string folder = Path.Combine(output, lesson.ToString()); Directory.CreateDirectory(folder);
             File.WriteAllBytes(Path.Combine(folder, frame.ToString("D4") + ".png"), pixels.EncodeToPNG());

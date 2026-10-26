@@ -460,3 +460,137 @@ Actual normal parry video segment was registered before direct review: source fr
 Demo http://127.0.0.1:8303/ now serves `beat-production/player`; video at http://127.0.0.1:8303/Tutorial-Mechanics-Beats.mp4.31 served player files match local hashes, qa:false verified, MP4 GET/HEAD/hash pass (`beat-review/demo-delivery.json`). Custom bootstrap/service worker and styled index retain the existing local fixture behavior. Old demos/video files remain for provenance.
 
 Trial commit/push verification is recorded after delivery in `beat-review/git-delivery.json` (remote branch HEAD must equal local HEAD). Retain `C:/Users/ADMIN/orca/workspaces/TypingHero/space-press-cue`, branch `micharel09/space-press-cue`, installed pinned Unity and `E:/CodexTemp/TypingHero/space-press-cue` for user review/reproducibility. Keep only task demo8303 running; `Stop-Demo.ps1` verifies its exact owned command. Cleanup worktree/local branch after user review and remote integration, evidence/demo when no longer needed. Do not delete pre-existing resources or merge main in this task.
+
+### Whole gameplay frame revision (2026-10-26; in progress)
+
+This revision supersedes the cropped/composited lesson assets above. The user
+accidentally deleted the original worktree and requested a replacement. Continue
+from remote commit2d589cb on `micharel09/tutorial-full-gameplay` at
+`C:/Users/ADMIN/orca/workspaces/TypingHero/tutorial-full-gameplay`; keep it separate
+from main. The dirty primary checkout is untouched. The earlier E: read failure
+has resolved; capture/backups remain under the existing artifact root.
+
+Approved geometry: panel928x516 at16,12, whole gameplay640x360 at160,64 on the
+960x540 reference. Title/page above, beat label outside below gameplay, fixed
+rule and Back/Next/Start Battle in the footer. One outline and short arrow remain
+inside gameplay. No crop, HUD composition, masking, debug text, gameplay API,
+dependency, save key, combat tuning or animation change.
+
+Every source frame is resized once to320x180 nearest-neighbor, with original
+chronological duration and holds. Atlases are six columns, at most11rows, two
+pixel gutters, max2048, Point. Sources/events/hashes are in the five JSON manifests
+and `full-review/selection.json`; reproducible packer is
+`tools/game_loop/tutorial_pack.py`. Current candidates: typing106frames from
+full-capture-21, mistakes160 from full-capture-3, parry-health303 from
+full-capture-2, Slayer745 from full-capture-20, score681 from full-capture-23.
+All captures use real keyboard/mouse on the clean normal player. Existing Very
+Easy selection is used for the final score recording; no state mutation.
+
+Review found and corrected premature typing-result guidance, two Pause frames
+at the start of mistakes, delayed timeout guidance, and timer-outline overlap.
+The earlier typing candidate began during enemy recovery; the earlier score
+candidate began during hurt. They are superseded by21/23. Slayer19 failed actual
+post-mode HP reduction;20 shows eight actual letter hits, complete mode exit,
+normal word all with score146->156/enemy HP loss, complete counters/recovery and
+terminal idle. Failed22 stopped after three words due external OCR;23 completes
+those/public/answer/find/your/study, score0/10/20/30/40/52/65 and combo expiration.
+
+Direct atlas review: typing106/106, mistakes160/160, parry303/303,
+Slayer745/745, score681/681:1995cels,1990adjacent pairs and5idle loop joins.
+All69numbered native320x180 sheets were directly inspected. Original long held
+poses, transient source partial glyphs and
+score pulse/flicker are retained visibly; no mask hides them. Per-frame notes
+and pending UGUI/playback status are in `full-review/atlas-review/*-frames.csv`
+and `full-review/manual-atlas-notes.json`. Old cropped927-frame review does not
+certify this revision. Independent whole-source resize equality was rechecked
+after the final score replacement: all1995frames match their full source after
+the single permitted resize. Technical pixel equality is distinct from the
+manual visual review; its receipt intentionally records visualReviewed:0.
+
+The user explicitly requires all further Unity execution on Ubuntu. The owned
+Windows prepare process25480 was stopped; no other task's Unity process was
+stopped. Ubuntu pinned Unity2022.3.25f1 serialize result
+`/data/typinghero-game-loop/results/20261026T062132-serialize` passes strict
+twice-run builder. First061726 failed protected font byte equality because of
+Windows CRLF; the external snapshot helper now canonicalizes LF while preserving
+repository font contents. No check was relaxed. First focused run063923 passed
+four lifecycle/provider cases but failed the all-lesson case because a fixed
+350ms Resume wait elapsed before Linux rendered another frame. The test now
+waits, bounded to3s, for actual clock advance; it retains the same assertion.
+All-lesson reruns065753,072810 and073902 PASS. The last exports all1995UGUIframes
+and checks every frame midpoint, both sides of every boundary, loop lookup,
+Pause clock/frame hold, Resume and Back reset.
+
+Direct UGUI review corrected invisible Space targets, result labels pointing to
+sliding empty words, and a Slayer outline crossing wide sword trails. Final
+targets use visible cue/word/timer/HP/Guard/score, with Slayer letter hits pointing
+at score. All37final guide/pose variants were directly inspected on five sheets
+in `full-review/ugui-events-final4`; final all-frame export hashes are in
+`full-ubuntu-quick4/ugui-hashes.json`. Initial and intermediate exports are not
+final guidance acceptance. Premature e2ddfb54 QA/normal jobs were intentionally
+cancelled; neither counts as a passing build.
+
+Final generated projection changes15existing tutorial records, adds/removes0,
+preserves all1231scene IDs, both persistent button listeners,18existing atlas
+GUIDs and1018existing named frame IDs. No unrelated generated scene edits were
+copied. Receipts: `full-review/final-scene-audit.json` and
+`full-review/guid-before-builder.json`.
+
+Final QA Ubuntu build074535 PASS, input
+8721070249f1634801da47a7e5ddbbc3a8a9e584af37aab222aaf09d9972c183.
+Strict repeat builder PASS again; all82tutorial outputs and the full generated
+SampleScene are byte-equal to quick4. Immutable33-file QA player hashes were
+verified after transfer. Native browser104/104PASS at640x360/1280x720: all six
+pages, glyph bounds, input/score locks, Back/reset, exact Pause frame/clock hold,
+Enter release gate, restart/menu, viewed persistence/replay, clean40/180/100
+battle and actual successful Space parry. All13screenshots directly inspected;
+no exceptions/provider reads/writes. Evidence: `full-native-final/browser.json`,
+`full-review/qa-layout`, `full-review/final-repeat-tutorial.json`.
+
+The first browser invocation stopped before launch because another task's old
+Playwright directory was gone. Existing cached Playwright1.62.1 was restored
+offline under this task's `browser-tools`, using native Edge; no project package
+or game change. The corrected104-check run is the acceptance result.
+
+Normal Ubuntu build075759 PASS with the same immutable input. The33-file normal
+player transfer matches its hashes, qa:false; all five JS/WASM/data payloads
+exclude typingHeroQA/typingHeroCombatFrame in ASCII and UTF-16LE. Final normal
+native6/6PASS,0exceptions/provider reads/writes; all11screenshots inspected.
+Real keyboard input plays all six pages and complete five clip cycles, Pause /
+Resume, final Start Battle, successful Space parry and return to menu.
+
+The actual normal parry segment is registered before review at source frames
+2121..2221, timestamps1793002183.345681..1793002186.786824:101/101frames and
+100/100adjacent pairs directly inspected on seven sheets. Idle preparation,
+enemy windup, real Space/blue cue, contact/+30/Guard loss, follow-through, full
+recovery and terminal idle remain. Later natural word timeout and next warning
+remain visible. Per-frame evidence: `full-review/normal-parry/frames.csv` and
+`scope.json`; earlier95-frame normal review is not reused.
+
+`Tutorial-Full-Gameplay.mp4`:73.902s,2222chronological full1280x720 source frames
+plus explicit500ms terminal hold,2223encoded frames, silent H264 VFR, no crop or
+composition. All frames decode and PTS strictly increase. The default null-muxer
+rounding warnings were checked again with passthrough output/microsecond time
+base: no decode errors. SHA256:
+c0906507f91ef8a4345a1112beac8172b23746d0e35a55f2c20f41d35d000ec0.
+Video/frame receipts: `full-review/clip.json`, `full-normal-final/modal-capture`.
+Full atlas visual review, selected UGUI variants, browser playback and video
+decode are distinct evidence; this does not claim direct inspection of every
+encoded walkthrough frame or independent new character-animation acceptance.
+
+Demo http://127.0.0.1:8303/ now serves `full-production/player`; video at
+/Tutorial-Full-Gameplay.mp4. All31unmodified served files match the immutable
+normal player. Index retains existing fullscreen CSS/title; ServiceWorker is the
+existing local offline Firebase fixture, separately verified. Browser bootstrap
+loads the new normal menu with active worker, no QA globals or exceptions.
+Video GET/HEAD/type/hash checked. `Start-Demo.ps1` can restart the task-owned host;
+only that host remains running. Receipt: `full-review/demo-http.json` and
+`demo-browser.json`; final menu screenshot directly inspected.
+
+Retain the worktree/branch `micharel09/tutorial-full-gameplay` and artifact root
+`E:/CodexTemp/TypingHero/space-press-cue` for user review, including source PNGs,
+manifests, per-frame notes, Ubuntu results, player hashes, failures and final
+video/demo. Remove these only after review and preservation of needed evidence.
+Main integration remains explicitly deferred. No combat, animation, dependency,
+storage or gameplay API changes; final diff whitespace check is scoped to task
+files. Consolidated receipt: `full-review/final-review.json`.
