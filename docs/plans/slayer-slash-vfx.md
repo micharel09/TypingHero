@@ -994,7 +994,8 @@ Seven profile mappings are independently exercised by both geometry test roles.
 Ubuntu Unity2022.3.25f1 build070505-webgl completed successfully, including the
 strict repeated builder and protected font/material checks. Canonical LF snapshot
 input15bd6781c5fc751631c7ae323a7eea1b03f577796d3d5256e301a831535e55bf;
-player104dd2400c6dba53. All2494input files (252C#) match the worktree after UTF-8
+player104dd2400c6dba53. All2494input files (252C#) match the pre-integration
+worktree91f7cad after UTF-8
 CRLF->LF normalization;33player SHA256receipts are in runs/final-build-receipt.json.
 The snapshot normalization is the only input difference from the passing scoped
 tests; code/config/asset content is unchanged. B PNG remains
@@ -1075,3 +1076,37 @@ the explicit visibility limits above. Ready for commit/push/integration; remote
 integration verification remains a separate final step. Retain all prior failures,
 XML, player/input archives, clips and review artifacts under the existing E: root
 and the immutable remote result until user review/reproduction is complete.
+
+
+### Verified integration with current main (2026-10-26)
+
+Task verification/fixture commit91f7cad was pushed, then origin/mainb68b020's
+first-word-preview change was merged as
+b9754858ce991b00ab32eec3d053c8b09e85d027, preserving both implementations.
+No conflict or additional task runtime edit. Exact normalized source comparison
+(runs/merged-source-comparison.json):2490/2494build inputs identical; only
+TypingManager.cs, DuelIntroPresentation.cs, GameLoopProbe.cs and DuelIntroTests.cs
+changed upstream. Every VFX/anchor/profile/rendering asset and relevant combat
+runtime file remains identical. Thus the full three-form B capture/frame review
+and20scoped cases are reused for their unchanged behavior; they are explicitly
+pre-integration player evidence, not a newly built merged player.
+
+Affected intro/typing interaction was rechecked on merged source in Ubuntu
+Unity2022.3.25f1 run074357-quick:3/3Passed,0failed/skipped,9.1915085s,
+input9356c4be2ad703a4fc1046036e31b641609a899856bab93a48ef5e7e64c139b3.
+Exact cases: FullIntroBlocksTypingDamageStatisticsAndSchedulesFirstAttackFromHandoff;
+ShortPreviewPausesWithoutConsumingWordAndCancelDoesNotSignalCombat;
+CorrectCharacterAppliesContactPoseBeforeOpeningTheExistingDamageWindow.
+Local XML runs/ubuntu-074357-merged-tests.xml and merged-tests-receipt.json preserve
+the exact set. This brings scoped evidence to23distinct passing cases, with no
+full suite or redundant build/native capture of unchanged B behavior.
+
+The verified merge HEAD was pushed fast-forward to origin/main, fetched again,
+and both b975485 and91f7cad were confirmed ancestors of remote main. This records
+actual integration, not only a pushed task branch. A final documentation-only
+receipt commit follows; its remote/main ancestry and clean-worktree cleanup are
+recorded in `E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/remote-integration.json`.
+No publication/deployment. Keep the existing E: evidence/cache and immutable Ubuntu
+result for review/reproduction; remove only the clean restored D: task checkout
+and local branch after final remote verification. Pre-existing worktrees and remote
+branches are preserved.

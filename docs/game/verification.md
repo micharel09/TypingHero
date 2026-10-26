@@ -10,7 +10,8 @@ pre-damage point capture and pause/resume. No public API or production fallback 
 
 Final Ubuntu WebGL070505 and strict repeated/protected-font builder PASS. LF input
 15bd6781c5fc751631c7ae323a7eea1b03f577796d3d5256e301a831535e55bf;
-all2494inputs/252C# match source,33player hashes retained; player104dd2400c6dba53.
+2494inputs/252C# match pre-integration source,33player hashes retained;
+player104dd2400c6dba53.
 B PNG/GUID, blackRGB,120/160ms, overlap and combo_end remain unchanged.
 
 Native Edge156/GTX1650Ti/D3D11/1280x720 final capture: four duels, HP32,17parries,
@@ -27,6 +28,13 @@ those exact frame limits are recorded separately from centroid/root measurements
 No full suite, stress/soak, multiple viewports, full raw-video review, performance
 claim or publication. Final receipts, prior failures, authoring guidance and
 integration status: [existing checkpoint](../plans/slayer-slash-vfx.md).
+
+Merged current mainb68b020 as b975485; Ubuntu074357 passes3/3affected intro-lock,
+pause/cancel and accepted-character damage-window cases (23distinct scoped cases
+overall). All VFX/anchor/profile/render inputs are identical; only four upstream
+intro/typing/probe/test inputs differ. Pre-integration three-form capture and20
+cases are reused for unchanged B behavior, not represented as a merged-player
+build. Verified fast-forward main integration and final receipts are in the checkpoint.
 
 ## Restrained duel intro polish (2026-10-25)
 
