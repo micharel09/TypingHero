@@ -17,7 +17,11 @@ keep visible ink at that point. Lifetime changes reclaim old leases; disabled or
 destroyed bodies leave the last point. Build validation includes controller and
 held ParryContactLibrary cels. Public IDamageable and Spawn remain unchanged. `SlashVolume` expires held player
 Slayer trails; enemy/normal cel-driven geometry remains. `SlayerSilhouetteGroup`
-composes a40ms ivory body pulse through private DungeonSprite properties; jitter
+composes the spawner-selected body schedule through private DungeonSprite properties:
+isolated130/150ms hold+20ms fade, chained F0 immediate20ms fade, chained F4 an
+immediate20ms fade plus20ms at70ms. One accepted contact replaces pending pulses;
+the same primary/recipient/lifetime check selects the schedule before pool mutation.
+Legacy retains40ms; pause and existing lifecycle cleanup remain. Root jitter
 on the default Skeleton root is disabled. Shader defaults keep other materials'
 previous output. QA observations add no gameplay setters. Public contracts remain.
 The new schedule passes61scoped Ubuntu cases; fresh QA/native capture and complete

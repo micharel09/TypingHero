@@ -658,7 +658,15 @@ Full surface art, B/C and parent integration remain separate.
   Age begins at0 for either start; residuals/other targets never select the mode.
   No queue, rewind, transform animation or input/damage delay is added.
   Both Slayer B roles emit pure black#000000 independently of combo tint;
-  source alpha, residual fading, ivory body pulse, sword trail and afterimages remain.
+  source alpha, residual fading, sword trail and afterimages remain.
+- Body contrast follows the same primary decision before pool retirement. Isolated
+  hits hold ivory130ms (finisher150ms), then fade20ms. A chained F0 hit fades from
+  contact over20ms; a chained F4 hit adds another20ms flash at70ms. New contact
+  replaces the entire old schedule, including a pending peak. Pause holds age and
+  weight; lifetime change, disable and presentation/result cleanup cancel it.
+  Legacy/no-active-emitter contacts retain the existing40ms pulse. No separate
+  cadence estimator or public/serialized tuning is introduced. Scoped Unity
+  coverage is recorded in verification; final visual acceptance remains pending.
 - Slayer S1 uses combo_1_0/1/2 then combo_1_end_0..3; S2 uses combo_2_3/4/5
   then combo_2_end_0..3; S3 uses the final strike combo_3_11 then combo_3_end_0..5.
   Each has seven40ms poses, ends280ms and holds its recovered final pose; the

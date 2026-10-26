@@ -78,7 +78,7 @@ public class HitSparkSpawner : MonoBehaviour
         SpawnPrefab(sparkPrefab, worldPoint, attacker, targetRoot);
     }
 
-    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null, Color? capturedTint = null, Vector3? slayerVisualPoint = null, Vector2? slayerDirection = null, EnemyHitAnchor hitAnchor = null, uint anchorLifetime = 0)
+    internal void SpawnImpact(Vector2 point, Transform attacker, bool wasSlayer, bool lethal, Transform targetRoot = null, float? directionOverride = null, Color? capturedTint = null, Vector3? slayerVisualPoint = null, Vector2? slayerDirection = null, EnemyHitAnchor hitAnchor = null, uint anchorLifetime = 0, SlayerSilhouetteGroup silhouette = null)
     {
         if (!isActiveAndEnabled || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         GameObject prefab = sparkPrefab;
@@ -88,23 +88,35 @@ public class HitSparkSpawner : MonoBehaviour
         else if (!lethal && wasSlayer && slayerPrefabs != null && slayerPrefabs.Length > 0)
             prefab = slayerPrefabs[slayerIndex++ % slayerPrefabs.Length];
         var images = wasSlayer && attacker ? attacker.GetComponentInChildren<SlayerAfterimagePool>() : null;
-        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, capturedTint ?? (images ? images.CurrentTint : Color.clear), wasSlayer ? slayerVisualPoint : null, slayerDirection, wasSlayer && lethal, hitAnchor, anchorLifetime);
+        if (wasSlayer && silhouette && (!prefab || !prefab.GetComponent<SlayerHitVfx>())) silhouette.PulseSlayerHit();
+        SpawnPrefab(prefab, point, attacker, targetRoot, directionOverride, capturedTint ?? (images ? images.CurrentTint : Color.clear), wasSlayer ? slayerVisualPoint : null, slayerDirection, wasSlayer && lethal, hitAnchor, anchorLifetime, wasSlayer ? silhouette : null);
         var sound = lethal ? lethalImpact : wasSlayer ? slayerImpact : normalImpact;
         if (sound && SfxPlayer.I) SfxPlayer.I.Play(sound, point);
         // Confirmed contacts own camera impact independently of this visual emitter.
     }
 
-    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null, Vector3? slayerVisualPoint = null, Vector2? slayerDirection = null, bool slayerLethal = false, EnemyHitAnchor hitAnchor = null, uint anchorLifetime = 0)
+    void SpawnPrefab(GameObject prefab, Vector2 point, Transform attacker, Transform targetRoot, float? directionOverride = null, Color? impactTint = null, Vector3? slayerVisualPoint = null, Vector2? slayerDirection = null, bool slayerLethal = false, EnemyHitAnchor hitAnchor = null, uint anchorLifetime = 0, SlayerSilhouetteGroup silhouette = null)
     {
         if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         var recipient = targetRoot ? targetRoot : transform;
         bool startAtContact = false;
+        bool hasPrimary = false;
         if (prefab.GetComponent<SlayerHitVfx>())
         {
             for (int i = active.Count - 1; i >= 0; i--)
             {
                 if (!active[i].TryGetComponent<SlayerHitVfx>(out var previous) || previous.Recipient != recipient) continue;
-                if (previous.IsPrimaryFor(recipient, hitAnchor, anchorLifetime) && previous.Age < .07f) startAtContact = true;
+                if (previous.IsPrimaryFor(recipient, hitAnchor, anchorLifetime))
+                {
+                    hasPrimary = true;
+                    if (previous.Age < .07f) startAtContact = true;
+                }
+            }
+            // Decide once while the previous primary is still live, before pool mutations.
+            if (silhouette) silhouette.PulseSlayerSweep(hasPrimary, startAtContact, slayerLethal, hitAnchor, anchorLifetime);
+            for (int i = active.Count - 1; i >= 0; i--)
+            {
+                if (!active[i].TryGetComponent<SlayerHitVfx>(out var previous) || previous.Recipient != recipient) continue;
                 if (slayerLethal || previous.IsFading) previous.GetComponent<PooledVFX>().Release();
                 else previous.Retire();
             }

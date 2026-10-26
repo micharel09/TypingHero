@@ -323,16 +323,24 @@ public sealed class SlayerHitVfxTests
         var box = go.AddComponent<PlayerWeaponHitbox>(); box.targetLayers = 1; Set(box, "hitSpark", spawner); Set(box, "slayer", slayer);
         go.SetActive(true); Set(slayer, "_active", true);
         var enemy = Host("living recipient"); var damage = enemy.AddComponent<FeedbackDamageTarget>();
+        var silhouette = enemy.AddComponent<SlayerSilhouetteGroup>();
         var a = enemy.AddComponent<BoxCollider2D>(); var b = enemy.AddComponent<BoxCollider2D>(); enemy.SetActive(true);
         var hit = typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Flags);
         hit.Invoke(box, new object[] { a }); Assert.That(Active(), Is.Empty);
         box.BeginAttack(1); GamePauseController.SetTutorialReading(true);
         hit.Invoke(box, new object[] { a }); Assert.That(Active(), Is.Empty);
         GamePauseController.SetTutorialReading(false);
-        hit.Invoke(box, new object[] { a }); hit.Invoke(box, new object[] { b });
+        hit.Invoke(box, new object[] { a });
+        Assert.That(Get<float>(silhouette, "hitHold"), Is.EqualTo(.13f));
+        Set(silhouette, "hitAge", .01f);
+        hit.Invoke(box, new object[] { b });
+        Assert.That(Get<float>(silhouette, "hitAge"), Is.EqualTo(.01f), "duplicate collider cannot restart flash");
         Assert.That(damage.hits, Is.EqualTo(1)); Assert.That(Active().Single().name, Does.StartWith("SlayerHit"));
         box.EndAttack(); hit.Invoke(box, new object[] { a }); Assert.That(damage.hits, Is.EqualTo(1));
-        damage.dead = true; box.BeginAttack(2); hit.Invoke(box, new object[] { a }); Assert.That(damage.hits, Is.EqualTo(1));
+        spawner.enabled = false; box.BeginAttack(2); hit.Invoke(box, new object[] { a });
+        Assert.That(Get<float>(silhouette, "hitHold"), Is.EqualTo(.02f), "disabled emitter retains legacy pulse");
+        Assert.That(damage.hits, Is.EqualTo(2));
+        damage.dead = true; box.BeginAttack(3); hit.Invoke(box, new object[] { a }); Assert.That(damage.hits, Is.EqualTo(2));
         Set(slayer, "_active", false); // Undo manual fixture activation; this fixture has no Animator.
     }
     [Test, Category("Quick")]
@@ -482,6 +490,77 @@ public sealed class SlayerHitVfxTests
         group.SetPresentationWeight(0); sr.GetPropertyBlock(block);
         Assert.That(block.GetFloat("_SlayerHitFlashAmount"), Is.Zero);
         Assert.That(sr.color, Is.EqualTo(original));
+    }
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void SweepFlashBoundariesAndReplacement(bool lethal)
+    {
+        var rig = Host("sweep pulse"); var group = rig.AddComponent<SlayerSilhouetteGroup>(); rig.SetActive(true);
+        foreach (bool primary in new[] { false, true }) foreach (bool contact in new[] { false, true })
+        {
+            group.PulseSlayerSweep(primary, contact, lethal, null, 0);
+            foreach (float ms in new[] { 0f, 10, 20, 40, 69, 70, 80, 90, 130, 140, 150, 160, 170 })
+            {
+                Set(group, "hitAge", ms / 1000);
+                float expected = primary
+                    ? ms < 20 ? 1 - ms / 20 : !contact && ms >= 70 && ms < 90 ? (90 - ms) / 20 : 0
+                    : Mathf.Clamp01(((lethal ? 170 : 150) - ms) / 20);
+                Assert.That(group.HitFlashWeight, Is.EqualTo(expected).Within(.00001f), $"primary={primary} contact={contact} ms={ms}");
+            }
+        }
+        group.PulseSlayerSweep(true, false, lethal, null, 0);
+        Set(group, "hitAge", .05f);
+        group.PulseSlayerSweep(true, true, lethal, null, 0);
+        Set(group, "hitAge", .07f);
+        Assert.That(group.HitFlashWeight, Is.Zero, "new F0 cancels pending F4 peak");
+        group.PulseSlayerSweep(false, false, lethal, null, 0);
+        group.SetPresentationWeight(1); group.SetPresentationWeight(0);
+        Assert.That(group.HitFlashWeight, Is.Zero);
+        group.PulseSlayerSweep(true, false, lethal, null, 0);
+        rig.SetActive(false); rig.SetActive(true);
+        Assert.That(group.HitFlashWeight, Is.Zero, "disable clears pending peak");
+    }
+
+    [TestCase(.035f), TestCase(.05f), TestCase(.069f), TestCase(.07f), TestCase(.1f), TestCase(.3f), Category("Quick")]
+    public void SpawnerChoosesSingleFlashFromSameLifetimePrimaryBeforeRetirement(float interval)
+    {
+        foreach (bool lethal in new[] { false, true })
+        {
+            var owner = Owner(out var attacker); var anchor = AnchoredActor("axe", out var actor);
+            var group = actor.AddComponent<SlayerSilhouetteGroup>();
+            void Emit(bool finish) => owner.SpawnImpact(Vector2.zero, attacker.transform, true, finish, actor.transform,
+                hitAnchor: anchor, anchorLifetime: anchor.Lifetime, silhouette: group);
+            Emit(false);
+            Set(group, "hitAge", .08f); Assert.That(group.HitFlashWeight, Is.EqualTo(1), "isolated holds through peak");
+            var previous = Active().Single(e => e.Recipient == actor.transform);
+            previous.Advance(interval);
+            Emit(lethal);
+            Assert.That(Get<float>(group, "hitAge"), Is.Zero);
+            Set(group, "hitAge", .08f);
+            Assert.That(group.HitFlashWeight, Is.EqualTo(interval >= .24f ? 1 : interval < .07f ? 0 : .5f).Within(.00001f));
+            anchor.Configure(anchor.Profile);
+            Assert.That(group.HitFlashWeight, Is.Zero, "new lifetime invalidates even before LateUpdate");
+            Emit(lethal); Set(group, "hitAge", .08f);
+            Assert.That(group.HitFlashWeight, Is.EqualTo(1), "old lifetime cannot select a chained pulse");
+            owner.enabled = false;
+        }
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator SweepPendingPeakAndIsolatedTailHoldThroughPause()
+    {
+        var actor = Host("paused pulse"); var group = actor.AddComponent<SlayerSilhouetteGroup>(); actor.SetActive(true);
+        foreach (bool primary in new[] { false, true }) foreach (bool lethal in new[] { false, true })
+        {
+            group.PulseSlayerSweep(primary, false, lethal, null, 0); Set(group, "hitAge", .06f);
+            GamePauseController.SetTutorialReading(true);
+            var weight = group.HitFlashWeight;
+            yield return new WaitForSecondsRealtime(.1f);
+            Assert.That(Get<float>(group, "hitAge"), Is.EqualTo(.06f));
+            Assert.That(group.HitFlashWeight, Is.EqualTo(weight));
+            GamePauseController.SetTutorialReading(false);
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That(group.HitFlashWeight, Is.Zero);
+        }
     }
     [TestCase(false), TestCase(true), Category("Quick")]
     public void BodyCenterOverrideDoesNotMoveNonSlayerOrLegacyImpacts(bool wasSlayer)

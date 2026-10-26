@@ -1390,3 +1390,89 @@ mount uses that exact root; shared toolchain/HOME/cache were preserved. The loca
 Orca worktree `D:/Projects/TypingHero-worktrees/slash-b-sweep-timing` and branch
 `micharel09/slash-b-sweep-timing` remain for the unmet visual gate. Main integration is withheld because the requested visual acceptance has not
 passed; the candidate branch push is preservation only. Its remote commit receipt lives in the permanent evidence root.
+
+#### Flash contrast follow-up (2026-10-26; acceptance pending)
+
+Resumed the existing `micharel09/slash-b-sweep-timing` worktree. Fetched and
+merged `origin/main`480ad703 as56a0dd0, preserving the intro implementation and
+both verification records. The primary checkout and its dirty files are untouched.
+
+Accepted schedule: black B/artwork/material/GUID/chest/32/40px and240/280ms stay
+unchanged. Same-recipient/anchor/lifetime primary selection remains age<70ms for
+F0. Before retiring/releasing that primary, the spawner selects exactly one body
+schedule: isolated holds130/150ms then fades20ms; chained F0 fades20ms immediately;
+chained F4 fades20ms at contact and again at70ms. New hits replace the entire
+schedule, including a pending peak. No cadence estimator, public game API or
+serialized tuning is added. Legacy/no-emitter hitboxes retain their40ms pulse.
+Pause holds the clock; existing disable/presentation/result cleanup and anchor
+lifetime invalidation clear the schedule. Property blocks preserve other owners.
+
+Initial Ubuntu143851-quick:74/74Passed,0failed/skipped. Covers both roles, flash
+20/70/90/130/150/170ms boundaries, pending-peak replacement, pause/resume, lifetime,
+primary age35/50/69/70/100/300ms, existing pool/chest/finisher and transition cases.
+A later added accepted-contact/duplicate-collider assertion still needs its final
+scoped run. Fresh QA144050-webgl is building with strict repeat-builder validation.
+
+Evidence root: `E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/`.
+Historical failed reports remain in the previous root. The corrected capture
+harness removes Playwright recordVideo (canvas MediaRecorder is the sole recorder),
+retains real keyboard/mouse, observer-only QA and fixture/provider blocking.
+Playwright1.58.2 is copied to this permanent evidence root; the driver no longer
+requires the old temp dependency path. Requested delays are labels only; actual
+keydown and observed emit intervals will be reported separately.
+
+The previous VP9/WebM PTS+pixel checks did not qualify packet durations, so their
+technical PASS claims do not establish the full export/playback contract.
+`tools/game_loop/export_vfr.py` now uses lossless all-intra H264 with millisecond
+PTS, NEXT_PTS-PTS durations and an explicit final hold. It rejects overwrites and
+reports decoded pixel hashes, counts, every PTS/duration and endpoint. Historical
+sword301, axe727 and shield314frames re-export with exact pixels/PTS/endpoints and
+zero duration mismatches. No CFR conversion or held-frame deduplication.
+
+After this concrete export change, the two failed historical1x rows were retried:
+axe still drops4frames (technical FAIL); shield qualifies with0drops/interruptions.
+Both immutable reports are preserved. No further unchanged retry is authorized
+by this evidence. Subjective continuous-playback observations remain unverified;
+telemetry is not direct visual observation. Main integration remains withheld.
+
+Remaining: final consumer/dedup tests, build receipt/source identity, fresh three-
+form capture and measured cadence, declared full frame/transition review, six
+qualified playback rows plus direct motion findings, final documentation and
+candidate preservation push. Only integrate main after the original gate passes.
+
+Environment checkpoint: shared QA144050 completed successfully but is superseded
+by the disabled-emitter compatibility fix. Two subsequent final-test attempts
+expired while waiting for the shared runner; neither executed tests. The active
+queued retry has acquired the lock as151332-quick, snapshot
+c1d09f82b987650a5880b5a7f9aba4ffa77ba81b4128cc2b11f9f3d17925bf2d.
+Concurrent tasks reimport different source snapshots in the shared Library.
+To keep the final build stable, a private QA workspace is being prepared at
+`/data/typinghero-game-loop/task-workspaces/slash-b-flash-20261026` with copied
+Library/cache, the existing license in a private HOME, and read-only reuse of the
+shared toolchain/image IDs. No other job/cache is stopped or replaced. Cache-copy
+errors, if any, must be retained and checked before qualification. Remove only
+this exact private root after final artifacts are saved and no active container
+mount references it; never remove the shared toolchain/HOME/cache.
+
+Final capture harness records browser performance timestamps for the sole canvas
+MediaRecorder and requested word delays; audit separates actual Slayer keydown
+intervals within the same requested word from isolated hits and inter-word gaps.
+Observed QA emit intervals are frame-quantized samples, not exact event times.
+The final exporter also checks video-stream and container duration. Final sword
+export is byte-identical to the previous qualified output and all301decoded
+frames/PTS/durations/endpoints match; overwrite refusal was verified.
+
+Final consumer151332-quick PASS:8/8,0failed/skipped,1.3201933s, snapshotc1d09f82.
+The updated ordinary-contact test proves a130ms isolated schedule, no restart for
+its second collider, and the original20ms hold+20ms fade when the emitter is
+disabled. Existing normal/parry animation contacts (four orientation/scale cases),
+dedup/locked targets, captured lethal style and follow-up window also pass.
+Together with the initial74, this is81distinct scoped cases (one updated case
+appears in both runs), not82distinct cases. No full suite/stress was run.
+
+Private cache setup copied slowly in ShaderCache; only the copy process with an
+open destination under this exact task root was stopped. Its partial ShaderCache
+was renamed `aborted-shader-cache-copy` within the private root. Setup resumes
+with symlinks preserved and excludes ShaderCache/BurstCache/EditorInstance.json/
+ilpp.pid; Unity will regenerate shader cache. This is an environment attempt,
+not a build/test pass. Final private QA still pending.
