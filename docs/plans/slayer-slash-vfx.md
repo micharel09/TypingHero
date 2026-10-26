@@ -1202,3 +1202,191 @@ zero-drop criterion or infer motion quality from telemetry. Preserve clips, XML,
 source/player receipts, frames, failed reports and driver/dependencies until
 review/reproduction is complete. Owned Edge browsers were closed after runs.
 Documentation integration does not close this acceptance gate.
+
+
+### Sweep / peak / dissolve implementation (2026-10-26; acceptance pending)
+
+Fresh Orca worktree `D:/Projects/TypingHero-worktrees/slash-b-sweep-timing`,
+branch `micharel09/slash-b-sweep-timing`, base origin/main `1611e6f`.
+B PNG, sprite IDs/GUIDs and material preserved. Sequence F4/F5/F0/F1/F2/F3;
+alpha-centroid offsets follow that order. Peak sizes32/40reference pixels;
+scale uses all6source cels. Hit durations30/40/60/45/35/30ms (240ms);
+finisher30/40/80/55/45/30ms (280ms).
+
+Before retiring the previous primary, the spawner checks the same recipient,
+anchor and lifetime. Age<70ms starts at contact index2 (170/210ms remaining);
+exactly70ms starts at index0. Age begins at0 independently of sequence offset.
+One primary/one residual,30ms residual at<=35%alpha, pause, chest attachment,
+fixed direction/scale and damage/input timing remain.
+
+First Ubuntu filtered run090341 used a snapshot sent before prefab updates:
+33/51passed,18failed,0skipped. Failures expose old four-frame prefabs and
+120/160ms timeline. Failed run retained; it is not acceptance evidence.
+Corrected snapshot includes both six-frame prefabs; rerun pending.
+Added scoped cases:35/50/69/70/100/300ms repeated contacts, both starts/roles,
+frame boundaries/expiry, real age reset, target/lifetime isolation and finisher.
+Old timing-dependent tests and captures cannot qualify the new sequence.
+
+Direct source inspection:6/6source cels and5/5ordered pairs opened in
+source-six.png (registered task workspace). F4: short tapered upper-right
+stroke plus detached dot; F5: longer diagonal; F0: longest thick cut and specks;
+F1: two short diagonal fragments/dots; F2: tiny fragment/two dots; F3: final dot.
+Source-only observations; runtime occlusion/readability, full variant review
+and1x/.25x playback remain unverified. Black-torso/ivory-arc occlusion retained.
+
+Remaining: scoped Unity pass, repeated builder/serialized prefab comparison,
+fresh QA player, three-form real-key capture, complete declared frame review,
+qualified playback, then commit/push/integration and remote verification.
+
+
+Verification environment follow-up: the shared-runner wait timed out at300s;
+a second wait was cancelled (only its local Python/SSH processes). Shared logs
+showed multiple concurrent Unity containers and CS2001 missing-source errors.
+No other process, shared source/cache or license was stopped/replaced.
+Independent verification workspace:
+`/data/typinghero-game-loop/task-workspaces/slash-b-sweep-20261026`.
+Library/cache copied privately; existing toolchain and Unity HOME are linked.
+Copy reported only a disappearing EditorInstance.json marker, so its nonzero
+exit was retained; marker is not reused, secondary cache copied successfully.
+Repository runner/CI are unchanged; external LF adapter changes only task BASE
+and preserves serialized Slayer assets in the build result. Scoped run pending.
+
+Static preview inspection:72/72cels,60/60internal adjacent pairs across32/40px
+and clockwise0/45/90/180/225/270degrees; source-only6/6cels,5/5pairs also opened.
+Per-cell evidence is static-review.csv and static-32.png/static-40.png in the task
+workspace. Nearest-neighbor PIL previews establish source order/orientation only;
+they do not certify Unity sampling, chest occlusion, runtime timing or playback.
+
+| Source cel | Hit/finisher ms | Observed source | Next ordered transition |
+|---|---|---|---|
+| F4 |30/30|Short tapered stroke, separated fleck|F5 lengthens along diagonal|
+| F5 |40/40|Longer continuous diagonal|F0 length/thickness reaches peak|
+| F0 |60/80|Longest thick stroke and scattered specks|F1 splits into fragments|
+| F1 |45/55|Two short fragments and dots|F2 removes most continuous ink|
+| F2 |35/45|Tiny fragment and sparse dots|F3 removes final fragment|
+| F3 |30/30|Isolated final dots|Nonloop expiry; runtime still pending|
+
+
+#### Qualified checks after snapshot metadata correction
+
+The external snapshot adapter initially emitted every TarInfo with mtime0.
+Despite changed source, pause failures still reported the old line/old test
+runtime rather than the newly added diagnostic loop. Earlier local/Ubuntu
+attempts using that adapter are retained as unqualified attempts. The adapter
+now preserves each input's actual source mtime (same principle as repository
+run.py); repository runner/CI remain unchanged.
+
+Ubuntu100329-quick, canonical final prefab centers, input
+3ddcd51aefa4f062a880f9a9c6dec1aa2af2e04713578df8e032a652c75c6976:
+61/61Passed,0failed/skipped,9.4710252s. XML contains the new diagnostic loop's
+output, confirming fresh compilation. Both roles resume at age~15ms and expire
+at240/280ms; observed post-resume wall tails~225/266ms. The verbose trace was
+removed without changing the poll/expiry predicates. Final pause-only101745-quick,
+input12eee2cd7f7fb786befbe9e0288534146bbc59ba59214f198a3f0223f955cbfc:
+1/1Passed,0failed/skipped,0.9574362s. Other60cases' relevant inputs are unchanged.
+Qualified cases include both starts/roles/boundaries, repeated35/50/69/70/100/300ms,
+residual/target/lifetime/finisher/pool, chest geometry/all poses, pause/hide/death/
+destroy and selected normal/parry/legacy consumers. No full suite/stress/soak.
+
+First QA094337 built successfully and repeated builder passed, but mtime0
+makes its compilation qualification uncertain; player85bed067cabdb0e9 is not
+final evidence. Capture of it failed before any Slayer frame because root-level
+record.cjs was an older startup driver. The actual fixed driver is under
+old evidence final-capture/record.cjs; selected now. Failed recording/state remain
+in failed-early-tutorial-capture. No gameplay regression inferred from that run.
+
+Corrected-metadata QA100557 stalled before IL2CPP with a busy Unity process and
+CoreBusinessMetrics SQLite disk-I/O/locking errors in shared Unity HOME.
+Only its verified own container was stopped (exit143); log retained. New build
+uses an independent private HOME with the existing license (no activation/install),
+private source/Library/cache and original toolchain. QA build/capture/frame review/
+playback/integration remain pending. Source PNG/material/GUIDs are preserved.
+
+
+#### Final candidate evidence and unmet acceptance (2026-10-26)
+
+This checkpoint supersedes the pending build/capture status immediately above.
+Final QA101847-webgl succeeded with independent HOME and strict repeated builder.
+Player `d13202894a63688f`; input
+`12eee2cd7f7fb786befbe9e0288534146bbc59ba59214f198a3f0223f955cbfc`.
+33/33player hashes and2494/2494LF-normalized source file hashes match; all C#
+archive mtimes are nonzero. Prefab centroids are canonical Unity builder output
+(with trailing whitespace removed); source PNG/material/GUIDs unchanged.
+
+Permanent evidence root:
+`E:/codex-data/artifacts/TypingHero/slash-b-sweep-20261026/`.
+`review.html` presents before/after clips; before clips are historical120/160ms
+player evidence only, not qualification of the new build. `actual-timing.csv`
+separates verified timeline boundaries from native sampled age ranges. The original
+native movie and original PTS are retained, including held/repeated frames.
+`tests-qualified-61.xml`, `tests-final-pause.xml`, `final-build-receipt.json`,
+`final-unity-build.log`, and `builder-final/` preserve technical results.
+
+Native Edge156/NVIDIA D3D11 at1280x720 with real keyboard/mouse and read-only
+bridge:0exceptions/provider reads/writes. Four duels cover sword, elite sword,
+axe and shield.2352combat samples contain2092impact samples, all6source cels,
+angles0/45/90, max2active impacts and no failed Slayer focus/visibility samples.
+224observed primary births:156atF4,68atF0, all age0. Sampled timeline has0errors;
+223/223consecutive pause pairs hold age/cel/position/tint. Maximum sampled residual
+alpha0.2501917; live root-to-chest distance0 in sampled valid states. These are
+sampled state observations, not proof that hidden ink is visible. Exact70ms,
+repeated intervals, mirror/pool/lifetime/finisher/expiry are covered by Unity cases.
+
+Declared movie segments precede extraction in runtime-review/declared-scopes.json:
+sword20.345-31.914s, axe73.779-101.300s, shield114.082-126.314s. Each includes
+preparation, isolated contacts (driver wait420ms), burst/threshold rhythms,
+pause/resume, finisher and state exit. The long axe normal-mode gap was retained.
+Directly opened every numbered frame and consecutive pair in each segment:
+
+| Clip | Raw frames inspected | Frames | Adjacent pairs |
+|---|---|---:|---:|
+| Sword |432-732|301/301|300/300|
+| Axe |1855-2581|727/727|726/726|
+| Shield |2926-3239|314/314|313/313|
+
+Axe export includes one extra ending frame2581 at101.309s,9ms beyond the declared
+end. It and2580->2581 were separately opened/reviewed; no segment was narrowed.
+Total1342frames/1339pairs. `runtime-review/per-frame-review.csv` has one row per
+frame with duration, actual visible/obscured observations, transition and status;
+`observer-notes.json` retains direct observations. Sheets are location aids,
+full native491 and2581 were additionally opened where needed. Static source review
+remains separate (6source cels/5pairs plus72variant cels/60pairs).
+
+Observed: peak cuts on pale Hurt chests and diminishing fragments outside torso
+are readable in multiple bursts; no detached old-position stain/persistent large
+patch was seen in the selected exits. The center frequently blends into black
+body pixels or is covered by the ivory arc/pause panel. Sword491at22.389s has
+pale Hurt torso but no independently readable short opening B; subsequent exterior
+tips do not establish visible full growth at1x. Shield2982-3011 similarly alternates
+arc/flash and dark core. These obscured parts stay unverified. Fixed black/artwork/
+anchor/timing decisions were not changed to manufacture a visual pass.
+
+Playback trials retain immutable IDs, media/driver hashes, focus/events, true
+presentedFrames metadata, separate callback counts and decode quality. Original
+H264 and all-intra retries had dropped frames; a PTS trial is explicitly invalid.
+Lossless VP9 compatibility exports preserve all301/727/314decoded frames pixel-for-
+pixel against initial MP4 (fps_mode passthrough) and exact PTS. Disabling browser
+frame-rate/vsync throttling qualified sword1x plus all three0.25x rows,0new drops,
+no interruptions. Axe1x still dropped4frames and waited at7.351/26.511s; shield1x
+still dropped1frame and waited at1.581s. A blank single-video host plus full-buffer
+readiness still left axe1x3drops/wait at7.366s; lower-decode-cost all-intra trial
+also failed. This suggests buffering alone is not the cause; decoder/compositor
+scheduling remains unresolved. No gate was weakened; successful transport/ended
+status does not certify subjective motion. All six subjective playback observations
+remain unverified; technical qualification currently covers4/6rows.
+
+**Acceptance not achieved.** Implementation/selected Unity/build/native state checks
+are verified, but clear sweep-growth at1x and two qualified1xplayback rows are
+missing. Commit/push this candidate for preservation, without integrating main.
+Retain the task worktree/branch for the visual decision and targeted follow-up;
+remove only after the original acceptance gate and verified integration or explicit
+abandonment. No production behavior outside this VFX schedule was changed.
+
+
+Resource handoff: all evidence and final input snapshot were saved under the
+permanent artifact root above. The task-owned Ubuntu private workspace/cache/HOME
+(including its copied license) was removed only after confirming no running Docker
+mount uses that exact root; shared toolchain/HOME/cache were preserved. The local
+Orca worktree `D:/Projects/TypingHero-worktrees/slash-b-sweep-timing` and branch
+`micharel09/slash-b-sweep-timing` remain for the unmet visual gate. Main integration is withheld because the requested visual acceptance has not
+passed; the candidate branch push is preservation only. Its remote commit receipt lives in the permanent evidence root.

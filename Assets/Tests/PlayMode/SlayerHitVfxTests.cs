@@ -35,22 +35,22 @@ public sealed class SlayerHitVfxTests
     {
         var effect = Prefab(lethal).GetComponent<SlayerHitVfx>();
         Assert.That(Prefab(lethal).GetComponentsInChildren<ParticleSystem>(true), Is.Empty);
-        var frames = Get<Sprite[]>(effect, "frames"); Assert.That(frames.Length, Is.EqualTo(4));
+        var frames = Get<Sprite[]>(effect, "frames"); Assert.That(frames.Length, Is.EqualTo(6));
         var importer = (TextureImporter)AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(frames[0]));
         Assert.That(importer.filterMode, Is.EqualTo(FilterMode.Point)); Assert.That(importer.mipmapEnabled, Is.False);
         Assert.That(importer.textureCompression, Is.EqualTo(TextureImporterCompression.Uncompressed));
         Assert.That(importer.npotScale, Is.EqualTo(TextureImporterNPOTScale.None));
         Assert.That(frames[0].texture.width, Is.EqualTo(384)); Assert.That(frames[0].texture.height, Is.EqualTo(64));
         Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sharedMaterial, Is.SameAs(AssetDatabase.LoadAssetAtPath<Material>("Assets/Art/VFX/PixelSparks/Pixel.mat")));
-        var order = new[] { 0, 1, 2, 3 };
-        for (int i = 0; i < 4; i++)
+        var order = new[] { 4, 5, 0, 1, 2, 3 };
+        for (int i = 0; i < 6; i++)
         {
             Assert.That(frames[i].name, Is.EqualTo("frame_" + order[i]));
             Assert.That(frames[i].rect, Is.EqualTo(new Rect(order[i] * 64, 0, 64, 64)));
             Assert.That(frames[i].pivot, Is.EqualTo(new Vector2(32, 32)));
             Assert.That(frames[i].pixelsPerUnit, Is.EqualTo(16));
         }
-        Assert.That(Get<float[]>(effect, "frameDurations"), Is.EqualTo(lethal ? new[] { .06f, .04f, .03f, .03f } : new[] { .04f, .03f, .03f, .02f }));
+        Assert.That(Get<float[]>(effect, "frameDurations"), Is.EqualTo(lethal ? new[] { .03f, .04f, .08f, .055f, .045f, .03f } : new[] { .03f, .04f, .06f, .045f, .035f, .03f }));
         var texture = new Texture2D(2, 2); int widest = 0;
         try
         {
@@ -82,9 +82,9 @@ public sealed class SlayerHitVfxTests
         Assert.That(effect.GetComponent<VoxelImpactBurst>(), Is.Null);
         var rotation = effect.transform.rotation;
         var durations = Get<float[]>(effect, "frameDurations");
-        var order = new[] { 0, 1, 2, 3 };
+        var order = new[] { 4, 5, 0, 1, 2, 3 };
         SlayerModeSignals.SetActive(false);
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 6; i++)
         {
             Assert.That(image.sprite.name, Is.EqualTo("frame_" + order[i]));
             effect.Advance(durations[i] - .001f);
@@ -100,7 +100,76 @@ public sealed class SlayerHitVfxTests
         Assert.That(Active().Single(), Is.SameAs(effect)); Assert.That(effect.Age, Is.Zero);
         Assert.That(image.color, Is.EqualTo(Color.black)); Assert.That(image.flipX || image.flipY, Is.False);
         Assert.That(effect.transform.rotation, Is.Not.EqualTo(rotation));
-        Assert.That(image.sprite.name, Is.EqualTo("frame_0"));
+        Assert.That(image.sprite.name, Is.EqualTo("frame_4"));
+    }
+    [TestCase(.035f), TestCase(.05f), TestCase(.069f), TestCase(.07f), TestCase(.1f), TestCase(.3f), Category("Quick")]
+    public void RepeatedContactsChooseStartUsingRealPrimaryAge(float interval)
+    {
+        var owner = Owner(out var go);
+        for (int hit = 0; hit < 5; hit++)
+        {
+            owner.SpawnImpact(Vector2.zero, go.transform, true, false);
+            var primary = Active().Single(v => !v.IsFading);
+            Assert.That(primary.Age, Is.Zero);
+            Assert.That(primary.GetComponentInChildren<SpriteRenderer>(true).sprite.name,
+                Is.EqualTo(hit > 0 && interval < .07f ? "frame_0" : "frame_4"));
+            Assert.That(Active().Length, Is.LessThanOrEqualTo(2));
+            foreach (var effect in Active()) effect.Advance(interval);
+        }
+    }
+    [TestCase(false, false), TestCase(false, true), TestCase(true, false), TestCase(true, true), Category("Quick")]
+    public void BothStartsHoldEveryBoundaryAndReleaseWithoutReplayingSkippedFrames(bool lethal, bool contact)
+    {
+        var owner = Owner(out var go);
+        owner.SpawnImpact(Vector2.zero, go.transform, true, lethal);
+        var effect = Active().Single();
+        effect.Emit(Vector3.zero, 0, Color.black, startAtContact: contact);
+        var durations = Get<float[]>(effect, "frameDurations");
+        var order = new[] { 4, 5, 0, 1, 2, 3 };
+        float end = 0;
+        for (int i = contact ? 2 : 0; i < 6; i++)
+        {
+            effect.Emit(Vector3.zero, 0, Color.black, startAtContact: contact);
+            Assert.That(effect.Age, Is.Zero);
+            end += durations[i];
+            effect.Advance(end - .00001f);
+            Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_" + order[i]));
+            effect.Advance(.00002f);
+            if (i < 5)
+            {
+                Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_" + order[i + 1]));
+                Assert.That(effect.Age, Is.EqualTo(end + .00001f).Within(.000001f));
+                effect.Emit(Vector3.zero, 0, Color.black, startAtContact: contact);
+                effect.Advance(end);
+                Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_" + order[i + 1]));
+            }
+        }
+        Assert.That(Active(), Is.Empty);
+        owner.SpawnImpact(Vector2.zero, go.transform, true, lethal);
+        effect = Active().Single();
+        effect.Emit(Vector3.zero, 0, Color.black, startAtContact: contact);
+        effect.Advance((lethal ? .28f : .24f) - (contact ? .07f : 0) + .001f);
+        Assert.That(Active(), Is.Empty);
+    }
+
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void AdaptiveSelectionIgnoresOtherTargetsResidualsAndOldLifetimes(bool lethal)
+    {
+        var owner = Owner(out var attacker);
+        var anchor = AnchoredActor("sword", out var target);
+        var other = Host("independent target"); other.SetActive(true);
+        EmitAttached(owner, attacker, anchor, false);
+        owner.SpawnImpact(Vector2.zero, attacker.transform, true, lethal, other.transform);
+        Assert.That(Active().Single(v => v.Recipient == other.transform).GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_4"));
+        var next = EmitAttached(owner, attacker, anchor, lethal);
+        Assert.That(next.Age, Is.Zero);
+        Assert.That(next.GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_0"));
+        target.SetActive(false); target.SetActive(true);
+        next = EmitAttached(owner, attacker, anchor, lethal);
+        Assert.That(next.GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_4"));
+        foreach (var effect in Active().Where(v => !v.IsFading).ToArray()) effect.GetComponent<PooledVFX>().Release();
+        next = EmitAttached(owner, attacker, anchor, lethal);
+        Assert.That(next.GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_4"));
     }
     [TestCase(0, 1, -1), TestCase(1, 1, 0), TestCase(2, 1, 1), Category("Quick")]
     public void AuthoredDirectionRepeatsWithTheSelectedSwing(int variant, float x, float y)
@@ -142,7 +211,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(residual.gameObject.activeSelf, Is.False);
     }
     [TestCase(false), TestCase(true), Category("Quick")]
-    public void AuthoredMirroredAnglesKeepBlackAcrossProgressionTintsAndAllFourFrames(bool lethal)
+    public void AuthoredMirroredAnglesKeepBlackAcrossProgressionTintsAndAllSixFrames(bool lethal)
     {
         var owner = Owner(out var go);
         var player = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Characters/Player/Player.prefab");
@@ -154,9 +223,9 @@ public sealed class SlayerHitVfxTests
             var tint = gradient.Evaluate(combo / 20f); tint.a = 1;
             effect.Emit(new Vector3(3, 4, 0), direction * 45, tint);
             var sprite = effect.GetComponentInChildren<SpriteRenderer>(true);
-            foreach (int frame in new[] { 0, 1, 2, 3 })
+            for (int frame = 0; frame < 6; frame++)
             {
-                Assert.That(sprite.sprite.name, Is.EqualTo("frame_" + frame));
+                Assert.That(sprite.sprite.name, Is.EqualTo("frame_" + new[] { 4, 5, 0, 1, 2, 3 }[frame]));
                 Assert.That(sprite.color, Is.EqualTo(Color.black));
                 Assert.That(sprite.flipX || sprite.flipY, Is.False);
                 Assert.That(Quaternion.Angle(effect.transform.rotation, Quaternion.Euler(0, 0, -direction * 45)), Is.LessThan(.001));
@@ -451,7 +520,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(anchor.TryGetWorldPoint(out var point), Is.True);
         owner.SpawnImpact(point, attacker.transform, true, lethal, anchor.transform,
             slayerVisualPoint: point, slayerDirection: new Vector2(-1, 1), hitAnchor: anchor, anchorLifetime: anchor.Lifetime);
-        return Active().Single();
+        return Active().Single(v => !v.IsFading && v.Recipient == anchor.transform);
     }
     static void Follow(SlayerHitVfx effect) => typeof(SlayerHitVfx).GetMethod("LateUpdate", Flags).Invoke(effect, null);
 
@@ -523,7 +592,7 @@ public sealed class SlayerHitVfxTests
             if (actor) actor.transform.position += Vector3.right;
             Follow(effect);
             Near(effect.transform.position, mode == "dead" ? Geometry(anchor) : last);
-            effect.Advance((lethal ? .16f : .12f) - .0201f);
+            effect.Advance((lethal ? .28f : .24f) - .0201f);
             Assert.That(effect.gameObject.activeSelf, Is.True);
             effect.Advance(.0002f); Assert.That(effect.gameObject.activeSelf, Is.False);
         }
@@ -555,7 +624,7 @@ public sealed class SlayerHitVfxTests
             Assert.That(reused.Recipient, Is.SameAs(newActor.transform));
             actor.transform.position += Vector3.one * 20; newActor.transform.position += Vector3.left;
             Follow(reused); Near(reused.transform.position, Geometry(next));
-            reused.Advance(.161f);
+            reused.Advance(.281f);
         }
     }
 
@@ -580,7 +649,9 @@ public sealed class SlayerHitVfxTests
             Assert.That(effect.gameObject.activeSelf, Is.True);
             Near(effect.transform.position, Geometry(anchor));
             Assert.That(effect.Age, Is.GreaterThan(age));
-            yield return new WaitForSecondsRealtime(.18f); Assert.That(effect.gameObject.activeSelf, Is.False);
+            float deadline = Time.realtimeSinceStartup + 2f;
+            while (effect.gameObject.activeSelf && Time.realtimeSinceStartup < deadline) yield return null;
+            Assert.That(effect.gameObject.activeSelf, Is.False, $"Resume expiry: age={effect.Age}, blocked={GamePauseController.InputBlocked}, scale={Time.timeScale}");
         }
     }
 

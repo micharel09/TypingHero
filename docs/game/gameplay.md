@@ -648,11 +648,15 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Slayer contact-first presentation (2026-10-25; tests waived)
+### Slayer contact-first presentation (sweep timeline 2026-10-26)
 
 - Retain original Met.Pxl B PNG/GUIDs/center pivot and32/40reference-pixel scale.
-  Game hit uses F0/F1/F2/F3 at40/30/30/20ms; finisher60/40/30/30ms. Source preview
-  remains six-frame580ms; it is no longer the game schedule.
+  Game sequence F4/F5/F0/F1/F2/F3 uses30/40/60/45/35/30ms for hits (240ms),
+  30/40/80/55/45/30ms for finishers (280ms). F4 appears immediately; peak starts70ms.
+  Before retiring old output, a primary with the same recipient/anchor/lifetime
+  and age<70ms selects F0 instead (170/210ms). Exactly70ms selects the full sweep.
+  Age begins at0 for either start; residuals/other targets never select the mode.
+  No queue, rewind, transform animation or input/damage delay is added.
   Both Slayer B roles emit pure black#000000 independently of combo tint;
   source alpha, residual fading, ivory body pulse, sword trail and afterimages remain.
 - Slayer S1 uses combo_1_0/1/2 then combo_1_end_0..3; S2 uses combo_2_3/4/5
@@ -679,9 +683,11 @@ Full surface art, B/C and parent integration remain separate.
   Pause/reading hold presentation clocks. Results/disable/restart/unload clear them.
 - Public input/scoring/damage values/stamina/camera/audio and Slayer no-hitstop
   policy remain. Normal/parry/legacy emitters retain their routes and shared budget.
-  The original implementation waived tests; the authorized2026-10-26 continuation
-  passes20selected PlayMode cases on Ubuntu (five fixture repairs, chest geometry,
-  seven parry mappings, lifecycle/pool, damage callback capture and pause).
+  Ubuntu Unity2022.3.25f1 passes61selected PlayMode cases for the new schedule,
+  adaptive starts, lifecycle/anchor/pause and shared normal/parry/legacy routes.
+  Fresh QA build/native capture and complete frame review are recorded. Clear opening
+  sweep at1x is not established under black-body/ivory-arc occlusion; axe/shield1x
+  playback still drops/waits. Visual acceptance not achieved; main integration withheld.
   Final build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)

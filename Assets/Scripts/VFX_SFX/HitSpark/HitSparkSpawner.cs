@@ -98,11 +98,13 @@ public class HitSparkSpawner : MonoBehaviour
     {
         if (!isActiveAndEnabled || !prefab || GamePauseController.InputBlocked || Time.timeScale == 0f) return;
         var recipient = targetRoot ? targetRoot : transform;
+        bool startAtContact = false;
         if (prefab.GetComponent<SlayerHitVfx>())
         {
             for (int i = active.Count - 1; i >= 0; i--)
             {
                 if (!active[i].TryGetComponent<SlayerHitVfx>(out var previous) || previous.Recipient != recipient) continue;
+                if (previous.IsPrimaryFor(recipient, hitAnchor, anchorLifetime) && previous.Age < .07f) startAtContact = true;
                 if (slayerLethal || previous.IsFading) previous.GetComponent<PooledVFX>().Release();
                 else previous.Retire();
             }
@@ -124,7 +126,7 @@ public class HitSparkSpawner : MonoBehaviour
             // The source B streak points up-right. Rotate that axis onto the authored swing.
             float clockwiseAngle = Mathf.Repeat(45 - Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, 360);
             // Slayer B stays black independently of combo tint and lethal mode exit.
-            slash.Emit(slayerVisualPoint ?? point, clockwiseAngle, Color.black, recipient, hitAnchor, anchorLifetime);
+            slash.Emit(slayerVisualPoint ?? point, clockwiseAngle, Color.black, recipient, hitAnchor, anchorLifetime, startAtContact);
             return;
         }
         if (go.TryGetComponent<NormalHitSpark>(out var normal))

@@ -4,7 +4,10 @@ Supersedes the old580ms/eight-random-angle Slayer presentation in the historical
 VFX row below. `PlayerSlayerMode` applies one of three contact-first280ms clips
 with the corresponding complete combo_end recovery (S3 starts combo_3_11),
 then opens the same deduplicated hitbox with its original collision timing. Direction follows
-that chosen swing/facing. `SlayerHitVfx` uses four original B cels,120/160ms,
+that chosen swing/facing. `SlayerHitVfx` uses original B cels F4/F5/F0/F1/F2/F3,
+240/280ms. A same-recipient/anchor/lifetime primary aged<70ms selects contact
+index2 (170/210ms), before retire/release; exactly70ms keeps the full sweep.
+A separate startFrame preserves real Age0 for both starts and resets on pool return,
 with black RGB supplied by the B-only spawn branch regardless of captured combo tint,
 one primary plus one30ms residual per recipient. EnemyHitAnchor binds the
 actual IDamageable object's renderer/profile. EnemyHitAnchorProfile owns bottom-left
@@ -17,8 +20,10 @@ Slayer trails; enemy/normal cel-driven geometry remains. `SlayerSilhouetteGroup`
 composes a40ms ivory body pulse through private DungeonSprite properties; jitter
 on the default Skeleton root is disabled. Shader defaults keep other materials'
 previous output. QA observations add no gameplay setters. Public contracts remain.
-Tests and exhaustive frame review are unexecuted at the user's request; status and
-clip are recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
+The new schedule passes61scoped Ubuntu cases; fresh QA/native capture and complete
+frame review are recorded. Clear opening sweep at1x is not established under black
+body/ivory arc occlusion; axe/shield1x playback still drops/waits. Visual acceptance
+is not achieved; main integration is withheld. Status and clips are recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
 
 # System and configuration map
 

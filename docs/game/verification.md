@@ -1,3 +1,41 @@
+## Slayer B sweep timeline (2026-10-26; visual acceptance not achieved)
+
+Ubuntu Unity2022.3.25f1 filtered100329-quick:61/61Passed,0failed/skipped,
+9.4710252s, input3ddcd51aefa4f062a880f9a9c6dec1aa2af2e04713578df8e032a652c75c6976.
+Covers six original cels/timing/size/centroids, both starts/roles/all boundaries,
+35/50/69/70/100/300ms repeated contacts, target/lifetime/residual isolation,
+finisher/pool, chest poses/transforms, pause/hide/death/destroy and selected
+normal/parry/legacy consumers. Final pause-only101745-quick after removing
+verbose diagnostics:1/1Passed,0failed/skipped; other60cases' inputs unchanged.
+No full suite, stress/soak or extra viewport.
+
+Final QA101847-webgl and strict repeated builder passed. Player d13202894a63688f,
+input12eee2cd7f7fb786befbe9e0288534146bbc59ba59214f198a3f0223f955cbfc;
+33/33player hashes and2494/2494source file hashes matched. Earlier external LF
+adapter snapshots with mtime0 could reuse stale Bee assemblies and are not
+qualification evidence. Corrected adapter preserves source mtime; repo CI unchanged.
+
+Native1280x720, real keys/read-only bridge:0exceptions/provider reads/writes;
+2352combat samples, all6cels/3angles,224observed births (156full/68contact),
+all first ages0,0sampled timeline errors, max2impacts,223/223pause pairs held,
+max residual alpha0.2502. Live root-to-chest distance0 in sampled valid states;
+this does not prove visibility of the ink center.
+
+Direct frame/transition inspection: sword301/300, axe727/726, shield314/313;
+1342frames/1339pairs total, including separately reviewed axe ending frame2581.
+Black torso and ivory arc hide parts of the opening stroke (e.g. sword491,
+shield2982-3011). Peak/fragment changes are visible in some pale Hurt frames,
+but clear sweep-growth at1x is not established. Do not report visual PASS.
+Technical playback qualifies sword1x and all three0.25x rows; axe/shield1x still
+have drops/waiting. Full-buffer and codec trials did not resolve axe1x; failed
+attempts retained. Playback metrics are separate from direct motion observations.
+
+Permanent evidence: `E:/codex-data/artifacts/TypingHero/slash-b-sweep-20261026/`
+contains before/after clips, per-frame CSV, original PTS, timing/native audit,
+qualified XML/build receipt, and every failed playback report. Candidate branch
+is retained; main integration is withheld until the original visual/playback gate
+passes. [Existing checkpoint](../plans/slayer-slash-vfx.md).
+
 ## Shared chest anchor for Slayer B (acceptance reopened 2026-10-26)
 
 The playback-quality audit supersedes the earlier overall acceptance claim.
