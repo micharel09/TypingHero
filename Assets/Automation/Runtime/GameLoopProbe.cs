@@ -247,7 +247,41 @@ public sealed class GameLoopProbe : MonoBehaviour
         TypingHeroQA_CombatFrame(JsonUtility.ToJson(combatFrame));
 #endif
     }
+    PlayerHealth performancePlayer;
+    SkeletonController performanceEnemy;
+    PlayerSlayerMode performanceSlayer;
+    DuelIntroPresentation performanceIntro;
     void LateUpdate()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        int mode = TypingHeroQA_FrameBegin();
+        try
+        {
+            if ((mode & 1) != 0) ObserveDetailedFrame();
+        }
+        finally
+        {
+            if ((mode & 2) != 0)
+            {
+                int flags = SceneManager.GetActiveScene().name == "SampleScene" ? 1 : 0;
+                if (performanceIntro && performanceIntro.Running) flags |= 2;
+                if (GamePauseController.IsPaused) flags |= 4;
+                if (GamePauseController.EncounterReading) flags |= 8;
+                if (CombatSession.Finished) flags |= 16;
+                if (DungeonSession.Current && DungeonSession.Current.Transitioning) flags |= 32;
+                if (performanceSlayer && performanceSlayer.IsActive) flags |= 64;
+                if (observedParry && observedParry.IsWindowActive) flags |= 128;
+                if (performancePlayer && performancePlayer.Current > 0 && performanceEnemy && performanceEnemy.Current > 0) flags |= 256;
+                if (GamePauseController.InputBlocked) flags |= 512;
+                TypingHeroQA_FrameEnd(Time.frameCount, Time.unscaledDeltaTime * 1000, flags,
+                    CombatSession.I ? CombatSession.I.Parries : 0, Time.timeScale);
+            }
+        }
+#else
+        ObserveDetailedFrame();
+#endif
+    }
+    void ObserveDetailedFrame()
     {
         PublishCombatFrame();
         if (!sortingAnimator || !sortingSprite) return;
@@ -551,6 +585,8 @@ public sealed class GameLoopProbe : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")] static extern void TypingHeroQA_Publish(string json);
     [DllImport("__Internal")] static extern void TypingHeroQA_CombatFrame(string json);
+    [DllImport("__Internal")] static extern int TypingHeroQA_FrameBegin();
+    [DllImport("__Internal")] static extern void TypingHeroQA_FrameEnd(int frame, float deltaMs, int flags, int parries, float timeScale);
 #endif
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Install()
@@ -602,6 +638,10 @@ public sealed class GameLoopProbe : MonoBehaviour
                 if (observedParry) observedParry.OnParrySuccess += Parry;
             }
             var slayer = FindObjectOfType<PlayerSlayerMode>();
+            performancePlayer = health;
+            performanceEnemy = enemy;
+            performanceSlayer = slayer;
+            performanceIntro = FindObjectOfType<DuelIntroPresentation>();
             var gate = FindObjectOfType<PlayerInputGate>();
             var pause = FindObjectOfType<GamePauseController>();
             var board = FindObjectOfType<LeaderboardUIBinder>();

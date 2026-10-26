@@ -1,3 +1,29 @@
+## Automation frame buffer and dungeon performance diagnostics (2026-10-26)
+
+`TYPINGHERO_AUTOMATION` alone contains the fixed16384-row Unity LateUpdate buffer.
+Set `window.typingHeroPerfOptions={enabled:true,detailed:false}` for minimal frame
+observation; the default retains the existing detailed QA behavior. Batch reader
+`typingHeroReadFrames()` exposes loss/focus epochs; it never controls gameplay.
+The100ms state is sampled memory/driver context, not individual Unity frame timing.
+`tools/game_loop/frame_timing.cjs` keeps Unity/rAF/CPU/GPU clocks distinct and
+invalidates missing/focus-lost traces without dropping combat hitches. Run its
+6targeted contracts with `node --test tools/game_loop/test_frame_timing.cjs`.
+
+Ubuntu QA20261026T144542/player7cd77c5fb88da486:33file hashes verified;
+2495current player inputs match. Four real-input1280x720/world320x180 NVIDIA1650Ti
+diagnostics finish with0exceptions/provider traffic, correct normal/parry/Slayer
+coverage and no lost samples. All fail the≥59FPS/p95≤18ms target. GPU query is
+diagnostic only; detailed-off still retains the100ms state publisher. No runtime
+optimization, formal ABBA, new frame-review or production FPS pass is claimed.
+Final same-harness normal pair also fails at53.97/54.02FPS,p9520.55/19.53ms;
+light changing-WebGL control53.03rAF-FPS,p9519.2ms supports the unresolved
+browser/environment pacing concern. No actor-coverage gaps in retained traces.
+Ubuntu production20261026T150148 exits0;33downloaded hashes match,2495player
+inputs equal QA. Six decoded HTML/JS/WASM/data payloads exclude existing and new
+QA/performance markers in UTF8/UTF16LE, with a QA positive control. This is bridge
+exclusion evidence, not a production performance/playtest pass.
+Exact metrics, retained traces and pending gates: [lighting checkpoint](../plans/combat-hanging-light.md).
+
 ## Shared chest anchor for Slayer B (final2026-10-26)
 
 Ubuntu Unity2022.3.25f1:20unique scoped PlayMode cases PASS,0failed/skipped

@@ -1,0 +1,314 @@
+{
+  "qaPlayer": "7cd77c5fb88da486",
+  "sourceInput": "e3def152329e81f0a7f3dc9ff5ea3935084fdf274937b39924e0cb545fc205a1",
+  "acceptance": "NOT ACCEPTED; diagnostics only; formal ABBA not run",
+  "runs": [
+    {
+      "run": "normal-detailed",
+      "cohort": "earlier diagnostic, preserved",
+      "diagnostic": true,
+      "driverHashes": null,
+      "options": null,
+      "status": "passed",
+      "summary": {
+        "valid": true,
+        "invalidReasons": [],
+        "frames": 318,
+        "combatMs": 10283.890000000596,
+        "fps": 30.92215105373371,
+        "p95": 34.96500000357628,
+        "hitchOver50Ms": 0,
+        "longestSlowWindowMs": 8050.884999997914,
+        "thresholdsMet": false
+      },
+      "span": "CPU/GPU/observer/draw/memory statistics cover the whole diagnostic including 5s warmup; combat FPS/p95 use the separate measurement window",
+      "observerMedianMs": 2.817500002682209,
+      "callbackMedianMs": 11.20499999821186,
+      "drawCallsMedian": 166,
+      "gpuMedianMs": null,
+      "gpuSamples": 0,
+      "parriesRange": [
+        0,
+        0
+      ],
+      "slayerFrames": 0,
+      "unclassifiedActorFrames": 0,
+      "memoryMinMax": [
+        61941937,
+        62033244
+      ],
+      "sha256": "9ee9b8a7b2e081206ea8656df202fd0f3cde1b01ffe7bb8407c250871cd05a03"
+    },
+    {
+      "run": "normal-minimal",
+      "cohort": "earlier diagnostic, preserved",
+      "diagnostic": true,
+      "driverHashes": null,
+      "options": null,
+      "status": "passed",
+      "summary": {
+        "valid": true,
+        "invalidReasons": [],
+        "frames": 313,
+        "combatMs": 10213.320000000298,
+        "fps": 30.646254107380447,
+        "p95": 33.59499999880791,
+        "hitchOver50Ms": 0,
+        "longestSlowWindowMs": 10213.320000000298,
+        "thresholdsMet": false
+      },
+      "span": "CPU/GPU/observer/draw/memory statistics cover the whole diagnostic including 5s warmup; combat FPS/p95 use the separate measurement window",
+      "observerMedianMs": 0.015000000596046448,
+      "callbackMedianMs": 7.2349999994039536,
+      "drawCallsMedian": 166,
+      "gpuMedianMs": null,
+      "gpuSamples": 0,
+      "parriesRange": [
+        0,
+        0
+      ],
+      "slayerFrames": 0,
+      "unclassifiedActorFrames": 0,
+      "memoryMinMax": [
+        61935882,
+        62022104
+      ],
+      "sha256": "458e4e74afde0d213ec26dd22f1394c4ec62b125ea024e23c6f210a072efabdb"
+    },
+    {
+      "run": "normal-gpu",
+      "cohort": "earlier diagnostic, preserved",
+      "diagnostic": true,
+      "driverHashes": null,
+      "options": null,
+      "status": "passed",
+      "summary": {
+        "valid": true,
+        "invalidReasons": [],
+        "frames": 300,
+        "combatMs": 11826.019999995828,
+        "fps": 25.367790685294448,
+        "p95": 37.53499999642372,
+        "hitchOver50Ms": 12,
+        "longestSlowWindowMs": 5004.204999998212,
+        "thresholdsMet": false
+      },
+      "span": "CPU/GPU/observer/draw/memory statistics cover the whole diagnostic including 5s warmup; combat FPS/p95 use the separate measurement window",
+      "observerMedianMs": 3.2525000013411045,
+      "callbackMedianMs": 12.284999996423721,
+      "drawCallsMedian": 166,
+      "gpuMedianMs": 3.56392,
+      "gpuSamples": 412,
+      "parriesRange": [
+        0,
+        0
+      ],
+      "slayerFrames": 0,
+      "unclassifiedActorFrames": 0,
+      "memoryMinMax": [
+        61937082,
+        62020964
+      ],
+      "sha256": "a51c955535553b4fd383233c4429e522a8a2407ec46aa1c3b917dfeddd337c7c"
+    },
+    {
+      "run": "parry-detailed",
+      "cohort": "earlier diagnostic, preserved",
+      "diagnostic": true,
+      "driverHashes": null,
+      "options": null,
+      "status": "passed",
+      "summary": {
+        "valid": true,
+        "invalidReasons": [],
+        "frames": 1016,
+        "combatMs": 20366.704999998212,
+        "fps": 49.88533982301453,
+        "p95": 23.940000005066395,
+        "hitchOver50Ms": 2,
+        "longestSlowWindowMs": 725.3400000035763,
+        "thresholdsMet": false
+      },
+      "span": "CPU/GPU/observer/draw/memory statistics cover the whole diagnostic including 5s warmup; combat FPS/p95 use the separate measurement window",
+      "observerMedianMs": 4.179999999701977,
+      "callbackMedianMs": 12.570000000298023,
+      "drawCallsMedian": 167,
+      "gpuMedianMs": null,
+      "gpuSamples": 0,
+      "parriesRange": [
+        0,
+        6
+      ],
+      "slayerFrames": 325,
+      "unclassifiedActorFrames": 0,
+      "memoryMinMax": [
+        61941432,
+        62275529
+      ],
+      "sha256": "aadea6d64facd34969d0ceca403c8ad48fe93fa42b85e0af3014bb1cc46684bb"
+    },
+    {
+      "run": "normal-final-detailed",
+      "cohort": "earlier diagnostic, preserved",
+      "diagnostic": true,
+      "driverHashes": {
+        "dungeon_performance.cjs": "1ef8defc0659dbbe5d2370fc99a940f0215b4f1a248ea5d250a713252eb88aba",
+        "frame_timing.cjs": "269837ce4e3ac635dd8b833b0673459988570260cbdf4648fa75fe3b9a35ebd6"
+      },
+      "options": {
+        "detailed": true,
+        "gpu": false,
+        "counters": true
+      },
+      "status": "passed",
+      "summary": {
+        "valid": true,
+        "invalidReasons": [],
+        "frames": 544,
+        "combatMs": 10101.92499999702,
+        "fps": 53.85112243460137,
+        "p95": 21.144999995827675,
+        "hitchOver50Ms": 0,
+        "longestSlowWindowMs": 55.29999999701977,
+        "thresholdsMet": false
+      },
+      "span": "CPU/GPU/observer/draw/memory statistics cover the whole diagnostic including 5s warmup; combat FPS/p95 use the separate measurement window",
+      "observerMedianMs": 2.739999994635582,
+      "callbackMedianMs": 9.67000000178814,
+      "drawCallsMedian": 166.0,
+      "gpuMedianMs": null,
+      "gpuSamples": 0,
+      "parriesRange": [
+        0,
+        0
+      ],
+      "slayerFrames": 0,
+      "unclassifiedActorFrames": 0,
+      "memoryMinMax": [
+        61952712,
+        62042521
+      ],
+      "sha256": "0fb09988da23ece46cb2027cd12a283ed37b0a51f7f46177a24a103910d1c7b8"
+    },
+    {
+      "run": "normal-locked-detailed",
+      "cohort": "locked same harness",
+      "diagnostic": true,
+      "driverHashes": {
+        "dungeon_performance.cjs": "1ef8defc0659dbbe5d2370fc99a940f0215b4f1a248ea5d250a713252eb88aba",
+        "frame_timing.cjs": "7a44f438bf124e29f00d1541c3cbd1eccef9eb437aa66510e21c9d61b5ec5613"
+      },
+      "options": {
+        "detailed": true,
+        "gpu": false,
+        "counters": true
+      },
+      "status": "passed",
+      "summary": {
+        "valid": true,
+        "invalidReasons": [],
+        "frames": 546,
+        "combatMs": 10116.560000002384,
+        "fps": 53.97091501457722,
+        "p95": 20.549999997019768,
+        "hitchOver50Ms": 0,
+        "longestSlowWindowMs": 25.765000000596046,
+        "thresholdsMet": false
+      },
+      "span": "CPU/GPU/observer/draw/memory statistics cover the whole diagnostic including 5s warmup; combat FPS/p95 use the separate measurement window",
+      "observerMedianMs": 2.3674999997019768,
+      "callbackMedianMs": 7.884999997913837,
+      "drawCallsMedian": 166,
+      "gpuMedianMs": null,
+      "gpuSamples": 0,
+      "parriesRange": [
+        0,
+        0
+      ],
+      "slayerFrames": 0,
+      "unclassifiedActorFrames": 0,
+      "memoryMinMax": [
+        61953648,
+        62042765
+      ],
+      "sha256": "e6c56674eb4f10bcaa2e2a66b2da73824186a575989244556a2905957e6d73db"
+    },
+    {
+      "run": "normal-locked-minimal",
+      "cohort": "locked same harness",
+      "diagnostic": true,
+      "driverHashes": {
+        "dungeon_performance.cjs": "1ef8defc0659dbbe5d2370fc99a940f0215b4f1a248ea5d250a713252eb88aba",
+        "frame_timing.cjs": "7a44f438bf124e29f00d1541c3cbd1eccef9eb437aa66510e21c9d61b5ec5613"
+      },
+      "options": {
+        "detailed": false,
+        "gpu": false,
+        "counters": true
+      },
+      "status": "passed",
+      "summary": {
+        "valid": true,
+        "invalidReasons": [],
+        "frames": 544,
+        "combatMs": 10069.660000003874,
+        "fps": 54.02367110704738,
+        "p95": 19.530000001192093,
+        "hitchOver50Ms": 0,
+        "longestSlowWindowMs": 0,
+        "thresholdsMet": false
+      },
+      "span": "CPU/GPU/observer/draw/memory statistics cover the whole diagnostic including 5s warmup; combat FPS/p95 use the separate measurement window",
+      "observerMedianMs": 0.009999997913837433,
+      "callbackMedianMs": 4.629999995231628,
+      "drawCallsMedian": 166,
+      "gpuMedianMs": null,
+      "gpuSamples": 0,
+      "parriesRange": [
+        0,
+        0
+      ],
+      "slayerFrames": 0,
+      "unclassifiedActorFrames": 0,
+      "memoryMinMax": [
+        61948096,
+        62036880
+      ],
+      "sha256": "be0c33bfbdbe2078a2224bce6d02de421a4f76b198d2c9f3814dd84ef90820cc"
+    }
+  ],
+  "browserControls": [
+    {
+      "name": "empty-page",
+      "intervals": 374,
+      "rafFps": 31.13708643455384,
+      "p95": 33.19999999999891,
+      "focusValid": true,
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "name": "empty-chromium",
+      "intervals": 369,
+      "rafFps": 30.74538819177123,
+      "p95": 33.399999999999636,
+      "focusValid": true,
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "name": "empty-chromium-controlled",
+      "intervals": 363,
+      "rafFps": 30.249495841735968,
+      "p95": 33.5,
+      "focusValid": true,
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "name": "paint-chromium-controlled",
+      "intervals": 637,
+      "rafFps": 53.0311860004329,
+      "p95": 19.199999999999818,
+      "focusValid": true,
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}

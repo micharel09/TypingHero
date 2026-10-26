@@ -1,3 +1,134 @@
+## Frame measurement continuation — acceptance pending (2026-10-26 evening)
+
+Continue the existing `micharel09/replaced-dungeon-lighting-2` worktree. Fresh
+fetch resolves main to `480ad7039d0379d2194a6750f5dba938aa58fa24`;
+neither candidate HEAD `f4f684c301556b9c60b95764307d9e6762b7c094` nor lighting draft
+`c590c736` is its ancestor. The incoming plan's “candidate already on main” premise
+is therefore not true for this checkout. Use that candidate as the optimization
+baseline; keep the pre-lighting player strictly for visual comparison. Do not
+merge the unaccepted candidate into main to make the premise true.
+
+Automation changes only:
+
+- The QA bridge stores scalar Unity LateUpdate markers in a fixed 16,384-row
+  Float64 buffer. Batched reads expose sequence, actual `Time.frameCount`, monotonic
+  callback timestamp, Unity delta, detailed-observer cost, presentation/combat flags,
+  parry count, time scale, focus, visibility and focus-event epoch. Buffer loss and
+  frame gaps invalidate a run. These are player-loop markers, not GPU presentation
+  timestamps; the existing 100ms state is never expanded into synthetic frames.
+- `tools/game_loop/frame_timing.cjs` measures rAF, CPU callbacks containing Unity
+  frames, optional diagnostic GPU queries, draw calls and sampled memory separately.
+  Unavailable/disjoint GPU results stay absent; CPU callback time is not GPU time.
+  Combat hitches, hitstop and held frames stay in the distribution. Only explicit
+  intro/loading/reading/Pause/result boundaries are excluded from combat coverage.
+- `tools/game_loop/dungeon_performance.cjs` uses the existing native fixture-only
+  harness, real keyboard/mouse, 320x180 world and 1280x720 player. It retains traces
+  on input/assertion failure, drains every250ms, and checks continuity/focus before
+  duration and thresholds. Normal acceptance requires15s warmup/60s combat; separate
+  short diagnostics compare detailed QA on/off and GPU query overhead. Real-render
+  contact state drives Space; Continue waits for actual encounter state.
+- All6 Node contract tests pass, including overflow, focus events across drains,
+  missing/unclassified actor coverage, retained combat hitch, sustained30FPS and input-failure persistence.
+  Command: `node --test tools/game_loop/test_frame_timing.cjs`.
+
+Two separate focused/visible empty-page diagnostics on the actual GTX1650Ti/D3D11:
+Edge156:374intervals,31.1371FPS,p9533.2ms; Chromium153:369intervals,30.7454FPS,
+p9533.4ms. Raw samples retain startup hitches. This is environment/browser evidence,
+not an attribution of a Unity bottleneck. No power/GPU settings or user applications
+were changed. No shader, art, probe/shadow/fixture budget, timing or gameplay edits.
+
+Durable evidence root (outside task temp):
+`C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261026`.
+
+QA Ubuntu `20261026T144542-webgl` PASS, immutable canonical input
+`e3def152329e81f0a7f3dc9ff5ea3935084fdf274937b39924e0cb545fc205a1`, native player
+`7cd77c5fb88da486`. All33 downloaded player hashes match the server; all2495 current
+Assets/Packages/ProjectSettings inputs match that snapshot after canonical LF.
+This run includes the normal builder's repeated serialization check. The earlier
+72 scoped Unity cases and declared visual/frame coverage remain evidence for
+unchanged game/render inputs; they are not new test/frame-review executions.
+
+Native Chromium153/GTX1650Ti/ANGLE D3D11, no video, four **diagnostics**:
+
+| Mode | Combat ms | Unity FPS | p95 ms | >50ms hitches | Longest >25ms-frame run |
+|---|---:|---:|---:|---:|---:|
+| Normal, detailed QA | 10283.89 | 30.922 | 34.965 | 0 | 8050.885ms |
+| Normal, detailed QA off | 10213.32 | 30.646 | 33.595 | 0 | 10213.320ms |
+| Normal, GPU query on | 11826.02 | 25.368 | 37.535 | 12 | 5004.205ms |
+| Parry/Slayer, detailed QA | 20366.70 | 49.885 | 23.940 | 2 | 725.340ms |
+
+Each uses5s warmup, continuous actual Unity markers and separate browser clocks;
+all four diagnostic executions pass coverage/input checks with0exceptions and
+0provider reads/writes. “Diagnostic passed” does **not** mean performance accepted:
+every run fails FPS/p95 thresholds. Parry run records6actual parries and325Slayer
+frames. No lost buffer rows/frame gaps/focus/visibility changes. Same-launch-flags
+empty Chromium repeat is also slow:363intervals,30.2495FPS,p9533.5ms.
+
+Whole-diagnostic medians (including warmup, not the combat-only window): detailed
+QA observer2.8175ms vs minimal0.015ms; Unity-containing CPU callback11.205ms vs
+7.235ms;166draws each. Minimal disables the expensive render/sorting observation;
+the original100ms state publisher remains enabled. It is not a bridge-free or
+production comparison. Query run records412non-disjoint GPU samples, median
+3.56392ms, CPU callback12.285ms; its worse cadence/hitches are retained. These short
+non-ABBA trials establish neither GPU causality nor production equivalence.
+Allocated Unity memory ranges61,935,882..62,275,529bytes across the diagnostics;
+JS heap and original per-batch memory remain in raw traces. Parry draw median167.
+
+After reducing driver state payload and pinning per-run driver hashes, a final
+normal pair uses identical harness files (driver `1ef8defc…`, collector `7a44f438…`):
+detailed546frames/10116.56ms,53.9709FPS,p9520.55ms; minimal544/10069.66ms,
+54.0237FPS,p9519.53ms. Both retain166draws and0hitches>50ms. Whole-run observer
+medians2.3675/0.010ms and CPU callback7.885/4.630ms; both still fail thresholds.
+All traces contain0unclassified live-actor frames under the final coverage rule.
+Earlier four diagnostics and an intermediate53.8511FPS repeat are preserved,
+not pooled with this pair. The initial detailed-vs-minimal pilot is not the final
+same-harness comparison.
+
+Same launch flags,1280x720 continuously color-cleared WebGL canvas with no Unity:
+637intervals/12s,53.0312rAF-FPS,p9519.2ms,focused/visible on the same NVIDIA GPU.
+Unlike an idle blank page this submits changing GPU content each frame. Its
+similar cadence to the final53.97/54.02Unity pair supports retaining the browser/
+environment limitation as unresolved; it does not establish a specific OS/driver
+cause. No configuration/application changes were made to force a passing result.
+
+Full raw batches/actions/states, source/player manifests, failed acceptance flags
+and [versioned summary](evidence/replaced-lighting-20261025/performance-diagnostics-20261026.json)
+are retained. No runtime optimization was selected: current data does not isolate
+a game bottleneck from the demonstrably slow/variable browser environment.
+Formal15s/60s ABBA for each mode, original-speed/quarter-speed playback acceptance
+and final main integration remain **unverified**, with unchanged≥59FPS/p95≤18ms
+and no sustained30FPS criteria. Keep this branch/worktree and evidence. Resume
+matched baseline/candidate diagnostics in a stable foreground session before
+selecting a runtime change; do not average failed runs into a pass.
+
+Production Ubuntu `20261026T150148-production` exits0, QA=false, canonical input
+`30cb77880ca45d1bf96808069a2b9ffdd968d0159a919b4cc63de3586d2281ea`.
+Its2495 Assets/Packages/ProjectSettings inputs equal the QA snapshot; only tooling
+inputs differ. All33 downloaded production files match remote SHA256. Local scan
+of6decoded HTML/JS/WASM/data payloads (Brotli decoded, UTF8/UTF16LE) finds none of
+`typingHeroQA`, `typingHeroPerf`, `typingHeroReadFrames`, `TypingHeroQA_Frame`,
+`GameLoopProbe`; the QA framework is a positive control for the buffer marker.
+This verifies exclusion, not production FPS or a new production gameplay playtest.
+
+Retain `qa-build/`, `production-build/`, raw diagnostic directories, exact
+`locked-harness/` files (hash-verified against the final paired receipts), native
+and Ubuntu adapters, manifests and runner logs under the durable root. The matching
+two remote immutable result directories remain under the existing private runner
+`/data/typinghero-game-loop/tasks/replaced-lighting-20261026-c590c73/results/`.
+Keep the existing task branch/worktree for acceptance and eventual integration;
+release these evidence resources after replacement/review and verified integration.
+Task-created registered scratch is disposable after those deliverables are saved.
+No task browser or Unity build remains running after the completed commands.
+
+Resume with the retained native harness and fresh output directory. Set
+`ARENA_BUILD` to the exact candidate player, `ARENA_HEADED=1`, `ARENA_CONTROLLED=1`,
+`ARENA_BROWSER_EXE` to the recorded Chromium executable, `PERF_OUTPUT` to that output
+directory, `PERF_MODE=normal` or `parry`, `PERF_DETAILED=1`, `PERF_DIAGNOSTIC=0` and
+`PERF_GPU=0`; invoke `node native.cjs scenario.cjs`. Formal mode uses15s/60s and
+draw counters with no GPU query/video. Re-establish a matched instrumented A/B pair
+on the pinned post-lighting runtime before the prescribed ABBA; the old pre-lighting
+player remains visual evidence only. The final driver also records its own hashes.
+
 ## Current integration checkpoint — not accepted/integrated (2026-10-26)
 
 Task HEAD merged newer main4506bb1 as084b38ee, retaining its authored chest-attached
