@@ -1,4 +1,12 @@
-## Shared chest anchor for Slayer B (final2026-10-26)
+## Shared chest anchor for Slayer B (acceptance reopened 2026-10-26)
+
+The playback-quality audit supersedes the earlier overall acceptance claim.
+Geometry and scoped visible-frame observations remain reusable, but completion
+of a video does not establish playback quality. New reports separate callback
+count, presented-frame metadata, decode quality, focus/visibility and elapsed
+time from direct motion observations. Acceptance remains **unverified** until
+all six playback passes qualify technically and have direct observer findings.
+See [the playback audit](../plans/slayer-slash-vfx.md#playback-quality-audit-2026-10-26).
 
 Ubuntu Unity2022.3.25f1:20unique scoped PlayMode cases PASS,0failed/skipped
 (14unchanged cases from062003 +6final geometry/callback cases from063715).
@@ -22,7 +30,9 @@ observed damage; no unexplained parry fault or gameplay timing change.
 
 Direct final output review789/789frames,786/786pairs; original variable PTS and
 held frames preserved, including one explicitly declared extra ending hold. Three
-MP4 clips match source frame counts/PTS and finish Edge playback at1x/0.25x.
+MP4 clips match source frame counts/PTS. Historical Edge playback reached the
+end at1x/0.25x, but its callback counter was mislabeled `presentedFrames` and
+its driver did not qualify interruptions, focus or dropped frames.
 B center often merges into black torso/shield or is covered by ivory arcs/Pause UI;
 those exact frame limits are recorded separately from centroid/root measurements.
 No full suite, stress/soak, multiple viewports, full raw-video review, performance
