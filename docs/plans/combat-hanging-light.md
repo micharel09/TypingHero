@@ -28,7 +28,23 @@ Its private license/cache must be removed after integration and evidence retenti
   Includes painted-map/custom-binding preservation, two-world Preview/Undo/Redo,
   scene save/reopen and byte-stable authored maps through both builder passes.
   Log and serialized outputs retained at `ubuntu-repeat-20261026/`.
-- Four-direction white-light output, Ubuntu-built paired
+- Ubuntu four-direction white-light output **184/184 images actually inspected**,
+  **168/168 internal adjacent pairs**,23Attack1/Die cels in both facings. Native
+  actor crops and nearest2x, plus full320x180 Die0 output. Eye/rib cavities remain
+  dark; crown/limbs/steel respond toward the selected direction after mirroring.
+  Wide source swing smear becomes bright toward its facing light; source VFX and
+  alpha remain unchanged. [Per-image notes](evidence/replaced-lighting-20261025/neutral-frame-review.csv),
+  [swing matrix](evidence/replaced-lighting-20261025/neutral-swing.png).
+  Full23sheets/raw184PNGs/manifest remain at `neutral-review-20261026/` and
+  `ubuntu-neutral-20261026/` in the existing external evidence root.
+- These are functional **llvmpipe LLVM15.0.7** renders on Ubuntu, not GTX performance.
+  [Photometric fixture](evidence/replaced-lighting-20261025/ubuntu-photometric.txt):
+  flat-depth parity0,missing-map parity0,mirror error0, main occlusion/additional
+  fill/emission isolation PASS. Result `20261026T070816-serialize`, snapshot
+  `ed71b6967079565ef3131ffb714a02857af0d5bcf262e253e941dbc94b0c8a8e`.
+  Prior failed diagnostic had a temporary script in the wrong assembly; moving it
+  into the test assembly fixed compilation without a game-source change.
+- Ubuntu-built paired
   WebGL players, six-opponent real input/playback and GTX1650Ti ABBA measurements
   remain pending. Do not integrate while these acceptance gates are unverified.
 

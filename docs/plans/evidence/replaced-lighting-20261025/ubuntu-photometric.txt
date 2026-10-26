@@ -1,0 +1,5 @@
+flatMax=0
+missingMax=0
+receiverOff=RGBA(0.222, 0.040, 0.432, 1.000)
+receiverOn=RGBA(0.078, 0.040, 0.432, 1.000)
+mirrorMax=0
