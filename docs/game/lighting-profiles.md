@@ -10,7 +10,7 @@ localized, constant cool floor fill; this does not re-enable the rune or haze. S
 RearHaze and LowHaze are also disabled: their blue decorative overlays produced
 the remaining horizontal glow after the rune was removed.
 
-## REPLACED follow-up candidate (not runtime-accepted)
+## REPLACED follow-up candidate (performance/playback acceptance pending)
 
 The follow-up branch uses dungeon-specific front/side/rear LightProfiles rather
 than editing shared fixture profiles: front2/range16, left side32/range13,
@@ -18,8 +18,13 @@ opposite side4/range10, rear4/range15. The sixth, fixed cool fill stays64/range1
 Anchors, authored flames, shadow atlas, combat scheduler and camera stay unchanged.
 Fog is a very dark cool RGB(.004,.009,.018). Haze/rune/beam/planar reflection remain off.
 Static preview/shader, Ubuntu strict repeated-builder and four-direction white-light
-checks pass (llvmpipe functional diagnostics); candidate runtime and60FPS acceptance remain pending in the
-[checkpoint](../plans/combat-hanging-light.md).
+checks pass (llvmpipe functional diagnostics). The merged Ubuntu WebGL player
+passes actual-input checks on NVIDIA GTX1650Ti at1280x720/world320x180:
+six production encounters/five unique definitions, plus a separate exact-data
+Berserker fixture. Scoped native output inspection covers1117frames/1108pairs,
+plus296frames/294pairs for Berserker. Original-speed subjective playback and
+stable60FPS acceptance remain unverified; failed timing runs are retained in the
+[checkpoint](../plans/combat-hanging-light.md). The candidate is not integrated.
 
 Normal authoring is explicit/offline. Repeat `--source <atlas.png>` with
 `tools/lighting/author_actor_normals.py`; omit `--write` for a read-only run.

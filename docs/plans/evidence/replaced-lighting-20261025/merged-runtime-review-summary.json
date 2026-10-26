@@ -1,0 +1,102 @@
+{
+  "build": "03dc85d05f9853dd",
+  "status": "passed",
+  "checks": 1329,
+  "browser": "153.0.8010.12",
+  "graphics": {
+    "vendor": "Google Inc. (NVIDIA)",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "fixtureReads": 1,
+  "fixtureWrites": 1,
+  "externalBlocked": 0,
+  "exceptions": [],
+  "source_video": "C:\\CodexTemp\\TypingHero\\replaced-lighting-final-20261025\\video\\page@cea04577be981240dd1f17773b041844.webm",
+  "video_sha256": "4ef4cffd5d0949b08aca4d0e958a719048e626b6f64d5f31c31519c1999654ba",
+  "exported_frames": 1117,
+  "actually_inspected_frames": 1117,
+  "actually_inspected_pairs": 1108,
+  "scopes": [
+    {
+      "name": "full-intro-and-preparation",
+      "start": 54.0,
+      "end": 59.004999999999995
+    },
+    {
+      "name": "slayer-entry-all-held-motion-and-restoration",
+      "start": 67.183,
+      "end": 80.599
+    },
+    {
+      "name": "retry-menu",
+      "start": 214.641,
+      "end": 219.12800000000001
+    },
+    {
+      "name": "encounter-0-attack-parry-followup",
+      "start": 63.096,
+      "end": 67.127
+    },
+    {
+      "name": "encounter-1-attack-parry-followup",
+      "start": 91.83200000000001,
+      "end": 95.35
+    },
+    {
+      "name": "encounter-2-attack-parry-followup",
+      "start": 111.539,
+      "end": 115.055
+    },
+    {
+      "name": "encounter-3-attack-parry-followup",
+      "start": 128.975,
+      "end": 132.571
+    },
+    {
+      "name": "encounter-4-attack-parry-followup",
+      "start": 149.779,
+      "end": 153.289
+    },
+    {
+      "name": "encounter-5-attack-parry-followup",
+      "start": 174.029,
+      "end": 177.891
+    }
+  ],
+  "limits": [
+    "Original-speed subjective playback and target-GPU performance remain unverified.",
+    "Berserker uses a separate serialized diagnostic fixture; production remains six encounters/five unique definitions."
+  ],
+  "runtime_coverage": [
+    {
+      "defeated": 1,
+      "hp": 30,
+      "parries": 3
+    },
+    {
+      "defeated": 2,
+      "hp": 25,
+      "parries": 4
+    },
+    {
+      "defeated": 3,
+      "hp": 25,
+      "parries": 6
+    },
+    {
+      "defeated": 4,
+      "hp": 15,
+      "parries": 8
+    },
+    {
+      "defeated": 5,
+      "hp": 10,
+      "parries": 11
+    },
+    {
+      "defeated": 6,
+      "hp": 5,
+      "parries": 15
+    }
+  ]
+}

@@ -15,14 +15,15 @@ and4506; all six definitions differ only by the new hitAnchor reference. Control
 idle/hurt/attack references, sequences and timings are unchanged:281cels/306keys
 remain current. Static pose/white-light/shader checks can be reused; the old native
 video does not certify the updated intro or chest VFX. Updated paired Ubuntu WebGL
-builds and final native runtime review remain pending.
+builds and scoped native frame inspection have now passed as recorded below;
+subjective timed playback and performance acceptance remain unverified.
 
 Reachability correction: production round1 contains six encounters but only five
 distinct definitions: Swordsman,DoubleStrike,Heavy,Guard,Elite/Swordsman,Captain.
 `EndlessRun.RepeatAfterBoss=false`; Berserker is selected only in unreachable round2.
 The earlier real-input run therefore establishes **six encounters, five unique
 definitions**, not six unique definitions. A separate serialized Berserker fixture
-is prepared for real-key combat without changing the production run or adding a
+was built for real-key combat without changing the production run or adding a
 runtime mutation API. Production Berserker reachability is outside this task.
 
 Host pacing remains unresolved: a scoped telemetry repeat stopped when its candidate
@@ -48,7 +49,55 @@ Slayer presentation and scene-cover transitions are intentional.
 Merged-main baseline WebGL build completed on Ubuntu at `20261026T084445-webgl`,
 input `9356c4be2ad703a4fc1046036e31b641609a899856bab93a48ef5e7e64c139b3`.
 All33 downloaded player files match their immutable remote SHA256 hashes; QA flag
-is true. Candidate build `20261026T090032-webgl` is running on Ubuntu.
+is true. Candidate build `20261026T090032-webgl` also completed successfully on
+Ubuntu, with all33 player-file hashes verified (48,211,165 bytes). Its input is the
+same5595b34e canonical input as the72tests and repeated builder above; native build
+identity is `03dc85d05f9853dd`. All six serialized fixture bindings, intensities,
+ranges and positions match the authored configuration; see
+`evidence/replaced-lighting-20261025/merged-player-light-bindings.json`.
+First merged native run stopped on a harness scene-transition sentinel (`hp=-1`,
+before the next scene's actors existed), after30HP in the preceding trace and
+zero exceptions. The external driver now waits for positive actor HP/current word
+after Continue; no runtime game code changed. The next run genuinely fell to Heavy
+after missed parries. The external driver then sent Space at up to240ms before
+contact, within the authored250ms pose window, and recorded input timestamps.
+Both failed reports/videos are retained; no game timing or balance was changed.
+
+Corrected merged-player native run **PASS1329 checks**, zero exceptions, Chromium
+153.0.8010.12, ANGLE/NVIDIA GeForce GTX1650Ti D3D11,1280x720/world320x180.
+Six production encounters defeated,15parries, final5HP; tutorial, full/short intro,
+hurt, Pause/Resume, follow-up, Slayer entry/natural exit, result/retry/menu covered.
+Firebase fixture intercepted1read/1write; no external requests. Evidence:
+`ubuntu-merged-candidate-full-qa-20261026-retry2.json` and its original video.
+Scoped output inspection: **1117/1117 frames,1108/1108 consecutive source pairs**,
+nine exact ranges retaining source PTS/held frames. Full intro preparation is
+included from the menu before scene cover, unlike the historical export. Entire
+first Slayer interval, each encounter's first attack/parry/follow-up and retry/menu
+were viewed at native320x180 and nearest enlargement. Versioned observations and
+source hash: `evidence/replaced-lighting-20261025/merged-runtime-{frame-review.csv,review-summary.json}`.
+
+Berserker diagnostic Ubuntu build `20261026T092421-webgl`, input
+`f7817a613a8ffb0235312309ed06beb63792d1376df8b4e4670e8a8ea9761a64`, native
+identity `f01f3c5af9361553`,33/33downloaded hashes verified. Build callback copied
+exact authored Berserker serialized fields into the first resource entry after
+the normal builder; production source/resources were not changed. Native actual
+input **PASS216 checks**, zero exceptions, same Chromium/NVIDIA/view sizes:
+Attack2/Attack1, received hit, parry/follow-up, hurt and death observed; final35HP.
+This proves lighting behavior in a fixture, not production reachability.
+**296/296 frames,294/294 source-adjacent pairs** inspected. Initial231-frame export
+was retained; direct inspection required65preceding frames to include the final
+axe preparation/Slayer restoration, joined at source764->765. No frames discarded.
+Versioned observations: `evidence/replaced-lighting-20261025/berserker-runtime-{frame-review.csv,review-summary.json}`.
+
+Within these inspected output ranges: directional lit edge/dark body, separated
+bone/cloth/steel, stable foot contact, no closed bright rim or actor-following pool;
+authored impact flashes and Slayer/scene-cover transitions remain intentional.
+Original-speed subjective playback is still unverified. Per-frame inspection,
+real-time input execution and a passing build do not substitute for that gate or
+the failed/unstable performance protocol. Do not integrate main until acceptance
+is resolved. Keep the task worktree/branch, private Ubuntu cache and immutable
+players/logs/videos for review; remove owned cache/worktree only after integration
+and keep evidence until review no longer needs it. Original dirty checkout stays intact.
 
 ## Target WebGL continuation — performance acceptance pending (2026-10-26)
 

@@ -1,0 +1,90 @@
+{
+  "authored": [
+    {
+      "name": "ColdVaultFill",
+      "profile": "Assets\\Data\\Lighting\\DungeonCoolFill.asset",
+      "intensity": 64.0,
+      "range": 16.0,
+      "position": "{x: 1.5, y: 4, z: 6}"
+    },
+    {
+      "name": "PillarGlow_-1",
+      "profile": "Assets\\Data\\Lighting\\DungeonSideKey.asset",
+      "intensity": 8.0,
+      "range": 10.0,
+      "position": "{x: 0.25, y: 0.08, z: -1.08}"
+    },
+    {
+      "name": "PillarGlow_1",
+      "profile": "Assets\\Data\\Lighting\\DungeonSideFill.asset",
+      "intensity": 8.0,
+      "range": 10.0,
+      "position": "{x: -0.25, y: 0.08, z: -1.08}"
+    },
+    {
+      "name": "TorchGlow_-1",
+      "profile": "Assets\\Data\\Lighting\\DungeonRearTorch.asset",
+      "intensity": 8.0,
+      "range": 15.0,
+      "position": "{x: -5.500018, y: 3.5766637, z: 9.347341}"
+    },
+    {
+      "name": "TorchGlow_1",
+      "profile": "Assets\\Data\\Lighting\\DungeonRearTorch.asset",
+      "intensity": 8.0,
+      "range": 15.0,
+      "position": "{x: 6.499982, y: 3.9766638, z: 9.347341}"
+    },
+    {
+      "name": "TorchGlow_Front",
+      "profile": "Assets\\Data\\Lighting\\DungeonFrontLantern.asset",
+      "intensity": 16.0,
+      "range": 16.0,
+      "position": "{x: -0.17452347, y: 3.405, z: -1.9910516}"
+    }
+  ],
+  "built": [
+    {
+      "name": "ColdVaultFill",
+      "profile": "Assets\\Data\\Lighting\\DungeonCoolFill.asset",
+      "intensity": 64.0,
+      "range": 16.0,
+      "position": "{x: 1.5, y: 4, z: 6}"
+    },
+    {
+      "name": "PillarGlow_-1",
+      "profile": "Assets\\Data\\Lighting\\DungeonSideKey.asset",
+      "intensity": 32.0,
+      "range": 13.0,
+      "position": "{x: 0.25, y: 0.08, z: -1.08}"
+    },
+    {
+      "name": "PillarGlow_1",
+      "profile": "Assets\\Data\\Lighting\\DungeonSideFill.asset",
+      "intensity": 4.0,
+      "range": 10.0,
+      "position": "{x: -0.25, y: 0.08, z: -1.08}"
+    },
+    {
+      "name": "TorchGlow_-1",
+      "profile": "Assets\\Data\\Lighting\\DungeonRearTorch.asset",
+      "intensity": 4.0,
+      "range": 15.0,
+      "position": "{x: -5.500018, y: 3.5766637, z: 9.347341}"
+    },
+    {
+      "name": "TorchGlow_1",
+      "profile": "Assets\\Data\\Lighting\\DungeonRearTorch.asset",
+      "intensity": 4.0,
+      "range": 15.0,
+      "position": "{x: 6.499982, y: 3.9766638, z: 9.347341}"
+    },
+    {
+      "name": "TorchGlow_Front",
+      "profile": "Assets\\Data\\Lighting\\DungeonFrontLantern.asset",
+      "intensity": 2.0,
+      "range": 16.0,
+      "position": "{x: -0.17452347, y: 3.405, z: -1.9910516}"
+    }
+  ]
+}
