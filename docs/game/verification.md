@@ -36,6 +36,36 @@ qualified XML/build receipt, and every failed playback report. Candidate branch
 is retained; main integration is withheld until the original visual/playback gate
 passes. [Existing checkpoint](../plans/slayer-slash-vfx.md).
 
+## Smoke-led duel intro and identity handoff (2026-10-26; verified)
+
+- Ubuntu fly-server, pinned Unity2022.3.25f1,2CPU/8GiB. Final source
+  5b897298ce34316af5a533e34f2e91ca7e20e3064aed43d50d9e3bc362cd7141:
+  7/7DuelIntroTests PASS,0failed/skipped,40.336s. Private-cache093228 build/repeated
+  builder PASS;284C#/shader/package/version inputs match afterBOM/CRLF normalization.
+- Immutable player10a1876ff58157a5:33/33files match Ubuntu. Edge156.0.4314.42,
+  Playwright1.64.1, GTX1650Ti/ANGLE D3D11,1280x720:83real-input checks PASS,
+  0exceptions/provider reads/writes, fixtures/external blocking retained. Full/short
+  intro, held letters/Space/Enter, actual duel clear/Continue, retry, Pause/Resume,
+  real window focus loss, Menu cancellation and tutorial covered. Same world10762,
+  camera11172/RT-458 throughout. Observer-only bridge; no gameplay setters.
+- All31sequential sheets directly viewed:566/566encoded frames and561/561adjacent
+  pairs across five predeclared full scopes, original25fps PTS/held frames retained.
+  Smoke anticipates intact pose/shadow, stepped lobes dissipate low, one identity
+  at a time, stationary300ms preview, no navigation-title flash or residual effect.
+  Supplementary native-size smoke/preview/cancellation images viewed. Video counts
+  are not a1:1engine-frame/performance claim. Reference evidence stays separate.
+- Earlier57-check player passed functionally but its601-frame review FAILED because
+  Menu re-showed the paused heading before cover. Final presenter suppresses it
+  through navigation; a last-frame pause now also defers combat handoff. Cold-cache
+  import timeout and two fixture observation/wait corrections are retained, without
+  counting unexecuted/failed checks as passes. No Windows Unity, full suite,
+  performance profile, production build or itch.io release.
+- Timing, exact source/reference scopes, failed drafts, final ledger and cleanup:
+  [intro checkpoint](../plans/duel-intro.md), evidence root
+  E:/CodexTemp/TypingHero/intro-smoke-rhythm/. Remote integration receipt is recorded
+  there after verification; unrelated chest-anchor evidence qualifications remain.
+
+
 ## Shared chest anchor for Slayer B (acceptance reopened 2026-10-26)
 
 The playback-quality audit supersedes the earlier overall acceptance claim.

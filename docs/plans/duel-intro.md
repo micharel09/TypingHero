@@ -6,13 +6,14 @@ provider, saved data or audio-asset changes. Existing cue/voice lifecycle is cor
 
 ## Accepted timing
 
-Full Play: menu/cover 250ms before scene transition; after activation reveal450ms,
-settle until850ms, foot dust850-1350ms with opponent reveal halfway, title1350-2000ms,
-status HUD1850-2000ms, word tray1930-2100ms, readable stationary preview2100-2400ms.
-Title exits1850-2000ms. Combat remains locked through the handoff frame.
-Continue/retry: cover200ms before loading, reveal200ms, dust200-600ms,
-title enters460-540ms, holds until750ms, exits750-900ms; status HUD540-640ms,
-word tray620-700ms, stationary preview700-1000ms (1200ms plus scene load in total).
+Full Play: menu/cover250ms before loading. After activation: reveal0-450ms,
+settle to850ms, smoke850-1350ms, intact enemy/shadow1030ms; title enters1100-1200ms,
+holds to1720ms and exits1720-1880ms. Status HUD1820-1980ms; words1900-2100ms;
+stationary readable preview2100-2400ms. HUD enemy name fades1880-1960ms only after
+the intro label has fully faded. Combat remains locked through the handoff frame.
+Continue/retry: cover200ms before loading; reveal0-200ms; smoke200-600ms, intact
+reveal344ms; title enters420-500ms, holds to680ms, exits680-820ms. Status540-640ms,
+words620-700ms, preview700-1000ms; HUD name820-900ms. Total1200ms plus scene load.
 Tutorial only uses the shared reveal; its reading/lesson state remains owned by
 TutorialDirector. Pause/focus loss hold the timeline; navigation cancels it.
 
@@ -379,3 +380,161 @@ PTS/counts and no interpolation/resampling: intro-play.mp4,84frames,
 hashes, tests and failed draft remain at E:/CodexTemp/TypingHero/duel-word-preview/.
 No production build, itch.io publication, package/art/font/sprite changes or full
 suite/performance claim. Integration and task-resource cleanup recorded externally.
+
+
+## Smoke anticipation and identity handoff (2026-10-26; verification in progress)
+
+Task branch micharel09/intro-smoke-rhythm from origin/main4506bb1. Preserve
+Play2.4s and short1.2s including200ms pre-load cover; no Windows Unity or itch
+publication. Reference checklist: menu exit/covered arena entry; smoke anticipation,
+whole enemy/shadow reveal, dissipation; opponent label/status/word handoff; full
+and short variants; preview/input lock; Pause/focus/Resume and Menu/Restart cleanup.
+
+Implementation replaces the private18quad spawn with18stepped elliptical mesh
+puffs (6core/12edge), fixed lobe positions, collider-relative scale and existing
+StrikeAccent material. Shared shader/prefab remain untouched. Smoke peaks at
+u.28-.48; renderer states restore together once at u.36, without any property-block
+writes. Name30/DUEL18 stays stationary in700x72; full title1.10-1.88s, short.42-.82s.
+Enemy HUD name stays hidden until title ends, then fades80ms independently from
+HP/guard/score. Status full1.82-1.98/short.54-.64; words full1.90-2.10/short.62-.70.
+Existing300ms readable preview and100ms ink handoff remain unchanged.
+
+Reference records reused and all9sequential original sheets directly reinspected:
+Shogun https://www.youtube.com/watch?v=i6tP6bBTaZ0, menu0<=t<18 (540/540frames,
+539/539pairs), preparation/spawn/first exchange/ending94<=t<108 (420/420frames,
+419/419pairs). Native96.8/96.9stills and baselineb68b02015.28still viewed.
+No reference retry/input-enable timing or exact visual-copy claim. Sources/checklist
+and new output evidence live at E:/CodexTemp/TypingHero/intro-smoke-rhythm/;
+reference evidence remains separate from new output review.
+
+Ubuntu Unity2022.3.25f1 focused6/6DuelIntroTests PASS,0failed/skipped,17.494s,
+input4363b1fda1bb9d22087e7162a6614099254f29c0255c156fa7cdeb67e5142b88.
+Isolated server root /data/typinghero-game-loop/intro-smoke-rhythm-20261026/,
+result20261026T081303-build. Native build/capture, frame review and integration
+remain pending; these test results alone do not establish visual acceptance.
+
+
+Pilot44ceaa7f4bf22ee8:33native real-input checks PASS,0exceptions/provider IO.
+All129pilot frames/128pairs directly inspected on7sequential overlapping sheets;
+smoke clearly anticipates intact enemy and has stepped lobes, then dissipates low.
+Pilot mesh world alignment is superseded by final camera-plane alignment; it is
+not the final acceptance player. Scope and observations: pilot-review/manifest.json.
+
+Expanded Pause fixture initially failed: alpha was read before presentation
+LateUpdate and compared against the committed end-of-frame alpha. It now observes
+after the pause frame's LateUpdate; assertions/thresholds are retained. Final
+Ubuntu result20261026T082603-build:6/6DuelIntroTests PASS, including freezes at
+smoke rise, intact reveal and identity handoff. Snapshot
+64d60443caa66e3e61281ce316f6e2bcc78f68b8ae2ce7175b12cbf9c509a6b2;
+284C#/shader/package/version inputs match the worktree afterBOM/CRLF normalization.
+Final WebGL/native and visual acceptance pending. Earlier lock-wait timeout
+preserved running jobs and the isolated final source; it is not a test pass.
+
+
+Playere31eaef7358e2aa6:57native real-input checks PASS,0exceptions/provider IO;
+33player files match Ubuntu output. All601frames/596pairs in32sequential sheets
+were directly inspected across the five declared output scopes. Visual FAIL:
+Menu cancellation re-shows the hidden paused title at43.56-43.96s, before the
+closing curtain reaches it. This does not weaken the no-heading-flash criterion.
+The complete failed review/ledger is retained at pre-navigation-fix-review/.
+
+Correction keeps the heading disabled while Pause navigates and throughout Cover,
+then resets that suppression only in Prepare for a new intro. No timeline, alpha,
+input, camera or audio behavior changes. The existing cancellation test now uses
+the real pause-owner Menu path and asserts no heading resurrection before cover;
+the observation-only QA bridge reports actual label visibility for native checks.
+Final rebuild and affected visual review pending.
+
+Driver failures remain separate from product acceptance: original other-tab focus
+was not observed; the narrow retry-preview polling window was missed; a generic
+focus click hit Menu Play. The final57-check driver schedules real Escape from
+early intro timestamps and prepares a separate native window before timed focus.
+Diagnostics confirm document.hasFocus true -> false without gameplay setters.
+Each failed report/video is retained; one earlier timeout produced fixture-only
+leaderboard traffic (no production requests/writes). No product behavior changed
+for these driver corrections.
+
+
+Final handoff boundary audit: the old loop could exit after its last yielded frame
+even if Pause/navigation began during that yield. It now retains the final frame
+while PresentationFrozen or the pause owner is navigating. A LateUpdate fixture
+pauses exactly at2.4s and asserts preview/intro remain active until Resume. Seven
+scoped intro tests are selected; no broader profile is added. Snapshot
+767edb7fc019d162189ca3dbf27e86a7658ed17ae77e682c6faecac7af06844d,
+server source-handoff-final. The superseded waiting worker (only this task's PID,
+verified by source path and exact snapshot in its command) was stopped before
+Unity began; source-cancel-final is retained. Other jobs/locks/cache were preserved.
+
+
+The shared runner remained occupied by other work. The task switched to its own
+Library/cache and runner lock under /data/typinghero-game-loop/intro-smoke-rhythm-20261026/,
+keeping the same pinned image, shared activation HOME,2CPU/8GiB, source and7-case
+filter. Own waiting PID674845 was verified by source path/exact snapshot and
+terminated before execution; other jobs and shared caches were preserved. Private
+fresh-cache run20261026T090134-build is active; this is not yet a passing receipt.
+
+
+Private cold-cache090134 timed out after1200s in import with no result XML; no
+executed-test PASS is inferred. The same cache resumed at092416:7cases executed,
+6PASS/1FAIL,29.848s. Both new navigation/last-frame handoff regressions PASS. The
+old cue Resume test's fixed400ms wait left14.3ms of its100ms cue after the camera
+Resume tween; it now waits (max3s) for actual resumed/cue-complete behavior, keeping
+the zero-remaining assertion. Only this fixture changed after runtime767edb7.
+Final source5b897298ce34316af5a533e34f2e91ca7e20e3064aed43d50d9e3bc362cd7141,
+source-handoff-verified, private warm run20261026T093228-build is in progress.
+
+
+Final private-cache Ubuntu2022.3.25f1 source5b897298:7/7DuelIntroTests PASS,
+0failed/skipped,40.336s, result20261026T093228-build/tests.xml. Exact284C#/shader/
+package/version inputs match afterBOM/CRLF normalization. No runtime changes after
+these checks; final WebGL/native and visual acceptance remain pending below.
+
+
+### Final smoke/identity acceptance
+
+Final private-cache Ubuntu build093228 exits0, strict repeat-builder PASS;
+player10a1876ff58157a5,33/33downloaded file hashes match Ubuntu. Source5b897298
+matches284C#/shader/package/version inputs. Unity7/7PASS; native83checks PASS,
+0exceptions/provider reads/writes, Edge156.0.4314.42/Playwright1.64.1/GTX1650Ti
+ANGLE D3D11 at1280x720. No runtime changes after the passing tests/build/capture.
+Actual focus diagnostics report document.hasFocus true -> false in a separate
+native window; Pause and Resume hold/continue the same milestone. World10762,
+camera11172 and RT-458 persist across the observed navigation.
+
+All31sequential sheets were directly inspected, every frame and adjacent pair,
+including page overlap. Original25fps decoder PTS/held/repeated frames remain;
+these are encoded-frame visits, not an engine-frame/FPS measurement. New counts
+happen to equal the old first-word follow-up totals; this is a distinct video,
+source/player/hash and per-frame ledger at runtime-review/manifest.json.
+
+| Scope | Original first-last PTS | Frames inspected/total | Pairs inspected/total |
+|---|---|---:|---:|
+| Full Play and handoff/input tail |14.36-19.48s|129/129|128/128|
+| Previous ending/result -> Continue and tail |28.40-32.00s|91/91|90/90|
+| Retry, preview Pause/Resume and combat tail |18.80-22.64s|97/97|96/96|
+| Retry -> preview Pause -> Menu cancellation |36.72-40.96s|107/107|106/106|
+| Full Play -> actual focus loss -> Resume/handoff |41.12-46.76s|142/142|141/141|
+
+Total566frames/561pairs. Native-size pre/post intact reveal, readable preview and
+post-Pause navigation were also viewed. The title stays absent through the Menu
+exit tween/closing cover; no resurrection or closed-cover leak remains. Smoke is
+clearly visible before the enemy, has stepped lobes rather than a rectangular slab,
+peaks below half-body and dissipates low without touching the hero. Pose/shadow
+switch together, no shader sweep; label/HUD identity never compete. First word
+stays readable/fixed for300ms with a full timer until handoff. Existing SPACE cues,
+real combat hits/death poses and Pause zooms in preserved tails are expected.
+
+A/B: b68b020's dust was difficult to distinguish on the floor and the body scanned
+upward. New smoke anticipates intact emergence and starts the title while fading;
+short HUD bars appear without duplicate identity. This follows the selected Shogun
+order/emphasis qualitatively; custom label/timing/preview remain CLACKBLADE design.
+Reference9-sheet960/958review stays in reference-review.json, separately from output.
+No exact game-copy, reference retry/input-enable timing or human-reading claim.
+
+Delivery-only excerpts are subsets of these complete reviewed scopes, without
+resampling/interpolation and with original relative PTS/counts checked:
+intro-play.mp4,14.88<=t<17.96,77frames; intro-continue.mp4,29.28<=t<30.76,37frames.
+Video only. Failed player/review, cold-import and fixture failures remain separate.
+All evidence stays at E:/CodexTemp/TypingHero/intro-smoke-rhythm/. No itch release.
+Integration, cleanup and retained-resource receipt is written externally after
+remote verification; shared source/cache and other tasks are preserved.
