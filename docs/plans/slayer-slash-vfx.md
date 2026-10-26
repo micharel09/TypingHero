@@ -893,3 +893,185 @@ The supplemental smoke outcome therefore remains unavailable. Preserve the task
 branch/worktree and evidence cache until E:/ is accessible and the smoke result
 has been inspected. Saving a task commit does not authorize calling acceptance
 complete; main integration remains withheld for this unresolved verification.
+
+
+### Fixture/lifecycle verification continuation (2026-10-26)
+
+Recovered branch284601a after its former C: checkout was removed by an already
+running external worktree-removal process. Orca restored the same branch
+`micharel09/enemy-chest-anchor` at
+`D:/Projects/TypingHero-worktrees/enemy-chest-anchor`; dirty primary preserved.
+`E:/CodexTemp/TypingHero/enemy-chest-anchor` is accessible now; earlier access-failure
+notes describe the previous session, not current state.
+
+The five requested inactive actor fixtures now explicitly bind body renderer and
+initial ske profile. ConfigureEndless still selects the EndlessOpponent profile;
+classic/tutorial paths retain ske. All call sites reviewed: the other pre-existing
+test uses the real scene prefab. No production fallback, public API, artwork/GUID,
+duration, overlap or combo_end changes in this continuation.
+
+User steering requires Ubuntu fly-server for Unity. The initial owned Windows
+Editor was stopped before a result (runs/selected-20261026-131305). Ubuntu061604
+was stopped after the new pause test blocked on WaitForEndOfFrame in batchmode;
+replaced with normal frame yield. Neither attempt counts as PASS. Busy-runner
+attempts produced no test results and are not passes.
+
+Ubuntu Unity2022.3.25f1 filtered run
+`/data/typinghero-game-loop/results/20261026T062003-quick/tests.xml`:
+18/18Passed,0failed/skipped,40.6681716s,
+input639c4c07a52f757e907129267e4b71a0227827225c9290835a6098d2241e1c3a.
+Local XML: `E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/ubuntu-062003-tests.xml`.
+Exact requested methods: the five fixtures in the user plan;
+ChestGeometryAndEveryPosePreserveWorldAngleScaleAndAlphaCentroid(2),
+HiddenDestroyedAndDeadActorsKeepLastPointAndReleaseOnSchedule(2),
+ActorNewLifetimeReclaimsOldSlashAndPoolReuseFollowsOnlyNewRecipient(2),
+AttachedPauseHoldsAgeFramePositionAlphaAndResumesFollowing(1),
+HitboxCapturesChestBeforeDamageAndKeepsContactSeparate(2),
+EveryFrameKeepsBlackAndAngleUntilRelease(2),
+TutorialPauseHoldsAndResultClearsEvenWhenFinished(1), and
+RecipientOwnsOnePrimaryAndOneThirtyMillisecondResidualAndFinisherReplacesBoth(1).
+
+Final supplemental revision explicitly asserts seven held-parry mappings and
+extends hitbox callbacks to deactivate or immediately destroy actors for both
+roles. These two changed methods require a fresh6-case result; their old4-case
+result is superseded. Other14unchanged cases remain valid. Supplemental result,
+final build, native capture/frame review and integration remain pending.
+
+External final-capture driver keeps stage markers in memory, focuses canvas once,
+records keydown/up and read-only combat timing, saves failure state/clip, and
+rejects missing Slayer frames/incomplete three-form runs. Its files and previous
+failed captures remain under the existing evidence root. No final acceptance yet.
+
+
+Continuation source-image inspection: directly opened the existing marked
+anchor-sword-Hurt.png, anchor-axe-Hurt.png and anchor-sword-shield-Hurt.png under
+the evidence root. All5poses per form (15images,12within-sheet adjacent pairs)
+were inspected. Hurt0/2/3/4 markers sit within visible ribs; Hurt1's white pulse
+obscures rib detail but the marker remains within the shifted main torso. Across
+Hurt0->1->2->3->4 the marker follows the torso displacement, not weapon/shield
+bounds. These are static source/anchor comparisons, not final native video review.
+
+
+Supplemental Ubuntu result063715:6/6Passed,0failed/skipped,0.2530389s,
+input1deb30f4c1c92bd767450571d8fa4c63815a3662dda1f6b09a92b69d45891647.
+Remote XML: `/data/typinghero-game-loop/results/20261026T063715-quick/tests.xml`;
+local XML: runs/ubuntu-063715-tests.xml. Both geometry cases assert all7held-parry
+mappings; four hitbox cases cover both roles with deactivate/destroy callbacks.
+The exact union is20unique final cases:14unchanged from062003 plus6from063715,
+allPassed,0failed/skipped. Evidence manifest: runs/selected-final.json. No full
+suite/stress/soak/multiple-viewports were run. Production code remains unchanged.
+
+
+Build attempt064732-webgl (Ubuntu) failed its existing protected-font byte guard
+on CobblestoneUI64.asset. The external adapter initially retained CRLF, unlike
+this task's earlier LF adapter; retry normalizes UTF-8 text to canonical LF without
+changing source, protected assets, guard code or repository runner/CI. Failed log
+remains at `/data/typinghero-game-loop/results/20261026T064732-webgl/unity.log`.
+
+Old-player driver pilot is separate from final-build acceptance. First pilot
+(driver-pilot-20261026) correctly failed with0Slayer frames and saved state/video:
+tutorial button was clicked before DungeonSession transition readiness. The driver
+now waits for scene + current word + !dungeonTransitioning and lets two startup
+frames settle before tutorial input. Second pilot(driver-pilot-ready-20261026)
+completed tutorial transition,4natural parries, Slayer, isolated hits and pause/
+resume,190recorded Slayer frames,0exceptions/provider reads/writes, on old player
+a0bdc30c8ff8344a. Native Edge156/GTX1650Ti/ANGLE D3D11/1280x720. No gameplay timing,
+parry window, damage or QA mutation was changed. Final Ubuntu player still pending.
+
+
+Additional direct source inspection in this continuation: unmarked sword-Hurt,
+axe-Hurt and sword-shield-Hurt sheets (15poses) compared with their15marked poses;
+also parry-poses.png and parry-anchors.png, all6held cels in each. Contact0's marker
+is centered in the upright ribs (shared ske/sword mapping); contact1 follows the
+lowered/leaning sword torso; shield2/3 markers stay in exposed ribs despite shield
+and arm extension; axe4/5 stay within the raised/sideways-strike rib cage. These six
+held cels belong to distinct attacks, so no artificial six-cel loop is inferred.
+Seven profile mappings are independently exercised by both geometry test roles.
+
+
+### Final Ubuntu/native acceptance (2026-10-26)
+
+Ubuntu Unity2022.3.25f1 build070505-webgl completed successfully, including the
+strict repeated builder and protected font/material checks. Canonical LF snapshot
+input15bd6781c5fc751631c7ae323a7eea1b03f577796d3d5256e301a831535e55bf;
+player104dd2400c6dba53. All2494input files (252C#) match the worktree after UTF-8
+CRLF->LF normalization;33player SHA256receipts are in runs/final-build-receipt.json.
+The snapshot normalization is the only input difference from the passing scoped
+tests; code/config/asset content is unchanged. B PNG remains
+62ad20c15fb52b44b4b49f6aa0bb5e583c1ddc5209964530724edc43350f7356.
+No cache deletion/junction replacement or repository runner/CI change occurred.
+Final immutable remote player, input archive and log:
+`/data/typinghero-game-loop/results/20261026T070505-webgl/`.
+Local player: `E:/CodexTemp/TypingHero/enemy-chest-anchor/final-ubuntu-player`.
+
+Final capture: `final-capture/chest-anchor.webm`, SHA256
+9694e371970eecee90d61c40e955e62fcd16bc21af03d1202c12652cf496a560;
+report native-final-ubuntu.json, original events/diagnostics clip.json.
+Native Edge156.0.4314.42 / NVIDIA GTX1650Ti / ANGLE D3D11 /1280x720;
+real keyboard/mouse, read-only bridge, provider fixtures/external blocking retained.
+Four duels completed, HP32,17parries,0exceptions/provider reads/writes.
+1299active frames /1455impact observations have valid chest points and root-anchor
+distance0; blackRGB, all4B cels and maximum2overlap verified. Pause holds identical
+age/frame/point/tint/angle across48sword,52axe and55shield observations.
+Active poses include Hurt0..4 and Die0/1. Measurements are independent of visual review.
+
+One late parry is explained, not hidden: Space key10 arrived at browser performance
+time68207.485ms, after frame2474(68178.300ms) already showed HP40->32 and no parry
+window. Frame2475(68215.945ms) first showed the open window. Thus input delivery
+was at least29.185ms late relative to already observed damage. Stale QA observation/
+driver delivery explains this miss; no parry-window, damage or speed adjustment.
+Exact key and surrounding frames: final-capture/late-parry-diagnosis.json.
+
+Final source video scopes were declared before decoding/review in
+final-capture/runtime-review/declared-scopes.json. All numbered frames and adjacent
+pairs, including sheet boundaries and held/repeated frames, were directly inspected:
+
+| Form | Original video seconds | Frames inspected/selected | Pairs inspected/selected |
+|---|---|---|---|
+| sword |20.361-31.061|240/240|239/239|
+| axe |74.224-86.941|273/273|272/272|
+| sword-shield |99.338-111.821|276/276|275/275|
+
+Initial shield cut ended111.817; export included one additional held Continue frame
+F2350 at111.821. Its supplemental scope was declared before opening that raw frame
+and comparing2349->2350; original scope was expanded4ms, never narrowed. Total789
+frames/786pairs:66sequential sheets plus the additional original frame. Exported
+MP4 frame counts and relative PTS match source exactly within floating-point noise;
+no FPS conversion/dropped held frames. See manifest.json, per-frame-review.csv,
+direct-observations.json, supplemental-declared-scope.json and export-timing.json.
+
+Visible horizontal/diagonal B extensions cross the current torso region through
+upright/leaning Hurt poses; the large ivory weapon arcs remain separate. Death
+shows no stationary patch at the old chest after the short tail clears. Exact B
+center is difficult to isolate against the black silhouette/shield; Pause UI and
+ivory arcs add occlusion. In particular sword389-412, axe1500-1524 and
+shield2119-2147 have the torso covered by Pause; the ledger records individual arc/
+diagonal frames and black-on-black limits throughout the strike phases. Do not
+claim independent visual centroid visibility in those interiors. Source ribs/
+authored markers, actual texture-centroid tests and numeric root-anchor data are
+separate evidence. No collider-center, full-raw-video, native reverse-facing,
+performance or speaker-listening claim.
+
+All three final MP4 clips completed Edge playback at1x and0.25x. The first playback
+window closed before the last shield0.25x pass; five completed rows are preserved
+in playback-interrupted.json, and only the missing pass was repeated. Final6rows
+in playback.json all reach the media duration. Frame-callback counts are playback
+observations, not exhaustive-review counts. Viewer: final-capture/open-clips.html.
+
+| Lifecycle/geometry acceptance | Final evidence |
+|---|---|
+| Real pivots, X/Y flips, rotated/nonuniform mirrored parent and reverse-facing strike | Geometry cases, both roles; independent basis calculation <=0.0001world units |
+| Live pose changes and fixed angle/world size | Every profile pose with actor motion; geometry cases, both roles |
+| Seven held-parry mappings | Explicit7mapping count; all corresponding real sprites visited, both roles |
+| Dead visible body, hidden renderer/actor, destroyed actor | Lifecycle cases, both roles; follow or last-point freeze and120/160ms release |
+| Actor vanishes inside damage callback | Four fresh hitbox cases: deactivate/destroy x normal/finisher, separate real contact |
+| Disable/enable and ConfigureEndless reuse | Old lease reclaimed; real heavy profile selected; same pooled VFX follows only new moving recipient |
+| Pause/resume | Age/frame/position/alpha held for both roles; real LateUpdate resumes; native pause evidence for all3forms |
+| Alpha centroid, frame offset and pool reset | Original texture weighted pixels transformed through actual renderer match root; four frames, both roles; real instance reuse |
+| Duration and overlap | Existing EveryFrame/Recipient tests plus native maximum2overlap |
+
+All requested scoped test and final-build/capture/review gates are satisfied with
+the explicit visibility limits above. Ready for commit/push/integration; remote
+integration verification remains a separate final step. Retain all prior failures,
+XML, player/input archives, clips and review artifacts under the existing E: root
+and the immutable remote result until user review/reproduction is complete.

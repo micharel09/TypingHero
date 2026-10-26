@@ -670,9 +670,10 @@ Full surface art, B/C and parent integration remain separate.
   Pause/reading hold presentation clocks. Results/disable/restart/unload clear them.
 - Public input/scoring/damage values/stamina/camera/audio and Slayer no-hitstop
   policy remain. Normal/parry/legacy emitters retain their routes and shared budget.
-  User explicitly requested no tests and immediate clip. The initial test launch
-  was cancelled; this revision has no runtime/frame-review acceptance claim.
-  Build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
+  The original implementation waived tests; the authorized2026-10-26 continuation
+  passes20selected PlayMode cases on Ubuntu (five fixture repairs, chest geometry,
+  seven parry mappings, lifecycle/pool, damage callback capture and pause).
+  Final build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 
