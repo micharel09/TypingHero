@@ -1,3 +1,57 @@
+## Target WebGL continuation — performance acceptance pending (2026-10-26)
+
+Unity executed on Ubuntu only for these players, using the private pinned runner
+below. Immutable baseline `20261026T070921-webgl`, canonical input
+`e86f625e839a6d8770e3bea1e12440d2fef296e7ecc8173c12c93b80a79a6667`, native
+player ID `7582b6de6542bc75`; candidate `20261026T073255-webgl`, canonical input
+`96479702f012497b74836733d28d28e0f5e03779b0323309107e8cd5e00b2800`, player
+`eca5db436d689a34`. Both builds exit0, use `BuildOptions.None`, and downloaded
+33/33file SHA256 manifests match their immutable server outputs. Evidence paths
+are `ubuntu-{baseline,candidate}-build-20261026/` under the existing evidence root.
+
+Semantic serialized-scene inspection confirms all six original fixture names,
+profile GUID bindings and local anchors survive the builder; final intensities/
+ranges are front2/16,side key32/13,opposite4/10,rear4/15 twice,cool64/16.
+Large text diffs arise from split-scene object ID serialization; no generated
+scene wholesale replacement was imported. Receipt `serialized-light-bindings-20261026.json`.
+
+Native Edge156.0.4314.42 reports actual NVIDIA GTX1650Ti/ANGLE D3D11 at1280x720;
+world320x180,one world camera. Candidate real-key/mouse run
+`ubuntu-candidate-full-qa-20261026-retry2.json`: **1706assert calls PASS**,0exceptions,
+all six current opponents defeated,19parries,final HP14. Covers current reading
+guide,Start Battle,full/short intro,received hit,Pause/Resume,parry/follow-up,
+Slayer entry/natural expiry,enemy deaths,result,retry andMenu. One fixture read/
+write is intercepted locally; no provider request or score write reaches Firebase.
+The earlier browser-driver failures are retained: obsolete manual encounter-reading
+gate and an incorrect TypingCard vertical padding assumption. Current source
+starts encounters automatically; only the external driver changed.
+
+First target-GPU ABBA:15s warm-up per run,60s active focused/visible combat per run,
+no video,loading/intro/pause/transitions excluded at both interval endpoints.
+
+| Mode | A1 FPS / p95 ms | B2 FPS / p95 ms | B3 FPS / p95 ms | A4 FPS / p95 ms |
+| --- | --- | --- | --- | --- |
+| Normal | 74.97 / 13.485 | 74.97 / 13.475 | 74.97 / 13.470 | 74.89 / 13.475 |
+| Parry/Slayer | 73.17 / 13.555 | 61.05 / 26.775 | 63.90 / 26.730 | 67.03 / 26.700 |
+
+**Parry/Slayer p95 fails the18ms target; no overall performance PASS.** No measured
+consecutive28–40ms interval run reached1s, but raw frames include longer hitches.
+Normal candidate GPU query mean2.20/2.31ms versus baseline3.59/2.72ms; parry candidate
+6.38–7.40ms versus baseline4.04/5.09ms. CPU RAF callback and GPU timer are separate,
+delayed observations, not additive or exactly synchronized. Draw counts are about
+167normal,156–158parry on average; mean allocated memory about61.9MB baseline /
+62.1MB candidate normal,62.1MB /62.2MB parry (decimal units). Raw logs,per-state
+statistics and source samples: `abba-20261026.json`,`abba-summary-20261026.json`,
+`timing-20261026-*.json`. Driver success establishes coverage, not FPS acceptance.
+
+A bounded no-GPU-query diagnostic then showed1s engine/rAF cadence for part of a
+focused/visible run before returning to75FPS. A subsequent empty focused page
+measured66.54FPS,p9513.9ms,max213.4ms,31/663intervals>18ms. These host observations
+do not prove the candidate's parry cost harmless. A single scoped parry ABBA repeat
+with GPU telemetry and no image/export work is pending; preserve the failed runs.
+Runtime video frame review is in progress; original-speed subjective playback
+and overall visual/performance acceptance remain unverified. Do not integrate yet.
+
 ## Ubuntu verification continuation — acceptance pending (2026-10-26)
 
 Per user instruction, Unity execution now uses Ubuntu `fly-server` only. The
