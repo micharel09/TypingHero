@@ -361,6 +361,17 @@ Change only behavior explicitly requested. Update this file after relevant verif
   arrow use the same frame lookup, pointing at visible words, cues or HUD values.
   Lossless atlases have six columns, at most11rows, no mipmaps, max2048 and2px
   gutters; existing asset GUIDs and named frame identities stay.
+- Scene lessons store resource paths and frame-to-atlas/sprite indices, without a
+  preview sprite. Each TutorialAtlasPage owns one atlas; the overlay's async cache
+  retains at most two slots, including pending requests, with one request at a time.
+  It preloads the following atlas and wraps from last to first. Initial loading
+  hides the image/guidance and shows Loading; a delayed boundary holds the displayed
+  frame, caption, guidance and clock without accumulating waiting time. Pause may
+  finish loading but cannot publish a new frame. Load errors use the existing label
+  while Back/Pause/Menu remain available, without saving completion.
+  HUD1/6, Start Battle, restart/menu, disable and destroy clear sprite references
+  and unload owned sprites/textures/descriptors. Obsolete completions only clean up;
+  future visits load fresh resource objects. No static cache or global asset sweep.
 - Typing shows a fresh word and real HP loss; mistakes show reset while the timer
   continues and then replaces the word. A newly recorded complete parry sequence
   shows success, recovery, a missed parry and HP loss. Slayer shows

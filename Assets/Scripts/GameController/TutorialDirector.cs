@@ -33,6 +33,7 @@ public sealed class TutorialDirector : MonoBehaviour
         if (ControlsBlocked || changedFrame == Time.frameCount || waitForEnterRelease) return;
         if (step < overlay.StepCount - 1) { ChangeStep(step + 1); return; }
         starting = true;
+        overlay.ReleaseClip();
         TutorialRun.Complete();
         TutorialRun.End();
         // DungeonSession consumes held Enter before activating the fresh encounter.

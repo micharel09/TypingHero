@@ -45,6 +45,8 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(BlackletterTitleBuild.Art, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Art/EndlessSkeletons", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Resources/Endless", "*", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles("Assets/Resources/Tutorial", "*", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles("Assets/Art/UI/TutorialParry", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyUI", "*"))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyInterface", "*"))
             .Concat(Directory.GetFiles(ShogunTheme.Events, "*")).ToArray();

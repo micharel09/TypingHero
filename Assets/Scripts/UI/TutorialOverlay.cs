@@ -38,14 +38,18 @@ public sealed class TutorialOverlay : MonoBehaviour
     {
         public string title;
         public string rule;
-        public Sprite[] frames;
+        public string[] atlasPaths;
+        public int[] frameAtlas, frameSprite;
         public float[] durations;
         public string[] captions;
         public Guidance[] guidance;
     }
     [SerializeField] Lesson[] lessons = Array.Empty<Lesson>();
     [SerializeField] TMP_Text clipTitle, modalStep, hudStep, actionLabel;
-    double clipTime;
+    readonly TutorialAtlasCache atlasCache = new TutorialAtlasCache();
+    bool frameReady, waitingForFrame;
+    string displayedAtlas;
+    double clipTime, pendingTime;
     int step;
     internal int StepCount => lessons.Length + 1;
     void OnEnable() => ShowStep(0);
@@ -54,6 +58,7 @@ public sealed class TutorialOverlay : MonoBehaviour
 
     internal void ShowStep(int index)
     {
+        ReleaseClip();
         step = index;
         bool modal = step > 0;
         foreach (var node in hudContent) node.SetActive(!modal);
@@ -73,23 +78,62 @@ public sealed class TutorialOverlay : MonoBehaviour
         ClearSelection();
     }
 
-    void RenderClip()
+    internal void ReleaseClip()
     {
-        if (step == 0) return;
+        if (clipImage) clipImage.sprite = null;
+        SetClipVisible(false);
+        frameReady = waitingForFrame = false;
+        displayedAtlas = null;
+        atlasCache.Clear();
+    }
+
+    void OnDisable() => ReleaseClip();
+    void OnDestroy() => ReleaseClip();
+
+    void SetClipVisible(bool visible)
+    {
+        if (clipImage) clipImage.enabled = visible;
+        if (clipFocus) clipFocus.gameObject.SetActive(visible);
+        if (guideShaft) guideShaft.gameObject.SetActive(visible);
+        if (guideTipA) guideTipA.gameObject.SetActive(visible);
+        if (guideTipB) guideTipB.gameObject.SetActive(visible);
+        if (guideBend) guideBend.gameObject.SetActive(false);
+        if (guideEnd) guideEnd.gameObject.SetActive(false);
+    }
+
+    bool RenderClip()
+    {
+        if (step == 0) return false;
         var lesson = lessons[step - 1];
         double duration = 0;
         foreach (float hold in lesson.durations) duration += hold;
         double time = clipTime % duration;
         int frame = 0;
         double boundary = lesson.durations[0];
-        while (frame < lesson.frames.Length - 1 && time >= boundary) boundary += lesson.durations[++frame];
-        clipImage.sprite = lesson.frames[frame];
+        while (frame < lesson.frameAtlas.Length - 1 && time >= boundary) boundary += lesson.durations[++frame];
+        int atlas = lesson.frameAtlas[frame];
+        string path = lesson.atlasPaths[atlas];
+        string following = lesson.atlasPaths[(atlas + 1) % lesson.atlasPaths.Length];
+        // Remove the UI reference before Get can evict its atlas.
+        var previous = clipImage.sprite;
+        clipImage.sprite = null;
+        var page = atlasCache.Get(path, following, displayedAtlas);
+        if (!page)
+        {
+            clipImage.sprite = previous;
+            if (!frameReady) { SetClipVisible(false); clipCaption.text = atlasCache.Error ?? "Loading..."; }
+            else if (atlasCache.Error != null) clipCaption.text = atlasCache.Error;
+            return false;
+        }
+        clipImage.sprite = page.sprites[lesson.frameSprite[frame]];
+        displayedAtlas = path;
+        frameReady = true;
+        SetClipVisible(true);
         clipCaption.text = lesson.captions[frame];
         var guide = lesson.guidance[frame];
         clipFocus.anchoredPosition = new Vector2(guide.focus.x, -guide.focus.y);
         clipFocus.sizeDelta = guide.focus.size;
         // The beat label remains below the complete gameplay frame.
-        guideBend.gameObject.SetActive(false); guideEnd.gameObject.SetActive(false);
         Vector2 center = guide.focus.center;
         Vector2 to, from;
         if (guide.focus.yMax > 300 || guide.focus.yMax < 94)
@@ -114,6 +158,21 @@ public sealed class TutorialOverlay : MonoBehaviour
         float head = Mathf.Min(10, Vector2.Distance(from, to) * .5f);
         Segment(guideTipA, to, to - direction * head + normal * head * .6f, 3);
         Segment(guideTipB, to, to - direction * head - normal * head * .6f, 3);
+        return true;
+    }
+
+    void AdvanceClip(float delta)
+    {
+        double previousTime = clipTime;
+        if (frameReady) clipTime = waitingForFrame ? pendingTime : clipTime + delta;
+        if (RenderClip()) waitingForFrame = false;
+        else
+        {
+            // Retry the original candidate, excluding even the final loading interval.
+            if (frameReady && !waitingForFrame) pendingTime = clipTime;
+            waitingForFrame = frameReady;
+            clipTime = previousTime;
+        }
     }
 
     Canvas canvas;
@@ -125,11 +184,7 @@ public sealed class TutorialOverlay : MonoBehaviour
         canvas.enabled = !GamePauseController.IsPaused;
         interaction.interactable = interaction.blocksRaycasts = canvas.enabled;
         if (!canvas.enabled) return;
-        if (TutorialRun.Active && step > 0)
-        {
-            clipTime += Time.unscaledDeltaTime;
-            RenderClip();
-        }
+        if (TutorialRun.Active && step > 0) AdvanceClip(Time.unscaledDeltaTime);
         Canvas.ForceUpdateCanvases();
         if (step > 0) return;
         foreach (var arrow in arrows)

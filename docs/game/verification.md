@@ -1,3 +1,24 @@
+## Tutorial atlas streaming (2026-10-26; review branch)
+
+Ubuntu2022.3.25f1 scoped receipts cover eight unique tutorial tests, including all
+1,995 frame lookups,28 atlas boundaries/five loops, native resource unload/reload,
+pause/loading, stale completions, error navigation, final-only completion and clean
+encounter clone. Current/fresh/custom-tuned builder fixtures each pass two runs;
+GUIDs/listeners/tuning remain. Exact input/run provenance and earlier failed attempts
+are in [the checkpoint](../plans/parry-cue-demo.md#atlas-streaming-acceptance-2026-10-26).
+
+Normal result102719/input18d5570d, qa:false: downloaded33-file hashes match Ubuntu;
+JS/WASM/data have no QA markers. Native Edge156/D3D11 GTX1650Ti at1280x720 passes33
+checks;640x360 passes17. Actual GPU upload/delete peak is2 tutorial atlases,
+30.019043 MiB RGBA versus33/457.108154 MiB baseline. HUD/menu/Start Battle/viewed
+Play/encounter clone/restart/replay/late-exit cleanup reach0. This measures tutorial
+textures only, not total RAM/download/FPS. All six pages at both sizes and all33
+boundary/loop sheets were directly inspected (132frames/99consecutive pairs).
+Unchanged PNG/SpriteRect/timing hashes permit reuse of original cel review.
+
+Receipts under `E:/CodexTemp/TypingHero/space-press-cue/atlas-*`; demo8304 and
+`Tutorial-Atlas-Streaming.mp4` preserve old8303/player/video. No main integration.
+
 ## Tutorial Space example (2026-10-24; isolated preview)
 
 Unity2022.3.25f1/fly-server QA082204 and normal083354 share immutable input

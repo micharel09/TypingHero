@@ -293,7 +293,6 @@ internal static class TutorialBuild
         }
         var shaft = GuideLine("GuideShaft"); var tipA = GuideLine("GuideTipA"); var tipB = GuideLine("GuideTipB");
         var bend = GuideLine("GuideBend"); var end = GuideLine("GuideEnd");
-        captionPanel.SetAsLastSibling();
         foreach (var graphic in clip.GetComponentsInChildren<Graphic>(true)) graphic.raycastTarget = false;
         var director = Object.FindObjectOfType<TutorialDirector>(true);
         Button Action(string name, float x, float w, UnityEngine.Events.UnityAction listener)
@@ -326,6 +325,7 @@ internal static class TutorialBuild
             var labelRect = button.GetComponentInChildren<TMP_Text>(true).rectTransform;
             if (labelRect.sizeDelta.y == 40) Box(labelRect, button.transform, 8, 0, ((RectTransform)button.transform).sizeDelta.x - 16, 28);
         }
+        captionPanel.SetAsLastSibling();
         var so = new SerializedObject(overlay);
         void Bind(string field, Object value) { var p = so.FindProperty(field); if (!p.objectReferenceValue) p.objectReferenceValue = value; }
         Bind("parryModal", modal.gameObject); Bind("backButton", back); Bind("startButton", start);
@@ -342,20 +342,42 @@ internal static class TutorialBuild
         var titles = new[] { "Type to Attack", "Mistakes & Timer", "Parry with Space", "Break Guard \u00b7 Slayer", "Score & Combo" };
         var rules = new[] { "Finish the word to attack.", "Wrong letters reset the word.\nThe timer keeps running.", "Tap Space as the attack lands.\nRelease between hits.", "Parry until Guard breaks.\nIn Slayer, each correct letter attacks.", "Complete words to score.\nFive words in a row unlock the multiplier." };
         var lessons = so.FindProperty("lessons"); lessons.arraySize = names.Length;
-        Sprite first = null;
+        const string resources = "Assets/Resources/Tutorial";
+        if (!AssetDatabase.IsValidFolder(resources)) AssetDatabase.CreateFolder("Assets/Resources", "Tutorial");
         for (int lesson = 0; lesson < names.Length; lesson++)
         {
             var sprites = ImportCapture(names[lesson], out var capture);
-            if (lesson == 0) first = sprites[0];
+
             var data = lessons.GetArrayElementAtIndex(lesson);
             data.FindPropertyRelative("title").stringValue = titles[lesson];
             data.FindPropertyRelative("rule").stringValue = rules[lesson];
             var guidance = data.FindPropertyRelative("guidance"); guidance.arraySize = sprites.Length;
-            var frames = data.FindPropertyRelative("frames"); var durations = data.FindPropertyRelative("durations"); var captions = data.FindPropertyRelative("captions");
+            var paths = data.FindPropertyRelative("atlasPaths"); paths.arraySize = capture.atlases.Length;
+            for (int atlas = 0; atlas < capture.atlases.Length; atlas++)
+            {
+                string resource = "Tutorial/" + System.IO.Path.GetFileNameWithoutExtension(capture.atlases[atlas]);
+                string assetPath = "Assets/Resources/" + resource + ".asset";
+                var page = AssetDatabase.LoadAssetAtPath<TutorialAtlasPage>(assetPath);
+                if (!page) { page = ScriptableObject.CreateInstance<TutorialAtlasPage>(); AssetDatabase.CreateAsset(page, assetPath); }
+                page.sprites = sprites.Where((sprite, index) => capture.frames[index].atlas == atlas).ToArray();
+                if (page.sprites.Length == 0 || page.sprites.Any(sprite => !sprite)) throw new System.InvalidOperationException("Missing tutorial sprites: " + resource);
+                page.texture = page.sprites[0].texture;
+                if (page.sprites.Any(sprite => sprite.texture != page.texture)) throw new System.InvalidOperationException("Mixed tutorial atlas: " + resource);
+                EditorUtility.SetDirty(page);
+                paths.GetArrayElementAtIndex(atlas).stringValue = resource;
+            }
+            var frames = data.FindPropertyRelative("frameAtlas");
+            var slots = data.FindPropertyRelative("frameSprite"); slots.arraySize = sprites.Length;
+            var counts = new int[capture.atlases.Length];
+            var durations = data.FindPropertyRelative("durations"); var captions = data.FindPropertyRelative("captions");
             frames.arraySize = durations.arraySize = captions.arraySize = sprites.Length;
             for (int i = 0; i < sprites.Length; i++)
             {
-                frames.GetArrayElementAtIndex(i).objectReferenceValue = sprites[i];
+                int atlas = capture.frames[i].atlas;
+                if (atlas < 0 || atlas >= counts.Length || !sprites[i] || capture.frames[i].duration <= 0)
+                    throw new System.InvalidOperationException("Invalid tutorial frame " + names[lesson] + ":" + i);
+                frames.GetArrayElementAtIndex(i).intValue = atlas;
+                slots.GetArrayElementAtIndex(i).intValue = counts[atlas]++;
                 durations.GetArrayElementAtIndex(i).floatValue = capture.frames[i].duration;
                 captions.GetArrayElementAtIndex(i).stringValue = capture.frames[i].caption;
                 var guide = guidance.GetArrayElementAtIndex(i);
@@ -364,8 +386,86 @@ internal static class TutorialBuild
             }
         }
         so.ApplyModifiedPropertiesWithoutUndo();
-        clipImage.sprite = first;
+        AssetDatabase.SaveAssets();
+        clipImage.sprite = null;
         modal.gameObject.SetActive(false);
+    }
+
+    // Batch verification on the isolated Ubuntu snapshot; restore shipped scenes afterwards.
+    public static void VerifyAtlasFixtures()
+    {
+        string[] scenes = { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity" };
+        var saved = scenes.Select(System.IO.File.ReadAllBytes).ToArray();
+        try
+        {
+            string selection = System.Environment.GetEnvironmentVariable("TYPINGHERO_TUTORIAL_FIXTURES");
+            foreach (string fixture in new[] { "current", "fresh", "tuned" })
+            {
+                if (!string.IsNullOrEmpty(selection) && !selection.Split(',').Contains(fixture)) continue;
+                EditorSceneManager.OpenScene(scenes[1]);
+                var overlay = Object.FindObjectOfType<TutorialOverlay>(true);
+                if (fixture == "fresh")
+                {
+                    Object.DestroyImmediate(overlay.gameObject);
+                    Object.DestroyImmediate(Object.FindObjectOfType<TutorialDirector>(true).gameObject);
+                    // The fixture must also remove the deleted roots' authored world links.
+                    var gate = Object.FindObjectOfType<DungeonSessionBindings>(true);
+                    gate.roots = gate.roots.Where(root => root).ToArray();
+                    gate.links = gate.links.Where(link => link.local).ToArray();
+                    EditorUtility.SetDirty(gate);
+                }
+                else if (fixture == "tuned")
+                {
+                    var panel = (RectTransform)overlay.transform.Find("Reference960x540/ParryModal/Panel");
+                    panel.anchoredPosition = new Vector2(19, -17);
+                    var button = panel.GetComponentsInChildren<Button>(true).Last();
+                    UnityEditor.Events.UnityEventTools.AddPersistentListener(button.onClick,
+                        Object.FindObjectOfType<TutorialDirector>(true).Continue);
+                }
+                EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+                PixelUIBuild.SerializeOnly(); // QA mode performs two complete passes and compares all outputs.
+                if (AssetDatabase.GetDependencies(scenes[1], true).Any(path =>
+                    path.StartsWith("Assets/Art/UI/TutorialParry/") && path.EndsWith(".png")))
+                    throw new System.InvalidOperationException("Scene still depends on a tutorial texture");
+                EditorSceneManager.OpenScene(scenes[1]);
+                overlay = Object.FindObjectOfType<TutorialOverlay>(true);
+                var serialized = new SerializedObject(overlay);
+                if (serialized.FindProperty("clipImage").objectReferenceValue is Image preview && preview.sprite)
+                    throw new System.InvalidOperationException("Tutorial scene retains preview sprite");
+                var lessons = serialized.FindProperty("lessons");
+                int frames = 0;
+                for (int lesson = 0; lesson < lessons.arraySize; lesson++)
+                {
+                    var data = lessons.GetArrayElementAtIndex(lesson);
+                    var paths = data.FindPropertyRelative("atlasPaths");
+                    var atlas = data.FindPropertyRelative("frameAtlas");
+                    var slots = data.FindPropertyRelative("frameSprite");
+                    for (int i = 0; i < atlas.arraySize; i++)
+                    {
+                        var page = AssetDatabase.LoadAssetAtPath<TutorialAtlasPage>("Assets/Resources/" +
+                            paths.GetArrayElementAtIndex(atlas.GetArrayElementAtIndex(i).intValue).stringValue + ".asset");
+                        if (!page || !page.sprites[slots.GetArrayElementAtIndex(i).intValue])
+                            throw new System.InvalidOperationException("Unresolved tutorial frame");
+                        frames++;
+                    }
+                }
+                if (frames != 1995) throw new System.InvalidOperationException("Tutorial frame count: " + frames);
+                if (fixture == "tuned")
+                {
+                    var panel = (RectTransform)overlay.transform.Find("Reference960x540/ParryModal/Panel");
+                    if (panel.anchoredPosition != new Vector2(19, -17) ||
+                        panel.GetComponentsInChildren<Button>(true).Last().onClick.GetPersistentEventCount() != 2)
+                        throw new System.InvalidOperationException("Tutorial tuning/listener lost");
+                }
+                Debug.Log("Tutorial atlas fixture PASS: " + fixture + ", " + frames + " frames");
+            }
+        }
+        finally
+        {
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
+            for (int i = 0; i < scenes.Length; i++) System.IO.File.WriteAllBytes(scenes[i], saved[i]);
+            AssetDatabase.Refresh();
+        }
     }
 
     static void Skin(GameObject root) => ShogunTheme.Skin(root,

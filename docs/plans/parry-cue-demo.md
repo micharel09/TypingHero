@@ -594,3 +594,148 @@ video/demo. Remove these only after review and preservation of needed evidence.
 Main integration remains explicitly deferred. No combat, animation, dependency,
 storage or gameplay API changes; final diff whitespace check is scoped to task
 files. Consolidated receipt: `full-review/final-review.json`.
+
+
+## Tutorial atlas streaming (2026-10-26; implementation in progress)
+
+Scope: continue `micharel09/tutorial-full-gameplay` from `7c208a2e`, review only;
+no main integration. Preserve 1,995 PNG cels, Sprite IDs/GUIDs, durations and six-page
+layout. Target at most two tutorial atlas slots (including pending requests),
+<=31 MiB live RGBA textures, and zero after cleanup on HUD/menu/normal encounters.
+Existing demo8303/full-production and `Tutorial-Full-Gameplay.mp4` remain unchanged.
+
+Implementation: per-atlas Resources descriptors, scene index/path mappings without
+sprite preview, overlay-owned async cache with session invalidation and completion
+cleanup, held clock/frame while unavailable, loading/error caption. Builder includes
+atlas metadata and resource descriptors in strict repeat checks. Focused tests cover
+frame lookup, unload/reload, obsolete completion, pause/loading, rapid navigation and
+lifecycle. Ubuntu test/build and final WebGL verification are still pending.
+
+Baseline evidence: `E:/CodexTemp/TypingHero/space-press-cue/atlas-baseline2/browser.json`
+and `atlas-baseline3/browser.json`, normal immutable `full-production/player`, Edge
+156.0.4314.42 native WebGL. Instrumented actual texStorage2D/texImage2D/deleteTexture
+for tutorial PNG dimensions: menu0; HUD33; typing33, 479,312,640 bytes =457.108154 MiB.
+Baseline2 typing screenshot directly inspected. Initial `atlas-baseline` stayed in
+menu preparation and is not memory acceptance. Source dimensions independently
+predict maximum two-atlas RGBA30.019043 MiB; this is not an optimized runtime result.
+
+Task artifacts use existing evidence root with `atlas-*` prefixes. Current first
+Ubuntu run: `/data/typinghero-game-loop/results/20261026T084415-quick`; its snapshot
+predates additional lifecycle tests and fixture checks, so a final-source run is
+required. No passing claim for this in-progress revision.
+
+
+Atlas verification progress: first Ubuntu quick084415 strict builder PASS; imported
+33 resource pages and projected exactly two tutorial scene records, no other scene
+record changes. `atlas-review/preservation.json` verifies all tutorial PNG/JSON/meta
+against7c208a2e (text newline normalization only). `atlas-review/mapping.json` verifies
+all1,995 sprite fileID/GUID references in order plus exact serialized durations,
+captions/guidance. Scene contains zero tutorial PNG GUIDs.
+
+Quick084415 runtime3/5, not acceptance: async frame assertions raced automatic
+playback; restart test assumed the replacement controller existed after300ms.
+Tests now freeze playback for exhaustive lookup and wait for controller replacement.
+Fixture run090609/input398caa7f: current fixture/two full builder passes PASS;
+fresh construction failed on dangling DungeonSessionBindings roots after deleting
+tutorial objects, before testing fresh builder behavior. Fixture now removes the
+deleted roots/links; production dungeon code unchanged. Preserve current result,
+rerun fresh/tuned separately. Logs: `atlas-fixtures-first`; first XML: `atlas-quick1`.
+Latest tests additionally cover missing-resource UI/Back/Pause, held UI/clock during
+a distant-page request, new cache overlapping a retired request, destruction and
+empty encounter clone. Final runtime and browser acceptance remain pending.
+
+
+Runner correction: the inherited `full-ubuntu-runner.py` tar override omitted mtimes
+(default0). Quick093016 had latest source/inputa08c67de but stale compiled tests
+(7 discovered, missing the eighth present in source); its runtime results are not
+final-source evidence. Atlas wrappers now preserve each source mtime and retain
+immutable archives under `atlas-inputs/<content-sha>.tar.gz`.
+
+Correctly rebuilt quick094526/inputef65e369 discovered8 tests:6PASS/2FAIL. Cache native
+residency/unload/fresh reload, overlapping retired/new cache request, rapid navigation,
+pause/loading/disable/destroy, missing-resource UI/Back, viewed storage and provider
+lock checks passed. Exhaustive lookup stopped on parry-health boundary78; fixture
+now yields only for actual pending loads instead of a frame for every already-ready
+lookup, retaining exact boundary assertions. Lifecycle reached clean battle but its
+arbitrary<=1s clock assertion saw1.0947s on the slow editor; replacement compares the
+clock with elapsed time since Start Battle and verifies advancement. Final-source
+rerun is required for those changed assertions and the refined pending-clock logic.
+
+Clock refinement: retain the first unavailable candidate time and retry it verbatim;
+even the final waiting interval is excluded. A focused test injects10s stalled ticks
+and checks that recovery uses the original10ms candidate. No global asset sweep,
+static cache, gameplay clock or combat change.
+
+Scoped final-source Ubuntu verification:
+
+- `20261026T095946-quick`, input31756a0820b4068ef9abd385efffd4255e4c8a258b4999363d054edf815d4b21:
+  four changed tests pass (40.46s), covering all1,995 lookups, exact boundaries,
+  28 atlas transitions/five loops, pending-clock10s injection, pause/rapid navigation,
+  destroy/disable cleanup, final-only completion, clean battle and encounter clone.
+  `atlas-review/runtime-source.json` confirms the four runtime files match this input.
+- `20261026T101732-quick`, input18d5570dfe112e2072b34d958070b1ebafe809c2bcc56302d65c7d813c042b47:
+  the extended error test passes (16.09s), including Pause/Back/reentry/Menu while
+  Unseen. Unchanged native residency/reload/overlap, reading pause, legacy viewed
+  and provider-lock tests retain passing094526 results; eight unique tests covered.
+- Current fixture090609 and fresh/tuned fixtures100251 each pass two complete
+  builders. Tuned geometry and persistent listener survive. Exported117 resource,
+  atlas metadata/manifest and scene files equal current source after whitespace
+  normalization; resource GUIDs and all frame data remain stable.
+
+Receipts: `atlas-quick3`, `atlas-quick4`, `atlas-quick5`, `atlas-fixtures-first`,
+`atlas-fixtures-final` under the evidence root above. Earlier failed/stale runs are
+retained for provenance, superseded only for the checks explicitly listed here.
+
+### Atlas streaming acceptance (2026-10-26)
+
+Normal Ubuntu WebGL result `20261026T102719-production` uses input18d5570d above.
+All build inputs match the local implementation. The33 downloaded player files
+match remote hashes; `game-loop-build.json` is qa:false, and JS/WASM/data exclude
+the QA globals in ASCII/UTF16. Receipts: `atlas-production/verified.json` and
+`atlas-review/final-source-tests.json`. Unity ran only on Ubuntu2022.3.25f1.
+
+Native Edge156.0.4314.42, Windows, ANGLE/D3D11 NVIDIA GTX1650Ti:
+
+| Measurement | Before7c208a2e | Streaming normal |
+| --- | --- | --- |
+| Tutorial peak live GPU atlases |33 |2 |
+| Tutorial RGBA allocation |457.108154 MiB |30.019043 MiB |
+| HUD1/6 |33 |0 |
+| Menu and completed cleanup |0 at initial menu |0 |
+
+Measured actual texStorage2D/texImage2D/deleteTexture, including transient peaks;
+dimension classification independently matches exactly33 tutorial PNGs and no
+other project PNG. These are tutorial texture allocations, not total browser/RAM
+or download size. Normal1280x720 passes33 checks;640x360 passes17. All six pages
+at both sizes were directly inspected. Held Enter stays on page2; Back, Pause,
+replay, viewed Play and Start Battle work. Actual Space input lowers live Guard
+and earns30points. HUD, Back-to-HUD, fresh battle, returned menu, viewed encounter
+clone, battle restart, replay HUD, tutorial restart and exit-loading menu all
+reach zero tutorial textures. No console/runtime exception or exposed QA bridge.
+
+Visual boundary evidence: `atlas-review/boundaries/review.json`,33 contact sheets,
+132/132 selected compositor frames and99/99 consecutive pairs directly inspected:
+28 internal atlas changes plus five end-to-start loops. Complete gameplay remains
+visible, captions/focus follow the displayed beat, and no blank or wrong-atlas
+image was found. Four consecutive captures surround each boundary; timestamps
+retain original holds and compositor gaps, sorted by timestamp rather than CDP
+arrival order. Matching indices only locate the sheets; they do not replace direct
+inspection. This is not an FPS guarantee or a claim that CDP captures every engine
+tick. Existing1,995-cel review is reused because PNG pixels, SpriteRects/IDs and
+timing are unchanged; offline tests resolve every frame and exact boundary.
+
+New review demo: <http://127.0.0.1:8304/>.
+Video: <http://127.0.0.1:8304/Tutorial-Atlas-Streaming.mp4>.
+The normal-input capture contains5,501 frames; VFR H264 preserves original timing
+and the final hold (5,502 encoded frames). Full decode and monotonic PTS pass;
+SHA256 `313fb530ec7eaec8e0e2d8d5cd4b2a4fed5524aee1a0411d47522ad162396134`.
+HTTP video hash/MIME, service-worker bootstrap, menu screenshot and QA absence pass
+in `atlas-review/clip.json`, `demo-http.json`, `demo-browser.json`. Browser fixtures
+block production score writes. Existing8303 player/video remain untouched.
+
+Retain the review worktree `C:/Users/ADMIN/orca/workspaces/TypingHero/tutorial-full-gameplay`,
+branch `micharel09/tutorial-full-gameplay`, evidence root and8304 host for user review.
+Host PID is recorded in `atlas-host.pid`; restart with `Start-Atlas-Demo.ps1` in the
+evidence root. Stop/remove only these task resources after review or integration;
+do not remove the old demo before acceptance. No main merge is authorized for this
+handoff. Implementation/testing are complete; user visual acceptance remains open.
