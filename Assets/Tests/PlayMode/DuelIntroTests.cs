@@ -56,7 +56,8 @@ public sealed class DuelIntroTests
         string word = (string)Field(typing, "current"); float timer = (float)Field(typing, "timer");
         var wordText = (TMPro.TMP_Text)Field(typing, "wordText");
         string previewInk = ColorUtility.ToHtmlStringRGB((Color)Field(typing, "nextColor"));
-        float firstPreview = -1, lastPreview = -1;
+        var preview = session.gameObject.AddComponent<DuelIntroPreviewProbe>();
+        preview.Intro = intro;
         Assert.That(GamePauseController.InputBlocked, Is.True);
         Assert.That(((System.Collections.Generic.HashSet<CanvasGroup>)Field(intro, "wordHud")).Count, Is.GreaterThan(0), "word tray is bound independently from status HUD");
         Assert.That(Time.timeScale, Is.EqualTo(1)); Assert.That(AudioListener.pause, Is.False);
@@ -81,17 +82,12 @@ public sealed class DuelIntroTests
             Assert.That(Field(typing, "current"), Is.EqualTo(word)); Assert.That(Field(typing, "timer"), Is.EqualTo(timer));
             Assert.That((bool)Field(typing, "introPreview"), Is.True);
             Assert.That(wordText.text, Does.Contain("<color=#" + previewInk + ">" + word));
-            if ((float)Field(intro, "wordAlpha") == 1)
-            {
-                if (firstPreview < 0) firstPreview = intro.Elapsed;
-                lastPreview = intro.Elapsed;
-            }
             yield return null;
         }
         Assert.That(intro.Running, Is.False, $"intro elapsed={intro.Elapsed}, paused={GamePauseController.IsPaused}, frozen={GamePauseController.PresentationFrozen}");
         Assert.That(Time.realtimeSinceStartup - start, Is.InRange(2.1f, 3.5f));
-        Assert.That(firstPreview, Is.InRange(2.1f, 2.17f));
-        Assert.That(lastPreview - firstPreview, Is.GreaterThan(.22f), "readable stationary preview before combat");
+        Assert.That(preview.FirstApplied, Is.GreaterThan(0));
+        Assert.That(Time.realtimeSinceStartupAsDouble - preview.FirstApplied, Is.GreaterThanOrEqualTo(.3), "300ms from applied alpha to handoff");
         Assert.That((bool)Field(typing, "introPreview"), Is.False);
         Assert.That((float)Field(typing, "introStartRemaining"), Is.GreaterThan(0));
         Assert.That((float)Field(enemy, "_nextAttackAt") - Time.time, Is.InRange(.4f, .51f));
@@ -288,6 +284,98 @@ public sealed class DuelIntroTests
         Assert.That(GamePauseController.InputBlocked, Is.False);
     }
     [UnityTest, Category("Quick")]
+    public IEnumerator StallsBeforeFullAlphaPreserveThreeHundredMillisecondsForPlayAndRetry()
+    {
+        for (int flow = 0; flow < 4; flow++)
+        {
+            if (flow % 2 == 0)
+            {
+                if (flow > 0) { session.ReturnToMenu(); yield return Finished(); }
+                session.BeginGame();
+            }
+            else
+            {
+                var oldEnemy = Find<SkeletonController>();
+                EndlessRun.Restart(); session.ReloadGameplay();
+                float unloadDeadline = Time.realtimeSinceStartup + 6;
+                while (oldEnemy && Time.realtimeSinceStartup < unloadDeadline) yield return null;
+                Assert.That(!oldEnemy, Is.True);
+            }
+            yield return Activated();
+            var intro = Find<DuelIntroPresentation>();
+            var probe = session.gameObject.AddComponent<DuelIntroPreviewProbe>(); probe.Intro = intro;
+            var stall = session.gameObject.AddComponent<DuelIntroPreviewStall>(); stall.Intro = intro;
+            stall.Threshold = flow % 2 == 0 ? 1.99f : .59f; stall.Milliseconds = flow < 2 ? 180 : 500;
+            float deadline = Time.realtimeSinceStartup + 8;
+            while (intro.Running && Time.realtimeSinceStartup < deadline)
+            {
+                if (stall.Triggered && probe.FirstApplied > 0)
+                {
+                    Assert.That(GamePauseController.InputBlocked, Is.True);
+                    Assert.That(CombatSession.I.Seconds, Is.Zero);
+                }
+                yield return null;
+            }
+            yield return null; // Observe handoff after the probe LateUpdate.
+            Assert.That(stall.Triggered, Is.True);
+            Assert.That(probe.FirstApplied, Is.GreaterThan(0));
+            Assert.That(probe.Handoff - probe.FirstApplied, Is.GreaterThanOrEqualTo(.3));
+            Assert.That(intro.Running, Is.False);
+            Object.Destroy(stall); Object.Destroy(probe);
+            yield return Finished();
+        }
+    }
+    [UnityTest, Category("Quick")]
+    public IEnumerator PreviewClockPreservesProgressAcrossFocusPauseAndCountsVisibleStall()
+    {
+        session.BeginGame(); yield return Activated();
+        var intro = Find<DuelIntroPresentation>();
+        float deadline = Time.realtimeSinceStartup + 6;
+        while ((double)Field(intro, "previewSeconds") < .05 && Time.realtimeSinceStartup < deadline) yield return null;
+        var pause = Find<GamePauseController>(); pause.SendMessage("OnApplicationFocus", false);
+        double saved = (double)Field(intro, "previewSeconds");
+        yield return new WaitForSecondsRealtime(.4f);
+        Assert.That((double)Field(intro, "previewSeconds"), Is.EqualTo(saved));
+        Assert.That(intro.Running, Is.True);
+        pause.Resume();
+        deadline = Time.realtimeSinceStartup + 3;
+        while (GamePauseController.PresentationFrozen && Time.realtimeSinceStartup < deadline) yield return null;
+        yield return null;
+        Assert.That((double)Field(intro, "previewSeconds"), Is.LessThan(saved + .15));
+        // The already painted word remains visible throughout this blocked frame.
+        System.Threading.Thread.Sleep(350);
+        yield return null;
+        Assert.That(!intro.Running || (double)Field(intro, "previewSeconds") >= saved + .35, Is.True,
+            "a stall after full alpha counts toward the existing reading credit");
+        yield return Finished();
+        Assert.That(intro.Running, Is.False);
+        Assert.That((double)Field(intro, "previewSeconds"), Is.Zero);
+    }
+    [UnityTest, Category("Quick")]
+    public IEnumerator NavigationDuringExtendedPreviewCancelsOldHandoffAndResetsClock()
+    {
+        for (int action = 0; action < 2; action++)
+        {
+            session.BeginGame(); yield return Activated();
+            var intro = Find<DuelIntroPresentation>();
+            var stall = session.gameObject.AddComponent<DuelIntroPreviewStall>();
+            stall.Intro = intro; stall.Threshold = 2f; stall.Milliseconds = 500;
+            float deadline = Time.realtimeSinceStartup + 6;
+            while (intro.Elapsed < 2.4f && Time.realtimeSinceStartup < deadline) yield return null;
+            Assert.That(stall.Triggered, Is.True); Assert.That(intro.Running, Is.True);
+            var pause = Find<GamePauseController>(); pause.TogglePause(true);
+            yield return new WaitForSecondsRealtime(.35f);
+            Assert.That(intro.Running, Is.True); Assert.That(CombatSession.I.Seconds, Is.Zero);
+            if (action == 0) pause.ReturnToMenu(); else pause.Restart();
+            Object.Destroy(stall);
+            yield return Finished();
+            Assert.That((double)Field(intro, "previewSeconds"), Is.Zero);
+            if (action == 0) Assert.That(Find<TypingManager>(), Is.Null);
+            else Assert.That(CombatSession.I.Letters, Is.Zero);
+            Assert.That(intro.GetComponentsInChildren<ParticleSystem>().Length, Is.Zero);
+        }
+    }
+    [UnityTest, Category("Quick")]
     public IEnumerator TutorialOnlyUncoversAndRetainsItsOwnReadingLock()
     {
         TutorialRun.Begin(); session.BeginGame(); yield return Finished();
@@ -314,5 +402,34 @@ internal sealed class DuelIntroHandoffPause : MonoBehaviour
             Triggered = true;
             Pause.SendMessage("OnApplicationFocus", false);
         }
+    }
+}
+
+// Runs before the coroutine updates its timeline, producing a real blocked frame.
+internal sealed class DuelIntroPreviewStall : MonoBehaviour
+{
+    internal DuelIntroPresentation Intro;
+    internal float Threshold;
+    internal int Milliseconds;
+    internal bool Triggered;
+    void Update()
+    {
+        if (!Triggered && Intro && Intro.Running && Intro.Elapsed >= Threshold)
+        { Triggered = true; System.Threading.Thread.Sleep(Milliseconds); }
+    }
+}
+
+[DefaultExecutionOrder(32001)]
+internal sealed class DuelIntroPreviewProbe : MonoBehaviour
+{
+    internal DuelIntroPresentation Intro;
+    internal double FirstApplied, Handoff;
+    void LateUpdate()
+    {
+        if (!Intro) return;
+        if (Intro.Running && FirstApplied == 0 &&
+            (double?)typeof(DuelIntroPresentation).GetField("previewPrevious", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Intro) is double applied)
+            FirstApplied = applied;
+        if (!Intro.Running && FirstApplied > 0 && Handoff == 0) Handoff = Time.realtimeSinceStartupAsDouble;
     }
 }

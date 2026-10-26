@@ -28,6 +28,14 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     static float Pixel(float position) => Mathf.Round(position / 3) * 3;
     bool enemyVisible, tutorial, covering;
     float hudAlpha;
+    double previewSeconds;
+    double? previewPrevious;
+    const double PreviewDuration = .3;
+
+    void OnEnable() { GamePauseController.FreezeChanged += PreviewFreezeChanged; }
+    void OnDisable() { GamePauseController.FreezeChanged -= PreviewFreezeChanged; previewPrevious = null; }
+    void PreviewFreezeChanged(bool frozen) { previewPrevious = null; }
+    void ResetPreviewClock() { previewSeconds = 0; previewPrevious = null; }
 
     void EnsureCanvas()
     {
@@ -98,6 +106,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     {
         EnsureCanvas(); SetCover(1);
         tutorial = isTutorial; Running = true; Elapsed = 0; covering = false;
+        ResetPreviewClock();
         enemyVisible = isTutorial; hudAlpha = wordAlpha = isTutorial ? 1 : 0;
         wordHud.Clear(); nameAlpha = 0;
         enemyRenderers.Clear(); hud.Clear(); pauseOwner = null; typing = null;
@@ -263,7 +272,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
             float wordEnd = shortened ? .7f : 2.1f;
             float duration = shortened ? 1f : 2.4f; // short flow includes its .2s cover
             double previous = Time.realtimeSinceStartupAsDouble;
-            while (Elapsed < duration || GamePauseController.PresentationFrozen || (pauseOwner && pauseOwner.IsRestarting))
+            while (Elapsed < duration || previewSeconds < PreviewDuration || GamePauseController.PresentationFrozen || (pauseOwner && pauseOwner.IsRestarting))
             {
                 double now = Time.realtimeSinceStartupAsDouble;
                 float delta = (float)(now - previous); previous = now;
@@ -296,11 +305,22 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
         if (!Running) return;
         if (!tutorial && enemy && !enemyVisible) HideEnemy();
         foreach (var pair in hud) if (pair.Key) pair.Key.alpha = pair.Value * (wordHud.Contains(pair.Key) ? wordAlpha : hudAlpha);
+        // Anchor only after this frame applies the fully visible tray. Never credit
+        // the interval that made it appear, even when that frame passed timeline end.
+        if (!tutorial && wordAlpha == 1 && !covering &&
+            !GamePauseController.PresentationFrozen && (!pauseOwner || !pauseOwner.IsRestarting))
+        {
+            double now = Time.realtimeSinceStartupAsDouble;
+            if (previewPrevious.HasValue) previewSeconds += now - previewPrevious.Value;
+            previewPrevious = now;
+        }
+        else previewPrevious = null;
         if (enemyHudName) enemyHudName.alpha = enemyHudNameAlpha * nameAlpha;
         if (label) label.enabled = !GamePauseController.IsPaused && !covering && (!pauseOwner || !pauseOwner.IsRestarting);
     }
     void Finish(bool combatHandoff = false)
     {
+        ResetPreviewClock();
         if (typing) typing.EndIntroPreview(combatHandoff);
         typing = null;
         RevealEnemy();

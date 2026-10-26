@@ -17,13 +17,19 @@
   Camera stays at the authored gameplay framing; cover/menu retain eased upward
   motion. First word stays stationary/readable300ms with existing next-word ink,
   returning to active ink100ms at handoff. Accepted letters supersede that cue.
+  Reading time starts after LateUpdate first applies full tray alpha, independently
+  from the timeline. A frame that reveals the word contributes no preceding time;
+  later stalls while the word remains visible count. Combat waits for both timeline
+  end and at least300ms of visible, unfrozen preview. A late reveal extends only the
+  final preview; smooth totals retain the authored rhythm within frame timing.
   No countdown or first-key timer gate is added.
 - Gameplay locks before gate activation. Words/configuration initialize normally;
   HP, typing timer, score, letters and combat time cannot advance in the intro.
   At handoff the first attack is scheduled500ms after combat opens; typing/parry
   discard intro input, block the handoff frame and require held keys to be released.
 - Pause/focus loss hold intro, particles and UI alpha, including the final handoff
-  frame; Resume continues from the same milestone.
+  frame; Resume continues from the same milestone. Accumulated preview reading
+  time is preserved; the clock reanchors on Resume and excludes the paused interval.
   Menu/restart keep the paused heading suppressed through navigation/cover and
   restore renderer/HUD alpha while destroying the private mesh/effect. Tutorial
   uses only the arena reveal and retains its own reading lock/confirmation.
@@ -33,7 +39,14 @@
 - Shared Audio_Services preserves its music component when menu SFX already exists.
   Same-cue music keeps its live voice/playhead across Continue/retry. Music stopped
   by the existing Menu action can start on the next Play. No new cue or clip is added.
-- Smoke/name follow-up: final Ubuntu Unity7/7DuelIntroTests PASS,0failed/skipped;
+- Actual300ms guard follow-up: Unity10/10intro tests PASS,0fail/skip; exact raw
+  snapshot90a0a643 builds QA with strict repeat/font guards intact. Native1280x720
+  real input125checks PASS,0exceptions/provider IO; all593frames/583transitions in
+  ten affected preview/handoff/cancellation scopes directly reviewed. Includes
+  pre-alpha timeline overshoots, already-visible stalls, paused reading credit,
+  final-frame Pause and Menu/Restart during the extra wait. Runtime timestamps
+  establish the300ms minimum; encoded frame counts are visual evidence only.
+- Earlier smoke/name follow-up: final Ubuntu Unity7/7DuelIntroTests PASS,0failed/skipped;
   exact284C#/shader/package/version inputs match the worktree. Includes actual scene
   locks, whole-pose/shadow reveal, property-block preservation, identity exclusivity,
   pause/focus at smoke/reveal/name/final frame, cancellation and tutorial. Final
