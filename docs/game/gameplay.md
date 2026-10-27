@@ -1,3 +1,30 @@
+## Typed READY summoning (2026-10-27)
+
+- After the completed death animation, a session-owned amber pixel seal fades in
+  with environment gain1 to .85 over240ms. Actors and HUD retain their brightness.
+  READY is centered in a compact borrowed pixel frame (native8px horizontal/4px
+  vertical padding around the complete word), with a steady cream
+  TYPE READY TO CONTINUE label 6px above it. Rest remains unlimited, Enter is inert.
+- The original64x64 Magic circle build frame11 by a-small-smart-potato replaces
+  the procedural ring/marks. Native PNG colors and structure are preserved on a
+  floor quad; Point/Clamp, no mipmaps/compression. Whole-ring alpha rises over80ms
+  per correct letter (.24 waiting, then.392/.544/.696/.848/1); errors reset the word
+  and alpha in120ms. No breathing, rotation or looping motion.
+  Batched/case-insensitive input shares ProcessInput and never rewards combat stats.
+- Full READY locks letters immediately. The fully painted circle anchors a180ms
+  hold and one existing-clip low whoosh through SfxPlayer/preferences, then one
+  Continue. Duel-only charcoal fade200ms leads to existing smoke200-600ms and
+  intact enemy/shadow344ms; seal fades out by600ms. The first word still receives
+  at least300ms of actually visible preview before combat.
+- Cached spawn foot/height outlive the dead enemy. The private textured quad lies15mm
+  above the floor with a64x16native-world-pixel quad footprint; the camera and sprites remain.
+  Pause/focus freeze clocks/progress. Menu/Restart cancel callback, cue and quad/material,
+  restore environment gain independently of Slayer. Tutorial/terminal victory remain.
+- Asset/prompt follow-up:6/6 scoped cases pass, final64px geometry case rechecked;
+  strict QA/repeat build and184native checks pass. All477frames/475transitions
+  of normal/Captain scopes directly inspected. Historical procedural-seal receipts remain separate
+  in [the existing checkpoint](../plans/duel-intro.md).
+
 ## Duel opening (2026-10-26)
 
 - Play lifts the menu and covers the transition250ms. After gameplay initialization,
@@ -5,7 +32,7 @@
   pose and contact shadow appear together at1030ms, inside the smoke peak.
   Stationary name30/DUEL18 enters1100-1200ms, holds until1720ms and fades to1880ms.
   Status HUD1820-1980ms, word tray1900-2100ms, readable preview2100-2400ms.
-- Typed READY/retry:200ms cover plus scene load, reveal0-200ms, smoke200-600ms,
+- Typed READY/retry:200ms cover plus scene load (READY uses a charcoal alpha fade; retry retains the existing wipe), reveal0-200ms, smoke200-600ms,
   intact opponent/shadow at344ms. Title enters420-500ms, holds until680ms,
   fades to820ms. Status HUD540-640ms, word tray620-700ms, preview700-1000ms;
   total1200ms plus loading is retained. Enemy HUD name stays hidden while the
@@ -35,10 +62,10 @@
   uses only the arena reveal and retains its own reading lock/confirmation.
 - Existing dust rendering and heading typography are reused. Strike dust prefab,
   character sprites/clips, camera/world ownership, difficulty, providers and saved
-  contracts are unchanged. No VS/READY/FIGHT intro overlay, skip, extra confirmation or new audio.
+  contracts are unchanged. No VS/READY/FIGHT intro overlay, skip, extra confirmation or new intro audio. The READY completion cue is described above.
 - Shared Audio_Services preserves its music component when menu SFX already exists.
   Same-cue music keeps its live voice/playhead across Continue/retry. Music stopped
-  by the existing Menu action can start on the next Play. No new cue or clip is added.
+  by the existing Menu action can start on the next Play. READY completion uses a separate SfxEvent over an existing whoosh clip; no new clip or waiting loop is added.
 - Actual300ms guard follow-up: Unity10/10intro tests PASS,0fail/skip; exact raw
   snapshot90a0a643 builds QA with strict repeat/font guards intact. Native1280x720
   real input125checks PASS,0exceptions/provider IO; all593frames/583transitions in
@@ -60,8 +87,8 @@
 - Wall torches use authored cinematic SinePair flicker: base8/range15/amplitude.18,
   independent phases and matching flame emission. Two fixed TorchBeam cards are
   inactive and no longer receive atmosphere updates. Central lantern now uses intensity16; flame
-  atlas/timing and actor self-shadow remain unchanged. A constant shadowless cool
-  Spot fill and palette-masked damp Floor1..8 add localized floor response without
+  atlas/timing and actor self-shadow remain unchanged. The invisible cool Spot fill is removed;
+  palette-masked damp Floor1..8 remains unchanged without
   re-enabling the rejected rune, haze, beams or planar reflection. Pause holds the clock;
   Slayer composite conceals the continuing world phase and restores it without
   resetting. [Evidence](../plans/combat-hanging-light.md).
@@ -95,8 +122,7 @@
   Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
 - Fresh encounters now use the session-owned opening described below; Continue,
   retry and tutorial completion use its short variant. There is no Fight/Enter gate.
-- Live combat has no persistent DUEL x/6 label/backplate. Between-enemy results retain cleared/HP,
-  NEXT opponent name and Continue, without tactical hints or duel numbering.
+- Live combat has no persistent DUEL x/6 label/backplate. Nonterminal deaths use the typed READY ritual below; CLEARED/HP/NEXT and the Continue button are removed.
   Combat cues, typing feedback, finite six-opponent progression and scoring remain.
 - Scoped Unity 12/12 and repeat builder pass; native WebGL acceptance is recorded
   in [the menu checkpoint](../plans/compact-menus.md).
@@ -113,8 +139,8 @@
   hardware quality tiers.
 - The approved ten-frame flame, palette, timing, fixed anchors
   and pause/Slayer phase are preserved. The REPLACED-inspired pass changes the
-  MainLantern key24->16 and adds a separate constant cool floor fill64; other torch
-  profiles retain their authored strengths. Each instance owns its clock and UV mesh.
+  MainLantern key to16 in both scene and profile and removes the invisible cool
+  floor fill; side/rear strengths are recorded in the lighting authoring guide. Each instance owns its clock and UV mesh.
   Camera impacts now read `WorldDefinition.cameraImpact` (`CombatCameraProfile`); defaults
   remain unchanged. Presets and curves prepare at binding; accepted requests retain that snapshot.
   Pixel recoil uses the active world's target height; zoom composes with its lens.

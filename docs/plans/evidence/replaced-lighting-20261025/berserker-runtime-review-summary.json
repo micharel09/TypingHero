@@ -1,0 +1,49 @@
+{
+  "build": "f01f3c5af9361553",
+  "status": "passed",
+  "checks": 216,
+  "browser": "153.0.8010.12",
+  "graphics": {
+    "vendor": "Google Inc. (NVIDIA)",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 Ti (0x00001F95) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "fixtureReads": 0,
+  "fixtureWrites": 0,
+  "externalBlocked": 0,
+  "exceptions": [],
+  "source_video": "C:\\CodexTemp\\TypingHero\\replaced-lighting-final-20261025\\video\\page@aa65bc360b3dde42663814ad2a182759.webm",
+  "video_sha256": "a6f216eae162d140491da9f9e948262e67e0041ade88ccdf18764ae69e13a222",
+  "exported_frames": 296,
+  "actually_inspected_frames": 296,
+  "actually_inspected_pairs": 294,
+  "scopes": [
+    {
+      "name": "triple-preparation-hit-parry-followup-recovery",
+      "start": 15.6,
+      "end": 21.1
+    },
+    {
+      "name": "lethal-preparation-hurt-death",
+      "start": 30.6,
+      "end": 34.3
+    },
+    {
+      "name": "lethal-preparation-extension",
+      "start": 28,
+      "end": 30.59
+    }
+  ],
+  "limits": [
+    "Original-speed subjective playback and target-GPU performance remain unverified.",
+    "Berserker uses a separate serialized diagnostic fixture; production remains six encounters/five unique definitions."
+  ],
+  "runtime_coverage": [
+    "Idle",
+    "Attack2",
+    "Attack1",
+    "PixelWeaponContacts",
+    "Hurt",
+    "Die",
+    ""
+  ]
+}

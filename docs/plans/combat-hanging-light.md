@@ -1,3 +1,1001 @@
+## Task closure approved by user (2026-10-27)
+
+The user explicitly accepted the current result for integration, requested push to
+main, task closure and deletion of task logs/temp after reviewing the clip and the
+clarification that visible central-lantern dominance was not established. This
+supersedes the earlier stop-before-main gates for this task; it does not turn
+unqualified FPS/foreground/playback or direct OnEnable measurements into passes.
+
+Merged latest origin/main (ad370ba0); retained its Magic Circle READY implementation
+and both verification histories. Lighting scene/profile and runtime torch/shader
+sources are unchanged from QA100208/397-check smoke. Reused that scoped lighting
+evidence and upstream's READY verification; 38/38 input/frame harness contracts
+pass on the integration tree. No new integrated Unity/player or FPS result claimed.
+No itch.io publication. Primary dirty checkout is untouched.
+
+After verified remote integration, remove the clean task worktree/local branch,
+local dungeon artifact roots and task-only Ubuntu build/cache/result roots. Raw
+artifact links in older sections are historical and will no longer resolve; only
+repository source and Markdown verification summaries are retained. Remote task
+branch is retained. Private shared Unity activation/toolchain and other tasks stay.
+
+## Remove invisible cool floor fill (2026-10-27; acceptance pending)
+
+- Continued the existing clean Orca worktree at
+  `C:/Users/ADMIN/orca/workspaces/TypingHero/replaced-dungeon-lighting-2`, branch
+  `micharel09/replaced-dungeon-lighting-2`, from `ce57fbf7`; origin was fetched and
+  destination remains `micharel09/TypingHero`. Dirty primary main is untouched.
+- Deleted ColdVaultFill GameObject, Transform, DungeonTorchLight, URP light data,
+  Light and its parent child-list entry. Deleted DungeonCoolFill.asset/.meta only
+  after confirming the scene was its sole active consumer. Historical evidence
+  under docs/plans/evidence remains intact. Current configuration docs updated.
+- DungeonFrontLantern profile intensity2 ->16 matches the authored MainLantern.
+  OnEnable applies the profile then retained Perlin flicker: base16, range
+  15.04..16.96 (amplitude.06), rather than a fixed16 every frame. Transform,
+  shadows, flame, phase, five remaining fixture components and combat lights are
+  unchanged. No ambient/exposure/shader/floor-material/API/gameplay compensation.
+- Static PASS: exactly5 scene YAML documents removed; the only retained document
+  change removes the parent child entry. All other scene documents match HEAD.
+  Five DungeonTorchLight components remain; rg across Assets finds no deleted
+  name/profile/GUID/fileID consumer. The front profile's sole delta is intensity.
+- New canonical build/performance source lock:
+  `6bed25a62764729c94188f299e3bedc666bd4281d4bc7cc532119428e8b09ade`.
+  Earlier QA A/B/production players are historical; do not reuse their timing as
+  the new lighting baseline. Locking source is not a performance qualification.
+- Default shared runner doctor twice returned EAGAIN on its occupied lock; no
+  environment setup or job termination. Reused the task-owned Ubuntu adapter and
+  pinned Unity2022.3.25f1, existing private license/cache. Build result/log:
+  `/data/typinghero-game-loop/tasks/dungeon-performance-20261027-final/results/20261027T100208-webgl`.
+  Import was delayed by observed60-64% I/O wait, not disk exhaustion (>40GiB free).
+- Evidence root:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-no-cool-fill-20261027`.
+  Build input/adapter/console are retained alongside prior history at
+  `dungeon-ready-20261027/20261027T100116-build-candidate`.
+- Ubuntu QA100208 build and strict repeated-builder PASS, exit0. All505 downloaded
+  files (33player/472serialized) match server SHA256; archive
+  `8fe533635b9bc8dca1b92bd6b25a91c12ee384ab6edf831f6a92787b95933a73`.
+  Serialized DungeonWorld retains exactly5fixture components, MainLantern
+  m_Intensity16, and no removed name/GUID/child fileID. Builder does not recreate fill.
+- Native Chromium153.0.8010.12, NVIDIA GTX1650Ti/ANGLE D3D11,1280x720:
+  player `61b46a73877b0e0f`, **397checks PASS**, two real-input wins, full/partial
+  READY, Pause/Resume, Restart to first encounter and observed Slayer entry/exit.
+  0exceptions/provider reads/provider writes. Context closure reports closed.
+  The smoke adapter bypasses registration/foreground wait markers explicitly;
+  this is functional evidence, never actual-Windows-foreground or FPS evidence.
+- Directly viewed menu.png, combat.png, slayer.png and slayer-exit.png. Menu and
+  combat show warm floor response with no former blue floor pool. The exit still
+  is an in-progress red/black transition, not proof of fully restored world.
+  No matched-camera/pose old-new pair or full transition playback was inspected;
+  central-lantern visual dominance, complete exit restoration and direct numeric
+  OnEnable observation remain **UNVERIFIED**. Source proves the base16/retained
+  flicker path; it does not replace runtime measurement.
+- The source lock above is the new reproducible lighting baseline input/player;
+  its performance is **UNQUALIFIED**. No new timing numbers, A/B selection,
+  official ABBA or accepted production baseline are claimed. FPS>=59,
+  p95<=18ms, minimum sliding1s>=40FPS, actual Windows foreground, formal ABBA,
+  production checks and final review remain mandatory before main integration.
+  No itch.io publication. Keep this pre-existing worktree/branch until those
+  gates pass and remote-main integration is verified.
+
+## Typed READY harness verified; actual-foreground acceptance blocked (2026-10-27)
+
+- Continued task branch `micharel09/replaced-dungeon-lighting-2` from clean
+  `dc4f489c`. Latest fetch still has `origin/main=66749da1`, already integrated.
+  The dirty primary checkout was untouched. Main has not received this task;
+  no itch publication. No runtime, shader, material, asset, animation, hit timing,
+  Slayer duration, probe/shadow budget, resolution or package change in this continuation.
+- QA observer/plugin remain byte-identical to `990105b5`. Public QA/frame-buffer
+  schema, counters, flags and interval ownership are unchanged. Changes in Git
+  are the task input/performance harness, contracts and this verification record.
+
+### Verified input and teardown
+
+- Shared `dungeon_input.cjs` recognizes the full READY or its remaining suffix
+  only after a nonterminal duel with a live player, outside Pause/intro/loading.
+  Each real keyboard letter requires a newer publication acknowledging progress.
+  After Y it waits for actual new combat and sends no additional letters.
+  `EndlessRun.Win` advances Slot before READY, so Slot correctly stays unchanged
+  through the ensuing reload. Final victory/death cannot enter this path.
+- Guide Enter retains its500ms settling and spans observed Unity frames.
+  UI mouse presses and Ctrl+A also span observed frames and release in `finally`.
+  The native adapter waits for stable input coordinates, confirmed NameInput focus
+  and actual rendered `ArenaQA` text before clicking Start. No Continue call,
+  gameplay setter, scene shortcut or provider write.
+- A real transition exposed JsonUtility's bare `Infinity` coordinates, which
+  standard JSON.parse rejects. The page-only adapter preserves +/-Infinity by
+  converting only unquoted numeric tokens to overflowing JSON exponents; quoted
+  text, ordinary JSON, precision and revivers retain their values. Malformed
+  payloads and NaN still fail. The original C#/plugin observer is unchanged.
+- Normal typing now waits for full observed stamina and expired combo as well
+  as the existing wall-clock gap. Under a slow Unity clock, wall time alone let
+  normal hits accumulate a guard break/Slayer; that invalid run is retained.
+- **38/38 Node contracts PASS**, including all20 prior observer/frame contracts,
+  fresh/stale/partial READY, scene/result boundaries, release on errors, JSON
+  fidelity and actual-Windows-foreground verdicts. Command:
+  `node --test tools/game_loop/test_frame_timing.cjs tools/game_loop/test_dungeon_input.cjs`.
+- Fresh-profile native QA smoke `ready-smoke-5`: **297 checks PASS**, two consecutive
+  wins, full READY, partial EADY held through Pause/Resume, next combat and Restart
+  to duel1/40HP.0 exceptions/provider reads/provider writes. `ready-smoke-3` had
+  passed262 checks on the preceding startup adapter. Failed/never-launched smoke
+  attempts remain raw evidence; they are not counted as passes.
+- Final drain precedes the common receipt/report verdict and closure. Native
+  teardown is bounded at15s; close state and measurement status stay separate.
+  A hung close can stop only a verified task node/browser tree; no forced kill
+  was needed in the completed continuation runs. Windows foreground proof is now
+  requested after the final drain and included in the persisted verdict before
+  close. Official runs refuse an adapter without that proof.
+
+### New immutable QA A payload
+
+- Existing Ubuntu doctor passes: pinned Unity2022.3.25f1, activated private HOME,
+  required images and35.6GiB free; no service setup or Unity Windows execution.
+- QA `20261027T072142-webgl`, input
+  `5b9eb6e84d34c9a296bdee9bf9e7a906ac7755fa6c020f124fc2ab678e2b17f3`:
+  build and strict repeated-builder PASS;281depth mappings/0missing.
+  All2495 game/asset/config inputs match the continued source after canonical LF.
+- Downloaded505 files match server SHA256:33player +472serialized files.
+  Archive SHA256 `0c476b9643c88e142c07a7fa54b9f250cbe4d5569a275c1f8ec06d18b5cf7f03`.
+  `qa-A-hashes.json`, `source-A-manifest.json` and the immutable `qa-A/` retain proof.
+- Initial literal comparison found24 differences, not25:22 whitespace-only.
+  All1074DungeonWorld,440MainMenu and1121SampleScene object IDs are preserved.
+  Derived light/fog/baking values match the unchanged referenced LightProfiles/
+  DungeonLighting profile applied on preview/enable; one transform is rewritten
+  at Unity float precision. No serialized assets were imported into Git and no
+  RGB0/visual acceptance is claimed. Raw and per-object diffs are preserved.
+- This is the new typed-READY runtime payload before any further optimization;
+  its performance qualification is **not complete**. B remains unselected.
+
+### Retained Unity-marker diagnostics; no performance pass
+
+All completed measurements use15s warmup and >=60s combat, detailed-off only in
+normal, with no video, CPU profile or GPU queries. Execution `passed` below means
+coverage/input checks passed under that recorded harness; it is not an FPS pass.
+**None has verified sustained actual Windows foreground.** Harness revisions are
+kept separately; do not pool them or replace slow valid rows with later numbers.
+
+| Raw run | Execution | Unity FPS | p95 ms | Minimum1s FPS | >50ms hitches | Parry/Slayer coverage |
+|---|---|---:|---:|---:|---:|---|
+| A-h3-normal-off-1 | passed | 64.804 | 27.680 | 44 | 3 | False/False |
+| A-h3-normal-on-1 | passed | 0.999 | 1011.460 | 0 | 60 | False/False |
+| A-h3-parry-on-1 | passed | 72.669 | 19.600 | 57 | 0 | True/True |
+| A-normal-off-1 | passed | 70.168 | 24.000 | 57 | 2 | False/False |
+| A-normal-off-2 | failed | 17.026 | 18.160 | 0 | 47 | False/True |
+| A-normal-on-1 | passed | 70.784 | 22.785 | 52 | 1 | False/False |
+| A-normal-on-2 | passed | 15.705 | 991.490 | 0 | 48 | False/False |
+| A-parry-on-1 | passed | 69.009 | 23.585 | 51 | 0 | True/True |
+| A-v2-normal-off-1 | passed | 70.920 | 21.995 | 46 | 4 | False/False |
+| A-v2-normal-on-1 | failed | - | - | None | 0 | False/False |
+
+- The attempted two-per-configuration qualification is incomplete. Normal-off2
+  in the first harness unexpectedly entered Slayer and is invalid for normal.
+  The v2 startup timeout collected0combat frames. The h3 series was interrupted
+  after its first normal/normal-off/parry rows; any partial directory lacks final
+  acceptance. Full raw traces, failed launches and immutable per-run harnesses remain.
+- Whole diagnostic callback/observer samples showed detailed observer medians
+  about1.6-1.8ms versus0.02ms minimal; minimal mode still failed p95. Long ~1s gaps
+  were not ~1s Unity-containing CPU callbacks. This does not isolate a specific
+  game/bridge/OS/driver hotspot. No speculative optimization or rejected
+  managed-string/deferred-decoding candidate was reintroduced. No CPU/GC/heap
+  attribution trace or new diagnostic C# instrumentation was added.
+
+### Actual Windows foreground: concrete blocked gate
+
+- Earlier nine changing-canvas controls used the same Chromium153 executable,
+  GTX1650Ti/ANGLE D3D11,1280x720 and controlled flags,3s warmup/12s measure.
+  Their round3 passed all metric/DOM checks (74.973/74.972/74.557FPS,
+  p9513.6ms,minimum75/75/70). The earlier statement that this fully opened the
+  environment gate is superseded: DOM focus is insufficient for actual foreground.
+- New consumer-owned supervisor samples GetForegroundWindow PID every100ms,
+  matching the Chrome child PID captured at launch. Node and Chrome consumers
+  are explicitly registered before measurement. The only window activation is a
+  single verified task-Chrome SetForegroundWindow attempt before warmup; there
+  is no repeated focus stealing, Computer Use, app closure or power/GPU/driver change.
+
+| Foreground attempt | Canvas result | Actual Windows result | Verdict |
+|---|---|---|---|
+| foreground-control-1 |0.99965FPS / p951000.5ms / min1; DOM focus true |118samples show Orca10692, not task Chrome46976 |FAIL |
+| foreground-control-2 |Not measured |Windows refused activation of task Chrome47772; gate timed out |UNQUALIFIED |
+| foreground-control-3, three consecutive runs |75.000/75.001/74.999FPS; p9513.5/13.5/13.4ms; min75 each |Task Chrome43212 initially foreground, then Edge12016 took it after about5s; later runs entirely Edge |FAIL |
+
+- `foreground-control-3` preserves119/120/119per-run PID samples: run1 has8task
+  samples and111Edge samples; runs2/3 have120/119Edge samples. DOM focus stayed
+  true throughout. All three controls close normally. Canvas metrics alone do
+  not qualify this environment, and old game runs cannot retroactively prove
+  foreground. No application was stopped to manufacture a pass.
+- **Stop at this checkpoint after three new foreground attempts without a
+  fully qualified round.** Required external condition: keep the dedicated task
+  Chromium window in actual Windows foreground for the complete controls and
+  measurement, without switching to Edge/Orca. Do not keep rerunning to select
+  favorable numbers. Reopen the environment gate with three consecutive controls
+  including OS PID proof before component profiling/candidate work.
+
+### Remaining acceptance and resources
+
+- After the foreground condition is available: finish two long valid A runs per
+  configuration under one locked harness; separately attribute observer gather/
+  reflection/particles/serialization/JS decode/100ms publisher and browser CPU/GC/
+  heap cost, then make one equivalent candidate at a time. Preserve the original
+  thresholds and source/equality contracts. No B or official eight-run ABBA yet.
+- Final B production/exclusion/smoke, six-encounter and separate Berserker capture,
+  full1x/0.25x playback and100%selected frame/transition inspection are UNVERIFIED.
+  The current tool catalog has no supported direct video inspection capability;
+ 0new final-video frames/transitions were reviewed. Stills/playback-control
+  automation do not replace watching the required video. This is an additional
+  mandatory-tool blocker; no acceptance waiver or main integration.
+- Durable deliverables, players, all raw evidence/adapters and source/harness/
+  executable/config SHA256 manifests:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-ready-20261027`.
+  Existing private Ubuntu runner/cache/license stay in their original locations;
+  immutable A result stays under
+  `/data/typinghero-game-loop/tasks/dungeon-performance-20261027-final/results/20261027T072142-webgl`.
+- Keep the task worktree `D:/Projects/TypingHero-worktrees/replaced-dungeon-lighting-2`
+  and branch `micharel09/replaced-dungeon-lighting-2` for continued acceptance;
+  remove only after verified accepted remote-main integration. Primary checkout
+  and historical artifacts are preserved. Task scratch cleanup is recorded below.
+
+### Retention and cleanup receipt (2026-10-27)
+
+- Harness/checkpoint commit `2e75db4c` was pushed and fetched back at the same
+  task-branch SHA. Remote main remains `66749da1`; no task-main integration.
+- Both registered scratch tasks were completed with explicit session
+  `01a17c27-fa69-7572-a018-3506e42e3c9a` and `-Apply` at09:34UTC:
+  `dungeon-ready-20261027` and `dungeon-foreground-20261027`. Both receipts report
+  `State=deleted`, `Reason=verified-absent`. No task browser/node/Python consumer
+  remained at handoff. Deliverables and raw traces are outside temp and retained.
+- Cleanup receipts: `cleanup-ready.txt`, `cleanup-foreground.txt` under the durable
+  evidence root. Register a new unique scratch task before any resumed browser
+  profile; update the private adapter's manifest with its returned path/session.
+  Existing worktree/branch and Ubuntu runner/cache/license remain for continuation
+  until accepted remote-main integration. Do not remove historical evidence or
+  pre-existing resources.
+
+## Latest source checkpoint:63a78500 (2026-10-27)
+
+Merged upstream66749da1 (typed READY) with both documentation histories preserved.
+Task branch is pushed; main is unchanged by this task. All FPS players below
+predate this runtime/input change and cannot accept the new source. No new
+Unity build is claimed. A new A/B source lock and QA builds are required before
+continuing acceptance. Existing Ready carry/reset1/1 predates this change;
+upstream READY evidence is recorded separately in docs/game/verification.md.
+
+## Acceptance stopped: performance gate failed; main unchanged (2026-10-27)
+
+- Retained implementation: 990105b5, with main documentation merged at06105e08.
+  No task integration into main, no itch release, and no quality/timing changes.
+- Deferred-decoding candidate is REJECTED: no demonstrated performance win in
+  parry, and neither mode meets acceptance. Its plugin change was restored to
+  the committed eager independent-snapshot implementation. Candidate source is
+  preserved in `deferred-candidate.patch` under the durable evidence root below.
+  The delayed-first-read and cross-frame mutation contract remains useful for
+  the retained implementation; all20 Node contracts pass after restoration.
+- Ubuntu candidate build:052845-webgl; canonical source digest
+  de8f62c123c9ed7357b9b51974f82fb5c27921cb41c1f9b2d2b06ab6f33160e5.
+  All33 downloaded player hashes match. All472 serialized assets match A;
+  output.wasm and output.data are byte-identical to ready-B. Original-serializer
+  comparison passed1567 checks/1565 observed rows; this is correctness evidence,
+  not performance acceptance.
+
+| Deferred candidate qualification | Valid combat seconds | FPS | p95 ms | Minimum1s FPS | Hitch >50ms | Verdict |
+|---|---:|---:|---:|---:|---:|---|
+| deferred-normal-60 | 60.307 | 70.523 | 21.820 | 51 | 2 | FAIL |
+| deferred-parry-60-v5 | 60.635 | 52.478 | 34.920 | 1 | 26 | FAIL |
+| deferred-parry-60-repeat | 60.191 | 50.988 | 35.120 | 30 | 18 | FAIL |
+
+- Both parry runs have real counter-increment and Slayer coverage. Final receipt
+  and native report FPS agree for all three rows. These are qualification runs,
+  not a replacement ABBA block. Earlier v4 parry startup failure remains saved.
+- Startup harness v5 holds Enter across observed Unity frames before key-up.
+  A70ms tap can fall entirely inside a long frame (observed1.462s at guide).
+  Both v5 parry runs reach combat through real keyboard input. No game setters.
+  v5 has not yet been validated on A or used for a complete official block.
+- Context close hung after the first v5 receipt was saved. Only verified
+  task-created Chromium descendants were stopped; native report subsequently
+  completed, with0 runtime exceptions and matching receipt. Repeat closed normally.
+- Post-candidate canvas controls use the same browser/GPU/viewport/flags and
+  3s warmup/12s measurement. First isolated round:74.889/32.198/74.972 FPS,
+  p95 13.6/13.6/13.5ms, minimum74/1/75 FPS; middle run fails despite focus.
+  Rounds two and three each pass all3 runs (see isolated controls4..9), so the
+  environment gate reopened. Do NOT claim the environment remained blocked or
+  assign the reproduced game cost to a proven CPU/shader hotspot.
+- A preceding `post-deferred-control` probe is retained but is not used for
+  acceptance: a contract check overlapped its execution, and close hung.
+- No further runtime/shader edit is justified by the current component-level
+  evidence. Next work requires isolating the remaining recurring cost, then an
+  equivalent candidate with two valid diagnostics per mode and a fresh8-run
+  ABBA on a single locked harness. Do not rerun only to replace poor numbers.
+- Production build/exclusion/smoke and final1x/0.25x playback/per-frame review
+  remain UNVERIFIED on an accepted final B. They cannot authorize integration.
+- Durable evidence: `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-final`.
+  Keep this worktree/branch because integration is not accepted; remove only
+  after verified remote integration. Task scratch may be cleaned after consumers exit.
+
+## ABBA1 failed; deferred-decoding candidate in flight (2026-10-27)
+
+- Current committed HEAD06105e08 includes implementation990105b5 and latest
+  docs-only main merge e5c48017. Main has NOT received this lighting task.
+- FormalABBA1 ran all8slots with locked v3 harness,15s warmup and60s combat.
+  Both A1 slots timed out at tutorial startup before measurement; both blocks
+  are invalid. Every B slot has valid measured coverage but fails performance;
+  preserve those failures rather than discarding them with the invalid block.
+
+| Run | Valid | Unity FPS | p95 ms | Minimum1s FPS | Performance pass |
+|---|---|---:|---:|---:|---|
+| abba1-normal-A1 | False | - | - | None | False |
+| abba1-normal-B1 | True | 62.299 | 28.000 | 40 | False |
+| abba1-normal-B2 | True | 58.643 | 29.860 | 49 | False |
+| abba1-normal-A2 | True | 42.416 | 41.490 | 29 | False |
+| abba1-parry-A1 | False | - | - | None | False |
+| abba1-parry-B1 | True | 51.579 | 34.710 | 34 | False |
+| abba1-parry-B2 | True | 56.585 | 30.340 | 39 | False |
+| abba1-parry-A2 | True | 56.290 | 28.590 | 43 | False |
+
+- Receipts and reports agree after final drain. All raw runs and old harness v3
+  remain under the durable root. Startup fact: Practice click did not produce a
+  confirmed tutorial exit; exact event/timing cause remains unknown. v4 uses
+  documented Enter after500ms guide settling and waits for tutorial exit, via
+  real keyboard only. v4 succeeded once in the separate B GPU diagnostic;
+  A startup validation is still pending.
+- Stable observed lifecycle samples:1world camera,1presenter,2arena textures,
+  2actors,1HUD; no increasing draw-call trend (normal median166). See derived
+  `abba1-cost-analysis.json`; this is not a repository-wide leak-free claim.
+- Separate GPU diagnostic:1489non-disjoint Unity-containing query samples,
+  GPU median6.186592ms; CPU callback median13.670ms. Independent clocks, never
+  summed. Correct coverage and0exceptions; thresholds fail, not accepted FPS.
+- New candidate changes only the QA JS decoder: capture the immutable particle
+  JSON for each frame, materialize that frame's independent mutable array only
+  when read. All192slots/schema/values remain available, including old frames
+  first read after later payload updates. C# still observes every physical frame.
+ 20Node contracts PASS, including delayed historical reads and mutation isolation.
+  Actual final-object equivalence and performance are pending for this candidate.
+- New build in flight: local20261027T052718-build-candidate, canonical input
+  `de8f62c123c9ed7357b9b51974f82fb5c27921cb41c1f9b2d2b06ab6f33160e5`;
+  unified exec session64617 was active. No Unity Windows execution.
+- Keep A player `qa-ready-A/player` (source85bd1706/input393836e2); only docs have
+  advanced upstream since. Keep C2B `qa-ready-B/player` for comparison. Download,
+  hash and verify the new player against the original complete serializer before
+  performance qualification. Because C2 fails at60s despite passing short runs,
+  a single60s candidate qualification is justified before the next full ABBA.
+- v4 source/config live in `locked-harness-v4` and `run_perf-v4.py`; v3 and its
+  run_perf.py remain byte-preserved for ABBA1. Formal next blocks must use a single
+  new frozen manifest and be rerun in full after the startup/harness change.
+- Production checks, final six-encounter/Berserker capture and direct1x/.25x
+  playback plus selected100%frame/transition review are still pending. Do NOT
+  integrate main, lower thresholds/quality or publish itch.
+- Durable root:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-final`.
+  Registered scratch task `dungeon-fps-final-20261027` remains active; complete it
+  only after consumers exit and deliverables are retained outside CodexTemp.
+
+## Locked candidate for formal ABBA (2026-10-27)
+
+- A source85bd1706 (merged origin/main29c03285, before QA optimization), input
+  `393836e29131942b1a1149a90a23e62572a773f83f55fd09d014b079303ce9de`;
+  immutable QA20261027T043436-webgl, local `qa-ready-A/player`.
+- B is the current bridge-cache implementation, input
+  `4348c84a804c9fa4d47d2dca8c5f19505779501c89a058b82749781544408043`;
+  immutable QA20261027T045018-webgl, local `qa-ready-B/player`.
+  A/B build and strict repeat PASS;33player hashes each match server;472serialized
+  files byte-identical;2493game inputs unchanged, only2QA files differ.
+- Ready actual-scene carry/reset/pause test20261027T044828-quick:1/1PASS.
+ 20Node contracts PASS. Final published snapshots match original serializer for
+ 1233/1233observed frames in `ready-B-verify`, including parry/Slayer. That
+  verification run has a retained6.99s hitch and is NOT a performance pass.
+- Comparison-OFF final diagnostics: normal74.83195FPS,p9517.730ms,min1s73;
+  parry74.80227FPS,p9515.755ms,min1s71;0hitches>50ms each,valid continuity/focus/
+  mode/actor coverage,0exceptions/provider reads/writes. Observer median
+  1.260/1.325ms. Do not substitute these diagnostics for official acceptance.
+- Freeze `locked-harness-v3`, `run_perf.py` and `final-harness-manifest.json`
+  under the durable root below. Formal configuration explicitly disables video,
+  legacy timing/GPU wrappers, query interception and serialization verification.
+  The pre-measurement schema check requires192slots and records allfield names.
+- Next: official normal A1,B1,B2,A2, then parry A1,B1,B2,A2,15s warmup and >=60s
+  valid combat each; no parallel build/capture/diagnostic. Every B must pass
+  FPS>=59,p95<=18ms,min1s>=40 with valid coverage. Keep failures and do not rerun
+  only to replace poor numbers. No formal block has run yet.
+- Production build/exclusion/input smoke, final six-encounter+fixture capture,
+  direct1x/.25x playback and selected100%frame/transition review remain pending.
+  Do not merge main or publish itch until all required gates pass.
+- Durable evidence root:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-final`.
+  Task worktree/branch remain retained; current scratch registration is listed
+  below. Previous candidates, rejected/failed runs and source/manifest history
+  remain intact. Update this section with official outcomes before handoff.
+
+## Live performance continuation (2026-10-27; not accepted)
+
+- Continue task branch from `67862b56`, origin/main `83d6e0a6`; original dirty main
+  checkout untouched. Durable root:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-final`.
+- Three fresh changing-canvas controls pass consecutively on Chromium153.0.8010.12,
+  actual GTX1650Ti/ANGLE D3D11, foreground1280x720, 3s warmup +12s measurement:
+  FPS74.556/74.972/74.808; p9513.6/13.5/13.7ms; minimum1s windows73/75/74.
+  Persistent task profile/consumer registration used; prior browser-closure cause
+  remains unknown. No power/GPU/driver or user-application changes.
+- Baseline A: merged source `67862b56`, canonical input
+  `07394443ea5f4a96d93f500d7d10b62ac7688fbab31a976dd313062e12f96083`.
+  Ubuntu2022.3.25f1 result20261027T023958-webgl: fresh private Library (no reused
+  assemblies/import state), QA build and strict repeated builder PASS;
+  281mapped/0missing. Player `5b1df9a17132c7c0`; all33downloaded hashes match server.
+- A diagnostics (5s warmup, normal10s/parry20s; not formal ABBA):
+
+| Run | Valid | Combat ms | FPS | p95 ms | Minimum1s FPS | >50ms hitches | Thresholds |
+|---|---|---:|---:|---:|---:|---:|---|
+| normal detailed | yes | 10108.80 | 74.687 | 15.945 | 72 | 0 | pass |
+| normal minimal | yes | 10018.21 | 73.965 | 17.845 | 69 | 0 | pass |
+| parry detailed | yes | 20242.20 | 66.495 | 24.440 | 47 | 2 | fail |
+| parry detailed repeat | yes | 20207.22 | 70.767 | 21.070 | 61 | 0 | fail |
+
+- All have correct mode/actor/focus/continuity coverage, no runtime exceptions or
+  provider traffic. Parry runs include actual counter increases and Slayer
+  intervals. A remains failed; diagnostic execution status does not mean FPS pass.
+- Observer cost recurs in both valid parry runs (roughly3-4ms median). Source
+  serializes192particle slots every frame, including unchanged stale slots.
+  Candidate changes only QA-only encoding: cache particle JSON when no slot was
+  written; preserve all192slots/values and full public schema. Added optional
+  diagnostic per-frame exact-string comparison with the original JsonUtility
+  serializer; formal measurements must keep this expensive comparison OFF.
+- 20 Node contracts pass, including bridge verification flag, independent snapshots,
+  requiring every observed frame checked, final verification-error closure and
+  preserving input-error precedence. Actual candidate equality/performance remains
+  UNVERIFIED until new player checks. Initial external adapter BOM syntax failure
+  occurred before any browser run and was corrected; failure log retained.
+- Candidate build in flight: local20261027T033918-build-candidate, remote
+  20261027T034011-webgl, canonical input
+  `48ee6606e19a948e6cabb88b8857c027d5013d8233a21b3b4fae5f321a56113f`.
+  Harness-only verification-count/error-report refinements postdate snapshot;
+  they do not change player inputs. `locked-harness` keeps original A diagnostic
+  tools; `locked-harness-v2` is the new pre-ABBA harness. Never overwrite old traces.
+- Candidate1 result20261027T034011-webgl builds/repeat PASS;33player hashes match.
+  `verify-parry` compares1584final JSONs against the original serializer over1583
+  observed frames, including real parry/Slayer; no mismatch/exception. With the
+  comparison OFF, normal64.015FPS/p9525.935ms/min57 and parry64.319FPS/p9526.055ms/
+  min46 both fail. Do not accept/merge this candidate. Its source is retained in
+  `candidate1-source`, player in `qa-candidate`, and all raw traces are preserved.
+- Contemporary A normal (same v2 harness) also fails p95:70.658FPS/20.25ms/min58.
+  This shows variation relative to early A, not a specific OS/driver cause.
+  Three post-candidate controls pass:74.722/74.306/74.973FPS, p9513.5/13.7/13.6ms,
+  min73/69/75. Keep all failures; never select only favorable runs.
+- Candidate2 replaces managed full-payload string composition with a private
+  bridge cache. C# sends full192slot payload only on first observation or any
+  slot write. JS reparses the cached string per frame, preserving independent
+  nested snapshots and the original public schema/stale values. Diagnostic
+  verification compares the FINAL published object with the original complete
+  JsonUtility JSON on every observed frame, rather than only an intermediate.
+ 20Node contracts pass for changed/stale slots, mutation independence, exact
+  snapshot/verification failures, all-frame count and error/closure precedence.
+- Candidate2 build in flight: local20261027T041113-build-candidate, canonical input
+  `854b2f7a163461be791327c5cd785e9b57a568716dfd00f582d697abe79f64fb`.
+  `locked-harness-v3` is the next frozen pre-ABBA harness; no formal block has run.
+  Download/hash and actual final-object equality/normal/parry diagnostics remain
+  pending. Retain or reject based on results before formal ABBA.
+- Main advanced to29c03285 (Ready result caption; same Continue callback).
+  Merged as85bd1706; conflict resolution preserves this task's performance history
+  plus upstream Ready/Slayer completion documentation. Dirty observer changes
+  remain outside that merge commit.85bd1706 is the NEW pre-optimization A source.
+- Pre-Ready candidate2 result20261027T041159-webgl builds/repeat PASS, but is NOT
+  used for runtime/FPS acceptance after this source change. Keep its immutable
+  server player/log and canonical854b2f7a input as a superseded compile result.
+- `build_ready_pair.py` is running sequentially: A build from revision85bd1706,
+  then exactly EndlessTests.ActualSceneCarriesHealthAndStatisticsAndResetsCombatBindings,
+  then B build from current observer worktree. First source input is
+  `393836e29131942b1a1149a90a23e62572a773f83f55fd09d014b079303ce9de`,
+  local20261027T043352-build-baseline. The authoritative local pipeline stage
+  receipts are in `ready-pair-stages.json`; unified exec session99880 was active.
+- A initial local serialized-copy gap was corrected from the immutable server:
+  all472A/C1serialized files are byte-identical. Initial partial-copy comparison
+  is retained separately. All33Aplayer hashes had already matched, so no player
+  or FPS data changed in this correction.
+- Formal eight-run ABBA, final production smoke/exclusion, six-encounter/Berserker
+  capture and direct final playback/frame review remain pending. Main is not
+  integrated; no itch publication is authorized.
+- Registered scratch task `dungeon-fps-final-20261027`, path
+  `E:/CodexTemp/TypingHero/dungeon-fps-final-20261027-b1b741bbdc43`; deliverables
+  already outside temp. Complete scratch only after all consumers exit. Private
+  Ubuntu build/cache root `/data/typinghero-game-loop/tasks/dungeon-performance-20261027-final`
+  is retained for continuing builds; shared private license HOME is referenced,
+  never copied or changed by cleanup.
+
+## Fresh continuation ? environment gate blocked (2026-10-27)
+
+- Resumed clean task HEAD `3ee8b7a5`; verified origin micharel09/TypingHero,
+  fetched and merged origin/main `83d6e0a6` as `421813be`. One documentation
+  conflict preserved both performance evidence and newer Slayer acceptance/audit.
+  Existing dirty main checkout was untouched. No runtime optimization was made.
+- Main adds intro/Slayer runtime and QA observation changes. Old QA player
+  `7cd77c5fb88da486` is not evidence for this merged source. Baseline A and final B
+  remain unlocked/unbuilt; no new Unity build is justified before environment pass.
+- Durable evidence: `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-resume`.
+  `source-manifest.json` hashes tracked game/config/harness inputs and retained
+  native/Ubuntu adapters. Each completed control JSON includes raw rAF intervals,
+  foreground/visibility, renderer, viewport, browser user agent, launch flags,
+  browser executable SHA256 and control script SHA256.
+- Changing WebGL canvas: same Chromium executable/controlled launch flags as
+  retained native adapter, foreground 1280x720, warmup 3s then >=12s observation.
+  No build, image export, video or concurrent diagnostic ran during these controls.
+  Renderer is actual NVIDIA GTX 1650 Ti / ANGLE D3D11 in every completed run.
+
+| Round/run | rAF FPS | p95 ms | Minimum 1s window FPS | Focus/visible | Result |
+|---|---:|---:|---:|---|---|
+| 1.1 | 67.316 | 13.6 | 25 | pass | fail |
+| 1.2 | 32.757 | 13.7 | 1 | pass | fail |
+| 1.3 | 33.700 | 13.6 | 1 | pass | fail |
+| 2.1 | 18.583 | 186.9 | 1 | pass | fail |
+| 2.2 / 2.3 | unavailable | unavailable | unavailable | unverified | browser closed |
+| 3.1 | 3.768 | 1000.4 | 1 | pass | fail |
+| 3.2 | unavailable | unavailable | unavailable | unverified | browser closed |
+
+- Three unsuccessful rounds show no progress. Run 3.3 was not attempted after
+  repeated browser closure. Closure cause is unknown; no task stop was issued.
+  Error receipts preserve this gap; incomplete runs have no returned raw samples.
+  Do not interpret them as performance passes. No power/GPU/driver settings or
+  user applications were changed/stopped. No task profile chrome/node consumers
+  remained in the final process inspection.
+- Environment is **not qualified for measurement**. Canvas-only cadence fails
+  independently of Unity; it does not identify a game CPU/GPU bottleneck or an
+  OS/driver cause. No game diagnostic, ABBA, new production check or final playback
+  was run, and no runtime-performance acceptance or main integration is claimed.
+- Scoped harness recheck after merge: 16/16 Node contracts pass; performance driver
+  syntax passes. Documentation whitespace check passes. These do not validate
+  the merged runtime. Preserve worktree/branch until a stable environment allows
+  the pending build/diagnostic/ABBA/production/playback gates in the approved plan.
+- Next: requalify three consecutive control runs without changing user settings
+  implicitly, then build fresh merged A and follow the original acceptance plan.
+  Task branch push/remote preservation is recorded in the external receipt.
+
+## Harness acceptance checkpoint (2026-10-27)
+
+- Continue `micharel09/replaced-dungeon-lighting-2` from `4613b84`. Changes are
+  limited to JavaScript harness/tests and documentation; reuse QA player
+  `7cd77c5fb88da486`. No Unity build, video, browser profile or measurement rerun.
+- Final drain now precedes the verdict and refreshes summary/coverage. Input errors
+  retain precedence over separately recorded drain errors. Available trace is saved;
+  context closure is attempted even if saving fails. Receipt/report share the final
+  summary/status, with no drain after verdict.
+- Combat intervals belong to their first active frame, retaining exit hitches and
+  excluding entries. Continuity/focus/actor coverage remain independent checks.
+- `minCombatWindowFps` counts completed Unity frames in sliding 1-second windows
+  within each continuous combat segment. Any window below40FPS sets
+  `sustainedLowFps` and fails acceptance, alongside FPS>=59 and p95<=18ms.
+  `longestSlowWindowMs` remains diagnostic for existing consumers.
+- Coverage uses measured combat only: Slayer must own an interval; parry requires
+  a counter increase between adjacent combat observations. Counter decreases reset
+  comparison; scene-entry restoration does not count. Parry protocol still requires
+  `PERF_DETAILED=1`; detailed-off parry is not implemented.
+- Verification: all16 focused contracts pass with
+  `node --test tools/game_loop/test_frame_timing.cjs`; syntax checks for all three
+  changed JavaScript files and `git diff --check` pass. Cases include final-batch
+  focus/overflow/gaps, input plus drain failure, save-failure closure, exit hitch,
+  mixed-frame low FPS, segmented windows and reset/scene-entry/Slayer coverage.
+- Historical raw traces, measurements and evidence below remain unchanged and
+  scoped to their recorded harness. **ABBA, final playback and FPS acceptance
+  remain incomplete.** Harness completion does not establish game performance.
+  This checkpoint starts the next runtime optimization task.
+- Keep the existing worktree/branch for continuation; no main merge or cleanup.
+  No filesystem scratch was created; scenario fixtures run entirely in memory.
+
+## Frame measurement continuation — acceptance pending (2026-10-26 evening)
+
+Continue the existing `micharel09/replaced-dungeon-lighting-2` worktree. Fresh
+fetch resolves main to `480ad7039d0379d2194a6750f5dba938aa58fa24`;
+neither candidate HEAD `f4f684c301556b9c60b95764307d9e6762b7c094` nor lighting draft
+`c590c736` is its ancestor. The incoming plan's “candidate already on main” premise
+is therefore not true for this checkout. Use that candidate as the optimization
+baseline; keep the pre-lighting player strictly for visual comparison. Do not
+merge the unaccepted candidate into main to make the premise true.
+
+Automation changes only:
+
+- The QA bridge stores scalar Unity LateUpdate markers in a fixed 16,384-row
+  Float64 buffer. Batched reads expose sequence, actual `Time.frameCount`, monotonic
+  callback timestamp, Unity delta, detailed-observer cost, presentation/combat flags,
+  parry count, time scale, focus, visibility and focus-event epoch. Buffer loss and
+  frame gaps invalidate a run. These are player-loop markers, not GPU presentation
+  timestamps; the existing 100ms state is never expanded into synthetic frames.
+- `tools/game_loop/frame_timing.cjs` measures rAF, CPU callbacks containing Unity
+  frames, optional diagnostic GPU queries, draw calls and sampled memory separately.
+  Unavailable/disjoint GPU results stay absent; CPU callback time is not GPU time.
+  Combat hitches, hitstop and held frames stay in the distribution. Only explicit
+  intro/loading/reading/Pause/result boundaries are excluded from combat coverage.
+- `tools/game_loop/dungeon_performance.cjs` uses the existing native fixture-only
+  harness, real keyboard/mouse, 320x180 world and 1280x720 player. It retains traces
+  on input/assertion failure, drains every250ms, and checks continuity/focus before
+  duration and thresholds. Normal acceptance requires15s warmup/60s combat; separate
+  short diagnostics compare detailed QA on/off and GPU query overhead. Real-render
+  contact state drives Space; Continue waits for actual encounter state.
+- All6 Node contract tests pass, including overflow, focus events across drains,
+  missing/unclassified actor coverage, retained combat hitch, sustained30FPS and input-failure persistence.
+  Command: `node --test tools/game_loop/test_frame_timing.cjs`.
+
+Two separate focused/visible empty-page diagnostics on the actual GTX1650Ti/D3D11:
+Edge156:374intervals,31.1371FPS,p9533.2ms; Chromium153:369intervals,30.7454FPS,
+p9533.4ms. Raw samples retain startup hitches. This is environment/browser evidence,
+not an attribution of a Unity bottleneck. No power/GPU settings or user applications
+were changed. No shader, art, probe/shadow/fixture budget, timing or gameplay edits.
+
+Durable evidence root (outside task temp):
+`C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261026`.
+
+QA Ubuntu `20261026T144542-webgl` PASS, immutable canonical input
+`e3def152329e81f0a7f3dc9ff5ea3935084fdf274937b39924e0cb545fc205a1`, native player
+`7cd77c5fb88da486`. All33 downloaded player hashes match the server; all2495 current
+Assets/Packages/ProjectSettings inputs match that snapshot after canonical LF.
+This run includes the normal builder's repeated serialization check. The earlier
+72 scoped Unity cases and declared visual/frame coverage remain evidence for
+unchanged game/render inputs; they are not new test/frame-review executions.
+
+Native Chromium153/GTX1650Ti/ANGLE D3D11, no video, four **diagnostics**:
+
+| Mode | Combat ms | Unity FPS | p95 ms | >50ms hitches | Longest >25ms-frame run |
+|---|---:|---:|---:|---:|---:|
+| Normal, detailed QA | 10283.89 | 30.922 | 34.965 | 0 | 8050.885ms |
+| Normal, detailed QA off | 10213.32 | 30.646 | 33.595 | 0 | 10213.320ms |
+| Normal, GPU query on | 11826.02 | 25.368 | 37.535 | 12 | 5004.205ms |
+| Parry/Slayer, detailed QA | 20366.70 | 49.885 | 23.940 | 2 | 725.340ms |
+
+Each uses5s warmup, continuous actual Unity markers and separate browser clocks;
+all four diagnostic executions pass coverage/input checks with0exceptions and
+0provider reads/writes. “Diagnostic passed” does **not** mean performance accepted:
+every run fails FPS/p95 thresholds. Parry run records6actual parries and325Slayer
+frames. No lost buffer rows/frame gaps/focus/visibility changes. Same-launch-flags
+empty Chromium repeat is also slow:363intervals,30.2495FPS,p9533.5ms.
+
+Whole-diagnostic medians (including warmup, not the combat-only window): detailed
+QA observer2.8175ms vs minimal0.015ms; Unity-containing CPU callback11.205ms vs
+7.235ms;166draws each. Minimal disables the expensive render/sorting observation;
+the original100ms state publisher remains enabled. It is not a bridge-free or
+production comparison. Query run records412non-disjoint GPU samples, median
+3.56392ms, CPU callback12.285ms; its worse cadence/hitches are retained. These short
+non-ABBA trials establish neither GPU causality nor production equivalence.
+Allocated Unity memory ranges61,935,882..62,275,529bytes across the diagnostics;
+JS heap and original per-batch memory remain in raw traces. Parry draw median167.
+
+After reducing driver state payload and pinning per-run driver hashes, a final
+normal pair uses identical harness files (driver `1ef8defc…`, collector `7a44f438…`):
+detailed546frames/10116.56ms,53.9709FPS,p9520.55ms; minimal544/10069.66ms,
+54.0237FPS,p9519.53ms. Both retain166draws and0hitches>50ms. Whole-run observer
+medians2.3675/0.010ms and CPU callback7.885/4.630ms; both still fail thresholds.
+All traces contain0unclassified live-actor frames under the final coverage rule.
+Earlier four diagnostics and an intermediate53.8511FPS repeat are preserved,
+not pooled with this pair. The initial detailed-vs-minimal pilot is not the final
+same-harness comparison.
+
+Same launch flags,1280x720 continuously color-cleared WebGL canvas with no Unity:
+637intervals/12s,53.0312rAF-FPS,p9519.2ms,focused/visible on the same NVIDIA GPU.
+Unlike an idle blank page this submits changing GPU content each frame. Its
+similar cadence to the final53.97/54.02Unity pair supports retaining the browser/
+environment limitation as unresolved; it does not establish a specific OS/driver
+cause. No configuration/application changes were made to force a passing result.
+
+Full raw batches/actions/states, source/player manifests, failed acceptance flags
+and [versioned summary](evidence/replaced-lighting-20261025/performance-diagnostics-20261026.json)
+are retained. No runtime optimization was selected: current data does not isolate
+a game bottleneck from the demonstrably slow/variable browser environment.
+Formal15s/60s ABBA for each mode, original-speed/quarter-speed playback acceptance
+and final main integration remain **unverified**, with unchanged≥59FPS/p95≤18ms
+and no sustained30FPS criteria. Keep this branch/worktree and evidence. Resume
+matched baseline/candidate diagnostics in a stable foreground session before
+selecting a runtime change; do not average failed runs into a pass.
+
+Production Ubuntu `20261026T150148-production` exits0, QA=false, canonical input
+`30cb77880ca45d1bf96808069a2b9ffdd968d0159a919b4cc63de3586d2281ea`.
+Its2495 Assets/Packages/ProjectSettings inputs equal the QA snapshot; only tooling
+inputs differ. All33 downloaded production files match remote SHA256. Local scan
+of6decoded HTML/JS/WASM/data payloads (Brotli decoded, UTF8/UTF16LE) finds none of
+`typingHeroQA`, `typingHeroPerf`, `typingHeroReadFrames`, `TypingHeroQA_Frame`,
+`GameLoopProbe`; the QA framework is a positive control for the buffer marker.
+This verifies exclusion, not production FPS or a new production gameplay playtest.
+
+Retain `qa-build/`, `production-build/`, raw diagnostic directories, exact
+`locked-harness/` files (hash-verified against the final paired receipts), native
+and Ubuntu adapters, manifests and runner logs under the durable root. The matching
+two remote immutable result directories remain under the existing private runner
+`/data/typinghero-game-loop/tasks/replaced-lighting-20261026-c590c73/results/`.
+Keep the existing task branch/worktree for acceptance and eventual integration;
+release these evidence resources after replacement/review and verified integration.
+Task-created registered scratch is disposable after those deliverables are saved.
+No task browser or Unity build remains running after the completed commands.
+
+Resume with the retained native harness and fresh output directory. Set
+`ARENA_BUILD` to the exact candidate player, `ARENA_HEADED=1`, `ARENA_CONTROLLED=1`,
+`ARENA_BROWSER_EXE` to the recorded Chromium executable, `PERF_OUTPUT` to that output
+directory, `PERF_MODE=normal` or `parry`, `PERF_DETAILED=1`, `PERF_DIAGNOSTIC=0` and
+`PERF_GPU=0`; invoke `node native.cjs scenario.cjs`. Formal mode uses15s/60s and
+draw counters with no GPU query/video. Re-establish a matched instrumented A/B pair
+on the pinned post-lighting runtime before the prescribed ABBA; the old pre-lighting
+player remains visual evidence only. The final driver also records its own hashes.
+
+## Current integration checkpoint — not accepted/integrated (2026-10-26)
+
+Task HEAD merged newer main4506bb1 as084b38ee, retaining its authored chest-attached
+Slayer visual and first-word preparation. The single test conflict combines the
+task's production-spawner path with main's child SpriteRenderer; runtime source
+from main was preserved. **72/72focused Unity tests PASS**,0failed/skipped,
+23.5608316s, Ubuntu `20261026T083245-quick`, input
+`5595b34e9cbe343871d81bf96d6c61e5b3bd08d9320663bc8e358a5ed88603d2`.
+Strict two-world repeated builder PASS at `20261026T084131-serialize` on the same
+input; painted maps/custom bindings remain intact. Logs/XML/serialized outputs:
+`ubuntu-merged-{tests,repeat}-20261026/` in the existing evidence root.
+
+Inventory re-audit:34clips byte-identical after LF normalization between main24f
+and4506; all six definitions differ only by the new hitAnchor reference. Controller,
+idle/hurt/attack references, sequences and timings are unchanged:281cels/306keys
+remain current. Static pose/white-light/shader checks can be reused; the old native
+video does not certify the updated intro or chest VFX. Updated paired Ubuntu WebGL
+builds and scoped native frame inspection have now passed as recorded below;
+subjective timed playback and performance acceptance remain unverified.
+
+Reachability correction: production round1 contains six encounters but only five
+distinct definitions: Swordsman,DoubleStrike,Heavy,Guard,Elite/Swordsman,Captain.
+`EndlessRun.RepeatAfterBoss=false`; Berserker is selected only in unreachable round2.
+The earlier real-input run therefore establishes **six encounters, five unique
+definitions**, not six unique definitions. A separate serialized Berserker fixture
+was built for real-key combat without changing the production run or adding a
+runtime mutation API. Production Berserker reachability is outside this task.
+
+Host pacing remains unresolved: a scoped telemetry repeat stopped when its candidate
+run could not include Slayer under1s frame cadence. Chromium153 on the same NVIDIA
+GPU then measured parry ABBA74.52/74.56/**1.00**/73.54FPS, with p9513.495/13.505/
+**1000.63**/13.520ms. No image/export work ran during that protocol. Preserve these
+failures; no stable60FPS acceptance or code bottleneck attribution is claimed.
+An asynchronous request asks for a foreground,unlocked,quiet host session before
+another formal measurement. Continue independent Ubuntu/build/frame work meanwhile.
+
+Historical native-video inspection is now complete for the declared export:
+**1387/1387 frames and1370/1370 consecutive source-frame pairs**, retaining held
+frames and source PTS across17ranges. Per-frame observations are versioned in
+`evidence/replaced-lighting-20261025/premerge-runtime-frame-review.csv`, with
+source hash and limits in `premerge-runtime-review-summary.json`. This is player
+`eca5db436d689a34`, before the newer main merge. The initial intro range begins
+with the player already visible; full preparation and original-speed subjective
+playback remain unverified. These sheets do not certify the merged intro/chest VFX
+or target-GPU performance. No light-direction jump, closed bright rim or moving
+floor pool was observed within the inspected ranges; authored impact flashes,
+Slayer presentation and scene-cover transitions are intentional.
+
+Merged-main baseline WebGL build completed on Ubuntu at `20261026T084445-webgl`,
+input `9356c4be2ad703a4fc1046036e31b641609a899856bab93a48ef5e7e64c139b3`.
+All33 downloaded player files match their immutable remote SHA256 hashes; QA flag
+is true. Candidate build `20261026T090032-webgl` also completed successfully on
+Ubuntu, with all33 player-file hashes verified (48,211,165 bytes). Its input is the
+same5595b34e canonical input as the72tests and repeated builder above; native build
+identity is `03dc85d05f9853dd`. All six serialized fixture bindings, intensities,
+ranges and positions match the authored configuration; see
+`evidence/replaced-lighting-20261025/merged-player-light-bindings.json`.
+First merged native run stopped on a harness scene-transition sentinel (`hp=-1`,
+before the next scene's actors existed), after30HP in the preceding trace and
+zero exceptions. The external driver now waits for positive actor HP/current word
+after Continue; no runtime game code changed. The next run genuinely fell to Heavy
+after missed parries. The external driver then sent Space at up to240ms before
+contact, within the authored250ms pose window, and recorded input timestamps.
+Both failed reports/videos are retained; no game timing or balance was changed.
+
+Corrected merged-player native run **PASS1329 checks**, zero exceptions, Chromium
+153.0.8010.12, ANGLE/NVIDIA GeForce GTX1650Ti D3D11,1280x720/world320x180.
+Six production encounters defeated,15parries, final5HP; tutorial, full/short intro,
+hurt, Pause/Resume, follow-up, Slayer entry/natural exit, result/retry/menu covered.
+Firebase fixture intercepted1read/1write; no external requests. Evidence:
+`ubuntu-merged-candidate-full-qa-20261026-retry2.json` and its original video.
+Scoped output inspection: **1117/1117 frames,1108/1108 consecutive source pairs**,
+nine exact ranges retaining source PTS/held frames. Full intro preparation is
+included from the menu before scene cover, unlike the historical export. Entire
+first Slayer interval, each encounter's first attack/parry/follow-up and retry/menu
+were viewed at native320x180 and nearest enlargement. Versioned observations and
+source hash: `evidence/replaced-lighting-20261025/merged-runtime-{frame-review.csv,review-summary.json}`.
+
+Berserker diagnostic Ubuntu build `20261026T092421-webgl`, input
+`f7817a613a8ffb0235312309ed06beb63792d1376df8b4e4670e8a8ea9761a64`, native
+identity `f01f3c5af9361553`,33/33downloaded hashes verified. Build callback copied
+exact authored Berserker serialized fields into the first resource entry after
+the normal builder; production source/resources were not changed. Native actual
+input **PASS216 checks**, zero exceptions, same Chromium/NVIDIA/view sizes:
+Attack2/Attack1, received hit, parry/follow-up, hurt and death observed; final35HP.
+This proves lighting behavior in a fixture, not production reachability.
+**296/296 frames,294/294 source-adjacent pairs** inspected. Initial231-frame export
+was retained; direct inspection required65preceding frames to include the final
+axe preparation/Slayer restoration, joined at source764->765. No frames discarded.
+Versioned observations: `evidence/replaced-lighting-20261025/berserker-runtime-{frame-review.csv,review-summary.json}`.
+
+Within these inspected output ranges: directional lit edge/dark body, separated
+bone/cloth/steel, stable foot contact, no closed bright rim or actor-following pool;
+authored impact flashes and Slayer/scene-cover transitions remain intentional.
+Original-speed subjective playback is still unverified. Per-frame inspection,
+real-time input execution and a passing build do not substitute for that gate or
+the failed/unstable performance protocol. Do not integrate main until acceptance
+is resolved. Keep the task worktree/branch, private Ubuntu cache and immutable
+players/logs/videos for review; remove owned cache/worktree only after integration
+and keep evidence until review no longer needs it. Original dirty checkout stays intact.
+
+## Target WebGL continuation — performance acceptance pending (2026-10-26)
+
+Unity executed on Ubuntu only for these players, using the private pinned runner
+below. Immutable baseline `20261026T070921-webgl`, canonical input
+`e86f625e839a6d8770e3bea1e12440d2fef296e7ecc8173c12c93b80a79a6667`, native
+player ID `7582b6de6542bc75`; candidate `20261026T073255-webgl`, canonical input
+`96479702f012497b74836733d28d28e0f5e03779b0323309107e8cd5e00b2800`, player
+`eca5db436d689a34`. Both builds exit0, use `BuildOptions.None`, and downloaded
+33/33file SHA256 manifests match their immutable server outputs. Evidence paths
+are `ubuntu-{baseline,candidate}-build-20261026/` under the existing evidence root.
+
+Semantic serialized-scene inspection confirms all six original fixture names,
+profile GUID bindings and local anchors survive the builder; final intensities/
+ranges are front2/16,side key32/13,opposite4/10,rear4/15 twice,cool64/16.
+Large text diffs arise from split-scene object ID serialization; no generated
+scene wholesale replacement was imported. Receipt `serialized-light-bindings-20261026.json`.
+
+Native Edge156.0.4314.42 reports actual NVIDIA GTX1650Ti/ANGLE D3D11 at1280x720;
+world320x180,one world camera. Candidate real-key/mouse run
+`ubuntu-candidate-full-qa-20261026-retry2.json`: **1706assert calls PASS**,0exceptions,
+all six current opponents defeated,19parries,final HP14. Covers current reading
+guide,Start Battle,full/short intro,received hit,Pause/Resume,parry/follow-up,
+Slayer entry/natural expiry,enemy deaths,result,retry andMenu. One fixture read/
+write is intercepted locally; no provider request or score write reaches Firebase.
+The earlier browser-driver failures are retained: obsolete manual encounter-reading
+gate and an incorrect TypingCard vertical padding assumption. Current source
+starts encounters automatically; only the external driver changed.
+
+First target-GPU ABBA:15s warm-up per run,60s active focused/visible combat per run,
+no video,loading/intro/pause/transitions excluded at both interval endpoints.
+
+| Mode | A1 FPS / p95 ms | B2 FPS / p95 ms | B3 FPS / p95 ms | A4 FPS / p95 ms |
+| --- | --- | --- | --- | --- |
+| Normal | 74.97 / 13.485 | 74.97 / 13.475 | 74.97 / 13.470 | 74.89 / 13.475 |
+| Parry/Slayer | 73.17 / 13.555 | 61.05 / 26.775 | 63.90 / 26.730 | 67.03 / 26.700 |
+
+**Parry/Slayer p95 fails the18ms target; no overall performance PASS.** No measured
+consecutive28–40ms interval run reached1s, but raw frames include longer hitches.
+Normal candidate GPU query mean2.20/2.31ms versus baseline3.59/2.72ms; parry candidate
+6.38–7.40ms versus baseline4.04/5.09ms. CPU RAF callback and GPU timer are separate,
+delayed observations, not additive or exactly synchronized. Draw counts are about
+167normal,156–158parry on average; mean allocated memory about61.9MB baseline /
+62.1MB candidate normal,62.1MB /62.2MB parry (decimal units). Raw logs,per-state
+statistics and source samples: `abba-20261026.json`,`abba-summary-20261026.json`,
+`timing-20261026-*.json`. Driver success establishes coverage, not FPS acceptance.
+
+A bounded no-GPU-query diagnostic then showed1s engine/rAF cadence for part of a
+focused/visible run before returning to75FPS. A subsequent empty focused page
+measured66.54FPS,p9513.9ms,max213.4ms,31/663intervals>18ms. These host observations
+do not prove the candidate's parry cost harmless. A single scoped parry ABBA repeat
+with GPU telemetry and no image/export work is pending; preserve the failed runs.
+Runtime video frame review is in progress; original-speed subjective playback
+and overall visual/performance acceptance remain unverified. Do not integrate yet.
+
+## Ubuntu verification continuation — acceptance pending (2026-10-26)
+
+Per user instruction, Unity execution now uses Ubuntu `fly-server` only. The
+task-owned Windows Editor was stopped before test execution; no result is claimed
+from it. The original dirty checkout and other server jobs remain untouched.
+Private runner: `/data/typinghero-game-loop/tasks/replaced-lighting-20261026-c590c73`;
+pinned Unity2022.3.25f1 WebGL Docker digest
+`cff6700de0d94127031a428e17c8c8df6dfd5c77850febf677ce39858ad34e4d`.
+Its private license/cache must be removed after integration and evidence retention.
+
+- Ubuntu focused lighting/depth/world/intro/Slayer tests:62 executed,60 passed,
+  two failed in the existing mirrored Slayer tint test. The same test/runtime
+  source exists on base main24f74e0. The test bypassed the production spawner's
+  black-tint policy by directly emitting progression colors. The repair exercises
+  actual `SpawnImpact` with captured progression tint and authored swing vectors;
+  all original black-color/four-frame/angle/position/no-flip assertions remain.
+- Fixed test: **2/2 PASS**,0failed/skipped,0.1310992s, Ubuntu result
+  `20261026T065758-quick`. Local receipt `ubuntu-fixed-tests-20261026/tests.xml`
+  under the existing evidence root. The preceding retry reused stale compiled
+  code because snapshot tar timestamps were fixed; adapter timestamps now change
+  on upload, and the successful rerun compiled the changed source. Runtime and
+  artwork did not change for this test correction.
+- Fresh focused empty-page Edge observation:73.47FPS,p9513.5ms,736/736 focused and
+  visible samples. This supersedes the earlier host-pacing observation only;
+  it is not game performance or acceptance against the60FPS target.
+- Strict repeated builder **PASS**, Ubuntu `20261026T065938-serialize`, same input
+  SHA256 `96479702f012497b74836733d28d28e0f5e03779b0323309107e8cd5e00b2800`.
+  Includes painted-map/custom-binding preservation, two-world Preview/Undo/Redo,
+  scene save/reopen and byte-stable authored maps through both builder passes.
+  Log and serialized outputs retained at `ubuntu-repeat-20261026/`.
+- Ubuntu four-direction white-light output **184/184 images actually inspected**,
+  **168/168 internal adjacent pairs**,23Attack1/Die cels in both facings. Native
+  actor crops and nearest2x, plus full320x180 Die0 output. Eye/rib cavities remain
+  dark; crown/limbs/steel respond toward the selected direction after mirroring.
+  Wide source swing smear becomes bright toward its facing light; source VFX and
+  alpha remain unchanged. [Per-image notes](evidence/replaced-lighting-20261025/neutral-frame-review.csv),
+  [swing matrix](evidence/replaced-lighting-20261025/neutral-swing.png).
+  Full23sheets/raw184PNGs/manifest remain at `neutral-review-20261026/` and
+  `ubuntu-neutral-20261026/` in the existing external evidence root.
+- These are functional **llvmpipe LLVM15.0.7** renders on Ubuntu, not GTX performance.
+  [Photometric fixture](evidence/replaced-lighting-20261025/ubuntu-photometric.txt):
+  flat-depth parity0,missing-map parity0,mirror error0, main occlusion/additional
+  fill/emission isolation PASS. Result `20261026T070816-serialize`, snapshot
+  `ed71b6967079565ef3131ffb714a02857af0d5bcf262e253e941dbc94b0c8a8e`.
+  Prior failed diagnostic had a temporary script in the wrong assembly; moving it
+  into the test assembly fixed compilation without a game-source change.
+- Ubuntu-built paired
+  WebGL players, six-opponent real input/playback and GTX1650Ti ABBA measurements
+  remain pending. Do not integrate while these acceptance gates are unverified.
+
+## REPLACED quality/performance follow-up — candidate, not integrated (2026-10-25)
+
+Task branch `micharel09/replaced-dungeon-lighting-2`, independent Orca worktree
+`C:/Users/ADMIN/orca/workspaces/TypingHero/replaced-dungeon-lighting-2`, based on
+`origin/main` `24f74e0901d51a44e7f58bcca0007ba8d4f0b31c`. Original dirty checkout
+is preserved. Evidence root:
+`C:/CodexTemp/TypingHero/replaced-lighting-final-20261025`.
+
+Implementation:
+
+- Current controller/world/scene inventory is **281 unique cels, 306 keys, 34 clips**;
+  all six current Endless definitions are recorded in `inventory-scope.json`.
+  Current tutorial is a reading guide with Start Battle; do not restore obsolete
+  lessons to fit older QA drivers. Tutorial Attack1/Die remain in the inventory.
+- Tutorial With_VFX Attack1/Die now have normal/material companions for **10/13
+  cels**. Same bone/steel/wood recipe as idle/hurt; only their secondary-texture
+  lists changed. GUIDs, rects, pivots, local IDs and depth bindings are preserved.
+  Explicit Unity preparation generated/bound the two material maps successfully.
+- `author_actor_normals.py` supports repeated `--source`, deduplicates sources,
+  and retains read-only/default CLI behavior. A real default-run failure exposed
+  the single-sprite parry_lift case; it now uses the full image rectangle.
+- Floor1–8 keep their original albedos, surface masks and smoothness scalar **.5**.
+  New linear Point normal maps keep broad tops/mortar flat and tilt chipped rims
+  gently (slope .16); no luminance-to-height conversion. Versioned recipes, channel
+  meanings, parameters and output hashes are under `tools/lighting/`.
+  The old external floor recipe's prototype `.65` was corrected to `.5`, with its
+  original bytes retained as `floor-surface-recipe-prototype-original.json`.
+- Dungeon-only profiles: front lantern **2/range16**, left pillar side key
+  **32/range13**, opposite pillar **4/range10**, both rear torches **4/range15**.
+  Existing six fixture anchors/flames are retained; shared original profiles are
+  unchanged. Fixed cool fill stays **64/range16**, original position/cone/color.
+  Fog RGB **(.004,.009,.018)**; camera/exposure/focus, shadow resolution, scheduler,
+  haze/rune/beam/reflection disabled states, gameplay and original timing unchanged.
+- DungeonSprite clips alpha/intro first, returns directly at Slayer weight exactly
+  1, and skips self-shadow probes for zero attenuation/back-facing lights.
+  Partial weights retain the original full path; contributing lights retain all
+  eight probes. No gameplay API, runtime CLI or quality tier was added.
+
+Verified technical/static evidence:
+
+- GPU: actual **NVIDIA GeForce GTX 1650 Ti**. Controlled shader A/B uses the old
+  shader with the same current material/maps, camera, poses and frozen scene.
+  **614 comparisons, maximum rendered RGB error 0/255**, including partial/full
+  Slayer, hit flash and intro clipping. `final-poses/images/shader-ab.json`.
+- Exported **562 pose images**; **624/624 key/reference rows and 566/566 consecutive
+  or loop pairs actually inspected**, native crops and nearest2x. Includes held/
+  repeated keys, both facings and **22 loop wraps**. Per-row notes:
+  [static frame review](evidence/replaced-lighting-20261025/static-frame-review.csv),
+  [scope/counts](evidence/replaced-lighting-20261025/static-review-summary.json).
+  Mirrored axe metal is substantially dimmer when turned away, then catches the
+  key during execution; this is recorded separately from facing0 observations.
+  Contact-library cels use diagnostic actor staging, not runtime contact placement.
+- Same-framing previews: [baseline](evidence/replaced-lighting-20261025/baseline.png)
+  and [candidate](evidence/replaced-lighting-20261025/candidate.png). Nine controlled
+  light variants were inspected before selecting side32/front2. Warm edges/dark
+  cores remain separated; the room-fixed cold floor pool does not follow poses.
+- **348 existing PNGs byte-identical; 59 animation/controller files identical after
+  Git LF normalization**. All eight floor scalars remain .5. Tool dry-run/source
+  selection/deduplication/outside-path rejection and eight output hashes passed.
+- Original baseline WebGL build exited0. This is **not** a candidate build result.
+  Prior REPLACED research remains in its separate reference-study record; this
+  follow-up does not claim a new trailer-frame or original-speed playback review.
+
+Acceptance blockers / remaining work:
+
+- Two white-light GPU jobs could not execute to completion (0 diagnostic images).
+  A subsequent headless Editor launched through Node also remained before log/test
+  execution (CPU .03125s, no log). No Unity test, strict repeated-builder, candidate
+  WebGL, original-speed playback, controller state-join or six-opponent runtime PASS
+  is claimed. Interrupted jobs/owned temporary fixtures are tracked in the evidence
+  root. The existing fly-server fallback SSH connection timed out.
+- Edge on the selected NVIDIA GPU is available, but even an empty focused/visible
+  page measured **32.000 FPS / p95 31.7ms** (321 samples over10s). This is a host
+  pacing limitation observation, not a measured game bottleneck or proof of60FPS.
+  Required15s warm-up/60s ABBA normal and parry/Slayer runs remain unverified.
+  Prepared fixture-only drivers record CPU callback/GPU timer/draws/memory and
+  intercept provider traffic; they have not been used to claim acceptance.
+- Resume with four-direction white-light checks/both facings, targeted companion/
+  world-switch/Slayer/intro checks, strict two-pass builder and final candidate build;
+  then real-input current tutorial/all six opponents, full intro/retry/pause/Slayer/
+  menu, original-speed playback and the specified GTX1650Ti performance protocol on
+  a60Hz-capable session. Preserve target320x180/1280x720 and the original criteria.
+- **Do not integrate into main while these gates are unverified.** Keep the task
+  worktree/branch for completion and immutable baseline player, logs, captures and
+  receipts for review. Remove only task-owned cache/worktree after verified remote
+  integration and after no reader needs the cache; never touch the dirty checkout.
+
 ## REPLACED dungeon lighting - implementation checkpoint, 2026-10-25
 
 User approved REPLACED-inspired floor pools, directional actor highlights and dark

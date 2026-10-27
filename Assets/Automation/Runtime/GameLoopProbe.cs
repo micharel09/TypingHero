@@ -160,6 +160,33 @@ public sealed class GameLoopProbe : MonoBehaviour
             Mathf.Max(.001f, animator.speed * info.speed * info.speedMultiplier);
     }
     readonly CombatRenderFrame combatFrame = new CombatRenderFrame();
+    [Serializable] sealed class ParryPayload { public ParryParticleFrame[] parryParticles; }
+    readonly ParryPayload parryPayload = new ParryPayload();
+    bool parryPayloadSent, verifyCombatSerialization;
+#if UNITY_WEBGL && !UNITY_EDITOR
+    void PublishCombatSnapshot()
+    {
+        // Slots are written only when a physical sample exists. Send all192 slots
+        // on each change, including the unchanged tail, and on the first frame.
+        string payload = null;
+        if (!parryPayloadSent || combatFrame.parrySampleCount > 0)
+        {
+            parryPayload.parryParticles = renderParryParticles;
+            payload = JsonUtility.ToJson(parryPayload);
+            parryPayloadSent = true;
+        }
+        var particles = combatFrame.parryParticles;
+        string json;
+        try
+        {
+            combatFrame.parryParticles = Array.Empty<ParryParticleFrame>();
+            json = JsonUtility.ToJson(combatFrame);
+        }
+        finally { combatFrame.parryParticles = particles; }
+        TypingHeroQA_CombatFrame(json, payload,
+            verifyCombatSerialization ? JsonUtility.ToJson(combatFrame) : null);
+    }
+#endif
     void PublishCombatFrame()
     {
         if (!combatHitbox) combatHitbox = FindObjectOfType<PlayerWeaponHitbox>();
@@ -244,10 +271,45 @@ public sealed class GameLoopProbe : MonoBehaviour
         combatFrame.sparkCel = spark && spark.GetComponent<SpriteRenderer>().sprite ? spark.GetComponent<SpriteRenderer>().sprite.name : "";
         combatFrame.sparkPoint = spark ? spark.transform.position : default;
 #if UNITY_WEBGL && !UNITY_EDITOR
-        TypingHeroQA_CombatFrame(JsonUtility.ToJson(combatFrame));
+        PublishCombatSnapshot();
 #endif
     }
+    PlayerHealth performancePlayer;
+    SkeletonController performanceEnemy;
+    PlayerSlayerMode performanceSlayer;
+    DuelIntroPresentation performanceIntro;
     void LateUpdate()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        int mode = TypingHeroQA_FrameBegin();
+        verifyCombatSerialization = (mode & 4) != 0;
+        try
+        {
+            if ((mode & 1) != 0) ObserveDetailedFrame();
+        }
+        finally
+        {
+            if ((mode & 2) != 0)
+            {
+                int flags = SceneManager.GetActiveScene().name == "SampleScene" ? 1 : 0;
+                if (performanceIntro && performanceIntro.Running) flags |= 2;
+                if (GamePauseController.IsPaused) flags |= 4;
+                if (GamePauseController.EncounterReading) flags |= 8;
+                if (CombatSession.Finished) flags |= 16;
+                if (DungeonSession.Current && DungeonSession.Current.Transitioning) flags |= 32;
+                if (performanceSlayer && performanceSlayer.IsActive) flags |= 64;
+                if (observedParry && observedParry.IsWindowActive) flags |= 128;
+                if (performancePlayer && performancePlayer.Current > 0 && performanceEnemy && performanceEnemy.Current > 0) flags |= 256;
+                if (GamePauseController.InputBlocked) flags |= 512;
+                TypingHeroQA_FrameEnd(Time.frameCount, Time.unscaledDeltaTime * 1000, flags,
+                    CombatSession.I ? CombatSession.I.Parries : 0, Time.timeScale);
+            }
+        }
+#else
+        ObserveDetailedFrame();
+#endif
+    }
+    void ObserveDetailedFrame()
     {
         PublishCombatFrame();
         if (!sortingAnimator || !sortingSprite) return;
@@ -325,6 +387,9 @@ public sealed class GameLoopProbe : MonoBehaviour
     [Serializable] sealed class State
     {
         public bool introRunning, introEnemyHidden, introInputBlocked, introLabelVisible;
+        public string readyRitual;
+        public float readyRitualElapsed, environmentPresentationGain;
+        public float[] readyMarkLevels;
         public float introElapsed, introHudAlpha, introLabelAlpha, introCover;
         public float introEnemyNameAlpha, introWordAlpha;
         public int introWordHudGroups;
@@ -550,7 +615,9 @@ public sealed class GameLoopProbe : MonoBehaviour
         => target == null ? fallback : (T)target.GetType().GetField(field, Fields).GetValue(target);
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")] static extern void TypingHeroQA_Publish(string json);
-    [DllImport("__Internal")] static extern void TypingHeroQA_CombatFrame(string json);
+    [DllImport("__Internal")] static extern void TypingHeroQA_CombatFrame(string json, string particles, string reference);
+    [DllImport("__Internal")] static extern int TypingHeroQA_FrameBegin();
+    [DllImport("__Internal")] static extern void TypingHeroQA_FrameEnd(int frame, float deltaMs, int flags, int parries, float timeScale);
 #endif
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Install()
@@ -602,6 +669,10 @@ public sealed class GameLoopProbe : MonoBehaviour
                 if (observedParry) observedParry.OnParrySuccess += Parry;
             }
             var slayer = FindObjectOfType<PlayerSlayerMode>();
+            performancePlayer = health;
+            performanceEnemy = enemy;
+            performanceSlayer = slayer;
+            performanceIntro = FindObjectOfType<DuelIntroPresentation>();
             var gate = FindObjectOfType<PlayerInputGate>();
             var pause = FindObjectOfType<GamePauseController>();
             var board = FindObjectOfType<LeaderboardUIBinder>();
@@ -692,6 +763,10 @@ public sealed class GameLoopProbe : MonoBehaviour
             int hitState = health ? Animator.StringToHash(health.hitStatePath) : 0;
             var state = new State
             {
+                readyRitual = Read<object>(FindObjectOfType<ReadyRitualPresentation>(), "phase")?.ToString() ?? "Dormant",
+                readyRitualElapsed = Read<float>(FindObjectOfType<ReadyRitualPresentation>(), "elapsed"),
+                readyMarkLevels = Read<float[]>(FindObjectOfType<ReadyRitualPresentation>(), "levels"),
+                environmentPresentationGain = DungeonSession.Current && DungeonSession.Current.World ? DungeonSession.Current.World.Arena.EnvironmentPresentationGain : 1,
                 introMusicPlayerId = MusicPlayer.I ? MusicPlayer.I.GetInstanceID() : 0,
                 introMusicVoiceId = MusicPlayer.I && MusicPlayer.I.GetComponentsInChildren<AudioSource>().FirstOrDefault(s => s.isPlaying) ? MusicPlayer.I.GetComponentsInChildren<AudioSource>().First(s => s.isPlaying).GetInstanceID() : 0,
                 introMusicSample = MusicPlayer.I && MusicPlayer.I.GetComponentsInChildren<AudioSource>().FirstOrDefault(s => s.isPlaying) ? MusicPlayer.I.GetComponentsInChildren<AudioSource>().First(s => s.isPlaying).timeSamples : 0,
@@ -705,7 +780,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 introHudAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "hudAlpha"),
                 introLabelVisible = Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label") && Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label").isActiveAndEnabled,
                 introLabelAlpha = Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label") ? Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label").alpha : 0,
-                introCover = Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain") && Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").gameObject.activeSelf ? 1 - Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").anchorMin.y : 0,
+                introCover = Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain") && Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").gameObject.activeSelf ? Read<bool>(FindObjectOfType<DuelIntroPresentation>(), "fadeCover") ? Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").GetComponent<Image>().color.a : 1 - Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").anchorMin.y : 0,
                 introDustParticles = Read<ParticleSystem>(FindObjectOfType<DuelIntroPresentation>(), "dust") ? Read<ParticleSystem>(FindObjectOfType<DuelIntroPresentation>(), "dust").particleCount : 0,
                 introEnemyHidden = sortingEnemy && sortingEnemy.forceRenderingOff,
                 introInputBlocked = GamePauseController.InputBlocked,

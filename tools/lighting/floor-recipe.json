@@ -1,0 +1,121 @@
+{
+  "written": false,
+  "normal_channels": "RGB tangent normal; A=255",
+  "bevel_slope": 0.16,
+  "surface_channels": "R metallic=0; A smoothness; G/B=0",
+  "smoothness_scalar": 0.5,
+  "tiles": [
+    {
+      "source": "Assets/Art/Environment/PixelDungeon/floor_1.png",
+      "source_sha256": "c3bb5fc5345452ec79a332ac9113c9cdf78b0473238b734bf5f4cc0839fb2e3e",
+      "normal": "Assets/Art/Environment/PixelDungeon/Floor1Normal.png",
+      "normal_sha256": "8f773e334dd7373f8546616d60392ef7eba86d6a76fa33e920bb302fbfb4fd90",
+      "surface": "Assets/Art/Environment/PixelDungeon/Floor1Surface.png",
+      "surface_sha256": "f287d770d1f2cbedc011c90aa1864f62a103c88c05ab4b1f15c11d989966bb18",
+      "surface_alpha": {
+        "stone_top": 184,
+        "chipped_bevel": 72,
+        "mortar": 6
+      },
+      "normal_guid": "96608020997f58b5b6ae0b0977e0ff2d"
+    },
+    {
+      "source": "Assets/Art/Environment/PixelDungeon/floor_2.png",
+      "source_sha256": "a1825b4bff905026d6fe7f814874e2d59d1bfe6384024634db9af079ca64cc68",
+      "normal": "Assets/Art/Environment/PixelDungeon/Floor2Normal.png",
+      "normal_sha256": "d96ba55e14f4096dca492b5262e9684337846fc31ab0144829fe329d971b0acc",
+      "surface": "Assets/Art/Environment/PixelDungeon/Floor2Surface.png",
+      "surface_sha256": "34b54593e297dddeec780bd2ac40dc8e3e67adace72faf9452ef56ea2c05185f",
+      "surface_alpha": {
+        "stone_top": 168,
+        "chipped_bevel": 72,
+        "mortar": 6
+      },
+      "normal_guid": "908d03b9b3945b4eb97ee08e39721042"
+    },
+    {
+      "source": "Assets/Art/Environment/PixelDungeon/floor_3.png",
+      "source_sha256": "2722a440e4fc3d9af1dffead6e061aa22d0c61c591baa6f3ed2742de26e465ce",
+      "normal": "Assets/Art/Environment/PixelDungeon/Floor3Normal.png",
+      "normal_sha256": "41f77c1d91dc3834e885df8ce361ca5f52e1f20551a9d239cb63a4d481b7c54e",
+      "surface": "Assets/Art/Environment/PixelDungeon/Floor3Surface.png",
+      "surface_sha256": "cdb06faf4823484890176a1102a2d6a0b30d055847819f78b87c351a4bed63f8",
+      "surface_alpha": {
+        "stone_top": 176,
+        "chipped_bevel": 72,
+        "mortar": 6
+      },
+      "normal_guid": "f02de64230525c719965e02b1d1db635"
+    },
+    {
+      "source": "Assets/Art/Environment/PixelDungeon/floor_4.png",
+      "source_sha256": "6db73d2fa83f01bbf7aa39d21f34101bc25b283e2244ab1e6bd2fec148112f73",
+      "normal": "Assets/Art/Environment/PixelDungeon/Floor4Normal.png",
+      "normal_sha256": "abc4e27ae21fb176b83979b0aa9897c6deb43732299f22612dc363f55bfc4b64",
+      "surface": "Assets/Art/Environment/PixelDungeon/Floor4Surface.png",
+      "surface_sha256": "5766cf3268d1c773c2d63a2fd80f04b451b0972102e4303fed4b953642165eea",
+      "surface_alpha": {
+        "stone_top": 156,
+        "chipped_bevel": 72,
+        "mortar": 6
+      },
+      "normal_guid": "5876b35ee5715058818ba54991862578"
+    },
+    {
+      "source": "Assets/Art/Environment/PixelDungeon/floor_5.png",
+      "source_sha256": "1507108b4bebdf2c416b1294303d9d1510f21257166b1e96aa66a0eae4dcaafb",
+      "normal": "Assets/Art/Environment/PixelDungeon/Floor5Normal.png",
+      "normal_sha256": "ee9e13823b187fd12a52eb7bef84b824403cd6933b04930acd0280c8c465c804",
+      "surface": "Assets/Art/Environment/PixelDungeon/Floor5Surface.png",
+      "surface_sha256": "98dd2f5965b78d16210ccbfec933b9476fae74eaf5ded34d40575903c15ce50e",
+      "surface_alpha": {
+        "stone_top": 188,
+        "chipped_bevel": 72,
+        "mortar": 6
+      },
+      "normal_guid": "c3606bcdc67a5bbf9b29599d4c712b22"
+    },
+    {
+      "source": "Assets/Art/Environment/PixelDungeon/floor_6.png",
+      "source_sha256": "842ec56063be4d3e4d400272a5765feaa65683835b4e438718754489ab76917f",
+      "normal": "Assets/Art/Environment/PixelDungeon/Floor6Normal.png",
+      "normal_sha256": "1d8f4dcebbf633333455bd04b4f06c067ff71cb096bfebfdbafcfb713c9b1e05",
+      "surface": "Assets/Art/Environment/PixelDungeon/Floor6Surface.png",
+      "surface_sha256": "ba19231ec5d0cd877f00f606938b981a535e35c5f5ce52822fce74eb627e0ef0",
+      "surface_alpha": {
+        "stone_top": 162,
+        "chipped_bevel": 72,
+        "mortar": 6
+      },
+      "normal_guid": "02e44c2ab600502f9243f2b685832080"
+    },
+    {
+      "source": "Assets/Art/Environment/PixelDungeon/floor_7.png",
+      "source_sha256": "84241f9bfd2c699cbd5f2d0210da478464426e4edec4bc0fa02e11ab7cac594c",
+      "normal": "Assets/Art/Environment/PixelDungeon/Floor7Normal.png",
+      "normal_sha256": "aeeb3d55611a56d2b56e5d8acb0507e6aafa5ceeda132691108914baab704e31",
+      "surface": "Assets/Art/Environment/PixelDungeon/Floor7Surface.png",
+      "surface_sha256": "f029f6e6be425ddda591305920a4ed9bd62c8b787f67cfab6bae43119648f9b5",
+      "surface_alpha": {
+        "stone_top": 172,
+        "chipped_bevel": 72,
+        "mortar": 6
+      },
+      "normal_guid": "d803a401c636508f97d07d9bd255ce29"
+    },
+    {
+      "source": "Assets/Art/Environment/PixelDungeon/floor_8.png",
+      "source_sha256": "2ee2dfeefda93a3979f74eeba9b45f7d066fe25fe01ff435bae245124fccdcae",
+      "normal": "Assets/Art/Environment/PixelDungeon/Floor8Normal.png",
+      "normal_sha256": "2707202e6d5e297c95ef3e48ad0949631d3cd6a9d96607ddcaa29bcde9d1d0eb",
+      "surface": "Assets/Art/Environment/PixelDungeon/Floor8Surface.png",
+      "surface_sha256": "4e1d3f7688d380b07f7186e3c37a329ec07c1b1c231c53a01157179c975414b3",
+      "surface_alpha": {
+        "stone_top": 160,
+        "chipped_bevel": 72,
+        "mortar": 6
+      },
+      "normal_guid": "f862f7498ce95e2d970b9f6a6124f1fe"
+    }
+  ]
+}

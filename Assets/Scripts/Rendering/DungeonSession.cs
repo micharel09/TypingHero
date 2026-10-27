@@ -41,8 +41,22 @@ public sealed class DungeonSession : MonoBehaviour
     int inputFrame = -1;
     DungeonSessionBindings gameplay;
     DuelIntroPresentation intro;
+    ReadyRitualPresentation readyRitual;
     Coroutine transitionRoutine;
     bool shortIntro;
+    bool ritualIntro;
+
+    internal void CaptureReadySpawn(SkeletonController enemy)
+    {
+        if (!readyRitual) readyRitual = gameObject.AddComponent<ReadyRitualPresentation>();
+        readyRitual.CaptureSpawn(enemy, World.Arena, World.environment.position.y);
+    }
+    internal void BeginReady(TypingManager typing, System.Action onReady)
+        => readyRitual.Begin(typing, onReady);
+    internal void PaintReadySummon(float elapsed)
+    {
+        if (ritualIntro && readyRitual) readyRitual.PaintSummon(elapsed);
+    }
 
 #if UNITY_EDITOR
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -137,13 +151,15 @@ public sealed class DungeonSession : MonoBehaviour
         }
         GamePauseController.SetIntro(true);
         shortIntro = reload;
+        ritualIntro = reload && readyRitual && readyRitual.Committed;
+        if (readyRitual && !ritualIntro) readyRitual.Cancel();
         Transitioning = true;
         transitionRoutine = StartCoroutine(Transition(scene));
     }
     IEnumerator Transition(string destination)
     {
         if (!intro) intro = gameObject.AddComponent<DuelIntroPresentation>();
-        yield return intro.Cover(shortIntro ? .2f : .25f, !shortIntro && destination == GameScene);
+        yield return intro.Cover(shortIntro ? .2f : .25f, !shortIntro && destination == GameScene, ritualIntro);
         intro.ClearCovered();
         yield return EnsureWorld();
         // Disable first: Slayer restores the environment while its actors still exist.
@@ -156,6 +172,7 @@ public sealed class DungeonSession : MonoBehaviour
         }
         GamePauseController.ResetSessionState();
         World.ResetView();
+        if (ritualIntro) readyRitual.BeginSummon();
         yield return SceneManager.LoadSceneAsync(destination, LoadSceneMode.Additive);
         var loaded = SceneManager.GetSceneByName(destination);
         SceneManager.SetActiveScene(loaded);
@@ -188,5 +205,10 @@ public sealed class DungeonSession : MonoBehaviour
         yield return intro.Play(shortIntro, TutorialRun.Active);
         inputFrame = Time.frameCount + 1;
     }
-    void OnDestroy() { if (intro) intro.Cancel(); if (instance == this) instance = null; }
+    void OnDestroy()
+    {
+        if (readyRitual) readyRitual.Cancel();
+        if (intro) intro.Cancel();
+        if (instance == this) instance = null;
+    }
 }

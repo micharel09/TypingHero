@@ -23,6 +23,7 @@ public sealed class EndlessDuel : MonoBehaviour
         pause = FindObjectOfType<GamePauseController>();
         var enemy = FindObjectOfType<SkeletonController>();
         enemy.ConfigureEndless(Run);
+        DungeonSession.I.CaptureReadySpawn(enemy);
         if (Run.Health > 0) player.RestoreEncounterHealth(Run.Health);
         else Run.Health = player.Current;
         CombatSession.I.RestoreEndless(Run);
@@ -79,7 +80,7 @@ public sealed class EndlessDuel : MonoBehaviour
         }
         if (ready) return;
         ready = true;
-        FindObjectOfType<TypingManager>().BeginReady(Continue);
+        DungeonSession.I.BeginReady(FindObjectOfType<TypingManager>(), Continue);
     }
 
     internal string FinishRun(bool won = false)

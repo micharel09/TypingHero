@@ -20,7 +20,7 @@ MonoBehaviour:
   ambientIntensity: 0
   fog: 1
   fogMode: 1
-  fogColor: {r: 0, g: 0, b: 0, a: 1}
+  fogColor: {r: 0.004, g: 0.009, b: 0.018, a: 1}
   fogStart: 19.84022
   fogEnd: 41.840218
   fogDensity: 0.01

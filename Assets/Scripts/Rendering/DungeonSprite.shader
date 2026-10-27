@@ -79,14 +79,16 @@ Shader "CLACKBLADE/Dungeon Sprite"
     data.giColor = GlobalIllumination(brdf, coat, surface.clearCoatMask,
      input.bakedGI, ao.indirectAmbientOcclusion, input.positionWS,
      input.normalWS, input.viewDirectionWS, input.normalizedScreenSpaceUV);
-    main.shadowAttenuation *= SelfVisibility(uv, main.direction, height);
+    if (main.distanceAttenuation * main.shadowAttenuation > 0 && dot(input.normalWS, main.direction) > 0)
+     main.shadowAttenuation *= SelfVisibility(uv, main.direction, height);
     data.mainLightColor = LightingPhysicallyBased(brdf, coat, main,
      input.normalWS, input.viewDirectionWS, surface.clearCoatMask, false);
     #if defined(_ADDITIONAL_LIGHTS)
     uint count = GetAdditionalLightsCount();
     LIGHT_LOOP_BEGIN(count)
      Light light = GetAdditionalLight(lightIndex, input, shadowMask, ao);
-     light.shadowAttenuation *= SelfVisibility(uv, light.direction, height);
+     if (light.distanceAttenuation * light.shadowAttenuation > 0 && dot(input.normalWS, light.direction) > 0)
+      light.shadowAttenuation *= SelfVisibility(uv, light.direction, height);
      data.additionalLightsColor += LightingPhysicallyBased(brdf, coat, light,
       input.normalWS, input.viewDirectionWS, surface.clearCoatMask, false);
     LIGHT_LOOP_END
@@ -98,7 +100,12 @@ Shader "CLACKBLADE/Dungeon Sprite"
     #endif
    }
    half4 Frag(Varyings i):SV_Target {
-    half4 c=Sample(i); half3 n=UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap,sampler_NormalMap,i.uv));
+    half4 c=Sample(i);
+    // Sample retains alpha and intro clipping before the fully opaque silhouette.
+    // Partial weights still need the complete lighting/flash path below.
+    if (_SlayerTintWeight == 1)
+     return half4(lerp(c.rgb,_SlayerHitFlashColor.rgb,_SlayerHitFlashAmount),c.a);
+    half3 n=UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap,sampler_NormalMap,i.uv));
     n=normalize(half3(n.xy*_NormalStrength,n.z));
     // Keep unmapped actors on their original response. Mapped actors use the
     // same explicit source-facing basis for normals and depth ray directions.

@@ -1,3 +1,194 @@
+## Dungeon task closed by user (2026-10-27)
+
+User approved the current source for main integration and requested task log/temp
+cleanup. Earlier FPS/foreground/final-review gates are waived for this integration;
+their missing evidence remains unverified. Lighting QA100208/397smoke is reused
+because lighting inputs are unchanged; current-main READY is retained, integration
+input/frame contracts38/38PASS. No integrated player rebuild or performance pass.
+Raw task artifacts are removed after remote verification; historical paths below
+are no longer retained evidence. [Closure record](../plans/combat-hanging-light.md).
+
+## READY production release candidate (2026-10-27; not published)
+
+User accepted2f2f3da and requested release. Pinned Unity production131422,
+input105615a0, strict builder/bridge-exclusion PASS. All33downloaded hashes match;
+qa=false; decoded JS/WASM/data scan excludes QA/probe markers. ZIP33members,
+14872340bytes, CRC/root-index PASS, SHA256 ec37cbf92fe01298cd8fa9479bccdcf97662b055fa7aed4dc89a76bef1eec4a1.
+Native Edge156/Intel UHD D3D11/1280x720 production smoke8checks PASS,0exceptions,
+console errors or provider IO: menu/name/Start Battle, Pause/Resume, real correct
+word advances change->see and score0->10, return Menu; bridge undefined. Images
+viewed; isolated browser/static/control servers closed. Prior gameplay/frame QA reused.
+
+Publication is BLOCKED BEFORE UPLOAD: BrowserSkill has0connected browsers and the
+Orca owner editor remains at Cloudflare. No itch.io write/save occurred. Awaiting
+human browser connection/verification; qualified ZIP and resume checkpoint retained
+at D:/Projects/TypingHero-evidence/ready-release-20261027/. No public release claim.
+See [release checkpoint](../plans/duel-intro.md).
+
+## Licensed Magic circle and compact READY (2026-10-27; verified)
+
+- Original Magic circle final build frame11 from Pixel Magic Circles, by
+  a-small-smart-potato; archive LICENSE.txt read and image directly inspected.
+  Personal/commercial game use and modification permitted; no asset-pack redistribution.
+  Imported PNG is byte-identical64x64RGBA; Point/Clamp, mipmaps off, uncompressed.
+  Procedural ellipse/five marks removed; entire ring has five opacity steps,
+  120ms wrong reset, steady rest and existing rendered180ms completion hold.
+- Complete-word READY frame reuses the typing-frame sprite at native9-slice scale,
+  fixed8px/4px padding; steady cream TYPE READY TO CONTINUE6px above. Existing
+  font/word size, combat tray, ProcessInput, public/save APIs and stats preserved.
+- Ubuntu Unity2022.3.25f1:6/6focused cases PASS,0failed/skipped,56.8918669s,
+  20261027T101311-quick, source878f12b7. After a visual rejection of the original
+  tiny seal footprint, only the quad-size consumer case reran:1/1PASS,
+  13.7639109s,20261027T103211-quick, sourcece6ddb5d. The other5cases reused.
+  Covers actual texture/floor/64pixel projection, each opacity/reset/hold,
+  padding/gap/fixed box, batch/trailing/Enter, Pause/focus, Menu/Restart,
+  stat exclusion, one carry into Captain, restored combat tray and terminal exclusion.
+- Same final ce6ddb5d source QA/repeated builder103545-webgl PASS;33immutable
+  player files downloaded with matching SHA256. Native player4fe249aa7e98cbfb,
+  Edge156.0.4314.42/GTX1650Ti/ANGLE D3D11/1280x720:184real keyboard/mouse checks
+  PASS,0exceptions/provider reads/writes. Five wins into Captain, rest/Enter,
+  wrong/partial/completed/held READY, Pause/real separate-window focus loss,
+  reduced motion, HP/score/letters/world carry, clean Menu. No gameplay setters.
+- Direct final visual review: source complete.webm16.234-28.871s gives316/316frames
+  and315/315pairs;69.267-75.704s gives161/161frames and160/160pairs. All21sheets
+  inspected at native320x180 world resolution with overlap at page boundaries,
+  preserving source timing/held frames. Every frame/clip hash matches its ledger.
+  Native ready/partial stills also inspected. PASS: complete death before rest,
+  fixed prompt/box, steady ring, whole-image progress/error, held charge, one cover,
+  floor seal into smoke, intact opponent/shadow, original tray/no residual seal.
+  Reference is the static authored final PNG; no source-animation/reference-video
+  motion match or whole-game/performance claim. Existing preview timing tests reused.
+- Windows FFmpeg child-start waits prevented local export; stopped only task-owned
+  processes and exported the identical recording with existing server FFmpeg.
+  One source Opus packet-header warning was emitted; clips decode successfully.
+  Audio was not changed by this task; no new audio-fidelity acceptance claim.
+- Checkpoint/provenance, rejected pilot and scope details: [duel intro](../plans/duel-intro.md).
+  Final evidence: D:/Projects/TypingHero-evidence/ready-magic-circle-20261027/final-run/;
+  clips/frames/ledger in review-output/. Retain for user review/reproduction; clean
+  task evidence after it is no longer needed. No live task browser/Editor/server.
+
+## READY summoning ritual (2026-10-27; verified)
+
+- New private session presenter adds five pixel marks, environment gain, rendered
+  completion hold and duel-only alpha cover. ProcessInput still owns letters;
+  stats, public/save contracts, tutorial and terminal victory remain unchanged.
+- Windows Unity2022.3.25f1, exact normalized snapshot
+  `c818fa0ff4c7211e5a20d5f9acf76165c82ac0d217156b528ce4fe944a8dfcb7`:
+  **4/4 ReadyRitualTests PASS**,0failed/skipped,69.4304656s. Covers cached spawn,
+  ground-plane geometry, input/error/batch/Enter/stat exclusion,180ms painted hold,
+  one carry into Captain, terminal exclusion, pause/focus and six Menu/Restart
+  cancellations, independent Slayer restoration and SFX mute.
+- Earlier snapshot0323e5ac passed7/7 focused cases (four ritual/two READY/actual
+  carry); initial10intro cases also passed and are reused for unchanged preview
+  behavior. One unrelated music fixture in the wider first selection failed;
+  no full-suite pass is claimed. Final source matches all2501snapshot inputs.
+- Final-floor QA WebGL/strict repeated builder PASS;33immutable player files hashed.
+  Player74fd14c7306f372d, native Edge156/GTX1650Ti D3D11/1280x720:
+  **178 real-input checks PASS**,0exceptions/provider reads/writes. Five wins into
+  Captain, partial/error/Enter/held keys, Pause/real-window focus loss, reduced motion,
+  carry and clean Menu. Earlier pilot rejected floor clipping; retained separately.
+- Direct visual acceptance: all340frames/339pairs of complete death/rest/error/READY/
+  summon scope and156frames/155pairs into Captain inspected,22sheets with boundary
+  overlap, original timing/held frames preserved. Source/export frame counts match;
+  native stills also viewed. Existing300ms preview tests reused; video frame counts
+  are visual evidence, not a substitute for runtime timing assertions.
+  No production/stress/soak or publication is in scope.
+- Full receipts, attempted runs and reference/output-review distinctions:
+  [existing checkpoint](../plans/duel-intro.md). Evidence root:
+  `D:/Projects/TypingHero-evidence/duel-summoning-20261027/`.
+
+## Invisible dungeon fill removed (2026-10-27; final acceptance pending)
+
+Ubuntu2022.3.25f1 QA100208 and strict repeated builder PASS on canonical input
+`6bed25a62764729c94188f299e3bedc666bd4281d4bc7cc532119428e8b09ade`.
+505downloaded files match server SHA256. Serialized world has5fixture components,
+front lantern base16 and no removed fill/GUID/child link. Native Chromium153/NVIDIA
+GTX1650Ti/D3D11,1280x720, player61b46a73877b0e0f:397real-input checks PASS,
+menu/combat/two wins/Pause/Resume/Restart and Slayer flags enter/exit;
+0exceptions/provider IO, context closed. Menu/combat stills directly inspected:
+former blue floor pool absent. Complete restoration playback, matched-pose A/B,
+central-source visual dominance and numeric post-OnEnable observation remain
+unverified. Old players are history; new performance baseline is unqualified.
+Foreground/FPS/ABBA/production/final-review gates remain closed; no main merge or
+itch.io publication. [Checkpoint](../plans/combat-hanging-light.md).
+
+## Dungeon typed READY / foreground checkpoint (2026-10-27; NOT accepted)
+
+New Ubuntu2022.3.25f1 QA072142 includes typed READY; build and strict repeated
+builder pass. All33player +472serialized downloads match server hashes,2495game
+inputs match the continued source, and the retained observer remains990105b5.
+38Node contracts pass. Native fresh-profile smoke297checks passes two wins,
+full/partial READY, Pause/Resume and Restart,0exceptions/provider IO. Input uses
+real observed key/mouse events; final receipt/report precede bounded teardown.
+
+Performance remains UNQUALIFIED. Long nominal Unity-marker runs fail p95 or
+cadence; configuration pairs are incomplete and lack actual Windows foreground
+proof. New PID sampling proves DOM focus can stay true while Orca/Edge owns
+foreground: three final75FPS canvas controls all pass metrics but lose the real
+foreground to Edge. Three new foreground attempts produce no complete qualified
+round. Gate closed pending a stable foreground task-Chromium window; no speculative
+runtime optimization, B selection, official ABBA, new accepted production/visual
+review or main integration. Required direct1x/0.25x video inspection also lacks a
+supported tool in this session. See the existing [checkpoint](../plans/combat-hanging-light.md)
+for manifests, raw/failing runs, exact environment evidence and resume conditions.
+
+## Dungeon QA observer encoding (2026-10-27; formal acceptance pending)
+
+QA-only particle encoding sends all192slots on first observation and whenever
+ObserveRenderParry writes a slot. The bridge reparses its cached JSON each frame;
+public nested snapshots remain independent, including stale slots. No game,
+render, asset, animation, input, timing or provider source changed.
+Diagnostic `PERF_VERIFY=1` compares the final published object with the original
+complete JsonUtility snapshot every frame; it is disabled in formal FPS runs.
+20Node contracts PASS, including changed/stale slots, independent mutation,
+verification failures, required frame count and error/closure precedence.
+
+After merging main29c03285 as85bd1706, Ubuntu2022.3.25f1 A043436/B045018 QA builds
+and strict repeated builders PASS.33downloaded hashes per player match server;
+472serialized files match byte-for-byte;2493game inputs are unchanged except the
+2QA observer files. Ready carry/reset test044828-quick passes1/1.
+Final-object equality:1233/1233observed frames PASS in real parry/Slayer.
+Comparison-OFF diagnostics pass: normal74.832FPS/p9517.730ms/min1s73;
+parry74.802FPS/p9515.755ms/min1s71,0hitches>50ms,correct coverage and0exceptions.
+These are short diagnostics, not ABBA or production performance acceptance.
+Rejected managed-string candidate and historical failures remain retained.
+Formal ABBA, production checks, final capture/playback/frame review and main
+integration remain pending. See [checkpoint](../plans/combat-hanging-light.md).
+
+## Automation frame buffer and dungeon performance diagnostics (2026-10-26)
+
+`TYPINGHERO_AUTOMATION` alone contains the fixed16384-row Unity LateUpdate buffer.
+Set `window.typingHeroPerfOptions={enabled:true,detailed:false}` for minimal frame
+observation; the default retains the existing detailed QA behavior. Batch reader
+`typingHeroReadFrames()` exposes loss/focus epochs; it never controls gameplay.
+The100ms state is sampled memory/driver context, not individual Unity frame timing.
+`tools/game_loop/frame_timing.cjs` keeps Unity/rAF/CPU/GPU clocks distinct and
+invalidates missing/focus-lost traces without dropping combat hitches. Run its
+16 targeted contracts with `node --test tools/game_loop/test_frame_timing.cjs`.
+
+Harness checkpoint 2026-10-27: final drain precedes verdict; interval ownership
+uses the first combat frame, retaining exit hitches. Sliding 1-second combat
+windows below40FPS fail alongside FPS>=59/p95<=18ms. Parry/Slayer coverage uses
+measured combat only; counter resets and scene entry do not manufacture parries.
+Parry protocol requires `PERF_DETAILED=1`; detailed-off parry is unimplemented.
+16 Node contracts, JavaScript syntax and diff whitespace checks pass. No player
+rebuild or remeasurement; ABBA, final playback and FPS acceptance remain pending.
+See [checkpoint](../plans/combat-hanging-light.md) for scope and continuation.
+
+Ubuntu QA20261026T144542/player7cd77c5fb88da486:33file hashes verified;
+2495current player inputs match. Four real-input1280x720/world320x180 NVIDIA1650Ti
+diagnostics finish with0exceptions/provider traffic, correct normal/parry/Slayer
+coverage and no lost samples. All fail the≥59FPS/p95≤18ms target. GPU query is
+diagnostic only; detailed-off still retains the100ms state publisher. No runtime
+optimization, formal ABBA, new frame-review or production FPS pass is claimed.
+Final same-harness normal pair also fails at53.97/54.02FPS,p9520.55/19.53ms;
+light changing-WebGL control53.03rAF-FPS,p9519.2ms supports the unresolved
+browser/environment pacing concern. No actor-coverage gaps in retained traces.
+Ubuntu production20261026T150148 exits0;33downloaded hashes match,2495player
+inputs equal QA. Six decoded HTML/JS/WASM/data payloads exclude existing and new
+QA/performance markers in UTF8/UTF16LE, with a QA positive control. This is bridge
+exclusion evidence, not a production performance/playtest pass.
+Exact metrics, retained traces and pending gates: [lighting checkpoint](../plans/combat-hanging-light.md).
 ## Typed READY replaces the inter-duel card (2026-10-27; verified)
 
 - Supersedes the Ready-button entry below. Nonterminal enemy death finishes before

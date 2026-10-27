@@ -216,12 +216,16 @@ public sealed class SlayerHitVfxTests
         var owner = Owner(out var go);
         var player = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Characters/Player/Player.prefab");
         var gradient = Get<Gradient>(player.GetComponent<SlayerAfterimagePool>(), "comboGradient");
+        var strikeDirections = new[] { Vector2.one, Vector2.right, new Vector2(1, -1), Vector2.down,
+            -Vector2.one, Vector2.left, new Vector2(-1, 1), Vector2.up };
         foreach (int direction in new[] { 0, 1, 2, 4, 5, 6 }) for (int combo = 0; combo <= 20; combo++)
         {
-            owner.SpawnImpact(Vector2.zero, go.transform, true, lethal);
-            var effect = Active().Single();
             var tint = gradient.Evaluate(combo / 20f); tint.a = 1;
-            effect.Emit(new Vector3(3, 4, 0), direction * 45, tint);
+            // The production spawner owns the black Slayer tint and maps the
+            // captured swing direction to the B streak's authored up-right axis.
+            owner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal,
+                capturedTint: tint, slayerDirection: strikeDirections[direction]);
+            var effect = Active().Single();
             var sprite = effect.GetComponentInChildren<SpriteRenderer>(true);
             for (int frame = 0; frame < 6; frame++)
             {

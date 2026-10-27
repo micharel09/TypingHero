@@ -449,6 +449,10 @@ public sealed class EndlessTests
             typing.ProcessInput("READYtrailing");
             Assert.That(CombatSession.I.Letters, Is.EqualTo(waitingLetters));
             Assert.That(ScoreSystem.I.Score, Is.EqualTo(123));
+            Assert.That(DungeonSession.I.Transitioning, Is.False, "The complete seal is displayed before continuing");
+            float readyDeadline = Time.realtimeSinceStartup + 5;
+            while (!DungeonSession.I.Transitioning && Time.realtimeSinceStartup < readyDeadline) yield return null;
+            Assert.That(DungeonSession.I.Transitioning, Is.True);
             yield return DungeonSceneTestFlow.Wait();
             yield return null; yield return null;
             Assert.That(GamePauseController.EncounterReading, Is.False);
