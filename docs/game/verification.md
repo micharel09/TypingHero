@@ -1,3 +1,9 @@
+## Tutorial fixed footer (2026-10-27; review branch)
+
+Windows Unity 2022.3.25f1 strict repeat builder and QA/normal WebGL PASS, exit0. Edge156.0.4314.42:389 scoped checks PASS at actual1280x720 and640x360: fixed footer baseline, labels, Watch/Replay, disabled practice action, real HIT/parry, miss/Retry, Back, Next, Start and Skip. No QA Unity/browser errors or external requests. All30 QA stills directly reviewed; terminal-demo copy overflow was found visually and shortened to FINISHED. This final string-only correction is verified on the normal player at both sizes; unchanged behavioral checks and builder results are reused. Seven final normal UI stills reviewed; QA globals absent and all4 JS/WASM/data payloads exclude QA markers in ASCII/UTF16.
+
+Only23 tutorial scene records change; all other1276 records retain original bytes. IDs, Button events/navigation, shared assets and gameplay logic remain unchanged. QA/normal tutorial serialization matches. Demo/clip: http://127.0.0.1:8309/ . Old demos retained; current branch only, no main merge. [Details](../plans/parry-cue-demo.md#tutorial-fixed-footer-2026-10-27).
+
 ## Tutorial Gothic button skin (2026-10-27; review branch)
 
 Windows Unity 2022.3.25f1: final strict repeat-builder, QA WebGL and normal WebGL PASS, exit 0. Native Edge 156.0.4314.42 / GTX 1650 Ti D3D11: 374 checks PASS at 1280x720 and 640x360, 0 exceptions/provider reads/writes. Covers Watch/Replay, Retry/Back/Next/Skip/Start, disabled click rejection, practice and fresh battle. All button roles/states directly inspected; fixed corners, legible white labels and unchanged geometry. Measured flat-face/white-core contrast: 9.808 normal, 5.256 hover, 14.030 pressed at both sizes.

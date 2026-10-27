@@ -106,16 +106,16 @@ internal static class TutorialBuild
         var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 36, 306, 372, 60, 18);
         Text("Shortcuts", "Tap Space when the key presses.\nRelease between hits. Esc: pause", 452, 326, 460, 46, 18).alignment = TextAlignmentOptions.Top;
         var next = panel.Find("PracticeButton").GetComponent<Button>();
-        Box((RectTransform)next.transform, panel, 500, 480, 230, 36);
+        Box((RectTransform)next.transform, panel, 656, 484, 280, 40);
         next.navigation = new Navigation { mode = Navigation.Mode.None };
         var action = next.GetComponentInChildren<TMP_Text>(true);
-        Box(action.rectTransform, next.transform, 8, 0, 214, 36);
+        Box(action.rectTransform, next.transform, 8, 0, 264, 40);
         action.text = "Next \u00b7 Enter"; action.fontSize = action.fontSizeMin = action.fontSizeMax = 24;
         action.enableAutoSizing = false;
         PrefabUtility.RecordPrefabInstancePropertyModifications(next.transform);
         PrefabUtility.RecordPrefabInstancePropertyModifications(action);
         PrefabUtility.RecordPrefabInstancePropertyModifications(action.rectTransform);
-        Text("Step", "1/6", 428, 484, 60, 32, 24).alignment = TextAlignmentOptions.Center;
+        Text("Step", "1/6", 432, 96, 96, 28, 22).alignment = TextAlignmentOptions.Center;
         BuildParry(overlay, bounds, panel, font);
         SkinButtons(overlay);
         var hud = GameObject.Find("PixelUI/Reference960x540/HUD").transform;
@@ -236,7 +236,7 @@ internal static class TutorialBuild
             label.raycastTarget = false;
             return label;
         }
-        var title = Copy("Title", "Type to Attack", 48, 8, 756, 36, 36);
+        var title = Copy("Title", "Type to Attack", 32, 8, 640, 36, 30);
         var step = Copy("Step", "2/6", 820, 10, 60, 32, 24);
         void Migrate(RectTransform rect, Vector2 oldPosition, Vector2 oldSize, float x, float y, float w, float h)
         {
@@ -246,9 +246,12 @@ internal static class TutorialBuild
             Box(panel, modal, 16, 12, 928, 516);
         Migrate(title.rectTransform, new Vector2(48, -18), new Vector2(640, 44), 48, 8, 756, 36);
         Migrate(step.rectTransform, new Vector2(708, -22), new Vector2(60, 32), 820, 10, 60, 32);
-        var badge = Copy("DemoBadge", "DEMO\nWATCH ONLY", 24, 108, 112, 156, 22);
+        var badge = Copy("DemoBadge", "WATCH ONLY", 684, 8, 120, 36, 16);
         badge.gameObject.SetActive(true);
-        Box(badge.rectTransform, panel, 24, 108, 112, 156);
+        Box(title.rectTransform, panel, 32, 8, 640, 36);
+        title.fontSize = title.fontSizeMin = title.fontSizeMax = 30;
+        Box(step.rectTransform, panel, 820, 10, 60, 32);
+        Box(badge.rectTransform, panel, 684, 8, 120, 36);
         var clip = Node("Clip", panel, 144, 52, 640, 360);
         // Migrate only shipped defaults; retain independently authored geometry.
         if (clip.sizeDelta == new Vector2(720, 270) && clip.anchoredPosition == new Vector2(408, -215))
@@ -356,30 +359,32 @@ internal static class TutorialBuild
             PrefabUtility.RecordPrefabInstancePropertyModifications(label.rectTransform);
             return button;
         }
-        var watch = LearningButton("WatchDemo", bounds, 196, 492, 250, 36);
-        var skip = LearningButton("SkipTutorial", bounds, 760, 492, 180, 36);
+        // Fixed footer slots in Reference960x540 coordinates, shared by all states.
+        var watch = LearningButton("WatchDemo", bounds, 168, 484, 248, 40);
+        var skip = LearningButton("SkipTutorial", bounds, 480, 484, 160, 40);
         skip.GetComponentInChildren<TMP_Text>(true).text = "Skip tutorial";
-        Box((RectTransform)back.transform, panel, 32, 480, 130, 36);
-        Box((RectTransform)start.transform, panel, 448, 480, 280, 36);
-        Box(back.GetComponentInChildren<TMP_Text>(true).rectTransform, back.transform, 4, 0, 122, 36);
-        Box(start.GetComponentInChildren<TMP_Text>(true).rectTransform, start.transform, 4, 0, 272, 36);
+        Box((RectTransform)back.transform, panel, 8, 472, 128, 40);
+        Box((RectTransform)start.transform, panel, 640, 472, 280, 40);
+        Box(back.GetComponentInChildren<TMP_Text>(true).rectTransform, back.transform, 4, 0, 120, 40);
+        Box(start.GetComponentInChildren<TMP_Text>(true).rectTransform, start.transform, 4, 0, 272, 40);
         var practice = Node("Practice", bounds, 0, 0, 960, 540);
         var practiceFocus = practice.Find("Focus") as RectTransform;
         if (!practiceFocus) { practiceFocus = Object.Instantiate(focus, practice); practiceFocus.name = "Focus"; }
         practiceFocus.pivot = Vector2.one * .5f;
         foreach (var edge in practiceFocus.GetComponentsInChildren<Image>(true)) edge.color = Gold;
-        var readiness = Copy("Readiness", "READY", 800, 140, 112, 150, 20);
+        var readiness = Copy("Readiness", "READY", 684, 8, 120, 36, 14);
+        Box(readiness.rectTransform, panel, 684, 8, 120, 36);
         Bind("readiness", readiness); Bind("practiceFocus", practiceFocus);
         var message = Copy("PracticeMessage", "Type HIT to attack.", 204, 100, 552, 72, 26);
         message.transform.SetParent(practice, false);
         Box(message.rectTransform, practice, 204, 100, 552, 72);
         message.alignment = TextAlignmentOptions.Top;
-        var practiceBadge = Copy("PracticeBadge", "YOUR TURN", 24, 110, 160, 100, 20);
+        var practiceBadge = Copy("PracticeBadge", "YOUR TURN", 204, 64, 552, 28, 18);
         practiceBadge.transform.SetParent(practice, false);
-        Box(practiceBadge.rectTransform, practice, 24, 110, 160, 100);
-        var practiceBack = LearningButton("Back", practice, 24, 370, 160, 48);
+        Box(practiceBadge.rectTransform, practice, 204, 64, 552, 28);
+        var practiceBack = LearningButton("Back", practice, 24, 484, 128, 40);
         practiceBack.GetComponentInChildren<TMP_Text>(true).text = "Back";
-        var practiceAction = LearningButton("Action", practice, 776, 370, 160, 48);
+        var practiceAction = LearningButton("Action", practice, 656, 484, 280, 40);
         Bind("watchButton", watch); Bind("skipButton", skip); Bind("demoBadge", badge);
         Bind("practicePanel", practice.gameObject); Bind("practiceMessage", message); Bind("practiceBadge", practiceBadge);
         Bind("practiceBack", practiceBack); Bind("practiceAction", practiceAction);

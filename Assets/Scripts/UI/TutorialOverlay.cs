@@ -89,12 +89,12 @@ public sealed class TutorialOverlay : MonoBehaviour
         practiceAction.GetComponentInChildren<TMP_Text>().text = text;
         practiceAction.interactable = enabled;
     }
-    internal void SetReadiness(bool typing, bool parry) => readiness.text = "READY\n\nHIT: " +
+    internal void SetReadiness(bool typing, bool parry) => readiness.text = "HIT: " +
         (typing ? "OK" : "Not yet") + "\nPARRY: " + (parry ? "OK" : "Not yet");
     internal void PlayDemo()
     {
         demoPlaying = true;
-        demoBadge.text = "DEMO\nWATCH ONLY";
+        demoBadge.text = "WATCH ONLY";
         watchButton.GetComponentInChildren<TMP_Text>().text = "Replay";
     }
     internal void ShowPractice(int index, string message, bool finished)
@@ -106,7 +106,7 @@ public sealed class TutorialOverlay : MonoBehaviour
         foreach (var arrow in arrows)
         { arrow.shaft.gameObject.SetActive(false); arrow.tipA.gameObject.SetActive(false); arrow.tipB.gameObject.SetActive(false); }
         practicePanel.SetActive(true);
-        practiceBadge.text = "YOUR TURN \u00b7 " + (step + 1) + "/" + StepCount + (step == 3 ? "\nNo HP loss" : "\nNo timer");
+        practiceBadge.text = "YOUR TURN \u00b7 " + (step + 1) + "/" + StepCount + (step == 3 ? " \u00b7 No HP loss" : " \u00b7 No timer");
         practiceMessage.text = message;
         practiceTarget = index == 1 ? typingTray : finished && message.StartsWith("Parry successful", StringComparison.Ordinal) ? staminaTarget : null;
         practiceFocus.gameObject.SetActive(practiceTarget);
@@ -126,7 +126,8 @@ public sealed class TutorialOverlay : MonoBehaviour
         practicePanel.SetActive(false);
         watchButton.gameObject.SetActive(step > 0);
         watchButton.GetComponentInChildren<TMP_Text>().text = "Watch demo";
-        demoBadge.text = "DEMO\nWATCH ONLY\n\nWatch first.\nTry it next.";
+        demoBadge.text = "WATCH ONLY";
+        demoBadge.gameObject.SetActive(step != 5);
         readiness.gameObject.SetActive(step == 5);
         bool modal = step > 0;
         foreach (var node in hudContent) node.SetActive(!modal);
@@ -278,7 +279,7 @@ public sealed class TutorialOverlay : MonoBehaviour
         if (demoPlaying && clipTime >= totalDuration && totalDuration > 0)
         {
             demoPlaying = false;
-            demoBadge.text = "DEMO\nFINISHED\n\nReplay to\nwatch again";
+            demoBadge.text = "FINISHED";
         }
         TracePlayback("tick", requested);
     }
