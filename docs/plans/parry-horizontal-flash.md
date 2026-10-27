@@ -4,7 +4,7 @@
 
 - Successful sword parry only, at the existing contact point, in both directions.
 - Horizontal 72 world-resolution pixels; warm white core 1px, gold halo 3px, tapered ends.
-- Rise 0–20ms, hold 20–40ms, fade 40–120ms. Existing flash, sparks, light and gameplay unchanged.
+- Rise 0â€“20ms, hold 20â€“40ms, fade 40â€“120ms. Existing flash, sparks, light and gameplay unchanged.
 - Inspect output preparation, contact, expiry; Pause/Restart/Menu and pooled reuse; typing tray clearance.
 
 ## Reference selection (before frame review)
@@ -12,8 +12,8 @@
 Steam app3489340, ReBlade: The Death Spiral, SNF Trailer (EN), movie257457478.
 Source: https://store.steampowered.com/app/3489340/
 Video: https://video.akamai.steamstatic.com/store_trailers/3489340/1492852456/bee6c8072e420aa2221843bb4e0d636828d19217/1791775482/hls_264_3_video.m3u8
-Overview 0–63s at1fps used only to locate candidate; not counted as frame review.
-Selected segment42.0–46.0s,30fps, expected120frames/119transitions: stationary
+Overview 0â€“63s at1fps used only to locate candidate; not counted as frame review.
+Selected segment42.0â€“46.0s,30fps, expected120frames/119transitions: stationary
 sword encounter before, during and after gold contact flashes, before the scene cut.
 Review pending. Exact ReBlade match remains unverified; requested dimensions are independent art direction.
 
@@ -21,11 +21,11 @@ Review pending. Exact ReBlade match remains unverified; requested dimensions are
 
 Directly inspected120/120frames and119/119consecutive transitions, including
 held/repeated poses, at original30fps timestamps42+n/30 seconds. Six numbered
-contact sheets (0–19,20–39,40–59,60–79,80–99,100–119); no skipped frames.
-0–6: preparation/closing;7–10: contact warm-up;11–19: gold/white flare and long
-lateral rays;20–34: held contact with diminishing sparks;35–47: recovery and next
-preparation;48–69: second contact, narrow lateral ray and held white/gold center;
-70–99: release/separation and following approach;100–119: next sword strike/contact.
+contact sheets (0â€“19,20â€“39,40â€“59,60â€“79,80â€“99,100â€“119); no skipped frames.
+0â€“6: preparation/closing;7â€“10: contact warm-up;11â€“19: gold/white flare and long
+lateral rays;20â€“34: held contact with diminishing sparks;35â€“47: recovery and next
+preparation;48â€“69: second contact, narrow lateral ray and held white/gold center;
+70â€“99: release/separation and following approach;100â€“119: next sword strike/contact.
 Transitions19?20,39?40,59?60,79?80,99?100 directly compared across sheets.
 The segment ends during the next strike, so its final follow-through is unverified;
 the first two full contact/recovery cycles are covered. Images are the extracted
@@ -36,10 +36,10 @@ coverage is claimed. Requested72px/120ms values remain independent art direction
 ## Implementation
 
 - ParryImpact adds channel5, a stationary camera-plane quad using an original
-  procedural shader:72×3pixel envelope,1pixel warm-white center, gold halo,
+  procedural shader:72Ã—3pixel envelope,1pixel warm-white center, gold halo,
   tapered8pixel ends. Shader uses the existing particle Color/UV stream.
 - FlashLayer.sizePixels2D defaults to zero and lockVariation defaults false.
-  Only the new layer opts into72×3 and locks rotation/variation. Existing source
+  Only the new layer opts into72Ã—3 and locks rotation/variation. Existing source
   flash bytes, physical profile, parry contact path, flash RNG, lighting, damage,
   hitstop/camera and pause ownership are preserved.
 - Gradient alpha at normalized0,1/6,1/3,1 is0,1,1,0; lifetime120ms.
@@ -66,20 +66,20 @@ Final native input/render checks and integration pending. No itch.io release.
 Native right pilot:10input/lifecycle checks PASS,0exceptions/provider writes.
 Canvas readback inside the render callback yielded62black images; these are
 rejected as visual evidence. The compositor video is valid. Before frame review,
-select compositor segment10.0–13.0s (25fps), covering enemy preparation, first
+select compositor segment10.0â€“13.0s (25fps), covering enemy preparation, first
 successful parry and disappearance before Restart transition. Review pending.
 
-The right segment was extended to10.0–14.5s to include recovery and Pause/Restart,
+The right segment was extended to10.0â€“14.5s to include recovery and Pause/Restart,
 not shortened:113/113recorded frames and112/112pairs directly inspected, preserving
 25fps held/repeated frames. Cross-sheet pairs19?20,39?40,59?60,79?80,99?100 checked.
-Frames0–46 cover reveal/idle;47–69 warning/preparation;70 raised parry;71–74
-contact and thin fixed-horizontal flare;75–88 flare gone, old core/sparks recover;
-89–100 Pause;101–112 Resume/Restart cover, no lingering line. Full-size contact
-frames at12.80–13.04s also inspected. Warm center, tapered gold line and clear
+Frames0â€“46 cover reveal/idle;47â€“69 warning/preparation;70 raised parry;71â€“74
+contact and thin fixed-horizontal flare;75â€“88 flare gone, old core/sparks recover;
+89â€“100 Pause;101â€“112 Resume/Restart cover, no lingering line. Full-size contact
+frames at12.80â€“13.04s also inspected. Warm center, tapered gold line and clear
 vertical gap above typing tray; no random angle. Recorder25fps cannot independently
 resolve20ms phases; exact envelope/expiry is established by Unity tests, not video.
 
-Before reviewing mirrored output, select compositor segment10.0–14.5s from
+Before reviewing mirrored output, select compositor segment10.0â€“14.5s from
 native-left/cb36759848fab16eb5e4d3c59ae34658.webm, expected113frames/112pairs.
 Covers complete enemy preparation, accepted real Space, new flare and physical-tail
 recovery through pause. Mirror fixture changes initial actor positions/facing only,
@@ -88,10 +88,10 @@ PASS,0exceptions/provider writes. Left frame review pending.
 
 ## Native visual acceptance
 
-Left10.0–14.5s:113/113frames and112/112pairs directly inspected, including cross-sheet
-pairs19?20,39?40,59?60,79?80,99?100.0–36reveal/idle;37–57warning/preparation;
-58–60raised parry;61–64contact and stationary horizontal line;65–84existing flash
-and particles recover;85–101idle with line absent;102–112Pause, no residue.
+Left10.0â€“14.5s:113/113frames and112/112pairs directly inspected, including cross-sheet
+pairs19?20,39?40,59?60,79?80,99?100.0â€“36reveal/idle;37â€“57warning/preparation;
+58â€“60raised parry;61â€“64contact and stationary horizontal line;65â€“84existing flash
+and particles recover;85â€“101idle with line absent;102â€“112Pause, no residue.
 Both directions visibly clear the typing tray. Total226frames/224pairs, no sampling.
 Selected recordings include held/repeated frames.25fps source limits sub-frame
 claims; this is compositor-video coverage, not every internal Unity render.

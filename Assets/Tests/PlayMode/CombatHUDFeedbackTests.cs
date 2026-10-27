@@ -14,6 +14,50 @@ public sealed class CombatHUDFeedbackTests
     static T Get<T>(object target, string name) => (T)target.GetType().GetField(name, Flags).GetValue(target);
     static void Tick(CombatHUDFeedback feedback) => typeof(CombatHUDFeedback).GetMethod("LateUpdate", Flags).Invoke(feedback, null);
 
+    [Test, Category("Quick")]
+    public void ScoreRowFitsLongTotalsAndMaximumPulse()
+    {
+        var frame = new GameObject("ScoreFrame", typeof(RectTransform));
+        try
+        {
+            var root = frame.GetComponent<RectTransform>(); root.sizeDelta = new Vector2(294, 66);
+            root.pivot = new Vector2(0, 1);
+            var score = new GameObject("Score", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
+            score.transform.SetParent(root, false);
+            var combo = new GameObject("Combo", typeof(RectTransform), typeof(ScoreUI_ComboHUD));
+            combo.transform.SetParent(root, false);
+            var mult = new GameObject("Multiplier", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
+            mult.transform.SetParent(combo.transform, false);
+            score.font = mult.font = UnityEditor.AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Art/UI/Branding/CobblestoneUI64.asset");
+            score.fontSize = 48; mult.fontSize = 42;
+            score.alignment = mult.alignment = TextAlignmentOptions.Center;
+            var hud = combo.GetComponent<ScoreUI_ComboHUD>();
+            typeof(ScoreUI_ComboHUD).GetField("followScore", Flags).SetValue(hud, score.rectTransform);
+            typeof(ScoreUI_ComboHUD).GetField("multiplierText", Flags).SetValue(hud, mult);
+            var tick = typeof(ScoreUI_ComboHUD).GetMethod("LateUpdate", Flags);
+            foreach (string total in new[] { "0", "12345", "2147483647", "99999999999999999999" })
+            foreach (float multiplier in new[] { 1f, 1.15f, 3f })
+            foreach (float pulse in new[] { 1f, 1.06f, 1.12f, 1.2f })
+            {
+                score.text = total; score.transform.localScale = Vector3.one * pulse;
+                hud.SetMultiplier(multiplier, 3, Color.yellow); tick.Invoke(hud, null);
+                float width = score.preferredWidth * pulse;
+                float left = score.transform.localPosition.x - width / 2;
+                float right = score.transform.localPosition.x + width / 2;
+                Assert.That(left, Is.GreaterThanOrEqualTo(14.9f), total);
+                if(multiplier > 1) {
+                    float mLeft = root.InverseTransformPoint(mult.transform.position).x - mult.preferredWidth / 2;
+                    Assert.That(mLeft, Is.GreaterThan(right), total);
+                    right = mLeft + mult.preferredWidth;
+                }
+                Assert.That(right, Is.LessThanOrEqualTo(279.1f), total);
+                Assert.That(score.text, Is.EqualTo(total));
+                Assert.That((left + right) / 2, Is.EqualTo(147).Within(.01f));
+            }
+        }
+        finally { Object.DestroyImmediate(frame); }
+    }
+
     [UnityTest, Category("HUDFeedback")]
     public IEnumerator ActualDamageRestoreStunAndPauseRespectPresentationLifecycle()
     {

@@ -4119,16 +4119,39 @@ receipt is reused; no new gameplay-suite claim. Exact evidence and cleanup are i
 
 ## Horizontal parry flash (2026-10-27)
 
-- Added72×3logical-pixel procedural quad only to ParryImpact, at existing contact,
+- Added72Ã—3logical-pixel procedural quad only to ParryImpact, at existing contact,
   with1px warm-white core/gold tapered halo. Alpha20/40/120ms; old flash/sparks/
   light and gameplay clocks unchanged. Optional2D size/variation lock default off.
 - Unity2022.3.25f1 filteredImpactVfxTests45/45PASS/0skip; both directions over24seeds,
   pool reuse, expiry, exact alpha envelope, pause/read hold and old profile consumers.
-- Native Edge640×360 real Space:10checks per direction PASS,0exceptions/provider
+- Native Edge640Ã—360 real Space:10checks per direction PASS,0exceptions/provider
   writes. Mirrored actor-geometry fixture remains external. Both QA builds and strict
   repeated builder PASS after LF-only snapshot normalization, with checkers retained.
 - Direct visual review226/226recorded frames/224pairs across two complete selected
-  10.0–14.5s compositor segments: horizontal contact line, gold/white/taper, recovery,
+  10.0â€“14.5s compositor segments: horizontal contact line, gold/white/taper, recovery,
   typing-tray clearance, pause/cleanup. Recorder25fps is not20ms phase evidence;
   precise envelope is covered by Unity tests. No full profile, production or itch
   release. Source/scope/receipts: [checkpoint](../plans/parry-horizontal-flash.md).
+
+## Score/combo inside existing frame (2026-10-27)
+
+- CombatR7Build retains the294x66frame at(333,9), reuses all scene IDs/bindings,
+  and puts score/multiplier on one centered row with decay(15,51,264,6) inside.
+  ScoreUI_ComboHUD fits long totals while preserving all digits and the1.2x pulse.
+- Unity2022.3.25f1/fly-server: focused145616-quick3/3 PASS for combo expiry,
+  award-tier pulse and initial geometry; final Cobblestone48/42geometry fixture
+  151518-quick1/1 PASS,48cases through20digits and maxpulse. Final fixture replaces
+  the initial R7-font geometry evidence. Strict repeated builder145930-webgl PASS;
+  all1121original scene IDs retained; only six affected serialized blocks imported.
+- Same immutable player native Edge156.0.4314.42 / Playwright1.62.1 / Intel UHD
+  D3D11:72/72 PASS in51.406s; all33player files match server hashes. Real input
+  covers x1, normal combo, maxx3, parry renewal, expiry/timeout, pause/resume,
+  restart and natural Slayer exit. Direct views at1280x720/400x300 confirm text/
+  decay remain in frame, HP/tray preserved and popup beside character.
+- Zero exceptions/provider writes; fixture/external-network isolation enabled.
+  Timer geometry assertion permits existing one-update renewal latency, measured
+  as slider.987436 versus remaining2.5s at31.41ms. Scoring/timing/tints/pulse code
+  unchanged. No full suite/stress/soak/production/itch.io release.
+- Build input882e88e000ed107ebdb465d8659812bf95b7b107eaf20f0938a3d8d52f51aee1;
+  final-font test inputb3044b14fb58292db85872307ac09b5cb6b80068ea371c00291e38010d6f4b24.
+  Failed driver pilots, source normalization and receipts: [checkpoint](../plans/score-hud-cluster.md).
