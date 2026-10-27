@@ -1131,7 +1131,9 @@ for the existing close-input guard; unchanged player passed with the established
 static/control servers closed; no running smoke/Unity job remains.
 
 Publication BLOCKED BEFORE UPLOAD: BrowserSkill doctor showed0connected browsers;
-its managed daemon started/was verified but no extension connected. The fallback
+its managed daemon started/was verified, but no browser remained connected when
+publication was ready. Its log records a transient Edge connection13:17:15-13:17:46Z,
+then idle shutdown at13:29:09Z; no publication session had been established. The fallback
 Orca editor https://itch.io/game/edit/3857509 stayed at Cloudflare security
 verification. Asked user for browser connection or verification while build/smoke
 continued; no reply yet. No upload, form save, rollback selection or storefront

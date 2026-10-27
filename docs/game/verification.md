@@ -13,7 +13,7 @@ Publication is BLOCKED BEFORE UPLOAD: BrowserSkill has0connected browsers and th
 Orca owner editor remains at Cloudflare. No itch.io write/save occurred. Awaiting
 human browser connection/verification; qualified ZIP and resume checkpoint retained
 at D:/Projects/TypingHero-evidence/ready-release-20261027/. No public release claim.
-See [release checkpoint](../plans/duel-intro.md#user-approved-ready-release--2026-10-27-artifact-qualified-publication-blocked).
+See [release checkpoint](../plans/duel-intro.md).
 
 ## Licensed Magic circle and compact READY (2026-10-27; verified)
 
