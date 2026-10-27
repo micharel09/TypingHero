@@ -130,4 +130,10 @@ Integrated result20261027T153449-quick, input01d4e7e4458646e5f85b990ff7f12bd2eff
 45/45ImpactVfxTests PASS,0skip. Only subsequent asset edits trim whitespace in the
 two new meta files, preserving GUIDs/values; documentation edits do not affect play.
 Final diff review preserves the independently merged score-frame behavior.
-Remote push/integration verification and resource cleanup follow after this commit.
+Remote integration verified: feature979f04a and evidence6f89335 are ancestors
+oforigin/main after fast-forward push. Dirty parent checkout remained untouched.
+Only clean task-created worktree/local branch and registered temporary files are
+removed after this completion record; remote task branch remains. Durable demos,
+source receipts, adapters and Unity XML remain in the artifact directory above.
+Owned server result folders are removed after receipt preservation; shared source,
+Library, toolchain, builds and unrelated task results remain. No itch.io release.
