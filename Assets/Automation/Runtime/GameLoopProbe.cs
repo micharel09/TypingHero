@@ -234,7 +234,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     void LateUpdate()
     {
         // Tutorial timing uses the fixed trace, not the per-frame combat JSON publisher.
-        if (TutorialRun.Active) return;
+        if (TutorialRun.Active && TutorialRun.Practicing == TutorialRun.Practice.None) return;
         PublishCombatFrame();
         if (!sortingAnimator || !sortingSprite) return;
         var info = sortingAnimator.IsInTransition(0) ? sortingAnimator.GetNextAnimatorStateInfo(0)
@@ -346,6 +346,9 @@ public sealed class GameLoopProbe : MonoBehaviour
         public int tutorialStatus;
         public bool tutorialParry;
         public int tutorialStep;
+        public int tutorialPractice;
+        public bool tutorialDemoPlaying;
+        public string tutorialMessage;
         public double tutorialClipTime;
         public string tutorialClipFrame;
         public Rect tutorialModal, tutorialClipRect;
@@ -757,6 +760,9 @@ public sealed class GameLoopProbe : MonoBehaviour
                 tutorialArrows = ObserveGuide(guide),
                 tutorialParry = guide && Read(guide, "step", 0) == 3,
                 tutorialStep = Read(guide, "step", 0),
+                tutorialPractice = (int)TutorialRun.Practicing,
+                tutorialDemoPlaying = Read(guide, "demoPlaying", false),
+                tutorialMessage = guide && Read<TMP_Text>(guide, "practiceMessage") ? Read<TMP_Text>(guide, "practiceMessage").text : "",
                 tutorialClipTime = Read(guide, "clipTime", 0d),
                 tutorialClipFrame = guide && Read<Image>(guide, "clipImage") && Read<Image>(guide, "clipImage").sprite ? Read<Image>(guide, "clipImage").sprite.name : "",
                 tutorialModal = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/ParryModal/Panel")) : default,

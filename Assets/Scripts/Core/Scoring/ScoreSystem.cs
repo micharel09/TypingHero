@@ -147,6 +147,7 @@ public class ScoreSystem : MonoBehaviour
     // ===== Event handlers =====
     void OnParry(ParrySystem.ParryContext _)
     {
+        if (TutorialRun.Active) return;
         if (CombatSession.Finished || GamePauseController.InputBlocked) return;
         // Parry chỉ cộng điểm; CHỈ tăng multiplier nếu combo đã bật.
         AddScore(rules.parryPoint, countAsComboUnit: false, hitKind: HitKind.Parry);
@@ -154,6 +155,7 @@ public class ScoreSystem : MonoBehaviour
 
     void OnWordCorrect()
     {
+        if (TutorialRun.Active) return;
         if (slayer && slayer.IsActive) return; // Slayer tính theo ký tự
 
         _streakWords++;
@@ -168,6 +170,7 @@ public class ScoreSystem : MonoBehaviour
 
     void OnCharCorrect(char _)
     {
+        if (TutorialRun.Active) return;
         if (!(slayer && slayer.IsActive)) return;
 
         _streakChars++;
@@ -182,6 +185,7 @@ public class ScoreSystem : MonoBehaviour
 
     void OnWordTimeout()
     {
+        if (TutorialRun.Active) return;
         BreakCombo();
     }
 

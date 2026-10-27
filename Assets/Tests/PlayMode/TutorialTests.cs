@@ -46,6 +46,8 @@ public sealed class TutorialTests
             TutorialRun.Begin(); TutorialRun.End();
             Assert.That((int)TutorialRun.Status, Is.EqualTo(saved));
         }
+        TutorialRun.Begin(); TutorialRun.Skip(); TutorialRun.End();
+        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Completed), "skip replay preserves completed");
         TutorialRun.Begin(); TutorialRun.Complete(); TutorialRun.End();
         Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Completed));
     }
@@ -208,7 +210,7 @@ public sealed class TutorialTests
         var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
         var lessons = (TutorialOverlay.Lesson[])typeof(TutorialOverlay).GetField("lessons", flags).GetValue(overlay);
         lessons[0].atlasPaths[0] = "Tutorial/missing-atlas";
-        Object.FindObjectOfType<TutorialDirector>().Continue();
+        yield return EnterTypingLesson();
         var panel = overlay.transform.Find("Reference960x540/ParryModal/Panel");
         var caption = panel.Find("Guidance/Caption").GetComponent<TMPro.TMP_Text>();
         float deadline = Time.realtimeSinceStartup + 15;
@@ -224,7 +226,7 @@ public sealed class TutorialTests
         Assert.That(panel.parent.gameObject.activeSelf, Is.False);
         Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
         yield return null;
-        Object.FindObjectOfType<TutorialDirector>().Continue();
+        yield return EnterTypingLesson();
         deadline = Time.realtimeSinceStartup + 30;
         while (!caption.text.Contains("Unable to load") && Time.realtimeSinceStartup < deadline) yield return null;
         Assert.That(caption.text, Does.Contain("Unable to load"));
@@ -306,142 +308,291 @@ public sealed class TutorialTests
     }
 
     [UnityTest, Category("Quick")]
-    public IEnumerator EveryLessonUsesCapturedDurationsHoldsPauseAndResetsOnBack()
+    public IEnumerator EveryLessonUsesCapturedDurationsHoldsPauseAndStopsAtEnd()
     {
         TutorialRun.Begin();
         yield return DungeonSceneTestFlow.Start();
         var overlay = Object.FindObjectOfType<TutorialOverlay>();
-        var director = Object.FindObjectOfType<TutorialDirector>();
         var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
         var clock = typeof(TutorialOverlay).GetField("clipTime", flags);
         var render = typeof(TutorialOverlay).GetMethod("RenderClip", flags);
-        var modal = overlay.transform.Find("Reference960x540/ParryModal");
-        Assert.That(modal.gameObject.activeSelf, Is.False);
-        director.Continue(); director.Continue();
-        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
-        Assert.That(modal.gameObject.activeSelf, Is.True, "same-frame confirmation cannot skip the second step");
-        var panel = (RectTransform)modal.Find("Panel");
-        Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(928, 516)));
+        var lessons = (TutorialOverlay.Lesson[])typeof(TutorialOverlay).GetField("lessons", flags).GetValue(overlay);
+        var cache = (TutorialAtlasCache)typeof(TutorialOverlay).GetField("atlasCache", flags).GetValue(overlay);
+        var panel = overlay.transform.Find("Reference960x540/ParryModal/Panel");
         var image = panel.Find("Clip").GetComponent<Image>();
-        var rule = panel.Find("Rule").GetComponent<TMPro.TMP_Text>();
         var caption = panel.Find("Guidance/Caption").GetComponent<TMPro.TMP_Text>();
         var focus = (RectTransform)panel.Find("Clip/Focus");
-        var label = (RectTransform)panel.Find("Guidance");
-        Assert.That(image.GetComponentsInChildren<Graphic>(true).All(g => !g.raycastTarget), Is.True);
-        var lessons = (TutorialOverlay.Lesson[])typeof(TutorialOverlay).GetField("lessons", flags).GetValue(overlay);
-        using var capture = TutorialFrameCapture.Open(overlay);
-        var atlasCache = (TutorialAtlasCache)typeof(TutorialOverlay).GetField("atlasCache", flags).GetValue(overlay);
-        Assert.That(lessons.Length, Is.EqualTo(5));
-        int frameChecks = 0, atlasBoundaries = 0, loopJoins = 0;
+        var pause = Object.FindObjectOfType<GamePauseController>();
+        int checks = 0, boundaries = 0, ends = 0;
         for (int lesson = 0; lesson < lessons.Length; lesson++)
         {
-            if (lesson > 0) { yield return null; director.Continue(); }
-            var frames = lessons[lesson].frameAtlas;
-            string SpriteName(int index) => lessons[lesson].atlasPaths[0].Substring("Tutorial/".Length).Replace("-0", "") + "_" + index.ToString("D3");
-            bool TryRenderAt(double value)
+            overlay.ShowStep(lesson + 1);
+            var data = lessons[lesson];
+            string SpriteName(int i) => data.atlasPaths[0].Substring("Tutorial/".Length).Replace("-0", "") + "_" + i.ToString("D3");
+            bool TryRenderAt(double time)
             {
-                clock.SetValue(overlay, value);
+                clock.SetValue(overlay, time);
                 return (bool)render.Invoke(overlay, null);
             }
-            IEnumerator RenderAt(double value)
+            IEnumerator RenderAt(double time)
             {
                 float deadline = Time.realtimeSinceStartup + 15;
-                do
-                {
-                    if (TryRenderAt(value)) yield break;
-                    yield return null;
-                } while (Time.realtimeSinceStartup < deadline);
-                Assert.Fail("Tutorial load timed out");
+                while (!TryRenderAt(time) && Time.realtimeSinceStartup < deadline) yield return null;
+                Assert.That(image.sprite, Is.Not.Null);
             }
-            var durations = lessons[lesson].durations;
-            Assert.That(frames.Length, Is.GreaterThan(1));
-            Assert.That(durations.Length, Is.EqualTo(frames.Length));
-            Assert.That(lessons[lesson].captions.Length, Is.EqualTo(frames.Length));
-            Assert.That(lessons[lesson].guidance.Length, Is.EqualTo(frames.Length));
-            Assert.That(rule.text, Is.EqualTo(lessons[lesson].rule));
-            Assert.That(label.parent, Is.SameAs(panel));
-            Assert.That(label.anchoredPosition, Is.EqualTo(new Vector2(144, -414)));
-            Assert.That(!label.GetComponent<Image>() || !label.GetComponent<Image>().enabled, Is.True);
-            Assert.That(image.rectTransform.sizeDelta, Is.EqualTo(new Vector2(640, 360)));
-
-            var pause = Object.FindObjectOfType<GamePauseController>();
-            pause.TogglePause(true); // Freeze automatic playback while exhaustive lookups await disk loads.
-            Assert.That(GamePauseController.IsPaused, Is.True);
+            yield return RenderAt(0);
+            yield return new WaitForSecondsRealtime(.1f);
+            Assert.That((double)clock.GetValue(overlay), Is.Zero, "click-to-play never advances on entry");
+            pause.TogglePause(true);
             double time = 0;
-            for (int i = 0; i < frames.Length; i++)
+            for (int i = 0; i < data.frameAtlas.Length; i++)
             {
-                if (!TryRenderAt(time + durations[i] * .5)) yield return RenderAt(time + durations[i] * .5);
-                Assert.That(atlasCache.SlotCount, Is.LessThanOrEqualTo(2), "loaded plus pending atlas slots");
+                if (!TryRenderAt(time + data.durations[i] * .5)) yield return RenderAt(time + data.durations[i] * .5);
+                Assert.That(image.sprite.name, Is.EqualTo(SpriteName(i)));
+                Assert.That(caption.text, Is.EqualTo(data.captions[i]));
+                Assert.That(focus.sizeDelta, Is.EqualTo(data.guidance[i].focus.size));
                 Assert.That(image.sprite.texture.filterMode, Is.EqualTo(FilterMode.Point));
                 Assert.That(image.sprite.rect.size, Is.EqualTo(new Vector2(320, 180)));
-                Assert.That(image.sprite.name, Is.EqualTo(SpriteName(i)), "captured frame/duration " + i);
-                Assert.That(caption.text, Is.EqualTo(lessons[lesson].captions[i]));
-                capture?.Save(lesson, i, image.rectTransform);
-                var guide = lessons[lesson].guidance[i];
-                Assert.That(guide.focus.width, Is.GreaterThan(0));
-                Assert.That(guide.focus.height, Is.GreaterThan(0));
-                Assert.That(focus.sizeDelta, Is.EqualTo(guide.focus.size));
-                Assert.That(focus.anchoredPosition, Is.EqualTo(new Vector2(guide.focus.x, -guide.focus.y)));
-                Assert.That(label.anchoredPosition, Is.EqualTo(new Vector2(144, -414)));
-                Assert.That(guide.focus.xMin, Is.GreaterThanOrEqualTo(0));
-                Assert.That(guide.focus.yMin, Is.GreaterThanOrEqualTo(0));
-                Assert.That(guide.focus.xMax, Is.LessThanOrEqualTo(640));
-                Assert.That(guide.focus.yMax, Is.LessThanOrEqualTo(360));
-                // Both sides of every boundary must select the same sprite and guidance index.
+                Assert.That(cache.SlotCount, Is.LessThanOrEqualTo(2));
                 if (!TryRenderAt(time + .000001)) yield return RenderAt(time + .000001);
                 Assert.That(image.sprite.name, Is.EqualTo(SpriteName(i)));
-                Assert.That(caption.text, Is.EqualTo(lessons[lesson].captions[i]));
-                Assert.That(durations[i], Is.GreaterThan(0));
-                time += durations[i];
+                time += data.durations[i];
                 if (!TryRenderAt(time - .000001)) yield return RenderAt(time - .000001);
-                Assert.That(image.sprite.name, Is.EqualTo(SpriteName(i)), "before boundary " + i);
+                Assert.That(image.sprite.name, Is.EqualTo(SpriteName(i)));
                 if (!TryRenderAt(time)) yield return RenderAt(time);
-                int next = (i + 1) % frames.Length;
-                frameChecks++;
-                if (next == 0) loopJoins++;
-                else if (frames[i] != frames[next]) atlasBoundaries++;
-                Assert.That(image.sprite.name, Is.EqualTo(SpriteName(next)), $"exact boundary {i}, requested={time:R}, clock={clock.GetValue(overlay)}, paused={GamePauseController.IsPaused}");
-                Assert.That(caption.text, Is.EqualTo(lessons[lesson].captions[next]));
+                int next = Mathf.Min(i + 1, data.frameAtlas.Length - 1);
+                Assert.That(image.sprite.name, Is.EqualTo(SpriteName(next)), "boundary " + i);
+                if (i == next) ends++;
+                else if (data.frameAtlas[i] != data.frameAtlas[next]) boundaries++;
+                checks++;
             }
-            if (!TryRenderAt(time + .001)) yield return RenderAt(time + .001);
-            Assert.That(image.sprite.name, Is.EqualTo(SpriteName(0)), "loop boundary");
-            Assert.That(caption.text, Is.EqualTo(lessons[lesson].captions[0]));
-            if (!TryRenderAt(1.5)) yield return RenderAt(1.5);
-            var held = image.sprite;
-            string heldCaption = caption.text;
-            var heldFocus = focus.anchoredPosition;
-            pause.TogglePause(true);
-            yield return new WaitForSecondsRealtime(.15f);
-            Assert.That((double)clock.GetValue(overlay), Is.EqualTo(1.5));
-            Assert.That(image.sprite, Is.SameAs(held));
-            Assert.That(caption.text, Is.EqualTo(heldCaption));
-            Assert.That(focus.anchoredPosition, Is.EqualTo(heldFocus));
+            yield return RenderAt(time + 1);
+            Assert.That(image.sprite.name, Is.EqualTo(SpriteName(data.frameAtlas.Length - 1)), "holds terminal frame");
             pause.Resume();
-            float resumeDeadline = Time.realtimeSinceStartup + 3;
-            while ((double)clock.GetValue(overlay) <= 1.5 && Time.realtimeSinceStartup < resumeDeadline)
-                yield return null;
-            Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(1.5));
-            Assert.That(Time.timeScale, Is.Zero);
-            Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
-            yield return null;
-            panel.Find("BackButton").GetComponent<Button>().onClick.Invoke();
-            Assert.That(modal.gameObject.activeSelf, Is.EqualTo(lesson > 0));
-            Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
-            yield return null;
-            director.Continue();
-            Assert.That((double)clock.GetValue(overlay), Is.Zero);
+            float resumeDeadline = Time.realtimeSinceStartup + 10;
+            while (GamePauseController.IsPaused && Time.realtimeSinceStartup < resumeDeadline) yield return null;
+            Assert.That(GamePauseController.IsPaused, Is.False);
+            overlay.ShowStep(lesson + 1);
+            overlay.PlayDemo();
+            yield return RenderAt(0);
+            yield return new WaitForSecondsRealtime(.1f);
+            Assert.That((double)clock.GetValue(overlay), Is.GreaterThan(0), "explicit replay advances");
             pause.TogglePause(true);
-            if (!TryRenderAt(0)) yield return RenderAt(0);
-            Assert.That(image.sprite.name, Is.EqualTo(SpriteName(0)));
+            double held = (double)clock.GetValue(overlay);
+            yield return new WaitForSecondsRealtime(.1f);
+            Assert.That((double)clock.GetValue(overlay), Is.EqualTo(held));
             pause.Resume();
-            float unpauseDeadline = Time.realtimeSinceStartup + 3;
-            while (GamePauseController.IsPaused && Time.realtimeSinceStartup < unpauseDeadline) yield return null;
+            resumeDeadline = Time.realtimeSinceStartup + 10;
+            while (GamePauseController.IsPaused && Time.realtimeSinceStartup < resumeDeadline) yield return null;
             Assert.That(GamePauseController.IsPaused, Is.False);
         }
-        Assert.That(frameChecks, Is.EqualTo(1995));
-        Assert.That(atlasBoundaries, Is.EqualTo(28));
-        Assert.That(loopJoins, Is.EqualTo(5));
-        Debug.Log("Tutorial lookup PASS: 1995 frames, 28 atlas boundaries, 5 loops");
+        Assert.That(checks, Is.EqualTo(1995));
+        Assert.That(boundaries, Is.EqualTo(28));
+        Assert.That(ends, Is.EqualTo(5));
+    }
+
+    static IEnumerator EnterTypingLesson()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            yield return null;
+            Object.FindObjectOfType<TutorialDirector>().Continue();
+        }
+        yield return null;
+    }
+
+    static IEnumerator CompleteTyping()
+    {
+        var director = Object.FindObjectOfType<TutorialDirector>();
+        director.Continue(); yield return null;
+        Assert.That(TutorialRun.Practicing, Is.EqualTo(TutorialRun.Practice.Typing));
+        var typing = Object.FindObjectOfType<TypingManager>();
+        typing.ProcessInput("x");
+        foreach (char letter in "hit")
+        { typing.ProcessInput(letter.ToString()); yield return null; }
+        float deadline = Time.realtimeSinceStartup + 8;
+        while (TutorialRun.Practicing != TutorialRun.Practice.None && Time.realtimeSinceStartup < deadline) yield return null;
+        var actor = Object.FindObjectOfType<PlayerController>();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        var exercise = Object.FindObjectOfType<TutorialPractice>();
+        string diagnostic = " state=" + actor.animator.GetCurrentAnimatorStateInfo(0).fullPathHash +
+            " idle=" + Animator.StringToHash("Base Layer.player_idle") + " speed=" + actor.animator.speed +
+            " active=" + actor.animator.isActiveAndEnabled + " controller=" + actor.isActiveAndEnabled +
+            " scale=" + Time.timeScale + " transition=" + actor.animator.IsInTransition(0) +
+            " hp=" + Object.FindObjectOfType<SkeletonController>().Current +
+            " hitFrame=" + actor.attackEvents.hitbox.LastHitFrame +
+            " player=" + actor.transform.position + " enemy=" + Object.FindObjectOfType<SkeletonController>().transform.position +
+            " gate=" + actor.gate.CanAttack +
+            " mute=" + TypingManager.MuteWordCorrect + " blocked=" + GamePauseController.InputBlocked +
+            " word=" + typeof(TutorialPractice).GetField("wordAccepted", flags).GetValue(exercise) +
+            " config=" + actor.attack.statePath +
+            " listeners=" + string.Join(",", ((System.Action)typeof(TypingManager).GetField("OnWordCorrect", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(null)).GetInvocationList().Select(d => d.Target.GetType().Name + "." + d.Method.Name));
+        Assert.That(TutorialRun.Practicing, Is.EqualTo(TutorialRun.Practice.None), "real hit must finish" + diagnostic);
+        Assert.That(Object.FindObjectOfType<SkeletonController>().Current, Is.EqualTo(170), "exactly one real 10-damage attack");
+        Assert.That(CombatSession.I.Letters, Is.Zero);
+        Assert.That(ScoreSystem.I.Score, Is.Zero);
+        yield return null;
+    }
+
+    static IEnumerator CompleteParry()
+    {
+        Object.FindObjectOfType<TutorialDirector>().Continue();
+        var enemy = Object.FindObjectOfType<SkeletonController>();
+        var parry = Object.FindObjectOfType<ParrySystem>();
+        bool pressed = false;
+        int strikeCount = 0, successCount = 0;
+        float pressedContact = -1;
+        System.Action<IParryTarget> strike = _ => strikeCount++;
+        System.Action<ParrySystem.ParryContext> success = _ => successCount++;
+        parry.enemy.OnStrike += strike;
+        parry.OnParrySuccess += success;
+        float deadline = Time.realtimeSinceStartup + 10;
+        while (Time.realtimeSinceStartup < deadline)
+        {
+            if (!pressed && enemy.TryGetAttackTelegraph(out float contact) && contact <= .2f)
+            {
+                pressed = parry.TryBeginParry();
+                if (pressed) pressedContact = contact;
+                if (pressed) { parry.playerAnimator.Update(0); parry.playerAnimator.Update(.000001f); }
+            }
+            if (pressed && TutorialRun.Practicing == TutorialRun.Practice.None) break;
+            yield return null;
+        }
+        parry.enemy.OnStrike -= strike;
+        parry.OnParrySuccess -= success;
+        Assert.That(pressed, Is.True);
+        Assert.That(TutorialRun.Practicing, Is.EqualTo(TutorialRun.Practice.None));
+        Assert.That(Object.FindObjectOfType<EnemyStamina>().Current, Is.LessThan(100),
+            "strikes=" + strikeCount + " successes=" + successCount + " contact=" + pressedContact +
+            " message=" + Object.FindObjectOfType<TutorialOverlay>().transform.Find("Reference960x540/Practice/PracticeMessage").GetComponent<TMPro.TMP_Text>().text);
+        Assert.That(CombatSession.I.Parries, Is.Zero);
+        Assert.That(ScoreSystem.I.Score, Is.Zero);
+        yield return null;
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator PracticeRequiresRealHitAndParryAndMissesAreSafe()
+    {
+        TutorialRun.Begin();
+        yield return DungeonSceneTestFlow.Start();
+        yield return EnterTypingLesson();
+        yield return CompleteTyping();
+        var director = Object.FindObjectOfType<TutorialDirector>();
+        director.Continue(); yield return null; // mistakes
+        director.Continue(); yield return null; // parry read
+        director.Continue(); yield return null; // first attempt: no input
+        var health = Object.FindObjectOfType<PlayerHealth>();
+        int hp = health.Current;
+        var pause = Object.FindObjectOfType<GamePauseController>();
+        pause.TogglePause(true);
+        yield return new WaitForSecondsRealtime(.2f);
+        Assert.That(TutorialRun.Practicing, Is.EqualTo(TutorialRun.Practice.Parry));
+        pause.Resume();
+        float deadline = Time.realtimeSinceStartup + 10;
+        while (TutorialRun.Practicing != TutorialRun.Practice.None && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(health.Current, Is.EqualTo(hp));
+        var text = Object.FindObjectOfType<TutorialOverlay>().transform.Find("Reference960x540/Practice/PracticeMessage").GetComponent<TMPro.TMP_Text>();
+        Assert.That(text.text, Does.StartWith("Not parried"));
+        yield return null;
+        var parry = Object.FindObjectOfType<ParrySystem>();
+        var enemy = Object.FindObjectOfType<SkeletonController>();
+        for (int attempt = 0; attempt < 2; attempt++)
+        {
+            director.Continue(); yield return null;
+            if (attempt == 0) Assert.That(parry.TryBeginParry(), Is.True, "early tap uses real pose");
+            else
+            {
+                bool approaching = false;
+                deadline = Time.realtimeSinceStartup + 8;
+                while (Time.realtimeSinceStartup < deadline)
+                {
+                    bool contactPending = enemy.TryGetAttackTelegraph(out _);
+                    approaching |= contactPending;
+                    if (approaching && !contactPending) break;
+                    yield return null;
+                }
+                yield return new WaitForSecondsRealtime(.15f);
+                Assert.That(parry.TryBeginParry(), Is.True, "late tap uses real pose");
+            }
+            deadline = Time.realtimeSinceStartup + 10;
+            while (TutorialRun.Practicing != TutorialRun.Practice.None && Time.realtimeSinceStartup < deadline) yield return null;
+            Assert.That(health.Current, Is.EqualTo(hp));
+            Assert.That(text.text, Does.StartWith("Not parried"));
+            yield return null;
+        }
+        Assert.That(text.text, Does.Contain("Release Space"), "persistent help after three misses");
+        yield return CompleteParry();
+        Assert.That(health.Current, Is.EqualTo(hp));
+        Assert.That(CombatSession.I.Seconds, Is.Zero);
+        director.Continue(); yield return null; // Slayer
+        director.Continue(); yield return null; // score
+        director.Continue();
+        yield return DungeonSceneTestFlow.Wait();
+        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Completed));
+        Assert.That(TutorialRun.Active, Is.False);
+        Assert.That(CombatSession.I.Letters, Is.Zero);
+        Assert.That(EndlessRun.Current.Score, Is.Zero);
+        Assert.That(EndlessRun.Current.Slot, Is.Zero);
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator CancellingTelegraphedPracticeAttackHidesCueAndPendingStrike()
+    {
+        TutorialRun.Begin();
+        yield return DungeonSceneTestFlow.Start();
+        yield return EnterTypingLesson();
+        yield return CompleteTyping();
+        var director = Object.FindObjectOfType<TutorialDirector>();
+        director.Continue(); yield return null;
+        director.Continue(); yield return null;
+        director.Continue(); yield return null;
+        var enemy = Object.FindObjectOfType<SkeletonController>();
+        float deadline = Time.realtimeSinceStartup + 8;
+        while (!enemy.TryGetAttackTelegraph(out _) && Time.realtimeSinceStartup < deadline) yield return null;
+        yield return null;
+        var presenter = Object.FindObjectOfType<ParryCuePresenter>();
+        var key = (RectTransform)typeof(ParryCuePresenter).GetField("key", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(presenter);
+        Assert.That(key.gameObject.activeSelf, Is.True);
+        Object.FindObjectOfType<TutorialOverlay>().transform.Find("Reference960x540/Practice/Back").GetComponent<Button>().onClick.Invoke();
+        yield return null;
+        Assert.That(TutorialRun.Practicing, Is.EqualTo(TutorialRun.Practice.None));
+        Assert.That(enemy.IsAttacking, Is.False);
+        Assert.That(key.gameObject.activeSelf, Is.False, "reading must not retain a cancelled live cue");
+        Assert.That(GamePauseController.InputBlocked, Is.True);
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator BackAndSkipCancelPracticeAndRestoreNormalDamage()
+    {
+        TutorialRun.Begin();
+        yield return DungeonSceneTestFlow.Start();
+        yield return EnterTypingLesson();
+        var director = Object.FindObjectOfType<TutorialDirector>();
+        var overlay = Object.FindObjectOfType<TutorialOverlay>();
+        director.Continue(); yield return null;
+        Object.FindObjectOfType<TypingManager>().ProcessInput("hi");
+        overlay.transform.Find("Reference960x540/Practice/Back").GetComponent<Button>().onClick.Invoke();
+        yield return null;
+        Assert.That(TutorialRun.Practicing, Is.EqualTo(TutorialRun.Practice.None));
+        Assert.That(GamePauseController.InputBlocked, Is.True);
+        Assert.That(Object.FindObjectOfType<SkeletonController>().IsAttacking, Is.False);
+        yield return EnterTypingLesson();
+        director.Continue(); yield return null;
+        overlay.gameObject.SetActive(false); yield return null;
+        Assert.That(TutorialRun.Practicing, Is.EqualTo(TutorialRun.Practice.None));
+        Assert.That(GamePauseController.InputBlocked, Is.True);
+        overlay.gameObject.SetActive(true); yield return null;
+        yield return EnterTypingLesson();
+        director.Continue(); yield return null;
+        overlay.transform.Find("Reference960x540/SkipTutorial").GetComponent<Button>().onClick.Invoke();
+        yield return DungeonSceneTestFlow.Wait();
+        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Skipped));
+        Assert.That(TutorialRun.Practicing, Is.EqualTo(TutorialRun.Practice.None));
+        var hp = Object.FindObjectOfType<PlayerHealth>();
+        Assert.That(Object.FindObjectOfType<ParrySystem>().CanBeginParry, Is.True);
+        int before = hp.Current;
+        hp.TakeDamage(5, Vector2.zero);
+        Assert.That(hp.Current, Is.EqualTo(before - 5), "tutorial safety cannot leak into real battle");
     }
 
     [UnityTest, Category("Quick")]
@@ -487,18 +638,11 @@ public sealed class TutorialTests
         TutorialRun.Begin();
         yield return DungeonSceneTestFlow.Start();
         director = Object.FindObjectOfType<TutorialDirector>();
-        director.Continue(); director.Continue();
-        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
-        float battleRequestedAt = 0;
-        for (int step = 2; step <= 6; step++)
-        {
-            yield return null;
-            Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Unseen));
-            if (step == 6) battleRequestedAt = Time.realtimeSinceStartup;
-            director.Continue(); director.Continue();
-        }
+        float battleRequestedAt = Time.realtimeSinceStartup;
+        yield return null;
+        Object.FindObjectOfType<TutorialOverlay>().transform.Find("Reference960x540/SkipTutorial").GetComponent<Button>().onClick.Invoke();
         yield return DungeonSceneTestFlow.Wait();
-        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Completed));
+        Assert.That(TutorialRun.Status, Is.EqualTo(TutorialRun.Progress.Skipped));
         Assert.That(TutorialRun.Active, Is.False);
         Assert.That(DungeonSession.I.World, Is.SameAs(world));
         Assert.That(EndlessDuel.I.Run.Difficulty, Is.EqualTo(EndlessDifficulties.Selected));

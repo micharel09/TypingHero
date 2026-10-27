@@ -60,7 +60,8 @@ public sealed class ParryCuePresenter : MonoBehaviour
                     { legacyGraphics.Add(graphic, graphic.enabled); graphic.enabled = useKey ? false : graphic.enabled; }
         }
         if (!enemy || !enemy.isActiveAndEnabled || enemy.IsDead || CombatSession.Finished ||
-            (slayer && slayer.IsActive) || GamePauseController.EncounterReading)
+            (slayer && slayer.IsActive) || GamePauseController.EncounterReading ||
+            (TutorialRun.Active && TutorialRun.Practicing == TutorialRun.Practice.None))
         {
             lastVisible = false;
             key.gameObject.SetActive(false);

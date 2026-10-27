@@ -16,6 +16,7 @@ internal sealed class EndlessRun
     internal int Slot => Defeated % DuelsPerRound;
     internal static EndlessRun Begin(EndlessDifficulty difficulty = EndlessDifficulty.Normal) =>
         Current = new EndlessRun { Difficulty = difficulty };
+    internal static EndlessRun ForPractice(EndlessDifficulty difficulty) => new EndlessRun { Difficulty = difficulty };
     internal static void Prepare()
     { Begin(EndlessDifficulties.Selected); prepared = true; }
     internal static void Restart()

@@ -349,8 +349,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## Six-page tutorial guide
 
-- TutorialRun opens frozen SampleScene on HUD page1/6. Four cards and five
-  real-HUD arrows remain; the old center illustration is hidden. Next / Enter
+- TutorialRun opens frozen SampleScene on HUD page1/6. Health, typing tray and enemy HP are highlighted one at a time
+  over three confirmations; the old center illustration is hidden. Next / Enter
   advances through Type to Attack, Mistakes & Timer, Parry with Space,
   Break Guard / Slayer, and Score & Combo. TutorialDirector rejects same-frame
   confirmations and requires Enter release between pages.
@@ -364,7 +364,7 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Scene lessons store resource paths and frame-to-atlas/sprite indices, without a
   preview sprite. Each TutorialAtlasPage owns one atlas; the overlay's async cache
   retains at most two slots, including pending requests, with one request at a time.
-  It preloads the following atlas and wraps from last to first. Initial loading
+  It preloads the following atlas without a terminal wrap. Initial loading
   hides the image/guidance and shows Loading; a delayed boundary holds the displayed
   frame, caption, guidance and clock without accumulating waiting time. Pause may
   finish loading but cannot publish a new frame. Load errors use the existing label
@@ -395,11 +395,22 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - Playback uses unscaled time. Pause hides the guide and holds its exact frame
   and clock; Resume continues. Back returns one page; every entry resets that
   page's clip. Restart/menu replay open HUD1/6. Existing input/time/audio/score
-  reading locks cover all pages; Menu abandons without completion.
-- Only Start Battle / Enter on page6 saves Completed through the existing
-  TutorialRun key and reloads DungeonSession with selected difficulty. Existing
-  held-Enter consumption, fresh40HP/180enemy HP/100guard and zero score/statistics
-  remain. Encounters begin immediately, without a Fight gate.
+  reading locks cover informational/demo states; Menu abandons without completion.
+- Watch demo is optional and starts only on click. Each clip plays once, holds its
+  final frame and offers explicit Replay; its label distinguishes WATCH ONLY from
+  YOUR TURN. Typing and parry require a live attempt before Next is available.
+  HIT practice has no timer and an idle enemy; success requires actual attack
+  damage and recovery. Parry uses the existing attack/window, one attack per
+  attempt, a neutral one-second lead-in and Space-release guard. Misses cost no HP
+  and offer Retry; three misses add a timing reminder. No combat timing is slowed.
+- TutorialPractice owns attempt cancellation and real event subscriptions. Practice
+  does not award real-run score, statistics or unlocks. Back cancels an attempt,
+  resets the page and retains already passed skills in this session. Skip remains
+  available and starts a fresh battle; skipping a replay preserves Completed.
+- Start Battle on page6 requires both HIT and parry, saves the existing Completed
+  value and reloads the selected difficulty. Skip saves the existing Skipped value
+  unless already Completed. Fresh40HP/180enemy HP/100guard and zero score/statistics
+  remain. Restart/replay begins at HUD1/6; encounters have no Fight gate.
 - Current beat-guidance validation and per-frame review receipts are recorded in
   [the tutorial checkpoint](../plans/parry-cue-demo.md). Historical results there
   apply only to their recorded asset hashes; the review branch stays separate

@@ -42,22 +42,22 @@ public sealed class CombatSession : MonoBehaviour
     }
     void Update()
     {
-        if (!finished && !GamePauseController.InputBlocked) seconds += Time.unscaledDeltaTime;
+        if (!TutorialRun.Active && !finished && !GamePauseController.InputBlocked) seconds += Time.unscaledDeltaTime;
     }
     void InputResult(bool hit)
     {
-        if (finished) return;
+        if (TutorialRun.Active || finished) return;
         letters++;
         if (hit) correct++;
     }
     void Parried(ParrySystem.ParryContext _)
     {
-        if (finished) return;
+        if (TutorialRun.Active || finished) return;
         parries++;
     }
     public void Complete(bool won)
     {
-        if (finished) return;
+        if (TutorialRun.Active || finished) return;
         finished = true;
         finalScore = ScoreSystem.I ? ScoreSystem.I.Score : 0;
         if (ScoreSystem.I) ScoreSystem.I.SetPaused(true);

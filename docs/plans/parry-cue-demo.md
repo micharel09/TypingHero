@@ -901,3 +901,208 @@ The retained `streaming-local/source/Library` is a junction to the pre-existing
 `unity-local/source/Library` cache; preserve that older cache when cleaning the
 new source copy after review. No main merge, full-game FPS guarantee, combat
 optimization or external publication.
+
+
+## New-player tutorial implementation (2026-10-27; in progress)
+
+Approved six-lesson plan: click-to-watch once, explicit DEMO/YOUR TURN, required
+real HIT attack and one real safe parry, visible Skip, isolated practice statistics.
+Continue the existing tutorial-full-gameplay worktree from7b9f15eb; no main merge.
+Reuse TutorialBuild's authored Back/button skin, gold clip-focus edges, existing
+live HUD/actors and original clip data. New controls compose these components;
+no new art, sprite timing, dependency or public gameplay contract.
+
+Implementation adds TutorialPractice and internal practice gates/reset hooks.
+Demo end holds and replay replace automatic joins. Intro focuses HP, word and
+enemy HP separately. Only actual attack damage and parry success complete skills.
+Practice releases only the reading lock; Pause remains authoritative. Skip uses
+existing Skipped storage value and preserves an existing Completed on replay.
+
+Verification pending. Initial Ubuntu serialize023114/input6b1b0370 failed protected
+font byte checks due CRLF input; external snapshot adapter normalizes text to LF,
+without changing font/checker. Quick023903/inputbbace8a8 failed strict builder
+repeat before tests: new practice labels changed typography, cloned focus colors
+changed, and Readiness/Guidance sibling order differed. These differences were
+inspected and corrected in TutorialBuild; strict checker remains unchanged.
+Quick025325/inputb97ad635 is running; it is not yet a passing test receipt.
+Source changes after that snapshot require final-source verification.
+
+New-player usability remains heuristic until an independent first-time player
+tries the candidate without spoken coaching. Do not label automation as a user study.
+
+
+### Verification correction / resume point (2026-10-27)
+
+The external normalized-TAR adapter used zero mtimes. Unity reused an older
+ScriptAssemblies cache despite changed source bytes. Therefore quick031445/input
+554ae1fb and032258/input2f3ede28 (both15/16) are NOT final-source verification;
+the Replay assertion belonged to the old test assembly. The verified-delta adapter
+now validates every source file hash, sets real mtimes on changed files, and once
+forces fresh script/scene import when upgrading from the old transport.
+
+Quick032727/inputf85c6cb3 has fresh scripts:16/18, with typing completion failures.
+The typing failure path now waits for the actual attack-window closure and recovery,
+not merely an Animator idle/transition observation. PlayerAttackEvents exposes only
+an internal read-only WindowActive to preserve its deferred physics tick. Added a
+real missed-attack/retry fixture and telegraph-cancel/cue cleanup fixture. The cue
+presenter hides live cues outside practice while retaining ordinary Pause behavior.
+Quick033458/input644aac54:16/19, typing still pending; further diagnosis required.
+Quick034137/inputa676c8f1 became idle before producing XML under -nographics;
+its exact owned container was inspected and stopped, no unrelated job touched.
+Rendered Xvfb scoped diagnostic quick035727/inputd5bce127 is running. No WebGL
+candidate, normal-player receipt, new video or final push exists yet.
+
+Serialized candidate preserves all1231 original object IDs/order:13existing records
+changed and76new UI records. Avoid wholesale Unity scene reordering in the commit;
+project final builder records back into the original order and verify equivalence.
+Current task temp is registered as tutorial-new-player-20261027 for session
+01a178b8-da00-7840-a0ba-0498bc9b6bee. Before completion, preserve receipts/player/
+video outside CodexTemp, then Complete -Apply. External delta/native drivers are
+in the registered directory; do not delete older8303/8304/8305 demos.
+
+
+### Scope correction before final acceptance
+
+Windows rendered single main flow passes. Combined final-tests:18/19, with only
+the additional artificial no-target typing-attack retry fixture failing. That
+experimental fallback was not part of the approved fixed-target HIT practice and
+is removed with its fixture/internal WindowActive getter; it is NOT recorded as
+verified. Original acceptance remains: wrong letters reset, a real damaging HIT
+is required, genuine safe parry/retries, navigation/lifecycle/cache/lookup checks.
+No completion is granted from merely completing a word. Back/Skip remain usable.
+The no-target attack scenario remains unverified; do not claim support for it.
+Final scoped matrix is18 cases, including telegraph cancellation, all1995 lookups,
+28 atlas boundaries/five terminal holds, zero warmed cache/tick allocation/dirty,
+and six directly affected normal combat/parry/scoring regressions.
+
+### Current-source scoped verification, 2026-10-27
+
+Windows Unity2022.3.25f1 rendered matrix `verified-tests.xml`:16/18 passed;
+the two live-HIT fixtures failed with accepted word but no damage after synthetic
+same-tick input. The helper now feeds each HIT character on a separate tick.
+`typing-diagnostic.xml`:2/2 passed for the full genuine typing/parry/miss flow and
+telegraphed-attack cancellation. Reuse the other16 unchanged passing cases; this
+is combined evidence across two runs, not an18/18 single-run receipt. No runtime
+combat timings, damage, collision masks or pass conditions were weakened.
+The passing coverage includes1995 lookups/28 internal boundaries/five end holds,
+zero warmed render/tick/cache allocation and Image dirty callbacks, lifecycle,
+loading errors, navigation and six normal combat/scoring/parry regressions.
+QA WebGL candidate is now building; strict repeat-builder/native/normal-player/
+video/review-branch push remain pending. No independent novice study is claimed.
+
+### WebGL candidate/build checkpoint
+
+QA build PASS, pinned Windows Unity2022.3.25f1; strict repeat-builder PASS.
+Input0aad8b4b5e6728c643214568636e866de115e3947f6f5384679d38594fc87acb;
+post-builder receipt d3c30f55e8614f27a693b8dcbeb1b436dfebd61d1a35f1ec592caf8978005158.
+Native Edge1280 scope in `qa-native-5`:90checks before replay-menu preparation
+was omitted by the harness. The completed scope covers six pages, five full
+one-pass clips/end holds/replays, genuine HIT/parry and safe miss, Back cancellation,
+readiness, Start Battle, normal typing/parry, restart/menu and texture cleanup.
+The report remains FAILED overall; replay/Skip and640 acceptance remain pending.
+Earlier harness failures are retained: stale module name; mouse-down frame sampled
+before cursor movement; an extra browser read delayed Space until~81ms before
+contact. Fixed the observers/input driver, never the game's parry window/speed.
+`qa-native-6` was closed through its exact owned Edge window to reduce memory
+contention while normal Unity built; it is not a passing complete run.
+Normal build is pending. It logged an AssetImportWorker font-metadata timestamp
+version error while still continuing; preserve this log and inspect actual player
+text/behavior. Source cleanup must remove generated-only serialization changes.
+Scene audit:1231 original IDs retained,76added UI records,13meaningful old-record
+changes. Two trailing-blank differences and three TMP sorting fields reordered
+by Windows serialization are semantically unchanged and excluded from final diff.
+Permanent receipts/deliverables live at
+`C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-new-player-20261027`.
+
+
+### Verified new-player candidate (2026-10-27; supersedes pending status above)
+
+Implementation: six lessons with sequential HUD focus; optional one-pass demo,
+terminal hold/Replay; required real HIT and one parry; safe original-timing retry;
+Back cancellation, persistent Skip, session readiness and fresh selected-difficulty
+battle. Practice awards no real-run score/statistics/unlocks. Completed replay is
+never downgraded by Skip. No source PNG/GUID/SpriteRect/frame duration/caption/
+guidance change. The artificial no-target fallback remains outside scope.
+
+| Evidence | Result |
+|---|---|
+| Ubuntu rendered quick064043/inputdf152cc0 |18/18 scoped tests PASS; final252code/assembly/JS binding files match the tested snapshot |
+| Warmed cache/render/tick,1000calls each |0allocated bytes;0Image dirty callbacks for held/loading frames; new sprite still dirties correctly |
+| Current QA repeat builder |PASS: objects/references/listeners unchanged across repeats |
+| Native QA640x360 |91checks PASS, all six pages; actual HIT/parry/misses/Back/Pause/Resume/Start/restart/menu/replay/Skip |
+| Native normal1280x720 |34checks PASS,0capture errors, no QA globals or external provider writes |
+| Normal actual tutorial GPU |Peak2textures,31,477,248bytes;0after practice/battle/restart/menu/replay/late-Skip |
+| Normal QA exclusion/copy |qa:false,5payloads scanned ASCII/UTF16;33/33copied player hashes match |
+| Source/scene audit |1231old IDs retained,76new UI records,13old records meaningfully changed; builder-equivalent; frame/caption/guidance data hash47a1f786c7deb03f75514b8210eddcfc4a0409175b82ef0431f6777c76c8153b |
+
+The earlier Windows16+2 receipts are retained; the Ubuntu18/18 run is the final
+single-run scoped result. The tested snapshot precedes only nonsemantic YAML
+empty-mapping whitespace/checkout-EOL cleanup and documentation updates.
+Normal build logged one metadata timestamp import-version error while Apply ran;
+it still completed with exit0. Actual normal text/font/behavior checks passed.
+This diagnostic is preserved, not presented as a clean no-diagnostic log.
+
+The four still-internal priority atlas transitions were traced at both sizes:
+Slayer2-to3/4-to5/9-to10 and Score9-to10 show13.8-40.9ms render intervals.
+No historical133-213ms gap recurred there. Original clock policy stays; no fixed
+clamp, clip slowdown or blanket exclusion of prefetch time. Score10-to0 is now
+explicit Replay, with its loading/reset shown in the full new capture.
+QA trace counts11438/9674, no overflow; at most2slots. Raw traces are preserved.
+
+#### Direct capture review and video
+
+Normal-native-1 correctly rejected its capture after asynchronous write backlog;
+its functional observations are not substituted for a passing capture. The final
+normal-native-2 uses a256MiB per-segment RAM threshold, early ACK and asynchronous
+post-segment writes; maximum observed segment62,763,553bytes,0capture errors.
+CDP PNG encoding delivered168adjacent timestamp regressions in arrival order.
+All1465records have unique presentation timestamps: sort by original PTS, retain
+all raw frame IDs/hashes and every repeated image; no frame was discarded.
+
+| Selected complete capture segment | Frames inspected/total | Consecutive transitions inspected/total |
+|---|---|---|
+| Three-focus intro and lesson entry |130/130|129/129|
+| Typing demo terminal/Replay |155/155|154/154|
+| Real HIT: wrong letter, contact, recovery/result |175/175|174/174|
+| Mistakes demo terminal/Replay |179/179|178/178|
+| Parry demo terminal/Replay |144/144|143/143|
+| Live parry: miss, Retry, preparation/contact/recovery/result |401/401|400/400|
+| Slayer demo terminal/Replay |117/117|116/116|
+| Score demo terminal/Replay |164/164|163/163|
+
+Total1465/1465frames and1457/1457transitions, directly viewed on41overlapping
+sheets, including cross-sheet pairs; all page/practice state PNGs also viewed at
+native1280x720/640x360. Five terminal/Replay windows add to the unchanged28internal
+boundary receipts:33boundary/end windows remain covered, with the new one-pass
+policy replacing automatic loop transitions.
+
+Capture intervals up to200-240ms in static intro/Finished/result holds are retained.
+The first live-parry213ms interval spans preparation-to-strike; rAF stays continuous
+(~13.7ms maximum using estimated clock alignment), but exact capture-vs-game-render
+attribution is UNVERIFIED. Do not claim every Unity render was captured or whole-game
+smoothness. This is live practice with no displayed tutorial atlas, not evidence
+for changing streaming clock policy. No segment was narrowed to hide the interval.
+
+Video `Tutorial-New-Player.mp4`:1280x752 (unchanged1280x720game plus32px title),
+36.1066s before codec tail,1465source rasters plus one identical terminal flush
+raster, variable timing, silent. All source frames retained; monotonic encoded PTS,
+maximum timing error1.192ms, full decode PASS. SHA256:
+`3a18a12d5842ec92188259860f9d625844b227d88eb8cb1daee0dfcf0eed63c0`.
+Three encoded-state previews directly viewed. Old videos/demos8303/8304/8305 remain.
+
+#### Review delivery
+
+Normal demo: http://127.0.0.1:8306/ . Video: /Tutorial-New-Player.mp4 .
+Permanent artifact root:
+`C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-new-player-20261027`.
+Contains player, raw accepted capture, reviewed sheets/manifests, XML/logs, source
+and QA-exclusion audits, failed-run reports, host/Stop-Demo script and final git
+receipt. Demo bootstrap controls the page with a local fixture service worker;
+external leaderboard requests never reach the real provider.
+
+Keep worktree `C:/Users/ADMIN/orca/workspaces/TypingHero/tutorial-full-gameplay`,
+branch `micharel09/tutorial-full-gameplay`, for review; do not merge main.
+Final commit/remote verification is recorded in artifact `delivery.json`.
+Keep the owned8306host/player/video until review acceptance; stop only via its
+Stop-Demo.ps1, then remove the artifact folder when no longer needed.
+Independent novice usability remains untested; no whole-game FPS claim.

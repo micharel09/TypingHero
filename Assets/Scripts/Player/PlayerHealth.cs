@@ -68,6 +68,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             return;
         }
 
+        if (TutorialRun.Active && TutorialRun.Practicing != TutorialRun.Practice.None) return;
+
         // i-frames
         if (Time.time < iFramesUntil) return;
 

@@ -102,14 +102,14 @@ internal static class TutorialBuild
         Card("TypingCard", 24, 300, 396, 72);
         var score = Text("ScoreGuide", "<color=#DCC47C>Score / Combo</color>\nPoints and successful action streaks.", 340, 128, 280, 72, 24);
         var hp = Text("HealthGuide", "<color=#DCC47C>Your HP</color>\nYour health. When it runs out, you lose.", 36, 188, 264, 96, 24);
-        var enemy = Text("EnemyGuide", "<color=#DCC47C>Enemy HP / Guard</color>\nDrain HP to win. Parry lowers guard. Break guard for Slayer.", 660, 188, 264, 120, 24);
+        var enemy = Text("EnemyGuide", "<color=#DCC47C>Enemy HP</color>\nDrain enemy HP to win.", 660, 188, 264, 120, 24);
         var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 36, 306, 372, 60, 18);
         Text("Shortcuts", "Tap Space when the key presses.\nRelease between hits. Esc: pause", 452, 326, 460, 46, 18).alignment = TextAlignmentOptions.Top;
         var next = panel.Find("PracticeButton").GetComponent<Button>();
-        Box((RectTransform)next.transform, panel, 500, 480, 360, 36);
+        Box((RectTransform)next.transform, panel, 500, 480, 230, 36);
         next.navigation = new Navigation { mode = Navigation.Mode.None };
         var action = next.GetComponentInChildren<TMP_Text>(true);
-        Box(action.rectTransform, next.transform, 8, 0, 344, 36);
+        Box(action.rectTransform, next.transform, 8, 0, 214, 36);
         action.text = "Next \u00b7 Enter"; action.fontSize = action.fontSizeMin = action.fontSizeMax = 24;
         action.enableAutoSizing = false;
         PrefabUtility.RecordPrefabInstancePropertyModifications(next.transform);
@@ -224,12 +224,14 @@ internal static class TutorialBuild
         }
         TMP_Text Copy(string name, string text, float x, float y, float w, float h, float size)
         {
-            var existing = panel.Find(name);
-            if (existing) return existing.GetComponent<TMP_Text>();
-            var label = Label(name, text, panel, x, y, w, h, size);
+            var existing = panel.Find(name) ?? bounds.Find("Practice/" + name);
+            var label = existing ? existing.GetComponent<TMP_Text>() : Label(name, text, panel, x, y, w, h, size);
+            if (existing && name != "DemoBadge" && name != "PracticeMessage" && name != "PracticeBadge" && name != "Readiness") return label;
             label.font = font; label.fontSharedMaterial = font.material; label.color = Hex("f2e7cf");
             label.fontSize = label.fontSizeMin = label.fontSizeMax = size;
             label.enableAutoSizing = false; label.alignment = TextAlignmentOptions.Center;
+            label.enableKerning = true; label.overflowMode = TextOverflowModes.Overflow;
+            label.enableWordWrapping = name == "PracticeMessage";
             label.raycastTarget = false;
             return label;
         }
@@ -243,8 +245,9 @@ internal static class TutorialBuild
             Box(panel, modal, 16, 12, 928, 516);
         Migrate(title.rectTransform, new Vector2(48, -18), new Vector2(640, 44), 48, 8, 756, 36);
         Migrate(step.rectTransform, new Vector2(708, -22), new Vector2(60, 32), 820, 10, 60, 32);
-        var badge = panel.Find("DemoBadge");
-        if (badge) badge.gameObject.SetActive(false);
+        var badge = Copy("DemoBadge", "DEMO\nWATCH ONLY", 24, 108, 112, 156, 22);
+        badge.gameObject.SetActive(true);
+        Box(badge.rectTransform, panel, 24, 108, 112, 156);
         var clip = Node("Clip", panel, 144, 52, 640, 360);
         // Migrate only shipped defaults; retain independently authored geometry.
         if (clip.sizeDelta == new Vector2(720, 270) && clip.anchoredPosition == new Vector2(408, -215))
@@ -256,7 +259,7 @@ internal static class TutorialBuild
         clip.pivot = Vector2.one * .5f;
         var rule = Copy("Rule", "Finish the word to attack.", 32, 444, 864, 36, 18);
         Migrate(rule.rectTransform, new Vector2(48, -360), new Vector2(720, 48), 32, 444, 864, 36);
-        if (rule.fontSize == 24) rule.fontSize = rule.fontSizeMin = rule.fontSizeMax = 18;
+        if (rule.fontSize == 18) rule.fontSize = rule.fontSizeMin = rule.fontSizeMax = 24;
         var captionPanel = (clip.Find("Guidance") as RectTransform) ?? Node("Guidance", panel, 144, 414, 640, 30);
         if (captionPanel.parent != panel)
         {
@@ -325,7 +328,6 @@ internal static class TutorialBuild
             var labelRect = button.GetComponentInChildren<TMP_Text>(true).rectTransform;
             if (labelRect.sizeDelta.y == 40) Box(labelRect, button.transform, 8, 0, ((RectTransform)button.transform).sizeDelta.x - 16, 28);
         }
-        captionPanel.SetAsLastSibling();
         var so = new SerializedObject(overlay);
         void Bind(string field, Object value) { var p = so.FindProperty(field); if (!p.objectReferenceValue) p.objectReferenceValue = value; }
         Bind("parryModal", modal.gameObject); Bind("backButton", back); Bind("startButton", start);
@@ -335,12 +337,60 @@ internal static class TutorialBuild
         Bind("guideBend", bend); Bind("guideEnd", end);
         Bind("clipTitle", title); Bind("modalStep", step); Bind("hudStep", hud.Find("Step").GetComponent<TMP_Text>());
         Bind("actionLabel", start.GetComponentInChildren<TMP_Text>(true));
+        // Explicit learning controls reuse the authored tutorial button skin.
+        Button LearningButton(string name, Transform parent, float x, float y, float w, float h)
+        {
+            var existing = parent.Find(name);
+            var button = existing ? existing.GetComponent<Button>() : Object.Instantiate(back, parent);
+            button.name = name;
+            Box((RectTransform)button.transform, parent, x, y, w, h);
+            button.onClick = new Button.ButtonClickedEvent();
+            button.navigation = new Navigation { mode = Navigation.Mode.None };
+            var label = button.GetComponentInChildren<TMP_Text>(true);
+            Box(label.rectTransform, button.transform, 4, 0, w - 8, h);
+            label.fontSize = label.fontSizeMin = label.fontSizeMax = 22;
+            PrefabUtility.RecordPrefabInstancePropertyModifications(button);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(button.transform);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(label);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(label.rectTransform);
+            return button;
+        }
+        var watch = LearningButton("WatchDemo", bounds, 196, 492, 250, 36);
+        var skip = LearningButton("SkipTutorial", bounds, 760, 492, 180, 36);
+        skip.GetComponentInChildren<TMP_Text>(true).text = "Skip tutorial";
+        Box((RectTransform)back.transform, panel, 32, 480, 130, 36);
+        Box((RectTransform)start.transform, panel, 448, 480, 280, 36);
+        Box(back.GetComponentInChildren<TMP_Text>(true).rectTransform, back.transform, 4, 0, 122, 36);
+        Box(start.GetComponentInChildren<TMP_Text>(true).rectTransform, start.transform, 4, 0, 272, 36);
+        var practice = Node("Practice", bounds, 0, 0, 960, 540);
+        var practiceFocus = practice.Find("Focus") as RectTransform;
+        if (!practiceFocus) { practiceFocus = Object.Instantiate(focus, practice); practiceFocus.name = "Focus"; }
+        practiceFocus.pivot = Vector2.one * .5f;
+        foreach (var edge in practiceFocus.GetComponentsInChildren<Image>(true)) edge.color = Gold;
+        var readiness = Copy("Readiness", "READY", 800, 140, 112, 150, 20);
+        Bind("readiness", readiness); Bind("practiceFocus", practiceFocus);
+        var message = Copy("PracticeMessage", "Type HIT to attack.", 204, 100, 552, 72, 26);
+        message.transform.SetParent(practice, false);
+        Box(message.rectTransform, practice, 204, 100, 552, 72);
+        message.alignment = TextAlignmentOptions.Top;
+        var practiceBadge = Copy("PracticeBadge", "YOUR TURN", 24, 110, 160, 100, 20);
+        practiceBadge.transform.SetParent(practice, false);
+        Box(practiceBadge.rectTransform, practice, 24, 110, 160, 100);
+        var practiceBack = LearningButton("Back", practice, 24, 370, 160, 48);
+        practiceBack.GetComponentInChildren<TMP_Text>(true).text = "Back";
+        var practiceAction = LearningButton("Action", practice, 776, 370, 160, 48);
+        Bind("watchButton", watch); Bind("skipButton", skip); Bind("demoBadge", badge);
+        Bind("practicePanel", practice.gameObject); Bind("practiceMessage", message); Bind("practiceBadge", practiceBadge);
+        Bind("practiceBack", practiceBack); Bind("practiceAction", practiceAction);
+        practice.gameObject.SetActive(false);
+        watch.transform.SetAsLastSibling(); skip.transform.SetAsLastSibling();
+        captionPanel.SetAsLastSibling();
         var nodes = new[] { "ScoreCard", "HealthCard", "EnemyCard", "TypingCard", "ScoreGuide", "HealthGuide", "EnemyGuide", "TypingGuide", "Shortcuts", "PracticeButton", "Step" };
         var content = so.FindProperty("hudContent"); content.arraySize = nodes.Length;
         for (int i = 0; i < nodes.Length; i++) content.GetArrayElementAtIndex(i).objectReferenceValue = hud.Find(nodes[i]).gameObject;
         var names = new[] { "typing", "mistakes", "parry-health", "slayer", "score" };
         var titles = new[] { "Type to Attack", "Mistakes & Timer", "Parry with Space", "Break Guard \u00b7 Slayer", "Score & Combo" };
-        var rules = new[] { "Finish the word to attack.", "Wrong letters reset the word.\nThe timer keeps running.", "Tap Space as the attack lands.\nRelease between hits.", "Parry until Guard breaks.\nIn Slayer, each correct letter attacks.", "Complete words to score.\nFive words in a row unlock the multiplier." };
+        var rules = new[] { "Finish the word to attack.", "Wrong letters reset the word; the timer keeps running.", "Tap Space when the key fills. Release between attempts.", "Parry to break Guard. In Slayer, correct letters attack.", "Words score points. Five in a row unlock the multiplier." };
         var lessons = so.FindProperty("lessons"); lessons.arraySize = names.Length;
         const string resources = "Assets/Resources/Tutorial";
         if (!AssetDatabase.IsValidFolder(resources)) AssetDatabase.CreateFolder("Assets/Resources", "Tutorial");

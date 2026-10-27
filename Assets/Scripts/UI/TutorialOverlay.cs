@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [DefaultExecutionOrder(1100)]
 public sealed class TutorialOverlay : MonoBehaviour
 {
+    internal event Action Unavailable;
     [Serializable]
     internal sealed class Arrow
     {
@@ -20,6 +21,14 @@ public sealed class TutorialOverlay : MonoBehaviour
     [SerializeField] GameObject parryModal;
     [SerializeField] GameObject[] hudContent;
     [SerializeField] Button backButton, startButton;
+    [SerializeField] Button watchButton, skipButton, practiceBack, practiceAction;
+    [SerializeField] GameObject practicePanel;
+    [SerializeField] TMP_Text demoBadge, practiceMessage, practiceBadge, readiness;
+    [SerializeField] RectTransform practiceFocus;
+    readonly Vector3[] focusCorners = new Vector3[4];
+    RectTransform practiceTarget;
+    bool demoPlaying, inPractice;
+    double totalDuration;
     [SerializeField] Image clipImage;
     [SerializeField] TMP_Text clipCaption;
     [SerializeField] TMP_Text clipRule;
@@ -61,12 +70,64 @@ public sealed class TutorialOverlay : MonoBehaviour
 #endif
     }
 
-    internal void BindBack(UnityEngine.Events.UnityAction action) => backButton.onClick.AddListener(action);
+    internal void BindBack(UnityEngine.Events.UnityAction action)
+    {
+        backButton.onClick.AddListener(action);
+        practiceBack.onClick.AddListener(action);
+        practiceAction.onClick.AddListener(SubmitPractice);
+    }
+    void SubmitPractice() => startButton.onClick.Invoke();
+    internal void BindLearning(UnityEngine.Events.UnityAction watch, UnityEngine.Events.UnityAction skip)
+    {
+        watchButton.onClick.AddListener(watch);
+        skipButton.onClick.AddListener(skip);
+    }
+    internal void SetPrimary(string text, bool enabled)
+    {
+        actionLabel.text = text;
+        startButton.interactable = enabled;
+        practiceAction.GetComponentInChildren<TMP_Text>().text = text;
+        practiceAction.interactable = enabled;
+    }
+    internal void SetReadiness(bool typing, bool parry) => readiness.text = "READY\n\nHIT: " +
+        (typing ? "OK" : "Not yet") + "\nPARRY: " + (parry ? "OK" : "Not yet");
+    internal void PlayDemo()
+    {
+        demoPlaying = true;
+        demoBadge.text = "DEMO\nWATCH ONLY";
+        watchButton.GetComponentInChildren<TMP_Text>().text = "Replay";
+    }
+    internal void ShowPractice(int index, string message, bool finished)
+    {
+        ReleaseClip();
+        step = index; inPractice = true;
+        parryModal.SetActive(false);
+        foreach (var node in hudContent) node.SetActive(false);
+        foreach (var arrow in arrows)
+        { arrow.shaft.gameObject.SetActive(false); arrow.tipA.gameObject.SetActive(false); arrow.tipB.gameObject.SetActive(false); }
+        practicePanel.SetActive(true);
+        practiceBadge.text = "YOUR TURN \u00b7 " + (step + 1) + "/" + StepCount + (step == 3 ? "\nNo HP loss" : "\nNo timer");
+        practiceMessage.text = message;
+        practiceTarget = index == 1 ? typingTray : finished && message.StartsWith("Parry successful", StringComparison.Ordinal) ? staminaTarget : null;
+        practiceFocus.gameObject.SetActive(practiceTarget);
+        UpdatePracticeFocus();
+        practiceAction.interactable = finished;
+        practiceAction.GetComponentInChildren<TMP_Text>().text = finished ? "Next \u00b7 Enter" : "Practicing...";
+        watchButton.gameObject.SetActive(finished);
+        watchButton.GetComponentInChildren<TMP_Text>().text = "Watch demo";
+        skipButton.gameObject.SetActive(true);
+        ClearSelection();
+    }
 
     internal void ShowStep(int index)
     {
         ReleaseClip();
-        step = index;
+        step = index; inPractice = false;
+        practicePanel.SetActive(false);
+        watchButton.gameObject.SetActive(step > 0);
+        watchButton.GetComponentInChildren<TMP_Text>().text = "Watch demo";
+        demoBadge.text = "DEMO\nWATCH ONLY\n\nWatch first.\nTry it next.";
+        readiness.gameObject.SetActive(step == 5);
         bool modal = step > 0;
         foreach (var node in hudContent) node.SetActive(!modal);
         foreach (var arrow in arrows)
@@ -80,13 +141,36 @@ public sealed class TutorialOverlay : MonoBehaviour
             modalStep.text = (step + 1) + "/" + StepCount;
             actionLabel.text = step == StepCount - 1 ? "Start Battle \u00b7 Enter" : "Next \u00b7 Enter";
         }
+        totalDuration = 0;
+        if (modal) foreach (float hold in lessons[step - 1].durations) totalDuration += hold;
         clipTime = 0;
         RenderClip();
+        if (!modal) ShowIntroFocus(0);
         ClearSelection();
+    }
+
+    internal void ShowIntroFocus(int index)
+    {
+        foreach (var node in hudContent)
+        {
+            string name = node.name;
+            node.SetActive(name == "PracticeButton" || name == "Step" ||
+                (index == 0 && (name == "HealthCard" || name == "HealthGuide")) ||
+                (index == 1 && (name == "TypingCard" || name == "TypingGuide")) ||
+                (index == 2 && (name == "EnemyCard" || name == "EnemyGuide")));
+        }
+        int selected = index == 0 ? 0 : index == 1 ? 4 : 1;
+        for (int i = 0; i < arrows.Length; i++)
+        {
+            arrows[i].shaft.gameObject.SetActive(i == selected);
+            arrows[i].tipA.gameObject.SetActive(i == selected);
+            arrows[i].tipB.gameObject.SetActive(i == selected);
+        }
     }
 
     internal void ReleaseClip()
     {
+        demoPlaying = false;
         if (clipImage) clipImage.sprite = null;
         SetClipVisible(false);
         frameReady = waitingForFrame = false;
@@ -97,6 +181,7 @@ public sealed class TutorialOverlay : MonoBehaviour
 
     void OnDisable()
     {
+        Unavailable?.Invoke();
 #if TYPINGHERO_AUTOMATION
         Canvas.willRenderCanvases -= TraceRender;
 #endif
@@ -119,16 +204,14 @@ public sealed class TutorialOverlay : MonoBehaviour
     {
         if (step == 0) return false;
         var lesson = lessons[step - 1];
-        double duration = 0;
-        foreach (float hold in lesson.durations) duration += hold;
-        double time = clipTime % duration;
+        double time = Math.Min(clipTime, totalDuration);
         int frame = 0;
         double boundary = lesson.durations[0];
         while (frame < lesson.frameAtlas.Length - 1 && time >= boundary) boundary += lesson.durations[++frame];
         if (frameReady && frame == displayedFrame) return true;
         int atlas = lesson.frameAtlas[frame];
         string path = lesson.atlasPaths[atlas];
-        string following = lesson.atlasPaths[(atlas + 1) % lesson.atlasPaths.Length];
+        string following = atlas + 1 < lesson.atlasPaths.Length ? lesson.atlasPaths[atlas + 1] : null;
         var page = atlasCache.Get(path, following, displayedAtlas);
         if (!page)
         {
@@ -182,7 +265,7 @@ public sealed class TutorialOverlay : MonoBehaviour
     void AdvanceClip(float delta)
     {
         double previousTime = clipTime;
-        if (frameReady) clipTime = waitingForFrame ? pendingTime : clipTime + delta;
+        if (frameReady) clipTime = Math.Min(totalDuration, waitingForFrame ? pendingTime : clipTime + delta);
         double requested = clipTime;
         if (RenderClip()) waitingForFrame = false;
         else
@@ -191,6 +274,11 @@ public sealed class TutorialOverlay : MonoBehaviour
             if (frameReady && !waitingForFrame) pendingTime = clipTime;
             waitingForFrame = frameReady;
             clipTime = previousTime;
+        }
+        if (demoPlaying && clipTime >= totalDuration && totalDuration > 0)
+        {
+            demoPlaying = false;
+            demoBadge.text = "DEMO\nFINISHED\n\nReplay to\nwatch again";
         }
         TracePlayback("tick", requested);
     }
@@ -208,7 +296,7 @@ public sealed class TutorialOverlay : MonoBehaviour
     int lastRenderFrame = -1;
     void TraceRender()
     {
-        if (step == 0 || !canvas || !canvas.enabled || lastRenderFrame == Time.frameCount) return;
+        if (step == 0 || inPractice || !canvas || !canvas.enabled || lastRenderFrame == Time.frameCount) return;
         lastRenderFrame = Time.frameCount;
         TracePlayback("render", clipTime);
     }
@@ -223,7 +311,8 @@ public sealed class TutorialOverlay : MonoBehaviour
         canvas.enabled = !GamePauseController.IsPaused;
         interaction.interactable = interaction.blocksRaycasts = canvas.enabled;
         if (!canvas.enabled) return;
-        if (TutorialRun.Active && step > 0) AdvanceClip(Time.unscaledDeltaTime);
+        if (TutorialRun.Active && step > 0 && !inPractice) AdvanceClip(demoPlaying ? Time.unscaledDeltaTime : 0);
+        if (inPractice) UpdatePracticeFocus();
         if (step > 0) return;
         Canvas.ForceUpdateCanvases();
         foreach (var arrow in arrows)
@@ -237,6 +326,17 @@ public sealed class TutorialOverlay : MonoBehaviour
             Segment(arrow.tipA, to, to - direction * 10 + normal * 6);
             Segment(arrow.tipB, to, to - direction * 10 - normal * 6);
         }
+    }
+
+    void UpdatePracticeFocus()
+    {
+        if (!practiceTarget) return;
+        practiceTarget.GetWorldCorners(focusCorners);
+        var parent = practiceFocus.parent;
+        Vector2 lower = parent.InverseTransformPoint(focusCorners[0]);
+        Vector2 upper = parent.InverseTransformPoint(focusCorners[2]);
+        practiceFocus.localPosition = (lower + upper) * .5f;
+        practiceFocus.sizeDelta = upper - lower;
     }
 
     static Vector2 Point(RectTransform root, RectTransform rect, Vector2 anchor)
@@ -254,7 +354,7 @@ public sealed class TutorialOverlay : MonoBehaviour
 
     internal void SubmitContinue()
     {
-        var button = step > 0 ? startButton : continueButton;
+        var button = inPractice ? practiceAction : step > 0 ? startButton : continueButton;
         if (button.gameObject.activeInHierarchy && button.IsInteractable()) button.onClick.Invoke();
     }
 

@@ -90,6 +90,7 @@ public class TypingManager : MonoBehaviour
         practiceTimer = timed; practiceInput = acceptsLetters;
         ForceInitial();
     }
+    internal void StopPracticeInput() => practiceInput = false;
 
     void HandleTimer()
     {

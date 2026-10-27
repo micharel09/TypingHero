@@ -39,6 +39,13 @@ public class PlayerController : MonoBehaviour
         TypingManager.OnWordCorrect += DoAttack;
     }
     bool pendingAttack;
+    internal void ResetPracticeAttack()
+    {
+        ClearFollowUpRequest();
+        pendingAttack = pendingFromSuccess = followUpQueued = releasedFollowUp = false;
+        if (attackEvents) attackEvents.CancelAttack();
+        if (animator) { animator.Play("Base Layer.player_idle", 0, 0); animator.Update(0); }
+    }
     void OnDisable()
     {
         TypingManager.OnWordCorrect -= DoAttack;

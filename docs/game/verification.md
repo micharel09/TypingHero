@@ -3375,3 +3375,32 @@ source timestamps/hashes and retained review resources: [checkpoint](../plans/pa
 Final Unity tests, serialization and builds used for acceptance ran on Ubuntu;
 main integration stays deferred for user review. No full runtime/performance
 suite or combat changes.
+
+
+### Tutorial new-player candidate (2026-10-27)
+
+- Ubuntu rendered Unity2022.3.25f1:18/18 scoped PlayMode tests PASS at
+  `/data/typinghero-game-loop/results/20261027T064043-quick`, input
+  `df152cc07c741411295d19c3f2ad67cd1e10a1cc6bdf606a38f0737f0b915c6e`.
+  Includes1995 lookup identities,28 internal boundaries/five terminal holds,
+  cache lifecycle/errors, zero warmed cache/render/tick bytes and Image dirty
+  callbacks, genuine HIT/parry/retry/cancellation, and six normal regressions.
+- QA strict repeat-builder PASS. Native Edge/D3D11:640x36091checks PASS;
+  normal1280x72034checks PASS. Earlier QA1280 completed90scoped checks before
+  an omitted preparation-dialog step in the harness; its report remains FAILED.
+  Separate demo smoke directly verifies unseen Play, Skip and viewed Play.
+- Normal output qa:false; all5JS/WASM/data payloads exclude ASCII/UTF16 QA
+  markers.33player files copied with matching SHA256. A nonfatal font metadata
+  import-version diagnostic remains in the normal build log; build exit0 and
+  actual normal menu/tutorial/practice text were verified visually.
+- Actual normal GPU tutorial peak:2textures/31,477,248bytes (30.02MiB); all
+  practice/battle/restart/menu/replay/late-Skip cleanup observations return0.
+- New capture:1465frames/1457consecutive transitions directly inspected across
+ 8selected segments, all held/repeated frames and original presentation timestamps
+  retained. Existing unchanged28internal-boundary visual receipts are reused;
+  five new terminal/Replay windows replace automatic wrapping. Raw records,
+  PTS/frame hashes,41overlapping sheets, all failed reports and timing limits
+  are preserved with the [checkpoint](../plans/parry-cue-demo.md).
+- No independent novice study or whole-game FPS guarantee. Live-practice capture
+  has a213ms interval whose precise capture-vs-game-render cause is unverified;
+  it is retained in the video and does not involve a displayed tutorial atlas.
