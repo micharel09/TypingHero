@@ -4122,7 +4122,8 @@ receipt is reused; no new gameplay-suite claim. Exact evidence and cleanup are i
 - Added72×3logical-pixel procedural quad only to ParryImpact, at existing contact,
   with1px warm-white core/gold tapered halo. Alpha20/40/120ms; old flash/sparks/
   light and gameplay clocks unchanged. Optional2D size/variation lock default off.
-- Unity2022.3.25f1 filteredImpactVfxTests45/45PASS/0skip; both directions over24seeds,
+- Unity2022.3.25f1 filteredImpactVfxTests45/45PASS/0skip, repeated after latest-main
+  integration (153449-quick); both directions over24seeds,
   pool reuse, expiry, exact alpha envelope, pause/read hold and old profile consumers.
 - Native Edge640×360 real Space:10checks per direction PASS,0exceptions/provider
   writes. Mirrored actor-geometry fixture remains external. Both QA builds and strict

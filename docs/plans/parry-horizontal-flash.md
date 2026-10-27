@@ -84,7 +84,7 @@ native-left/cb36759848fab16eb5e4d3c59ae34658.webm, expected113frames/112pairs.
 Covers complete enemy preparation, accepted real Space, new flare and physical-tail
 recovery through pause. Mirror fixture changes initial actor positions/facing only,
 outside repository/bridge; no direct success/spawn setters. Input/lifecycle10checks
-PASS,0exceptions/provider writes. Left frame review pending.
+PASS,0exceptions/provider writes. Left frame review completed below.
 
 ## Native visual acceptance
 
@@ -109,5 +109,25 @@ right.mp4/left.mp4 preserve all113selected frames at25fps; original compositor
 videos and source receipts retained separately. Black render-callback readbacks
 are excluded. Canonical code/checkpoint remains in this repository.
 
-Integration with latest main pending. New main score-frame layout is separate
-from impact/typing-tray/camera code; inspect the merge and rerun scoped tests.
+Latest main score-frame layout is separate from impact/typing-tray/camera code;
+merge reviewed and scoped tests rerun below.
+
+
+Final mirrored review:113/113frames and112/112pairs inspected, same cross-sheet
+transitions as right.0-36reveal/idle;37-57warning;58-60raised parry;61-64contact
+and fixed-horizontal gold/white flare;65-84old flash/particles recover;85-101idle
+with no line;102-112Pause. Both directions retain tray clearance.
+Native Edge156.0.4314.42/Playwright1.58.2,640x360,10checks each/20total PASS,
+0exceptions,0fixture/provider writes. Exported MP4s decode113frames each at25fps.
+
+Merged latest main's score-frame change, preserving both verification sections.
+The update affects score/combo blocks and read-only HUD observations; impact,
+parry contact, camera and typing-tray geometry are unchanged. Native VFX results
+are reused for these unchanged dependencies; integrated scoped Unity run PASS45/45,0skip.
+
+
+Integrated result20261027T153449-quick, input01d4e7e4458646e5f85b990ff7f12bd2eff6cbf329aa323efe16c13691a0a670:
+45/45ImpactVfxTests PASS,0skip. Only subsequent asset edits trim whitespace in the
+two new meta files, preserving GUIDs/values; documentation edits do not affect play.
+Final diff review preserves the independently merged score-frame behavior.
+Remote push/integration verification and resource cleanup follow after this commit.
