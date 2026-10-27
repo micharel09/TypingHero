@@ -538,3 +538,108 @@ Video only. Failed player/review, cold-import and fixture failures remain separa
 All evidence stays at E:/CodexTemp/TypingHero/intro-smoke-rhythm/. No itch release.
 Integration, cleanup and retained-resource receipt is written externally after
 remote verification; shared source/cache and other tasks are preserved.
+
+
+### Actual 300ms preview under frame stalls (2026-10-26; verified)
+
+Task branch `micharel09/intro-preview-300ms`, base `480ad7039d0379d2194a6750f5dba938aa58fa24`.
+Reading time is independent of timeline Elapsed. The first LateUpdate applying
+full tray alpha anchors the clock without crediting that frame's preceding stall.
+Later visible intervals count, including stalls; freeze changes invalidate the
+anchor and preserve accumulated reading time. Handoff waits for timeline end and
+300ms reading time. Prepare/Finish/cancel reset the clock; tutorial is excluded.
+Smooth Play stays about2.4s and short flow about1.2s plus scene loading, with frame
+quantization. Late appearance extends only the final preview. ProcessInput, held
+input barriers,100ms color cue and first attack500ms after handoff stay unchanged.
+
+Acceptance: full/short pre-alpha stalls both below and beyond timeline end; visible
+post-alpha stall; pause/focus preserving reading credit; pause at final boundary;
+Menu/Restart during extra preview; HP/score/timer/word/input/first attack and tutorial.
+Unity runner initially busy; queued filtered DuelIntroTests and focused QA build.
+No passing evidence, native input or full frame review claimed at this checkpoint.
+No itch publication. Final clips/review will be retained outside task temp.
+
+Filtered Ubuntu Unity2022.3.25f1 run20261026T145850-quick:10/10PASS,0fail/skip,
+76.6094381s. Snapshot90a0a643d2c7973ebf7e292d4555d5446057f031c7ba3ccfa801054ace22d48e.
+This includes180ms and500ms real thread stalls before full alpha for both Play and
+retry; timestamps originate after actual presentation LateUpdate. The old220ms
+threshold is removed. Focus holds reading credit; a350ms already-visible stall
+counts without restarting it. Menu/Restart during extra preview, final-frame Pause,
+HP/score/timer/word/held-input path, first-attack scheduling and tutorial pass.
+QA build queued after these results; native input/full-frame review remain pending.
+
+Shared QA wait expired after900s while unrelated queued jobs retained the runner.
+Only this task's queued QA processes were stopped after checking exact command
+arguments and absence of child processes. Build moved to private source/Library/
+cache/lock at `/data/typinghero-game-loop/tasks/intro-preview-300ms-20261026`.
+Pinned image and existing shared activation HOME are reused; no credentials copied.
+Private QA20261026T153054-webgl reports the exact90a0a643 input already tested.
+Build/native/review are still pending. Remove this task-owned server root only
+after final receipts/player/media are saved, with no active task consumer.
+
+Private cold build153054 stopped before player generation: protected
+`CobblestoneUI64.asset` changed on first serialization. Compared archived input
+2217448bytes/6014CRLF with serialized2211434bytes/0CRLF: exact byte equality after
+CRLF->LF normalization. Initial task launcher had omitted that established Ubuntu
+normalization step. The launcher now normalizes only Unity serialized text files
+in its private server copy and writes per-file original/normalized hashes, without
+altering repo inputs or bypassing the font guard. Warm QA160646 has the same raw
+90a0a643 snapshot; build/native/review remain pending.
+
+Warm Ubuntu QA160646 exits0: strict repeat-builder PASS, QA=true,33/33 downloaded
+player file hashes match the immutable Ubuntu output; player52899c8cfddf3ca0.
+All1708 serialized-text normalizations are recorded with before/after hashes.
+Native Edge156/GTX1650Ti/D3D11 first attempt passes92checks,0exceptions/provider IO,
+then fails waiting for a fresh paused snapshot while another window owns focus.
+Document.hasFocus true->false is observed, but Unity stops publishing while away.
+Driver now brings the real game window back before polling paused state; no game
+change. Failed report/video retained separately; final native/review pending.
+
+#### Final300ms acceptance
+
+No runtime change after passing snapshot90a0a643. Unity10/10PASS,0fail/skip;
+Ubuntu QA160646 exits0, strict repeat-builder/font protection PASS; downloaded
+33/33files match. Native Edge156.0.4314.42/GTX1650Ti/ANGLE D3D11 at1280x720:
+125checks PASS,0exceptions/provider reads/writes. Real Play/Continue/retry, held
+letters/Space/Enter, focus loss/Resume,700ms pre-alpha stalls on full/short flows,
+350ms already-visible stall, and Pause/Menu/Restart during extra preview pass.
+The initial focus-driver timeout remains a failed attempt, separately retained.
+
+Directly inspected all593frames/583within-scope consecutive transitions in33
+sequential sheets, with overlap across sheet boundaries and additional native-size
+full-word frames. Final scopes were corrected for the visually observed encoder
+origin offset (~800ms) with conservative margins. Extraction selects exact original
+frame indices, avoiding one floating-point endpoint omission in the first attempt.
+No dropped/repeated/held encoded frames were removed or interpolated. These video
+counts are visual evidence only; the300ms minimum is established by Unity runtime
+timestamps anchored after the actual full-alpha LateUpdate, not encoded frame counts.
+
+| Scope | Original first-last PTS | Inspected frames | Inspected transitions |
+|---|---|---:|---:|
+| normal-play | 17.68-19.08s | 36/36 | 35/35 |
+| normal-continue | 28.20-29.44s | 32/32 | 31/31 |
+| normal-retry-pause | 20.24-22.52s | 58/58 | 57/57 |
+| normal-menu-cancel | 35.32-37.64s | 59/59 | 58/58 |
+| stalled-play | 46.44-48.40s | 50/50 | 49/49 |
+| stalled-retry | 49.08-51.04s | 50/50 | 49/49 |
+| post-alpha-stall | 52.00-53.44s | 37/37 | 36/36 |
+| extra-pause | 54.20-57.12s | 74/74 | 73/73 |
+| extra-menu | 57.76-61.28s | 89/89 | 88/88 |
+| extra-restart | 65.64-69.92s | 108/108 | 107/107 |
+
+Visual PASS: stationary readable words/full timer through the extra wait and Pause;
+visible post-alpha stalls count without restarting; Resume holds remaining reading
+credit; Menu/Restart suppress old heading through cover and clear old effects.
+Active ink/timer appears only after the preview; no earlier combat or double handoff
+observed. Smooth authored rhythm remains frame-quantized; a late reveal lengthens
+only final preview. ProcessInput, held-input barriers,100ms ink cue and500ms first
+attack schedule remain unchanged. Tutorial retains its separate path.
+
+Retained deliverables (outside CodexTemp):
+`D:/Projects/TypingHero-evidence/intro-preview-300ms-20261026/`:
+normal-play.mp4, normal-continue.mp4, stalled-play.mp4, stalled-retry.mp4, complete
+accepted.webm, failed focus-attempt.webm/report, Unity XML, build/player/hash receipts,
+normalization receipt, native driver/report, all33sheets and per-frame review ledger.
+Video is25fps encoded output with original timing; no engine-FPS/human-reading or
+sub-frame visual guarantee is claimed. No broader profiles or itch publication.
+Integration/cleanup receipt is written there after remote verification.
