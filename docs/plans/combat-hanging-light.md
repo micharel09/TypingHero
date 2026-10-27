@@ -1,3 +1,159 @@
+## Typed READY harness verified; actual-foreground acceptance blocked (2026-10-27)
+
+- Continued task branch `micharel09/replaced-dungeon-lighting-2` from clean
+  `dc4f489c`. Latest fetch still has `origin/main=66749da1`, already integrated.
+  The dirty primary checkout was untouched. Main has not received this task;
+  no itch publication. No runtime, shader, material, asset, animation, hit timing,
+  Slayer duration, probe/shadow budget, resolution or package change in this continuation.
+- QA observer/plugin remain byte-identical to `990105b5`. Public QA/frame-buffer
+  schema, counters, flags and interval ownership are unchanged. Changes in Git
+  are the task input/performance harness, contracts and this verification record.
+
+### Verified input and teardown
+
+- Shared `dungeon_input.cjs` recognizes the full READY or its remaining suffix
+  only after a nonterminal duel with a live player, outside Pause/intro/loading.
+  Each real keyboard letter requires a newer publication acknowledging progress.
+  After Y it waits for actual new combat and sends no additional letters.
+  `EndlessRun.Win` advances Slot before READY, so Slot correctly stays unchanged
+  through the ensuing reload. Final victory/death cannot enter this path.
+- Guide Enter retains its500ms settling and spans observed Unity frames.
+  UI mouse presses and Ctrl+A also span observed frames and release in `finally`.
+  The native adapter waits for stable input coordinates, confirmed NameInput focus
+  and actual rendered `ArenaQA` text before clicking Start. No Continue call,
+  gameplay setter, scene shortcut or provider write.
+- A real transition exposed JsonUtility's bare `Infinity` coordinates, which
+  standard JSON.parse rejects. The page-only adapter preserves +/-Infinity by
+  converting only unquoted numeric tokens to overflowing JSON exponents; quoted
+  text, ordinary JSON, precision and revivers retain their values. Malformed
+  payloads and NaN still fail. The original C#/plugin observer is unchanged.
+- Normal typing now waits for full observed stamina and expired combo as well
+  as the existing wall-clock gap. Under a slow Unity clock, wall time alone let
+  normal hits accumulate a guard break/Slayer; that invalid run is retained.
+- **38/38 Node contracts PASS**, including all20 prior observer/frame contracts,
+  fresh/stale/partial READY, scene/result boundaries, release on errors, JSON
+  fidelity and actual-Windows-foreground verdicts. Command:
+  `node --test tools/game_loop/test_frame_timing.cjs tools/game_loop/test_dungeon_input.cjs`.
+- Fresh-profile native QA smoke `ready-smoke-5`: **297 checks PASS**, two consecutive
+  wins, full READY, partial EADY held through Pause/Resume, next combat and Restart
+  to duel1/40HP.0 exceptions/provider reads/provider writes. `ready-smoke-3` had
+  passed262 checks on the preceding startup adapter. Failed/never-launched smoke
+  attempts remain raw evidence; they are not counted as passes.
+- Final drain precedes the common receipt/report verdict and closure. Native
+  teardown is bounded at15s; close state and measurement status stay separate.
+  A hung close can stop only a verified task node/browser tree; no forced kill
+  was needed in the completed continuation runs. Windows foreground proof is now
+  requested after the final drain and included in the persisted verdict before
+  close. Official runs refuse an adapter without that proof.
+
+### New immutable QA A payload
+
+- Existing Ubuntu doctor passes: pinned Unity2022.3.25f1, activated private HOME,
+  required images and35.6GiB free; no service setup or Unity Windows execution.
+- QA `20261027T072142-webgl`, input
+  `5b9eb6e84d34c9a296bdee9bf9e7a906ac7755fa6c020f124fc2ab678e2b17f3`:
+  build and strict repeated-builder PASS;281depth mappings/0missing.
+  All2495 game/asset/config inputs match the continued source after canonical LF.
+- Downloaded505 files match server SHA256:33player +472serialized files.
+  Archive SHA256 `0c476b9643c88e142c07a7fa54b9f250cbe4d5569a275c1f8ec06d18b5cf7f03`.
+  `qa-A-hashes.json`, `source-A-manifest.json` and the immutable `qa-A/` retain proof.
+- Initial literal comparison found24 differences, not25:22 whitespace-only.
+  All1074DungeonWorld,440MainMenu and1121SampleScene object IDs are preserved.
+  Derived light/fog/baking values match the unchanged referenced LightProfiles/
+  DungeonLighting profile applied on preview/enable; one transform is rewritten
+  at Unity float precision. No serialized assets were imported into Git and no
+  RGB0/visual acceptance is claimed. Raw and per-object diffs are preserved.
+- This is the new typed-READY runtime payload before any further optimization;
+  its performance qualification is **not complete**. B remains unselected.
+
+### Retained Unity-marker diagnostics; no performance pass
+
+All completed measurements use15s warmup and >=60s combat, detailed-off only in
+normal, with no video, CPU profile or GPU queries. Execution `passed` below means
+coverage/input checks passed under that recorded harness; it is not an FPS pass.
+**None has verified sustained actual Windows foreground.** Harness revisions are
+kept separately; do not pool them or replace slow valid rows with later numbers.
+
+| Raw run | Execution | Unity FPS | p95 ms | Minimum1s FPS | >50ms hitches | Parry/Slayer coverage |
+|---|---|---:|---:|---:|---:|---|
+| A-h3-normal-off-1 | passed | 64.804 | 27.680 | 44 | 3 | False/False |
+| A-h3-normal-on-1 | passed | 0.999 | 1011.460 | 0 | 60 | False/False |
+| A-h3-parry-on-1 | passed | 72.669 | 19.600 | 57 | 0 | True/True |
+| A-normal-off-1 | passed | 70.168 | 24.000 | 57 | 2 | False/False |
+| A-normal-off-2 | failed | 17.026 | 18.160 | 0 | 47 | False/True |
+| A-normal-on-1 | passed | 70.784 | 22.785 | 52 | 1 | False/False |
+| A-normal-on-2 | passed | 15.705 | 991.490 | 0 | 48 | False/False |
+| A-parry-on-1 | passed | 69.009 | 23.585 | 51 | 0 | True/True |
+| A-v2-normal-off-1 | passed | 70.920 | 21.995 | 46 | 4 | False/False |
+| A-v2-normal-on-1 | failed | - | - | None | 0 | False/False |
+
+- The attempted two-per-configuration qualification is incomplete. Normal-off2
+  in the first harness unexpectedly entered Slayer and is invalid for normal.
+  The v2 startup timeout collected0combat frames. The h3 series was interrupted
+  after its first normal/normal-off/parry rows; any partial directory lacks final
+  acceptance. Full raw traces, failed launches and immutable per-run harnesses remain.
+- Whole diagnostic callback/observer samples showed detailed observer medians
+  about1.6-1.8ms versus0.02ms minimal; minimal mode still failed p95. Long ~1s gaps
+  were not ~1s Unity-containing CPU callbacks. This does not isolate a specific
+  game/bridge/OS/driver hotspot. No speculative optimization or rejected
+  managed-string/deferred-decoding candidate was reintroduced. No CPU/GC/heap
+  attribution trace or new diagnostic C# instrumentation was added.
+
+### Actual Windows foreground: concrete blocked gate
+
+- Earlier nine changing-canvas controls used the same Chromium153 executable,
+  GTX1650Ti/ANGLE D3D11,1280x720 and controlled flags,3s warmup/12s measure.
+  Their round3 passed all metric/DOM checks (74.973/74.972/74.557FPS,
+  p9513.6ms,minimum75/75/70). The earlier statement that this fully opened the
+  environment gate is superseded: DOM focus is insufficient for actual foreground.
+- New consumer-owned supervisor samples GetForegroundWindow PID every100ms,
+  matching the Chrome child PID captured at launch. Node and Chrome consumers
+  are explicitly registered before measurement. The only window activation is a
+  single verified task-Chrome SetForegroundWindow attempt before warmup; there
+  is no repeated focus stealing, Computer Use, app closure or power/GPU/driver change.
+
+| Foreground attempt | Canvas result | Actual Windows result | Verdict |
+|---|---|---|---|
+| foreground-control-1 |0.99965FPS / p951000.5ms / min1; DOM focus true |118samples show Orca10692, not task Chrome46976 |FAIL |
+| foreground-control-2 |Not measured |Windows refused activation of task Chrome47772; gate timed out |UNQUALIFIED |
+| foreground-control-3, three consecutive runs |75.000/75.001/74.999FPS; p9513.5/13.5/13.4ms; min75 each |Task Chrome43212 initially foreground, then Edge12016 took it after about5s; later runs entirely Edge |FAIL |
+
+- `foreground-control-3` preserves119/120/119per-run PID samples: run1 has8task
+  samples and111Edge samples; runs2/3 have120/119Edge samples. DOM focus stayed
+  true throughout. All three controls close normally. Canvas metrics alone do
+  not qualify this environment, and old game runs cannot retroactively prove
+  foreground. No application was stopped to manufacture a pass.
+- **Stop at this checkpoint after three new foreground attempts without a
+  fully qualified round.** Required external condition: keep the dedicated task
+  Chromium window in actual Windows foreground for the complete controls and
+  measurement, without switching to Edge/Orca. Do not keep rerunning to select
+  favorable numbers. Reopen the environment gate with three consecutive controls
+  including OS PID proof before component profiling/candidate work.
+
+### Remaining acceptance and resources
+
+- After the foreground condition is available: finish two long valid A runs per
+  configuration under one locked harness; separately attribute observer gather/
+  reflection/particles/serialization/JS decode/100ms publisher and browser CPU/GC/
+  heap cost, then make one equivalent candidate at a time. Preserve the original
+  thresholds and source/equality contracts. No B or official eight-run ABBA yet.
+- Final B production/exclusion/smoke, six-encounter and separate Berserker capture,
+  full1x/0.25x playback and100%selected frame/transition inspection are UNVERIFIED.
+  The current tool catalog has no supported direct video inspection capability;
+ 0new final-video frames/transitions were reviewed. Stills/playback-control
+  automation do not replace watching the required video. This is an additional
+  mandatory-tool blocker; no acceptance waiver or main integration.
+- Durable deliverables, players, all raw evidence/adapters and source/harness/
+  executable/config SHA256 manifests:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-ready-20261027`.
+  Existing private Ubuntu runner/cache/license stay in their original locations;
+  immutable A result stays under
+  `/data/typinghero-game-loop/tasks/dungeon-performance-20261027-final/results/20261027T072142-webgl`.
+- Keep the task worktree `D:/Projects/TypingHero-worktrees/replaced-dungeon-lighting-2`
+  and branch `micharel09/replaced-dungeon-lighting-2` for continued acceptance;
+  remove only after verified accepted remote-main integration. Primary checkout
+  and historical artifacts are preserved. Task scratch cleanup is recorded below.
+
 ## Latest source checkpoint:63a78500 (2026-10-27)
 
 Merged upstream66749da1 (typed READY) with both documentation histories preserved.

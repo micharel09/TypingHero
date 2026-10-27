@@ -1,13 +1,22 @@
-## Dungeon final gate status (2026-10-27; NOT accepted)
+## Dungeon typed READY / foreground checkpoint (2026-10-27; NOT accepted)
 
-Formal ABBA candidate fails; deferred-decoding follow-up also fails and was
-rejected.20 Node contracts pass on the retained observer. Latest main66749da1
-changes inter-duel input from Enter to typing READY; all earlier dungeon players
-and measurements predate that change. A new source lock, QA build and related
-acceptance gates are required. Upstream READY verification below is historical
-source evidence, not an integrated dungeon acceptance result. Production smoke,
-final playback/frame review and main integration remain unverified.
-See [checkpoint](../plans/combat-hanging-light.md) for raw results and evidence.
+New Ubuntu2022.3.25f1 QA072142 includes typed READY; build and strict repeated
+builder pass. All33player +472serialized downloads match server hashes,2495game
+inputs match the continued source, and the retained observer remains990105b5.
+38Node contracts pass. Native fresh-profile smoke297checks passes two wins,
+full/partial READY, Pause/Resume and Restart,0exceptions/provider IO. Input uses
+real observed key/mouse events; final receipt/report precede bounded teardown.
+
+Performance remains UNQUALIFIED. Long nominal Unity-marker runs fail p95 or
+cadence; configuration pairs are incomplete and lack actual Windows foreground
+proof. New PID sampling proves DOM focus can stay true while Orca/Edge owns
+foreground: three final75FPS canvas controls all pass metrics but lose the real
+foreground to Edge. Three new foreground attempts produce no complete qualified
+round. Gate closed pending a stable foreground task-Chromium window; no speculative
+runtime optimization, B selection, official ABBA, new accepted production/visual
+review or main integration. Required direct1x/0.25x video inspection also lacks a
+supported tool in this session. See the existing [checkpoint](../plans/combat-hanging-light.md)
+for manifests, raw/failing runs, exact environment evidence and resume conditions.
 
 ## Dungeon QA observer encoding (2026-10-27; formal acceptance pending)
 

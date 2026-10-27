@@ -121,11 +121,11 @@ test('coverage uses measured combat intervals and consecutive combat counters', 
 });
 
 // In-memory scenario fixture: no browser, player build or output artifacts.
-async function runFixture({ final = 'valid', inputError = false, saveError = false, verification } = {}) {
+async function runFixture({ final = 'valid', inputError = false, saveError = false, closeError = false, verification, windowsForeground } = {}) {
   const timing = require('./frame_timing.cjs'), scenario = require('./dungeon_performance.cjs');
   const original = { install: timing.install, drain: timing.drain, write: fs.writeFileSync,
     output: process.env.PERF_OUTPUT, diagnostic: process.env.PERF_DIAGNOSTIC, mode: process.env.PERF_MODE, verify: process.env.PERF_VERIFY };
-  let calls = 0, closed = false, saved, error;
+  let calls = 0, closed = false, saved, error, persisted;
   const report = { build: 'fixture', graphics: { renderer: 'NVIDIA GTX 1650 Ti' } };
   process.env.PERF_OUTPUT = require('node:path').resolve('unused-in-memory-fixture');
   process.env.PERF_DIAGNOSTIC = '1'; process.env.PERF_MODE = 'normal';
@@ -134,9 +134,9 @@ async function runFixture({ final = 'valid', inputError = false, saveError = fal
   timing.drain = async () => {
     calls++;
     if (calls === 2 && final === 'drain error') throw Error('drain fixture');
-    const rows = calls === 1 ? Array.from({ length: inputError ? 2 : 601 }, (_, i) => row(i, 1000 + i * 1000 / 60)) :
-      [row(final === 'gap' ? 603 : 601, 11000 + 1000 / 60)];
-    return { at: 12000, focused: !(calls === 2 && final === 'focus'), visible: 'visible', browser: { events: [] },
+    const rows = calls === 1 ? Array.from({ length: inputError ? 2 : 3601 }, (_, i) => row(i, 1000 + i * 1000 / 60)) :
+      [row(final === 'gap' ? 3603 : 3601, 61000 + 1000 / 60)];
+    return { at: 62000, focused: !(calls === 2 && final === 'focus'), visible: 'visible', browser: { events: [] },
       unity: { rows, dropped: calls === 2 && final === 'overflow' ? 1 : 0 } };
   };
   fs.writeFileSync = (_, text) => {
@@ -145,7 +145,12 @@ async function runFixture({ final = 'valid', inputError = false, saveError = fal
   };
   try {
     await scenario({ report,
-      session: async () => ({ context: { close: async () => { closed = true; } }, page: { evaluate: async () => {
+      ...(windowsForeground === undefined ? {} : { foregroundVerdict: async () => {
+        assert.equal(calls, 2); assert.equal(closed, false);
+        return { pass: windowsForeground, browserPid: 123, sampleCount: 600 };
+      } }),
+      saveReport: async () => { assert.equal(closed, false); persisted = JSON.parse(JSON.stringify(report)); },
+      session: async () => ({ context: { close: async () => { closed = true; if (closeError) throw Error('close fixture'); } }, page: { evaluate: async () => {
         if (calls >= 2 && verification !== undefined) {
           if (verification === 'error') throw Error('verification fixture');
           return verification;
@@ -164,7 +169,7 @@ async function runFixture({ final = 'valid', inputError = false, saveError = fal
       if (value === undefined) delete process.env[key]; else process.env[key] = value;
     }
   }
-  return { calls, closed, saved, error, report };
+  return { calls, closed, saved, error, report, persisted };
 }
 for (const final of ['focus', 'overflow', 'gap']) test(`final batch ${final} invalidates verdict and retains trace`, async () => {
   const r = await runFixture({ final });
@@ -177,6 +182,27 @@ test('final valid batch gives matching receipt and report without another drain'
   const r = await runFixture();
   assert.equal(r.error, undefined); assert.equal(r.calls, 2); assert.equal(r.closed, true);
   assert.equal(r.saved.status, 'passed'); assert.equal(r.report.timing.frames, r.saved.summary.frames);
+  assert.deepEqual(r.persisted.timing, JSON.parse(JSON.stringify(r.report.timing)));
+  assert.equal(r.persisted.status, r.saved.status);
+});
+
+test('a browser close error remains separate from the persisted measurement verdict', async () => {
+  const r = await runFixture({ closeError: true });
+  assert.equal(r.error, undefined); assert.equal(r.closed, true);
+  assert.equal(r.saved.status, 'passed'); assert.equal(r.persisted.status, 'passed');
+  assert.equal(r.report.timing.status, 'passed'); assert.match(r.report.closeError, /close fixture/);
+});
+test('actual Windows foreground denial invalidates the final verdict without deleting frames', async () => {
+  const r = await runFixture({ windowsForeground: false });
+  assert.ok(r.error); assert.equal(r.saved.summary.valid, false);
+  assert.ok(r.saved.summary.invalidReasons.includes('task browser lost actual Windows foreground'));
+  assert.equal(r.saved.batches.length, 2); assert.equal(r.saved.status, 'failed');
+  assert.equal(r.persisted.timing.windowsForeground.pass, false); assert.equal(r.closed, true);
+});
+test('actual Windows foreground evidence is persisted identically before closing', async () => {
+  const r = await runFixture({ windowsForeground: true });
+  assert.equal(r.error, undefined); assert.equal(r.saved.status, 'passed');
+  assert.deepEqual(r.saved.windowsForeground, r.persisted.timing.windowsForeground);
 });
 test('input error survives final drain error and context closes', async () => {
   const r = await runFixture({ inputError: true, final: 'drain error' });
@@ -238,13 +264,13 @@ test('serialization verification preserves full changed and stale particle snaps
 });
 
 test('verification requires every observed frame and receipt/report retain the count', async () => {
-  const missing = await runFixture({ verification: 601 });
+  const missing = await runFixture({ verification: 3601 });
   assert.match(missing.error.message, /every observed frame/);
   assert.equal(missing.closed, true); assert.equal(missing.saved.status, 'failed');
-  const complete = await runFixture({ verification: 602 });
+  const complete = await runFixture({ verification: 3602 });
   assert.equal(complete.error, undefined); assert.equal(complete.closed, true);
-  assert.equal(complete.saved.serializationChecks, 602);
-  assert.equal(complete.report.timing.serializationChecks, 602);
+  assert.equal(complete.saved.serializationChecks, 3602);
+  assert.equal(complete.report.timing.serializationChecks, 3602);
 });
 
 test('verification observation error keeps the trace and closes context', async () => {

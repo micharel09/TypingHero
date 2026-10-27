@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const timing = require('./frame_timing.cjs');
+const { readyRemaining, continueReady } = require('./dungeon_input.cjs');
 
 // Scenario for the existing native, fixture-intercepted keyboard/mouse harness.
 // PERF_OUTPUT must point at a task-owned output directory; video stays disabled.
@@ -13,10 +14,10 @@ module.exports = async (api, browser) => {
   const mode = process.env.PERF_MODE || 'normal';
   if (!['normal', 'parry'].includes(mode)) throw Error('PERF_MODE must be normal or parry');
   const diagnostic = process.env.PERF_DIAGNOSTIC === '1';
-  const duration = diagnostic ? (mode === 'parry' ? 20000 : 10000) : 60000, warmup = diagnostic ? 5000 : 15000;
+  const duration = 60000, warmup = 15000;
   const { context, page } = await session(browser, { width: 1280, height: 720 }, 0, false);
   const receipt = { mode, diagnostic, warmup, duration, build: report.build, batches: [], states: [], actions: [] };
-  receipt.driverHashes = Object.fromEntries([__filename, require.resolve('./frame_timing.cjs')].map(file =>
+  receipt.driverHashes = Object.fromEntries([__filename, require.resolve('./frame_timing.cjs'), require.resolve('./dungeon_input.cjs')].map(file =>
     [path.basename(file), crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')]));
   receipt.options = { detailed: process.env.PERF_DETAILED !== '0', gpu: diagnostic && process.env.PERF_GPU === '1', counters: true, verifyCombatSerialization: diagnostic && process.env.PERF_VERIFY === '1' };
   const rows = []; let dropped = 0, begun, collectAt, lastDrain = 0, lastTyped = 0, lastParry = 0;
@@ -56,21 +57,21 @@ module.exports = async (api, browser) => {
         const s = window.typingHeroQA;
         const fields = ['errors', 'lastError', 'frame', 'hp', 'enemyHp', 'introRunning', 'dungeonTransitioning',
           'paused', 'finished', 'encounterReading', 'slayer', 'matchParries', 'defeated', 'current',
-          'hitLocked', 'playerHitStateActive', 'pendingAttack'];
+          'hitLocked', 'playerHitStateActive', 'pendingAttack', 'scene', 'endless', 'endlessSlot', 'timeScale',
+          'comboRemaining', 'staminaFill'];
         return Object.fromEntries(fields.map(name => [name, s?.[name]]));
       });
       if (s.errors) throw Error(s.lastError);
       receipt.states.push({ at: Date.now(), frame: s.frame, hp: s.hp, enemyHp: s.enemyHp,
         intro: s.introRunning, transition: s.dungeonTransitioning, paused: s.paused,
-        finished: s.finished, reading: s.encounterReading, slayer: s.slayer, parries: s.matchParries });
+        finished: s.finished, reading: s.encounterReading, slayer: s.slayer, parries: s.matchParries,
+        comboRemaining: s.comboRemaining, staminaFill: s.staminaFill });
       if (s.introRunning || s.dungeonTransitioning) { await page.waitForTimeout(20); continue; }
       if (s.encounterReading) { await key(page, 'Enter'); await fight(page); continue; }
       if (s.finished) {
         if (s.hp > 0 && s.defeated < 6) {
-          if (s.enemyHp !== -1) { await page.waitForTimeout(20); continue; }
-          await key(page, 'Enter');
-          await until(page, t => t.scene === 'SampleScene' && !t.finished && t.defeated === s.defeated && t.hp > 0 && t.enemyHp > 0 && !!t.current);
-          await fight(page);
+          if (!readyRemaining(s)) { await page.waitForTimeout(20); continue; }
+          await continueReady(api, page, action => receipt.actions.push({ at: Date.now(), kind: 'READY', ...action }));
         } else {
           const restart = (await state(page)).controls.find(c => c.kind === 'button' && /Restart/.test(c.name));
           if (!restart) { await page.waitForTimeout(20); continue; }
@@ -94,7 +95,10 @@ module.exports = async (api, browser) => {
           receipt.actions.push({ at: lastParry, kind: 'Space', frame: cue.frame, before: cue.parries });
         }
       }
-      if (s.current && !s.hitLocked && !s.playerHitStateActive && !s.pendingAttack && Date.now() - lastTyped > (s.slayer ? 1600 : 4000)) {
+      // A slow Unity clock can make a wall-clock delay shorter than stamina recovery.
+      // Normal must not accumulate a guard break and enter Slayer without a parry.
+      const normalReady = mode !== 'normal' || (s.staminaFill >= 1 && s.comboRemaining <= 0);
+      if (normalReady && s.current && !s.hitLocked && !s.playerHitStateActive && !s.pendingAttack && Date.now() - lastTyped > (s.slayer ? 1600 : 4000)) {
         await page.keyboard.type(s.current, { delay: 25 }); lastTyped = Date.now();
         receipt.actions.push({ at: lastTyped, kind: 'typed', frame: s.frame });
       }
@@ -111,8 +115,19 @@ module.exports = async (api, browser) => {
       catch (error) { receipt.serializationCheckError = String(error.stack); failure ??= error; }
     }
     summarize();
+    if (begun && api.foregroundVerdict) {
+      try {
+        receipt.windowsForeground = await api.foregroundVerdict({ from: begun + warmup, to: Date.now() });
+        if (!receipt.windowsForeground.pass) {
+          receipt.summary.valid = false;
+          receipt.summary.invalidReasons.push('task browser lost actual Windows foreground');
+        }
+      } catch (error) { receipt.foregroundError = String(error.stack); failure ??= error; }
+    }
     if (!failure) {
       try {
+        check(diagnostic || !!api.foregroundVerdict, 'official runs require actual Windows foreground evidence');
+        if (report.exceptions) check(report.exceptions.length === 0, 'no runtime exceptions before final verdict');
         if (receipt.options.verifyCombatSerialization) check(rows.length > 0 && receipt.serializationChecks >= rows.length, 'original serializer checked for every observed frame');
         check(receipt.summary.valid, 'continuous, visible, focused Unity frame coverage');
         check(receipt.summary.combatMs >= duration, 'required combat duration');
@@ -129,8 +144,15 @@ module.exports = async (api, browser) => {
     } finally {
       report.timing = { ...receipt.summary, status: receipt.status, diagnostic, file: filename,
         error: receipt.error, finalDrainError: receipt.finalDrainError, saveError: receipt.saveError,
-        serializationChecks: receipt.serializationChecks, serializationCheckError: receipt.serializationCheckError };
-      try { await context.close(); } catch (error) { failure ??= error; }
+        serializationChecks: receipt.serializationChecks, serializationCheckError: receipt.serializationCheckError,
+        windowsForeground: receipt.windowsForeground, foregroundError: receipt.foregroundError };
+      report.status = receipt.status;
+      // The native adapter persists the same verdict before browser teardown.
+      try { if (api.saveReport) await api.saveReport(); }
+      finally {
+        if (api.closeContext) await api.closeContext(context);
+        else try { await context.close(); } catch (error) { report.closeError = String(error.stack); }
+      }
     }
   }
   if (failure) throw failure;
