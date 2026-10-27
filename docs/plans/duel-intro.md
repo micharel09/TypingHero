@@ -1156,3 +1156,48 @@ save, verify saved editor and public iframe, compare actual CDN files with
 artifact-manifest.json using verify-cdn.py, and boot the actual public player with
 provider interception. Do not rebuild/repeat accepted QA unless relevant inputs
 changed. Publication remains explicitly unverified until those steps complete.
+
+
+## READY task closure ? 2026-10-27
+
+The user confirmed push was sufficient, canceled release, and requested temp/log
+cleanup and task closure; then explicitly authorized implementation of that cleanup
+plan. This closure supersedes all earlier retention and release-resume instructions
+for the READY Magic Circle task and its production candidate. No itch.io upload,
+form save, rollback selection or public release occurred. No pending browser login/
+Cloudflare action is needed for this canceled release.
+
+The accepted gameplay/art change remains in commit2f2f3da30656c72a818dfca9682c5b077251066e
+and remote main, with original PNG/license and serialized references preserved.
+Historical six-case qualification, final-size case,184native checks,477frame/475pair
+review and production eight-check smoke summaries remain in repository Markdown.
+Raw XML/logs, images, videos, players, ZIPs, manifests, source-pack copies and
+external helper scripts are no longer retained or available for replay/download.
+No game code, public API, saved contracts or unrelated checkout changes were made.
+
+Verified removed local directories, about424MiB total:
+- D:/Projects/TypingHero-evidence/ready-magic-circle-20261027/
+- D:/Projects/TypingHero-evidence/ready-release-20261027/
+
+Each absolute target was checked inside the named evidence root, with no reparse
+points in the target trees, before native PowerShell deletion; absence verified.
+
+Verified removed exact result directories under /data/typinghero-game-loop/results/:
+- 20261027T100000-quick,20261027T100332-webgl,20261027T100810-webgl
+- 20261027T101311-quick,20261027T101607-webgl,20261027T102014-webgl
+- 20261027T103211-quick,20261027T103545-webgl,20261027T131422-production
+
+Before deleting any server result, every existing target's resolved path and full
+snapshot SHA256 matched the task's earlier recorded identity; no symlinks and no
+active container mounts referenced those targets. All9were absent afterward.
+Shared source, build-production/build-qa, Library/cache/toolchain and all other
+results/resources remain untouched. Remote feature branches are preserved under
+repository policy; they require explicit later deletion authorization.
+
+The two earlier task worktrees/local branches were already gone, no task-owned
+smoke/browser/Editor job remained, and Orca tab list was empty. The temporary
+BrowserSkill daemon had already exited idle. Only a new isolated documentation
+worktree was used for closure, starting from current origin/main bca2a187; preserve
+its newer dungeon-lighting integration. Review paths/content and git diff --check
+only, then commit/push/verify closure on main and remove the clean closure worktree/
+local branch. No runtime suites/builds or release retry are part of this closure.

@@ -1,3 +1,21 @@
+## READY task closed; release canceled by user (2026-10-27)
+
+The user accepted the merged READY change, canceled the pending itch.io release,
+and requested deletion of task temp/logs. Gameplay/assets remain preserved in
+commit2f2f3da and main; no game/API changes in this closure. No itch.io upload,
+form save or publication occurred. Historical validation summaries below remain;
+raw receipts and build artifacts are no longer retained.
+
+Removed both local task evidence directories ready-magic-circle-20261027 and
+ready-release-20261027 under D:/Projects/TypingHero-evidence/ (about424MiB),
+including production ZIP, players, videos, PNGs, scripts, manifests and logs.
+Removed the9exact task result directories on fly-server after snapshot identity
+checks and confirming no active container mounted them. Shared source/build/cache/
+toolchain, other task resources, committed asset/license and remote branches remain.
+Old task worktrees/local branches were already removed; Orca tab list was empty.
+Closure changes are documentation only: review/diff whitespace checks, no runtime
+suite. [Full closure record](../plans/duel-intro.md#ready-task-closure--2026-10-27).
+
 ## Dungeon task closed by user (2026-10-27)
 
 User approved the current source for main integration and requested task log/temp
@@ -8,7 +26,7 @@ input/frame contracts38/38PASS. No integrated player rebuild or performance pass
 Raw task artifacts are removed after remote verification; historical paths below
 are no longer retained evidence. [Closure record](../plans/combat-hanging-light.md).
 
-## READY production release candidate (2026-10-27; not published)
+## READY production release candidate (2026-10-27; release canceled, task closed)
 
 User accepted2f2f3da and requested release. Pinned Unity production131422,
 input105615a0, strict builder/bridge-exclusion PASS. All33downloaded hashes match;
@@ -19,10 +37,10 @@ console errors or provider IO: menu/name/Start Battle, Pause/Resume, real correc
 word advances change->see and score0->10, return Menu; bridge undefined. Images
 viewed; isolated browser/static/control servers closed. Prior gameplay/frame QA reused.
 
-Publication is BLOCKED BEFORE UPLOAD: BrowserSkill has0connected browsers and the
-Orca owner editor remains at Cloudflare. No itch.io write/save occurred. Awaiting
-human browser connection/verification; qualified ZIP and resume checkpoint retained
-at D:/Projects/TypingHero-evidence/ready-release-20261027/. No public release claim.
+Publication was blocked before upload by browser availability/Cloudflare. The user
+subsequently canceled release and closed the task. No itch.io write/save occurred;
+the qualified ZIP/resume checkpoint and raw evidence were deleted as requested.
+The old artifact paths below are historical, not available downloads. No public release claim.
 See [release checkpoint](../plans/duel-intro.md).
 
 ## Licensed Magic circle and compact READY (2026-10-27; verified)
