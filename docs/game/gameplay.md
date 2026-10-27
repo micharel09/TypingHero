@@ -5,7 +5,7 @@
   pose and contact shadow appear together at1030ms, inside the smoke peak.
   Stationary name30/DUEL18 enters1100-1200ms, holds until1720ms and fades to1880ms.
   Status HUD1820-1980ms, word tray1900-2100ms, readable preview2100-2400ms.
-- Continue/retry:200ms cover plus scene load, reveal0-200ms, smoke200-600ms,
+- Typed READY/retry:200ms cover plus scene load, reveal0-200ms, smoke200-600ms,
   intact opponent/shadow at344ms. Title enters420-500ms, holds until680ms,
   fades to820ms. Status HUD540-640ms, word tray620-700ms, preview700-1000ms;
   total1200ms plus loading is retained. Enemy HUD name stays hidden while the
@@ -35,7 +35,7 @@
   uses only the arena reveal and retains its own reading lock/confirmation.
 - Existing dust rendering and heading typography are reused. Strike dust prefab,
   character sprites/clips, camera/world ownership, difficulty, providers and saved
-  contracts are unchanged. No VS/READY/FIGHT, skip, extra confirmation or new audio.
+  contracts are unchanged. No VS/READY/FIGHT intro overlay, skip, extra confirmation or new audio.
 - Shared Audio_Services preserves its music component when menu SFX already exists.
   Same-cue music keeps its live voice/playhead across Continue/retry. Music stopped
   by the existing Menu action can start on the next Play. No new cue or clip is added.
@@ -241,16 +241,20 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
   the legacy cue/audio still begins in the final300ms.
   Each form owns Idle/Walk/Attack1/Attack2/Hurt/Die; stun/Slayer reuse that form's Hurt.
   The original skeleton controller/GUIDs remain for the tutorial configuration.
-- After each of the first five death animations, results and the next enemy name
-  wait indefinitely for Ready · Enter (mouse or Enter). Waiting does not advance
-  combat time, HP or score. The existing Continue callback loads the next opponent
-  once, followed by the short intro with at least300ms of visible word preview and
-  held-input release protection; there is no second confirmation.
+- After each of the first five death animations, the existing current-word slot
+  shows READY alone (next/third words blank, countdown hidden). The CLEARED/HP/NEXT
+  result card and Ready button are removed. Type the whole word, case insensitive;
+  Enter cannot continue. Errors reset READY with existing typing feedback, and
+  partial progress survives Pause/Resume. Waiting is indefinite; Ready letters do
+  not change combat HP/score/time/accuracy or trigger attacks, combo or Slayer.
+  The existing Continue callback loads the next opponent once, discarding trailing
+  input, followed by the short intro with at least300ms of visible word preview
+  and held-input release protection; there is no second confirmation.
   Carry only HP/score/combat time/letter counts/parries/progress;
   gameplay reload resets combo, queues, stamina, cue, stun, Slayer and effect bindings; world ownership is retained.
   Boss victory ends the run without healing or a seventh opponent. After the death
   animation, VICTORY / BOSS DEFEATED shows the final statistics with Restart, Menu
-  and leaderboard; Enter/Continue cannot resume it. Intro/HUD show DUEL x/6.
+  and leaderboard; READY/Enter cannot resume it. Intro/HUD show DUEL x/6.
   Death shows killer/attack and defeated,
   score, accuracy, parries, combat time and local best. Restart clears statistics
   while retaining difficulty; menu clears the run.

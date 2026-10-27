@@ -691,3 +691,47 @@ initial cleanup timeout). Keep the clean release worktree/local branch at
 `D:/Projects/TypingHero-worktrees/release-preview-300ms`: its terminal hosts the
 shared browser daemon, which another session uses. Remove it only after that
 daemon can be safely retired/relocated and remote receipt remains verified.
+
+### Typed READY between opponents (2026-10-27; verified)
+
+The user corrected the earlier button interpretation: remove the CLEARED/HP/NEXT
+card and Ready button entirely. After the nonterminal death animation finishes,
+show only READY in the existing current-word slot, with next/third words blank and
+no countdown. Type the whole word (case insensitive) to run the existing Continue
+callback once; Enter has no action. Mistakes reset READY with normal typing
+feedback; partial input survives Pause/Resume. Waiting and Ready attempts must not
+change combat HP, score, elapsed time, letters, parries, or trigger attacks/Slayer.
+Same-frame/held input and trailing batch text must not reach the next encounter.
+The short intro, actual300ms preview, terminal boss results, tutorial and Play
+remain owned by their existing controllers.
+
+Source mapping: EndlessDuel.EnemyDeathFinished -> TypingManager.BeginReady -> the
+existing ProcessInput/word paint/error path -> EndlessDuel.Continue. EndlessOverlay
+is no longer instantiated by the duel; its source/GUID is preserved. No new panel,
+font, scene, save/provider contract, dependency or sprite change.
+
+Verified: initial28/28 relevant Unity typing/Endless/intro cases; final3/3 Ready
+cases (including the final modal-close guard) on snapshot5d608c59; same-input QA
+build/repeated builder PASS; exact33-file player3d4a99d4211d7887; native Edge156/
+GTX1650Ti/D3D11/1280x72017/17 real-input checks,0exceptions/provider IO. Two real
+wins, held R at death, Enter/wait, partial/mistake/case-insensitive Ready,
+Pause/Resume, held Y/Enter through short intro and Menu while waiting all pass.
+READY/full partial-progress and next-combat stills directly inspected: original
+tray retained, obsolete cards/button/countdown absent, original combat words/timer
+restored. No sprite/animation assets were changed or newly frame-reviewed.
+
+Native observation only: empty TMP glyph bounds made the first QA JSON invalid;
+external reader normalizes nonfinite geometry to null without modifying player
+bytes or game state. Second pilot missed the short intro while sequential typing
+continued after it; final observer starts before the last key and holds Y/Enter.
+Same-batch trailing-input rejection remains verified offline. Both failed pilots
+are retained distinctly. Runner load/import delays and initial build lock timeout
+do not count as failed gameplay checks. See the exact snapshots/results in
+[verification](../game/verification.md).
+
+Requested21.499s MP4, full recording, three stills, scripts/XML/payload hashes and
+separate pilot reports are retained for review/reproduction at
+D:/Projects/TypingHero-evidence/type-ready-20261027/ outside the repository.
+Delivery and scoped cleanup receipt is written there after remote integration;
+expanded preview/temporary worktree can be removed while preserving the clip,
+reports and source receipts. No production build, deployment or itch update.

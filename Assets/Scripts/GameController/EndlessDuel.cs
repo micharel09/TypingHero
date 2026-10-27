@@ -9,7 +9,6 @@ public sealed class EndlessDuel : MonoBehaviour
     internal bool NewBest { get; private set; }
     internal int BestDefeated { get; private set; }
     internal int BestScore { get; private set; }
-    EndlessOverlay overlay;
     GamePauseController pause;
     PlayerHealth player;
     bool ready, loading, enemyDefeated, resultSaved;
@@ -28,17 +27,9 @@ public sealed class EndlessDuel : MonoBehaviour
         else Run.Health = player.Current;
         CombatSession.I.RestoreEndless(Run);
         if (ScoreSystem.I) ScoreSystem.I.RestoreRunScore(Run.Score);
-        overlay = EndlessOverlay.Create();
         EndlessProfile.Encounter(Run.Role, Run.Slot == 4);
         encounterStartHp = player.Current;
         BeginEncounter();
-    }
-
-    void Update()
-    {
-        if (DungeonSession.InputSuppressed || !ready || loading || Run.Completed || GamePauseController.IsPaused || LeaderboardModal.BlocksShortcuts ||
-            (pause && pause.IsRestarting)) return;
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) Continue();
     }
 
     public void Continue()
@@ -60,7 +51,6 @@ public sealed class EndlessDuel : MonoBehaviour
     {
         ready = false;
         GamePauseController.SetEncounterReading(false);
-        if (overlay) overlay.ShowCombat();
     }
 
     internal void EnemyDefeated()
@@ -84,13 +74,12 @@ public sealed class EndlessDuel : MonoBehaviour
         if (Run.Completed)
         {
             ready = false;
-            if (overlay) overlay.gameObject.SetActive(false);
             if (pause && !pause.IsRestarting) pause.ShowVictory();
             return;
         }
+        if (ready) return;
         ready = true;
-        if (overlay) overlay.Show($"{Run.Difficulty.Label()} · CLEARED {Run.Defeated} · HP {Run.Health}/{player.maxHealth}",
-            $"NEXT: {Run.Enemy.Name}", "Ready · Enter", Continue);
+        FindObjectOfType<TypingManager>().BeginReady(Continue);
     }
 
     internal string FinishRun(bool won = false)
@@ -102,7 +91,6 @@ public sealed class EndlessDuel : MonoBehaviour
         var killer = FindObjectOfType<SkeletonController>();
         string cause = Run.Enemy.Name + " / " + (killer ? killer.LastAttack : "Attack");
         EndlessLeaderboard.Queue(Run.Defeated, Run.Score, Run.Difficulty);
-        if (overlay) overlay.gameObject.SetActive(false);
         int cleared = PlayerPrefs.GetInt(EndlessDifficulties.StorageKey(Run.Difficulty, EndlessRun.BestDefeatedKey), 0);
         int score = PlayerPrefs.GetInt(EndlessDifficulties.StorageKey(Run.Difficulty, EndlessRun.BestScoreKey), 0);
         NewBest = best; BestDefeated = cleared; BestScore = score;

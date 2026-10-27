@@ -74,6 +74,64 @@ public sealed class GameplayTests
     }
 
     [UnityTest, Category("Quick")]
+    public IEnumerator ReadyPromptRequiresWholeWordWithoutCombatRewardsOrTrailingInput()
+    {
+        int completed = 0;
+        typing.BeginReady(() => completed++);
+        typing.ProcessInput("READY");
+        Assert.That(completed, Is.Zero, "Ignore input from the prompt activation frame");
+        yield return null;
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("READY"));
+        Assert.That(Get<string>(typing, "next"), Is.Empty);
+        Assert.That(Get<string>(typing, "third"), Is.Empty);
+        var modal = root.AddComponent<LeaderboardModal>();
+        var panel = new GameObject("Ready modal fixture");
+        panel.transform.SetParent(root.transform);
+        panel.SetActive(false);
+        Set(modal, "panel", panel);
+        modal.Open();
+        typing.ProcessInput("ready");
+        Assert.That(completed, Is.Zero, "Modal owns input");
+        modal.Close();
+        typing.ProcessInput("ready");
+        Assert.That(completed, Is.Zero, "Closing frame cannot consume Ready");
+        yield return null;
+        typing.ProcessInput("\r\n");
+        Assert.That(completed, Is.Zero, "Enter cannot confirm Ready");
+        typing.ProcessInput("Re");
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("ADY"));
+        typing.ProcessInput("x");
+        Assert.That(Get<string>(typing, "current"), Is.EqualTo("READY"), "Mistake resets the prompt");
+        typing.ProcessInput("readyREADYmore");
+        typing.ProcessInput("READY");
+        Assert.That(completed, Is.EqualTo(1));
+        Assert.That(words + chars + timeouts, Is.Zero, "Ready never attacks or awards combat rewards");
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator ReadyPromptWaitsWithoutTimerAndPreservesPartialInputThroughPause()
+    {
+        int completed = 0;
+        typing.BeginReady(() => completed++);
+        float timer = Get<float>(typing, "timer");
+        typing.enabled = true;
+        yield return new WaitForSecondsRealtime(.15f);
+        typing.ProcessInput("re");
+        GamePauseController.SetTutorialReading(true);
+        try
+        {
+            typing.ProcessInput("ady");
+            yield return new WaitForSecondsRealtime(.15f);
+            Assert.That(Get<string>(typing, "current"), Is.EqualTo("ADY"));
+            Assert.That(Get<float>(typing, "timer"), Is.EqualTo(timer));
+            Assert.That(completed + timeouts, Is.Zero);
+        }
+        finally { GamePauseController.SetTutorialReading(false); }
+        typing.ProcessInput("ady");
+        Assert.That(completed, Is.EqualTo(1));
+    }
+
+    [UnityTest, Category("Quick")]
     public IEnumerator FixedRowAccepts15010060MsInputAndCompletionDuringSlide()
     {
         foreach (float cadence in new[] { .15f, .1f, .06f })

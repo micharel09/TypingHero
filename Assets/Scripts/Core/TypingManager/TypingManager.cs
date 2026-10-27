@@ -61,6 +61,9 @@ public class TypingManager : MonoBehaviour
     [SerializeField] float referencePixel = 3f;
     [SerializeField] Color completedColor = new Color(.44f, .66f, .62f, 1);
     Color currentColor, nextColor, thirdColor;
+    bool readyPrompt;
+    Action readyComplete;
+    int readyFrame;
     bool introPreview;
     float introStartRemaining;
 
@@ -77,7 +80,21 @@ public class TypingManager : MonoBehaviour
         Paint();
     }
 
-    float DT => GamePauseController.InputBlocked || CombatSession.Finished ? 0 : Time.unscaledDeltaTime;
+    internal void BeginReady(Action onReady)
+    {
+        readyPrompt = true;
+        readyComplete = onReady;
+        readyFrame = Time.frameCount;
+        if (DungeonSession.Current) DungeonSession.Current.ConsumeIntroInput();
+        current = originalCurrent = "READY";
+        next = third = "";
+        slideRemaining = errorRemaining = introStartRemaining = 0;
+        introPreview = false;
+        if (countdownSlider) countdownSlider.gameObject.SetActive(false);
+        Paint();
+    }
+
+    float DT => GamePauseController.InputBlocked || (CombatSession.Finished && !readyPrompt) ? 0 : Time.unscaledDeltaTime;
 
     void Awake()
     {
@@ -96,7 +113,7 @@ public class TypingManager : MonoBehaviour
         errorRemaining = Mathf.Max(0, errorRemaining - DT);
         introStartRemaining = Mathf.Max(0, introStartRemaining - DT);
         ProcessInput(Input.inputString);
-        if (practiceTimer && !GamePauseController.InputBlocked && !CombatSession.Finished) HandleTimer();
+        if (!readyPrompt && practiceTimer && !GamePauseController.InputBlocked && !CombatSession.Finished) HandleTimer();
         Paint();
     }
 
@@ -118,21 +135,31 @@ public class TypingManager : MonoBehaviour
 
     internal void ProcessInput(string s)
     {
-        if (!practiceInput || GamePauseController.InputBlocked || DungeonSession.InputSuppressed || CombatSession.Finished || string.IsNullOrEmpty(s)) return;
+        if (!practiceInput || GamePauseController.InputBlocked || DungeonSession.InputSuppressed ||
+            (CombatSession.Finished && !readyPrompt) || (readyPrompt && (Time.frameCount <= readyFrame || LeaderboardModal.BlocksShortcuts)) || string.IsNullOrEmpty(s)) return;
         int completed = 0;
         foreach (char c in s)
         {
-            if (!practiceInput || GamePauseController.InputBlocked || CombatSession.Finished) break;
+            if (!practiceInput || GamePauseController.InputBlocked || (CombatSession.Finished && !readyPrompt)) break;
             if (!char.IsLetter(c) || current.Length == 0) continue;
             // Correct/error feedback owns the first accepted letter immediately.
             introStartRemaining = 0;
             if (char.ToLowerInvariant(c) == char.ToLowerInvariant(current[0]))
             {
-                AcceptChar(c, originalCurrent.Length - current.Length, rewardedCurrent);
+                if (readyPrompt) OnInputResult?.Invoke(true);
+                else AcceptChar(c, originalCurrent.Length - current.Length, rewardedCurrent);
                 errorRemaining = 0;
                 current = current.Substring(1);
                 if (current.Length == 0)
                 {
+                    if (readyPrompt)
+                    {
+                        var onReady = readyComplete;
+                        readyComplete = null;
+                        Paint();
+                        onReady?.Invoke();
+                        return; // Discard the rest of this input batch before the next duel.
+                    }
                     if (!MuteWordCorrect) OnWordCorrect?.Invoke();
                     OnWordAdvanced?.Invoke();
                     AdvanceToNext();
