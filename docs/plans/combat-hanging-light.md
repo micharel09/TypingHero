@@ -1,3 +1,34 @@
+## Harness acceptance checkpoint (2026-10-27)
+
+- Continue `micharel09/replaced-dungeon-lighting-2` from `4613b84`. Changes are
+  limited to JavaScript harness/tests and documentation; reuse QA player
+  `7cd77c5fb88da486`. No Unity build, video, browser profile or measurement rerun.
+- Final drain now precedes the verdict and refreshes summary/coverage. Input errors
+  retain precedence over separately recorded drain errors. Available trace is saved;
+  context closure is attempted even if saving fails. Receipt/report share the final
+  summary/status, with no drain after verdict.
+- Combat intervals belong to their first active frame, retaining exit hitches and
+  excluding entries. Continuity/focus/actor coverage remain independent checks.
+- `minCombatWindowFps` counts completed Unity frames in sliding 1-second windows
+  within each continuous combat segment. Any window below40FPS sets
+  `sustainedLowFps` and fails acceptance, alongside FPS>=59 and p95<=18ms.
+  `longestSlowWindowMs` remains diagnostic for existing consumers.
+- Coverage uses measured combat only: Slayer must own an interval; parry requires
+  a counter increase between adjacent combat observations. Counter decreases reset
+  comparison; scene-entry restoration does not count. Parry protocol still requires
+  `PERF_DETAILED=1`; detailed-off parry is not implemented.
+- Verification: all16 focused contracts pass with
+  `node --test tools/game_loop/test_frame_timing.cjs`; syntax checks for all three
+  changed JavaScript files and `git diff --check` pass. Cases include final-batch
+  focus/overflow/gaps, input plus drain failure, save-failure closure, exit hitch,
+  mixed-frame low FPS, segmented windows and reset/scene-entry/Slayer coverage.
+- Historical raw traces, measurements and evidence below remain unchanged and
+  scoped to their recorded harness. **ABBA, final playback and FPS acceptance
+  remain incomplete.** Harness completion does not establish game performance.
+  This checkpoint starts the next runtime optimization task.
+- Keep the existing worktree/branch for continuation; no main merge or cleanup.
+  No filesystem scratch was created; scenario fixtures run entirely in memory.
+
 ## Frame measurement continuation — acceptance pending (2026-10-26 evening)
 
 Continue the existing `micharel09/replaced-dungeon-lighting-2` worktree. Fresh

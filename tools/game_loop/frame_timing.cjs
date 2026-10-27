@@ -4,7 +4,8 @@
 const ACTIVE = 1 | 256, EXCLUDED = 2 | 4 | 8 | 16 | 32 | 512;
 const active = row => (row[5] & ACTIVE) === ACTIVE && !(row[5] & EXCLUDED);
 function summarize(rows, dropped = 0) {
-  const intervals = [], reasons = new Set();
+  const intervals = [], reasons = new Set(), segments = [];
+  let segment = null, parry = false, slayer = false, parryState = false;
   let combatMs = 0, slowWindowMs = 0, longestSlowWindowMs = 0, slowStart = null;
   if (dropped) reasons.add('buffer overflow');
   for (let i = 1; i < rows.length; i++) {
@@ -13,23 +14,41 @@ function summarize(rows, dropped = 0) {
     if (b[10] !== a[10]) reasons.add('focus/visibility changed');
     if (!b[8] || !b[9] || !a[8] || !a[9]) reasons.add('page not focused/visible');
     if ((b[5] & 1) && !(b[5] & EXCLUDED) && !(b[5] & 256)) reasons.add('missing actor coverage during gameplay');
-    if (!active(a) || !active(b)) { slowStart = null; slowWindowMs = 0; continue; }
+    if (!active(a)) { segment = null; slowStart = null; slowWindowMs = 0; continue; }
     const ms = b[2] - a[2];
     if (!Number.isFinite(ms) || ms <= 0) { reasons.add('invalid timestamp'); continue; }
     intervals.push(ms); combatMs += ms;
+    slayer ||= !!(a[5] & 64);
+    parryState ||= !!(a[5] & 128);
+    parry ||= active(b) && b[6] > a[6];
+    if (!segment) { segment = [a[2]]; segments.push(segment); }
+    segment.push(b[2]);
+    if (!active(b)) segment = null;
     // A continuous run of >25ms combat frames must remain visible in the report.
     if (ms > 25) {
       slowStart ??= a[2]; slowWindowMs = b[2] - slowStart;
       longestSlowWindowMs = Math.max(longestSlowWindowMs, slowWindowMs);
     } else { slowStart = null; slowWindowMs = 0; }
   }
+  // Count completed Unity frames in (start, start + 1000], within one combat segment.
+  let minCombatWindowFps = null;
+  for (const times of segments) {
+    let end = 1;
+    for (let start = 0; start < times.length && times[start] + 1000 <= times.at(-1); start++) {
+      end = Math.max(end, start + 1);
+      while (end < times.length && times[end] <= times[start] + 1000 + 1e-7) end++;
+      minCombatWindowFps = Math.min(minCombatWindowFps ?? Infinity, end - start - 1);
+    }
+  }
+  const sustainedLowFps = minCombatWindowFps !== null && minCombatWindowFps < 40;
   const sorted = [...intervals].sort((a, b) => a - b);
   const p95 = sorted.length ? sorted[Math.ceil(sorted.length * .95) - 1] : null;
   const fps = combatMs ? intervals.length * 1000 / combatMs : null;
   if (!intervals.length) reasons.add('no combat frames');
   return { valid: reasons.size === 0, invalidReasons: [...reasons], frames: intervals.length,
     combatMs, fps, p95, hitchOver50Ms: intervals.filter(ms => ms > 50).length,
-    longestSlowWindowMs, thresholdsMet: fps >= 59 && p95 <= 18 && longestSlowWindowMs < 1000 };
+    longestSlowWindowMs, minCombatWindowFps, sustainedLowFps, coverage: { parry, slayer, parryState },
+    thresholdsMet: intervals.length > 0 && fps >= 59 && p95 <= 18 && !sustainedLowFps };
 }
 
 // Installs browser clocks separately from Unity's frame markers. GPU queries are

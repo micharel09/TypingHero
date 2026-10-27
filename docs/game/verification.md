@@ -7,7 +7,16 @@ observation; the default retains the existing detailed QA behavior. Batch reader
 The100ms state is sampled memory/driver context, not individual Unity frame timing.
 `tools/game_loop/frame_timing.cjs` keeps Unity/rAF/CPU/GPU clocks distinct and
 invalidates missing/focus-lost traces without dropping combat hitches. Run its
-6targeted contracts with `node --test tools/game_loop/test_frame_timing.cjs`.
+16 targeted contracts with `node --test tools/game_loop/test_frame_timing.cjs`.
+
+Harness checkpoint 2026-10-27: final drain precedes verdict; interval ownership
+uses the first combat frame, retaining exit hitches. Sliding 1-second combat
+windows below40FPS fail alongside FPS>=59/p95<=18ms. Parry/Slayer coverage uses
+measured combat only; counter resets and scene entry do not manufacture parries.
+Parry protocol requires `PERF_DETAILED=1`; detailed-off parry is unimplemented.
+16 Node contracts, JavaScript syntax and diff whitespace checks pass. No player
+rebuild or remeasurement; ABBA, final playback and FPS acceptance remain pending.
+See [checkpoint](../plans/combat-hanging-light.md) for scope and continuation.
 
 Ubuntu QA20261026T144542/player7cd77c5fb88da486:33file hashes verified;
 2495current player inputs match. Four real-input1280x720/world320x180 NVIDIA1650Ti

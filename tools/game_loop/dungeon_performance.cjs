@@ -22,18 +22,22 @@ module.exports = async (api, browser) => {
   const rows = []; let dropped = 0, begun, collectAt, lastDrain = 0, lastTyped = 0, lastParry = 0;
   const filename = path.join(output, 'frames.json');
   const save = () => fs.writeFileSync(filename, JSON.stringify(receipt));
-  async function collect() {
-    const batch = await timing.drain(page);
-    receipt.batches.push(batch);
-    if (batch.unity) { rows.push(...batch.unity.rows); dropped = batch.unity.dropped; }
+  function summarize() {
     receipt.summary = timing.summarize(rows.filter(row => row[2] >= collectAt), dropped);
     if (receipt.batches.some(b => b.at >= collectAt &&
       (!b.focused || b.visible !== 'visible' || b.browser.events?.length))) {
       receipt.summary.valid = false;
       receipt.summary.invalidReasons.push('browser focus/visibility event during measurement');
     }
+  }
+  async function collect() {
+    const batch = await timing.drain(page);
+    receipt.batches.push(batch);
+    if (batch.unity) { rows.push(...batch.unity.rows); dropped = Math.max(dropped, batch.unity.dropped); }
+    summarize();
     save(); lastDrain = Date.now();
   }
+  let failure;
   try {
     await start(page); await fight(page);
     check(/NVIDIA.*1650 Ti/.test(report.graphics.renderer), 'actual GTX 1650 Ti');
@@ -96,22 +100,32 @@ module.exports = async (api, browser) => {
       }
       await page.waitForTimeout(15);
     }
-    await collect();
-    check(receipt.summary.valid, 'continuous, visible, focused Unity frame coverage');
-    check(receipt.summary.combatMs >= duration, 'required combat duration');
-    const measured = rows.filter(row => row[2] >= collectAt);
-    check(mode !== 'parry' || (measured.some(row => row[5] & 64) && measured.some(row => row[6] > measured[0][6])), 'actual parry and Slayer coverage');
-    check(mode !== 'normal' || measured.every(row => !(row[5] & (64 | 128))), 'normal excludes parry/Slayer');
-    if (!diagnostic) check(receipt.summary.thresholdsMet, 'each run meets FPS >=59 / p95 <=18ms / no sustained 30FPS');
-    receipt.status = 'passed';
   } catch (error) {
-    receipt.status = 'failed'; receipt.error = String(error.stack); throw error;
+    receipt.error = String(error.stack); failure = error;
   } finally {
-    // Input/assertion failures must never discard the timing trace.
-    let finalError;
+    // Drain exactly once before the verdict, retaining the original input error.
     try { if (begun) await collect(); }
-    catch (error) { receipt.finalDrainError = String(error.stack); receipt.status = 'failed'; finalError = error; }
-    finally { save(); report.timing = { ...receipt.summary, status: receipt.status, diagnostic, file: filename }; await context.close(); }
-    if (finalError && !receipt.error) throw finalError;
+    catch (error) { receipt.finalDrainError = String(error.stack); failure ??= error; }
+    summarize();
+    if (!failure) {
+      try {
+        check(receipt.summary.valid, 'continuous, visible, focused Unity frame coverage');
+        check(receipt.summary.combatMs >= duration, 'required combat duration');
+        const coverage = receipt.summary.coverage;
+        check(mode !== 'parry' || (coverage.parry && coverage.slayer), 'actual parry and Slayer coverage');
+        check(mode !== 'normal' || (!coverage.parry && !coverage.slayer && !coverage.parryState), 'normal excludes parry/Slayer');
+        if (!diagnostic) check(receipt.summary.thresholdsMet, 'each run meets FPS >=59 / p95 <=18ms / no sustained 30FPS');
+      } catch (error) { receipt.error = String(error.stack); failure = error; }
+    }
+    receipt.status = failure ? 'failed' : 'passed';
+    try { save(); }
+    catch (error) {
+      receipt.saveError = String(error.stack); failure ??= error; receipt.status = 'failed';
+    } finally {
+      report.timing = { ...receipt.summary, status: receipt.status, diagnostic, file: filename,
+        error: receipt.error, finalDrainError: receipt.finalDrainError, saveError: receipt.saveError };
+      try { await context.close(); } catch (error) { failure ??= error; }
+    }
   }
+  if (failure) throw failure;
 };
