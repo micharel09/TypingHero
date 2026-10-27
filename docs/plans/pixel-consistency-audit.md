@@ -4304,138 +4304,170 @@ runtime và playback giữ trạng thái chưa kiểm chứng.
 | sword-shield/Die / source + mirror X | F12 / GIF F25 | 100 ms | Giữ khiên phẳng cạnh đống xương, viền trái đủ; trạng thái kết thúc. | Không loop; death→cleanup runtime chưa kiểm. | `sword-shield-Die-12-final.png` |
 
 
-### Checkpoint ??i so?t glyph v? reflection tr?n R0
 
-Checkpoint t?i li?u `9df678c53c3d2d60f5330082ba6f51284cca9c79` ?? push l?n
-main v? fetch x?c minh ancestry. B?n s?a A1 `1a2b6d4` ?? commit/push ri?ng tr?n
-`micharel09/a1-shield-ownership`; ch?a t?ch h?p asset l?n main.
+### Checkpoint đối soát glyph và reflection trên R0
 
-M?u kh?ng QA `??ng_?9` ?? ?i?u ki?n t?i d?ng **ch? cho input v? HUD reading**.
-?? x?c minh l?i hai PNG theo receipt R: `name-input.png` SHA256
-`8ac98d8feb4d6c70ed6001954ae645dc25bf96f6850b04712e1e91c6129b9206`,
+Checkpoint tài liệu `9df678c53c3d2d60f5330082ba6f51284cca9c79` đã lên main
+và được fetch xác minh ancestry. Bản sửa A1 `1a2b6d4` đã commit/push trên
+`micharel09/a1-shield-ownership`; asset chưa tích hợp main.
+
+Mẫu không QA `Đặng_Á9` đủ điều kiện tái dùng **chỉ cho input và HUD reading**.
+Hai PNG được kiểm lại theo receipt R: `name-input.png` SHA256
+`8ac98d8feb4d6c70ed6001954ae645dc25bf96f6850b04712e1e91c6129b9206`;
 `hud-reading.png` SHA256
 `ea39e60671f2edabaef836fc8b3219f2cfbe21229618d80cb60bfd7895f9186d`.
-Hai probe tr?n b?n kh?ng QA ??u undefined. ?? m? l?i full native v? crop nearest
-4?: ?? ?, ?/d?u n?ng, g?ch d??i, ?/d?u s?c v? 9; kh?ng th?y ? vu?ng/c?t glyph.
+Hai probe trên bản không QA đều undefined. Đã mở lại native và nearest 4×:
+chữ Đ, ặ/dấu nặng, gạch dưới, Á/dấu sắc và 9 đọc được, không thấy ô vuông/cắt glyph.
 
-??i chi?u Git object t? R66749da1 t?i A1/1a2b6d4: MainMenu.unity,
-SampleScene.unity, to?n tree Assets/Art/UI, Assets/Scripts/UI, Packages v?
-ProjectSettings ??u ??ng nh?t. Delta m?i n?m ? world/READY v? asset skeleton;
-kh?ng ??i text, font/material ho?c canvas input/HUD c?a m?u n?y. UI l? overlay;
-kh?ng d?ng ?nh world c? k?t lu?n lighting m?i. B?n sao ?nh v? receipt c?ng Git
-object n?m ngo?i CodexTemp t?i th? m?c b?ng ch?ng A1 `glyph-reuse/`.
-??y l? t?i d?ng b?ng ch?ng ?? ?i?u ki?n, kh?ng ph?i phi?n input m?i tr?n A1.
+Git object từ R66749da1 tới A1/1a2b6d4 của MainMenu.unity, SampleScene.unity,
+Assets/Art/UI, Assets/Scripts/UI, Packages và ProjectSettings đồng nhất.
+Delta thuộc world/READY và skeleton; không đổi text/font/material/canvas input/HUD
+của mẫu này. Không dùng world cũ chứng nhận lighting mới. Bản sao và receipt
+Git object ở thư mục bằng chứng A1 `glyph-reuse/`, ngoài CodexTemp.
+Đây là tái dùng có điều kiện, không phải phiên nhập mới trên A1.
 
-Reflection: scene R0 `DungeonWorld.unity`, GameObject WetStoneReflection
-fileID1632546716 v?n `m_IsActive: 0`; A1 kh?ng ??i scene ho?c caller rendering.
-Kh?ng c? thay ??i task b?t reflection. V? baseline serialized v?n inactive,
-reflection kh?ng ?p d?ng cho nh?m ki?m n?y; kh?ng coi ?? l? k?t qu? ch?t l??ng
-reflection khi b?t. Runtime READY/animation/rendering kh?c ti?p t?c ch?a ki?m.
+Reflection: DungeonWorld.unity R0, WetStoneReflection fileID 1632546716 vẫn
+`m_IsActive: 0`; A1 không đổi scene/caller rendering hoặc bật reflection.
+Reflection không áp dụng trong baseline này; không chứng nhận chất lượng khi bật.
 
-B?n build ??u d?ng map th? ?? d?ng, gi? log v? manifest ri?ng; b?n cu?i ?ang
-build v?i snapshot2543file SHA256
+Build thử đầu chứa map tạm đã dừng; giữ log/manifest riêng.
+Snapshot cuối có 2.543 file, SHA256
 `4a4538ea2810cf81b226ebb47d98da8217fa6ffda6f30dd5c07fe2f04f8f203d`.
-Kh?ng chuy?n tr?ng th?i A1/runtime theo vi?c build ?ang ch?y.
+Không đổi trạng thái nghiệm thu chỉ dựa trên build.
 
+## Checkpoint thu R0+A1 — runtime hình còn mở
 
-## Checkpoint thu R0+A1 ? runtime h?nh c?n m?
+A1 vẫn ở commit `1a2b6d4` trên nhánh riêng. QA Windows Unity 2022.3.25f1
+(530ae0ba3889), snapshot trên, build thành công tại
+`runtime/results/20261027T142929.162161Z-3f0c4ef0828e45529ada23825d1c82d3-build-right`.
+Strict repeated builder xác nhận serialized objects/references/listeners không đổi;
+`game-loop-build.json` ghi qa=true. Cả 12 PNG albedo/normal/depth/material khớp
+byte với commit sau import/build, theo `runtime-map-preservation.json`.
+Không chạy full suite, stress, soak, profiling hoặc viewport ngoài hai cỡ yêu cầu.
 
-B?n ngu?n A1 v?n l? `1a2b6d4` tr?n nh?nh ri?ng, ch?a l?n main. QA Windows Unity
-2022.3.25f1 (530ae0ba3889) / snapshot2543file
-`4a4538ea2810cf81b226ebb47d98da8217fa6ffda6f30dd5c07fe2f04f8f203d`
-build th?nh c?ng t?i `runtime/results/20261027T142929.162161Z-3f0c4ef0828e45529ada23825d1c82d3-build-right`.
-Strict repeated builder x?c nh?n serialized objects/references/listeners kh?ng ??i;
-player `game-loop-build.json` ghi qa=true. C?12file albedo/normal/depth/material
-A1 kh?p byte v?i commit sau import/build, receipt `runtime-map-preservation.json`.
-Kh?ng ch?y full suite/stress/soak/profiling ho?c viewport ngo?i hai c? ?? y?u c?u.
+### Hành vi và media đã thu
 
-### H?nh vi v? media ?? thu
+`capture-1` thu tutorial reading, combat kiếm/Double Strike/rìu/khiên và ba
+điểm nối death→cleanup→READY→combat tiếp. Driver dùng phím/chuột; bridge chỉ đọc,
+fixture Firebase và chặn provider thật/service worker.
+Edge 156.0.4314.42, **Intel UHD 0x9BC4 / ANGLE D3D11**.
+Nhãn Linux/Docker kế thừa trong toolchain.json không phải môi trường capture này.
 
-`capture-1` thu tutorial reading, combat ki?m/Double Strike/r?u/khi?n, ?? ba
-?i?m n?i death?cleanup?READY?combat ti?p. Driver d?ng ph?m/chu?t, bridge ch? ??c;
-fixture Firebase, ch?n provider v? service worker b?t. Edge156.0.4314.42,
-**Intel UHD0x9BC4 / ANGLE D3D11**; kh?ng d?ng nh?n Linux/Docker k? th?a t?
-`toolchain.json` l?m m?i tr??ng th?c ho?c g?n NVIDIA c?a b? capture c? cho b? n?y.
+45 check kỹ thuật đã qua trước lỗi ở phần player bổ sung. Luồng kiếm kiểm chờ,
+Enter/click vị trí nút cũ không tiếp tục, từng chữ thường, sai sau prefix,
+Pause chặn chữ/Resume giữ prefix, resize 1280×720→1366×768→1280×720,
+carry và một handoff. Rìu/khiên chỉ kiểm điểm nối/carry.
+Combat time tại chờ/intro lần lượt 41.68546676635742 / 152.0548095703125 /
+194.65335083007812 s; HP40, score/letters/correct giữ qua READY→intro.
+Combat kế tăng lại từ thời gian mang sang.
+Contract hold 180 ms được đối chiếu ReadyRitualPresentation.LateUpdate và
+ReadyRitualTests hiện có; không dùng số frame video làm phép đo engine chính xác,
+không nhận test lịch sử là lần chạy mới.
 
-45check k? thu?t ?? qua tr??c l?i ? ph?n player b? sung. Ki?m ki?m ch?/Enter/
-click v? tr? n?t c?, t?ng ch? th??ng, sai sau prefix, Pause ch?n ch? v? Resume
-gi? prefix, resize1280?720?1366?768?1280?720, carry v? m?t handoff. R?u/khi?n
-ch? ki?m ?i?m n?i/carry, kh?ng l?p ma tr?n input. Th?i gian ch?/intro l?n l??t
-41.68546676635742 /152.0548095703125 /194.65335083007812s; HP40, score/letters/
-correct gi? qua READY?intro. Combat k? t?ng l?i t? th?i gian ?? mang sang.
-Contract hold180ms ???c ??i chi?u `ReadyRitualPresentation.LateUpdate` v? test
-`ReadyRitualTests` hi?n c?; kh?ng ?o engine timing b?ng s? frame video ho?c
-nh?n c?c test l?ch s? l? l?n ch?y m?i c?a audit n?y.
+Ba still resize đã mở native: compact frame, TYPE READY TO CONTINUE, READY
+có đủ glyph/viền/padding, countdown ẩn, vòng trên sàn. Still không thay review
+frame liên tục. QA label che tên player; mẫu glyph không QA được tái dùng riêng.
 
-?? m? ri?ng ba still resize native: compact frame, TYPE READY TO CONTINUE,
-READY c?n ?? glyph/vi?n/padding, countdown ?n, v?ng tr?n s?n; ??y ch? l? still,
-kh?ng thay ki?m c?c frame li?n t?c. QA label c? che t?n player; m?u glyph ri?ng
-kh?ng QA ?? ?? ?i?u ki?n t?i d?ng ? checkpoint tr??c.
+Phiên 1 gặp `Target page, context or browser has been closed` trong phần thu
+player Hurt/death bổ sung; nguyên nhân đóng chưa xác định. Status toàn phiên
+vẫn **failed**; 45 check không chứng nhận toàn phiên PASS. Clip trước đó đã
+stop/export hoàn chỉnh. Generic fixtureReads/Writes bằng 0 nhưng fixture
+Endless riêng có 1 read/1 write được intercept ở result, không ghi provider thật.
+Không có Unity/JS exception trong report. Không phân loại thiếu quan sát/lỗi
+công cụ thành lỗi game.
 
-Phi?n1 c? l?i `Target page, context or browser has been closed` khi ?ang thu th?m
-player Hurt/death; nguy?n nh?n ??ng ch?a x?c ??nh. Gi? status to?n phi?n **failed**,
-kh?ng g?i45check l? to?n b? phi?n PASS. C?c clip tr??c ?? ?? stop/export ho?n ch?nh.
-Generic fixtureReads/Writes b?ng0 nh?ng fixture Endless ri?ng c?1read/1write ???c
-intercept ? ph?n result; kh?ng ph?i write ra provider th?t. Kh?ng c? Unity/JS
-exception trong report. Kh?ng ph?n lo?i l?i c?ng c?/thi?u quan s?t th?nh l?i game.
+`capture-2` thu lại riêng player trên cùng build bằng input thường, không ép
+HP/Animator: idle chạy thật, Hurt→idle và death→result; 4 check harness PASS,
+0 exception. Điều kiện chờ của công cụ đổi thành overlay && hp<=0 vì bridge
+trả sentinel âm sau cleanup actor tại result; không sửa game.
+Media chính `capture-2/player-hurt-death-result.webm`; context video bổ sung
+không cộng coverage. Clip/trace/still và `progress-receipt.json` ở thư mục
+bằng chứng A1 ngoài CodexTemp, có SHA256/source/build và event carry.
 
-`capture-2` thu l?i ri?ng player tr?n c?ng player/build, kh?ng typing/parry ho?c
-?p HP/Animator: idle ch?y th?t, Hurt?idle v? death?result,4check harness PASS,
-0exception. ?i?u ki?n ch? c?ng c? ??i sang overlay && hp<=0 v? bridge tr? sentinel
-?m khi actor b? d?n ? result; kh?ng s?a game. Media ch?nh
-`capture-2/player-hurt-death-result.webm`; video context b? sung kh?ng c?ng coverage.
-To?n b? source clips, trace, still v? `progress-receipt.json` ? th? m?c b?ng ch?ng
-A1 ngo?i CodexTemp; receipt ghi SHA256 media, source/build v? c?c event carry.
+### PTS, biên và phần đã xem
 
-### PTS, bi?n v? ph?n ?? xem
+`decode-pts.py` ngoài repo chọn **PTS integer gốc**, chia run cùng kích thước,
+giữ ordinal toàn media; không dùng filter n reset khi resize.
+Đã đối soát số PNG/PTS/kích thước từng PNG.
+F1217/43.541 s là 1280×720; F1218/43.590 s tới F1232/44.066 s là 1366×768;
+F1233/44.103 s trở về 1280×720.
+Duration frame cuối chưa xác định giữ null; không retime/nội suy/bỏ frame lặp.
 
-C?ng c? tr?ch ngo?i repo `decode-pts.py` ch?n **PTS integer g?c**, chia t?ng run
-c?ng k?ch th??c, gi? ordinal to?n media; kh?ng ch?n b?ng filter n reset khi resize.
-?? ??i so?t s? PNG/PTS v? k?ch th??c m?i PNG ?? xu?t. Clip ki?m ??i t?i
-F1217/43.541s1280?720?F1218/43.590s1366?768; F1232/44.066s c?n1366?768,
-F1233/44.103s v?1280?720. Duration cu?i media ch?a x?c ??nh v?n null.
-Kh?ng retime/n?i suy/b? frame encode ho?c b? frame l?p.
+Biên rìu ban đầu 64.531 s lộ giữa Slayer strike/recovery ở F1842, đã mở rộng
+về 50.5 s. Trace có idle50.433, Hurt51.306, Attack1 preparation53.185,
+Slayer entry54.226; đoạn tiếp tục đủ burst/exit, lethal, Die/cleanup/READY và
+combat mới. Giữ hash/ghi chú/global ordinal của frame đã xem; đoạn hẹp bị thay thế.
+F1436 xác nhận bối cảnh trước preparation kế tiếp, không nghiệm thu preparation
+của động tác trước đoạn. Media toàn trận vẫn giữ.
 
-Bi?n r?u ??u ti?n64531ms ?? l? gi?a strike/recovery Slayer ? F1842; kh?ng thu h?p
-?? b? ?o?n kh?. ?? m? r?ng v?50.5s: trace c? idle50.433, Hurt51.306,
-Attack1 preparation53.185 v? Slayer entry54.226, ti?p t?c tr?n burst/exit, lethal,
-Die/cleanup/READY v? combat m?i. Ba frame ?? xem trong ?o?n h?p gi? nguy?n ghi ch?
-v? hash, ???c ??a v?o ?o?n m? r?ng theo c?ng global ordinal; ?o?n h?p b? thay th?.
-Frame F1436 m? tr?c ti?p x?c nh?n b?i c?nh tr??c preparation ti?p theo; kh?ng d?ng
-n? nghi?m thu preparation c?a ??ng t?c tr??c ?o?n. Media to?n tr?n v?n gi? ??.
+Catalog `runtime-review/clips.json` là **ứng viên đang review**, chưa phải
+manifest nghiệm thu cuối: 1.590 frame/1.584 cặp.
+Tại checkpoint thu ban đầu đã mở 7 frame/5 cặp; checkpoint preview bên dưới
+cập nhật thành 10/7. Không cộng với catalog lịch sử 1.900/1.890.
+Raw Double Strike/combat vẫn giữ; cần chốt đoạn trước review, chưa khép toàn ma trận.
 
-Catalog hi?n t?i `runtime-review/clips.json` l? **?ng vi?n ?ang review**, kh?ng ph?i
-manifest nghi?m thu cu?i. T?ng1.590frame/1.584c?p; ?? m? native full canvas v?
-nearest4?7frame/5c?p. C?n1.583frame/1.579c?p trong c?c ?o?n n?y ch?a xem.
-Kh?ng c?ng v?i catalog l?ch s?1.900/1.890. Double Strike/combat c?n l?u raw v? c?n
-ch?t ??ng ?o?n/ph?m vi tr??c review; catalog d??i ??y ch?a kh?p to?n ma tr?n.
-
-| ?o?n m?i | Frame/c?p | ?? m? frame/c?p | Gi?i h?n |
+| Đoạn mới | Frame/cặp | Đã mở frame/cặp hiện tại | Giới hạn |
 |---|---:|---:|---|
-| axe-death-cleanup-ready-current |641/640|7/5|F1436?F1439 v? F1842?F1844; ph?n kh?c v? chi ti?t VFX che ch?a ki?m. |
-| shield-death-cleanup-ready-current |247/246|0/0|Ch?a xem tr?c ti?p. |
-| sword-death-ready-current |475/474|0/0|Ba still resize kh?ng t?nh thay frame encode. |
-| player-idle-hurt-recovery |79/78|0/0|Ch?a ki?m ?? v?ng/kh?p source. |
-| player-death-result |123/122|0/0|Ch?a xem tr?c ti?p. |
-| tutorial-reading-current |25/24|0/0|timeScale kh?a; kh?ng t?nh l? v?ng idle. |
+| axe-death-cleanup-ready-current |641/640|10/7|F1436–1439, F1842–1844, F1920–1922. VFX và source cel còn cần đối chiếu.|
+| shield-death-cleanup-ready-current |247/246|0/0|Chưa mở frame encode.|
+| sword-death-ready-current |475/474|0/0|Ba still resize không thay frame encode.|
+| player-idle-hurt-recovery |79/78|0/0|Chưa kiểm đủ vòng/khớp source.|
+| player-death-result |123/122|0/0|Chưa mở frame encode.|
+| tutorial-reading-current |25/24|0/0|timeScale khóa; không phải vòng idle.|
 
-T?ng frame ?? m? c? phase, quan s?t, c?p k?, gi?i h?n v? hash trong catalog. C?c
-c?p F1439?F1440, F1844?F1845 v? c?p n?i c?c kh?i ch?a xem kh?ng ???c t?nh.
-V?t ki?m r?i ? cel hero ???c ghi l? c?n ??i chi?u source, kh?ng t? k?t lu?n l?i.
+Từng frame đã mở có phase/quan sát/chuyển tiếp/giới hạn/hash trong catalog.
+Không tính cặp nối sang frame chưa xem. Vệt kiếm rời cần đối chiếu source,
+chưa kết luận lỗi. F1920–1922 có kiếm player che vùng sàn A1, chưa đủ chứng nhận
+không còn fragment trong toàn death.
 
-### Preview shader ?ang s?a c?ng c?, ch?a nghi?m thu
+### Preview dưới lighting hiện hành — checkpoint Walk
 
-B? `lit-preview/`72?nh d?ng helper c? v? `lit-preview-current/`72?nh th? kh?ng
-?? ?i?u ki?n ch?ng nh?n lighting/transform hi?n h?nh; m?i m? m?t ?nh ch?n ?o?n
-m?i b?, kh?ng coi72?nh ?? xu?t l? ?? xem. Helper c? b? presentation/post,
-Camera.CopyFrom c?n k? th?a viewport serialized kh?c runtime. Runtime
-`DungeonArenaCamera.OnEnable` ??t rect(0,0,1,1); c?ng c? ph?i t?i hi?n ??ng ?i?u n?y.
-B?n tool cu?i d?ng pose camera t? trace, pitch/profile hi?n h?nh, WorldTexture,
-world renderer v? presentation/post c?a R0; ch? t?o preview offline kh?ng controller/
-VFX, kh?ng ?p state/caller runtime. Kh?ng s?a camera, lighting ho?c source game ??
-l?m ki?m th? ??t. Editor preview d?ng NVIDIA GTX1650Ti, kh?c renderer Intel c?a
-capture; ph?i gi? gi?i h?n GPU/preview khi ??i chi?u runtime.
+Hai bộ thử `lit-preview/` và `lit-preview-current/` không được nghiệm thu:
+helper cũ thiếu presentation/post, CopyFrom kế thừa viewport serialized khác
+runtime. Mỗi bộ chỉ mở một ảnh chẩn đoán, không tính 72 ảnh xuất thành đã xem.
+Tool cuối tái hiện rect(0,0,1,1) của DungeonArenaCamera.OnEnable, pose camera
+từ trace, pitch/profile, WorldTexture, world renderer và presentation/post R0.
+Không đổi camera/lighting/source game để kiểm đạt.
+Preview offline không controller/VFX/contact-shadow actor, dùng preset ánh sáng
+cơ sở, không tái hiện chính xác flicker. Editor **NVIDIA GTX1650Ti** khác Intel
+runtime; không chứng nhận pixel tương đương hoặc tạo caller runtime.
 
-B?n cu?i ?ang chu?n b? t?i `lit-preview-final/`; ch?a c? frame preview cu?i n?o
-???c nghi?m thu. A1 v?n **ngu?n ?? s?a / runtime h?nh ch?a ki?m ??**. Walk ti?p t?c
-asset-only. Ch?a ch?t playback1?/0.25? ho?c x?c nh?n ng??i xem; ch?a ??ng audit.
+Bộ cuối `lit-preview-final/frames.json` có 72 cel/biến thể, mỗi biến thể gồm
+native 1280×720 và crop nearest 4×. Ảnh Walk F0 source đầu có lỗi khởi tạo renderer
+(dải đỏ trần). Đã giữ bản loại ở `rejected-initial/`, render lại sau ba warmup,
+mở lại native/4× rồi thay canonical. Receipt `warmup-replacement.json` ghi
+6.533 pixel khác trong ROI actor; không tuyên bố phần actor giữ nguyên render.
+
+Đã xem đủ **Walk 12/12 cel × hai hướng = 24 cặp ảnh native/4×**, mọi chuyển tiếp
+và seam F11→F0. Các frame F6–F11 không còn fragment khiên cạnh chân;
+cán/đầu rìu và grip còn liền. Mặt thép phía xa tối nâu ở source và mặt gần sáng
+ngà ở mirror là giới hạn ánh sáng/hướng được ghi riêng.
+Walk tiếp tục **asset-only**, playback chưa xác nhận.
+Ledger ghi từng cel/hướng, filename/SHA256/quan sát/chuyển tiếp/giới hạn.
+
+Die rìu đang xem: F0–F4 cả hai hướng đã mở native/4×, chưa kiểm hết dải.
+Tổng preview cuối đã xem 34/72; không nhận phần còn lại là đạt.
+Runtime vẫn chỉ 10/1.590 frame, 7/1.584 cặp; còn 1.580 frame/1.577 cặp chưa xem.
+Chưa chốt manifest nghiệm thu, playback 1×/0.25× hoặc xác nhận người xem.
+A1 vẫn **nguồn đã sửa / runtime hình chưa kiểm đủ**, audit chưa đóng.
+
+Ghi chú văn bản: hai checkpoint sau A1 từng bị shell chuyển dấu tiếng Việt
+thành `?`. Nội dung tại đây đã khôi phục có dấu; không đổi hash ảnh, kết quả
+kỹ thuật hoặc biến phần chưa xem thành đạt.
+
+### Main tiến thêm khi tích hợp checkpoint
+
+Lượt fetch sau kiểm trả origin/main `a70c1a29d0e9749bbca82c2ca53d721e6c2b02ec`,
+mới hơn R0 ở HUD score/combo và flash parry ngang (72ab039d, 979f04a0,
+cùng checkpoint tài liệu liên quan). Đã đọc diff SampleScene, ScoreUI_ComboHUD,
+ImpactVfxPixel và ImpactVfxProfile: thay đổi layout/fit score, multiplier,
+decay cùng flash parry có kích thước 2D và khóa variation.
+Capture R0+A1 **không chứng nhận layout score/combo hoặc flash parry mới**.
+Cần thu/kiểm lại đúng phần chịu ảnh hưởng; không xem tiếp clip cũ chỉ để đủ số
+hoặc nhận bằng chứng task khác là đã trực tiếp xem trong audit này.
+
+Nguồn A1, atlas/maps, DungeonWorld, actor material, camera/profile, READY và
+tutorial không đổi trong delta này; source review và preview offline không VFX
+giữ giới hạn đã ghi. Nhận xét input/HUD tên Đặng_Á9 chỉ áp dụng text/font và
+reading của mẫu, không mở rộng sang score/combo mới.
+Checkpoint tài liệu này được tích hợp độc lập; audit/rendering hiện hành vẫn mở.
