@@ -910,3 +910,195 @@ container, and no later shared WebGL result than080232 exists. Lost floor-fix
 submission produced no acceptance result. Existing remote audit results are retained;
 shared source/cache/other task resources remain untouched. Remote main fetched
 again and remains66749da1; no integration conflict or retest-triggering main delta.
+
+
+## READY asset and compact prompt follow-up ? 2026-10-27 (verified)
+
+User-approved scope: replace the procedural ellipse/five marks with the complete
+last build frame of Magic circle from
+https://a-small-smart-potato.itch.io/pixel-magic-circles. Inspect the ZIP's
+LICENSE.txt and actual image before import; Point/Clamp, no mipmaps/compression.
+Keep cached floor position and arrival/departure timing, five opacity steps,
+120ms error reset and the painted 180ms completion hold; no rotation/idle loop.
+Do not substitute another procedural drawing if the selected asset is unavailable.
+
+Independent prompt change maps the existing CombatR7 typing-frame Image and
+nextWordText secondary font to ReadyPromptLayout. The complete READY ink is
+measured once, with native horizontal8/vertical4 padding; the frame stays centered
+in the unchanged combat tray. TYPE READY TO CONTINUE sits6native pixels above
+it, cream, steady. CancelReady restores the original board/countdown and combat
+word positioning. ProcessInput, public/save APIs and statistics are unchanged.
+
+Asset acquisition BLOCKED: direct download page HTTP403/Cloudflare challenge;
+Orca page de34cabf-57f3-40dd-95ff-43ea85c7c321 also stayed at security verification.
+Search-indexed author text confirms64x64, separate PNGs/sheets and reference to
+LICENSE.txt, but neither the archive/license nor actual frame has been inspected.
+Asked for a local ZIP path while continuing the independent prompt work.
+Procedural ring/marks are still present in this unintegrated candidate; replacement,
+five-step opacity and final-asset comparison remain unimplemented/unverified.
+
+Worktree D:/Projects/TypingHero-worktrees/ready-magic-circle,
+branch micharel09/ready-magic-circle, based on origin/main acb0e9aa.
+External task evidence D:/Projects/TypingHero-evidence/ready-magic-circle-20261027/.
+Unity selection: four ReadyRitualTests plus two GameplayTests.ReadyPrompt cases;
+no broader suite. Focused geometry assertions cover padding/gap/fixed size and
+combat restoration; existing cases cover batch/trailing input, Enter, Pause/focus,
+Menu/Restart, stat exclusion, rendered180ms and Captain/terminal boundaries.
+Results and real-input/visual verification pending; no task completion or merge.
+
+
+Prompt-only verification: Ubuntu Unity2022.3.25f1, snapshot
+012c3d364176ca79c1669762ef5b254795ac5184a414a1be3c869ab3320fc2f1,
+20261027T100000-quick:6/6PASS,0failed/skipped,56.4532331s. This is the four
+ritual and two READY input cases above, including the new geometry assertions.
+QA/repeated WebGL build20261027T100332-webgl queued on the same raw snapshot;
+its isolated serialized inputs normalize CRLF only, preserving strict builder
+checks. Native real-input and direct visual review still pending.
+
+
+Render correction before native review: ReadyFrame uses Image.Type.Sliced with the
+existing typing-frame sprite's4px imported borders so compact resizing preserves
+its pixel border. The original combat board/type remains untouched. The initial
+100332 build was canceled (exit143, no accepted player) after verifying its exact
+/results container mount; no unrelated container was stopped. Final QA build
+100810 uses snapshot68cb92d1012b6f32bba6f4910b90d0a5e35cb39cfdac1250cb6f0ce6eba0e895.
+The only build-input delta after the6passing cases is the new frame's Image type;
+input/layout/geometry and consumer behavior are unchanged. Visual result pending.
+
+
+### Selected asset acquired; download blocker resolved
+
+The connected Chromium instance successfully opened the author page via
+browser-skill (task-created session faug, stopped after download). The download
+CLI reported attribution failure because the page's download came from a different
+frame, but inspection confirmed the complete949500-byte ZIP in Downloads; copied
+it to task evidence and read LICENSE.txt/README.txt. No CAPTCHA was solved and no
+browser settings were changed. No user-supplied file is needed now.
+
+LICENSE permits personal/commercial games and modification, prohibits reselling,
+repackaging/redistributing as assets and claiming authorship; credit optional.
+Only one original frame and its unchanged LICENSE enter this game project,
+not the complete pack. ZIP SHA256: aa0521c15eb469f26d4ed8a1d5b40b0c44dcecf727d16ba4b28a5da9759174f6.
+Selected source magic-seal/frames/magic-seal-build/magic-seal-build_11.png,
+64x64RGBA, SHA256: 37f762ba90b1693994cc32abc572dc73cd5ba09d7a659a6ec2cf021a77578132. Directly inspected: complete thin gold outer circle,
+inner star/diamonds and runes, transparent background. This static final frame is
+the selected reference; build/loop/dissolve animations are not being reproduced.
+No claim of reference-video research or full source-animation review.
+
+Assets/Resources/ReadySeal/MagicCircle.png is byte-identical to that source.
+Point/Clamp, mipmaps disabled and all texture platforms uncompressed. A private
+material clones the existing PixelSpark material, binds the PNG and uses white
+vertex RGB to preserve author colors. One UV quad replaces the procedural raster
+ellipse and all five mark meshes/particles, retaining the cached inverse-projected
+floor plane/footprint. Five80ms progress levels now sum into whole-image alpha
+(.24,.392,.544,.696,.848,1); error returns to.24 in120ms. Idle breath is removed;
+painted180ms hold, cue and arrival/summon fades are unchanged. Private material
+and quad are destroyed on cancel, without mutating the source material.
+
+The now-obsolete100810 prompt-only build was canceled after exact /results mount
+verification, exit143. It is not an accepted final result. Final asset+prompt
+six-case run is pending; source includes checks for the texture/quad, no separate
+mark particle systems, all progress opacities, reset and full charge.
+
+
+Final asset+prompt Ubuntu Unity2022.3.25f1:6/6PASS,0failed/skipped,
+56.8918669s, result20261027T101311-quick, raw snapshot
+878f12b7c92114e0d0a8ac59aaeabab246c14740718f98befc5fb69aebe2ab95.
+Actual particle alpha passed at all five charge levels, reset, and complete hold;
+texture/floor/one-system assertions and compact prompt assertions passed, along
+with unchanged input/lifecycle/consumer cases. No runtime delta after this run.
+Final QA/repeat build and real-input/direct visual review remain pending.
+
+
+### First native asset candidate: functional pass, visual rejected
+
+QA/repeated build102014 PASS, raw snapshotdc1e1d44ea8ac893ce69c68c886783c371de8198dae0541927a20569d7da2434.
+The latest compact frame uses1/referencePixel PPU for native9-slice borders,
+matching existing DungeonUISkin. This render-only multiplier is the sole delta
+from the6passing behavior cases. The adapter's default scenario did not preserve
+a player automatically; after a read-only fetch found none, verified source
+snapshot under the shared runner lock and copied that exact build-qa into the
+immutable102014 result. All33downloaded files match server hashes.
+
+Edge156.0.4314.42/GTX1650Ti/ANGLE D3D11/1280x720:175real keyboard/mouse checks
+PASS,0exceptions/provider reads/writes. Five wins into Captain, complete/wrong/
+partial READY, Enter, Pause/real-window focus loss, held input, carry and Menu.
+Direct ready/partial/next-combat stills confirm compact fixed frame and instruction,
+original tray restoration. Visual FAIL for seal detail: the old.9H footprint
+shrinks the64px authored drawing to roughly30world pixels, dropping thin inner lines.
+No full-frame visual pass is claimed for this candidate.
+
+Correction: keep floor center and the existing approximately1:4foreshortening,
+but project the full source width at64native world pixels (64x16quad footprint,
+using the arena WorldTexture's real height). This changes only quad size; no input,
+clocks/material/colors/alpha/camera contracts change. Added exact64world-pixel
+projection assertion to the existing actual-scene progress/error/carry case;
+only that affected case is rerun. The other5cases and first175functional checks
+remain reusable. Final player/captures/ledger will be under evidence-root/final-run/;
+root-level player/report/stills are this visually rejected small-seal pilot.
+
+
+Final-size actual-scene case PASS,1/1,0failed/skipped,13.7639109s,
+result20261027T103211-quick, raw snapshotce6ddb5dd4df1db82ae55705205a5525129b43eadd1d81ff297c236c33030ea0.
+Includes exact64native-pixel projection plus floor/texture/padding/gap/fixed-frame,
+all opacity levels/error/painted hold/stats/carry into Captain/terminal exclusion.
+The other5earlier cases remain byte-for-byte unchanged, and input/clocks/lifecycle
+source has not changed. Same-source final QA build requested with the existing
+endless scenario solely to retain its immutable player before native verification;
+external adapter returns before any broad server browser profile.
+
+
+### Final acceptance complete; integration checkpoint
+
+Final ce6ddb5d QA/repeated builder103545 PASS,33/33immutable downloaded files match.
+Native player4fe249aa7e98cbfb, Edge156.0.4314.42/GTX1650Ti/ANGLE D3D11/1280x720:
+184real-input checks PASS,0runtime exceptions/provider reads/writes. No source
+change after the qualified final-size case/build; later edits are documentation.
+Six unique focused cases are qualified: the final-size actual-scene case reran,
+the other5earlier passes remain applicable. All requested input/lifecycle/stat
+checks and real normal/Captain entries passed. No broader profile was launched.
+
+Final output source scopes declared before inspection:
+- complete.webm16.234-28.871s: complete death/rest/partial/Pause/error/READY/
+  completion/normal summon and live combat;316/316frames,315/315pairs inspected.
+- complete.webm69.267-75.704s: complete elite death/READY/Captain summon/live entry,
+  ending with explicit Pause;161/161frames,160/160pairs inspected.
+All21contact sheets viewed, original320x180 world pixels, including preceding-page
+boundary frames. No retiming/interpolation or dropped held frames. Source-selected
+and exported counts match exactly. Each frames.json now records direct inspection
+and findings for every frame/next transition; review-ledger.json records all ranges,
+sheets and inspected counts. Clip/frame SHA256 verified. Normal native ready and
+partial stills also viewed. No original asset build/loop animation was reproduced;
+source reference is the directly inspected static final frame.
+
+PASS: floor anchor/full authored PNG with no procedural marks, steady idle, whole
+circle progress/reset, compact fixed complete-word frame, stable cream instruction,
+fully charged painted hold before one charcoal cover, circle into existing smoke,
+whole opponent/shadow, circle gone and full combat tray restored before play.
+The ring uses natural source width64world pixels and16pixel floor foreshortening;
+its floor perspective is intentional, without modifying the PNG's shapes/colors.
+Existing visible300ms preview timing proof is reused; video frame counts do not
+replace runtime timing assertions. No performance/whole-game/source-motion-match claim.
+
+Local Windows FFmpeg export helpers stalled on child startup; only exact task
+processes were stopped, and the same immutable videos were exported using existing
+/usr/bin/ffmpeg and ffprobe on fly-server, without installing tools. Counts above
+come from that export. One Opus source packet-header warning, nonfatal; output clips
+fully decode. No task audio change or new audio-fidelity claim. Final clips/frames/
+ledger are under final-run/review-output/. Original small-circle pilot remains
+separate at evidence-root and is explicitly visually rejected.
+
+Acceptance verified before integration. Preserve final evidence/selected source ZIP
+for review/reproduction; cleanup condition: user no longer needs these receipts.
+Task-created bsk/Orca asset tabs and native browser sessions are closed. No owned
+Editor/browser/server remains. Shared runner/toolchain/cache and other tasks remain.
+Only the clean task worktree/local branch will be removed after verified remote
+integration; remote feature branch and canonical runner results remain preserved.
+
+
+Final diff hygiene strips only five trailing spaces after empty YAML values in the
+new texture importer meta (indices/mipmapLimitGroupName/userData/bundle fields).
+No GUID, importer value, script, PNG or other runtime input changed from the
+qualified ce6ddb5d source; no runtime rerun for this semantic no-op. Original and
+clean meta lines compare equal after rstrip and the original bytes are retained
+with final evidence. Git diff --check is required before commit.

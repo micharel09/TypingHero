@@ -62,6 +62,7 @@ public class TypingManager : MonoBehaviour
     [SerializeField] Color completedColor = new Color(.44f, .66f, .62f, 1);
     Color currentColor, nextColor, thirdColor;
     bool readyPrompt;
+    ReadyPromptLayout readyLayout;
     internal event Action<int, bool> ReadyInputChanged;
     Action readyComplete;
     int readyFrame;
@@ -83,6 +84,7 @@ public class TypingManager : MonoBehaviour
 
     internal void BeginReady(Action onReady)
     {
+        readyLayout?.Restore();
         readyPrompt = true;
         readyComplete = onReady;
         readyFrame = Time.frameCount;
@@ -91,8 +93,9 @@ public class TypingManager : MonoBehaviour
         next = third = "";
         slideRemaining = errorRemaining = introStartRemaining = 0;
         introPreview = false;
-        if (countdownSlider) countdownSlider.gameObject.SetActive(false);
+        readyLayout = new ReadyPromptLayout(rail, wordText, nextWordText, countdownSlider, referencePixel);
         Paint();
+        readyLayout.Show();
         ReadyInputChanged?.Invoke(0, false);
     }
 
@@ -100,6 +103,9 @@ public class TypingManager : MonoBehaviour
     {
         readyComplete = null;
         readyPrompt = false;
+        readyLayout?.Restore();
+        readyLayout = null;
+        Paint();
     }
 
     float DT => GamePauseController.InputBlocked || (CombatSession.Finished && !readyPrompt) ? 0 : Time.unscaledDeltaTime;
@@ -228,6 +234,7 @@ public class TypingManager : MonoBehaviour
         float offset = 66 * Mathf.Pow(slideRemaining / .1f, 3);
         Place(wordText, readyPrompt ? rail.rect.width / (2 * referencePixel) : 29 + offset);
         Place(nextWordText, 95 + offset); Place(thirdWordText, 161 + offset);
+        if (readyPrompt) readyLayout?.PlaceWord();
     }
 
     void Place(TextMeshProUGUI label, float center)

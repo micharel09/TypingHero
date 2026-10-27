@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Retained by DungeonSession: no reference to a dead opponent is needed by the seal.
@@ -15,7 +14,6 @@ internal sealed class ReadyRitualPresentation : MonoBehaviour
     Action continuation;
     Vector3 foot;
     Vector3 groundFoot, projectedCenter;
-    readonly Vector3[] markOffsets = new Vector3[5];
     Camera view;
     Plane floor;
     float projectedHeight;
@@ -24,13 +22,12 @@ internal sealed class ReadyRitualPresentation : MonoBehaviour
     bool chargePainted;
     double? previous;
     Material material;
+    Material sealMaterial;
     SfxEvent completionCue;
-    ParticleSystem ring, marks;
-    Mesh ringMesh, markMesh;
+    ParticleSystem ring;
+    Mesh ringMesh;
     readonly float[] levels = new float[5];
     readonly ParticleSystem.Particle[] ringParticle = new ParticleSystem.Particle[1];
-    readonly ParticleSystem.Particle[] markParticles = new ParticleSystem.Particle[5];
-    static readonly Color Amber = new Color32(229, 190, 114, 255);
     const string Channel = "duel-seal";
     static float Ease(float t) { t = Mathf.Clamp01(t); return t * t * (3 - 2 * t); }
 
@@ -58,23 +55,17 @@ internal sealed class ReadyRitualPresentation : MonoBehaviour
         phase = Phase.Arriving; elapsed = 0; previous = null; progress = 0;
         Array.Clear(levels, 0, levels.Length);
         typing.ReadyInputChanged += InputChanged;
-        ringMesh = CreateRingMesh();
-        markMesh = DuelIntroPresentation.CreateSmokeMesh();
-        // Inverse-project the pixel drawing onto the actual floor. A view-facing
-        // ellipse puts its lower half underground and loses two of the five marks.
+        ringMesh = CreateSealQuad();
+        sealMaterial = new Material(material) { mainTexture = Resources.Load<Texture2D>("ReadySeal/MagicCircle") };
+        // Inverse-project the asset quad onto the actual floor. A view-facing
+        // drawing would put its lower half underground.
         floor = new Plane(Vector3.up, groundFoot);
         projectedCenter = view.WorldToViewportPoint(groundFoot);
         projectedHeight = view.WorldToViewportPoint(groundFoot + Vector3.up * height).y - projectedCenter.y;
-        PlaceOnFloor(ringMesh, new Vector2(.9f, .22f));
-        PlaceOnFloor(markMesh, new Vector2(.09f, .07f));
-        for (int i = 0; i < markOffsets.Length; i++)
-        {
-            float angle = (90 - i * 72) * Mathf.Deg2Rad;
-            markOffsets[i] = FloorOffset(Mathf.Round(Mathf.Cos(angle) * 18) * .02f,
-                Mathf.Round(Mathf.Sin(angle) * 4) * .02f);
-        }
-        ring = CreateParticles("Summoning ring", ringMesh, 1);
-        marks = CreateParticles("Five seal marks", markMesh, 5);
+        // Keep the source's horizontal pixel detail at the world's native resolution.
+        // The existing floor foreshortening remains approximately one quarter height.
+        PlaceOnFloor(ringMesh, new Vector2(64, 16) / (projectedHeight * arena.WorldTexture.height));
+        ring = CreateParticles("Magic circle seal", ringMesh, 1);
         Paint(0);
     }
     ParticleSystem CreateParticles(string title, Mesh mesh, int count)
@@ -89,7 +80,7 @@ internal sealed class ReadyRitualPresentation : MonoBehaviour
         var emission = effect.emission; emission.enabled = false;
         var shape = effect.shape; shape.enabled = false;
         var renderer = effect.GetComponent<ParticleSystemRenderer>();
-        renderer.sharedMaterial = material;
+        renderer.sharedMaterial = sealMaterial;
         renderer.renderMode = ParticleSystemRenderMode.Mesh;
         renderer.alignment = ParticleSystemRenderSpace.World;
         renderer.mesh = mesh; renderer.sortingOrder = -1;
@@ -110,24 +101,15 @@ internal sealed class ReadyRitualPresentation : MonoBehaviour
             vertices[i] = FloorOffset(vertices[i].x * size.x, vertices[i].y * size.y);
         mesh.vertices = vertices; mesh.RecalculateNormals(); mesh.RecalculateBounds();
     }
-    static Mesh CreateRingMesh()
+    static Mesh CreateSealQuad()
     {
-        // A raster ellipse made of solid cells. No antialiasing, rotating UV or new texture.
-        var vertices = new List<Vector3>(); var indices = new List<int>();
-        for (int y = 0; y < 11; y++)
-        for (int x = 0; x < 45; x++)
-        {
-            float px = (x - 22) / 22.5f, py = (y - 5) / 5.5f;
-            float outer = px * px + py * py;
-            float inner = px * px / (.91f * .91f) + py * py / (.64f * .64f);
-            if (outer > 1 || inner < 1) continue;
-            int v = vertices.Count;
-            float left = x / 45f - .5f, bottom = y / 11f - .5f;
-            vertices.Add(new Vector3(left, bottom, 0)); vertices.Add(new Vector3(left, bottom + 1f / 11, 0));
-            vertices.Add(new Vector3(left + 1f / 45, bottom + 1f / 11, 0)); vertices.Add(new Vector3(left + 1f / 45, bottom, 0));
-            indices.AddRange(new[] { v, v + 1, v + 2, v, v + 2, v + 3 });
-        }
-        var mesh = new Mesh { name = "Pixel summoning ellipse", vertices = vertices.ToArray(), triangles = indices.ToArray() };
+        var mesh = new Mesh {
+            name = "Magic circle floor quad",
+            vertices = new[] { new Vector3(-.5f, -.5f, 0), new Vector3(-.5f, .5f, 0),
+                new Vector3(.5f, .5f, 0), new Vector3(.5f, -.5f, 0) },
+            uv = new[] { Vector2.zero, Vector2.up, Vector2.one, Vector2.right },
+            triangles = new[] { 0, 1, 2, 0, 2, 3 }
+        };
         mesh.RecalculateNormals(); mesh.RecalculateBounds(); return mesh;
     }
     void InputChanged(int count, bool error)
@@ -185,17 +167,13 @@ internal sealed class ReadyRitualPresentation : MonoBehaviour
     }
     void Paint(float opacity)
     {
-        if (!ring || !marks) return;
-        float breath = BrowserMotion.Reduced || phase != Phase.Waiting ? 0 : .06f * Mathf.Sin(elapsed * Mathf.PI * 2 / 1.6f);
-        Color color = Amber; color.a = opacity * (.44f + breath);
+        if (!ring) return;
+        float charge = 0;
+        foreach (float level in levels) charge += level / levels.Length;
+        Color color = Color.white;
+        color.a = opacity * Mathf.Lerp(.24f, 1, charge);
         ringParticle[0] = Particle(groundFoot, Vector3.one, color);
         ring.SetParticles(ringParticle, 1);
-        for (int i = 0; i < markParticles.Length; i++)
-        {
-            color.a = opacity * Mathf.Lerp(.24f + breath, 1, levels[i]);
-            markParticles[i] = Particle(groundFoot + markOffsets[i], Vector3.one, color);
-        }
-        marks.SetParticles(markParticles, markParticles.Length);
     }
     static ParticleSystem.Particle Particle(Vector3 position, Vector3 size, Color color)
         => new ParticleSystem.Particle { position = position, startSize3D = size, startColor = color,
@@ -225,10 +203,9 @@ internal sealed class ReadyRitualPresentation : MonoBehaviour
         if (active && arena) arena.EnvironmentPresentationGain = savedGain;
         if (SfxPlayer.I) SfxPlayer.I.FadeOutChannel(transform, Channel, 0);
         if (ring) { ring.gameObject.SetActive(false); Destroy(ring.gameObject); }
-        if (marks) { marks.gameObject.SetActive(false); Destroy(marks.gameObject); }
         if (ringMesh) Destroy(ringMesh);
-        if (markMesh) Destroy(markMesh);
-        ring = marks = null; ringMesh = markMesh = null;
+        if (sealMaterial) Destroy(sealMaterial);
+        ring = null; ringMesh = null; sealMaterial = null;
     }
     void OnDisable()
     {

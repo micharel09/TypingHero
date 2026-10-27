@@ -2,22 +2,28 @@
 
 - After the completed death animation, a session-owned amber pixel seal fades in
   with environment gain1 to .85 over240ms. Actors and HUD retain their brightness.
-  READY is centered in the existing tray; rest remains unlimited, Enter is inert.
-- Five clockwise marks charge80ms per correct letter; errors reset the word and
-  fade marks120ms. Idle opacity breathes over1.6s; reduced motion removes the breath.
+  READY is centered in a compact borrowed pixel frame (native8px horizontal/4px
+  vertical padding around the complete word), with a steady cream
+  TYPE READY TO CONTINUE label 6px above it. Rest remains unlimited, Enter is inert.
+- The original64x64 Magic circle build frame11 by a-small-smart-potato replaces
+  the procedural ring/marks. Native PNG colors and structure are preserved on a
+  floor quad; Point/Clamp, no mipmaps/compression. Whole-ring alpha rises over80ms
+  per correct letter (.24 waiting, then.392/.544/.696/.848/1); errors reset the word
+  and alpha in120ms. No breathing, rotation or looping motion.
   Batched/case-insensitive input shares ProcessInput and never rewards combat stats.
-- Full READY locks letters immediately. The fully painted five marks anchor a180ms
+- Full READY locks letters immediately. The fully painted circle anchors a180ms
   hold and one existing-clip low whoosh through SfxPlayer/preferences, then one
   Continue. Duel-only charcoal fade200ms leads to existing smoke200-600ms and
   intact enemy/shadow344ms; seal fades out by600ms. The first word still receives
   at least300ms of actually visible preview before combat.
-- Cached spawn foot/height outlive the dead enemy. Private pixel meshes lie15mm
-  above the floor with a projected.9H x .22H footprint; the camera and sprites remain.
-  Pause/focus freeze clocks/progress. Menu/Restart cancel callback, cue and meshes,
+- Cached spawn foot/height outlive the dead enemy. The private textured quad lies15mm
+  above the floor with a64x16native-world-pixel quad footprint; the camera and sprites remain.
+  Pause/focus freeze clocks/progress. Menu/Restart cancel callback, cue and quad/material,
   restore environment gain independently of Slayer. Tutorial/terminal victory remain.
-- Final-floor Unity4/4 behavior tests, strict QA/repeat build and178native real-input
-  checks pass; all496frames/494transitions of normal/Captain clips directly reviewed.
-  Receipts in [the existing checkpoint](../plans/duel-intro.md).
+- Asset/prompt follow-up:6/6 scoped cases pass, final64px geometry case rechecked;
+  strict QA/repeat build and184native checks pass. All477frames/475transitions
+  of normal/Captain scopes directly inspected. Historical procedural-seal receipts remain separate
+  in [the existing checkpoint](../plans/duel-intro.md).
 
 ## Duel opening (2026-10-26)
 

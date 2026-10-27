@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Reflection;
 using NUnit.Framework;
+using TMPro;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -72,29 +74,70 @@ public sealed class ReadyRitualTests
         Assert.That(Field<Vector3>(ritual, "foot"), Is.EqualTo(foot));
         Assert.That(camera.EnvironmentPresentationGain, Is.EqualTo(.85f).Within(.0001f));
         var ring = Field<ParticleSystem>(ritual, "ring");
-        var markSystem = Field<ParticleSystem>(ritual, "marks");
-        var particles = new ParticleSystem.Particle[5];
-        Assert.That(markSystem.GetParticles(particles), Is.EqualTo(5));
-        foreach (var particle in particles)
-            Assert.That(particle.position.y, Is.EqualTo(world.environment.position.y + .015f).Within(.00001f), "Every mark sits above the floor");
+        var particles = new ParticleSystem.Particle[1];
+        Assert.That(ritual.GetComponentsInChildren<ParticleSystem>().Length, Is.EqualTo(1), "No procedural marks remain");
+        Assert.That(ring.GetComponent<ParticleSystemRenderer>().sharedMaterial.mainTexture,
+            Is.SameAs(Resources.Load<Texture2D>("ReadySeal/MagicCircle")));
+        var texture = Resources.Load<Texture2D>("ReadySeal/MagicCircle");
+        Assert.That(texture.width, Is.EqualTo(64)); Assert.That(texture.height, Is.EqualTo(64));
+        Assert.That(texture.filterMode, Is.EqualTo(FilterMode.Point));
+        Assert.That(texture.wrapMode, Is.EqualTo(TextureWrapMode.Clamp));
+        Assert.That(texture.mipmapCount, Is.EqualTo(1));
+        ring.GetParticles(particles);
+        Assert.That(particles[0].position.y, Is.EqualTo(world.environment.position.y + .015f).Within(.00001f));
         foreach (var vertex in Field<Mesh>(ritual, "ringMesh").vertices)
             Assert.That(vertex.y, Is.Zero.Within(.00001f), "The entire seal is on the ground plane");
         Assert.That(ring.particleCount, Is.EqualTo(1));
+        var quad = Field<Mesh>(ritual, "ringMesh");
+        var view = camera.GetComponent<Camera>();
+        var left = view.WorldToViewportPoint(quad.vertices[0] + Field<Vector3>(ritual, "groundFoot"));
+        var right = view.WorldToViewportPoint(quad.vertices[3] + Field<Vector3>(ritual, "groundFoot"));
+        Assert.That((right.x - left.x) * camera.WorldTexture.width, Is.EqualTo(64f).Within(.01f));
+        var rail = Field<RectTransform>(typing, "rail");
+        var word = Field<TextMeshProUGUI>(typing, "wordText");
+        var tray = (RectTransform)rail.parent;
+        var frame = (RectTransform)tray.Find("ReadyFrame");
+        var prompt = tray.Find("ReadyInstruction").GetComponent<TextMeshProUGUI>();
+        var fixedSize = frame.sizeDelta;
+        word.ForceMeshUpdate();
+        Assert.That(fixedSize.x - word.textBounds.size.x, Is.InRange(48f, 51f));
+        Assert.That(fixedSize.y - word.textBounds.size.y, Is.InRange(24f, 27f));
+        Assert.That(frame.anchoredPosition, Is.EqualTo(Vector2.zero));
+        Assert.That(prompt.text, Is.EqualTo("TYPE READY TO CONTINUE"));
+        Assert.That(prompt.font, Is.SameAs(Field<TextMeshProUGUI>(typing, "nextWordText").font));
+        Assert.That(prompt.rectTransform.anchoredPosition.y - prompt.rectTransform.rect.height / 2 - fixedSize.y / 2,
+            Is.EqualTo(18f).Within(.001f));
+        Assert.That(tray.GetComponent<Image>().enabled, Is.False);
         int hp = Find<PlayerHealth>().Current, score = ScoreSystem.I.Score, letters = CombatSession.I.Letters;
         float seconds = CombatSession.I.Seconds;
         typing.ProcessInput("\r\n"); yield return new WaitForSecondsRealtime(.2f);
         Assert.That(Word, Is.EqualTo("READY")); Assert.That(session.Transitioning, Is.False);
+        for (int i = 0; i < 4; i++)
+        {
+            typing.ProcessInput("read"[i].ToString());
+            yield return new WaitForSecondsRealtime(.09f);
+            ring.GetParticles(particles);
+            Assert.That(particles[0].startColor.a / 255f,
+                Is.EqualTo(Mathf.Lerp(.24f, 1, (i + 1) / 5f)).Within(.006f));
+        }
+        typing.ProcessInput("x"); yield return new WaitForSecondsRealtime(.13f);
+        ring.GetParticles(particles);
+        Assert.That(particles[0].startColor.a / 255f, Is.EqualTo(.24f).Within(.006f));
         typing.ProcessInput("re"); yield return new WaitForSecondsRealtime(.09f);
         var levels = Field<float[]>(ritual, "levels");
         Assert.That(levels[0], Is.EqualTo(1)); Assert.That(levels[1], Is.EqualTo(1)); Assert.That(levels[2], Is.Zero);
+        Assert.That(frame.sizeDelta, Is.EqualTo(fixedSize), "Typing must not shrink the frame");
         EndlessDuel.I.EnemyDeathFinished(); Assert.That(Word, Is.EqualTo("ADY"));
         typing.ProcessInput("x"); yield return new WaitForSecondsRealtime(.13f);
         Assert.That(levels, Is.All.EqualTo(0)); Assert.That(Word, Is.EqualTo("READY"));
+        Assert.That(frame.sizeDelta, Is.EqualTo(fixedSize), "Error must not resize the frame");
         typing.ProcessInput("rEaDyREADYmore");
         Assert.That(session.Transitioning, Is.False);
         yield return Until(() => Field<bool>(ritual, "chargePainted"));
         double painted = Time.realtimeSinceStartupAsDouble;
         Assert.That(levels, Is.All.EqualTo(1));
+        ring.GetParticles(particles);
+        Assert.That(particles[0].startColor.a, Is.EqualTo(255));
         typing.ProcessInput("READY");
         Assert.That(CombatSession.I.Letters, Is.EqualTo(letters));
         Assert.That(CombatSession.I.Seconds, Is.EqualTo(seconds));
@@ -109,6 +152,12 @@ public sealed class ReadyRitualTests
         yield return DungeonSceneTestFlow.Wait();
         Assert.That(session.World, Is.SameAs(world));
         Assert.That(EndlessDuel.I.Run.Slot, Is.EqualTo(5));
+        var combatTyping = Find<TypingManager>();
+        var combatRail = Field<RectTransform>(combatTyping, "rail");
+        Assert.That(combatRail.parent.Find("ReadyFrame"), Is.Null);
+        Assert.That(combatRail.parent.Find("ReadyInstruction"), Is.Null);
+        Assert.That(combatRail.parent.GetComponent<Image>().enabled, Is.True);
+        Assert.That(Field<Slider>(combatTyping, "countdownSlider").gameObject.activeSelf, Is.True);
         Assert.That(Find<PlayerHealth>().Current, Is.EqualTo(hp));
         Assert.That(ScoreSystem.I.Score, Is.EqualTo(score));
         Assert.That(CombatSession.I.Letters, Is.EqualTo(letters));
