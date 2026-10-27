@@ -1,3 +1,132 @@
+## Locked candidate for formal ABBA (2026-10-27)
+
+- A source85bd1706 (merged origin/main29c03285, before QA optimization), input
+  `393836e29131942b1a1149a90a23e62572a773f83f55fd09d014b079303ce9de`;
+  immutable QA20261027T043436-webgl, local `qa-ready-A/player`.
+- B is the current bridge-cache implementation, input
+  `4348c84a804c9fa4d47d2dca8c5f19505779501c89a058b82749781544408043`;
+  immutable QA20261027T045018-webgl, local `qa-ready-B/player`.
+  A/B build and strict repeat PASS;33player hashes each match server;472serialized
+  files byte-identical;2493game inputs unchanged, only2QA files differ.
+- Ready actual-scene carry/reset/pause test20261027T044828-quick:1/1PASS.
+ 20Node contracts PASS. Final published snapshots match original serializer for
+ 1233/1233observed frames in `ready-B-verify`, including parry/Slayer. That
+  verification run has a retained6.99s hitch and is NOT a performance pass.
+- Comparison-OFF final diagnostics: normal74.83195FPS,p9517.730ms,min1s73;
+  parry74.80227FPS,p9515.755ms,min1s71;0hitches>50ms each,valid continuity/focus/
+  mode/actor coverage,0exceptions/provider reads/writes. Observer median
+  1.260/1.325ms. Do not substitute these diagnostics for official acceptance.
+- Freeze `locked-harness-v3`, `run_perf.py` and `final-harness-manifest.json`
+  under the durable root below. Formal configuration explicitly disables video,
+  legacy timing/GPU wrappers, query interception and serialization verification.
+  The pre-measurement schema check requires192slots and records allfield names.
+- Next: official normal A1,B1,B2,A2, then parry A1,B1,B2,A2,15s warmup and >=60s
+  valid combat each; no parallel build/capture/diagnostic. Every B must pass
+  FPS>=59,p95<=18ms,min1s>=40 with valid coverage. Keep failures and do not rerun
+  only to replace poor numbers. No formal block has run yet.
+- Production build/exclusion/input smoke, final six-encounter+fixture capture,
+  direct1x/.25x playback and selected100%frame/transition review remain pending.
+  Do not merge main or publish itch until all required gates pass.
+- Durable evidence root:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-final`.
+  Task worktree/branch remain retained; current scratch registration is listed
+  below. Previous candidates, rejected/failed runs and source/manifest history
+  remain intact. Update this section with official outcomes before handoff.
+
+## Live performance continuation (2026-10-27; not accepted)
+
+- Continue task branch from `67862b56`, origin/main `83d6e0a6`; original dirty main
+  checkout untouched. Durable root:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-final`.
+- Three fresh changing-canvas controls pass consecutively on Chromium153.0.8010.12,
+  actual GTX1650Ti/ANGLE D3D11, foreground1280x720, 3s warmup +12s measurement:
+  FPS74.556/74.972/74.808; p9513.6/13.5/13.7ms; minimum1s windows73/75/74.
+  Persistent task profile/consumer registration used; prior browser-closure cause
+  remains unknown. No power/GPU/driver or user-application changes.
+- Baseline A: merged source `67862b56`, canonical input
+  `07394443ea5f4a96d93f500d7d10b62ac7688fbab31a976dd313062e12f96083`.
+  Ubuntu2022.3.25f1 result20261027T023958-webgl: fresh private Library (no reused
+  assemblies/import state), QA build and strict repeated builder PASS;
+  281mapped/0missing. Player `5b1df9a17132c7c0`; all33downloaded hashes match server.
+- A diagnostics (5s warmup, normal10s/parry20s; not formal ABBA):
+
+| Run | Valid | Combat ms | FPS | p95 ms | Minimum1s FPS | >50ms hitches | Thresholds |
+|---|---|---:|---:|---:|---:|---:|---|
+| normal detailed | yes | 10108.80 | 74.687 | 15.945 | 72 | 0 | pass |
+| normal minimal | yes | 10018.21 | 73.965 | 17.845 | 69 | 0 | pass |
+| parry detailed | yes | 20242.20 | 66.495 | 24.440 | 47 | 2 | fail |
+| parry detailed repeat | yes | 20207.22 | 70.767 | 21.070 | 61 | 0 | fail |
+
+- All have correct mode/actor/focus/continuity coverage, no runtime exceptions or
+  provider traffic. Parry runs include actual counter increases and Slayer
+  intervals. A remains failed; diagnostic execution status does not mean FPS pass.
+- Observer cost recurs in both valid parry runs (roughly3-4ms median). Source
+  serializes192particle slots every frame, including unchanged stale slots.
+  Candidate changes only QA-only encoding: cache particle JSON when no slot was
+  written; preserve all192slots/values and full public schema. Added optional
+  diagnostic per-frame exact-string comparison with the original JsonUtility
+  serializer; formal measurements must keep this expensive comparison OFF.
+- 20 Node contracts pass, including bridge verification flag, independent snapshots,
+  requiring every observed frame checked, final verification-error closure and
+  preserving input-error precedence. Actual candidate equality/performance remains
+  UNVERIFIED until new player checks. Initial external adapter BOM syntax failure
+  occurred before any browser run and was corrected; failure log retained.
+- Candidate build in flight: local20261027T033918-build-candidate, remote
+  20261027T034011-webgl, canonical input
+  `48ee6606e19a948e6cabb88b8857c027d5013d8233a21b3b4fae5f321a56113f`.
+  Harness-only verification-count/error-report refinements postdate snapshot;
+  they do not change player inputs. `locked-harness` keeps original A diagnostic
+  tools; `locked-harness-v2` is the new pre-ABBA harness. Never overwrite old traces.
+- Candidate1 result20261027T034011-webgl builds/repeat PASS;33player hashes match.
+  `verify-parry` compares1584final JSONs against the original serializer over1583
+  observed frames, including real parry/Slayer; no mismatch/exception. With the
+  comparison OFF, normal64.015FPS/p9525.935ms/min57 and parry64.319FPS/p9526.055ms/
+  min46 both fail. Do not accept/merge this candidate. Its source is retained in
+  `candidate1-source`, player in `qa-candidate`, and all raw traces are preserved.
+- Contemporary A normal (same v2 harness) also fails p95:70.658FPS/20.25ms/min58.
+  This shows variation relative to early A, not a specific OS/driver cause.
+  Three post-candidate controls pass:74.722/74.306/74.973FPS, p9513.5/13.7/13.6ms,
+  min73/69/75. Keep all failures; never select only favorable runs.
+- Candidate2 replaces managed full-payload string composition with a private
+  bridge cache. C# sends full192slot payload only on first observation or any
+  slot write. JS reparses the cached string per frame, preserving independent
+  nested snapshots and the original public schema/stale values. Diagnostic
+  verification compares the FINAL published object with the original complete
+  JsonUtility JSON on every observed frame, rather than only an intermediate.
+ 20Node contracts pass for changed/stale slots, mutation independence, exact
+  snapshot/verification failures, all-frame count and error/closure precedence.
+- Candidate2 build in flight: local20261027T041113-build-candidate, canonical input
+  `854b2f7a163461be791327c5cd785e9b57a568716dfd00f582d697abe79f64fb`.
+  `locked-harness-v3` is the next frozen pre-ABBA harness; no formal block has run.
+  Download/hash and actual final-object equality/normal/parry diagnostics remain
+  pending. Retain or reject based on results before formal ABBA.
+- Main advanced to29c03285 (Ready result caption; same Continue callback).
+  Merged as85bd1706; conflict resolution preserves this task's performance history
+  plus upstream Ready/Slayer completion documentation. Dirty observer changes
+  remain outside that merge commit.85bd1706 is the NEW pre-optimization A source.
+- Pre-Ready candidate2 result20261027T041159-webgl builds/repeat PASS, but is NOT
+  used for runtime/FPS acceptance after this source change. Keep its immutable
+  server player/log and canonical854b2f7a input as a superseded compile result.
+- `build_ready_pair.py` is running sequentially: A build from revision85bd1706,
+  then exactly EndlessTests.ActualSceneCarriesHealthAndStatisticsAndResetsCombatBindings,
+  then B build from current observer worktree. First source input is
+  `393836e29131942b1a1149a90a23e62572a773f83f55fd09d014b079303ce9de`,
+  local20261027T043352-build-baseline. The authoritative local pipeline stage
+  receipts are in `ready-pair-stages.json`; unified exec session99880 was active.
+- A initial local serialized-copy gap was corrected from the immutable server:
+  all472A/C1serialized files are byte-identical. Initial partial-copy comparison
+  is retained separately. All33Aplayer hashes had already matched, so no player
+  or FPS data changed in this correction.
+- Formal eight-run ABBA, final production smoke/exclusion, six-encounter/Berserker
+  capture and direct final playback/frame review remain pending. Main is not
+  integrated; no itch publication is authorized.
+- Registered scratch task `dungeon-fps-final-20261027`, path
+  `E:/CodexTemp/TypingHero/dungeon-fps-final-20261027-b1b741bbdc43`; deliverables
+  already outside temp. Complete scratch only after all consumers exit. Private
+  Ubuntu build/cache root `/data/typinghero-game-loop/tasks/dungeon-performance-20261027-final`
+  is retained for continuing builds; shared private license HOME is referenced,
+  never copied or changed by cleanup.
+
 ## Fresh continuation ? environment gate blocked (2026-10-27)
 
 - Resumed clean task HEAD `3ee8b7a5`; verified origin micharel09/TypingHero,

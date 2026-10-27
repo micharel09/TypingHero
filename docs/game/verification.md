@@ -1,3 +1,26 @@
+## Dungeon QA observer encoding (2026-10-27; formal acceptance pending)
+
+QA-only particle encoding sends all192slots on first observation and whenever
+ObserveRenderParry writes a slot. The bridge reparses its cached JSON each frame;
+public nested snapshots remain independent, including stale slots. No game,
+render, asset, animation, input, timing or provider source changed.
+Diagnostic `PERF_VERIFY=1` compares the final published object with the original
+complete JsonUtility snapshot every frame; it is disabled in formal FPS runs.
+20Node contracts PASS, including changed/stale slots, independent mutation,
+verification failures, required frame count and error/closure precedence.
+
+After merging main29c03285 as85bd1706, Ubuntu2022.3.25f1 A043436/B045018 QA builds
+and strict repeated builders PASS.33downloaded hashes per player match server;
+472serialized files match byte-for-byte;2493game inputs are unchanged except the
+2QA observer files. Ready carry/reset test044828-quick passes1/1.
+Final-object equality:1233/1233observed frames PASS in real parry/Slayer.
+Comparison-OFF diagnostics pass: normal74.832FPS/p9517.730ms/min1s73;
+parry74.802FPS/p9515.755ms/min1s71,0hitches>50ms,correct coverage and0exceptions.
+These are short diagnostics, not ABBA or production performance acceptance.
+Rejected managed-string candidate and historical failures remain retained.
+Formal ABBA, production checks, final capture/playback/frame review and main
+integration remain pending. See [checkpoint](../plans/combat-hanging-light.md).
+
 ## Automation frame buffer and dungeon performance diagnostics (2026-10-26)
 
 `TYPINGHERO_AUTOMATION` alone contains the fixed16384-row Unity LateUpdate buffer.

@@ -121,14 +121,15 @@ test('coverage uses measured combat intervals and consecutive combat counters', 
 });
 
 // In-memory scenario fixture: no browser, player build or output artifacts.
-async function runFixture({ final = 'valid', inputError = false, saveError = false } = {}) {
+async function runFixture({ final = 'valid', inputError = false, saveError = false, verification } = {}) {
   const timing = require('./frame_timing.cjs'), scenario = require('./dungeon_performance.cjs');
   const original = { install: timing.install, drain: timing.drain, write: fs.writeFileSync,
-    output: process.env.PERF_OUTPUT, diagnostic: process.env.PERF_DIAGNOSTIC, mode: process.env.PERF_MODE };
+    output: process.env.PERF_OUTPUT, diagnostic: process.env.PERF_DIAGNOSTIC, mode: process.env.PERF_MODE, verify: process.env.PERF_VERIFY };
   let calls = 0, closed = false, saved, error;
   const report = { build: 'fixture', graphics: { renderer: 'NVIDIA GTX 1650 Ti' } };
   process.env.PERF_OUTPUT = require('node:path').resolve('unused-in-memory-fixture');
   process.env.PERF_DIAGNOSTIC = '1'; process.env.PERF_MODE = 'normal';
+  process.env.PERF_VERIFY = verification === undefined ? '0' : '1';
   timing.install = async () => {};
   timing.drain = async () => {
     calls++;
@@ -145,6 +146,10 @@ async function runFixture({ final = 'valid', inputError = false, saveError = fal
   try {
     await scenario({ report,
       session: async () => ({ context: { close: async () => { closed = true; } }, page: { evaluate: async () => {
+        if (calls >= 2 && verification !== undefined) {
+          if (verification === 'error') throw Error('verification fixture');
+          return verification;
+        }
         if (inputError && calls) throw Error('input fixture');
         return 1000;
       } } }),
@@ -155,7 +160,7 @@ async function runFixture({ final = 'valid', inputError = false, saveError = fal
   } catch (e) { error = e; }
   finally {
     timing.install = original.install; timing.drain = original.drain; fs.writeFileSync = original.write;
-    for (const [key, value] of [['PERF_OUTPUT', original.output], ['PERF_DIAGNOSTIC', original.diagnostic], ['PERF_MODE', original.mode]]) {
+    for (const [key, value] of [['PERF_OUTPUT', original.output], ['PERF_DIAGNOSTIC', original.diagnostic], ['PERF_MODE', original.mode], ['PERF_VERIFY', original.verify]]) {
       if (value === undefined) delete process.env[key]; else process.env[key] = value;
     }
   }
@@ -183,4 +188,68 @@ test('save failure still closes context and reports failure', async () => {
   const r = await runFixture({ saveError: true });
   assert.match(r.error.message, /save fixture/); assert.equal(r.closed, true);
   assert.equal(r.report.timing.status, 'failed'); assert.match(r.report.timing.saveError, /save fixture/);
+});
+
+
+test('serialization verification preserves full changed and stale particle snapshots', () => {
+  let bridge;
+  const cache = { json: '' };
+  const window = { addEventListener() {}, typingHeroPerfOptions: { enabled: true, detailed: true, verifyCombatSerialization: true } };
+  const document = { addEventListener() {}, hasFocus: () => true, visibilityState: 'visible' };
+  vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname, '../../Assets/Automation/Plugins/WebGL/TypingHeroQA.jslib'), 'utf8'),
+    { LibraryManager: { library: {} }, mergeInto: (_, value) => { bridge = value; }, window, document,
+      performance: { now: () => 123 }, Float64Array, UTF8ToString: value => value, TypingHeroCombatParticles: cache });
+  assert.deepEqual(Array.from(bridge.TypingHeroQA_CombatFrame__deps), ['$TypingHeroCombatParticles']);
+  assert.equal(bridge.TypingHeroQA_FrameBegin(), 7);
+  const expected = { frame: 7, parrySampleCount: 0,
+    parryParticles: Array.from({ length: 192 }, (_, i) => ({ identity: i, age: i / 10, position: { x: i, y: 0, z: 1 }, color: { r: i, g: 0, b: 255, a: 128 } })) };
+  const core = () => JSON.stringify({ ...expected, parryParticles: [] });
+  const payload = () => JSON.stringify({ parryParticles: expected.parryParticles });
+  bridge.TypingHeroQA_CombatFrame(core(), payload(), JSON.stringify(expected));
+  const first = window.typingHeroCombatFrame;
+  assert.deepEqual(JSON.parse(JSON.stringify(first)), expected);
+  assert.equal(window.typingHeroCombatSerializationChecks, 1);
+  first.parryParticles[191].position.x = -1;
+  window.typingHeroPerfOptions.verifyCombatSerialization = false;
+  assert.equal(bridge.TypingHeroQA_FrameBegin(), 3);
+  expected.frame++;
+  bridge.TypingHeroQA_CombatFrame(core(), null, null);
+  assert.deepEqual(JSON.parse(JSON.stringify(window.typingHeroCombatFrame)), expected);
+  assert.equal(window.typingHeroCombatSerializationChecks, 1);
+  expected.frame++; expected.parrySampleCount = 1;
+  expected.parryParticles[0].age = 0.25; expected.parryParticles[0].position.y = 9;
+  bridge.TypingHeroQA_CombatFrame(core(), payload(), JSON.stringify(expected));
+  assert.deepEqual(JSON.parse(JSON.stringify(window.typingHeroCombatFrame)), expected);
+  expected.frame++; expected.parrySampleCount = 0;
+  bridge.TypingHeroQA_CombatFrame(core(), null, JSON.stringify(expected));
+  assert.deepEqual(JSON.parse(JSON.stringify(window.typingHeroCombatFrame)), expected);
+  assert.equal(window.typingHeroCombatSerializationChecks, 3);
+  const last = window.typingHeroCombatFrame;
+  assert.throws(() => bridge.TypingHeroQA_CombatFrame(core(), null, '{}'), /differs from original/);
+  assert.equal(window.typingHeroCombatFrame, last);
+  assert.equal(window.typingHeroCombatSerializationChecks, 3);
+  assert.equal(window.typingHeroCombatFramePublishedAt, 123);
+});
+
+test('verification requires every observed frame and receipt/report retain the count', async () => {
+  const missing = await runFixture({ verification: 601 });
+  assert.match(missing.error.message, /every observed frame/);
+  assert.equal(missing.closed, true); assert.equal(missing.saved.status, 'failed');
+  const complete = await runFixture({ verification: 602 });
+  assert.equal(complete.error, undefined); assert.equal(complete.closed, true);
+  assert.equal(complete.saved.serializationChecks, 602);
+  assert.equal(complete.report.timing.serializationChecks, 602);
+});
+
+test('verification observation error keeps the trace and closes context', async () => {
+  const r = await runFixture({ verification: 'error' });
+  assert.match(r.error.message, /verification fixture/);
+  assert.equal(r.saved.status, 'failed'); assert.equal(r.closed, true);
+  assert.equal(r.report.timing.serializationCheckError, r.saved.serializationCheckError);
+});
+
+test('input error takes precedence over verification observation error', async () => {
+  const r = await runFixture({ inputError: true, verification: 'error' });
+  assert.match(r.error.message, /input fixture/); assert.equal(r.closed, true);
+  assert.match(r.saved.serializationCheckError, /verification fixture/);
 });

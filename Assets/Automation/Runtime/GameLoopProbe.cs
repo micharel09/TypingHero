@@ -160,6 +160,33 @@ public sealed class GameLoopProbe : MonoBehaviour
             Mathf.Max(.001f, animator.speed * info.speed * info.speedMultiplier);
     }
     readonly CombatRenderFrame combatFrame = new CombatRenderFrame();
+    [Serializable] sealed class ParryPayload { public ParryParticleFrame[] parryParticles; }
+    readonly ParryPayload parryPayload = new ParryPayload();
+    bool parryPayloadSent, verifyCombatSerialization;
+#if UNITY_WEBGL && !UNITY_EDITOR
+    void PublishCombatSnapshot()
+    {
+        // Slots are written only when a physical sample exists. Send all192 slots
+        // on each change, including the unchanged tail, and on the first frame.
+        string payload = null;
+        if (!parryPayloadSent || combatFrame.parrySampleCount > 0)
+        {
+            parryPayload.parryParticles = renderParryParticles;
+            payload = JsonUtility.ToJson(parryPayload);
+            parryPayloadSent = true;
+        }
+        var particles = combatFrame.parryParticles;
+        string json;
+        try
+        {
+            combatFrame.parryParticles = Array.Empty<ParryParticleFrame>();
+            json = JsonUtility.ToJson(combatFrame);
+        }
+        finally { combatFrame.parryParticles = particles; }
+        TypingHeroQA_CombatFrame(json, payload,
+            verifyCombatSerialization ? JsonUtility.ToJson(combatFrame) : null);
+    }
+#endif
     void PublishCombatFrame()
     {
         if (!combatHitbox) combatHitbox = FindObjectOfType<PlayerWeaponHitbox>();
@@ -244,7 +271,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         combatFrame.sparkCel = spark && spark.GetComponent<SpriteRenderer>().sprite ? spark.GetComponent<SpriteRenderer>().sprite.name : "";
         combatFrame.sparkPoint = spark ? spark.transform.position : default;
 #if UNITY_WEBGL && !UNITY_EDITOR
-        TypingHeroQA_CombatFrame(JsonUtility.ToJson(combatFrame));
+        PublishCombatSnapshot();
 #endif
     }
     PlayerHealth performancePlayer;
@@ -255,6 +282,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         int mode = TypingHeroQA_FrameBegin();
+        verifyCombatSerialization = (mode & 4) != 0;
         try
         {
             if ((mode & 1) != 0) ObserveDetailedFrame();
@@ -584,7 +612,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         => target == null ? fallback : (T)target.GetType().GetField(field, Fields).GetValue(target);
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")] static extern void TypingHeroQA_Publish(string json);
-    [DllImport("__Internal")] static extern void TypingHeroQA_CombatFrame(string json);
+    [DllImport("__Internal")] static extern void TypingHeroQA_CombatFrame(string json, string particles, string reference);
     [DllImport("__Internal")] static extern int TypingHeroQA_FrameBegin();
     [DllImport("__Internal")] static extern void TypingHeroQA_FrameEnd(int frame, float deltaMs, int flags, int parries, float timeScale);
 #endif

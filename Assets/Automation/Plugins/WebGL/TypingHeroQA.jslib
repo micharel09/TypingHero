@@ -26,7 +26,7 @@ mergeInto(LibraryManager.library, {
       window["typingHeroPerfBuffer"] = buffer;
     }
     buffer.begin = performance.now();
-    return options.detailed === false ? 2 : 3;
+    return (options.detailed === false ? 2 : 3) | (options.verifyCombatSerialization ? 4 : 0);
   },
   TypingHeroQA_FrameEnd: function (frame, deltaMs, flags, parries, timeScale) {
     var buffer = window["typingHeroPerfBuffer"];
@@ -45,8 +45,20 @@ mergeInto(LibraryManager.library, {
     data[offset + 9] = document.visibilityState === "visible" ? 1 : 0;
     data[offset + 10] = buffer.epoch;
   },
-  TypingHeroQA_CombatFrame: function (json) {
-    window["typingHeroCombatFrame"] = Object.freeze(JSON.parse(UTF8ToString(json)));
+  $TypingHeroCombatParticles: { json: "" },
+  TypingHeroQA_CombatFrame__deps: ["$TypingHeroCombatParticles"],
+  TypingHeroQA_CombatFrame: function (json, particles, reference) {
+    if (particles) TypingHeroCombatParticles.json = UTF8ToString(particles);
+    var frame = JSON.parse(UTF8ToString(json));
+    // Parse the cached string afresh: consumers retain independent nested values,
+    // exactly as with the former full-frame JSON.parse, including stale slots.
+    frame.parryParticles = JSON.parse(TypingHeroCombatParticles.json).parryParticles;
+    if (reference) {
+      if (JSON.stringify(frame) !== JSON.stringify(JSON.parse(UTF8ToString(reference))))
+        throw new Error("Combat observer JSON differs from original serializer");
+      window["typingHeroCombatSerializationChecks"] = (window["typingHeroCombatSerializationChecks"] || 0) + 1;
+    }
+    window["typingHeroCombatFrame"] = Object.freeze(frame);
     window["typingHeroCombatFramePublishedAt"] = performance.now();
   },
   TypingHeroQA_Publish: function (json) {

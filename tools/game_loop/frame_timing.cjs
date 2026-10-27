@@ -53,9 +53,9 @@ function summarize(rows, dropped = 0) {
 
 // Installs browser clocks separately from Unity's frame markers. GPU queries are
 // diagnostic only and bounded; unavailable/disjoint results stay null.
-async function install(page, { detailed = true, gpu = false, counters = false } = {}) {
-  await page.evaluate(({ detailed, gpu, counters }) => {
-    window.typingHeroPerfOptions = { enabled: true, detailed };
+async function install(page, { detailed = true, gpu = false, counters = false, verifyCombatSerialization = false } = {}) {
+  await page.evaluate(({ detailed, gpu, counters, verifyCombatSerialization }) => {
+    window.typingHeroPerfOptions = { enabled: true, detailed, verifyCombatSerialization };
     const trace = window.typingHeroBrowserFrames = { raf: [], callbacks: [], gpu: [], events: [] };
     for (const name of ['focus', 'blur', 'visibilitychange'])
       (name === 'visibilitychange' ? document : window).addEventListener(name, () =>
@@ -99,7 +99,7 @@ async function install(page, { detailed = true, gpu = false, counters = false } 
         if (query) { gl.endQuery(ext.TIME_ELAPSED_EXT); pending.push({ query, at: begin, unityFrames }); }
       }
     });
-  }, { detailed, gpu, counters });
+  }, { detailed, gpu, counters, verifyCombatSerialization });
 }
 async function drain(page) {
   return page.evaluate(() => {

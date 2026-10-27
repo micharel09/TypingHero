@@ -18,7 +18,7 @@ module.exports = async (api, browser) => {
   const receipt = { mode, diagnostic, warmup, duration, build: report.build, batches: [], states: [], actions: [] };
   receipt.driverHashes = Object.fromEntries([__filename, require.resolve('./frame_timing.cjs')].map(file =>
     [path.basename(file), crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')]));
-  receipt.options = { detailed: process.env.PERF_DETAILED !== '0', gpu: diagnostic && process.env.PERF_GPU === '1', counters: true };
+  receipt.options = { detailed: process.env.PERF_DETAILED !== '0', gpu: diagnostic && process.env.PERF_GPU === '1', counters: true, verifyCombatSerialization: diagnostic && process.env.PERF_VERIFY === '1' };
   const rows = []; let dropped = 0, begun, collectAt, lastDrain = 0, lastTyped = 0, lastParry = 0;
   const filename = path.join(output, 'frames.json');
   const save = () => fs.writeFileSync(filename, JSON.stringify(receipt));
@@ -106,9 +106,14 @@ module.exports = async (api, browser) => {
     // Drain exactly once before the verdict, retaining the original input error.
     try { if (begun) await collect(); }
     catch (error) { receipt.finalDrainError = String(error.stack); failure ??= error; }
+    if (begun && receipt.options.verifyCombatSerialization) {
+      try { receipt.serializationChecks = await page.evaluate(() => window.typingHeroCombatSerializationChecks || 0); }
+      catch (error) { receipt.serializationCheckError = String(error.stack); failure ??= error; }
+    }
     summarize();
     if (!failure) {
       try {
+        if (receipt.options.verifyCombatSerialization) check(rows.length > 0 && receipt.serializationChecks >= rows.length, 'original serializer checked for every observed frame');
         check(receipt.summary.valid, 'continuous, visible, focused Unity frame coverage');
         check(receipt.summary.combatMs >= duration, 'required combat duration');
         const coverage = receipt.summary.coverage;
@@ -123,7 +128,8 @@ module.exports = async (api, browser) => {
       receipt.saveError = String(error.stack); failure ??= error; receipt.status = 'failed';
     } finally {
       report.timing = { ...receipt.summary, status: receipt.status, diagnostic, file: filename,
-        error: receipt.error, finalDrainError: receipt.finalDrainError, saveError: receipt.saveError };
+        error: receipt.error, finalDrainError: receipt.finalDrainError, saveError: receipt.saveError,
+        serializationChecks: receipt.serializationChecks, serializationCheckError: receipt.serializationCheckError };
       try { await context.close(); } catch (error) { failure ??= error; }
     }
   }
