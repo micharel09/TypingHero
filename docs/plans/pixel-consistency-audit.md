@@ -4302,3 +4302,37 @@ runtime và playback giữ trạng thái chưa kiểm chứng.
 | sword-shield/Die / source + mirror X | F10 / GIF F23 | 100 ms | Khiên nằm thấp, núm lệch phải; kiếm/xương nằm sát đáy. | → F11: Khiên gần nằm phẳng, viền trái đầy đủ, núm sáng mỏng. | `sword-shield-Die-10-final.png` |
 | sword-shield/Die / source + mirror X | F11 / GIF F24 | 100 ms | Khiên gần nằm phẳng, viền trái đầy đủ, núm sáng mỏng. | → F12: Giữ khiên phẳng cạnh đống xương, viền trái đủ; trạng thái kết thúc. | `sword-shield-Die-11-final.png` |
 | sword-shield/Die / source + mirror X | F12 / GIF F25 | 100 ms | Giữ khiên phẳng cạnh đống xương, viền trái đủ; trạng thái kết thúc. | Không loop; death→cleanup runtime chưa kiểm. | `sword-shield-Die-12-final.png` |
+
+
+### Checkpoint ??i so?t glyph v? reflection tr?n R0
+
+Checkpoint t?i li?u `9df678c53c3d2d60f5330082ba6f51284cca9c79` ?? push l?n
+main v? fetch x?c minh ancestry. B?n s?a A1 `1a2b6d4` ?? commit/push ri?ng tr?n
+`micharel09/a1-shield-ownership`; ch?a t?ch h?p asset l?n main.
+
+M?u kh?ng QA `??ng_?9` ?? ?i?u ki?n t?i d?ng **ch? cho input v? HUD reading**.
+?? x?c minh l?i hai PNG theo receipt R: `name-input.png` SHA256
+`8ac98d8feb4d6c70ed6001954ae645dc25bf96f6850b04712e1e91c6129b9206`,
+`hud-reading.png` SHA256
+`ea39e60671f2edabaef836fc8b3219f2cfbe21229618d80cb60bfd7895f9186d`.
+Hai probe tr?n b?n kh?ng QA ??u undefined. ?? m? l?i full native v? crop nearest
+4?: ?? ?, ?/d?u n?ng, g?ch d??i, ?/d?u s?c v? 9; kh?ng th?y ? vu?ng/c?t glyph.
+
+??i chi?u Git object t? R66749da1 t?i A1/1a2b6d4: MainMenu.unity,
+SampleScene.unity, to?n tree Assets/Art/UI, Assets/Scripts/UI, Packages v?
+ProjectSettings ??u ??ng nh?t. Delta m?i n?m ? world/READY v? asset skeleton;
+kh?ng ??i text, font/material ho?c canvas input/HUD c?a m?u n?y. UI l? overlay;
+kh?ng d?ng ?nh world c? k?t lu?n lighting m?i. B?n sao ?nh v? receipt c?ng Git
+object n?m ngo?i CodexTemp t?i th? m?c b?ng ch?ng A1 `glyph-reuse/`.
+??y l? t?i d?ng b?ng ch?ng ?? ?i?u ki?n, kh?ng ph?i phi?n input m?i tr?n A1.
+
+Reflection: scene R0 `DungeonWorld.unity`, GameObject WetStoneReflection
+fileID1632546716 v?n `m_IsActive: 0`; A1 kh?ng ??i scene ho?c caller rendering.
+Kh?ng c? thay ??i task b?t reflection. V? baseline serialized v?n inactive,
+reflection kh?ng ?p d?ng cho nh?m ki?m n?y; kh?ng coi ?? l? k?t qu? ch?t l??ng
+reflection khi b?t. Runtime READY/animation/rendering kh?c ti?p t?c ch?a ki?m.
+
+B?n build ??u d?ng map th? ?? d?ng, gi? log v? manifest ri?ng; b?n cu?i ?ang
+build v?i snapshot2543file SHA256
+`4a4538ea2810cf81b226ebb47d98da8217fa6ffda6f30dd5c07fe2f04f8f203d`.
+Kh?ng chuy?n tr?ng th?i A1/runtime theo vi?c build ?ang ch?y.
