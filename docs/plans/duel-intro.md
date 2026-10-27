@@ -643,3 +643,43 @@ normalization receipt, native driver/report, all33sheets and per-frame review le
 Video is25fps encoded output with original timing; no engine-FPS/human-reading or
 sub-frame visual guarantee is claimed. No broader profiles or itch publication.
 Integration/cleanup receipt is written there after remote verification.
+
+### Production release of approved 300ms fix (2026-10-27)
+
+Release source is pinned to `3bfb4f3f32398ed72d97106ebb662031ffe3592c`,
+not the dirty original checkout or later main changes. Ubuntu Unity2022.3.25f1
+production20261027T020231 finished successfully on the identical90a0a643 snapshot.
+Only1708 serialized-text CRLF normalizations were applied in the private build
+copy; asset/font protections remain enabled. Reused Unity10/10 and QA125 checks
+from the unchanged input; no new full profile, gameplay/API change or sprite claim.
+
+Production ZIP33files/14,811,142bytes, root index and CRC PASS; qa=false, decoded
+JS/WASM/data exclude the QA markers. SHA256
+`902f8a2f880279e8173e3937ae0d90de9c6c4c71b5e678de9fbe6ddd32b2b888`.
+Original production HTML at1280x720, Edge156/GTX1650Ti/D3D11: menu, name/Play,
+Start Battle confirmation, real words/combo/Slayer, Pause/Resume, first duel win,
+Continue to Double Strike, Restart to Swordsman/score0 and Menu inspected. No
+exceptions, console errors, fixture reads/writes or external requests in the
+complete final local smoke. Driver failures/interruptions remain separately saved.
+
+Public https://micharel09.itch.io/clackblade now selects upload20065750. Actual
+public Run game loads the menu without added cache queries. Same public CDN player
+was opened directly for real canvas input because nested iframe screenshot refs
+were unavailable: Play/guide/combat/Pause/Menu inspected. No captured exceptions
+or provider requests; Firebase blocking enabled. Worker targets are outside
+BrowserSkill capture, and public smoke did not finish/submit a run. All32non-HTML
+payloads match:29exact original bytes,3exact decoded Brotli contents. Index differs
+only by the standard static.itch.io/htmlgame.js integration script.
+
+First candidate20065590 returned cached404 for Build payloads. Source ZIP was
+valid; cause remains unproven. Restored19943928, waited for Save and verified old
+public menu. Only then retried the identical ZIP as20065750, allowing first-time
+processing to finish before public Run game. itch.io superseded the failed candidate on the same-filename retry; it is no longer
+listed, and no delete action was issued. Previous19943928 remains hidden/retained
+for rollback. Fresh final editor confirms playable20065750 and identical unrelated
+form fields/gallery; theme untouched. Remote receipt/resource cleanup are recorded
+in the release manifest.
+
+Artifact, clips, compact reports and SHA manifests are retained outside CodexTemp
+at `D:/Projects/TypingHero-evidence/release-preview-300ms-20261027/`.
+Canonical receipt: [release manifest](../../marketing/itch-io/preview-300ms-release-20261027.json).
