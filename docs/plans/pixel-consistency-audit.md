@@ -4598,3 +4598,39 @@ The lethal Die-to-cleanup portion has not yet been visually reviewed. A1 runtime
 acceptance, asset integration, remaining animation matrix, final manifest and
 human 1x/0.25x playback remain open. No gameplay or rendering source was changed
 for this documentation checkpoint.
+
+### Axe lethal collapse review checkpoint (partial handoff)
+
+Continued the same predeclared axe interval without dropping held frames:
+**204/326 frames and 203/325 consecutive transitions directly inspected**,
+global F1391-F1594. This supersedes the earlier 135/134 progress count;
+122 frames/122 pairs remain in this axe interval. Shield254/253 and sword507/506
+remain uninspected. Tutorial remains a separate completed 26/25 static-reading
+review; these catalogs are not merged with historical R0 evidence.
+
+Ledger: `runtime-review-current/current-handoff-scopes-clips.json` under
+`D:/Projects/TypingHero-evidence/a1-shield-ownership`.
+Rechecked all **408 native/central-nearest PNG hashes** for inspected frames
+and all **24 additional right-pan PNG hashes**, F1571-F1594. Right pans preserve
+nearest4x and extend beyond the central crop to include outward bone fragments;
+these are supplementary images, not additional encoded frames. Original PTS,
+held durations and the predeclared full interval remain unchanged.
+
+Final hit completes at F1559, score1577 x1.5; the enemy HP empties at F1560.
+The skull separates, ribs/pelvis descend, and the axe tips right, then settles
+from steep to shallow diagonal and horizontal at the floor. Skull settling
+includes a small final lift; outward bone particles descend and fade separately.
+No shield-shaped remnant is observed on the axe in these inspected frames.
+Player attack recovery returns to upright idle with grounded feet; scarf motion
+continues. Player HP remains full and the our/end tray stays held during Die.
+Source blade streak diagnostics remain applicable to the end-recovery poses.
+
+Native floor contrast is low and WebM compression limits exact shaft/texel
+comparison; source/maps and the already inspected 72 lit previews remain separate
+supporting evidence. Exact trace-to-cel association and supplements for earlier
+flash/crescent occlusions remain open. F1595 onward, cleanup, Magic Circle,
+READY and next-combat visual review are still pending. This partial interval
+does not satisfy A1 runtime acceptance or authorize an acceptance label.
+A1 assets remain on the task branch; human1x/0.25x playback, the remaining
+animation matrix and final manifest remain open. No new proven game bug or
+gameplay/rendering source change is established by this checkpoint.
