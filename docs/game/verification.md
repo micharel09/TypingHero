@@ -4116,3 +4116,27 @@ repeat and fixture-completion markers and no fixture exception. Both attempts
 restore scene/meta byte-for-byte and remove the fixture/meta. Prior44/44ImpactVfx
 receipt is reused; no new gameplay-suite claim. Exact evidence and cleanup are in
 [the adapter checkpoint](../plans/windows-unity-adapter.md#workspace-lock-and-deferred-cancellation-follow-up-2026-10-25).
+
+
+## Score/combo inside existing frame (2026-10-27)
+
+- CombatR7Build retains the294x66frame at(333,9), reuses all scene IDs/bindings,
+  and puts score/multiplier on one centered row with decay(15,51,264,6) inside.
+  ScoreUI_ComboHUD fits long totals while preserving all digits and the1.2x pulse.
+- Unity2022.3.25f1/fly-server: focused145616-quick3/3 PASS for combo expiry,
+  award-tier pulse and initial geometry; final Cobblestone48/42geometry fixture
+  151518-quick1/1 PASS,48cases through20digits and maxpulse. Final fixture replaces
+  the initial R7-font geometry evidence. Strict repeated builder145930-webgl PASS;
+  all1121original scene IDs retained; only six affected serialized blocks imported.
+- Same immutable player native Edge156.0.4314.42 / Playwright1.62.1 / Intel UHD
+  D3D11:72/72 PASS in51.406s; all33player files match server hashes. Real input
+  covers x1, normal combo, maxx3, parry renewal, expiry/timeout, pause/resume,
+  restart and natural Slayer exit. Direct views at1280x720/400x300 confirm text/
+  decay remain in frame, HP/tray preserved and popup beside character.
+- Zero exceptions/provider writes; fixture/external-network isolation enabled.
+  Timer geometry assertion permits existing one-update renewal latency, measured
+  as slider.987436 versus remaining2.5s at31.41ms. Scoring/timing/tints/pulse code
+  unchanged. No full suite/stress/soak/production/itch.io release.
+- Build input882e88e000ed107ebdb465d8659812bf95b7b107eaf20f0938a3d8d52f51aee1;
+  final-font test inputb3044b14fb58292db85872307ac09b5cb6b80068ea371c00291e38010d6f4b24.
+  Failed driver pilots, source normalization and receipts: [checkpoint](../plans/score-hud-cluster.md).

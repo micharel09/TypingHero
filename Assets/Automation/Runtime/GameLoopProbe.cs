@@ -466,7 +466,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public Vector2 enemyBodyCenterScreen;
         public float playerHpFill, enemyHpFill, staminaFill;
         public Rect[] wordRects, wordGlyphRects;
-        public Rect popupRect, decayRect;
+        public Rect popupRect, decayRect, scoreFrameRect;
         public Vector2 popupPoint;
         public float popupAlpha, popupFont, popupElapsed;
         public int popupCount, popupId;
@@ -825,6 +825,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 staminaColor = staminaSlider ? staminaSlider.fillRect.GetComponent<Image>().color : default,
                 popupPoint = ScreenRect(Read<RectTransform>(layout, "popupAnchor")).position,
                 decayRect = ScreenRect(Read<RectTransform>(layout, "comboDecay")),
+                scoreFrameRect = ScreenRect(scoreLabel ? scoreLabel.rectTransform.parent as RectTransform : null),
                 playerStatusRect = ScreenRect(playerStatus), enemyStatusRect = ScreenRect(enemyStatus),
                 typography = ObserveTypography(),
                 scoreGlyphRect = GlyphRect(scoreLabel), comboGlyphRect = GlyphRect(multiplierLabel),
