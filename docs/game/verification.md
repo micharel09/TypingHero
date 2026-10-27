@@ -1,3 +1,14 @@
+## Dungeon final gate status (2026-10-27; NOT accepted)
+
+Formal ABBA candidate fails; deferred-decoding follow-up also fails and was
+rejected.20 Node contracts pass on the retained observer. Latest main66749da1
+changes inter-duel input from Enter to typing READY; all earlier dungeon players
+and measurements predate that change. A new source lock, QA build and related
+acceptance gates are required. Upstream READY verification below is historical
+source evidence, not an integrated dungeon acceptance result. Production smoke,
+final playback/frame review and main integration remain unverified.
+See [checkpoint](../plans/combat-hanging-light.md) for raw results and evidence.
+
 ## Dungeon QA observer encoding (2026-10-27; formal acceptance pending)
 
 QA-only particle encoding sends all192slots on first observation and whenever
@@ -55,6 +66,52 @@ inputs equal QA. Six decoded HTML/JS/WASM/data payloads exclude existing and new
 QA/performance markers in UTF8/UTF16LE, with a QA positive control. This is bridge
 exclusion evidence, not a production performance/playtest pass.
 Exact metrics, retained traces and pending gates: [lighting checkpoint](../plans/combat-hanging-light.md).
+## Typed READY replaces the inter-duel card (2026-10-27; verified)
+
+- Supersedes the Ready-button entry below. Nonterminal enemy death finishes before
+  READY appears in the existing current-word slot; next/third text is blank and
+  countdown is hidden. EndlessDuel no longer creates the CLEARED/HP/NEXT overlay
+  or an action button. Full case-insensitive typing invokes the existing Continue
+  callback once; Enter does nothing. Wrong letters reset the word using existing
+  feedback, without word/character reward events. Waiting is unlimited.
+- Unity2022.3.25f1/fly-server: initial scoped typing/Endless/intro regression
+  **28/28 PASS**,0failed/skipped,64.063s, snapshot
+  `e7e7e18c8c56afeef3c3eef6b194fa96f4f27acda93880d72ba03589c8fc1f61`,
+  result `/data/typinghero-game-loop/results/20261027T050430-quick`.
+- The final modal/closing-frame guard and its real modal fixture are additionally
+  verified by **3/3 PASS**,0failed/skipped,16.738s, on final snapshot
+  `5d608c594235e04ee9269608ec9f97c765a277845c12a70b74ea7749627263d1`.
+  Ready tests cover activation-frame rejection, full/partial/wrong/case-insensitive
+  input, Enter, one callback/trailing batch discard, timer exclusion, modal and
+  Pause/Resume. The actual scene covers no overlay, post-death wait, unchanged
+  HP/score/time/letter stats, next-duel carry/reset and duplicate death callbacks.
+  Other initial regressions are reused: the only later runtime delta guards Ready
+  input while a modal owns it; ordinary combat/tutorial/intro code is unchanged.
+- Final result `/data/typinghero-game-loop/results/20261027T052010-quick`.
+  Same-input Unity QA build/repeat-builder PASS, immutable33-file player at
+  `/data/typinghero-game-loop/results/20261027T053003-webgl/player`; all downloaded
+  payload hashes match. Native player `3d4a99d4211d7887`, Edge156.0.4314.42,
+  GTX1650Ti/ANGLE D3D11,1280x720: **17/17 real-input checks PASS**,0exceptions or
+  provider reads/writes. Includes two actual duel wins, held death-frame R,
+  indefinite wait/Enter, partial/wrong/case-insensitive READY, Pause/Resume, held
+  Y/Enter across the short intro, unchanged HP/score/letters and Menu from Ready.
+- Direct still inspection: READY alone in the original typing tray, no result/NEXT
+  card or button/countdown, blank next/third labels; typed RE uses existing teal
+  feedback; new enemy/normal words and full timer restore after transition.
+  Requested MP4 is21.499s, trimmed realtime recording with no retiming. No new
+  sprite-animation, whole-game/performance, production build or itch release claim.
+- First native pilot stopped on existing QA telemetry emitting Infinity for empty
+  TMP glyph bounds. The external observer normalizes nonfinite geometry to null
+  only in QA JSON (111messages on the accepted run); immutable player/gameplay
+  bytes are untouched. Second pilot missed the short intro while a sequential
+  multi-key automation action continued beyond it. Final observer starts before
+  the last key and tests held Y/Enter; same-batch trailing text is covered offline.
+  Failed reports/videos are retained separately, not counted as accepted runs.
+- Source mapping and acceptance: [intro checkpoint](../plans/duel-intro.md).
+  External scripts/XML/receipts and the requested preview are retained at
+  D:/Projects/TypingHero-evidence/type-ready-20261027/ for review/reproduction.
+  Shared-runner load/import and lock waits are recorded as environment delays,
+  not test failures or passes.
 
 ## Ready between duels (2026-10-27)
 
