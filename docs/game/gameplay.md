@@ -1,28 +1,37 @@
 ## Duel opening (2026-10-26)
 
 - Play lifts the menu and covers the transition250ms. After gameplay initialization,
-  arena/player reveal0-450ms, settle to850ms, low opponent-foot dust850-1350ms
-  (120ms feet-up body reveal1040-1160ms; child shadow follows completion),
-  opponent name/DUEL x/6 at1350ms, then
-  title exit/status HUD1850-2000ms, word tray1930-2100ms, then a stationary
-  first-word preview2100-2400ms. Camera stays at the existing gameplay framing.
-- Continue/retry:200ms cover plus scene load, then200ms reveal,400ms spawn and
-  body reveal340-460ms after loading. Title enters460-540ms, holds to750ms,
-  exits750-900ms; status HUD540-640ms, word tray620-700ms, stationary preview
-  700-1000ms. Existing result/Continue controls and total1200ms are retained.
-- Menu and cover close upward together, then the cover opens upward with eased
-  endpoints. Spawn dust uses three staggered low clusters. Opponent name moves
-  6reference pixels in/out, snapped to the game pixel grid. Status HUD fades before
-  the word tray by80ms. The word is fully readable for300ms before combat,
-  using existing next-word ink; at handoff it returns to active ink over100ms.
-  Accepted letters immediately take over with normal correct/error feedback.
+  arena/player reveal0-450ms, settle to850ms, smoke850-1350ms. The whole opponent
+  pose and contact shadow appear together at1030ms, inside the smoke peak.
+  Stationary name30/DUEL18 enters1100-1200ms, holds until1720ms and fades to1880ms.
+  Status HUD1820-1980ms, word tray1900-2100ms, readable preview2100-2400ms.
+- Continue/retry:200ms cover plus scene load, reveal0-200ms, smoke200-600ms,
+  intact opponent/shadow at344ms. Title enters420-500ms, holds until680ms,
+  fades to820ms. Status HUD540-640ms, word tray620-700ms, preview700-1000ms;
+  total1200ms plus loading is retained. Enemy HUD name stays hidden while the
+  introduction label is visible, then fades80ms independently from HP/guard/score.
+- Private smoke uses18fixed stepped elliptical mesh puffs (6core/12edge), existing
+  StrikeAccent material and collider-relative scale: about1.1H wide/up to.55H tall.
+  Low anticipationu0-.12, rise.12-.28, peak.28-.48 (100ms full/80ms short), intact
+  revealu.36, then low sideways dissipation. No feet-up shader clip or label motion.
+  Camera stays at the authored gameplay framing; cover/menu retain eased upward
+  motion. First word stays stationary/readable300ms with existing next-word ink,
+  returning to active ink100ms at handoff. Accepted letters supersede that cue.
+  Reading time starts after LateUpdate first applies full tray alpha, independently
+  from the timeline. A frame that reveals the word contributes no preceding time;
+  later stalls while the word remains visible count. Combat waits for both timeline
+  end and at least300ms of visible, unfrozen preview. A late reveal extends only the
+  final preview; smooth totals retain the authored rhythm within frame timing.
   No countdown or first-key timer gate is added.
 - Gameplay locks before gate activation. Words/configuration initialize normally;
   HP, typing timer, score, letters and combat time cannot advance in the intro.
   At handoff the first attack is scheduled500ms after combat opens; typing/parry
   discard intro input, block the handoff frame and require held keys to be released.
-- Pause/focus loss hold intro and dust; Resume continues from the same milestone.
-  Menu/restart cover the displayed state before cancellation/cleanup. Tutorial
+- Pause/focus loss hold intro, particles and UI alpha, including the final handoff
+  frame; Resume continues from the same milestone. Accumulated preview reading
+  time is preserved; the clock reanchors on Resume and excludes the paused interval.
+  Menu/restart keep the paused heading suppressed through navigation/cover and
+  restore renderer/HUD alpha while destroying the private mesh/effect. Tutorial
   uses only the arena reveal and retains its own reading lock/confirmation.
 - Existing dust rendering and heading typography are reused. Strike dust prefab,
   character sprites/clips, camera/world ownership, difficulty, providers and saved
@@ -30,17 +39,21 @@
 - Shared Audio_Services preserves its music component when menu SFX already exists.
   Same-cue music keeps its live voice/playhead across Continue/retry. Music stopped
   by the existing Menu action can start on the next Play. No new cue or clip is added.
-- Restrained motion follow-up:10distinct scoped Unity cases pass across targeted
-  runs; final WebGL46e41cff3648399e passes61real-input assertions at1280x720.
-  All572frame visits/567adjacent pairs in five complete intro/lifecycle scopes
-  were directly reviewed with original25fps video timing/held frames retained.
-  Pause canvas remains above the cover throughout focus loss. The earlier draft
-  dust slab and clipped Pause menu were rejected and corrected before acceptance;
-  [checkpoint and evidence scope](../plans/duel-intro.md).
-- First-word preparation follow-up: final Ubuntu Unity6/6 scoped cases and WebGL
-  7a03a2f20df3f514/native65checks pass. All566frame visits/561pairs in five complete
-  output scopes directly reviewed. Navigation cover now occludes the live heading;
-  full/short preview, pause/focus, held input, Menu cleanup and tutorial pass.
+- Actual300ms guard follow-up: Unity10/10intro tests PASS,0fail/skip; exact raw
+  snapshot90a0a643 builds QA with strict repeat/font guards intact. Native1280x720
+  real input125checks PASS,0exceptions/provider IO; all593frames/583transitions in
+  ten affected preview/handoff/cancellation scopes directly reviewed. Includes
+  pre-alpha timeline overshoots, already-visible stalls, paused reading credit,
+  final-frame Pause and Menu/Restart during the extra wait. Runtime timestamps
+  establish the300ms minimum; encoded frame counts are visual evidence only.
+- Earlier smoke/name follow-up: final Ubuntu Unity7/7DuelIntroTests PASS,0failed/skipped;
+  exact284C#/shader/package/version inputs match the worktree. Includes actual scene
+  locks, whole-pose/shadow reveal, property-block preservation, identity exclusivity,
+  pause/focus at smoke/reveal/name/final frame, cancellation and tutorial. Final
+  WebGL/repeat builder PASS; player10a1876ff58157a5 native83checks PASS with zero
+  exceptions/provider IO at1280x720. All566video frames/561pairs in five complete
+  scopes reviewed; navigation-heading resurrection was rejected and corrected.
+  [Checkpoint](../plans/duel-intro.md).
 
 ## Reusable world lighting (2026-10-22)
 
@@ -648,13 +661,25 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Slayer contact-first presentation (2026-10-25; tests waived)
+### Slayer contact-first presentation (sweep timeline 2026-10-26)
 
 - Retain original Met.Pxl B PNG/GUIDs/center pivot and32/40reference-pixel scale.
-  Game hit uses F0/F1/F2/F3 at40/30/30/20ms; finisher60/40/30/30ms. Source preview
-  remains six-frame580ms; it is no longer the game schedule.
+  Game sequence F4/F5/F0/F1/F2/F3 uses30/40/60/45/35/30ms for hits (240ms),
+  30/40/80/55/45/30ms for finishers (280ms). F4 appears immediately; peak starts70ms.
+  Before retiring old output, a primary with the same recipient/anchor/lifetime
+  and age<70ms selects F0 instead (170/210ms). Exactly70ms selects the full sweep.
+  Age begins at0 for either start; residuals/other targets never select the mode.
+  No queue, rewind, transform animation or input/damage delay is added.
   Both Slayer B roles emit pure black#000000 independently of combo tint;
-  source alpha, residual fading, ivory body pulse, sword trail and afterimages remain.
+  source alpha, residual fading, sword trail and afterimages remain.
+- Body contrast follows the same primary decision before pool retirement. Isolated
+  hits hold ivory130ms (finisher150ms), then fade20ms. A chained F0 hit fades from
+  contact over20ms; a chained F4 hit adds another20ms flash at70ms. New contact
+  replaces the entire old schedule, including a pending peak. Pause holds age and
+  weight; lifetime change, disable and presentation/result cleanup cancel it.
+  Legacy/no-active-emitter contacts retain the existing40ms pulse. No separate
+  cadence estimator or public/serialized tuning is introduced. Scoped Unity
+  coverage is recorded in verification; final visual acceptance remains pending.
 - Slayer S1 uses combo_1_0/1/2 then combo_1_end_0..3; S2 uses combo_2_3/4/5
   then combo_2_end_0..3; S3 uses the final strike combo_3_11 then combo_3_end_0..5.
   Each has seven40ms poses, ends280ms and holds its recovered final pose; the
@@ -679,9 +704,11 @@ Full surface art, B/C and parent integration remain separate.
   Pause/reading hold presentation clocks. Results/disable/restart/unload clear them.
 - Public input/scoring/damage values/stamina/camera/audio and Slayer no-hitstop
   policy remain. Normal/parry/legacy emitters retain their routes and shared budget.
-  The original implementation waived tests; the authorized2026-10-26 continuation
-  passes20selected PlayMode cases on Ubuntu (five fixture repairs, chest geometry,
-  seven parry mappings, lifecycle/pool, damage callback capture and pause).
+  Ubuntu Unity2022.3.25f1 passes61selected PlayMode cases for the new schedule,
+  adaptive starts, lifecycle/anchor/pause and shared normal/parry/legacy routes.
+  Fresh QA build/native capture and complete frame review are recorded. Clear opening
+  sweep at1x is not established under black-body/ivory-arc occlusion; axe/shield1x
+  playback still drops/waits. Visual acceptance not achieved; main integration withheld.
   Final build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)

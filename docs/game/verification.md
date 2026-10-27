@@ -33,6 +33,127 @@ QA/performance markers in UTF8/UTF16LE, with a QA positive control. This is brid
 exclusion evidence, not a production performance/playtest pass.
 Exact metrics, retained traces and pending gates: [lighting checkpoint](../plans/combat-hanging-light.md).
 
+## Slayer B contrast follow-up (2026-10-27; user accepted visuals)
+
+Candidate51b500d adds isolated130/150ms+20ms body flash, chained F0 contact20ms,
+and chained F4 contact20ms plus peak70-90ms. Artwork, black B, anchors, scale and
+240/280ms B timing remain unchanged. New contacts replace pending flash schedules.
+Authoritative clean-source161056-webgl:81/81selected PlayMode tests pass,0failed/
+skipped,4.3771984s. QA build and strict repeated builder pass under the same private
+runner lock. Input e99fe0c1965608aa352f29498621b192d8ec655c248f241fb134080285b3978f,
+player9f1c923ff0fa800e;2495/2495input files,252C# and33/33player hashes match.
+This supersedes provisional cached74/8runs. Failed155415's foreign editor assembly
+is preserved as evidence; clean editor assembly excludes the absent ImportCapture/
+TutorialParry methods. No tutorial fallback or unrelated asset was added.
+
+Lossless VFR exporter verifies decoded pixels, every PTS/duration, ending hold,
+and video/container length. Historical301/727/314-frame clips pass export checks;
+after the concrete export correction, shield1x passes technically, axe1x still
+drops4frames. Failed reports remain intact. New capture uses only canvas
+MediaRecorder, real keys/mouse, read-only QA and provider blocking, with browser
+timestamps and driver/scenario hashes. Final1280x720 capture:0exceptions/provider
+reads/writes,1832QA samples,225observed births, all6cels/3angles,179identical pause
+pairs; sampled valid chest distance0, black RGB only. These are sampled observations.
+Requested35ms keys actually measure36.83-58.76ms (median46.8975); exact35/50/69/70/
+100/300ms decisions are covered by Unity, not claimed as runtime cadence.
+
+Final sword470/axe518/shield547frames export with exact decoded pixels, original
+PTS, every duration and final hold; durations9.465/10.539/10.792s. All six new
+technical playback rows at1x/.25x pass with0new dropped/corrupted frames and no
+waiting/stalled/focus/rate errors. Historical failed reports remain unchanged.
+Direct still review covers1535/1535frames and1532/1532pairs in declared segments;
+per-frame CSV records exposed/obscured ink. Readable peaks include axe3437-3441,
+shield4688-4691 and sword1233. Arc/Pause/dark torso obscure other portions.
+Eight of120full-start QA generations have no observed F5; nominal PTS association
+cannot prove the hidden/unsampled phases. Continuous direct motion observations
+at1x/.25x were not claimed by the agent. The user subsequently accepted the viewed
+visual result and explicitly requested integration. This closes the visual gate by
+user acceptance; hidden/unsampled-phase limitations remain recorded above.
+Evidence: E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/.
+Integrated main3bfb4f3f as d434c200: clean Unity015535-quick22/22PASS,0failed/skipped,
+46.0188525s (DuelIntroTests10 plus SlayerTransitionTests12). Input0c94ea6c matches
+2495/2495source files with no zero C# mtimes. No B input changed; prior qualified
+81/QA/native/frame/export/playback evidence is reused. No new build/capture needed.
+Source qualification and the remote integration receipt are tracked in the
+[existing checkpoint](../plans/slayer-slash-vfx.md).
+
+## Slayer B sweep timeline (2026-10-26; visual acceptance not achieved)
+
+Ubuntu Unity2022.3.25f1 filtered100329-quick:61/61Passed,0failed/skipped,
+9.4710252s, input3ddcd51aefa4f062a880f9a9c6dec1aa2af2e04713578df8e032a652c75c6976.
+Covers six original cels/timing/size/centroids, both starts/roles/all boundaries,
+35/50/69/70/100/300ms repeated contacts, target/lifetime/residual isolation,
+finisher/pool, chest poses/transforms, pause/hide/death/destroy and selected
+normal/parry/legacy consumers. Final pause-only101745-quick after removing
+verbose diagnostics:1/1Passed,0failed/skipped; other60cases' inputs unchanged.
+No full suite, stress/soak or extra viewport.
+
+Final QA101847-webgl and strict repeated builder passed. Player d13202894a63688f,
+input12eee2cd7f7fb786befbe9e0288534146bbc59ba59214f198a3f0223f955cbfc;
+33/33player hashes and2494/2494source file hashes matched. Earlier external LF
+adapter snapshots with mtime0 could reuse stale Bee assemblies and are not
+qualification evidence. Corrected adapter preserves source mtime; repo CI unchanged.
+
+Native1280x720, real keys/read-only bridge:0exceptions/provider reads/writes;
+2352combat samples, all6cels/3angles,224observed births (156full/68contact),
+all first ages0,0sampled timeline errors, max2impacts,223/223pause pairs held,
+max residual alpha0.2502. Live root-to-chest distance0 in sampled valid states;
+this does not prove visibility of the ink center.
+
+Direct frame/transition inspection: sword301/300, axe727/726, shield314/313;
+1342frames/1339pairs total, including separately reviewed axe ending frame2581.
+Black torso and ivory arc hide parts of the opening stroke (e.g. sword491,
+shield2982-3011). Peak/fragment changes are visible in some pale Hurt frames,
+but clear sweep-growth at1x is not established. Do not report visual PASS.
+Technical playback qualifies sword1x and all three0.25x rows; axe/shield1x still
+have drops/waiting. Full-buffer and codec trials did not resolve axe1x; failed
+attempts retained. Playback metrics are separate from direct motion observations.
+
+Permanent evidence: `E:/codex-data/artifacts/TypingHero/slash-b-sweep-20261026/`
+contains before/after clips, per-frame CSV, original PTS, timing/native audit,
+qualified XML/build receipt, and every failed playback report. Candidate branch
+is retained; main integration is withheld until the original visual/playback gate
+passes. [Existing checkpoint](../plans/slayer-slash-vfx.md).
+
+## Smoke-led duel intro and identity handoff (2026-10-26; verified)
+
+- Ubuntu fly-server, pinned Unity2022.3.25f1,2CPU/8GiB. Final source
+  5b897298ce34316af5a533e34f2e91ca7e20e3064aed43d50d9e3bc362cd7141:
+  7/7DuelIntroTests PASS,0failed/skipped,40.336s. Private-cache093228 build/repeated
+  builder PASS;284C#/shader/package/version inputs match afterBOM/CRLF normalization.
+- Immutable player10a1876ff58157a5:33/33files match Ubuntu. Edge156.0.4314.42,
+  Playwright1.64.1, GTX1650Ti/ANGLE D3D11,1280x720:83real-input checks PASS,
+  0exceptions/provider reads/writes, fixtures/external blocking retained. Full/short
+  intro, held letters/Space/Enter, actual duel clear/Continue, retry, Pause/Resume,
+  real window focus loss, Menu cancellation and tutorial covered. Same world10762,
+  camera11172/RT-458 throughout. Observer-only bridge; no gameplay setters.
+- All31sequential sheets directly viewed:566/566encoded frames and561/561adjacent
+  pairs across five predeclared full scopes, original25fps PTS/held frames retained.
+  Smoke anticipates intact pose/shadow, stepped lobes dissipate low, one identity
+  at a time, stationary300ms preview, no navigation-title flash or residual effect.
+  Supplementary native-size smoke/preview/cancellation images viewed. Video counts
+  are not a1:1engine-frame/performance claim. Reference evidence stays separate.
+- Earlier57-check player passed functionally but its601-frame review FAILED because
+  Menu re-showed the paused heading before cover. Final presenter suppresses it
+  through navigation; a last-frame pause now also defers combat handoff. Cold-cache
+  import timeout and two fixture observation/wait corrections are retained, without
+  counting unexecuted/failed checks as passes. No Windows Unity, full suite,
+  performance profile, production build or itch.io release.
+- Timing, exact source/reference scopes, failed drafts, final ledger and cleanup:
+  [intro checkpoint](../plans/duel-intro.md), evidence root
+  E:/CodexTemp/TypingHero/intro-smoke-rhythm/. Remote integration receipt is recorded
+  there after verification; unrelated chest-anchor evidence qualifications remain.
+
+
+## Shared chest anchor for Slayer B (acceptance reopened 2026-10-26)
+
+The playback-quality audit supersedes the earlier overall acceptance claim.
+Geometry and scoped visible-frame observations remain reusable, but completion
+of a video does not establish playback quality. New reports separate callback
+count, presented-frame metadata, decode quality, focus/visibility and elapsed
+time from direct motion observations. Acceptance remains **unverified** until
+all six playback passes qualify technically and have direct observer findings.
+See [the playback audit](../plans/slayer-slash-vfx.md#playback-quality-audit-2026-10-26).
 ## Shared chest anchor for Slayer B (final2026-10-26)
 
 Ubuntu Unity2022.3.25f1:20unique scoped PlayMode cases PASS,0failed/skipped
@@ -57,7 +178,9 @@ observed damage; no unexplained parry fault or gameplay timing change.
 
 Direct final output review789/789frames,786/786pairs; original variable PTS and
 held frames preserved, including one explicitly declared extra ending hold. Three
-MP4 clips match source frame counts/PTS and finish Edge playback at1x/0.25x.
+MP4 clips match source frame counts/PTS. Historical Edge playback reached the
+end at1x/0.25x, but its callback counter was mislabeled `presentedFrames` and
+its driver did not qualify interruptions, focus or dropped frames.
 B center often merges into black torso/shield or is covered by ivory arcs/Pause UI;
 those exact frame limits are recorded separately from centroid/root measurements.
 No full suite, stress/soak, multiple viewports, full raw-video review, performance

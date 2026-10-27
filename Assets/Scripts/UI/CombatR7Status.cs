@@ -15,6 +15,7 @@ public sealed class CombatR7Status : MonoBehaviour
     SkeletonController enemy;
     string opponent;
     bool boss, elite;
+    internal TMP_Text IntroEnemyLabel => enemyLabel;
     void Start()
     {
         player = FindObjectOfType<PlayerHealth>(); enemy = FindObjectOfType<SkeletonController>();

@@ -4,7 +4,10 @@ Supersedes the old580ms/eight-random-angle Slayer presentation in the historical
 VFX row below. `PlayerSlayerMode` applies one of three contact-first280ms clips
 with the corresponding complete combo_end recovery (S3 starts combo_3_11),
 then opens the same deduplicated hitbox with its original collision timing. Direction follows
-that chosen swing/facing. `SlayerHitVfx` uses four original B cels,120/160ms,
+that chosen swing/facing. `SlayerHitVfx` uses original B cels F4/F5/F0/F1/F2/F3,
+240/280ms. A same-recipient/anchor/lifetime primary aged<70ms selects contact
+index2 (170/210ms), before retire/release; exactly70ms keeps the full sweep.
+A separate startFrame preserves real Age0 for both starts and resets on pool return,
 with black RGB supplied by the B-only spawn branch regardless of captured combo tint,
 one primary plus one30ms residual per recipient. EnemyHitAnchor binds the
 actual IDamageable object's renderer/profile. EnemyHitAnchorProfile owns bottom-left
@@ -14,11 +17,28 @@ keep visible ink at that point. Lifetime changes reclaim old leases; disabled or
 destroyed bodies leave the last point. Build validation includes controller and
 held ParryContactLibrary cels. Public IDamageable and Spawn remain unchanged. `SlashVolume` expires held player
 Slayer trails; enemy/normal cel-driven geometry remains. `SlayerSilhouetteGroup`
-composes a40ms ivory body pulse through private DungeonSprite properties; jitter
+composes the spawner-selected body schedule through private DungeonSprite properties:
+isolated130/150ms hold+20ms fade, chained F0 immediate20ms fade, chained F4 an
+immediate20ms fade plus20ms at70ms. One accepted contact replaces pending pulses;
+the same primary/recipient/lifetime check selects the schedule before pool mutation.
+Legacy retains40ms; pause and existing lifecycle cleanup remain. Root jitter
 on the default Skeleton root is disabled. Shader defaults keep other materials'
 previous output. QA observations add no gameplay setters. Public contracts remain.
-Tests and exhaustive frame review are unexecuted at the user's request; status and
-clip are recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
+Clean-source Ubuntu161056-webgl supersedes the provisional cached runs:81/81
+selected tests pass, QA build and strict repeated builder pass. Input e99fe0c1,
+player9f1c923ff0fa800e;2495source files/252C# and33player file hashes match.
+Single canvas recorder capture has0exceptions/provider reads/writes. Final lossless
+VFR exports pass pixels/PTS/every duration/endpoints; all six technical playback
+rows (three weapons at1x/.25x) pass. Direct still review covers1535frames/1532pairs;
+arc/black-body/Pause occlusion and continuous subjective playback remain unverified.
+Eight full-start QA generations lack an observed F5; publication/encoder alignment
+does not establish visibility of those short phases. Historical failed reports
+remain intact. The user accepted the viewed result and requested integration;
+the recorded sampling/occlusion limits are not relabeled as automated visual passes.
+Integration status and clips are
+recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
+Main3bfb4f3f merge d434c200 additionally passes22/22intro/Slayer-transition cases
+from clean compiled/import cache; input0c94ea6c matches2495source files.
 
 # System and configuration map
 
@@ -38,11 +58,18 @@ results, with no reading intro or tactical hint. No save/provider contract chang
 screen-space cover/heading and a private spawn-dust variant. It suppresses only
 enemy renderers (including the child shadow) and existing combat HUD CanvasGroups.
 The cover/heading canvas uses order39, below authored Pause40 and above menu/HUD.
-The intro-only `_IntroReveal` property clips actor color/depth/shadow together in
-DungeonSprite; its default is off. The session merges/restores only its own vector
-in live property blocks. Unsupported child shadows wait until the body is complete.
-CombatHUDLayout exposes the existing typing-tray reference internally for the80ms
-stagger; HUD geometry, materials and serialized bindings are retained.
+The presenter never writes MaterialPropertyBlocks: the shared shader's default-off
+`_IntroReveal` and lighting/Slayer consumers remain unchanged. Renderer states,
+including contact shadow, restore together once at spawnu.36. The private18-puff
+ParticleSystem uses one five-strip stepped mesh, camera-plane alignment and the
+existing StrikeAccent material; Finish/cancel/session destruction release its mesh.
+CombatR7Status exposes only an internal enemy-label getter; the presenter saves
+and restores its authored alpha and gates the80ms HUD-name fade after the stationary
+intro label has fully faded. Status bars and typing tray keep separate CanvasGroup
+fades, without changing bindings/geometry/RGB/text. Navigation suppresses the label
+through the Pause owner's exit tween and Cover; Prepare resets suppression. The
+last intro frame remains locked while paused or navigating, so cancellation cannot
+signal combat. CombatHUDLayout retains its internal typing-tray reference.
 `TypingManager` owns an internal presentation-only preview flag and100ms start-ink
 transition in Paint. The presenter sets preview before activation, clears it with
 a cue only at combat handoff, and clears it without a cue on cancellation.

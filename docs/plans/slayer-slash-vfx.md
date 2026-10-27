@@ -1071,9 +1071,9 @@ observations, not exhaustive-review counts. Viewer: final-capture/open-clips.htm
 | Alpha centroid, frame offset and pool reset | Original texture weighted pixels transformed through actual renderer match root; four frames, both roles; real instance reuse |
 | Duration and overlap | Existing EveryFrame/Recipient tests plus native maximum2overlap |
 
-All requested scoped test and final-build/capture/review gates are satisfied with
-the explicit visibility limits above. Ready for commit/push/integration; remote
-integration verification remains a separate final step. Retain all prior failures,
+Historical acceptance statement, superseded by the playback-quality audit below:
+the scoped tests/build/capture and frame review were recorded as satisfied, but
+playback quality was not established by the old driver. Retain all prior failures,
 XML, player/input archives, clips and review artifacts under the existing E: root
 and the immutable remote result until user review/reproduction is complete.
 
@@ -1110,3 +1110,509 @@ No publication/deployment. Keep the existing E: evidence/cache and immutable Ubu
 result for review/reproduction; remove only the clean restored D: task checkout
 and local branch after final remote verification. Pre-existing worktrees and remote
 branches are preserved.
+
+### Playback-quality audit (2026-10-26)
+
+**Acceptance remains unverified.** This supersedes the earlier overall acceptance
+and the quality conclusion inferred from `playback.json`. No production defect
+was established; no gameplay/API, PNG/GUID, black color, 120/160ms lifetime,
+overlap limit or `combo_end` changed. This branch contains documentation only.
+
+Evidence root: `E:/CodexTemp/TypingHero/enemy-chest-anchor/`.
+All links below point to retained local evidence, not repository files.
+
+- [Hash/order/path/timing audit](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/evidence-audit-20261026.json):
+  all 33 player files match the build receipt; 2,490/2,494 normalized source
+  inputs match. The four differences are exactly the recorded upstream intro/
+  typing/probe/test changes. Player `104dd2400c6dba53` remains **pre-merge**,
+  input `15bd6781c5fc751631c7ae323a7eea1b03f577796d3d5256e301a831535e55bf`.
+  [Source/player receipt](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/final-build-receipt.json).
+- Reused selected evidence: 14 unchanged cases from
+  [062003 XML](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/ubuntu-062003-tests.xml),
+  six final cases from [063715 XML](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/ubuntu-063715-tests.xml)
+  and three affected cases from [074357 XML](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/ubuntu-074357-merged-tests.xml).
+  These are 23 distinct selected passing cases, not a whole-suite run on the final
+  commit. The first XML contains 18 cases; only its 14 unchanged cases are reused.
+  [Selected set](E:/CodexTemp/TypingHero/enemy-chest-anchor/runs/selected-final.json).
+  No new Unity run, build or capture was performed.
+- [Manifest](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/manifest.json)
+  and [export timing/hashes](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/export-timing.json)
+  match all three clips, all sheet hashes and ledger PTS/durations/image paths.
+  Original scopes stay sword 240/239, axe 273/272, shield 276/275 frames/pairs.
+  Raw-video SHA256 remains `9694e371970eecee90d61c40e955e62fcd16bc21af03d1202c12652cf496a560`.
+
+[Qualified frame ledger](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/per-frame-review-qualified.csv)
+separates reused inspection, visible-feature conclusions, occlusion, independent
+center conclusions and geometry evidence for all 789 rows. Original-frame hashes,
+next-frame paths and sheet boundaries are included. The original ledger is intact.
+[Supplementary image observations](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/runtime-review/supplementary-observations-20261026.json)
+record original frames 387/388/389, 1693/1694/1695 and 2311/2312/2313 with their
+adjacent pairs and three corresponding sheets opened again. Visible extensions
+and shortening tails agree with the prior torso-region observations. Black body/
+shield interiors, ivory arcs and Pause UI still prevent independent center review.
+This supplements the reused complete review; it is not a new 789-frame inspection.
+
+[Measurements](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/measurements.json)
+now separates geometry, visible-frame review and playback. Original measurements
+are preserved as `measurements-before-playback-audit.json`. Root-anchor distance
+zero and centroid tests support geometry only; they do not prove a hidden center
+was seen. Visible-frame conclusions apply only to the features actually recorded.
+
+[Revised driver](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-verified.cjs)
+creates a unique run ID and new video element, waits for load/seek/foreground and
+records clip hash, browser/version, viewport, speed, start time, callbackCount,
+per-callback presentedFrames/mediaTime/timestamps, quality counters and media/
+focus/visibility events. Callback data stays in memory. Results and partial
+timeout/error evidence are saved after each attempt. Media deadline is duration/
+rate +15s; the host watchdog adds 1s if the browser becomes unresponsive.
+Final attempts use Edge 156.0.4314.42 and the same driver with software video decoding requested,
+muted 1280x720 video inside a 1280x800 viewer with a clip/rate label. The game
+viewport is unchanged. Playwright 1.58.2 was restored in `playback-deps` because
+the old external dependency path no longer existed.
+
+[Playback audit and all 13 attempts](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-audit-20261026.json)
+index the latest six results below. All six ended at the requested rate, retained
+focus/visibility, had no media error and stayed inside max(0.5s, 5%) wall-time
+tolerance. Only axe 1x passed every technical gate. Direct playback-observer
+feedback was not obtained: all six motion observations remain **unverified**.
+Callback counts are diagnostic, not counts of directly inspected frames.
+
+| Clip | Rate | Expected / actual seconds | Dropped delta | Technical | Report |
+|---|---|---|---|---|---|
+| [sword](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/sword.mp4) | 1x | 10.626 / 10.690 | 5 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-sword-1-2026-10-26T08-37-22-946Z-71f4df1f-2557-4099-935d-4916136754b1.json) |
+| [sword](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/sword.mp4) | 0.25x | 42.504 / 42.756 | 4 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-sword-0.25-2026-10-26T08-38-09-778Z-632a7f4c-b21c-4670-b04d-4d2b587a53b6.json) |
+| [axe](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/axe.mp4) | 1x | 12.613 / 12.690 | 0 | pass | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-axe-1-2026-10-26T08-39-29-099Z-3cfa1929-9756-4caf-ba22-4885223a5cd5.json) |
+| [axe](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/axe.mp4) | 0.25x | 50.452 / 50.727 | 5 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-axe-0.25-2026-10-26T08-39-43-011Z-03818d50-c4fa-4566-a41a-d08663a5ae47.json) |
+| [sword-shield](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/sword-shield.mp4) | 1x | 12.405 / 12.505 | 4 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-sword-shield-1-2026-10-26T08-40-48-346Z-354892b7-0118-4665-8610-8fee252c2ba7.json) |
+| [sword-shield](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/sword-shield.mp4) | 0.25x | 49.620 / 50.089 | 6 | fail | [JSON](E:/CodexTemp/TypingHero/enemy-chest-anchor/final-capture/playback-sword-shield-0.25-2026-10-26T08-41-02-256Z-2cb8f044-fca2-484c-bc61-2e633e173655.json) |
+
+The initial six instrumented reports also misclassified natural end pause because
+initial duration differed slightly from final media time. They remain unchanged;
+the final driver records `ended` on each event and excludes only natural end pause.
+After compositor settling, sword 1x dropped one frame instead of four; software
+decoding still dropped five. Hardware decoding is not established as the cause.
+Final shield 0.25x logged `waiting` at media 5.8113s; readyState 2 recovered to 4
+after 7.5ms. Dropped-frame cause remains unresolved. Axe 0.25x took 50.727s, so
+the historical roughly 58s delay did not recur.
+
+Remaining acceptance: diagnose drops/waiting before retrying failed rates and
+obtain direct observations of isolated strikes, Hurt changes, rapid typing,
+pause/resume and lethal ending for all six qualified passes. Do not weaken the
+zero-drop criterion or infer motion quality from telemetry. Preserve clips, XML,
+source/player receipts, frames, failed reports and driver/dependencies until
+review/reproduction is complete. Owned Edge browsers were closed after runs.
+Documentation integration does not close this acceptance gate.
+
+
+### Sweep / peak / dissolve implementation (2026-10-26; acceptance pending)
+
+Fresh Orca worktree `D:/Projects/TypingHero-worktrees/slash-b-sweep-timing`,
+branch `micharel09/slash-b-sweep-timing`, base origin/main `1611e6f`.
+B PNG, sprite IDs/GUIDs and material preserved. Sequence F4/F5/F0/F1/F2/F3;
+alpha-centroid offsets follow that order. Peak sizes32/40reference pixels;
+scale uses all6source cels. Hit durations30/40/60/45/35/30ms (240ms);
+finisher30/40/80/55/45/30ms (280ms).
+
+Before retiring the previous primary, the spawner checks the same recipient,
+anchor and lifetime. Age<70ms starts at contact index2 (170/210ms remaining);
+exactly70ms starts at index0. Age begins at0 independently of sequence offset.
+One primary/one residual,30ms residual at<=35%alpha, pause, chest attachment,
+fixed direction/scale and damage/input timing remain.
+
+First Ubuntu filtered run090341 used a snapshot sent before prefab updates:
+33/51passed,18failed,0skipped. Failures expose old four-frame prefabs and
+120/160ms timeline. Failed run retained; it is not acceptance evidence.
+Corrected snapshot includes both six-frame prefabs; rerun pending.
+Added scoped cases:35/50/69/70/100/300ms repeated contacts, both starts/roles,
+frame boundaries/expiry, real age reset, target/lifetime isolation and finisher.
+Old timing-dependent tests and captures cannot qualify the new sequence.
+
+Direct source inspection:6/6source cels and5/5ordered pairs opened in
+source-six.png (registered task workspace). F4: short tapered upper-right
+stroke plus detached dot; F5: longer diagonal; F0: longest thick cut and specks;
+F1: two short diagonal fragments/dots; F2: tiny fragment/two dots; F3: final dot.
+Source-only observations; runtime occlusion/readability, full variant review
+and1x/.25x playback remain unverified. Black-torso/ivory-arc occlusion retained.
+
+Remaining: scoped Unity pass, repeated builder/serialized prefab comparison,
+fresh QA player, three-form real-key capture, complete declared frame review,
+qualified playback, then commit/push/integration and remote verification.
+
+
+Verification environment follow-up: the shared-runner wait timed out at300s;
+a second wait was cancelled (only its local Python/SSH processes). Shared logs
+showed multiple concurrent Unity containers and CS2001 missing-source errors.
+No other process, shared source/cache or license was stopped/replaced.
+Independent verification workspace:
+`/data/typinghero-game-loop/task-workspaces/slash-b-sweep-20261026`.
+Library/cache copied privately; existing toolchain and Unity HOME are linked.
+Copy reported only a disappearing EditorInstance.json marker, so its nonzero
+exit was retained; marker is not reused, secondary cache copied successfully.
+Repository runner/CI are unchanged; external LF adapter changes only task BASE
+and preserves serialized Slayer assets in the build result. Scoped run pending.
+
+Static preview inspection:72/72cels,60/60internal adjacent pairs across32/40px
+and clockwise0/45/90/180/225/270degrees; source-only6/6cels,5/5pairs also opened.
+Per-cell evidence is static-review.csv and static-32.png/static-40.png in the task
+workspace. Nearest-neighbor PIL previews establish source order/orientation only;
+they do not certify Unity sampling, chest occlusion, runtime timing or playback.
+
+| Source cel | Hit/finisher ms | Observed source | Next ordered transition |
+|---|---|---|---|
+| F4 |30/30|Short tapered stroke, separated fleck|F5 lengthens along diagonal|
+| F5 |40/40|Longer continuous diagonal|F0 length/thickness reaches peak|
+| F0 |60/80|Longest thick stroke and scattered specks|F1 splits into fragments|
+| F1 |45/55|Two short fragments and dots|F2 removes most continuous ink|
+| F2 |35/45|Tiny fragment and sparse dots|F3 removes final fragment|
+| F3 |30/30|Isolated final dots|Nonloop expiry; runtime still pending|
+
+
+#### Qualified checks after snapshot metadata correction
+
+The external snapshot adapter initially emitted every TarInfo with mtime0.
+Despite changed source, pause failures still reported the old line/old test
+runtime rather than the newly added diagnostic loop. Earlier local/Ubuntu
+attempts using that adapter are retained as unqualified attempts. The adapter
+now preserves each input's actual source mtime (same principle as repository
+run.py); repository runner/CI remain unchanged.
+
+Ubuntu100329-quick, canonical final prefab centers, input
+3ddcd51aefa4f062a880f9a9c6dec1aa2af2e04713578df8e032a652c75c6976:
+61/61Passed,0failed/skipped,9.4710252s. XML contains the new diagnostic loop's
+output, confirming fresh compilation. Both roles resume at age~15ms and expire
+at240/280ms; observed post-resume wall tails~225/266ms. The verbose trace was
+removed without changing the poll/expiry predicates. Final pause-only101745-quick,
+input12eee2cd7f7fb786befbe9e0288534146bbc59ba59214f198a3f0223f955cbfc:
+1/1Passed,0failed/skipped,0.9574362s. Other60cases' relevant inputs are unchanged.
+Qualified cases include both starts/roles/boundaries, repeated35/50/69/70/100/300ms,
+residual/target/lifetime/finisher/pool, chest geometry/all poses, pause/hide/death/
+destroy and selected normal/parry/legacy consumers. No full suite/stress/soak.
+
+First QA094337 built successfully and repeated builder passed, but mtime0
+makes its compilation qualification uncertain; player85bed067cabdb0e9 is not
+final evidence. Capture of it failed before any Slayer frame because root-level
+record.cjs was an older startup driver. The actual fixed driver is under
+old evidence final-capture/record.cjs; selected now. Failed recording/state remain
+in failed-early-tutorial-capture. No gameplay regression inferred from that run.
+
+Corrected-metadata QA100557 stalled before IL2CPP with a busy Unity process and
+CoreBusinessMetrics SQLite disk-I/O/locking errors in shared Unity HOME.
+Only its verified own container was stopped (exit143); log retained. New build
+uses an independent private HOME with the existing license (no activation/install),
+private source/Library/cache and original toolchain. QA build/capture/frame review/
+playback/integration remain pending. Source PNG/material/GUIDs are preserved.
+
+
+#### Final candidate evidence and unmet acceptance (2026-10-26)
+
+This checkpoint supersedes the pending build/capture status immediately above.
+Final QA101847-webgl succeeded with independent HOME and strict repeated builder.
+Player `d13202894a63688f`; input
+`12eee2cd7f7fb786befbe9e0288534146bbc59ba59214f198a3f0223f955cbfc`.
+33/33player hashes and2494/2494LF-normalized source file hashes match; all C#
+archive mtimes are nonzero. Prefab centroids are canonical Unity builder output
+(with trailing whitespace removed); source PNG/material/GUIDs unchanged.
+
+Permanent evidence root:
+`E:/codex-data/artifacts/TypingHero/slash-b-sweep-20261026/`.
+`review.html` presents before/after clips; before clips are historical120/160ms
+player evidence only, not qualification of the new build. `actual-timing.csv`
+separates verified timeline boundaries from native sampled age ranges. The original
+native movie and original PTS are retained, including held/repeated frames.
+`tests-qualified-61.xml`, `tests-final-pause.xml`, `final-build-receipt.json`,
+`final-unity-build.log`, and `builder-final/` preserve technical results.
+
+Native Edge156/NVIDIA D3D11 at1280x720 with real keyboard/mouse and read-only
+bridge:0exceptions/provider reads/writes. Four duels cover sword, elite sword,
+axe and shield.2352combat samples contain2092impact samples, all6source cels,
+angles0/45/90, max2active impacts and no failed Slayer focus/visibility samples.
+224observed primary births:156atF4,68atF0, all age0. Sampled timeline has0errors;
+223/223consecutive pause pairs hold age/cel/position/tint. Maximum sampled residual
+alpha0.2501917; live root-to-chest distance0 in sampled valid states. These are
+sampled state observations, not proof that hidden ink is visible. Exact70ms,
+repeated intervals, mirror/pool/lifetime/finisher/expiry are covered by Unity cases.
+
+Declared movie segments precede extraction in runtime-review/declared-scopes.json:
+sword20.345-31.914s, axe73.779-101.300s, shield114.082-126.314s. Each includes
+preparation, isolated contacts (driver wait420ms), burst/threshold rhythms,
+pause/resume, finisher and state exit. The long axe normal-mode gap was retained.
+Directly opened every numbered frame and consecutive pair in each segment:
+
+| Clip | Raw frames inspected | Frames | Adjacent pairs |
+|---|---|---:|---:|
+| Sword |432-732|301/301|300/300|
+| Axe |1855-2581|727/727|726/726|
+| Shield |2926-3239|314/314|313/313|
+
+Axe export includes one extra ending frame2581 at101.309s,9ms beyond the declared
+end. It and2580->2581 were separately opened/reviewed; no segment was narrowed.
+Total1342frames/1339pairs. `runtime-review/per-frame-review.csv` has one row per
+frame with duration, actual visible/obscured observations, transition and status;
+`observer-notes.json` retains direct observations. Sheets are location aids,
+full native491 and2581 were additionally opened where needed. Static source review
+remains separate (6source cels/5pairs plus72variant cels/60pairs).
+
+Observed: peak cuts on pale Hurt chests and diminishing fragments outside torso
+are readable in multiple bursts; no detached old-position stain/persistent large
+patch was seen in the selected exits. The center frequently blends into black
+body pixels or is covered by the ivory arc/pause panel. Sword491at22.389s has
+pale Hurt torso but no independently readable short opening B; subsequent exterior
+tips do not establish visible full growth at1x. Shield2982-3011 similarly alternates
+arc/flash and dark core. These obscured parts stay unverified. Fixed black/artwork/
+anchor/timing decisions were not changed to manufacture a visual pass.
+
+Playback trials retain immutable IDs, media/driver hashes, focus/events, true
+presentedFrames metadata, separate callback counts and decode quality. Original
+H264 and all-intra retries had dropped frames; a PTS trial is explicitly invalid.
+Lossless VP9 compatibility exports preserve all301/727/314decoded frames pixel-for-
+pixel against initial MP4 (fps_mode passthrough) and exact PTS. Disabling browser
+frame-rate/vsync throttling qualified sword1x plus all three0.25x rows,0new drops,
+no interruptions. Axe1x still dropped4frames and waited at7.351/26.511s; shield1x
+still dropped1frame and waited at1.581s. A blank single-video host plus full-buffer
+readiness still left axe1x3drops/wait at7.366s; lower-decode-cost all-intra trial
+also failed. This suggests buffering alone is not the cause; decoder/compositor
+scheduling remains unresolved. No gate was weakened; successful transport/ended
+status does not certify subjective motion. All six subjective playback observations
+remain unverified; technical qualification currently covers4/6rows.
+
+**Acceptance not achieved.** Implementation/selected Unity/build/native state checks
+are verified, but clear sweep-growth at1x and two qualified1xplayback rows are
+missing. Commit/push this candidate for preservation, without integrating main.
+Retain the task worktree/branch for the visual decision and targeted follow-up;
+remove only after the original acceptance gate and verified integration or explicit
+abandonment. No production behavior outside this VFX schedule was changed.
+
+
+Resource handoff: all evidence and final input snapshot were saved under the
+permanent artifact root above. The task-owned Ubuntu private workspace/cache/HOME
+(including its copied license) was removed only after confirming no running Docker
+mount uses that exact root; shared toolchain/HOME/cache were preserved. The local
+Orca worktree `D:/Projects/TypingHero-worktrees/slash-b-sweep-timing` and branch
+`micharel09/slash-b-sweep-timing` remain for the unmet visual gate. Main integration is withheld because the requested visual acceptance has not
+passed; the candidate branch push is preservation only. Its remote commit receipt lives in the permanent evidence root.
+
+#### Flash contrast follow-up (2026-10-26; acceptance pending)
+
+Resumed the existing `micharel09/slash-b-sweep-timing` worktree. Fetched and
+merged `origin/main`480ad703 as56a0dd0, preserving the intro implementation and
+both verification records. The primary checkout and its dirty files are untouched.
+
+Accepted schedule: black B/artwork/material/GUID/chest/32/40px and240/280ms stay
+unchanged. Same-recipient/anchor/lifetime primary selection remains age<70ms for
+F0. Before retiring/releasing that primary, the spawner selects exactly one body
+schedule: isolated holds130/150ms then fades20ms; chained F0 fades20ms immediately;
+chained F4 fades20ms at contact and again at70ms. New hits replace the entire
+schedule, including a pending peak. No cadence estimator, public game API or
+serialized tuning is added. Legacy/no-emitter hitboxes retain their40ms pulse.
+Pause holds the clock; existing disable/presentation/result cleanup and anchor
+lifetime invalidation clear the schedule. Property blocks preserve other owners.
+
+Initial Ubuntu143851-quick:74/74Passed,0failed/skipped. Covers both roles, flash
+20/70/90/130/150/170ms boundaries, pending-peak replacement, pause/resume, lifetime,
+primary age35/50/69/70/100/300ms, existing pool/chest/finisher and transition cases.
+A later added accepted-contact/duplicate-collider assertion still needs its final
+scoped run. Fresh QA144050-webgl is building with strict repeat-builder validation.
+
+Evidence root: `E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/`.
+Historical failed reports remain in the previous root. The corrected capture
+harness removes Playwright recordVideo (canvas MediaRecorder is the sole recorder),
+retains real keyboard/mouse, observer-only QA and fixture/provider blocking.
+Playwright1.58.2 is copied to this permanent evidence root; the driver no longer
+requires the old temp dependency path. Requested delays are labels only; actual
+keydown and observed emit intervals will be reported separately.
+
+The previous VP9/WebM PTS+pixel checks did not qualify packet durations, so their
+technical PASS claims do not establish the full export/playback contract.
+`tools/game_loop/export_vfr.py` now uses lossless all-intra H264 with millisecond
+PTS, NEXT_PTS-PTS durations and an explicit final hold. It rejects overwrites and
+reports decoded pixel hashes, counts, every PTS/duration and endpoint. Historical
+sword301, axe727 and shield314frames re-export with exact pixels/PTS/endpoints and
+zero duration mismatches. No CFR conversion or held-frame deduplication.
+
+After this concrete export change, the two failed historical1x rows were retried:
+axe still drops4frames (technical FAIL); shield qualifies with0drops/interruptions.
+Both immutable reports are preserved. No further unchanged retry is authorized
+by this evidence. Subjective continuous-playback observations remain unverified;
+telemetry is not direct visual observation. Main integration remains withheld.
+
+Remaining: final consumer/dedup tests, build receipt/source identity, fresh three-
+form capture and measured cadence, declared full frame/transition review, six
+qualified playback rows plus direct motion findings, final documentation and
+candidate preservation push. Only integrate main after the original gate passes.
+
+Environment checkpoint: shared QA144050 completed successfully but is superseded
+by the disabled-emitter compatibility fix. Two subsequent final-test attempts
+expired while waiting for the shared runner; neither executed tests. The active
+queued retry has acquired the lock as151332-quick, snapshot
+c1d09f82b987650a5880b5a7f9aba4ffa77ba81b4128cc2b11f9f3d17925bf2d.
+Concurrent tasks reimport different source snapshots in the shared Library.
+To keep the final build stable, a private QA workspace is being prepared at
+`/data/typinghero-game-loop/task-workspaces/slash-b-flash-20261026` with copied
+Library/cache, the existing license in a private HOME, and read-only reuse of the
+shared toolchain/image IDs. No other job/cache is stopped or replaced. Cache-copy
+errors, if any, must be retained and checked before qualification. Remove only
+this exact private root after final artifacts are saved and no active container
+mount references it; never remove the shared toolchain/HOME/cache.
+
+Final capture harness records browser performance timestamps for the sole canvas
+MediaRecorder and requested word delays; audit separates actual Slayer keydown
+intervals within the same requested word from isolated hits and inter-word gaps.
+Observed QA emit intervals are frame-quantized samples, not exact event times.
+The final exporter also checks video-stream and container duration. Final sword
+export is byte-identical to the previous qualified output and all301decoded
+frames/PTS/durations/endpoints match; overwrite refusal was verified.
+
+Final consumer151332-quick PASS:8/8,0failed/skipped,1.3201933s, snapshotc1d09f82.
+The updated ordinary-contact test proves a130ms isolated schedule, no restart for
+its second collider, and the original20ms hold+20ms fade when the emitter is
+disabled. Existing normal/parry animation contacts (four orientation/scale cases),
+dedup/locked targets, captured lethal style and follow-up window also pass.
+Together with the initial74, this is81distinct scoped cases (one updated case
+appears in both runs), not82distinct cases. No full suite/stress was run.
+
+Private cache setup copied slowly in ShaderCache; only the copy process with an
+open destination under this exact task root was stopped. Its partial ShaderCache
+was renamed `aborted-shader-cache-copy` within the private root. Setup resumes
+with symlinks preserved and excludes ShaderCache/BurstCache/EditorInstance.json/
+ilpp.pid; Unity will regenerate shader cache. This is an environment attempt,
+not a build/test pass. Final private QA still pending.
+
+#### Cached-assembly failure supersedes the preceding qualification
+
+Private QA155415 failed before building a player: stack trace invoked
+TutorialBuild.ImportCapture/BuildParry and read TutorialParry/typing.json. Those
+methods/path do not exist in candidate TutorialBuild.cs (source search returned
+no matches). This proves a foreign cached editor assembly was executed; it is
+not a missing candidate tutorial asset. The prior74/8 results are therefore
+provisional for final-source qualification, despite their Passed XML, until
+repeated from a clean compiled cache. No source fallback/foreign asset is added.
+The failed unity log is retained as failed-private-stale-assembly.log.
+
+After confirming no running container mounts this private root, Library was
+renamed to invalid-library-cache-155415. Only pinned PackageCache was moved into
+a new empty Library; all ScriptAssemblies/Bee/import databases are excluded from
+reuse. Shared Library/HOME/toolchain remain untouched. The new external adapter
+build-private-verified.py runs the full81-case affected selection, saves XML and
+its compilation log, then builds QA with strict repeat-builder under the same
+private lock. It saves input snapshot even on failure and archives the successful
+player before release. Inpute99fe0c1 remains unchanged; cache isolation is the
+concrete cause-directed change for the retry. Final qualification is pending.
+
+#### Final contrast evidence (2026-10-27; visual acceptance remains unverified)
+
+This supersedes the pending clean-source/build/capture status above. Production
+code is51b500d2, evidence correction d48b860b. Clean private Library retained only
+pinned PackageCache; no old ScriptAssemblies/Bee/import DB. Authoritative run
+161056-webgl passed81/81selected tests,0failed/skipped,4.3771984s, then QA build
+and strict repeated-builder serialization/reference/listener checks. Input
+e99fe0c1965608aa352f29498621b192d8ec655c248f241fb134080285b3978f matches all2495
+files/252C#;33/33Ubuntu player hashes match archived player9f1c923ff0fa800e.
+Clean TypingHero.Editor assembly excludes the foreign ImportCapture/TutorialParry
+methods. Keep155415failure and prior provisional XML; no unrelated tutorial fix.
+
+Final capture uses one canvas MediaRecorder, no Playwright recordVideo. Native
+viewport/canvas1280x720,DPR1; Edge156.0.4314.42, GTX1650Ti ANGLE/D3D11.
+Real keyboard/mouse, read-only observer and provider blocking:0exceptions and
+0provider reads/writes.1832QA publications,225observed births, starts F4/F0,
+all6cels/angles0,45,90; max2impacts. Sampled valid root-to-chest distance0,
+black RGB only,179identical consecutive paused pairs. This does not establish
+every emission or pixel visibility.
+
+Measured within-word Slayer keydown intervals (browser timestamps):
+
+| Requested ms | n | Minimum ms | Median ms | Maximum ms |
+|---|---:|---:|---:|---:|
+|35|36|36.830|46.8975|58.760|
+|50|34|52.070|62.0425|74.440|
+|69|30|71.620|82.7500|90.420|
+|70|33|73.215|78.9850|98.280|
+|100|27|105.095|111.3350|117.600|
+
+67within-word intervals are below70ms,93at least70ms. Observed primary publication
+intervals include56below70 and161at least70, quantized by rendered frames and
+including gaps. Do not relabel requested35ms as achieved35ms. Exact35/50/69/70/
+100/300ms and69/70thresholds are Unity evidence. No production cadence estimator.
+Original B remains240/280ms from F4,170/210ms from F0; flash isolated130/150+20ms,
+chained F0 contact0-20ms, chained F4 contact0-20 plus70-90ms. New accepted contact
+replaces the whole schedule. Artwork/material/GUID/chest/size/direction unchanged.
+
+Segments were declared before extraction, with no skipped interior/repeated frames:
+
+| Clip | Requested source interval s | Frames / pairs inspected | Export duration s | Final hold ms |
+|---|---|---:|---:|---:|
+|sword|18.628-28.101|470/469|9.465|2|
+|axe|67.102-77.654|518/517|10.539|18|
+|sword-shield|90.393-101.194|547/546|10.792|7|
+
+Selection uses start<=PTS<end. First selected PTS may follow requested start by
+capture quantization; no synthetic start frame. The retained boundary-attempt
+failed on a zero ending duration before this rule was corrected. All final clips
+pass lossless decoded pixels, exact relative PTS, every packet duration, frame
+count, ending hold and stream/container duration. No CFR or deduplication.
+All six new technical playback rows pass: three weapons at1x and0.25x,0new
+dropped/corrupted frames, no waiting/stalled/focus/rate error. Old axe1x still has
+4drops after duration correction; old shield1x passes. Do not erase/retry unchanged
+failed reports or treat technical pass as subjective motion observation.
+
+Direct still inspection opened all98sheets with native chest crops and every
+consecutive pair:1535/1535frames,1532/1532pairs. Long peaks are readable on pale
+torso (axe3437-3441, shield4688-4691, sword1233); burst cells alternate ivory,
+gray and black, with exterior fragments shrinking. No large detached mark is
+seen in exposed recovery/death regions. Ink center remains obscured in arc,
+black-body and Pause cells, e.g. sword945-948, axe3491-3492, shield4583-4626.
+Do not claim the complete opening sweep or every core pixel is readable.
+`observer-ranges.json` has a native-pipe encoding failure after F981; preserved
+raw, superseded by English direct-observation notes and the per-frame CSV.
+
+1560phase samples are associated with nearest original PTS using browser recorder
+origin, with explicit alignment uncertainty. Eight of120observed F4-start
+generations have no observed F5; chaining can interrupt the sweep and QA/encoder
+sampling are separate. Those phases remain unverified, not filled from a contract
+or generated image. Continuous subjective1x/.25x playback observations are also
+unverified: still inspection and browser metrics cannot replace them. Consequently
+the original visual gate remains open and main must not be merged.
+
+Permanent evidence root: E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/.
+`review.html` pairs the previous six-phase/40ms-flash build with the final clips;
+`runtime-review/per-frame-review.csv`, `observer-english.txt`, `coverage.json`,
+`capture/cadence-summary.json`, `phase-capture-association.csv`,
+`playback-final-summary.json`, clean XML/build/source identity and failed attempts
+are preserved. Private Ubuntu task runner was removed after checking all4running
+containers had no task mounts; shared library/cache/home/toolchain/source remain.
+Candidate worktree/branch remain for the unverified visual gate; no main merge.
+Final fetch sees origin/main3bfb4f3f (duel-preview frame-stall fix), newer than the
+qualified candidate base. It is not overwritten or merged into this evidence-only
+checkpoint. Before eventual integration, merge that latest main into the candidate
+and recheck affected behavior; current81/build/native receipts qualify e99fe0c1 only.
+
+#### User acceptance and integration (2026-10-27)
+
+The user said the visual result looked fine, then explicitly requested the remaining
+integration. This supersedes the earlier visual-gate withholding as a user acceptance
+decision. Do not change old per-frame statuses or invent agent-observed continuous
+playback; occluded/unsampled portions remain documented measurement limitations.
+No additional artwork, material, timing, flash or layer changes are requested.
+
+Merged origin/main3bfb4f3f into the candidate as d434c200 without conflicts. Only
+DuelIntroPresentation, DuelIntroTests and their gameplay/checkpoint documentation
+changed relative to the qualified candidate; all Slayer/VFX/combat/assets/packages/
+project settings remain unchanged. Reuse the clean81/QA/repeated-builder/native/
+frame/export/playback evidence for its unchanged B inputs and main's accepted intro
+evidence. Run only DuelIntroTests plus SlayerTransitionTests against the integrated
+source in a fresh compiled/import cache. No broad suite, WebGL build or new capture.
+
+Integrated clean-source run20261027T015535-quick:22/22PASS,0failed/skipped,
+46.0188525s;10DuelIntroTests plus12SlayerTransitionTests. Input
+0c94ea6c64c47de94c19842ec6599ace5281b27459c5780c98b8e995c6c9cbc7 matches all2495
+source files after established LF normalization, no zero C# mtimes. No production
+source changed after the passing snapshot. An initial adapter syntax preflight
+executed zero Unity cases; corrected before this qualified invocation, without
+changing repo tooling or acceptance. Shared license HOME is referenced, not copied;
+private Library starts with pinned PackageCache only, no old compiled/import state.
+
+Durable XML/log/input/identity and final remote/cleanup receipts are under
+E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/integration-20261027/.
+The remote receipt identifies the final commit containing this accepted checkpoint,
+confirms the task implementation commits are ancestors of origin/main, and records
+removal of the clean task worktree/local branch after verification. Remote task
+branch is retained; the pre-existing main checkout is not modified.

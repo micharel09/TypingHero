@@ -24,10 +24,33 @@ public class SlayerSilhouetteGroup : MonoBehaviour
     static readonly Color HitColor = new Color32(255, 243, 207, 255);
     float hitAge = -1;
     int hitBornFrame;
-    internal float HitFlashWeight => hitAge < 0 ? 0 : Mathf.Clamp01((.04f - hitAge) / .02f);
+    float hitHold = .02f;
+    bool hitPeak;
+    EnemyHitAnchor hitAnchor;
+    uint hitLifetime;
+    internal float HitFlashWeight
+    {
+        get
+        {
+            if (hitAge < 0 || (hitAnchor && hitAnchor.Lifetime != hitLifetime)) return 0;
+            float contact = Mathf.Clamp01((hitHold + .02f - hitAge) / .02f);
+            float peak = hitPeak && hitAge >= .07f ? Mathf.Clamp01((.09f - hitAge) / .02f) : 0;
+            return Mathf.Max(contact, peak);
+        }
+    }
     internal void PulseSlayerHit()
+        => StartHitPulse(.02f, false, null, 0);
+
+    internal void PulseSlayerSweep(bool hasPrimary, bool startAtContact, bool lethal, EnemyHitAnchor anchor, uint lifetime)
+        => StartHitPulse(hasPrimary ? 0 : lethal ? .15f : .13f, hasPrimary && !startAtContact, anchor, lifetime);
+
+    void StartHitPulse(float hold, bool peak, EnemyHitAnchor anchor, uint lifetime)
     {
         if (!isActiveAndEnabled) return;
+        hitHold = hold;
+        hitPeak = peak;
+        hitAnchor = anchor;
+        hitLifetime = lifetime;
         hitAge = 0;
         hitBornFrame = Time.frameCount;
     }
@@ -50,11 +73,11 @@ public class SlayerSilhouetteGroup : MonoBehaviour
     {
         if (SlayerScreenFX.PresentationDriven) SetPresentationWeight(SlayerScreenFX.PresentationWeight);
         bool updatePulse = hitAge >= 0;
-        if (GamePauseController.ResultOverlayVisible) hitAge = -1;
+        if (GamePauseController.ResultOverlayVisible || (hitAnchor && hitAnchor.Lifetime != hitLifetime)) hitAge = -1;
         else if (hitAge >= 0 && hitBornFrame != Time.frameCount && !GamePauseController.InputBlocked && Time.timeScale != 0)
         {
             hitAge += Time.unscaledDeltaTime;
-            if (hitAge >= .04f) hitAge = -1;
+            if (hitAge >= (hitPeak ? .09f : hitHold + .02f)) hitAge = -1;
         }
         if (_weight <= 0)
         {
