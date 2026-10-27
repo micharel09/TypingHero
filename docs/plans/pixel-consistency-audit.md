@@ -1,4 +1,4 @@
-﻿# Rà soát độ đồng bộ pixel trên main — 2026-10-27
+# Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
 > **Audit đang mở; A1 có bản sửa nguồn trên nhánh riêng, chưa nghiệm thu runtime.** Bộ capture gõ `READY` thuộc revision **`66749da1`**, không phải giao diện main hiện tại.
 > **Checkpoint đã kiểm:** ba clip READY có ledger 806 frame/803 cặp chuyển tiếp; tutorial 34/33 và normal 339/338 giữ riêng. Tổng catalog runtime đã ghi kiểm 1.186/1.180 trên 1.900/1.890.
