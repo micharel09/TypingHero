@@ -699,17 +699,17 @@ Full surface art, B/C and parent integration remain separate.
   finisher replaces both. Original luminous sword geometry expires120ms per swing
   even when the final cel is held; another typed strike resets that envelope.
 - Skeleton positional jitter is disabled; existing hurt pose progression remains.
-  Compositor-owned ivory#FFF3CF body pulse holds20ms then fades20ms after silhouette,
-  preserving sprite alpha/depth, baseline RGB and unrelated property-block values.
-  Pause/reading hold presentation clocks. Results/disable/restart/unload clear them.
-- Public input/scoring/damage values/stamina/camera/audio and Slayer no-hitstop
-  policy remain. Normal/parry/legacy emitters retain their routes and shared budget.
-  Ubuntu Unity2022.3.25f1 passes61selected PlayMode cases for the new schedule,
-  adaptive starts, lifecycle/anchor/pause and shared normal/parry/legacy routes.
-  Fresh QA build/native capture and complete frame review are recorded. Clear opening
-  sweep at1x is not established under black-body/ivory-arc occlusion; axe/shield1x
-  playback still drops/waits. Visual acceptance not achieved; main integration withheld.
-  Final build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
+  Compositor-owned ivory#FFF3CF pulse holds130ms normal/150ms finisher then fades20ms
+  for isolated hits. A valid chained primary selects contact fade20ms for F0, or
+  contact20ms plus peak70-90ms for F4. Each contact replaces the entire old schedule.
+  Sprite alpha/depth, baseline RGB and unrelated property-block values remain.
+  Pause/reading hold presentation clocks; results/disable/restart/unload clear them.
+- Public input/scoring/damage/stamina/camera/audio and Slayer no-hitstop policy remain.
+  Normal/parry/legacy routes retain their shared budget and legacy40ms pulse.
+  Clean81selected tests, QA/repeat builder, native/export and six technical playback
+  checks passed; latest-main integration passed22intro/Slayer-transition cases.
+  The user accepted visuals; main83d6e0a6 was verified. External raw evidence was
+  deleted at the user's request; [completion record](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 

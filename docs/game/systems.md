@@ -27,18 +27,13 @@ previous output. QA observations add no gameplay setters. Public contracts remai
 Clean-source Ubuntu161056-webgl supersedes the provisional cached runs:81/81
 selected tests pass, QA build and strict repeated builder pass. Input e99fe0c1,
 player9f1c923ff0fa800e;2495source files/252C# and33player file hashes match.
-Single canvas recorder capture has0exceptions/provider reads/writes. Final lossless
-VFR exports pass pixels/PTS/every duration/endpoints; all six technical playback
-rows (three weapons at1x/.25x) pass. Direct still review covers1535frames/1532pairs;
-arc/black-body/Pause occlusion and continuous subjective playback remain unverified.
-Eight full-start QA generations lack an observed F5; publication/encoder alignment
-does not establish visibility of those short phases. Historical failed reports
-remain intact. The user accepted the viewed result and requested integration;
-the recorded sampling/occlusion limits are not relabeled as automated visual passes.
-Integration status and clips are
-recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
-Main3bfb4f3f merge d434c200 additionally passes22/22intro/Slayer-transition cases
-from clean compiled/import cache; input0c94ea6c matches2495source files.
+Single canvas recorder capture had0exceptions/provider IO. Final VFR exports and
+six technical playback rows passed;1535frames/1532pairs were directly inspected.
+The user accepted the visual result; sampling/occlusion limits are preserved in the
+[completion record](../plans/slayer-slash-vfx.md). Main83d6e0a6 was remotely verified;
+latest-main integration passed22/22intro/Slayer-transition cases from clean cache.
+External task evidence was deleted at the user's request; only the in-repository
+Markdown completion record remains.
 
 # System and configuration map
 
