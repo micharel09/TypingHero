@@ -32,7 +32,7 @@
   are hidden. Manual Pause hides/restores the result-only group; Resume restores
   these authored result bounds. Modal freeze rules remain. Scoped verification is
   recorded in the compact-menus checkpoint.
-- The current six-page tutorial is the only how-to flow. Main Menu has Play,
+- The current five-card tutorial is the only how-to flow. Main Menu has Play,
   Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
 - Fresh/restarted encounters begin immediately after DungeonSession initialization,
   including after tutorial completion. There is no initial Fight/Enter gate.
@@ -347,74 +347,24 @@ see verification for profile status. These are current behaviors, not new requir
 
 Change only behavior explicitly requested. Update this file after relevant verified changes.
 
-## Six-page tutorial guide
+## Five-card tutorial guide
 
-- TutorialRun opens frozen SampleScene on HUD page1/6. Health, typing tray and enemy HP are highlighted one at a time
-  over three confirmations; the old center illustration is hidden. Next / Enter
-  advances through Type to Attack, Mistakes & Timer, Parry with Space,
-  Break Guard / Slayer, and Score & Combo. TutorialDirector rejects same-frame
-  confirmations and requires Enter release between pages.
-- Five lessons share a928x516 modal at(16,12) on960x540, with complete640x360
-  gameplay at(160,64). Each320x180 Point-filtered frame uses the original captured
-  duration and one whole-frame nearest-neighbor resize. The beat label, fixed
-  English rule and footer buttons sit outside gameplay. One outline and short
-  arrow use the same frame lookup, pointing at visible words, cues or HUD values.
-  Lossless atlases have six columns, at most11rows, no mipmaps, max2048 and2px
-  gutters; existing asset GUIDs and named frame identities stay.
-- Scene lessons store resource paths and frame-to-atlas/sprite indices, without a
-  preview sprite. Each TutorialAtlasPage owns one atlas; the overlay's async cache
-  retains at most two slots, including pending requests, with one request at a time.
-  It preloads the following atlas without a terminal wrap. Initial loading
-  hides the image/guidance and shows Loading; a delayed boundary holds the displayed
-  frame, caption, guidance and clock without accumulating waiting time. Pause may
-  finish loading but cannot publish a new frame. Load errors use the existing label
-  while Back/Pause/Menu remain available, without saving completion.
-  HUD1/6, Start Battle, restart/menu, disable and destroy clear sprite references
-  and unload owned sprites/textures/descriptors. Obsolete completions only clean up;
-  future visits load fresh resource objects. No static cache or global asset sweep.
-- Atlas handoff protects the currently displayed page during `Get`, assigns the
-  destination sprite directly, then calls `CommitDisplay` to retire the old page
-  and prefetch again. Stable same-frame ticks leave Image/guidance/visibility
-  untouched; loading/error captions change only with their content. The cache
-  reuses its two-key retirement buffer; request closures are created only when a
-  load starts. Scoped warmed cache/render/tick operations allocate0bytes, with
-  zero Image dirty callbacks for held or loading frames. Modal Canvas rebuilding
-  follows Unity's normal cycle; HUD1/6 keeps its geometry-dependent forced update.
-  Playback retains original timing and the existing missing-load/Pause hold policy.
-  QA trace collection is compiled out of normal players. Evidence and limits:
-  [playback follow-up](../plans/parry-cue-demo.md#playback-hot-path-follow-up-2026-10-26-review-candidate).
-- Typing shows a fresh word and real HP loss; mistakes show reset while the timer
-  continues and then replaces the word. A newly recorded complete parry sequence
-  shows success, recovery, a missed parry and HP loss. Slayer shows
-  final Guard break, eight distributed character attacks, exit with a living enemy,
-  then normal word attack/recovery. Score starts clean, completes five words to
-  unlock multiplier, scores a sixth, and retains65points after expiry. HUD strips
-  remain in their original gameplay positions. No practice or live combat instance
-  runs inside the modal. Source/event/timestamp/duration/hash provenance lives in
-  the five manifests. The old77-frame parry is timing reference only.
-- Playback uses unscaled time. Pause hides the guide and holds its exact frame
-  and clock; Resume continues. Back returns one page; every entry resets that
-  page's clip. Restart/menu replay open HUD1/6. Existing input/time/audio/score
-  reading locks cover informational/demo states; Menu abandons without completion.
-- Watch demo is optional and starts only on click. Each clip plays once, holds its
-  final frame and offers explicit Replay; its label distinguishes WATCH ONLY from
-  YOUR TURN. Typing and parry require a live attempt before Next is available.
-  HIT practice has no timer and an idle enemy; success requires actual attack
-  damage and recovery. Parry uses the existing attack/window, one attack per
-  attempt, a neutral one-second lead-in and Space-release guard. Misses cost no HP
-  and offer Retry; three misses add a timing reminder. No combat timing is slowed.
-- TutorialPractice owns attempt cancellation and real event subscriptions. Practice
-  does not award real-run score, statistics or unlocks. Back cancels an attempt,
-  resets the page and retains already passed skills in this session. Skip remains
-  available and starts a fresh battle; skipping a replay preserves Completed.
-- Start Battle on page6 requires both HIT and parry, saves the existing Completed
-  value and reloads the selected difficulty. Skip saves the existing Skipped value
-  unless already Completed. Fresh40HP/180enemy HP/100guard and zero score/statistics
-  remain. Restart/replay begins at HUD1/6; encounters have no Fight gate.
-- Current beat-guidance validation and per-frame review receipts are recorded in
-  [the tutorial checkpoint](../plans/parry-cue-demo.md). Historical results there
-  apply only to their recorded asset hashes; the review branch stays separate
-  from main until user review.
+- Frozen gameplay backs one centered 600x240 card at (180,150) in Reference960x540.
+  Title above, short rule left and 240x135 clip right. Next becomes Start Battle
+  on card five; Skip is small corner text. Extra controls, badges and callouts
+  are hidden. Endless retains its original TutorialPrompt/PracticeButton template.
+- Five cards: Type to Attack (including HP), Mistakes & Timer, Parry with Space,
+  Break Guard / Slayer, Score & Combo. No practice or pass gate. Next/Enter
+  preserves same-frame/Enter-release guards. Final Start saves Completed and
+  reloads a clean selected-difficulty battle; Skip preserves Completed on replay.
+- Existing captured sprites, atlas GUIDs, Point filtering and frame durations
+  are unchanged. Clips autoplay, loop and restart on entry. The two-slot async
+  cache protects the displayed frame and holds the clock during delayed loads.
+  Pause hides the card and holds playback; exit releases owned resources.
+- First Play/Menu entry, restart, abandon and reading input/time/audio/score
+  locks retain their existing behavior. Restart/replay begins at card one.
+  [Evidence](../plans/parry-cue-demo.md). Shogun Showdown comparison remains
+  unverified; the approved layout comes from the user. No new animation art.
 
 ## World lighting / parry clash
 

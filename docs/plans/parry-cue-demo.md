@@ -1137,3 +1137,66 @@ Source audit:23 tutorial scene records change geometry/font size; other1276 reco
 Attempts: initial private input driver clicked before menu transition completion; corrected driver waits for it. Early normal recordings had the same readiness issue and are rejected. QA export logged a transient font metadata import error but completed strict repeat/build with exit0. Intermediate normal build was canceled to incorporate the terminal badge fix; only the final successful normal player is delivered.
 
 Delivery: http://127.0.0.1:8309/ and /Tutorial-Layout.webm under `C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-layout-20261027`. Retain independent player/video, fixture worker, recorded host and Start/Stop-Demo.ps1 until review; stop only the verified owned host using Stop-Demo.ps1 and remove this artifact folder when no longer needed. Old8306/8307 demos/videos untouched. Keep existing tutorial-full-gameplay worktree/branch for review; push current branch, do not merge main. Final remote receipt is in artifact README. Temporary captures/drivers/build logs are cleaned after these textual results are saved.
+
+
+### Compact five-card tutorial (2026-10-27; verified review candidate)
+
+Approved scope implemented: centered 600x240 card at (180,150), short rule left,
+240x135 sprite clip right, title above, one Next / final Start Battle button and
+small corner Skip. Five cards include HP in the first. No practice, pass gates,
+Back/Watch/Replay/Retry, badges or beat guidance. TutorialDirector no longer
+creates TutorialPractice. Clips autoplay and loop with the original timeline,
+reset on entry and hold while paused/loading. TutorialBuild's final pass and
+runtime share compact geometry; Endless retains TutorialPrompt/PracticeButton.
+Original clip artwork, GUIDs, timings, dependencies and gameplay rules unchanged.
+
+Verification:
+- Windows Unity2022.3.25f1 strict repeat builder PASS: serialized objects,
+  references/listeners unchanged over two complete passes, successful exit0.
+- Normal WebGL build PASS, exit0, qa:false. Four JS/WASM/data payloads exclude
+  typingHeroQA, typingHeroCombatFrame, GameLoopProbe, TutorialStreamingTrace and
+  TutorialPlaybackTrace in ASCII/UTF16. Browser globals remain absent.
+- Final projected scene: TutorialTests 7/7 PASS, 0failed/skipped,6.6656177s,
+  exit0. Covers all five cards, actual async sprite loads, looping/reset,
+  completion without practice, cache lifecycle/allocations, reading pause/input/
+  audio/provider locks, restart, abandon, preferences, Skip and fresh battle.
+- Edge normal player at actual1280x720 and640x360: all10card stills directly
+  inspected. Short text fits; small clips remain visible; no old controls/badges/
+  extra tutorial rim. Real Enter/mouse Next, final Start Battle, Pause/Resume,
+  exit to Menu, unseen Skip, Menu Tutorial replay/Skip and viewed Play verified
+  through direct flow captures. JS page exceptions0; external requests0 with
+  provider requests intercepted locally. No QA/debug overlay.
+- Scene projection changes16tutorial records, adds0, preserves1283other records.
+  All original IDs retained. Restored148unrelated builder files and5editor/test
+  writes; removed only3known Unity-created metadata files. Assets outside scope,
+  menu, packages and the dirty primary checkout are preserved.
+- New VP9 WebM:1280x720,25fps,27s,silent,1238264bytes. Full decode and HTTP200/
+  video-webm delivery pass; four encoded previews directly inspected at1,12,24,
+  26.5seconds. Original sprite review reused because art/timing are unchanged;
+  no new animation authoring, performance, full-suite or novice-usability claim.
+  Shogun Showdown source comparison remains unverified; layout follows the user.
+
+Attempts: first editor startup was stopped after an apparent assembly-reload
+stall, without a PASS claim; the established E:/Unity editor/two-worker retry
+completed. Two normal Menu replay pilots used old coordinates and then omitted
+its existing name-panel Start confirmation; their replay captures are rejected.
+The corrected scoped rerun confirms the complete path at both sizes. The five
+cards/Start/Pause evidence from the unchanged player remains valid.
+
+Delivery: http://127.0.0.1:8310/ and /Tutorial-Small.webm . Permanent root:
+C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-small-20261027 . Independent
+normal player, fixture service worker, host and Start/Stop-Demo.ps1 are retained
+until review; stop only that recorded host with Stop-Demo.ps1, then remove this
+folder when no longer needed. Old8306/8307/8309demos/videos remain untouched.
+Keep existing worktree C:/Users/ADMIN/orca/workspaces/TypingHero/tutorial-full-gameplay,
+branch micharel09/tutorial-full-gameplay for review. Push current branch only;
+do not merge main. Final commit/remote receipt is recorded in artifact README.
+Temporary capture collections/drivers/logs are removed after these textual
+results and hashes are retained.
+
+Video SHA256: `87300221431679196e7a6d24584f334c50ed674e358141f951493ef5c6786023`.
+Normal payload SHA256:
+- `normal-player.data`: `50bdd8fe162507efa1921a8ec65641256fe394353bceeb28e016e792acbf8b96`
+- `normal-player.framework.js`: `3a135de2226d0be04d56916641dc18decbf1d2e1c479de07f31848ee4c88d96a`
+- `normal-player.loader.js`: `1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76`
+- `normal-player.wasm`: `840c8dd25741fbc28eadf006dbb5f8b28af9e3b90b71c4941c42ad2c6c6796ee`

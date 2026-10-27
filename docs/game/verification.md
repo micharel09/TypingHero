@@ -1,3 +1,16 @@
+## Compact five-card tutorial (2026-10-27; review branch)
+
+Windows Unity2022.3.25f1: strict repeat builder and normal WebGL PASS/exit0.
+Final projected scene TutorialTests7/7 PASS,0failed/skipped,6.6656177s: five cards,
+autoplay/loop/reset, no practice gate, reading/pause/provider locks, preference/
+restart/abandon/Skip and clean battle. Edge normal player1280x720 and640x360:
+all10cards directly inspected; real Next/Enter, Start, pause/resume, Menu replay,
+Skip and viewed Play confirmed. JS page exceptions0/external requests0. Four
+normal payloads exclude QA markers in ASCII/UTF16. Only16tutorial records change;
+1283others remain byte-identical after projection. Existing clip art/timing stays.
+New independent demo8310 and27sclip preserve old demos; branch pushed only,
+main integration deferred. [Evidence and failed pilots](../plans/parry-cue-demo.md#compact-five-card-tutorial-2026-10-27-verified-review-candidate).
+
 ## Tutorial fixed footer (2026-10-27; review branch)
 
 Windows Unity 2022.3.25f1 strict repeat builder and QA/normal WebGL PASS, exit0. Edge156.0.4314.42:389 scoped checks PASS at actual1280x720 and640x360: fixed footer baseline, labels, Watch/Replay, disabled practice action, real HIT/parry, miss/Retry, Back, Next, Start and Skip. No QA Unity/browser errors or external requests. All30 QA stills directly reviewed; terminal-demo copy overflow was found visually and shortened to FINISHED. This final string-only correction is verified on the normal player at both sizes; unchanged behavioral checks and builder results are reused. Seven final normal UI stills reviewed; QA globals absent and all4 JS/WASM/data payloads exclude QA markers in ASCII/UTF16.

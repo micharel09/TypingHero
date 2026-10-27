@@ -61,7 +61,7 @@ public sealed class TutorialOverlay : MonoBehaviour
     double clipTime, pendingTime;
     int step;
     int displayedFrame = -1;
-    internal int StepCount => lessons.Length + 1;
+    internal int StepCount => lessons.Length;
     void OnEnable()
     {
         ShowStep(0);
@@ -79,7 +79,7 @@ public sealed class TutorialOverlay : MonoBehaviour
     void SubmitPractice() => startButton.onClick.Invoke();
     internal void BindLearning(UnityEngine.Events.UnityAction watch, UnityEngine.Events.UnityAction skip)
     {
-        watchButton.onClick.AddListener(watch);
+        if (watch != null) watchButton.onClick.AddListener(watch);
         skipButton.onClick.AddListener(skip);
     }
     internal void SetPrimary(string text, bool enabled)
@@ -124,29 +124,25 @@ public sealed class TutorialOverlay : MonoBehaviour
         ReleaseClip();
         step = index; inPractice = false;
         practicePanel.SetActive(false);
-        watchButton.gameObject.SetActive(step > 0);
-        watchButton.GetComponentInChildren<TMP_Text>().text = "Watch demo";
-        demoBadge.text = "WATCH ONLY";
-        demoBadge.gameObject.SetActive(step != 5);
-        readiness.gameObject.SetActive(step == 5);
-        bool modal = step > 0;
-        foreach (var node in hudContent) node.SetActive(!modal);
+        watchButton.gameObject.SetActive(false);
+        demoBadge.gameObject.SetActive(false);
+        readiness.gameObject.SetActive(false);
+        foreach (var node in hudContent) node.SetActive(false);
         foreach (var arrow in arrows)
-            foreach (var part in new[] { arrow.shaft, arrow.tipA, arrow.tipB }) part.gameObject.SetActive(!modal);
-        parryModal.SetActive(modal);
-        if (hudStep) hudStep.text = "1/" + StepCount;
-        if (modal)
-        {
-            clipTitle.text = lessons[step - 1].title;
-            clipRule.text = lessons[step - 1].rule;
-            modalStep.text = (step + 1) + "/" + StepCount;
-            actionLabel.text = step == StepCount - 1 ? "Start Battle \u00b7 Enter" : "Next \u00b7 Enter";
-        }
+            foreach (var part in new[] { arrow.shaft, arrow.tipA, arrow.tipB }) part.gameObject.SetActive(false);
+        parryModal.SetActive(true);
+        backButton.gameObject.SetActive(false);
+        modalStep.gameObject.SetActive(false);
+        clipTitle.text = lessons[step].title;
+        clipRule.text = lessons[step].rule;
+        actionLabel.text = step == StepCount - 1 ? "Start Battle" : "Next";
+        startButton.interactable = true;
+        demoPlaying = true;
+        ApplyCompactLayout();
         totalDuration = 0;
-        if (modal) foreach (float hold in lessons[step - 1].durations) totalDuration += hold;
+        foreach (float hold in lessons[step].durations) totalDuration += hold;
         clipTime = 0;
         RenderClip();
-        if (!modal) ShowIntroFocus(0);
         ClearSelection();
     }
 
@@ -167,6 +163,37 @@ public sealed class TutorialOverlay : MonoBehaviour
             arrows[i].tipA.gameObject.SetActive(i == selected);
             arrows[i].tipB.gameObject.SetActive(i == selected);
         }
+    }
+
+    internal void ApplyCompactLayout()
+    {
+        void Box(RectTransform rect, float x, float y, float width, float height)
+        {
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0, 1);
+            rect.anchoredPosition = new Vector2(x, -y);
+            rect.sizeDelta = new Vector2(width, height);
+        }
+        var panel = (RectTransform)parryModal.transform.Find("Panel");
+        Box(panel, 180, 150, 600, 240);
+        parryModal.GetComponent<Image>().color = new Color(0, 0, 0, .25f);
+        Box(clipTitle.rectTransform, 20, 14, 480, 32);
+        clipTitle.fontSize = clipTitle.fontSizeMin = clipTitle.fontSizeMax = 26;
+        Box(clipRule.rectTransform, 20, 58, 292, 126);
+        clipRule.fontSize = clipRule.fontSizeMin = clipRule.fontSizeMax = 22;
+        clipRule.enableWordWrapping = true;
+        Box(clipImage.rectTransform, 336, 56, 240, 135);
+        captionPanel.gameObject.SetActive(false);
+        Box((RectTransform)startButton.transform, 400, 194, 176, 32);
+        Box(actionLabel.rectTransform, 4, 0, 168, 32);
+        actionLabel.fontSize = actionLabel.fontSizeMin = actionLabel.fontSizeMax = 22;
+        Box((RectTransform)skipButton.transform, 696, 166, 60, 26);
+        var skipImage = skipButton.GetComponent<Image>();
+        skipImage.enabled = true; skipImage.sprite = null; skipImage.color = Color.clear;
+        var skipText = skipButton.GetComponentInChildren<TMP_Text>(true);
+        Box(skipText.rectTransform, 0, 0, 60, 26);
+        skipText.text = "Skip";
+        skipText.fontSize = skipText.fontSizeMin = skipText.fontSizeMax = 18;
+        skipButton.gameObject.SetActive(true);
     }
 
     internal void ReleaseClip()
@@ -193,18 +220,17 @@ public sealed class TutorialOverlay : MonoBehaviour
     void SetClipVisible(bool visible)
     {
         if (clipImage) clipImage.enabled = visible;
-        if (clipFocus) clipFocus.gameObject.SetActive(visible);
-        if (guideShaft) guideShaft.gameObject.SetActive(visible);
-        if (guideTipA) guideTipA.gameObject.SetActive(visible);
-        if (guideTipB) guideTipB.gameObject.SetActive(visible);
+        if (clipFocus) clipFocus.gameObject.SetActive(false);
+        if (guideShaft) guideShaft.gameObject.SetActive(false);
+        if (guideTipA) guideTipA.gameObject.SetActive(false);
+        if (guideTipB) guideTipB.gameObject.SetActive(false);
         if (guideBend) guideBend.gameObject.SetActive(false);
         if (guideEnd) guideEnd.gameObject.SetActive(false);
     }
 
     bool RenderClip()
     {
-        if (step == 0) return false;
-        var lesson = lessons[step - 1];
+        var lesson = lessons[step];
         double time = Math.Min(clipTime, totalDuration);
         int frame = 0;
         double boundary = lesson.durations[0];
@@ -266,7 +292,7 @@ public sealed class TutorialOverlay : MonoBehaviour
     void AdvanceClip(float delta)
     {
         double previousTime = clipTime;
-        if (frameReady) clipTime = Math.Min(totalDuration, waitingForFrame ? pendingTime : clipTime + delta);
+        if (frameReady) clipTime = (waitingForFrame ? pendingTime : (clipTime + delta) % totalDuration);
         double requested = clipTime;
         if (RenderClip()) waitingForFrame = false;
         else
@@ -275,11 +301,6 @@ public sealed class TutorialOverlay : MonoBehaviour
             if (frameReady && !waitingForFrame) pendingTime = clipTime;
             waitingForFrame = frameReady;
             clipTime = previousTime;
-        }
-        if (demoPlaying && clipTime >= totalDuration && totalDuration > 0)
-        {
-            demoPlaying = false;
-            demoBadge.text = "FINISHED";
         }
         TracePlayback("tick", requested);
     }
@@ -297,7 +318,7 @@ public sealed class TutorialOverlay : MonoBehaviour
     int lastRenderFrame = -1;
     void TraceRender()
     {
-        if (step == 0 || inPractice || !canvas || !canvas.enabled || lastRenderFrame == Time.frameCount) return;
+        if (inPractice || !canvas || !canvas.enabled || lastRenderFrame == Time.frameCount) return;
         lastRenderFrame = Time.frameCount;
         TracePlayback("render", clipTime);
     }
@@ -312,21 +333,8 @@ public sealed class TutorialOverlay : MonoBehaviour
         canvas.enabled = !GamePauseController.IsPaused;
         interaction.interactable = interaction.blocksRaycasts = canvas.enabled;
         if (!canvas.enabled) return;
-        if (TutorialRun.Active && step > 0 && !inPractice) AdvanceClip(demoPlaying ? Time.unscaledDeltaTime : 0);
+        if (TutorialRun.Active && !inPractice) AdvanceClip(demoPlaying ? Time.unscaledDeltaTime : 0);
         if (inPractice) UpdatePracticeFocus();
-        if (step > 0) return;
-        Canvas.ForceUpdateCanvases();
-        foreach (var arrow in arrows)
-        {
-            var root = (RectTransform)arrow.shaft.parent;
-            var from = Point(root, arrow.source, arrow.sourceAnchor);
-            var to = Point(root, arrow.target, arrow.targetAnchor);
-            Segment(arrow.shaft, from, to);
-            var direction = (to - from).normalized;
-            var normal = new Vector2(-direction.y, direction.x);
-            Segment(arrow.tipA, to, to - direction * 10 + normal * 6);
-            Segment(arrow.tipB, to, to - direction * 10 - normal * 6);
-        }
     }
 
     void UpdatePracticeFocus()
@@ -355,7 +363,7 @@ public sealed class TutorialOverlay : MonoBehaviour
 
     internal void SubmitContinue()
     {
-        var button = inPractice ? practiceAction : step > 0 ? startButton : continueButton;
+        var button = startButton;
         if (button.gameObject.activeInHierarchy && button.IsInteractable()) button.onClick.Invoke();
     }
 

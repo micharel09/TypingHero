@@ -118,6 +118,10 @@ internal static class TutorialBuild
         Text("Step", "1/6", 432, 96, 96, 28, 22).alignment = TextAlignmentOptions.Center;
         BuildParry(overlay, bounds, panel, font);
         SkinButtons(overlay);
+        overlay.ApplyCompactLayout();
+        foreach (var component in overlay.GetComponentsInChildren<Component>(true))
+            if (component && PrefabUtility.IsPartOfPrefabInstance(component))
+                PrefabUtility.RecordPrefabInstancePropertyModifications(component);
         var hud = GameObject.Find("PixelUI/Reference960x540/HUD").transform;
         var so = new SerializedObject(overlay);
         var arrows = so.FindProperty("arrows"); arrows.arraySize = 5;
@@ -396,7 +400,7 @@ internal static class TutorialBuild
         for (int i = 0; i < nodes.Length; i++) content.GetArrayElementAtIndex(i).objectReferenceValue = hud.Find(nodes[i]).gameObject;
         var names = new[] { "typing", "mistakes", "parry-health", "slayer", "score" };
         var titles = new[] { "Type to Attack", "Mistakes & Timer", "Parry with Space", "Break Guard \u00b7 Slayer", "Score & Combo" };
-        var rules = new[] { "Finish the word to attack.", "Wrong letters reset the word; the timer keeps running.", "Tap Space when the key fills. Release between attempts.", "Parry to break Guard. In Slayer, correct letters attack.", "Words score points. Five in a row unlock the multiplier." };
+        var rules = new[] { "Finish the word to attack. Drain enemy HP to win; keep yours above zero.", "Wrong letters reset the word; the timer keeps running.", "Tap Space when the key fills. Release between attempts.", "Parry to break Guard. In Slayer, correct letters attack.", "Words score points. Five in a row unlock the multiplier." };
         var lessons = so.FindProperty("lessons"); lessons.arraySize = names.Length;
         const string resources = "Assets/Resources/Tutorial";
         if (!AssetDatabase.IsValidFolder(resources)) AssetDatabase.CreateFolder("Assets/Resources", "Tutorial");
