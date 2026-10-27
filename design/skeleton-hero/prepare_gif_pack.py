@@ -64,6 +64,19 @@ def owners(frame, rgb):
                 mask.putpixel((x,y),0 if x<left_split else 1 if x<right_split else 2)
     # Moving lane boundaries follow separated tips, rather than clipping at
     # a fixed third of the image. Empty background remains unassigned.
+    # The right actor's falling shield crosses x140 during its death. These
+    # per-frame bounds follow the visible fragment, including its steel boss;
+    # they do not classify by color or move the axe's lane boundary.
+    shield_fragment = {
+        19: (138, 73), 20: (134, 77), 21: (133, 73),
+        22: (132, 75), 23: (131, 78), 24: (131, 79), 25: (131, 79),
+    }
+    if frame in shield_fragment:
+        x0, y0 = shield_fragment[frame]
+        for y in range(y0, 82):
+            for x in range(x0, 140):
+                if mask.getpixel((x, y)) == 1:
+                    mask.putpixel((x, y), 2)
     if frame in (39,40):
         for y in range(18,82):
             for x in range(136,144):
