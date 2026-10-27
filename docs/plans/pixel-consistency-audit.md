@@ -4471,3 +4471,23 @@ tutorial không đổi trong delta này; source review và preview offline khôn
 giữ giới hạn đã ghi. Nhận xét input/HUD tên Đặng_Á9 chỉ áp dụng text/font và
 reading của mẫu, không mở rộng sang score/combo mới.
 Checkpoint tài liệu này được tích hợp độc lập; audit/rendering hiện hành vẫn mở.
+
+### Checkpoint preview A1 đủ 36 cel — chưa đóng runtime
+
+Đã mở trực tiếp toàn bộ `lit-preview-final/`: **72/72 biến thể cel**, mỗi
+biến thể gồm native full canvas và nearest 4×; axe Walk 12, axe Die 11,
+sword-shield Die 13, cả source và mirror. Đã ghi **68/68 cặp chuyển tiếp**
+gồm seam Walk của hai hướng. Mỗi ảnh giữ SHA256 trong frames.json;
+đã đối soát lại tất cả 144 file native/nearest theo ledger.
+
+Rìu giữ đầu/cán/grip, không có mảnh khiên rời ở vùng đã sửa.
+Die kiếm–khiên F6–F12 giữ phần viền/núm trả lại khi rơi, ép mỏng, nảy và nằm.
+Die rìu F7–F10 và Die kiếm–khiên F7–F12 có chi tiết rất thấp/tối sát sàn:
+nearest 4× đọc được thêm viền/cán, nhưng native không đủ để nhận mọi texel.
+Không tự phân loại giới hạn tương phản thành lỗi mất pixel hoặc sửa lighting.
+
+Đây là preview offline không VFX với giới hạn transform/preset/GPU đã nêu;
+không thay clip runtime, source GIF, bản map chẩn đoán hoặc xác nhận playback.
+Bằng chứng nguồn 36 cel và preview lighting đủ cel được giữ riêng.
+Runtime vẫn 10/1.590 frame và 7/1.584 cặp; playback 1×/0.25× và người xem còn mở.
+Asset A1 vẫn ở nhánh riêng, chưa đưa lên main.
