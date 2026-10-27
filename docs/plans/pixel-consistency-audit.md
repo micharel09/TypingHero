@@ -4537,3 +4537,34 @@ not yet fully inspected. Final acceptance manifest and human 1x / 0.25x playback
 remain pending. Source/maps and all 72 offline A1 previews retain separate
 results. A1 assets remain on the task branch until runtime visual acceptance.
 Audit remains open; this checkpoint establishes no additional proven game bug.
+
+### Tutorial hidden-detail supplement
+
+Opened both no-card source-cel previews at native full canvas and nearest4x,
+plus native/4x albedo, depth, normal and material diagnostics for
+`male_hero-idle_0` and `Skeleton_01_White_Idle_0`.
+Evidence: `tutorial-hidden-preview-final/review.json` and `maps.json` under the
+permanent A1 evidence root. Source paths, rectangles, atlas hashes, preview
+hashes, original scene transforms/flip and camera trace are retained.
+Player trailing bent leg/boot remains continuous below the hip, front shin
+and scarf-to-neck connection complete. Skeleton crown has its full stepped
+curve above the eye socket; jaw/neck, sword grip and rib cage remain readable.
+
+The preview uses the current DungeonSprite material, depth lookup, 320x180
+world rendering and 1280x720 presentation/post pipeline, original actor
+positions/scales and the tutorial camera pose. No UI, controller, VFX or actor
+contact shadow; preset torch preview differs from exact runtime flicker.
+Editor NVIDIA GTX1650Ti differs from Intel runtime, so this supplements hidden
+source detail without asserting identical runtime pixels or a full idle cycle.
+Mirrored diagnostic normal RGB is not vector-reencoded; actual transform
+lighting is evaluated in the separate lit preview. The first attempt pointed
+at an unsliced Without_VFX texture and failed; it is retained outside acceptance.
+The final With_VFX imported cel succeeds and matches the trace's named cel.
+
+Tutorial remains 26 frames/25 pairs directly inspected; this adds two static
+cel previews and their maps, not additional video frames/transitions.
+Human 1x/0.25x playback remains unconfirmed. Current handoff extraction is
+complete: axe326/325, shield254/253, sword507/506 frames/pairs, including all
+three native resolution runs across sword resize. Their visual review remains
+in progress; these totals are availability, not acceptance. No asset integration
+or audit closure is implied by this documentation checkpoint.
