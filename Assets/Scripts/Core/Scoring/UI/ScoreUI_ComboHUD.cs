@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 
 [DisallowMultipleComponent]
+[DefaultExecutionOrder(1060)]
 public sealed class ScoreUI_ComboHUD : MonoBehaviour
 {
     [Header("Refs")]
@@ -28,12 +29,8 @@ public sealed class ScoreUI_ComboHUD : MonoBehaviour
 
             if (show)
             {
-                multiplierText.text = $"x{mul:0.0}";
+                multiplierText.text = $"\u00d7{mul:0.0}";
                 multiplierText.color = tint;
-
-                // 2) Dính theo ScoreText (bên phải, có gap)
-                if (followScore)
-                    FollowRightOfScore(multiplierText.rectTransform, followScore, gapPx, extraOffset);
             }
         }
     }
@@ -44,25 +41,43 @@ public sealed class ScoreUI_ComboHUD : MonoBehaviour
             decaySlider.value = Mathf.Clamp01(t01);
     }
 
+    float scoreFontSize;
+    float multiplierFontSize;
+
     void LateUpdate()
     {
-        if (followScore && multiplierText && multiplierText.gameObject.activeSelf)
-            FollowRightOfScore(multiplierText.rectTransform, followScore, gapPx, extraOffset);
+        if (!followScore || !multiplierText || !followScore.TryGetComponent(out TMP_Text score)) return;
+        var frame = followScore.parent as RectTransform;
+        if (!frame) return;
+        if (scoreFontSize == 0) scoreFontSize = score.fontSize;
+        if (multiplierFontSize == 0) multiplierFontSize = multiplierText.fontSize;
+
+        bool show = multiplierText.gameObject.activeSelf;
+        // Reserve the largest existing award pulse (x3), so text never jumps out
+        // of the frame and long totals retain every digit.
+        const float pulse = 1.2f;
+        float scoreWidth = score.GetPreferredValues(score.text, Mathf.Infinity, Mathf.Infinity).x
+            * scoreFontSize / score.fontSize;
+        float multWidth = show ? multiplierText.GetPreferredValues(multiplierText.text,
+            Mathf.Infinity, Mathf.Infinity).x * multiplierFontSize / multiplierText.fontSize : 0;
+        float gap = show ? gapPx : 0;
+        float fit = Mathf.Min(1, (frame.rect.width - 30 - gap) /
+            Mathf.Max(1, scoreWidth * pulse + multWidth));
+        score.fontSize = scoreFontSize * fit;
+        multiplierText.fontSize = multiplierFontSize * fit;
+        float visibleScore = scoreWidth * fit * followScore.localScale.x;
+        float visibleMult = multWidth * fit;
+        float left = frame.rect.center.x - (visibleScore + gap + visibleMult) * .5f;
+        Place(followScore, frame, left + visibleScore * .5f, -27);
+        if (show)
+            Place(multiplierText.rectTransform, frame,
+                left + visibleScore + gap + visibleMult * .5f, -27);
     }
 
-    // ========= Helpers =========
-    static void FollowRightOfScore(RectTransform me, RectTransform score, float gap, Vector2 extra)
+    static void Place(RectTransform text, RectTransform frame, float x, float y)
     {
-        var parent = me.parent as RectTransform;
-        if (!parent) return;
-        float right = score.rect.xMax;
-        if (score.TryGetComponent(out TMP_Text label))
-            right = Mathf.Min(right, score.rect.xMin + label.preferredWidth);
-        var point = score.TransformPoint(new Vector3(right, score.rect.center.y, 0));
-        var local = parent.InverseTransformPoint(point);
-        me.anchorMin = me.anchorMax = parent.pivot;
-        // Position the left edge, including scale/pulse of the score and this label's pivot.
-        me.localPosition = new Vector3(local.x + gap + me.pivot.x * me.rect.width + extra.x,
-            local.y + (me.pivot.y - .5f) * me.rect.height + extra.y, 0);
+        text.pivot = new Vector2(.5f, .5f);
+        text.sizeDelta = new Vector2(text.GetComponent<TMP_Text>().preferredWidth, 36);
+        text.position = frame.TransformPoint(new Vector3(x, frame.rect.yMax + y, 0));
     }
 }

@@ -98,3 +98,59 @@ User approved removing only the text because guard break immediately enters Slay
 - Preserved all458 original parent WIP files byte-for-byte through a verified temporary stash/backup; index contains only committed main. WIP remains uncommitted and is excluded from the push. Original parent checkout and all other task worktrees/branches are retained.
 - Preview rebuild063848 PASS, snapshoteba9f8b0733f32450970b5ea817923c1e28a4ffa42b063aabef1085c91d003a0, generated SampleScene equals6d4243a. Actual headed Edge opened Normal intro with Firebase fixtures/external write blocking. User approval closes this current-scene HUD task; representative2.5D lighting/parallax/foreground checks remain future work.
 - Closure cleanup: preview process/window had already exited; task preview cache/helpers/profiles and owned server063848 result are removed. Temporary preservation stash/backup are removed only after byte-for-byte restoration verification. Delete only hud-25d-readability child/local branch after main integration; no remote feature branch was created. Shared runner/cache/builds and all other tasks stay intact. No itch.io deployment in this closure.
+
+
+## Combo inside score frame / 2026-10-27
+
+- Request: preserve the 294x66 score frame at (333,9); center score alone at x1,
+  center score plus smaller multiplier on one row when active; decay inside bottom.
+  Preserve score rules/timing/tints/pulse and character-side popup. No itch release.
+- Worktree: D:/Projects/TypingHero-worktrees/score-combo-frame,
+  branch micharel09/score-combo-frame, based on origin/main ee2811b.
+  Original dirty checkout remains untouched.
+- Builder reuses ScoreText/ComboHUD/ComboDecay, fonts and bindings. Row center y27;
+  decay (15,51,264,6). Runtime reserves 1.2x pulse width and scales font display
+  for long totals without dropping digits. CombatHUDLayout still owns popup anchor.
+- Acceptance completed below: focused Unity geometry/scoring checks, strict repeated
+  builder, direct WebGL review at1280x720/400x300 and combo lifecycle.
+- Initial serialize stopped at unsupported Vector2 assignment in builder helper;
+  removed unused assignment. First focused invocation selected zero cases because
+  the new test lacked Quick category; not counted as passing evidence.
+
+- Focused Unity 2022.3.25f1/fly-server result20261027T145616-quick:3/3 PASS
+  (long totals/pulse, combo activation/timeout, score award/tier pulse). Geometry
+  fixture spans4totals through20digits x3multiplier states x4pulse sizes.
+- QA build20261027T145722 initially stopped at protected CobblestoneUI64 asset:
+  server/local bytes are identical after CRLF-to-LF normalization. Normalized
+  branding asset line endings only in this task checkout, with zero Git content diff;
+  protected-asset assertions stay enabled.
+- QA20261027T145930, input882e88e000ed107ebdb465d8659812bf95b7b107eaf20f0938a3d8d52f51aee1:
+  strict repeated builder PASS. All1121original scene IDs retained. Imported only
+  six affected Unity-serialized blocks (score/combo/decay geometry and follow binding);
+  excluded unrelated fog/whitespace/block-order serialization.
+
+- Final-font fixture20261027T151518-quick, inputb3044b14fb58292db85872307ac09b5cb6b80068ea371c00291e38010d6f4b24:
+  1/1 PASS using the actual final CobblestoneUI64 font and48/42sizes. Earlier
+  3/3 includes the two unchanged combo-expiry/award-tier regressions; its geometry
+  fixture used the earlier R7 font and is superseded by this final-font result.
+- Native final5: Edge156.0.4314.42 / Playwright1.62.1 / Intel UHD D3D11,
+  72/72 PASS,51.406s,0exceptions/provider writes. Existing fixture/network blocking
+  remained enabled. All33downloaded player hashes match immutable QA145930.
+  Runtime/builder code did not change after that build; later edits affect tests,
+  browser driver and documentation only. Driver SHA256:
+  60fddc344f7c562a3e566f67a29cf5ad59c588995d36a7c20ef0af7747a1ee63.
+- Directly inspected x1 and active-combo views at1280x720/400x300, Slayer x3 at
+  both sizes, natural exit and normal combo after Slayer. Text/decay remain inside
+  the unchanged frame; HP/tray stay fixed; popup remains by the enemy head.
+  Native lifecycle also verifies pause/resume, expiry, timeout, real parry renewal
+  and restart. Long totals/max1.2pulse use the48case offline geometry fixture.
+- Browser pilots were not counted as full passes: old menu preparation/tutorial/
+  encounter-reading waits, stale contact estimates, waiting for reward on each
+  individual character, and a menu-transition click were corrected in the scoped
+  driver. At x3 the existing renewal path can show one-update slider latency:
+  remaining2.5s/slider.987436 at31.41ms. Timer assertion permits exactly one
+  observed frame plus.002 normalized tolerance; game timing code is unchanged.
+  Software pilots stopped before gameplay acceptance; final result is native GPU.
+- No full suite, stress/soak, production build or itch.io release. Immutable QA
+  player/Unity result receipts remain under /data/typinghero-game-loop/results/
+  for reproduction; task-local browser/capture artifacts are cleaned after integration.

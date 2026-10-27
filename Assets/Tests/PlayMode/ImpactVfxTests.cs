@@ -41,6 +41,41 @@ public sealed partial class ImpactVfxTests
         "Assets/Art/VFX/ParryClash/ParryImpact.asset");
 
     [Test, Category("Quick")]
+    public void HorizontalParryFlashKeepsDimensionsRotationAndEnvelopeAcrossSeedsAndPoolReuse()
+    {
+        var layer = Parry.flashes[1];
+        Assert.That(layer.channel, Is.EqualTo(5));
+        Assert.That(layer.lifetime, Is.EqualTo(.12f));
+        foreach (var sample in new[] { new Vector2(0, 0), new Vector2(.02f, 1),
+            new Vector2(.04f, 1), new Vector2(.08f, .5f), new Vector2(.12f, 0) })
+            Assert.That(layer.colorOverLifetime.Evaluate(sample.x / layer.lifetime).a,
+                Is.EqualTo(sample.y).Within(.0001f));
+        var emitter = Emitter();
+        ImpactVfxBurst previous = null;
+        for (int seed = 0; seed < 24; seed++)
+        foreach (float direction in new[] { -1f, 1f })
+        {
+            var context = Context(direction); context.seed = seed;
+            var burst = emitter.Play(Parry, context);
+            if (previous) Assert.That(burst, Is.SameAs(previous));
+            var horizontal = Particles(burst, 5);
+            Assert.That(horizontal.Length, Is.EqualTo(1));
+            Assert.That(horizontal[0].position, Is.EqualTo(context.point));
+            Assert.That(horizontal[0].rotation, Is.Zero);
+            // Use the existing square core to infer the current camera pixel scale.
+            float width = horizontal[0].startSize3D.x;
+            Assert.That(width, Is.GreaterThanOrEqualTo(72 / Parry.pixelsPerUnit));
+            Assert.That(horizontal[0].startSize3D.y, Is.EqualTo(width * 3 / 72).Within(.00001f));
+            burst.Systems[5].Simulate(.121f, false, false, false);
+            Assert.That(Particles(burst, 5), Is.Empty);
+            Assert.That(Particles(burst, 0).Length, Is.EqualTo(1), "Existing flash retains its lifetime");
+            emitter.Clear();
+            Assert.That(Particles(burst, 5), Is.Empty);
+            previous = burst;
+        }
+    }
+
+    [Test, Category("Quick")]
     public void ParryImpactPreservesFlashAndSeededTrajectoriesWhileExtendingSparks()
     {
         Assert.That(Parry.physics, Is.Not.SameAs(Metal.physics));
@@ -68,8 +103,8 @@ public sealed partial class ImpactVfxTests
                 var context = Context(direction);
                 var original = emitter.Play(Metal, context);
                 var actual = emitter.Play(Parry, context);
-                Assert.That(actual.Systems.Length, Is.EqualTo(5));
-                Assert.That(Parry.flashes.Length, Is.EqualTo(1));
+                Assert.That(actual.Systems.Length, Is.EqualTo(6));
+                Assert.That(Parry.flashes.Length, Is.EqualTo(2));
                 var layer = Parry.flashes[0];
                 Assert.That(layer.sizePixels, Is.EqualTo(40));
                 Assert.That(layer.lifetime, Is.EqualTo(.48f));
@@ -195,13 +230,16 @@ public sealed partial class ImpactVfxTests
         GamePauseController.SetTutorialReading(true);
         yield return null;
         var before = Particles(burst, 0)[0];
+        var horizontalBefore = Particles(burst, 5)[0];
         yield return new WaitForSecondsRealtime(.25f);
+        Assert.That(Particles(burst, 5)[0].remainingLifetime, Is.EqualTo(horizontalBefore.remainingLifetime));
         Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
         Assert.That(Particles(burst, 0)[0].rotation, Is.EqualTo(before.rotation));
         Assert.That(Particles(burst, 0)[0].startSize, Is.EqualTo(before.startSize));
         GamePauseController.SetTutorialReading(false);
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(.2f);
+        Assert.That(Particles(burst, 5)[0].remainingLifetime, Is.EqualTo(horizontalBefore.remainingLifetime));
         Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
         Assert.That(Particles(burst, 0)[0].rotation, Is.EqualTo(before.rotation));
         Assert.That(Particles(burst, 0)[0].startSize, Is.EqualTo(before.startSize));
@@ -209,6 +247,7 @@ public sealed partial class ImpactVfxTests
         yield return new WaitForSecondsRealtime(.50f);
         Assert.That(Particles(burst, 0), Is.Empty);
         Assert.That(Particles(burst, 3), Is.Empty);
+        Assert.That(Particles(burst, 5), Is.Empty);
         yield return new WaitForSecondsRealtime(1.1f);
         Assert.That(emitter.active, Is.Empty);
         Assert.That(emitter.Play(Parry, Context(-1)), Is.SameAs(burst));
@@ -219,7 +258,7 @@ public sealed partial class ImpactVfxTests
     }
 
     [Test, Category("Quick")]
-    public void MissingParryPrefabBuilderCreatesFiveBindingsAndPreservesCustomOnRepeat()
+    public void MissingParryPrefabBuilderCreatesSixBindingsAndPreservesCustomOnRepeat()
     {
         const string path = "Assets/Art/VFX/ParryClash/ParryImpact.prefab";
         const string backup = "Assets/Art/VFX/ParryClash/__ParryImpactBuilderFixture.prefab";
@@ -239,10 +278,10 @@ public sealed partial class ImpactVfxTests
             Assert.That(profile.prefab, Is.SameAs(generated));
             var so = new UnityEditor.SerializedObject(generated.GetComponent<ImpactVfxBurst>());
             var bindings = so.FindProperty("rendererBindings");
-            Assert.That(bindings.arraySize, Is.EqualTo(5));
+            Assert.That(bindings.arraySize, Is.EqualTo(6));
             Assert.That(so.FindProperty("directionalFlashChannel").intValue, Is.Zero);
-            string[] names = { "PimenCore", "PimenFragment", "PimenRay", "PimenSpeck", "PimenRay" };
-            for (int i = 0; i < 5; i++)
+            string[] names = { "PimenCore", "PimenFragment", "PimenRay", "PimenSpeck", "PimenRay", "HorizontalFlash" };
+            for (int i = 0; i < 6; i++)
             {
                 var binding = bindings.GetArrayElementAtIndex(i);
                 Assert.That(binding.FindPropertyRelative("id").intValue, Is.EqualTo(i));
@@ -279,7 +318,7 @@ public sealed partial class ImpactVfxTests
         {
             var context = Context(side); context.seed = seed;
             var burst = emitter.Play(Parry, context);
-            Assert.That(burst.ParticleCount, Is.EqualTo(23));
+            Assert.That(burst.ParticleCount, Is.EqualTo(24));
             var core = Particles(burst, 0)[0];
             Assert.That(core.position, Is.EqualTo(context.point));
             Assert.That(core.startLifetime, Is.EqualTo(.48f).Within(.000001f));

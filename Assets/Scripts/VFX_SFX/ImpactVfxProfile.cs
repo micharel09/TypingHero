@@ -39,6 +39,8 @@ public sealed class ImpactVfxProfile : ScriptableObject
         [Min(.001f)] public float lifetime = .2f;
         public Color tint = Color.white;
         [Min(0)] public float sizePixels = 16, maxWorldSize;
+        public Vector2 sizePixels2D; // Zero retains the authored square and rotation.
+        public bool lockVariation;
         [Min(1)] public int columns = 1, rows = 1, cycles = 1;
         public float startFrame;
         public AnimationCurve frameOverTime = AnimationCurve.Constant(0, 1, 0);
