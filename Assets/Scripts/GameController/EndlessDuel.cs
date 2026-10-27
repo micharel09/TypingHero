@@ -90,7 +90,7 @@ public sealed class EndlessDuel : MonoBehaviour
         }
         ready = true;
         if (overlay) overlay.Show($"{Run.Difficulty.Label()} · CLEARED {Run.Defeated} · HP {Run.Health}/{player.maxHealth}",
-            $"NEXT: {Run.Enemy.Name}", "Continue · Enter", Continue);
+            $"NEXT: {Run.Enemy.Name}", "Ready · Enter", Continue);
     }
 
     internal string FinishRun(bool won = false)
