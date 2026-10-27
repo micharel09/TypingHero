@@ -1,4 +1,4 @@
-# Rà soát độ đồng bộ pixel trên main — 2026-10-27
+﻿# Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
 > **Audit đang mở; A1 có bản sửa nguồn trên nhánh riêng, chưa nghiệm thu runtime.** Bộ capture gõ `READY` thuộc revision **`66749da1`**, không phải giao diện main hiện tại.
 > **Checkpoint đã kiểm:** ba clip READY có ledger 806 frame/803 cặp chuyển tiếp; tutorial 34/33 và normal 339/338 giữ riêng. Tổng catalog runtime đã ghi kiểm 1.186/1.180 trên 1.900/1.890.
@@ -4336,3 +4336,106 @@ B?n build ??u d?ng map th? ?? d?ng, gi? log v? manifest ri?ng; b?n cu?i ?ang
 build v?i snapshot2543file SHA256
 `4a4538ea2810cf81b226ebb47d98da8217fa6ffda6f30dd5c07fe2f04f8f203d`.
 Kh?ng chuy?n tr?ng th?i A1/runtime theo vi?c build ?ang ch?y.
+
+
+## Checkpoint thu R0+A1 ? runtime h?nh c?n m?
+
+B?n ngu?n A1 v?n l? `1a2b6d4` tr?n nh?nh ri?ng, ch?a l?n main. QA Windows Unity
+2022.3.25f1 (530ae0ba3889) / snapshot2543file
+`4a4538ea2810cf81b226ebb47d98da8217fa6ffda6f30dd5c07fe2f04f8f203d`
+build th?nh c?ng t?i `runtime/results/20261027T142929.162161Z-3f0c4ef0828e45529ada23825d1c82d3-build-right`.
+Strict repeated builder x?c nh?n serialized objects/references/listeners kh?ng ??i;
+player `game-loop-build.json` ghi qa=true. C?12file albedo/normal/depth/material
+A1 kh?p byte v?i commit sau import/build, receipt `runtime-map-preservation.json`.
+Kh?ng ch?y full suite/stress/soak/profiling ho?c viewport ngo?i hai c? ?? y?u c?u.
+
+### H?nh vi v? media ?? thu
+
+`capture-1` thu tutorial reading, combat ki?m/Double Strike/r?u/khi?n, ?? ba
+?i?m n?i death?cleanup?READY?combat ti?p. Driver d?ng ph?m/chu?t, bridge ch? ??c;
+fixture Firebase, ch?n provider v? service worker b?t. Edge156.0.4314.42,
+**Intel UHD0x9BC4 / ANGLE D3D11**; kh?ng d?ng nh?n Linux/Docker k? th?a t?
+`toolchain.json` l?m m?i tr??ng th?c ho?c g?n NVIDIA c?a b? capture c? cho b? n?y.
+
+45check k? thu?t ?? qua tr??c l?i ? ph?n player b? sung. Ki?m ki?m ch?/Enter/
+click v? tr? n?t c?, t?ng ch? th??ng, sai sau prefix, Pause ch?n ch? v? Resume
+gi? prefix, resize1280?720?1366?768?1280?720, carry v? m?t handoff. R?u/khi?n
+ch? ki?m ?i?m n?i/carry, kh?ng l?p ma tr?n input. Th?i gian ch?/intro l?n l??t
+41.68546676635742 /152.0548095703125 /194.65335083007812s; HP40, score/letters/
+correct gi? qua READY?intro. Combat k? t?ng l?i t? th?i gian ?? mang sang.
+Contract hold180ms ???c ??i chi?u `ReadyRitualPresentation.LateUpdate` v? test
+`ReadyRitualTests` hi?n c?; kh?ng ?o engine timing b?ng s? frame video ho?c
+nh?n c?c test l?ch s? l? l?n ch?y m?i c?a audit n?y.
+
+?? m? ri?ng ba still resize native: compact frame, TYPE READY TO CONTINUE,
+READY c?n ?? glyph/vi?n/padding, countdown ?n, v?ng tr?n s?n; ??y ch? l? still,
+kh?ng thay ki?m c?c frame li?n t?c. QA label c? che t?n player; m?u glyph ri?ng
+kh?ng QA ?? ?? ?i?u ki?n t?i d?ng ? checkpoint tr??c.
+
+Phi?n1 c? l?i `Target page, context or browser has been closed` khi ?ang thu th?m
+player Hurt/death; nguy?n nh?n ??ng ch?a x?c ??nh. Gi? status to?n phi?n **failed**,
+kh?ng g?i45check l? to?n b? phi?n PASS. C?c clip tr??c ?? ?? stop/export ho?n ch?nh.
+Generic fixtureReads/Writes b?ng0 nh?ng fixture Endless ri?ng c?1read/1write ???c
+intercept ? ph?n result; kh?ng ph?i write ra provider th?t. Kh?ng c? Unity/JS
+exception trong report. Kh?ng ph?n lo?i l?i c?ng c?/thi?u quan s?t th?nh l?i game.
+
+`capture-2` thu l?i ri?ng player tr?n c?ng player/build, kh?ng typing/parry ho?c
+?p HP/Animator: idle ch?y th?t, Hurt?idle v? death?result,4check harness PASS,
+0exception. ?i?u ki?n ch? c?ng c? ??i sang overlay && hp<=0 v? bridge tr? sentinel
+?m khi actor b? d?n ? result; kh?ng s?a game. Media ch?nh
+`capture-2/player-hurt-death-result.webm`; video context b? sung kh?ng c?ng coverage.
+To?n b? source clips, trace, still v? `progress-receipt.json` ? th? m?c b?ng ch?ng
+A1 ngo?i CodexTemp; receipt ghi SHA256 media, source/build v? c?c event carry.
+
+### PTS, bi?n v? ph?n ?? xem
+
+C?ng c? tr?ch ngo?i repo `decode-pts.py` ch?n **PTS integer g?c**, chia t?ng run
+c?ng k?ch th??c, gi? ordinal to?n media; kh?ng ch?n b?ng filter n reset khi resize.
+?? ??i so?t s? PNG/PTS v? k?ch th??c m?i PNG ?? xu?t. Clip ki?m ??i t?i
+F1217/43.541s1280?720?F1218/43.590s1366?768; F1232/44.066s c?n1366?768,
+F1233/44.103s v?1280?720. Duration cu?i media ch?a x?c ??nh v?n null.
+Kh?ng retime/n?i suy/b? frame encode ho?c b? frame l?p.
+
+Bi?n r?u ??u ti?n64531ms ?? l? gi?a strike/recovery Slayer ? F1842; kh?ng thu h?p
+?? b? ?o?n kh?. ?? m? r?ng v?50.5s: trace c? idle50.433, Hurt51.306,
+Attack1 preparation53.185 v? Slayer entry54.226, ti?p t?c tr?n burst/exit, lethal,
+Die/cleanup/READY v? combat m?i. Ba frame ?? xem trong ?o?n h?p gi? nguy?n ghi ch?
+v? hash, ???c ??a v?o ?o?n m? r?ng theo c?ng global ordinal; ?o?n h?p b? thay th?.
+Frame F1436 m? tr?c ti?p x?c nh?n b?i c?nh tr??c preparation ti?p theo; kh?ng d?ng
+n? nghi?m thu preparation c?a ??ng t?c tr??c ?o?n. Media to?n tr?n v?n gi? ??.
+
+Catalog hi?n t?i `runtime-review/clips.json` l? **?ng vi?n ?ang review**, kh?ng ph?i
+manifest nghi?m thu cu?i. T?ng1.590frame/1.584c?p; ?? m? native full canvas v?
+nearest4?7frame/5c?p. C?n1.583frame/1.579c?p trong c?c ?o?n n?y ch?a xem.
+Kh?ng c?ng v?i catalog l?ch s?1.900/1.890. Double Strike/combat c?n l?u raw v? c?n
+ch?t ??ng ?o?n/ph?m vi tr??c review; catalog d??i ??y ch?a kh?p to?n ma tr?n.
+
+| ?o?n m?i | Frame/c?p | ?? m? frame/c?p | Gi?i h?n |
+|---|---:|---:|---|
+| axe-death-cleanup-ready-current |641/640|7/5|F1436?F1439 v? F1842?F1844; ph?n kh?c v? chi ti?t VFX che ch?a ki?m. |
+| shield-death-cleanup-ready-current |247/246|0/0|Ch?a xem tr?c ti?p. |
+| sword-death-ready-current |475/474|0/0|Ba still resize kh?ng t?nh thay frame encode. |
+| player-idle-hurt-recovery |79/78|0/0|Ch?a ki?m ?? v?ng/kh?p source. |
+| player-death-result |123/122|0/0|Ch?a xem tr?c ti?p. |
+| tutorial-reading-current |25/24|0/0|timeScale kh?a; kh?ng t?nh l? v?ng idle. |
+
+T?ng frame ?? m? c? phase, quan s?t, c?p k?, gi?i h?n v? hash trong catalog. C?c
+c?p F1439?F1440, F1844?F1845 v? c?p n?i c?c kh?i ch?a xem kh?ng ???c t?nh.
+V?t ki?m r?i ? cel hero ???c ghi l? c?n ??i chi?u source, kh?ng t? k?t lu?n l?i.
+
+### Preview shader ?ang s?a c?ng c?, ch?a nghi?m thu
+
+B? `lit-preview/`72?nh d?ng helper c? v? `lit-preview-current/`72?nh th? kh?ng
+?? ?i?u ki?n ch?ng nh?n lighting/transform hi?n h?nh; m?i m? m?t ?nh ch?n ?o?n
+m?i b?, kh?ng coi72?nh ?? xu?t l? ?? xem. Helper c? b? presentation/post,
+Camera.CopyFrom c?n k? th?a viewport serialized kh?c runtime. Runtime
+`DungeonArenaCamera.OnEnable` ??t rect(0,0,1,1); c?ng c? ph?i t?i hi?n ??ng ?i?u n?y.
+B?n tool cu?i d?ng pose camera t? trace, pitch/profile hi?n h?nh, WorldTexture,
+world renderer v? presentation/post c?a R0; ch? t?o preview offline kh?ng controller/
+VFX, kh?ng ?p state/caller runtime. Kh?ng s?a camera, lighting ho?c source game ??
+l?m ki?m th? ??t. Editor preview d?ng NVIDIA GTX1650Ti, kh?c renderer Intel c?a
+capture; ph?i gi? gi?i h?n GPU/preview khi ??i chi?u runtime.
+
+B?n cu?i ?ang chu?n b? t?i `lit-preview-final/`; ch?a c? frame preview cu?i n?o
+???c nghi?m thu. A1 v?n **ngu?n ?? s?a / runtime h?nh ch?a ki?m ??**. Walk ti?p t?c
+asset-only. Ch?a ch?t playback1?/0.25? ho?c x?c nh?n ng??i xem; ch?a ??ng audit.
