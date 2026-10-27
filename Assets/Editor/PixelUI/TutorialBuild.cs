@@ -117,6 +117,7 @@ internal static class TutorialBuild
         PrefabUtility.RecordPrefabInstancePropertyModifications(action.rectTransform);
         Text("Step", "1/6", 428, 484, 60, 32, 24).alignment = TextAlignmentOptions.Center;
         BuildParry(overlay, bounds, panel, font);
+        SkinButtons(overlay);
         var hud = GameObject.Find("PixelUI/Reference960x540/HUD").transform;
         var so = new SerializedObject(overlay);
         var arrows = so.FindProperty("arrows"); arrows.arraySize = 5;
@@ -521,5 +522,38 @@ internal static class TutorialBuild
     static void Skin(GameObject root) => ShogunTheme.Skin(root,
         AssetDatabase.LoadAssetAtPath<SfxEvent>(ShogunTheme.Events + "Confirm.asset"),
         AssetDatabase.LoadAssetAtPath<SfxEvent>(ShogunTheme.Events + "Back.asset"));
+
+    // Final tutorial-only pass: later builder runs cannot restore the shared HUD rim.
+    static void SkinButtons(TutorialOverlay overlay)
+    {
+        const string path = "Assets/Art/UI/GothicPixelUI/split_assets/frames and bars/large_ornate_frame2.png";
+        var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+        if (!sprite) throw new System.IO.FileNotFoundException("Missing AbyssOwl tutorial button", path);
+        foreach (var button in overlay.GetComponentsInChildren<Button>(true))
+        {
+            var oldSkin = button.GetComponent<DungeonControlSkin>();
+            if (oldSkin) Object.DestroyImmediate(oldSkin);
+            var image = (Image)button.targetGraphic;
+            image.sprite = sprite;
+            image.overrideSprite = null;
+            image.type = UnityEngine.UI.Image.Type.Sliced;
+            image.pixelsPerUnitMultiplier = 1;
+            image.color = Color.white;
+            button.transition = Selectable.Transition.ColorTint;
+            button.spriteState = new SpriteState();
+            var colors = ColorBlock.defaultColorBlock;
+            colors.normalColor = Hex("b3a080");
+            colors.highlightedColor = colors.selectedColor = Color.white;
+            colors.pressedColor = Hex("806b4d");
+            colors.disabledColor = new Color(.35f, .32f, .28f, .65f);
+            colors.fadeDuration = .08f;
+            button.colors = colors;
+            var label = button.GetComponentInChildren<TMP_Text>(true);
+            label.color = Color.white;
+            PrefabUtility.RecordPrefabInstancePropertyModifications(label);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(image);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(button);
+        }
+    }
 
 }

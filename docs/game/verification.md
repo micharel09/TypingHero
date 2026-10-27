@@ -1,3 +1,9 @@
+## Tutorial Gothic button skin (2026-10-27; review branch)
+
+Windows Unity 2022.3.25f1: final strict repeat-builder, QA WebGL and normal WebGL PASS, exit 0. Native Edge 156.0.4314.42 / GTX 1650 Ti D3D11: 374 checks PASS at 1280x720 and 640x360, 0 exceptions/provider reads/writes. Covers Watch/Replay, Retry/Back/Next/Skip/Start, disabled click rejection, practice and fresh battle. All button roles/states directly inspected; fixed corners, legible white labels and unchanged geometry. Measured flat-face/white-core contrast: 9.808 normal, 5.256 hover, 14.030 pressed at both sizes.
+
+80 original AbyssOwl PNGs are byte-identical; source credit/license and exported CREDITS.txt/GothicPixelUI-License.txt verified. Scoped scene keeps 978 non-tutorial blocks byte-identical, changes 34 tutorial records and removes 8 old skin components; no RectTransform/listener/navigation change or new dangling reference. Runtime/config/shared art unchanged. Normal qa:false and all 4 payload QA-marker scans pass; fixture-isolated normal Play/Skip/viewed Play/Pause smoke and 4 stills inspected. No new animation/performance/full-suite claim. New demo 8307 retains old 8306 and main integration is deferred. [Source mapping, provenance and delivery](../plans/parry-cue-demo.md#gothic-tutorial-buttons-2026-10-27-verified-review-candidate).
+
 ## Tutorial playback hot path (2026-10-26; review branch)
 
 Ubuntu2022.3.25f1 quick160709/inputd0f5f956:9/9 scoped tutorial tests PASS,
