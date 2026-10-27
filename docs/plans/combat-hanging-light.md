@@ -154,6 +154,22 @@ kept separately; do not pool them or replace slow valid rows with later numbers.
   remove only after verified accepted remote-main integration. Primary checkout
   and historical artifacts are preserved. Task scratch cleanup is recorded below.
 
+### Retention and cleanup receipt (2026-10-27)
+
+- Harness/checkpoint commit `2e75db4c` was pushed and fetched back at the same
+  task-branch SHA. Remote main remains `66749da1`; no task-main integration.
+- Both registered scratch tasks were completed with explicit session
+  `01a17c27-fa69-7572-a018-3506e42e3c9a` and `-Apply` at09:34UTC:
+  `dungeon-ready-20261027` and `dungeon-foreground-20261027`. Both receipts report
+  `State=deleted`, `Reason=verified-absent`. No task browser/node/Python consumer
+  remained at handoff. Deliverables and raw traces are outside temp and retained.
+- Cleanup receipts: `cleanup-ready.txt`, `cleanup-foreground.txt` under the durable
+  evidence root. Register a new unique scratch task before any resumed browser
+  profile; update the private adapter's manifest with its returned path/session.
+  Existing worktree/branch and Ubuntu runner/cache/license remain for continuation
+  until accepted remote-main integration. Do not remove historical evidence or
+  pre-existing resources.
+
 ## Latest source checkpoint:63a78500 (2026-10-27)
 
 Merged upstream66749da1 (typed READY) with both documentation histories preserved.
