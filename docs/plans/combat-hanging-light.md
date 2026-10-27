@@ -1,3 +1,50 @@
+## Fresh continuation ? environment gate blocked (2026-10-27)
+
+- Resumed clean task HEAD `3ee8b7a5`; verified origin micharel09/TypingHero,
+  fetched and merged origin/main `83d6e0a6` as `421813be`. One documentation
+  conflict preserved both performance evidence and newer Slayer acceptance/audit.
+  Existing dirty main checkout was untouched. No runtime optimization was made.
+- Main adds intro/Slayer runtime and QA observation changes. Old QA player
+  `7cd77c5fb88da486` is not evidence for this merged source. Baseline A and final B
+  remain unlocked/unbuilt; no new Unity build is justified before environment pass.
+- Durable evidence: `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-resume`.
+  `source-manifest.json` hashes tracked game/config/harness inputs and retained
+  native/Ubuntu adapters. Each completed control JSON includes raw rAF intervals,
+  foreground/visibility, renderer, viewport, browser user agent, launch flags,
+  browser executable SHA256 and control script SHA256.
+- Changing WebGL canvas: same Chromium executable/controlled launch flags as
+  retained native adapter, foreground 1280x720, warmup 3s then >=12s observation.
+  No build, image export, video or concurrent diagnostic ran during these controls.
+  Renderer is actual NVIDIA GTX 1650 Ti / ANGLE D3D11 in every completed run.
+
+| Round/run | rAF FPS | p95 ms | Minimum 1s window FPS | Focus/visible | Result |
+|---|---:|---:|---:|---|---|
+| 1.1 | 67.316 | 13.6 | 25 | pass | fail |
+| 1.2 | 32.757 | 13.7 | 1 | pass | fail |
+| 1.3 | 33.700 | 13.6 | 1 | pass | fail |
+| 2.1 | 18.583 | 186.9 | 1 | pass | fail |
+| 2.2 / 2.3 | unavailable | unavailable | unavailable | unverified | browser closed |
+| 3.1 | 3.768 | 1000.4 | 1 | pass | fail |
+| 3.2 | unavailable | unavailable | unavailable | unverified | browser closed |
+
+- Three unsuccessful rounds show no progress. Run 3.3 was not attempted after
+  repeated browser closure. Closure cause is unknown; no task stop was issued.
+  Error receipts preserve this gap; incomplete runs have no returned raw samples.
+  Do not interpret them as performance passes. No power/GPU/driver settings or
+  user applications were changed/stopped. No task profile chrome/node consumers
+  remained in the final process inspection.
+- Environment is **not qualified for measurement**. Canvas-only cadence fails
+  independently of Unity; it does not identify a game CPU/GPU bottleneck or an
+  OS/driver cause. No game diagnostic, ABBA, new production check or final playback
+  was run, and no runtime-performance acceptance or main integration is claimed.
+- Scoped harness recheck after merge: 16/16 Node contracts pass; performance driver
+  syntax passes. Documentation whitespace check passes. These do not validate
+  the merged runtime. Preserve worktree/branch until a stable environment allows
+  the pending build/diagnostic/ABBA/production/playback gates in the approved plan.
+- Next: requalify three consecutive control runs without changing user settings
+  implicitly, then build fresh merged A and follow the original acceptance plan.
+  Task branch push/remote preservation is recorded in the external receipt.
+
 ## Harness acceptance checkpoint (2026-10-27)
 
 - Continue `micharel09/replaced-dungeon-lighting-2` from `4613b84`. Changes are
