@@ -1,3 +1,111 @@
+## Acceptance stopped: performance gate failed; main unchanged (2026-10-27)
+
+- Retained implementation: 990105b5, with main documentation merged at06105e08.
+  No task integration into main, no itch release, and no quality/timing changes.
+- Deferred-decoding candidate is REJECTED: no demonstrated performance win in
+  parry, and neither mode meets acceptance. Its plugin change was restored to
+  the committed eager independent-snapshot implementation. Candidate source is
+  preserved in `deferred-candidate.patch` under the durable evidence root below.
+  The delayed-first-read and cross-frame mutation contract remains useful for
+  the retained implementation; all20 Node contracts pass after restoration.
+- Ubuntu candidate build:052845-webgl; canonical source digest
+  de8f62c123c9ed7357b9b51974f82fb5c27921cb41c1f9b2d2b06ab6f33160e5.
+  All33 downloaded player hashes match. All472 serialized assets match A;
+  output.wasm and output.data are byte-identical to ready-B. Original-serializer
+  comparison passed1567 checks/1565 observed rows; this is correctness evidence,
+  not performance acceptance.
+
+| Deferred candidate qualification | Valid combat seconds | FPS | p95 ms | Minimum1s FPS | Hitch >50ms | Verdict |
+|---|---:|---:|---:|---:|---:|---|
+| deferred-normal-60 | 60.307 | 70.523 | 21.820 | 51 | 2 | FAIL |
+| deferred-parry-60-v5 | 60.635 | 52.478 | 34.920 | 1 | 26 | FAIL |
+| deferred-parry-60-repeat | 60.191 | 50.988 | 35.120 | 30 | 18 | FAIL |
+
+- Both parry runs have real counter-increment and Slayer coverage. Final receipt
+  and native report FPS agree for all three rows. These are qualification runs,
+  not a replacement ABBA block. Earlier v4 parry startup failure remains saved.
+- Startup harness v5 holds Enter across observed Unity frames before key-up.
+  A70ms tap can fall entirely inside a long frame (observed1.462s at guide).
+  Both v5 parry runs reach combat through real keyboard input. No game setters.
+  v5 has not yet been validated on A or used for a complete official block.
+- Context close hung after the first v5 receipt was saved. Only verified
+  task-created Chromium descendants were stopped; native report subsequently
+  completed, with0 runtime exceptions and matching receipt. Repeat closed normally.
+- Post-candidate canvas controls use the same browser/GPU/viewport/flags and
+  3s warmup/12s measurement. First isolated round:74.889/32.198/74.972 FPS,
+  p95 13.6/13.6/13.5ms, minimum74/1/75 FPS; middle run fails despite focus.
+  Rounds two and three each pass all3 runs (see isolated controls4..9), so the
+  environment gate reopened. Do NOT claim the environment remained blocked or
+  assign the reproduced game cost to a proven CPU/shader hotspot.
+- A preceding `post-deferred-control` probe is retained but is not used for
+  acceptance: a contract check overlapped its execution, and close hung.
+- No further runtime/shader edit is justified by the current component-level
+  evidence. Next work requires isolating the remaining recurring cost, then an
+  equivalent candidate with two valid diagnostics per mode and a fresh8-run
+  ABBA on a single locked harness. Do not rerun only to replace poor numbers.
+- Production build/exclusion/smoke and final1x/0.25x playback/per-frame review
+  remain UNVERIFIED on an accepted final B. They cannot authorize integration.
+- Durable evidence: `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-final`.
+  Keep this worktree/branch because integration is not accepted; remove only
+  after verified remote integration. Task scratch may be cleaned after consumers exit.
+
+## ABBA1 failed; deferred-decoding candidate in flight (2026-10-27)
+
+- Current committed HEAD06105e08 includes implementation990105b5 and latest
+  docs-only main merge e5c48017. Main has NOT received this lighting task.
+- FormalABBA1 ran all8slots with locked v3 harness,15s warmup and60s combat.
+  Both A1 slots timed out at tutorial startup before measurement; both blocks
+  are invalid. Every B slot has valid measured coverage but fails performance;
+  preserve those failures rather than discarding them with the invalid block.
+
+| Run | Valid | Unity FPS | p95 ms | Minimum1s FPS | Performance pass |
+|---|---|---:|---:|---:|---|
+| abba1-normal-A1 | False | - | - | None | False |
+| abba1-normal-B1 | True | 62.299 | 28.000 | 40 | False |
+| abba1-normal-B2 | True | 58.643 | 29.860 | 49 | False |
+| abba1-normal-A2 | True | 42.416 | 41.490 | 29 | False |
+| abba1-parry-A1 | False | - | - | None | False |
+| abba1-parry-B1 | True | 51.579 | 34.710 | 34 | False |
+| abba1-parry-B2 | True | 56.585 | 30.340 | 39 | False |
+| abba1-parry-A2 | True | 56.290 | 28.590 | 43 | False |
+
+- Receipts and reports agree after final drain. All raw runs and old harness v3
+  remain under the durable root. Startup fact: Practice click did not produce a
+  confirmed tutorial exit; exact event/timing cause remains unknown. v4 uses
+  documented Enter after500ms guide settling and waits for tutorial exit, via
+  real keyboard only. v4 succeeded once in the separate B GPU diagnostic;
+  A startup validation is still pending.
+- Stable observed lifecycle samples:1world camera,1presenter,2arena textures,
+  2actors,1HUD; no increasing draw-call trend (normal median166). See derived
+  `abba1-cost-analysis.json`; this is not a repository-wide leak-free claim.
+- Separate GPU diagnostic:1489non-disjoint Unity-containing query samples,
+  GPU median6.186592ms; CPU callback median13.670ms. Independent clocks, never
+  summed. Correct coverage and0exceptions; thresholds fail, not accepted FPS.
+- New candidate changes only the QA JS decoder: capture the immutable particle
+  JSON for each frame, materialize that frame's independent mutable array only
+  when read. All192slots/schema/values remain available, including old frames
+  first read after later payload updates. C# still observes every physical frame.
+ 20Node contracts PASS, including delayed historical reads and mutation isolation.
+  Actual final-object equivalence and performance are pending for this candidate.
+- New build in flight: local20261027T052718-build-candidate, canonical input
+  `de8f62c123c9ed7357b9b51974f82fb5c27921cb41c1f9b2d2b06ab6f33160e5`;
+  unified exec session64617 was active. No Unity Windows execution.
+- Keep A player `qa-ready-A/player` (source85bd1706/input393836e2); only docs have
+  advanced upstream since. Keep C2B `qa-ready-B/player` for comparison. Download,
+  hash and verify the new player against the original complete serializer before
+  performance qualification. Because C2 fails at60s despite passing short runs,
+  a single60s candidate qualification is justified before the next full ABBA.
+- v4 source/config live in `locked-harness-v4` and `run_perf-v4.py`; v3 and its
+  run_perf.py remain byte-preserved for ABBA1. Formal next blocks must use a single
+  new frozen manifest and be rerun in full after the startup/harness change.
+- Production checks, final six-encounter/Berserker capture and direct1x/.25x
+  playback plus selected100%frame/transition review are still pending. Do NOT
+  integrate main, lower thresholds/quality or publish itch.
+- Durable root:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-performance-20261027-final`.
+  Registered scratch task `dungeon-fps-final-20261027` remains active; complete it
+  only after consumers exit and deliverables are retained outside CodexTemp.
+
 ## Locked candidate for formal ABBA (2026-10-27)
 
 - A source85bd1706 (merged origin/main29c03285, before QA optimization), input

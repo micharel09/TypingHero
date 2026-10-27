@@ -214,12 +214,18 @@ test('serialization verification preserves full changed and stale particle snaps
   assert.equal(bridge.TypingHeroQA_FrameBegin(), 3);
   expected.frame++;
   bridge.TypingHeroQA_CombatFrame(core(), null, null);
-  assert.deepEqual(JSON.parse(JSON.stringify(window.typingHeroCombatFrame)), expected);
+  const deferred = window.typingHeroCombatFrame;
+  const deferredExpected = JSON.parse(JSON.stringify(expected));
+  assert.equal(Object.isFrozen(deferred), true);
   assert.equal(window.typingHeroCombatSerializationChecks, 1);
   expected.frame++; expected.parrySampleCount = 1;
   expected.parryParticles[0].age = 0.25; expected.parryParticles[0].position.y = 9;
   bridge.TypingHeroQA_CombatFrame(core(), payload(), JSON.stringify(expected));
   assert.deepEqual(JSON.parse(JSON.stringify(window.typingHeroCombatFrame)), expected);
+  // A retained frame can first read its particles AFTER a later payload arrives.
+  assert.deepEqual(JSON.parse(JSON.stringify(deferred)), deferredExpected);
+  deferred.parryParticles[0].position.y = -99;
+  assert.equal(window.typingHeroCombatFrame.parryParticles[0].position.y, 9);
   expected.frame++; expected.parrySampleCount = 0;
   bridge.TypingHeroQA_CombatFrame(core(), null, JSON.stringify(expected));
   assert.deepEqual(JSON.parse(JSON.stringify(window.typingHeroCombatFrame)), expected);
