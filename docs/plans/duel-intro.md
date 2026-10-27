@@ -683,3 +683,11 @@ in the release manifest.
 Artifact, clips, compact reports and SHA manifests are retained outside CodexTemp
 at `D:/Projects/TypingHero-evidence/release-preview-300ms-20261027/`.
 Canonical receipt: [release manifest](../../marketing/itch-io/preview-300ms-release-20261027.json).
+
+Cleanup: removed the private server root (no running owned containers), leaving
+shared Library/cache/license untouched; removed the expanded local player and
+closed the owned BrowserSkill session (registry confirms it is gone after an
+initial cleanup timeout). Keep the clean release worktree/local branch at
+`D:/Projects/TypingHero-worktrees/release-preview-300ms`: its terminal hosts the
+shared browser daemon, which another session uses. Remove it only after that
+daemon can be safely retired/relocated and remote receipt remains verified.

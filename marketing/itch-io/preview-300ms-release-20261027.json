@@ -457,5 +457,22 @@
   "artifactRoot": "D:\\Projects\\TypingHero-evidence\\release-preview-300ms-20261027",
   "noGameplayOrApiChanges": true,
   "finalEditorEvidence": "editor-final-retry.json",
-  "cleanup": "Private server build/cache/expanded local player and task worktree cleanup pending remote documentation integration."
+  "cleanup": {
+    "server": {
+      "target": "/data/typinghero-game-loop/tasks/release-preview-300ms-20261027",
+      "removed": true,
+      "runningOwnedContainers": 0,
+      "sharedCacheLibraryLicenseUntouched": true
+    },
+    "expandedLocalPlayerRemoved": true,
+    "browserSession": "eady no longer registered; session stop initially reported background cleanup timeout, subsequent session list confirms removal. Other session xbpg untouched.",
+    "retainedWorktree": {
+      "path": "D:\\Projects\\TypingHero-worktrees\\release-preview-300ms",
+      "branch": "micharel09/release-preview-300ms",
+      "reason": "Hosts shared BrowserSkill foreground daemon terminal term_f40759a4-f43b-45ad-884f-2c0c7b5051d3; another session xbpg is using the daemon. Keep shared daemon running per browser-skill.",
+      "cleanupCondition": "Remove the clean worktree/local branch only after results are verified on remote and shared daemon is retired or relocated without disrupting other sessions."
+    },
+    "artifactRoot": "D:\\Projects\\TypingHero-evidence\\release-preview-300ms-20261027",
+    "retention": "Release ZIP, hashes, verification reports/screenshots/clips and reproduction scripts retained outside CodexTemp."
+  }
 }
