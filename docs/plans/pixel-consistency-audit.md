@@ -4568,3 +4568,33 @@ complete: axe326/325, shield254/253, sword507/506 frames/pairs, including all
 three native resolution runs across sword resize. Their visual review remains
 in progress; these totals are availability, not acceptance. No asset integration
 or audit closure is implied by this documentation checkpoint.
+
+
+### Current handoff review and sword end-cel diagnostic
+
+Current axe handoff ledger has **135/326 frames and 134/325 consecutive
+transitions directly inspected**, global F1391-F1525, native full canvas and
+nearest4x. All 270 reviewed PNG hashes rechecked. Shield254/253 and sword507/506
+remain extracted but uninspected; availability is not acceptance.
+Evidence: `runtime-review-current/current-handoff-scopes-clips.json` under
+`D:/Projects/TypingHero-evidence/a1-shield-ownership`.
+
+Inspected source `male_hero-combo_1_end_0` and `_1` at native128 and nearest512,
+both source and mirrored directions: four cel/orientation observations and two
+0-to1 transitions. Cel0 retains a continuous curved blue/white blade from the
+orange hilt; cel1 rises and has separated bright blade streaks with transparent
+gaps already present in albedo. Scarf, glove and torso remain continuous.
+Evidence: `hero-source-candidates/combo1-end-review.json`, retaining atlas hash,
+Unity bottom-row 128x128 rectangles and all eight preview hashes.
+This explains the source possibility behind runtime F1433-F1438 and F1511-F1514;
+nearest trace cel association is not exact runtime pixel identity. These streaks
+alone do not establish a new rendering or lost-pixel bug. This is a two-cel
+diagnostic, not full player animation acceptance.
+
+The reviewed axe interval includes Slayer exit, normal attacks, parry and
+recovery. Red silhouette, slash crescent, horizontal parry flash and Hurt flash
+mask specific interior details; exact-cel no-VFX/map supplements remain pending.
+The lethal Die-to-cleanup portion has not yet been visually reviewed. A1 runtime
+acceptance, asset integration, remaining animation matrix, final manifest and
+human 1x/0.25x playback remain open. No gameplay or rendering source was changed
+for this documentation checkpoint.
