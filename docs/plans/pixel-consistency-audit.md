@@ -1,8 +1,8 @@
 # Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
-> **Audit đang mở; A1 vẫn là lỗi xác nhận, sửa ở task khác.** Bộ capture gõ `READY` thuộc revision **`66749da1`**, không phải giao diện main hiện tại.
-> **Checkpoint đã kiểm:** ba clip READY có ledger 806 frame/803 cặp chuyển tiếp; tutorial 34/33 và normal 339/338 giữ riêng. Tổng catalog runtime đã ghi kiểm 1.179/1.174 trên 1.900/1.890.
-> **Còn mở:** 721 frame/716 cặp chưa đồng bộ kiểm trong catalog (F682–F688 đã có ghi chú riêng), preview chi tiết bị che và playback người xem 1×/0.25×. Không dùng số frame đã xem để tuyên bố clip đạt toàn bộ.
+> **Audit đang mở; A1 có bản sửa nguồn trên nhánh riêng, chưa nghiệm thu runtime.** Bộ capture gõ `READY` thuộc revision **`66749da1`**, không phải giao diện main hiện tại.
+> **Checkpoint đã kiểm:** ba clip READY có ledger 806 frame/803 cặp chuyển tiếp; tutorial 34/33 và normal 339/338 giữ riêng. Tổng catalog runtime đã ghi kiểm 1.186/1.180 trên 1.900/1.890.
+> **Còn mở:** 714 frame/710 cặp chưa ghi kiểm trong catalog lịch sử (F682–F688 đã đồng bộ metadata và ghi chú), preview chi tiết bị che và playback người xem 1×/0.25×. Không dùng số frame đã xem để tuyên bố clip đạt toàn bộ.
 > **Giới hạn áp dụng:** main đã đổi READY/intro và lighting/rendering sau R. Xem [checkpoint tích hợp](#checkpoint-tích-hợp-tài-liệu-và-phạm-vi-bằng-chứng).
 > Các số liệu và kết luận trong phần lịch sử giữ theo revision của từng lượt; không cộng vào coverage hiện tại hoặc dùng chứng nhận main mới.
 
@@ -4193,3 +4193,112 @@ kiểm SHA256 từng file nguồn/bản sao khớp; có `saved-files-manifest.js
 verified-absent, không báo lỗi consumer hay xóa. Bộ bằng chứng audit cũ vẫn giữ
 ở E:/CodexTemp/TypingHero/pixel-audit-evidence-20261027 để tiếp tục phần chưa kiểm;
 không đưa bộ có từ trước này vào phạm vi dọn đăng ký của lượt tiếp tục.
+
+
+## Checkpoint A1 và đối soát R0 — 2026-10-27
+
+R0 đã fetch: `3f1b1ed720ce22a5815425f227903049410c4cd2`, remote
+`https://github.com/micharel09/TypingHero.git`. Worktree A1 riêng:
+`D:/Projects/TypingHero-worktrees/a1-shield-ownership`, nhánh
+`micharel09/a1-shield-ownership`. Báo cáo tiếp tục ở worktree audit có sẵn;
+checkout gốc và mọi thay đổi ngoài task được giữ nguyên.
+
+### A1: nguồn đã sửa, runtime chưa kiểm
+
+Đã trực tiếp mở GIF F19–F25, lưới nguồn nearest 4×. Khiên có cả núm kim loại,
+không chỉ pixel nâu. Quy tắc riêng từng frame trong `owners` chuyển đúng
+208 pixel từ owner 1 sang owner 2, không đổi lane split chung hoặc lọc màu.
+Walk rìu F6–F11 bỏ 182 pixel; Die rìu F0 bỏ 26; Die kiếm–khiên F6–F12 nhận
+đủ 208 pixel cùng RGB/tọa độ nguồn. Những số nâu trong lịch sử chỉ đếm một
+phần palette, không phải tổng pixel chuyển ownership.
+
+Ba atlas đã đồng bộ trong nhánh A1; recipe depth cập nhật hash và thêm mask
+scanline chỉ tại phần khiên trả lại, depth 245 như lớp khiên hiện có. Normal
+được tạo lại bằng công cụ hiện có; material sửa tại texel đổi coverage theo
+quy tắc palette hiện hành. Không đổi GUID/rect/pivot/animation/controller.
+
+Đã xem 36/36 cel ở native và nearest 4×, source và mirror X, cùng map chẩn đoán;
+72 dòng frame/biến thể và 68/68 cặp nội bộ/seam Walk ghi trong ledger bên dưới.
+Không có mảnh khiên rời ở rìu; khiên rơi/nảy/nằm trong đúng cel sword-shield.
+Đây là kiểm nguồn, không phải render dưới ánh sáng runtime hoặc playback.
+Walk tiếp tục asset-only, không ép Animator để tạo coverage.
+
+Bằng chứng bền vững ngoài CodexTemp:
+[D:/Projects/TypingHero-evidence/a1-shield-ownership](D:/Projects/TypingHero-evidence/a1-shield-ownership).
+`cel-review.json` chứa từng frame/biến thể, duration 100 ms, frame GIF,
+quan sát/chuyển tiếp, filename và hash preview. Các file `*-final.png` thay
+preview map thử khi có; bản thử không được tính là map cuối. `technical-receipt.json`
+đối soát pixel/nguồn/native và tính cục bộ map, tách khỏi kiểm hình.
+
+Có lỗi trong script đồng bộ tạm: tên Die_N trùng giữa hai actor làm scanline
+khiên ban đầu vào axe Die F6–F10. Đã sửa vùng áp dụng, tạo lại map và mở lại
+bản cuối; không đưa map thử vào nghiệm thu. Build Windows snapshot đầu
+`65fa48e2be3b479c71fc8c7ec281d26d41f42a7bfbe992d89b21f7d2f05a3618`
+chứa map thử, không dùng chứng nhận runtime bản cuối dù build thành công.
+
+**Chưa nghiệm thu:** runtime trước kết liễu→Die→cleanup→READY rìu/khiên,
+render material/lighting hiện hành, playback từng clip 1×/0.25× và xác nhận
+người xem. A1 chưa đổi thành “đã sửa” toàn phần. Checkpoint này chỉ tích hợp
+tài liệu; asset chưa đủ runtime acceptance không được đưa lên main.
+
+### Đồng bộ bằng chứng lịch sử
+
+Catalog `review/clips.json` còn truy xuất được trên E:. Đã kiểm metadata F682–F688
+của `sword-double-attacks`: PNG đều 1280×720; PTS lần lượt
+38.010/38.110/38.137/38.188/38.199/38.256/38.285 s, khớp ghi chú trực tiếp
+đã có ở checkpoint trước. Đã đồng bộ 7 quan sát và 6 cặp nội bộ; không tính
+cặp F688→F689 chưa xem. Tổng lịch sử thành 1.186 frame/1.180 cặp trên
+1.900/1.890; còn 714/710. Bản trước/sau catalog và hash bảy PNG nằm trong
+`historical-catalog-{before,after}.json`, `historical-F682-F688.json` tại thư mục
+bằng chứng A1. Việc đồng bộ không phải review mới hoặc acceptance của R0.
+
+Bộ READY 806/803 giữ nguyên là lịch sử 66749da1. R0 khác R ở 75 đường dẫn
+Assets/tools lighting; Magic Circle, compact READY và lighting hiện hành là
+baseline phải thu lại. Các giới hạn áp dụng trong bảng đầu báo cáo vẫn giữ;
+chưa đổi trạng thái glyph Đặng_Á9, reflection, animation bị VFX che hoặc các
+clip chưa có nguồn truy xuất thành đạt. Không chạy suite game cho tài liệu.
+
+### Ledger nguồn A1 cuối
+
+Mỗi hàng dưới tóm tắt hai biến thể đã xem; ledger JSON có dòng riêng cho từng
+biến thể. Map preview là RGB chẩn đoán, không phải render shader. Điểm nối
+runtime và playback giữ trạng thái chưa kiểm chứng.
+
+| Clip / biến thể | Frame / GIF | Duration | Quan sát trực tiếp | Chuyển tiếp | Bằng chứng |
+|---|---|---|---|---|---|
+| axe/Walk / source + mirror X | F0 / GIF F13 | 100 ms | Chân mở, tay phải nắm cán dựng; lưỡi đủ hai cạnh. | → F1: Đầu/thân hạ, chân thu bước; cán dựng cùng tay. | `axe-Walk-00.png` |
+| axe/Walk / source + mirror X | F1 / GIF F14 | 100 ms | Đầu/thân hạ, chân thu bước; cán dựng cùng tay. | → F2: Gối nâng, đầu rìu lên cao; grip không tách. | `axe-Walk-01.png` |
+| axe/Walk / source + mirror X | F2 / GIF F15 | 100 ms | Gối nâng, đầu rìu lên cao; grip không tách. | → F3: Chân thu hẹp dưới hông; đầu/cán rìu liền. | `axe-Walk-02.png` |
+| axe/Walk / source + mirror X | F3 / GIF F16 | 100 ms | Chân thu hẹp dưới hông; đầu/cán rìu liền. | → F4: Gối đối diện nâng, tay sau duỗi; cán không mất. | `axe-Walk-03.png` |
+| axe/Walk / source + mirror X | F4 / GIF F17 | 100 ms | Gối đối diện nâng, tay sau duỗi; cán không mất. | → F5: Chân mở rộng, rìu nghiêng nhẹ phải; đầu lưỡi đủ. | `axe-Walk-04.png` |
+| axe/Walk / source + mirror X | F5 / GIF F18 | 100 ms | Chân mở rộng, rìu nghiêng nhẹ phải; đầu lưỡi đủ. | → F6: Chân thu, tay sau hạ; vùng phải sát đáy sạch mảnh khiên. | `axe-Walk-05.png` |
+| axe/Walk / source + mirror X | F6 / GIF F19 | 100 ms | Chân thu, tay sau hạ; vùng phải sát đáy sạch mảnh khiên. | → F7: Thân hẹp, hai chân gần nhau; không còn mảnh khiên đáy. | `axe-Walk-06.png` |
+| axe/Walk / source + mirror X | F7 / GIF F20 | 100 ms | Thân hẹp, hai chân gần nhau; không còn mảnh khiên đáy. | → F8: Đầu nâng, gối co; grip liền, nền phải đáy sạch. | `axe-Walk-07.png` |
+| axe/Walk / source + mirror X | F8 / GIF F21 | 100 ms | Đầu nâng, gối co; grip liền, nền phải đáy sạch. | → F9: Chân chuyển về mở, rìu dựng; không có vật rời bên phải. | `axe-Walk-08.png` |
+| axe/Walk / source + mirror X | F9 / GIF F22 | 100 ms | Chân chuyển về mở, rìu dựng; không có vật rời bên phải. | → F10: Chân mở rộng, thân hạ; rìu giữ nguyên, mảnh khiên đã bỏ. | `axe-Walk-09.png` |
+| axe/Walk / source + mirror X | F10 / GIF F23 | 100 ms | Chân mở rộng, thân hạ; rìu giữ nguyên, mảnh khiên đã bỏ. | → F11: Chân gần khép, đầu cao; bên phải đáy sạch trước seam. | `axe-Walk-10.png` |
+| axe/Walk / source + mirror X | F11 / GIF F24 | 100 ms | Chân gần khép, đầu cao; bên phải đáy sạch trước seam. | → F0: chân mở lại, cán dựng; không còn fragment nhảy mất ở seam. | `axe-Walk-11.png` |
+| axe/Die / source + mirror X | F0 / GIF F25 | 100 ms | Sọ tách khỏi vai, rìu còn dựng; không mảnh khiên sát chân. | → F1: Sọ nâng, ngực/eo/chân rời; tay phải còn bám cán. | `axe-Die-00-final.png` |
+| axe/Die / source + mirror X | F1 / GIF F26 | 100 ms | Sọ nâng, ngực/eo/chân rời; tay phải còn bám cán. | → F2: Ngực nâng tách eo, chân bắt đầu rã sát sàn; rìu dựng. | `axe-Die-01-final.png` |
+| axe/Die / source + mirror X | F2 / GIF F27 | 100 ms | Ngực nâng tách eo, chân bắt đầu rã sát sàn; rìu dựng. | → F3: Tay trái rời xa thân, eo xuống sàn; rìu còn cạnh phải. | `axe-Die-02-final.png` |
+| axe/Die / source + mirror X | F3 / GIF F28 | 100 ms | Tay trái rời xa thân, eo xuống sàn; rìu còn cạnh phải. | → F4: Sọ hạ, lồng ngực rời, cán nghiêng trái quanh tay phải. | `axe-Die-03-final.png` |
+| axe/Die / source + mirror X | F4 / GIF F29 | 100 ms | Sọ hạ, lồng ngực rời, cán nghiêng trái quanh tay phải. | → F5: Rìu đổ chéo qua sọ; xương/tay hạ sát sàn. | `axe-Die-04-final.png` |
+| axe/Die / source + mirror X | F5 / GIF F30 | 100 ms | Rìu đổ chéo qua sọ; xương/tay hạ sát sàn. | → F6: Lưỡi/cán nằm chéo thấp qua sọ, đống xương đáy; không khiên. | `axe-Die-05-final.png` |
+| axe/Die / source + mirror X | F6 / GIF F31 | 100 ms | Lưỡi/cán nằm chéo thấp qua sọ, đống xương đáy; không khiên. | → F7: Rìu nằm ngang, sọ còn nhô giữa; nền cạnh phải sạch. | `axe-Die-06-final.png` |
+| axe/Die / source + mirror X | F7 / GIF F32 | 100 ms | Rìu nằm ngang, sọ còn nhô giữa; nền cạnh phải sạch. | → F8: Giữ đống xương, lưỡi bật lên một pixel; cán ngang đủ. | `axe-Die-07-final.png` |
+| axe/Die / source + mirror X | F8 / GIF F33 | 100 ms | Giữ đống xương, lưỡi bật lên một pixel; cán ngang đủ. | → F9: Lưỡi hạ, xương/sọ giữ đống thấp; rìu ngang. | `axe-Die-08-final.png` |
+| axe/Die / source + mirror X | F9 / GIF F34 | 100 ms | Lưỡi hạ, xương/sọ giữ đống thấp; rìu ngang. | → F10: Lưỡi trở lại cao nhẹ, sọ/đống xương giữ; không loop. | `axe-Die-09-final.png` |
+| axe/Die / source + mirror X | F10 / GIF F35 | 100 ms | Lưỡi trở lại cao nhẹ, sọ/đống xương giữ; không loop. | Không loop; death→cleanup runtime chưa kiểm. | `axe-Die-10-final.png` |
+| sword-shield/Die / source + mirror X | F0 / GIF F13 | 100 ms | Khiên trước thân, kiếm chéo lên; đầu có mũ, chân mở. | → F1: Sọ nâng nhẹ, khiên hạ; tay phải giữ kiếm, chân nguyên. | `sword-shield-Die-00-final.png` |
+| sword-shield/Die / source + mirror X | F1 / GIF F14 | 100 ms | Sọ nâng nhẹ, khiên hạ; tay phải giữ kiếm, chân nguyên. | → F2: Sọ tách vai, khiên lệch trái, kiếm dựng hơn; chân bắt đầu rời. | `sword-shield-Die-01-final.png` |
+| sword-shield/Die / source + mirror X | F2 / GIF F15 | 100 ms | Sọ tách vai, khiên lệch trái, kiếm dựng hơn; chân bắt đầu rời. | → F3: Sọ/ngực/eo rời, khiên rơi trái còn nguyên đường viền. | `sword-shield-Die-02-final.png` |
+| sword-shield/Die / source + mirror X | F3 / GIF F16 | 100 ms | Sọ/ngực/eo rời, khiên rơi trái còn nguyên đường viền. | → F4: Khiên hạ dưới ngực, kiếm chéo phải; tay trái và eo tách. | `sword-shield-Die-03-final.png` |
+| sword-shield/Die / source + mirror X | F4 / GIF F17 | 100 ms | Khiên hạ dưới ngực, kiếm chéo phải; tay trái và eo tách. | → F5: Khiên tròn gần sàn, sọ giữ cao; kiếm gần ngang. | `sword-shield-Die-04-final.png` |
+| sword-shield/Die / source + mirror X | F5 / GIF F18 | 100 ms | Khiên tròn gần sàn, sọ giữ cao; kiếm gần ngang. | → F6: Khiên nghiêng trái sát nền; viền trái trả đủ, sọ/ngực đang rơi. | `sword-shield-Die-05-final.png` |
+| sword-shield/Die / source + mirror X | F6 / GIF F19 | 100 ms | Khiên nghiêng trái sát nền; viền trái trả đủ, sọ/ngực đang rơi. | → F7: Khiên ép thành dải mỏng đáy; viền trái/núm không bị cắt. | `sword-shield-Die-06-final.png` |
+| sword-shield/Die / source + mirror X | F7 / GIF F20 | 100 ms | Khiên ép thành dải mỏng đáy; viền trái/núm không bị cắt. | → F8: Khiên nảy nghiêng lên, núm sáng giữa; sọ rơi gần đống xương. | `sword-shield-Die-07-final.png` |
+| sword-shield/Die / source + mirror X | F8 / GIF F21 | 100 ms | Khiên nảy nghiêng lên, núm sáng giữa; sọ rơi gần đống xương. | → F9: Khiên nghiêng lại phía sàn, sọ/mũ về đống; kiếm ngang. | `sword-shield-Die-08-final.png` |
+| sword-shield/Die / source + mirror X | F9 / GIF F22 | 100 ms | Khiên nghiêng lại phía sàn, sọ/mũ về đống; kiếm ngang. | → F10: Khiên nằm thấp, núm lệch phải; kiếm/xương nằm sát đáy. | `sword-shield-Die-09-final.png` |
+| sword-shield/Die / source + mirror X | F10 / GIF F23 | 100 ms | Khiên nằm thấp, núm lệch phải; kiếm/xương nằm sát đáy. | → F11: Khiên gần nằm phẳng, viền trái đầy đủ, núm sáng mỏng. | `sword-shield-Die-10-final.png` |
+| sword-shield/Die / source + mirror X | F11 / GIF F24 | 100 ms | Khiên gần nằm phẳng, viền trái đầy đủ, núm sáng mỏng. | → F12: Giữ khiên phẳng cạnh đống xương, viền trái đủ; trạng thái kết thúc. | `sword-shield-Die-11-final.png` |
+| sword-shield/Die / source + mirror X | F12 / GIF F25 | 100 ms | Giữ khiên phẳng cạnh đống xương, viền trái đủ; trạng thái kết thúc. | Không loop; death→cleanup runtime chưa kiểm. | `sword-shield-Die-12-final.png` |
