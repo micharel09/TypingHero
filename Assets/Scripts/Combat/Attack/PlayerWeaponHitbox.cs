@@ -128,7 +128,8 @@ public class PlayerWeaponHitbox : MonoBehaviour
         {
             pose.OnSlayerHit();
         }
-        if (wasSlayer && root && root.TryGetComponent<SlayerSilhouetteGroup>(out var silhouette))
+        var silhouette = wasSlayer && root ? root.GetComponent<SlayerSilhouetteGroup>() : null;
+        if (silhouette && (!hitSpark || !hitSpark.isActiveAndEnabled))
             silhouette.PulseSlayerHit();
 
         // (sau đó mới tới HitFlash, HitSpark, Stamina, Hitstop…)
@@ -140,7 +141,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
 
         // === HIT SPARK (tùy chọn) ===
-        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, recipient, capturedTint: wasSlayer ? impactTint : (Color?)null, slayerVisualPoint: slayerVisualPoint, slayerDirection: slayerDirection, hitAnchor: hitAnchor, anchorLifetime: anchorLifetime);
+        if (hitSpark) hitSpark.SpawnImpact(p, transform.root, wasSlayer, dmg.IsDead, recipient, capturedTint: wasSlayer ? impactTint : (Color?)null, slayerVisualPoint: slayerVisualPoint, slayerDirection: slayerDirection, hitAnchor: hitAnchor, anchorLifetime: anchorLifetime, silhouette: silhouette);
 
 
 

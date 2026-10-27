@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 2cdefb3a40164ebd8643d0095a99aca4, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 2cdefb3a40164ebd8643d0095a99aca4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   frames:
+  - {fileID: 21300008, guid: 2cdefb3a40164ebd8643d0095a99aca4, type: 3}
+  - {fileID: 21300010, guid: 2cdefb3a40164ebd8643d0095a99aca4, type: 3}
   - {fileID: 21300000, guid: 2cdefb3a40164ebd8643d0095a99aca4, type: 3}
   - {fileID: 21300002, guid: 2cdefb3a40164ebd8643d0095a99aca4, type: 3}
   - {fileID: 21300004, guid: 2cdefb3a40164ebd8643d0095a99aca4, type: 3}
@@ -150,12 +152,17 @@ MonoBehaviour:
   image: {fileID: 4035454295604178129}
   uniformScale: 0.81632656
   frameDurations:
-  - 0.06
-  - 0.04
   - 0.03
+  - 0.04
+  - 0.08
+  - 0.055
+  - 0.045
   - 0.03
   frameCenters:
+  - {x: 1.2302632, y: 1.4769738}
+  - {x: 0.68158793, y: 1.0050676}
   - {x: -0.44441366, y: -0.14905977}
   - {x: -0.96875, y: -0.6746323}
   - {x: -0.875, y: -0.6640625}
   - {x: -0.6875, y: 0.125}
+  contactFrame: 2

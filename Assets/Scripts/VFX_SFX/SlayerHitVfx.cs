@@ -8,6 +8,8 @@ public sealed class SlayerHitVfx : MonoBehaviour
     [SerializeField] float uniformScale;
     [SerializeField] float[] frameDurations;
     [SerializeField] Vector2[] frameCenters;
+    [SerializeField] int contactFrame;
+    int startFrame;
     EnemyHitAnchor anchor;
     uint anchorLifetime;
     PooledVFX lease;
@@ -17,10 +19,14 @@ public sealed class SlayerHitVfx : MonoBehaviour
     internal float Age => age;
     internal Transform Recipient { get; private set; }
     internal bool IsFading => fadeAge >= 0;
+    internal bool IsPrimaryFor(Transform recipient, EnemyHitAnchor hitAnchor, uint lifetime) =>
+        !IsFading && Recipient == recipient && anchor == hitAnchor && anchorLifetime == lifetime &&
+        (!anchor || anchor.Lifetime == lifetime);
     void Awake() => lease = GetComponent<PooledVFX>();
-    internal void Emit(Vector3 point, float clockwiseAngle, Color tint, Transform recipient = null, EnemyHitAnchor hitAnchor = null, uint lifetime = 0)
+    internal void Emit(Vector3 point, float clockwiseAngle, Color tint, Transform recipient = null, EnemyHitAnchor hitAnchor = null, uint lifetime = 0, bool startAtContact = false)
     {
         age = 0;
+        startFrame = startAtContact ? contactFrame : 0;
         fadeAge = -1;
         Recipient = recipient;
         anchor = hitAnchor;
@@ -30,7 +36,7 @@ public sealed class SlayerHitVfx : MonoBehaviour
         transform.localScale = Vector3.one * uniformScale;
         image.color = Color.black;
         image.flipX = image.flipY = false;
-        ApplyFrame(0);
+        ApplyFrame(startFrame);
     }
     internal void Retire()
     {
@@ -47,7 +53,7 @@ public sealed class SlayerHitVfx : MonoBehaviour
             var color = image.color; color.a = .35f * (1 - fadeAge / .03f); image.color = color;
         }
         float end = 0;
-        for (int i = 0; i < frames.Length; i++)
+        for (int i = startFrame; i < frames.Length; i++)
         {
             end += frameDurations[i];
             if (age < end) { ApplyFrame(i); return; }
@@ -76,6 +82,7 @@ public sealed class SlayerHitVfx : MonoBehaviour
     void OnDisable()
     {
         age = 0;
+        startFrame = 0;
         fadeAge = -1;
         Recipient = null;
         anchor = null;

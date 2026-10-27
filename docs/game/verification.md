@@ -1,3 +1,17 @@
+## Slayer B — completed and user accepted (2026-10-27)
+
+Integrated and remotely verified on main83d6e0a6. Clean scoped Unity81/81,
+QA/repeated builder and six technical playback checks passed. Direct still review
+covered1535frames/1532pairs. Integrated latest-main intro/Slayer transitions passed
+22/22cases,0failed/skipped. The user accepted the viewed visual result; sampling
+and occlusion limitations remain documented, without an automated continuous
+subjective-playback claim.
+
+At the user's request, external clips/player/log/XML/archive/frame evidence and
+task-only runner results were deleted. Only the in-repository Markdown completion
+record remains; historical references below do not imply retained raw artifacts.
+[Completed task and verification summary](../plans/slayer-slash-vfx.md).
+
 ## Smoke-led duel intro and identity handoff (2026-10-26; verified)
 
 - Ubuntu fly-server, pinned Unity2022.3.25f1,2CPU/8GiB. Final source

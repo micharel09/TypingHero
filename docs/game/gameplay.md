@@ -661,13 +661,25 @@ Full surface art, B/C and parent integration remain separate.
   passes scoped Unity42 and keyboard178 checks at1280x720/640x360; see verification.
   Existing broader visual direction remains with its original review.
 
-### Slayer contact-first presentation (2026-10-25; tests waived)
+### Slayer contact-first presentation (sweep timeline 2026-10-26)
 
 - Retain original Met.Pxl B PNG/GUIDs/center pivot and32/40reference-pixel scale.
-  Game hit uses F0/F1/F2/F3 at40/30/30/20ms; finisher60/40/30/30ms. Source preview
-  remains six-frame580ms; it is no longer the game schedule.
+  Game sequence F4/F5/F0/F1/F2/F3 uses30/40/60/45/35/30ms for hits (240ms),
+  30/40/80/55/45/30ms for finishers (280ms). F4 appears immediately; peak starts70ms.
+  Before retiring old output, a primary with the same recipient/anchor/lifetime
+  and age<70ms selects F0 instead (170/210ms). Exactly70ms selects the full sweep.
+  Age begins at0 for either start; residuals/other targets never select the mode.
+  No queue, rewind, transform animation or input/damage delay is added.
   Both Slayer B roles emit pure black#000000 independently of combo tint;
-  source alpha, residual fading, ivory body pulse, sword trail and afterimages remain.
+  source alpha, residual fading, sword trail and afterimages remain.
+- Body contrast follows the same primary decision before pool retirement. Isolated
+  hits hold ivory130ms (finisher150ms), then fade20ms. A chained F0 hit fades from
+  contact over20ms; a chained F4 hit adds another20ms flash at70ms. New contact
+  replaces the entire old schedule, including a pending peak. Pause holds age and
+  weight; lifetime change, disable and presentation/result cleanup cancel it.
+  Legacy/no-active-emitter contacts retain the existing40ms pulse. No separate
+  cadence estimator or public/serialized tuning is introduced. Scoped Unity
+  coverage is recorded in verification; final visual acceptance remains pending.
 - Slayer S1 uses combo_1_0/1/2 then combo_1_end_0..3; S2 uses combo_2_3/4/5
   then combo_2_end_0..3; S3 uses the final strike combo_3_11 then combo_3_end_0..5.
   Each has seven40ms poses, ends280ms and holds its recovered final pose; the
@@ -687,15 +699,17 @@ Full surface art, B/C and parent integration remain separate.
   finisher replaces both. Original luminous sword geometry expires120ms per swing
   even when the final cel is held; another typed strike resets that envelope.
 - Skeleton positional jitter is disabled; existing hurt pose progression remains.
-  Compositor-owned ivory#FFF3CF body pulse holds20ms then fades20ms after silhouette,
-  preserving sprite alpha/depth, baseline RGB and unrelated property-block values.
-  Pause/reading hold presentation clocks. Results/disable/restart/unload clear them.
-- Public input/scoring/damage values/stamina/camera/audio and Slayer no-hitstop
-  policy remain. Normal/parry/legacy emitters retain their routes and shared budget.
-  The original implementation waived tests; the authorized2026-10-26 continuation
-  passes20selected PlayMode cases on Ubuntu (five fixture repairs, chest geometry,
-  seven parry mappings, lifecycle/pool, damage callback capture and pause).
-  Final build/capture/integration status: [checkpoint](../plans/slayer-slash-vfx.md).
+  Compositor-owned ivory#FFF3CF pulse holds130ms normal/150ms finisher then fades20ms
+  for isolated hits. A valid chained primary selects contact fade20ms for F0, or
+  contact20ms plus peak70-90ms for F4. Each contact replaces the entire old schedule.
+  Sprite alpha/depth, baseline RGB and unrelated property-block values remain.
+  Pause/reading hold presentation clocks; results/disable/restart/unload clear them.
+- Public input/scoring/damage/stamina/camera/audio and Slayer no-hitstop policy remain.
+  Normal/parry/legacy routes retain their shared budget and legacy40ms pulse.
+  Clean81selected tests, QA/repeat builder, native/export and six technical playback
+  checks passed; latest-main integration passed22intro/Slayer-transition cases.
+  The user accepted visuals; main83d6e0a6 was verified. External raw evidence was
+  deleted at the user's request; [completion record](../plans/slayer-slash-vfx.md).
 
 ### Normal strike accents and contact confirmation (2026-10-22)
 

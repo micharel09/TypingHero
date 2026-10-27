@@ -63,9 +63,11 @@ internal static class SlayerHitVfxAssets
             }
         }
         finally { Object.DestroyImmediate(texture); }
-        var sequence = new[] { frames[0], frames[1], frames[2], frames[3] };
-        Build(false, sequence, 32f / widest, centers.Take(4).ToArray());
-        Build(true, sequence, 40f / widest, centers.Take(4).ToArray());
+        var order = new[] { 4, 5, 0, 1, 2, 3 };
+        var sequence = order.Select(i => frames[i]).ToArray();
+        var sequenceCenters = order.Select(i => centers[i]).ToArray();
+        Build(false, sequence, 32f / widest, sequenceCenters);
+        Build(true, sequence, 40f / widest, sequenceCenters);
     }
     static void Build(bool lethal, Sprite[] frames, float scale, Vector2[] centers)
     {
@@ -91,7 +93,8 @@ internal static class SlayerHitVfxAssets
             so.FindProperty("image").objectReferenceValue = image;
             so.FindProperty("uniformScale").floatValue = scale;
             var durations = so.FindProperty("frameDurations"); durations.arraySize = frames.Length;
-            var timing = lethal ? new[] { .06f, .04f, .03f, .03f } : new[] { .04f, .03f, .03f, .02f };
+            so.FindProperty("contactFrame").intValue = 2;
+            var timing = lethal ? new[] { .03f, .04f, .08f, .055f, .045f, .03f } : new[] { .03f, .04f, .06f, .045f, .035f, .03f };
             for (int i = 0; i < frames.Length; i++) durations.GetArrayElementAtIndex(i).floatValue = timing[i];
             so.ApplyModifiedPropertiesWithoutUndo(); PrefabUtility.SaveAsPrefabAsset(root, path);
         }

@@ -4,7 +4,10 @@ Supersedes the old580ms/eight-random-angle Slayer presentation in the historical
 VFX row below. `PlayerSlayerMode` applies one of three contact-first280ms clips
 with the corresponding complete combo_end recovery (S3 starts combo_3_11),
 then opens the same deduplicated hitbox with its original collision timing. Direction follows
-that chosen swing/facing. `SlayerHitVfx` uses four original B cels,120/160ms,
+that chosen swing/facing. `SlayerHitVfx` uses original B cels F4/F5/F0/F1/F2/F3,
+240/280ms. A same-recipient/anchor/lifetime primary aged<70ms selects contact
+index2 (170/210ms), before retire/release; exactly70ms keeps the full sweep.
+A separate startFrame preserves real Age0 for both starts and resets on pool return,
 with black RGB supplied by the B-only spawn branch regardless of captured combo tint,
 one primary plus one30ms residual per recipient. EnemyHitAnchor binds the
 actual IDamageable object's renderer/profile. EnemyHitAnchorProfile owns bottom-left
@@ -14,11 +17,23 @@ keep visible ink at that point. Lifetime changes reclaim old leases; disabled or
 destroyed bodies leave the last point. Build validation includes controller and
 held ParryContactLibrary cels. Public IDamageable and Spawn remain unchanged. `SlashVolume` expires held player
 Slayer trails; enemy/normal cel-driven geometry remains. `SlayerSilhouetteGroup`
-composes a40ms ivory body pulse through private DungeonSprite properties; jitter
+composes the spawner-selected body schedule through private DungeonSprite properties:
+isolated130/150ms hold+20ms fade, chained F0 immediate20ms fade, chained F4 an
+immediate20ms fade plus20ms at70ms. One accepted contact replaces pending pulses;
+the same primary/recipient/lifetime check selects the schedule before pool mutation.
+Legacy retains40ms; pause and existing lifecycle cleanup remain. Root jitter
 on the default Skeleton root is disabled. Shader defaults keep other materials'
 previous output. QA observations add no gameplay setters. Public contracts remain.
-Tests and exhaustive frame review are unexecuted at the user's request; status and
-clip are recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
+Clean-source Ubuntu161056-webgl supersedes the provisional cached runs:81/81
+selected tests pass, QA build and strict repeated builder pass. Input e99fe0c1,
+player9f1c923ff0fa800e;2495source files/252C# and33player file hashes match.
+Single canvas recorder capture had0exceptions/provider IO. Final VFR exports and
+six technical playback rows passed;1535frames/1532pairs were directly inspected.
+The user accepted the visual result; sampling/occlusion limits are preserved in the
+[completion record](../plans/slayer-slash-vfx.md). Main83d6e0a6 was remotely verified;
+latest-main integration passed22/22intro/Slayer-transition cases from clean cache.
+External task evidence was deleted at the user's request; only the in-repository
+Markdown completion record remains.
 
 # System and configuration map
 
