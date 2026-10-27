@@ -1,3 +1,22 @@
+## Ready between duels (2026-10-27)
+
+- Runtime delta: only the result action caption changes from Continue to Ready · Enter;
+  the existing callback, indefinite wait, transition and input guards are unchanged.
+- Unity2022.3.25f1/fly-server, snapshot
+  `66c3f6019780c3ba104cc47356f0ff2f109970955a045ec51030ed4854a07699`:
+  focused `EndlessTests.ActualSceneCarriesHealthAndStatisticsAndResetsCombatBindings`
+  **1/1 PASS**,0failed/skipped,9.888s. Reads the live Ready caption, checks frozen
+  HP35/score123/combat seconds during the result wait, invokes the button callback,
+  and verifies next-duel carry/reset and existing Pause/Resume behavior.
+- Reuses unchanged Continue/input evidence from the smoke-led intro and actual300ms
+  follow-up below and [intro checkpoint](../plans/duel-intro.md): real Enter/held-input,
+  short transition, minimum preview, Pause/Resume and Menu. No new native browser
+  click/keyboard, visual, WebGL build, performance or publication claim.
+- XML/log retained for audit at
+  `/data/typinghero-game-loop/results/20261027T040237-quick` on fly-server;
+  disposable after this verification record is no longer needed for reproduction.
+  Initial runner-lock attempt executed no tests; queued retry passed.
+
 ## Slayer B — completed and user accepted (2026-10-27)
 
 Integrated and remotely verified on main83d6e0a6. Clean scoped Unity81/81,

@@ -225,7 +225,7 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
   order by round below35%. Phase is sampled only when starting a complete pattern.
 - Endless menu selects Very Easy/Easy/Normal/Hard/Very Hard, default Normal; local
   preference snapshots before combat. Pace factors are .6/.8/1/1.25/1.5. Intro, run
-  and results show the level. Continue and Restart retain the run level; only menu
+  and results show the level. Ready and Restart retain the run level; only menu
   changes a new run. Tutorial remains independent.
 - Recovery1.7s or2.5s for axe roles; elite subtracts200ms. Each round subtracts120ms
   for at most8steps, floor700ms, then divide by difficulty pace. Combo window is the
@@ -241,8 +241,12 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
   the legacy cue/audio still begins in the final300ms.
   Each form owns Idle/Walk/Attack1/Attack2/Hurt/Die; stun/Slayer reuse that form's Hurt.
   The original skeleton controller/GUIDs remain for the tutorial configuration.
-- Initial Fight only. Continue after the first five death animations loads AND starts the
-  next opponent once. Carry only HP/score/combat time/letter counts/parries/progress;
+- After each of the first five death animations, results and the next enemy name
+  wait indefinitely for Ready · Enter (mouse or Enter). Waiting does not advance
+  combat time, HP or score. The existing Continue callback loads the next opponent
+  once, followed by the short intro with at least300ms of visible word preview and
+  held-input release protection; there is no second confirmation.
+  Carry only HP/score/combat time/letter counts/parries/progress;
   gameplay reload resets combo, queues, stamina, cue, stun, Slayer and effect bindings; world ownership is retained.
   Boss victory ends the run without healing or a seventh opponent. After the death
   animation, VICTORY / BOSS DEFEATED shows the final statistics with Restart, Menu

@@ -422,7 +422,14 @@ public sealed class EndlessTests
             yield return new WaitForSecondsRealtime(2);
             Assert.That(Object.FindObjectOfType<SkeletonController>(), Is.Null);
             Assert.That(Object.FindObjectOfType<StaminaBarUI>(), Is.Null, "No floating stamina bar after enemy cleanup");
-            duel.Continue();
+            var readyButton = Object.FindObjectOfType<EndlessOverlay>().GetComponentInChildren<UnityEngine.UI.Button>();
+            Assert.That(readyButton.GetComponentInChildren<TMPro.TMP_Text>().text, Is.EqualTo("Ready · Enter"));
+            float waitingTime = CombatSession.I.Seconds;
+            yield return new WaitForSecondsRealtime(.4f);
+            Assert.That(player.Current, Is.EqualTo(35));
+            Assert.That(ScoreSystem.I.Score, Is.EqualTo(123));
+            Assert.That(CombatSession.I.Seconds, Is.EqualTo(waitingTime));
+            readyButton.onClick.Invoke();
             yield return DungeonSceneTestFlow.Wait();
             yield return null; yield return null;
             Assert.That(GamePauseController.EncounterReading, Is.False);
