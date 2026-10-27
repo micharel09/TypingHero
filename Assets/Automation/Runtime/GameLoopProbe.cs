@@ -387,6 +387,9 @@ public sealed class GameLoopProbe : MonoBehaviour
     [Serializable] sealed class State
     {
         public bool introRunning, introEnemyHidden, introInputBlocked, introLabelVisible;
+        public string readyRitual;
+        public float readyRitualElapsed, environmentPresentationGain;
+        public float[] readyMarkLevels;
         public float introElapsed, introHudAlpha, introLabelAlpha, introCover;
         public float introEnemyNameAlpha, introWordAlpha;
         public int introWordHudGroups;
@@ -760,6 +763,10 @@ public sealed class GameLoopProbe : MonoBehaviour
             int hitState = health ? Animator.StringToHash(health.hitStatePath) : 0;
             var state = new State
             {
+                readyRitual = Read<object>(FindObjectOfType<ReadyRitualPresentation>(), "phase")?.ToString() ?? "Dormant",
+                readyRitualElapsed = Read<float>(FindObjectOfType<ReadyRitualPresentation>(), "elapsed"),
+                readyMarkLevels = Read<float[]>(FindObjectOfType<ReadyRitualPresentation>(), "levels"),
+                environmentPresentationGain = DungeonSession.Current && DungeonSession.Current.World ? DungeonSession.Current.World.Arena.EnvironmentPresentationGain : 1,
                 introMusicPlayerId = MusicPlayer.I ? MusicPlayer.I.GetInstanceID() : 0,
                 introMusicVoiceId = MusicPlayer.I && MusicPlayer.I.GetComponentsInChildren<AudioSource>().FirstOrDefault(s => s.isPlaying) ? MusicPlayer.I.GetComponentsInChildren<AudioSource>().First(s => s.isPlaying).GetInstanceID() : 0,
                 introMusicSample = MusicPlayer.I && MusicPlayer.I.GetComponentsInChildren<AudioSource>().FirstOrDefault(s => s.isPlaying) ? MusicPlayer.I.GetComponentsInChildren<AudioSource>().First(s => s.isPlaying).timeSamples : 0,
@@ -773,7 +780,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 introHudAlpha = Read<float>(FindObjectOfType<DuelIntroPresentation>(), "hudAlpha"),
                 introLabelVisible = Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label") && Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label").isActiveAndEnabled,
                 introLabelAlpha = Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label") ? Read<TMP_Text>(FindObjectOfType<DuelIntroPresentation>(), "label").alpha : 0,
-                introCover = Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain") && Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").gameObject.activeSelf ? 1 - Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").anchorMin.y : 0,
+                introCover = Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain") && Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").gameObject.activeSelf ? Read<bool>(FindObjectOfType<DuelIntroPresentation>(), "fadeCover") ? Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").GetComponent<Image>().color.a : 1 - Read<RectTransform>(FindObjectOfType<DuelIntroPresentation>(), "curtain").anchorMin.y : 0,
                 introDustParticles = Read<ParticleSystem>(FindObjectOfType<DuelIntroPresentation>(), "dust") ? Read<ParticleSystem>(FindObjectOfType<DuelIntroPresentation>(), "dust").particleCount : 0,
                 introEnemyHidden = sortingEnemy && sortingEnemy.forceRenderingOff,
                 introInputBlocked = GamePauseController.InputBlocked,

@@ -32,7 +32,7 @@ public sealed class GameplayTests
         Time.timeScale = 1;
         TypingManager.MuteWordCorrect = false;
         words = chars = timeouts = 0;
-        root = Own(new GameObject("offline fixture", typeof(RectTransform), typeof(Canvas)));
+        root = Own(new GameObject("offline fixture", typeof(RectTransform), typeof(Canvas), typeof(UnityEngine.UI.Image)));
         root.SetActive(false);
         var rail = new GameObject("rail", typeof(RectTransform));
         rail.transform.SetParent(root.transform, false);

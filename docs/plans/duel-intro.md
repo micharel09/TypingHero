@@ -735,3 +735,424 @@ D:/Projects/TypingHero-evidence/type-ready-20261027/ outside the repository.
 Delivery and scoped cleanup receipt is written there after remote integration;
 expanded preview/temporary worktree can be removed while preserving the clip,
 reports and source receipts. No production build, deployment or itch update.
+
+### Pixel summoning ritual — implementation checkpoint (2026-10-27)
+
+Accepted user plan: retain unlimited typed READY in the original word tray, with
+no result/NEXT card or confirmation button. After death, soften the environment
+to85% over240ms. An amber#E5BE72 pixel ellipse (.9body-height wide/.22high)
+at the cached spawn foot has five clockwise marks. Idle opacity breathes1.6s;
+each correct letter charges one mark80ms, errors reset120ms, reduced motion
+disables only breathing. A batch need not wait for individual mark animations.
+The complete seal must render before its180ms hold starts, then invoke Continue
+once. Use a200ms charcoal fade for this transition; existing short intro smoke
+starts200ms, intact opponent/shadow344ms, seal ends600ms. Preserve the actual
+300ms word preview, tutorial, terminal victory, health/score/save/public contracts.
+
+Session owns the private meshes/particles/clock/audio channel through reload;
+TypingManager.ProcessInput remains the only letter-input path. Environment gain
+composes after the Slayer background and before actors/transparents. Pause/focus
+hold all ritual clocks/progress; navigation cancels callbacks, sound and VFX.
+SummonSeal reuses the existing light-whoosh clip at-7semitones with SFX gain/mute.
+No character sprite or authored animation asset changes.
+
+Reference record carried from the user-supplied plan: Blasphemous Sacred Sorrows
+https://www.youtube.com/watch?v=_zH38erDvmI,96.997–107.007s, reported301frames/
+300pairs inspected previously. Used for prepare→intact appearance→settle→combat.
+Dead Cells https://deadcells.wiki.gg/wiki/Boss_Rush and TowerFall
+https://towerfall.wiki.gg/wiki/Co-op inform only rest/commit/wave structure.
+This implementation session has not re-inspected those frames or obtained their
+raw image ledger; web fetches returned cache-miss/403. No new complete reference
+research or exact motion-match claim. Reference evidence is distinct from the
+forthcoming review of the actual CLACKBLADE output.
+
+Base origin/main66749da1; Orca branch micharel09/duel-summoning-ritual at
+D:/Projects/TypingHero-worktrees/duel-summoning-ritual. Existing dirty main intact.
+Acceptance scope: complete death→wait→wrong→READY→spawn video; inspect every
+encoded frame/adjacent transition at original timing. Focused input/state tests,
+Pause/focus at arrival/partial/charge, Menu/Restart at wait/partial/charge,
+Slayer-gain restoration, SFX mute, normal→next and elite→boss/terminal; real-input
+normal/boss and reduced-motion browser checks at1280x720. Full suites, stress,
+additional viewports, production build and external publication are out of scope.
+Evidence directory: D:/Projects/TypingHero-evidence/duel-summoning-20261027/.
+Doctor verified pinned2022.3.25f1/toolchain/license and35.2GiB free on fly-server.
+Implementation and tests are pending execution; no acceptance/integration claim.
+
+Initial scoped run20261027T071640-quick, snapshot3ff967d8:49/51PASS,0skips,
+121.556s. All10intro cases, both READY-input cases and the actual carry scene
+pass. One new ritual fixture falsely accepted stale Elapsed2.4 from the previous
+intro during scene loading; it now waits for Running before checking new timing.
+The other failure is the pre-existing music-gain fixture creating a duplicate
+MusicPlayer after scene-based tests left the persistent service alive; duplicate
+Awake returns before its voices initialize, so its fixture Play dereferences null.
+No music runtime change or passing claim for that fixture. The broad GameplayTests
+selection was unnecessary; the follow-up targets4ritual,2READY and1actual-carry
+case. Also explicitly clears TypingManager's pending READY delegate on cancellation,
+and navigates after the charged seal has painted (including its playing cue).
+Prior failure XML/snapshot are retained as initial-tests.xml/initial-snapshot.json.
+
+Run072842-quick (88656633) was stopped before tests, while still in Editor import,
+because the added terminal-victory fixture could resolve SampleScene's production
+provider. Its exact owned container was removed; exit137 is cancellation, not a
+test pass/failure. The fixture now clears databaseRootUrl before terminal queueing
+(FirebaseEndless returns before creating any request) and restores the pending
+preference. Source copy/Library remain isolated. QA build's first360s lock wait
+expired without a build; it is an environment queue delay, not a build result.
+Subsequent runs normalize only serialized text line endings in the isolated
+snapshot, as the existing native-preview adapter does; runtime/source/asset
+semantics and all builder/font protections are preserved.
+
+Targeted0323e5ac snapshot,073756-quick:7/7PASS,0failed/skipped,65.854659s.
+This covers4ritual cases,2READY input cases and the actual carry/reset consumer.
+Includes cached dead-enemy foot, clockwise progress/error, batch/trailing input,
+post-render180ms hold, shared world/HP/score/letters, elite→Captain→terminal,
+Pause/focus at arrival/partial/charge, both Menu/Restart at three READY phases,
+Slayer/gain baseline restoration and mute. Initial10/10intro regressions are reused
+for unchanged intro behavior; no full-suite claim. Final source additionally
+centers READY in the whole existing rail (combat placement unchanged). The final
+QA adapter runs just the2READY input cases on that exact snapshot before building.
+The second native-build360s lock wait also expired before execution; both attempts
+produced no player. Final build is queued after the passing7-case run.
+
+Final centered snapshotc546b712,080232-webgl:2/2READY cases PASS before the
+build. Runtime delta from0323 is only READY's horizontal Paint position; combat
+layout/input/state/renderer logic is identical. WebGL platform import/build is
+running. Final input hashes (2469files; binary hashes raw, text normalized only
+for CRLF) are in final-source-files.json outside Git. Current external native
+driver covers five real wins, wrong/partial/held READY, Pause/real-tab-focus,
+reduced motion and entering Captain, with fixture interception and blocked
+external traffic. export-review.py predeclares complete normal/boss scopes before
+frame inspection. None of this pending browser/video work is claimed as passed.
+
+080232 QA/repeated builder PASS; all33downloaded files match. Player82399f79935faa94,
+Edge156/NVIDIA GTX1650Ti/D3D11/1280x720 pilot:60checks before a focus-observer
+timeout,0runtime exceptions/provider IO. Complete first ritual, centered READY,
+progress/error/Pause/reduced-motion/heldY and HP/score/letters carry pass. Direct
+ready.png/partial.png inspection FAILS the floor composition: view-facing ellipse
+extends below the opaque floor, hiding its lower arc/two marks. No visual pass.
+Pilot moved to pilot-floor-and-tab/ (including exact player/audio/full recording).
+The same-window tab change did not deliver application focus loss; this is not
+counted as a focus pass. A separate-window preflight and final rerun are planned.
+
+Correction: inverse-project the existing pixel ellipse/mark mesh onto the authored
+world floor,15mm above it, using the live camera only at creation. Keep cached foot,
+.9H/.22H screen footprint, five fixed clockwise offsets, existing material/depth
+and all clocks/input/300ms-preview behavior. No ZTest override or actor occlusion
+bypass. Added assertions that every particle and ring vertex share the floor
+plane. Next snapshot reruns the4affected ritual cases before QA build. Browser
+and complete final-frame review remain pending; integration withheld.
+
+Floor-fix Ubuntu submission lost SSH while waiting/uploading, then two read-only
+SSH probes timed out. No final-floor test/build is claimed from that submission.
+Continued using the existing Windows Unity2022.3.25f1 and existing WebGL module
+at E:/Unity/Hub/Editor/2022.3.25f1, without installation or editing another project.
+Task-private source/Library/results: evidence-root/local-unity; normalized snapshot
+c818fa0f,2501build/tool files. It runs exactly4ReadyRitualTests then QA/repeat build.
+local-verify.py owns/waits/terminates only its Editor and guards disk headroom.
+
+Focus observer diagnosis: Playwright's default focus emulation makes every page
+report focused, so switching tabs/windows does not test real focus. Reused the
+existing intro-smoke recipe: disable Emulation.setFocusEmulationEnabled on both
+windows, then bring the other window forward. Pilot focus-window-3 passes6checks,
+actual document focus false→application paused,0runtime exceptions/provider IO.
+No gameplay setter, synthetic focus event or OS/Computer Use was used. Earlier
+preflights remain separate (one missed the tutorial Enter; the other diagnosed
+focus emulation). Final native driver uses the real Start Battle button and the
+qualified window-focus method.
+
+Local Windows first import was interrupted by the execution-session boundary at
+15:50 before tests began; no XML/pass exists for it. Retained import-interrupted.log.
+Continued the exact c818fa0f source/Library with local-verify.py (owned Editor3808),
+without replacing source or accepting stale XML. C# recompile passed; remaining
+package/resource imports are still running. Final floor geometry remains unverified.
+
+Windows final-floor snapshotc818fa0f:4/4ReadyRitualTests PASS,0failed/skipped,
+69.4304656s (2026-10-27 09:09:31Z-09:10:40Z). XML/log in local-unity. Includes
+floor-plane assertions, cached dead foot, rendered180ms hold, one carry into
+Captain/terminal exclusion, pause/focus, six Menu/Restart cancellation paths,
+Slayer baseline restoration and muted completion cue. QA/repeat WebGL build
+started from the same snapshot; final browser and frame review still pending.
+
+Final Windows QA/repeated builder PASS (strict font/repeat checks intact),33player
+files hashed in player-manifest.json; source snapshotc818fa0f matches2501worktree
+inputs. Player74fd14c7306f372d, Edge156.0.4314.42, GTX1650Ti/ANGLE D3D11,1280x720:
+178real keyboard/mouse checks PASS,0runtime exceptions,0provider reads/writes.
+Covers five wins into Captain, death-frame heldR, Enter/indefinite rest, two marks,
+wrong reset, Pause/Resume, real separate-window focus loss, reduced-motion preference,
+heldY through handoff, HP/score/letters/shared-world carry and clean Menu.
+
+Final direct output review (not a new reference-video research claim):
+- complete.webm16.041-29.667s -> ready-summoning.mp4,13.626s selection:
+  340/340frames and339/339consecutive transitions directly inspected.
+- complete.webm81.414-87.665s -> captain-summoning.mp4,6.251s selection:
+  156/156frames and155/155consecutive transitions directly inspected.
+- Scope declared in review-scopes.json before inspection. All22contact sheets viewed
+  at original320x180 world resolution, including previous-page boundary overlap;
+  native1280x720 ready/partial/Captain stills also directly inspected. Source-selected
+  frame counts match exported counts exactly; no interpolation/retiming, held frames
+  and PTS preserved. Aligned captured WebAudio accompanies both MP4s.
+- PASS: complete death/end hold precedes ritual, full ellipse/five clockwise marks
+  above floor (lower arc no longer clipped), centered original tray, partial/error,
+  Pause holds, steady reduced-motion charge, completed hold then alpha charcoal
+  cover, seal into smoke, whole normal/Captain silhouette and shadow together,
+  seal gone and first word readable before combat. First scope includes existing
+  preceding Slayer exit; second ends with explicit Pause after Captain entry.
+- review-ledger.json records inspected counts, every sheet and frame-range findings;
+  each frames.json records every output frame/PTS/hash. Both clips fully decode.
+  Existing reference evidence remains distinguished as recorded above; no claim of
+  re-inspecting the prior301Blasphemous frames or exact reference-motion match.
+
+Evidence retained at D:/Projects/TypingHero-evidence/duel-summoning-20261027/.
+No production publication, full suite, stress/soak or sprite asset edit.
+
+Final resource audit: SSH recovered; docker ps shows no Unity/game-loop task
+container, and no later shared WebGL result than080232 exists. Lost floor-fix
+submission produced no acceptance result. Existing remote audit results are retained;
+shared source/cache/other task resources remain untouched. Remote main fetched
+again and remains66749da1; no integration conflict or retest-triggering main delta.
+
+
+## READY asset and compact prompt follow-up ? 2026-10-27 (verified)
+
+User-approved scope: replace the procedural ellipse/five marks with the complete
+last build frame of Magic circle from
+https://a-small-smart-potato.itch.io/pixel-magic-circles. Inspect the ZIP's
+LICENSE.txt and actual image before import; Point/Clamp, no mipmaps/compression.
+Keep cached floor position and arrival/departure timing, five opacity steps,
+120ms error reset and the painted 180ms completion hold; no rotation/idle loop.
+Do not substitute another procedural drawing if the selected asset is unavailable.
+
+Independent prompt change maps the existing CombatR7 typing-frame Image and
+nextWordText secondary font to ReadyPromptLayout. The complete READY ink is
+measured once, with native horizontal8/vertical4 padding; the frame stays centered
+in the unchanged combat tray. TYPE READY TO CONTINUE sits6native pixels above
+it, cream, steady. CancelReady restores the original board/countdown and combat
+word positioning. ProcessInput, public/save APIs and statistics are unchanged.
+
+Asset acquisition BLOCKED: direct download page HTTP403/Cloudflare challenge;
+Orca page de34cabf-57f3-40dd-95ff-43ea85c7c321 also stayed at security verification.
+Search-indexed author text confirms64x64, separate PNGs/sheets and reference to
+LICENSE.txt, but neither the archive/license nor actual frame has been inspected.
+Asked for a local ZIP path while continuing the independent prompt work.
+Procedural ring/marks are still present in this unintegrated candidate; replacement,
+five-step opacity and final-asset comparison remain unimplemented/unverified.
+
+Worktree D:/Projects/TypingHero-worktrees/ready-magic-circle,
+branch micharel09/ready-magic-circle, based on origin/main acb0e9aa.
+External task evidence D:/Projects/TypingHero-evidence/ready-magic-circle-20261027/.
+Unity selection: four ReadyRitualTests plus two GameplayTests.ReadyPrompt cases;
+no broader suite. Focused geometry assertions cover padding/gap/fixed size and
+combat restoration; existing cases cover batch/trailing input, Enter, Pause/focus,
+Menu/Restart, stat exclusion, rendered180ms and Captain/terminal boundaries.
+Results and real-input/visual verification pending; no task completion or merge.
+
+
+Prompt-only verification: Ubuntu Unity2022.3.25f1, snapshot
+012c3d364176ca79c1669762ef5b254795ac5184a414a1be3c869ab3320fc2f1,
+20261027T100000-quick:6/6PASS,0failed/skipped,56.4532331s. This is the four
+ritual and two READY input cases above, including the new geometry assertions.
+QA/repeated WebGL build20261027T100332-webgl queued on the same raw snapshot;
+its isolated serialized inputs normalize CRLF only, preserving strict builder
+checks. Native real-input and direct visual review still pending.
+
+
+Render correction before native review: ReadyFrame uses Image.Type.Sliced with the
+existing typing-frame sprite's4px imported borders so compact resizing preserves
+its pixel border. The original combat board/type remains untouched. The initial
+100332 build was canceled (exit143, no accepted player) after verifying its exact
+/results container mount; no unrelated container was stopped. Final QA build
+100810 uses snapshot68cb92d1012b6f32bba6f4910b90d0a5e35cb39cfdac1250cb6f0ce6eba0e895.
+The only build-input delta after the6passing cases is the new frame's Image type;
+input/layout/geometry and consumer behavior are unchanged. Visual result pending.
+
+
+### Selected asset acquired; download blocker resolved
+
+The connected Chromium instance successfully opened the author page via
+browser-skill (task-created session faug, stopped after download). The download
+CLI reported attribution failure because the page's download came from a different
+frame, but inspection confirmed the complete949500-byte ZIP in Downloads; copied
+it to task evidence and read LICENSE.txt/README.txt. No CAPTCHA was solved and no
+browser settings were changed. No user-supplied file is needed now.
+
+LICENSE permits personal/commercial games and modification, prohibits reselling,
+repackaging/redistributing as assets and claiming authorship; credit optional.
+Only one original frame and its unchanged LICENSE enter this game project,
+not the complete pack. ZIP SHA256: aa0521c15eb469f26d4ed8a1d5b40b0c44dcecf727d16ba4b28a5da9759174f6.
+Selected source magic-seal/frames/magic-seal-build/magic-seal-build_11.png,
+64x64RGBA, SHA256: 37f762ba90b1693994cc32abc572dc73cd5ba09d7a659a6ec2cf021a77578132. Directly inspected: complete thin gold outer circle,
+inner star/diamonds and runes, transparent background. This static final frame is
+the selected reference; build/loop/dissolve animations are not being reproduced.
+No claim of reference-video research or full source-animation review.
+
+Assets/Resources/ReadySeal/MagicCircle.png is byte-identical to that source.
+Point/Clamp, mipmaps disabled and all texture platforms uncompressed. A private
+material clones the existing PixelSpark material, binds the PNG and uses white
+vertex RGB to preserve author colors. One UV quad replaces the procedural raster
+ellipse and all five mark meshes/particles, retaining the cached inverse-projected
+floor plane/footprint. Five80ms progress levels now sum into whole-image alpha
+(.24,.392,.544,.696,.848,1); error returns to.24 in120ms. Idle breath is removed;
+painted180ms hold, cue and arrival/summon fades are unchanged. Private material
+and quad are destroyed on cancel, without mutating the source material.
+
+The now-obsolete100810 prompt-only build was canceled after exact /results mount
+verification, exit143. It is not an accepted final result. Final asset+prompt
+six-case run is pending; source includes checks for the texture/quad, no separate
+mark particle systems, all progress opacities, reset and full charge.
+
+
+Final asset+prompt Ubuntu Unity2022.3.25f1:6/6PASS,0failed/skipped,
+56.8918669s, result20261027T101311-quick, raw snapshot
+878f12b7c92114e0d0a8ac59aaeabab246c14740718f98befc5fb69aebe2ab95.
+Actual particle alpha passed at all five charge levels, reset, and complete hold;
+texture/floor/one-system assertions and compact prompt assertions passed, along
+with unchanged input/lifecycle/consumer cases. No runtime delta after this run.
+Final QA/repeat build and real-input/direct visual review remain pending.
+
+
+### First native asset candidate: functional pass, visual rejected
+
+QA/repeated build102014 PASS, raw snapshotdc1e1d44ea8ac893ce69c68c886783c371de8198dae0541927a20569d7da2434.
+The latest compact frame uses1/referencePixel PPU for native9-slice borders,
+matching existing DungeonUISkin. This render-only multiplier is the sole delta
+from the6passing behavior cases. The adapter's default scenario did not preserve
+a player automatically; after a read-only fetch found none, verified source
+snapshot under the shared runner lock and copied that exact build-qa into the
+immutable102014 result. All33downloaded files match server hashes.
+
+Edge156.0.4314.42/GTX1650Ti/ANGLE D3D11/1280x720:175real keyboard/mouse checks
+PASS,0exceptions/provider reads/writes. Five wins into Captain, complete/wrong/
+partial READY, Enter, Pause/real-window focus loss, held input, carry and Menu.
+Direct ready/partial/next-combat stills confirm compact fixed frame and instruction,
+original tray restoration. Visual FAIL for seal detail: the old.9H footprint
+shrinks the64px authored drawing to roughly30world pixels, dropping thin inner lines.
+No full-frame visual pass is claimed for this candidate.
+
+Correction: keep floor center and the existing approximately1:4foreshortening,
+but project the full source width at64native world pixels (64x16quad footprint,
+using the arena WorldTexture's real height). This changes only quad size; no input,
+clocks/material/colors/alpha/camera contracts change. Added exact64world-pixel
+projection assertion to the existing actual-scene progress/error/carry case;
+only that affected case is rerun. The other5cases and first175functional checks
+remain reusable. Final player/captures/ledger will be under evidence-root/final-run/;
+root-level player/report/stills are this visually rejected small-seal pilot.
+
+
+Final-size actual-scene case PASS,1/1,0failed/skipped,13.7639109s,
+result20261027T103211-quick, raw snapshotce6ddb5dd4df1db82ae55705205a5525129b43eadd1d81ff297c236c33030ea0.
+Includes exact64native-pixel projection plus floor/texture/padding/gap/fixed-frame,
+all opacity levels/error/painted hold/stats/carry into Captain/terminal exclusion.
+The other5earlier cases remain byte-for-byte unchanged, and input/clocks/lifecycle
+source has not changed. Same-source final QA build requested with the existing
+endless scenario solely to retain its immutable player before native verification;
+external adapter returns before any broad server browser profile.
+
+
+### Final acceptance complete; integration checkpoint
+
+Final ce6ddb5d QA/repeated builder103545 PASS,33/33immutable downloaded files match.
+Native player4fe249aa7e98cbfb, Edge156.0.4314.42/GTX1650Ti/ANGLE D3D11/1280x720:
+184real-input checks PASS,0runtime exceptions/provider reads/writes. No source
+change after the qualified final-size case/build; later edits are documentation.
+Six unique focused cases are qualified: the final-size actual-scene case reran,
+the other5earlier passes remain applicable. All requested input/lifecycle/stat
+checks and real normal/Captain entries passed. No broader profile was launched.
+
+Final output source scopes declared before inspection:
+- complete.webm16.234-28.871s: complete death/rest/partial/Pause/error/READY/
+  completion/normal summon and live combat;316/316frames,315/315pairs inspected.
+- complete.webm69.267-75.704s: complete elite death/READY/Captain summon/live entry,
+  ending with explicit Pause;161/161frames,160/160pairs inspected.
+All21contact sheets viewed, original320x180 world pixels, including preceding-page
+boundary frames. No retiming/interpolation or dropped held frames. Source-selected
+and exported counts match exactly. Each frames.json now records direct inspection
+and findings for every frame/next transition; review-ledger.json records all ranges,
+sheets and inspected counts. Clip/frame SHA256 verified. Normal native ready and
+partial stills also viewed. No original asset build/loop animation was reproduced;
+source reference is the directly inspected static final frame.
+
+PASS: floor anchor/full authored PNG with no procedural marks, steady idle, whole
+circle progress/reset, compact fixed complete-word frame, stable cream instruction,
+fully charged painted hold before one charcoal cover, circle into existing smoke,
+whole opponent/shadow, circle gone and full combat tray restored before play.
+The ring uses natural source width64world pixels and16pixel floor foreshortening;
+its floor perspective is intentional, without modifying the PNG's shapes/colors.
+Existing visible300ms preview timing proof is reused; video frame counts do not
+replace runtime timing assertions. No performance/whole-game/source-motion-match claim.
+
+Local Windows FFmpeg export helpers stalled on child startup; only exact task
+processes were stopped, and the same immutable videos were exported using existing
+/usr/bin/ffmpeg and ffprobe on fly-server, without installing tools. Counts above
+come from that export. One Opus source packet-header warning, nonfatal; output clips
+fully decode. No task audio change or new audio-fidelity claim. Final clips/frames/
+ledger are under final-run/review-output/. Original small-circle pilot remains
+separate at evidence-root and is explicitly visually rejected.
+
+Acceptance verified before integration. Preserve final evidence/selected source ZIP
+for review/reproduction; cleanup condition: user no longer needs these receipts.
+Task-created bsk/Orca asset tabs and native browser sessions are closed. No owned
+Editor/browser/server remains. Shared runner/toolchain/cache and other tasks remain.
+Only the clean task worktree/local branch will be removed after verified remote
+integration; remote feature branch and canonical runner results remain preserved.
+
+
+Final diff hygiene strips only five trailing spaces after empty YAML values in the
+new texture importer meta (indices/mipmapLimitGroupName/userData/bundle fields).
+No GUID, importer value, script, PNG or other runtime input changed from the
+qualified ce6ddb5d source; no runtime rerun for this semantic no-op. Original and
+clean meta lines compare equal after rstrip and the original bytes are retained
+with final evidence. Git diff --check is required before commit.
+
+
+## User-approved READY release ? 2026-10-27 (artifact qualified; publication blocked)
+
+User explicitly accepted the final visual result and requested push/release.
+Gameplay/assets are already integrated and remotely verified at2f2f3da30656c72a818dfca9682c5b077251066e.
+Release worktree starts from that clean origin/main; parent dirty checkout is preserved.
+No game/source changes or repeat full QA/frame review. Prior6focused cases,
+184native checks and477frame/475pair review remain applicable.
+
+Pinned Unity2022.3.25f1 production131422 PASS, source snapshot
+105615a07c188ca3901403822bb577eba43825b369c0364d4609d8814f8b3004.
+Strict repeated/protected-font builder and decoded-JS QA-bridge guard pass.
+All33downloaded immutable player files match server SHA256. qa=false;
+package scanner confirms bridge/probe markers absent in decoded JS/WASM/data.
+ZIP33members/14872340bytes, root index.html and CRC PASS:
+CLACKBLADE-WebGL-ReadySeal-2f2f3da-20261027.zip,
+SHA256 ec37cbf92fe01298cd8fa9479bccdcf97662b055fa7aed4dc89a76bef1eec4a1.
+
+Production native Edge156.0.4314.42/Intel UHD D3D11/1280x720, original HTML and
+native Brotli headers:8smoke checks PASS,0exceptions/console errors/provider
+reads/writes. Direct menu/name/preparation/tutorial/paused/word/menu images viewed.
+Real Start Battle, Pause/Resume, correct change advances to see and score0->10,
+then returns to Menu. Bridge undefined. The first280ms resume wait was too short
+for the existing close-input guard; unchanged player passed with the established
+650ms recipe. This is a harness correction, no input/source fix. Fresh test browser,
+static/control servers closed; no running smoke/Unity job remains.
+
+Publication BLOCKED BEFORE UPLOAD: BrowserSkill doctor showed0connected browsers;
+its managed daemon started/was verified, but no browser remained connected when
+publication was ready. Its log records a transient Edge connection13:17:15-13:17:46Z,
+then idle shutdown at13:29:09Z; no publication session had been established. The fallback
+Orca editor https://itch.io/game/edit/3857509 stayed at Cloudflare security
+verification. Asked user for browser connection or verification while build/smoke
+continued; no reply yet. No upload, form save, rollback selection or storefront
+change has occurred; no public-release claim. BrowserSkill sessions were not created.
+Orca page e2de1887-c0ab-4701-a1cf-85ffb2f031c1 is retained for the human verification
+step; close it after publication or cancellation. Do not solve/bypass CAPTCHA or
+extract login/cookie/token secrets. No Computer Use or tool installation.
+
+Qualified artifact/scripts/manifests/receipts and checkpoint:
+D:/Projects/TypingHero-evidence/ready-release-20261027/.
+Retain for publication/reproduction; clean after release and rollback receipts are
+no longer needed. Canonical production result remains on fly-server. Existing
+shared runner/cache and other resources untouched. Clean task worktree/local branch
+can be removed after checkpoint integration; artifact is sufficient for resuming.
+
+Resume: verify browser connection, read fresh owner/game/upload state (game3857509,
+https://micharel09.itch.io/clackblade), then upload the qualified ZIP. Preserve prior
+uploads for rollback and all unrelated fields. Select only the new browser playable,
+save, verify saved editor and public iframe, compare actual CDN files with
+artifact-manifest.json using verify-cdn.py, and boot the actual public player with
+provider interception. Do not rebuild/repeat accepted QA unless relevant inputs
+changed. Publication remains explicitly unverified until those steps complete.

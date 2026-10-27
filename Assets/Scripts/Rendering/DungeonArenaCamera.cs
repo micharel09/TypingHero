@@ -22,6 +22,7 @@ public sealed class DungeonArenaCamera : MonoBehaviour
     public Camera PresentationCamera { get; private set; }
     public Rect PresentationRect { get; private set; } = new Rect(0, 0, 1, 1);
     public Color SlayerBackground { get; private set; }
+    internal float EnvironmentPresentationGain { get; set; } = 1f;
     public void SetSlayerBackground(Color color) => SlayerBackground = color;
     public bool Cinematic { get; private set; }
     internal RTHandle EnvironmentScratch;
@@ -154,5 +155,6 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         EnvironmentScratch?.Release(); EnvironmentScratch = null;
         Cinematic = false;
         SlayerBackground = Color.clear;
+        EnvironmentPresentationGain = 1f;
     }
 }

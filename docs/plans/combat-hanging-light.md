@@ -1,3 +1,24 @@
+## Task closure approved by user (2026-10-27)
+
+The user explicitly accepted the current result for integration, requested push to
+main, task closure and deletion of task logs/temp after reviewing the clip and the
+clarification that visible central-lantern dominance was not established. This
+supersedes the earlier stop-before-main gates for this task; it does not turn
+unqualified FPS/foreground/playback or direct OnEnable measurements into passes.
+
+Merged latest origin/main (ad370ba0); retained its Magic Circle READY implementation
+and both verification histories. Lighting scene/profile and runtime torch/shader
+sources are unchanged from QA100208/397-check smoke. Reused that scoped lighting
+evidence and upstream's READY verification; 38/38 input/frame harness contracts
+pass on the integration tree. No new integrated Unity/player or FPS result claimed.
+No itch.io publication. Primary dirty checkout is untouched.
+
+After verified remote integration, remove the clean task worktree/local branch,
+local dungeon artifact roots and task-only Ubuntu build/cache/result roots. Raw
+artifact links in older sections are historical and will no longer resolve; only
+repository source and Markdown verification summaries are retained. Remote task
+branch is retained. Private shared Unity activation/toolchain and other tasks stay.
+
 ## Remove invisible cool floor fill (2026-10-27; acceptance pending)
 
 - Continued the existing clean Orca worktree at

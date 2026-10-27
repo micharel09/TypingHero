@@ -23,7 +23,7 @@ public sealed class DungeonWorldRender : ScriptableRendererFeature
             return;
         }
         if (!data.cameraData.camera.TryGetComponent<DungeonArenaCamera>(out var arena) || !arena.WorldTexture) return;
-        if (blur && (arena.profile.blurRadius > 0 || arena.SlayerBackground.a > 0))
+        if (blur && (arena.profile.blurRadius > 0 || arena.SlayerBackground.a > 0 || arena.EnvironmentPresentationGain != 1))
         {
             environment.Configure(arena, arena.profile.blurRadius);
             renderer.EnqueuePass(environment);
@@ -63,6 +63,7 @@ public sealed class DungeonWorldRender : ScriptableRendererFeature
             // SpriteRenderer tint is authored in sRGB; this raw HDR blit uniform is linear.
             var tint = arena.SlayerBackground;
             material.SetColor("_DungeonSlayerBackground", QualitySettings.activeColorSpace == ColorSpace.Linear ? tint.linear : tint);
+            material.SetFloat("_DungeonPresentationGain", arena.EnvironmentPresentationGain);
             material.SetFloat(EdgeId, arena.profile.depthEdgeDistance);
             material.SetVector(TexelId, new Vector4(1f / color.rt.width, 1f / color.rt.height, color.rt.width, color.rt.height));
             Blitter.BlitCameraTexture(cmd, color, scratch, material, 0);
