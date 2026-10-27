@@ -1,3 +1,12 @@
+## Latest source checkpoint:63a78500 (2026-10-27)
+
+Merged upstream66749da1 (typed READY) with both documentation histories preserved.
+Task branch is pushed; main is unchanged by this task. All FPS players below
+predate this runtime/input change and cannot accept the new source. No new
+Unity build is claimed. A new A/B source lock and QA builds are required before
+continuing acceptance. Existing Ready carry/reset1/1 predates this change;
+upstream READY evidence is recorded separately in docs/game/verification.md.
+
 ## Acceptance stopped: performance gate failed; main unchanged (2026-10-27)
 
 - Retained implementation: 990105b5, with main documentation merged at06105e08.
