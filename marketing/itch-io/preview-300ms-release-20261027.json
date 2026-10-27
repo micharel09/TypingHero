@@ -1,0 +1,478 @@
+{
+  "sourceCommit": "3bfb4f3f32398ed72d97106ebb662031ffe3592c",
+  "snapshot": "90a0a643d2c7973ebf7e292d4555d5446057f031c7ba3ccfa801054ace22d48e",
+  "unity": "2022.3.25f1",
+  "qa": false,
+  "file": "D:\\Projects\\TypingHero-evidence\\release-preview-300ms-20261027\\CLACKBLADE-WebGL-Preview300ms-3bfb4f3-20261027.zip",
+  "sha256": "902f8a2f880279e8173e3937ae0d90de9c6c4c71b5e678de9fbe6ddd32b2b888",
+  "bytes": 14811142,
+  "members": 33,
+  "crc": "PASS",
+  "indexAtRoot": true,
+  "qaExclusion": [
+    {
+      "file": "Build/output.data.br",
+      "decodedBytes": 15544230,
+      "markersAbsent": true
+    },
+    {
+      "file": "Build/output.framework.js.br",
+      "decodedBytes": 411505,
+      "markersAbsent": true
+    },
+    {
+      "file": "Build/output.loader.js",
+      "decodedBytes": 20642,
+      "markersAbsent": true
+    },
+    {
+      "file": "Build/output.wasm.br",
+      "decodedBytes": 31968116,
+      "markersAbsent": true
+    },
+    {
+      "file": "ServiceWorker.js",
+      "decodedBytes": 1056,
+      "markersAbsent": true
+    }
+  ],
+  "files": {
+    "Build/output.data.br": "be8894c8ca359ca144ec3527b2857af183ce7ed86ae8edf17f85bbf9e546064a",
+    "Build/output.framework.js.br": "57999ef6ca5da147482524f5fae50a86d0cf2b8e3ea282121069a5d45f9745ac",
+    "Build/output.loader.js": "86ea62283e54262ba471d7fccfd1af877ef7a09ec4d047afbd9ddbb6d315d169",
+    "Build/output.wasm.br": "da8cdd5a7170d62fd295521118436bcf2bc64886af1bf7cf6126d367e4f003e3",
+    "CodeManu-License.txt": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+    "CREDITS.txt": "0e8c760a11d3001cce2580b54e28215633eb023e61b680e7a70ebb370b6bfacc",
+    "Crusenho-License.txt": "967e02d313d6aad874db979e832596e624c3c177c6c887da95bd914c82168ba9",
+    "DarkAges-License.txt": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+    "game-loop-build.json": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+    "index.html": "4b1dc9f115d9e1790742a00e29ab15a7caf1bf9791e6050575ca64f5c90e3ece",
+    "KayKit-Dungeon-CC0.txt": "0bcbcd288619887511298e3c3304e221fe659888717a6977822249369f83bac5",
+    "Kenney-Impact-License.txt": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+    "Kenney-Interface-License.txt": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+    "Kenney-License.txt": "8723305f6eeda9b2ab11e3f642657744cfbed98d08abce3ccdf710c74ecc329e",
+    "Kenney-UI-License.txt": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
+    "manifest.webmanifest": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486",
+    "Pimen-BattleEffects-License.txt": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+    "Pimen-HitSpark-License.txt": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
+    "PixelDungeon-CC0.txt": "ab1738a63883411e4a82517c71d3b3887a37be0127503af172d6898a577fed36",
+    "PixelFire-Credits.txt": "df4a1b38931daf4d81a5a269157387ca8aa085ee70b018ee7a18dd31d5926d38",
+    "ServiceWorker.js": "87648be576338ef94013bbf99b4381ab82b664d47f39dd84001ced2b98252b48",
+    "TemplateData/favicon.ico": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+    "TemplateData/icons/unity-logo-dark.png": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
+    "TemplateData/icons/unity-logo-light.png": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
+    "TemplateData/progress-bar-empty-dark.png": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+    "TemplateData/progress-bar-empty-light.png": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+    "TemplateData/progress-bar-full-dark.png": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
+    "TemplateData/progress-bar-full-light.png": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+    "TemplateData/style.css": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
+    "TemplateData/unity-logo-dark.png": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+    "TemplateData/unity-logo-light.png": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
+    "TinyPixelJapan-License.txt": "9467cd1a0f711963a85addf2d90a4a67f1ec0b3d6ccd39753d0c03894b46ae1f",
+    "VT323-OFL.txt": "e9703da7abe97795a41be19905323706502723a1eec104608c24f858e352f9a8"
+  },
+  "status": "public-verified",
+  "owner": "micharel09",
+  "gameId": 3857509,
+  "url": "https://micharel09.itch.io/clackblade",
+  "uploadId": 20065750,
+  "previousUploadId": 19943928,
+  "failedUploadId": 20065590,
+  "verifiedAtUtc": "2026-10-27T03:10:35.077674+00:00",
+  "build": {
+    "run": "20261027T020231-production",
+    "result": "Success",
+    "normalizedSerializedTextFiles": 1708,
+    "sourceUnmodified": true,
+    "fontGuardsRetained": true,
+    "repeatBuilderEvidence": "Reused passing QA160646 on identical snapshot; production does not enable the QA-only second builder pass"
+  },
+  "reusedEvidence": {
+    "directory": "D:/Projects/TypingHero-evidence/intro-preview-300ms-20261026",
+    "unityPassed": 10,
+    "unityFailed": 0,
+    "unitySkipped": 0,
+    "qaChecksPassed": 125,
+    "qaExceptions": 0,
+    "snapshot": "90a0a643d2c7973ebf7e292d4555d5446057f031c7ba3ccfa801054ace22d48e"
+  },
+  "productionSmoke": {
+    "viewport": "1280x720",
+    "browser": "Edge156.0.4314.42 / GTX1650Ti / ANGLE D3D11",
+    "originalHtml": true,
+    "qaBridge": "undefined",
+    "passed": [
+      "menu",
+      "Play/name",
+      "Start Battle confirmation",
+      "real typing/combo/Slayer",
+      "Pause/Resume",
+      "win first duel",
+      "Continue into Double Strike",
+      "Restart resets run to Swordsman/score0",
+      "return Menu"
+    ],
+    "exceptions": [],
+    "fixtureReads": 0,
+    "fixtureWrites": 0,
+    "externalBlocked": [],
+    "retainedAttempts": [
+      "Brotli route-fulfillment parse error: harness fixed to serve compressed bytes over HTTP with proper encoding headers.",
+      "Early driver typed while first-run Start Battle guide was active; corrected driver only.",
+      "One headed browser closed before Continue verification; final complete headless run and separately observed headed typing retained."
+    ]
+  },
+  "publicVerification": {
+    "runGameMenuInspected": true,
+    "runtime": "Same public CDN player opened directly for real canvas input because nested iframe screenshot refs are unavailable in BrowserSkill. Play/Start Battle/combat/Pause/Menu inspected.",
+    "ordinaryPublicLoader": true,
+    "cacheBustingQueryAdded": false,
+    "cdn": {
+      "uploadId": 20065750,
+      "base": "https://html-classic.itch.zone/html/20065750/",
+      "files": [
+        {
+          "name": "Build/output.data.br",
+          "http": 200,
+          "sha256": "498fc41a37b377b76bc07d083fa1a1aebc284db903585df693b150f6351e8ab5",
+          "artifactSha256": "be8894c8ca359ca144ec3527b2857af183ce7ed86ae8edf17f85bbf9e546064a",
+          "decodedArtifactSha256": "498fc41a37b377b76bc07d083fa1a1aebc284db903585df693b150f6351e8ab5",
+          "comparison": "exact decoded bytes",
+          "match": true
+        },
+        {
+          "name": "Build/output.framework.js.br",
+          "http": 200,
+          "sha256": "0e354ecc1ad22cca854bdeeff0996a081b692c1e25b0eb50daeca79b9a29133e",
+          "artifactSha256": "57999ef6ca5da147482524f5fae50a86d0cf2b8e3ea282121069a5d45f9745ac",
+          "decodedArtifactSha256": "0e354ecc1ad22cca854bdeeff0996a081b692c1e25b0eb50daeca79b9a29133e",
+          "comparison": "exact decoded bytes",
+          "match": true
+        },
+        {
+          "name": "Build/output.loader.js",
+          "http": 200,
+          "sha256": "86ea62283e54262ba471d7fccfd1af877ef7a09ec4d047afbd9ddbb6d315d169",
+          "artifactSha256": "86ea62283e54262ba471d7fccfd1af877ef7a09ec4d047afbd9ddbb6d315d169",
+          "decodedArtifactSha256": "86ea62283e54262ba471d7fccfd1af877ef7a09ec4d047afbd9ddbb6d315d169",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "Build/output.wasm.br",
+          "http": 200,
+          "sha256": "972dbf7684cabb28ad5f8e50715d5e20c4501cad68c857d4b2a000ce0baf86ea",
+          "artifactSha256": "da8cdd5a7170d62fd295521118436bcf2bc64886af1bf7cf6126d367e4f003e3",
+          "decodedArtifactSha256": "972dbf7684cabb28ad5f8e50715d5e20c4501cad68c857d4b2a000ce0baf86ea",
+          "comparison": "exact decoded bytes",
+          "match": true
+        },
+        {
+          "name": "CodeManu-License.txt",
+          "http": 200,
+          "sha256": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+          "artifactSha256": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+          "decodedArtifactSha256": "08e57c6906fd2e386dc5b23fbd4eb472467b22a18a6f3e2fbb708a393a82e7a0",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "CREDITS.txt",
+          "http": 200,
+          "sha256": "0e8c760a11d3001cce2580b54e28215633eb023e61b680e7a70ebb370b6bfacc",
+          "artifactSha256": "0e8c760a11d3001cce2580b54e28215633eb023e61b680e7a70ebb370b6bfacc",
+          "decodedArtifactSha256": "0e8c760a11d3001cce2580b54e28215633eb023e61b680e7a70ebb370b6bfacc",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "Crusenho-License.txt",
+          "http": 200,
+          "sha256": "967e02d313d6aad874db979e832596e624c3c177c6c887da95bd914c82168ba9",
+          "artifactSha256": "967e02d313d6aad874db979e832596e624c3c177c6c887da95bd914c82168ba9",
+          "decodedArtifactSha256": "967e02d313d6aad874db979e832596e624c3c177c6c887da95bd914c82168ba9",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "DarkAges-License.txt",
+          "http": 200,
+          "sha256": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+          "artifactSha256": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+          "decodedArtifactSha256": "b8b28d92a7113d5b58b8632721281782db52d66e93892ad93b7840a79c3d2880",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "game-loop-build.json",
+          "http": 200,
+          "sha256": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+          "artifactSha256": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+          "decodedArtifactSha256": "a399dddd15f734888fc2f86f1dbd6f45e6e72dbffcb3a8538c632d3506011294",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "index.html",
+          "http": 200,
+          "sha256": "721d95fec9d994d7a01d89e6a77c866623aac33ee2d9446ff481380c0242da68",
+          "standardIntegrationOnly": true
+        },
+        {
+          "name": "KayKit-Dungeon-CC0.txt",
+          "http": 200,
+          "sha256": "0bcbcd288619887511298e3c3304e221fe659888717a6977822249369f83bac5",
+          "artifactSha256": "0bcbcd288619887511298e3c3304e221fe659888717a6977822249369f83bac5",
+          "decodedArtifactSha256": "0bcbcd288619887511298e3c3304e221fe659888717a6977822249369f83bac5",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "Kenney-Impact-License.txt",
+          "http": 200,
+          "sha256": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+          "artifactSha256": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+          "decodedArtifactSha256": "991a441f0050c5a11b0d53904bcd9d827f7b0d9acdf8257af9fb040f95341a5f",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "Kenney-Interface-License.txt",
+          "http": 200,
+          "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+          "artifactSha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+          "decodedArtifactSha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "Kenney-License.txt",
+          "http": 200,
+          "sha256": "8723305f6eeda9b2ab11e3f642657744cfbed98d08abce3ccdf710c74ecc329e",
+          "artifactSha256": "8723305f6eeda9b2ab11e3f642657744cfbed98d08abce3ccdf710c74ecc329e",
+          "decodedArtifactSha256": "8723305f6eeda9b2ab11e3f642657744cfbed98d08abce3ccdf710c74ecc329e",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "Kenney-UI-License.txt",
+          "http": 200,
+          "sha256": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
+          "artifactSha256": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
+          "decodedArtifactSha256": "4f88ab3c885c87874834441a0d009cea8942f57461d7b870be65cf4e31362073",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "manifest.webmanifest",
+          "http": 200,
+          "sha256": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486",
+          "artifactSha256": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486",
+          "decodedArtifactSha256": "8510284abfb2223ab272e6b349b297f5c245727a591de5f78964ad4ae6350486",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "Pimen-BattleEffects-License.txt",
+          "http": 200,
+          "sha256": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+          "artifactSha256": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+          "decodedArtifactSha256": "0050b3e7d710e5cf5b9a47b14cdf8d73efd36f1a765d1161e43de51b87068e1b",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "Pimen-HitSpark-License.txt",
+          "http": 200,
+          "sha256": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
+          "artifactSha256": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
+          "decodedArtifactSha256": "4f3749e5df372b56953d6cc6186f3c757651393d34a1908343c30671cd976226",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "PixelDungeon-CC0.txt",
+          "http": 200,
+          "sha256": "ab1738a63883411e4a82517c71d3b3887a37be0127503af172d6898a577fed36",
+          "artifactSha256": "ab1738a63883411e4a82517c71d3b3887a37be0127503af172d6898a577fed36",
+          "decodedArtifactSha256": "ab1738a63883411e4a82517c71d3b3887a37be0127503af172d6898a577fed36",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "PixelFire-Credits.txt",
+          "http": 200,
+          "sha256": "df4a1b38931daf4d81a5a269157387ca8aa085ee70b018ee7a18dd31d5926d38",
+          "artifactSha256": "df4a1b38931daf4d81a5a269157387ca8aa085ee70b018ee7a18dd31d5926d38",
+          "decodedArtifactSha256": "df4a1b38931daf4d81a5a269157387ca8aa085ee70b018ee7a18dd31d5926d38",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "ServiceWorker.js",
+          "http": 200,
+          "sha256": "87648be576338ef94013bbf99b4381ab82b664d47f39dd84001ced2b98252b48",
+          "artifactSha256": "87648be576338ef94013bbf99b4381ab82b664d47f39dd84001ced2b98252b48",
+          "decodedArtifactSha256": "87648be576338ef94013bbf99b4381ab82b664d47f39dd84001ced2b98252b48",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/favicon.ico",
+          "http": 200,
+          "sha256": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+          "artifactSha256": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+          "decodedArtifactSha256": "9c13beb90ee8f70580d52a21d5233970d1c89e71e4a34a462c22610941c3c77f",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/icons/unity-logo-dark.png",
+          "http": 200,
+          "sha256": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
+          "artifactSha256": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
+          "decodedArtifactSha256": "2a17a891a3b95af68c081f18842ac29b562a383caf70fdd29f7cdfd8b372c936",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/icons/unity-logo-light.png",
+          "http": 200,
+          "sha256": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
+          "artifactSha256": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
+          "decodedArtifactSha256": "1f99c24a7017ee876ce7c000b69b334a778dd3f6d79262a114143332847ed5b5",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/progress-bar-empty-dark.png",
+          "http": 200,
+          "sha256": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+          "artifactSha256": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+          "decodedArtifactSha256": "bbee7131afe8a3365906240d89184dc86234c119467f390bc4bc6802328fdb4d",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/progress-bar-empty-light.png",
+          "http": 200,
+          "sha256": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+          "artifactSha256": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+          "decodedArtifactSha256": "143696c060ad43d6c30f19ff5f49000927a139a2a1e4c9f45fafaa2b90d7d2be",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/progress-bar-full-dark.png",
+          "http": 200,
+          "sha256": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
+          "artifactSha256": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
+          "decodedArtifactSha256": "3306a6244dcb3926fca38a28e3ced589df8ff1beed955eb17c0bbf01c918bc62",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/progress-bar-full-light.png",
+          "http": 200,
+          "sha256": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+          "artifactSha256": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+          "decodedArtifactSha256": "12395ea785480c5cdf12fade6e6cbf49666d5bb1cef7240c113dbcba6bdc5c87",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/style.css",
+          "http": 200,
+          "sha256": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
+          "artifactSha256": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
+          "decodedArtifactSha256": "4230a772734db64deef334b52c64df189a7eac805013b533bf67f934677606be",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/unity-logo-dark.png",
+          "http": 200,
+          "sha256": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+          "artifactSha256": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+          "decodedArtifactSha256": "c1b72d26c096487dabc948b54bc203f8dac7ed4e3f5733918798e858acb4b159",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TemplateData/unity-logo-light.png",
+          "http": 200,
+          "sha256": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
+          "artifactSha256": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
+          "decodedArtifactSha256": "002990aea0d946833cadc1519d5b7e50a4570bd537a0517dd79a59d3eec84da7",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "TinyPixelJapan-License.txt",
+          "http": 200,
+          "sha256": "9467cd1a0f711963a85addf2d90a4a67f1ec0b3d6ccd39753d0c03894b46ae1f",
+          "artifactSha256": "9467cd1a0f711963a85addf2d90a4a67f1ec0b3d6ccd39753d0c03894b46ae1f",
+          "decodedArtifactSha256": "9467cd1a0f711963a85addf2d90a4a67f1ec0b3d6ccd39753d0c03894b46ae1f",
+          "comparison": "exact compressed bytes",
+          "match": true
+        },
+        {
+          "name": "VT323-OFL.txt",
+          "http": 200,
+          "sha256": "e9703da7abe97795a41be19905323706502723a1eec104608c24f858e352f9a8",
+          "artifactSha256": "e9703da7abe97795a41be19905323706502723a1eec104608c24f858e352f9a8",
+          "decodedArtifactSha256": "e9703da7abe97795a41be19905323706502723a1eec104608c24f858e352f9a8",
+          "comparison": "exact compressed bytes",
+          "match": true
+        }
+      ],
+      "nonHtmlMatched": 32,
+      "nonHtmlTotal": 32,
+      "indexStandardOnly": true
+    },
+    "exceptions": [],
+    "providerRequestsObserved": 0,
+    "firebaseBlockRule": true,
+    "captureLimit": "BrowserSkill excludes worker targets. No terminal result/score submission was triggered in public smoke.",
+    "screenshots": [
+      "retry2-public-menu.png",
+      "public-combat-paused.png",
+      "public-return-menu.png"
+    ]
+  },
+  "rollback": {
+    "uploadId": 19943928,
+    "retained": true,
+    "verifiedDuringRelease": true,
+    "instructions": "Unhide19943928, select browser playable, hide current upload, Save and wait for completion. Reload editor and public page; verify iframe19943928 and actual menu."
+  },
+  "attempt1": {
+    "uploadId": 20065590,
+    "state": "Superseded by itch.io on same-filename retry; no longer listed in final editor. No delete action issued. Original public rollback19943928 is retained.",
+    "problem": "Public Build loader/payload paths404; CDN reports cached R2 object-not-found. Root cause not proven.",
+    "rollback": "Saved19943928 and inspected old public menu.",
+    "retry": "Uploaded identical ZIP only after failure inspection; allowed itch first-time processing to complete before public Run game, then compared CDN payloads."
+  },
+  "preservedPageSettings": "Final reloaded editor in fresh tab confirms playable20065750, previous19943928 hidden/retained; all unrelated form fields and gallery identical to the pre-release snapshot. Theme not edited.",
+  "artifactRoot": "D:\\Projects\\TypingHero-evidence\\release-preview-300ms-20261027",
+  "noGameplayOrApiChanges": true,
+  "finalEditorEvidence": "editor-final-retry.json",
+  "cleanup": {
+    "server": {
+      "target": "/data/typinghero-game-loop/tasks/release-preview-300ms-20261027",
+      "removed": true,
+      "runningOwnedContainers": 0,
+      "sharedCacheLibraryLicenseUntouched": true
+    },
+    "expandedLocalPlayerRemoved": true,
+    "browserSession": "eady no longer registered; session stop initially reported background cleanup timeout, subsequent session list confirms removal. Other session xbpg untouched.",
+    "retainedWorktree": {
+      "path": "D:\\Projects\\TypingHero-worktrees\\release-preview-300ms",
+      "branch": "micharel09/release-preview-300ms",
+      "reason": "Hosts shared BrowserSkill foreground daemon terminal term_f40759a4-f43b-45ad-884f-2c0c7b5051d3; another session xbpg is using the daemon. Keep shared daemon running per browser-skill.",
+      "cleanupCondition": "Remove the clean worktree/local branch only after results are verified on remote and shared daemon is retired or relocated without disrupting other sessions."
+    },
+    "artifactRoot": "D:\\Projects\\TypingHero-evidence\\release-preview-300ms-20261027",
+    "retention": "Release ZIP, hashes, verification reports/screenshots/clips and reproduction scripts retained outside CodexTemp."
+  }
+}

@@ -27,18 +27,13 @@ previous output. QA observations add no gameplay setters. Public contracts remai
 Clean-source Ubuntu161056-webgl supersedes the provisional cached runs:81/81
 selected tests pass, QA build and strict repeated builder pass. Input e99fe0c1,
 player9f1c923ff0fa800e;2495source files/252C# and33player file hashes match.
-Single canvas recorder capture has0exceptions/provider reads/writes. Final lossless
-VFR exports pass pixels/PTS/every duration/endpoints; all six technical playback
-rows (three weapons at1x/.25x) pass. Direct still review covers1535frames/1532pairs;
-arc/black-body/Pause occlusion and continuous subjective playback remain unverified.
-Eight full-start QA generations lack an observed F5; publication/encoder alignment
-does not establish visibility of those short phases. Historical failed reports
-remain intact. The user accepted the viewed result and requested integration;
-the recorded sampling/occlusion limits are not relabeled as automated visual passes.
-Integration status and clips are
-recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
-Main3bfb4f3f merge d434c200 additionally passes22/22intro/Slayer-transition cases
-from clean compiled/import cache; input0c94ea6c matches2495source files.
+Single canvas recorder capture had0exceptions/provider IO. Final VFR exports and
+six technical playback rows passed;1535frames/1532pairs were directly inspected.
+The user accepted the visual result; sampling/occlusion limits are preserved in the
+[completion record](../plans/slayer-slash-vfx.md). Main83d6e0a6 was remotely verified;
+latest-main integration passed22/22intro/Slayer-transition cases from clean cache.
+External task evidence was deleted at the user's request; only the in-repository
+Markdown completion record remains.
 
 # System and configuration map
 
@@ -99,7 +94,7 @@ standalone duplicate hosts retain their existing cleanup behavior. See [intro ch
 | Combat HUD | `CombatR7Build`, `CombatR7Status`, `CombatHUDFeedback`, `CombatHUDLayout`, `TutorialOverlay`, `Assets/Art/UI/CombatR7/` | r6 components/r7 fixed320x180 layout, difficulty/duel, live HP/score/clock, observed parry/HP/guard feedback and three58px word cells; Cobblestone UI/typing with Blackbit brand title only; local preview typography56/48/42,20native-pixel name rows and status stacks at y20, score/typing fixed. Flat backplate visibility stays owned by CombatR7Status; PARRY/key/clock hidden. Current local font verification/publication status is in the font checkpoint. Readability repeat/font/content checks and native lifecycle25/score-cluster209 verified on current scene; representative2.5D pending. Existing IDs/bindings retained; popup and Space cue follow stable enemy head landmarks. Local HUD feedback scoped Unity4/native2353 pass (score-hud-cluster checkpoint); prior Quick116 and strict repeat serialization pass; final production smoke/public29payload hashes verified in ui-kit-v2 checkpoint. |
 | Slayer presentation | `SlayerScreenFX`, `SlayerSilhouetteGroup`, `DungeonWorldRender`, `CombatViewportCamera`, `ScoreUI_ComboHUD`, `FloatingScore`, `CombatR7Build` | Coordinated450/650ms transitions blend the active room before actors, preserve silhouette/VFX exclusions, fixed HUD/typing geometry and authored endpoint bands. Pause holds progress; results finish exit; scene teardown restores baseline. Scoped Unity8/native32 and488frame integrated review in slayer-soft-transitions checkpoint; exit hit-flash composition adds14 Unity/native23 and75frame review, preserving untinted baseline and live alpha. Existing body landmarks remain. Lens correction anchors the floor at native138 using the brain state, preserving impulses and pause camera ownership. Frozen native R7/tutorial133checks cover rendered glyph/foot geometry; later full production smoke/public verification is in ui-kit-v2 checkpoint. |
 | Match statistics | `Assets/Scripts/GameController/CombatSession.cs` | Letter-attempt event, parry success, lethal health paths and result label; Quick + keyboard browser rounds |
-| Endless survival | `EndlessRun`, `EndlessDifficulty`, `EndlessDifficultySelector`, `EndlessDuel`, `EndlessOpponent`, `EndlessProfile`, `EndlessOverlay`, `SkeletonController` | Five roles/known elite/three-phase captain, Continue across the first five duels, first-boss terminal victory without healing (internal repeat switch off), bounded recovery, local records/achievements and dedicated online queue; tutorial and Classic remain isolated. See `docs/plans/endless-duel.md`. |
+| Endless survival | `EndlessRun`, `EndlessDifficulty`, `EndlessDifficultySelector`, `EndlessDuel`, `EndlessOpponent`, `EndlessProfile`, `EndlessOverlay`, `SkeletonController` | Five roles/known elite/three-phase captain, Ready across the first five duels (existing Continue callback), first-boss terminal victory without healing (internal repeat switch off), bounded recovery, local records/achievements and dedicated online queue; tutorial and Classic remain isolated. See `docs/plans/endless-duel.md`. |
 | Audio preferences | `Assets/Scripts/Audio/AudioPreferences.cs`, `MusicPlayer`, `SfxPlayer` | Menu/pause sliders, PlayerPrefs and active/future voice gain; before-scene listener gain .5 for output headroom. Frozen CLACKBLADE native signal gate passed; full CombatR7 release published with known Endless online401 limitation. |
 | Typing audio | `Assets/Scripts/Audio/Binders/TypingInputSfx.cs`, `ShogunTheme`, `Assets/Audio/SFX/Clips/KenneyInterface/`, `Events/UI/TypingCorrect` and `TypingError` | OnInputResult only; existing mixer/pool/preferences, no voice creation while SFX0; authored-asset/input/lifecycle regressions. Exact mute and output headroom verified on frozen CLACKBLADE candidate (15+1511 native checks); full CombatR7 release is public; Endless online401 remains. See clackblade-rebrand plan. |
 | Pause/menu | `GamePauseController`, `DungeonSession`, `MainMenuUI` | Additive gameplay reload/return, camera/audio and scaled/unscaled/reading reset; retained world. |
