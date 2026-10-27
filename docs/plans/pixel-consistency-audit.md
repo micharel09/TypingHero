@@ -4491,3 +4491,49 @@ không thay clip runtime, source GIF, bản map chẩn đoán hoặc xác nhận
 Bằng chứng nguồn 36 cel và preview lighting đủ cel được giữ riêng.
 Runtime vẫn 10/1.590 frame và 7/1.584 cặp; playback 1×/0.25× và người xem còn mở.
 Asset A1 vẫn ở nhánh riêng, chưa đưa lên main.
+
+### Current-main capture checkpoint: main321 + A1
+
+Capture source: main `321ab65c` plus A1 HEAD
+`762a3e92e280e2a99d74e2edaed229f0183327c8`; immutable 2,547-file snapshot SHA256
+`fbedb17c05479be298464bda6cca6ba70f714406ead1d61ba2ff4692f5b112d0`.
+Fresh-Library Windows Unity 2022.3.25f1 build exited 0; repeated builder unchanged,
+all 12 A1 PNG files byte-identical after build (`runtime-map-preservation-current.json`).
+Two attempts using a transferred Library failed with MonoScript.GetClass null;
+diagnostic logs and rejected cache are preserved outside the repository.
+No game change was made to pass the cache failure.
+
+Evidence root: `D:/Projects/TypingHero-evidence/a1-shield-ownership`.
+`capture-current-1/browser.json`: passed 46 functional checks, exceptions empty;
+tutorial, four combats and three sword/axe/shield handoffs, detailed READY input
+matrix on sword. `capture-current-2/browser.json`: passed 4 checks, exceptions
+empty; player idle/Hurt/death/result with no input in the first sword fight.
+Normal input, read-only QA bridge, fixture interception and real-provider blocking.
+Actual runtime is native Edge 156 / Intel UHD D3D11; inherited Linux/container
+labels in toolchain metadata do not describe this execution environment.
+These results establish behavior/capture, not full visual acceptance.
+
+CombatSeconds remained identical Waiting to Intro at 40.56234359741211,
+136.7529754638672 and 177.50416564941406, increasing only in the next combat.
+Video frame count is not an exact engine hold measurement. Existing READY hold
+contract/test evidence is reused only where its relevant source is unchanged.
+
+Directly inspected the entire new tutorial reading clip: **26/26 frames and
+25/25 consecutive transitions**, full native canvas plus actor crop nearest 4x;
+verified all 52 PNG hashes. Ledger:
+`runtime-review-current/current-tutorial-scopes-clips.json`.
+Video `capture-current-1/tutorial-reading.webm` SHA256
+`003f94efea67ec96f897f09854e11bdbbecd893b55c2b74aead9afe28321e0f5`.
+Original PTS 0 to 1.304 seconds and held durations retained; final duration unknown.
+Pose/grip, reading cards/arrows/SPACE, score 0 and real/another/all tray remain
+stable. Trace timeScale 0: this is not a complete idle cycle. Score/Combo card
+covers the enemy skull top and Typing/Timer covers the player's trailing lower
+body; mandatory hidden-detail previews remain open. QA label overlap is not
+non-QA glyph acceptance. Lossy WebM does not prove identical source texels.
+
+R0 catalog 1,590 frames / 1,584 pairs, with 10 / 7 inspected, remains historical;
+it is not added to the current-main catalog. New combat/READY/player clips are
+not yet fully inspected. Final acceptance manifest and human 1x / 0.25x playback
+remain pending. Source/maps and all 72 offline A1 previews retain separate
+results. A1 assets remain on the task branch until runtime visual acceptance.
+Audit remains open; this checkpoint establishes no additional proven game bug.
