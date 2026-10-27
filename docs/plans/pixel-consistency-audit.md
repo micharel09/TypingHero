@@ -1,5 +1,10 @@
 # Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
+> **Chưa hoàn tất; nguồn main đã đổi UI giữa trận:** `66749da1` dùng gõ `READY`, bỏ nút `Ready · Enter`. Đang chờ chốt mốc nghiệm thu.
+> **Checkpoint đang thực hiện:** xem [Capture mới và trạng thái còn mở](#capture-mới-và-trạng-thái-còn-mở).
+> Các revision, 1.432 frame và kết luận Ready chưa có ảnh ở phần lịch sử bên dưới
+> thuộc lượt trước. Không cộng chúng vào coverage mới; audit chưa hoàn tất.
+
 ## Phạm vi và revision
 
 Audit bắt đầu trên `origin/main` tại `4db567bada8c7fcc512c426540941a4b894052eb`.
@@ -40,7 +45,7 @@ zoom nearest bổ sung cho mọi frame runtime và chi tiết bị VFX/overlay c
 Các khoảng trống được giữ riêng; không dùng build hoặc số lượng frame để lấp.
 Fetch chốt bổ sung tới `29c032856460007055d6926cac2d9284704cd6d5`; thay đổi
 duy nhất trong runtime từ bản capture `5d637df` là nhãn giữa trận thành
-`Ready · Enter`. Layout nhãn mới chưa có ảnh runtime, xem giới hạn cuối báo cáo.
+`Ready · Enter`. Ở checkpoint lịch sử này nhãn mới chưa có ảnh runtime; kết quả mới được ghi riêng ở cuối báo cáo.
 
 ## Những khác biệt có chủ ý, không tự coi là lỗi
 
@@ -646,8 +651,8 @@ SHA256 `79d0811c8499de273ab079256e7a9a64a30018e3fe891c6f82c71a90630ca8c7`; loop 
 | F0 | 0 / 0.083333336 | đứng chuẩn bị | → F1: kiếm dựng sát đầu | chưa kiểm chứng | `Skeleton_01_White_Attack1_0` |
 | F1 | 0.083333336 / 0.083333334 | kiếm dựng sát đầu | → F2: tay cuộn trước ngực, kiếm sau vai | chưa kiểm chứng | `Skeleton_01_White_Attack1_1` |
 | F2 | 0.16666667 / 0.24999999 | tay cuộn trước ngực, kiếm sau vai | → F3: giữ kiếm sau vai, mũi kéo trái | chưa kiểm chứng | `Skeleton_01_White_Attack1_2` |
-| F3 | 0.41666666 / 0.50000004 | giữ kiếm sau vai, mũi kéo trái | → F4: giữ gồng, chân trụ nguyên | chưa kiểm chứng | `Skeleton_01_White_Attack1_3` |
-| F4 | 0.9166667 / 0.06666665 | giữ gồng, chân trụ nguyên | → F5: chém phải, smear trắng rộng, chân duỗi | chưa kiểm chứng | `Skeleton_01_White_Attack1_4` |
+| F3 | 0.41666666 / 0.50000004 | giữ kiếm sau vai, mũi kéo trái | → F4: giữ kiếm sau vai, chân sau co nâng | chưa kiểm chứng | `Skeleton_01_White_Attack1_3` |
+| F4 | 0.9166667 / 0.06666665 | giữ kiếm sau vai, chân sau co nâng | → F5: chém phải, smear trắng rộng, chân duỗi | chưa kiểm chứng | `Skeleton_01_White_Attack1_4` |
 | F5 | 0.98333335 / 0.10000005 | chém phải, smear trắng rộng, chân duỗi | → F6: smear thu ngắn, tay vẫn duỗi | chưa kiểm chứng | `Skeleton_01_White_Attack1_5` |
 | F6 | 1.0833334 / 0.0666666 | smear thu ngắn, tay vẫn duỗi | → F7: mũi nhọn kéo dài, thân thu | chưa kiểm chứng | `Skeleton_01_White_Attack1_6` |
 | F7 | 1.15 / 0.1 | mũi nhọn kéo dài, thân thu | → F8: tay mở, kiếm chéo phải | chưa kiểm chứng | `Skeleton_01_White_Attack1_7` |
@@ -2433,3 +2438,380 @@ báo cáo. Snapshot, player, script audit, ảnh/clip/log tạm dưới
 `E:/CodexTemp/TypingHero/pixel-audit-gaps-20261027` được dọn sau khi ghi kết quả;
 định danh revision/hash/F/PTS ở đây là receipt lưu giữ, không phải link tới
 artifact còn tồn tại. Không báo toàn audit đạt khi các khoảng trống trên còn mở.
+
+
+## Tiếp tục đóng khoảng trống — 2026-10-27 (đang thực hiện)
+
+### Revision, cách ly và phạm vi
+
+Worktree Orca riêng `D:/Projects/TypingHero-worktrees/pixel-audit-evidence`, branch
+`micharel09/pixel-audit-evidence`, từ `origin/main`
+`e5c48017201d4d5ea780cc01b0b9039f1fe3569b`; checkout bẩn ban đầu giữ nguyên.
+Đã fetch trước khi tạo. Diff sản phẩm từ `5d637df` chỉ có nhãn
+`Ready · Enter` trong `EndlessDuel.cs` và test tương ứng; không đổi art,
+controller, camera, map hoặc shader. Các receipt trước là lịch sử, không phải
+media còn mở được. A1 tiếp tục là **lỗi**, không áp dụng sửa trong task này.
+
+Snapshot LF sạch: 2.495 file, SHA256
+`7b98f4e83a5e8b4b76d6b3e9ab3695a0e1d212eb252a157ed583c34eac9d9d73`.
+Lệnh chuẩn bị: `python -B tools/game_loop/local_windows.py snapshot --workspace
+E:/CodexTemp/TypingHero/pixel-audit-evidence-20261027`;
+build dùng cùng workspace và action `build`. Invocation build
+`20261027T051349.678039Z-c72f1304c2e34715bb81207c18f618dc-build-right`;
+Unity Windows `E:/Unity/Hub/Editor/2022.3.25f1/Editor/Unity.exe`, đúng revision
+`530ae0ba3889`. Chưa lấy tiến trình build đang chạy làm bằng chứng pass.
+Không chạy suite gameplay, profile mặc định, stress hoặc thêm viewport ngoài
+1280×720 và 1366×768 theo yêu cầu.
+
+### Nguồn đã mở lại; playback chờ người xem
+
+Các hash clip và cel trong bảng từng frame phía trên khớp byte với nguồn main
+mới; giữ nguyên các hàng nhận xét từng frame, không thay chúng bằng pass chung.
+Lần này đã mở trực tiếp đủ 19 sheet, mỗi sheet tối đa bốn cel với ảnh 96×64
+và ảnh nearest 384×256 cạnh nhau; không giảm kích thước zoom. Đã so từng cặp
+liên tiếp qua ranh giới sheet và cuối→đầu cho clip loop.
+
+| Clip nguồn | Frame đã xem / tổng | Cặp đã xem / tổng, gồm loop | Quan sát bổ sung | Kết luận hiện tại |
+|---|---:|---:|---|---|
+| skeleton_die | 13/13 | 12/12 | F0–F1 còn thân đứng; F2 sọ tách; F3–F5 eo/chân hạ; F6–F8 tay/kiếm rơi; F9–F12 đống xương thấp và kiếm ngang. Không ép nối cuối→đầu. | **chưa kiểm chứng** playback 1×/0.25×; hình nguồn/nearest đã xem |
+| skeleton_hitBySlayer | 2/2 | 2/2 | Hurt_1 trắng nằm trong chính albedo; Hurt_3 trở lại palette. Biên loop đổi flash theo hai key 50ms/16.66667ms. | **chưa kiểm chứng** playback 1×/0.25× |
+| skeleton_hit | 5/5 | 5/5 | F1 flash và thân lệch; F2 hết trắng/kiếm dọc; F3–F4 thu tay, biên loop trở về đứng. Chân/grip nhìn được ở mọi key. | **chưa kiểm chứng** playback 1×/0.25× |
+| skeleton_attack_heavy | 10/10 | 9/9 | F1 kiếm gần cạnh đầu; F2–F4 kéo sau vai; F5 smear lớn vẫn nối tay; F6–F7 thu cung; F8–F9 về kiếm cao. Key giữ 250ms/500ms không bị bỏ. | **chưa kiểm chứng** playback 1×/0.25× và chỗ nối runtime |
+| skeleton_stun | 3/3 | 3/3 | Hurt_3→Hurt_4→Hurt_3 giữ chân, kiếm chéo; key cuối lặp vẫn được kiểm, loop về cùng Hurt_3. | **chưa kiểm chứng** playback 1×/0.25× |
+| skeleton_idle | 8/8 | 8/8 | Đầu/ngực hạ rồi nâng, bàn tay bám chuôi; F7→F0 giữ hướng kiếm và hai chân. | **chưa kiểm chứng** playback 1×/0.25× |
+| axe Walk | 12/12 | 12/12 | Chân chéo/đổi trụ, cán dựng; F6 mảnh nâu xuất hiện bên phải, F7–F11 rơi/nằm sàn; F11→F0 mảnh biến mất. | **lỗi** A1; playback còn thiếu; asset-only |
+| axe Die | 11/11 | 10/10 | F0 mảnh nâu nằm tách bên phải cán; F1 mất mảnh trong khi sọ/eo bắt đầu rời; F5–F7 rìu đổ; F8–F10 đống xương giữ. | **lỗi** A1; playback còn thiếu |
+
+Tổng nguồn đầu ra: **64/64 key, 61/61 cặp** (sáu clip gốc: 41/41 và
+39/39; Walk/Die rìu: 23/23 và 22/22). Đây là review nguồn, không cộng vào
+1.432 frame runtime lịch sử và không chứng minh đã nhìn xuyên VFX trong game.
+Hash Walk anim `543ad7099b22d01d13ead2504a8874e2e777730c931739eaefdab75c2ce704b0`;
+Die anim `d7a8229f8ddcce3e0ab42d6ac1950e50344c64e8242f3e36e3bf816f8096a2de`.
+
+Nguồn GIF `e41867a829ef06b3296e8778aa43739bc8c0605b9df77e4212dbd373c4ba522c`:
+đã mở lại **23/23 frame F13–F35, 22/22 cặp**, phạm vi PTS [1.3,3.6)s,
+mỗi hold 100ms. Xem riêng cả ảnh nguyên 1100×600 và logical 220×120 + nearest
+880×480. Script xác minh ảnh nguyên là phép nhân nearest 5× chính xác của
+logical trước khi dùng logical; không suy diễn chi tiết sau nội suy.
+F13–F18 khiên còn bên actor phải và bắt đầu rơi; F19–F25 mảnh khiên chạm
+vùng lane rìu rồi nằm sàn; F26–F35 actor rìu rã và đổ rìu trong khi actor
+khiên đã đứng lại. Hình nguồn khẳng định ownership A1; playback hai tốc độ
+vẫn **chưa kiểm chứng**. Không tuyên bố đã xem toàn GIF ngoài đoạn này.
+
+### Công cụ review tạm và điều kiện giữ tài nguyên
+
+Root tạm: `E:/CodexTemp/TypingHero/pixel-audit-evidence-20261027`.
+Trang local `http://127.0.0.1:8239/` cung cấp preview theo timestamp/duration
+nguồn, hai tốc độ 1×/0.25×, hai vòng cho clip loop để xem biên cuối→đầu,
+frame trước/sau, PTS/duration, ảnh nguyên và nearest 4× có thanh cuộn.
+Preview chỉ trình bày albedo; chưa chứng minh material/normal/depth runtime.
+Ghi chú người xem tách theo tên clip/hash, hai checkbox phải tự xác nhận,
+nhận xét nhịp/độ đọc/PTS và xuất JSON; trình phát tự chạy hết không được tính
+là xác nhận con người. Technical smoke: chín mục nguồn, đổi mục, bước frame,
+PTS/duration và tải ảnh đúng kích thước; không có JS pageerror. Không dùng
+technical smoke thay review playback.
+
+Đã gửi yêu cầu xem riêng từng clip ở cả hai tốc độ; **chưa nhận xác nhận**.
+Giữ server loopback, media, script, snapshot/build và worktree cho tới khi
+thu đủ bằng chứng cùng phản hồi. Chỉ Markdown được đưa vào Git. Sau nghiệm
+thu mới dọn tài nguyên task; không dọn media cũ của task khác hoặc checkout
+ban đầu. Audit đang mở; Ready/glyph bản mới, runtime mới và preview độc lập
+normal/depth/material còn **chưa kiểm chứng**.
+
+
+### Bổ sung cấu trúc map A1 (không thay preview shader)
+
+Đã trực tiếp mở bốn cel dưới đây, mỗi cel gồm albedo, depth, normal và
+material-map lấy theo secondary texture GUID trong metadata, cùng hàng mirror X.
+Ảnh source RGB nearest 4×, không có flash/cung/card; hàng mirror chỉ đổi tọa độ
+ảnh để đối chiếu ownership, không mô phỏng phép biến đổi normal trong shader.
+Material runtime được lần từ `DungeonLighting.asset.actorMaterial` qua
+`DungeonSessionBindings.ApplyActorMaterial` tới renderer; việc lần tham chiếu
+không phải bằng chứng đã render preview với material đó.
+
+| Cel | Nhận xét trực tiếp | Chuyển tiếp | Trạng thái |
+|---|---|---|---|
+| axe Die F0 | Mảnh ngang nằm ngoài chân/cán trong albedo; depth, normal và surface cũng chứa vùng tương ứng. Mirror đưa mảnh sang phía trái. | → F1: cả vùng mảnh biến mất, sọ/eo tách tiếp. | **lỗi** A1 nguồn; shader preview chưa kiểm chứng |
+| axe Die F1 | Không có mảnh rời cạnh cán; đầu/eo rời phù hợp albedo; các map đi cùng cel. | → F2: đã kiểm albedo ở bảng nguồn, chưa mở map F2. | **chưa kiểm chứng** toàn chuyển tiếp map/lighting |
+| axe Walk F6 | Mảnh nâu mảnh dọc bên phải cán, tách chân; map đi cùng giữ vùng mảnh. | → F7: đã kiểm albedo; chưa mở map F7. | **lỗi** A1 nguồn; runtime không áp dụng |
+| axe Walk F11 | Mảnh ngang sát đáy ngoài chân; mirror nằm bên trái; map có vùng tương ứng. | → F0 loop: albedo mất mảnh; chưa mở map F0. | **lỗi** A1 nguồn; playback còn thiếu |
+
+Đã chuẩn bị 174 cel-map diagnostic trong thư mục tạm nhưng mới **xem 4/174**;
+không dùng số file sinh ra làm coverage. Chưa thực hiện preview shader độc lập
+với transform/material hiện hành; các chi tiết runtime bị che vẫn giữ
+**chưa kiểm chứng**. Reflection inactive tiếp tục **không áp dụng với cấu hình
+hiện tại**, không bật nó để tạo coverage.
+
+Các atlas map đã mở được định danh như sau (hash nội dung PNG):
+
+Assets/Art/EndlessSkeletons/axe/Die.png:
+
+- `albedo`: `Assets\Art\EndlessSkeletons\axe\Die.png`, SHA256 `7bdf2c0ab75caf8277818faeb9d3ce406e4afa7a94a345c57db44f5ac169b507`.
+- `_DepthMap`: `Assets\Art\Lighting\Depths\e81eb20d99accb0b6a215ec0644c0b97.png`, SHA256 `aa3a53f99454e411688dd8429facef03382fc1eadc5af711f42e01acdca3cb19`.
+- `_NormalMap`: `Assets\Art\Lighting\Normals\e81eb20d99accb0b6a215ec0644c0b97.png`, SHA256 `7cf813a693620a07a539a0c4dca66e71bc713b08a1f63354de48c31cf48cd7a8`.
+- `_MaterialMap`: `Assets\Art\Lighting\Normals\e81eb20d99accb0b6a215ec0644c0b97-surface.png`, SHA256 `27221ed8a49b3f2ea096afa9b231aa6c3cee613ca05607fb6f04e5d1f9c5189a`.
+
+Assets/Art/EndlessSkeletons/axe/Walk.png:
+
+- `albedo`: `Assets\Art\EndlessSkeletons\axe\Walk.png`, SHA256 `8cae0407a21d25fbe1898bd41df59d6c6bbd786a29e29ca467f054ba845d316e`.
+- `_DepthMap`: `Assets\Art\Lighting\Depths\fbde5baff1333e402a40e42323e71fe1.png`, SHA256 `b3390c232c87b0d8fa55ba85d49051a000003676db6da7f5abbc38981a660f10`.
+- `_NormalMap`: `Assets\Art\Lighting\Normals\fbde5baff1333e402a40e42323e71fe1.png`, SHA256 `82e3974c53c2dbd898a62592fded514c70a7163ba9021d0cfbf07c4e69f329cc`.
+- `_MaterialMap`: `Assets\Art\Lighting\Normals\fbde5baff1333e402a40e42323e71fe1-surface.png`, SHA256 `293154c15602bc8ba1474d4f4e5f99fc8197792fd9aedb351e8c76808b7c6bbb`.
+
+
+### Receipt build mới và Ready (đang bổ sung Enter)
+
+Build Windows invocation nêu trên hoàn tất **exit 0**, player có `qa=true`,
+33 file; manifest SHA256
+`135fecd6b062447757f01c5515dc9b971f516635609b258ef703c27dae1e0acb`
+(theo sort path tương đối + NUL + hash file + LF). Chỉ build phục vụ audit;
+không có deployment hoặc thay đổi sản phẩm trong repo.
+
+Lượt `capture-4`: Edge **156.0.4314.42**, NVIDIA GTX1650Ti / ANGLE D3D11,
+điều khiển phím/chuột, fixture Firebase và chặn host ngoài giữ nguyên.
+Pilot chết ở Double Strike nên toàn lượt **failed**, không lấy kết quả riêng
+bên dưới làm pass toàn flow.
+
+- Đã mở trực tiếp full PNG `ready-1-1280`, `ready-1-1366`, `ready-1-return`.
+  Probe trước/sau xác nhận đúng 1280×720 → 1366×768 → 1280×720.
+  `Ready · Enter` nằm trọn trong mặt nút, có khoảng trống quanh chữ; viền và
+  góc không cắt, card giữ trong viewport. Không còn bar/kích thước 1366 sau
+  khi trở về 1280. Phóng không nguyên tại 1366 vẫn theo phong cách hiện hành.
+- Click thực tại center `PracticeButton` (x=0.2541666627, y=0.6351852417 của
+  canvas, khoảng 325.333/457.333px tại 1280) đi sang Double Strike. Vùng click
+  đã thử là tâm nút; không suy ra đã click mọi pixel/biên hit area.
+- Caption/viền/padding/resize: **đạt** trong ba ảnh và revision này.
+  Click tâm: **đạt**; Enter lần xuất hiện khác: **chưa kiểm chứng** ở checkpoint
+  này. Giữ việc kiểm Enter riêng, không dùng chữ trong caption để chứng minh.
+- Input `Đặng_Á9` được nhập bằng CDP keyDown có text/key/unmodifiedText + keyUp
+  qua đường bàn phím Unity. Ảnh input `name-1280` không có ô vuông hoặc mất dấu
+  nhìn thấy; QA state giữ nguyên chuỗi và HUD hiển thị tên. QA label
+  `F6 Spark: BCompact` che một phần mép trên chữ HUD, nên toàn chi tiết glyph
+  HUD vẫn **chưa kiểm chứng**; không gọi label QA là lỗi sản phẩm.
+
+### Tutorial mới — từng frame và từng cặp
+
+Bản `capture-4/tutorial-reading.webm`, SHA256
+`f03c9ae446b25def0803b2ae2636d233320422b4cfd430070903e5172c85f1e5`.
+Phạm vi toàn recording, F0–F33, PTS 0–2.590s; stop được chốt trước serialize
+ở 2.676335s. Container báo duration 2.590164s, không có duration packet cuối;
+không dùng chênh wall-clock để chứng nhận hold cuối. Đã trực tiếp xem
+**34/34 frame, 33/33 cặp** ở full1280×720 và crop(400,230)–(850,500), nearest
+1800×1080 không thu nhỏ; đã mở riêng từng frame sau sheet định vị.
+Controller/cel reading: enemy `Skeleton_01_White_Idle_0`, player
+`male_hero-idle_0`, `timeScale=0` trong toàn trace. Đây là pose giữ khi đọc,
+không phải vòng idle chạy. Màn che intro mở lên ở đầu clip; card và Space
+che vùng grip/thân nhất định. Encoded VP9 không phải pixel-identical PNG;
+không lấy nhiễu/độ mềm của encode làm lỗi artwork hoặc chứng nhận texel ẩn.
+Playback con người 1×/0.25× vẫn **chưa kiểm chứng**.
+
+| Clip / frame | PTS / duration (s) | Reference / quan sát trực tiếp | Chuyển tiếp | Trạng thái | Bằng chứng |
+|---|---|---|---|---|---|
+| tutorial-reading-new / F0 | 0.000 / 0.075000 | Idle_0 / Màn che đen còn phủ đầu/thân; chỉ phần sàn/chân thấp và mép card nhìn được. | → F1: màn che mở tiếp; pose actor giữ. | chưa kiểm chứng | hash trên; F0; `tutorial-reading-new/000000.png` và nearest tạm |
+| tutorial-reading-new / F1 | 0.075 / 0.043000 | Idle_0 / Màn che mở lên, thân player và skeleton hiện; đầu skeleton còn sát card trên, Space che vùng giữa. | → F2: màn che mở tiếp; pose actor giữ. | chưa kiểm chứng | hash trên; F1; `tutorial-reading-new/000001.png` và nearest tạm |
+| tutorial-reading-new / F2 | 0.118 / 0.034000 | Idle_0 / Che đen rút tiếp lên trên Score/Combo; tay cầm và kiếm vẫn cùng hướng, sàn giữ mốc. | → F3: màn che mở tiếp; pose actor giữ. | chưa kiểm chứng | hash trên; F2; `tutorial-reading-new/000002.png` và nearest tạm |
+| tutorial-reading-new / F3 | 0.152 / 0.031000 | Idle_0 / Màn che còn ở hàng trên HUD; hai actor giữ cùng pose, không trượt chân rõ. | → F4: màn che mở tiếp; pose actor giữ. | chưa kiểm chứng | hash trên; F3; `tutorial-reading-new/000003.png` và nearest tạm |
+| tutorial-reading-new / F4 | 0.183 / 0.066000 | Idle_0 / Score/HUD lộ thêm; card và Space giữ trước actor, kiếm hướng chéo không đổi. | → F5: màn che mở tiếp; pose actor giữ. | chưa kiểm chứng | hash trên; F4; `tutorial-reading-new/000004.png` và nearest tạm |
+| tutorial-reading-new / F5 | 0.249 / 0.053000 | Idle_0 / Màn che gần hết; đầu/kiếm nhìn rõ hơn, chân và bóng vẫn trên cùng landmark. | → F6: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F5; `tutorial-reading-new/000005.png` và nearest tạm |
+| tutorial-reading-new / F6 | 0.302 / 0.047000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F7: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F6; `tutorial-reading-new/000006.png` và nearest tạm |
+| tutorial-reading-new / F7 | 0.349 / 0.053000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F8: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F7; `tutorial-reading-new/000007.png` và nearest tạm |
+| tutorial-reading-new / F8 | 0.402 / 0.047000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F9: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F8; `tutorial-reading-new/000008.png` và nearest tạm |
+| tutorial-reading-new / F9 | 0.449 / 0.056000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F10: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F9; `tutorial-reading-new/000009.png` và nearest tạm |
+| tutorial-reading-new / F10 | 0.505 / 1.064000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F11: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F10; `tutorial-reading-new/000010.png` và nearest tạm |
+| tutorial-reading-new / F11 | 1.569 / 0.046000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F12: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F11; `tutorial-reading-new/000011.png` và nearest tạm |
+| tutorial-reading-new / F12 | 1.615 / 0.048000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F13: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F12; `tutorial-reading-new/000012.png` và nearest tạm |
+| tutorial-reading-new / F13 | 1.663 / 0.046000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F14: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F13; `tutorial-reading-new/000013.png` và nearest tạm |
+| tutorial-reading-new / F14 | 1.709 / 0.058000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F15: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F14; `tutorial-reading-new/000014.png` và nearest tạm |
+| tutorial-reading-new / F15 | 1.767 / 0.036000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F16: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F15; `tutorial-reading-new/000015.png` và nearest tạm |
+| tutorial-reading-new / F16 | 1.803 / 0.057000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F17: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F16; `tutorial-reading-new/000016.png` và nearest tạm |
+| tutorial-reading-new / F17 | 1.860 / 0.036000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F18: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F17; `tutorial-reading-new/000017.png` và nearest tạm |
+| tutorial-reading-new / F18 | 1.896 / 0.035000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F19: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F18; `tutorial-reading-new/000018.png` và nearest tạm |
+| tutorial-reading-new / F19 | 1.931 / 0.048000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F20: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F19; `tutorial-reading-new/000019.png` và nearest tạm |
+| tutorial-reading-new / F20 | 1.979 / 0.046000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F21: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F20; `tutorial-reading-new/000020.png` và nearest tạm |
+| tutorial-reading-new / F21 | 2.025 / 0.034000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F22: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F21; `tutorial-reading-new/000021.png` và nearest tạm |
+| tutorial-reading-new / F22 | 2.059 / 0.044000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F23: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F22; `tutorial-reading-new/000022.png` và nearest tạm |
+| tutorial-reading-new / F23 | 2.103 / 0.033000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F24: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F23; `tutorial-reading-new/000023.png` và nearest tạm |
+| tutorial-reading-new / F24 | 2.136 / 0.045000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F25: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F24; `tutorial-reading-new/000024.png` và nearest tạm |
+| tutorial-reading-new / F25 | 2.181 / 0.081000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F26: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F25; `tutorial-reading-new/000025.png` và nearest tạm |
+| tutorial-reading-new / F26 | 2.262 / 0.018000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F27: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F26; `tutorial-reading-new/000026.png` và nearest tạm |
+| tutorial-reading-new / F27 | 2.280 / 0.051000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F28: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F27; `tutorial-reading-new/000027.png` và nearest tạm |
+| tutorial-reading-new / F28 | 2.331 / 0.072000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F29: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F28; `tutorial-reading-new/000028.png` và nearest tạm |
+| tutorial-reading-new / F29 | 2.403 / 0.048000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F30: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F29; `tutorial-reading-new/000029.png` và nearest tạm |
+| tutorial-reading-new / F30 | 2.451 / 0.047000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F31: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F30; `tutorial-reading-new/000030.png` và nearest tạm |
+| tutorial-reading-new / F31 | 2.498 / 0.063000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F32: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F31; `tutorial-reading-new/000031.png` và nearest tạm |
+| tutorial-reading-new / F32 | 2.561 / 0.029000 | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | → F33: giữ anchor/chân và lớp card; vẫn có giới hạn encode/che lấp. | chưa kiểm chứng | hash trên; F32; `tutorial-reading-new/000032.png` và nearest tạm |
+| tutorial-reading-new / F33 | 2.590 / chưa xác định | Idle_0 / Reading giữ pose: kiếm chéo skeleton và tay/kiếm player không đổi vị trí rõ; card/Space tiếp tục che phần thân/grip, bóng/chân giữ landmark. | Kết thúc recording trong reading; không ép loop, duration cuối chưa xác định. | chưa kiểm chứng | hash trên; F33; `tutorial-reading-new/000033.png` và nearest tạm |
+
+## Capture mới và trạng thái còn mở
+
+Checkpoint tiếp tục trên `e5c48017201d4d5ea780cc01b0b9039f1fe3569b`.
+Đây là **tiến độ audit chưa hoàn tất**, không phải kết luận game đạt.
+Chỉ `docs/plans/pixel-consistency-audit.md` thay đổi trong worktree task;
+A1, artwork, gameplay, API, package và cấu hình sản phẩm giữ nguyên.
+
+### Receipt runtime mới
+
+`capture-5/browser.json` báo `passed`, **3 check điều khiển/thu bằng chứng**;
+không phải pass chất lượng hình ảnh. Không có exception/page error.
+Firebase dùng fixture: Endless GET 2 / PUT 1; fixture global 0 / 0.
+`externalBlocked=0` nghĩa không phát sinh request bị chặn trong lượt này,
+không phải bằng chứng đã gửi request tới provider thật.
+Môi trường thực là Windows, Edge 156.0.4314.42, ANGLE D3D11 / GTX 1650 Ti,
+Unity Windows 2022.3.25f1. Các tên image Linux trong trường toolchain kế thừa
+không phải môi trường đã chạy. QA bridge chỉ đọc; input bằng bàn phím/chuột.
+
+| Media | SHA256 | Frame toàn recording | Stop trước serialize (s) |
+|---|---|---:|---:|
+| `capture-5/combat.webm` | `06e5ed8c3ecc8837f1662db20f13fa941d56f8fe0b1d57e483279273b74a623c` | 7.763 | 312.823770 |
+| `capture-5/player-hurt-death.webm` | `0e0854d6c92a1db860fe685b1d7e6e0a7740705e38018785cd2ae34ea5906fe9` | 740 | 29.722370 |
+
+Recording combat dừng sau defeated=6 trong cel đầu Die của Captain,
+**không có cleanup Captain hoặc Victory**. Không dùng đuôi này để chứng minh
+cleanup. Đoạn Guard bên dưới giữ trọn death/cleanup của bộ khiên.
+Lượt chết player riêng có lethal hit ~26.860s, result ~28.408s, stop 29.722370s.
+Duration của media và hold frame cuối được giữ riêng với wall-clock stop.
+VP9 VFR giữ frame lặp và PTS gốc; không suy ra FPS render hoặc pixel-identical.
+
+### Chín đoạn mới — biên chốt từ trace trước khi xem hình
+
+Mỗi hàng dưới đây vẫn **chưa kiểm chứng** toàn mục khi thiếu kiểm hình hoặc
+playback. Số frame đã xuất không thay cho số đã xem. Crop actor là
+(350,180)–(950,530), nearest 4× 2400×1400; full canvas 1280×720 và nearest
+5120×2880 có pan riêng khi cần xem vùng ngoài crop.
+
+| Đoạn | PTS chọn (s), giữ mọi frame | Global frame | Tổng frame / cặp | Đã xem full + nearest / cặp | Kết luận |
+|---|---|---|---:|---:|---|
+| `normal-idle-parry-hurt-slayer` | [0, 18) | F0–F316 | 317 / 316 | 20 / 19 | chưa kiểm chứng |
+| `sword-death-cleanup` | [32.4, 35.8) | F571–F641 | 71 / 70 | 0 / 0 | chưa kiểm chứng |
+| `sword-double-attacks` | [38, 44.9) | F682–F822 | 141 / 140 | 0 / 0 | chưa kiểm chứng |
+| `axe-idle-attack-hurt` | [74.65, 79.8) | F1451–F1564 | 114 / 113 | 0 / 0 | chưa kiểm chứng |
+| `axe-death-cleanup` | [118.4, 121.5) | F2359–F2431 | 73 / 72 | 0 / 0 | chưa kiểm chứng |
+| `shield-idle-attacks-hurt` | [121.2, 130.0) | F2425–F2638 | 214 / 213 | 0 / 0 | chưa kiểm chứng |
+| `shield-death-cleanup` | [153.25, 156.45) | F3247–F3329 | 83 / 82 | 0 / 0 | chưa kiểm chứng |
+| `player-hurt-idle-new` | [1.8, 4.5) | F41–F112 | 72 / 71 | 0 / 0 | chưa kiểm chứng |
+| `player-death-result-new` | [26.0, 29.723) | F645–F739 | 95 / 94 | 0 / 0 | chưa kiểm chứng |
+
+Tổng chín đoạn: **1.180 frame / 1.171 cặp**, hiện trực tiếp xem đủ full/nearest
+**20 frame / 19 cặp** của đoạn đầu. Tutorial mới tách riêng: **34/34 frame,
+33/33 cặp** đã xem như ledger trên. Tổng runtime mới đã xem: **54 frame,
+52 cặp**; không tính ảnh xem lướt hoặc output tool bị cắt vào coverage.
+Chưa khẳng định biên chín đoạn đủ recovery cho tới khi đã trực tiếp kiểm hết.
+Nếu thiếu biên phải mở rộng và kiểm lại, không cắt bỏ frame khó.
+
+Đối chiếu actor bằng hình/controller/cel; role Run đổi trước cleanup.
+Walk và Attack2 rìu vẫn asset-only theo nguồn revision mới, không tạo runtime
+coverage giả bằng cách ép animator/HP. Reflection inactive: **không áp dụng với
+cấu hình hiện tại**. Không bật reflection để tạo coverage.
+
+### Ready — kết quả mới thay trạng thái Enter còn mở phía trên
+
+Hai lần xuất hiện riêng ở `capture-5`: lần 1 click sau defeated=1, HP35;
+lần 2 Enter sau defeated=2, HP35. Trace xác nhận vào Double Strike rồi Heavy.
+Ba ảnh lần 2 đã mở trực tiếp 1280×720 → 1366×768 → 1280×720; caption
+`Ready · Enter` đầy đủ, viền/padding nằm trong card, trở về đúng viewport.
+Kết hợp ảnh lần 1 của capture-4 đã kiểm và input center click thực: caption,
+resize và hai cách kích hoạt **đạt tại e5c48017** trong phạm vi đã thử; không khẳng định
+mọi pixel biên hit area. Không tái sử dụng ảnh cũ của nhãn Continue.
+
+| Ảnh lần Enter, cùng player/revision mới | SHA256 |
+|---|---|
+| `capture-5/ready-2-1280.png` | `43c762273053e4429995ecd9e5b430505a39f1eb95bc4b07f3c7b0faf07916b4` |
+| `capture-5/ready-2-1366.png` | `2259e0727485e56cb14ebc343b82c38a26d4dd68cd87fac88676fcf4ee574827` |
+| `capture-5/ready-2-return.png` | `8b1767c2dba1cbf2f8fc6c79b7cadf989aec2f27f6b87c3e2def17d759ccbb80` |
+
+`Đặng_Á9`: input hiện đúng dấu qua đường bàn phím; HUD có chuỗi đúng nhưng
+mép trên bị label QA che. Input **đạt** trong ảnh đã xem; toàn nét glyph HUD
+**chưa kiểm chứng**. Không mở rộng kết luận sang Unicode hoặc màn khác.
+
+### Preview độc lập cho phần che — giới hạn quan sát
+
+`shader-preview-2/receipt.json`: bốn capture, GPU GTX 1650 Ti,
+shader `CLACKBLADE/Dungeon Sprite`, material
+`Assets/Art/Environment/KayKitDungeon/DungeonSprite.mat`.
+Preview snapshot dùng vị trí template (1.55999994,-1.38999999,0),
+scale (-1,1,1), rotation identity; DungeonWorld, camera/torch và actor pass
+hiện hành, tắt renderer khác/VFX trong preview riêng, không sửa player audit.
+Render 320×180 trước presentation post; đã xem cả bốn ảnh nearest 4×.
+Vùng tối chỉ lộ một số phần ấm/sáng: **chưa kiểm chứng toàn chi tiết ẩn**.
+Không dùng preview này chứng nhận chi tiết đã nhìn thấy ở runtime.
+Map diagnostic riêng chỉ xem 4/174 cel (Die_0, Die_1, Walk_6, Walk_11 rìu)
+như bảng trước; số 174 được tạo không có nghĩa đã review 174.
+
+### Playback người xem và tài nguyên giữ lại
+
+Bộ review localhost [mở tại đây](http://127.0.0.1:8239/) hiện có **19 mục**:
+6 skeleton nguồn, Walk/Die rìu, extraction F13–F35, tutorial và 9 đoạn mới.
+Ảnh nguồn giữ key/duration/pivot/canvas; loop xem hai vòng để có cuối→đầu.
+Video runtime dùng file gốc byte-identical, chọn biên theo PTS, không retime.
+Frame trước/sau, full canvas, actor và nearest có pan; ghi chú lưu riêng theo
+name/hash rồi xuất JSON. Tự chạy playback không thay xác nhận con người.
+
+**Chưa nhận xác nhận người xem cho bất kỳ clip mới nào.** Mỗi clip cần xác nhận
+xem hết ở 1× và 0.25×, nhịp/độ đọc, PTS nghi vấn và nhận xét cụ thể.
+Chưa đóng audit, chưa tích hợp báo cáo như audit hoàn tất và chưa dọn media.
+Ngoài playback còn thiếu 1.160 frame / 1.152 cặp runtime trong chín đoạn mới,
+đối chiếu mọi chi tiết bị che và xác nhận biên recovery từ hình.
+Các thiếu hụt này là công việc agent còn lại, không quy cho người xem.
+
+Giữ `E:/CodexTemp/TypingHero/pixel-audit-evidence-20261027` (media/build/snapshot/
+preview/driver/server) và worktree `D:/Projects/TypingHero-worktrees/pixel-audit-evidence`,
+branch `micharel09/pixel-audit-evidence`. Server chỉ bind localhost 8239,
+PID ghi tại `review-server.pid`. Điều kiện dọn: đã review đủ, phản hồi người xem
+được ghi, báo cáo commit/push/tích hợp và xác minh remote. Không dọn checkout
+gốc hoặc tài nguyên có từ trước. A1 tiếp tục **lỗi xác nhận**, sửa ở task riêng.
+
+### Ledger runtime đầu đoạn — phần đã trực tiếp xem
+
+`normal-idle-parry-hurt-slayer`, hash `combat.webm` ở receipt capture-5 phía trên.
+Đã mở riêng F0–F19 tại full 1280×720 và actor nearest 2400×1400,
+không thu nhỏ ảnh zoom. PTS/duration dưới đây lấy từ media, giữ cả hold.
+Các hàng **chưa kiểm chứng** toàn mục: chưa playback người xem, chưa đối chiếu
+xong controller/cel, phần grip bị flash che không được coi là đã nhìn thấy.
+
+| Frame | PTS / duration (s) | Quan sát full/nearest | Chuyển từ frame trước | Trạng thái |
+|---|---|---|---|---|
+| F0 | 0.000000 / 0.062000 | Hai actor ở pose idle, khăn player ra sau trái; kiếm skeleton chéo lên; chân/bóng bám vùng gạch sáng. | Đầu đoạn; chưa có cặp trước. | chưa kiểm chứng |
+| F1 | 0.062000 / 0.073000 | Khăn player nhấc nhẹ, kiếm/grip skeleton vẫn liền; sàn và chân giữ mốc. | Idle thay cel, không thấy dịch toàn camera rõ. | chưa kiểm chứng |
+| F2 | 0.135000 / 0.067000 | Silhouette tóc/khăn đổi nhẹ; hai chân player giữ đáy; skeleton giữ kiếm chéo. | Khăn tiếp tục dao động; nền giữ mốc. | chưa kiểm chứng |
+| F3 | 0.202000 / 0.098000 | Khăn player hạ nhẹ; tay skeleton vẫn gắn chuôi; chưa có flash. | Dao động idle, không thấy đảo sorting actor. | chưa kiểm chứng |
+| F4 | 0.300000 / 0.056000 | Đuôi khăn cong sau trái; hai actor đứng trên cùng landmark sàn. | Pose idle tiếp tục, môi trường có nhấp nháy đuốc. | chưa kiểm chứng |
+| F5 | 0.356000 / 0.052000 | Khăn/tóc player thay nhẹ; skeleton giữ thân và đường kiếm chéo. | Không thấy nhảy anchor chân so với gạch sàn. | chưa kiểm chứng |
+| F6 | 0.408000 / 0.074000 | Tay player sát thân, khăn ra trái; bóng chân vẫn dưới actor. | Idle tiếp tục; chưa có afterimage. | chưa kiểm chứng |
+| F7 | 0.482000 / 0.055000 | Đuôi khăn nhấc; skeleton chuẩn bị thay hướng tay, chân giữ mốc. | Chuyển pose nhỏ; full canvas không thấy clip đầu/chân. | chưa kiểm chứng |
+| F8 | 0.537000 / 0.048000 | Player idle, khăn trải sau; skeleton kiếm chéo lên trái, grip nhìn liền. | Khăn hạ nhẹ, nền và bóng giữ landmark. | chưa kiểm chứng |
+| F9 | 0.585000 / 0.087000 | Skeleton thu tay/kiếm dựng gần mặt trong chuẩn bị đòn; player vẫn idle. | Kiếm đổi từ chéo sang dựng, không tách khỏi tay rõ. | chưa kiểm chứng |
+| F10 | 0.672000 / 0.042000 | Skeleton giữ kiếm dựng gần mặt; khăn player đổi nhẹ; chân đứng nguyên. | Hold tư thế chuẩn bị; không coi là frame bị bỏ. | chưa kiểm chứng |
+| F11 | 0.714000 / 0.039000 | Skeleton đưa kiếm chéo lên phải qua vai, thân xoay; player idle. | Tay/kiếm đổi hướng chuẩn bị, chân còn trên vùng gạch cũ. | chưa kiểm chứng |
+| F12 | 0.753000 / 0.053000 | Skeleton giữ kiếm qua vai; player giữ tư thế và khăn sau trái. | Hold chuẩn bị; không thấy đổi lớp trước/sau sàn. | chưa kiểm chứng |
+| F13 | 0.806000 / 0.073000 | SPACE chuyển nền sáng; skeleton giữ kiếm qua vai, đầu hạ nhẹ. | Prompt đổi màu, actor tiếp tục chuẩn bị; HUD không dịch. | chưa kiểm chứng |
+| F14 | 0.879000 / 0.080000 | Player hạ thân, rút kiếm dựng trước mặt; skeleton kiếm qua vai. | Player vào pose phòng thủ, khăn vòng sau; đầu/chân/kiếm nằm đủ trong crop. | chưa kiểm chứng |
+| F15 | 0.959000 / 0.172000 | Player giữ kiếm dựng và thân thấp; skeleton giữ đòn chuẩn bị. | Hold phòng thủ; không suy ra mọi frame render giữa hai PTS. | chưa kiểm chứng |
+| F16 | 1.131000 / 0.042000 | Spark trắng/vàng che vùng va chạm; player thấp, kiếm quét sát sàn; skeleton duỗi tay ngang. | Đòn tới/parry và camera rung; sàn/nền cùng dịch, không quy ngay là chân trượt. Grip ở spark chưa thấy. | chưa kiểm chứng |
+| F17 | 1.173000 / 0.230000 | Spark thu thành tia cam; skeleton còn tay duỗi, player giữ thấp; chân vẫn trên vùng sàn sáng. | Rung đổi vị trí nền/actor; spark giảm; chưa chứng minh chi tiết grip bị che. | chưa kiểm chứng |
+| F18 | 1.403000 / 0.048000 | Spark trung tâm hết, hạt cam tản; skeleton thu kiếm chéo, player vẫn thấp với kiếm sát sàn. | Skeleton hồi tay, camera về gần bố cục trước; số +30 mờ dần. | chưa kiểm chứng |
+| F19 | 1.451000 / 0.069000 | Skeleton trở lại kiếm chéo cao và thân đứng; player còn pose thấp; hạt cam tiếp tục tản. | Hồi phục skeleton, landmark sàn giữ; player chưa về idle tại frame này. | chưa kiểm chứng |
+
+### Main đổi trong lúc thu bằng chứng — quyết định nguồn còn chờ
+
+Fetch lại origin ngày 2026-10-27 xác nhận main mới
+`66749da15890be3b8ae039a81228249acda0a4ed`, commit
+`Type READY in the word tray between duels`.
+Diff từ revision capture `e5c48017` thay `TypingManager.cs`, `EndlessDuel.cs`
+và hai file test liên quan. `EndlessDuel` bỏ tạo overlay/Update xử lý Enter,
+chuyển sang `TypingManager.BeginReady(Continue)`. TypingManager hiển thị `READY`,
+ẩn countdown và nhận từng chữ để tiếp tục; không còn nút `Ready · Enter`.
+Không có delta artwork/shader/camera trong diff này, nhưng flow giữa trận
+và typing đã thay đổi: ảnh click/Enter ở trên **không áp dụng cho main mới**.
+
+Yêu cầu kế hoạch đòi nhãn/click/Enter nay không tồn tại trên main mới; audit-only
+không cho phép khôi phục nó. Đã hỏi người dùng chọn audit main mới với gõ READY
+hoặc giữ revision e5c48017. Chưa có trả lời; chưa build/capture lại main mới,
+chưa dùng capture cũ chứng nhận flow mới, chưa tích hợp báo cáo như hoàn tất.
+Việc kiểm 1.160 frame / 1.152 cặp còn lại của bản e5c48017 chưa xong; giữ nguyên
+media để tiếp tục sau khi chốt mốc, không coi thay đổi main là bằng chứng pass.
+
+Trang review kiểm kỹ thuật sau khi thêm đủ 19 mục: bước F1 PTS0.062,
+video playbackRate0.25 chạy, mục cuối bắt đầu F645 PTS26.008, nearest width5120px,
+không có page error. Receipt tạm `review-smoke.json`. Đã sửa sự kiện timeupdate
+ghi đè frame vừa chọn và bỏ preload mọi PNG runtime trong trang tạm.
+Đây là check công cụ review, **không phải xác nhận playback người xem**.
