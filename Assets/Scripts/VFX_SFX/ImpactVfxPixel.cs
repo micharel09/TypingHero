@@ -76,7 +76,8 @@ public partial class ImpactVfxBurst
         foreach (var flash in profile.flashes)
         {
             float pixels = flash.sizePixels;
-            bool varied = profile.TryVaryFlash(context.seed, flash.channel, ref pixels, out float rotation);
+            float rotation = 0;
+            bool varied = !flash.lockVariation && profile.TryVaryFlash(context.seed, flash.channel, ref pixels, out rotation);
             float size = pixelUnit * pixels;
             if (flash.maxWorldSize > 0) size = Mathf.Min(size, flash.maxWorldSize);
             var ps = systems[RequireBinding(flash.channel)];
@@ -85,7 +86,13 @@ public partial class ImpactVfxBurst
             var emission = new ParticleSystem.EmitParams {
                 position = transform.position, velocity = Vector3.zero, startSize = size,
                 startLifetime = flash.lifetime, startColor = flash.tint };
-            if (varied) emission.rotation = rotation * (context.direction < 0 ? -1 : 1);
+            if (flash.sizePixels2D.x > 0 && flash.sizePixels2D.y > 0)
+            {
+                var main = ps.main; main.startSize3D = true;
+                emission.startSize3D = new Vector3(flash.sizePixels2D.x * pixelUnit, flash.sizePixels2D.y * pixelUnit, 1);
+            }
+            if (flash.lockVariation) emission.rotation = 0;
+            else if (varied) emission.rotation = rotation * (context.direction < 0 ? -1 : 1);
             ps.Emit(emission, flash.count);
         }
         EmitPhysical(context.direction < 0 ? -1 : 1,

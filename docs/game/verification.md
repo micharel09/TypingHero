@@ -4116,3 +4116,19 @@ repeat and fixture-completion markers and no fixture exception. Both attempts
 restore scene/meta byte-for-byte and remove the fixture/meta. Prior44/44ImpactVfx
 receipt is reused; no new gameplay-suite claim. Exact evidence and cleanup are in
 [the adapter checkpoint](../plans/windows-unity-adapter.md#workspace-lock-and-deferred-cancellation-follow-up-2026-10-25).
+
+## Horizontal parry flash (2026-10-27)
+
+- Added72×3logical-pixel procedural quad only to ParryImpact, at existing contact,
+  with1px warm-white core/gold tapered halo. Alpha20/40/120ms; old flash/sparks/
+  light and gameplay clocks unchanged. Optional2D size/variation lock default off.
+- Unity2022.3.25f1 filteredImpactVfxTests45/45PASS/0skip; both directions over24seeds,
+  pool reuse, expiry, exact alpha envelope, pause/read hold and old profile consumers.
+- Native Edge640×360 real Space:10checks per direction PASS,0exceptions/provider
+  writes. Mirrored actor-geometry fixture remains external. Both QA builds and strict
+  repeated builder PASS after LF-only snapshot normalization, with checkers retained.
+- Direct visual review226/226recorded frames/224pairs across two complete selected
+  10.0–14.5s compositor segments: horizontal contact line, gold/white/taper, recovery,
+  typing-tray clearance, pause/cleanup. Recorder25fps is not20ms phase evidence;
+  precise envelope is covered by Unity tests. No full profile, production or itch
+  release. Source/scope/receipts: [checkpoint](../plans/parry-horizontal-flash.md).

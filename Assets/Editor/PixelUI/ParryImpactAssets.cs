@@ -30,6 +30,16 @@ internal static class ParryImpactAssets
                     ps.GetComponent<ParticleSystemRenderer>().sharedMaterial = material;
                     if (id == 3) { var main = ps.main; main.maxParticles = 4; }
                 }
+                var source = (ParticleSystem)bindings.GetArrayElementAtIndex(0).FindPropertyRelative("particles").objectReferenceValue;
+                var horizontal = Object.Instantiate(source, instance.transform);
+                horizontal.name = "HorizontalFlash";
+                var horizontalMaterial = AssetDatabase.LoadAssetAtPath<Material>(root + "HorizontalFlash.mat");
+                horizontal.GetComponent<ParticleSystemRenderer>().sharedMaterial = horizontalMaterial;
+                int slot = bindings.arraySize++;
+                var horizontalBinding = bindings.GetArrayElementAtIndex(slot);
+                horizontalBinding.FindPropertyRelative("id").intValue = 5;
+                horizontalBinding.FindPropertyRelative("particles").objectReferenceValue = horizontal;
+                horizontalBinding.FindPropertyRelative("material").objectReferenceValue = horizontalMaterial;
                 so.ApplyModifiedPropertiesWithoutUndo();
                 prefab = PrefabUtility.SaveAsPrefabAsset(instance, root + "ParryImpact.prefab");
             }
