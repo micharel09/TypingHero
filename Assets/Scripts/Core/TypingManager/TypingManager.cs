@@ -62,6 +62,7 @@ public class TypingManager : MonoBehaviour
     [SerializeField] Color completedColor = new Color(.44f, .66f, .62f, 1);
     Color currentColor, nextColor, thirdColor;
     bool readyPrompt;
+    internal event Action<int, bool> ReadyInputChanged;
     Action readyComplete;
     int readyFrame;
     bool introPreview;
@@ -92,6 +93,13 @@ public class TypingManager : MonoBehaviour
         introPreview = false;
         if (countdownSlider) countdownSlider.gameObject.SetActive(false);
         Paint();
+        ReadyInputChanged?.Invoke(0, false);
+    }
+
+    internal void CancelReady()
+    {
+        readyComplete = null;
+        readyPrompt = false;
     }
 
     float DT => GamePauseController.InputBlocked || (CombatSession.Finished && !readyPrompt) ? 0 : Time.unscaledDeltaTime;
@@ -150,6 +158,7 @@ public class TypingManager : MonoBehaviour
                 else AcceptChar(c, originalCurrent.Length - current.Length, rewardedCurrent);
                 errorRemaining = 0;
                 current = current.Substring(1);
+                if (readyPrompt) ReadyInputChanged?.Invoke(originalCurrent.Length - current.Length, false);
                 if (current.Length == 0)
                 {
                     if (readyPrompt)
@@ -171,6 +180,7 @@ public class TypingManager : MonoBehaviour
                 OnInputResult?.Invoke(false);
                 current = originalCurrent;
                 errorRemaining = enableErrorFlash ? .18f : 0;
+                if (readyPrompt) ReadyInputChanged?.Invoke(0, true);
             }
         }
         completedThisFrame += completed;
@@ -216,7 +226,8 @@ public class TypingManager : MonoBehaviour
         nextWordText.color = nextColor; thirdWordText.color = thirdColor;
         if (BrowserMotion.Reduced) slideRemaining = 0;
         float offset = 66 * Mathf.Pow(slideRemaining / .1f, 3);
-        Place(wordText, 29 + offset); Place(nextWordText, 95 + offset); Place(thirdWordText, 161 + offset);
+        Place(wordText, readyPrompt ? rail.rect.width / (2 * referencePixel) : 29 + offset);
+        Place(nextWordText, 95 + offset); Place(thirdWordText, 161 + offset);
     }
 
     void Place(TextMeshProUGUI label, float center)

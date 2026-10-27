@@ -26,7 +26,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     float enemyHudNameAlpha, nameAlpha, smokeHeight, wordAlpha;
     static float Ease(float t) { t = Mathf.Clamp01(t); return t * t * (3 - 2 * t); }
     static float Pixel(float position) => Mathf.Round(position / 3) * 3;
-    bool enemyVisible, tutorial, covering;
+    bool enemyVisible, tutorial, covering, fadeCover;
     float hudAlpha;
     double previewSeconds;
     double? previewPrevious;
@@ -61,14 +61,16 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
     }
     void SetCover(float amount)
     {
-        curtain.anchorMin = new Vector2(0, 1 - Mathf.Clamp01(amount));
+        var image = curtain.GetComponent<Image>();
+        image.color = new Color(13 / 255f, 12 / 255f, 15 / 255f, fadeCover ? Mathf.Clamp01(amount) : 1);
+        curtain.anchorMin = fadeCover ? Vector2.zero : new Vector2(0, 1 - Mathf.Clamp01(amount));
         curtain.anchorMax = Vector2.one;
         curtain.offsetMin = curtain.offsetMax = Vector2.zero;
         curtain.gameObject.SetActive(amount > 0);
     }
-    internal IEnumerator Cover(float duration, bool liftMenu)
+    internal IEnumerator Cover(float duration, bool liftMenu, bool fade = false)
     {
-        EnsureCanvas(); covering = true;
+        EnsureCanvas(); covering = true; fadeCover = fade;
         // Navigation can begin while the opponent heading is still visible.
         curtain.SetAsLastSibling();
         var menu = liftMenu ? FindObjectOfType<MainMenuUI>() : null;
@@ -83,8 +85,11 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
             if (rect) rect.anchoredPosition = start + Vector2.up * Pixel(540 * Ease(k));
             SetCover(Ease(k));
             // Close upward with the departing menu; uncover also lifts upward.
-            curtain.anchorMin = Vector2.zero;
-            curtain.anchorMax = new Vector2(1, Ease(k));
+            if (!fadeCover)
+            {
+                curtain.anchorMin = Vector2.zero;
+                curtain.anchorMax = new Vector2(1, Ease(k));
+            }
             yield return null;
         }
         SetCover(1);
@@ -198,7 +203,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
         point.y = body ? body.bounds.min.y : point.y;
         dust.transform.position = point; dust.Play(false);
     }
-    static Mesh CreateSmokeMesh()
+    internal static Mesh CreateSmokeMesh()
     {
         // Five stepped strips, centered in the XY plane; no texture/prefab mutation.
         var vertices = new Vector3[20];
@@ -280,6 +285,7 @@ internal sealed class DuelIntroPresentation : MonoBehaviour
                 {
                     Elapsed = Mathf.Min(duration, Elapsed + delta);
                     SetCover(1 - Ease(Elapsed / reveal));
+                    DungeonSession.Current.PaintReadySummon(Elapsed);
                     if (Elapsed >= spawn && !dust) CreateDust();
                     PaintDust(Elapsed - spawn, spawnDuration);
                     if (!enemyVisible && Elapsed >= spawn + .36f * spawnDuration) RevealEnemy();

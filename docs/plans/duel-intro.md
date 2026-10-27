@@ -735,3 +735,178 @@ D:/Projects/TypingHero-evidence/type-ready-20261027/ outside the repository.
 Delivery and scoped cleanup receipt is written there after remote integration;
 expanded preview/temporary worktree can be removed while preserving the clip,
 reports and source receipts. No production build, deployment or itch update.
+
+### Pixel summoning ritual — implementation checkpoint (2026-10-27)
+
+Accepted user plan: retain unlimited typed READY in the original word tray, with
+no result/NEXT card or confirmation button. After death, soften the environment
+to85% over240ms. An amber#E5BE72 pixel ellipse (.9body-height wide/.22high)
+at the cached spawn foot has five clockwise marks. Idle opacity breathes1.6s;
+each correct letter charges one mark80ms, errors reset120ms, reduced motion
+disables only breathing. A batch need not wait for individual mark animations.
+The complete seal must render before its180ms hold starts, then invoke Continue
+once. Use a200ms charcoal fade for this transition; existing short intro smoke
+starts200ms, intact opponent/shadow344ms, seal ends600ms. Preserve the actual
+300ms word preview, tutorial, terminal victory, health/score/save/public contracts.
+
+Session owns the private meshes/particles/clock/audio channel through reload;
+TypingManager.ProcessInput remains the only letter-input path. Environment gain
+composes after the Slayer background and before actors/transparents. Pause/focus
+hold all ritual clocks/progress; navigation cancels callbacks, sound and VFX.
+SummonSeal reuses the existing light-whoosh clip at-7semitones with SFX gain/mute.
+No character sprite or authored animation asset changes.
+
+Reference record carried from the user-supplied plan: Blasphemous Sacred Sorrows
+https://www.youtube.com/watch?v=_zH38erDvmI,96.997–107.007s, reported301frames/
+300pairs inspected previously. Used for prepare→intact appearance→settle→combat.
+Dead Cells https://deadcells.wiki.gg/wiki/Boss_Rush and TowerFall
+https://towerfall.wiki.gg/wiki/Co-op inform only rest/commit/wave structure.
+This implementation session has not re-inspected those frames or obtained their
+raw image ledger; web fetches returned cache-miss/403. No new complete reference
+research or exact motion-match claim. Reference evidence is distinct from the
+forthcoming review of the actual CLACKBLADE output.
+
+Base origin/main66749da1; Orca branch micharel09/duel-summoning-ritual at
+D:/Projects/TypingHero-worktrees/duel-summoning-ritual. Existing dirty main intact.
+Acceptance scope: complete death→wait→wrong→READY→spawn video; inspect every
+encoded frame/adjacent transition at original timing. Focused input/state tests,
+Pause/focus at arrival/partial/charge, Menu/Restart at wait/partial/charge,
+Slayer-gain restoration, SFX mute, normal→next and elite→boss/terminal; real-input
+normal/boss and reduced-motion browser checks at1280x720. Full suites, stress,
+additional viewports, production build and external publication are out of scope.
+Evidence directory: D:/Projects/TypingHero-evidence/duel-summoning-20261027/.
+Doctor verified pinned2022.3.25f1/toolchain/license and35.2GiB free on fly-server.
+Implementation and tests are pending execution; no acceptance/integration claim.
+
+Initial scoped run20261027T071640-quick, snapshot3ff967d8:49/51PASS,0skips,
+121.556s. All10intro cases, both READY-input cases and the actual carry scene
+pass. One new ritual fixture falsely accepted stale Elapsed2.4 from the previous
+intro during scene loading; it now waits for Running before checking new timing.
+The other failure is the pre-existing music-gain fixture creating a duplicate
+MusicPlayer after scene-based tests left the persistent service alive; duplicate
+Awake returns before its voices initialize, so its fixture Play dereferences null.
+No music runtime change or passing claim for that fixture. The broad GameplayTests
+selection was unnecessary; the follow-up targets4ritual,2READY and1actual-carry
+case. Also explicitly clears TypingManager's pending READY delegate on cancellation,
+and navigates after the charged seal has painted (including its playing cue).
+Prior failure XML/snapshot are retained as initial-tests.xml/initial-snapshot.json.
+
+Run072842-quick (88656633) was stopped before tests, while still in Editor import,
+because the added terminal-victory fixture could resolve SampleScene's production
+provider. Its exact owned container was removed; exit137 is cancellation, not a
+test pass/failure. The fixture now clears databaseRootUrl before terminal queueing
+(FirebaseEndless returns before creating any request) and restores the pending
+preference. Source copy/Library remain isolated. QA build's first360s lock wait
+expired without a build; it is an environment queue delay, not a build result.
+Subsequent runs normalize only serialized text line endings in the isolated
+snapshot, as the existing native-preview adapter does; runtime/source/asset
+semantics and all builder/font protections are preserved.
+
+Targeted0323e5ac snapshot,073756-quick:7/7PASS,0failed/skipped,65.854659s.
+This covers4ritual cases,2READY input cases and the actual carry/reset consumer.
+Includes cached dead-enemy foot, clockwise progress/error, batch/trailing input,
+post-render180ms hold, shared world/HP/score/letters, elite→Captain→terminal,
+Pause/focus at arrival/partial/charge, both Menu/Restart at three READY phases,
+Slayer/gain baseline restoration and mute. Initial10/10intro regressions are reused
+for unchanged intro behavior; no full-suite claim. Final source additionally
+centers READY in the whole existing rail (combat placement unchanged). The final
+QA adapter runs just the2READY input cases on that exact snapshot before building.
+The second native-build360s lock wait also expired before execution; both attempts
+produced no player. Final build is queued after the passing7-case run.
+
+Final centered snapshotc546b712,080232-webgl:2/2READY cases PASS before the
+build. Runtime delta from0323 is only READY's horizontal Paint position; combat
+layout/input/state/renderer logic is identical. WebGL platform import/build is
+running. Final input hashes (2469files; binary hashes raw, text normalized only
+for CRLF) are in final-source-files.json outside Git. Current external native
+driver covers five real wins, wrong/partial/held READY, Pause/real-tab-focus,
+reduced motion and entering Captain, with fixture interception and blocked
+external traffic. export-review.py predeclares complete normal/boss scopes before
+frame inspection. None of this pending browser/video work is claimed as passed.
+
+080232 QA/repeated builder PASS; all33downloaded files match. Player82399f79935faa94,
+Edge156/NVIDIA GTX1650Ti/D3D11/1280x720 pilot:60checks before a focus-observer
+timeout,0runtime exceptions/provider IO. Complete first ritual, centered READY,
+progress/error/Pause/reduced-motion/heldY and HP/score/letters carry pass. Direct
+ready.png/partial.png inspection FAILS the floor composition: view-facing ellipse
+extends below the opaque floor, hiding its lower arc/two marks. No visual pass.
+Pilot moved to pilot-floor-and-tab/ (including exact player/audio/full recording).
+The same-window tab change did not deliver application focus loss; this is not
+counted as a focus pass. A separate-window preflight and final rerun are planned.
+
+Correction: inverse-project the existing pixel ellipse/mark mesh onto the authored
+world floor,15mm above it, using the live camera only at creation. Keep cached foot,
+.9H/.22H screen footprint, five fixed clockwise offsets, existing material/depth
+and all clocks/input/300ms-preview behavior. No ZTest override or actor occlusion
+bypass. Added assertions that every particle and ring vertex share the floor
+plane. Next snapshot reruns the4affected ritual cases before QA build. Browser
+and complete final-frame review remain pending; integration withheld.
+
+Floor-fix Ubuntu submission lost SSH while waiting/uploading, then two read-only
+SSH probes timed out. No final-floor test/build is claimed from that submission.
+Continued using the existing Windows Unity2022.3.25f1 and existing WebGL module
+at E:/Unity/Hub/Editor/2022.3.25f1, without installation or editing another project.
+Task-private source/Library/results: evidence-root/local-unity; normalized snapshot
+c818fa0f,2501build/tool files. It runs exactly4ReadyRitualTests then QA/repeat build.
+local-verify.py owns/waits/terminates only its Editor and guards disk headroom.
+
+Focus observer diagnosis: Playwright's default focus emulation makes every page
+report focused, so switching tabs/windows does not test real focus. Reused the
+existing intro-smoke recipe: disable Emulation.setFocusEmulationEnabled on both
+windows, then bring the other window forward. Pilot focus-window-3 passes6checks,
+actual document focus false→application paused,0runtime exceptions/provider IO.
+No gameplay setter, synthetic focus event or OS/Computer Use was used. Earlier
+preflights remain separate (one missed the tutorial Enter; the other diagnosed
+focus emulation). Final native driver uses the real Start Battle button and the
+qualified window-focus method.
+
+Local Windows first import was interrupted by the execution-session boundary at
+15:50 before tests began; no XML/pass exists for it. Retained import-interrupted.log.
+Continued the exact c818fa0f source/Library with local-verify.py (owned Editor3808),
+without replacing source or accepting stale XML. C# recompile passed; remaining
+package/resource imports are still running. Final floor geometry remains unverified.
+
+Windows final-floor snapshotc818fa0f:4/4ReadyRitualTests PASS,0failed/skipped,
+69.4304656s (2026-10-27 09:09:31Z-09:10:40Z). XML/log in local-unity. Includes
+floor-plane assertions, cached dead foot, rendered180ms hold, one carry into
+Captain/terminal exclusion, pause/focus, six Menu/Restart cancellation paths,
+Slayer baseline restoration and muted completion cue. QA/repeat WebGL build
+started from the same snapshot; final browser and frame review still pending.
+
+Final Windows QA/repeated builder PASS (strict font/repeat checks intact),33player
+files hashed in player-manifest.json; source snapshotc818fa0f matches2501worktree
+inputs. Player74fd14c7306f372d, Edge156.0.4314.42, GTX1650Ti/ANGLE D3D11,1280x720:
+178real keyboard/mouse checks PASS,0runtime exceptions,0provider reads/writes.
+Covers five wins into Captain, death-frame heldR, Enter/indefinite rest, two marks,
+wrong reset, Pause/Resume, real separate-window focus loss, reduced-motion preference,
+heldY through handoff, HP/score/letters/shared-world carry and clean Menu.
+
+Final direct output review (not a new reference-video research claim):
+- complete.webm16.041-29.667s -> ready-summoning.mp4,13.626s selection:
+  340/340frames and339/339consecutive transitions directly inspected.
+- complete.webm81.414-87.665s -> captain-summoning.mp4,6.251s selection:
+  156/156frames and155/155consecutive transitions directly inspected.
+- Scope declared in review-scopes.json before inspection. All22contact sheets viewed
+  at original320x180 world resolution, including previous-page boundary overlap;
+  native1280x720 ready/partial/Captain stills also directly inspected. Source-selected
+  frame counts match exported counts exactly; no interpolation/retiming, held frames
+  and PTS preserved. Aligned captured WebAudio accompanies both MP4s.
+- PASS: complete death/end hold precedes ritual, full ellipse/five clockwise marks
+  above floor (lower arc no longer clipped), centered original tray, partial/error,
+  Pause holds, steady reduced-motion charge, completed hold then alpha charcoal
+  cover, seal into smoke, whole normal/Captain silhouette and shadow together,
+  seal gone and first word readable before combat. First scope includes existing
+  preceding Slayer exit; second ends with explicit Pause after Captain entry.
+- review-ledger.json records inspected counts, every sheet and frame-range findings;
+  each frames.json records every output frame/PTS/hash. Both clips fully decode.
+  Existing reference evidence remains distinguished as recorded above; no claim of
+  re-inspecting the prior301Blasphemous frames or exact reference-motion match.
+
+Evidence retained at D:/Projects/TypingHero-evidence/duel-summoning-20261027/.
+No production publication, full suite, stress/soak or sprite asset edit.
+
+Final resource audit: SSH recovered; docker ps shows no Unity/game-loop task
+container, and no later shared WebGL result than080232 exists. Lost floor-fix
+submission produced no acceptance result. Existing remote audit results are retained;
+shared source/cache/other task resources remain untouched. Remote main fetched
+again and remains66749da1; no integration conflict or retest-triggering main delta.

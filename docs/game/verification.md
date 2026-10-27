@@ -1,3 +1,33 @@
+## READY summoning ritual (2026-10-27; verified)
+
+- New private session presenter adds five pixel marks, environment gain, rendered
+  completion hold and duel-only alpha cover. ProcessInput still owns letters;
+  stats, public/save contracts, tutorial and terminal victory remain unchanged.
+- Windows Unity2022.3.25f1, exact normalized snapshot
+  `c818fa0ff4c7211e5a20d5f9acf76165c82ac0d217156b528ce4fe944a8dfcb7`:
+  **4/4 ReadyRitualTests PASS**,0failed/skipped,69.4304656s. Covers cached spawn,
+  ground-plane geometry, input/error/batch/Enter/stat exclusion,180ms painted hold,
+  one carry into Captain, terminal exclusion, pause/focus and six Menu/Restart
+  cancellations, independent Slayer restoration and SFX mute.
+- Earlier snapshot0323e5ac passed7/7 focused cases (four ritual/two READY/actual
+  carry); initial10intro cases also passed and are reused for unchanged preview
+  behavior. One unrelated music fixture in the wider first selection failed;
+  no full-suite pass is claimed. Final source matches all2501snapshot inputs.
+- Final-floor QA WebGL/strict repeated builder PASS;33immutable player files hashed.
+  Player74fd14c7306f372d, native Edge156/GTX1650Ti D3D11/1280x720:
+  **178 real-input checks PASS**,0exceptions/provider reads/writes. Five wins into
+  Captain, partial/error/Enter/held keys, Pause/real-window focus loss, reduced motion,
+  carry and clean Menu. Earlier pilot rejected floor clipping; retained separately.
+- Direct visual acceptance: all340frames/339pairs of complete death/rest/error/READY/
+  summon scope and156frames/155pairs into Captain inspected,22sheets with boundary
+  overlap, original timing/held frames preserved. Source/export frame counts match;
+  native stills also viewed. Existing300ms preview tests reused; video frame counts
+  are visual evidence, not a substitute for runtime timing assertions.
+  No production/stress/soak or publication is in scope.
+- Full receipts, attempted runs and reference/output-review distinctions:
+  [existing checkpoint](../plans/duel-intro.md). Evidence root:
+  `D:/Projects/TypingHero-evidence/duel-summoning-20261027/`.
+
 ## Typed READY replaces the inter-duel card (2026-10-27; verified)
 
 - Supersedes the Ready-button entry below. Nonterminal enemy death finishes before
