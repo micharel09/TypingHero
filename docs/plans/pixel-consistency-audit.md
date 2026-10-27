@@ -4302,3 +4302,192 @@ runtime và playback giữ trạng thái chưa kiểm chứng.
 | sword-shield/Die / source + mirror X | F10 / GIF F23 | 100 ms | Khiên nằm thấp, núm lệch phải; kiếm/xương nằm sát đáy. | → F11: Khiên gần nằm phẳng, viền trái đầy đủ, núm sáng mỏng. | `sword-shield-Die-10-final.png` |
 | sword-shield/Die / source + mirror X | F11 / GIF F24 | 100 ms | Khiên gần nằm phẳng, viền trái đầy đủ, núm sáng mỏng. | → F12: Giữ khiên phẳng cạnh đống xương, viền trái đủ; trạng thái kết thúc. | `sword-shield-Die-11-final.png` |
 | sword-shield/Die / source + mirror X | F12 / GIF F25 | 100 ms | Giữ khiên phẳng cạnh đống xương, viền trái đủ; trạng thái kết thúc. | Không loop; death→cleanup runtime chưa kiểm. | `sword-shield-Die-12-final.png` |
+
+
+
+### Checkpoint đối soát glyph và reflection trên R0
+
+Checkpoint tài liệu `9df678c53c3d2d60f5330082ba6f51284cca9c79` đã lên main
+và được fetch xác minh ancestry. Bản sửa A1 `1a2b6d4` đã commit/push trên
+`micharel09/a1-shield-ownership`; asset chưa tích hợp main.
+
+Mẫu không QA `Đặng_Á9` đủ điều kiện tái dùng **chỉ cho input và HUD reading**.
+Hai PNG được kiểm lại theo receipt R: `name-input.png` SHA256
+`8ac98d8feb4d6c70ed6001954ae645dc25bf96f6850b04712e1e91c6129b9206`;
+`hud-reading.png` SHA256
+`ea39e60671f2edabaef836fc8b3219f2cfbe21229618d80cb60bfd7895f9186d`.
+Hai probe trên bản không QA đều undefined. Đã mở lại native và nearest 4×:
+chữ Đ, ặ/dấu nặng, gạch dưới, Á/dấu sắc và 9 đọc được, không thấy ô vuông/cắt glyph.
+
+Git object từ R66749da1 tới A1/1a2b6d4 của MainMenu.unity, SampleScene.unity,
+Assets/Art/UI, Assets/Scripts/UI, Packages và ProjectSettings đồng nhất.
+Delta thuộc world/READY và skeleton; không đổi text/font/material/canvas input/HUD
+của mẫu này. Không dùng world cũ chứng nhận lighting mới. Bản sao và receipt
+Git object ở thư mục bằng chứng A1 `glyph-reuse/`, ngoài CodexTemp.
+Đây là tái dùng có điều kiện, không phải phiên nhập mới trên A1.
+
+Reflection: DungeonWorld.unity R0, WetStoneReflection fileID 1632546716 vẫn
+`m_IsActive: 0`; A1 không đổi scene/caller rendering hoặc bật reflection.
+Reflection không áp dụng trong baseline này; không chứng nhận chất lượng khi bật.
+
+Build thử đầu chứa map tạm đã dừng; giữ log/manifest riêng.
+Snapshot cuối có 2.543 file, SHA256
+`4a4538ea2810cf81b226ebb47d98da8217fa6ffda6f30dd5c07fe2f04f8f203d`.
+Không đổi trạng thái nghiệm thu chỉ dựa trên build.
+
+## Checkpoint thu R0+A1 — runtime hình còn mở
+
+A1 vẫn ở commit `1a2b6d4` trên nhánh riêng. QA Windows Unity 2022.3.25f1
+(530ae0ba3889), snapshot trên, build thành công tại
+`runtime/results/20261027T142929.162161Z-3f0c4ef0828e45529ada23825d1c82d3-build-right`.
+Strict repeated builder xác nhận serialized objects/references/listeners không đổi;
+`game-loop-build.json` ghi qa=true. Cả 12 PNG albedo/normal/depth/material khớp
+byte với commit sau import/build, theo `runtime-map-preservation.json`.
+Không chạy full suite, stress, soak, profiling hoặc viewport ngoài hai cỡ yêu cầu.
+
+### Hành vi và media đã thu
+
+`capture-1` thu tutorial reading, combat kiếm/Double Strike/rìu/khiên và ba
+điểm nối death→cleanup→READY→combat tiếp. Driver dùng phím/chuột; bridge chỉ đọc,
+fixture Firebase và chặn provider thật/service worker.
+Edge 156.0.4314.42, **Intel UHD 0x9BC4 / ANGLE D3D11**.
+Nhãn Linux/Docker kế thừa trong toolchain.json không phải môi trường capture này.
+
+45 check kỹ thuật đã qua trước lỗi ở phần player bổ sung. Luồng kiếm kiểm chờ,
+Enter/click vị trí nút cũ không tiếp tục, từng chữ thường, sai sau prefix,
+Pause chặn chữ/Resume giữ prefix, resize 1280×720→1366×768→1280×720,
+carry và một handoff. Rìu/khiên chỉ kiểm điểm nối/carry.
+Combat time tại chờ/intro lần lượt 41.68546676635742 / 152.0548095703125 /
+194.65335083007812 s; HP40, score/letters/correct giữ qua READY→intro.
+Combat kế tăng lại từ thời gian mang sang.
+Contract hold 180 ms được đối chiếu ReadyRitualPresentation.LateUpdate và
+ReadyRitualTests hiện có; không dùng số frame video làm phép đo engine chính xác,
+không nhận test lịch sử là lần chạy mới.
+
+Ba still resize đã mở native: compact frame, TYPE READY TO CONTINUE, READY
+có đủ glyph/viền/padding, countdown ẩn, vòng trên sàn. Still không thay review
+frame liên tục. QA label che tên player; mẫu glyph không QA được tái dùng riêng.
+
+Phiên 1 gặp `Target page, context or browser has been closed` trong phần thu
+player Hurt/death bổ sung; nguyên nhân đóng chưa xác định. Status toàn phiên
+vẫn **failed**; 45 check không chứng nhận toàn phiên PASS. Clip trước đó đã
+stop/export hoàn chỉnh. Generic fixtureReads/Writes bằng 0 nhưng fixture
+Endless riêng có 1 read/1 write được intercept ở result, không ghi provider thật.
+Không có Unity/JS exception trong report. Không phân loại thiếu quan sát/lỗi
+công cụ thành lỗi game.
+
+`capture-2` thu lại riêng player trên cùng build bằng input thường, không ép
+HP/Animator: idle chạy thật, Hurt→idle và death→result; 4 check harness PASS,
+0 exception. Điều kiện chờ của công cụ đổi thành overlay && hp<=0 vì bridge
+trả sentinel âm sau cleanup actor tại result; không sửa game.
+Media chính `capture-2/player-hurt-death-result.webm`; context video bổ sung
+không cộng coverage. Clip/trace/still và `progress-receipt.json` ở thư mục
+bằng chứng A1 ngoài CodexTemp, có SHA256/source/build và event carry.
+
+### PTS, biên và phần đã xem
+
+`decode-pts.py` ngoài repo chọn **PTS integer gốc**, chia run cùng kích thước,
+giữ ordinal toàn media; không dùng filter n reset khi resize.
+Đã đối soát số PNG/PTS/kích thước từng PNG.
+F1217/43.541 s là 1280×720; F1218/43.590 s tới F1232/44.066 s là 1366×768;
+F1233/44.103 s trở về 1280×720.
+Duration frame cuối chưa xác định giữ null; không retime/nội suy/bỏ frame lặp.
+
+Biên rìu ban đầu 64.531 s lộ giữa Slayer strike/recovery ở F1842, đã mở rộng
+về 50.5 s. Trace có idle50.433, Hurt51.306, Attack1 preparation53.185,
+Slayer entry54.226; đoạn tiếp tục đủ burst/exit, lethal, Die/cleanup/READY và
+combat mới. Giữ hash/ghi chú/global ordinal của frame đã xem; đoạn hẹp bị thay thế.
+F1436 xác nhận bối cảnh trước preparation kế tiếp, không nghiệm thu preparation
+của động tác trước đoạn. Media toàn trận vẫn giữ.
+
+Catalog `runtime-review/clips.json` là **ứng viên đang review**, chưa phải
+manifest nghiệm thu cuối: 1.590 frame/1.584 cặp.
+Tại checkpoint thu ban đầu đã mở 7 frame/5 cặp; checkpoint preview bên dưới
+cập nhật thành 10/7. Không cộng với catalog lịch sử 1.900/1.890.
+Raw Double Strike/combat vẫn giữ; cần chốt đoạn trước review, chưa khép toàn ma trận.
+
+| Đoạn mới | Frame/cặp | Đã mở frame/cặp hiện tại | Giới hạn |
+|---|---:|---:|---|
+| axe-death-cleanup-ready-current |641/640|10/7|F1436–1439, F1842–1844, F1920–1922. VFX và source cel còn cần đối chiếu.|
+| shield-death-cleanup-ready-current |247/246|0/0|Chưa mở frame encode.|
+| sword-death-ready-current |475/474|0/0|Ba still resize không thay frame encode.|
+| player-idle-hurt-recovery |79/78|0/0|Chưa kiểm đủ vòng/khớp source.|
+| player-death-result |123/122|0/0|Chưa mở frame encode.|
+| tutorial-reading-current |25/24|0/0|timeScale khóa; không phải vòng idle.|
+
+Từng frame đã mở có phase/quan sát/chuyển tiếp/giới hạn/hash trong catalog.
+Không tính cặp nối sang frame chưa xem. Vệt kiếm rời cần đối chiếu source,
+chưa kết luận lỗi. F1920–1922 có kiếm player che vùng sàn A1, chưa đủ chứng nhận
+không còn fragment trong toàn death.
+
+### Preview dưới lighting hiện hành — checkpoint Walk
+
+Hai bộ thử `lit-preview/` và `lit-preview-current/` không được nghiệm thu:
+helper cũ thiếu presentation/post, CopyFrom kế thừa viewport serialized khác
+runtime. Mỗi bộ chỉ mở một ảnh chẩn đoán, không tính 72 ảnh xuất thành đã xem.
+Tool cuối tái hiện rect(0,0,1,1) của DungeonArenaCamera.OnEnable, pose camera
+từ trace, pitch/profile, WorldTexture, world renderer và presentation/post R0.
+Không đổi camera/lighting/source game để kiểm đạt.
+Preview offline không controller/VFX/contact-shadow actor, dùng preset ánh sáng
+cơ sở, không tái hiện chính xác flicker. Editor **NVIDIA GTX1650Ti** khác Intel
+runtime; không chứng nhận pixel tương đương hoặc tạo caller runtime.
+
+Bộ cuối `lit-preview-final/frames.json` có 72 cel/biến thể, mỗi biến thể gồm
+native 1280×720 và crop nearest 4×. Ảnh Walk F0 source đầu có lỗi khởi tạo renderer
+(dải đỏ trần). Đã giữ bản loại ở `rejected-initial/`, render lại sau ba warmup,
+mở lại native/4× rồi thay canonical. Receipt `warmup-replacement.json` ghi
+6.533 pixel khác trong ROI actor; không tuyên bố phần actor giữ nguyên render.
+
+Đã xem đủ **Walk 12/12 cel × hai hướng = 24 cặp ảnh native/4×**, mọi chuyển tiếp
+và seam F11→F0. Các frame F6–F11 không còn fragment khiên cạnh chân;
+cán/đầu rìu và grip còn liền. Mặt thép phía xa tối nâu ở source và mặt gần sáng
+ngà ở mirror là giới hạn ánh sáng/hướng được ghi riêng.
+Walk tiếp tục **asset-only**, playback chưa xác nhận.
+Ledger ghi từng cel/hướng, filename/SHA256/quan sát/chuyển tiếp/giới hạn.
+
+Die rìu đang xem: F0–F4 cả hai hướng đã mở native/4×, chưa kiểm hết dải.
+Tổng preview cuối đã xem 34/72; không nhận phần còn lại là đạt.
+Runtime vẫn chỉ 10/1.590 frame, 7/1.584 cặp; còn 1.580 frame/1.577 cặp chưa xem.
+Chưa chốt manifest nghiệm thu, playback 1×/0.25× hoặc xác nhận người xem.
+A1 vẫn **nguồn đã sửa / runtime hình chưa kiểm đủ**, audit chưa đóng.
+
+Ghi chú văn bản: hai checkpoint sau A1 từng bị shell chuyển dấu tiếng Việt
+thành `?`. Nội dung tại đây đã khôi phục có dấu; không đổi hash ảnh, kết quả
+kỹ thuật hoặc biến phần chưa xem thành đạt.
+
+### Main tiến thêm khi tích hợp checkpoint
+
+Lượt fetch sau kiểm trả origin/main `a70c1a29d0e9749bbca82c2ca53d721e6c2b02ec`,
+mới hơn R0 ở HUD score/combo và flash parry ngang (72ab039d, 979f04a0,
+cùng checkpoint tài liệu liên quan). Đã đọc diff SampleScene, ScoreUI_ComboHUD,
+ImpactVfxPixel và ImpactVfxProfile: thay đổi layout/fit score, multiplier,
+decay cùng flash parry có kích thước 2D và khóa variation.
+Capture R0+A1 **không chứng nhận layout score/combo hoặc flash parry mới**.
+Cần thu/kiểm lại đúng phần chịu ảnh hưởng; không xem tiếp clip cũ chỉ để đủ số
+hoặc nhận bằng chứng task khác là đã trực tiếp xem trong audit này.
+
+Nguồn A1, atlas/maps, DungeonWorld, actor material, camera/profile, READY và
+tutorial không đổi trong delta này; source review và preview offline không VFX
+giữ giới hạn đã ghi. Nhận xét input/HUD tên Đặng_Á9 chỉ áp dụng text/font và
+reading của mẫu, không mở rộng sang score/combo mới.
+Checkpoint tài liệu này được tích hợp độc lập; audit/rendering hiện hành vẫn mở.
+
+### Checkpoint preview A1 đủ 36 cel — chưa đóng runtime
+
+Đã mở trực tiếp toàn bộ `lit-preview-final/`: **72/72 biến thể cel**, mỗi
+biến thể gồm native full canvas và nearest 4×; axe Walk 12, axe Die 11,
+sword-shield Die 13, cả source và mirror. Đã ghi **68/68 cặp chuyển tiếp**
+gồm seam Walk của hai hướng. Mỗi ảnh giữ SHA256 trong frames.json;
+đã đối soát lại tất cả 144 file native/nearest theo ledger.
+
+Rìu giữ đầu/cán/grip, không có mảnh khiên rời ở vùng đã sửa.
+Die kiếm–khiên F6–F12 giữ phần viền/núm trả lại khi rơi, ép mỏng, nảy và nằm.
+Die rìu F7–F10 và Die kiếm–khiên F7–F12 có chi tiết rất thấp/tối sát sàn:
+nearest 4× đọc được thêm viền/cán, nhưng native không đủ để nhận mọi texel.
+Không tự phân loại giới hạn tương phản thành lỗi mất pixel hoặc sửa lighting.
+
+Đây là preview offline không VFX với giới hạn transform/preset/GPU đã nêu;
+không thay clip runtime, source GIF, bản map chẩn đoán hoặc xác nhận playback.
+Bằng chứng nguồn 36 cel và preview lighting đủ cel được giữ riêng.
+Runtime vẫn 10/1.590 frame và 7/1.584 cặp; playback 1×/0.25× và người xem còn mở.
+Asset A1 vẫn ở nhánh riêng, chưa đưa lên main.

@@ -1,17 +1,23 @@
 // Only native input changes gameplay. The QA bridge observes scene bindings and geometry.
 module.exports = async function scoreCluster(api, browser) {
   const {session,start,state,until,clickControl,check,report}=api;
-  const sizes=[[320,180],[640,360],[1280,720],[400,300]];
+  const sizes=[[1280,720],[400,300]];
   const geometry=(s,label)=>{
     const k=Math.min(s.width/960,s.height/540);
     const center=r=>r.x+r.width/2;
     check(s.comboUnderScore && s.comboDecayUnderScore,label+': multiplier and decay belong to score cluster');
-    check(Math.abs(center(s.scoreRect)-s.width/2)<1 && (!s.comboVisible || Math.abs(center(s.multiplierRect)-s.width/2)<1) && Math.abs(center(s.decayRect)-s.width/2)<1,label+': all three rows centered');
-    check(s.scoreGlyphRect.y>=s.multiplierRect.y+s.multiplierRect.height-1,label+': score pulse clears multiplier');
-    if(s.comboVisible) check(s.multiplierRect.y>=s.decayRect.y+s.decayRect.height-1,label+': multiplier clears decay');
-    check(Math.abs(s.playerStatusRect.height/k-63)<1,label+': player status contains HP row only');
+    const frame=s.scoreFrameRect;
+    const left=frame.x, right=frame.x+frame.width;
+    const top=frame.y+frame.height, bottom=frame.y;
+    const score=s.scoreGlyphRect, mult=s.comboGlyphRect, decay=s.decayRect;
+    check(score.x>=left && score.x+score.width<=right && score.y>=bottom && score.y+score.height<=top,label+': score inside frame');
+    if(s.comboVisible){
+      check(mult.x>=score.x+score.width && mult.x+mult.width<=right,label+': multiplier to right without overlap');
+      check(decay.y>=bottom && decay.y+decay.height<=Math.min(score.y,mult.y),label+': decay inside frame below text');
+    } else check(Math.abs(center(s.scoreRect)-s.width/2)<1,label+': x1 total centered');
+    check(Math.abs(s.playerStatusRect.height/k-50.4)<1,label+': player status contains HP row only');
     check(s.comboVisible===(s.multiplier>1.0001) && s.comboDecayVisible===s.comboVisible,label+': visibility follows actual multiplier');
-    if(s.comboVisible) check(Math.abs(s.comboDecayValue-Math.max(0,Math.min(1,s.comboRemaining/s.comboWindowSeconds)))<.002,label+': fill follows live remaining time');
+    if(s.comboVisible) check(Math.abs(s.comboDecayValue-Math.max(0,Math.min(1,s.comboRemaining/s.comboWindowSeconds)))<.002+s.frameMs/1000/s.comboWindowSeconds,label+': fill follows live remaining time within one update');
   };
   const resizeCapture=async(page,label,live=false)=>{
     for(const [width,height] of sizes){
@@ -21,7 +27,7 @@ module.exports = async function scoreCluster(api, browser) {
       geometry(s,label+' '+width+'x'+height);
       if(live){
         await page.keyboard.press('Escape',{delay:10});
-        await until(page,s=>!s.paused && s.timeScale===1 && !s.controls.some(c=>c.name==='ResumeButton') && s.comboVisible);
+        await until(page,s=>!s.paused && s.timeScale===1 && !s.controls.some(c=>c.name==='ResumeButton'));
       }
       await page.screenshot({path:report.outputDirectory+'/'+label+'-'+width+'x'+height+'.png'});
       if(live){await page.keyboard.press('Escape',{delay:10});await until(page,s=>s.paused);}
@@ -30,17 +36,28 @@ module.exports = async function scoreCluster(api, browser) {
     await until(page,s=>s.width===640 && s.height===360);
   };
   // Slayer is exercised in real combat now that the guide has no practice mode.
-  await require('./slayer.cjs')(api,browser);
   const battle=await session(browser,{width:640,height:360},1000);
   try {
     const page=battle.page;
+    const menu=await until(page,s=>s.scene==='MainMenu' && !s.dungeonTransitioning);
+    await until(page,s=>s.frame>=menu.frame+4);
+    if(!(await state(page)).controls.some(c=>c.kind==='input')) {
+      await clickControl(page,'PlayButton','button');
+      await until(page,s=>s.controls.some(c=>c.kind==='input'));
+    }
     await clickControl(page,'<Button','button');
     await clickControl(page,'<Button','button');
     await until(page,s=>s.menuDifficulty==='very_easy');
-    await start(page,true);
-    await until(page,s=>s.encounterReading);
-    await resizeCapture(page,'normal-x1');
-    await page.keyboard.press('Enter',{delay:60});
+    await start(page,false);
+    let initial=await until(page,s=>!s.dungeonTransitioning);
+    if(initial.tutorial){
+      await page.keyboard.press('Enter',{delay:350});
+      await until(page,s=>!s.tutorial && !s.dungeonTransitioning);
+    }
+    await until(page,s=>!s.tutorial && !s.introRunning && !s.dungeonTransitioning && s.timeScale===1);
+    await page.keyboard.press('Escape',{delay:40});await until(page,s=>s.paused);
+    await resizeCapture(page,'normal-x1',true);
+    await page.keyboard.press('Escape',{delay:60});
     await until(page,s=>!s.encounterReading && s.timeScale===1);
     const word=async()=>{
       const s=await state(page),before=s.words;
@@ -66,9 +83,9 @@ module.exports = async function scoreCluster(api, browser) {
     check(!s.comboVisible && !s.comboDecayVisible,'word timeout leaves multiplier and decay hidden');
     await page.keyboard.press('Escape',{delay:30});await until(page,s=>s.paused);
     await page.keyboard.press('r',{delay:30});
-    s=await until(page,s=>s.encounterReading && s.score===0 && s.hp===40);
+    s=await until(page,s=>!s.dungeonTransitioning && !s.tutorial && s.score===0 && s.hp===40);
     check(!s.comboVisible && !s.comboDecayVisible,'normal restart clears grouped UI');
-    await page.keyboard.press('Enter',{delay:30});await until(page,s=>!s.encounterReading);
+    await until(page,s=>!s.introRunning && s.timeScale===1);
     // Keep typing sparse enough for the enemy to finish a real swing.
     for(let i=0;i<5;i++) await word();
     let renewed=false;
@@ -76,9 +93,8 @@ module.exports = async function scoreCluster(api, browser) {
     while(!renewed && performance.now()<parryDeadline){
       s=await state(page);
       if(s.finished) throw new Error('Encounter ended before combo renewal');
-      const second=s.enemyTexture==='Attack2';
-      const contact=second && s.enemyAnimationTime===0 ? .3-s.qaAgeMs/1000 : (second?.2:.5)-s.enemyAnimationTime*(second?1:1.2)-s.qaAgeMs/1000;
-      if(s.multiplier>1 && s.cue && s.canParry && !s.parryPose && contact>.025 && contact<.25){
+      const contact=s.enemyContactIn-s.qaAgeMs/1000*s.timeScale;
+      if(s.multiplier>1 && s.enemyAttacking && s.canParry && !s.parryPose && contact>.025 && contact<.25){
         const before=s;
         await page.keyboard.down('Space');
         try {s=await until(page,t=>t.matchParries>before.matchParries,1800);} finally {await page.keyboard.up('Space');}
@@ -95,10 +111,9 @@ module.exports = async function scoreCluster(api, browser) {
       await page.waitForFunction(()=>{
         const s=window.typingHeroQA;
         if(s?.slayer) return true;
-        if(!s || !s.cue || !s.canParry || s.parryPose || s.paused || s.finished) return false;
+        if(!s || !s.enemyAttacking || !s.canParry || s.parryPose || s.paused || s.finished) return false;
         const age=(performance.now()-window.typingHeroQAPublishedAt)/1000*s.timeScale;
-        const second=s.enemyTexture==='Attack2';
-        const contact=second && s.enemyAnimationTime===0 ? .3-age : (second?.2:.5)-s.enemyAnimationTime*(second?1:1.2)-age;
+        const contact=s.enemyContactIn-age;
         return contact>.025 && contact<.20;
       },null,{polling:'raf',timeout:12000});
       if((await state(page)).slayer) break;
@@ -106,9 +121,17 @@ module.exports = async function scoreCluster(api, browser) {
       try {await until(page,s=>s.matchParries>count,1800);} finally {await page.keyboard.up('Space');}
     }
     await until(page,s=>s.slayer && s.redAlpha>.99);
-    s=await state(page);await page.keyboard.type(s.current[0],{delay:30});
-    await until(page,s=>s.comboVisible && s.comboDecayVisible);
-    await page.screenshot({path:report.outputDirectory+'/slayer-unobstructed.png'});
+    for(let i=0;i<24 && (await state(page)).multiplier<3;i++) {
+      s=await state(page);
+      await page.keyboard.type(s.current,{delay:35});
+      await until(page,t=>t.inputLetters>s.inputLetters,2000);
+    }
+    s=await until(page,s=>s.slayer && s.multiplier===3 && s.comboVisible);
+    geometry(s,'Slayer maximum combo');
+    check(s.popupCount===1 && s.popupAlpha>0,'award popup remains beside character');
+    await page.keyboard.press('Escape',{delay:30});await until(page,s=>s.paused);
+    await resizeCapture(page,'slayer-x3',true);
+    await page.keyboard.press('Escape',{delay:30});await until(page,s=>!s.paused && !s.controls.some(c=>c.name==='ResumeButton'));
     const exitDeadline=performance.now()+15000;
     while((await state(page)).slayer && performance.now()<exitDeadline){
       await page.waitForTimeout(850);

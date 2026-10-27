@@ -218,12 +218,24 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
 - Four flat non-raycast backplates use #14111E/.88 at native player(3,0,102,11), enemy(215,0,102,11), difficulty(108,45,104,13), clock(256,145,32,14). They render before HUD/tray/labels; CombatR7Status synchronizes the difficulty Image with its label. Score-frame alone is tinted(.75,.75,.75,1); score text/pulse, Slayer colors, HP/parry/stamina feedback remain unchanged.
 - Strict two-pass serialization, actual atlas pixels/settings, fixed-font content/bounds and existing IDs/typing-component preservation verified. Same-player native feedback, focused restart/death25/25 and score-cluster209/209 cover current-scene lifecycle and four sizes; see checkpoint for the full feedback driver timeout and qualified rerun coverage. HUD stays screen space; existing floor native y138/tray y146, camera, cue and popup mechanisms are unchanged. Representative2.5D lighting/parallax/foreground occlusion remains unverified. [Checkpoint](../plans/score-hud-cluster.md).
 
-## Unified score cluster (2026-10-19; local source)
+## Unified score cluster (2026-10-27; current layout)
 
-- CombatR7Build keeps the total at its existing center-top position. ScoreCluster now owns ComboHUD and its existing decay slider: total → multiplier → thin decay track. PlayerStatus contains name/HP only; its former combo frame/socket/icon remain inactive to preserve IDs. Enemy stamina is unchanged.
-- ScoreUI_ComboHUD hides both multiplier and decay at ×1 and reveals both above ×1. ScoreSystem, ScoreRules, thresholds, expiry/timeout, input, damage and providers are unchanged. CombatR7Status swaps only the grouped fill between normal and Slayer sprites.
-- At960×540, ComboHUD is(0,69,294,54) relative to ScoreCluster; multiplier occupies(0,0,294,30), decay(12,36,270,12). ROUND moves fromnative y38 to46 to clear the added row. Total position/pulse, names, HP and typing tray remain fixed.
-- Repeated builder and native209/209 scoped UI checks pass at320×180,640×360,1280×720,400×300, including real parry renewal, pause, expiry/timeout, restart and natural Slayer exit. See [verification](verification.md) and [checkpoint](../plans/score-hud-cluster.md). Published with the HUD release on 2026-10-20, upload19892576.
+- CombatR7Build preserves the center-top ScoreCluster frame at(333,9,294,66).
+  ScoreText and the smaller multiplier share one centered row at local y27;
+  ComboHUD fills(0,0,294,66), with decay at(15,51,264,6) inside the frame bottom.
+  At x1 only the centered total is visible; active combo uses a9px row gap.
+- Final Cobblestone font sizes48/42 and tier colors remain. Long totals reduce
+  displayed font size while retaining all digits and reserving the maximum1.2x
+  award pulse. ScoreUI_Flash still owns the original120ms pulse scale.
+- ScoreSystem/ScoreRules, thresholds, multiplier cap, renewal/expiry/timeout,
+  input, damage and providers are unchanged. CombatR7Status retains normal/Slayer
+  fill sprites. HP, names, typing tray and the character-side popup anchor remain.
+- Strict repeated builder and targeted Unity checks pass; native72/72 and direct
+  review cover1280x720/400x300, x1/normal/x3, real parry renewal, pause/resume,
+  expiry/timeout, restart and natural Slayer exit. Final-font48case geometry
+  fixture covers20digit totals and maxpulse. See [verification](verification.md)
+  and [checkpoint](../plans/score-hud-cluster.md). No itch.io release for this change;
+  the previous three-row layout was published2026-10-20 as upload19892576.
 
 ## Combat HUD feedback (2026-10-20)
 
@@ -477,7 +489,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
 - `Assets/Art/VFX/ParryClash/MetalClash.asset` references the approved existing
   ParryPhysics/prefab. Profile owns pixel/world scale, depth scaling, cooling colors,
   final fade, arbitrary flash layers (renderer ID/count/lifetime/tint/pixel size/
-  world cap/grid/start frame/frame curve/color-alpha gradient), and local light
+  world cap/grid/start frame/frame curve/color-alpha gradient; optional2D size and
+  variation lock preserve previous defaults), and local light
   enabled/color/intensity/hold/duration/decay/range/offset. MetalClash preserves
   24particles,1px,rest<=400ms,lifetime<=1.1s and Point5/70ms hold/280ms expiry.
 - Production Player uses the dedicated `ParryImpact.asset` and prefab/physics:
@@ -489,9 +502,12 @@ Change only behavior explicitly requested. Update this file after relevant verif
   white/yellow/orange RGBA retained. Detached ray/fragment/speck PNGs are exact
   original Pimen layer crops, Point/Clamp/no mipmaps; recipe and hashes are in
   `PimenSource.json` and `tools/game_loop/export_parry_pimen.py`.
-  Five bindings: core0,fragment1,near rays2,body specks3,far rays4; no shock arc.
-  There are22unchanged physical trajectories plus one core,23total/184at eight
-  leases. Leads10-14px/initial2px live550-700ms; secondary4-7px live850-1100ms,
+  Six bindings: core0,fragment1,near rays2,body specks3,far rays4,horizontal flash5; no shock arc.
+  The new stationary72x3logical-pixel quad has a1px warm-white core,3px gold
+  halo and tapered ends, locked horizontal without size/rotation variation. Alpha
+  rises0-20ms, holds20-40ms and fades40-120ms. Existing core/physics/light stay
+  unchanged. There are22physical trajectories plus two flashes,24total/192at eight
+  leases. [Checks and visual scope](../plans/parry-horizontal-flash.md). Leads10-14px/initial2px live550-700ms; secondary4-7px live850-1100ms,
   with unchanged cooling, final80ms fade, gravity/drag/bounce/floor rest and seed.
   NearZ velocities-6..-4 and far2..4 remain actual world-space perspective/depth;
   actor cutout writes depth and Pimen uses the same depth buffer with LEqual.
