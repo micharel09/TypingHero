@@ -1102,3 +1102,55 @@ No GUID, importer value, script, PNG or other runtime input changed from the
 qualified ce6ddb5d source; no runtime rerun for this semantic no-op. Original and
 clean meta lines compare equal after rstrip and the original bytes are retained
 with final evidence. Git diff --check is required before commit.
+
+
+## User-approved READY release ? 2026-10-27 (artifact qualified; publication blocked)
+
+User explicitly accepted the final visual result and requested push/release.
+Gameplay/assets are already integrated and remotely verified at2f2f3da30656c72a818dfca9682c5b077251066e.
+Release worktree starts from that clean origin/main; parent dirty checkout is preserved.
+No game/source changes or repeat full QA/frame review. Prior6focused cases,
+184native checks and477frame/475pair review remain applicable.
+
+Pinned Unity2022.3.25f1 production131422 PASS, source snapshot
+105615a07c188ca3901403822bb577eba43825b369c0364d4609d8814f8b3004.
+Strict repeated/protected-font builder and decoded-JS QA-bridge guard pass.
+All33downloaded immutable player files match server SHA256. qa=false;
+package scanner confirms bridge/probe markers absent in decoded JS/WASM/data.
+ZIP33members/14872340bytes, root index.html and CRC PASS:
+CLACKBLADE-WebGL-ReadySeal-2f2f3da-20261027.zip,
+SHA256 ec37cbf92fe01298cd8fa9479bccdcf97662b055fa7aed4dc89a76bef1eec4a1.
+
+Production native Edge156.0.4314.42/Intel UHD D3D11/1280x720, original HTML and
+native Brotli headers:8smoke checks PASS,0exceptions/console errors/provider
+reads/writes. Direct menu/name/preparation/tutorial/paused/word/menu images viewed.
+Real Start Battle, Pause/Resume, correct change advances to see and score0->10,
+then returns to Menu. Bridge undefined. The first280ms resume wait was too short
+for the existing close-input guard; unchanged player passed with the established
+650ms recipe. This is a harness correction, no input/source fix. Fresh test browser,
+static/control servers closed; no running smoke/Unity job remains.
+
+Publication BLOCKED BEFORE UPLOAD: BrowserSkill doctor showed0connected browsers;
+its managed daemon started/was verified but no extension connected. The fallback
+Orca editor https://itch.io/game/edit/3857509 stayed at Cloudflare security
+verification. Asked user for browser connection or verification while build/smoke
+continued; no reply yet. No upload, form save, rollback selection or storefront
+change has occurred; no public-release claim. BrowserSkill sessions were not created.
+Orca page e2de1887-c0ab-4701-a1cf-85ffb2f031c1 is retained for the human verification
+step; close it after publication or cancellation. Do not solve/bypass CAPTCHA or
+extract login/cookie/token secrets. No Computer Use or tool installation.
+
+Qualified artifact/scripts/manifests/receipts and checkpoint:
+D:/Projects/TypingHero-evidence/ready-release-20261027/.
+Retain for publication/reproduction; clean after release and rollback receipts are
+no longer needed. Canonical production result remains on fly-server. Existing
+shared runner/cache and other resources untouched. Clean task worktree/local branch
+can be removed after checkpoint integration; artifact is sufficient for resuming.
+
+Resume: verify browser connection, read fresh owner/game/upload state (game3857509,
+https://micharel09.itch.io/clackblade), then upload the qualified ZIP. Preserve prior
+uploads for rollback and all unrelated fields. Select only the new browser playable,
+save, verify saved editor and public iframe, compare actual CDN files with
+artifact-manifest.json using verify-cdn.py, and boot the actual public player with
+provider interception. Do not rebuild/repeat accepted QA unless relevant inputs
+changed. Publication remains explicitly unverified until those steps complete.

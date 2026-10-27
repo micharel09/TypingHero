@@ -1,3 +1,20 @@
+## READY production release candidate (2026-10-27; not published)
+
+User accepted2f2f3da and requested release. Pinned Unity production131422,
+input105615a0, strict builder/bridge-exclusion PASS. All33downloaded hashes match;
+qa=false; decoded JS/WASM/data scan excludes QA/probe markers. ZIP33members,
+14872340bytes, CRC/root-index PASS, SHA256 ec37cbf92fe01298cd8fa9479bccdcf97662b055fa7aed4dc89a76bef1eec4a1.
+Native Edge156/Intel UHD D3D11/1280x720 production smoke8checks PASS,0exceptions,
+console errors or provider IO: menu/name/Start Battle, Pause/Resume, real correct
+word advances change->see and score0->10, return Menu; bridge undefined. Images
+viewed; isolated browser/static/control servers closed. Prior gameplay/frame QA reused.
+
+Publication is BLOCKED BEFORE UPLOAD: BrowserSkill has0connected browsers and the
+Orca owner editor remains at Cloudflare. No itch.io write/save occurred. Awaiting
+human browser connection/verification; qualified ZIP and resume checkpoint retained
+at D:/Projects/TypingHero-evidence/ready-release-20261027/. No public release claim.
+See [release checkpoint](../plans/duel-intro.md#user-approved-ready-release--2026-10-27-artifact-qualified-publication-blocked).
+
 ## Licensed Magic circle and compact READY (2026-10-27; verified)
 
 - Original Magic circle final build frame11 from Pixel Magic Circles, by
