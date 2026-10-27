@@ -1584,3 +1584,35 @@ Final fetch sees origin/main3bfb4f3f (duel-preview frame-stall fix), newer than 
 qualified candidate base. It is not overwritten or merged into this evidence-only
 checkpoint. Before eventual integration, merge that latest main into the candidate
 and recheck affected behavior; current81/build/native receipts qualify e99fe0c1 only.
+
+#### User acceptance and integration (2026-10-27)
+
+The user said the visual result looked fine, then explicitly requested the remaining
+integration. This supersedes the earlier visual-gate withholding as a user acceptance
+decision. Do not change old per-frame statuses or invent agent-observed continuous
+playback; occluded/unsampled portions remain documented measurement limitations.
+No additional artwork, material, timing, flash or layer changes are requested.
+
+Merged origin/main3bfb4f3f into the candidate as d434c200 without conflicts. Only
+DuelIntroPresentation, DuelIntroTests and their gameplay/checkpoint documentation
+changed relative to the qualified candidate; all Slayer/VFX/combat/assets/packages/
+project settings remain unchanged. Reuse the clean81/QA/repeated-builder/native/
+frame/export/playback evidence for its unchanged B inputs and main's accepted intro
+evidence. Run only DuelIntroTests plus SlayerTransitionTests against the integrated
+source in a fresh compiled/import cache. No broad suite, WebGL build or new capture.
+
+Integrated clean-source run20261027T015535-quick:22/22PASS,0failed/skipped,
+46.0188525s;10DuelIntroTests plus12SlayerTransitionTests. Input
+0c94ea6c64c47de94c19842ec6599ace5281b27459c5780c98b8e995c6c9cbc7 matches all2495
+source files after established LF normalization, no zero C# mtimes. No production
+source changed after the passing snapshot. An initial adapter syntax preflight
+executed zero Unity cases; corrected before this qualified invocation, without
+changing repo tooling or acceptance. Shared license HOME is referenced, not copied;
+private Library starts with pinned PackageCache only, no old compiled/import state.
+
+Durable XML/log/input/identity and final remote/cleanup receipts are under
+E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/integration-20261027/.
+The remote receipt identifies the final commit containing this accepted checkpoint,
+confirms the task implementation commits are ancestors of origin/main, and records
+removal of the clean task worktree/local branch after verification. Remote task
+branch is retained; the pre-existing main checkout is not modified.

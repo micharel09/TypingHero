@@ -33,8 +33,12 @@ rows (three weapons at1x/.25x) pass. Direct still review covers1535frames/1532pa
 arc/black-body/Pause occlusion and continuous subjective playback remain unverified.
 Eight full-start QA generations lack an observed F5; publication/encoder alignment
 does not establish visibility of those short phases. Historical failed reports
-remain intact. Main integration remains withheld. Status and clips are
+remain intact. The user accepted the viewed result and requested integration;
+the recorded sampling/occlusion limits are not relabeled as automated visual passes.
+Integration status and clips are
 recorded in [the existing checkpoint](../plans/slayer-slash-vfx.md).
+Main3bfb4f3f merge d434c200 additionally passes22/22intro/Slayer-transition cases
+from clean compiled/import cache; input0c94ea6c matches2495source files.
 
 # System and configuration map
 

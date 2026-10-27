@@ -1,4 +1,4 @@
-## Slayer B contrast follow-up (2026-10-27; technical checks pass, visual gate open)
+## Slayer B contrast follow-up (2026-10-27; user accepted visuals)
 
 Candidate51b500d adds isolated130/150ms+20ms body flash, chained F0 contact20ms,
 and chained F4 contact20ms plus peak70-90ms. Artwork, black B, anchors, scale and
@@ -31,9 +31,16 @@ per-frame CSV records exposed/obscured ink. Readable peaks include axe3437-3441,
 shield4688-4691 and sword1233. Arc/Pause/dark torso obscure other portions.
 Eight of120full-start QA generations have no observed F5; nominal PTS association
 cannot prove the hidden/unsampled phases. Continuous direct motion observations
-at1x/.25x remain unverified, so six technical passes do not qualify visual acceptance.
+at1x/.25x were not claimed by the agent. The user subsequently accepted the viewed
+visual result and explicitly requested integration. This closes the visual gate by
+user acceptance; hidden/unsampled-phase limitations remain recorded above.
 Evidence: E:/codex-data/artifacts/TypingHero/slash-b-flash-20261026/.
-Main integration remains withheld; [existing checkpoint](../plans/slayer-slash-vfx.md).
+Integrated main3bfb4f3f as d434c200: clean Unity015535-quick22/22PASS,0failed/skipped,
+46.0188525s (DuelIntroTests10 plus SlayerTransitionTests12). Input0c94ea6c matches
+2495/2495source files with no zero C# mtimes. No B input changed; prior qualified
+81/QA/native/frame/export/playback evidence is reused. No new build/capture needed.
+Source qualification and the remote integration receipt are tracked in the
+[existing checkpoint](../plans/slayer-slash-vfx.md).
 
 ## Slayer B sweep timeline (2026-10-26; visual acceptance not achieved)
 
