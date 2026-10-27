@@ -5,20 +5,20 @@ instance; builders apply data and preserve existing assets. The default look is
 the approved dungeon/Pinterest flame, not a runtime fallback.
 
 The selected DungeonWorld disables the RearRune decoration and its RuneLight.
-The user rejected that blue rear glow; keep it disabled. The selected room now combines existing warm torches with a
-localized, constant cool floor fill; this does not re-enable the rune or haze. Shared rune assets remain available to other worlds.
+The user rejected that blue rear glow; keep it disabled. The selected room uses only its five existing lamp/flame fixtures and spatial
+combat flashes. There is no invisible floor fill. Shared rune assets remain available to other worlds.
 RearHaze and LowHaze are also disabled: their blue decorative overlays produced
 the remaining horizontal glow after the rune was removed.
 
 ## REPLACED follow-up candidate (performance/playback acceptance pending)
 
 The follow-up branch uses dungeon-specific front/side/rear LightProfiles rather
-than editing shared fixture profiles: front2/range16, left side32/range13,
-opposite side4/range10, rear4/range15. The sixth, fixed cool fill stays64/range16.
+than editing shared fixture profiles: front16/range16, left side32/range13,
+opposite side4/range10, rear4/range15. The former sixth, invisible cool fill and its unused profile have been removed.
 Anchors, authored flames, shadow atlas, combat scheduler and camera stay unchanged.
 Fog is a very dark cool RGB(.004,.009,.018). Haze/rune/beam/planar reflection remain off.
-Static preview/shader, Ubuntu strict repeated-builder and four-direction white-light
-checks pass (llvmpipe functional diagnostics). The merged Ubuntu WebGL player
+Historical pre-removal static preview/shader, Ubuntu strict repeated-builder and four-direction white-light
+checks pass (llvmpipe functional diagnostics). The historical merged Ubuntu WebGL player
 passes actual-input checks on NVIDIA GTX1650Ti at1280x720/world320x180:
 six production encounters/five unique definitions, plus a separate exact-data
 Berserker fixture. Scoped native output inspection covers1117frames/1108pairs,
@@ -100,8 +100,8 @@ impulse path. See the [camera guide](camera-impact-profiles.md) for Inspector st
 ## Dynamic sprite shadows and authored normals
 
 The default dungeon uses one hard-shadow key (front lantern16,512px faces), two
-rear torch lights (8, no shadows), two pillar flames, one constant shadowless cool
-Spot fill (DungeonCoolFill, intensity64/range16, inner45/outer75), and at most one active spatial combat light
+rear torch lights (4/range15, no shadows), two pillar flames
+(left32/range13, opposite4/range10), and at most one active spatial combat light
 (256px faces). Parry now casts shadows as well as illuminating receivers.
 The2048 shadow atlas and Point/HDR/MSAA presentation are unchanged. The shared
 URP per-object additional-light limit is8, covering the current selected worlds'
@@ -129,13 +129,12 @@ Edit the recipe or paint the normal PNGs directly, then review every affected po
 mirror, loop and transition under moving light before accepting a revision.
 There is no normal generation or material lookup added to gameplay updates.
 
-## Damp dungeon floor and directional fill
+## Damp dungeon floor and fixture lighting
 
-`ColdVaultFill` uses the existing `DungeonTorchLight` with no FlameProfile. Its
-profile owns the cool color #789BB5, constant intensity and shadowless Spot type;
-its scene transform is environment-local (1.5,4,6), aimed at the local floor origin.
-It creates no flame mesh and restores from its own profile on world changes.
-MainLantern's warm intensity16 preserves the face/scarf edges and darker body cores.
+The invisible cool floor fill and its unreferenced profile are deleted.
+MainLantern uses DungeonFrontLantern base intensity16 in the scene and on
+OnEnable (then the retained Perlin flicker modulates it by up to6%); its transform, shadows and profile flicker remain unchanged. No ambient,
+exposure, shader or floor-material compensation is applied.
 
 GroundSurface uses PixelDungeon Floor1..8. Each existing material binds its matching
 16x16 linear Point `FloorNSurface.png`: RGB0 keeps metallic0; alpha distinguishes

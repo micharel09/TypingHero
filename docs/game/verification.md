@@ -1,3 +1,18 @@
+## Invisible dungeon fill removed (2026-10-27; final acceptance pending)
+
+Ubuntu2022.3.25f1 QA100208 and strict repeated builder PASS on canonical input
+`6bed25a62764729c94188f299e3bedc666bd4281d4bc7cc532119428e8b09ade`.
+505downloaded files match server SHA256. Serialized world has5fixture components,
+front lantern base16 and no removed fill/GUID/child link. Native Chromium153/NVIDIA
+GTX1650Ti/D3D11,1280x720, player61b46a73877b0e0f:397real-input checks PASS,
+menu/combat/two wins/Pause/Resume/Restart and Slayer flags enter/exit;
+0exceptions/provider IO, context closed. Menu/combat stills directly inspected:
+former blue floor pool absent. Complete restoration playback, matched-pose A/B,
+central-source visual dominance and numeric post-OnEnable observation remain
+unverified. Old players are history; new performance baseline is unqualified.
+Foreground/FPS/ABBA/production/final-review gates remain closed; no main merge or
+itch.io publication. [Checkpoint](../plans/combat-hanging-light.md).
+
 ## Dungeon typed READY / foreground checkpoint (2026-10-27; NOT accepted)
 
 New Ubuntu2022.3.25f1 QA072142 includes typed READY; build and strict repeated

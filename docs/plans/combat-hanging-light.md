@@ -1,3 +1,61 @@
+## Remove invisible cool floor fill (2026-10-27; acceptance pending)
+
+- Continued the existing clean Orca worktree at
+  `C:/Users/ADMIN/orca/workspaces/TypingHero/replaced-dungeon-lighting-2`, branch
+  `micharel09/replaced-dungeon-lighting-2`, from `ce57fbf7`; origin was fetched and
+  destination remains `micharel09/TypingHero`. Dirty primary main is untouched.
+- Deleted ColdVaultFill GameObject, Transform, DungeonTorchLight, URP light data,
+  Light and its parent child-list entry. Deleted DungeonCoolFill.asset/.meta only
+  after confirming the scene was its sole active consumer. Historical evidence
+  under docs/plans/evidence remains intact. Current configuration docs updated.
+- DungeonFrontLantern profile intensity2 ->16 matches the authored MainLantern.
+  OnEnable applies the profile then retained Perlin flicker: base16, range
+  15.04..16.96 (amplitude.06), rather than a fixed16 every frame. Transform,
+  shadows, flame, phase, five remaining fixture components and combat lights are
+  unchanged. No ambient/exposure/shader/floor-material/API/gameplay compensation.
+- Static PASS: exactly5 scene YAML documents removed; the only retained document
+  change removes the parent child entry. All other scene documents match HEAD.
+  Five DungeonTorchLight components remain; rg across Assets finds no deleted
+  name/profile/GUID/fileID consumer. The front profile's sole delta is intensity.
+- New canonical build/performance source lock:
+  `6bed25a62764729c94188f299e3bedc666bd4281d4bc7cc532119428e8b09ade`.
+  Earlier QA A/B/production players are historical; do not reuse their timing as
+  the new lighting baseline. Locking source is not a performance qualification.
+- Default shared runner doctor twice returned EAGAIN on its occupied lock; no
+  environment setup or job termination. Reused the task-owned Ubuntu adapter and
+  pinned Unity2022.3.25f1, existing private license/cache. Build result/log:
+  `/data/typinghero-game-loop/tasks/dungeon-performance-20261027-final/results/20261027T100208-webgl`.
+  Import was delayed by observed60-64% I/O wait, not disk exhaustion (>40GiB free).
+- Evidence root:
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/dungeon-no-cool-fill-20261027`.
+  Build input/adapter/console are retained alongside prior history at
+  `dungeon-ready-20261027/20261027T100116-build-candidate`.
+- Ubuntu QA100208 build and strict repeated-builder PASS, exit0. All505 downloaded
+  files (33player/472serialized) match server SHA256; archive
+  `8fe533635b9bc8dca1b92bd6b25a91c12ee384ab6edf831f6a92787b95933a73`.
+  Serialized DungeonWorld retains exactly5fixture components, MainLantern
+  m_Intensity16, and no removed name/GUID/child fileID. Builder does not recreate fill.
+- Native Chromium153.0.8010.12, NVIDIA GTX1650Ti/ANGLE D3D11,1280x720:
+  player `61b46a73877b0e0f`, **397checks PASS**, two real-input wins, full/partial
+  READY, Pause/Resume, Restart to first encounter and observed Slayer entry/exit.
+  0exceptions/provider reads/provider writes. Context closure reports closed.
+  The smoke adapter bypasses registration/foreground wait markers explicitly;
+  this is functional evidence, never actual-Windows-foreground or FPS evidence.
+- Directly viewed menu.png, combat.png, slayer.png and slayer-exit.png. Menu and
+  combat show warm floor response with no former blue floor pool. The exit still
+  is an in-progress red/black transition, not proof of fully restored world.
+  No matched-camera/pose old-new pair or full transition playback was inspected;
+  central-lantern visual dominance, complete exit restoration and direct numeric
+  OnEnable observation remain **UNVERIFIED**. Source proves the base16/retained
+  flicker path; it does not replace runtime measurement.
+- The source lock above is the new reproducible lighting baseline input/player;
+  its performance is **UNQUALIFIED**. No new timing numbers, A/B selection,
+  official ABBA or accepted production baseline are claimed. FPS>=59,
+  p95<=18ms, minimum sliding1s>=40FPS, actual Windows foreground, formal ABBA,
+  production checks and final review remain mandatory before main integration.
+  No itch.io publication. Keep this pre-existing worktree/branch until those
+  gates pass and remote-main integration is verified.
+
 ## Typed READY harness verified; actual-foreground acceptance blocked (2026-10-27)
 
 - Continued task branch `micharel09/replaced-dungeon-lighting-2` from clean

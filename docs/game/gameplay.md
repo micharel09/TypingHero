@@ -60,8 +60,8 @@
 - Wall torches use authored cinematic SinePair flicker: base8/range15/amplitude.18,
   independent phases and matching flame emission. Two fixed TorchBeam cards are
   inactive and no longer receive atmosphere updates. Central lantern now uses intensity16; flame
-  atlas/timing and actor self-shadow remain unchanged. A constant shadowless cool
-  Spot fill and palette-masked damp Floor1..8 add localized floor response without
+  atlas/timing and actor self-shadow remain unchanged. The invisible cool Spot fill is removed;
+  palette-masked damp Floor1..8 remains unchanged without
   re-enabling the rejected rune, haze, beams or planar reflection. Pause holds the clock;
   Slayer composite conceals the continuing world phase and restores it without
   resetting. [Evidence](../plans/combat-hanging-light.md).
@@ -113,8 +113,8 @@
   hardware quality tiers.
 - The approved ten-frame flame, palette, timing, fixed anchors
   and pause/Slayer phase are preserved. The REPLACED-inspired pass changes the
-  MainLantern key24->16 and adds a separate constant cool floor fill64; other torch
-  profiles retain their authored strengths. Each instance owns its clock and UV mesh.
+  MainLantern key to16 in both scene and profile and removes the invisible cool
+  floor fill; side/rear strengths are recorded in the lighting authoring guide. Each instance owns its clock and UV mesh.
   Camera impacts now read `WorldDefinition.cameraImpact` (`CombatCameraProfile`); defaults
   remain unchanged. Presets and curves prepare at binding; accepted requests retain that snapshot.
   Pixel recoil uses the active world's target height; zoom composes with its lens.
