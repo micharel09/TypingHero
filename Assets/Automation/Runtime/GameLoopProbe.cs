@@ -71,7 +71,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool enemyChestValid;
         public bool slayerTrailVisible;
         public SlayerRenderFrame[] slayerImpacts;
-        public int parryParticleCount, parryBurstCount, parrySampleCount;
+        public int parryParticleCount, parryBurstCount, parrySampleCount, parryPresentationQuads;
+        public float parryPresentationAngle;
         public ParryParticleFrame[] parryParticles;
     }
     [Serializable] sealed class SlayerRenderFrame
@@ -103,6 +104,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     void ObserveRenderParry()
     {
         combatFrame.parryParticleCount = combatFrame.parryBurstCount = combatFrame.parrySampleCount = 0;
+        combatFrame.parryPresentationQuads = 0; combatFrame.parryPresentationAngle = 0;
         combatFrame.parryParticles = renderParryParticles;
         var scene = SceneManager.GetActiveScene();
         if (!scene.IsValid() || !scene.isLoaded) return;
@@ -113,6 +115,8 @@ public sealed class GameLoopProbe : MonoBehaviour
             foreach (var burst in renderBursts)
             {
                 if (!burst.Analytical || burst.ParticleCount == 0) continue;
+                combatFrame.parryPresentationQuads += burst.PresentationQuadCount;
+                if (burst.PresentationQuadCount > 0) combatFrame.parryPresentationAngle = burst.PresentationAngle;
                 combatFrame.parryBurstCount++;
                 combatFrame.parryParticleCount += burst.ParticleCount;
                 for (int channel = 0; channel < burst.Systems.Length; channel++)

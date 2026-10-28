@@ -22,11 +22,24 @@ public sealed class DungeonArenaCamera : MonoBehaviour
     public Camera PresentationCamera { get; private set; }
     public Rect PresentationRect { get; private set; } = new Rect(0, 0, 1, 1);
     public Color SlayerBackground { get; private set; }
+    internal float ParryBackgroundGain { get; set; } = 1f;
     internal float EnvironmentPresentationGain { get; set; } = 1f;
     public void SetSlayerBackground(Color color) => SlayerBackground = color;
     public bool Cinematic { get; private set; }
     internal RTHandle EnvironmentScratch;
     public float FocusDepth => view.WorldToViewportPoint(player ? player.position : Vector3.zero).z;
+    internal readonly System.Collections.Generic.List<ImpactVfxBurst> ImpactBursts = new(8);
+    void BeforeImpactCamera(ScriptableRenderContext context, Camera camera)
+    {
+        if (camera != view) return;
+        foreach (var burst in ImpactBursts) if (burst) burst.RefreshProjectedFlashes();
+    }
+    internal void ClearPresentationImpacts()
+    {
+        foreach (var burst in ImpactBursts) if (burst) burst.CancelPresentation();
+        for (int i = ImpactBursts.Count - 1; i >= 0; i--)
+            if (!ImpactBursts[i] || !ImpactBursts[i].HasWorldProjection) ImpactBursts.RemoveAt(i);
+    }
     Camera view;
     CinemachineBrain brain;
     RenderTexture previousTexture;
@@ -75,6 +88,7 @@ public sealed class DungeonArenaCamera : MonoBehaviour
         data.requiresColorOption = data.requiresDepthOption = CameraOverrideOption.Off;
         screen.AddComponent<DungeonPresentationCamera>().Initialize(this);
         SetPresentationRect(previousRect);
+        RenderPipelineManager.beginCameraRendering += BeforeImpactCamera;
     }
     public void SetPresentationRect(Rect rect)
     {
@@ -98,6 +112,9 @@ public sealed class DungeonArenaCamera : MonoBehaviour
     }
     internal void ResetImpacts(bool restoreView = false)
     {
+        ClearPresentationImpacts();
+        ClashLightingRig.ClearArena(this);
+        ParryBackgroundGain = 1f;
         if (impact) impact.Clear();
         if (restoreView && view)
         {
@@ -146,6 +163,10 @@ public sealed class DungeonArenaCamera : MonoBehaviour
     }
     void OnDisable()
     {
+        RenderPipelineManager.beginCameraRendering -= BeforeImpactCamera;
+        ClearPresentationImpacts();
+        ClashLightingRig.ClearArena(this);
+        ParryBackgroundGain = 1f;
         if (view) { view.targetTexture = previousTexture; view.rect = previousRect; view.ResetAspect(); }
         if (PresentationCamera)
         {

@@ -21,6 +21,7 @@ public sealed class DungeonPresentationRender : ScriptableRendererFeature
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData data)
     {
         if (!material || !data.cameraData.camera.TryGetComponent<DungeonPresentationCamera>(out var screen) || !screen.Arena) return;
+        pass.arena = screen.Arena;
         pass.texture = screen.Arena.WorldTexture;
         if (!pass.texture) return;
         renderer.EnqueuePass(pass);
@@ -67,6 +68,8 @@ public sealed class DungeonPresentationRender : ScriptableRendererFeature
         readonly Material material;
         readonly MaterialPropertyBlock properties = new MaterialPropertyBlock();
         public RenderTexture texture;
+        public DungeonArenaCamera arena;
+        readonly MaterialPropertyBlock flashProperties = new MaterialPropertyBlock();
         public PresentPass(Material material) { this.material = material; renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing; }
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData data)
         {
@@ -81,6 +84,7 @@ public sealed class DungeonPresentationRender : ScriptableRendererFeature
             properties.SetTexture("_BlitTexture", texture);
             properties.SetVector("_BlitScaleBias", new Vector4(1, 1, 0, 0));
             CoreUtils.DrawFullScreen(cmd, material, properties, 0);
+            ImpactVfxBurst.DrawPresentation(cmd, arena, RenderingUtils.fullscreenMesh, flashProperties);
             context.ExecuteCommandBuffer(cmd); CommandBufferPool.Release(cmd);
         }
     }

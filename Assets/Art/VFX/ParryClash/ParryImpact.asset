@@ -21,10 +21,13 @@ MonoBehaviour:
   cooled: {r: 1, g: 0.42, b: 0.06, a: 1}
   legacyCooled: {r: 0.18, g: 0.015, b: 0, a: 1}
   fadeDuration: 0.08
-  lightIntensity: 5
-  lightDuration: 0.28
-  lightHold: 0.07
-  lightRange: 3
+  cinematicPulse: 1
+  lightRise: 0.015
+  backgroundMinimumGain: 0.9
+  lightIntensity: 7
+  lightDuration: 0.22
+  lightHold: 0.06
+  lightRange: 3.5
   lightOffset: 0.15
   pixelsPerUnit: 16
   unitsPerMeter: 1.25
@@ -97,10 +100,17 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
   - channel: 5
     count: 1
-    lifetime: 0.12
+    lifetime: 0.22
     tint: {r: 1, g: 1, b: 1, a: 1}
-    sizePixels: 72
-    sizePixels2D: {x: 72, y: 3}
+    sizePixels: 128
+    sizePixels2D: {x: 128, y: 6}
+    projectedPixels: 1
+    renderInPresentation: 1
+    angles:
+    - 20
+    - 45
+    - -15
+    - 65
     lockVariation: 1
     maxWorldSize: 0
     columns: 1
@@ -135,11 +145,11 @@ MonoBehaviour:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 0}
       key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 1, g: 1, b: 1, a: 1}
-      key3: {r: 1, g: 1, b: 1, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
+      key2: {r: 1, g: 1, b: 1, a: 0.8}
+      key3: {r: 1, g: 1, b: 1, a: 0.35}
+      key4: {r: 1, g: 1, b: 1, a: 0.12}
+      key5: {r: 1, g: 1, b: 1, a: 0.05}
+      key6: {r: 1, g: 1, b: 1, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
@@ -150,17 +160,17 @@ MonoBehaviour:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 10923
-      atime2: 21845
-      atime3: 65535
-      atime4: 0
-      atime5: 0
-      atime6: 0
+      atime1: 4468
+      atime2: 8937
+      atime3: 17873
+      atime4: 29789
+      atime5: 41704
+      atime6: 65535
       atime7: 0
       m_Mode: 0
       m_ColorSpace: -1
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 4
+      m_NumAlphaKeys: 7
   lightEnabled: 1
   lightColor: {r: 1, g: 0.67, b: 0.28, a: 1}
   lightDecay:

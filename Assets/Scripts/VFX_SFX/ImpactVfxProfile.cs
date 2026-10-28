@@ -41,12 +41,18 @@ public sealed class ImpactVfxProfile : ScriptableObject
         [Min(0)] public float sizePixels = 16, maxWorldSize;
         public Vector2 sizePixels2D; // Zero retains the authored square and rotation.
         public bool lockVariation;
+        public bool projectedPixels;
+        public bool renderInPresentation;
+        public float[] angles = System.Array.Empty<float>();
         [Min(1)] public int columns = 1, rows = 1, cycles = 1;
         public float startFrame;
         public AnimationCurve frameOverTime = AnimationCurve.Constant(0, 1, 0);
         public Gradient colorOverLifetime = new Gradient();
     }
     public FlashLayer[] flashes = System.Array.Empty<FlashLayer>();
+    public bool cinematicPulse;
+    [Min(0)] public float lightRise = .015f;
+    [Range(0, 1)] public float backgroundMinimumGain = .65f;
     public bool lightEnabled = true;
     public Color lightColor = Color.white;
     public AnimationCurve lightDecay = AnimationCurve.EaseInOut(0, 1, 1, 0);
@@ -77,6 +83,7 @@ public sealed class ImpactVfxProfile : ScriptableObject
             foreach (var group in physics.groups)
                 if (group.count > 0 && group.channel == flash.channel) Fail("flash and physics share a renderer");
         }
+        if (cinematicPulse && (lightRise <= 0 || lightHold < lightRise || lightDuration <= lightHold)) Fail("invalid cinematic envelope");
         if (lightEnabled && lightIntensity > 0 && (lightHold < 0 || lightDuration <= lightHold ||
             lightRange <= 0 || lightDecay == null || lightDecay.length == 0)) Fail("invalid local light pulse");
     }
@@ -84,12 +91,13 @@ public sealed class ImpactVfxProfile : ScriptableObject
     // Value snapshot: editing the asset never changes a living burst or pulse.
     internal struct Appearance
     {
+        internal bool cinematicPulse;
         internal Color hot, warm, cooled, legacyCooled, lightColor;
         internal AnimationCurve lightDecay;
-        internal float fadeDuration, lightIntensity, lightDuration, lightHold, lightRange, lightOffset;
+        internal float fadeDuration, lightIntensity, lightDuration, lightHold, lightRange, lightOffset, lightRise, backgroundMinimumGain;
     }
     internal Appearance Capture() => new Appearance {
-        hot = hot, warm = warm, cooled = cooled, legacyCooled = legacyCooled,
+        lightRise = lightRise, backgroundMinimumGain = backgroundMinimumGain, cinematicPulse = cinematicPulse, hot = hot, warm = warm, cooled = cooled, legacyCooled = legacyCooled,
         fadeDuration = Mathf.Max(.001f, fadeDuration), lightIntensity = lightEnabled ? lightIntensity : 0,
         lightDuration = lightDuration, lightHold = lightHold, lightRange = lightRange, lightOffset = lightOffset, lightColor = lightColor,
         lightDecay = lightEnabled && lightIntensity > 0 ? CopyCurve(lightDecay) : null

@@ -64,8 +64,14 @@ public partial class ImpactVfxBurst : MonoBehaviour
         }
         foreach (var group in profile.physics.groups) if (group.count > 0) RequireBinding(group.channel);
         foreach (var flash in profile.flashes)
+        {
+            if (flash.renderInPresentation && (!(flash.sizePixels2D.x > 0) || !(flash.sizePixels2D.y > 0) ||
+                float.IsInfinity(flash.sizePixels2D.x) || float.IsInfinity(flash.sizePixels2D.y) ||
+                rendererBindings[RequireBinding(flash.channel)].material.FindPass("PARRY_PRESENTATION") < 0))
+                throw new InvalidOperationException(name + ": invalid presentation size or missing PARRY_PRESENTATION pass");
             if (flash.count > rendererBindings[RequireBinding(flash.channel)].particles.main.maxParticles)
                 throw new InvalidOperationException(name + ": flash count exceeds renderer capacity");
+        }
     }
     int RequireBinding(int id)
     {
@@ -127,6 +133,10 @@ public partial class ImpactVfxBurst : MonoBehaviour
     internal virtual void Clear()
     {
         if (systems != null) foreach (var ps in systems) if (ps) ps.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+        CancelPresentation();
+        if (projectionArena) projectionArena.ImpactBursts.Remove(this);
+        projectionCamera = null; projectionArena = null;
+        Array.Clear(projectedFlashes, 0, projectedFlashes.Length);
         debrisAge = 0; debrisCount = 0; debrisEmissionFrame = -1;
         simulation.Clear(); Array.Clear(identities, 0, identities.Length); Array.Clear(debrisParticles, 0, debrisParticles.Length);
         playing = paused = analytical = false;

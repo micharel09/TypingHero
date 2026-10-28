@@ -1,3 +1,21 @@
+## HD-2D parry task candidate (2026-10-28; awaiting visual approval)
+
+Final runtime input0ee2a52f:102/102focused logic +26/26graphics PASS on Ubuntu
+Unity2022.3.25f1; same13runtime/asset hashes in follow-up2c4771e8,5/5PASS.
+Covers arena cleanup/ownership, route validation/fallback, pause/pool reuse,
+HDR/three outputs/zoom, viewport/taper/envelope and retained capture+draw0managed
+bytes after warm-up. Software GPU functional checks are distinct from Intel
+HD4600WebGL native keyboard QA:48checks, all8signed angle/facing combinations.
+2534selected output frames/2530within-source transitions directly inspected;
+34controlled images viewed. ReBlade239/238 and rejected-ray121/120 fresh review
+counts remain separate from historical reviews and technical playback receipts.
+
+A-B-B-A measurements retain combat hitches but show host drift; no FPS increase
+claim. Detailed QA allocation samples include an additional JSON telemetry confound;
+whole-game allocation is not zero. User visual/continuous perceptual approval remains
+pending. Task branch only: no main integration or itch.io publication.
+[Checkpoint and evidence identities](../plans/parry-horizontal-flash.md).
+
 ## READY task closed; release canceled by user (2026-10-27)
 
 The user accepted the merged READY change, canceled the pending itch.io release,

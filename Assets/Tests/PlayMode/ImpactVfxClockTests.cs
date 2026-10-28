@@ -20,6 +20,71 @@ public sealed partial class ImpactVfxTests
         return Emitter().Play(profile, Context());
     }
 
+    [Test, Category("Quick")]
+    public void CinematicPulseSnapshotsEnvelopeAndRestoresOnlyItsBoundArena()
+    {
+        var cameraHost = new GameObject("bound arena"); owned.Add(cameraHost); cameraHost.SetActive(false);
+        var arena = cameraHost.AddComponent<DungeonArenaCamera>();
+        var otherHost = new GameObject("other arena"); owned.Add(otherHost); otherHost.SetActive(false);
+        var other = otherHost.AddComponent<DungeonArenaCamera>();
+        arena.EnvironmentPresentationGain = .42f; arena.SetSlayerBackground(Color.red);
+        var rig = PulseRig(out var light); rig.BindArena(arena); ResetPulseClock(rig, 10);
+        var owner = ClockOwner(); var settings = Parry.Capture();
+        rig.PulseAt(Vector3.one, settings, owner, 10, false);
+        settings.lightRise = 1; settings.lightHold = 2; settings.backgroundMinimumGain = 0;
+        foreach (var sample in new[] { new Vector2(0, 0), new Vector2(.015f, 1),
+            new Vector2(.06f, 1), new Vector2(.14f, .5f), new Vector2(.22001f, 0) })
+        {
+            rig.SampleAt(10 + sample.x, false);
+            Assert.That(light.intensity, Is.EqualTo(7 * sample.y).Within(.001f));
+            Assert.That(arena.ParryBackgroundGain, Is.EqualTo(Mathf.Lerp(1, .90f, sample.y)).Within(.001f));
+            Assert.That(arena.EnvironmentPresentationGain, Is.EqualTo(.42f));
+            Assert.That(arena.SlayerBackground, Is.EqualTo(Color.red));
+            Assert.That(other.ParryBackgroundGain, Is.EqualTo(1));
+        }
+        Assert.That(ClashLightingRig.HasPulse(owner), Is.False);
+        rig.PulseAt(Vector3.one, Parry.Capture(), owner, 11, false); rig.SampleAt(11.02, false);
+        arena.ResetImpacts();
+        Assert.That(light.intensity, Is.Zero); Assert.That(arena.ParryBackgroundGain, Is.EqualTo(1));
+        rig.PulseAt(Vector3.one, Parry.Capture(), owner, 12, false); rig.SampleAt(12.02, false);
+        rig.BindArena(null);
+        Assert.That(light.intensity, Is.Zero); Assert.That(arena.ParryBackgroundGain, Is.EqualTo(1));
+    }
+
+    [Test, Category("Quick")]
+    public void CameraResetClearsCinematicPulseWithoutChangingLegacyPulse()
+    {
+        var host = new GameObject("mixed pulse arena"); owned.Add(host); host.SetActive(false);
+        var arena = host.AddComponent<DungeonArenaCamera>();
+        var rig = PulseRig(out var light); rig.BindArena(arena); ResetPulseClock(rig, 10);
+        var old = ClockOwner(); var cinematic = ClockOwner();
+        rig.PulseAt(Vector3.zero, Metal.Capture(), old, 10, false);
+        rig.PulseAt(Vector3.one, Parry.Capture(), cinematic, 10, false);
+        rig.SampleAt(10.02, false); Assert.That(light.intensity, Is.EqualTo(7).Within(.001f));
+        arena.ResetImpacts();
+        Assert.That(light.intensity, Is.EqualTo(5).Within(.001f));
+        Assert.That(ClashLightingRig.HasPulse(old), Is.True);
+        Assert.That(ClashLightingRig.HasPulse(cinematic), Is.False);
+    }
+
+    [TestCase(.0075f), TestCase(.04f), TestCase(.14f), Category("Quick")]
+    public void CinematicOverlapPauseAndCancelPreserveRemainingOwner(float pauseAt)
+    {
+        var first = ClockOwner(); var second = ClockOwner(); var rig = PulseRig(out var light);
+        ResetPulseClock(rig, 10);
+        rig.PulseAt(Vector3.one, Parry.Capture(), first, 10, false);
+        rig.SampleAt(10 + pauseAt, false); float held = light.intensity;
+        rig.SampleAt(20, true); rig.SampleAt(30, true);
+        Assert.That(light.intensity, Is.EqualTo(held));
+        rig.SampleAt(31, false);
+        rig.PulseAt(Vector3.one, Parry.Capture(), second, 31, false);
+        rig.SampleAt(31.015, false);
+        Assert.That(light.intensity, Is.EqualTo(7).Within(.001f));
+        rig.CancelAt(first, 31.015, false);
+        Assert.That(light.intensity, Is.EqualTo(7).Within(.001f));
+        rig.CancelAt(second, 31.015, false); Assert.That(light.intensity, Is.Zero);
+    }
+
     [UnityTest, Category("Quick")]
     public IEnumerator ReceivingFrameHitchDoesNotAgeNewPulseBeforeItsEmission()
     {

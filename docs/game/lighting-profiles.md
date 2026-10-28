@@ -320,6 +320,25 @@ emitter.Play(profile, new ImpactVfxContext {
 });
 ```
 
+Flash authoring supports `sizePixels2D`, `projectedPixels` and
+`renderInPresentation`. World route (`renderInPresentation=false`) keeps existing
+projected sizing. Presentation uses projected dimensions regardless of
+`projectedPixels`, validates positive/finite2D dimensions and the material's
+`PARRY_PRESENTATION` pass before emission/hiding, and captures that named pass.
+If no active arena exists at emission, the burst keeps its world fallback until
+its next emission. Preserve material bindings and asset GUIDs when authoring.
+
+The arena captures presentation geometry/color after lens updates before world
+render; its existing PresentPass draws the retained snapshot before postprocessing
+and HUD. Arena reset/disable/session unbind cancels only its presentation rays;
+stock/debris and other arenas retain their own lifecycle. Clear/lease return is
+repeatable, and re-enable cannot revive old rays. Pause holds age/color/geometry;
+rig disable independently clears pulses and restores background gain to1.
+The verified ParryImpact preset uses128x6reference pixels,1.25core width,
+ray gain2/halo.35, minimum background.90, light7/range3.5 and220ms end.
+See [the HD-2D checkpoint](../plans/parry-horizontal-flash.md) for exact envelope,
+angle/facing evidence, regression results and the pending user visual gate.
+
 Optional recipient bounds are captured with
 `PhysicalParticleProfile.RecipientSnapshot.FromBounds(body.bounds)` and assigned
 to context.recipient. The snapshot remains fixed after emission. Material/prefab

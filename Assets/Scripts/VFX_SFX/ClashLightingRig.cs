@@ -9,7 +9,7 @@ public sealed class ClashLightingRig : MonoBehaviour
     [SerializeField] Light combatLight;
     [SerializeField] Light parryLight;
     public CombatLightingProfile profile;
-    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public double startedAt; public bool compact; public CombatLightingProfile.Event kind; public float maximum, range, offset; public AnimationCurve decay; public bool local; public Color color; }
+    struct PulseState { public Component owner; public Vector3 point; public float strength, age, duration, hold; public double startedAt; public bool compact; public CombatLightingProfile.Event kind; public float maximum, range, offset, rise, backgroundMinimum; public AnimationCurve decay; public bool local, cinematic; public Color color; }
     PulseState[] pulses = System.Array.Empty<PulseState>();
     // Per-rig unscaled time. Polling an unannounced freeze transition conservatively
     // discards that interval; controller events account up to the actual transition.
@@ -42,8 +42,27 @@ public sealed class ClashLightingRig : MonoBehaviour
         pulses = new PulseState[profile.overlapCapacity];
     }
     static readonly System.Collections.Generic.List<ClashLightingRig> rigs = new();
+    DungeonArenaCamera arena;
+    Camera arenaCamera;
+    internal void BindArena(DungeonArenaCamera value)
+    {
+        Clear();
+        arena = value;
+        arenaCamera = value ? value.GetComponent<Camera>() : null;
+        SetBackgroundGain(1);
+    }
+    internal static void ClearArena(DungeonArenaCamera value)
+    {
+        foreach (var rig in rigs) if (rig.arena == value)
+        {
+            for (int i = 0; i < rig.pulses.Length; i++)
+                if (rig.pulses[i].cinematic) rig.pulses[i] = default;
+            rig.Render();
+        }
+    }
     Light2D key, fill, ambient;
     Color clashColor;
+    bool clashColorCaptured;
     void OnEnable()
     {
         if (profile)
@@ -54,7 +73,7 @@ public sealed class ClashLightingRig : MonoBehaviour
         }
         clock.Reset(Time.realtimeSinceStartupAsDouble, Frozen);
         GamePauseController.FreezeChanged += FreezeChanged;
-        if (clashLight) clashColor = clashLight.color;
+        if (clashLight) { clashColor = clashLight.color; clashColorCaptured = true; }
         rigs.Add(this); Clear();
         foreach (var light in GetComponentsInChildren<Light2D>())
         {
@@ -72,7 +91,8 @@ public sealed class ClashLightingRig : MonoBehaviour
     void Clear()
     {
         System.Array.Clear(pulses, 0, pulses.Length);
-        if (clashLight) { clashLight.intensity = 0; clashLight.color = clashColor; }
+        SetBackgroundGain(1);
+        if (clashLight) { clashLight.intensity = 0; if (clashColorCaptured) clashLight.color = clashColor; }
         if (combatLight) combatLight.intensity = 0;
         if (parryLight) parryLight.intensity = 0;
     }
@@ -96,7 +116,7 @@ public sealed class ClashLightingRig : MonoBehaviour
         AddProfile(new PulseState { owner = owner, point = point, strength = settings.lightIntensity,
             maximum = settings.lightIntensity, duration = settings.lightDuration, hold = settings.lightHold,
             decay = settings.lightDecay, range = settings.lightRange, offset = settings.lightOffset,
-            color = settings.lightColor, local = true, compact = true }, now, frozen);
+            rise = settings.lightRise, backgroundMinimum = settings.backgroundMinimumGain, color = settings.lightColor, cinematic = settings.cinematicPulse, local = true, compact = true }, now, frozen);
     }
     internal static void Impact(Scene scene, Vector3 point, CombatLightingProfile.Event kind, VoxelImpactBurst owner)
     {
@@ -136,6 +156,7 @@ public sealed class ClashLightingRig : MonoBehaviour
     float Intensity(PulseState p)
     {
         if (!p.owner) return 0;
+        if (p.cinematic) return p.strength * CinematicEnvelope(p);
         float t = Mathf.Clamp01((p.age - p.hold) / (p.duration - p.hold));
         return Mathf.Min(p.maximum, p.strength * p.decay.Evaluate(t));
     }
@@ -168,8 +189,18 @@ public sealed class ClashLightingRig : MonoBehaviour
         }
         Render();
     }
+    static float CinematicEnvelope(PulseState p) => p.age < p.rise ? Mathf.Clamp01(p.age / p.rise) :
+        p.age <= p.hold ? 1 : Mathf.Clamp01((p.duration - p.age) / (p.duration - p.hold));
+    void SetBackgroundGain(float gain)
+    {
+        if (arena) arena.ParryBackgroundGain = gain;
+    }
     void Render()
     {
+        float background = 1;
+        foreach (var pulse in pulses) if (pulse.owner && pulse.cinematic)
+            background = Mathf.Min(background, Mathf.Lerp(1, pulse.backgroundMinimum, CinematicEnvelope(pulse)));
+        SetBackgroundGain(background);
         if (!clashLight && !combatLight && !parryLight) return;
         float strongest = 0; Vector3 point = transform.position; ImpactVfxBurst parry = null; float range = profile ? profile.parryRangeScale : 0, offset = profile ? profile.parryDepthOffset : 0;
         Color tint = profile ? profile.parry.color : Color.white;
@@ -189,7 +220,7 @@ public sealed class ClashLightingRig : MonoBehaviour
         }
         if (parryLight)
         {
-            var camera = Camera.main;
+            var camera = arenaCamera ? arenaCamera : Camera.main;
             float units = parry ? parry.PixelUnitsPerMeter : profile.defaultPixelUnits;
             parryLight.transform.position = point - (camera ? camera.transform.forward : Vector3.forward) * (offset * units);
             parryLight.color = tint;

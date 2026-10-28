@@ -40,14 +40,164 @@ public sealed partial class ImpactVfxTests
     ImpactVfxProfile Parry => UnityEditor.AssetDatabase.LoadAssetAtPath<ImpactVfxProfile>(
         "Assets/Art/VFX/ParryClash/ParryImpact.asset");
 
+    DungeonArenaCamera PresentationArena(string name)
+    {
+        var host = new GameObject(name); owned.Add(host); host.SetActive(false);
+        var camera = host.AddComponent<Camera>(); host.tag = "MainCamera";
+        camera.transform.position = new Vector3(0, 0, -18);
+        var arena = host.AddComponent<DungeonArenaCamera>(); arena.profile = LightingTestAssets.Definition.lighting;
+        host.SetActive(true);
+        typeof(DungeonArenaCamera).GetMethod("LateUpdate", Flags).Invoke(arena, null);
+        return arena;
+    }
+    static object CapturedFlash(ImpactVfxBurst burst) =>
+        ((System.Array)typeof(ImpactVfxBurst).GetField("projectedFlashes", Flags).GetValue(burst)).GetValue(0);
+    static T FlashValue<T>(object flash, string field) =>
+        (T)flash.GetType().GetField(field, Flags).GetValue(flash);
+
     [Test, Category("Quick")]
-    public void HorizontalParryFlashKeepsDimensionsRotationAndEnvelopeAcrossSeedsAndPoolReuse()
+    public void PresentationWithoutProjectedSizingCapturesQuadAndCancelsOnArenaDisable()
+    {
+        var arena = PresentationArena("presentation lifecycle");
+        var profile = Object.Instantiate(Parry); owned.Add(profile);
+        profile.flashes[1].projectedPixels = false;
+        var emitter = Emitter(); var burst = emitter.Play(profile, Context());
+        var renderer = burst.Systems[5].GetComponent<ParticleSystemRenderer>();
+        Assert.That(renderer.forceRenderingOff, Is.True);
+        Assert.That(arena.ImpactBursts, Does.Contain(burst));
+        burst.RefreshProjectedFlashes();
+        var flash = CapturedFlash(burst);
+        Assert.That(FlashValue<bool>(flash, "presentation"), Is.True);
+        Assert.That(FlashValue<int>(flash, "count"), Is.EqualTo(1));
+        var samples = FlashValue<System.Array>(flash, "samples");
+        var sample = samples.GetValue(0);
+        var placement = FlashValue<Vector4>(sample, "placement");
+        Assert.That(placement.z, Is.EqualTo(128f / arena.WorldTexture.width).Within(.00001));
+        Assert.That(placement.w, Is.EqualTo(6f / arena.WorldTexture.height).Within(.00001));
+        arena.enabled = false;
+        Assert.That(arena.ImpactBursts, Is.Empty);
+        Assert.That(Particles(burst, 5), Is.Empty);
+        Assert.That(Particles(burst, 0), Is.Not.Empty, "Stock contact survives presentation cancellation");
+        Assert.That(renderer.forceRenderingOff, Is.False);
+        arena.enabled = true;
+        burst.RefreshProjectedFlashes();
+        Assert.That(FlashValue<int>(CapturedFlash(burst), "count"), Is.Zero);
+        emitter.Clear(); emitter.Clear();
+        var next = emitter.Play(profile, Context()); next.RefreshProjectedFlashes();
+        Assert.That(FlashValue<int>(CapturedFlash(next), "count"), Is.EqualTo(1));
+        emitter.Clear();
+    }
+
+    [Test, Category("Quick")]
+    public void PresentationResetIsScopedToOwningArena()
+    {
+        var first = PresentationArena("first arena");
+        var emitter = Emitter(); var burst = emitter.Play(Parry, Context());
+        first.gameObject.tag = "Untagged";
+        var second = PresentationArena("second arena");
+        var otherEmitter = Emitter(); var other = otherEmitter.Play(Parry, Context());
+        first.ResetImpacts(); first.ResetImpacts();
+        Assert.That(Particles(burst, 5), Is.Empty);
+        Assert.That(Particles(other, 5), Is.Not.Empty);
+        Assert.That(second.ImpactBursts, Does.Contain(other));
+        emitter.Clear(); otherEmitter.Clear();
+    }
+
+    [TestCase(0, 1), TestCase(1, 1), TestCase(2, 1), TestCase(3, 1)]
+    [TestCase(0, -1), TestCase(1, -1), TestCase(2, -1), TestCase(3, -1), Category("Quick")]
+    public void PresentationSnapshotTracksZoomAndKeepsAuthoredAngle(int seed, int direction)
+    {
+        var arena = PresentationArena("presentation zoom");
+        var emitter = Emitter(); var context = Context(direction); context.seed = seed;
+        var burst = emitter.Play(Parry, context);
+        foreach (float height in new[] { 5.625f, 4.5f, 6.5f })
+        {
+            arena.GetComponent<Camera>().orthographicSize = height;
+            typeof(DungeonArenaCamera).GetMethod("LateUpdate", Flags).Invoke(arena, null);
+            burst.RefreshProjectedFlashes();
+            var flash = CapturedFlash(burst);
+            var sample = FlashValue<System.Array>(flash, "samples").GetValue(0);
+            var placement = FlashValue<Vector4>(sample, "placement");
+            var rotation = FlashValue<Vector4>(sample, "rotation");
+            var expected = arena.GetComponent<Camera>().WorldToViewportPoint(context.point);
+            Assert.That(placement.x, Is.EqualTo(expected.x).Within(.00001));
+            Assert.That(placement.y, Is.EqualTo(expected.y).Within(.00001));
+            Assert.That(placement.z, Is.EqualTo(128f / arena.WorldTexture.width).Within(.00001));
+            Assert.That(placement.w, Is.EqualTo(6f / arena.WorldTexture.height).Within(.00001));
+            Assert.That(Mathf.DeltaAngle(0, -rotation.y * Mathf.Rad2Deg),
+                Is.EqualTo(new[] { 20f, 45f, -15f, 65f }[seed] * direction).Within(.001));
+        }
+        emitter.Clear();
+    }
+
+    [Test, Category("Quick")]
+    public void PresentationCaptureDoesNotAllocateAfterWarmup()
+    {
+        PresentationArena("presentation allocation");
+        var emitter = Emitter(); var burst = emitter.Play(Parry, Context());
+        for (int i = 0; i < 16; i++) burst.RefreshProjectedFlashes();
+        long before = System.GC.GetAllocatedBytesForCurrentThread();
+        for (int i = 0; i < 100; i++) burst.RefreshProjectedFlashes();
+        long allocated = System.GC.GetAllocatedBytesForCurrentThread() - before;
+        Assert.That(allocated, Is.Zero);
+        emitter.Clear();
+    }
+
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void InvalidPresentationFailsBeforeEmissionOrRendererHiding(bool missingPass)
+    {
+        PresentationArena("invalid presentation");
+        var profile = Object.Instantiate(Parry); owned.Add(profile);
+        if (missingPass) { profile.flashes[0].renderInPresentation = true; profile.flashes[0].sizePixels2D = Vector2.one; }
+        else profile.flashes[1].sizePixels2D = Vector2.zero;
+        var emitter = Emitter();
+        Assert.Throws<System.InvalidOperationException>(() => emitter.Play(profile, Context()));
+        foreach (var burst in Object.FindObjectsOfType<ImpactVfxBurst>(true))
+        foreach (var system in burst.Systems)
+        {
+            Assert.That(system.particleCount, Is.Zero);
+            Assert.That(system.GetComponent<ParticleSystemRenderer>().forceRenderingOff, Is.False);
+        }
+        emitter.Clear();
+    }
+
+    [Test, Category("Quick")]
+    public void ProjectedFlashTracksZoomAtContactAndSnapshotsLivingBurst()
+    {
+        var host = new GameObject("projected parry camera"); owned.Add(host); host.SetActive(false);
+        var camera = host.AddComponent<Camera>(); host.tag = "MainCamera";
+        camera.transform.position = new Vector3(0, 0, -18);
+        var arena = host.AddComponent<DungeonArenaCamera>(); arena.profile = LightingTestAssets.Definition.lighting;
+        host.SetActive(true);
+        var profile = Object.Instantiate(Parry); owned.Add(profile);
+        // World route owns particle projected sizing.
+        // Instantiate copies serialized layers; mutate only the fixture after emission.
+        profile.flashes[1].renderInPresentation = false;
+        var emitter = Emitter(); var burst = emitter.Play(profile, Context());
+        float angle = Particles(burst, 5)[0].rotation;
+        profile.flashes[1].sizePixels2D = Vector2.one; profile.flashes[1].angles[3] = 0;
+        foreach (float halfHeight in new[] { 5.625f, 4.5f, 6.5f, 5.4f })
+        {
+            camera.orthographicSize = halfHeight;
+            typeof(DungeonArenaCamera).GetMethod("LateUpdate", Flags).Invoke(arena, null);
+            burst.RefreshProjectedFlashes();
+            var particle = Particles(burst, 5)[0];
+            float unit = 2 * camera.WorldToViewportPoint(particle.position).z * Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) / 180;
+            Assert.That(particle.startSize3D.x / unit, Is.EqualTo(128).Within(.001f));
+            Assert.That(particle.startSize3D.y / unit, Is.EqualTo(6).Within(.001f));
+            Assert.That(particle.rotation, Is.EqualTo(angle));
+        }
+        emitter.Clear();
+    }
+
+    [Test, Category("Quick")]
+    public void DiagonalParryFlashKeepsDimensionsRotationAndEnvelopeAcrossSeedsAndPoolReuse()
     {
         var layer = Parry.flashes[1];
         Assert.That(layer.channel, Is.EqualTo(5));
-        Assert.That(layer.lifetime, Is.EqualTo(.12f));
-        foreach (var sample in new[] { new Vector2(0, 0), new Vector2(.02f, 1),
-            new Vector2(.04f, 1), new Vector2(.08f, .5f), new Vector2(.12f, 0) })
+        Assert.That(layer.lifetime, Is.EqualTo(.22f));
+        foreach (var sample in new[] { new Vector2(0, 0), new Vector2(.015f, 1),
+            new Vector2(.03f, .80f), new Vector2(.06f, .35f), new Vector2(.10f, .12f), new Vector2(.14f, .05f), new Vector2(.22f, 0) })
             Assert.That(layer.colorOverLifetime.Evaluate(sample.x / layer.lifetime).a,
                 Is.EqualTo(sample.y).Within(.0001f));
         var emitter = Emitter();
@@ -61,12 +211,12 @@ public sealed partial class ImpactVfxTests
             var horizontal = Particles(burst, 5);
             Assert.That(horizontal.Length, Is.EqualTo(1));
             Assert.That(horizontal[0].position, Is.EqualTo(context.point));
-            Assert.That(horizontal[0].rotation, Is.Zero);
+            Assert.That(Mathf.DeltaAngle(0, horizontal[0].rotation), Is.EqualTo(new[] {20f, 45f, -15f, 65f}[seed % 4] * direction).Within(.001f));
             // Use the existing square core to infer the current camera pixel scale.
             float width = horizontal[0].startSize3D.x;
-            Assert.That(width, Is.GreaterThanOrEqualTo(72 / Parry.pixelsPerUnit));
-            Assert.That(horizontal[0].startSize3D.y, Is.EqualTo(width * 3 / 72).Within(.00001f));
-            burst.Systems[5].Simulate(.121f, false, false, false);
+            Assert.That(width, Is.GreaterThanOrEqualTo(128 / Parry.pixelsPerUnit));
+            Assert.That(horizontal[0].startSize3D.y, Is.EqualTo(width * 6 / 128).Within(.00001f));
+            burst.Systems[5].Simulate(.221f, false, false, false);
             Assert.That(Particles(burst, 5), Is.Empty);
             Assert.That(Particles(burst, 0).Length, Is.EqualTo(1), "Existing flash retains its lifetime");
             emitter.Clear();
@@ -80,8 +230,8 @@ public sealed partial class ImpactVfxTests
     {
         Assert.That(Parry.physics, Is.Not.SameAs(Metal.physics));
         Assert.That(Parry.prefab, Is.Not.SameAs(Metal.prefab));
-        Assert.That(Parry.lightDuration, Is.EqualTo(Metal.lightDuration));
-        Assert.That(Parry.lightIntensity, Is.EqualTo(Metal.lightIntensity));
+        Assert.That(Parry.lightDuration, Is.EqualTo(.22f));
+        Assert.That(Parry.lightIntensity, Is.EqualTo(7f));
         var camera = Camera.main;
         if (!camera)
         {

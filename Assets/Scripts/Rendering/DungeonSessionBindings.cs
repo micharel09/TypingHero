@@ -32,10 +32,15 @@ public sealed class DungeonSessionBindings : MonoBehaviour
     }
     public void Bind(DungeonWorld world, bool clear = false)
     {
+        if (clear && world.view) world.view.GetComponent<DungeonArenaCamera>()?.ClearPresentationImpacts();
         var depth = !clear && world.definition.spriteDepth ? world.definition.spriteDepth.CreateLookup() : null;
         foreach (var root in roots)
             if (root)
                 foreach (var binding in root.GetComponentsInChildren<SpriteDepthBinding>(true)) binding.Bind(depth);
+        foreach (var root in roots)
+            if (root)
+                foreach (var rig in root.GetComponentsInChildren<ClashLightingRig>(true))
+                    rig.BindArena(clear ? null : world.view.GetComponent<DungeonArenaCamera>());
         if (!clear)
         foreach (var root in roots)
         {

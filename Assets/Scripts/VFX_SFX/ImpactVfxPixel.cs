@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public partial class ImpactVfxBurst
 {
@@ -13,10 +14,101 @@ public partial class ImpactVfxBurst
     readonly ParticleSystem.Particle[] debrisParticles = new ParticleSystem.Particle[DebrisCapacity];
     readonly ParticleSystem.Particle[] identities = new ParticleSystem.Particle[DebrisCapacity];
     Vector3 screenRight = Vector3.right, screenUp = Vector3.up;
+    struct PresentationSample { internal Vector4 placement, rotation; internal Color color; }
+    struct ProjectedFlash
+    {
+        internal ParticleSystem system;
+        internal Vector2 pixels;
+        internal bool presentation, hidden;
+        internal ParticleSystemCullingMode culling;
+        internal Material material;
+        internal int pass, count;
+        internal PresentationSample[] samples;
+    }
+    ProjectedFlash[] projectedFlashes = System.Array.Empty<ProjectedFlash>();
+    PresentationSample[][] sampleBuffers = System.Array.Empty<PresentationSample[]>();
+    ParticleSystem.Particle[] projectedParticles = new ParticleSystem.Particle[DebrisCapacity];
+    Camera projectionCamera;
+    DungeonArenaCamera projectionArena;
+    internal void RefreshProjectedFlashes()
+    {
+        if (!projectionCamera || !projectionArena || !projectionArena.WorldTexture) return;
+        for (int f = 0; f < projectedFlashes.Length; f++)
+        {
+            ref var flash = ref projectedFlashes[f];
+            if (!flash.system) continue;
+            int count = flash.system.GetParticles(projectedParticles);
+            flash.count = 0;
+            for (int i = 0; i < count; i++)
+            {
+                var particle = projectedParticles[i];
+                var point = projectionCamera.WorldToViewportPoint(particle.position);
+                if (flash.presentation)
+                {
+                    if (point.z <= 0) continue;
+                    flash.samples[flash.count++] = new PresentationSample {
+                        placement = new Vector4(point.x, point.y, flash.pixels.x / projectionArena.WorldTexture.width, flash.pixels.y / projectionArena.WorldTexture.height),
+                        rotation = new Vector4((float)projectionArena.WorldTexture.width / projectionArena.WorldTexture.height, -particle.rotation * Mathf.Deg2Rad, 0, 0),
+                        color = particle.GetCurrentColor(flash.system) };
+                }
+                else
+                {
+                    float unit = projectionArena.PixelSizeAtDepth(point.z);
+                    projectedParticles[i].startSize3D = new Vector3(flash.pixels.x * unit, flash.pixels.y * unit, 1);
+                }
+            }
+            if (!flash.presentation) flash.system.SetParticles(projectedParticles, count);
+        }
+    }
+    internal bool HasWorldProjection
+    {
+        get { foreach (var flash in projectedFlashes) if (flash.system && !flash.presentation) return true; return false; }
+    }
+    internal void CancelPresentation()
+    {
+        for (int f = 0; f < projectedFlashes.Length; f++)
+        {
+            ref var flash = ref projectedFlashes[f];
+            if (!flash.presentation || !flash.system) continue;
+            flash.system.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+            flash.system.GetComponent<ParticleSystemRenderer>().forceRenderingOff = flash.hidden;
+            var main = flash.system.main; main.cullingMode = flash.culling;
+            flash.presentation = false; flash.system = null; flash.count = 0;
+        }
+    }
+    internal static void DrawPresentation(CommandBuffer cmd, DungeonArenaCamera arena, Mesh quad, MaterialPropertyBlock properties)
+    {
+        foreach (var burst in arena.ImpactBursts)
+        {
+            if (!burst || !burst.playing) continue;
+            foreach (var flash in burst.projectedFlashes)
+            {
+                if (!flash.presentation) continue;
+                for (int i = 0; i < flash.count; i++)
+                {
+                    var sample = flash.samples[i];
+                    properties.Clear();
+                    properties.SetVector("_PresentationFlash", sample.placement);
+                    properties.SetVector("_FlashAspectRotation", sample.rotation);
+                    properties.SetColor("_FlashColor", sample.color);
+                    cmd.DrawMesh(quad, Matrix4x4.identity, flash.material, 0, flash.pass, properties);
+                }
+            }
+        }
+    }
+
     float debrisAge;
     int debrisCount;
 #if TYPINGHERO_AUTOMATION
     internal float DebrisAge => debrisAge;
+    internal int PresentationQuadCount
+    {
+        get { int count = 0; foreach (var flash in projectedFlashes) if (flash.presentation) count += flash.count; return count; }
+    }
+    internal float PresentationAngle
+    {
+        get { foreach (var flash in projectedFlashes) if (flash.presentation && flash.count > 0) return -flash.samples[0].rotation.y * Mathf.Rad2Deg; return 0; }
+    }
 #endif
 
     static readonly List<ParticleSystemVertexStream> contactStreams = new() {
@@ -61,6 +153,13 @@ public partial class ImpactVfxBurst
     void EmitPixel(ImpactVfxProfile profile, ImpactVfxContext context)
     {
         var camera = Camera.main;
+        projectionCamera = camera;
+        projectionArena = camera ? camera.GetComponent<DungeonArenaCamera>() : null;
+        if (projectionArena && (!projectionArena.isActiveAndEnabled || !projectionArena.WorldTexture)) projectionArena = null;
+        if (projectedFlashes.Length < profile.flashes.Length) projectedFlashes = new ProjectedFlash[profile.flashes.Length];
+        System.Array.Clear(projectedFlashes, 0, projectedFlashes.Length);
+        if (sampleBuffers.Length < profile.flashes.Length) sampleBuffers = new PresentationSample[profile.flashes.Length][];
+        int projectedIndex = 0;
         int resolution = camera ? camera.pixelWidth : 1;
         if (camera && camera.targetTexture) resolution = camera.targetTexture.width;
         else if (camera && camera.TryGetComponent<DungeonArenaCamera>(out var arena) && arena.profile)
@@ -88,11 +187,37 @@ public partial class ImpactVfxBurst
                 startLifetime = flash.lifetime, startColor = flash.tint };
             if (flash.sizePixels2D.x > 0 && flash.sizePixels2D.y > 0)
             {
+                float unit = pixelUnit;
+                if (flash.projectedPixels && camera && camera.TryGetComponent<DungeonArenaCamera>(out var projection) && projection.WorldTexture)
+                    unit = projection.PixelSizeAtDepth(camera.WorldToViewportPoint(context.point).z);
                 var main = ps.main; main.startSize3D = true;
-                emission.startSize3D = new Vector3(flash.sizePixels2D.x * pixelUnit, flash.sizePixels2D.y * pixelUnit, 1);
+                emission.startSize3D = new Vector3(flash.sizePixels2D.x * unit, flash.sizePixels2D.y * unit, 1);
             }
             if (flash.lockVariation) emission.rotation = 0;
             else if (varied) emission.rotation = rotation * (context.direction < 0 ? -1 : 1);
+            if (flash.angles != null && flash.angles.Length > 0)
+                emission.rotation = flash.angles[(int)((uint)context.seed % (uint)flash.angles.Length)] * (context.direction < 0 ? -1 : 1);
+            bool presentation = flash.renderInPresentation && projectionArena;
+            if (flash.count > 0 && (flash.projectedPixels || presentation) && flash.sizePixels2D.x > 0 && flash.sizePixels2D.y > 0)
+            {
+                int index = projectedIndex++;
+                var renderer = ps.GetComponent<ParticleSystemRenderer>();
+                if (presentation && (sampleBuffers[index] == null || sampleBuffers[index].Length < flash.count))
+                    sampleBuffers[index] = new PresentationSample[flash.count];
+                projectedFlashes[index] = new ProjectedFlash { system = ps, pixels = flash.sizePixels2D,
+                    presentation = presentation, material = rendererBindings[RequireBinding(flash.channel)].material,
+                    hidden = renderer.forceRenderingOff, culling = ps.main.cullingMode,
+                    pass = presentation ? renderer.sharedMaterial.FindPass("PARRY_PRESENTATION") : -1,
+                    samples = presentation ? sampleBuffers[index] : null };
+                if (projectionArena && !projectionArena.ImpactBursts.Contains(this)) projectionArena.ImpactBursts.Add(this);
+                if (presentation)
+                {
+                    renderer.forceRenderingOff = true;
+                    var main = ps.main; main.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
+                }
+            }
+            if ((flash.projectedPixels || presentation) && flash.count > projectedParticles.Length)
+                projectedParticles = new ParticleSystem.Particle[flash.count];
             ps.Emit(emission, flash.count);
         }
         EmitPhysical(context.direction < 0 ? -1 : 1,
@@ -188,6 +313,8 @@ public partial class ImpactVfxBurst
         readonly int order, cycles, tilesX, tilesY;
         readonly bool size3D, rotation3D, size, collision, color, limit, sheet, autoSeed, dragSize, dragVelocity;
         readonly uint seed;
+        readonly bool hidden;
+        readonly ParticleSystemCullingMode culling;
         readonly ParticleSystem.MinMaxCurve gravity, drag, bounce, dampen, loss, frame, startFrame;
         readonly ParticleSystem.MinMaxGradient gradient;
         readonly ParticleSystemCollisionType collisionType;
@@ -199,7 +326,7 @@ public partial class ImpactVfxBurst
         internal ParticlePresetState(ParticleSystem ps)
         {
             var r = ps.GetComponent<ParticleSystemRenderer>(); material = r.sharedMaterial; mesh = r.mesh;
-            flip = r.flip;
+            flip = r.flip; hidden = r.forceRenderingOff; culling = ps.main.cullingMode;
             mode = r.renderMode; alignment = r.alignment; r.GetActiveVertexStreams(streams);
             length = r.lengthScale; velocity = r.velocityScale; order = r.sortingOrder;
             var m = ps.main; size3D = m.startSize3D; rotation3D = m.startRotation3D;
@@ -217,11 +344,11 @@ public partial class ImpactVfxBurst
         internal void Restore(ParticleSystem ps)
         {
             var r = ps.GetComponent<ParticleSystemRenderer>(); r.sharedMaterial = material; r.renderMode = mode;
-            r.flip = flip;
+            r.flip = flip; r.forceRenderingOff = hidden;
             r.mesh = mesh; r.alignment = alignment; r.SetActiveVertexStreams(streams);
             r.lengthScale = length; r.velocityScale = velocity; r.sortingOrder = order;
             var m = ps.main; m.startSize3D = size3D; m.startRotation3D = rotation3D;
-            m.gravityModifier = gravity; m.simulationSpeed = simulation;
+            m.cullingMode = culling; m.gravityModifier = gravity; m.simulationSpeed = simulation;
             var s = ps.sizeOverLifetime; s.enabled = size;
             ps.randomSeed = seed; ps.useAutoRandomSeed = autoSeed;
             var c = ps.collision; c.enabled = collision; c.type = collisionType; c.mode = collisionMode;
