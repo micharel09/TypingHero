@@ -149,13 +149,20 @@ is preparation ONLY: merge its `.indexOn` into existing rules in a separate appr
 production configuration task. Each of the five paths indexes defeated; it adds
 no read/write permission and has not been deployed. Never deploy the fragment as a replacement ruleset.
 
-Dungeon full-effects candidate adds aligned actor normals/material masks, PBR sprite
+The historical dungeon full-effects prototype added aligned actor normals/material masks, PBR sprite
 response, source-aligned beams, depth blur, haze/rune motion, sparse rain/drips,
 pinned cloth and a clipped half-resolution planar capture. Capture cameras select
 forward renderer1 and render the custom DungeonActor pass without recursion.
 One scaled environment clock freezes on pause and retains particle state through
 Slayer hiding. Scoped Unity4 and final native15 checks pass; full visual playback
-acceptance and latest-main integration remain pending in docs/plans/dungeon-3d.md.
+acceptance and latest-main integration were pending in docs/plans/dungeon-3d.md.
+The current cinematic candidate keeps rune/haze/beam/planar reflection disabled,
+the five fixtures, HDR Point320x180, actor maps/shaders and gameplay unchanged.
+Only the existing side-key/rear LightProfiles are rebalanced to4/32 (front16,
+side fill4). Six focused Unity checks, two strict SerializeOnly runs and immutable
+QA build pass. Native input/lifecycle evidence exists; complete runtime animation
+review, playback and valid target-GPU performance remain acceptance gates in
+[the current audit](../plans/pixel-consistency-audit.md).
 
 Dedicated original-parry integration: PlayerController/ParrySystem retain one
 completed-word follow-up in[0,800)ms; PlayerParryAssets owns400/950ms parry clips

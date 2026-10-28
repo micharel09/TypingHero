@@ -1,21 +1,61 @@
-## Cinematic dungeon arena authoring pass (2026-10-28; runtime review open)
+## Cinematic dungeon arena continuation (2026-10-28; acceptance open)
 
 - Reused `Assets/Scenes/DungeonWorld.unity`, the existing closed recessed door,
   four depth layers already present in `PixelRoom`, `DungeonLighting.asset`,
   `WorldBloom.asset`, `WorldLighting.prefab`, and the authored PixelDungeon
   materials/maps. No new gameplay API, dependency, camera pose, collider,
   actor scale, timing, HUD, Slayer color, or score notice was introduced.
-- The authoring delta is limited to edge-aware environment blur, a wider actor
-  focus band, restrained bloom, and the shared key/fill/ambient Light2D balance.
-  `WorldLightingBuild` fallback values now match the prefab and enable its
-  existing normal-map receiver path. `LightingProfileTests` was reconciled with
-  the already-integrated removal of `DungeonCoolFill`.
-- Static source checks and `git diff --check` pass. The requested Unity/WebGL
-  baseline and post-change real-input captures are **unverified**: the shared
-  fly-server runner timed out twice while waiting for an existing job lock.
-  No local Unity build was run. FPS, p95, 1280x720/400x300 layout, pause/reset
-  cleanup, parry, Slayer, clip playback, and frame-transition acceptance remain
-  open until that runner and the permitted local GPU measurement are available.
+- Commit `4d5140c9` experimented with blur, `WorldBloom` and legacy Light2D.
+  The continuation restores these values to `36d0497f`: dungeon fixtures are
+  3D lights and its selected post profile is `KayKitDungeon/DungeonPost.asset`,
+  so neither the Light2D delta nor `WorldBloom` proves dungeon relighting.
+  The five-fixture correction in `LightingProfileTests` is retained; the renamed
+  test is `DifferentWorldNamesAndFiveLightsReuseProfilesWithoutLeakingState`.
+- Candidate B rebalances only the existing 3D side key32→4 and two rear4→32
+  fixtures; scene authoring matches the profiles. Front16/fill4, camera, maps,
+  blur.65/.75/.5 and selected DungeonPost Bloom1.15/.12/.65 remain unchanged.
+- Ubuntu input `722c4efd8e05f9fb5e20e916e8facbdf5eafa19ebb0d890ac405860848d73383`:
+  six exact-filter tests actually passed at `20261028T072738-quick` (zero skipped),
+  two strict SerializeOnly invocations passed at `20261028T071439-serialize`;
+  immutable QA player built at `20261028T073521-webgl`. The builder preserves
+  candidate profile bytes/scalars. Its raw-source serialization delta is retained
+  separately; repeat-builder PASS does not mean no first-apply serialization.
+- A-combat-03/B-combat-01 each pass15 native-input/lifecycle assertions with
+  zero runtime/JS exceptions: typing, early/late/successful parry, Pause/Resume,
+  Slayer renewal/expiry/restoration, enemy death→typed READY→next opponent,
+  Restart and Menu. B records an uncut54.5s video. These are action-phase
+  captures, not synchronized-cel comparisons or performance runs.
+- B-validation-02 passes10 checks, including actual parry_followup/recovery,
+  lethal hero cleanup and guide geometry at1280×720/400×300; guide/combat/HUD/
+  Pause images were directly inspected. B-compatibility-01 visually covers six
+  encounters/five definitions through victory with zero exceptions; its final
+  name-count assertion failed due to an elite Sword alias and remains failed.
+- Production player20261028T081739 (QA=False, same722c) has33 verified files.
+  All five decompressed payloads exclude the four QA markers in UTF8/UTF16LE.
+  B-production-smoke-03 passes4 scoped native-input startup/lifecycle checks,
+  zero exceptions and no installed QA descriptors/globals. Direct images show
+  combat/incoming death, `r` Restart, Pause and `m` Menu; score0 does not prove
+  correct-word awards. See its frozen actual-toolchain receipt; legacy viewport/
+  Ubuntu labels in browser.json do not describe the actual native canvas.
+- Direct review: source278frames/254within-clip pairs, selected reference965/963,
+  final B runtime2968/2967, follow-up111/110 and hero death269/268. All selected
+  encoded frames/pair endpoints were opened with held frames and sheet seams.
+  Runtime source preserves capture gaps (normal impact719ms, follow-up entry854ms,
+  held result637ms, Menu1124ms). No purple remnant appeared before hero cleanup.
+  These counts do not certify missing motion, occluded details or actual playback.
+- One exact-filter request for DungeonSessionTests' existing three-cycle Slayer/
+  Pause lifecycle is queued with bounded five-fixture post-exit assertions and
+  value/modeActive logs, input404ad72105f7. Two cycles preserve original screen-FX
+  exit; the third asserts public timed Slayer expiry. Priorc22 presentation-only
+  request is separate; its running lock was preserved. Only that test differs
+  from722c; game inputs remain unchanged. No result is claimed before XML verification.
+- GTX1650Ti A-normal-02 is **invalid**: raw68.73FPS/p95 24.24ms, but actual
+  Windows foreground0/625 samples. No qualified A/B performance verdict exists.
+  Missing runtime intervals/VFX-hidden detail,1×/.25× playback, held lit-pulse
+  Pause and post-Slayer fixture-value evidence remain open. Compact layout and
+  production smoke/exclusion above are scoped verified results.
+  No local Unity build or new pipeline was used. Detailed evidence, invalid runs
+  and durable artifact paths are in the [audit checkpoint](../plans/pixel-consistency-audit.md).
 - Visual references were observational only: [REPLACED on Steam](https://store.steampowered.com/app/1663850/REPLACED/),
   [The Last Night official site](https://oddtales.net/thelastnight/), and the
   [REPLACED combat article](https://news.xbox.com/en-us/2026/04/14/replaced-combat/).

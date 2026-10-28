@@ -76,7 +76,7 @@ public sealed class DungeonSessionTests
             impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
             Assert.That(impact.Zoom, Is.EqualTo(.02f).Within(.00001f));
             var slayer = Object.FindObjectOfType<PlayerSlayerMode>();
-            slayer.Activate(10);
+            slayer.Activate(cycle == 2 ? .5f : 10);
             Assert.That(slayer.IsActive, Is.True);
             Assert.That(world.environment.gameObject.activeSelf, Is.True, "room is blended before actors instead of disabled");
             Assert.That(world.Arena.SlayerBackground.a, Is.Zero, "entry begins from the displayed baseline");
@@ -89,10 +89,21 @@ public sealed class DungeonSessionTests
             pause.Resume();
             yield return new WaitForSecondsRealtime(.7f);
             Assert.That(GamePauseController.IsPaused, Is.False);
+            if (cycle == 2) Assert.That(slayer.IsActive, Is.False, "timed Slayer expiry uses the normal lifecycle before fixture receipt");
             Object.FindObjectOfType<SlayerScreenFX>().ExitSlayerFX();
             GamePauseController.SetEncounterReading(true);
             yield return new WaitForSecondsRealtime(.7f);
             Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(5.625f).Within(.00001f), "Slayer exit completes through encounter results");
+            var restoredLights = room.GetComponentsInChildren<DungeonTorchLight>();
+            Assert.That(restoredLights.Length, Is.EqualTo(5), "Slayer exit retains all five authored fixtures");
+            foreach (var fixture in restoredLights)
+            {
+                var light = fixture.GetComponent<Light>();
+                Assert.That(light.enabled, Is.True, fixture.name);
+                Assert.That(light.range, Is.EqualTo(fixture.profile.range), fixture.name);
+                Assert.That(light.intensity, Is.InRange(fixture.profile.intensity * (1 - fixture.profile.amplitude), fixture.profile.intensity * (1 + fixture.profile.amplitude)), fixture.name);
+                TestContext.WriteLine($"Slayer exit cycle={cycle}, modeActive={slayer.IsActive}, {fixture.name}: profile={fixture.profile.name}, intensity={light.intensity:R}, range={light.range:R}");
+            }
             GamePauseController.SetTutorialReading(true);
             session.ReturnToMenu();
             yield return Wait(session);

@@ -1,5 +1,15 @@
 # Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
+> **Checkpoint hiện hành — cinematic arena, 2026-10-28:** candidate 3D key4/rear32
+> đã build QA/production trên Ubuntu; Unity6/6 và strict repeated builder hai lượt
+> PASS. Review đủ2.968/2.967 frame/cặp encoded của clip chính; follow-up111/110,
+> hero death269/268; input/lifecycle, compact layout và production bridge exclusion/
+> smoke có receipt riêng. Còn thiếu đoạn motion bị mất khi capture, chi tiết bị
+> VFX che, playback1×/0,25×, số đo GTX1650Ti A/B hợp lệ và test ghi giá trị đèn sau
+> Slayer đang chờ runner. **Chưa nghiệm thu, chưa tích hợp main.** Xem
+> [handoff hiện hành](#cinematic-arena-handoff--2026-10-28); các trạng thái build/
+> capture ở phần mở đầu và phần lịch sử bên dưới không thay thế checkpoint này.
+
 ## Tiếp tục build và capture theo main `36d0497f` — 2026-10-28
 
 Lượt retry Ubuntu đã tạo thành công QA player immutable tại
@@ -26,6 +36,337 @@ không đổi. Giữ task directory và hai tiến trình build/thu trong khi au
 > Các số liệu và kết luận trong phần lịch sử giữ theo revision của từng lượt; không cộng vào coverage hiện tại hoặc dùng chứng nhận main mới.
 
 ## Cinematic arena handoff — 2026-10-28
+
+### Candidate B implementation and current gates
+
+Candidate implementation starts from task parent `1089a164f7ab52f99079ab55554690158fca9b7b`;
+the checkpoint commit is recorded in the durable release manifest. Baseline A
+remains locked to fetched `dc66303b` (build inputs equal `36d0497f`). A later fetch
+finds `origin/main` at `1344ddc6`, adding only the separate A1 audit handoff below;
+no player input changed. Task-to-main integration remains held. Durable root:
+`D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028`.
+
+Reused implementation: existing `DungeonWorld` scene, its four LightProfiles,
+`DungeonTorchLight` apply/flicker, DungeonLighting/DungeonPost, actor material/maps
+and the repo's Unity/browser harness. Static controls compared key/rear32/4,
+16/6,12/8,8/24,4/48 and4/32. Candidate selects **side key4/range13,
+two rear32/range15**, preserving front16/range16 and fill4/range10. This reduces
+the left foreground hotspot while revealing the already-authored closed door,
+arch and recess. All eight baseline/candidate static frames at normal/left/right/
+zoom bounds were opened. No transforms, composition, maps, shaders, collider,
+timing, HUD or gameplay changed. Baseline blur/Bloom/fog remain. Source selection
+and concrete tuning were reported before implementation.
+
+Five scalar fields in four original scene Light blocks now match the profiles.
+Candidate source digest:
+`722c4efd8e05f9fb5e20e916e8facbdf5eafa19ebb0d890ac405860848d73383`.
+
+- **Focused Unity PASS6/6**, zero skips, `20261028T072738-quick`:
+  `DifferentWorldNamesAndFiveLightsReuseProfilesWithoutLeakingState`,
+  `PlayerControllerCelsHaveAlignedNormalAndMaterialBindings`,
+  `MainLampStaysConstantAcrossPauseAndCinematicRestore`,
+  `TorchFlickerIsBoundedAndPreservesPhaseAcrossPauseAndHiding`,
+  `EnvironmentClockPinsClothAndSurvivesPauseAndSlayerHiding`,
+  `OwnedWorldTextureProjectsToRealViewportAndReleasesOnDisable`.
+  Five-fixture test records OnEnable/resume and checks exact profile bindings,
+  range/color/shadows and held phase. Receipt: `focused-tests-03/`. A result
+  initially downloaded by time had the wrong snapshot; quarantined under
+  `focused-tests-mistarget-01/` and excluded. Correct XML matches the input digest.
+- **Strict repeated builder PASS twice**, `20261028T071439-serialize`.
+  Both SerializeOnly logs have the strict equality marker; candidate profile
+  bytes and all five scene intensity/range owners match. `repeated-builder-01/`
+  preserves82 first-apply deltas: YAML/float serialization and builder scene/
+  prefab output. Internal idempotence does not prove raw-source byte identity.
+  Generated files were not imported wholesale; GUID/binding/owner checks are separate.
+- **Immutable QA build PASS**, `20261028T073521-webgl/player`, QA=True,
+  same722c input and strict builder marker. Local bundle SHA256
+  `036bbcdcafa0a65d126b8c9624dd9937cf9ae5b0713817e905338347b486fb93`;
+  all33 player files verified after download into `candidate/`.
+- **White-light static diagnostics:** all48 frames opened as16 triptychs:
+  hero S3 opening/sword Attack1_2; four light directions, two facings and
+  flat/mapped/depth. Silhouette, grip registration and mirrored response remain
+  stable. No map changed. Only two static poses; temporal shadows and subtle
+  depth displacement are not certified. Observations: `surface-review-05/`.
+- **Native input:** A-combat-03/B-combat-01 pass15 assertions each, zero
+  exceptions: wrong/correct typing, hit, early/late/success parry, Pause/Resume,
+  Slayer renewal/expiry/normal restoration, enemy death→typed READY→next opponent,
+  Restart and Menu. Full trace eventually reaches attackMask15 (normal/S1/S2/S3);
+  early Slayer screenshots alone do not cover all random variants. Follow-up
+  input was attempted; its still shows parry_success. The separate B-validation-02
+  trace below proves actual parry_followup; this still alone does not.
+  Pause caught camera recovery (zoom.03) after light intensity returned0; this
+  does not prove a lit pulse frozen mid-flight.
+- A01 input was delayed by full JSON inspection; A02 suffered native occlusion
+  at1fps. Failures retained. A03/B01 share a frozen functional harness with
+  Chromium's documented occlusion controls. Performance retains original flags
+  and actual Win32 foreground gating; functional FPS is not benchmark evidence.
+- B-combat-01 records an **uncut54.53254s** real-time video. The entire video is
+  selected before final review:2968 decoded frames/2967 consecutive pairs,
+  PTS0–54.388s, retaining the stream tail. Ubuntu exports original timing,
+  native320x180 and nearest4× actor crops for every frame. All2968 frames and2967
+  encoded adjacent pair endpoints have now been directly inspected on186 sheets,
+  including held frames and every sheet seam. `runtime-B-review/ledger.md` has
+  one row per frame with original PTS interval, observations and next transition.
+  Source review and reference research below are separate.
+
+### Additional verified evidence and capture limits
+
+- `B-validation-02` passes10 assertions. All five guide labels fit and arrow tips
+  reach the real HUD at1280x720 and400x300. Directly opened compact guide,
+  combat, score/cue and Pause images: HP/score/tray/popup/cue stay readable and
+  separated; black bars remain clean. The original guide assertion assumed equal
+  padding on every card; `TutorialBuild.cs` actually uses half vertical padding
+  on TypingCard. `B-validation-01` failed that harness assertion; it is preserved,
+  with no UI change. The corrected geometry follows the authoring source.
+- Same02 run observes actual `Base Layer.parry_followup`, recovery, lethal
+  incoming damage and hero cleanup (actor count2→1, result shown). This proves
+  state/lifecycle behavior. Source-preserved follow-up/death segments were selected
+  before review in Ubuntu `validation-selections.json`:111 and269 decoded frames.
+  All111/110 and269/268 frames/encoded pairs were subsequently opened at native
+  and nearest4× on7 and17 sheets. Active death-to-cleanup shows no purple remnant;
+  the637ms death-segment gap occurs after cleanup in the held result. Follow-up
+  has an854ms gap across its preparation/entry and opaque grip VFX. Per-frame
+  ledgers and limits: `review-followup-B/` and `review-hero-death-B/`. Neither is
+  a complete motion/playback PASS.
+- `B-compatibility-01` reaches six defeats/boss victory, HP40, score3658,14parries,
+  zero runtime/JS exceptions. Directly opened all six opponent images. Sword,
+  DoubleStrike, Heavy, Guard, elite Sword and Captain retain visible grip/feet,
+  material registration and normal room restoration. Its final assertion wrongly
+  counted six display names against five definitions. `EndlessRun.Role/Enemy`
+  confirms elite Sword reuses Swordsman with a prefixed name. Original status
+  stays **failed**; separate `visual-review.json` records observed compatibility.
+  This is no whole-animation audit or claimed production Berserker spawn.
+- Production build `20261028T081739-production` succeeds, QA=False, same722c
+  input. Downloaded bundle SHA256
+  `7d34d48f0fe83cb03288fc272e6d34bfaedfe27ceb739aeef591c1c36eb44dc7`,
+  all33 files verified. Ubuntu decoded JS/WASM/data plus loader/service worker;
+  five payloads have no `typingHeroQA`, `typingHeroCombatFrame`, `GameLoopProbe`
+  or `TYPINGHERO_AUTOMATION` markers in UTF8/UTF16LE. Receipt:
+  `production/decompressed-payload-scan.json`. `B-production-smoke-03` passes4
+  scoped checks, zero exceptions. All9 images were directly opened: Play/name
+  preparation, combat with live HUD/cue, incoming lethal damage, native `r`
+  Restart, stable Pause and native `m` Menu. No QA global/property descriptor
+  was installed by the production adapter. Score stays0: this smoke does not
+  assert a correct-word award. Actual canvas/PNG is1280×720; browser.json's
+  inherited960×600 label and Ubuntu toolchain fields are stale. Use the frozen
+  `actual-toolchain.json`, canvas and manifests for the actual native environment.
+  Smoke01 failed on missing external-server Brotli Content-Encoding; server
+  correction followed Unity2022.3 hosting documentation, without player changes.
+  Smoke02 proves bridge absence only and is retained as partial preparation evidence.
+- Video B01 has2968 decoded frames; **all2968/2967** frame/pair endpoints are
+  directly inspected. F10→F11 jumps.719s across normal attack; F2813→F2814
+  jumps1.124s during Menu. Missing intervals remain **unverified**. Room and
+  actor detail return after both Slayer exits; enemy collapse/cleanup→READY
+  typing→next encounter, Restart and Menu are visible. Silhouette, contact VFX,
+  smoke, overlays and black scene transitions hide some fine grip/map details.
+  Source-backed attribution: `PlayerSlayerMode.OnCorrectChar` emits previous-cel
+  afterimages before choosing the new swing; `SlayerAfterimagePool` deliberately
+  uses a combo-colored Unlit copy excluded from silhouette. `SlayerHitVfx.Emit`
+  deliberately draws black recipient-anchored slashes over pale body flashes.
+  These are plausible sources of the brief warm/red patches atF2212/F2246/
+  F2317/F2348 and dark marking atF2369–2376; exact renderer attribution is not
+  proven. Preserve Slayer colors/VFX; no speculative sprite/map fix was made.
+  B02/B03 (without PNG screenshots) and B04 (1:1 observational canvas copy) still
+  have encoder gaps, while B03's3932 Unity observations have a maximum60.37ms
+  wall-time interval. B04 is67.46s, outside the requested handoff length.
+  B05/B06 direct-PNG trials introduced readback overhead and failed pilot input;
+  B-validation-03 missed the follow-up queue. All attempts remain in the durable
+  root. None is a new performance result or complete animation PASS. Capture
+  exports retain original timestamps and held frames; no invented interpolation
+  or selective deletion hides missing coverage.
+- Capture-only copy follows the inspected [Canvas capture specification](https://w3c.github.io/mediacapture-fromelement/)
+  and [drawImage API](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage),
+  reusing the repo recorder. It never runs in performance mode or enters game code.
+
+**Open gates:** complete runtime animation evidence across missing capture
+intervals and details hidden by VFX; actual1×/.25× playback; runtime post-Slayer
+fixture-value receipt; valid GTX1650Ti
+normal and detailed parry/Slayer performance A/B (15s warm-up +60s combat each).
+A-normal-02 remains INVALID. Foreground availability is pending; no automatic
+refocus during measurement, threshold change or main integration is permitted.
+Unity/build/asset/video export ran only on Ubuntu. Browser capture runs locally
+under the task's existing permission. Keep worktree/artifacts until gates close.
+
+The existing `DungeonSessionTests.WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause`
+now asserts five enabled fixtures, their profile ranges and bounded intensities
+after public Slayer entry/Pause/Resume/exit, and logs values plus modeActive for
+all three cycles. Two cycles retain the original10s mode and explicit screen-FX
+exit; the third uses public Activate(.5), verifies natural timed mode expiry and
+then the same fixture assertions. One final exact-filter Ubuntu request is queued,
+input `404ad72105f7129e07c078c5e6a1314b8ec24f56413b58145b20d38893aa3f1e`.
+The precedingc22f8432 presentation-only request acquired the lock just before
+replacement; its guarded cancellation sent no signal once it was running.
+Its result is separate and cannot prove the new natural-expiry assertion.
+Both inputs differ from722c only in that test file; no runtime/build asset changed.
+No result is claimed before its XML exists. Only one task request remains queued;
+no other runner holder/waiter was stopped. `SlayerScreenFX` blends environment presentation
+and does not invoke cinematic hiding: the separate hide/re-enable component test
+does not replace this actual lifecycle assertion.
+
+### Continuation: locked baseline and ownership correction
+
+Fetched `origin/main` at `dc66303baaf010f48b46d4431c4280fa23f7f51c`;
+its delta from `36d0497f` is documentation only. Integrated that checkpoint
+into the existing task worktree, preserving the dirty main checkout. Baseline A
+is locked to this fetched revision. Its Git-blob SHA256 manifest covers build
+inputs, controllers, atlas/maps, materials, shaders and packages at
+`D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028/baseline-source-manifest.json`.
+
+`4d5140c9` is an unaccepted experiment, not a verified lighting result. Restored
+`WorldLighting.prefab`, `WorldLightingBuild.cs`, `DungeonLighting.asset` and
+`WorldBloom.asset` to `36d0497f`; retained the corrected five-fixture test.
+The 3D candidate is implemented but not fully accepted. Previous prose below is
+historical and is superseded by this correction where ownership differs.
+
+| Authoring owner | Scene binding | Runtime apply / renderer | Source observation |
+|---|---|---|---|
+| `DungeonFrontLantern` | `TorchGlow_Front` | `DungeonTorchLight.OnEnable/Preview` → Unity `Light` → `DungeonForward` | intensity16/range16, hard shadow, noise ±6% |
+| `DungeonRearTorch` | `TorchGlow_-1`, `TorchGlow_1` | same 3D path | candidate32/range15 each (baseline4), sine ±18%, no shadows |
+| `DungeonSideKey` | `PillarGlow_-1` | same 3D path | candidate4/range13 (baseline32), sine ±18%, no shadows |
+| `DungeonSideFill` | `PillarGlow_1` | same 3D path | 4/range10, sine ±18%, no shadows |
+| `DungeonWorld.combat` → `DungeonCombat` | session binding → `ClashLightingRig` | profile templates / per-impact snapshots → combat/parry 3D lights | native traces show pulse return; pause caught camera recovery after light0, not a held lit pulse |
+| `DungeonLighting.actorMaterial` → `KayKitDungeon/DungeonSprite.mat` | actor binding in session | `SpriteDepthBinding`, secondary textures → `Dungeon Sprite`, `DungeonActor` pass | exact controller-cel binding test passed; white-light/static/runtime visible-detail review above, occluded detail unverified |
+| `DungeonLighting.post` → `KayKitDungeon/DungeonPost.asset` | world environment `Volume.sharedProfile` | `DungeonWorld.Awake` / `WorldLightingAuthoring.Apply`; presentation camera renderer2, post enabled | Bloom1.15/.12/.65; **not WorldBloom** |
+| `DungeonLighting` | arena profile | world renderer1, HDR Point320×180; `DungeonWorldRender.EnvironmentPass` | blur.65 / half-width.75 / depth-edge.5 |
+
+The source shows authoring application on enable and no parallel scene-light
+configuration path. Focused-tests-03 logs actual OnEnable/Pause/Resume values
+and verifies phase restoration for all five fixtures. The post-Slayer value
+request above remains queued. RearRune/RuneLight, both haze
+nodes and WetStoneReflection are inactive in serialized scene. The five-fixture
+constraint is preserved. Source inspection is not a visual or runtime PASS.
+
+Reuse approach: edit existing scene authoring/profile values only after baseline
+inspection; preserve camera, actor transforms/colliders, maps and timing unless
+a directly observed defect needs the scoped recipe correction from the plan.
+Legacy Light2D tuning was rejected as an implementation route because the active
+renderer and fixtures are 3D. No new renderer, dependency or lighting pipeline.
+
+Required reference coverage: interior combat preparation/contact/recovery in
+REPLACED; basement/backalley depth and light layering in The Last Night. Required
+output coverage remains hero idle/movement/attack/hurt/death; successful/failed
+parry, follow-up/recovery; Slayer entry/S1/S2/S3/renewal/exit; first sword opponent
+idle/movement/called attacks/hurt/death; death→READY→next opponent and used facings.
+Reference segments/timestamps and direct frame review are recorded below. Runtime
+lighting, state joins and playback remain open; no inherited reference-match PASS is claimed.
+
+Ubuntu preflight: reachable; one holder and one waiter at inspection. The task
+submitted one request at a time, preserving every other holder/waiter. Six focused
+tests have now executed and passed; reconciled main36 build supplies baseline A.
+No local Unity/asset processing was launched.
+
+Reference selection recorded before consecutive-frame review:
+
+| Media | Selected source interval | Reason and limits |
+|---|---|---|
+| [The Last Night official original 1080p trailer](https://storage.googleapis.com/oddtales.net/TheLastNight_E32017_RevealTrailer_1080p.mp4), linked by [Odd Tales](https://oddtales.net/blog/2017-the-last-night-reveal-trailer-at-e3-2017) | `[36.002633, 50.283567)` seconds | Includes the street/backalley and complete basement shot through the following cut, with actor movement, framing and foreground/midground/rear lighting. Opening publisher transition is retained. Navigation stills at40/42/43/45/48s were opened; these do not constitute consecutive-frame review. |
+| [REPLACED official Steam combat media](https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1663850/extras/05ba819e8dd5cf3ebfac7f4c8e33630d.mp4), linked by [Steam](https://store.steampowered.com/app/1663850/REPLACED/) | Entire supplied media `[0, 8.95)` seconds | Interior combat, backlit architecture, preparation/contact/recovery visible in the media. Whole supplied sequence retained, including any editorial boundaries; missing behavior before its first frame cannot be inferred. All537 decoded frames/536 pairs subsequently inspected; see direct-review receipt below. |
+
+These are composition/lighting references, not sources for CLACKBLADE pose timing
+or gameplay. Required hero/sword clip comparison still uses the project's actual
+source sprites/controllers and original accepted intent. No reference art is
+imported into the game. CLACKBLADE PixelDungeon license remains CC0. Reference
+trailers retain their creators' rights and are evidence only; the Odd Tales page
+explicitly permits content creators to use the linked original video files.
+Direct consecutive-frame review is complete for the selected intervals only:
+428/427 Last Night and537/536 REPLACED. All122 consecutive2×4 sheets were
+opened at original sheet resolution (640px per frame); no held/repeated index was
+omitted. Original PTS/duration remains in the timing JSON. Playback pacing and
+full-resolution micro-detail remain unverified. Observations and per-sheet evidence:
+`D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028/references/ledger.md`
+and `review.json`; source hashes in `reference-manifest-v2.json`.
+
+Latest continuation evidence (supersedes earlier preparation counts):
+
+- Source-cel review directly opened all31 sheets: **278/278** source/mirror
+  keys and **254/254** within-clip/loop pairs across15 clips, with full native
+  canvas and a nearest4× crop containing every nonzero-alpha pixel. Original
+  holds/durations remain in the catalog. One row per key/variant is at
+  `D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028/actor-source-review/ledger.md`
+  and `review.json`. This does **not** certify runtime maps/lighting, state joins,
+  or1×/.25× playback. Baked slash pixels remain present; only external VFX are absent.
+- The last hero death key has a small rectangular purple remnant in source.
+  `PlayerHealth.Anim_DieCleanup`/the .98-normalized-time watchdog destroy the
+  actor. All269 decoded frames of the selected lethal sequence were subsequently
+  inspected: no purple remnant was visible in active death before cleanup.
+  This is scoped runtime observation, not a source-cel/playback PASS; no art/map changed.
+- Confirmed post stack authoring: DungeonWorld global Volume has **priority10,
+  weight1**, with DungeonPost overriding all three Bloom parameters. Legacy
+  WorldLighting's WorldBloom has priority0/weight1; its Bloom tuning cannot
+  override those selected dungeon parameters. The presentation camera disables
+  post during cinematic mode. Actual lifecycle/stack observations remain pending.
+- Four serialized scene Light blocks were stale relative to their bound profiles:
+  rear8/8 became candidate32/32; side key8/range10 became4/range13; fill8 became4.
+  The existing `DungeonTorchLight.OnEnable` and `WorldLightingAuthoring.Apply`
+  already apply those profile values. Aligned just these five scalar fields in
+  the four original Light records; front16/range16 and all GUIDs/transforms remain.
+  This aligns authoring with the candidate; final acceptance remains open.
+- Baseline QA player completed on Ubuntu at
+  `/data/typinghero-game-loop/results/20261028T050333-webgl/player`, input
+  `1f8bfaeb1e398db425db8c50d3e9e3c14ab31a12b54b5207c62814ef952f4469`.
+  Reconciliation matches all2547 baseline build inputs byte-for-byte; the initial
+  manifest was corrected to use `git -c core.autocrlf=false archive`.
+  Downloaded bundle SHA256 `0d06fca6a351c39835ab40b16563ff40fb1883f43585d2ea49cea9344a08c3c6`;
+  all33 immutable player files verified. Unity log has the strict repeat-builder
+  marker and QA=True. This baseline receipt does not qualify final candidate B.
+- GTX1650Ti / ANGLE D3D11 / Edge156.0.4314.50 A-normal-01 stopped in tutorial
+  preparation, before measurement. Adapter now reuses score_cluster's actual
+  Enter continuation. A-normal-02 captured60,173.53ms of normal combat,
+  4136 contiguous Unity intervals, no sampled parry/Slayer: raw68.73FPS,
+  p95 24.24ms. **INVALID**: actual Win32 foreground0/625 samples, despite DOM
+  focus and Unity continuity. Preserve this receipt; it is neither an eligible
+  baseline nor a renderer regression verdict. No threshold/device was changed.
+- Window HWND/PID is bound to the exact owned page title before measurement.
+  Win32 setup focus attempts were denied; no automatic refocus happens from
+  warm-up onward. User availability for an uninterrupted foreground run is
+  pending. See [Microsoft's foreground contract](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setforegroundwindow).
+- Cancelled only the verified waiting task request1444509, before lock acquisition;
+  no tests executed in that request. Its replacement uses the existing
+  run.py/server.py via the external LF-snapshot adapter, with six exact filters
+  and the updated fixture/pause assertions. Actual result at
+  `/data/typinghero-game-loop/results/20261028T060629-quick`: **6/6 Passed**,
+  zero skipped/failed, input `efb9e4f4307ac9ff97d4cd55ef208c70d3e6ea00e8355de968477652531b023e`.
+  `focused-tests-02/tests.xml` and hashed receipt retain all six names and actual
+  enabled/resumed five-light intensities/ranges. Pause and hide/re-enable phase
+  assertions pass. No other holder/waiter or local Unity build was stopped/started.
+- Prepared `ArenaAuthoringPreview.cs`, adapted from the existing A1
+  `PixelAuditPreviewCurrent.cs` camera/source-cel capture: baseline and two
+  isolated light-value trials, same idle poses, normal/follow-extreme/zoom bounds,
+  actual post-stack values in receipts. It is an external Editor diagnostic,
+  not production code or a runtime/builder PASS. Preview01 executed at
+  `20261028T062259-serialize` on llvmpipe; observed selected Bloom1.15/.12/.65.
+  Its two weak rear-light trials do not reveal the door. Presentation softness
+  differs from actual native WebGL; no fine-detail/animation verdict uses these
+  static images. Preview02 is **invalid**: despite a changed input snapshot, its
+  receipt/images still identify the previous fixture and lack the requested world
+  PNGs. Preserved both inputs/outputs. Diagnostic retry03 uses a hash-qualified
+  class/file/method to require the matching compiled version; no game code or
+  pipeline changed for this diagnostic.
+- Native baseline survey uses existing browser/fixture isolation, read-only probes
+  and actual menu/name/Enter input. `A-survey-01` (1280×720, GTX1650Ti) records
+  menu and two action-phase stills, zero runtime/JS exceptions. Observed: left
+  foreground pillar competes with actors, rear door/arch nearly black; hero/sword
+  silhouettes remain distinct at these poses. These are not locked-cel A/B frames,
+  a lifecycle matrix, or performance evidence.
+
+Source inventory continuation: `actor-catalog.json` in the durable deliverable
+resolves139 animation keys in15 clips (including repeated/held keys), original
+times/durations, rects and source/map hashes. Source/mirror gives278 required key
+observations before runtime/state joins. The first-round `Swordsman.asset`
+opening is Attack1 only (`EndlessOpponent.Pattern` returns opening throughout
+round1); Attack2 is not falsely counted as a required attack for that encounter.
+The hero controller has no separate walk state; its actual movement/recoil and
+ground contact still need runtime observation rather than an invented walk clip.
+`male_hero-parry_lift` is a single-sprite128×128 source (fileID21300000), not a
+missing sliced cel. Inventory resolution is not a visual PASS.
+
+Reference export v1 is retained as invalid navigation output: a float timestamp
+boundary included one extra Last Night frame, and REPLACED has a nonzero stream
+start. Corrected v2 selects decoded source indices explicitly: Last Night
+1079–1506 inclusive,428 frames/427 pairs; REPLACED0–536 inclusive,537/536,
+the entire media with PTS0.033008–8.966341 (8.95s elapsed). No timing or held
+frames are discarded. Export counts match; all965 frames/963 pairs subsequently
+received direct review as recorded above. The original scope is preserved.
 
 This task reuses the existing DungeonWorld/PixelRoom authoring and does not
 replace the animation ledger above. The required comparison checklist is:

@@ -135,6 +135,31 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         var fixtures = previousWorld.environment.GetComponentsInChildren<DungeonTorchLight>();
         Assert.That(fixtures.Length, Is.EqualTo(5), "main room keeps the five authored flame fixtures");
         Assert.That(fixtures.All(x => x.profile.flame), Is.True, "the room has no invisible cool fill fixture");
+        var expectedProfiles = new[] { "DungeonFrontLantern", "DungeonRearTorch", "DungeonRearTorch", "DungeonSideFill", "DungeonSideKey" };
+        Assert.That(fixtures.Select(x => x.profile.name), Is.EquivalentTo(expectedProfiles));
+        foreach (var torch in fixtures)
+        {
+            var light = torch.GetComponent<Light>();
+            Assert.That(light.range, Is.EqualTo(torch.profile.range), torch.name);
+            Assert.That(light.color, Is.EqualTo(torch.profile.color), torch.name);
+            Assert.That(light.shadows, Is.EqualTo(torch.profile.shadows), torch.name);
+            TestContext.WriteLine($"enabled {torch.name}: profile={torch.profile.name}, intensity={light.intensity:R}, range={light.range:R}, shadows={light.shadows}");
+        }
+        float previousScale = Time.timeScale;
+        try
+        {
+            Time.timeScale = 0;
+            var held = fixtures.Select(x => x.GetComponent<Light>().intensity).ToArray();
+            yield return null;
+            Assert.That(fixtures.Select(x => x.GetComponent<Light>().intensity), Is.EqualTo(held), "Pause holds all five fixture phases");
+            previousWorld.environment.gameObject.SetActive(false);
+            previousWorld.environment.gameObject.SetActive(true);
+            Assert.That(fixtures.Select(x => x.GetComponent<Light>().intensity), Is.EqualTo(held), "cinematic hiding restores all five phases while frozen");
+        }
+        finally { Time.timeScale = previousScale; }
+        yield return null;
+        foreach (var torch in fixtures)
+            TestContext.WriteLine($"resumed {torch.name}: profile={torch.profile.name}, intensity={torch.GetComponent<Light>().intensity:R}, range={torch.GetComponent<Light>().range:R}");
         yield return session.LoadWorld(second); yield return null;
         Assert.That(previousWorld == null, Is.True); Assert.That(previousRT == null, Is.True);
         gate.Bind(session.World);

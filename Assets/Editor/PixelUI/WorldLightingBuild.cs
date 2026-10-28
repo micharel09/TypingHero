@@ -153,9 +153,9 @@ internal static class WorldLightingBuild
                 AssetDatabase.AddObjectToAsset(bloom, profile);
             }
             var volume = root.AddComponent<Volume>(); volume.isGlobal = true; volume.sharedProfile = profile;
-            Light(root, "Ambient", Light2D.LightType.Global, new Color(.68f,.75f,.88f), .52f, Vector3.zero, 0);
-            Light(root, "Key", Light2D.LightType.Point, new Color(1,.86f,.66f), .9f, new Vector3(-3,5,0), 18);
-            Light(root, "Fill", Light2D.LightType.Point, new Color(.4f,.65f,1), .22f, new Vector3(5,2,0), 12);
+            Light(root, "Ambient", Light2D.LightType.Global, new Color(.68f,.75f,.88f), .65f, Vector3.zero, 0);
+            Light(root, "Key", Light2D.LightType.Point, new Color(1,.86f,.66f), .8f, new Vector3(-3,5,0), 18);
+            Light(root, "Fill", Light2D.LightType.Point, new Color(.4f,.65f,1), .35f, new Vector3(5,2,0), 12);
             var pulse = Light(root, "Clash", Light2D.LightType.Point, new Color(1,.65f,.2f), 0, Vector3.zero, 4);
             var so = new SerializedObject(rig); so.FindProperty("clashLight").objectReferenceValue = pulse; so.ApplyModifiedPropertiesWithoutUndo();
             PrefabUtility.SaveAsPrefabAsset(root, Root + "WorldLighting.prefab");
@@ -172,7 +172,6 @@ internal static class WorldLightingBuild
             var so = new SerializedObject(light);
             so.FindProperty("m_NormalMapQuality").intValue = (int)Light2D.NormalMapQuality.Accurate;
             so.FindProperty("m_NormalMapDistance").floatValue = 2;
-            so.FindProperty("m_UseNormalMap").boolValue = true;
             so.ApplyModifiedPropertiesWithoutUndo();
         }
         return light;

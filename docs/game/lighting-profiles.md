@@ -13,8 +13,11 @@ the remaining horizontal glow after the rune was removed.
 ## REPLACED follow-up candidate (performance/playback acceptance pending)
 
 The follow-up branch uses dungeon-specific front/side/rear LightProfiles rather
-than editing shared fixture profiles: front16/range16, left side32/range13,
-opposite side4/range10, rear4/range15. The former sixth, invisible cool fill and its unused profile have been removed.
+than editing shared fixture profiles. The 2026-10-28 cinematic candidate uses
+front16/range16, left side4/range13, opposite side4/range10 and two rear32/range15
+fixtures. Baseline A used side32/rear4; the other values are unchanged. The
+existing scene Light records match these profile values. The former sixth,
+invisible cool fill and its unused profile have been removed.
 Anchors, authored flames, shadow atlas, combat scheduler and camera stay unchanged.
 Fog is a very dark cool RGB(.004,.009,.018). Haze/rune/beam/planar reflection remain off.
 Historical pre-removal static preview/shader, Ubuntu strict repeated-builder and four-direction white-light
@@ -79,15 +82,15 @@ weight. Existing production and test profiles have been migrated once from
 `focusOffset=.75` to `0`, with half-width `.75` and edge distance `.5`.
 The builder never migrates or resets these fields. Gaussian weights/tap count are unchanged.
 
-The 2026-10-28 cinematic-arena pass keeps the same 320x180 projection, camera,
-actor positions and gameplay timing while tuning only the selected authoring
-profile: `blurRadius=.85`, `focusHalfWidth=.85`, and `depthEdgeDistance=.4`.
-The wider focus protects actor silhouettes during normal/parry/Slayer while the
-far environment receives a slightly stronger, edge-aware blur. `WorldBloom` is
-now threshold `1.35`, intensity `.16`, scatter `.30`; the shared Light2D rig
-uses warm key `.90`, cool fill `.22`, ambient `.52`, and normal-map receivers.
-These values are source changes pending fresh runtime visual/performance review;
-they do not change resolution, FOV, actor scale, colliders, or combat lights.
+Commit `4d5140c9` was an unaccepted parameter experiment. Its Light2D edits
+did not establish a change to dungeon 3D lighting, and `WorldBloom` is not the
+selected dungeon post profile. The continuation restores those legacy assets
+and the blur experiment to base `36d0497f` before visual tuning. Baseline blur
+is `.65`, focus half-width `.75`, depth-edge distance `.5`. The selected
+`DungeonLighting.post` is `Assets/Art/Environment/KayKitDungeon/DungeonPost.asset`
+(Bloom threshold `1.15`, intensity `.12`, scatter `.65`). Runtime visual,
+animation and performance acceptance remains open in the existing
+[audit checkpoint](../plans/pixel-consistency-audit.md).
 
 Edit haze and rune geometry/drift/scan directly on their existing materials.
 The original values are explicitly serialized on every current material.
@@ -109,9 +112,9 @@ impulse path. See the [camera guide](camera-impact-profiles.md) for Inspector st
 
 ## Dynamic sprite shadows and authored normals
 
-The default dungeon uses one hard-shadow key (front lantern16,512px faces), two
-rear torch lights (4/range15, no shadows), two pillar flames
-(left32/range13, opposite4/range10), and at most one active spatial combat light
+The cinematic candidate uses one hard-shadow key (front lantern16,512px faces), two
+rear torch lights (32/range15, no shadows), two pillar flames
+(left4/range13, opposite4/range10), and at most one active spatial combat light
 (256px faces). Parry now casts shadows as well as illuminating receivers.
 The2048 shadow atlas and Point/HDR/MSAA presentation are unchanged. The shared
 URP per-object additional-light limit is8, covering the current selected worlds'
