@@ -1303,3 +1303,54 @@ verification progress is recorded below.
   C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-larger-20261028.
   Keep the demo, evidence, branch and worktree until review ends; stop the
   task-owned host and remove only approved review resources afterward.
+
+### Narrower tutorial modal follow-up (2026-10-28; verified review candidate)
+
+User identified excess horizontal spacing in the larger modal and approved
+reducing width to 560 while keeping the GIF 400x225. Reuse ApplyCompactLayout
+and the current builder: panel 560x340 at (200,100), GIF at (80,50) within it,
+title 240x32, rule 520x44, action at (360,10), Skip at root (480,113).
+Horizontal GIF padding becomes 80 per side; the GIF stays at its previous
+absolute canvas position. No sprite, playback or gameplay behavior changes.
+
+- Continuing review branch micharel09/tutorial-full-gameplay from 0ac73059;
+  existing unrelated dirty asset changes remain outside this follow-up.
+- Shared fly-server Unity runner is occupied by another job. Strict repeat
+  builder runs in a new isolated Windows Unity2022.3.25f1 clean-Library project,
+  using canonical Git archive plus the two changed source/test files.
+- Evidence: C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-trimmed-work-20261028.
+  A fixture-isolated normal demo is prepared at tutorial-trimmed-20261028,
+  port 8313; earlier demos are preserved. Results follow.
+- Strict repeat builder PASS, exit 0: serialized objects, references and listeners
+  unchanged across two complete passes. Initial Python CREATE_NO_WINDOW launches
+  stalled at ILPP connectivity and were stopped; a hidden Start-Process launch
+  after clearing the task's stale ilpp.pid completed. These two changes were
+  applied together; the individual cause is not established. Remote retry timed
+  out waiting for the shared runner lock and is not passing evidence.
+- Projected six tutorial RectTransforms from the completed builder output. All
+  1,299 scene IDs remain, 1,293 other records are byte-identical to 0ac73059 and no
+  local references are missing. No listeners, navigation or template bindings
+  changed. The focused CompactCardsAutoplayLoopAndFinishWithoutPractice test
+  PASS on this final scene: 1/1, zero failed/skipped, 37.0413469 s, exit 0.
+  Other lifecycle/pause tests from the previous candidate are reused for
+  unchanged behavior.
+- Normal WebGL PASS, exit 0; qa:false, all four player payloads exclude known
+  ASCII/UTF16 QA markers. The final builder's six layout records match the
+  projected scene. SHA256 for all 34 player files is in player-sha256.json.
+- Actual Edge normal player: all ten cards directly inspected at 1280x720 and
+  640x360. GIF keeps 400x225 and its previous absolute canvas bounds; horizontal
+  modal padding halves to 80 per side. All titles and two-line rules fit,
+  including Score & Combo. Four mouse Next clicks, Start, replay, held Enter
+  advancing once and Skip were checked at both sizes. Battle screenshots show
+  the tutorial cleared after Start and Skip. Zero page/console exceptions and
+  external requests; QA global undefined at both sizes.
+- New demo http://127.0.0.1:8313/ with the existing fixture worker/CSP and
+  Start-Demo.ps1/Stop-Demo.ps1. Receipt and player hashes are in
+  C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-trimmed-20261028.
+  Previous demos/clips stay intact; no sprite or playback changes.
+- Transfer archives and unused temporary runner were removed; Unity and browser
+  checks finished. Retain the isolated cached project and evidence directory for
+  subsequent review iterations, plus the demo and review worktree/branch.
+  After review, stop only this demo host and remove task-owned artifacts/cache;
+  remove the worktree only once unrelated dirty changes have been preserved and
+  it is clean. Main integration remains deferred for review.

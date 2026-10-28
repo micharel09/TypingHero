@@ -349,8 +349,9 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## Five-card tutorial guide
 
-- Frozen gameplay backs one centered 720x340 card at (120,100) in Reference960x540.
-  Title at top left, centered 400x225 clip and a centered two-line rule beneath.
+- Frozen gameplay backs one centered 560x340 card at (200,100) in Reference960x540.
+  Title at top left, centered 400x225 clip with 80px horizontal padding per side,
+  and a centered two-line rule beneath.
   Next becomes Start Battle on card five; Skip is beside it. Extra controls, badges and callouts
   are hidden. Endless retains its original TutorialPrompt/PracticeButton template.
 - Five cards: Type to Attack (including HP), Mistakes & Timer, Parry with Space,

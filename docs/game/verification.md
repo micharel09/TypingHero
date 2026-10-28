@@ -1,3 +1,15 @@
+## Narrower centered tutorial (2026-10-28; review branch)
+
+Unity 2022.3.25f1 Windows strict repeat builder PASS/exit0; the focused
+CompactCardsAutoplayLoopAndFinishWithoutPractice test PASS, 1/1, on the final
+projected scene. Only six RectTransforms change; 1,293 other records and all
+1,299 scene IDs remain. Normal WebGL PASS/exit0, qa:false and four payloads
+exclude QA markers. All ten cards directly inspected at 1280x720/640x360:
+GIF size unchanged, horizontal padding halved, titles/rules fit. Mouse Next,
+Start, replay/held Enter/Skip pass at both sizes; zero page/console exceptions
+or external requests. Demo: http://127.0.0.1:8313/.
+[Checkpoint](../plans/parry-cue-demo.md#narrower-tutorial-modal-follow-up-2026-10-28-verified-review-candidate).
+
 ## Larger centered tutorial (2026-10-28; review branch)
 
 Unity 2022.3.25f1 Windows strict repeat builder and three focused TutorialTests
