@@ -227,20 +227,20 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
 - Final Cobblestone font sizes48/42 and tier colors remain. Long totals reduce
   displayed font size while retaining all digits and reserving the maximum1.2x
   award pulse. ScoreUI_Flash still owns the original120ms pulse scale.
-- Multiplier text uses invariant0.##: x1.15/x1.3/x1.45/x1.5/x3, without trailing
+- Multiplier text uses invariant `0.##`: x1.15/x1.3/x1.45/x1.5/x3, without trailing
   zeros. This formats display only; stored floats and Unity RoundToInt remain.
   Normal word5/6/7 awards12/13/14; the third actual multiplier is1.44999993.
 - SCORE MULTIPLIER appears below the frame at local(0,72,294,30), font18,
-  for2.4unpaused seconds after first activation. Pause/reading hold remaining
+  for 2.4 unpaused seconds after first activation. Pause/reading hold remaining
   time; expiry/re-activation cannot repeat it. EndlessRun retains its presentation
   flag across duels; Restart/new run re-arms it. Non-Endless ResetScore also re-arms.
 - Score formula/ScoreRules, thresholds, multiplier cap, renewal/expiry/timeout,
   input, damage and providers are unchanged. CombatR7Status retains normal/Slayer
   fill sprites. HP, names, typing tray and the character-side popup anchor remain.
-- Strict repeated builder, focused Unity5/5 and native89/89 pass. Direct review
+- Strict repeated builder, focused Unity 5/5 and native 89/89 pass. Direct review
   covers guide/gameplay at1280x720/400x300, x1/normal/x3, real parry renewal,
-  notice/pause/resume/expiry/restart and natural Slayer exit. Final-font128case
-  geometry covers20digit totals, two-decimal multipliers and maxpulse.
+  notice/pause/resume/expiry/restart and natural Slayer exit. The 128 geometry cases
+  cover 20-digit totals, two-decimal multipliers and maximum pulse with the final font.
   See [verification](verification.md), [clarity checkpoint](../plans/score-combo-clarity.md)
   and [earlier layout](../plans/score-hud-cluster.md). No itch.io release for this change;
   the previous three-row layout was published2026-10-20 as upload19892576.

@@ -24,8 +24,8 @@
 - Worktree D:/Projects/TypingHero-worktrees/score-combo-clarity;
   branch micharel09/score-combo-clarity. Original dirty main untouched.
 - Unity2022.3.25f1/fly-server doctor passed, license present,39.7GiB free.
-- Implementation, focused verification, direct review and clip complete;
-  remote integration and cleanup pending.
+- Implementation, focused verification, direct review, clip and remote integration
+  complete. Resource cleanup and final documentation receipt follow below.
 
 ## Reuse basis
 
@@ -104,3 +104,29 @@
 - Current origin/main2339b65d adds independent actor-art/audit changes; retain
   them during integration. Relevant HUD/scoring/font code is unchanged upstream.
   No full suite, stress/soak, production build or itch.io release.
+
+## Remote integration and cleanup
+
+- Source commit e50ddfcfc3c6f3add5c045c0cefbe2b43899e397 was pushed to
+  micharel09/score-combo-clarity. Integrated newer main art, audit documentation
+  and execution-host guidance without conflicts; none of the tested code, scene,
+  data, UI fonts, packages, settings or runner files changed. Passing focused
+  results remain applicable; no broader runtime suite was repeated.
+- Initial main push encountered a concurrent documentation commit. Fetched and
+  merged its 28-line audit note, rechecked affected paths and whitespace, then
+  fast-forwarded origin/main from 2a2cdb51 to
+  6bbef57e1ed443246587c9ffbad78f8e590d8498. Fresh fetch confirms HEAD equals
+  origin/main and the source commit is an ancestor. Original dirty main untouched.
+- Requested MP4 and compact evidence remain under
+  E:/codex-data/artifacts/TypingHero/score-combo-clarity-20261028/;
+  retain these for user review, remove when no longer needed. Native contexts,
+  QA servers and Editor exited; task QA ports 54296/50364 have no listener.
+- Removed only owned server results 20261028T021251-quick,
+  20261028T021703-webgl and 20261028T022932-webgl after receipt preservation
+  and snapshot/mount checks. Shared source/cache/toolchain/builds and other jobs
+  remain untouched. Local task source/Library/player/profiles/helpers/captures
+  were removed after preserving the requested clip and receipts.
+- Remove the clean task worktree and its task-created local branch after remote
+  verification of this documentation-only receipt. Retain remote branch
+  micharel09/score-combo-clarity under repository policy; it may be deleted when
+  comparison is no longer needed. No itch.io upload or workflow dispatch occurred.
