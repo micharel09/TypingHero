@@ -1,5 +1,10 @@
 # Score multiplier and combo time clarity
 
+Current follow-up: user rejected the standalone SCORE MULTIPLIER notice as
+redundant. Remove only that notice and its lifecycle state; retain precision,
+score/combo layout and guide copy. Source/scene checks pass; fresh Unity execution
+is unverified because the shared runner is busy, as recorded below.
+
 ## Scope and acceptance
 
 - Preserve real scoring, +0.15 growth, x3 cap, Unity rounding, combo timing,
@@ -130,3 +135,33 @@
   verification of this documentation-only receipt. Retain remote branch
   micharel09/score-combo-clarity under repository policy; it may be deleted when
   comparison is no longer needed. No itch.io upload or workflow dispatch occurred.
+
+## Follow-up: remove redundant notice (2026-10-28)
+
+- User supplied a crop of SCORE MULTIPLIER and said the added text was redundant.
+  Worktree D:/Projects/TypingHero-worktrees/remove-score-multiplier-hint,
+  branch micharel09/remove-score-multiplier-hint, base origin/main8ba637fe.
+  Original dirty checkout remains untouched.
+- Removed the label's four serialized blocks, parent child reference and HUD
+  binding. All other scene blocks remain byte-identical; score/decay/HP/tray,
+  popup and guide geometry/content remain. Builder retires a legacy label instead
+  of recreating it. Removed its timer, pause/reset forwarding and EndlessRun flag.
+- Retained invariant0.##, .15 growth/x3 cap and original Unity award rounding.
+  Deleted the obsolete notice-lifecycle test and changed the browser check to
+  require no notice. Existing format/award, tier pulse and128case geometry tests
+  were requested on Ubuntu. Static scene/reference and whitespace checks pass.
+- No WebGL rebuild or new browser/viewport matrix: removal cannot move the
+  fixed geometry, which is byte-identical and retains prior focused evidence.
+  No local build, full suite, new clip or itch.io release.
+- Both supplemental Ubuntu requests timed out waiting for the shared lock
+  (180s/600s); zero tests executed, so no fresh compile/runtime PASS is claimed.
+  Existing scoring/run code is byte-identical to pre-notice source29b9029c and
+  HUD code differs from that baseline only in already verified precision.
+  Source/reference audit retains1121IDs and1119unchanged scene blocks; only the
+  removed notice's four blocks and two references differ. All asset GUIDs remain.
+- Existing clip is historical evidence of the initial iteration and still shows
+  the now-removed notice; no replacement clip was requested. Keep the retained
+  source receipt under E:/codex-data/artifacts/TypingHero/score-combo-clarity-20261028/evidence/.
+- Integration target remains micharel09/TypingHero origin/main. Remove the clean
+  task worktree/local branch after remote verification; retain the remote task
+  branch under repository policy. Preserve original checkout and other jobs.

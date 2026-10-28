@@ -1,4 +1,23 @@
-## Score multiplier clarity (2026-10-28; verified)
+## Redundant multiplier notice removed (2026-10-28; source verified)
+
+- User rejected the standalone SCORE MULTIPLIER caption. Removed its four scene
+  blocks and two references, timer/pause/reset code and retained run flag.
+  Builder removes an existing legacy caption instead of recreating it.
+- Structural comparison: all 1121 retained IDs remain, 1119 unaffected blocks are
+  byte-identical; only the two references change. ScoreSystem/EndlessRun match
+  pre-notice source29b9029c exactly. The remaining ComboHUD code matches that
+  baseline except for invariant0.## formatting. Existing guide, multiplier/decay
+  geometry, popup, score rules and award pulse are unchanged.
+- Supplemental Ubuntu format/award, pulse and128case geometry requests timed out
+  after180s and600s waiting for the shared runner; no tests executed and no fresh
+  Unity compile/run PASS is claimed. Other jobs remained untouched. Static checks
+  establish scene/reference removal and unchanged remaining code; source audit,
+  CJS syntax and whitespace checks pass. Original native/layout receipts below remain
+  historical evidence for unchanged behavior, not a new browser-run claim.
+  No new WebGL/viewport/clip matrix or local build was run.
+  Follow-up result and integration: [checkpoint](../plans/score-combo-clarity.md).
+
+## Score multiplier clarity (2026-10-28; initial iteration verified)
 
 - Invariant `0.##` formats x1.15/x1.3/x1.45/x1.5/x3 while retaining actual floats,
   +.15 growth, x3 cap, Unity rounding, combo timing, colors and popup behavior.

@@ -798,17 +798,14 @@ public sealed class GameplayTests
         finally { TutorialRun.End(); EndlessRun.Clear(); }
     }
 
-    ScoreSystem CreateScoreHUD(out ScoreUI_ComboHUD hud, out TMP_Text multiplier, out TMP_Text hint)
+    ScoreSystem CreateScoreHUD(out ScoreUI_ComboHUD hud, out TMP_Text multiplier)
     {
         var hudHost = new GameObject("combo presentation", typeof(RectTransform), typeof(ScoreUI_ComboHUD));
         hudHost.transform.SetParent(root.transform, false);
         hud = hudHost.GetComponent<ScoreUI_ComboHUD>();
         multiplier = new GameObject("Multiplier", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
         multiplier.transform.SetParent(hudHost.transform, false);
-        hint = new GameObject("Hint", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
-        hint.transform.SetParent(hudHost.transform, false);
-        hint.enabled = false;
-        Set(hud, "multiplierText", multiplier); Set(hud, "multiplierHint", hint);
+        Set(hud, "multiplierText", multiplier);
         var host = Own(new GameObject("score with combo HUD")); host.SetActive(false);
         var score = host.AddComponent<ScoreSystem>();
         Set(score, "rules", Own(ScriptableObject.CreateInstance<ScoreRules>()));
@@ -823,7 +820,7 @@ public sealed class GameplayTests
         try
         {
             System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("fr-FR");
-            var score = CreateScoreHUD(out var hud, out var multiplier, out _);
+            var score = CreateScoreHUD(out var hud, out var multiplier);
             float expected = 1;
             for (int i = 1; i <= 25; i++)
             {
@@ -846,53 +843,6 @@ public sealed class GameplayTests
             Assert.That(Mathf.RoundToInt(15.5f), Is.EqualTo(16));
         }
         finally { System.Globalization.CultureInfo.CurrentCulture = culture; }
-    }
-
-    [UnityTest, Category("Quick")]
-    public IEnumerator ScoreMultiplierHintHoldsOnPauseAndRearmsOnlyForNewMatches()
-    {
-        EndlessRun.Clear();
-        var score = CreateScoreHUD(out var hud, out _, out var hint);
-        void Words(int count)
-        {
-            for (int i = 0; i < count; i++) typing.ProcessInput(Get<string>(typing, "current"));
-        }
-        try
-        {
-            Assert.That(hint.enabled, Is.False);
-            Words(4); Assert.That(hint.enabled, Is.False);
-            Words(1); Assert.That(hint.enabled, Is.True);
-            yield return null;
-            float before = Get<float>(hud, "hintRemaining");
-            Time.timeScale = .05f;
-            yield return new WaitForSecondsRealtime(.2f);
-            Assert.That(Get<float>(hud, "hintRemaining"), Is.LessThan(before - .15f), "Use unscaled time through hitstop");
-            score.SetPaused(true); Time.timeScale = 0;
-            before = Get<float>(hud, "hintRemaining");
-            yield return new WaitForSecondsRealtime(.25f);
-            Assert.That(Get<float>(hud, "hintRemaining"), Is.EqualTo(before));
-            Assert.That(hint.enabled, Is.True);
-            score.SetPaused(false); Time.timeScale = 1;
-            GamePauseController.SetTutorialReading(true);
-            yield return new WaitForSecondsRealtime(.15f);
-            Assert.That(Get<float>(hud, "hintRemaining"), Is.EqualTo(before), "Reading lock also holds the notice");
-            GamePauseController.SetTutorialReading(false);
-            yield return new WaitForSecondsRealtime(before + .1f);
-            Assert.That(hint.enabled, Is.False, "Auto-hide after the remaining active time");
-            score.BreakCombo(); Words(5);
-            Assert.That(hint.enabled, Is.False, "A later combo cannot repeat the first notice");
-            score.ResetScore(); Words(5);
-            Assert.That(hint.enabled, Is.True, "A fresh non-Endless match re-arms the notice");
-            EndlessRun.Begin(); score.ResetScore(); Words(5);
-            Assert.That(hint.enabled, Is.True);
-            score.ResetScore(); Words(5);
-            Assert.That(hint.enabled, Is.False, "Retained Endless run must not repeat across encounter reloads");
-            EndlessRun.Restart(); score.ResetScore(); Words(5);
-            Assert.That(hint.enabled, Is.True, "Restart creates a new run and re-arms the notice");
-            hud.enabled = false;
-            Assert.That(hint.enabled, Is.False, "Disable clears an active notice");
-        }
-        finally { EndlessRun.Clear(); GamePauseController.SetTutorialReading(false); Time.timeScale = 1; }
     }
 
     [UnityTest, Category("Quick")]

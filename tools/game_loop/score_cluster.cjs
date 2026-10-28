@@ -3,11 +3,11 @@ module.exports = async function scoreCluster(api, browser) {
   const {session,start,state,until,clickControl,check,report}=api;
   const sizes=[[1280,720],[400,300]];
   const label=(s,name)=>s.typography.find(t=>t.path.endsWith('/'+name));
-  const hintVisible=s=>!!label(s,'ScoreMultiplierHint');
   const geometry=(s,label)=>{
     const k=Math.min(s.width/960,s.height/540);
     const center=r=>r.x+r.width/2;
     check(s.comboUnderScore && s.comboDecayUnderScore,label+': multiplier and decay belong to score cluster');
+    check(!s.typography.some(t=>t.path.endsWith('/ScoreMultiplierHint')),label+': redundant multiplier notice absent');
     const frame=s.scoreFrameRect;
     const left=frame.x, right=frame.x+frame.width;
     const top=frame.y+frame.height, bottom=frame.y;
@@ -85,24 +85,17 @@ module.exports = async function scoreCluster(api, browser) {
     for(let i=0;i<5;i++) await word();
     let s=await until(page,s=>s.multiplier>1 && s.comboDecayVisible);
     check(Math.abs(s.multiplier-1.15)<.001,'fifth normal word still activates x1.15');
-    check(hintVisible(s),'first active combo announces SCORE MULTIPLIER');
     const scorePoint=s.scorePoint;
     await page.keyboard.press('Escape',{delay:40});
     await until(page,s=>s.paused && s.timeScale===0);
     await resizeCapture(page,'normal-combo',true);
     const held=await until(page,s=>s.paused && s.timeScale===0);
-    await page.waitForTimeout(2700);
+    await page.waitForTimeout(1700);
     s=await state(page);
     check(s.multiplier===held.multiplier && Math.abs(s.comboRemaining-held.comboRemaining)<.001,'pause holds grouped combo timer');
-    check(hintVisible(s),'pause preserves the first-combo hint beyond its active lifetime');
     await page.keyboard.press('Escape',{delay:40});
     s=await until(page,s=>!s.paused && s.multiplier===1 && !s.comboDecayVisible);
     check(!s.comboVisible && Math.abs(s.scorePoint.y-scorePoint.y)<1,'expiry hides both rows without moving total');
-    check(!hintVisible(s),'first-combo hint automatically expires after resume');
-    for(let i=0;i<5;i++) await word();
-    s=await until(page,s=>s.multiplier>1);
-    check(!hintVisible(s),'later activation in the same match does not repeat the hint');
-    s=await until(page,s=>s.multiplier===1);
     const beforeTimeout=await state(page);
     s=await until(page,s=>s.multiplier===1 && s.words===beforeTimeout.words && s.wordTime>beforeTimeout.wordTime,10000);
     check(!s.comboVisible && !s.comboDecayVisible,'word timeout leaves multiplier and decay hidden');
@@ -113,8 +106,6 @@ module.exports = async function scoreCluster(api, browser) {
     await until(page,s=>!s.introRunning && s.timeScale===1);
     // Keep typing sparse enough for the enemy to finish a real swing.
     for(let i=0;i<5;i++) await word();
-    s=await until(page,s=>s.multiplier>1);
-    check(hintVisible(s),'restart allows the first-combo hint again');
     let renewed=false;
     const parryDeadline=performance.now()+15000;
     while(!renewed && performance.now()<parryDeadline){

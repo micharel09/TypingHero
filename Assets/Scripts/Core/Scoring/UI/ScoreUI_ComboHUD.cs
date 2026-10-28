@@ -10,27 +10,6 @@ public sealed class ScoreUI_ComboHUD : MonoBehaviour
     [Header("Refs")]
     [SerializeField] TMP_Text multiplierText;     // label “x2.5”
     [SerializeField] Slider decaySlider;          // thanh decay 0..1
-    [SerializeField] TMP_Text multiplierHint;
-
-    const float HintSeconds = 2.4f;
-    float hintRemaining;
-    int hintStartedFrame;
-    bool hintShown, hintPaused;
-
-    internal void ResetMatchHint()
-    {
-        hintShown = false;
-        hintRemaining = 0;
-        if (multiplierHint) multiplierHint.enabled = false;
-    }
-
-    internal void SetPaused(bool paused) => hintPaused = paused;
-
-    void OnDisable()
-    {
-        hintRemaining = 0;
-        if (multiplierHint) multiplierHint.enabled = false;
-    }
 
     [Header("Follow ScoreText")]
     [SerializeField] RectTransform followScore;   // KÉO RectTransform của ScoreText vào đây
@@ -41,14 +20,6 @@ public sealed class ScoreUI_ComboHUD : MonoBehaviour
     public void SetMultiplier(float mul, float maxMul, Color tint)
     {
         bool show = mul > 1.0001f;
-        if (show && !hintShown && !(EndlessRun.Current?.ScoreMultiplierHintShown ?? false))
-        {
-            hintShown = true;
-            if (EndlessRun.Current != null) EndlessRun.Current.ScoreMultiplierHintShown = true;
-            hintRemaining = HintSeconds;
-            hintStartedFrame = Time.frameCount;
-            if (multiplierHint) multiplierHint.enabled = true;
-        }
         if (decaySlider && decaySlider.gameObject.activeSelf != show)
             decaySlider.gameObject.SetActive(show);
         if (multiplierText)
@@ -76,11 +47,6 @@ public sealed class ScoreUI_ComboHUD : MonoBehaviour
 
     void LateUpdate()
     {
-        if (CombatSession.Finished) hintRemaining = 0;
-        else if (!hintPaused && !GamePauseController.InputBlocked && hintStartedFrame != Time.frameCount)
-            hintRemaining = Mathf.Max(0, hintRemaining - Time.unscaledDeltaTime);
-        if (multiplierHint) multiplierHint.enabled = hintRemaining > 0;
-
         if (!followScore || !multiplierText || !followScore.TryGetComponent(out TMP_Text score)) return;
         var frame = followScore.parent as RectTransform;
         if (!frame) return;

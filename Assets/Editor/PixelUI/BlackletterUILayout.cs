@@ -254,7 +254,6 @@ internal static class BlackletterUILayout
             }
             if (label.name == "ScoreText") Size(label, BodySize);
             if (label.name == "Multiplier") Size(label, CompactSize);
-            if (label.name == "ScoreMultiplierHint") Size(label, 18);
         }
     }
 }
