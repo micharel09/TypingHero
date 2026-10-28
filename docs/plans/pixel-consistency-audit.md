@@ -2,7 +2,7 @@
 
 > **Audit đang mở; A1 đã tích hợp remote main tại `b51e3b3e`, nghiệm thu runtime còn mở.** Baseline hiện hành là Magic Circle, compact READY và lighting mới. Capture tại `762a3e92` giữ nguyên revision; main đã đổi HUD/scene sau capture, xem đối soát bên dưới trước khi tái sử dụng.
 > **Ledger tại `762a3e92`:** rìu 326/326 frame và 325/325 chuyển tiếp; kiếm–khiên 254/254 và 253/253; kiếm/READY 507/507 và 506/506. Tổng ba handoff đã ghi kiểm 1.087/1.087 frame và 1.084/1.084 cặp ở native và nearest 4×. Số đếm không chứng nhận chi tiết bị che, playback hoặc HUD trên main mới.
-> **Còn mở:** tính liên tục ngay tại biên resize, coverage player/Slayer/animation còn thiếu, preview chi tiết bị che và playback người xem 1×/0.25×. Tutorial hiện hành 26/25 chỉ chứng minh reading khi timeScale khóa.
+> **Còn mở:** tính liên tục ngay tại biên resize, coverage player/Slayer/animation còn thiếu, preview chi tiết bị che và playback người xem 1×/0.25×. Tutorial tại `762a3e92` 26/25 chỉ chứng minh reading khi timeScale khóa và không chứng nhận card tutorial mới.
 > **Lịch sử:** READY 806/803 tại `66749da1`; catalog 1.186/1.180 trên 1.900/1.890, còn 714/710, được giữ riêng. Đoạn bị thay thế không cần xem tiếp chỉ để đủ số cũ. Xem [checkpoint hiện hành](#checkpoint-2-đủ-ledger-ba-handoff-nghiệm-thu-còn-mở--2026-10-28).
 > Các số liệu và kết luận trong phần lịch sử giữ theo revision của từng lượt; không cộng vào coverage hiện tại hoặc dùng chứng nhận main mới.
 
