@@ -1,3 +1,27 @@
+## Cinematic dungeon arena authoring pass (2026-10-28; runtime review open)
+
+- Reused `Assets/Scenes/DungeonWorld.unity`, the existing closed recessed door,
+  four depth layers already present in `PixelRoom`, `DungeonLighting.asset`,
+  `WorldBloom.asset`, `WorldLighting.prefab`, and the authored PixelDungeon
+  materials/maps. No new gameplay API, dependency, camera pose, collider,
+  actor scale, timing, HUD, Slayer color, or score notice was introduced.
+- The authoring delta is limited to edge-aware environment blur, a wider actor
+  focus band, restrained bloom, and the shared key/fill/ambient Light2D balance.
+  `WorldLightingBuild` fallback values now match the prefab and enable its
+  existing normal-map receiver path. `LightingProfileTests` was reconciled with
+  the already-integrated removal of `DungeonCoolFill`.
+- Static source checks and `git diff --check` pass. The requested Unity/WebGL
+  baseline and post-change real-input captures are **unverified**: the shared
+  fly-server runner timed out twice while waiting for an existing job lock.
+  No local Unity build was run. FPS, p95, 1280x720/400x300 layout, pause/reset
+  cleanup, parry, Slayer, clip playback, and frame-transition acceptance remain
+  open until that runner and the permitted local GPU measurement are available.
+- Visual references were observational only: [REPLACED on Steam](https://store.steampowered.com/app/1663850/REPLACED/),
+  [The Last Night official site](https://oddtales.net/thelastnight/), and the
+  [REPLACED combat article](https://news.xbox.com/en-us/2026/04/14/replaced-combat/).
+  No reference image was imported. The environment source remains the repo's
+  `Assets/Art/Environment/PixelDungeon/LICENSE.txt` CC0 notice.
+
 ## Redundant multiplier notice removed (2026-10-28; source verified)
 
 - User rejected the standalone SCORE MULTIPLIER caption. Removed its four scene

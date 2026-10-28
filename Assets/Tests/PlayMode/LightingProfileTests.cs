@@ -113,7 +113,7 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         finally { Object.DestroyImmediate(profile); }
     }
     [UnityTest, Category("Quick")]
-    public IEnumerator DifferentWorldNamesAndFourLightsReuseProfilesWithoutLeakingState()
+    public IEnumerator DifferentWorldNamesAndFiveLightsReuseProfilesWithoutLeakingState()
     {
         var first = LightingTestAssets.Definition;
         var second = UnityEditor.AssetDatabase.LoadAssetAtPath<WorldDefinition>("Assets/Tests/Fixtures/Lighting/OtherWorld.asset");
@@ -133,12 +133,8 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         Assert.That(impact.Zoom, Is.EqualTo(.02f));
         var previousWorld = session.World; var previousRT = previousWorld.Arena.WorldTexture;
         var fixtures = previousWorld.environment.GetComponentsInChildren<DungeonTorchLight>();
-        Assert.That(fixtures.Count(x => x.profile.flame), Is.EqualTo(5), "main room retains its five flame fixtures");
-        var fill = fixtures.Single(x => !x.profile.flame);
-        Assert.That(fill.Flame, Is.Null, "the cool fill owns no flame mesh");
-        Assert.That(fill.GetComponent<Light>().type, Is.EqualTo(LightType.Spot));
-        Assert.That(fill.GetComponent<Light>().shadows, Is.EqualTo(LightShadows.None));
-        Assert.That(fill.profile.flicker, Is.EqualTo(LightProfile.Flicker.Constant));
+        Assert.That(fixtures.Length, Is.EqualTo(5), "main room keeps the five authored flame fixtures");
+        Assert.That(fixtures.All(x => x.profile.flame), Is.True, "the room has no invisible cool fill fixture");
         yield return session.LoadWorld(second); yield return null;
         Assert.That(previousWorld == null, Is.True); Assert.That(previousRT == null, Is.True);
         gate.Bind(session.World);
@@ -165,8 +161,10 @@ public sealed class LightingProfileTests : IPrebuildSetup, IPostBuildCleanup
         Assert.That(impact.Zoom, Is.EqualTo(.02f), "world A rebind restores its own profile");
         foreach (var filter in filters) Assert.That(filter == null, Is.True);
         Assert.That(session.World.Arena.WorldTexture.width, Is.EqualTo(320));
-        var restoredFill = session.World.environment.GetComponentsInChildren<DungeonTorchLight>().Single(x => !x.profile.flame);
-        Assert.That(restoredFill.GetComponent<Light>().intensity, Is.EqualTo(restoredFill.profile.intensity), "world A restores its independent constant fill");
+        var restoredFixtures = session.World.environment.GetComponentsInChildren<DungeonTorchLight>();
+        Assert.That(restoredFixtures.Length, Is.EqualTo(5));
+        foreach (var torch in restoredFixtures)
+            Assert.That(torch.GetComponent<Light>().intensity, Is.InRange(torch.profile.intensity * (1 - torch.profile.amplitude), torch.profile.intensity * (1 + torch.profile.amplitude)), "world A restores its authored fixture intensity");
         Assert.That(RenderSettings.fogColor, Is.EqualTo(first.lighting.fogColor));
         Assert.That(JsonUtility.ToJson(first.lighting), Is.EqualTo(a));
         Assert.That(JsonUtility.ToJson(second.lighting), Is.EqualTo(b));

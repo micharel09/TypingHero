@@ -79,6 +79,16 @@ weight. Existing production and test profiles have been migrated once from
 `focusOffset=.75` to `0`, with half-width `.75` and edge distance `.5`.
 The builder never migrates or resets these fields. Gaussian weights/tap count are unchanged.
 
+The 2026-10-28 cinematic-arena pass keeps the same 320x180 projection, camera,
+actor positions and gameplay timing while tuning only the selected authoring
+profile: `blurRadius=.85`, `focusHalfWidth=.85`, and `depthEdgeDistance=.4`.
+The wider focus protects actor silhouettes during normal/parry/Slayer while the
+far environment receives a slightly stronger, edge-aware blur. `WorldBloom` is
+now threshold `1.35`, intensity `.16`, scatter `.30`; the shared Light2D rig
+uses warm key `.90`, cool fill `.22`, ambient `.52`, and normal-map receivers.
+These values are source changes pending fresh runtime visual/performance review;
+they do not change resolution, FOV, actor scale, colliders, or combat lights.
+
 Edit haze and rune geometry/drift/scan directly on their existing materials.
 The original values are explicitly serialized on every current material.
 `_DungeonAge` and `_DungeonPulse` remain per-instance property-block values;

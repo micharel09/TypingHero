@@ -6,6 +6,31 @@
 > **Lịch sử:** READY 806/803 tại `66749da1`; catalog 1.186/1.180 trên 1.900/1.890, còn 714/710, được giữ riêng. Đoạn bị thay thế không cần xem tiếp chỉ để đủ số cũ. Xem [checkpoint hiện hành](#checkpoint-2-đủ-ledger-ba-handoff-nghiệm-thu-còn-mở--2026-10-28).
 > Các số liệu và kết luận trong phần lịch sử giữ theo revision của từng lượt; không cộng vào coverage hiện tại hoặc dùng chứng nhận main mới.
 
+## Cinematic arena handoff — 2026-10-28
+
+This task reuses the existing DungeonWorld/PixelRoom authoring and does not
+replace the animation ledger above. The required comparison checklist is:
+
+| Area | Source-backed scope | Current evidence |
+|---|---|---|
+| Composition | Closed recessed door, StoneArch/jamb/sill, WallPier, OldBanner, ChippedStone, GroundSurface, front pillars and rubble already in `DungeonWorld.unity` | Source inspected; fresh runtime A/B is unverified |
+| Rendering | `DungeonLighting.asset`, `WorldBloom.asset`, `WorldLighting.prefab`, existing normal/material/depth maps; 320x180/FOV35/pitch5 retained | Authoring diff recorded in this task; runtime frame comparison unverified |
+| Combat readability | Normal, parry, Slayer S1/S2/S3, pause/resume/restart/menu/READY, real keyboard input | Existing historical ledgers remain revision-scoped; no new capture claimed |
+| Animation maps | Hero and first sword opponent: idle, walk, attack, hurt, death, parry/follow-up/recovery and facing variants | No sprite asset was changed; a full fresh native/4x transition review remains open |
+
+The visual reference set was inspected for composition only: [REPLACED](https://store.steampowered.com/app/1663850/REPLACED/),
+[The Last Night](https://oddtales.net/thelastnight/), and the official
+[REPLACED combat notes](https://news.xbox.com/en-us/2026/04/14/replaced-combat/).
+Observed traits were cool/dim layered architecture, a warm localized key,
+foreground occlusion, and restrained glow. These are adaptation criteria, not
+claims that CLACKBLADE copies the referenced games. No external image is a repo
+asset; PixelDungeon remains covered by its checked-in CC0 license.
+
+The current source revision is `36d0497ff4b6777ac4b8a8e7a57edb6eea4b0abe`.
+The shared runner was requested with the pinned Unity 2022.3.25f1 toolchain but
+timed out twice on the pre-existing lock; therefore this handoff records static
+authoring evidence only and keeps runtime/performance/frame-review gates open.
+
 ## Đối soát main mới và coverage Slayer — 2026-10-28
 
 Đã fetch main `6bbef57e1ed443246587c9ffbad78f8e590d8498`, chứa checkpoint

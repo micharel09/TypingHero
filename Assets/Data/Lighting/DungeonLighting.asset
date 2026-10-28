@@ -45,7 +45,7 @@ MonoBehaviour:
   followLimit: 0.5
   followSmooth: 0.35
   postProcessing: 1
-  blurRadius: 0.65
+  blurRadius: 0.85
   focusOffset: 0.0
   focusFalloff: 3
   rune: {fileID: 11400000, guid: 445621b93f20947ac914be8e394ae5a1, type: 2}
@@ -55,8 +55,8 @@ MonoBehaviour:
   runeNoiseGain: 0.18
   runeEnvelopeGain: 0.06
   runeEnvelopePeriod: 12
-  focusHalfWidth: 0.75
-  depthEdgeDistance: 0.5
+  focusHalfWidth: 0.85
+  depthEdgeDistance: 0.4
   clothAmplitude: 0.025
   clothSpeed: 1.25
   clothFrequency: 2
