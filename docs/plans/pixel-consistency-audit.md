@@ -37,6 +37,34 @@ sửa báo cáo; không chạy suite game. A1 nguồn/map đã sửa trên main 
 runtime cuối vẫn chờ đối chiếu đúng cel bị che và playback người xem. Ma trận
 animation đầy đủ được chốt riêng, không lấy ba handoff thay cho toàn bộ ma trận.
 
+## Đối chiếu cel runtime: còn thiếu đồng bộ — 2026-10-28
+
+Các preview A1 đã xem đủ trước đó vẫn hữu ích để đối chiếu source, nhưng chưa
+đủ chứng minh chính xác cel nào bị che trên từng frame video. Ví dụ ở handoff
+rìu, video F1562 có PTS 53.373 s; mẫu combat bridge gần nhất tại 53.366 s ghi
+`Attack1_0`, trong khi F1563 tại 53.399 s có mẫu gần nhất 53.402 s ghi `Die_0`.
+Đã mở lại trực tiếp F1562 native/nearest và preview không VFX `axe-Die-00-mirror`;
+pose có các nét tương tự, nhưng encoder, canvas và trace không có chứng cứ đồng
+bộ từng lần vẽ. Không tự gán Die_0 cho F1562 hoặc dùng khoảng cách PTS làm chứng
+nhận chính xác. Tương tự, shield F1161 có mẫu `Die_0` cách 1 ms và preview
+`sword-shield-Die-00-mirror` đã được mở lại, song độ gần thời gian không chứng
+minh capture cùng lần vẽ. Các ảnh preview dùng GPU NVIDIA; video handoff dùng
+Intel, ánh sáng flicker và bóng tiếp xúc cũng không hoàn toàn giống nhau.
+
+Danh sách ứng viên tại `runtime-review-current/occlusion-candidates-unsynchronized.json`
+được tạo từ từ khóa trong quan sát đã ghi cùng các cel trace trong cửa sổ ±80 ms:
+rìu 58, khiên 15, kiếm 30 dòng ứng viên. Đây **không phải** số cel đã xác minh
+thực sự bị che hoặc số preview bổ sung đã xem. Cần thu/đối soát ảnh và sprite
+đồng bộ theo lần vẽ, bằng input thông thường và bridge chỉ đọc, rồi kiểm đúng
+transform/mirror/material/ánh sáng cùng albedo, normal, depth, material. Giữ kết
+luận A1 runtime và danh sách cel bắt buộc ở trạng thái chưa kiểm chứng. Không
+suy lỗi game chỉ từ thiếu đồng bộ bằng chứng.
+
+Remote main sau tích hợp checkpoint 2 là `451b6e1c1268737f0dd7f36385361e82a053589b`;
+commit mới giữa hai checkpoint chỉ đổi `AGENTS.md`, không đổi nguồn game có liên
+quan. Ubuntu `fly-server` trả lời SSH; các tác vụ Unity/asset nặng tiếp theo dùng
+host đó theo quy tắc main mới. Media và worktree audit được giữ trong lúc audit mở.
+
 ## Checkpoint 1: baseline main và manifest — 2026-10-28
 
 Remote `https://github.com/micharel09/TypingHero.git` đã fetch; main xác minh tại
