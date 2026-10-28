@@ -40,6 +40,24 @@ ghi rõ seed/biến thể thực tế và chọn đủ đoạn từ trước ent
 khi review từng frame. Đây là giới hạn coverage của công cụ thu, chưa kết luận
 lỗi game.
 
+Lượt chuẩn bị capture mới trên Ubuntu: task directory riêng
+`/data/typinghero-game-loop/tasks/a1-pixel-audit-20261028`, source từ
+`35bba7cf`; các commit main tiếp theo tới `c68fe2bc` chỉ đổi tài liệu. Adapter
+`run-player-only.py` tái dùng snapshot/khóa/Unity build của runner, giữ player
+immutable và bỏ bước browser suite. Driver thích ứng `ready-current-audit-ubuntu.cjs`
+gõ từng ký tự trong Slayer với khoảng cách 1,05 giây và vẫn dùng bridge chỉ đọc,
+fixture, chặn provider; driver player death cũng đã chuẩn bị. Cả hai qua
+`node --check`, chưa chạy capture. Chrome 152 trên host có WebGL SwiftShader,
+MediaRecorder và canvas capture; renderer này phải được ghi riêng khi nghiệm thu.
+
+Lượt build xếp hàng hơn 16 phút sau job chung. Khi yêu cầu dừng lượt chờ của
+audit được gửi, runner vừa nhận khóa và bắt đầu khởi tạo snapshot
+`1c9ef89c6806089bf3061766f7aacb4ab42696322e5b5cddec2723987ac17fbc`;
+job audit kết thúc do tín hiệu dừng, không có QA player được xác minh. Một job
+khác đã nhận khóa sau đó. `build.log` trong task directory lưu diễn biến; đây là
+lượt gián đoạn, không phải build pass hay kết luận lỗi Unity. Giữ directory này
+để tiếp tục theo runner chung sau khi khóa rảnh, đối soát main trước khi chạy.
+
 ## Checkpoint 2: đủ ledger ba handoff, nghiệm thu còn mở — 2026-10-28
 
 Đã xem trực tiếp phần còn lại F1157–F1567 của kiếm, gồm nối F1156→F1157:
