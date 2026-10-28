@@ -218,7 +218,7 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
 - Four flat non-raycast backplates use #14111E/.88 at native player(3,0,102,11), enemy(215,0,102,11), difficulty(108,45,104,13), clock(256,145,32,14). They render before HUD/tray/labels; CombatR7Status synchronizes the difficulty Image with its label. Score-frame alone is tinted(.75,.75,.75,1); score text/pulse, Slayer colors, HP/parry/stamina feedback remain unchanged.
 - Strict two-pass serialization, actual atlas pixels/settings, fixed-font content/bounds and existing IDs/typing-component preservation verified. Same-player native feedback, focused restart/death25/25 and score-cluster209/209 cover current-scene lifecycle and four sizes; see checkpoint for the full feedback driver timeout and qualified rerun coverage. HUD stays screen space; existing floor native y138/tray y146, camera, cue and popup mechanisms are unchanged. Representative2.5D lighting/parallax/foreground occlusion remains unverified. [Checkpoint](../plans/score-hud-cluster.md).
 
-## Unified score cluster (2026-10-27; current layout)
+## Unified score cluster (2026-10-28; current layout)
 
 - CombatR7Build preserves the center-top ScoreCluster frame at(333,9,294,66).
   ScoreText and the smaller multiplier share one centered row at local y27;
@@ -227,14 +227,22 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
 - Final Cobblestone font sizes48/42 and tier colors remain. Long totals reduce
   displayed font size while retaining all digits and reserving the maximum1.2x
   award pulse. ScoreUI_Flash still owns the original120ms pulse scale.
-- ScoreSystem/ScoreRules, thresholds, multiplier cap, renewal/expiry/timeout,
+- Multiplier text uses invariant0.##: x1.15/x1.3/x1.45/x1.5/x3, without trailing
+  zeros. This formats display only; stored floats and Unity RoundToInt remain.
+  Normal word5/6/7 awards12/13/14; the third actual multiplier is1.44999993.
+- SCORE MULTIPLIER appears below the frame at local(0,72,294,30), font18,
+  for2.4unpaused seconds after first activation. Pause/reading hold remaining
+  time; expiry/re-activation cannot repeat it. EndlessRun retains its presentation
+  flag across duels; Restart/new run re-arms it. Non-Endless ResetScore also re-arms.
+- Score formula/ScoreRules, thresholds, multiplier cap, renewal/expiry/timeout,
   input, damage and providers are unchanged. CombatR7Status retains normal/Slayer
   fill sprites. HP, names, typing tray and the character-side popup anchor remain.
-- Strict repeated builder and targeted Unity checks pass; native72/72 and direct
-  review cover1280x720/400x300, x1/normal/x3, real parry renewal, pause/resume,
-  expiry/timeout, restart and natural Slayer exit. Final-font48case geometry
-  fixture covers20digit totals and maxpulse. See [verification](verification.md)
-  and [checkpoint](../plans/score-hud-cluster.md). No itch.io release for this change;
+- Strict repeated builder, focused Unity5/5 and native89/89 pass. Direct review
+  covers guide/gameplay at1280x720/400x300, x1/normal/x3, real parry renewal,
+  notice/pause/resume/expiry/restart and natural Slayer exit. Final-font128case
+  geometry covers20digit totals, two-decimal multipliers and maxpulse.
+  See [verification](verification.md), [clarity checkpoint](../plans/score-combo-clarity.md)
+  and [earlier layout](../plans/score-hud-cluster.md). No itch.io release for this change;
   the previous three-row layout was published2026-10-20 as upload19892576.
 
 ## Combat HUD feedback (2026-10-20)
@@ -464,6 +472,9 @@ Change only behavior explicitly requested. Update this file after relevant verif
   destinations. Existing dungeon, HUD, fonts, panel style and Continue listener remain.
 - The callouts explain HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
   with Space/parry and Esc/pause copy plus one Start Battle / Enter action.
+  Score / Combo says "Chain correct words to raise your score multiplier. Keep
+  going before the combo bar runs out." Its existing card is(328,116,304,168),
+  copy(340,128,280,144), font20; the arrow remains bound to ScoreCluster.
   No lesson tests, additional pages, animation or illustrations; How to Play is separate.
 - Reading uses the existing GamePauseController input/time/audio/score lock.
   Pause hides the guide; Resume preserves the lock and returns to the same panel.

@@ -798,6 +798,103 @@ public sealed class GameplayTests
         finally { TutorialRun.End(); EndlessRun.Clear(); }
     }
 
+    ScoreSystem CreateScoreHUD(out ScoreUI_ComboHUD hud, out TMP_Text multiplier, out TMP_Text hint)
+    {
+        var hudHost = new GameObject("combo presentation", typeof(RectTransform), typeof(ScoreUI_ComboHUD));
+        hudHost.transform.SetParent(root.transform, false);
+        hud = hudHost.GetComponent<ScoreUI_ComboHUD>();
+        multiplier = new GameObject("Multiplier", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
+        multiplier.transform.SetParent(hudHost.transform, false);
+        hint = new GameObject("Hint", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
+        hint.transform.SetParent(hudHost.transform, false);
+        hint.enabled = false;
+        Set(hud, "multiplierText", multiplier); Set(hud, "multiplierHint", hint);
+        var host = Own(new GameObject("score with combo HUD")); host.SetActive(false);
+        var score = host.AddComponent<ScoreSystem>();
+        Set(score, "rules", Own(ScriptableObject.CreateInstance<ScoreRules>()));
+        Set(score, "comboHUD", hud); host.SetActive(true);
+        return score;
+    }
+
+    [Test, Category("Quick")]
+    public void ScoreMultiplierLabelsPreserveRealAwardsAndInvariantDecimals()
+    {
+        var culture = System.Globalization.CultureInfo.CurrentCulture;
+        try
+        {
+            System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("fr-FR");
+            var score = CreateScoreHUD(out var hud, out var multiplier, out _);
+            float expected = 1;
+            for (int i = 1; i <= 25; i++)
+            {
+                int before = score.Score;
+                typing.ProcessInput(Get<string>(typing, "current"));
+                if (i >= 5) expected = Mathf.Min(3, expected + .15f);
+                Assert.That(score.Multiplier, Is.EqualTo(expected), "Use the original unrounded multiplier");
+                Assert.That(score.Score - before, Is.EqualTo(Mathf.RoundToInt(10 * expected)));
+                Assert.That(multiplier.gameObject.activeSelf, Is.EqualTo(i >= 5));
+                if (i == 5) Assert.That(multiplier.text, Is.EqualTo("\u00d71.15"));
+                if (i == 6) Assert.That(multiplier.text, Is.EqualTo("\u00d71.3"));
+                if (i == 7) Assert.That(multiplier.text, Is.EqualTo("\u00d71.45"));
+                if (i >= 18) Assert.That(multiplier.text, Is.EqualTo("\u00d73"));
+                if (i >= 5 && i <= 7)
+                    TestContext.WriteLine($"word{i}: multiplier={expected:R}, label={multiplier.text}, award={score.Score - before}");
+            }
+            hud.SetMultiplier(1.5f, 3, Color.yellow);
+            Assert.That(multiplier.text, Is.EqualTo("\u00d71.5"));
+            Assert.That(Mathf.RoundToInt(14.5f), Is.EqualTo(14), "Unity midpoint-to-even remains unchanged");
+            Assert.That(Mathf.RoundToInt(15.5f), Is.EqualTo(16));
+        }
+        finally { System.Globalization.CultureInfo.CurrentCulture = culture; }
+    }
+
+    [UnityTest, Category("Quick")]
+    public IEnumerator ScoreMultiplierHintHoldsOnPauseAndRearmsOnlyForNewMatches()
+    {
+        EndlessRun.Clear();
+        var score = CreateScoreHUD(out var hud, out _, out var hint);
+        void Words(int count)
+        {
+            for (int i = 0; i < count; i++) typing.ProcessInput(Get<string>(typing, "current"));
+        }
+        try
+        {
+            Assert.That(hint.enabled, Is.False);
+            Words(4); Assert.That(hint.enabled, Is.False);
+            Words(1); Assert.That(hint.enabled, Is.True);
+            yield return null;
+            float before = Get<float>(hud, "hintRemaining");
+            Time.timeScale = .05f;
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That(Get<float>(hud, "hintRemaining"), Is.LessThan(before - .15f), "Use unscaled time through hitstop");
+            score.SetPaused(true); Time.timeScale = 0;
+            before = Get<float>(hud, "hintRemaining");
+            yield return new WaitForSecondsRealtime(.25f);
+            Assert.That(Get<float>(hud, "hintRemaining"), Is.EqualTo(before));
+            Assert.That(hint.enabled, Is.True);
+            score.SetPaused(false); Time.timeScale = 1;
+            GamePauseController.SetTutorialReading(true);
+            yield return new WaitForSecondsRealtime(.15f);
+            Assert.That(Get<float>(hud, "hintRemaining"), Is.EqualTo(before), "Reading lock also holds the notice");
+            GamePauseController.SetTutorialReading(false);
+            yield return new WaitForSecondsRealtime(before + .1f);
+            Assert.That(hint.enabled, Is.False, "Auto-hide after the remaining active time");
+            score.BreakCombo(); Words(5);
+            Assert.That(hint.enabled, Is.False, "A later combo cannot repeat the first notice");
+            score.ResetScore(); Words(5);
+            Assert.That(hint.enabled, Is.True, "A fresh non-Endless match re-arms the notice");
+            EndlessRun.Begin(); score.ResetScore(); Words(5);
+            Assert.That(hint.enabled, Is.True);
+            score.ResetScore(); Words(5);
+            Assert.That(hint.enabled, Is.False, "Retained Endless run must not repeat across encounter reloads");
+            EndlessRun.Restart(); score.ResetScore(); Words(5);
+            Assert.That(hint.enabled, Is.True, "Restart creates a new run and re-arms the notice");
+            hud.enabled = false;
+            Assert.That(hint.enabled, Is.False, "Disable clears an active notice");
+        }
+        finally { EndlessRun.Clear(); GamePauseController.SetTutorialReading(false); Time.timeScale = 1; }
+    }
+
     [UnityTest, Category("Quick")]
     public IEnumerator HitstopRestartBeforeExpiredCoroutineResumesRestoresOriginalScale()
     {

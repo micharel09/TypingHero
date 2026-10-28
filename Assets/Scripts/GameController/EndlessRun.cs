@@ -12,6 +12,7 @@ internal sealed class EndlessRun
     internal EndlessDifficulty Difficulty { get; private set; }
     internal int Defeated, Health, Score, Letters, Correct, Parries;
     internal float Seconds;
+    internal bool ScoreMultiplierHintShown;
     internal int Round => Defeated / DuelsPerRound + 1;
     internal int Slot => Defeated % DuelsPerRound;
     internal static EndlessRun Begin(EndlessDifficulty difficulty = EndlessDifficulty.Normal) =>

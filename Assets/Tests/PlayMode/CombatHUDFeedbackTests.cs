@@ -36,7 +36,7 @@ public sealed class CombatHUDFeedbackTests
             typeof(ScoreUI_ComboHUD).GetField("multiplierText", Flags).SetValue(hud, mult);
             var tick = typeof(ScoreUI_ComboHUD).GetMethod("LateUpdate", Flags);
             foreach (string total in new[] { "0", "12345", "2147483647", "99999999999999999999" })
-            foreach (float multiplier in new[] { 1f, 1.15f, 3f })
+            foreach (float multiplier in new[] { 1f, 1.15f, 1.3f, 1.45f, 1.5f, 1.6f, 2.95f, 3f })
             foreach (float pulse in new[] { 1f, 1.06f, 1.12f, 1.2f })
             {
                 score.text = total; score.transform.localScale = Vector3.one * pulse;

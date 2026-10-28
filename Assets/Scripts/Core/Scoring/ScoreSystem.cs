@@ -89,11 +89,13 @@ public class ScoreSystem : MonoBehaviour
     public void SetPaused(bool v)
     {
         _paused = v;
+        if (comboHUD) comboHUD.SetPaused(v);
         if (_floating) _floating.SetPaused(v && !CombatSession.Finished);
     }
 
     public void ResetScore()
     {
+        if (comboHUD) comboHUD.ResetMatchHint();
         if (_floating)
         {
             _floating.gameObject.SetActive(false);
@@ -121,6 +123,7 @@ public class ScoreSystem : MonoBehaviour
     // ==== Internals ====
     void ResetAllInternal()
     {
+        if (comboHUD) comboHUD.ResetMatchHint();
         Score = 0;
         Multiplier = rules ? rules.startMultiplier : 1f;
         _windowRemain = 0f;

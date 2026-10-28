@@ -94,11 +94,11 @@ internal static class TutorialBuild
             background.color = Color.white; background.raycastTarget = false;
             rect.SetAsFirstSibling();
         }
-        Card("ScoreCard", 328, 116, 304, 96);
+        Card("ScoreCard", 328, 116, 304, 168);
         Card("HealthCard", 24, 176, 288, 120);
         Card("EnemyCard", 648, 176, 288, 144);
         Card("TypingCard", 24, 300, 396, 72);
-        var score = Text("ScoreGuide", "<color=#DCC47C>Score / Combo</color>\nPoints and successful action streaks.", 340, 128, 280, 72, 24);
+        var score = Text("ScoreGuide", "<color=#DCC47C>Score / Combo</color>\nChain correct words to raise your score multiplier. Keep going before the combo bar runs out.", 340, 128, 280, 144, 20);
         var hp = Text("HealthGuide", "<color=#DCC47C>Your HP</color>\nYour health. When it runs out, you lose.", 36, 188, 264, 96, 24);
         var enemy = Text("EnemyGuide", "<color=#DCC47C>Enemy HP / Guard</color>\nDrain HP to win. Parry lowers guard. Break guard for Slayer.", 660, 188, 264, 120, 24);
         var typing = Text("TypingGuide", "<color=#DCC47C>Typing / Timer</color>\nType the current word to attack. A wrong letter resets it. The bar below is time left.", 36, 306, 372, 60, 18);

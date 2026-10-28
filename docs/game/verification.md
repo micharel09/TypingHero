@@ -1,3 +1,33 @@
+## Score multiplier clarity (2026-10-28; verified)
+
+- Invariant0.## formats x1.15/x1.3/x1.45/x1.5/x3 while retaining actual floats,
+  +.15 growth, x3 cap, Unity rounding, combo timing, colors and popup behavior.
+  The existing guide explains multiplier and combo expiry; SCORE MULTIPLIER
+  appears once per match for2.4unpaused seconds, including through Pause/Resume.
+- Unity2022.3.25f1/fly-server focused20261028T021251-quick:5/5PASS,0skips,
+  input95fa9b95;128font/long-total/multiplier/pulse combinations pass. Production
+  input under fr-FR still displays a dot; normal word5/6/7 awards12/13/14 with
+  third raw multiplier1.44999993. Pause/reading, expiry, re-activation, retained
+  Endless run, Restart and disable cleanup pass; original tier pulse passes.
+- Existing local Windows adapter with fresh Library, Unity2022.3.25f1 and installed
+  WebGL module: QA build and strict repeated builder PASS; LF-normalized input
+  6f96da77085592384aa29af8b56dcaf0feb638f7a25d27acd18a2b5284bd3a0d.
+  Scene projection retains1121original IDs, updates five scoped blocks, adds four
+  hint blocks and leaves1116unrelated blocks unchanged. Only four empty YAML field
+  spaces were trimmed; task blocks otherwise match the generated scene.33player hashes recorded.
+- Native Edge156.0.4314.50 / Playwright1.63.0 / GTX1650Ti ANGLE D3D11:
+  89/89PASS in54.582s,0exceptions/provider IO. Actual keyboard typing/parry,
+  x1/first combo, renewal, expiry/timeout, one-time notice, Pause/Resume, Restart,
+  Slayer x3/natural exit and normal combo after Slayer pass. Directly inspected
+  all11captures, including guide/x1/combo/Slayer at1280x720 and400x300; text,
+  decay, HP, typing tray and character-side popup remain placed correctly.
+  Firebase fixture interception and external blocking stayed enabled.
+- First Linux build stopped after prolonged lack of log progress; retry logged
+  missing-source CS2001, with stale shared compilation state suspected. Neither is counted
+  as a build PASS. Only verified task containers were stopped; shared cache and
+  other jobs preserved. No full suite/stress/soak/production/itch.io release.
+  Exact provenance, clip and integration: [checkpoint](../plans/score-combo-clarity.md).
+
 ## READY task closed; release canceled by user (2026-10-27)
 
 The user accepted the merged READY change, canceled the pending itch.io release,
