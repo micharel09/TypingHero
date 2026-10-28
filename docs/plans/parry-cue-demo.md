@@ -1200,3 +1200,106 @@ Normal payload SHA256:
 - `normal-player.framework.js`: `3a135de2226d0be04d56916641dc18decbf1d2e1c479de07f31848ee4c88d96a`
 - `normal-player.loader.js`: `1d61ac36c38d8fa61f2e2e53974a6047ccc321d79b216b068930afc6a205ff76`
 - `normal-player.wasm`: `840c8dd25741fbc28eadf006dbb5f8b28af9e3b90b71c4941c42ad2c6c6796ee`
+
+### Centered tutorial follow-up (2026-10-28; in progress)
+
+- Scope: five 600x240 cards, centered 240x135 clip, two-line rule beneath,
+  title at top left and adjacent Skip/Next or Start Battle at top right. Shared
+  builder/runtime layout and the existing Endless template bindings are retained.
+- Worktree `tutorial-full-gameplay`, branch `micharel09/tutorial-full-gameplay`,
+  base `fe44e68e`. The implementation and verification progress is recorded below.
+- Inherited Unity serializer PID 24036 stopped after becoming orphaned and making
+  no log progress for nearly two minutes. The E: volume briefly disappeared;
+  its relationship to the stall is unconfirmed. No passing result is claimed.
+  Copies of the inherited scenes and an isolated HEAD-plus-source snapshot are
+  retained at `C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-centered-work-20261028`.
+  Shared fly-server runner was busy; this task queued without interrupting it.
+- Isolated snapshot `434bf6471e79a3eaa5b8a5962ea8552ebe5d134f7f4f526428133147814e0181`,
+  serialize `20261028T021425`: FAIL before repeat, protected typing font
+  `CobblestoneUI64.asset` changed during builder. A later copy of the shared
+  server source matched HEAD, but another job may have replaced that source;
+  it does not establish the failed run's final bytes or cause. Retrying the
+  identical snapshot with the warmed import cache and unchanged assertions.
+- Repeat `20261028T022626`: same protected font failure. A third diagnostic
+  snapshot adds only before/after copies at the existing failure point; the
+  assertion and builder conditions remain intact. No strict pass is claimed.
+- Diagnostic `20261028T023705`: the protected before/after font files differ
+  only in CRLF versus LF (6,014 line endings); content matches after newline
+  normalization. `git archive` inherited Windows `core.autocrlf=true`. Recreated
+  the snapshot with `core.autocrlf=false` and confirmed the font bytes equal the
+  Git blob; strict verification is rerunning without diagnostic code or relaxed
+  checks. The font asset itself was not changed.
+- Clean-LF snapshot `69b8ed8b0cf92577da1b54377bf23d617fee0c4dd5ded2b609e3d43c1f15b0b6`,
+  serialize `20261028T024342`: stopped after more than eight minutes without
+  log progress following SampleScene load. The Unity main thread waited on a
+  futex while ALSA Mixer consumed a CPU; causation is unknown. Exit 143 is not
+  a pass. A local isolated Windows attempt was stopped after the server runner
+  became available; that attempt also produced no result.
+- Retry `20261028T025424-serialize` on the same clean-LF snapshot: strict repeat
+  builder PASS, process exit 0. Projected the final scene to eight changed
+  tutorial records matching the builder, retaining 1,291 other records byte for
+  byte and all 1,299 original IDs; no missing local reference candidates. The
+  inherited scene copy remains in the temporary evidence directory.
+- Projected scene snapshot `c44478e61fb6361599838298c436c36d0b40b332c48e1c53b59a8e395470a1dd`,
+  `20261028T031439-quick`: the three requested `TutorialTests` PASS, 3/3,
+  zero failed/skipped, 3.7719508 seconds. Strict builder above ran before scene
+  projection; the projected records match its output as noted.
+- Same snapshot `20261028T031925-production`: normal WebGL PASS, exit 0. All 34
+  player files match remote/local SHA256; four payloads exclude ASCII/UTF16 QA
+  markers. Edge normal player: ten card screenshots directly inspected at
+  1280x720/640x360, four mouse Next clicks, Start, Skip/reopen, held Enter,
+  Pause/Resume and frozen reading checked. Correct real keyboard input after
+  Start and Skip scored 10; timer advanced. Zero page exceptions/external
+  requests; fixture service worker blocks real provider effects. First typing
+  pilot sent input too soon during Resume and did not establish input; a later
+  retry after transition succeeded.
+- Demo http://127.0.0.1:8311/ and `/Tutorial-Centered.webm`: VP9 1280x720,
+  25 fps, silent, 28 s, 1,010,625 bytes, SHA256
+  `4599fe4b7f0122de582788f107257b0d27ba80f59725dc4613d5366752712036`.
+  Complete decode and HTTP `video/webm` pass; six encoded previews inspected.
+  Original recording's video clock differed from driver wall clock, so card
+  transitions were located in the encoded frames before the five-second cuts.
+- Outstanding: plan calls for an Endless intro with Fight. Current source starts
+  the first encounter immediately and uses Continue after a win; no Fight intro
+  exists. Combat has no tutorial overlay, but the post-win Continue screen has
+  not been directly verified on this player: a real-input Very Easy attempt
+  ended in Game Over at score 102 before the first enemy was defeated. The user
+  accepted this review and requested the larger modal follow-up; no earlier
+  remote push was made. Review receipt and Start/Stop scripts are in
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-centered-20261028`.
+
+### Larger tutorial modal follow-up (2026-10-28; verified review candidate)
+
+User accepted the centered tutorial and requested a larger modal and GIF.
+Retain the current behavior, text, positions relative to the card, 16:9 ratio,
+review branch and previous demos. Proposed reference-space bounds: card
+720x340 at (120,100), GIF 400x225 at (160,50) within it, rule 680x44 at
+(20,290), action 176x32 at (520,10), Skip 60x26 at root (570,113).
+Runtime/builder layout and the existing focused layout assertion were updated;
+verification progress is recorded below.
+- Unity Windows strict repeat PASS with exit 0 after clean Library import; both
+  earlier copied-cache attempts failed before tutorial checks with missing scene
+  binding/renderer features and are not passing evidence. Shared fly-server runner
+  timed out waiting for its lock; other tasks were left intact. Compared to the
+  previous projected scene, five layout records match builder output and 1,294
+  other records remain byte-identical; all 1,299 IDs and local references remain.
+- Three requested focused PlayMode tests PASS, 3/3, zero skipped, 5.0806809 s,
+  exit 0 on the projected scene.
+- Normal WebGL build PASS, exit 0; build manifest reports qa:false and all four
+  player payloads exclude ASCII/UTF16 QA markers. The 34 player file hashes are
+  recorded in the review receipt. On the actual normal player, all ten card
+  states at 1280x720 and 640x360 were directly inspected. Mouse Next, Start,
+  Skip/reopen, held Enter, Pause/Resume and the reading lock were exercised;
+  page exceptions and external requests were zero. The previous candidate's
+  real typing and timer checks are reused for unchanged combat behavior.
+- Demo http://127.0.0.1:8312/ and /Tutorial-Larger.webm: VP9 1280x720, 25 fps,
+  silent, 28 seconds, 1,106,017 bytes, SHA256
+  bb206d3cd1664df9a6a6a4b823e8b84278dae387e7b7f739da1a2cce5ca0710b.
+  Complete decode and HTTP video/webm passed; six encoded previews directly
+  inspected in order. Capture clock drift required cuts based on decoded frames.
+  Artwork, frame order and clip timing are unchanged. Existing Endless has no
+  initial Fight intro; post-win Continue remains unverified as described above.
+- Review artifacts and Start/Stop scripts remain at
+  C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-larger-20261028.
+  Keep the demo, evidence, branch and worktree until review ends; stop the
+  task-owned host and remove only approved review resources afterward.

@@ -1,3 +1,26 @@
+## Larger centered tutorial (2026-10-28; review branch)
+
+Unity 2022.3.25f1 Windows strict repeat builder and three focused TutorialTests
+PASS on the projected scene. Normal WebGL build PASS with QA markers absent.
+All five cards at 1280x720/640x360 were directly inspected; mouse Next, Start,
+Skip, held Enter and Pause/Resume exercised. No browser page exceptions or
+external requests. The existing Endless flow and original clips remain unchanged.
+Demo and 28-second silent clip: http://127.0.0.1:8312/. Full decode and
+video/webm response PASS. [Checkpoint](../plans/parry-cue-demo.md#larger-tutorial-modal-follow-up-2026-10-28-verified-review-candidate).
+
+## Centered tutorial follow-up (2026-10-28; earlier review candidate)
+
+Unity 2022.3.25f1 strict repeat builder PASS; three requested TutorialTests PASS
+on the projected scene. Normal WebGL build PASS and 34 player files match server
+hashes; four payloads exclude QA markers. Edge inspected all ten cards at
+1280x720 and 640x360, including mouse Next/Start/Skip, held Enter and pause/
+resume. After both Start and Skip, real typed words scored and the timer moved.
+Page exceptions and external requests: zero. Demo and 28-second silent 25 fps
+clip are hosted at http://127.0.0.1:8311/. Current Endless starts the first
+encounter immediately and uses Continue between encounters; its post-win screen
+was not directly checked. Details and failed attempts:
+[checkpoint](../plans/parry-cue-demo.md#centered-tutorial-follow-up-2026-10-28-in-progress).
+
 ## Compact five-card tutorial (2026-10-27; review branch)
 
 Windows Unity2022.3.25f1: strict repeat builder and normal WebGL PASS/exit0.

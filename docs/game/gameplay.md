@@ -349,12 +349,12 @@ Change only behavior explicitly requested. Update this file after relevant verif
 
 ## Five-card tutorial guide
 
-- Frozen gameplay backs one centered 600x240 card at (180,150) in Reference960x540.
-  Title above, short rule left and 240x135 clip right. Next becomes Start Battle
-  on card five; Skip is small corner text. Extra controls, badges and callouts
+- Frozen gameplay backs one centered 720x340 card at (120,100) in Reference960x540.
+  Title at top left, centered 400x225 clip and a centered two-line rule beneath.
+  Next becomes Start Battle on card five; Skip is beside it. Extra controls, badges and callouts
   are hidden. Endless retains its original TutorialPrompt/PracticeButton template.
 - Five cards: Type to Attack (including HP), Mistakes & Timer, Parry with Space,
-  Break Guard / Slayer, Score & Combo. No practice or pass gate. Next/Enter
+  Guard & Slayer, Score & Combo. No practice or pass gate. Next/Enter
   preserves same-frame/Enter-release guards. Final Start saves Completed and
   reloads a clean selected-difficulty battle; Skip preserves Completed on replay.
 - Existing captured sprites, atlas GUIDs, Point filtering and frame durations

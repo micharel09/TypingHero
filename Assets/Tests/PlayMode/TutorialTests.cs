@@ -216,8 +216,11 @@ public sealed class TutorialTests
         var render = typeof(TutorialOverlay).GetMethod("RenderClip", flags);
         var panel = (RectTransform)overlay.transform.Find("Reference960x540/ParryModal/Panel");
         Assert.That(overlay.StepCount, Is.EqualTo(5));
-        Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(600, 240)));
-        Assert.That(((RectTransform)panel.Find("Clip")).sizeDelta, Is.EqualTo(new Vector2(240, 135)));
+        Assert.That(panel.anchoredPosition, Is.EqualTo(new Vector2(120, -100)));
+        Assert.That(panel.sizeDelta, Is.EqualTo(new Vector2(720, 340)));
+        var clip = (RectTransform)panel.Find("Clip");
+        Assert.That(clip.anchoredPosition, Is.EqualTo(new Vector2(160, -50)));
+        Assert.That(clip.sizeDelta, Is.EqualTo(new Vector2(400, 225)));
         Assert.That(Object.FindObjectOfType<TutorialPractice>(), Is.Null);
         for (int index = 0; index < 5; index++)
         {

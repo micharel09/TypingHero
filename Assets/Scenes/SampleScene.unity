@@ -16651,7 +16651,9 @@ MonoBehaviour:
   guideEnd: {fileID: 739624404}
   lessons:
   - title: Type to Attack
-    rule: Finish the word to attack. Drain enemy HP to win; keep yours above zero.
+    rule: 'Finish the word to attack.
+
+      Lower enemy HP; keep yours above 0.'
     atlasPaths:
     - Tutorial/typing-0
     - Tutorial/typing-1
@@ -17615,7 +17617,9 @@ MonoBehaviour:
         height: 28
       label: {x: 144, y: 414}
   - title: Mistakes & Timer
-    rule: Wrong letters reset the word; the timer keeps running.
+    rule: 'A wrong letter resets the word.
+
+      The timer keeps running.'
     atlasPaths:
     - Tutorial/mistakes-0
     - Tutorial/mistakes-1
@@ -19066,7 +19070,10 @@ MonoBehaviour:
         height: 36
       label: {x: 144, y: 414}
   - title: Parry with Space
-    rule: Tap Space when the key fills. Release between attempts.
+    rule: 'Press Space when the key fills to parry.
+
+      Release before pressing
+      again.'
     atlasPaths:
     - Tutorial/parry-health-0
     - Tutorial/parry-health-1
@@ -21805,8 +21812,10 @@ MonoBehaviour:
         width: 132
         height: 28
       label: {x: 144, y: 414}
-  - title: "Break Guard \xB7 Slayer"
-    rule: Parry to break Guard. In Slayer, correct letters attack.
+  - title: Guard & Slayer
+    rule: 'Parry to break Guard.
+
+      In Slayer, each correct letter attacks.'
     atlasPaths:
     - Tutorial/slayer-0
     - Tutorial/slayer-1
@@ -28531,7 +28540,9 @@ MonoBehaviour:
         height: 36
       label: {x: 144, y: 414}
   - title: Score & Combo
-    rule: Words score points. Five in a row unlock the multiplier.
+    rule: 'Complete words to score.
+
+      5 correct words in a row unlock the multiplier.'
     atlasPaths:
     - Tutorial/score-0
     - Tutorial/score-1
@@ -35490,8 +35501,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -58}
-  m_SizeDelta: {x: 292, y: 126}
+  m_AnchoredPosition: {x: 20, y: -290}
+  m_SizeDelta: {x: 680, y: 44}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1803063523
 CanvasRenderer:
@@ -35548,12 +35559,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
-  m_fontSizeBase: 22
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 22
-  m_fontSizeMax: 22
+  m_fontSizeMin: 18
+  m_fontSizeMax: 18
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -51017,7 +51028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -194}
+  m_AnchoredPosition: {x: 520, y: -10}
   m_SizeDelta: {x: 176, y: 32}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &164012404
@@ -51572,8 +51583,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180, y: -150}
-  m_SizeDelta: {x: 600, y: 240}
+  m_AnchoredPosition: {x: 120, y: -100}
+  m_SizeDelta: {x: 720, y: 340}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &937446677
 MonoBehaviour:
@@ -51788,8 +51799,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 336, y: -56}
-  m_SizeDelta: {x: 240, y: 135}
+  m_AnchoredPosition: {x: 160, y: -50}
+  m_SizeDelta: {x: 400, y: 225}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1548844260
 CanvasRenderer:
@@ -52131,8 +52142,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -14}
-  m_SizeDelta: {x: 480, y: 32}
+  m_AnchoredPosition: {x: 20, y: -10}
+  m_SizeDelta: {x: 300, y: 32}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2010938713
 MonoBehaviour:
@@ -52188,8 +52199,8 @@ MonoBehaviour:
   m_fontSizeMin: 26
   m_fontSizeMax: 26
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -53643,7 +53654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 696, y: -166}
+  m_AnchoredPosition: {x: 570, y: -113}
   m_SizeDelta: {x: 60, y: 26}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1675793343

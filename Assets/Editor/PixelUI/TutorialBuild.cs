@@ -399,8 +399,8 @@ internal static class TutorialBuild
         var content = so.FindProperty("hudContent"); content.arraySize = nodes.Length;
         for (int i = 0; i < nodes.Length; i++) content.GetArrayElementAtIndex(i).objectReferenceValue = hud.Find(nodes[i]).gameObject;
         var names = new[] { "typing", "mistakes", "parry-health", "slayer", "score" };
-        var titles = new[] { "Type to Attack", "Mistakes & Timer", "Parry with Space", "Break Guard \u00b7 Slayer", "Score & Combo" };
-        var rules = new[] { "Finish the word to attack. Drain enemy HP to win; keep yours above zero.", "Wrong letters reset the word; the timer keeps running.", "Tap Space when the key fills. Release between attempts.", "Parry to break Guard. In Slayer, correct letters attack.", "Words score points. Five in a row unlock the multiplier." };
+        var titles = new[] { "Type to Attack", "Mistakes & Timer", "Parry with Space", "Guard & Slayer", "Score & Combo" };
+        var rules = new[] { "Finish the word to attack.\nLower enemy HP; keep yours above 0.", "A wrong letter resets the word.\nThe timer keeps running.", "Press Space when the key fills to parry.\nRelease before pressing again.", "Parry to break Guard.\nIn Slayer, each correct letter attacks.", "Complete words to score.\n5 correct words in a row unlock the multiplier." };
         var lessons = so.FindProperty("lessons"); lessons.arraySize = names.Length;
         const string resources = "Assets/Resources/Tutorial";
         if (!AssetDatabase.IsValidFolder(resources)) AssetDatabase.CreateFolder("Assets/Resources", "Tutorial");
