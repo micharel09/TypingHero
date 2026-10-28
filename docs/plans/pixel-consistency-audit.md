@@ -1,10 +1,44 @@
 # Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
-> **Audit đang mở; A1 đã tích hợp remote main tại `b51e3b3e`, nghiệm thu runtime còn mở.** Baseline hiện hành là Magic Circle, compact READY và lighting mới. Capture hiện hành tại `762a3e92` giữ nguyên revision; nguồn liên quan đã đối soát với main.
-> **Ledger hiện hành:** rìu 326/326 frame và 325/325 chuyển tiếp; kiếm–khiên 254/254 và 253/253; kiếm/READY 507/507 và 506/506. Tổng ba handoff đã ghi kiểm 1.087/1.087 frame và 1.084/1.084 cặp ở native và nearest 4×. Số đếm không chứng nhận chi tiết bị che hoặc playback.
+> **Audit đang mở; A1 đã tích hợp remote main tại `b51e3b3e`, nghiệm thu runtime còn mở.** Baseline hiện hành là Magic Circle, compact READY và lighting mới. Capture tại `762a3e92` giữ nguyên revision; main đã đổi HUD/scene sau capture, xem đối soát bên dưới trước khi tái sử dụng.
+> **Ledger tại `762a3e92`:** rìu 326/326 frame và 325/325 chuyển tiếp; kiếm–khiên 254/254 và 253/253; kiếm/READY 507/507 và 506/506. Tổng ba handoff đã ghi kiểm 1.087/1.087 frame và 1.084/1.084 cặp ở native và nearest 4×. Số đếm không chứng nhận chi tiết bị che, playback hoặc HUD trên main mới.
 > **Còn mở:** tính liên tục ngay tại biên resize, coverage player/Slayer/animation còn thiếu, preview chi tiết bị che và playback người xem 1×/0.25×. Tutorial hiện hành 26/25 chỉ chứng minh reading khi timeScale khóa.
 > **Lịch sử:** READY 806/803 tại `66749da1`; catalog 1.186/1.180 trên 1.900/1.890, còn 714/710, được giữ riêng. Đoạn bị thay thế không cần xem tiếp chỉ để đủ số cũ. Xem [checkpoint hiện hành](#checkpoint-2-đủ-ledger-ba-handoff-nghiệm-thu-còn-mở--2026-10-28).
 > Các số liệu và kết luận trong phần lịch sử giữ theo revision của từng lượt; không cộng vào coverage hiện tại hoặc dùng chứng nhận main mới.
+
+## Đối soát main mới và coverage Slayer — 2026-10-28
+
+Đã fetch main `6bbef57e1ed443246587c9ffbad78f8e590d8498`, chứa checkpoint
+`2a2cdb51` và thay đổi `e50ddfcf` về score/combo. So với revision capture
+`762a3e92`, thay đổi liên quan gồm `SampleScene.unity`, hướng dẫn tutorial,
+định dạng multiplier, thông báo multiplier, pause/reset của HUD và một cờ
+presentation trong `EndlessRun`. Không có diff trong asset sprite, camera,
+lighting, controller hoặc mã READY thuộc phạm vi đã so sánh. Các quan sát actor
+trên capture cũ vẫn truy xuất được theo revision cũ, nhưng không chứng nhận
+HUD/tutorial/điểm hoặc bố cục toàn cảnh của main mới. Phải thu lại các phần bị
+ảnh hưởng và kiểm nối READY/combat với snapshot main mới; không chuyển nhãn các
+ảnh hoặc 46 kiểm cũ thành kết quả trên revision mới. Test score/combo của task
+khác không thay thế ma trận READY và review frame của audit này.
+
+Snapshot của build score/combo đã được đối chiếu với worktree main mới: 2.547
+file trong manifest đều tồn tại, 17 hash khác sau chuẩn hóa CRLF cho text. Trong
+17 file có cả ba atlas A1, chín normal/depth/surface map, scene và bốn file mã.
+Vì vậy player score/combo đã build không phải snapshot kết hợp A1 + HUD mới và
+không dùng nó để chứng nhận A1 runtime. Receipt của task score/combo vẫn có
+giá trị trong phạm vi revision riêng của task đó.
+
+Đối chiếu bốn trace `capture-current-1/death-ready-{1,2,3,4}.trace.json` với
+driver `ready-current-audit.cjs` và `PlayerSlayerMode.cs`: các đoạn có cờ
+Slayer, nhưng driver chỉ gửi từ khi `!s.typingMuted`. `PlayerSlayerMode.Enter`
+bật `TypingManager.MuteWordCorrect` và nhận từng chữ đúng qua `OnCorrectChar`
+để chọn S1/S2/S3. Do đó driver cũ không chủ động gõ trong Slayer. Mẫu trace
+Slayer của bốn clip không ghi state S1/S2/S3 hoặc trail Slayer; trace được lấy
+mẫu và không đồng bộ từng lần vẽ nên đây không phải chứng cứ mọi trạng thái
+runtime đều vắng mặt. Các clip cũ không đủ chứng minh S1/S2/S3 và recovery.
+Cần thu bằng bàn phím thật với driver thích ứng điều kiện này, không ép animator,
+ghi rõ seed/biến thể thực tế và chọn đủ đoạn từ trước entry tới sau exit trước
+khi review từng frame. Đây là giới hạn coverage của công cụ thu, chưa kết luận
+lỗi game.
 
 ## Checkpoint 2: đủ ledger ba handoff, nghiệm thu còn mở — 2026-10-28
 
