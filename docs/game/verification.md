@@ -1,9 +1,9 @@
 ## Score multiplier clarity (2026-10-28; verified)
 
-- Invariant0.## formats x1.15/x1.3/x1.45/x1.5/x3 while retaining actual floats,
+- Invariant `0.##` formats x1.15/x1.3/x1.45/x1.5/x3 while retaining actual floats,
   +.15 growth, x3 cap, Unity rounding, combo timing, colors and popup behavior.
   The existing guide explains multiplier and combo expiry; SCORE MULTIPLIER
-  appears once per match for2.4unpaused seconds, including through Pause/Resume.
+  appears once per match for 2.4 unpaused seconds, including through Pause/Resume.
 - Unity2022.3.25f1/fly-server focused20261028T021251-quick:5/5PASS,0skips,
   input95fa9b95;128font/long-total/multiplier/pulse combinations pass. Production
   input under fr-FR still displays a dot; normal word5/6/7 awards12/13/14 with
@@ -23,8 +23,8 @@
   decay, HP, typing tray and character-side popup remain placed correctly.
   Firebase fixture interception and external blocking stayed enabled.
 - First Linux build stopped after prolonged lack of log progress; retry logged
-  missing-source CS2001, with stale shared compilation state suspected. Neither is counted
-  as a build PASS. Only verified task containers were stopped; shared cache and
+  missing-source CS2001, with stale shared compilation state suspected. Neither
+  is counted as a build PASS. Only verified task containers were stopped; shared cache and
   other jobs preserved. No full suite/stress/soak/production/itch.io release.
   Exact provenance, clip and integration: [checkpoint](../plans/score-combo-clarity.md).
 
