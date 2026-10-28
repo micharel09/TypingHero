@@ -1,5 +1,25 @@
 # Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
+## Bàn giao checkpoint và dọn temp — 2026-10-28
+
+QA build theo mã/asset main `36d0497f` thành công, snapshot
+`1f8bfaeb1e398db425db8c50d3e9e3c14ab31a12b54b5207c62814ef952f4469`,
+player immutable ở result Ubuntu `20261028T050333-webgl`; bản sao lâu dài tại
+`D:/Projects/TypingHero-evidence/a1-shield-ownership/runtime-main36`.
+Capture Ubuntu `capture-main36` và Windows `capture-native-main36` được giữ.
+Windows có 20 kiểm hành vi qua, 0 exception, luồng kiếm tới READY/trận kế;
+driver kết thúc failed do pilot chết ở DOUBLE STRIKE. Trace có S1/S2/S3,
+nhưng chưa review frame/transition của clip mới, không cộng coverage hoặc
+chứng nhận đủ recovery. Capture Ubuntu chậm và cũng dừng do pilot chết.
+Đây là giới hạn thu, chưa kết luận lỗi game.
+
+Theo yêu cầu chốt/push và dọn của người dùng: tích hợp checkpoint tài liệu,
+dọn profile/temp task đã đăng ký và log trung gian sau lưu receipt. Không
+tiếp tục khởi chạy lượt thu mới ở checkpoint bàn giao này. Giữ media, ledger,
+driver, player và worktree audit khi audit còn mở; chỉ dọn các tài nguyên đó
+sau khi nghiệm thu hoặc người dùng yêu cầu bỏ. A1 source đã lên main; nghiệm
+thu runtime cuối, rìu/khiên mới, resize, preview bị che và playback vẫn mở.
+
 ## Tiếp tục build và capture theo main `36d0497f` — 2026-10-28
 
 Lượt retry Ubuntu đã tạo thành công QA player immutable tại
