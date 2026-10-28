@@ -1354,3 +1354,34 @@ absolute canvas position. No sprite, playback or gameplay behavior changes.
   After review, stop only this demo host and remove task-owned artifacts/cache;
   remove the worktree only once unrelated dirty changes have been preserved and
   it is clean. Main integration remains deferred for review.
+
+### 2026-10-28 ? exhaustive tutorial stutter audit
+
+- User requested direct review of every frame after observing stutter.
+  Candidate645eff0e and normal demo8313 were retained unchanged.
+- Directly inspected all1,995 frames and1,995 outgoing transitions including five
+  loop seams, using103 full-frame/nearest-neighbor zoom sheets: typing106,
+  mistakes160, parry303, slayer745, score681. Per-frame CSV observations and
+  evidence: C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-trimmed-work-20261028/frame-audit/README.md.
+- Smoothness FAIL: typingF13/F16/F84 hold586.868/586.856/559.680ms during
+  idle/windup, totaling47.3% of the3.665s clip. ScoreF220 holds240.1ms during
+  idle. Every clip has an abrupt loop reset. These defects were not evaluated
+  by the earlier layout/functional PASS.
+- Source PNG hashes, atlas frame pixels, source timeline hashes and all durations
+  match the original timestamp-sorted captures for all1,995 frames. Recent
+  modal resizing did not introduce these source holds.
+- SlayerF219..400 holds the actor/slash while HUD timers continue. Current
+  Slayer code has explicit enemy hit-pose holding and player attack states with
+  no outgoing transitions; historical captured player-slash intent is not proven.
+- Fixture-isolated normal-player observation visited all five cards for two clip
+  durations plus2s each; end screenshots directly inspected. Zero exceptions
+  or external requests, QA undefined, two atlas textures peak. rAF maxima
+ 93.5..120.1ms show additional browser cadence gaps but do not isolate their
+  cause. Normal/slow continuous visual playback and attribution of loop reload
+  delays remain unverified; no smoothness PASS or fix is claimed.
+- Recommended follow-up: stable-cadence recapture/repack using the existing
+  pipeline, full replacement-frame review, and separate diagnosis of Slayer
+  pose holding and loop loading. Do not shorten source durations to hide stalls.
+- Browser review process ended; no new Unity process/build. Preserve audit
+  artifacts/demo/review branch until findings are resolved or archived.
+  Existing unrelated dirty files and main remain untouched.
