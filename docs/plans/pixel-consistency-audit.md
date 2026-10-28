@@ -116,6 +116,16 @@ Candidate source digest:
   trace below proves actual parry_followup; this still alone does not.
   Pause caught camera recovery (zoom.03) after light intensity returned0; this
   does not prove a lit pulse frozen mid-flight.
+- **B-pulse-pause-01 FAILED, retained:** reused the existing native typing,
+  Escape and read-only QA harness for one bounded three-attempt check, without
+  a recorder or player changes. Three typed attacks produced enemy HP170/160/150,
+  score10/20/30 and normal-impact counts1/2/3. The QA-selected combat light always
+  reported enabled=false/intensity0, so positive-pulse detection timed out and
+  no Pause/hold assertion executed. `GameLoopProbe` includes inactive rigs in its
+  first match; `DungeonSessionBuild` retains a disabled menu rig. This is a plausible
+  observation mismatch, not proof of runtime light failure or exact rig identity.
+  Preserve the failed receipt/events and keep held lit-pulse unverified. Actual
+  foreground0/193; functional occlusion flags apply, with no performance claim.
 - A01 input was delayed by full JSON inspection; A02 suffered native occlusion
   at1fps. Failures retained. A03/B01 share a frozen functional harness with
   Chromium's documented occlusion controls. Performance retains original flags

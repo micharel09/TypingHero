@@ -53,6 +53,12 @@
   game inputs remain unchanged. No final404ad result is claimed before XML verification.
 - GTX1650Ti A-normal-02 is **invalid**: raw68.73FPS/p95 24.24ms, but actual
   Windows foreground0/625 samples. No qualified A/B performance verdict exists.
+  B-pulse-pause-01 is retained as **FAILED**: three actual typed attacks reduced
+  enemy HP180→170→160→150 and scored10/20/30, but the QA-selected combat light
+  never reported enabled/positive, so no held lit-pulse assertion executed.
+  GameLoopProbe selects the first rig including inactive objects; DungeonSessionBuild
+  keeps a disabled menu rig. Wrong-rig observation is plausible, not proven;
+  exact runtime rig identity and held lit-pulse remain unverified. No player changed.
   Missing runtime intervals/VFX-hidden detail,1×/.25× playback, held lit-pulse
   Pause and post-Slayer fixture-value evidence remain open. Compact layout and
   production smoke/exclusion above are scoped verified results.
