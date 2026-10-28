@@ -1,0 +1,44 @@
+{
+  "typing": {
+    "framesInspected": 72,
+    "of": 72,
+    "consecutiveTransitionsInspected": 71,
+    "ofTransitions": 71,
+    "loopEndpoints": "inspected",
+    "loopRuntimeFade": "unverified"
+  },
+  "otherClips": "all 1083 frames and1078 internal transitions directly inspected; runtime/playback separate",
+  "playback1xAndQuarter": "unverified",
+  "mistakes": {
+    "framesInspected": 117,
+    "of": 117,
+    "consecutiveTransitionsInspected": 116,
+    "ofTransitions": 116,
+    "loopEndpoints": "inspected",
+    "loopRuntimeFade": "unverified"
+  },
+  "parry-health": {
+    "framesInspected": 192,
+    "of": 192,
+    "consecutiveTransitionsInspected": 191,
+    "ofTransitions": 191,
+    "loopEndpoints": "inspected",
+    "loopRuntimeFade": "unverified"
+  },
+  "slayer": {
+    "framesInspected": 441,
+    "of": 441,
+    "consecutiveTransitionsInspected": 440,
+    "ofTransitions": 440,
+    "loopEndpoints": "inspected",
+    "loopRuntimeFade": "unverified"
+  },
+  "score": {
+    "framesInspected": 261,
+    "of": 261,
+    "consecutiveTransitionsInspected": 260,
+    "ofTransitions": 260,
+    "loopEndpoints": "inspected",
+    "loopRuntimeFade": "unverified"
+  }
+}

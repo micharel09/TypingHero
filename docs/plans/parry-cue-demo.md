@@ -1385,3 +1385,326 @@ absolute canvas position. No sprite, playback or gameplay behavior changes.
 - Browser review process ended; no new Unity process/build. Preserve audit
   artifacts/demo/review branch until findings are resolved or archived.
   Existing unrelated dirty files and main remain untouched.
+
+### Tutorial smooth recapture and loop fade (2026-10-28; in progress)
+
+- Continue `tutorial-full-gameplay`, `micharel09/tutorial-full-gameplay`, base
+  `c7794ff486d343fd16d45c0f3df4792d90a534d6`. Review branch only; do not merge main.
+  Preserve existing dirty animation, importer, scene and tutorial descriptor changes.
+  Task evidence: `C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-smooth-work-20261028`.
+- Scope: recapture five full-gameplay clips at real speed, target 30 fps; pilot
+  gates >=28.5 fps, P95 <=50 ms, max <=100 ms, no missing frames. Keep modal
+  560x340 / GIF 400x225, English copy, current combat and Slayer behavior.
+  Original atlas assets remain unchanged until pilots pass.
+- Runtime adaptation: `TutorialOverlay` reuses `TutorialAtlasCache.Get` / held-page
+  protection and `CommitDisplay`, selecting the next atlas circularly. A local
+  phase clock follows `PanelReveal` unscaled SmoothStep: final frame completes,
+  first page readiness is checked, 100 ms fade-out, first-frame reset at alpha 0,
+  100 ms fade-in. Release resets phase/alpha; existing pause gate freezes updates.
+  Implementation is NOT yet accepted on a real player.
+- Recorder: `tools/game_loop/tutorial_readback.cjs` adapts the existing default
+  framebuffer capture and MDN non-blocking async readback:
+  https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices#use_non-blocking_async_data_readback
+  Three preallocated PBOs/fences, request-time timestamps, ordered RGBA RAM
+  storage, restored pack/read-framebuffer/read-buffer state, bottom-up conversion
+  only for export/OCR. Limits 768 MiB and 24 s. Buffer/fence/context/export errors
+  reject capture. PNG export is available only after complete drain.
+  Node syntax check passes; cadence/image correctness remain unverified.
+- Tests adapt the compact loop assertion and recover slow-load/stale-completion
+  plus exhaustive frame-lookup coverage from `ce9b87a5:Assets/Tests/PlayMode/TutorialTests.cs`.
+  Added circular-prefetch, terminal hold, two fade phases, pause hold and navigation
+  alpha reset checks. No test result is claimed before matching its snapshot hash.
+- Isolated Ubuntu snapshots are canonical HEAD inputs plus only task playback/test
+  source, excluding inherited dirty files. First snapshot
+  `e0a0400776d2a882a0ec155da9804660d29a5f1218c9fe82e68168eae020d11b`
+  timed out waiting 120 s for the shared runner; retry waits up to 3600 s.
+  Expanded-test snapshot
+  `b026d3ed420c5d21b70522a7ffa2de7add766e5a56feb5b16af2bd4bf2d3bb05`
+  is separately queued. Other jobs and shared cache are preserved.
+- Ubuntu recorder preflight: container attempts with SwiftShader and ANGLE GL
+  both selected SwiftShader. Existing host Chrome GL-EGL workflow was found in
+  `E:/CodexTemp/TypingHero/parry-gold-qa-20261028-7246068222b3/browser-remote.py`;
+  its verified prior renderer is Intel HD4600. Reuse its temporary `render` group
+  launch without persistent permission changes. Fixture-isolated typing baseline
+  and 8 s async pilot are queued under the shared lock, using the preserved QA
+  player `20261028T040651-webgl` only for recorder diagnostics, not final assets.
+  Remote task files: `/data/typinghero-game-loop/task-tutorial-smooth-20261028`.
+- Remaining: both cadence pilots and no-record comparisons, OCR integration,
+  five replacement captures/provenance/atlases, full frame/transition/playback
+  review, final scoped tests, strict repeat builder, QA/normal players and native
+  acceptance, demo8314/walkthrough, verified commit/push. No new demo or smoothness
+  PASS exists yet. Retain existing demos and this review worktree.
+
+
+#### Smooth tutorial checkpoint: implementation and recorder pilot receipts
+
+- Preliminary playback input `b026d3ed420c5d21b70522a7ffa2de7add766e5a56feb5b16af2bd4bf2d3bb05`:
+  Ubuntu `20261028T081340-quick` TutorialTests 9/9 PASS, no failed/skipped,
+  15.9460633 s. XML copied to task evidence `tests-081340.xml`. A duplicate queued
+  invocation ran the same expanded snapshot at `081652-quick`, also 9/9 PASS.
+  Do not use unrelated `075701-quick` (55 tests / different hash) as task evidence.
+- Later source review added a physical final-frame hold (`finalFrameElapsed`) to
+  handle loading/seek-to-end before fading. Fractional render-tick overrun may
+  enter fade; first-page loading time is discarded via `waitingForLoop`. These
+  later changes require a new focused test run; preliminary 9/9 is NOT a final
+  result for them. QA-only trace now exports numeric phase and image alpha.
+- Canonical pre-final-hold QA input `f38a0bd191452872b52c9796479ccb0d010c78ad3ab76e5a8714035ffeb76a4c`:
+  `084532-webgl` stopped with exit143 after unchanged import log/main-thread futex
+  and Audio Mixer around95% CPU. Rendered retry `093820-webgl` repeated the same
+  symptom and was also stopped. Both stopped containers were verified by their
+  task result mounts/names; worker logs retained. No build/strict-builder PASS.
+- Private Ubuntu build reuses server.py with task BASE/private Library/cache/HOME
+  and a task Docker bridge (same pinned Unity identity). Root:
+  `/data/typinghero-game-loop/task-tutorial-smooth-20261028/unity`.
+  Initial private launch was deferred when the shared retry became available;
+  after that retry stuck, fresh-Library QA `unity/results/20261028T095221-webgl`
+  started on f38a0bd1. It is importing packages/assets; no successful build yet.
+  Private activation files remain outside source snapshots under a mode700 root.
+  Network `typinghero-tutorial-smooth-build-20261028` has task ownership label;
+  remove it only after its containers stop and this build environment is retired.
+- Recorder allocates CPU RGBA destinations before timed capture, and reuses export
+  canvases. Existing GL errors are reported separately from recorder errors.
+  Warm-up is a separate complete0.5s readback run while the game is Paused; its
+  request/completion/timing receipt is retained. Release it, Resume, then start
+  the actual source capture. No warm-up frames are presented as source frames.
+- Normal-player typing cadence under the shared exclusive lock:
+  `/data/typinghero-game-loop/task-tutorial-smooth-20261028/pilot-normal-idle`.
+  Capture241/241 complete,30.040968 fps,P95 39.525ms,max51.34ms,no readback error
+  or pre-existing GL error. Baseline57.388166 fps,P95 16.67ms,max99.995ms.
+  Capture callback max21.085ms. First/final PNGs directly inspected at640x360:
+  full frame, correct orientation/color/HUD; real typed word `late` scored10.
+  Only endpoint images were exported for this pilot, not an exhaustive motion
+  review. Cadence PASS does not certify final replacement assets.
+- Earlier contended normal attempts FAILED cadence (27.75fps/P95 56.735/max254.89;
+  preallocation27.96fps/P95 52.29/max185.92). Their baselines also contained gaps.
+  Preserve their pilot.json/host.json/browser reports; do not lower the gate.
+- Actual serialized parry stun is10s (Player.prefab), so the second pilot keeps
+  complete entry/Slayer/exit/normal attack rather than cutting to8s. Limit24s and
+  all cadence criteria stay. Guard is prepared through real Space inputs using
+  the prior small framebuffer observer, stopped before timed async capture.
+- Second-pilot controller basis recovered from
+  `E:/CodexTemp/TypingHero/space-press-cue/full-review/slayer-capture20-driver.cjs`,
+  full-cache.py and full-no-pause.py. Prototype driver:
+  task evidence `slayer-pilot.cjs`; Ubuntu copy under task `runner/`.
+  Lookahead OCR overlaps actual typing; >300ms inter-word delay or a word that
+  fails to advance the real timer rejects the attempt. No gameplay/Slayer edit.
+- OCR runs separately in task Python3.12 venv (existing Playwright image), pinned
+  RapidOCR1.4.4/ONNX Runtime1.31.0; game Packages/dependencies unchanged. Loopback
+  service metadata is task `ocr-host.json`. Actual text crops were warmed before
+  readiness. Active WordPool GUID98cf087e matches WP_Common200; its normalized
+ 219-word set equals200tu.txt.txt. This is an OCR allowlist, not a game-state read.
+- Failed Slayer pilot folders `pilot-slayer`, `pilot-slayer-queue`,
+  `pilot-slayer-queue-normal`, `pilot-slayer-pad14-verified-word`,
+  `pilot-slayer-lexicon` preserve marks/final diagnostic images and available
+  capture-status. Reasons include pause-dimmed OCR, >300ms inter-word gaps and
+  wrong recognition (`at`->`t`, `was`->`eas`, `will`->`i`). None is accepted media.
+  Last recognition issue traced to max-channel threshold including red Slayer
+  background (observed bbox240px vs font `will`64px). Current OCR adapts the
+  original signature's RGB-neutral mask; this latest fix still needs verification.
+- No tutorial PNG/manifest/descriptor or scene has been replaced. Existing dirty
+  assets, old demos and main remain untouched. Full five-clip replacement,
+  exhaustive final review, final tests/builds/native loop acceptance and new
+  demo/commit/push remain pending. No completion or remote integration claimed.
+
+
+#### Smooth tutorial checkpoint: second pilot and current test snapshot
+
+- Current playback/test snapshot is
+  `77b32c678e978c1abd54b6a06e5e06ffd3e03806d6bf4bdc649da3f45c50e237`.
+  It includes physical terminal-frame hold, delayed-loop fresh fade, and the
+  tenth TutorialTest covering a one-page clip without duplicate cache slots and
+  a delayed first-page load. Private Ubuntu quick/TutorialTests is waiting for
+  the task build lock; no result yet. Scoped `git diff --check` passes.
+- Private f38 QA build progressed through import and shader compilation into
+  WebGL IL2CPP compilation. It remains an old-source diagnostic build; even a
+  successful result will not certify the current snapshot or final assets.
+- OCR neutral mask corrected the observed red-background contamination.
+  Narrow single-glyph correction `8` -> `a` requires the observed 20x24 pixel
+  crop (tolerance2), checked against Cobblestone font metrics. Preserved real
+  screenshot now recognizes `a / still / last`. No source game state is read.
+- `pilot-slayer-glyph-a`: real Guard break, nine continuous Slayer words, natural
+  exit, and subsequent normal word/HP reduction all completed. Capture464/464,
+  28.543704fps,P95 53.575ms,max208.895ms,max callback174.595ms,no readback error.
+  Cadence FAIL; NOT replacement media. All464 PNGs were exported after stopping
+  for diagnosis. This capture overlapped the task shader build, so causation is
+  not isolated. Full review of these failed frames has not been claimed.
+- A no-full-frame-recording Slayer baseline adapts the original small synchronous
+  HUD observer, reading only the OCR strip at word boundaries. Its rAF timing
+  includes that observer's overhead. Task evidence `tutorial_baseline.cjs`,
+  `slayer-baseline.cjs`, `run_idle_slayer.py` queues baseline then another async
+  pilot under the same private runner lock, avoiding task build contention.
+- Local Unity build/test permission was requested because AGENTS requires it;
+  no affirmative authorization has been received and no local heavy job runs.
+  Ubuntu work continues independently. No final assets/demo/commit/push yet.
+
+
+#### Smooth tutorial checkpoint: all source cadence gates and materialized assets
+
+- Corrected source-refresh receipt: private `112239-quick` contained source hash
+  77b32c67 but ran only9 tests with stale compiled line numbers. It failed one old
+  compact assertion and is invalid evidence for the latest source. Git archive
+  preserves commit timestamps; replacements now receive fresh archive mtimes to
+  force Unity refresh without changing source bytes/hash. `112727-quick` on the
+  same byte hash ran10/10 PASS (36.2702277s), XML `tests-112727.xml`.
+- Both pilots now meet the unchanged cadence gate. Regular idle pilot remains
+  30.040968fps/P95 39.525ms/max51.34ms,241/241. Full parry/Slayer idle pilot
+  `slayer-pilot-raf-idle`:30.055152fps/P95 42.415ms/max94.545ms,488/488,no error;
+  max callback56.94ms. Nine continuous real words, real fourth Space/Guard break,
+  natural exit and full normal word after exit. Separate no-full-frame baseline
+  `slayer-baseline-raf-idle`:56.914490fps/P95 16.67ms/max83.33ms,941 rAF samples;
+  observer reads small HUD plus380x32 word strip in rAF, PNG only on OCR request.
+  Earlier non-rAF-strip baseline returned blank words and was rejected.
+- Fresh accepted captures: `capture-typing-03`76frames,30.065784fps/P95 39.11ms/
+  max56.595ms; `capture-mistakes-03`120frames,30.084616fps/P95 40.65ms/max49.54ms;
+  `capture-parry-01`218frames,30.187398fps/P95 39.93ms/max97.485ms;
+  `capture-score-03`401frames,30.007997fps/P95 41.34ms/max88.02ms. All request counts
+  equal completion counts, no readback errors. Parry reduces Guard1->.76, released
+  Space allows next HP loss. Score shows40->52 on word5,65 on word6, then combo
+  expires while65 stays. Full raw PNGs, frames.json, reports and input marks kept.
+- Packer unchanged (`tools/game_loop/tutorial_pack.py`). Final selection:
+  typing72/2.4052s, mistakes117/3.882835s, parry-health214/7.117645s,
+  slayer487/16.203545s, score261/8.70168s:1151 frames,20 atlases. Full640x360 source
+  resized once to320x180 nearest. All selected frames/repeats/timestamps kept.
+  Direct review caught the closing Pause menu in leading source frames. Excluded
+  from selection: typing3,mistakes2,parry3,score3; Slayer0. First clean-frame to
+  typing/prefix input stays~335-384ms. Final real source frame supplies the duration
+  boundary. Score's unused trailing idle is shortened to1.2s after combo expiry.
+  No interior frame is removed and the complete Slayer is retained.
+- Before promotion,151 tutorial/scene files backed up in task artifact
+  `before-asset-promotion.zip`, SHA256
+  e38a7dab1b4c47473bcc7de09dfd95158be9e878d74d541c3ecbb4bb11f894eb.
+  Script `promote_tutorial.py` adapts the previous record-preserving projector.
+  Preserved1151 spriteID/internalID pairs and existing asset GUIDs. Only scene
+  record1477722025 (overlay lessons) changed;1298 other SampleScene records, the
+  pre-lessons bindings/layout/listeners and all local references were preserved.
+  Only20 PNGs/metas,5 manifests,20 descriptors and SampleScene were promoted.
+  Inherited unused meta/descriptor changes and dirty MainMenu/DungeonWorld remain.
+- Strict two-pass builder PASS on final media: `115452-serialize` (f26818d9) and
+  `120613-serialize` (04bb7379), each invokes the complete Apply twice and compares
+  serialized outputs. Old provisional Pause-leading builder114646 was stopped,
+  not counted. The old f38 QA build095221 timed out at90min/478 of514 C++ items;
+  cache retained. No successful player from it.
+- Materialized source snapshot
+  `04bb7379fe216b313e2f70d79924f644f13025e30e1930a8e4173bd7cafe6ab4`:
+  `120909-quick`10/10 PASS, no failed/skipped (XML `tests-120909.xml`). It includes
+  direct per-frame duration/atlas/slot comparisons with the five manifests,
+  Skip during fade-out and Start during fade-in assertions. Authoring fixture's
+  obsolete fixed1995 total now comes from the five actual manifest frame counts.
+  Same snapshot QA `121034-webgl` is building; normal player is not built yet.
+- Final-media visual review is IN PROGRESS. `frame-review/frame-evidence.csv`
+  records only actually inspected frames. Typing72/72,71/71 internal transitions
+  and loop endpoints viewed at400x225 and640x360 nearest; actual loop fade and
+  playback1x/.25x still unverified. Mistakes56/117 frames and55 transitions viewed.
+  Remaining cards not exhaustively reviewed. Detail sheets adapt the previous
+  native400px+actor-crop review template, widening the vertical crop to include
+  legs/ground and magnifying nearest4x. Contact sheets do not certify playback.
+- OCR service stopped after successful captures, browser contexts closed. Temporary
+  venv/scripts/raw evidence remain task-owned under the Ubuntu task root. No local
+  heavy job ran, no new demo exists, and no commit/push/merge has been performed.
+
+## Smooth tutorial checkpoint - 2026-10-28, final1083 candidate
+
+This section supersedes the1151-frame candidate and its review counts above.
+Implementation/review branch remains `micharel09/tutorial-full-gameplay` from
+`c7794ff4`; no main merge is authorized for this task. Worktree and inherited
+dirty state are preserved. Task scratch: `C:/Users/ADMIN/orca/artifacts/TypingHero/
+tutorial-smooth-work-20261028` (join the two path lines). Ubuntu task root:
+`/data/typinghero-game-loop/task-tutorial-smooth-20261028`.
+
+- Final clips: typing72/2.405200s/2pages; mistakes117/3.882835s/2pages;
+  parry-health192/6.406265s/3pages; Slayer441/14.713350s/7pages;
+  score261/8.701680s/4pages. No interior frames removed, interpolation, speed-up
+  or artificial duplicates. Initial selection excludes Pause closure and excess
+  idle only; parry cue starts371.67ms and Slayer cue397.61ms after clip start.
+  Full cues, contacts, Slayer entry/continuous typing/exit and normal attacks remain.
+- Gate passes: regular pilot30.040968fps/P9539.525ms/max51.340ms; complete
+  parry/Slayer pilot30.055152fps/P9542.415ms/max94.545ms,488/488 requests.
+  Final source captures: typing30.065784/P9539.110/max56.595;
+  mistakes30.084616/40.650/49.540; parry30.187398/39.930/97.485;
+  score30.007997/41.340/88.020 (fps/ms/ms). All requests completed, no buffer,
+  readback or export error. Baselines without full-frame recording: regular
+  57.388166fps; full parry/Slayer56.914490fps, P9516.67/max83.33ms. Small
+  read-only HUD sampling remains in the baseline; it is not zero observer overhead.
+- Reuse: real-input/fixture/OCR capture harness and unchanged `tutorial_pack.py`;
+  async recorder `tools/game_loop/tutorial_readback.cjs` adapts the existing
+  framebuffer observer and [MDN async readback](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices#use_non-blocking_async_data_readback).
+  Three preallocated PBO/fences, request timestamps, bounded RAM, post-stop PNG
+  export. No OCR/file-write wait in frame callback. Five manifests record source
+  hashes and resized RGBA hashes for every frame. Raw1303 captured frames retained.
+- Final scene projection changes only overlay record1477722025;1298 other records,
+  layout/listener prefix, all record IDs and local references preserved.1083
+  spriteID/internalID pairs preserved. Obsolete/inactive inherited descriptors and
+  meta whitespace changes restored byte-for-byte from initial backup, not staged.
+- Circular prefetch and a shared200ms transition clock implemented. A70+70+60ms
+  regression test checks carry across the100ms midpoint. Compact test oracle now
+  accounts for fractional entry tick, without dropping the wrap assertion.
+- Strict repeat builder complete invocations `123030-serialize` and
+  `124607-serialize` PASS on1083 media; each invokes full Apply twice and compares
+  outputs. Latest materialized snapshot
+  `a134fee506948f195ac109fd234d7ff0a429c3c273e76c30a937fb27710093f1`:
+  `130218-quick`10/10 PASS. Test-only correction after the second builder does not
+  affect its source/assets. QA `130345-webgl` PASS and preserved exact player.
+- Direct visual asset review:1083/1083 frames,1078/1078 internal transitions and
+  all five loop endpoint pairs viewed at400x225 and nearest zoom. Per-frame
+  timestamp/duration/observation/transition/hash/image reference in
+  [frame evidence](evidence/tutorial-smooth-20261028/frame-evidence.csv).
+  This certifies frame review only; normal-speed and quarter-speed playback
+  review remains UNVERIFIED, not replaced by sheets or telemetry.
+- Native hardware Chrome GL-EGL/IntelHD4600, no video during cadence measurement:
+  four wraps/card at1280x720 (three complete consecutive cycles between wraps),
+  two/card at640x360 (one complete cycle). All atlas handoffs and final?first
+  observed, no waiting tick after initial load. Independent trace audit checks
+  every render lookup using actual serialized float durations; boundary changes
+  occur on consecutive render ticks without extra clock hold; both monotonic
+  fade phases and full terminal-frame hold pass. Peak2textures/31,477,248bytes
+  (30.019MiB),0 after Start at both sizes.
+  [Trace audit](evidence/tutorial-smooth-20261028/native-trace-audit.json).
+- Original measurement wrapper completed112 scoped assertions, then wrongly ran
+  the obsolete six-card Slayer test and failed on missing PracticeButton. Its
+  failed report is retained unchanged; no game exception occurred. Corrected
+  wrapper skips this unrelated flow. Separate native lifecycle23 assertions PASS:
+  pause during fade, no tick/render while paused, Resume through fade-in, Next
+  resets alpha/clock, held Enter once, Skip during fade releases0, reopen card0,
+  Start during fade saves Completed/releases0, clone has no overlay and combat
+  resumes.0 browser/Unity exceptions and0 fixture writes.
+  [Lifecycle receipt](evidence/tutorial-smooth-20261028/lifecycle-receipt.json).
+- Normal build `133537-production` is running on Ubuntu from the same a134
+  snapshot. New demo8314, walkthrough, video review, final packaging and verified
+  commit/push are still pending at this checkpoint. No local heavy job ran.
+
+### Review delivery candidate - normal player and media
+
+- Normal `133537-production` PASS, same a134 snapshot. All four JS/data/wasm
+  payloads exclude QA symbols/globals;34 player files hashed;16 credits/license
+  files preserved byte-for-byte. Normal keyboard/mouse walkthrough PASS6 checks,
+  no exceptions/writes. Delivered host itself tested through SSH forwarding from
+  Ubuntu:640x360 PASS7 checks, local fixture worker header verified, all five
+  cards plus Start. Temporary tunnel closed afterward.
+- Final normal stills of all five cards at1280x720 and640x360 directly viewed,
+  with Pause, held Enter and started/skipped battle evidence retained. No QA/debug
+  overlay, header/rule clipping or GIF bounds issue observed. These are still
+  checks, not a claim to have watched real-time playback.
+- New demo: http://127.0.0.1:8314/ . Retained independent directory
+  `C:/Users/ADMIN/orca/artifacts/TypingHero/tutorial-smooth-20261028`. Start/Stop
+  scripts validate owned host PID/path/start time; local fixture intercepts
+  service traffic.8313 remains untouched. Keep demo/worktree/evidence until review.
+- Walkthrough/review: `/Tutorial-Smooth-1x.mp4`,119.68s/2992frames;
+  `/Tutorial-Smooth-025x.mp4`,478.68s/11967frames. Both1280x720,25fps, H264,
+  no audio; complete decode PASS, order typing?mistakes?parry?Slayer?score,
+  complete loops included. HTTP MIME video/mp4 and response SHA256 match files.
+  [Video receipts](evidence/tutorial-smooth-20261028/video-receipts.json).
+- `Tutorial-Smooth-Sources.tar.gz` retains1303 raw PNGs/timestamps, accepted
+  capture reports, real-input/OCR/recorder/packer/selection sources and QA drivers.
+  `Tutorial-Smooth-Frame-Review.tar.gz` retains the final review images and CSV.
+  [Archive hashes](evidence/tutorial-smooth-20261028/archive-receipts.json).
+  Packaging excludes Unity activation HOME/license, credentials, browser profiles
+  and unrelated task data. Sources stay in retained Ubuntu task root as well.
+- **UNVERIFIED acceptance: direct1x and0.25x playback viewing.** Available visual
+  tools inspect still images; decode, full-frame review and native traces do not
+  replace this requested viewing. Implementation and technical verification are
+  ready for review, but the task is not declared fully accepted/Done.
+- Review-branch commit/remote verification receipt is retained in delivery README;
+  no main merge. Only task-specific source/assets/tests/docs are staged. Owned
+  capture/QA browsers, OCR services, buffers, build containers and SSH test tunnel
+  are closed; only the requested demo host remains running. Retain task worktree,
+  private build cache and evidence until review ends, then clean only owned paths.

@@ -509,7 +509,9 @@ internal static class TutorialBuild
                         frames++;
                     }
                 }
-                if (frames != 1995) throw new System.InvalidOperationException("Tutorial frame count: " + frames);
+                int expectedFrames = new[] { "typing", "mistakes", "parry-health", "slayer", "score" }.Sum(name =>
+                    JsonUtility.FromJson<Capture>(System.IO.File.ReadAllText("Assets/Art/UI/TutorialParry/" + name + ".json")).frames.Length);
+                if (frames != expectedFrames) throw new System.InvalidOperationException("Tutorial frame count: " + frames + "/" + expectedFrames);
                 if (fixture == "tuned")
                 {
                     var panel = (RectTransform)overlay.transform.Find("Reference960x540/ParryModal/Panel");

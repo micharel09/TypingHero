@@ -1,0 +1,270 @@
+{
+  "snapshot": {
+    "sha256": "a134fee506948f195ac109fd234d7ff0a429c3c273e76c30a937fb27710093f1"
+  },
+  "status": "passed",
+  "clips": [
+    {
+      "name": "typing",
+      "width": 1280,
+      "wraps": 4,
+      "fullConsecutiveCycles": 3,
+      "renders": 660,
+      "boundaryCount": 8,
+      "maxBoundaryRenderGapMs": 18.589999999999662,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 199.22999899999994,
+          "maxRenderTickMs": 17.42500099999944
+        },
+        {
+          "observedPhaseSpanMs": 200.1550000000023,
+          "maxRenderTickMs": 17.16000100000059
+        },
+        {
+          "observedPhaseSpanMs": 199.8899999999999,
+          "maxRenderTickMs": 17.380000999999368
+        },
+        {
+          "observedPhaseSpanMs": 200.17500100000163,
+          "maxRenderTickMs": 17.934999999997814
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 17169408,
+      "traceSha256": "7c34240109ba958d3c930c4a8cd353f220df1aa3f44c9110ae89738b95994a31"
+    },
+    {
+      "name": "mistakes",
+      "width": 1280,
+      "wraps": 4,
+      "fullConsecutiveCycles": 3,
+      "renders": 1023,
+      "boundaryCount": 8,
+      "maxBoundaryRenderGapMs": 18.810000000001992,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 200.15000000000072,
+          "maxRenderTickMs": 17.48500000000064
+        },
+        {
+          "observedPhaseSpanMs": 200.18499999999761,
+          "maxRenderTickMs": 18.964999999994347
+        },
+        {
+          "observedPhaseSpanMs": 200.07500000000533,
+          "maxRenderTickMs": 17.420000000001323
+        },
+        {
+          "observedPhaseSpanMs": 199.6499990000018,
+          "maxRenderTickMs": 20.129999000005228
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 28615680,
+      "traceSha256": "fec9616a6908f0f2998abea79b16a53f848ea2b9045daa7a1e21d112eaf2179c"
+    },
+    {
+      "name": "parry-health",
+      "width": 1280,
+      "wraps": 4,
+      "fullConsecutiveCycles": 3,
+      "renders": 1629,
+      "boundaryCount": 12,
+      "maxBoundaryRenderGapMs": 19.21499899999901,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 189.58499900000447,
+          "maxRenderTickMs": 27.214999999998213
+        },
+        {
+          "observedPhaseSpanMs": 188.93499999999364,
+          "maxRenderTickMs": 26.895000000003222
+        },
+        {
+          "observedPhaseSpanMs": 209.64000000000738,
+          "maxRenderTickMs": 29.200000000003
+        },
+        {
+          "observedPhaseSpanMs": 187.1950009999921,
+          "maxRenderTickMs": 28.334999999998445
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 31477248,
+      "traceSha256": "444af61a4639907dac4062b9094d720f5bc5831a41115d583ca0f2d0125230af"
+    },
+    {
+      "name": "slayer",
+      "width": 1280,
+      "wraps": 4,
+      "fullConsecutiveCycles": 3,
+      "renders": 3615,
+      "boundaryCount": 28,
+      "maxBoundaryRenderGapMs": 21.685001000008697,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 200.4050000000035,
+          "maxRenderTickMs": 24.884998999993968
+        },
+        {
+          "observedPhaseSpanMs": 200.24999999999693,
+          "maxRenderTickMs": 22.55499899999336
+        },
+        {
+          "observedPhaseSpanMs": 199.85499999999945,
+          "maxRenderTickMs": 23.044999999996207
+        },
+        {
+          "observedPhaseSpanMs": 199.42499900000143,
+          "maxRenderTickMs": 22.245000999987496
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 31477248,
+      "traceSha256": "87446539cc634dab4c682c010558fa6c36ab7c434175cb44b8c4354e7c0adc39"
+    },
+    {
+      "name": "score",
+      "width": 1280,
+      "wraps": 4,
+      "fullConsecutiveCycles": 3,
+      "renders": 2179,
+      "boundaryCount": 16,
+      "maxBoundaryRenderGapMs": 21.305001000001766,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 197.45499999999083,
+          "maxRenderTickMs": 28.384999999985894
+        },
+        {
+          "observedPhaseSpanMs": 199.44000000000983,
+          "maxRenderTickMs": 27.240000999995573
+        },
+        {
+          "observedPhaseSpanMs": 183.23499999999626,
+          "maxRenderTickMs": 27.995001000022057
+        },
+        {
+          "observedPhaseSpanMs": 199.69999999997867,
+          "maxRenderTickMs": 24.259999000008747
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 31477248,
+      "traceSha256": "f15250c3294b31a0c7251aef8a7c896f3c7d1126b5809637334f0d16dd37141a"
+    },
+    {
+      "name": "typing",
+      "width": 640,
+      "wraps": 2,
+      "fullConsecutiveCycles": 1,
+      "renders": 345,
+      "boundaryCount": 4,
+      "maxBoundaryRenderGapMs": 16.884999999998485,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 195.13500100000059,
+          "maxRenderTickMs": 20.83499900000163
+        },
+        {
+          "observedPhaseSpanMs": 204.4549989999993,
+          "maxRenderTickMs": 20.6149989999993
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 17169408,
+      "traceSha256": "1491d64729cd2c4f3d653c97ec7edb3425a5abd8c90b2342932c2fd0505496de"
+    },
+    {
+      "name": "mistakes",
+      "width": 640,
+      "wraps": 2,
+      "fullConsecutiveCycles": 1,
+      "renders": 532,
+      "boundaryCount": 4,
+      "maxBoundaryRenderGapMs": 21.094999999998976,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 200.1899999999992,
+          "maxRenderTickMs": 21.100001000000645
+        },
+        {
+          "observedPhaseSpanMs": 195.71499999999986,
+          "maxRenderTickMs": 20.415000999999933
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 28615680,
+      "traceSha256": "09409a0c23ae2f553c8c6c2a7ad37dbe23a37a0e26a44360a2a40e86cedf8319"
+    },
+    {
+      "name": "parry-health",
+      "width": 640,
+      "wraps": 2,
+      "fullConsecutiveCycles": 1,
+      "renders": 835,
+      "boundaryCount": 6,
+      "maxBoundaryRenderGapMs": 17.399999999994975,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 186.45000000000067,
+          "maxRenderTickMs": 30.295000000002403
+        },
+        {
+          "observedPhaseSpanMs": 200.24999999999693,
+          "maxRenderTickMs": 27.669999999993422
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 31477248,
+      "traceSha256": "c39ff718c2229d7343eda7149dc69abbf49be938b144b84d3633ddf423304d02"
+    },
+    {
+      "name": "slayer",
+      "width": 640,
+      "wraps": 2,
+      "fullConsecutiveCycles": 1,
+      "renders": 1825,
+      "boundaryCount": 14,
+      "maxBoundaryRenderGapMs": 17.55000099998938,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 202.66000000000162,
+          "maxRenderTickMs": 21.96999999999605
+        },
+        {
+          "observedPhaseSpanMs": 199.53999900000952,
+          "maxRenderTickMs": 20.33000000000129
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 31477248,
+      "traceSha256": "45c848534ac3e7252f0c5b168f1c34bac7eb018242dee79cb6ca3c00d311712b"
+    },
+    {
+      "name": "score",
+      "width": 640,
+      "wraps": 2,
+      "fullConsecutiveCycles": 1,
+      "renders": 1102,
+      "boundaryCount": 8,
+      "maxBoundaryRenderGapMs": 26.61999900000467,
+      "fades": [
+        {
+          "observedPhaseSpanMs": 199.80500100000143,
+          "maxRenderTickMs": 29.519999999990887
+        },
+        {
+          "observedPhaseSpanMs": 199.96000000000436,
+          "maxRenderTickMs": 26.63500100000249
+        }
+      ],
+      "peakTextures": 2,
+      "peakBytes": 31477248,
+      "traceSha256": "35c78312a370e66ff7c388d5dd96e3a4a9bf8bcc047a619d60b0095e249b3730"
+    }
+  ],
+  "scope": "Trace audit only; direct playback review remains separate.",
+  "harnessExit": "Original wrapper ran an unrelated obsolete six-card Slayer test after all112 scoped assertions completed; retained failed browser.json, no Unity/JS exceptions. Audit reuses unchanged trace/player, checks every frame lookup and handoff."
+}

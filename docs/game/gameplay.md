@@ -358,10 +358,19 @@ Change only behavior explicitly requested. Update this file after relevant verif
   Guard & Slayer, Score & Combo. No practice or pass gate. Next/Enter
   preserves same-frame/Enter-release guards. Final Start saves Completed and
   reloads a clean selected-difficulty battle; Skip preserves Completed on replay.
-- Existing captured sprites, atlas GUIDs, Point filtering and frame durations
-  are unchanged. Clips autoplay, loop and restart on entry. The two-slot async
-  cache protects the displayed frame and holds the clock during delayed loads.
-  Pause hides the card and holds playback; exit releases owned resources.
+- The five tutorial clips contain 1083 real captured frames on 18 atlases
+  (72 typing, 117 mistakes, 192 parry, 441 Slayer, 261 score). Async WebGL PBO
+  capture preserves request timestamps and repeated frames; 640x360 sources are
+  resized nearest once to 320x180. Atlas GUIDs/sprite identities and Point filtering
+  are preserved. Combat and Slayer gameplay/animation are unchanged.
+- The two-slot async cache protects the displayed frame and prefetches circularly.
+  After the full last-frame hold, only the GIF fades out for 100ms, resets at zero
+  alpha, then fades in for 100ms using unscaled time. Delayed first-page loading
+  holds the valid final frame; its waiting delta is discarded. Pause holds the
+  clock, fade phase and alpha; card changes/exit reset the fade and release ownership.
+  Scoped TutorialTests10/10, strict repeat builder twice, and native trace/lifecycle
+  checks pass. All1083 frames/1078 internal transitions were directly inspected;
+  playback1x/.25x review remains unverified until recorded explicitly.
 - First Play/Menu entry, restart, abandon and reading input/time/audio/score
   locks retain their existing behavior. Restart/replay begins at card one.
   [Evidence](../plans/parry-cue-demo.md). Shogun Showdown comparison remains

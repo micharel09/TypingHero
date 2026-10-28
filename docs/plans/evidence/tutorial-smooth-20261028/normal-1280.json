@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "checks": 6,
+  "fixtureReads": 0,
+  "fixtureWrites": 0,
+  "externalBlocked": 0,
+  "exceptions": [],
+  "graphics": {
+    "renderer": "ANGLE (Intel, Mesa Intel(R) HD Graphics 4600 (HSW GT2), OpenGL ES 3.2)"
+  },
+  "chromium": "152.0.7977.64",
+  "normalQaAbsent": true,
+  "elapsedSeconds": 119.37924193799999,
+  "cards": [
+    {
+      "name": "typing",
+      "wall": 1793195252634,
+      "duration": 2.405200000002985
+    },
+    {
+      "name": "mistakes",
+      "wall": 1793195260433,
+      "duration": 3.882835000008342
+    },
+    {
+      "name": "parry-health",
+      "wall": 1793195270155,
+      "duration": 6.4062650000005945
+    },
+    {
+      "name": "slayer",
+      "wall": 1793195284946,
+      "duration": 14.713350000008944
+    },
+    {
+      "name": "score",
+      "wall": 1793195316340,
+      "duration": 8.701680000007158
+    }
+  ]
+}

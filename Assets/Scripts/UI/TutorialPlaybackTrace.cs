@@ -10,7 +10,8 @@ internal static class TutorialPlaybackTrace
     [Serializable] internal struct Record
     {
         public string kind, atlas;
-        public int unityFrame, step, displayedFrame, session, slots;
+        public int unityFrame, step, displayedFrame, session, slots, loopPhase;
+        public float alpha;
         public double now, requested, accepted;
         public bool waiting;
     }
@@ -57,11 +58,11 @@ internal static class TutorialPlaybackTrace
 
     [Conditional("TYPINGHERO_AUTOMATION")]
     internal static void Playback(string kind, int step, double requested, double accepted,
-        int frame, string atlas, bool waiting, int session, int slots)
+        int frame, string atlas, bool waiting, int session, int slots, int loopPhase, float alpha)
     {
 #if TYPINGHERO_AUTOMATION
         Add(new Record { kind = kind, step = step, requested = requested, accepted = accepted,
-            displayedFrame = frame, atlas = atlas, waiting = waiting, session = session, slots = slots });
+            displayedFrame = frame, atlas = atlas, waiting = waiting, session = session, slots = slots, loopPhase = loopPhase, alpha = alpha });
 #endif
     }
 }

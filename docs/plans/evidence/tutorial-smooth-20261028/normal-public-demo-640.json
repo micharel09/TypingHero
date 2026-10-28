@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "checks": 7,
+  "fixtureReads": 0,
+  "fixtureWrites": 0,
+  "externalBlocked": 0,
+  "exceptions": [],
+  "graphics": {
+    "renderer": "ANGLE (Intel, Mesa Intel(R) HD Graphics 4600 (HSW GT2), OpenGL ES 3.2)"
+  },
+  "chromium": "152.0.7977.64",
+  "elapsedSeconds": 67.502216984
+}

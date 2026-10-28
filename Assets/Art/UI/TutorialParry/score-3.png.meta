@@ -1432,69 +1432,6 @@ TextureImporter:
       indices:
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: score_261
-      rect:
-        serializedVersion: 2
-        x: 974
-        y: 2
-        width: 320
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3313948f342e73bd593a37634636da62
-      internalID: 479518841
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: score_262
-      rect:
-        serializedVersion: 2
-        x: 1298
-        y: 2
-        width: 320
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2e0cd79963cd93f48dbd58582346a51
-      internalID: -1144038870
-      vertices: []
-      indices:
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: score_263
-      rect:
-        serializedVersion: 2
-        x: 1622
-        y: 2
-        width: 320
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1eabc726c4bb7ef79ac97eace593f7de
-      internalID: 2041560426
-      vertices: []
-      indices:
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1569,9 +1506,6 @@ TextureImporter:
       score_258: 1022716731
       score_259: -203309152
       score_260: -134732046
-      score_261: 479518841
-      score_262: -1144038870
-      score_263: 2041560426
   mipmapLimitGroupName:
   pSDRemoveMatte: 0
   userData:

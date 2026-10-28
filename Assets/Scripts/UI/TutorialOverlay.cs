@@ -56,9 +56,13 @@ public sealed class TutorialOverlay : MonoBehaviour
     [SerializeField] Lesson[] lessons = Array.Empty<Lesson>();
     [SerializeField] TMP_Text clipTitle, modalStep, hudStep, actionLabel;
     readonly TutorialAtlasCache atlasCache = new TutorialAtlasCache();
-    bool frameReady, waitingForFrame;
+    bool frameReady, waitingForFrame, waitingForLoop;
     string displayedAtlas;
-    double clipTime, pendingTime;
+    double clipTime, pendingTime, finalFrameElapsed;
+    enum LoopPhase { Playing, FadeOut, FadeIn }
+    LoopPhase loopPhase;
+    float loopElapsed;
+    const float LoopHalfDuration = .1f;
     int step;
     int displayedFrame = -1;
     internal int StepCount => lessons.Length;
@@ -205,9 +209,13 @@ public sealed class TutorialOverlay : MonoBehaviour
     internal void ReleaseClip()
     {
         demoPlaying = false;
+        loopPhase = LoopPhase.Playing;
+        loopElapsed = 0;
+        finalFrameElapsed = 0;
+        SetClipAlpha(1);
         if (clipImage) clipImage.sprite = null;
         SetClipVisible(false);
-        frameReady = waitingForFrame = false;
+        frameReady = waitingForFrame = waitingForLoop = false;
         displayedAtlas = null;
         displayedFrame = -1;
         atlasCache.Clear();
@@ -244,7 +252,8 @@ public sealed class TutorialOverlay : MonoBehaviour
         if (frameReady && frame == displayedFrame) return true;
         int atlas = lesson.frameAtlas[frame];
         string path = lesson.atlasPaths[atlas];
-        string following = atlas + 1 < lesson.atlasPaths.Length ? lesson.atlasPaths[atlas + 1] : null;
+        string following = lesson.atlasPaths.Length > 1 ?
+            lesson.atlasPaths[(atlas + 1) % lesson.atlasPaths.Length] : null;
         var page = atlasCache.Get(path, following, displayedAtlas);
         if (!page)
         {
@@ -253,6 +262,7 @@ public sealed class TutorialOverlay : MonoBehaviour
             return false;
         }
         clipImage.sprite = page.sprites[lesson.frameSprite[frame]];
+        finalFrameElapsed = 0;
         displayedAtlas = path;
         displayedFrame = frame;
         atlasCache.CommitDisplay(path);
@@ -295,12 +305,71 @@ public sealed class TutorialOverlay : MonoBehaviour
         if (clipCaption.text != value) clipCaption.text = value;
     }
 
+    void SetClipAlpha(float alpha)
+    {
+        if (!clipImage || clipImage.color.a == alpha) return;
+        var color = clipImage.color;
+        color.a = alpha;
+        clipImage.color = color;
+    }
+
     void AdvanceClip(float delta)
     {
+        if (loopPhase != LoopPhase.Playing)
+        {
+            float duration = LoopHalfDuration * 2;
+            loopElapsed = Mathf.Min(duration, loopElapsed + delta);
+            if (loopPhase == LoopPhase.FadeOut)
+            {
+                if (loopElapsed >= LoopHalfDuration || Mathf.Approximately(loopElapsed, LoopHalfDuration))
+                {
+                    SetClipAlpha(0);
+                    clipTime = 0;
+                    finalFrameElapsed = 0;
+                    RenderClip();
+                    loopPhase = LoopPhase.FadeIn;
+                }
+                else SetClipAlpha(1 - Mathf.SmoothStep(0, 1, loopElapsed / LoopHalfDuration));
+            }
+            if (loopPhase == LoopPhase.FadeIn)
+            {
+                SetClipAlpha(Mathf.SmoothStep(0, 1, (loopElapsed - LoopHalfDuration) / LoopHalfDuration));
+                if (loopElapsed >= duration || Mathf.Approximately(loopElapsed, duration))
+                {
+                    SetClipAlpha(1);
+                    loopElapsed = 0;
+                    loopPhase = LoopPhase.Playing;
+                }
+            }
+            TracePlayback("tick", clipTime);
+            return;
+        }
+        var currentLesson = lessons[step];
+        if (frameReady && displayedFrame == currentLesson.frameAtlas.Length - 1) finalFrameElapsed += delta;
         double previousTime = clipTime;
-        if (frameReady) clipTime = (waitingForFrame ? pendingTime : (clipTime + delta) % totalDuration);
+        if (frameReady) clipTime = waitingForFrame ? pendingTime : Math.Min(clipTime + delta, totalDuration);
         double requested = clipTime;
-        if (RenderClip()) waitingForFrame = false;
+        if (RenderClip())
+        {
+            waitingForFrame = false;
+            if (clipTime >= totalDuration &&
+                finalFrameElapsed >= currentLesson.durations[currentLesson.durations.Length - 1])
+            {
+                // Protect the final Image until the first page is ready and the fade reaches zero.
+                var lesson = lessons[step];
+                if (atlasCache.Get(lesson.atlasPaths[0], null, displayedAtlas))
+                {
+                    loopPhase = LoopPhase.FadeOut;
+                    // Only the fractional render tick after the final hold belongs to the fade.
+                    // A delayed first-page load starts a fresh 100 ms phase instead.
+                    loopElapsed = waitingForLoop ? 0 : Mathf.Min(LoopHalfDuration,
+                        (float)Math.Min(delta, Math.Max(0, finalFrameElapsed - currentLesson.durations[currentLesson.durations.Length - 1])));
+                    waitingForLoop = false;
+                    SetClipAlpha(1 - Mathf.SmoothStep(0, 1, loopElapsed / LoopHalfDuration));
+                }
+                else waitingForLoop = true;
+            }
+        }
         else
         {
             // Retry the original candidate, excluding even the final loading interval.
@@ -316,7 +385,8 @@ public sealed class TutorialOverlay : MonoBehaviour
     {
 #if TYPINGHERO_AUTOMATION
         TutorialPlaybackTrace.Playback(kind, step, requested, clipTime, displayedFrame,
-            displayedAtlas, waitingForFrame, atlasCache.Session, atlasCache.SlotCount);
+            displayedAtlas, waitingForFrame || waitingForLoop, atlasCache.Session, atlasCache.SlotCount,
+            (int)loopPhase, clipImage ? clipImage.color.a : 1);
 #endif
     }
 
