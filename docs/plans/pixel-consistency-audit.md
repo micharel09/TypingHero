@@ -2,7 +2,7 @@
 
 > **Audit đang mở; A1 đã tích hợp remote main tại `b51e3b3e`, nghiệm thu runtime còn mở.** Baseline hiện hành là Magic Circle, compact READY và lighting mới. Capture tại `762a3e92` giữ nguyên revision; main đã đổi HUD/scene sau capture, xem đối soát bên dưới trước khi tái sử dụng.
 > **Ledger tại `762a3e92`:** rìu 326/326 frame và 325/325 chuyển tiếp; kiếm–khiên 254/254 và 253/253; kiếm/READY 507/507 và 506/506. Tổng ba handoff đã ghi kiểm 1.087/1.087 frame và 1.084/1.084 cặp ở native và nearest 4×. Số đếm không chứng nhận chi tiết bị che, playback hoặc HUD trên main mới.
-> **Còn mở:** tính liên tục ngay tại biên resize, coverage player/Slayer/animation còn thiếu, preview chi tiết bị che và playback người xem 1×/0.25×. Tutorial hiện hành 26/25 chỉ chứng minh reading khi timeScale khóa.
+> **Còn mở:** tính liên tục ngay tại biên resize, coverage player/Slayer/animation còn thiếu, preview chi tiết bị che và playback người xem 1×/0.25×. Tutorial tại `762a3e92` 26/25 chỉ chứng minh reading khi timeScale khóa và không chứng nhận card tutorial mới.
 > **Lịch sử:** READY 806/803 tại `66749da1`; catalog 1.186/1.180 trên 1.900/1.890, còn 714/710, được giữ riêng. Đoạn bị thay thế không cần xem tiếp chỉ để đủ số cũ. Xem [checkpoint hiện hành](#checkpoint-2-đủ-ledger-ba-handoff-nghiệm-thu-còn-mở--2026-10-28).
 > Các số liệu và kết luận trong phần lịch sử giữ theo revision của từng lượt; không cộng vào coverage hiện tại hoặc dùng chứng nhận main mới.
 
@@ -39,6 +39,24 @@ Cần thu bằng bàn phím thật với driver thích ứng điều kiện này
 ghi rõ seed/biến thể thực tế và chọn đủ đoạn từ trước entry tới sau exit trước
 khi review từng frame. Đây là giới hạn coverage của công cụ thu, chưa kết luận
 lỗi game.
+
+Lượt chuẩn bị capture mới trên Ubuntu: task directory riêng
+`/data/typinghero-game-loop/tasks/a1-pixel-audit-20261028`, source từ
+`35bba7cf`; các commit main tiếp theo tới `c68fe2bc` chỉ đổi tài liệu. Adapter
+`run-player-only.py` tái dùng snapshot/khóa/Unity build của runner, giữ player
+immutable và bỏ bước browser suite. Driver thích ứng `ready-current-audit-ubuntu.cjs`
+gõ từng ký tự trong Slayer với khoảng cách 1,05 giây và vẫn dùng bridge chỉ đọc,
+fixture, chặn provider; driver player death cũng đã chuẩn bị. Cả hai qua
+`node --check`, chưa chạy capture. Chrome 152 trên host có WebGL SwiftShader,
+MediaRecorder và canvas capture; renderer này phải được ghi riêng khi nghiệm thu.
+
+Lượt build xếp hàng hơn 16 phút sau job chung. Khi yêu cầu dừng lượt chờ của
+audit được gửi, runner vừa nhận khóa và bắt đầu khởi tạo snapshot
+`1c9ef89c6806089bf3061766f7aacb4ab42696322e5b5cddec2723987ac17fbc`;
+job audit kết thúc do tín hiệu dừng, không có QA player được xác minh. Một job
+khác đã nhận khóa sau đó. `build.log` trong task directory lưu diễn biến; đây là
+lượt gián đoạn, không phải build pass hay kết luận lỗi Unity. Giữ directory này
+để tiếp tục theo runner chung sau khi khóa rảnh, đối soát main trước khi chạy.
 
 ## Checkpoint 2: đủ ledger ba handoff, nghiệm thu còn mở — 2026-10-28
 
