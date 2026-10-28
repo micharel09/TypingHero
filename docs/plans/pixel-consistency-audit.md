@@ -1,10 +1,47 @@
 # Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
-> **Audit đang mở; A1 có bản sửa nguồn trên nhánh riêng, chưa nghiệm thu runtime.** Bộ capture gõ `READY` thuộc revision **`66749da1`**, không phải giao diện main hiện tại.
-> **Checkpoint đã kiểm:** ba clip READY có ledger 806 frame/803 cặp chuyển tiếp; tutorial 34/33 và normal 339/338 giữ riêng. Tổng catalog runtime đã ghi kiểm 1.186/1.180 trên 1.900/1.890.
-> **Còn mở:** 714 frame/710 cặp chưa ghi kiểm trong catalog lịch sử (F682–F688 đã đồng bộ metadata và ghi chú), preview chi tiết bị che và playback người xem 1×/0.25×. Không dùng số frame đã xem để tuyên bố clip đạt toàn bộ.
-> **Giới hạn áp dụng:** main đã đổi READY/intro và lighting/rendering sau R. Xem [checkpoint tích hợp](#checkpoint-tích-hợp-tài-liệu-và-phạm-vi-bằng-chứng).
+> **Audit đang mở; A1 đã tích hợp remote main tại `b51e3b3e`, nghiệm thu runtime còn mở.** Baseline hiện hành là Magic Circle, compact READY và lighting mới. Capture hiện hành tại `762a3e92` giữ nguyên revision; nguồn liên quan đã đối soát với main.
+> **Ledger hiện hành:** rìu 326/326 frame và 325/325 chuyển tiếp; kiếm–khiên 254/254 và 253/253; kiếm/READY 96/507 và 95/506. Tổng ba handoff đã ghi kiểm 676/1.087 frame và 673/1.084 cặp; còn F1157–F1567 cùng nối F1156→F1157. Số đếm không chứng nhận chi tiết bị che hoặc playback.
+> **Còn mở:** 411 frame/411 cặp của kiếm, coverage player/Slayer/animation còn thiếu, preview chi tiết bị che và playback người xem 1×/0.25×. Tutorial hiện hành 26/25 chỉ chứng minh reading khi timeScale khóa.
+> **Lịch sử:** READY 806/803 tại `66749da1`; catalog 1.186/1.180 trên 1.900/1.890, còn 714/710, được giữ riêng. Đoạn bị thay thế không cần xem tiếp chỉ để đủ số cũ. Xem [checkpoint hiện hành](#checkpoint-baseline-main-và-manifest-hiện-hành--2026-10-28).
 > Các số liệu và kết luận trong phần lịch sử giữ theo revision của từng lượt; không cộng vào coverage hiện tại hoặc dùng chứng nhận main mới.
+
+## Checkpoint baseline main và manifest hiện hành — 2026-10-28
+
+Remote `https://github.com/micharel09/TypingHero.git` đã fetch; main xác minh tại
+`b51e3b3ebcadd9a24fa3f46df81f40831bd3d937`. Nhánh audit có sẵn
+`micharel09/pixel-audit-evidence` được fast-forward từ `29b9029c` đến main;
+checkout gốc và nhánh A1 được giữ nguyên. A1 đã lên main theo yêu cầu tích hợp
+của người dùng; các câu “asset trên nhánh riêng/chưa đưa main” phía dưới là
+trạng thái lịch sử tại thời điểm ghi, không phải trạng thái hiện hành.
+
+Đối chiếu capture `762a3e92e280e2a99d74e2edaed229f0183327c8` với main không có
+diff trong `Assets`, `Packages`, `ProjectSettings`, `tools/game_loop`,
+`tools/lighting` và `design/skeleton-hero`. Giữ capture và kết quả hành vi đã có;
+không build/quay lại chỉ vì revision tài liệu thay đổi. Khi main đổi tiếp phải
+đối soát lại đúng nguồn ảnh hưởng trước khi tái sử dụng kết luận.
+
+`audit-main-reconciliation.json` tại
+[thư mục bằng chứng](D:/Projects/TypingHero-evidence/a1-shield-ownership)
+ghi revision, số đếm và kiểm hash PNG của ba handoff. Manifest canonical là
+`runtime-review-current/current-handoff-scopes-clips.json`. Rìu có đầy đủ
+326 dòng observation/transition/limits nhưng bộ đếm tổng còn 183/182;
+đã đồng bộ thành 326/325 sau khi kiểm sequence, file và hash. Đây là chỉnh
+metadata của review đã ghi, không phát sinh lượt quan sát mới.
+
+| Nhóm | Tổng frame/cặp | Ledger đã kiểm | Giới hạn còn mở |
+|---|---|---|---|
+| Rìu | 326/325 | 326/325 | Cel bị che, đối chiếu A1 runtime, playback người xem |
+| Kiếm–khiên | 254/253 | 254/253 | Cel bị che, đối chiếu A1 runtime, playback người xem |
+| Kiếm/READY | 507/506 | 96/95 | F1157–F1567 và nối F1156→F1157; supplement và playback |
+
+Thứ tự thực hiện: hoàn tất kiếm/READY; khép A1 nguồn/map/runtime; đối soát và
+kiểm ma trận player/Slayer/enemy/tutorial; chốt manifest và playback người xem.
+Từng nhóm được tích hợp tài liệu sau khi kiểm xong. Không đổi gameplay/API,
+dependency, camera/lighting để làm kiểm thử đạt; không ép Animator cho Walk
+hoặc Attack2 rìu nếu không có caller. Không chạy runtime suite cho checkpoint
+chỉ tài liệu. Các đoạn lịch sử bị thay thế giữ truy xuất, không cộng coverage
+hiện hành và không bắt buộc review nốt để đủ tổng lịch sử.
 
 ## Checkpoint tích hợp tài liệu và phạm vi bằng chứng
 
