@@ -44,6 +44,22 @@ System and developer instructions still apply.
   resources or remote branches automatically. For resources retained, report the
   path/branch, reason, and cleanup condition.
 
+## Execution host and local responsiveness
+
+- Prefer the available Ubuntu host for every task that can run there. Reuse
+  existing remote workflows and connections; keep local work lightweight so the
+  user's machine remains responsive.
+- Run builds, Unity batch jobs, asset processing, test suites, profiling, and
+  other CPU-, memory-, or disk-intensive work on Ubuntu. Do not build on the
+  user's local machine unless the user explicitly authorizes a local build for
+  the current task.
+- If Ubuntu is unavailable or lacks a required tool, report the specific blocker
+  and continue independent lightweight work. Do not silently fall back to local
+  builds or other heavy local jobs; obtain explicit authorization first.
+- Lightweight local file edits, source inspection, Git operations, and document
+  checks are allowed when needed. Avoid unnecessary local background processes
+  and parallel jobs that could cause lag.
+
 ## Testing scope
 
 Test only the changed behavior and directly affected dependent flows. Choose the
