@@ -216,7 +216,13 @@ then the same fixture assertions. One final exact-filter Ubuntu request is queue
 input `404ad72105f7129e07c078c5e6a1314b8ec24f56413b58145b20d38893aa3f1e`.
 The precedingc22f8432 presentation-only request acquired the lock just before
 replacement; its guarded cancellation sent no signal once it was running.
-Its result is separate and cannot prove the new natural-expiry assertion.
+It subsequently **passed1/1**, zero skips, at `20261028T095249-quick`; XML and
+snapshot were downloaded and matched. All15 logged fixture observations across
+three cycles are enabled, in the authored intensity envelopes and ranges:
+rear15, key13, fill10, front16. First-cycle intensities are30.9041443/32.3929062
+(rear),3.35092688 (key),4.327323 (fill),16.290369 (front). Receipt:
+`focused-post-slayer-presentation-01/`. This result cannot prove the new
+natural-expiry assertion because the old test did not assert the mode flag.
 Both inputs differ from722c only in that test file; no runtime/build asset changed.
 No result is claimed before its XML exists. Only one task request remains queued;
 no other runner holder/waiter was stopped. `SlayerScreenFX` blends environment presentation

@@ -47,8 +47,10 @@
   Pause lifecycle is queued with bounded five-fixture post-exit assertions and
   value/modeActive logs, input404ad72105f7. Two cycles preserve original screen-FX
   exit; the third asserts public timed Slayer expiry. Priorc22 presentation-only
-  request is separate; its running lock was preserved. Only that test differs
-  from722c; game inputs remain unchanged. No result is claimed before XML verification.
+  request subsequently passed1/1 at20261028T095249-quick, with matching XML/snapshot
+  and15 bounded five-fixture value logs in focused-post-slayer-presentation-01.
+  It does not prove the new mode-expiry assertion. Only that test differs from722c;
+  game inputs remain unchanged. No final404ad result is claimed before XML verification.
 - GTX1650Ti A-normal-02 is **invalid**: raw68.73FPS/p95 24.24ms, but actual
   Windows foreground0/625 samples. No qualified A/B performance verdict exists.
   Missing runtime intervals/VFX-hidden detail,1×/.25× playback, held lit-pulse
