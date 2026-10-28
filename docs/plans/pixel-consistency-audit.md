@@ -1,5 +1,24 @@
 # Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
+## Tiếp tục build và capture theo main `36d0497f` — 2026-10-28
+
+Lượt retry Ubuntu đã tạo thành công QA player immutable tại
+`/data/typinghero-game-loop/results/20261028T042624-webgl/player`, snapshot
+`1c9ef89c6806089bf3061766f7aacb4ab42696322e5b5cddec2723987ac17fbc`.
+Log `build-retry.log` có marker `QA player preserved` và
+`AUDIT_PLAYER_ONLY`; không chạy browser suite. Đây là kết quả build, chưa có
+review runtime mới. Player này còn thông báo multiplier mà main mới đã bỏ.
+
+Đã fetch và cập nhật source build theo main `36d0497f`; nguồn A1 vẫn giữ,
+thay đổi mới bỏ notice cùng lifecycle của nó. Lượt build tiếp theo được ghi
+tại `build-main36.log`, đang chờ khóa runner chung ở lần kiểm cuối. Script
+`capture-after-main36.py` chờ marker build thành công, lưu snapshot và hash
+từng file player vào `capture-main36`, rồi chạy driver input thường đã sửa
+cho Slayer. Script dừng khi build báo lỗi hoặc hết hạn chờ, không thu từ player
+không xác minh. Các script/log đều ở task directory Ubuntu đã ghi bên dưới.
+Chưa có kết quả capture, số frame review hoặc PASS mới; các tổng ledger cũ
+không đổi. Giữ task directory và hai tiến trình build/thu trong khi audit mở.
+
 > **Audit đang mở; A1 đã tích hợp remote main tại `b51e3b3e`, nghiệm thu runtime còn mở.** Baseline hiện hành là Magic Circle, compact READY và lighting mới. Capture tại `762a3e92` giữ nguyên revision; main đã đổi HUD/scene sau capture, xem đối soát bên dưới trước khi tái sử dụng.
 > **Ledger tại `762a3e92`:** rìu 326/326 frame và 325/325 chuyển tiếp; kiếm–khiên 254/254 và 253/253; kiếm/READY 507/507 và 506/506. Tổng ba handoff đã ghi kiểm 1.087/1.087 frame và 1.084/1.084 cặp ở native và nearest 4×. Số đếm không chứng nhận chi tiết bị che, playback hoặc HUD trên main mới.
 > **Còn mở:** tính liên tục ngay tại biên resize, coverage player/Slayer/animation còn thiếu, preview chi tiết bị che và playback người xem 1×/0.25×. Tutorial tại `762a3e92` 26/25 chỉ chứng minh reading khi timeScale khóa và không chứng nhận card tutorial mới.
