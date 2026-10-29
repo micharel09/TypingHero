@@ -1,3 +1,84 @@
+# Contact tint recovery checkpoint - 2026-10-29 03:06 UTC
+
+**Incomplete: production tint unchanged; no candidate visual acceptance.**
+Continued the clean existing task worktree at `f1c8a109`; fetched origin, verified
+`micharel09/TypingHero` and matching remote task HEAD. No main integration/release.
+Baseline `4b5d4df3`, saved baseline and current ParryImpact bytes match SHA256
+`0f81a3b070bd1c12be48559a9f99d1a8367a51f51e44e2b01737dd2aef5669a1`.
+Dirty parent checkout untouched. Approval viewer `0ee2a52f` unchanged.
+
+## Capture adapter implementation and identity evidence
+
+Adapted the existing external `contact-tint-20261029/runner-captures.py` and
+`ParryHdrQA.cs`; new external files are `runner-captures-v2.py` and
+`ParryHdrQA-v2.cs` in the same evidence directory. No shared runner or production
+source was edited. Reuses authored contact/pose/camera/readback and copied profiles.
+Archive entries now retain original file mtimes after LF normalization; digest
+uses the exact archived bytes. Injected fixture file/class use the content hash;
+fixture writes version/hash/expected times/variants before executing captures.
+Removed the unused historical shader branch; ray selection uses channel 5, core
+selection channel 0. Adds tint, layer configuration, simulation-time and background
+gain assertions, plus a separate repeat-full at 15ms. This is an unfinished
+verification adapter, not qualified production color evidence.
+
+`archive-investigation.json` records no duplicate members in either old archive
+or the first new archive. Both old fixtures had mtime=0 (1970); both contained the
+five-time loop. This is a cache hypothesis, NOT a proven cause of the old mismatch.
+New archive fixture and extracted source both hash
+`d8b1b2a450ec805c41fcb74b3c1c4c2bdb1b5dc353523a9b0a5226ddc461e8a3`.
+
+- `20261029T024812-quick`, input
+  `42a0e5ad6bbf43bfe331bf5d298a5ce9dcad63a30b2d09fa0919c052f4bd54bb`:
+  correct hash-named XML test and runtime marker verified. Test FAILED, container
+  exit 2: fixture asserted 15ms for every system, including an inactive system
+  whose time stayed 0. No completed capture record; excluded from baseline/color QA.
+  Corrected assertion to inspect systems with live particles. Correction remains
+  unverified because the next run did not reach the test.
+- `20261029T025325-quick`, input
+  `e03fab2714ed136764026623ecd57edc8698ad6baba8d469f3385325f5664db3`:
+  fixture class suffix `bd9386cbf441`. ILPP initially could not find its socket,
+  later connected; compile completed in 163.493728s, assembly reload 30.501s.
+  Then three consecutive observations showed no log progress, Unity state D,
+  `blk_mq_get_tag` / `folio_wait_bit_common`. Host load reached 33.82;
+  I/O some avg10 reached 89.54%, memory available about 2.8GiB, no swap.
+  No test XML/runtime marker/images. Owner requested graceful stop of ONLY
+  `typinghero-loop-3297620-1793242405812849727` (ID `007da4fba4b4`), after checking
+  its /results mount. `docker stop` returned 0; container was Dead/removal pending
+  immediately afterward. Unity PID 3301356 is absent. The stuck owned Docker client
+  ignored SIGTERM; SIGKILL of that verified client released the helper (client -9).
+  Container inspect recorded exit 143 after the owner stop, OOMKilled=false.
+  This intentional cancellation is separate from historical
+  unexplained exit 143. Pre-stop inspect says OOMKilled=false; no OOM cause claimed.
+
+## Ownership, receipts and resume gates
+
+Existing evidence root remains
+`D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/contact-tint-20261029/`.
+Owner/consumer: this task. SSH/SCP used only to `fly-server`; exact new remote result
+folders are `/data/typinghero-game-loop/results/20261029T024812-quick` and
+`/data/typinghero-game-loop/results/20261029T025325-quick`. Local subfolders preserve
+logs, available XML/marker, snapshot and pre-stop container/host/stop-reason receipts.
+Retain these task artifacts and worktree for continuation/visual approval; remove
+only after needed evidence is preserved and the task is accepted/closed. Shared
+Library/source/build/cache and other jobs were not deleted or stopped.
+Adapter/fixture/investigation SHA256 values are in `adapter-v2-manifest.json`.
+Current adapter hash `f232e28c675db0c618c5c4022d9df54aad9d4a927bff2af5c4a7ceb864428976`;
+fixture template hash `33f9f183a0b24af4b971040d7264c39df4044d970885a49127028601a4a79650`.
+
+Before retry, confirm the owned container/client have fully exited and runner lock
+is available; do not kill other waiters. Require materially improved host I/O,
+then use the existing exclusive adapter. Do not clear Library or repeat identical
+runs under unchanged pressure. Still required: qualified XML+marker+complete
+capture record+52 images (40 baseline, 10 A, 2 repeat), repeat stability, actual
+particle/lamp state checks, nearest2x generation on Ubuntu and direct full layer
+comparison. Marker alone only proves execution identity, not image validity.
+No new images or video frames/transitions actually reviewed: 0/0. No A/B/C selected.
+All production edits, final 40-image set, scoped tint/pause/pool/builder evidence,
+final hardware WebGL/key-input/frame/playback review and new viewer remain pending.
+No new runtime/game-memory acceptance; historical 143 cause remains unverified.
+
+---
+
 # Contact tint follow-up - 2026-10-29 (blocked before preset selection)
 
 User-approved scope: reduce the broad white stock contact while retaining a small
