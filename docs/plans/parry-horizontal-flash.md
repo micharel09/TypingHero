@@ -1,3 +1,83 @@
+# Contact tint follow-up - 2026-10-29 (blocked before preset selection)
+
+User-approved scope: reduce the broad white stock contact while retaining a small
+bright center and warm gold surroundings. Continue this branch; push task branch
+only, retain worktree/evidence for visual approval. No main merge or itch release.
+The unchanged runtime acceptance below is historical evidence, not acceptance of
+a new contact color. No new preset or visual approval has been established.
+
+## Verified source and intended adaptation
+
+Clean worktree `D:/Projects/TypingHero-worktrees/parry-cinematic-flash`, branch
+`micharel09/parry-cinematic-flash`, local and fetched remote HEAD
+`4b5d4df36236120c8748d73e0d947bfc8476138e`; origin is
+`https://github.com/micharel09/TypingHero.git`. Parent dirty checkout untouched.
+Unity source version remains2022.3.25f1. Ubuntu `fly-server` is reachable.
+
+Reuse Pimen Hit Effect01 assets/licensing in `PixelSource.txt`/`PimenSource.json`,
+`ImpactVfxPixel.cs` emission startColor=flash.tint, and existing controlled capture
+fixture `ParryHdrQA-final-captures.cs`. Profile channel0 currently has white tint;
+channel5 is the existing presentation ray. `ParryImpactAssets.Prepare()` only
+creates missing prefab/bindings and repairs prefab reference; it does not replace
+the existing authored tint. No builder edit/migration/version bump is needed.
+Shared material edits were rejected in favor of the approved per-profile tint.
+
+Before any production edit, compare full/core-off/ray-off/light-off at15/30/60/
+100/140ms with identical pose/contact/camera/post/background gain, post640x360 and
+world320x180. Only copied profiles may be modified. Then try A(1,.78,.28,.80),
+B(1,.65,.12,.80), C(1,.65,.12,.65) in order, stopping at the first visually passing
+candidate; keep all timing/size/gradient/alpha/light/shader values unchanged.
+Do not extend the approach if all three fail. No production edit made this turn.
+
+## New execution evidence and rejected results
+
+Evidence root:
+`D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/contact-tint-20261029/`.
+Owner/consumer: this parry task. Retain local evidence and the two exact remote
+result folders below until follow-up/visual review; clean only after receipts and
+needed artifacts are preserved. No shared Library, builds, toolchain or unrelated
+jobs were removed. Baseline profile bytes are frozen as
+`baseline-ParryImpact-4b5d4df3.asset`; production profile remains byte-identical.
+
+- External fixture adapted the existing capture loop to all five times and adds
+  channel-based core-off plus candidate-A on copies. Same existing SSH/SCP runner,
+  Ubuntu Unity and OpenGLCore software capture route; no Windows build/processing.
+- `20261029T020214-quick`, snapshot
+  `4ac7e32e8681312774f891c4c36602d3272ed4fd98e7227f86d752b7e9829f01`:
+  XML says1/1PASS, but output is the OLD15-image/three-time variant set, inconsistent
+  with the archived injected fixture. Rejected as contact-tint evidence. Cause of
+  source/result mismatch is unverified; do not treat it as successful candidate QA.
+  Local receipt: `rejected-020214-tests.xml`. Remote source archive/log/images retained.
+- Renamed injected file to `ParryContactTintQA.cs` and capture class to
+  `ParryContactTintCaptureQA` to distinguish the new run from the old fixture.
+  `20261029T022115-quick`, snapshot
+  `965d1b3df7f54fef517797b3b9ebf8c23ab90fa1719576ab6c9b8b37f815a067`:
+  container exited143 after assembly reload; no XML/capture images. The cause of
+  termination is unverified. Local receipt: `failed-022115-unity.log`.
+- Both remote paths are under `/data/typinghero-game-loop/results/` with those exact
+  names. Shared runner contention and high host I/O pressure were observed; neither
+  is established as the cause of143. No other task process was stopped.
+- Only historical controlled `new-presentation-15ms.png` was viewed at native640x360
+  this turn: broad white contact and gold distant ray visible. It does not establish
+  layer attribution. No new reference frames or output-video frames/transitions
+  reviewed; counts0/0. No candidate was actually rendered/visually evaluated.
+
+## Resume and remaining acceptance
+
+First resolve source/result identity and obtain the five-time ablation images.
+Do not select/apply A based on the rejected old run or the unexecuted candidate
+fixture. All production tint changes, candidate table, baseline/final pairs,
+nearest2x images, scoped tint/snapshot/pause/pool/builder tests, final hardware
+WebGL build, real-keyboard eight signed angle/facing cases and full selected-frame
+review remain unverified. No new source/payload/render identity can be claimed.
+Reuse prior shader/HDR/allocation/resolution evidence only for unchanged inputs;
+those receipts do not accept a new color. Update affected game memory only after a
+verified preset change; its existing production description remains unchanged now.
+Create the new hash-labelled viewer only from qualified new artifacts, retaining
+`approval-0ee2a52f` unchanged. Stop at visual approval; no merge/release.
+
+---
+
 # HD-2D parry completion - 2026-10-28
 
 ## Current status and approval gate
