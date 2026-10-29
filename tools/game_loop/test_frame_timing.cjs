@@ -56,37 +56,9 @@ test('automation bridge has fixed capacity, explicit loss, monotonic drain and f
 });
 
 test('a failed input retains raw frames and the error before closing the context', async () => {
-  const timing = require('./frame_timing.cjs');
-  const scenario = require('./dungeon_performance.cjs');
-  const original = { install: timing.install, drain: timing.drain, write: fs.writeFileSync, output: process.env.PERF_OUTPUT };
-  let saved, closed = false, calls = 0;
-  process.env.PERF_OUTPUT = require('node:path').resolve('unused-in-memory-fixture');
-  timing.install = async () => {};
-  timing.drain = async () => ({ at: 2000, focused: true, visible: 'visible', browser: { events: [] },
-    unity: { rows: [row(calls++, 1100 + calls * 16)], dropped: 0 } });
-  fs.writeFileSync = (_, text) => { assert.equal(closed, false); saved = JSON.parse(text); };
-  try {
-    await assert.rejects(scenario({
-      report: { build: 'fixture', graphics: { renderer: 'NVIDIA GTX 1650 Ti' } },
-      session: async () => ({ context: { close: async () => { closed = true; } }, page: { evaluate: async () => {
-        if (!calls) return 1000;
-        throw Error('input failure fixture');
-      } } }),
-      start: async () => {}, fight: async () => {},
-      check: (ok, message) => { if (!ok) throw Error(message); },
-      state: async () => {
-        if (!calls) return { worldWidth: 320, worldHeight: 180, width: 1280, height: 720 };
-        throw Error('input failure fixture');
-      }
-    }, {}), /input failure fixture/);
-    assert.equal(closed, true); assert.equal(saved.status, 'failed');
-    assert.match(saved.error, /input failure fixture/); assert.equal(saved.batches.length, 2);
-  } finally {
-    timing.install = original.install; timing.drain = original.drain; fs.writeFileSync = original.write;
-    if (original.output === undefined) delete process.env.PERF_OUTPUT; else process.env.PERF_OUTPUT = original.output;
-  }
+ const r=await runFixture({inputError:true});
+ assert.match(r.error.message,/input fixture/);assert.equal(r.closed,true);assert.equal(r.saved.status,'failed');assert.equal(r.saved.batches.length,2);
 });
-
 
 test('combat exit retains 300ms hitch; entry and outside intervals are excluded', () => {
   const r = summarize([row(0, 0, 0), row(1, 200, 0), row(2, 400), row(3, 700, 289)]);
@@ -120,37 +92,41 @@ test('coverage uses measured combat intervals and consecutive combat counters', 
   assert.equal(summarize([row(0, 0, 387), row(1, 16)]).coverage.parryState, false);
 });
 
+const fixtureEvidence=[];
 // In-memory scenario fixture: no browser, player build or output artifacts.
-async function runFixture({ final = 'valid', inputError = false, saveError = false, closeError = false, verification, windowsForeground } = {}) {
+async function runFixture({ final = 'valid', inputError = false, saveError = false, closeError = false, verification, windowsForeground, preflight = 'valid', official = false, detailed = '1', downError = false, warmupFocus = false, lateSaveError = false, reportSaveError = false } = {}) {
   const timing = require('./frame_timing.cjs'), scenario = require('./dungeon_performance.cjs');
   const original = { install: timing.install, drain: timing.drain, write: fs.writeFileSync,
-    output: process.env.PERF_OUTPUT, diagnostic: process.env.PERF_DIAGNOSTIC, mode: process.env.PERF_MODE, verify: process.env.PERF_VERIFY };
-  let calls = 0, closed = false, saved, error, persisted;
+    now: Date.now, detailed: process.env.PERF_DETAILED, output: process.env.PERF_OUTPUT, diagnostic: process.env.PERF_DIAGNOSTIC, mode: process.env.PERF_MODE, verify: process.env.PERF_VERIFY };
+  let calls = 0, installed = 0, started = 0, fought = 0, released = 0, tabFrame = 0, clock = 100000, closed = false, saved, error, persisted;
+  Date.now = () => clock;
+  process.env.PERF_DETAILED = detailed;
   const report = { build: 'fixture', graphics: { renderer: 'NVIDIA GTX 1650 Ti' } };
   process.env.PERF_OUTPUT = require('node:path').resolve('unused-in-memory-fixture');
-  process.env.PERF_DIAGNOSTIC = '1'; process.env.PERF_MODE = 'normal';
+  process.env.PERF_DIAGNOSTIC = official ? '0' : '1'; process.env.PERF_MODE = 'normal';
   process.env.PERF_VERIFY = verification === undefined ? '0' : '1';
-  timing.install = async () => {};
+  timing.install = async () => { assert.equal(started, 1); assert.equal(fought, 1); installed++; };
   timing.drain = async () => {
     calls++;
     if (calls === 2 && final === 'drain error') throw Error('drain fixture');
     const rows = calls === 1 ? Array.from({ length: inputError ? 2 : 3601 }, (_, i) => row(i, 1000 + i * 1000 / 60)) :
       [row(final === 'gap' ? 3603 : 3601, 61000 + 1000 / 60)];
-    return { at: 62000, focused: !(calls === 2 && final === 'focus'), visible: 'visible', browser: { events: [] },
+    return { at: warmupFocus && calls === 1 ? 500 : 62000, focused: !(warmupFocus && calls === 1) && !(calls === 2 && final === 'focus'), visible: 'visible', browser: { events: [] },
       unity: { rows, dropped: calls === 2 && final === 'overflow' ? 1 : 0 } };
   };
   fs.writeFileSync = (_, text) => {
-    if (saveError) throw Error('save fixture');
+    if (saveError || (lateSaveError && calls >= 2)) throw Error('save fixture');
     saved = JSON.parse(text);
   };
   try {
     await scenario({ report,
-      ...(windowsForeground === undefined ? {} : { foregroundVerdict: async () => {
-        assert.equal(calls, 2); assert.equal(closed, false);
-        return { pass: windowsForeground, browserPid: 123, sampleCount: 600 };
-      } }),
-      saveReport: async () => { assert.equal(closed, false); persisted = JSON.parse(JSON.stringify(report)); },
-      session: async () => ({ context: { close: async () => { closed = true; if (closeError) throw Error('close fixture'); } }, page: { evaluate: async () => {
+      foregroundVerdict: async () => {
+        assert.equal(closed, false);
+        return { pass: calls >= 2 ? windowsForeground !== false : preflight !== 'denied' && !(preflight === 'after-setup' && fought), browserPid: 123, sampleCount: 600 };
+      },
+      saveReport: async () => { if(reportSaveError)throw Error('report save fixture');assert.equal(closed, false); persisted = JSON.parse(JSON.stringify(report)); },
+      session: async () => ({ context: { close: async () => { closed = true; if (closeError) throw Error('close fixture'); } }, page: { keyboard: { down: async () => { if (downError) throw Error('down fixture'); }, up: async () => { released++; } }, waitForTimeout: async ms => { clock += ms; }, evaluate: async fn => {
+        if (String(fn).includes('visibilityState')) return { visible: preflight === 'hidden' ? 'hidden' : 'visible', focused: preflight !== 'unfocused', frame: preflight === 'stalled' ? 1 : ++tabFrame };
         if (calls >= 2 && verification !== undefined) {
           if (verification === 'error') throw Error('verification fixture');
           return verification;
@@ -158,18 +134,21 @@ async function runFixture({ final = 'valid', inputError = false, saveError = fal
         if (inputError && calls) throw Error('input fixture');
         return 1000;
       } } }),
-      start: async () => {}, fight: async () => {},
-      state: async () => ({ worldWidth: 320, worldHeight: 180, width: 1280, height: 720 }),
+      start: async () => { started++; }, fight: async () => { fought++; },
+      until: async () => {},
+      state: async () => ({ paused: downError, worldWidth: 320, worldHeight: 180, width: 1280, height: 720 }),
       check: (ok, message) => { if (!ok) throw Error(message); }
     }, {});
   } catch (e) { error = e; }
   finally {
+    Date.now = original.now;
     timing.install = original.install; timing.drain = original.drain; fs.writeFileSync = original.write;
-    for (const [key, value] of [['PERF_OUTPUT', original.output], ['PERF_DIAGNOSTIC', original.diagnostic], ['PERF_MODE', original.mode], ['PERF_VERIFY', original.verify]]) {
+    for (const [key, value] of [['PERF_DETAILED', original.detailed], ['PERF_OUTPUT', original.output], ['PERF_DIAGNOSTIC', original.diagnostic], ['PERF_MODE', original.mode], ['PERF_VERIFY', original.verify]]) {
       if (value === undefined) delete process.env[key]; else process.env[key] = value;
     }
   }
-  return { calls, closed, saved, error, report, persisted };
+  fixtureEvidence.push({preflight,official,detailed,inputError,saveError,lateSaveError,downError,warmupFocus,final,windowsForeground,installed,started,fought,drains:calls,released,closed,status:report.status,error:error?.message});
+  return { calls, installed, started, fought, released, closed, saved, error, report, persisted };
 }
 for (const final of ['focus', 'overflow', 'gap']) test(`final batch ${final} invalidates verdict and retains trace`, async () => {
   const r = await runFixture({ final });
@@ -284,4 +263,37 @@ test('input error takes precedence over verification observation error', async (
   const r = await runFixture({ inputError: true, verification: 'error' });
   assert.match(r.error.message, /input fixture/); assert.equal(r.closed, true);
   assert.match(r.saved.serializationCheckError, /verification fixture/);
+});
+
+for (const preflight of ['denied','hidden','unfocused','stalled','after-setup']) test(`preflight ${preflight} blocks measurement`, async () => {
+ const r=await runFixture({preflight});
+ assert.ok(r.error);assert.equal(r.closed,true);assert.equal(r.installed,0);assert.equal(r.calls,0);
+ assert.equal(r.saved.status,'PREFLIGHT_BLOCKED');
+ assert.equal(r.started,preflight==='after-setup'?1:0);assert.equal(r.fought,preflight==='after-setup'?1:0);
+});
+test('official detailed disabled fails before setup or measurement',async()=>{
+ const r=await runFixture({official:true,detailed:'0'});
+ assert.match(r.error.message,/PERF_DETAILED/);assert.equal(r.started,0);assert.equal(r.fought,0);assert.equal(r.installed,0);assert.equal(r.calls,0);assert.equal(r.closed,true);
+});
+test('two preflights install exactly once after setup',async()=>{
+ const r=await runFixture();assert.equal(r.error,undefined);assert.equal(r.installed,1);
+ assert.deepEqual(r.saved.preflightHistory.map(x=>x.phase),['before-start','after-setup']);
+});
+
+test('warm-up focus loss invalidates and retains trace',async()=>{
+ const r=await runFixture({warmupFocus:true});assert.ok(r.error);assert.equal(r.saved.batches.length,2);assert.equal(r.saved.summary.valid,false);
+});
+
+test('setup down failure releases Escape and never installs',async()=>{
+ const r=await runFixture({downError:true});assert.match(r.error.message,/down fixture/);assert.equal(r.released,1);assert.equal(r.installed,0);assert.equal(r.closed,true);
+});
+test('input error survives final save failure',async()=>{
+ const r=await runFixture({inputError:true,lateSaveError:true});assert.match(r.error.message,/input fixture/);assert.match(r.report.timing.saveError,/save fixture/);assert.equal(r.closed,true);
+});
+test.after(()=>{
+ if(process.env.TOOLING_FIXTURE_RECEIPT)fs.writeFileSync(process.env.TOOLING_FIXTURE_RECEIPT,JSON.stringify({scope:'in-memory fixtures only; actual spies',fixtures:fixtureEvidence},null,2));
+});
+
+test('input error survives report persistence failure and closes context',async()=>{
+ const r=await runFixture({inputError:true,reportSaveError:true});assert.match(r.error.message,/input fixture/);assert.match(r.report.timing.reportSaveError,/report save fixture/);assert.equal(r.closed,true);assert.equal(r.saved.status,'failed');
 });

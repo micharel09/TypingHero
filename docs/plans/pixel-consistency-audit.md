@@ -6882,3 +6882,81 @@ Frozen repair-v2 driver hashes (SHA256; paths relative to durable root):
 - `harness\arena_pulse_pause.cjs`: `8fecba60c40952d60d97bfd3a99f9a7e118fb1a036f0b738848fe2d24cb7ee78`
 - `harness\dungeon_performance.cjs`: `baa4d0ada7f1ad100be741d0c4fc82343f8330af87970e2a789be864120298e1`
 - `harness\native-browser.cjs`: `4b0b6b84576fad1c1f211866e0ac0914ed53ca8cd17d83f48abf7c8368a21908`
+
+
+## Verification repair v3 - 2026-10-29 (acceptance blocked, no merge)
+
+Continued existing clean worktree/branch from remote-verified1d0ec16b. Reused Control
+pack/receipt/Git batch, pulse attempt/lifecycle flow, durable performance preflights
+and existing in-memory fixtures. No production/runtime/assets/API/schema edits.
+Versioned the adapted durable pulse harness at tools/game_loop/arena_pulse_pause.cjs;
+synchronized the existing durable two-preflight performance flow into the repository.
+
+- Control parses EOL columns and attributes separately. Explicit -text, binary EOL
+  or NUL in either version blocks canonical comparison; unknown byte differences
+  fail. Raw equality, text-only CRLF normalization and three asset exceptions keep
+  their order. Payload always uses raw Git bytes. Batch closes on pack/receipt
+  failure and adapter termination. Input roots/secrets/symlink rules unchanged.
+- Pulse wait returns copied fast fields from the successful publication, reads
+  handle.jsonValue before disposal, and uses concrete predicates plus caller frame
+  IDs. Space window supplies counter/owner/frame. No second pulse wait or state
+  read before Escape. Pause checks the same publication owner/light before slow
+  reads; missed light resumes immediately and retries, maximum3 attempts. Hold
+  records actual elapsed milliseconds and fast/slow IDs over450ms; lifecycle kept.
+- Official detailed=false fails before gameplay/install. Both2s/60s preflights kept.
+  Setup Escape down is inside try/finally. Browser/native focus loss during warm-up
+  invalidates. UTF-8 focus message prints only QA marker. Measurement dimensions,
+  GPU/duration/thresholds unchanged. Input cause survives final drain/file/report
+  save failures and context closes.
+
+Actual scoped offline checks: Control byte/metadata fixtures and real Git metadata
+query PASS; Python AST, dynamic adapter --help, CJS syntax and diff whitespace PASS.
+CJS fixtures38/38 PASS (34 timing,4 pulse). No browser/player claim. Actual fixture
+start/fight/install/drain spies are in performance-v3-fixture-counts.json; virtual
+clock avoids real60s waits and stubs/environment/clock restore in finally.
+control-repair-v3-regressions.json preserves the new Control result. No historical
+FAILED/invalid receipt was changed or promoted.
+
+Read all2550 members / hashed2549 payloads in EACH archive, recomputed ordered
+source digests, verified embedded/external markers and files.json.2365/2365 A
+production hashes match raw baseline;184/184 common QA/test/tooling hashes match B,
+including182 previous inputs and2 new pulse files. Candidate production equals
+prior c4d5b2beedb3 snapshot: previous unchanged-production exclusion/smoke reusable.
+This is OFFLINE_RECONCILED_NOT_BUILD_PASS, not Unity/build/player acceptance.
+
+A: `e639d9309b6191353097218f6fd4f9c931242511de67ea01c5d53ddb117e78b8` (`input-webgl-e639d9309b61`).
+B: `320c532cc0799fa3947ed412aac28c695033f054726b9e3987bd1079fb00fdc6` (`input-quick-320c532cc079`).
+
+Durable root: D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028.
+repair-v3-source-reconciliation.json pins full archive hashes/counts.
+freeze-repair-v3.py reuses adapter snapshot creation and intercepts only SSH;
+verify-repair-v3.py rereads every payload. No Unity/build request submitted.
+
+SSH: Python/Docker available,20.35GiB free; nonblocking shared flock BUSY.
+Toolchain image execution remains unverified. No other job/lock touched.
+Next: availability preflight then exactly
+`python D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028/run-ubuntu.py quick --test-filter DungeonSessionTests.WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause`.
+Require current digest, matching XML1passed/0failed/0skipped and manual/natural,
+Pause/Volume/five-fixture logs before immutable QA A/B builds. No Slayer edits.
+
+Open gates: exact Unity test, QA A/B builds/manifests, real owner/pulse/lifecycle
+and foreground-denial runs,320x180 recorder pilot/PTS alignment, missing full
+motion/occluded-cel captures,100% frame/pair review, fixed-hash user playback
+approval at1x/.25x, GTX A/B plus ABBA if needed. No clip ready for approval.
+404ad72105f7/0fba2c801589 stay not-executed; c22 proves only three manual exits;
+B-pulse-pause-01 remains FAILED. No new visual/GPU evidence. Do not merge.
+Retain existing task worktree/branch/durable root until acceptance/integration.
+
+Frozen v3 SHA256, relative to durable root:
+
+- `run-ubuntu.py`: `3f6ec38f85174352ce75690c9021a82015cdf4f9404b921c310f8637282fec30`
+- `control_reconciliation.py`: `23b15cc3b2416dc6886914ffd0ef8c3024fca9bc1669138cb477d6cbe76b8bb3`
+- `check-control-repair.py`: `7e1c73544e050fe2b3ddbc81d6d4a2cfb2be2ce0b0ed9ef1c90c21bf347d8a7e`
+- `freeze-repair-v3.py`: `af65eeddd1e1bd3bba9c4b8692136184b5bd586f493947e6141e4ef257dbd158`
+- `verify-repair-v3.py`: `dc7cd1306a085ec82fa4ceb7ab6087870344e33015dbeb89d1c99b0cb64af627`
+- `run-native.py`: `08be7ec60614c4e1dfb72e435cd1264eb96d9b2aa87e5ba528653854b7f69b69`
+- `harness/arena_pulse_pause.cjs`: `4357640233c05466b670e0ef4d4e481eb644355b2a37f860cf77be728aaaad3d`
+- `harness/dungeon_performance.cjs`: `393bfcd0a4a8ac81799a6ea677aa05db1e0956e1117f7bb967e02a8a586a591e`
+- `harness/native-browser.cjs`: `4b0b6b84576fad1c1f211866e0ac0914ed53ca8cd17d83f48abf7c8368a21908`
+- `harness/test_frame_timing.cjs`: `26e2a116ad9725a8621e13a205dacbf3bf41715bf54b6db0186a3beb588929dc`
+- `harness/test_pulse_pause.cjs`: `ab5421adcfd383761c6c3e2af4e911114759090ebe26b4c8c8f6711910f058ed`

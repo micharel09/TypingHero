@@ -25,10 +25,10 @@ module.exports = async (api, browser) => {
   const save = () => fs.writeFileSync(filename, JSON.stringify(receipt));
   function summarize() {
     receipt.summary = timing.summarize(rows.filter(row => row[2] >= collectAt), dropped);
-    if (receipt.batches.some(b => b.at >= collectAt &&
+    if (receipt.batches.some(b =>
       (!b.focused || b.visible !== 'visible' || b.browser.events?.length))) {
       receipt.summary.valid = false;
-      receipt.summary.invalidReasons.push('browser focus/visibility event during measurement');
+      receipt.summary.invalidReasons.push('browser focus/visibility event during warm-up or measurement');
     }
   }
   async function collect() {
@@ -40,13 +40,38 @@ module.exports = async (api, browser) => {
   }
   let failure;
   try {
-    await start(page); await fight(page);
+    check(diagnostic || receipt.options.detailed, 'official runs require PERF_DETAILED=1');
+    async function preflight(phase) {
+    const preflightDeadline=Date.now()+60000;
+    let readySince=0, previousFrame=-1, preflightPassed=false;
+    receipt.preflight={phase,status:'WAITING',requiredMs:2000};save();
+    while(Date.now()<preflightDeadline){
+      const now=Date.now();
+      const native=await api.foregroundVerdict({from:now-250,to:now});
+      const tab=await page.evaluate(()=>({visible:document.visibilityState,focused:document.hasFocus(),frame:window.typingHeroQA?.frame}));
+      if(native.pass&&tab.visible==='visible'&&tab.focused&&tab.frame>previousFrame){
+        if(!readySince)readySince=now;
+        if(now-readySince>=2000){preflightPassed=true;break;}
+      }else readySince=0;
+      previousFrame=tab.frame;await page.waitForTimeout(150);
+    }
+    receipt.preflight.status=preflightPassed?'PASSED':'PREFLIGHT_BLOCKED';
+    (receipt.preflightHistory??=[]).push({...receipt.preflight});save();
+    check(preflightPassed,'Win32 foreground, visible focused tab and advancing Unity frames for 2 seconds');
+    }
+    console.log('H\u00e3y focus c\u1eeda s\u1ed5 QA: '+process.env.ARENA_WINDOW_MARKER+'; preflight ch\u1edd t\u1ed1i \u0111a 60 gi\u00e2y.');
+    await preflight('before-start');
+    await start(page);
+    const setup = await state(page);
+    if (setup.paused) { try { await page.keyboard.down('Escape'); await until(page,s=>!s.paused); } finally { await page.keyboard.up('Escape'); } }
+    await fight(page);
     check(/NVIDIA.*1650 Ti/.test(report.graphics.renderer), 'actual GTX 1650 Ti');
     const initial = await state(page);
     check(initial.worldWidth === 320 && initial.worldHeight === 180 && initial.width === 1280 && initial.height === 720,
       'world 320x180 and native WebGL 1280x720');
     receipt.dimensions = { world: [initial.worldWidth, initial.worldHeight], screen: [initial.width, initial.height] };
     receipt.graphics = report.graphics; receipt.browser = report.browser;
+    await preflight('after-setup');
     await timing.install(page, receipt.options);
     begun = Date.now(); collectAt = await page.evaluate(warmup => performance.now() + warmup, warmup);
     receipt.startedAt = begun; receipt.collectAt = collectAt;
@@ -117,7 +142,7 @@ module.exports = async (api, browser) => {
     summarize();
     if (begun && api.foregroundVerdict) {
       try {
-        receipt.windowsForeground = await api.foregroundVerdict({ from: begun + warmup, to: Date.now() });
+        receipt.windowsForeground = await api.foregroundVerdict({ from: begun, to: Date.now() });
         if (!receipt.windowsForeground.pass) {
           receipt.summary.valid = false;
           receipt.summary.invalidReasons.push('task browser lost actual Windows foreground');
@@ -134,10 +159,10 @@ module.exports = async (api, browser) => {
         const coverage = receipt.summary.coverage;
         check(mode !== 'parry' || (coverage.parry && coverage.slayer), 'actual parry and Slayer coverage');
         check(mode !== 'normal' || (!coverage.parry && !coverage.slayer && !coverage.parryState), 'normal excludes parry/Slayer');
-        if (!diagnostic) check(receipt.summary.thresholdsMet, 'each run meets FPS >=59 / p95 <=18ms / no sustained 30FPS');
+        if (!diagnostic) check(receipt.summary.thresholdsMet, 'each run meets FPS >=59 / p95 <=18ms / no rolling 1s combat window below 40FPS');
       } catch (error) { receipt.error = String(error.stack); failure = error; }
     }
-    receipt.status = failure ? 'failed' : 'passed';
+    receipt.status = receipt.preflight?.status==='PREFLIGHT_BLOCKED' ? 'PREFLIGHT_BLOCKED' : failure ? 'failed' : 'passed';
     try { save(); }
     catch (error) {
       receipt.saveError = String(error.stack); failure ??= error; receipt.status = 'failed';
@@ -149,9 +174,16 @@ module.exports = async (api, browser) => {
       report.status = receipt.status;
       // The native adapter persists the same verdict before browser teardown.
       try { if (api.saveReport) await api.saveReport(); }
-      finally {
-        if (api.closeContext) await api.closeContext(context);
-        else try { await context.close(); } catch (error) { report.closeError = String(error.stack); }
+      catch (error) {
+        receipt.reportSaveError = report.timing.reportSaveError = String(error.stack);
+        failure ??= error;
+        receipt.status = report.status = report.timing.status = 'failed';
+        try { save(); } catch (saveError) { receipt.saveError ??= String(saveError.stack); }
+      } finally {
+        try {
+          if (api.closeContext) await api.closeContext(context);
+          else await context.close();
+        } catch (error) { report.closeError = String(error.stack); }
       }
     }
   }

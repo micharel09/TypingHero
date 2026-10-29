@@ -1,3 +1,12 @@
+## Dungeon verification tooling v3 (2026-10-29; player gates open)
+
+Control attribute/NUL classification and pulse publication handling are repaired;
+performance uses two preflights and requires detailed official telemetry. Scoped
+offline fixtures38/38 PASS, actual fixture spies and full A/B payload hashes are
+recorded in the [pixel audit checkpoint](../plans/pixel-consistency-audit.md).
+Production unchanged. Ubuntu shared lock busy; no test/build submitted, no new
+player/visual/GPU PASS, no merge. Historical failures remain unchanged.
+
 > Repair request0fba2c801589: RUNNER_TIMEOUT after60s, zero Unity execution.
 > Static harness/adapter syntax checks passed; QA player/browser/GTX gates unverified.
 > Control A offline preflight failed extra-delta reconciliation; see current checkpoint.
