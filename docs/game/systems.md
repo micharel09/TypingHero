@@ -1,3 +1,15 @@
+## Dungeon staged candidate (2026-10-29; final acceptance open)
+
+The authored `DungeonWorld.unity` retains all scene IDs and actor/collider/camera
+bindings. Four existing FrontPier/Foot transforms frame viewport edges at .02/.98;
+rear fixtures use20, side key/fill1.5, front16. `DungeonLighting.asset` blurRadius0;
+rear/low haze, rune and wet-stone remain disabled; authored bloom.12 is retained.
+World320x180, FOV35/pitch5, normal5.625/Slayer3.3 and follow?.5 remain unchanged.
+Selected snapshotf0cfb043b159 passes3 focused world/render/profile tests and two
+strict repeated builders. Immutable QA B passes16 native lifecycle checks and26
+source-backed pulse/owner/Pause checks. This does not certify final visual quality,
+playback, production or GTX performance; see the pixel audit checkpoint.
+
 ## Slayer presentation ownership (2026-10-29)
 
 `SlayerScreenFX` owns progress, zoom, bars and existing HUD fades; it no longer

@@ -7346,3 +7346,86 @@ After build verify immutable player/source hashes, then native warmed recorder
 pilot with ARENA_PRESENTATION_CONTRACT=preserve-dungeon and real inputs. Current
 selected preset remains rear20/side1.5/front16, edge2%, blur0/hazeoff/bloom.12.
 All final runtime/recorder/motion/playback/GTX/production gates remain OPEN.
+
+
+Continuation: selected-stage QA B build071532 completed Ubuntu exit0, immutable
+player33files. Snapshotf0cfb043b1593db67f7a4cb9941ec3d970e41af0df16ea1c22fa99057bed4c7f.
+Delivery archivea9ed65c1d1f52adb8c51a6c7fa79c69c87d71dfa874985d06266443a45fbd172,
+verified full33file hashes, selected scene transform/light values and profile bytes.
+Exact number-text comparison initially failed8.3528404 ->8.35284; numeric check
+proves <=0.0000004 serialization delta. No staging edit/drift fix. Receipt/owners/
+log/manifest/source-final-hashes retained in qa-B-pilot-build-01.
+
+Native GTX1650Ti functional B-color-pilot-01 PASS16 checks,0exceptions: real typed
+normal attack, wrong key, early/late/successful parry, three typed Slayer attacks, renewal,
+natural exit/lens5.625, death/READY/next enemy, Pause, Restart/Menu. All observed
+Slayer background alpha0. Captured63s,4144codecframes/4210requests; codec/request
+mapping could not be established by nearest PTS (not promoted toPASS). Initial
+visual review directly opened64frames/61within-range pairs: F1584-1615,F1728-1743,
+F2448-2463 native full+nearest4xactorcrop. Per-frame observations in
+initial-visual-review.json. Remaining4080frames and boundaries UNREVIEWED. White
+arc/sourceRGB/dungeon visible in these ranges; contact hidden by VFX remains open.
+No full visual PASS. FFmpeg-only existing prepare-runtime-review export retained
+all4144frames; skill Pillow helper unavailable on host, no install/local fallback.
+Sheet filenames start001; use embedded F indices rather than filename*16.
+
+Recorder repairs reuse existing arena_combat canvas/MediaRecorder/raw branch.
+Warm-up retained; added8px diagnostic footer OUTSIDE world320x180,32bit capture
+ticket+0xA5sync, decoded with FFmpeg/stdlib, no new game renderer/API/dependency.
+B-color-pilot-02 remainsFAILED (early .4-.49s cue became successful parry); trace
+shows delayed actual pose, no game timing change. Adapted early miss to fresh
+idle/recovery before existing .5s wind-up; requires actual damage and no parry count.
+53input/timing/pulse fixtures PASS per affected harness revision; TAPs preserved.
+Pilot03 PASS16behavior, exact4124codecframes decoded,
+121missing requests; omission crosses idle marker, recorder NOT accepted.
+Pilot04 PASS16behavior,3444codecframes decoded,66missing requests including10
+action requests. Chunk-based >=3.5s warm (actual3744ms/6chunks) alone insufficient.
+Both codecs retain exact missing-request ledgers; historical statuses unchanged.
+Pilot02 identity371/371 decoded separately (450requests,79missing), no behaviorPASS.
+
+B-color-pilot-05 enables existing raw PNG path with ticket metadata; PASS16behavior.
+253801656byte raw JSON ->3588consecutive native320x180PNG source frames. Every
+ticket/time/renderFrame matches requested capture; ZERO missing action requests.
+prepare-raw-runtime-review adapts existing FFprobe/FFmpeg recipe: all holds and
+original variable intervals, no30Hz pump. MP4 decoded3589frames (3588sources plus
+one explicitly repeated terminal endpoint for final hold), PTS quantization<=0.5ms.
+Actual max capture hitch1667.305ms remains, not performance/gap-free evidence.
+RawPNG/frame ledger and clip retained remotely at071532-webgl/pilot-recorder-05/
+raw-review; local clip/frames/receipt in B-color-pilot-05. Five directly viewed
+orientation PNGs idle/normal/Slayer/letter2/restoration confirm colored actors and
+dungeon; NOT full matrix or frame acceptance. Native observer/foreground/toolchain
+receipts retained for each run.
+
+Clip58.450585s SHA256c9d4c1df55eeddd442cd3a5770d0b0d92cca65a8ae974b6728922753f835923a
+is awaiting USER1x/.25x playback approval via asynchronous question. Never assume
+approval on silence. Full frame/transition review and missing matrix stillOPEN.
+
+B-color-pulse-01 remainsFAILED: test expected positive normal combat light. Source
+ImpactLight.asset is enabled0/intensity0 in BOTH rawdc66303b and candidate;
+ParryLight is enabled1. Root cause is wrong harness contract, not inactive owner.
+Do not enable a new light to satisfy test. Explicit authored-disabled contract
+checks actual typed normal damage/score, disabled light+owner through Pause; parry
+retains strict positive-light hold. Legacy lit branch remains for existing fixtures.
+B-color-pulse-02 PASS26 checks,0exceptions: unique SampleScene/DungeonCombat rig,
+normal light off, parry light4.855075359344482 exact hold across advancing frames
+for1240ms, Resume clears, Restart new rig20984, Menu clears owner/pulses, reentry
+fresh rig24668. Initial rig18408. All53input/timing/pulse fixtures PASS.
+
+Frozen-candidate-01 pins sourceA6ee16692fa72ad7ca65a1b8a57ef247ec4ec3270b9ba3d9fda70ad8cdbdf5254
+andBf0cfb043b1593db67f7a4cb9941ec3d970e41af0df16ea1c22fa99057bed4c7f, both full
+archives reread2550members/2549payloads,2365raw baseline production/184shared QA
+hashes match; explicit12file delta retained. Includes immutable harness/adapter/
+raw-review scripts+hash lock. Source freeze based taskHEAD1f78f725; later docs-only
+checkpoint commits do not alter build payload. Do not change production/harness
+while collecting final evidence without refreezing affected gates.
+
+QA Control A build submitted once with lockwait0 via wait-qa-control.py, unified
+session5751; inspect qa-control-monitor-status.json before duplicates. Archive
+0dd6da71e445de60ef9580eb04df1d4a21de72ce9cce2df80c00bc4f1d50d7b5.
+Fresh production B frozen/availability monitor session47871 uses separate
+production-B-monitor-status.json; no waiting-lock submission or local build.
+Collect immutable A and production B, verify hashes, fresh UTF8/UTF16 decompressed
+bridge-exclusion scan and actual production smoke. GTX A/B normal/parry (and ABBA
+if >10%p95), actual foreground-denial, remaining motion/camera400x300 matrix,
+all-frame review/no-VFX details and user playback remainOPEN. Main unchanged.
+Retain worktree/branch/durable root and all FAILED/invalid receipts until integration.
