@@ -1,16 +1,10 @@
-## Slayer dungeon colors (2026-10-29; scoped logic verified, visual gates open)
+## Slayer red/black restored (2026-10-29; current verification pending)
 
-Slayer keeps the normal dungeon and authored actor RGB. Screen FX no longer
-fades Volume/weather or colors the background; atmosphere/rune/wet-stone alpha
-no longer depends on Slayer progress. Existing disabled nodes remain disabled.
-The silhouette compositor keeps target/alpha/flash bookkeeping with tint weight0;
-the spawner supplies white to the original slash atlas. Full progress,450ms entry,
-650ms exit, zoom/bars/afterimages/hit pulse and gameplay are retained.
-Ubuntu evidence covers75 distinct passing scoped cases across an unchanged-runtime
-73-pass receipt and the2 repaired fixture reruns. The three-cycle world test records
-manual/manual/natural expiry, Pause, Volume and five-fixture ownership before cleanup.
-This does not certify new staging, visual playback, performance or release builds.
-See [current checkpoint](../plans/pixel-consistency-audit.md).
+User reversed the color decision. Restore the existing red background, black body
+silhouettes and black Slayer slash, including original Volume/weather fade/restore.
+Runtime reuses the exact pre4597a028 implementation. Entry450ms, exit650ms, camera,
+bars/afterimages/flash and gameplay remain unchanged. Keep selected dungeon staging.
+Prior preserve-dungeon clips/builds are historical, not acceptance for this revision.
 
 ## Typed READY summoning (2026-10-27)
 

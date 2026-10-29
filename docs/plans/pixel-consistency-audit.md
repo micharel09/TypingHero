@@ -7486,3 +7486,17 @@ detail/no-VFX comparison still open. Do not sum separate pilot01/05 clip coverag
 Main remains unchanged. Remaining frame/motion/camera matrix, playback, foreground
 GTX A/B thresholds/ABBA, fresh production build/exclusion/smoke and final integration
 gates remainOPEN. Retain worktree/branch/durable evidence and both monitors as needed.
+
+
+USER DECISION: restore Slayer red/black, superseding preserve-dungeon palette.
+Seven runtime owners/shaders restored exactly from4597a028 parent: red background,
+black body/slash, original Volume/weather fade/restore. Preserve progress450/650ms,
+zoom/bars/afterimages/flash/gameplay. Selected dungeon staging/lighting/post assets
+unchanged. Three test files restored to matching red/black contracts; keep the
+asynchronous Pause.Resume and MPB readback fixture corrections already present.
+Keep PlayMode URP/Core references. Old frozen candidate, white-slash/color-preserving
+clips and pending playback questions are SUPERSEDED, not deleted or relabeled.
+Old production request may complete; it cannot certify this new revision. No GTX
+rerun or old-clip approval should advance the restored candidate's gates.
+Ubuntu lock is busy; no new Unity test/build submitted, no local build. Verify
+affected transition/hit-VFX/three-cycle session flows when available. No main merge.

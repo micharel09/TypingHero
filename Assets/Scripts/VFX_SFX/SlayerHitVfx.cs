@@ -34,7 +34,7 @@ public sealed class SlayerHitVfx : MonoBehaviour
         bornFrame = Time.frameCount;
         transform.SetPositionAndRotation(point, Quaternion.Euler(0, 0, -clockwiseAngle));
         transform.localScale = Vector3.one * uniformScale;
-        image.color = tint;
+        image.color = Color.black;
         image.flipX = image.flipY = false;
         ApplyFrame(startFrame);
     }

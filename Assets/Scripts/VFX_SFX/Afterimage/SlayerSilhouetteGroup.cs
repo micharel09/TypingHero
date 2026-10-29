@@ -58,7 +58,7 @@ public class SlayerSilhouetteGroup : MonoBehaviour
     {
         if (_block == null) _block = new MaterialPropertyBlock();
         renderer.GetPropertyBlock(_block);
-        _block.SetFloat(TintWeightId, 0);
+        _block.SetFloat(TintWeightId, weight);
         _block.SetFloat(HitWeightId, HitFlashWeight);
         _block.SetColor(HitColorId, HitColor);
         renderer.SetPropertyBlock(_block);
@@ -92,7 +92,7 @@ public class SlayerSilhouetteGroup : MonoBehaviour
             if (!_orig.ContainsKey(sr)) _orig[sr] = ReadBaseline(sr);
             var current = sr.color;
             var source = _flash && _flash.TryGetFlashColor(sr, out var flash) ? flash : _orig[sr];
-            var tint = source; // Preserve authored RGB; the shader still composes the hit pulse.
+            var tint = Color.Lerp(source, silhouetteColor, _weight);
             tint.a = current.a; // animation/visibility still owns alpha
             sr.color = tint;
             ApplyMaterialWeight(sr, _weight);

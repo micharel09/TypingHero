@@ -74,7 +74,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(Get<float>(effect, "uniformScale") * widest, Is.EqualTo(width).Within(.0001));
     }
     [TestCase(false), TestCase(true), Category("Quick")]
-    public void EveryFrameKeepsWhiteAndAngleUntilRelease(bool lethal)
+    public void EveryFrameKeepsBlackAndAngleUntilRelease(bool lethal)
     {
         var spawner = Owner(out var go);
         spawner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal, directionOverride: -1, capturedTint: Color.red);
@@ -89,7 +89,7 @@ public sealed class SlayerHitVfxTests
             Assert.That(image.sprite.name, Is.EqualTo("frame_" + order[i]));
             effect.Advance(durations[i] - .001f);
             Assert.That(image.sprite.name, Is.EqualTo("frame_" + order[i]), "frame held for full source duration");
-            Assert.That(image.color, Is.EqualTo(Color.white)); Assert.That(image.flipX || image.flipY, Is.False);
+            Assert.That(image.color, Is.EqualTo(Color.black)); Assert.That(image.flipX || image.flipY, Is.False);
             Assert.That(effect.transform.position, Is.EqualTo(new Vector3(3, 4, 0)));
             Assert.That(effect.transform.rotation, Is.EqualTo(rotation));
             effect.Advance(.00101f);
@@ -98,7 +98,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(effect.transform.rotation, Is.EqualTo(Quaternion.identity));
         spawner.SpawnImpact(Vector2.zero, go.transform, true, lethal, directionOverride: 1, capturedTint: Color.white);
         Assert.That(Active().Single(), Is.SameAs(effect)); Assert.That(effect.Age, Is.Zero);
-        Assert.That(image.color, Is.EqualTo(Color.white)); Assert.That(image.flipX || image.flipY, Is.False);
+        Assert.That(image.color, Is.EqualTo(Color.black)); Assert.That(image.flipX || image.flipY, Is.False);
         Assert.That(effect.transform.rotation, Is.Not.EqualTo(rotation));
         Assert.That(image.sprite.name, Is.EqualTo("frame_4"));
     }
@@ -123,13 +123,13 @@ public sealed class SlayerHitVfxTests
         var owner = Owner(out var go);
         owner.SpawnImpact(Vector2.zero, go.transform, true, lethal);
         var effect = Active().Single();
-        effect.Emit(Vector3.zero, 0, Color.white, startAtContact: contact);
+        effect.Emit(Vector3.zero, 0, Color.black, startAtContact: contact);
         var durations = Get<float[]>(effect, "frameDurations");
         var order = new[] { 4, 5, 0, 1, 2, 3 };
         float end = 0;
         for (int i = contact ? 2 : 0; i < 6; i++)
         {
-            effect.Emit(Vector3.zero, 0, Color.white, startAtContact: contact);
+            effect.Emit(Vector3.zero, 0, Color.black, startAtContact: contact);
             Assert.That(effect.Age, Is.Zero);
             end += durations[i];
             effect.Advance(end - .00001f);
@@ -139,7 +139,7 @@ public sealed class SlayerHitVfxTests
             {
                 Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_" + order[i + 1]));
                 Assert.That(effect.Age, Is.EqualTo(end + .00001f).Within(.000001f));
-                effect.Emit(Vector3.zero, 0, Color.white, startAtContact: contact);
+                effect.Emit(Vector3.zero, 0, Color.black, startAtContact: contact);
                 effect.Advance(end);
                 Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).sprite.name, Is.EqualTo("frame_" + order[i + 1]));
             }
@@ -147,7 +147,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(Active(), Is.Empty);
         owner.SpawnImpact(Vector2.zero, go.transform, true, lethal);
         effect = Active().Single();
-        effect.Emit(Vector3.zero, 0, Color.white, startAtContact: contact);
+        effect.Emit(Vector3.zero, 0, Color.black, startAtContact: contact);
         effect.Advance((lethal ? .28f : .24f) - (contact ? .07f : 0) + .001f);
         Assert.That(Active(), Is.Empty);
     }
@@ -211,7 +211,7 @@ public sealed class SlayerHitVfxTests
         Assert.That(residual.gameObject.activeSelf, Is.False);
     }
     [TestCase(false), TestCase(true), Category("Quick")]
-    public void AuthoredMirroredAnglesKeepWhiteAcrossProgressionTintsAndAllSixFrames(bool lethal)
+    public void AuthoredMirroredAnglesKeepBlackAcrossProgressionTintsAndAllSixFrames(bool lethal)
     {
         var owner = Owner(out var go);
         var player = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Characters/Player/Player.prefab");
@@ -221,7 +221,7 @@ public sealed class SlayerHitVfxTests
         foreach (int direction in new[] { 0, 1, 2, 4, 5, 6 }) for (int combo = 0; combo <= 20; combo++)
         {
             var tint = gradient.Evaluate(combo / 20f); tint.a = 1;
-            // The production spawner owns the white Slayer tint and maps the
+            // The production spawner owns the black Slayer tint and maps the
             // captured swing direction to the B streak's authored up-right axis.
             owner.SpawnImpact(new Vector2(3, 4), go.transform, true, lethal,
                 capturedTint: tint, slayerDirection: strikeDirections[direction]);
@@ -230,7 +230,7 @@ public sealed class SlayerHitVfxTests
             for (int frame = 0; frame < 6; frame++)
             {
                 Assert.That(sprite.sprite.name, Is.EqualTo("frame_" + new[] { 4, 5, 0, 1, 2, 3 }[frame]));
-                Assert.That(sprite.color, Is.EqualTo(Color.white));
+                Assert.That(sprite.color, Is.EqualTo(Color.black));
                 Assert.That(sprite.flipX || sprite.flipY, Is.False);
                 Assert.That(Quaternion.Angle(effect.transform.rotation, Quaternion.Euler(0, 0, -direction * 45)), Is.LessThan(.001));
                 Assert.That(effect.transform.position, Is.EqualTo(new Vector3(3, 4, 0)));
@@ -348,7 +348,7 @@ public sealed class SlayerHitVfxTests
         Set(slayer, "_active", false); // Undo manual fixture activation; this fixture has no Animator.
     }
     [Test, Category("Quick")]
-    public void LethalHitKeepsWhiteSlayerStyleAfterExitAndDeduplicatesColliders()
+    public void LethalHitKeepsBlackSlayerStyleAfterExitAndDeduplicatesColliders()
     {
         var spawner = Owner(out var go); go.SetActive(false); go.AddComponent<BoxCollider2D>();
         var slayer = go.AddComponent<PlayerSlayerMode>(); var images = go.AddComponent<SlayerAfterimagePool>();
@@ -361,7 +361,7 @@ public sealed class SlayerHitVfxTests
         var hit = typeof(PlayerWeaponHitbox).GetMethod("OnTriggerEnter2D", Flags);
         hit.Invoke(box, new object[] { a }); hit.Invoke(box, new object[] { b });
         Assert.That(damage.hits, Is.EqualTo(1)); var effect = Active().Single();
-        Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).color, Is.EqualTo(Color.white));
+        Assert.That(effect.name, Does.StartWith("SlayerFinisher")); Assert.That(effect.GetComponentInChildren<SpriteRenderer>(true).color, Is.EqualTo(Color.black));
         Assert.That(Time.timeScale, Is.EqualTo(1));
     }
 

@@ -5,22 +5,18 @@ bindings. Four existing FrontPier/Foot transforms frame viewport edges at .02/.9
 rear fixtures use20, side key/fill1.5, front16. `DungeonLighting.asset` blurRadius0;
 rear/low haze, rune and wet-stone remain disabled; authored bloom.12 is retained.
 World320x180, FOV35/pitch5, normal5.625/Slayer3.3 and follow?.5 remain unchanged.
-Selected snapshotf0cfb043b159 passes3 focused world/render/profile tests and two
+Prior preserve-dungeon snapshotf0cfb043b159 passed3 focused world/render/profile tests and two
 strict repeated builders. Immutable QA B passes16 native lifecycle checks and26
 source-backed pulse/owner/Pause checks. This does not certify final visual quality,
 playback, production or GTX performance; see the pixel audit checkpoint.
 
-## Slayer presentation ownership (2026-10-29)
+## Slayer presentation restored (2026-10-29)
 
-`SlayerScreenFX` owns progress, zoom, bars and existing HUD fades; it no longer
-snapshots/writes/restores environment Volume or weather properties. Arena and fallback
-background remain transparent. `SlayerSilhouetteGroup` retains discovery/original
-colors/alpha and hit-flash properties while writing `_SlayerTintWeight=0`.
-`HitSparkSpawner` passes white to `SlayerHitVfx.Emit`; lease, contact timing and anchors
-are unchanged. Environment shader alpha is independent of global Slayer progress,
-which remains available for observation. PlayMode test assembly explicitly references
-Core/URP, matching existing EditorTests. Scoped logic passes; final runtime visual and
-release gates remain open in the [checkpoint](../plans/pixel-consistency-audit.md).
+The user requests original red/black presentation. SlayerScreenFX again owns red
+background and Volume/weather fade/restore. SlayerSilhouetteGroup composes black
+bodies; HitSparkSpawner/SlayerHitVfx force black slashes. Environment shader alpha
+again follows Slayer progress. Seven runtime files match pre4597a028 byte-for-byte.
+Selected dungeon assets stay unchanged. Prior color-preserving results are historical.
 
 ## Dungeon verification tooling v3 (2026-10-29; player gates open)
 
