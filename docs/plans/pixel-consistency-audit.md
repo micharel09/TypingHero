@@ -7500,3 +7500,63 @@ Old production request may complete; it cannot certify this new revision. No GTX
 rerun or old-clip approval should advance the restored candidate's gates.
 Ubuntu lock is busy; no new Unity test/build submitted, no local build. Verify
 affected transition/hit-VFX/three-cycle session flows when available. No main merge.
+
+
+## Lighting continuation L0 / K sweep ? 2026-10-29
+
+User plan pins visual L0 to bae2897acb93b78146dc773c731439eed6b1e0b8;
+performance A remains raw dc66303baaf010f48b46d4431c4280fa23f7f51c.
+Clean checkout and micharel09/TypingHero origin verified; existing worktree reused.
+Seven restored runtime owners match raw Git pre4597a028 exactly. Local/Git hashes
+are in durable lighting-L0-preflight.json. No runtime owner change is authorized
+by this lighting pass. Historical FAILED/invalid/superseded receipts retained.
+
+Reference checklist: orange-window silhouette contrast, overhead industrial
+combat/floor light, blue scene foreground/background separation. Existing official
+combat segment [0,8.95), 537 frames/536 transitions, reused only after local video
+SHA256 8efbe4a2c13f6d2e12370f45bce68c7886c5fc39515c9a77578994301d91015e
+matched reference-manifest-v2.json. This continuation reopened the orange-window
+orientation image; it does not claim a new full reference review or runtime coverage.
+
+Reuse: existing ArenaAuthoringPreview.cs external diagnostic, LightProfile.Apply,
+DungeonTorchLight.Preview, DungeonArenaBuild and WorldLightingAuthoring. Preview
+backup ArenaAuthoringPreview-before-lighting-K.cs preserves the previous version.
+K preview uses cloned world/lighting/post components/light profiles, unchanged
+actor idle cels, fixed bloom0/exposure.35, and collider offset centers transformed
+through gameplay actor transforms. Only TorchGlow_Front rotates; serialized
+inventory proves it has no children. Seven center shots compare Point16 and all
+six requested Spot presets. Native presentation sRGB is distinct from clamped
+linear world PNG. No asset/scene saves, room generator or production changes.
+
+Fixture inventory lighting-fixture-inventory.json: each rear torch root owns
+ModelMesh, PixelFlame and TorchSolidShadow; light is a separate transform.
+No collider appears within either fixture subtree. Future relocation still needs
+visual wall/holder/contact validation; inventory alone does not approve movement.
+
+Ubuntu preflight available; one quick request submitted with wait0 for
+SlayerTransitionTests|SlayerHitVfxTests|
+WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause.
+Input 5fa1af6823b86ad1308d946b477365ec70be396fdf16df3278e51396a75b0c8b,
+result /data/typinghero-game-loop/results/20261029T091806-quick.
+At this checkpoint Unity is initializing; no test PASS is claimed.
+K preview has not run. Selection, final pose/edge checks, runtime frames, playback,
+GTX, immutable A/B, production/exclusion/smoke and main integration remain OPEN.
+
+
+L0 test attempt outcome: INVALID_NO_TEST_RESULT, not PASS or a game assertion
+failure. SSH request reset after severe host pressure (828MiB available/15GiB,
+no swap, load28.35); reconnect showed Unity still in uninterruptible I/O wait,
+no tests.xml and no test completion marker. Root cause is not established.
+Mount-verified task container e25dd602f02a stopped successfully; unrelated jobs
+were untouched. unity.log, snapshot, host observations and stop receipt retained
+in durable lighting-L0-tests-01. Remote source archive/result retained at the path
+above. Subsequent nonblocking runner preflight returned available=false; no retry,
+preview, queue, lock wait, local build or new terminal was launched.
+
+Current handoff: production assets/runtime remain L0; K diagnostic is prepared
+but UNEXECUTED and has no visual acceptance. Rerun the exact three test filters
+only after nonblocking availability/capacity checks, then execute/review K1-K6
+before selecting or writing any production lighting values. Do not use this
+infrastructure attempt to weaken Slayer assertions or substitute historical clips.
+All requested final gates remain open; no main merge. Preserve existing task
+worktree, branch, durable root and remote result until accepted integration.
