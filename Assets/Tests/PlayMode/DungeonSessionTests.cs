@@ -105,11 +105,17 @@ public sealed class DungeonSessionTests
             {
                 yield return Until(() => SlayerScreenFX.PresentationWeight > 0, entry + .25f, "entry started");
                 Assert.That(SlayerScreenFX.PresentationWeight, Is.LessThan(1), "pause inside entry");
+                Assert.That(volume.weight, Is.EqualTo(volumeBaseline));
+                Assert.That(world.Arena.SlayerBackground.a, Is.Zero);
                 yield return HoldPresentation(pause, virtualCamera);
                 yield return Until(() => SlayerScreenFX.PresentationWeight == 1, entry + .25f, "entry completed");
+                Assert.That(volume.weight, Is.EqualTo(volumeBaseline));
+                Assert.That(world.Arena.SlayerBackground.a, Is.Zero);
                 yield return Until(() => !slayer.IsActive, 2f + .25f, "natural timer expiry");
                 yield return Until(() => SlayerScreenFX.PresentationWeight < 1, exit + .25f, "exit started");
                 Assert.That(SlayerScreenFX.PresentationWeight, Is.GreaterThan(0), "pause inside exit");
+                Assert.That(volume.weight, Is.EqualTo(volumeBaseline));
+                Assert.That(world.Arena.SlayerBackground.a, Is.Zero);
                 yield return HoldPresentation(pause, virtualCamera);
                 yield return Until(() => SlayerScreenFX.PresentationWeight == 0, exit + .25f, "natural exit completed");
                 Assert.That(slayer.IsActive, Is.False);
@@ -121,13 +127,14 @@ public sealed class DungeonSessionTests
                 Assert.That(volume.GetInstanceID(), Is.EqualTo(volumeId));
                 Assert.That(volume.isActiveAndEnabled, Is.True);
                 Assert.That(volume.sharedProfile, Is.SameAs(volumeProfile));
-                Assert.That(Read<UnityEngine.Rendering.Volume>(fx, "_volume"), Is.SameAs(volume));
                 Assert.That(Read<Transform>(fx, "environment"), Is.SameAs(room));
                 Assert.That(volume.weight, Is.EqualTo(volumeBaseline));
                 TestContext.WriteLine($"NATURAL_RESTORATION before cleanup: active={slayer.IsActive}, presentation={SlayerScreenFX.PresentationWeight:R}, global={Shader.GetGlobalFloat("_DungeonSlayerWeight"):R}, alpha={world.Arena.SlayerBackground.a:R}, lens={virtualCamera.m_Lens.OrthographicSize:R}, volume={volume.weight:R}, volumeId={volumeId}, profile={volumeProfile.name}, environmentGain={Read<float>(world.Arena, "<EnvironmentPresentationGain>k__BackingField"):R}");
             }
             else
             {
+                Assert.That(volume.weight, Is.EqualTo(volumeBaseline));
+                Assert.That(world.Arena.SlayerBackground.a, Is.Zero);
                 yield return HoldPresentation(pause, virtualCamera);
                 yield return new WaitForSecondsRealtime(entry + .25f);
                 fx.ExitSlayerFX();
@@ -240,6 +247,7 @@ public sealed class DungeonSessionTests
         Assert.That(camera.m_Lens.OrthographicSize, Is.EqualTo(lens).Within(.00001f), "paused lens");
         Assert.That(SlayerScreenFX.PresentationWeight, Is.EqualTo(weight), "paused presentation");
         pause.Resume();
+        yield return Until(() => !GamePauseController.IsPaused, Read<float>(pause, "zoomDuration") + .5f, "resume tween completed");
         Assert.That(GamePauseController.IsPaused, Is.False);
     }
     static IEnumerator Wait(DungeonSession session)

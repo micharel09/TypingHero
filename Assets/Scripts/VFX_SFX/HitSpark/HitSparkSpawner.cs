@@ -138,7 +138,7 @@ public class HitSparkSpawner : MonoBehaviour
             // The source B streak points up-right. Rotate that axis onto the authored swing.
             float clockwiseAngle = Mathf.Repeat(45 - Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, 360);
             // Slayer B stays black independently of combo tint and lethal mode exit.
-            slash.Emit(slayerVisualPoint ?? point, clockwiseAngle, Color.black, recipient, hitAnchor, anchorLifetime, startAtContact);
+            slash.Emit(slayerVisualPoint ?? point, clockwiseAngle, Color.white, recipient, hitAnchor, anchorLifetime, startAtContact);
             return;
         }
         if (go.TryGetComponent<NormalHitSpark>(out var normal))

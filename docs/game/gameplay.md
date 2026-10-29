@@ -1,3 +1,17 @@
+## Slayer dungeon colors (2026-10-29; scoped logic verified, visual gates open)
+
+Slayer keeps the normal dungeon and authored actor RGB. Screen FX no longer
+fades Volume/weather or colors the background; atmosphere/rune/wet-stone alpha
+no longer depends on Slayer progress. Existing disabled nodes remain disabled.
+The silhouette compositor keeps target/alpha/flash bookkeeping with tint weight0;
+the spawner supplies white to the original slash atlas. Full progress,450ms entry,
+650ms exit, zoom/bars/afterimages/hit pulse and gameplay are retained.
+Ubuntu evidence covers75 distinct passing scoped cases across an unchanged-runtime
+73-pass receipt and the2 repaired fixture reruns. The three-cycle world test records
+manual/manual/natural expiry, Pause, Volume and five-fixture ownership before cleanup.
+This does not certify new staging, visual playback, performance or release builds.
+See [current checkpoint](../plans/pixel-consistency-audit.md).
+
 ## Typed READY summoning (2026-10-27)
 
 - After the completed death animation, a session-owned amber pixel seal fades in

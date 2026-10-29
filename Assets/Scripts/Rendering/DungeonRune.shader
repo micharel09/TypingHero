@@ -35,7 +35,7 @@ Shader "CLACKBLADE/Dungeon Rune"
     half cross=(1-smoothstep(_StrokeWidth,_StrokeWidth+_StrokeSoftness,abs(p.x)))*step(abs(p.y),_CrossLength);
     half slash=(1-smoothstep(_StrokeWidth,_StrokeWidth+_StrokeSoftness,abs(abs(p.x)-abs(p.y))))*step(length(p),_SlashRadius);
     half scan=_ScanBase+_ScanAmplitude*sin((i.uv.y+_DungeonAge*_ScanSpeed)*_ScanFrequency);
-    return half4(_Tint.rgb*_DungeonPulse,(1-_DungeonSlayerWeight)*saturate(ring+cross+slash)*scan*_Tint.a);
+    return half4(_Tint.rgb*_DungeonPulse,saturate(ring+cross+slash)*scan*_Tint.a);
    }
    ENDHLSL
   }

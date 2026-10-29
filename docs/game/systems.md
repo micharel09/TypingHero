@@ -1,3 +1,15 @@
+## Slayer presentation ownership (2026-10-29)
+
+`SlayerScreenFX` owns progress, zoom, bars and existing HUD fades; it no longer
+snapshots/writes/restores environment Volume or weather properties. Arena and fallback
+background remain transparent. `SlayerSilhouetteGroup` retains discovery/original
+colors/alpha and hit-flash properties while writing `_SlayerTintWeight=0`.
+`HitSparkSpawner` passes white to `SlayerHitVfx.Emit`; lease, contact timing and anchors
+are unchanged. Environment shader alpha is independent of global Slayer progress,
+which remains available for observation. PlayMode test assembly explicitly references
+Core/URP, matching existing EditorTests. Scoped logic passes; final runtime visual and
+release gates remain open in the [checkpoint](../plans/pixel-consistency-audit.md).
+
 ## Dungeon verification tooling v3 (2026-10-29; player gates open)
 
 Control attribute/NUL classification and pulse publication handling are repaired;

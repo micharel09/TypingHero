@@ -26,7 +26,7 @@ public sealed class SlayerTransitionTests
         {
             root.SetActive(true); group.SetPresentationWeight(weight); late.Invoke(group, null);
             flash.Tick(.06f); late.Invoke(group, null);
-            var expected = Color.Lerp(ivory, Color.black, weight); expected.a = original.a;
+            var expected = ivory; expected.a = original.a;
             Assert.That(body.color, Is.EqualTo(expected), "normal-hit flash must compose with exit silhouette");
             group.SetPresentationWeight(0);
             expected = ivory; expected.a = original.a;
@@ -84,12 +84,12 @@ public sealed class SlayerTransitionTests
             root.SetActive(true); flash.Tick();
             group.SetPresentationWeight(.4f); late.Invoke(group, null);
             flash.Tick(); group.SetPresentationWeight(.8f); late.Invoke(group, null);
-            var expected = Color.Lerp(ivory, Color.black, .8f); expected.a = original.a;
+            var expected = ivory; expected.a = original.a;
             Assert.That(body.color, Is.EqualTo(expected));
             group.SetPresentationWeight(.2f); flash.Tick(); late.Invoke(group, null);
             Set(flash, "_flashUntil", -1f); Set(flash, "_flashFrameUntil", -1);
             update.Invoke(flash, null); late.Invoke(group, null);
-            expected = Color.Lerp(original, Color.black, .2f); expected.a = original.a;
+            expected = original; expected.a = original.a;
             Assert.That(body.color, Is.EqualTo(expected));
             group.SetPresentationWeight(0); Assert.That(body.color, Is.EqualTo(original));
         }
@@ -188,7 +188,7 @@ public sealed class SlayerTransitionTests
     }
 
     [Test, Category("Quick")]
-    public void SilhouetteBlendsOriginalAndDynamicColorsAndExcludesSparks()
+    public void PresentationPreservesOriginalAndDynamicColorsAndExcludesSparks()
     {
         var root = new GameObject("actor"); root.SetActive(false);
         var body = root.AddComponent<SpriteRenderer>(); body.color = new Color(.8f, .4f, .2f, .7f);
@@ -197,22 +197,22 @@ public sealed class SlayerTransitionTests
         try
         {
             root.SetActive(true); group.SetPresentationWeight(.5f); late.Invoke(group, null);
-            Assert.That(body.color.r, Is.EqualTo(.4f).Within(.00001f));
+            Assert.That(body.color.r, Is.EqualTo(.8f).Within(.00001f));
             Assert.That(body.color.a, Is.EqualTo(.7f));
             var block = new MaterialPropertyBlock(); body.GetPropertyBlock(block);
-            Assert.That(block.GetFloat("_SlayerTintWeight"), Is.EqualTo(.5f));
+            Assert.That(block.GetFloat("_SlayerTintWeight"), Is.Zero);
             var child = new GameObject("dynamic"); child.transform.SetParent(root.transform);
             var dynamic = child.AddComponent<SpriteRenderer>(); dynamic.color = Color.green;
             var spark = new GameObject("HitSpark"); spark.transform.SetParent(root.transform);
             var excluded = spark.AddComponent<SpriteRenderer>(); excluded.color = Color.yellow;
             late.Invoke(group, null);
-            Assert.That(dynamic.color.g, Is.EqualTo(.5f).Within(.00001f));
+            Assert.That(dynamic.color.g, Is.EqualTo(1f).Within(.00001f));
             Assert.That(excluded.color, Is.EqualTo(Color.yellow));
             excluded.GetPropertyBlock(block);
             Assert.That(block.GetFloat("_SlayerTintWeight"), Is.Zero, "excluded VFX never receive the material tint");
             group.SetPresentationWeight(1); late.Invoke(group, null);
             group.SetPresentationWeight(.25f); late.Invoke(group, null);
-            Assert.That(body.color.r, Is.EqualTo(.6f).Within(.00001f), "reversal never snapshots a tinted original");
+            Assert.That(body.color.r, Is.EqualTo(.8f).Within(.00001f), "reversal never snapshots a tinted original");
             group.SetPresentationWeight(0);
             Assert.That(body.color, Is.EqualTo(new Color(.8f, .4f, .2f, .7f)));
             Assert.That(dynamic.color, Is.EqualTo(Color.green));
@@ -224,7 +224,7 @@ public sealed class SlayerTransitionTests
 
 #if UNITY_EDITOR
     [Test, Category("Quick")]
-    public void WeatherAndVolumeFadeAndRestoreTheirAuthoredBaseline()
+    public void WeatherAndVolumeRemainOwnedByEnvironmentThroughoutPresentation()
     {
         var root = new GameObject("weather transition"); root.SetActive(false);
         var room = new GameObject("room");
@@ -243,20 +243,36 @@ public sealed class SlayerTransitionTests
             block.SetColor("_BaseColor", original); block.SetFloat("_Untouched", 42);
             renderer.SetPropertyBlock(block);
             renderer.GetPropertyBlock(block); original = block.GetColor("_BaseColor");
+            var overlay = root.AddComponent<SpriteRenderer>(); overlay.color = Color.red;
             var fx = root.AddComponent<SlayerScreenFX>(); Set(fx, "environment", room.transform);
+            Set(fx, "redOverlay", overlay);
             root.SetActive(true); fx.EnterSlayerFX(); Tick(fx, .225f);
-            renderer.GetPropertyBlock(block);
-            Assert.That(block.GetColor("_BaseColor").a, Is.EqualTo(.4f).Within(.00001f));
-            Assert.That((float)weight.GetValue(volume), Is.EqualTo(.35f).Within(.00001f));
-            fx.ExitSlayerFX(); Tick(fx, .65f);
-            renderer.GetPropertyBlock(block);
-            Assert.That(block.GetColor("_BaseColor"), Is.EqualTo(original));
-            Assert.That(block.GetFloat("_Untouched"), Is.EqualTo(42));
-            Assert.That((float)weight.GetValue(volume), Is.EqualTo(.7f));
+            foreach (var delta in new[] { 0f, .225f, 1f })
+            {
+                Tick(fx, delta);
+                renderer.GetPropertyBlock(block);
+                Assert.That(overlay.enabled, Is.False);
+                Assert.That(overlay.color.a, Is.Zero);
+                Assert.That(block.GetColor("_BaseColor"), Is.EqualTo(original));
+                Assert.That((float)weight.GetValue(volume), Is.EqualTo(.7f));
+            }
+            // Another environment owner updates while Slayer is active: exit must not restore stale state.
+            original = new Color(.6f, .4f, .2f, .3f);
+            block.SetColor("_BaseColor", original); block.SetFloat("_Untouched", 43);
+            renderer.SetPropertyBlock(block); renderer.GetPropertyBlock(block);
+            original = block.GetColor("_BaseColor"); weight.SetValue(volume, .9f);
+            fx.ExitSlayerFX();
+            foreach (var delta in new[] { .325f, .325f })
+            {
+                Tick(fx, delta); renderer.GetPropertyBlock(block);
+                Assert.That(block.GetColor("_BaseColor"), Is.EqualTo(original));
+                Assert.That(block.GetFloat("_Untouched"), Is.EqualTo(43));
+                Assert.That((float)weight.GetValue(volume), Is.EqualTo(.9f));
+            }
             fx.EnterSlayerFX(); Tick(fx, .5f); fx.enabled = false;
             renderer.GetPropertyBlock(block);
             Assert.That(block.GetColor("_BaseColor"), Is.EqualTo(original));
-            Assert.That((float)weight.GetValue(volume), Is.EqualTo(.7f));
+            Assert.That((float)weight.GetValue(volume), Is.EqualTo(.9f));
         }
         finally { Object.DestroyImmediate(root); Object.DestroyImmediate(room); }
     }

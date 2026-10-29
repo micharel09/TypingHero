@@ -1,3 +1,9 @@
+> Current direction ? 2026-10-29: remove Slayer red background/black body/black slash.
+> Keep the dungeon, original actor RGB, white source slash, full presentation progress,
+> camera/bars/afterimage/pulse and existing gameplay. This supersedes older palette-preservation
+> requirements below. Acceptance remains OPEN; production changed, so old release smoke/exclusion
+> cannot certify the new candidate. See the continuation section at the end.
+
 > Current correction 2026-10-29: request 404ad72105f7 is RUNNER_TIMEOUT - test was not executed.
 > Terminal outcome: `FAIL: Timed out waiting for shared runner lock`.
 > Earlier queued statements below are historical, superseded by this correction.
@@ -6960,3 +6966,176 @@ Frozen v3 SHA256, relative to durable root:
 - `harness/native-browser.cjs`: `4b0b6b84576fad1c1f211866e0ac0914ed53ca8cd17d83f48abf7c8368a21908`
 - `harness/test_frame_timing.cjs`: `26e2a116ad9725a8621e13a205dacbf3bf41715bf54b6db0186a3beb588929dc`
 - `harness/test_pulse_pause.cjs`: `ab5421adcfd383761c6c3e2af4e911114759090ebe26b4c8c8f6711910f058ed`
+
+
+## Dungeon / Slayer color continuation ? 2026-10-29 (acceptance OPEN)
+
+Continued the requested clean worktree at `295454e7c8b4cf2b3a8913499d11ed23b6e47999`,
+branch `micharel09/dungeon-cinematic-arena`; verified origin micharel09/TypingHero
+and fetched. No new worktree, agent, terminal, local build or renderer was created.
+Durable root remains `D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028`.
+
+The new user plan supersedes previous requirements to keep red/black Slayer.
+Normal and Slayer must retain the dungeon and authored actor colors; no separate
+cool/gold theme. Keep 450ms entry / 650ms exit, curves, zoom, bars, afterimages,
+contact flash, audio, HUD behavior, typing/damage/scoring and combat placement.
+Unity 2022.3.25f1 / URP 14.0.11 / 320x180 world are unchanged.
+
+Source slice implemented (not runtime/visual acceptance):
+- `SlayerScreenFX`: remove Volume/weather snapshots, writes and stale restoration;
+  keep global progress, tween and HUD ownership. Both arena and fallback overlay
+  stay transparent. Serialized field names remain, including legacy red settings.
+- `SlayerSilhouetteGroup`: retain target snapshots/dynamic discovery, alpha and
+  hit-flash composition; preserve source RGB and always write tint weight zero.
+- `HitSparkSpawner` passes white; `SlayerHitVfx.Emit` uses supplied tint. Cel order,
+  timing, direction, anchors, pool primary/residual and lifetime are untouched.
+- Atmosphere/rune/wet-stone shader alpha no longer depends on Slayer progress.
+  Disabled environment nodes remain disabled; no new pass/material/map.
+- Adapt existing transition/VFX tests to original RGB/white slash. Add environment
+  owner updates during active Slayer and assert no stale restore on exit/disable.
+  World lifecycle assertions now check unchanged Volume/transparent background
+  during entry, active, exit and after exit; remove obsolete private Volume-owner check.
+
+Control A now uses `slayer-color-delta-manifest.json`: ten explicit production
+paths with raw baseline AND candidate SHA256, replacing the three unpinned asset
+exceptions. Hash mismatch is rejected even for a listed path. Raw baseline bytes
+are always packed; input roots, secret/symlink/file-set checks and Git -text/NUL
+classification remain. Existing Control fixtures adapted to dictionary manifests;
+wrong candidate and baseline hashes rejected. Offline fixtures PASS, no player claim.
+`control-slayer-color-regressions.json` retains the new result; historical receipts unchanged.
+
+Provisional Slayer slice snapshots (NOT final visual candidate):
+A `7d14f267c836cb0eadd6f4f55a0e8c19620bd28d5264e152f1fba34ae3c39d73`.
+B `7ea7266edeccddde8a22e09ba4516f7ccdf17d72fd0bade9afe02199b12d56e4`.
+`verify-slayer-color.py` read all 2550 members / hashed 2549 payloads in EACH archive;
+2365 A production payloads equal raw baseline manifest, 184 shared QA/tooling payloads
+match B. `slayer-color-source-reconciliation.json` records archive digests and counts.
+Driver hashes are in `slayer-color-driver-hashes.json`. No QA/production build PASS.
+
+Ubuntu nonblocking lock preflight returned AVAILABLE. Submitted one focused request:
+`SlayerTransitionTests;SlayerHitVfxTests;DungeonSessionTests.WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause`.
+Snapshot `20e924fdd95e8e03eba0457f5d9f8a88fad4f5792fe5e4addf12b38600f99361`,
+remote result `/data/typinghero-game-loop/results/20261029T032446-quick`.
+It predates only the additional fallback-overlay assertions (production is identical).
+No XML/log verdict yet at this checkpoint. Do not promote request submission to PASS.
+
+Staging investigation: directly inspected historical `B-combat-01/idle.png`; four wall
+hotspots compete with center, doorway remains dark. Adapted existing authoring preview
+for three alternatives: existing rear32; rear12; rear12 with existing FrontPillar pair
+moved from +/-9.7 to +/-8.6. Same pose/exposure/camera bounds, blur/bloom/haze off.
+Preview has NOT run; no scene/profile edit or chosen preset yet. Old preview source
+preserved as `ArenaAuthoringPreview-before-color-slice.cs`. Static source actors/zoom
+are only diagnostics, never runtime PASS. Surface map grid omitted because maps unchanged.
+
+Next: obtain actual focused Unity XML/log or diagnose this request; do not submit
+while its lock is held. Run authoring preview, select staging with no actor/cue occlusion
+at center/follow bounds/Slayer zoom, then save only selected scene/profile changes.
+Compare blur 0/.35/.65 and rear haze off/half/current separately after staging; retain
+lowest helpful contribution. Low haze, wet-stone, rune stay off. Keep five fixtures.
+Then QA B real-input pilot and 320x180 recorder/PTS pilot before full matrix.
+
+Still required before main integration: final source freeze and full A/B archive proof,
+immutable QA A/B, fresh production B build/exclusion/smoke, lifecycle/input receipts,
+1280x720 plus one 400x300 framing check, all specified motion states and camera bounds,
+100% output frame/pair ledgers separate from reference research, fixed-hash 1x/.25x
+user playback approval, valid GTX1650Ti A/B (ABBA if B p95 >10%). No clip ready for
+approval and no art/runtime/performance acceptance claimed. Preserve historical FAILED
+and invalid receipts. Keep worktree/branch/durable root until all gates and remote
+integration pass; do not merge this source slice on partial evidence.
+
+
+Runner terminal outcome for this continuation: **UNVERIFIED_DOCKER_START_STALLED_CANCELLED**.
+The pinned image exists, but the docker-run request yielded no Unity log or XML.
+Read-only checks initially could not see its container. Cancelled only the exact
+own Docker client after checking PID/argv/name; Docker then exposed Exited(143).
+The client did not finish after TERM, so KILL was limited to that verified client;
+runner terminal reports `FAIL: Task container exited with code -9`. This is not a
+Unity assertion failure or a passing test. No other task/container was touched.
+Final SSH proof: own container absent, shared lock released, unity.log absent,
+tests.xml absent. `slayer-color-runner-status.json` preserves this outcome.
+Do not submit repeated requests against the same startup failure or run local builds.
+Preview was not submitted. Environment startup must work before the next focused
+Unity/preview request. Source tests remain unverified; staging and final preset
+remain unimplemented rather than guessed. No commit/push/merge of this unverified
+runtime slice. Existing task HEAD remains295454e7; working changes and frozen
+archives are retained. Python AST for four adapted tools and `git diff --check` PASS.
+
+
+Resume update (2026-10-29): Docker startup recovered. A named echo probe using the
+pinned Unity image succeeded; actual request20261029T034510-quick produced Unity log
+then COMPILER_FAILURE_ZERO_TESTS. Snapshot7ea7266edecc. DungeonSessionTests directly
+uses Volume, VolumeProfile and UniversalAdditionalLightData but PlayMode asmdef lacked
+Core/URP references. Reused the two explicit references from EditorTests; no runtime
+change. Preserved log/receipt in slayer-color-compile-failure-01. One attempted retry
+was rejected immediately by nonblocking lock (another job active); zero tests executed.
+No waiting request submitted and no other job touched. Next check runner availability
+before retry. Previous startup-failure and compile-failure receipts remain historical.
+
+
+Focused test20261029T035530-quick actually executed75cases on snapshot
+0c1ce0a3a749632d0e6d79176ae972fdc57e83a5d7e162db08c5dde0b43391e6:
+73passed /2failed /0skipped in11.0434028s. Preserve this FAILED receipt under
+slayer-color-tests-02 (matching XML/log/snapshot). All selected VFX/transition cases
+except weather fixture pass; natural world lifecycle not reached because its first
+Pause/Resume helper asserted synchronous Resume. Existing GamePauseController
+releases pause only after zoomDuration; adapted helper to the bounded behavioral
+wait already used by DuelIntroTests. Weather's second MPB color write needed the
+same readback used by its first baseline (printed colors identical, stored precision
+was not). Neither fix changes runtime nor removes lifecycle/color assertions.
+Rerun only these two failed tests; preserve the73 passing results since runtime,
+related source/config/environment are unchanged. Retry attempt immediately rejected
+by busy lock; no waiting Unity request. Driver-v2 hashes record18 preview framings
+(normal and Slayer at center and both follow bounds) and explicit-manifest path-set
+validation. Staging/scene/profile unchanged and no preview yet.
+
+Latest provisional offline archives after assembly-reference repair:
+A97d5f0e7bbe0220cd90dd84fbe7756a37ec8e2940148a54a9afb08b35f1ef920;
+B0c1ce0a3a749632d0e6d79176ae972fdc57e83a5d7e162db08c5dde0b43391e6.
+Both read all2550members/hashed2549payloads;2365raw baseline A and184common QA
+hashes match. These predate the two fixture repairs; do not call them final candidate.
+
+
+Latest stopping condition: repeated nonblocking availability checks after the two
+fixture repairs still report shared lock BUSY. No task request is running or queued;
+no lock wait, local build, other-job intervention or scene/profile guess was used.
+`slayer-color-fixture-retry-status.json` records the pending exact two-test filter.
+Current dirty source remains at task HEAD295454e7 with test assembly reference repair,
+MPB baseline readback and bounded Resume wait. Preserve73/75actual passes and both
+failures; do not claim combined75/75 until the two repaired tests actually execute.
+Preview now contains18framings but remains unexecuted. No selected staging/post preset.
+All final art/input/recorder/playback/GTX/release gates remain open. No commit/push/merge
+of this unverified slice. Next: availability preflight, exact two failed tests, then
+18-shot staging preview; use the already passing73cases without unnecessary rerun.
+
+
+Current request RUNNING (supersedes prior busy/no-request state): runner became
+available and exact two repaired tests were submitted at20261029T041409-quick.
+Snapshot7c2a1c876a1ad4189c86d798bf257798e0760ab3e4e5a5b99bdd2d3c39ecd49d;
+unified session22815; own container typinghero-loop-3510057-1793247249499435614.
+Compile passed. Latest log stops after ReloadAssembly/cache purge; no tests.xml yet.
+Read-only stats show active CPU93.83%,1023MiB/8GiB; no assertion result claimed.
+Do not submit another request or cancel on a busy check; first collect this request's
+terminal/XML/log. slayer-color-tests-03-pending.json records its location and state.
+Preview/scene/profile unchanged; no new acceptance/commit/push/merge.
+
+
+Logic milestone verified:20261029T041409-quick completed2/2PASS,0failed/skipped,
+27.044283s, matching snapshot7c2a1c876a1ad4189c86d798bf257798e0760ab3e4e5a5b99bdd2d3c39ecd49d.
+XML/log/snapshot/receipt saved under slayer-color-tests-03. XML output verifies all
+three cycles (manual/manual/natural),15five-fixture owner/value rows and natural
+restoration before cleanup:activeFalse,progress0,global0,backgroundAlpha0,lens5.625,
+Volume1,environmentGain1. lifecycle-owner-evidence.txt preserves these lines.
+slayer-color-logic-acceptance.json reconciles75distinct passing cases:73previously
+passed plus2repaired reruns. Production payloads are identical across these receipts;
+only the two repaired test files differ, and all2549current packed inputs match B03.
+This is scoped logic acceptance, NOT visual/gameplay-input/build/performance acceptance.
+Historical2failed receipt remains unchanged.
+
+Adapted arena_combat harness using explicit ARENA_PRESENTATION_CONTRACT:
+'baseline-red' retains A's expected background; 'preserve-dungeon' requires alpha0
+at full Slayer progress for B. Receipts record the chosen contract. Input timing and
+recorder are unchanged. Ubuntu isolated Node syntax plus38existing timing/pulse
+fixtures PASS (slayer-color-harness-fixtures.tap/json). This is tooling only.
+Authoring preview still not submitted: next nonblocking availability check was BUSY.
+Current step: commit/push verified source-logic milestone to task branch only;
+continue18framing preview when available. No main merge before remaining gates.

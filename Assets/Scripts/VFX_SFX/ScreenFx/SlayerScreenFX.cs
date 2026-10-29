@@ -181,33 +181,10 @@ public class SlayerScreenFX : MonoBehaviour
     CanvasGroup _caption;
     float _captionAlpha;
     DungeonArenaCamera _arena;
-    UnityEngine.Rendering.Volume _volume;
-    float _volumeWeight;
-    ParticleSystemRenderer[] _weather = new ParticleSystemRenderer[0];
-    MaterialPropertyBlock[] _weatherOriginals;
-    Color[] _weatherColors;
-    MaterialPropertyBlock _weatherBlock;
-    static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
-
     void BeginPresentation()
     {
         if (_cinematic) return;
         _cinematic = true;
-        if (_weatherBlock == null) _weatherBlock = new MaterialPropertyBlock();
-        _volume = environment ? environment.GetComponent<UnityEngine.Rendering.Volume>() : null;
-        _volumeWeight = _volume ? _volume.weight : 0;
-        _weather = environment ? environment.GetComponentsInChildren<ParticleSystemRenderer>(true) : new ParticleSystemRenderer[0];
-        _weatherOriginals = new MaterialPropertyBlock[_weather.Length];
-        _weatherColors = new Color[_weather.Length];
-        for (int i = 0; i < _weather.Length; i++)
-        {
-            var renderer = _weather[i];
-            _weatherOriginals[i] = new MaterialPropertyBlock();
-            renderer.GetPropertyBlock(_weatherOriginals[i]);
-            _weatherColors[i] = _weatherOriginals[i].HasProperty(BaseColorId)
-                ? _weatherOriginals[i].GetColor(BaseColorId)
-                : renderer.sharedMaterial ? renderer.sharedMaterial.GetColor(BaseColorId) : Color.white;
-        }
         _hudColor = hudPanel ? hudPanel.color : Color.white;
         _trayColor = typingPanel ? typingPanel.color : Color.white;
         if (scoreCaption)
@@ -222,9 +199,6 @@ public class SlayerScreenFX : MonoBehaviour
     {
         if (!_cinematic) return;
         _cinematic = false;
-        if (_volume) _volume.weight = _volumeWeight;
-        for (int i = 0; i < _weather.Length; i++)
-            if (_weather[i]) _weather[i].SetPropertyBlock(_weatherOriginals[i]);
         if (hudPanel) hudPanel.color = _hudColor;
         if (typingPanel) typingPanel.color = _trayColor;
         if (_caption) _caption.alpha = _captionAlpha;
@@ -296,25 +270,10 @@ public class SlayerScreenFX : MonoBehaviour
         if (t >= 1) { _weight = _zoomWeight = destination; _transitioning = false; }
         PresentationWeight = _weight;
         Shader.SetGlobalFloat("_DungeonSlayerWeight", _weight);
-        if (_volume) _volume.weight = _volumeWeight * (1 - _weight);
-        for (int i = 0; i < _weather.Length; i++)
-        {
-            if (!_weather[i]) continue;
-            _weather[i].GetPropertyBlock(_weatherBlock);
-            var color = _weatherColors[i]; color.a *= 1 - _weight;
-            _weatherBlock.SetColor(BaseColorId, color);
-            _weather[i].SetPropertyBlock(_weatherBlock);
-        }
         SetZoomInstantForTween(Mathf.Lerp(NormalOrtho, SlayerOrtho, _zoomWeight));
         SetBarsInstant(barHeight * _weight);
-        if (_arena)
-        {
-            var color = redOverlay ? redOverlay.color : Color.red;
-            color.a = redAlpha * _weight;
-            _arena.SetSlayerBackground(color);
-            SetRedInstant(0);
-        }
-        else SetRedInstant(redAlpha * _weight);
+        if (_arena) _arena.SetSlayerBackground(Color.clear);
+        SetRedInstant(0);
         if (hudPanel) { var c = _hudColor; c.a *= 1 - _weight; hudPanel.color = c; }
         if (typingPanel) { var c = _trayColor; c.a *= 1 - _weight; typingPanel.color = c; }
         if (_caption) _caption.alpha = _captionAlpha * (1 - _weight);
