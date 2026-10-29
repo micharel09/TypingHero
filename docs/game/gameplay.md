@@ -118,7 +118,7 @@
   are hidden. Manual Pause hides/restores the result-only group; Resume restores
   these authored result bounds. Modal freeze rules remain. Scoped verification is
   recorded in the compact-menus checkpoint.
-- The single current tutorial is the only how-to screen. Main Menu has Play,
+- The current five-card tutorial is the only how-to flow. Main Menu has Play,
   Tutorial, Top 1000 and Settings; the legacy How to Play modal is removed.
 - Fresh encounters now use the session-owned opening described below; Continue,
   retry and tutorial completion use its short variant. There is no Fight/Enter gate.
@@ -405,10 +405,10 @@ see verification for profile status. These are current behaviors, not new requir
   slash until the pose ends and CanAttack is true; pause holds it, death/Slayer/exit clears it.
 - Every Classic/Endless strike, including each combo hit, warns at least1s before
   contact at authored speed by extending the existing preparation cel as needed.
-  The32x16logical key sits above the enemy's stable collider head, with an8px gap
-  and pixel-snapped projection through the rendered camera/viewport. It first shows
-  a white outline and white SPACE text;
-  at200ms before contact it fills ivory to signal the press timing. Teal means an
+  The28x11logical SimpleKeys cap sits above an authored idle-skull landmark for
+  Classic, sword, axe and shield, with an8px gap and pixel-snapped rendered-camera
+  projection. The dark raised cap with white SPACE letters warns in advance;
+  in the final200ms the light cap repeats released/pressed frames every100ms. Teal means an
   active parry window, gray/X means locked. Pause holds the displayed state.
   **The outline is advance warning, not buffered input**: early Space retains the
   existing manual pose/window and may expire before impact. Each strike needs a
@@ -449,7 +449,7 @@ see verification for profile status. These are current behaviors, not new requir
   full-body flash; Stun uses Hurt3/4/3 and hitBySlayer uses Hurt1/3. Source/native
   assets and the approved sample hashes live in `design/skeleton-hero/`.
 - First Play opens the single English HUD guide for unseen players. Menu Tutorial
-  reopens it; How to Play remains a separate quick reference. TutorialProgress_v1
+  reopens it; the legacy How to Play modal is removed. TutorialProgress_v1
   retains Unseen=0,Skipped=1,Completed=2; both legacy viewed values bypass first-Play
   onboarding. Only Start Battle saves Completed. MusicVolume/SfxVolume default to1,
   persist from menu/pause sliders and multiply independent fade/duck/scene envelopes.
@@ -460,33 +460,34 @@ see verification for profile status. These are current behaviors, not new requir
 
 Change only behavior explicitly requested. Update this file after relevant verified changes.
 
-## Single HUD tutorial guide
+## Five-card tutorial guide
 
-- TutorialRun selects a frozen SampleScene guide without lesson/practice/retry
-  state or combat preparation. Four separate callout cards sit beside the HUD
-  instead of sharing one large background. All groups are visible together: Your HP,
-  Enemy HP / Guard, Typing / Timer and Score / Combo. Five static gold arrows
-  follow real HUD RectTransforms after layout, including separate HP and guard
-  destinations. Existing dungeon, HUD, fonts, panel style and Continue listener remain.
-- The callouts explain HP/defeat, HP/guard/Slayer, typing errors/time and score/combo,
-  with Space/parry and Esc/pause copy plus one Start Battle / Enter action.
-  Score / Combo says "Chain correct words to raise your score multiplier. Keep
-  going before the combo bar runs out." Its existing card is(328,116,304,168),
-  copy(340,128,280,144), font20; the arrow remains bound to ScoreCluster.
-  No lesson tests, additional pages, animation or illustrations; How to Play is separate.
-- Reading uses the existing GamePauseController input/time/audio/score lock.
-  Pause hides the guide; Resume preserves the lock and returns to the same panel.
-  Restart reloads the guide. Menu abandons it without marking it viewed.
-- Start Battle guards repeated confirmation, saves Completed, ends tutorial mode
-  and reloads through DungeonSession. The reading lock remains through teardown;
-  held Enter is discarded during the intro and requires release at handoff. The selected-difficulty
-  encounter intro starts with40HP,180enemy HP,100guard and zero score/statistics.
-- LeaderboardSubmitter still rejects tutorial submissions before resolving a
-  provider. Public gameplay/provider APIs, Firebase schema and saved key stay unchanged.
-- EndlessOverlay clones only the original encounter intro content: all guide copy
-  and the guide panel background remain hidden in the clone. Intro width/action
-  typography retain their original bounds; live combat has no reading panel.
-- Verification and scoped scene/asset evidence: [tutorial guide checkpoint](../plans/tutorial-hud-guide.md).
+- Frozen gameplay backs one centered 560x340 card at (200,100) in Reference960x540.
+  Title at top left, centered 400x225 clip with 80px horizontal padding per side,
+  and a centered two-line rule beneath.
+  Next becomes Start Battle on card five; Skip is beside it. Extra controls, badges and callouts
+  are hidden. Endless retains its original TutorialPrompt/PracticeButton template.
+- Five cards: Type to Attack (including HP), Mistakes & Timer, Parry with Space,
+  Guard & Slayer, Score & Combo. No practice or pass gate. Next/Enter
+  preserves same-frame/Enter-release guards. Final Start saves Completed and
+  reloads a clean selected-difficulty battle; Skip preserves Completed on replay.
+- The five tutorial clips contain 1083 real captured frames on 18 atlases
+  (72 typing, 117 mistakes, 192 parry, 441 Slayer, 261 score). Async WebGL PBO
+  capture preserves request timestamps and repeated frames; 640x360 sources are
+  resized nearest once to 320x180. Atlas GUIDs/sprite identities and Point filtering
+  are preserved. Combat and Slayer gameplay/animation are unchanged.
+- The two-slot async cache protects the displayed frame and prefetches circularly.
+  After the full last-frame hold, only the GIF fades out for 100ms, resets at zero
+  alpha, then fades in for 100ms using unscaled time. Delayed first-page loading
+  holds the valid final frame; its waiting delta is discarded. Pause holds the
+  clock, fade phase and alpha; card changes/exit reset the fade and release ownership.
+  Scoped TutorialTests10/10, strict repeat builder twice, and native trace/lifecycle
+  checks pass. All1083 frames/1078 internal transitions were directly inspected;
+  playback1x/.25x review remains unverified until recorded explicitly.
+- First Play/Menu entry, restart, abandon and reading input/time/audio/score
+  locks retain their existing behavior. Restart/replay begins at card one.
+  [Evidence](../plans/parry-cue-demo.md). Shogun Showdown comparison remains
+  unverified; the approved layout comes from the user. No new animation art.
 
 ## World lighting / parry clash
 
@@ -1041,11 +1042,13 @@ per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.
 
 `ParryCuePresenter` reads `SkeletonController.TryGetAttackTelegraph` and the existing
 `CanBeginParry`/`IsWindowActive`; it never changes combat or typing input. Original
-Kenney CC0 caps form a 32x16 logical key above the enemy collider head, with an8px
-gap and pixel-snapped rendered-camera projection. The tray is fixed at (61,126),
-198x30, near the fighters. White outline/text means advance warning for each strike;
-ivory fill begins 200ms before authored contact; teal means an active parry window;
-gray/X hides the label while locked. No valid attack means hidden.
+SimpleKeys Classic frames form a28x11logical key above the authored idle-skull
+landmark (Classic/sword/axe/shield), with an8px gap and pixel-snapped camera projection. The tray is fixed at (61,126),
+198x30, near the fighters. The dark raised cap and white SPACE letters warn for each strike. In the final
+200ms, the light released/pressed pair repeats100ms cycles. Teal holds the pressed
+face during an active parry window; gray/X uses the blank cap while locked.
+The native baked SPACE glyphs remain unsmoothed; Unity9-slice and Point sampling compact the original
+frames to the requested size. [Asset source/custom permission](../../Assets/Art/UI/ParryCue/SimpleKeys/SOURCE.txt). No valid attack means hidden.
 Prediction caches Anim_DealDamage events by controller and follows Animator
 speed/progress plus the calculated preparation hold to provide1s at authored speed;
 outgoing transitions cancel the cue. Early Space is not buffered; the existing

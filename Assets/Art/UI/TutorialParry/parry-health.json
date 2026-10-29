@@ -1,0 +1,4912 @@
+{
+  "columns": 6,
+  "cellWidth": 324,
+  "cellHeight": 184,
+  "width": 320,
+  "height": 180,
+  "atlases": [
+    "parry-health-0.png",
+    "parry-health-1.png",
+    "parry-health-2.png"
+  ],
+  "selection": {
+    "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture",
+    "start": 32.34209999999404,
+    "end": 38.748364999994635,
+    "sourceBuild": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/normal-player",
+    "input": "normal c779 gameplay player, real UI and keyboard; no QA bridge or gameplay mutation",
+    "events": [
+      {
+        "timestamp": 32.34209999999404,
+        "caption": "Wait for the attack.",
+        "focus": {
+          "x": 502,
+          "y": 64,
+          "width": 132,
+          "height": 28
+        }
+      },
+      {
+        "timestamp": 32.713769999995826,
+        "caption": "Watch the Space key.",
+        "focus": {
+          "x": 352,
+          "y": 94,
+          "width": 56,
+          "height": 22
+        }
+      },
+      {
+        "timestamp": 33.50933499999344,
+        "caption": "Tap Space now.",
+        "focus": {
+          "x": 352,
+          "y": 94,
+          "width": 56,
+          "height": 22
+        }
+      },
+      {
+        "timestamp": 33.77357500000298,
+        "caption": "Parry! Guard drops.",
+        "focus": {
+          "x": 502,
+          "y": 64,
+          "width": 132,
+          "height": 28
+        }
+      },
+      {
+        "timestamp": 34.02357500000298,
+        "caption": "Release between hits.",
+        "focus": {
+          "x": 502,
+          "y": 64,
+          "width": 132,
+          "height": 28
+        }
+      },
+      {
+        "timestamp": 36.18609999999404,
+        "caption": "Watch the next attack.",
+        "focus": {
+          "x": 352,
+          "y": 94,
+          "width": 56,
+          "height": 22
+        }
+      },
+      {
+        "timestamp": 37.213314999997614,
+        "caption": "Missed parry: HP lost.",
+        "focus": {
+          "x": 2,
+          "y": 34,
+          "width": 132,
+          "height": 28
+        }
+      }
+    ],
+    "cadence": {
+      "fps": 30.18739836100983,
+      "p95": 39.93000000715341,
+      "max": 97.48499999940208,
+      "requested": 218,
+      "completed": 218,
+      "gate": true
+    },
+    "sourceReportSha256": "00004f694510aad2e2fb1a7a2b4dc6d8a5ea44df55e6ea26816fa3df038b5e64",
+    "leadingPauseFramesOutsideSelection": 3,
+    "leadingIdleFramesOutsideSelection": 22,
+    "selectionNote": "Start is the directly inspected first fully unpaused frame; final real source frame serves as duration boundary. Score trailing idle after combo expiry shortened to 1.2s. No interior frames removed; full cue and complete Slayer entry/attack/exit retained. Leading boundary gives 300-500ms idle before the first demonstration action/cue."
+  },
+  "frames": [
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000025.png",
+      "sha256": "b058bc13d674163389b6ac21fd2f6051e5f8571f253041a2fdbf2f8470d33a3c",
+      "timestamp": 32.34209999999404,
+      "duration": 0.03360000000893848,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "58fea60673f8c62130e517fb3ae0a6b403638d0431157568728ee43a3974f6fc",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000026.png",
+      "sha256": "8949764a1717125189efe3127ba657abdcacc0bb8a74b004b17a4eda6fadf8a2",
+      "timestamp": 32.37570000000298,
+      "duration": 0.03417499999702045,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "57ec8a2719235fbc50ff5fb7e7ec844670eb58e3fec674d3b15d853e518a2588",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000027.png",
+      "sha256": "7335191d9520585010da19c5233582e4cb5b35e11599b9cbabf7da8f7529e151",
+      "timestamp": 32.409875,
+      "duration": 0.03209000000357776,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "eff31231a184297beebb8ba407ea60ad201a4374dd559d752022278189fb2543",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000028.png",
+      "sha256": "e26ee5c4b7a0ea9df35760e864e340265dde5966910c5ee07630e4bbe63b2513",
+      "timestamp": 32.44196500000358,
+      "duration": 0.03401999999582728,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "69e8ae1ad86082d004aeb18630a301f88de6730d17a4f2aa6d4d78c6de682c84",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000029.png",
+      "sha256": "45d86d807df097d795b0d4c2ecae97d671fdfff48f6e7060dce0273800625d3f",
+      "timestamp": 32.475984999999405,
+      "duration": 0.03254000000655566,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "54e7291a4cf20d90c46de7f5eb2d08415cb8f14cc8ad21c4d5d39b2167dc20ad",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000030.png",
+      "sha256": "590a56950c373e7517142d0d7b0fd01107d4861bb53a147e18df096a8c76eb19",
+      "timestamp": 32.50852500000596,
+      "duration": 0.035564999997617974,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "884ab0c7558d0a7fa5d5de641d778b27d37189c5c52fb57c97d0f71e6fa03492",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000031.png",
+      "sha256": "0b58372df95cede55fcbee8a0dce4bbdc65818cfa62da1fda8170b99c494dc3d",
+      "timestamp": 32.54409000000358,
+      "duration": 0.03200499999523032,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6a90a10225753c3045524a1d06ff2830b563d5e97aa47c5e3235aed16fd4afd1",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000032.png",
+      "sha256": "4617910e9a5d7565fbe2ecf2b7d981f2919ae6edf241b01a5e34dff45b0f7224",
+      "timestamp": 32.57609499999881,
+      "duration": 0.032829999998213566,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6fbc07eddc79f09c9d0cefcc6bd3abf65ee8f9d141e5e3661bf8c095a9565354",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000033.png",
+      "sha256": "eeb72bdb098ee0b21050b237ca986f55ca5a3ea6c5746db756c895e09f130152",
+      "timestamp": 32.60892499999702,
+      "duration": 0.03686499999463422,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5ef88312611ca330ad5d761d41102e81443adb9c70ba29f3c03e709136b3a059",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000034.png",
+      "sha256": "bfd2e243b2ee038a42a2beb0bd06c0734c8bb5bb3304ca22e1446f233ad8f4c8",
+      "timestamp": 32.645789999991656,
+      "duration": 0.030010000005361803,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2e83475788f9c271e0864cac1b047ebb008a2b7a75f9488f09053b20dda163d0",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000035.png",
+      "sha256": "a6821cd3dc940dcb6f725da095ca9d7a982d2fba1a93892b64e9dfc34f260e03",
+      "timestamp": 32.67579999999702,
+      "duration": 0.03796999999880768,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9092e268743d3013db6f3269caed68148768c5ca15fd5df4eaab36bb677c557a",
+      "atlas": 0,
+      "caption": "Wait for the attack.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000036.png",
+      "sha256": "7fcf29be82298b949b8eb562a4d6e7570a5349d8a255f4322bc6623ee2148789",
+      "timestamp": 32.713769999995826,
+      "duration": 0.040805000007154035,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ead78ac6b718b2e5cbf332ddc5f3ea208fc6cf1144c522da9ec78a18ce0a83e2",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000037.png",
+      "sha256": "b443c07a26628e7d5fb9bbbb675a9194ceaa1c4cea5bc14103fb4c89673d3f57",
+      "timestamp": 32.75457500000298,
+      "duration": 0.021114999994637174,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e115e7ef29384a510ba12be6ac2465cc701eaaa83865cd3a6e5fba5052e2c594",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000038.png",
+      "sha256": "13f9b5284836c30a7b39b4feefc56cf08a09ebcb3ccab9e83bcbf3911479bc9a",
+      "timestamp": 32.77568999999762,
+      "duration": 0.03506499999761559,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4df55e9a3c0a959b7fa60d84bc9e41c1a7f21b208853a5b17168972a3fb06c0c",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000039.png",
+      "sha256": "e624ef268d7d4106cdca80dda1a4594f7e59ef585abdfb5e283f631787091b73",
+      "timestamp": 32.81075499999523,
+      "duration": 0.031810000002380434,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "93100f10e1bd6b0fac9d6f915016f4ecb18a99eb570c4fad8026c6446c6d1a31",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000040.png",
+      "sha256": "1f64e0d02644b93586ae69fdb43ec6e52df9e4f9aa2716a45fa3c654eac9fedb",
+      "timestamp": 32.84256499999761,
+      "duration": 0.03310500000417704,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cbd0eccea75f084aece8e9c42d072eda0fc6718445b22b1740515f2cac04c4b2",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000041.png",
+      "sha256": "a82b897a759c9c3948d45255252f9e2bb27d1845b0ca55aeb51e1039a5cc5470",
+      "timestamp": 32.87567000000179,
+      "duration": 0.033429999992250714,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3858f9e491fdf244a4d0b192434e1e47b548219821f13e1e13ac4014ddfa1f96",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000042.png",
+      "sha256": "b8913ea457852f77d667ca4978ad9b727d25fea9d2c6f55a130f6d1a1e90ce07",
+      "timestamp": 32.90909999999404,
+      "duration": 0.03497500000894149,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a1ce5ca30ddf781ed3d7c2312865f19ece8beb5708c488faa84331ed48e1d064",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000043.png",
+      "sha256": "0f1142340431fdb5db7b23aa0128592e9a24d1f817e0c1983bde52601c515bea",
+      "timestamp": 32.94407500000298,
+      "duration": 0.031504999995227934,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ef46f10de3aa622b77d000a477138792184c82f56263f4852a854c28c8184c60",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000044.png",
+      "sha256": "fd84c07eacc56345c3970b73eca4a420bc08adc188d04c4a457e7411734093a7",
+      "timestamp": 32.97557999999821,
+      "duration": 0.03332500000298211,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f1e45b6918d2ce386cab3def94fb48afedbe70e92269929e4adb0f3a72d6769b",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000045.png",
+      "sha256": "baeefd411e2619e343ca4b0f45e6f1e32712699938e7172e7e5bf963baca4ea7",
+      "timestamp": 33.00890500000119,
+      "duration": 0.03410500000417471,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "dd5ba35b17840c6535e1857becc43f31a3ab8fb03aeb0bc6ab3b0ca9d9902524",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000046.png",
+      "sha256": "e8a9900be6bd5e4cdf6e2f90ede7dd36ff351941b16be97b22ee9a6a44883020",
+      "timestamp": 33.04301000000537,
+      "duration": 0.0330199999958225,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "80370f4067319cefee27b0d027aaae230f78aee9361b665692c21e6ab353c430",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000047.png",
+      "sha256": "f55249ddb7224c630d41ee76e620620ef853f01a8c380c294f719aa806218efc",
+      "timestamp": 33.07603000000119,
+      "duration": 0.03296999999881223,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9185088f2e9f05f25b9f6753379e927df20e1e030cd3e71df763f8c0e4e8ed97",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000048.png",
+      "sha256": "ffba217a6411f49f55807ae3d954c86328b00d3591039fdd227223d4ce79df26",
+      "timestamp": 33.109,
+      "duration": 0.03320000000297796,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a88cdb8f4ba085fe1f3541de7c183dccf01e865e3ee67a0bd3511c7ddc46100e",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000049.png",
+      "sha256": "74915fed919faaa2eb6db0008c4e4c024934fd7917ffb9a451c6949f2ca600ee",
+      "timestamp": 33.14220000000298,
+      "duration": 0.033604999989272244,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9da85c9a1ddb085298ff5c49d196b1f32b9e74a040ac31390c67eef38da09259",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000050.png",
+      "sha256": "fdc6900184361a2d003cb85dd785d4c12e4c243daab51ac1200c02254ed6c64f",
+      "timestamp": 33.17580499999225,
+      "duration": 0.03502000001072503,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bf5dfd6bceaf37d17f17eeb0f4259139bb7741c5f229beeeb5f4d2d1ec2ab5ac",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000051.png",
+      "sha256": "e21b24d48133634cae9c1dee9a9687ab76b6b0add46885abe9960e6c9b01c5e5",
+      "timestamp": 33.21082500000298,
+      "duration": 0.031170000001793596,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "221bb91d1136e0db69002b0eb1a20232e7d6ce160f2d4937494d16322514efd6",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000052.png",
+      "sha256": "14ab3bd1322ca4feda2d2a75022d4e1fd21ff412553adee8399485c308fb8513",
+      "timestamp": 33.24199500000477,
+      "duration": 0.03472999998926696,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f5db177e6160c41ea4f57b5ae2581df27314a8f66d000c7c667344ea94839966",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000053.png",
+      "sha256": "60e8a64dcee11e4bb1298b523e46b833a261787d415c90a9ac37e394c4144c4d",
+      "timestamp": 33.27672499999404,
+      "duration": 0.03254000000655566,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1dca8a6f9db81b50d9bc42cef4cf9b246c4b7f833f77b618ffa50f6bdd022f5a",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000054.png",
+      "sha256": "6893f116883af5c7e85ff97d444312e798355f560a8e48929a30c32705c61e1c",
+      "timestamp": 33.30926500000059,
+      "duration": 0.03256499999761786,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d4dc8ce60faf72f25e8af29c609c8042eaed98c08d66ac400228541435fc4cd5",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000055.png",
+      "sha256": "4234c41e35167cb3be3ab33c8a651f9b4a7a3d6b3498a14008a0b6bef679b597",
+      "timestamp": 33.34182999999821,
+      "duration": 0.03387999999523572,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bcf858a9e94e34461e9defc0cd88c92d5e2c4c1d7fe320b22d7f497920c23f3d",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000056.png",
+      "sha256": "3e3919f92dc11d519d937b33ff2c8c2f459aa777c38c2fbbfd47fc06d3c63ee2",
+      "timestamp": 33.37570999999345,
+      "duration": 0.0336300000101275,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "dfb7f08b395ef07059e40fb1b417d3373079d6f27f76c98f25a5811482fdb66f",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000057.png",
+      "sha256": "200caa50b0cbc8afba86daf315c2958241a205e4c0b62889ef99bc5647da88a4",
+      "timestamp": 33.409340000003574,
+      "duration": 0.03284999999404192,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "870f83ef063a5ae7ea4403d56ef920a53f61c050dc0a647b53c1982351acaab7",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000058.png",
+      "sha256": "bcef3c659174877e25287cd7e46b00ff66756ed2cdcf36fa90400f804f5439b7",
+      "timestamp": 33.442189999997616,
+      "duration": 0.033254999995229184,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d4c4dc25631ead12074ebd037901ebae194b129105a13991d800e6257ae0b588",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000059.png",
+      "sha256": "4ee0e6776661c81cbfbe5d4ef0318c37f3be24ad566558873070dd78796a8bc5",
+      "timestamp": 33.475444999992845,
+      "duration": 0.03389000000059639,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8e4f275b6783d5052f94b99da5a5b600f49d6aa104dec2d9e8eb6f6472098581",
+      "atlas": 0,
+      "caption": "Watch the Space key.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000060.png",
+      "sha256": "7cb2d402e0667759b5a6479df84442e95314e5b331d11d976ddd6c82075e89fa",
+      "timestamp": 33.50933499999344,
+      "duration": 0.03414500001073151,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1390112728c4eebbc99f2dc94610e054000ac65d4b371507ce15431813362215",
+      "atlas": 0,
+      "caption": "Tap Space now.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000061.png",
+      "sha256": "6b65e403f506cd6569f75fd91c6f6fdfe1f5da85d3d1ce8b59711571a23bb75e",
+      "timestamp": 33.54348000000417,
+      "duration": 0.03192000000179007,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7fef455fe9b524b53e96d7947d86782ba0bf21bc136f6e6cee61f16095ca24ec",
+      "atlas": 0,
+      "caption": "Tap Space now.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000062.png",
+      "sha256": "c0f597e48c6dcc5148c3bdbc1e87c3d25b4779c2dcd61350638d01bacea6107e",
+      "timestamp": 33.57540000000596,
+      "duration": 0.03869499999284187,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e65e32c07830980655a2185193b881717a03e9d4c03753b90f4f25fe08c92deb",
+      "atlas": 0,
+      "caption": "Tap Space now.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000063.png",
+      "sha256": "56b14fa45ee76025dba31a70c2d05a810e62792bf2f2d2a94dac618a400c295a",
+      "timestamp": 33.614094999998805,
+      "duration": 0.03370999999344804,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "23fa06bac77f2507548e35ada45bead74f34489073863301ad1720b628d93ac3",
+      "atlas": 0,
+      "caption": "Tap Space now.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000064.png",
+      "sha256": "4b1f0105a63e650a8374ec3e2f3383bc03cbfd0faacd6db826c9864fadefd58e",
+      "timestamp": 33.64780499999225,
+      "duration": 0.028285000011322836,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9f5da2578e67b4f2ef14c24a9093ca489e7542c40b5f7280db5f3e57cdfaf403",
+      "atlas": 0,
+      "caption": "Tap Space now.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000065.png",
+      "sha256": "d4f18990f17647623837e8e8e00c82cfc3b1898a746c4691d220a3654714cc1e",
+      "timestamp": 33.676090000003576,
+      "duration": 0.09748499999940208,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e60a0d4957bbc346816eb5170e0644ba7cd466f8b60cb751b223947bb5f09e3f",
+      "atlas": 0,
+      "caption": "Tap Space now.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000066.png",
+      "sha256": "2b896e3677a710957faa25da15bbe142b48135a67cebc7d723a5a65a5ef3e274",
+      "timestamp": 33.77357500000298,
+      "duration": 0.014640000000596842,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "80e7e92fb1de1ab934a1b5f485d75e3cce3700dc4d9d9e89503217406385adc2",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000067.png",
+      "sha256": "6a84f6ffa9a312945f3749b2e77a14640800a13bc361288141c82aea04545009",
+      "timestamp": 33.788215000003575,
+      "duration": 0.013869999989871928,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0dadb158b73ee845c530cc0fc64a75a936328c01bbd1b7b8f865c0ff9d7299a8",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000068.png",
+      "sha256": "0da68279211150b5ad7b116b6e84f23a0a45bb9b03a5a59539c978f4cd0be456",
+      "timestamp": 33.80208499999345,
+      "duration": 0.013150000005957452,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "683e910b2ed98c54e55f2dc608d3f2e18dfd54b845f8ca9d6cca2a20819a5886",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000069.png",
+      "sha256": "3ee26815028fcdc768d82d4cdb8406afa49cc43382b589cc1aaffa620ed0bfcc",
+      "timestamp": 33.815234999999404,
+      "duration": 0.029049999997020848,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "942b30d3695d96d977d847e874318b68599f1aa6ce1cb5d9b61b631082ddd927",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000070.png",
+      "sha256": "24a468cf3588732a53f3e265f37c059906aa97d5f0e4f368691a2671dad0ffeb",
+      "timestamp": 33.844284999996425,
+      "duration": 0.03993000000715341,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fe0467ee2125a8f56cef77f90a5365d0b8338982d84af36b0544b1ed69cba600",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000071.png",
+      "sha256": "8d9026392e57b750b4efc94b319df562443cac5c08a111690e0a43c1de1328db",
+      "timestamp": 33.88421500000358,
+      "duration": 0.027849999994039365,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cd267ac9420786ff6c89f5dc3425db0eccc37383eb2d84776b1771836ae2e557",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000072.png",
+      "sha256": "4f04a0569b8d880dbad9cad5920699a27234021a600d02e16f99e9c9b600cfb2",
+      "timestamp": 33.91206499999762,
+      "duration": 0.03859499999880711,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d42a95f0b9ebc9934d8343c2e760d26c681bb03037b35f67901a592ec353ca7f",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000073.png",
+      "sha256": "c7c6b29b9b905151bc87df4f5895a6748833cfcf1ed31013c4430d8a0cb2d520",
+      "timestamp": 33.950659999996425,
+      "duration": 0.02806499999761769,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "06a5efab3c72c389f9f696766fefe1eae2602a98908460974b19c1b5f0159acf",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000074.png",
+      "sha256": "eb122eeefd7b1e9ecad7ba32e0a5d7e157efe3de598c81646e5928fa97e0f7d9",
+      "timestamp": 33.97872499999404,
+      "duration": 0.03655500000714795,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c25d3b86f334b24e880fdc0aba3355993da0c5094e6d41b9513897f7c778d3f2",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000075.png",
+      "sha256": "b4acdf187028bc3da981bddfcfa599b371d86874b26e23b1a55ad03561ef4eb5",
+      "timestamp": 34.01528000000119,
+      "duration": 0.03188499999046712,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "72190901d105acd67346f13066c3f92a12e2fae96a21e451f5aac13c2c7a61e9",
+      "atlas": 0,
+      "caption": "Parry! Guard drops.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000076.png",
+      "sha256": "0a6ad3b876d38507ebc755818b63d12e5175ff752f7bf711d68dff26e8498bb1",
+      "timestamp": 34.04716499999166,
+      "duration": 0.030025000005956315,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e67ab8cacaf05d821823d0a5f1fa7ce7711c2030ee021c7c39dfe40eb5a370a9",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000077.png",
+      "sha256": "4ff91567c275dc141605faf349662fcc6e3b3838df2af52807656a092ecf62f3",
+      "timestamp": 34.077189999997614,
+      "duration": 0.050094999998812284,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "05e9fc406bae677cf7d3664c53f560608da9932e605415a358de3555c43c9f01",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000078.png",
+      "sha256": "72af77c75b5dabf01faaa63814e0f70a112794cffef91339b4fed8d21b4cdaf2",
+      "timestamp": 34.12728499999643,
+      "duration": 0.034510000005361974,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3518e1b570263d46aaed50f987dd95b96ac348ba93f235f7e26aab2aaef313bf",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000079.png",
+      "sha256": "652324d7668c5756652f923bd7f5c7bde2f9f4fd1d5a5045f9e4a3486eb0b6d6",
+      "timestamp": 34.16179500000179,
+      "duration": 0.027859999999407137,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "78eb208007955102477b09846cc6de600cd9f846fee45a5901febbf61ee4aeea",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000080.png",
+      "sha256": "75ea9296d440963f70796f0f3a7d3c5530c96a1f489baca24da6a3036cfdd77a",
+      "timestamp": 34.189655000001196,
+      "duration": 0.03136499999462927,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e544d5c0b4be264fe7cd8c2760b2e3a6e23cf0f17c3ad2be1fa14952ad6e70e5",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000081.png",
+      "sha256": "28e0146e92cd9461c49a6c5bc4ba4cf324c4b0b0d96026e3a675cfffbfc20422",
+      "timestamp": 34.221019999995825,
+      "duration": 0.03220000000298029,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "03491cd25556815eb5489a1c5a50fa2e3e1eb97e2ecea1139fe186194c53f079",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000082.png",
+      "sha256": "e21bb2c4b141fdecc4a167d8edfb46f268fdfd69da085669aa8d887fabcba8d4",
+      "timestamp": 34.253219999998805,
+      "duration": 0.024465000003580428,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d987dbb465f11e3ba016b8221766409ab5fdca1af7e5c1be356c5abf85d130f0",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000083.png",
+      "sha256": "8b22c50b13f1a21e92be829162fbb63a5a0c538b8f03b5ce6cd521e2cdc08b47",
+      "timestamp": 34.277685000002386,
+      "duration": 0.037109999999401566,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4daf004f5bb0eca7ecd4e9302c6916b8a0408140f8ffca13e007598574aa1153",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000084.png",
+      "sha256": "9037a98573ede9be18ec2b95111ca3c477f24ccc0ed47709647384fae7620a26",
+      "timestamp": 34.31479500000179,
+      "duration": 0.030219999998806202,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9aaa09bf1728b46047b819c6bf761e21bf0999a8be672d9be74462cc078bd4bb",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000085.png",
+      "sha256": "6e1daf11d61e6d878272154f69a6b9d781d4b97233a5c52294cf59b9b7570ef5",
+      "timestamp": 34.34501500000059,
+      "duration": 0.03784000000357679,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0ce412fc2b2a8c8e1dcfee61be4348c3bae4c167479939088d871d3f5f0510bb",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000086.png",
+      "sha256": "ae1e327cd53bb0f459754da9e74f588294b653e941c4e3098eda3f424dc8f1ff",
+      "timestamp": 34.38285500000417,
+      "duration": 0.03015500000119431,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d9409b79f82edf729886faa4e66b6e76c2a63b3eaddf72fed0fa6e85f40c44ac",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000087.png",
+      "sha256": "0671badb4f1469b1d4bc1bc2468296a31307fad7a181d17158a96c14b90434ef",
+      "timestamp": 34.413010000005364,
+      "duration": 0.037059999987484105,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a87ed01f92b0b1c0aee27fa142e8eb227483037e5f64592eac5908c6c215d2bf",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000088.png",
+      "sha256": "5d8bba3bce2f73c54d5862633091052ba4740f992412320a6e83861fe7b0aedd",
+      "timestamp": 34.45006999999285,
+      "duration": 0.02951000000536652,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0e1300af9921db2052fbd4d37e485a9348693d07bd6fd5610c28cf30eb176a84",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000089.png",
+      "sha256": "7261e451d1300ecc0b15581b53e6eb61d0039fb95b96e45229e1305ede8410a4",
+      "timestamp": 34.479579999998215,
+      "duration": 0.037275000005955405,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ede6310ab5183fedfb9db36ca5e03239b04574ca314624c4c3ba6d3eda78a6b5",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000090.png",
+      "sha256": "e43d27f57d2713168780b74cb98d7930f738ddff08f1fbc4ccd020c97f105bd2",
+      "timestamp": 34.51685500000417,
+      "duration": 0.029829999998213452,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e64af92115a2879943b25f52d7d669bb8486143e0f3dd368e8d9282b7cf7dde0",
+      "atlas": 0,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000091.png",
+      "sha256": "8d954dc6bad43436f03deaed83fba0aacc8db0c2b5fc4180a850ab0a07f198d2",
+      "timestamp": 34.546685000002384,
+      "duration": 0.0327950000017907,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "37ab4f7e4bbdae6c7388c24bcf6c0c75a06e7daf3f762ad69fe411619429d4af",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000092.png",
+      "sha256": "459d07a4fc5cc785c4c8f07d92cb79f8333ebae516cf1730722912551b883238",
+      "timestamp": 34.579480000004175,
+      "duration": 0.04981499999761496,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1996ec9fd9b58e9e1ed68fbeec8a7c89951a3471b555b6e02dd1c8489e2fa9ab",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000093.png",
+      "sha256": "6d5f2a4514af364cc8209413a088c3f9dcf9bfd37ec5bee1c5aafec740b1f8cd",
+      "timestamp": 34.62929500000179,
+      "duration": 0.023379999995228218,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9c43b7f0e01369289559913d220a1a0a2a110fb851e63d2ebb179ecbc8984cdd",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000094.png",
+      "sha256": "ef53c16e368668580fb4402513452701eee7eefed19bd45dab1a7aba2c92c2fc",
+      "timestamp": 34.65267499999702,
+      "duration": 0.025159999996425597,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bfd3a745a6db7f420686ce9f97bedaa1b209a9f10242c5af6b668bff2b0b0bd2",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000095.png",
+      "sha256": "5bab70a73500f400fd3d75e66fd7ec3abf462024d6ca996ed0018560ea091c96",
+      "timestamp": 34.67783499999344,
+      "duration": 0.041594999998807225,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ffa13f665461cf6aebe5024ea622f65330a8f7673dc2221cb850f59f2861f86d",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000096.png",
+      "sha256": "a66a11485904ab0a2ba49e409b375463952ff6b9d19e0e6c3a75db7ae04c9144",
+      "timestamp": 34.71942999999225,
+      "duration": 0.03147500000893899,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b4f58c67098c0d2c96b2893d58b4196a42679094f46a65b70fdb2b9ab435afa4",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000097.png",
+      "sha256": "03a6c098081feb1a0203b9ad3195e101baebe4b94241394549e68705d78b1780",
+      "timestamp": 34.75090500000119,
+      "duration": 0.027634999990468145,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d1be7bd035aa555d90875def83db30e05761fef727aeb12c323e4a244e7c5b6b",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000098.png",
+      "sha256": "85431c9d8fe66a5011bc9a197676c88d9e4c75c7a30a0764b360da6875b32001",
+      "timestamp": 34.77853999999166,
+      "duration": 0.03746500000357145,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ae8d20c631e4152d28b8c641b6e619fe5bbbce07b003bca3f03d2d32137a4842",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000099.png",
+      "sha256": "2b90bf1f5ddc1012d66a28fe514f811b59a004104cebcd4b53e3734bf29b69db",
+      "timestamp": 34.81600499999523,
+      "duration": 0.030825000002984382,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "19b13f3c4825dfe5beb9ebb10e9f86c06c8111961b5d1e2a0ebe9daf44eaa617",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000100.png",
+      "sha256": "4eba58cb45d94d6d3a945bc24fd98a90fa8dc1e8ef7784941e464e90e505be23",
+      "timestamp": 34.846829999998214,
+      "duration": 0.03292499999701448,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "10f98ccfdf898998b3c58c39f5279281b4efaf545adf70759827324bd806c512",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000101.png",
+      "sha256": "c5c8194b76918a0a3af93d3e4db2ba483e4d4981b41dd2539d10fbec0f9a701d",
+      "timestamp": 34.87975499999523,
+      "duration": 0.039085000008348914,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d947b6075f45916c61831de95ccbb688d35c0d01872b369a157dc342b975b8f9",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000102.png",
+      "sha256": "bbd0fccabf5738b49727bc3aaa4f88c0646dea9c4740a5b086fddfc7cc19f1cf",
+      "timestamp": 34.91884000000358,
+      "duration": 0.033474999994041355,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "491525c1e457f51b1c04f5d8290e3bed48b45a967897e941cbddf5ac703bc5c1",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000103.png",
+      "sha256": "9832c6381dc0b688d5203fb5661c760380e670aecd38d5515e06630f72fa863f",
+      "timestamp": 34.95231499999762,
+      "duration": 0.03761499999463069,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "253e45d88c938b1ee4fcb85724d62fcbafeec0face859235bd932e156bbdbac6",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000104.png",
+      "sha256": "108c3e3121de8804ff093a6106c53f6ea9f292062d06d4ee50015501487eedf1",
+      "timestamp": 34.98992999999225,
+      "duration": 0.0279350000023868,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8aa9c612a8759202db8f6a3649577b09fc97687fe7d8c2e256eb0e917abbae40",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000105.png",
+      "sha256": "b6625c17c99e786584255a5387caa19c3f5bbcb774a5404f08f1797d527a4f62",
+      "timestamp": 35.017864999994636,
+      "duration": 0.03300000000000125,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8c8cffaeae3dfd93079843ee90e39d56fb69f2ffb1dc098733e2ee5a0992efe8",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000106.png",
+      "sha256": "be155501e0dfd70ccb6836976afa8678a6b46038a4f16f5379e6ab053e6a8951",
+      "timestamp": 35.05086499999464,
+      "duration": 0.03480500000715381,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "64abd827fb3d6c4abfe3dcf9edc611f8ca439d52bb92f89bbe3253c8229c7635",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000107.png",
+      "sha256": "810ebbe3cf562a9ae78acbd7ff65ba4515c2e29bc0d383aa966961977ad99231",
+      "timestamp": 35.08567000000179,
+      "duration": 0.032560000002384015,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7929bc48aeb4852a80a3bc19d59742f334a7b900a1cf8ed2fc5cc1f8232778b9",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000108.png",
+      "sha256": "0114055c48ff3151c879bc93da1e4ebf2fe0153a55294f2ad138464cd48ace4b",
+      "timestamp": 35.118230000004175,
+      "duration": 0.02639999999105669,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6e7c307dc4d2e1902af350e3f52d3bbf122a3fc27e1a1b1318655e9e2ff36d83",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000109.png",
+      "sha256": "9318a3bf67ff9fe143d479576d08092163bc85789d636983d34239cb03001491",
+      "timestamp": 35.14462999999523,
+      "duration": 0.03446500000357844,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "56573d9a621c8dbaccdf1f6a516493a9cf33e2b0308f6f5508bfc6c61e87ace8",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000110.png",
+      "sha256": "690c29b6bddd73929afece1f2cf996c49d006cef75c71c595f15be0af8c901ba",
+      "timestamp": 35.17909499999881,
+      "duration": 0.032515000000593375,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0b56dfb8c2302a8391db3c0b7a7c24ccda60140b79be93f5e3938092093bd7c3",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000111.png",
+      "sha256": "789c8186c21b05fce3c7202a20b18bd9670c44f2b2b1a78440e75b1568965a58",
+      "timestamp": 35.2116099999994,
+      "duration": 0.035780000001189194,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ea8775f839641341c1be1a64f7cd91cec456358d730bed6ec794362348ed11d9",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000112.png",
+      "sha256": "1cce4074fc60f6e15a91527afa010897f8ccf090fffaea1654ffef2585d0b97a",
+      "timestamp": 35.24739000000059,
+      "duration": 0.030819999992850455,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c9640f49e171618ab5da78a19a85df0e8f3a4ea64f08a6da8030fa30ea96e5b0",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000113.png",
+      "sha256": "9f4b1f09a867ff4a23988dda5beeb2971e226c913b36180662cb2175b58cb17b",
+      "timestamp": 35.27820999999344,
+      "duration": 0.033380000010133415,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "57f8ebe41dc8167a8db16f39221fb08ec7539013f3e9e2ade067863e520d9681",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000114.png",
+      "sha256": "140da09bbe78fc4be9ed4cbaa056c0f28da7d06d816c38f890e6e04f4e11afe9",
+      "timestamp": 35.31159000000358,
+      "duration": 0.03684499999880586,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "72546c05eb268cff5b3d443c4894eb2fab3f5e768240ef07b3c2b6cb2adac7fe",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000115.png",
+      "sha256": "d60a2091cbb15d1bcacd09d76304a3283def961b8191d2908b405babe6a4d519",
+      "timestamp": 35.34843500000238,
+      "duration": 0.03452499999106351,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cb8be5c2f60aed5cd1403944ac15668b5b8f90d6c7eb66dd84dded14bce82a3b",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000116.png",
+      "sha256": "74bb591abe579a85e0d676e401b8e3b22e106cd5f8459612d0e2e88fbfc6f59b",
+      "timestamp": 35.382959999993446,
+      "duration": 0.0296800000071471,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8445ca0024e39dbcf1b45dce9018502a757de7ef1a5842308504b114c75cf863",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000117.png",
+      "sha256": "cebf206703074c3596690cec28af398116b07402a68487239c3e368a525ca33c",
+      "timestamp": 35.41264000000059,
+      "duration": 0.034664999991655066,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3afabf8b24e9491af05a546e137817e22d483eb8caf87ba9250aa8dbea54d01f",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000118.png",
+      "sha256": "ffe43a1128fd2c8300496031e3df83a2286f98a868a500ecf78f9b0ce05a625e",
+      "timestamp": 35.44730499999225,
+      "duration": 0.034515000000602925,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f239260f9de9780a237fcf2792c58c1b585adb9de0e931ed63432770cc6ed6f4",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000119.png",
+      "sha256": "79420260defc4794460c265e4f3d7d1cea790ea885aa5f5e7f8a920e1e7bbbfa",
+      "timestamp": 35.48181999999285,
+      "duration": 0.029670000001786434,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ab72bee573298349590206c0149d6a695af102394fd6857c32a398f15a10f730",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000120.png",
+      "sha256": "6ebbbac8eedc9d67fa699789bc8f7de9cd4f2864f674d3b0b5a7343f763a32ba",
+      "timestamp": 35.51148999999464,
+      "duration": 0.03422500000893791,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "14369181d42e749ddc29ddd7b6299315a4b787ddf613fdb7c2f96d3d45b12273",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000121.png",
+      "sha256": "ac9d56fb6d4bd2d56fcb700942e975ee8e0ff30f2b2569e6e4b573f98f8cd5dc",
+      "timestamp": 35.545715000003575,
+      "duration": 0.035344999998805804,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bad4d1025ed01926d4220203cec8d191d6d07bcfb0f6ec5e6b9e8e32428346cc",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000122.png",
+      "sha256": "dbf4d36bc274275bda2dc0ed9612e4550b4ba40f8360592fbe980b9e91e2e9cb",
+      "timestamp": 35.58106000000238,
+      "duration": 0.03219499999285347,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e74d5359cce56a156807f973e6fbe76d1db3735805e92b7dee6f11ddac7f3edb",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000123.png",
+      "sha256": "30aaed149401eb3519088b13ebd240d1a2430fb3ccdae96d9ae4a4637786db38",
+      "timestamp": 35.613254999995235,
+      "duration": 0.033090000003575426,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3bd581bb08d13bcb08928655b2131ad8ce917da913823909a245092c43e013ba",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000124.png",
+      "sha256": "5908155e0615d6b5851a80cd2efef00de0c0ff2f54e5c8ac9563b0146c939287",
+      "timestamp": 35.64634499999881,
+      "duration": 0.033749999999997726,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "879a39942da73def0b14978d1c615ca2aff4c498442cf205b8b0c46f365cbfeb",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000125.png",
+      "sha256": "84649c2ffe474d067f902dd27cc0cf7701a2937416f510bc33f1ae27aac2662e",
+      "timestamp": 35.68009499999881,
+      "duration": 0.03496500000357372,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b4c4411e4d988bcfdf950f7673cd5edccb121f7efa3b507226f4692cd4612025",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000126.png",
+      "sha256": "cfbb619b3e1d4fbdf4bc0353472acf1abc1f288e2802cca5a1f17116e033c8ed",
+      "timestamp": 35.71506000000238,
+      "duration": 0.03301500000059576,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7e25e61b549bbcc583cd15af8af8938b513d37e8215cf3ca30efbefe69eed526",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000127.png",
+      "sha256": "5435a5d425c7f08fb9770827ed84de4b37e8f7ccd291d80874305d4e454389f6",
+      "timestamp": 35.74807500000298,
+      "duration": 0.036530000001192775,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ada73b28590c357745eae4c16060492a247441ffa524572b70de526ba5569af7",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000128.png",
+      "sha256": "e721f702e9745ffb5414e9accfc850c41fb8a00037ce6c40b4d18d8b3fed10d0",
+      "timestamp": 35.78460500000417,
+      "duration": 0.030059999987486208,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8da01e467440aa62684986d2189ee7e932be2ec32be4f5bdfcf4d220e01c1079",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000129.png",
+      "sha256": "2e4f94bc757fb9d50322cb053f96fb9bbdaf69accfa2109031746ca862d80718",
+      "timestamp": 35.814664999991656,
+      "duration": 0.02851500000059559,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "dc14aa9e3b50c518a4542ba637b8c91c8d4d283a31e52a04a18a4e29cc1fd3a3",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000130.png",
+      "sha256": "9cfebbf98ea10c19b645a9d164efba43ba732ff3159d87964d7b1d50b9f3a02c",
+      "timestamp": 35.84317999999225,
+      "duration": 0.03271000000834334,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1ed68680e75e120adc106cc7cfdd27781252adb2e1393ce35f38d30131021846",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000131.png",
+      "sha256": "3be2ad5bee5133a04e5956855b1228f06abfaff7b12c7929aa6dbb0f6f089334",
+      "timestamp": 35.875890000000595,
+      "duration": 0.039679999992252135,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0e2a58d0f45d8278e8842b6e32ced242c83f8b1d829cf19fe101bcbed87f0fd2",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000132.png",
+      "sha256": "3d4c799061a2bd2925a805c52800e4ef003293e41ca1a7ca993b5a0723412188",
+      "timestamp": 35.91556999999285,
+      "duration": 0.027000000000001023,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a688357c2ee3186a8f686c683c09babdc6da17a009361a92fdb0b934b1952d8c",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000133.png",
+      "sha256": "d9273f4170a5afae8bedf501fce592305ec5772abe27716843559114fa12cb17",
+      "timestamp": 35.94256999999285,
+      "duration": 0.039635000005361576,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ac919b404809e0426d2bb2f2998259c0c8eecee91026730bcad650860462b34b",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000134.png",
+      "sha256": "aef7f9d2d1049b325ca3218cb744538d6537da5dee2b5aff0ff6963a33eaee67",
+      "timestamp": 35.98220499999821,
+      "duration": 0.031334999993447354,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f78f03131028e59ef0dae6386f483e5191a9af933ce7370cc6ffcada5f085336",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000135.png",
+      "sha256": "f66b2340d4cc8588be4f6cfdb38ed075037315b7e9fdefad2dc53467771c7660",
+      "timestamp": 36.01353999999166,
+      "duration": 0.029830000013113533,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5130789a81c42016c671866ef77c9a47395579840434e503070b9aa1fbd419d1",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000136.png",
+      "sha256": "7b3e51a07dcbbd723ab4af4ce0cb16ffa087872da6d20591682f0ccca45e3304",
+      "timestamp": 36.04337000000477,
+      "duration": 0.0415899999886733,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cea2a236c605b6bba57b6386866a7ed6ffc7e8b095e7374cd0852cafd5e64765",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000137.png",
+      "sha256": "cd0e4c56aa887fdf7f5ce867730af85ffc39c34aaed44a4d7e4c4ddc6c7da089",
+      "timestamp": 36.084959999993444,
+      "duration": 0.03075500001013154,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "84ab8b9eecb2f25f54db77c1d4e0a56fa54ada9666520f4a838ef251a378479d",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000138.png",
+      "sha256": "f306662e12b3405f2b9df9f1dd286f75fb592f4a5792f0fe4cb8852b6c04d620",
+      "timestamp": 36.115715000003576,
+      "duration": 0.028170000001786377,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d0dafe174bd0f8cd33c192270fd3a6a7a45e6be6816d0fcafd4aed2c39899c54",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000139.png",
+      "sha256": "39f1e5b16dab0be959f967ea4e4f3eb02da83edec26ba29f77515b5c3f0a570e",
+      "timestamp": 36.14388500000536,
+      "duration": 0.042214999988679835,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "85f22bf1b74f6fa5d02a3a492a90fe7dcf37a20b58d26ba30af63c22b8de5768",
+      "atlas": 1,
+      "caption": "Release between hits.",
+      "focus": {
+        "x": 502,
+        "y": 64,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000140.png",
+      "sha256": "627be0f5e2de439bc44a93e4952611dcaf6cfc66d3c1b2c40271031daa0aa145",
+      "timestamp": 36.18609999999404,
+      "duration": 0.025895000010727642,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a145b260d86a6a784f807fdd4d80449bf31eefd70f32667257c0829b434dd105",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000141.png",
+      "sha256": "043839362e75d5c4610ac21b3a04d9cfd109c32c6fc848e22f7b0df205a5c324",
+      "timestamp": 36.21199500000477,
+      "duration": 0.034759999990463086,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b601134254e73d7b009c61d0edfa8283ca90afd79fd2069a4e7aa4c73f134271",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000142.png",
+      "sha256": "fe9e3f2dd23c527eb0a24f060eda20142ed0477acc09f0210d2df24a0d52fa7a",
+      "timestamp": 36.24675499999523,
+      "duration": 0.03506000000238174,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4195da5410fa69af0541bc7cc38e50572739ecc6bbdf8efc3d5f2ecfd9ae5f54",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000143.png",
+      "sha256": "d498514fd6bc83b8adffb9abdd6debffb2aac8e41f33f7c1985cd44449537af6",
+      "timestamp": 36.281814999997614,
+      "duration": 0.03205500000715489,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "aceb225507587891c88096114b3a48bc21d91d5139d88cd861f3c2779c4f8788",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000144.png",
+      "sha256": "e4a98b364c53fd75acac8916b6b0b67c9cb4f446f7ee828f3a3df51869fa5a12",
+      "timestamp": 36.31387000000477,
+      "duration": 0.03528000000119391,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fe9b7ea54e63937d4b10925338ccda37033ae41157a50f9f909e1553d3ec76ba",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000145.png",
+      "sha256": "4638365044d37a9b6efa0b8d2bdb8b565de709690c1108b2aba51f8e28e0b1cb",
+      "timestamp": 36.34915000000596,
+      "duration": 0.03136499999463638,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0397d2f85bf765b647c71c817a2b93461d015b823854f147538952f0d75bd70c",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000146.png",
+      "sha256": "b61880fe6ff5fe8c378026e3fa28527b17c395ac43d62d87b7fa00d283bd3776",
+      "timestamp": 36.3805150000006,
+      "duration": 0.03764000000059298,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "28e77413c1f3b5fb770bd74ea47807f881401a5b48b5f3b5b95e643198fa821d",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000147.png",
+      "sha256": "3e72c34443d1fff0f992c813125cd4ef3a3e8c18f922ff207e331485cae778d0",
+      "timestamp": 36.41815500000119,
+      "duration": 0.028834999993442523,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7f33d94ca81d186b84f3ffb4618b99bb31296a0e5a67777b6a1fee3925d459cf",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000148.png",
+      "sha256": "f960f0e8a0831d728a65a9297fda3b20d76318f260c36c7d7d2e1757a8259234",
+      "timestamp": 36.446989999994635,
+      "duration": 0.031085000008346242,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a05405e4e8c190b823bdd8dd5f01c22a76578da6b4d331bfa16b5bfaa4ecd238",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000149.png",
+      "sha256": "12c5d2f90a3b09a6da956e12aa344e568341464a8fe942d8ddb166181e9a8ac3",
+      "timestamp": 36.47807500000298,
+      "duration": 0.0325699999928446,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "58d9806761604e199b2893685d1e084087f2979c56074e67e38584c6babbf26e",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000150.png",
+      "sha256": "8a6d9fad1aa94cf5534045f080a7cdb78259c09955176ad257dbbc93532b4887",
+      "timestamp": 36.510644999995826,
+      "duration": 0.035609999999408615,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "76cd8822c07b4779fa0a2b7fe91514099e5ed9f9e0a23b0b9a6437d9040a4c13",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000151.png",
+      "sha256": "68814ecfe620641bc3b4b236906bf553b53e696464fe1e21caa05399b46eb00e",
+      "timestamp": 36.546254999995234,
+      "duration": 0.033174999997015675,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6a6fd1fc6afca62a00bb0f2ca15c13e71cafbbf12ffdc5d26578baa644381c42",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000152.png",
+      "sha256": "fb4a865d5b58d3bcc69e96d5b69ece38f44dd5b19a6d6997676140ea87a7673b",
+      "timestamp": 36.57942999999225,
+      "duration": 0.037185000002388335,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e083e41b2307c76471c02052889bb7dd34b84634549196a486da917a70118c92",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000153.png",
+      "sha256": "05047a6d383cc3f6bc84ce95ad7a38795446801975b29a5affcd518b74d4ffe5",
+      "timestamp": 36.61661499999464,
+      "duration": 0.03570499999820953,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d32b4b0a2d4b84f834bb9b1abccec241d0cadcdb0ffbc852e68d5159b3e38327",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000154.png",
+      "sha256": "d430fd72f94798ce11d41c66d20dd7033f31c4322756714390449c1d6210c984",
+      "timestamp": 36.65231999999285,
+      "duration": 0.03046000000834681,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cebfd70fd567143b994ea456aa9d337e85cfe3db25a95739341a96cfb1c90839",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000155.png",
+      "sha256": "b6de04cf4b3bc8e47f5e3a0c9dffe245e45ac5f19cf4f677854d8d91f3b155e7",
+      "timestamp": 36.682780000001195,
+      "duration": 0.037894999995828016,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9cb931971ba5371135169a1d07fbf0bd6ac24822cda2cdade9d53dbbe1f5b60a",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000156.png",
+      "sha256": "f602c8b82cb4ca382750efd2bf1e9f947c0baadddb27bffe49d4d0070f184971",
+      "timestamp": 36.72067499999702,
+      "duration": 0.03916500000655532,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "372b8d514c5ddf3d6db247e73f327be6f79f9bbe6da9d0003d6393ff73fba649",
+      "atlas": 1,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000157.png",
+      "sha256": "71cc31ea54245bbbfac4e2e0fef485711ee9c1835348ae36481529cb58a44a61",
+      "timestamp": 36.75984000000358,
+      "duration": 0.041724999994038114,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ea7e552f834a0daf1b563c95301913aea2f39e7738729f266b8ddce11a5257f3",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000158.png",
+      "sha256": "59ec09ea35f0b1f1287c96fb2c18dbdebe6f9b1ab8696b1b67295416d03e2772",
+      "timestamp": 36.801564999997616,
+      "duration": 0.019170000001786036,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "48a4daf883b15ef6255ee0045d0b23f326f3406eb6889b4ff23b3384570c9863",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000159.png",
+      "sha256": "bd17bc688224466ece35d2be9dce34074dd830111eca5620a6bea4efba153cf6",
+      "timestamp": 36.8207349999994,
+      "duration": 0.03151999999582955,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1b83f2b0a8955b75d8a2f129e547e2df9fa3d8aa9dd8de6e051dea35d6fa1e66",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000160.png",
+      "sha256": "9d496bfc1794ea3206c3cf00085bd4406f909b42421fee91fb1dca71d759f1d6",
+      "timestamp": 36.85225499999523,
+      "duration": 0.033390000000594,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "51ffbf47fc5311a33a2300ff47e4c366c407a9ad242819b63ac0667bfcf3bcba",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000161.png",
+      "sha256": "b4086e148b4e22eee9157641dbe2ce5e3356318147f4225372b9f233eddca750",
+      "timestamp": 36.885644999995826,
+      "duration": 0.024605000004171984,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2717da13c61f606f9d963a6ea90ead49cc5cfafcde4647fac4a40fe9a4e293e6",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000162.png",
+      "sha256": "3c78c04479059eec05573adf08b0e4951e4ae0ce1de25f62a46d66fdf3b4a484",
+      "timestamp": 36.91025,
+      "duration": 0.034780000001191524,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1b36f4c69a364936e91d7f2baa2bf3c8b6080f03fede1549a107a6058ebe0296",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000163.png",
+      "sha256": "351481619d21fbcc348efdd3338225aa48f61a951354cd604f003674003a80a4",
+      "timestamp": 36.94503000000119,
+      "duration": 0.03585500000417596,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "90125d41ed4ed17502fa15e4988adea1d755e6c5f9a3a5ea1b82d6935d93e94a",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000164.png",
+      "sha256": "61b01e401c786b1a35795a6388e7cf9ede7d2efb94a57245eab0e9b756a05f18",
+      "timestamp": 36.980885000005365,
+      "duration": 0.03528499999642065,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c346407d4263e5ac35fc3f6de5f4de74f896b8076a5600fa49c4c8d7baed8ce5",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000165.png",
+      "sha256": "7d482155d5be00333e49d274674f653ffe9e7f853f952bca43a2e895289819db",
+      "timestamp": 37.016170000001786,
+      "duration": 0.02840500000119306,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "eea194a0478e9081b58ea4246c429f44251988a49305ff6e75fe2f7cfb0c3709",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000166.png",
+      "sha256": "d1217496bd464be16e384245a64cffe061937c46660bbdd016f44fffadfe71f9",
+      "timestamp": 37.04457500000298,
+      "duration": 0.03564000000059764,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "823f01b0a00a59d0b8e11d2a9d7997c73588a39b2e6a88c290f65fadc7286836",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000167.png",
+      "sha256": "a3a6d527b0505d6964f387bc2dceb46c4f9ed8f511b4120ff97ed5eee684e8c1",
+      "timestamp": 37.08021500000358,
+      "duration": 0.032515000000593375,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b3ec09ff79c98ca244ed26275fc0c3812a39997645e80b10ad2525f3732d7d3e",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000168.png",
+      "sha256": "54301fa89719efb18b58b5a82d3786ed4682964b642ee0266df2b3b5f24176fe",
+      "timestamp": 37.11273000000417,
+      "duration": 0.03236499999464115,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "40729717360d465db92cf7202a2215e2bc4ff0c764f5d12f3187fc4ac5dc5a93",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000169.png",
+      "sha256": "30924d4b04fddb4a483d3081c9d64fd3fcc05bb7b12c3e8fedf5bd76f0ab62f5",
+      "timestamp": 37.14509499999881,
+      "duration": 0.03622499999403317,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d7e4513c5a478128e0ba0166ceb3806e4e918e5add48c4c8f9bddd88e722cfbd",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000170.png",
+      "sha256": "3212ad7342a497838baa65c978294f98d0b6d44bf289fabae0736b090f2d3a32",
+      "timestamp": 37.181319999992844,
+      "duration": 0.031995000004769736,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "14b36b894744fcbb600a444a9817be3a30dc7841caa8354463fead9fbd8cd823",
+      "atlas": 2,
+      "caption": "Watch the next attack.",
+      "focus": {
+        "x": 352,
+        "y": 94,
+        "width": 56,
+        "height": 22
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000171.png",
+      "sha256": "0f1eb4b7dc32f328b0dff04e95799d70d883b0ef95e6a710a8e8d055d9004790",
+      "timestamp": 37.213314999997614,
+      "duration": 0.033120000004771555,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "880b0456c9ecf52696e8fd07442d7a61674d62e579ac71b8b5c66d4cd2219fb8",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000172.png",
+      "sha256": "049a1a25f553d800a188ff69b048160cd4de644762faa14ba8b2359a860395e5",
+      "timestamp": 37.246435000002386,
+      "duration": 0.03162999999523208,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8b572f3e73fa6f783a1340e3b5c91de45a480dce0979cfd5b3cf4674fca75b65",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000173.png",
+      "sha256": "3ed91e4ebf0bfa35dc778c5254c31aa92a8dab9531f837318881e88f27526716",
+      "timestamp": 37.27806499999762,
+      "duration": 0.03471000000834579,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "46711a6a3a1daedd4814fc59ec410a70f21ffc80a43be44b4a962fe0fbb8458b",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000174.png",
+      "sha256": "38c26adadafb66159c7d51e45d5b0ecacd09231b228e96fcc5e5505bb22659c0",
+      "timestamp": 37.31277500000596,
+      "duration": 0.035569999992844714,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3a1b33edeeddb4329240d8d11cee3b2657602b15a00bd5377aea47f711a12a69",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000175.png",
+      "sha256": "50cf622b7ecdec7570d45b884da03726bc525259f750ff4123ea89412fafdee4",
+      "timestamp": 37.34834499999881,
+      "duration": 0.03389000000059639,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d80a25457442c4699f856a9fd3a0686c8afdac798d8e62f60ab1498b845d980e",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000176.png",
+      "sha256": "6b042a39ae6ee148e5c11e07dbd8d057d3a07bd09074682b8b3f5570811e47d5",
+      "timestamp": 37.382234999999405,
+      "duration": 0.028249999999999886,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1f8e358ca848b50794581da67b69343c1be951f6e51935de9a1b1d11f7312ce7",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000177.png",
+      "sha256": "56c2eabe28483fb594c323fda11e1ea2841b42db26bb078120d20439722af78a",
+      "timestamp": 37.410484999999404,
+      "duration": 0.04075000000000273,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f9baf08b85899f2b5bcfa812b008e13d120f2340e734dbea4acef5164e0b4ae1",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000178.png",
+      "sha256": "52f7ba9b2b2dbfd2e6d02b749a2722cac36b6fe58d4a6eaae2382c91b4f38c84",
+      "timestamp": 37.45123499999941,
+      "duration": 0.0288599999993977,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c0dcbc031460d7f1fa912971b1029661b5bafc1d1e5674fa19c2b5512221c4ba",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000179.png",
+      "sha256": "ef1082c0bab65ba908cb40b27dde8d7130aee77c0b31f191a2b900a81a2cd0c1",
+      "timestamp": 37.480094999998805,
+      "duration": 0.03187000000477269,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "33900eddb40c1cf477ad1bd07c24c819cf4342085e048b98e1e9781784e46e09",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000180.png",
+      "sha256": "b1692b417cb62b5c1196a0fe08824c9ffaef66f6108b3092dde0d233fbc5dc54",
+      "timestamp": 37.51196500000358,
+      "duration": 0.036049999997018745,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1f920608fbfc1ca405b05df0c983005552395b599e76c2568a6d0acf47a559d3",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000181.png",
+      "sha256": "a6a5bcb54ab3515b165bf71ae9882a4a354ebc023e3903e9ba66ba82204f19e6",
+      "timestamp": 37.548015000000596,
+      "duration": 0.03208499999344383,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c825065c7d5661900b4d407a220302312eb2b1ce672d5f769ab420a7acebddbc",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000182.png",
+      "sha256": "56151ea6dc6c38f3c8148dde725fb80dc0c69bebc63e40e67131598f0623d2d1",
+      "timestamp": 37.58009999999404,
+      "duration": 0.03366500000655748,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "64a4730923b23366515183e5653d4a0e6b59c0145af97ca3ba1b1da539e7d8ee",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000183.png",
+      "sha256": "0da74eff7fede424c709654485ed2a7c9d081f16eacf273f1700c8133417b58b",
+      "timestamp": 37.6137650000006,
+      "duration": 0.03901500000059599,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "97239dea3039388b6f96f5630fcae60f06c881efe104e5013c1dacee22a4fd2c",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000184.png",
+      "sha256": "f4771f4da30ce5b5bd496a6835df3db082be91edcc0560ad37cb3ae0f00fb0a2",
+      "timestamp": 37.652780000001194,
+      "duration": 0.03304999999701863,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "84c8b212c5016d6360ff247c99ed738c643b59df03bcc24baa9125f36fdfdd45",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000185.png",
+      "sha256": "ed4a3672627388d810d6db5288b03709670e0b29b4749cf042ffbb1d94adaec5",
+      "timestamp": 37.68582999999821,
+      "duration": 0.029185000002385664,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "92aff1035cf3fcace14cec47f057dd6dcb11611e3ec8858f59e27ef53aaca289",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000186.png",
+      "sha256": "ef959c06c4174dea466fac47d9ead24ad79f0284f62c6f56e1a9ff04185fd860",
+      "timestamp": 37.7150150000006,
+      "duration": 0.03204999999702096,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "45d6bc990f2cc94e7ca4be994f89e28d29d627428257227875d32104351bf071",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000187.png",
+      "sha256": "cbfc4bed587faa60b1e3eeb8ab2f190fb2ade6c62db3f471cd66b66ac836e074",
+      "timestamp": 37.74706499999762,
+      "duration": 0.03358500000834397,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9db6f85bb0a7e3048cfca24c19f14fc63d4d6c8cbdf99fb8670cac92746c5b45",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000188.png",
+      "sha256": "6ef190909f29662d8efa996b0ddcaeedf30bb26d2dd53147b516e83f94f9dda4",
+      "timestamp": 37.78065000000596,
+      "duration": 0.03197499999403419,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8d3a8d5ace7cbe6168ec8135ce28d10b8df313610667f51234fe04068d0ec7d0",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000189.png",
+      "sha256": "25c592aa9e46ca62c59a578812646fac5caf123dfea826454237287154fcd2d2",
+      "timestamp": 37.812625,
+      "duration": 0.03765000000596075,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f71458856b69903088e5264ca6a46488676803fddbc89beea9a71891c7e4dbc6",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000190.png",
+      "sha256": "b310b74e3777d3ff450f64d18c236c675f6a85c29849644883e22ee6be5cae22",
+      "timestamp": 37.85027500000596,
+      "duration": 0.026599999994040502,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c9b5c3d3134a147fb90fad96227583a8c4cd100f06aea45d2fccdc5b22bfe0fa",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000191.png",
+      "sha256": "f914835322571abf546d86ddd95e8c610cf822798aac37af7487e161236f4834",
+      "timestamp": 37.876875,
+      "duration": 0.039245000004768826,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bd28c40ee13a8500fb128d7b4b92dbf4e4b68e4ac6dabd5f81367f32548a5169",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000192.png",
+      "sha256": "9729aad7257f09ac3aaed2c1e7b828328bb42cca8d1b2129890d9ee1f55c24bb",
+      "timestamp": 37.91612000000477,
+      "duration": 0.02949999999999875,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "806ab324fb54f9a78592443f0d57b01134f939fa62e62333b3f4fb70cee1b34a",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000193.png",
+      "sha256": "5fbbafd31140fdadb5cccd575b1208af3c2f94865adb53e8483654c002c02bcb",
+      "timestamp": 37.945620000004766,
+      "duration": 0.032699999988082595,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5270ed38d0bdffafc82e00d29bdee16cb98cc8d44b18a3c7155971a84806a260",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000194.png",
+      "sha256": "2acf8f7f3e3d96325912b9072ce8f02ebe9478fbc98472e79f9f131636922b9c",
+      "timestamp": 37.97831999999285,
+      "duration": 0.03541500000655873,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5fa9704bad52fce9e1928ade397f517121a05b5cfaa9887fc2a6c9de765d2e85",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000195.png",
+      "sha256": "1c3e8f7927bad25a13e8a3031235105c780e70edc056e318ade6e38bba754987",
+      "timestamp": 38.01373499999941,
+      "duration": 0.03621999999880643,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b8410b48cccdd0381db53b475d7024ed6c5f7380761de0375f013242c05a878b",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000196.png",
+      "sha256": "b75129ad8ccf05da11a3ea26dcebd190b0decccf707a30db8afc3e1cb361fbc9",
+      "timestamp": 38.049954999998214,
+      "duration": 0.029329999998211065,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e6aad429dbb32a0c965f0bab536b1e13a998c18b1735cd68f1639c2fd918119c",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000197.png",
+      "sha256": "b8d5130480af246188c165a34b5f6399ea695b614e49c4fe3cf99e5a8d50fd83",
+      "timestamp": 38.079284999996425,
+      "duration": 0.03187499999999943,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7e446be5bca313869c191978d152a1b1924205788abdfde90be2b3eebc416070",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000198.png",
+      "sha256": "9adaeeb78350b82cd2b44c8fc080582a13b4f403dabe67e287d35daf940a7af3",
+      "timestamp": 38.111159999996424,
+      "duration": 0.03673499999940333,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e1acca1f799004f358448f3892228044b7f561318f10a45bc0bd82795bc6d5cd",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000199.png",
+      "sha256": "580f590cb4b3293299d3f6a98e9d47e69fbea37355ef4d553a8bd7cebee38e1c",
+      "timestamp": 38.14789499999583,
+      "duration": 0.029350000008939503,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a534bf86f4eccf6037d4e50d4e02d17a2dd98c009b21b6fa5cd528b4c5b08542",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000200.png",
+      "sha256": "7080f9e2cafaf05488eef135f4c897c1bd2f5bbba50a2ddd3bd38147eeaea2c2",
+      "timestamp": 38.17724500000477,
+      "duration": 0.039774999991060156,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "60e17794d7c6a54f88d998a4ff560b86cbac90ed4b9f4d213f1f4e7fc515bd80",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000201.png",
+      "sha256": "3e441f2e59dd2d4b77f22b64fe606732ceceb1fc26270bcd5b1001aeebbc8a08",
+      "timestamp": 38.21701999999583,
+      "duration": 0.02613500000536817,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c993420f814c86e1943ceeaab4dd5021fe222adba29bda44fe00728113383082",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000202.png",
+      "sha256": "522961fae9983a434adcd9cba7c7bdba49be6ed91ba4b10c7ee56c374eb4cbab",
+      "timestamp": 38.243155000001195,
+      "duration": 0.03471999999880637,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c7749db77a2c55dead6427b020377271531d2ee87986d2bfeb19cb0f7a484ba7",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000203.png",
+      "sha256": "af1509307e28d361b3268ee659fef8c12e57dabf76e338d4154018d58f268aad",
+      "timestamp": 38.277875,
+      "duration": 0.0367699999958262,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7953133facc9eee8a68bb714b5dfcaa1097bcb521715698d6cf89ba0e2e70abd",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000204.png",
+      "sha256": "d5f89ab06556be008cadee6830ebd472cc664c0fab089064b0240fe0214071cd",
+      "timestamp": 38.31464499999583,
+      "duration": 0.02805500000715,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ae7c4a5303088d2bea3f7af7e07acaf4a476ea5838b092d01b3f577e5e239edc",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000205.png",
+      "sha256": "e48b58cc9e9fbf9fa960c03143ed2cb1e0e74911b9085cd57a07a96b100b2870",
+      "timestamp": 38.34270000000298,
+      "duration": 0.037045000001789674,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "04c95c429fd04eddae6feb0a6ee5ab57e13068b3aa85bfbd31c22811f14343a9",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000206.png",
+      "sha256": "fbafc8f4e97bb723a73e62fc6f56ccbaf082d73060cf2c331a852240ee8098ab",
+      "timestamp": 38.37974500000477,
+      "duration": 0.02932499998807714,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "18911189731ef043c27f29fa94f55566848b79231f8c3dfd93cc9e9ae7a338ab",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000207.png",
+      "sha256": "6b2939e091e1004eb381bd8d5f5c66e0d7f5482b85ccb58e79ce966ac181a1f3",
+      "timestamp": 38.409069999992845,
+      "duration": 0.036575000002983415,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d391e82aaded30f534e702cf7823d0254832c39f2b13d65644c21c6018d418d7",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000208.png",
+      "sha256": "9e32e7b1c403b0a3d98498542a275b858a9ac7f1dda838eecf79e0584d160bd0",
+      "timestamp": 38.44564499999583,
+      "duration": 0.035730000004171814,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6c65d117d2dea782aa3ad284cfcc1d309a393b426b200031f687f375d6d94e45",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000209.png",
+      "sha256": "7eeefc0ec9b67eec7bb6e1033e092731fa82a7cc7a9ae006eae14e4e56fa8505",
+      "timestamp": 38.481375,
+      "duration": 0.029795000001790584,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "229923c5b56323f02683b1eff389237bb5abf5c67a15c0ed9442461f08b0d4e0",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000210.png",
+      "sha256": "c40b95a03178c32d3b8ba31bbad8f4096bc684456f55b828e60c34068cc4755b",
+      "timestamp": 38.51117000000179,
+      "duration": 0.03718500000238123,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "92882e3679270fd5d04346b5af94b9e7c76f633000c32beec605011c2cc6a59a",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000211.png",
+      "sha256": "59094a569adab248e24e1614dce739c9ab0a40a8adfeb3c6715e659120efbdd6",
+      "timestamp": 38.54835500000417,
+      "duration": 0.0288049999922535,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "23eaccfedbfd4473b88a6a4d849d48b3d57250d3a265c8d8e622524269fa9549",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000212.png",
+      "sha256": "7a6a1acd35f51b73532c9ea611d72b441b209351e4270254b614aa93bdc54804",
+      "timestamp": 38.577159999996425,
+      "duration": 0.03705500000715034,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c9f77bed8d2f4e5b4c7755082e5d336b8fd2c4ebd4a812ac075eda0520698626",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000213.png",
+      "sha256": "536a7abf97e5d9a1362366723955ad58e76f8e2d4ba937d6dd75c139cc8ba98a",
+      "timestamp": 38.614215000003576,
+      "duration": 0.030000000000001137,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5c1bb31ed768b353ee8153f66e0368fc4347d8e6e962b7b612f32b2327a60211",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000214.png",
+      "sha256": "e20d62062305af4173ed30305b48253e40be53f8a539937fa25c12d9e5a3de2f",
+      "timestamp": 38.64421500000358,
+      "duration": 0.03406499999761792,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "479cf88ef71f80f85bb756cb0c3b41dc560e87197a0f25da4bae4fbd7bbb4c4c",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000215.png",
+      "sha256": "a3419c3fbb7e87d28a83e16032eb70a1b73d4054eec6f119264a93753b25cbe5",
+      "timestamp": 38.678280000001195,
+      "duration": 0.03372499999403544,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b74b90011ad0893b52e104974a270f48ae89a9841558aef30edfa750e202fc51",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-parry-01/capture/000216.png",
+      "sha256": "6beacbaa2725a116aec19b08e8a16ddd47b4b17fb4818da9142b82c981a41821",
+      "timestamp": 38.71200499999523,
+      "duration": 0.03635999999940509,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "61759bd2b93209c9331daeea3b0fe42693f663fa32a8e91859de9908e2c6b103",
+      "atlas": 2,
+      "caption": "Missed parry: HP lost.",
+      "focus": {
+        "x": 2,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    }
+  ],
+  "transform": "full-frame RGBA resize 320x180 nearest-neighbor only",
+  "sourceTimelineSha256": "f8759b8d2313d6c90d81bc3cb1fa028c993709e0b490f4e5fdabf2852c92c6b9",
+  "atlasSha256": {
+    "parry-health-0.png": "9a0cc76c05924af9ae7aa30decb2b990c8a6b91ff9bd3367081e54656aeef7b7",
+    "parry-health-1.png": "f0b839610cd1f7fa41065c92259386620ec0eb253d8726f6b9f40561a35e7451",
+    "parry-health-2.png": "13a66b58b33a7aa7ce06a28388d5386a548dc3bb424aa0750448557a0944b1e4"
+  }
+}

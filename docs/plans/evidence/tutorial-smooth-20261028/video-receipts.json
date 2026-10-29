@@ -1,0 +1,59 @@
+{
+  "sourceVideoSha256": "04d02f87396c451b148fbddf95e73910b1253812ebf7d3b73bda1cf0a91f3049",
+  "videos": [
+    {
+      "name": "Tutorial-Smooth-1x.mp4",
+      "sha256": "aad936adb44840139a204adb08c2cb8f0a1c4a4d897ad3a32086ef8a0e8117b6",
+      "bytes": 11914768,
+      "duration": 119.68,
+      "frames": 2992,
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "audio": false,
+      "decode": "passed",
+      "directPlaybackReview": "unverified"
+    },
+    {
+      "name": "Tutorial-Smooth-025x.mp4",
+      "sha256": "3ad3cd28a8c7b92290e773b56c33f4083440cc85ca47e59e8be1d25096b2c134",
+      "bytes": 21665971,
+      "duration": 478.68,
+      "frames": 11967,
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "audio": false,
+      "decode": "passed",
+      "directPlaybackReview": "unverified"
+    }
+  ],
+  "cardsInOrder": [
+    {
+      "name": "typing",
+      "wall": 1793195252634,
+      "duration": 2.405200000002985
+    },
+    {
+      "name": "mistakes",
+      "wall": 1793195260433,
+      "duration": 3.882835000008342
+    },
+    {
+      "name": "parry-health",
+      "wall": 1793195270155,
+      "duration": 6.4062650000005945
+    },
+    {
+      "name": "slayer",
+      "wall": 1793195284946,
+      "duration": 14.713350000008944
+    },
+    {
+      "name": "score",
+      "wall": 1793195316340,
+      "duration": 8.701680000007158
+    }
+  ],
+  "notes": "Full normal-player recording, including complete clip loops. Real runtime fade, no synthetic asset edits. Direct visual playback1x/.25x remains unverified."
+}
