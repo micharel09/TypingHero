@@ -1,3 +1,26 @@
+# Resume check - 2026-10-29 03:13 UTC
+
+Continued at clean `34e1172f`, fetched origin; same task branch/remote. Old owned
+container `007da4fba4b4` is now absent and runner lock has no holder. No Unity
+container running. Host memory improved to about 6.3GiB available, but I/O did not:
+some avg10 72.29 -> 85.76 -> 92.42%, sda sampled 82-93% busy, read await about
+141-144ms and write await 91-122ms. Load rose 17.27 -> 24.05. No new Unity attempt
+was started under the unchanged blocking I/O conditions. Other jobs untouched.
+Local receipt `contact-tint-20261029/resume-0313-host.txt` retains the host check.
+
+Adapted the same external `ParryHdrQA-v2.cs` capture loop further: actual core/ray
+particle counts, core `startColor` and particle age assertions; byte equality of
+separate 15ms repeated post/world PNGs. This completes missing assertions in the
+existing fixture approach, without production edits. Updated template SHA256:
+`b8fe860b4a81811977d34d9406b9b4934764871a4c04ca6d28af9a54b5df6d28`. Adapter syntax check passes; new C# assertions have NOT executed.
+`adapter-v2-manifest.json` updated. Existing exact archive hashes above/below remain
+historical; the edited template must receive a fresh hash-named injection next run.
+No candidate selected, no new images/frame review, game memory/viewer unchanged.
+Resume only when host I/O materially improves; retain the same worktree/evidence
+ownership and cleanup conditions. Remaining color and hardware QA gates unchanged.
+
+---
+
 # Contact tint recovery checkpoint - 2026-10-29 03:06 UTC
 
 **Incomplete: production tint unchanged; no candidate visual acceptance.**
