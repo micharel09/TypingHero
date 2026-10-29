@@ -37,7 +37,7 @@ MonoBehaviour:
   - channel: 0
     count: 1
     lifetime: 0.48
-    tint: {r: 1, g: 1, b: 1, a: 1}
+    tint: {r: 1, g: 0.78, b: 0.28, a: 0.8}
     sizePixels: 40
     maxWorldSize: 2.5
     columns: 7

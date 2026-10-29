@@ -1,3 +1,184 @@
+# Contact tint A - verified task candidate, awaiting user visual approval
+
+## Final WebGL and review checkpoint - 2026-10-29
+
+Selected first passing candidate A: channel0 tint `(1,.78,.28,.80)`; B/C not
+tried. Only that production field changed relative to frozen color baseline
+`4b5d4df3`. The gradient/alpha keys, size40, lifetime.48, seven cels/frame curve,
+ray128x6/core1.25/gain2/halo.35, light7/range3.5/background minimum.90 remain.
+No shader, material, PNG, binding, GUID, gameplay, API or schema change.
+
+One final Ubuntu WebGL build `20261029T044701-webgl` completed successfully,
+snapshot `2263fb8951382d8cee0642ce941f785e7b196813b190d15d92b794b0cb042dd8`.
+Its log records repeat-builder serialized objects/references/listeners unchanged.
+All2548 archived source entries rehashed to the snapshot; both accepted hardware
+keyboard runs match all33 immutable player files. Payload manifest SHA256
+`36946fab9168ee6708395c964d6c3ef06ffdddf29938a5d11ce285d310d29a81`.
+Archive SHA and complete source hashes are in `source-artifact-audit.json`.
+Local preset/test bytes match archived inputs using the adapter's actual YAML-only
+LF normalization; C# bytes remain unchanged. Preset normalized hash
+`fdb203380eb7841f3a71a4fd857617c683cdbaf2dc629cccfa9257b8ed279934`;
+test hash `7d07a23861002f4f6b4cc05817c2270821b9c3743476836a272e02bf8cf62130`.
+
+Chrome152 / ANGLE Intel HD4600, native640x360: right-tintA-2263fb89 and
+left-exclusive-tintA-2263fb89 each12checks PASS (24accepted checks total), zero
+exceptions/provider writes, maximum one presentation quad. Actual signed angles
+right `[20,45,-15,65]`, left `[-20,-45,15,-65]`: all8combinations, no supplemental
+seed needed. Ordinary parry, fourth parry into Slayer, live Pause/Resume/fade,
+pool reuse and clean Restart/Menu covered. Initial left-tintA video retained but
+REJECTED for chronology: F810 gameplay then811-812 older Pause; F899-900score120
+then901-902score90/guard. Its12technical passes are separate from accepted motion.
+The retry reused the same player under the existing exclusive runner lock; no
+second build, shared cache deletion or other-job interruption.
+
+Selections were recorded before exporting/viewing:
+
+| Accepted source | SHA256 | Selected time / frames | Direct review |
+|---|---|---|---|
+|Right|8fa826f0555bbd1d733ac23a83d49a7933b64377132a4bb31aa0023d66be26a7|20.000-46.800s; F500-1169|670frames/669pairs|
+|Left exclusive retry|26a56cca41cb5b1272b07ded940e1006d908cd049bdad494483734f2f2282d69|17.000-41.840s; F425-1045|621frames/620pairs|
+
+Entire source videos exported on Ubuntu with original PTS/held frames: right1170,
+retry1046. Directly viewed every selected frame and consecutive transition via
+ordered full-frame sheets: **1291frames/1289pairs**, plus13boundary frames outside
+the selections. Per-frame observations/transitions are in right-review-2263fb89.csv
+and left-exclusive-review-2263fb89.csv. Rejected initial-left review is only
+F500-943,444frames/443pairs; later frames remain unreviewed and excluded.
+All8accepted contact stills viewed at native640x360 and nearest1280x720.
+No chronology regression observed in the accepted retry. Right third contact
+Pause/Resume and retry F684-750held/F751resume fade advance correctly. Fourth
+contact enters the existing opaque red Slayer presentation, which occludes late
+core; do not infer hidden color. White Attack1_5 sword smear is present in the
+unchanged Attack1.png sprite, independently of channel0, and is retained.
+
+Normal clips preserve670/621source frames, durations26.80/24.84s; slow clips
+contain2680/2484frames, durations107.20/99.36s, exactly four copies per frame.
+Every decoded YUV420 frame hash matches the corresponding source frame; no
+interpolation, dropped held frames or re-timing. An initial slow export padded
+three surplus tail frames; rejected and replaced after exact-count/hash checks.
+Orca original-speed playback reached the end of both normal clips at rate1,
+26.879/24.943s wall time, zero dropped frames reported. Browser callback counts
+are not direct-inspection counts. Playback receipts establish technical playback;
+continuous perceptual/artistic approval remains with the user. No FPS claim.
+Both slow previews also reached the end:107.480/99.522s wall time,
+2680/2484decoded frames and zero reported drops; `playback-all.json` retains all
+four playback receipts. Reloaded viewer reports640x360for every video and the
+correct durations; Vietnamese approval label verified in the browser screenshot.
+
+Viewer adapted from the preserved0ee2a52f HTML/CSS:
+`D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/approval-2263fb89/review-2263fb89.html`.
+Includes normal/slow clips, native/2x contacts, all80baseline/final originals with
+five times/four variants/post and correctly labelled world320x180, preset and
+technical/review receipts. Label: **Chờ người dùng duyệt hình**. Old viewer and
+baseline profile remain untouched. Local links and clip hashes checked.
+
+Evidence owner: this parry task. Existing evidence root and worktree retained for
+user visual approval; transfer by SSH/SCP to/from fly-server. Remote build/captures
+remain in `/data/typinghero-game-loop/results/` under the result IDs above/below.
+Task-only Pillow13.0.0 was installed under final-result `review-tools/deps` to run
+the unchanged HD-2D video contact-sheet helper; installer/source receipt retained,
+no system/game dependency change. Cleanup only after visual approval/task closure,
+only these task-owned artifacts and clean worktree once results are preserved.
+No main merge, itch.io publication or user visual approval is implied.
+
+## Production A and technical checks - 2026-10-29
+
+Production capture `20261029T042724-quick`, source
+`6cc969106a8c6a0e4b8e95ed8987478dfbe8e4ab3c5543e55c0ecb387421ac49`:
+**1/1 PASS, 0 skip,14.0788542s**; correct production marker/hash,
+20records/40originalPNG at five times/four variants/two outputs. All10full-final
+post/world PNGs match the qualified candidate-A bytes exactly.
+`production-A/production-A-receipt.json` records these checks. All40final images
+directly viewed at native size via separate post/world sheets; all20post contact
+crops additionally viewed nearest2x (same x150,y110,180x140 rectangle). Final
+80baseline/production images complete;10candidate plus2repeat kept separately.
+
+Focused technical `20261029T043751-quick`, input
+`eeccbfae70ae312fc41f1a2829c316ea476f855b031f1e5877cdf6a7ac70e896`:
+**6/6 PASS,0skip,4.9382462s**: changed ParryImpactPauseResumeReturnsLease,
+three GenericPrefabUsesArbitraryBindingsFlashCountsAndSnapshots cases,
+MissingParryPrefabBuilderCreatesSixBindingsAndPreservesCustomOnRepeat, and
+MetalClashMatchesFrozenPreRefactorTraceAtEveryStep. Actual profile tint reaches
+startColor; living burst retains tint during profile edits/pause/resume; pool
+return/clear/disable/new emission select current tint. Repeated builder preserves
+authored tint and profile bytes. No builder/runtime code change. `reused-input-hashes.json`
+compares the previous13input hashes:11identical, only preset/test differ. Prior
+unchanged shader/HDR/allocation/viewport evidence reused, NOT new color acceptance.
+
+Directly re-opened saved ReBlade frames301(5.016667s),319(5.316667s),350(5.833333s),
+390(6.500s) from approval-0ee2a52f. Bright center/gold surroundings observed;
+this is four saved stills, NOT a fresh whole-video/segment review. Original viewer
+unchanged. New output review is recorded in the final checkpoint above.
+
+Final WebGL completion, hardware keyboard coverage and selected frame/playback
+review are recorded above. Game memory core-tint description updated to verified A;
+user visual approval remains pending; no main integration or itch release.
+
+2026-10-29: continued at `50240988`, same clean task worktree before edits.
+Baseline is still immutable `4b5d4df3`; no main merge or release.
+
+## Capture recovery and qualified baseline
+
+Two new FAILED fixture attempts are excluded: `20261029T034740-quick` /
+`2a21bc13e86b4195bcddb84255c80fe5c5d69cd70c4a56f606f2f302f0a88304`
+asserted ParticleSystem.time on manual MainRays; `20261029T035244-quick` /
+`52ff471eff0b4f112723c3f2fba861cd75fbcb6db8e0edbe077a71581d73c722`
+asserted system time 60ms but Contact system duration capped it at 50ms. Neither
+indicates a production timing failure. Fixture now asserts actual core/ray particle
+age (`startLifetime - remainingLifetime`); manually integrated debris stays on its
+existing simulation path. No runtime fix was needed.
+
+Qualified `20261029T035847-quick`, source
+`c77abf0b78ac4ace29313f2bb33b39ab55318cfb3193b9fbc8938379c7b88e75`:
+**1/1 PASS, 0 skip, 15.3484053s**, Unity2022.3.25f1/OpenGLCore llvmpipe.
+Exact test `ParryContactTintCaptureQA_ee2475c64ecf.CaptureMatchedPostprocessedPairs`.
+XML, marker, 26 record rows and all52PNG names/dimensions qualified together;
+archive digest recomputed from exact ordered member bytes equals snapshot.
+`identity-receipt.json` retains archive/fixture hashes. All52nearest2x images and
+review sheets generated on Ubuntu using installed FFmpeg, threads1; host Python
+lacks PIL, so the failed PIL invocation produced no transformed images.
+
+40baseline images = four variants x five times x post640x360/world320x180;
+10candidate-A images plus two separate repeated15ms images. Repeated post/world
+PNG bytes equal baseline; actual core/ray counts, startColor, particle ages,
+light off state and background gain asserted. Contact(1.05,-0.67,0), direction+1,
+seed0, angle20, fixed camera/pose/exposure. No world ray duplication (full/ray-off
+world PNGs equal at every time). Exact evidence resides under the same existing
+contact-tint-20261029 directory; remote qualified result folder retained.
+
+## Direct static review and selection
+
+Directly viewed all40baseline and10candidate-A original images via native-size
+comparison sheets; all20baseline post contact crops viewed nearest2x at source
+rectangle x150,y110,width180,height140; allfive A post images viewed full nearest2x.
+World320x180 images viewed separately. These are static images, not motion review.
+
+| Time | Baseline layer attribution | A versus baseline |
+|---|---|---|
+|15ms|Core contribution small in first cel; ray-off removes gold diagonal, light-off reduces weapon highlight|Bright contact retained, distant ray unchanged|
+|30ms|Same first cel; stock weapon highlight remains with core off|Gold contact edge, bright center retained|
+|60ms|Core still first cel; detached orange debris separated from ray|Core change subtle, ray taper/length and receiver light retained|
+|100ms|Core-off removes the broad white star; ray-off/light-off retain it|White star surroundings become warm gold; smaller bright center, weapon contact more legible|
+|140ms|Core-off still removes star; faint ray separate, light weaker|Gold surrounds persist without dark orange collapse; small bright center remains|
+
+Layer attribution gate PASSED: channel0 causes the broad100/140ms white region;
+ray remains gold when core is disabled. A `(1,.78,.28,.80)` is the first static
+candidate passing the requested criteria. B/C were NOT attempted. No new source
+reference frames or motion frames reviewed yet; final runtime visual acceptance
+remains pending.
+
+Production edit: only channel0 tint in ParryImpact.asset changed to A; all other
+asset fields unchanged. Existing pause/pool test adapted to verify live tint
+snapshot, pause color/age hold, resume age, new tint after clear/reuse/disable.
+Existing repeated missing-prefab builder test additionally compares authored tint
+and serialized profile bytes after repeats. No runtime/builder implementation edit.
+Production four-variant capture and six focused technical cases are queued under
+the shared runner lock; no parallel Unity. No color commit/push before remaining
+gates. Final hardware WebGL, keyboard coverage, complete selected-frame/playback
+review, game memory and hash-labelled viewer remain pending.
+
+---
+
 # Resume check - 2026-10-29 03:13 UTC
 
 Continued at clean `34e1172f`, fetched origin; same task branch/remote. Old owned

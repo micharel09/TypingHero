@@ -376,16 +376,24 @@ public sealed partial class ImpactVfxTests
     [UnityTest, Category("Quick")]
     public IEnumerator ParryImpactPauseResumeReturnsLease()
     {
-        var emitter = Emitter(); var burst = emitter.Play(Parry, Context());
+        var profile = Object.Instantiate(Parry); owned.Add(profile);
+        var coreIndex = System.Array.FindIndex(profile.flashes, layer => layer.channel == 0);
+        var tint = profile.flashes[coreIndex].tint;
+        var emitter = Emitter(); var burst = emitter.Play(profile, Context());
+        Assert.That(Particles(burst, 0)[0].startColor, Is.EqualTo((Color32)tint));
         GamePauseController.SetTutorialReading(true);
         yield return null;
         var before = Particles(burst, 0)[0];
         var horizontalBefore = Particles(burst, 5)[0];
+        var pausedColor = before.GetCurrentColor(burst.Systems[0]);
+        profile.flashes[coreIndex].tint = Color.magenta;
         yield return new WaitForSecondsRealtime(.25f);
         Assert.That(Particles(burst, 5)[0].remainingLifetime, Is.EqualTo(horizontalBefore.remainingLifetime));
         Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
         Assert.That(Particles(burst, 0)[0].rotation, Is.EqualTo(before.rotation));
         Assert.That(Particles(burst, 0)[0].startSize, Is.EqualTo(before.startSize));
+        Assert.That(Particles(burst, 0)[0].startColor, Is.EqualTo(before.startColor));
+        Assert.That(Particles(burst, 0)[0].GetCurrentColor(burst.Systems[0]), Is.EqualTo(pausedColor));
         GamePauseController.SetTutorialReading(false);
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(.2f);
@@ -393,18 +401,31 @@ public sealed partial class ImpactVfxTests
         Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.EqualTo(before.remainingLifetime));
         Assert.That(Particles(burst, 0)[0].rotation, Is.EqualTo(before.rotation));
         Assert.That(Particles(burst, 0)[0].startSize, Is.EqualTo(before.startSize));
+        Assert.That(Particles(burst, 0)[0].startColor, Is.EqualTo(before.startColor));
         Time.timeScale = 1;
+        yield return new WaitForSecondsRealtime(.05f);
+        Assert.That(Particles(burst, 0)[0].remainingLifetime, Is.LessThan(before.remainingLifetime));
+        Assert.That(Particles(burst, 0)[0].startColor, Is.EqualTo(before.startColor));
         yield return new WaitForSecondsRealtime(.50f);
         Assert.That(Particles(burst, 0), Is.Empty);
         Assert.That(Particles(burst, 3), Is.Empty);
         Assert.That(Particles(burst, 5), Is.Empty);
         yield return new WaitForSecondsRealtime(1.1f);
         Assert.That(emitter.active, Is.Empty);
-        Assert.That(emitter.Play(Parry, Context(-1)), Is.SameAs(burst));
+        Assert.That(emitter.Play(profile, Context(-1)), Is.SameAs(burst));
         Assert.That(burst.Systems[0].GetComponent<ParticleSystemRenderer>().flip.x, Is.EqualTo(1));
+        Assert.That(Particles(burst, 0)[0].startColor, Is.EqualTo((Color32)Color.magenta));
         emitter.Clear();
-        Assert.That(emitter.Play(Parry, Context(1)), Is.SameAs(burst));
+        Assert.That(burst.ParticleCount, Is.Zero);
+        profile.flashes[coreIndex].tint = Color.cyan;
+        Assert.That(emitter.Play(profile, Context(1)), Is.SameAs(burst));
         Assert.That(burst.Systems[0].GetComponent<ParticleSystemRenderer>().flip.x, Is.Zero);
+        Assert.That(Particles(burst, 0)[0].startColor, Is.EqualTo((Color32)Color.cyan));
+        emitter.enabled = false;
+        Assert.That(emitter.active, Is.Empty);
+        emitter.enabled = true; profile.flashes[coreIndex].tint = Color.green;
+        var afterDisable = emitter.Play(profile, Context());
+        Assert.That(Particles(afterDisable, 0)[0].startColor, Is.EqualTo((Color32)Color.green));
     }
 
     [Test, Category("Quick")]
@@ -418,6 +439,7 @@ public sealed partial class ImpactVfxTests
             if (assembly.GetType("ParryImpactAssets") != null) builder = assembly.GetType("ParryImpactAssets");
         var prepare = builder.GetMethod("Prepare", BindingFlags.Static | BindingFlags.NonPublic);
         var profile = Parry; var originalPrefab = profile.prefab;
+        var authoredTint = System.Array.Find(profile.flashes, layer => layer.channel == 0).tint;
         Assert.That(UnityEditor.AssetDatabase.MoveAsset(path, backup), Is.Empty);
         try
         {
@@ -439,11 +461,14 @@ public sealed partial class ImpactVfxTests
             }
             Assert.That(generated.transform.Find("ShockArc"), Is.Null);
             var before = System.IO.File.ReadAllBytes(path);
+            var profileBefore = System.IO.File.ReadAllBytes(UnityEditor.AssetDatabase.GetAssetPath(profile));
             for (int repeat = 0; repeat < 2; repeat++)
             {
                 prepare.Invoke(null, null);
                 Assert.That(profile.prefab, Is.SameAs(generated));
                 CollectionAssert.AreEqual(before, System.IO.File.ReadAllBytes(path));
+                Assert.That(System.Array.Find(profile.flashes, layer => layer.channel == 0).tint, Is.EqualTo(authoredTint));
+                CollectionAssert.AreEqual(profileBefore, System.IO.File.ReadAllBytes(UnityEditor.AssetDatabase.GetAssetPath(profile)));
             }
             profile.prefab = originalPrefab;
             prepare.Invoke(null, null); prepare.Invoke(null, null);

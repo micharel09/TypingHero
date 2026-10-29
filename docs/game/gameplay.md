@@ -498,7 +498,8 @@ Change only behavior explicitly requested. Update this file after relevant verif
   capped2.5world units, fixed48x48 canvas/pivot24,24,
   six visible cells at80ms each and a seventh transparent cell; expiry480ms.
   Frame curve0->6/7 over480ms preserves the full six-cell timing. Core layers are
-  only Hit Effect+Color, with white tint/material gain1 and constant alpha; original
+  only Hit Effect+Color, with core tint(1,.78,.28,.80), material gain1 and constant
+  gradient alpha; original
   white/yellow/orange RGBA retained. Detached ray/fragment/speck PNGs are exact
   original Pimen layer crops, Point/Clamp/no mipmaps; recipe and hashes are in
   `PimenSource.json` and `tools/game_loop/export_parry_pimen.py`.

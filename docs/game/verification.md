@@ -1,4 +1,24 @@
-## HD-2D parry task candidate (2026-10-28; awaiting visual approval)
+## HD-2D parry tint A (2026-10-29; awaiting visual approval)
+
+Color baseline4b5d4df3; only channel0 tint becomes(1,.78,.28,.80). First candidate
+A passed the layer-off gate; B/C not tried. Baseline/final80original images at
+15/30/60/100/140ms directly viewed; full final matches candidate A byte-for-byte.
+Focused Unity2022.3.25f1 checks6/6PASS, including tint snapshot, Pause/Resume,
+clear/disable/pool reuse, repeat builder and frozen MetalClash. Prior shader/HDR/
+allocation/viewport results below reused only for unchanged inputs (11/13hashes).
+
+Final snapshot2263fb89: one Ubuntu WebGL build; hardware Chrome/ANGLE IntelHD4600,
+native640x360,24accepted keyboard checks, all8signed angle/facing combinations,
+zero exceptions/provider writes and maximum one ray presentation quad. Accepted
+right670/669 + exclusive-left621/620 selected frames/transitions directly viewed;
+normal playback reached end at original speed, zero dropped frames reported.
+Initial left video rejected for chronology; its partial review is excluded.
+All8contact stills viewed native/nearest2x. Slayer red cut-in occludes late flash;
+25fps motion evidence is distinct from sub-40ms controlled captures. User continuous
+perceptual/artistic approval remains pending. No FPS claim/main merge/itch release.
+[Checkpoint, source identities and viewer](../plans/parry-horizontal-flash.md).
+
+## Previous HD-2D parry candidate (2026-10-28; historical evidence)
 
 Final runtime input0ee2a52f:102/102focused logic +26/26graphics PASS on Ubuntu
 Unity2022.3.25f1; same13runtime/asset hashes in follow-up2c4771e8,5/5PASS.
