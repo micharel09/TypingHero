@@ -70,7 +70,9 @@ public sealed class ParryCuePresenter : MonoBehaviour
         // Pause/reading and hitstop retain the last readable state, including gate colors.
         if (GamePauseController.InputBlocked || Time.timeScale == 0) return;
         float remaining = 0;
-        bool visible = enemy && !(slayer && slayer.IsActive) && enemy.TryGetAttackTelegraph(out remaining);
+        bool open = parry.IsWindowActive;
+        bool visible = enemy.TryGetAttackTelegraph(out remaining) &&
+            (remaining <= fillLeadSeconds || open);
         lastVisible = visible;
         key.gameObject.SetActive(useKey && visible);
         if (!visible) return;
@@ -82,7 +84,6 @@ public sealed class ParryCuePresenter : MonoBehaviour
                 if (landmark.controller == controller) { headLocal = landmark.local; break; }
         }
         PositionKey();
-        bool open = parry.IsWindowActive;
         bool blocked = !open && !parry.CanBeginParry;
         bool fill = !blocked && (open || remaining <= fillLeadSeconds);
         bool down = !blocked && !open && remaining <= fillLeadSeconds &&

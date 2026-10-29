@@ -56,21 +56,31 @@ public sealed class ParryCuePresentationTests
         {
             player.SetActive(true); actor.SetActive(true);
             Set(brain, "_attacking", true); Set(brain, "attackPending", true);
-            At(.8f); Assert.That(face.sprite, Is.SameAs(frames[0]));
-            At(.3f); Assert.That(face.sprite, Is.SameAs(frames[0]), "advance warning stays still");
+            At(.8f); Assert.That(key.gameObject.activeSelf, Is.False);
+            At(.3f); Assert.That(key.gameObject.activeSelf, Is.False, "no advance warning");
+            At(.2f); Assert.That(key.gameObject.activeSelf, Is.True, "cue starts at the press beat");
+            Assert.That(face.sprite, Is.SameAs(frames[2]));
             At(.18f); Assert.That(face.sprite, Is.SameAs(frames[2]));
             At(.13f); Assert.That(face.sprite, Is.SameAs(frames[3]));
             Time.timeScale = 0; At(.08f); Assert.That(face.sprite, Is.SameAs(frames[3]), "hitstop freezes the drawn frame");
             Time.timeScale = 1; Draw(presenter); Assert.That(face.sprite, Is.SameAs(frames[2]));
             At(.03f); Assert.That(face.sprite, Is.SameAs(frames[3]), "second tap cycle");
-            parry.Anim_ParryOpen(); Draw(presenter);
+            parry.Anim_ParryOpen(); At(.3f);
+            Assert.That(key.gameObject.activeSelf, Is.True, "open window remains visible outside the lead");
+            At(.03f);
             Assert.That(face.sprite, Is.SameAs(frames[3])); Assert.That(locked.gameObject.activeSelf, Is.False);
             parry.Anim_ParryClose(); Set(parry, "poseRequestedFrame", Time.frameCount); Draw(presenter);
             Assert.That(locked.gameObject.activeSelf, Is.True);
             Set(parry, "poseRequestedFrame", -1); brain.HideCue(); Draw(presenter);
             Assert.That(key.gameObject.activeSelf, Is.False, "contact or cancellation clears the key");
             Set(brain, "attackPending", true); At(.9f);
-            Assert.That(face.sprite, Is.SameAs(frames[0]), "next strike resets to the still warning");
+            Assert.That(key.gameObject.activeSelf, Is.False, "next strike stays hidden until its beat");
+            Time.timeScale = 0; At(.13f);
+            Assert.That(key.gameObject.activeSelf, Is.False, "hitstop cannot reveal a hidden cue");
+            Time.timeScale = 1; Draw(presenter);
+            Assert.That(key.gameObject.activeSelf, Is.True);
+            brain.HideCue(); Draw(presenter);
+            Assert.That(key.gameObject.activeSelf, Is.False, "cancellation clears a visible cue");
         }
         finally
         {

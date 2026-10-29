@@ -1044,8 +1044,9 @@ per-frame receipts are in docs/plans/combat-feedback.md; no FPS/soak claim.
 `CanBeginParry`/`IsWindowActive`; it never changes combat or typing input. Original
 SimpleKeys Classic frames form a28x11logical key above the authored idle-skull
 landmark (Classic/sword/axe/shield), with an8px gap and pixel-snapped camera projection. The tray is fixed at (61,126),
-198x30, near the fighters. The dark raised cap and white SPACE letters warn for each strike. In the final
-200ms, the light released/pressed pair repeats100ms cycles. Teal holds the pressed
+198x30, near the fighters. The SPACE key stays hidden until the final200ms before
+contact, or while the parry window is open and the attack telegraph is valid.
+The light released/pressed pair retains its100ms cycles. Teal holds the pressed
 face during an active parry window; gray/X uses the blank cap while locked.
 The native baked SPACE glyphs remain unsmoothed; Unity9-slice and Point sampling compact the original
 frames to the requested size. [Asset source/custom permission](../../Assets/Art/UI/ParryCue/SimpleKeys/SOURCE.txt). No valid attack means hidden.
