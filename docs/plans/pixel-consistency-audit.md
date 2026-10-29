@@ -1,3 +1,9 @@
+> Current correction 2026-10-29: request 404ad72105f7 is RUNNER_TIMEOUT - test was not executed.
+> Terminal outcome: `FAIL: Timed out waiting for shared runner lock`.
+> Earlier queued statements below are historical, superseded by this correction.
+> c22 remains separate: 1/1 PASS, three manual screen-FX exits only; no natural-restoration evidence.
+> Probe/test repair in progress; all acceptance gates remain open pending new matching receipts. No merge authorized before acceptance.
+
 # Rà soát độ đồng bộ pixel trên main — 2026-10-27
 
 > **Checkpoint hiện hành — cinematic arena, 2026-10-28:** candidate 3D key4/rear32
@@ -6734,3 +6740,55 @@ trực tiếp, không suy ra từ count/hash hoặc contact sheet.
 | focused-resize-compositor | F63 / N63 / 4.321644s | 0.013291s | READY / resize | 1280x720: left scarf tip rises with front-facing pose. Complete READY glyphs and padding, grounded feet. | Raised scarf pose held; no UI displacement. | đã quan sát; không thay nghiệm thu toàn resize; Native full canvas and nearest 4x directly inspected. Crop can omit panel bottom; native is authoritative there. Compositor notifications are not a complete engine-frame sequence; no interpolation or frame deletion. | [native](D:/Projects/TypingHero-evidence/a1-shield-ownership/capture-resize-2/compositor-0063.png) · [nearest 4×](D:/Projects/TypingHero-evidence/a1-shield-ownership/runtime-review-current/resize-compositor/compositor-0063-4x.png) |
 | focused-resize-compositor | F64 / N64 / 4.334935s | 0.026741s | READY / resize | 1280x720: same raised scarf and stance held; no UI motion, no combat countdown. | Final raised scarf pose held; original-size READY layout intact. | đã quan sát; không thay nghiệm thu toàn resize; Native full canvas and nearest 4x directly inspected. Crop can omit panel bottom; native is authoritative there. Compositor notifications are not a complete engine-frame sequence; no interpolation or frame deletion. | [native](D:/Projects/TypingHero-evidence/a1-shield-ownership/capture-resize-2/compositor-0064.png) · [nearest 4×](D:/Projects/TypingHero-evidence/a1-shield-ownership/runtime-review-current/resize-compositor/compositor-0064-4x.png) |
 | focused-resize-compositor | F65 / N65 / 4.361676s | unknown | READY / resize | 1280x720 final notification: raised scarf pose held; original layout restored, complete READY and instruction readable. No loop seam applies to this resize diagnostic; final duration unknown. | Not applicable: non-loop diagnostic endpoint; final duration unknown. | đã quan sát; không thay nghiệm thu toàn resize; Native full canvas and nearest 4x directly inspected. Crop can omit panel bottom; native is authoritative there. Compositor notifications are not a complete engine-frame sequence; no interpolation or frame deletion. | [native](D:/Projects/TypingHero-evidence/a1-shield-ownership/capture-resize-2/compositor-0065.png) · [nearest 4×](D:/Projects/TypingHero-evidence/a1-shield-ownership/runtime-review-current/resize-compositor/compositor-0065-4x.png) |
+
+## Verification repair checkpoint - 2026-10-29 (acceptance open)
+
+Continued existing worktree at dc144145; origin/main fetched at1344ddc6.
+Reused GameLoopProbe actor cache/CombatRenderFrame, three-cycle DungeonSessionTests,
+existing pulse/arena input harnesses, Win32 monitor and Ubuntu snapshot adapter.
+No production runtime, lighting, sprite, scene, shader or gameplay timing edits.
+
+Implemented but NOT executed in Unity/player:
+- QA probe filters active rigs by actor scene handle and combatLight reference;
+  ambiguous count selects no owner. Fast/slow observations share selection with
+  bounded100ms discovery and per-publication component validation. Fast telemetry
+  separately reports actual combat/parry lights and owner identity/count/profile.
+- Two manual-exit cycles labelled; third Activate(2f) waits for natural entry,
+  expiry and exit, pauses during entry/exit, asserts restoration BEFORE cleanup.
+  Checks presentation/global/background/gain/lens/Volume and five fixture owner,
+  profile/color/shadow mode/range/intensity envelopes. No manual FX call in natural branch.
+- Pulse harness uses fast frames, normal+timed Space parry, max3 attempts each,
+  three new hold publications over450ms, real Escape, Restart/Menu/reentry.
+- GTX adapter removes SetForegroundWindow; requires2s Win32 HWND/PID foreground,
+  visible focused tab and advancing Unity frames within60s. Verdict covers warm-up.
+  Thresholds unchanged. Capture copy320x180/no30Hz cap prepared, not piloted.
+- Existing packager control-build prepared with3 baseline asset substitutions and
+  production hash/set rejection. Preflight FAILED: repair-control-preflight.json
+  lists additional mismatches; do not build/accept A until reconciled. No claim
+  that these are production behavior differences or merely newline differences.
+
+Runner history corrected without rewriting PASS/FAILED receipts:
+-404ad72105f7 RUNNER_TIMEOUT, test not executed; c22 stays separate1/1PASS for
+ three manual presentation exits. B-pulse-pause-01 FAILED remains unchanged.
+-New input0fba2c8015896948f7aa4b85fb0618cb5b8b772ece8fd1e61fdaf8f005b6cd51:
+ exact DungeonSessionTests.WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause,
+ wait60s -> FAIL: Timed out waiting for shared runner lock; zero Unity execution.
+ Zero active task requests. No signals, lock deletion or shared-cache cleanup.
+
+Actual checks: git diff --check; node --check on3 modified harnesses; Python AST
+and adapter --help including composed runner compilation. Frozen2547-input
+comparison against old candidate finds ONLY GameLoopProbe and DungeonSessionTests
+changed (repair-source-reconciliation.json). Production inputs unchanged; existing
+production exclusion/smoke reusable. New QA/browser acceptance remains unverified.
+Adapter versions recorded in repair-harness-hashes.json. No new visual observations.
+
+Remaining: exact-filter matching XML/log/snapshot, reconcile control A extra deltas,
+immutable QA A/B builds with common observer, actual owner/pulse/Pause lifecycle,
+short recorder pilot and PTS/render-gap analysis, missing complete motion captures,
+occluded-cel previews,100% frame/pair ledger, fixed-hash playback explicitly approved
+by user at1x/0.25x, valid GTX A/B modes and ABBA if needed. No clip ready for approval.
+
+Resume only after runner availability preflight; do not blindly resubmit identical
+requests. Unity/build/video remain on Ubuntu. Tell user before GTX launch to focus
+named QA window; no focus stealing. Keep task worktree/branch and durable root until
+acceptance and verified integration. No main merge before gates pass.

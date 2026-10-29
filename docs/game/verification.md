@@ -1,3 +1,13 @@
+> Repair request0fba2c801589: RUNNER_TIMEOUT after60s, zero Unity execution.
+> Static harness/adapter syntax checks passed; QA player/browser/GTX gates unverified.
+> Control A offline preflight failed extra-delta reconciliation; see current checkpoint.
+
+> Current correction 2026-10-29: request 404ad72105f7 is RUNNER_TIMEOUT - test was not executed.
+> Terminal outcome: `FAIL: Timed out waiting for shared runner lock`.
+> Earlier queued statements below are historical, superseded by this correction.
+> c22 remains separate: 1/1 PASS, three manual screen-FX exits only; no natural-restoration evidence.
+> Probe/test repair in progress; all acceptance gates remain open pending new matching receipts. No merge authorized before acceptance.
+
 ## Cinematic dungeon arena continuation (2026-10-28; acceptance open)
 
 - Reused `Assets/Scenes/DungeonWorld.unity`, the existing closed recessed door,

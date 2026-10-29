@@ -49,6 +49,10 @@ public sealed class GameLoopProbe : MonoBehaviour
 
     [Serializable] sealed class CombatRenderFrame
     {
+        public int pulseRigCount, pulseRigId;
+        public string pulseRigScene, pulseRigProfile;
+        public bool combatPulseEnabled, parryPulseEnabled;
+        public float combatPulseIntensity, parryPulseIntensity;
         public int frame, attackId, hitFrame, enemyHP, playerHP, parries;
         public bool canParry, parryWindow, enemyAttacking, slayer;
         public float enemyContactIn, timeScale, cueImpactIn;
@@ -159,6 +163,35 @@ public sealed class GameLoopProbe : MonoBehaviour
         return marker < 0 ? -1 : (marker - info.normalizedTime % 1 * clip.length) /
             Mathf.Max(.001f, animator.speed * info.speed * info.speedMultiplier);
     }
+    ClashLightingRig[] pulseCandidates = Array.Empty<ClashLightingRig>();
+    ClashLightingRig pulseOwner;
+    int pulseSceneHandle, pulseRigCount;
+    float pulseRefreshAt;
+    void ObservePulseOwner()
+    {
+        if (!combatPlayer || !combatPlayer.isActiveAndEnabled) combatPlayer = FindObjectOfType<PlayerHealth>();
+        int scene = combatPlayer && combatPlayer.isActiveAndEnabled ? combatPlayer.gameObject.scene.handle : 0;
+        if (scene == 0)
+        {
+            pulseOwner = null; pulseRigCount = 0; pulseSceneHandle = 0;
+            pulseCandidates = Array.Empty<ClashLightingRig>();
+            return;
+        }
+        if (scene != pulseSceneHandle || Time.unscaledTime >= pulseRefreshAt ||
+            (pulseOwner && !pulseOwner.isActiveAndEnabled))
+        {
+            pulseCandidates = FindObjectsOfType<ClashLightingRig>(true);
+            pulseSceneHandle = scene;
+            pulseRefreshAt = Time.unscaledTime + .1f;
+        }
+        pulseOwner = null; pulseRigCount = 0;
+        foreach (var rig in pulseCandidates)
+        {
+            if (!rig || !rig.isActiveAndEnabled || rig.gameObject.scene.handle != scene || !Read<Light>(rig, "combatLight")) continue;
+            pulseRigCount++; pulseOwner = rig;
+        }
+        if (pulseRigCount != 1) pulseOwner = null;
+    }
     readonly CombatRenderFrame combatFrame = new CombatRenderFrame();
     [Serializable] sealed class ParryPayload { public ParryParticleFrame[] parryParticles; }
     readonly ParryPayload parryPayload = new ParryPayload();
@@ -189,6 +222,17 @@ public sealed class GameLoopProbe : MonoBehaviour
 #endif
     void PublishCombatFrame()
     {
+        ObservePulseOwner();
+        var combatLight = Read<Light>(pulseOwner, "combatLight");
+        var parryLight = Read<Light>(pulseOwner, "parryLight");
+        combatFrame.pulseRigCount = pulseRigCount;
+        combatFrame.pulseRigId = pulseOwner ? pulseOwner.GetInstanceID() : 0;
+        combatFrame.pulseRigScene = pulseOwner ? pulseOwner.gameObject.scene.name : "";
+        combatFrame.pulseRigProfile = pulseOwner && pulseOwner.profile ? pulseOwner.profile.name : "";
+        combatFrame.combatPulseEnabled = combatLight && combatLight.enabled && combatLight.gameObject.activeInHierarchy;
+        combatFrame.combatPulseIntensity = combatLight ? combatLight.intensity : 0;
+        combatFrame.parryPulseEnabled = parryLight && parryLight.enabled && parryLight.gameObject.activeInHierarchy;
+        combatFrame.parryPulseIntensity = parryLight ? parryLight.intensity : 0;
         if (!combatHitbox) combatHitbox = FindObjectOfType<PlayerWeaponHitbox>();
         if (!combatEnemy) combatEnemy = FindObjectOfType<SkeletonController>();
         if (!combatPlayer) combatPlayer = FindObjectOfType<PlayerHealth>();
@@ -750,7 +794,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 ? DungeonSession.Current.World.environment : Read<Transform>(fx, "environment");
             var arena = Camera.main ? Camera.main.GetComponent<DungeonArenaCamera>() : null;
             var impact = FindObjectOfType<CombatCameraImpact>();
-            var pulseRig = FindObjectsOfType<ClashLightingRig>(true).FirstOrDefault(rig => Read<Light>(rig, "combatLight"));
+            ObservePulseOwner();
+            var pulseRig = pulseOwner;
             var arenaPulse = Read<Light>(pulseRig, "combatLight");
             var red = Read<SpriteRenderer>(fx, "redOverlay");
             var hudImage = Read<Image>(fx, "hudPanel");

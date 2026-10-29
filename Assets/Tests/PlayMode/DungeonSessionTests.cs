@@ -76,28 +76,65 @@ public sealed class DungeonSessionTests
             impact.Hit(Vector3.zero, Vector3.right, false, false); impact.Advance(.03f);
             Assert.That(impact.Zoom, Is.EqualTo(.02f).Within(.00001f));
             var slayer = Object.FindObjectOfType<PlayerSlayerMode>();
-            slayer.Activate(cycle == 2 ? .5f : 10);
-            Assert.That(slayer.IsActive, Is.True);
-            Assert.That(world.environment.gameObject.activeSelf, Is.True, "room is blended before actors instead of disabled");
-            Assert.That(world.Arena.SlayerBackground.a, Is.Zero, "entry begins from the displayed baseline");
             var virtualCamera = Object.FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
-            float heldLens = virtualCamera.m_Lens.OrthographicSize;
             var pause = Object.FindObjectOfType<GamePauseController>();
-            pause.TogglePause(true);
-            yield return new WaitForSecondsRealtime(.12f);
-            Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(heldLens).Within(.00001f), "Slayer tween holds during Pause");
-            pause.Resume();
-            yield return new WaitForSecondsRealtime(.7f);
-            Assert.That(GamePauseController.IsPaused, Is.False);
-            if (cycle == 2) Assert.That(slayer.IsActive, Is.False, "timed Slayer expiry uses the normal lifecycle before fixture receipt");
-            Object.FindObjectOfType<SlayerScreenFX>().ExitSlayerFX();
-            GamePauseController.SetEncounterReading(true);
-            yield return new WaitForSecondsRealtime(.7f);
-            Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(5.625f).Within(.00001f), "Slayer exit completes through encounter results");
+            var fx = Object.FindObjectOfType<SlayerScreenFX>();
+            var fixtures = room.GetComponentsInChildren<DungeonTorchLight>();
+            Assert.That(fixtures.Length, Is.EqualTo(5), "baseline fixtures");
+            var profiles = System.Array.ConvertAll(fixtures, f => f.profile);
+            var owners = System.Array.ConvertAll(fixtures, f => f.GetInstanceID());
+            var colors = System.Array.ConvertAll(fixtures, f => f.GetComponent<Light>().color);
+            var shadows = System.Array.ConvertAll(fixtures, f => f.GetComponent<Light>().shadows);
+            var ranges = System.Array.ConvertAll(fixtures, f => f.GetComponent<Light>().range);
+            var volume = room.GetComponent<UnityEngine.Rendering.Volume>();
+            float volumeBaseline = volume ? volume.weight : 0;
+            float normalLens = virtualCamera.m_Lens.OrthographicSize;
+            float entry = Read<float>(fx, "enterDuration"), exit = Read<float>(fx, "exitDuration");
+            Assert.That(SlayerScreenFX.PresentationWeight, Is.Zero);
+            Assert.That(world.Arena.SlayerBackground.a, Is.Zero);
+            Assert.That(Read<float>(world.Arena, "<EnvironmentPresentationGain>k__BackingField"), Is.EqualTo(1));
+            TestContext.WriteLine($"cycle={cycle}: {(cycle == 2 ? "NATURAL_EXPIRY" : "MANUAL_SCREEN_FX_EXIT")}, entry={entry:R}, exit={exit:R}, baselineLens={normalLens:R}, volume={volumeBaseline:R}");
+            slayer.Activate(cycle == 2 ? 2f : 10f);
+            Assert.That(slayer.IsActive, Is.True);
+            Assert.That(world.environment.gameObject.activeSelf, Is.True);
+            if (cycle == 2)
+            {
+                yield return Until(() => SlayerScreenFX.PresentationWeight > 0, entry + .25f, "entry started");
+                Assert.That(SlayerScreenFX.PresentationWeight, Is.LessThan(1), "pause inside entry");
+                yield return HoldPresentation(pause, virtualCamera);
+                yield return Until(() => SlayerScreenFX.PresentationWeight == 1, entry + .25f, "entry completed");
+                yield return Until(() => !slayer.IsActive, 2f + .25f, "natural timer expiry");
+                yield return Until(() => SlayerScreenFX.PresentationWeight < 1, exit + .25f, "exit started");
+                Assert.That(SlayerScreenFX.PresentationWeight, Is.GreaterThan(0), "pause inside exit");
+                yield return HoldPresentation(pause, virtualCamera);
+                yield return Until(() => SlayerScreenFX.PresentationWeight == 0, exit + .25f, "natural exit completed");
+                Assert.That(slayer.IsActive, Is.False);
+                Assert.That(Shader.GetGlobalFloat("_DungeonSlayerWeight"), Is.Zero);
+                Assert.That(world.Arena.SlayerBackground.a, Is.Zero);
+                Assert.That(Read<float>(world.Arena, "<EnvironmentPresentationGain>k__BackingField"), Is.EqualTo(1));
+                Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(world.Arena.profile.normalOrtho).Within(.00001f));
+                if (volume) Assert.That(volume.weight, Is.EqualTo(volumeBaseline));
+                TestContext.WriteLine($"NATURAL_RESTORATION before cleanup: active={slayer.IsActive}, presentation={SlayerScreenFX.PresentationWeight:R}, global={Shader.GetGlobalFloat("_DungeonSlayerWeight"):R}, alpha={world.Arena.SlayerBackground.a:R}, lens={virtualCamera.m_Lens.OrthographicSize:R}, volume={(volume ? volume.weight : 0):R}");
+            }
+            else
+            {
+                yield return HoldPresentation(pause, virtualCamera);
+                yield return new WaitForSecondsRealtime(entry + .25f);
+                fx.ExitSlayerFX();
+                GamePauseController.SetEncounterReading(true);
+                yield return Until(() => SlayerScreenFX.PresentationWeight == 0, exit + .25f, "manual presentation exit");
+                Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(normalLens).Within(.00001f));
+            }
             var restoredLights = room.GetComponentsInChildren<DungeonTorchLight>();
             Assert.That(restoredLights.Length, Is.EqualTo(5), "Slayer exit retains all five authored fixtures");
-            foreach (var fixture in restoredLights)
+            for (int i = 0; i < restoredLights.Length; i++)
             {
+                var fixture = restoredLights[i];
+                Assert.That(fixture.GetInstanceID(), Is.EqualTo(owners[i]), "fixture owner");
+                Assert.That(fixture.profile, Is.SameAs(profiles[i]), "fixture profile");
+                Assert.That(fixture.GetComponent<Light>().color, Is.EqualTo(colors[i]), fixture.name);
+                Assert.That(fixture.GetComponent<Light>().shadows, Is.EqualTo(shadows[i]), fixture.name);
+                Assert.That(fixture.GetComponent<Light>().range, Is.EqualTo(ranges[i]), fixture.name);
                 var light = fixture.GetComponent<Light>();
                 Assert.That(light.enabled, Is.True, fixture.name);
                 Assert.That(light.range, Is.EqualTo(fixture.profile.range), fixture.name);
@@ -130,6 +167,24 @@ public sealed class DungeonSessionTests
             Assert.That(session.World, Is.SameAs(world));
         }
 
+    }
+    static T Read<T>(object owner, string field) => (T)owner.GetType()
+        .GetField(field, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).GetValue(owner);
+    static IEnumerator Until(System.Func<bool> condition, float seconds, string phase)
+    {
+        float deadline = Time.realtimeSinceStartup + seconds;
+        while (!condition() && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(condition(), Is.True, phase);
+    }
+    static IEnumerator HoldPresentation(GamePauseController pause, Cinemachine.CinemachineVirtualCamera camera)
+    {
+        float lens = camera.m_Lens.OrthographicSize, weight = SlayerScreenFX.PresentationWeight;
+        pause.TogglePause(true);
+        yield return new WaitForSecondsRealtime(.12f);
+        Assert.That(camera.m_Lens.OrthographicSize, Is.EqualTo(lens).Within(.00001f), "paused lens");
+        Assert.That(SlayerScreenFX.PresentationWeight, Is.EqualTo(weight), "paused presentation");
+        pause.Resume();
+        Assert.That(GamePauseController.IsPaused, Is.False);
     }
     static IEnumerator Wait(DungeonSession session)
     {

@@ -1,3 +1,12 @@
+## Dungeon QA observer repair (2026-10-29; player unverified)
+
+QA-only GameLoopProbe shares actor-scene-constrained unique rig selection between
+slow and CombatRenderFrame observations, exposing owner count/identity/scene/profile
+and separate actual combat/parry enabled/intensity. Zero intensity/disabled Light
+remain observable; ambiguous owners select none. Production inputs unchanged.
+Exact-filter request timed out on shared lock; browser acceptance remains open.
+See [pixel audit checkpoint](../plans/pixel-consistency-audit.md).
+
 ## Contact-first Slayer presentation implementation (2026-10-25)
 
 Supersedes the old580ms/eight-random-angle Slayer presentation in the historical
