@@ -7325,3 +7325,24 @@ Monitor uses existing wait-staging-preview.py/status pointer; phase is now
 selected-stage-post-repeat-builder (NOT another image preview). Busy means no SSH
 submission; lock wait remains0. Previous post-preview pointers preserved in
 staging-preview-request-04. Inspect monitor status before any new launch.
+
+
+Verified/pushed staging milestonebb71d1abed1c5707b01e8e9f6752986e111d3b11
+to task branch; remote hash verified, checkout clean at milestone. Main unchanged.
+Strict builder070248 completed both invocationsPASS on tested snapshotf0cfb043b159.
+Both logs contain serialized objects/references/listeners unchanged plus Build
+succeeded; archived logs/snapshot/receipt in staging-post-builder-01. The existing
+strict guard includes DungeonWorld and lighting profiles. No runtime acceptance
+is inferred from this result.
+
+QA pilot request frozen, archivec32059e2a36375c432393771af53dc7575cbf4d66163898612a64dc26f2dfec1;
+all2549payloads equal tested snapshot (qa-pilot-input-receipt.json). Existing
+wait-staging-preview monitor adapted to wait-qa-pilot.py with separate pointers;
+unified session14674, qa-pilot-monitor-status.json records actual state. First
+preflightBUSY, no submission or waiting-lock request. It will submit exactly once
+with lockwait0 on availability; inspect before any duplicate. Build uses combat-r7
+preservation branch and returns before browser. No local build/extra terminal/agent.
+After build verify immutable player/source hashes, then native warmed recorder
+pilot with ARENA_PRESENTATION_CONTRACT=preserve-dungeon and real inputs. Current
+selected preset remains rear20/side1.5/front16, edge2%, blur0/hazeoff/bloom.12.
+All final runtime/recorder/motion/playback/GTX/production gates remain OPEN.
