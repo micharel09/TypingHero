@@ -187,3 +187,14 @@ Direct handoff uses Animator bool `ParryFollowUpQueued`: success exits to follow
 when true, idle when false. Follow-up state entry consumes the pending request
 before its animation events; cancellation clears the bool. Strict repeat builder,
 Unity42/42 and native22/22 verify the same950ms recovery without idle insertion.
+
+
+## Dungeon verification repair v2 (2026-10-29; runtime unverified)
+
+DungeonSessionTests now requires bound active Volume and ID-keyed five-fixture
+restoration including full shadow settings and pinned URP tier before cleanup.
+External task harnesses require fresh Menu/lifecycle publications, observed held
+Space/Escape and foreground preflight before gameplay/measurement. Offline byte
+regressions and mocked focus denial pass; shared Ubuntu runner lock blocked a
+new Unity request. No fresh natural-restoration, browser or performance PASS.
+See [current checkpoint](../plans/pixel-consistency-audit.md#verification-repair-v2--2026-10-29-acceptance-still-open).

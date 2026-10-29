@@ -81,13 +81,17 @@ public sealed class DungeonSessionTests
             var fx = Object.FindObjectOfType<SlayerScreenFX>();
             var fixtures = room.GetComponentsInChildren<DungeonTorchLight>();
             Assert.That(fixtures.Length, Is.EqualTo(5), "baseline fixtures");
-            var profiles = System.Array.ConvertAll(fixtures, f => f.profile);
-            var owners = System.Array.ConvertAll(fixtures, f => f.GetInstanceID());
-            var colors = System.Array.ConvertAll(fixtures, f => f.GetComponent<Light>().color);
-            var shadows = System.Array.ConvertAll(fixtures, f => f.GetComponent<Light>().shadows);
-            var ranges = System.Array.ConvertAll(fixtures, f => f.GetComponent<Light>().range);
+            var baselines = new System.Collections.Generic.Dictionary<int, FixtureBaseline>();
+            foreach (var fixture in fixtures) baselines.Add(fixture.GetInstanceID(), new FixtureBaseline(fixture));
             var volume = room.GetComponent<UnityEngine.Rendering.Volume>();
-            float volumeBaseline = volume ? volume.weight : 0;
+            Assert.That(volume, Is.Not.Null, "environment Volume required");
+            Assert.That(volume.isActiveAndEnabled, Is.True, "active environment Volume");
+            Assert.That(Read<Transform>(fx, "environment"), Is.SameAs(room), "FX environment binding");
+            var volumeProfile = volume.sharedProfile;
+            Assert.That(volumeProfile, Is.Not.Null, "authored Volume profile");
+            Assert.That(volumeProfile, Is.SameAs(world.Profile.post), "world environment profile binding");
+            int volumeId = volume.GetInstanceID();
+            float volumeBaseline = volume.weight;
             float normalLens = virtualCamera.m_Lens.OrthographicSize;
             float entry = Read<float>(fx, "enterDuration"), exit = Read<float>(fx, "exitDuration");
             Assert.That(SlayerScreenFX.PresentationWeight, Is.Zero);
@@ -113,8 +117,14 @@ public sealed class DungeonSessionTests
                 Assert.That(world.Arena.SlayerBackground.a, Is.Zero);
                 Assert.That(Read<float>(world.Arena, "<EnvironmentPresentationGain>k__BackingField"), Is.EqualTo(1));
                 Assert.That(virtualCamera.m_Lens.OrthographicSize, Is.EqualTo(world.Arena.profile.normalOrtho).Within(.00001f));
-                if (volume) Assert.That(volume.weight, Is.EqualTo(volumeBaseline));
-                TestContext.WriteLine($"NATURAL_RESTORATION before cleanup: active={slayer.IsActive}, presentation={SlayerScreenFX.PresentationWeight:R}, global={Shader.GetGlobalFloat("_DungeonSlayerWeight"):R}, alpha={world.Arena.SlayerBackground.a:R}, lens={virtualCamera.m_Lens.OrthographicSize:R}, volume={(volume ? volume.weight : 0):R}");
+                Assert.That(room.GetComponent<UnityEngine.Rendering.Volume>(), Is.SameAs(volume));
+                Assert.That(volume.GetInstanceID(), Is.EqualTo(volumeId));
+                Assert.That(volume.isActiveAndEnabled, Is.True);
+                Assert.That(volume.sharedProfile, Is.SameAs(volumeProfile));
+                Assert.That(Read<UnityEngine.Rendering.Volume>(fx, "_volume"), Is.SameAs(volume));
+                Assert.That(Read<Transform>(fx, "environment"), Is.SameAs(room));
+                Assert.That(volume.weight, Is.EqualTo(volumeBaseline));
+                TestContext.WriteLine($"NATURAL_RESTORATION before cleanup: active={slayer.IsActive}, presentation={SlayerScreenFX.PresentationWeight:R}, global={Shader.GetGlobalFloat("_DungeonSlayerWeight"):R}, alpha={world.Arena.SlayerBackground.a:R}, lens={virtualCamera.m_Lens.OrthographicSize:R}, volume={volume.weight:R}, volumeId={volumeId}, profile={volumeProfile.name}, environmentGain={Read<float>(world.Arena, "<EnvironmentPresentationGain>k__BackingField"):R}");
             }
             else
             {
@@ -130,16 +140,9 @@ public sealed class DungeonSessionTests
             for (int i = 0; i < restoredLights.Length; i++)
             {
                 var fixture = restoredLights[i];
-                Assert.That(fixture.GetInstanceID(), Is.EqualTo(owners[i]), "fixture owner");
-                Assert.That(fixture.profile, Is.SameAs(profiles[i]), "fixture profile");
-                Assert.That(fixture.GetComponent<Light>().color, Is.EqualTo(colors[i]), fixture.name);
-                Assert.That(fixture.GetComponent<Light>().shadows, Is.EqualTo(shadows[i]), fixture.name);
-                Assert.That(fixture.GetComponent<Light>().range, Is.EqualTo(ranges[i]), fixture.name);
-                var light = fixture.GetComponent<Light>();
-                Assert.That(light.enabled, Is.True, fixture.name);
-                Assert.That(light.range, Is.EqualTo(fixture.profile.range), fixture.name);
-                Assert.That(light.intensity, Is.InRange(fixture.profile.intensity * (1 - fixture.profile.amplitude), fixture.profile.intensity * (1 + fixture.profile.amplitude)), fixture.name);
-                TestContext.WriteLine($"Slayer exit cycle={cycle}, modeActive={slayer.IsActive}, {fixture.name}: profile={fixture.profile.name}, intensity={light.intensity:R}, range={light.range:R}");
+                Assert.That(baselines.ContainsKey(fixture.GetInstanceID()), Is.True, "fixture owner");
+                baselines[fixture.GetInstanceID()].Verify(fixture, cycle, slayer.IsActive);
+
             }
             GamePauseController.SetTutorialReading(true);
             session.ReturnToMenu();
@@ -167,6 +170,59 @@ public sealed class DungeonSessionTests
             Assert.That(session.World, Is.SameAs(world));
         }
 
+    }
+    sealed class FixtureBaseline
+    {
+        readonly Light light;
+        readonly LightProfile profile;
+        readonly bool enabled;
+        readonly Color color;
+        readonly float range, strength, bias, normalBias, near;
+        readonly LightShadows shadows;
+        readonly UnityEngine.Rendering.LightShadowResolution resolution;
+        readonly int tier;
+        static readonly FieldInfo Tier = typeof(UnityEngine.Rendering.Universal.UniversalAdditionalLightData)
+            .GetField("m_AdditionalLightsShadowResolutionTier", BindingFlags.Instance | BindingFlags.NonPublic);
+        static int ReadTier(Light value)
+        {
+            Assert.That(Tier, Is.Not.Null, "pinned URP shadow tier field");
+            var data = value.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalLightData>();
+            Assert.That(data, Is.Not.Null, "authored URP component required; assertion must not add it");
+            return (int)Tier.GetValue(data);
+        }
+        public FixtureBaseline(DungeonTorchLight fixture)
+        {
+            light = fixture.GetComponent<Light>(); profile = fixture.profile;
+            Assert.That(light, Is.Not.Null); Assert.That(profile, Is.Not.Null);
+            enabled = light.enabled; color = light.color; range = light.range;
+            shadows = light.shadows; strength = light.shadowStrength; bias = light.shadowBias;
+            normalBias = light.shadowNormalBias; near = light.shadowNearPlane;
+            resolution = light.shadowResolution; tier = ReadTier(light);
+            Authored();
+        }
+        void Authored()
+        {
+            Assert.That(light.enabled, Is.EqualTo(profile.enabled));
+            Assert.That(light.range, Is.EqualTo(profile.range)); Assert.That(light.color, Is.EqualTo(profile.color));
+            Assert.That(light.shadows, Is.EqualTo(profile.shadows));
+            Assert.That(light.shadowStrength, Is.EqualTo(profile.shadowStrength));
+            Assert.That(light.shadowBias, Is.EqualTo(profile.shadowBias));
+            Assert.That(light.shadowNormalBias, Is.EqualTo(profile.shadowNormalBias));
+            Assert.That(light.shadowNearPlane, Is.EqualTo(profile.shadowNearPlane));
+            Assert.That(ReadTier(light), Is.EqualTo(profile.shadowResolutionTier));
+        }
+        public void Verify(DungeonTorchLight fixture, int cycle, bool active)
+        {
+            Assert.That(fixture.GetComponent<Light>(), Is.SameAs(light));
+            Assert.That(fixture.profile, Is.SameAs(profile)); Authored();
+            Assert.That(light.enabled, Is.EqualTo(enabled)); Assert.That(light.color, Is.EqualTo(color));
+            Assert.That(light.range, Is.EqualTo(range)); Assert.That(light.shadows, Is.EqualTo(shadows));
+            Assert.That(light.shadowStrength, Is.EqualTo(strength)); Assert.That(light.shadowBias, Is.EqualTo(bias));
+            Assert.That(light.shadowNormalBias, Is.EqualTo(normalBias)); Assert.That(light.shadowNearPlane, Is.EqualTo(near));
+            Assert.That(light.shadowResolution, Is.EqualTo(resolution)); Assert.That(ReadTier(light), Is.EqualTo(tier));
+            Assert.That(light.intensity, Is.InRange(profile.intensity * (1 - profile.amplitude), profile.intensity * (1 + profile.amplitude)));
+            TestContext.WriteLine($"Slayer restoration before cleanup cycle={cycle}, active={active}, owner={fixture.GetInstanceID()}, light={light.GetInstanceID()}, profile={profile.GetInstanceID()}, enabled={light.enabled}, color={light.color}, intensity={light.intensity:R}, range={light.range:R}, shadows={light.shadows}, strength={light.shadowStrength:R}, bias={light.shadowBias:R}, normalBias={light.shadowNormalBias:R}, near={light.shadowNearPlane:R}, resolution={light.shadowResolution}, tier={ReadTier(light)}");
+        }
     }
     static T Read<T>(object owner, string field) => (T)owner.GetType()
         .GetField(field, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).GetValue(owner);

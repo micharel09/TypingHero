@@ -6792,3 +6792,93 @@ Resume only after runner availability preflight; do not blindly resubmit identic
 requests. Unity/build/video remain on Ubuntu. Tell user before GTX launch to focus
 named QA window; no focus stealing. Keep task worktree/branch and durable root until
 acceptance and verified integration. No main merge before gates pass.
+
+
+## Verification repair v2 ? 2026-10-29 (acceptance still open)
+
+Continued clean worktree/branch at5d1c02d8; fetched origin, destination remains
+micharel09/TypingHero. No production runtime, assets, timing or gameplay API edits.
+Reused existing run-ubuntu snapshot transformation, arena_pulse_pause input loops,
+dungeon_performance foreground verdict and DungeonSessionTests lifecycle assertions.
+
+Source repairs (not Unity/player PASS):
+- Control reconciliation uses the snapshotter input roots and secret exclusions;
+  tools/lighting is excluded. Raw Git baseline dc66303b is compared first, then
+  CRLF/LF only for Git-detected text. Binary/content/new/missing production inputs
+  fail outside the three declared lighting/scene substitutions. All accepted A
+  production bytes are original baseline bytes. QA/tests/tooling follow B.
+  External control_reconciliation.py adapts the existing adapter checks; each
+  archive receipt contains packed hashes, raw/canonical comparisons, shared QA,
+  baseline revision and adapter/reconciler hashes. No build pipeline replacement.
+- Menu requires completed slow scene transition and a newer fast publication,
+  zero owner/count/intensities and empty scene/profile. Restart/reentry require
+  fresh publications and record distinct IDs. Missing telemetry times out.
+- Space waits for a new parry counter plus positive pulse; Escape waits for a
+  newer paused publication. Both release in finally. No full state read/capture
+  between pulse detection and Escape. Missed lit Pause resumes with real input;
+  holds require three newer fast and slow publications over at least450ms.
+- Slayer test requires active environment Volume, world post-profile and FX
+  environment binding. Five fixture baselines are keyed by owner ID and include
+  Light/profile identity, enabled/color/range, all requested shadow settings and
+  pinned URP tier. Reads use GetComponent and the same private tier field as
+  LightProfile.Apply; no assertion adds components. Natural restoration logs
+  precede cleanup; Activate(2f), entry/exit holds and manual cycles retained.
+- GTX preflight now runs before start/fight and again after setup, before timing
+  installation/warm-up. It reads advancing slow Unity frame publications so it
+  does not depend on measurement installation. The performance adapter does not
+  bring its tab forward. User focus is announced using only the task marker.
+  Denial preserves PREFLIGHT_BLOCKED; no setup or measurement starts. Threshold
+  label now states rolling1s combat window below40FPS; calculations unchanged.
+
+Actual scoped evidence under durable root
+D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028:
+- control-repair-regressions.json: offline byte fixtures pass outside-root,
+  newline, binary/content, new and missing/extra rejection checks.
+- foreground-preflight-repair-check/check.json: mocked foreground denial passes
+  with zero start/fight, no measurement/warm-up. This is not a real HWND/GPU run.
+- Python AST, dynamic adapter --help compilation and modified CJS syntax pass;
+  git diff --check passes. repair-v2-harness-hashes.json pins external tools.
+- repair-v2-runner-status.json: SSH works; nonblocking shared flock returned
+  BlockingIOError Errno11. No Unity request submitted, no lock/job interference.
+  Historical404ad72105f7 and0fba2c801589 remain test-not-executed; c22 remains only
+  three manual exits; B-pulse-pause-01 remains FAILED and is not overwritten.
+
+Resume: verify shared helper/toolchain/lock availability; submit only the exact
+DungeonSessionTests.WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause filter.
+Require matching snapshot/XML1passed/0failed/0skipped and natural-restoration logs
+before immutable QA A/B builds. Then run fresh owner/pulse receipts under new
+names, recorder pilot/PTS alignment, missing motion/occluded-cel review, full
+frame/pair ledger, explicit fixed-hash1x/.25x playback approval and qualified GTX
+A/B (ABBA if B p95 regresses>10%). No clip is ready for user approval here.
+Production unchanged allows previous exclusion/smoke only after manifest proof.
+Do not merge before every acceptance gate passes. Retain task worktree, branch
+and durable root; cleanup only after verified integration.
+
+
+Offline full reconciliation completed:2365/2365 packed production hashes match
+raw baseline-source-manifest (zero discrepancies):1955 newline-only,407 raw-equal,
+3 allowed assets.182/182 shared QA/test/tooling hashes equal candidate B.
+A snapshot `ee25401be5c091221dbe5cf118a4e28224b1e2789bbb71228917abaf0a34e3dd` at input-webgl-ee25401be5c0;
+B snapshot `c4d5b2beedb3cafbb31a46e8c8c2cee0716e720a3922ab622a56a5fe582f4237` at input-quick-c4d5b2beedb3.
+Receipts: control-reconciliation.json inside A; repair-v2-source-reconciliation.json
+at durable root. Candidate production inputs exactly match prior0fba snapshot,
+so unchanged-production exclusion/smoke reuse remains scoped valid. No build PASS.
+Final lightweight SSH preflight: python3/docker found,21.07GiB free, pinned Unity
+2022.3.25f1 WebGL image/browser records present; shared runner still BUSY. No Unity
+or build request was submitted. Image existence/toolchain execution remains
+unverified until the runner is available. No new browser, GPU or visual review.
+
+Next exact request when available:
+`python D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028/run-ubuntu.py quick --test-filter DungeonSessionTests.WorldSurvivesThreeGameplayCyclesAndResetsSlayerPause`
+Use no lock wait/repeated submission while busy. Keep all gates listed above open.
+
+Frozen repair-v2 driver hashes (SHA256; paths relative to durable root):
+
+- `run-ubuntu.py`: `bb1c7852d3437dc65e9d63f4585b1b08a7d9b467b97aee519ea8b3c432005017`
+- `control_reconciliation.py`: `27ef80330e34464f7f36e9f2b0887e66d54b79918dfac1488e59277bf73148f0`
+- `run-native.py`: `08be7ec60614c4e1dfb72e435cd1264eb96d9b2aa87e5ba528653854b7f69b69`
+- `check-control-repair.py`: `611e7aa35b07e59197510f968d17a43403f29f276760022d487e639118460376`
+- `foreground-preflight-repair-check\check.cjs`: `872925aad1b6c81d0a850313338014712f0c9e21ab8d53f9c2dff17569e7f4c8`
+- `harness\arena_pulse_pause.cjs`: `8fecba60c40952d60d97bfd3a99f9a7e118fb1a036f0b738848fe2d24cb7ee78`
+- `harness\dungeon_performance.cjs`: `baa4d0ada7f1ad100be741d0c4fc82343f8330af87970e2a789be864120298e1`
+- `harness\native-browser.cjs`: `4b0b6b84576fad1c1f211866e0ac0914ed53ca8cd17d83f48abf7c8368a21908`

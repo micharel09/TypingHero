@@ -4287,3 +4287,14 @@ receipt is reused; no new gameplay-suite claim. Exact evidence and cleanup are i
 - Build input882e88e000ed107ebdb465d8659812bf95b7b107eaf20f0938a3d8d52f51aee1;
   final-font test inputb3044b14fb58292db85872307ac09b5cb6b80068ea371c00291e38010d6f4b24.
   Failed driver pilots, source normalization and receipts: [checkpoint](../plans/score-hud-cluster.md).
+
+
+## Dungeon verification repair v2 (2026-10-29; runtime unverified)
+
+DungeonSessionTests now requires bound active Volume and ID-keyed five-fixture
+restoration including full shadow settings and pinned URP tier before cleanup.
+External task harnesses require fresh Menu/lifecycle publications, observed held
+Space/Escape and foreground preflight before gameplay/measurement. Offline byte
+regressions and mocked focus denial pass; shared Ubuntu runner lock blocked a
+new Unity request. No fresh natural-restoration, browser or performance PASS.
+See [current checkpoint](../plans/pixel-consistency-audit.md#verification-repair-v2--2026-10-29-acceptance-still-open).
