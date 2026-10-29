@@ -1,3 +1,9 @@
+> Latest verified milestone (2026-10-29): Slayer color/lifecycle source committed and
+> remotely verified on task branch at4597a028.75distinct scoped logic tests PASS
+> (73retained plus2repaired reruns); art, real-input pilot, recorder/playback,
+> GTX and fresh release-build gates remain OPEN. Authoring preview is ready but
+> repeated nonblocking preflights report the shared runner busy. No main merge.
+
 > Current direction ? 2026-10-29: remove Slayer red background/black body/black slash.
 > Keep the dungeon, original actor RGB, white source slash, full presentation progress,
 > camera/bars/afterimage/pulse and existing gameplay. This supersedes older palette-preservation
@@ -7139,3 +7145,25 @@ fixtures PASS (slayer-color-harness-fixtures.tap/json). This is tooling only.
 Authoring preview still not submitted: next nonblocking availability check was BUSY.
 Current step: commit/push verified source-logic milestone to task branch only;
 continue18framing preview when available. No main merge before remaining gates.
+
+
+Verified task-branch push:4597a02835e62f853b714c605c699cf0bc5e4820 matches
+origin refs/heads/micharel09/dungeon-cinematic-arena (git ls-remote).
+Task worktree clean after that source milestone. Retain it and the durable root;
+results are on the task branch only, NOT integrated into main.
+
+Refreshed logic-milestone A/B pair with current QA test fixtures:
+A6ee16692fa72ad7ca65a1b8a57ef247ec4ec3270b9ba3d9fda70ad8cdbdf5254;
+B7c2a1c876a1ad4189c86d798bf257798e0760ab3e4e5a5b99bdd2d3c39ecd49d.
+Read all2550members/hashed2549payloads in each:2365Aproduction hashes exactly
+raw dc66303b baseline;184shared QA/test/tooling payload hashes equal B.
+Ten frozen per-file production deltas; no folder exception. Full archive digests
+are in slayer-color-source-reconciliation.json. No QA/build acceptance claimed.
+
+After the passing two-test run, repeated availability preflights remained BUSY.
+No preview request submitted or queued. Next: nonblocking preflight then
+`python D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028/run-ubuntu.py preview`.
+Inspect all18shots (3staging alternatives x6framing bounds), select staging before
+any production scene/profile edit; static source actors/zoom are diagnostics only.
+Then compare blur/haze/bloom contributions separately and run the real-input B pilot.
+Current selected staging/post preset: NONE. No new image/frame/playback/GTX evidence.
