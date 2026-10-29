@@ -45,7 +45,7 @@ MonoBehaviour:
   followLimit: 0.5
   followSmooth: 0.35
   postProcessing: 1
-  blurRadius: 0.65
+  blurRadius: 0
   focusOffset: 0.0
   focusFalloff: 3
   rune: {fileID: 11400000, guid: 445621b93f20947ac914be8e394ae5a1, type: 2}

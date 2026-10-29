@@ -7167,3 +7167,161 @@ Inspect all18shots (3staging alternatives x6framing bounds), select staging befo
 any production scene/profile edit; static source actors/zoom are diagnostics only.
 Then compare blur/haze/bloom contributions separately and run the real-input B pilot.
 Current selected staging/post preset: NONE. No new image/frame/playback/GTX evidence.
+
+
+Current continuation: a new WebGL build owns the shared runner (read-only owner
+probe, not a stale task lock). Prepared the existing adapter's preview request
+offline by intercepting its SSH call, following freeze-repair-v3.py. Archive
+staging-preview-request.tar.gz SHA256943f1e7be130343c1ddfdf937bdf05b4049cd6e3f6d580f959a33a43b3fe9f8e;
+command/driver/fixture hashes and exact argv in staging-preview-request.json.
+Runner profile serialize, lock wait0. Request remains unsubmitted while busy.
+A lightweight local availability monitor is ACTIVE in unified session95348,
+checking the lock read-only every8seconds. On availability it submits this frozen
+request once; no Unity request is queued waiting for the lock. Before starting
+another monitor/request, inspect staging-preview-monitor-status.json and session95348.
+Execution stdout/stderr will be preserved as staging-preview-execution.log.
+Do not start a duplicate or interfere with the WebGL job. No local Unity build.
+
+Preview fixture now records actual pillar positions and blur in each shot;
+it requires two existing foreground pillars with no Collider/Collider2D children
+and exactly five authored fixtures. No scene/profile change or selected preset yet.
+Static actors/zoom remain diagnostic, never runtime PASS. Source milestone stays
+eb2a1db7 on task branch; main integration remains blocked on all final art/player/
+recorder/playback/performance/release gates.
+
+
+Provisional staging source now applied locally while waiting for the runner:
+exactly frozen preview variant2 (rear12-pillars8.6), NOT a selected/accepted preset.
+DungeonWorld changes only4serialized blocks: FrontPillar transforms1099271884 and
+1971660853 x=-8.6/+8.6; two rear Light blocks intensity32->12. DungeonRearTorch
+profile intensity32->12 matches scene. All other scene blocks, camera, actors,
+HUD, collider blocks, materials, maps and fixture count unchanged. Static source
+provenance: both pillars instance KayKitDungeon/pillar.fbx GUID97d473b7e93c47cb976fd8742865de18,
+ModelImporter addColliders0 and scene prefab addedComponents empty. Preview also
+checks actual collider absence before moving anything. Source structural receipt:
+staging-candidate-source-check.json; diff whitespace PASS. No Unity/visual PASS
+claimed for these asset edits and no commit/push of them before acceptance.
+
+The frozen preview intentionally keeps pre-candidate source: variants compare the
+original scene against rear12 and rear12+pillars8.6. It will choose whether the local
+provisional edit should stay or change. Do not repackage that request from the dirty
+candidate, which would destroy its original-position control. Do not use the old
+Control delta manifest to certify the new asset bytes; refreeze explicit hashes
+only once staging/pilot selection is settled. Logic75passes concern the preceding
+verified source snapshot, not final art/runtime acceptance of this new candidate.
+
+Monitor95348 stopped on one SSH timeout (preserved as staging-preview-monitor-ssh-timeout.json).
+SSH recovered without service restart. Replacement monitor is unified session35887,
+script wait-staging-preview.py; its status file records actual local PID, state,
+archive hash and execution-log path. Same frozen archive, lock wait0, no queued
+request while busy. Three consecutive SSH errors stop the monitor; an optional
+staging-preview-stop marker stops it before submission. Inspect this session/status
+before launching any duplicate. Existing WebGL owner remains untouched.
+
+
+Continuation status: provisional source candidate remains unverified/uncommitted.
+Availability monitor35887 remains ACTIVE (wait-staging-preview.py, PID/state in
+staging-preview-monitor-status.json), no duplicate monitor or waiting Unity request.
+Current shared owner is WebGL; metadata-only check observed its log still advancing.
+Retain the monitor so the frozen18-shot request submits automatically on availability.
+To stop before submission, create durable-root staging-preview-stop; inspect status
+and execution log before any new launch. Once submitted, collect its actual result
+and inspect all18shots before accepting/changing the provisional candidate.
+Source backup: staging-provisional-working.patch; task branch remains eb2a1db7.
+Do not merge, claim final75-test/visual acceptance, or certify the dirty assets using
+the preceding manifest. Refreeze after staging/pilot selection and recheck directly
+affected world/authoring behavior. Remaining final gates are unchanged.
+
+
+Latest continuation read-only capacity check: Ubuntu4CPUs, MemAvailable0.82GiB,
+17.71GiB disk free; current shared owner is still WebGL. No additional isolated
+Unity workload was started under this actual memory pressure. Preserve the active
+monitor35887 and its frozen request; do not duplicate it or assume no job is pending
+locally. requestSubmitted remainsfalse while lock busy. staging-host-capacity.json
+records the observation/decision. Candidate stays unverified; all final gates open.
+
+
+Preview01 actually completed exit0 on Ubuntu llvmpipe:
+/data/typinghero-game-loop/results/20261029T054537-serialize,
+snapshotbc1f34d1a5055c87d9d0531ccea3a54ee62e707d460a39a81bb50c3ff6410c16.
+Receipt/images/log/snapshot retained in staging-preview-01. Directly viewed all18
+static shots at1280x720 and native320x180 (ffmpeg nearest downscale on Ubuntu,
+labels padded outside the render); per-shot notes/hashes in review.json and
+native-contact.png. No animation/video frames or transition coverage claimed.
+Both idle actors and weapons stay in frame at all6framing bounds; lower rear12
+shrinks hotspots but loses too much arch/door detail, so it is NOT selected.
+All6variant1/2PNG pairs are byte-identical: moving the old FrontPillar roots adds
+no visible staging benefit. Restored ONLY their two transforms from task HEAD;
+profile/scene rear12 remains provisional until next comparison.
+
+Actual visible foreground source is FrontPier-1/1 plus FrontPierFoot-1/1, authored
+MeshRenderers under PixelRoom, with the side torch/flame/light children attached.
+Reuse the existing edge-framing composition in DungeonPixelRoomBuild.ApplyGround
+(viewport.06/.94), without invoking the builder. Preview02 compares original
+rear32/side4, rear20/side1.5, and that lighting with complete pier/foot groups at
+viewport.02/.98 (absolute x offsets scaled12/11 around authored camera x).
+No actor/collider/camera/HUD/asset recreation; fixture still exactly5. Guard4visible
+pier/foot renderers and zero colliders before the trial, record actual transforms.
+
+Preview02 archive18a3835dbe7ad874efec6076ea00afedeb2497884e807df88eee68b12db366e1;
+snapshot0911318f61d2e99cb0ebd3082679cade5e5cc69e4b858008d2eb1117ec1403b0;
+/data/typinghero-game-loop/results/20261029T061012-serialize. ACTIVE unified session37849.
+Monitor01 finished normally and its request/status/log preserved in staging-preview-request-01.
+Current request/status pointers now refer to preview02; collect it before any new launch.
+No final staging selected yet. Remaining runtime/art/performance/release gates unchanged.
+
+
+Continuation 2026-10-29: preview02 startup request061012 did not complete;
+its own container was stopped after verified stalled editor initialization.
+Preserved logs/snapshot/debug in staging-preview-02-startup-failure; no proven
+audio root cause, host settings/tools unchanged. Retry063434 completed exit0,
+snapshot63385d27162e2be9c8d1999fcded80249a7e17aafba4818e03c432a19c0fcc82.
+All18 static shots and native contact directly reviewed; selected variant2:
+rear20, side key/fill1.5, front16; complete existing FrontPier/Foot groups at
+x-8.701889/+8.3528404. Four renderer parts, zero child colliders, five fixtures.
+Rejected rear12 and invisible legacy FrontPillar move were restored. Source scene
+changes exactly four pier/foot transforms and four light blocks; selected profiles
+match. Per-shot evidence and selected-staging.json in staging-preview-02.
+
+Post preview064658 completed exit0 on llvmpipe, snapshot
+69e2579bdf5b2ae9a4724ea99acad8ef5abbf68d20d9109cdbb639550ec01167.
+All12 static shots viewed at1280x720 and native320x180. Fixed exposure.35/age0;
+compare blur0/.35/.65, hazeoff/.05/.1, bloomoff/.12 independently. Selected blur0
+(sharp floor/door/wall retained; stronger blur loses detail without useful depth),
+rear hazeoff (both levels add horizontal veil without proven benefit), bloom.12
+(flame shape remains, hotspots do not merge). Only DungeonLighting.blurRadius
+changes for post; low haze/rune/wet-stone remainoff. review.json/native-contact.png
+in post-preview-01 preserve exact image hashes and limitations.
+
+Current monitors FINISHED, no active request. Task HEADeb2a1db7, staging/post
+assets uncommitted pending directly affected world/render/profile checks and strict
+repeat builder. Old Control candidate manifest is stale and must be refrozen.
+These static idle/diagnostic-zoom shots do not certify real Slayer, motion/cues,
+contact shadows or runtime art. Prior73+2 logic cases remain scoped evidence;
+new asset acceptance, QA pilot, recorder, final A/B, production/exclusion/smoke,
+GTX and human fixed-hash playback gates remain OPEN. No main integration.
+
+
+Selected staging receipt path clarification: selected-staging.json is at durable
+root; staging-preview-02/review.json contains the same reviewed shot evidence.
+New selected staging/post Ubuntu test result065738:3/3 PASS,0skipped,24.52s.
+Snapshotf0cfb043b1593db67f7a4cb9941ec3d970e41af0df16ea1c22fa99057bed4c7f.
+XML/log/snapshot and receipt in staging-post-tests-01. Direct cases: three-cycle
+world/Pause/Slayer natural expiry, five-light profile reuse, owned world RT release.
+Scene structural check retains every ID and all except8blocks (4transforms/4lights);
+selected-stage-post-source-check.json records block IDs. No new actor/map changes.
+
+Pilot A/B offline full archive reconciliation: A6ee16692fa72ad7ca65a1b8a57ef247ec4ec3270b9ba3d9fda70ad8cdbdf5254,
+Bf0cfb043b1593db67f7a4cb9941ec3d970e41af0df16ea1c22fa99057bed4c7f.
+Each2550members/2549payloads reread;2365Aproduction payloads raw-baseline equal,
+184shared QA/test/tool hashes equal B. Explicit12file delta manifest pins raw
+baseline/candidate hashes; Control protection fixturesPASS. Prior logic manifest
+and reconciliation receipts retained under logic-milestone names. Offline only,
+not QA/release/performance PASS.
+
+Strict repeated-builder frozen request prepared from exactly the tested snapshot,
+archive3148653711243ec5843f051f66bf1a2389ed814d97c4bb90aad0c8c51b9f1ea2.
+Monitor uses existing wait-staging-preview.py/status pointer; phase is now
+selected-stage-post-repeat-builder (NOT another image preview). Busy means no SSH
+submission; lock wait remains0. Previous post-preview pointers preserved in
+staging-preview-request-04. Inspect monitor status before any new launch.

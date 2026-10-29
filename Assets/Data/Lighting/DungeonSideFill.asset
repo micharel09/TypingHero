@@ -15,7 +15,7 @@ MonoBehaviour:
   enabled: 1
   type: 2
   color: {r: 1, g: 0.78, b: 0.56, a: 1}
-  intensity: 4
+  intensity: 1.5
   range: 10
   spotAngle: 140
   innerSpotAngle: 65
