@@ -7429,3 +7429,60 @@ bridge-exclusion scan and actual production smoke. GTX A/B normal/parry (and ABB
 if >10%p95), actual foreground-denial, remaining motion/camera400x300 matrix,
 all-frame review/no-VFX details and user playback remainOPEN. Main unchanged.
 Retain worktree/branch/durable root and all FAILED/invalid receipts until integration.
+
+
+Latest verification continuation: QA A080208 build exit0 on same Unity/toolchain,
+source6ee16692fa72ad7ca65a1b8a57ef247ec4ec3270b9ba3d9fda70ad8cdbdf5254.
+All33immutable player files and transfer digest verified in qa-A-control-build-01;
+verification.json, manifest, owners/source-final-hashes/log retained. No A performance
+PASS inferred. Production B monitor still preflightBUSY at last inspection; inspect
+production-B-monitor-status.json before any duplicate. Frozen archive67ba414683c10b8c783bc7acbf1124e8684b006e42dee127c4c3729e4a1dbf59.
+
+A-normal-color-01 is actual PREFLIGHT_BLOCKED before-start, not a valid measurement.
+644real Win32 samples,0foreground, exact owned HWND/PID found, no monitor errors.
+States/actions/batches empty,0combat frames, measurement-starting absent; first
+preflight failed before start/setup/second preflight/frame_timing.install. Actual
+foreground-denial-receipt.json records proof; no mocked acceptance or auto-focus.
+User asked asynchronously when available to keep QA foreground for four75s A/B
+runs. Do not repeatedly launch denied runs or infer readiness from elapsed time.
+Playback question for fixed c9d4c1d clip also remains unanswered; no approval assumed.
+
+Runtime framing harness reused proven arena_combat raw/ticket/chunk-warm block,
+removing its legacy forced30Hz recorder; input/thresholds remain. Harness02 frozen
+separately under frozen-verification-harness-02, source/adapter/performance observer
+unchanged. B-color-validation-01 remainsFAILED after7checks: follow-up timeout,
+prepared word had only0.812s remaining before waiting parry and expired. Harness03
+waits fresh wordTime>2.5 before prefill, exact parry_followup assertion retained.
+Validation02 remainsFAILED after7checks: accepted two-letter word/inputCorrect2,
+score10, enemyHP180 unchanged; no idle/not-hit-locked guard had been used. No
+confirmed runtime cause claimed. Harness04 reuses successful combat-pilot guard
+!hitLocked/!pendingAttack/!enemyAttacking/current/wordTime>1.5 before normal attack.
+Each revision passes53existing input/timing/pulse fixtures; preserves all failures.
+Immutable harness02/03/04 locks distinguish these verification-input changes;
+production source and loaded performance/input observers stay unchanged.
+
+B-color-validation-03 PASS10checks,0exceptions on final harness04. Directly viewed
+validation01 combat/score400x300 shots: actors/weapons inside frame, no foreground
+overlap or floor edge/void seen at this framing. Guide assertions1280x720/400x300,
+normal actual damage, parry_followup state/recovery, hero death->cleanup passed in03.
+Directly viewed03 follow-up-state/hero-death/hero-cleanup snapshots; slash masks
+contact detail (not a full-frame motion verdict). Raw03 has1556consecutive native
+PNG captures, every ticket/time/renderFrame aligned; zero missing action requests.
+Derived VFR clip1557frames includes one explicit terminal endpoint, PTS error<=0.5ms.
+Source capture hitch1213.895ms retained, not gap-free motion/performance evidence.
+Receipt/frames/clip in B-color-validation-03, remote071532-webgl/validation-recorder-03/raw-review.
+Clip SHA256c78a7badd94401af143b2a97cf1b3d91957670c70c4329a38f0fde4ce7c70872;
+no user playback/full-frame approval yet.
+
+Pilot05 original raw PNG review sheets fully exported225sheets,3588source frames
+plus one terminal endpoint; manifest in remote raw-review/sheets. Adapted existing
+FFmpeg native+nearest4xactorcrop recipe directly from PNG concat (no lossy-video
+rescale and no FPS resampling). Directly reviewed F0-63 with63consecutive pairs,
+including seams: idle->enemy wind-up->slash/contact->red normal hurt->recovery.
+Per-frame observations/limits in B-color-pilot-05/raw-visual-review.json; full
+source frames64/3588, remaining3524 and final endpoint unreviewed. Normal red hurt
+flash is existing gameplay, not the removed Slayer palette. VFX-hidden contact
+detail/no-VFX comparison still open. Do not sum separate pilot01/05 clip coverage.
+Main remains unchanged. Remaining frame/motion/camera matrix, playback, foreground
+GTX A/B thresholds/ABBA, fresh production build/exclusion/smoke and final integration
+gates remainOPEN. Retain worktree/branch/durable evidence and both monitors as needed.
