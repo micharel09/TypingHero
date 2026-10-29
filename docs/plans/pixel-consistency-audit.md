@@ -7560,3 +7560,17 @@ before selecting or writing any production lighting values. Do not use this
 infrastructure attempt to weaken Slayer assertions or substitute historical clips.
 All requested final gates remain open; no main merge. Preserve existing task
 worktree, branch, durable root and remote result until accepted integration.
+
+
+L0 restoration retry 20261029T092841-quick: 75/75 actual test cases PASS,
+0 skipped,31.8944072s. XML independently parsed: DungeonSessionTests,
+SlayerHitVfxTests and SlayerTransitionTests only. Same input5fa1af6823b8;
+XML/log/receipt retained in durable lighting-L0-tests-02. This supersedes the
+verification-pending statement for these exact filters, not the invalid first run.
+No runtime visual acceptance is inferred.
+
+K-center request frozen57d97e246a4062f4b8fdb03b4e6a45317c7150764b2b729dc7244fe495c0fc13.
+Existing wait-staging-preview.py monitor PID29184 polls availability only and
+submits once with lockwait0. Historical request pointers copied to lighting-K-request.
+At continuation09:54UTC monitor remains PREFLIGHT_BUSY/requestSubmitted=false;
+other task build is untouched. Do not launch a duplicate preview/monitor.
