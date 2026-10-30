@@ -498,18 +498,24 @@ Change only behavior explicitly requested. Update this file after relevant verif
   capped2.5world units, fixed48x48 canvas/pivot24,24,
   six visible cells at80ms each and a seventh transparent cell; expiry480ms.
   Frame curve0->6/7 over480ms preserves the full six-cell timing. Core layers are
-  only Hit Effect+Color, with core tint(1,.78,.28,.80), material gain1 and constant
+  only Hit Effect+Color, with approved D core tint(1,.90,.35,.80), material gain1 and constant
   gradient alpha; original
   white/yellow/orange RGBA retained. Detached ray/fragment/speck PNGs are exact
   original Pimen layer crops, Point/Clamp/no mipmaps; recipe and hashes are in
   `PimenSource.json` and `tools/game_loop/export_parry_pimen.py`.
   Six bindings: core0,fragment1,near rays2,body specks3,far rays4,horizontal flash5; no shock arc.
-  The new stationary72x3logical-pixel quad has a1px warm-white core,3px gold
-  halo and tapered ends, locked horizontal without size/rotation variation. Alpha
-  rises0-20ms, holds20-40ms and fades40-120ms. Existing core/physics/light stay
-  unchanged. There are22physical trajectories plus two flashes,24total/192at eight
-  leases. [Checks and visual scope](../plans/parry-horizontal-flash.md). Leads10-14px/initial2px live550-700ms; secondary4-7px live850-1100ms,
-  with unchanged cooling, final80ms fade, gravity/drag/bounce/floor rest and seed.
+  The detached presentation quad stays128x6logical pixels with seeded angles
+  20/45/-15/65degrees, mirrored by direction; alpha peaks15ms and expires220ms.
+  User selected gold trial2 on2026-10-30: hot(1,.8667,.5), warm(1,.72,.16),
+  cooled(1,.50,.08); each near/far lead group has3particles with cooling630–770ms,
+  each secondary group9 with cooling560–770ms. Fragments2 and player specks4
+  retain their group settings. Palette is profile-wide, including those groups.
+  There are30physical trajectories plus two flashes,32total/256at eight leases;
+  near/far each use12of64renderer slots, physical capacity40.
+  Leads10-14px/initial2px live550-700ms; secondary4-7px live850-1100ms. Cooling
+  is capped by effective lifetime; final80ms fade, gravity/drag/bounce/floor rest
+  and trajectory ranges remain. Increased count changes later seeded RNG draws.
+  [Checks, comparison and unverified >=80ms/playback limits](../plans/parry-horizontal-flash.md).
   NearZ velocities-6..-4 and far2..4 remain actual world-space perspective/depth;
   actor cutout writes depth and Pimen uses the same depth buffer with LEqual.
   Detached contact/recipient snapshots, local light, bloom, audio, hitstop and camera

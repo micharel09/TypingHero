@@ -43,7 +43,7 @@ MonoBehaviour:
       tangentRetention: 0
       restDuration: 0
   - name: Near leads
-    count: 2
+    count: 3
     channel: 2
     small: 0
     spawnRegion: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
     pastRecipient: 1
     angleSampling: 1
     pixelScaleMode: 1
-    coolingDuration: {x: 0.45, y: 0.55}
+    coolingDuration: {x: 0.63, y: 0.77}
     angles: {x: -12, y: 18}
     angleJitter: 0
     speed: {x: 24, y: 28}
@@ -72,7 +72,7 @@ MonoBehaviour:
       tangentRetention: 0.55
       restDuration: 0.08
   - name: Far leads
-    count: 2
+    count: 3
     channel: 4
     small: 0
     spawnRegion: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
     pastRecipient: 1
     angleSampling: 1
     pixelScaleMode: 1
-    coolingDuration: {x: 0.45, y: 0.55}
+    coolingDuration: {x: 0.63, y: 0.77}
     angles: {x: -12, y: 18}
     angleJitter: 0
     speed: {x: 24, y: 28}
@@ -101,7 +101,7 @@ MonoBehaviour:
       tangentRetention: 0.55
       restDuration: 0.08
   - name: Near secondary
-    count: 6
+    count: 9
     channel: 2
     small: 0
     spawnRegion: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
     pastRecipient: 1
     angleSampling: 1
     pixelScaleMode: 1
-    coolingDuration: {x: 0.4, y: 0.55}
+    coolingDuration: {x: 0.56, y: 0.77}
     angles: {x: -30, y: 35}
     angleJitter: 0
     speed: {x: 14, y: 20}
@@ -130,7 +130,7 @@ MonoBehaviour:
       tangentRetention: 0.55
       restDuration: 0.4
   - name: Far secondary
-    count: 6
+    count: 9
     channel: 4
     small: 0
     spawnRegion: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
     pastRecipient: 1
     angleSampling: 1
     pixelScaleMode: 1
-    coolingDuration: {x: 0.4, y: 0.55}
+    coolingDuration: {x: 0.56, y: 0.77}
     angles: {x: -30, y: 35}
     angleJitter: 0
     speed: {x: 14, y: 20}

@@ -1,7 +1,30 @@
-## HD-2D parry tint A (2026-10-29; awaiting visual approval)
+## Approved gold parry trial2 (2026-10-30)
 
-Color baseline4b5d4df3; only channel0 tint becomes(1,.78,.28,.80). First candidate
-A passed the layer-off gate; B/C not tried. Baseline/final80original images at
+User selected T2 after the D/T1/T2 comparison. Production ParryImpact profile and
+physics match the reviewed T2 values; only asset names/physics reference GUID
+are normalized for comparison, preserving production GUIDs and bindings.
+Ubuntu20261030T055639-quick, source85117ed6:8/8focused tests PASS,0failed/skipped,
+5.5193448s. Covers the production palette/cooling/render budget,32particles,
+seed/mirror and count-matched trajectory invariants, core/ray lifetime, material/
+speck routing, default/custom builder binding, Pause/Resume and8lease256particle
+expiry/disable/reuse. No new runtime API/shader or visual assets.
+
+Artwork evidence reuses the exact selected T2 profile from20261029T101824-webgl:
+both normal directions and both Pause/Resume→Slayer-activation→Restart/Menu
+sources directly reviewed, with all holds retained. No new viewing credit is
+claimed. >=80ms extra readable-tail duration and original-speed perceived
+playback remain unverified because capture holds/phase gaps persist.
+[Approval, immutable source identities and integration status](../plans/parry-horizontal-flash.md).
+
+## HD-2D parry tint A (2026-10-29; historical; color rejected)
+
+User rejected A because its core surroundings read orange against the yellow
+ray/sparks. A is no longer a passing color. The technical receipts below describe
+that historical snapshot; they do not accept the replacement tint. The active
+correction and remaining motion gate are in the linked checkpoint.
+
+Color baseline4b5d4df3; A changed only channel0 tint to(1,.78,.28,.80). Layer-off
+captures attributed the broad white field to channel0; B/C not tried. White/A80original images at
 15/30/60/100/140ms directly viewed; full final matches candidate A byte-for-byte.
 Focused Unity2022.3.25f1 checks6/6PASS, including tint snapshot, Pause/Resume,
 clear/disable/pool reuse, repeat builder and frozen MetalClash. Prior shader/HDR/
@@ -14,8 +37,9 @@ right670/669 + exclusive-left621/620 selected frames/transitions directly viewed
 normal playback reached end at original speed, zero dropped frames reported.
 Initial left video rejected for chronology; its partial review is excluded.
 All8contact stills viewed native/nearest2x. Slayer red cut-in occludes late flash;
-25fps motion evidence is distinct from sub-40ms controlled captures. User continuous
-perceptual/artistic approval remains pending. No FPS claim/main merge/itch release.
+25fps motion evidence is distinct from sub-40ms controlled captures. Agent
+perceptual playback review was not established by ended/drop receipts; A's color
+is now rejected. No FPS claim/main merge/itch release.
 [Checkpoint, source identities and viewer](../plans/parry-horizontal-flash.md).
 
 ## Previous HD-2D parry candidate (2026-10-28; historical evidence)

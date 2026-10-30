@@ -232,6 +232,12 @@ public sealed partial class ImpactVfxTests
         Assert.That(Parry.prefab, Is.Not.SameAs(Metal.prefab));
         Assert.That(Parry.lightDuration, Is.EqualTo(.22f));
         Assert.That(Parry.lightIntensity, Is.EqualTo(7f));
+        // Match the approved particle counts before comparing seeded trajectories:
+        // the extra leads/secondary draws intentionally change later RNG consumption.
+        var baseline = Object.Instantiate(Metal); owned.Add(baseline);
+        baseline.physics = Object.Instantiate(Metal.physics); owned.Add(baseline.physics);
+        for (int group = 0; group < baseline.physics.groups.Length; group++)
+            baseline.physics.groups[group].count = Parry.physics.groups[group].count;
         var camera = Camera.main;
         if (!camera)
         {
@@ -251,7 +257,7 @@ public sealed partial class ImpactVfxTests
             {
                 camera.orthographicSize = size;
                 var context = Context(direction);
-                var original = emitter.Play(Metal, context);
+                var original = emitter.Play(baseline, context);
                 var actual = emitter.Play(Parry, context);
                 Assert.That(actual.Systems.Length, Is.EqualTo(6));
                 Assert.That(Parry.flashes.Length, Is.EqualTo(2));
@@ -322,7 +328,7 @@ public sealed partial class ImpactVfxTests
             Assert.That(Parry.TryVaryFlash(seed, 0, ref pixels, out _), Is.True);
             pixelSizes.Add(pixels);
             var a = Simulation(actual); var b = Simulation(old);
-            Assert.That(a.Count, Is.EqualTo(22)); launches.Add(a[2].launch);
+            Assert.That(a.Count, Is.EqualTo(30)); launches.Add(a[2].launch);
             for (int particle = 0; particle < a.Count; particle++)
             for (int step = 0; step <= 66; step++)
             {
@@ -493,7 +499,7 @@ public sealed partial class ImpactVfxTests
         {
             var context = Context(side); context.seed = seed;
             var burst = emitter.Play(Parry, context);
-            Assert.That(burst.ParticleCount, Is.EqualTo(24));
+            Assert.That(burst.ParticleCount, Is.EqualTo(32));
             var core = Particles(burst, 0)[0];
             Assert.That(core.position, Is.EqualTo(context.point));
             Assert.That(core.startLifetime, Is.EqualTo(.48f).Within(.000001f));
@@ -543,8 +549,8 @@ public sealed partial class ImpactVfxTests
         var context = Context();
         old.Emit(baseline, context.point, context.direction, 0, .5f / Parry.pixelsPerUnit, context.seed);
         var current = Simulation(burst);
-        Assert.That(current.Count, Is.EqualTo(22));
-        for (int i = 0; i < 22; i++)
+        Assert.That(current.Count, Is.EqualTo(30));
+        for (int i = 0; i < current.Count; i++)
         for (int step = 0; step <= 66; step++)
         {
             var a = current.Evaluate(i, step / 60f); var b = old.Evaluate(i, step / 60f);

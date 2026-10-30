@@ -17,8 +17,8 @@ MonoBehaviour:
   physics: {fileID: 11400000, guid: a4335d1b5e37493fa5e7f5db154c6a46, type: 2}
   prefab: {fileID: 5099034901754403701, guid: db0076913c9a95782babb9977fbf0987, type: 3}
   hot: {r: 1, g: 0.8667, b: 0.5, a: 1}
-  warm: {r: 0.8, g: 0.25, b: 0.03, a: 1}
-  cooled: {r: 1, g: 0.42, b: 0.06, a: 1}
+  warm: {r: 1, g: 0.72, b: 0.16, a: 1}
+  cooled: {r: 1, g: 0.50, b: 0.08, a: 1}
   legacyCooled: {r: 0.18, g: 0.015, b: 0, a: 1}
   fadeDuration: 0.08
   cinematicPulse: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
   - channel: 0
     count: 1
     lifetime: 0.48
-    tint: {r: 1, g: 0.78, b: 0.28, a: 0.8}
+    tint: {r: 1, g: 0.9, b: 0.35, a: 0.8}
     sizePixels: 40
     maxWorldSize: 2.5
     columns: 7

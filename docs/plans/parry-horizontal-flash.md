@@ -1,4 +1,680 @@
-# Contact tint A - verified task candidate, awaiting user visual approval
+# Approved gold trial2 — 2026-10-30
+
+User accepted the recommendation ("oke chốt theo bạn đi"): apply T2 to production
+and use the repository's authorized commit/push/main integration workflow. This
+supersedes the trial-only/no-commit restriction below, without claiming the
+unverified >=80ms or original-speed playback gates have passed.
+
+Reused exact reviewed `variants/T2.asset` and `T2Physics.asset`: production values
+match after normalizing only asset names and the physics GUID. Production GUIDs,
+prefab/scene bindings and all other serialized fields remain. No new VFX system,
+runtime code, shader, art, trajectory/lifetime or camera change.
+The existing four production tests with22/24-particle assumptions now cover30/32;
+the seeded-trajectory comparison uses a count-matched clone of Metal physics so
+it preserves the launch/position/velocity assertions despite intentional RNG
+draw-count changes. Color/cooling/render-capacity and pause/eight-lease/reuse
+tests adapt the already verified GoldSparkTrialTests fixture to the production
+AssetDatabase profile; no QA Resource copies are shipped.
+
+The retained T2 frame evidence remains the selected artwork evidence, with the
+same limitations and no additional viewing credit. Promotion request/input hashes
+are in `gold-spark-trials-20261029/promotion-selected-request.json`.
+Scoped Ubuntu verification20261030T055639-quick passed8/8cases,0failed/skipped,
+5.5193448s; source85117ed6221c54718aed1ea07b93d0e7adde911e92ad71366d1ab6d7ac696f9e,
+2549inputs. All production-specific count/trajectory/palette/render/pool and
+default/custom binding assertions pass. Latest-main integration remains pending.
+
+# Gold spark trials — 2026-10-29 (historical review-only handoff)
+
+Current handoff: D/T1/T2 profile copies and comparison artifacts are ready for
+user review. Recommend T2 from matched150–400ms stills and denser readable
+gameplay fan in both directions, with no observed new white particle mass or
+dark-orange blob. Production D and physics remain unchanged from task input;
+no commit/push/merge/release. Readable-tail gain >=80ms and perceived playback
+rhythm remain **unverified**, not silently passed. The later tail is still small
+amber/floor flecks, not a demonstrated ReBlade-sized plume.
+
+Review entry:
+[clips, witnesses, PTS and ledgers](D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/gold-spark-trials-20261029/review.html).
+All heavy work ran on Ubuntu. Build retry/source hashes, the scoped technical
+results and real-key input checks passed as detailed below. No broader suite,
+production build, full profile or unrelated host change was added.
+
+Final normal cohort, all full-context/native frames and adjacent pairs directly
+viewed with original CFR25 timing and all holds:
+
+| Source | Selected frames | Viewed frames / pairs |
+|---|---|---:|
+|right-D-normal-fullswap1|560–692|133/132|
+|left-D-normal-fullswap2|670–778|109/108|
+|right-T1-normal-fullswap2|666–846|181/180|
+|left-T1-normal-fullswap3|721–886|166/165|
+|right-T2-normal-fullswap3|630–791|162/161|
+|left-T2-normal-fullswap3|611–776|166/165|
+|right-T2-lifecycle-fullswap1|576–1349|774/773|
+|left-T2-lifecycle-fullswap2|455–1294|840/839|
+
+Total2531frames/2523pairs. Each source has actual observations plus one CSV row
+per frame in the existing evidence record. No actor-region black rectangle was
+observed in these sources. T1-left763→764 jumps from initial star to recovery;
+telemetry age.017→.402s and missing200–400ms runtime color samples confirm the
+evidence gap. That pair remains unverified; static visibility acceptance does not
+claim smooth motion. All sources retain their holds/gaps rather than trimming.
+
+Only T2 proceeded to lifecycle:10input/lifecycle checks per direction passed.
+Pause holds live particles at age.01667s; Resume continues the same effect,
+fourth-parry Slayer red/zoom keeps detached gold visible around intact whole
+silhouettes; Restart/Menu clear pool to0, with0exceptions/provider writes.
+Slayer scope is the triggering parry and mode activation, not a typed Slayer
+execution sequence. Source videos contain complete selected preparation through
+cleanup/EOF; all1614lifecycle frames/1612pairs were directly viewed.
+
+Six normal and two lifecycle clips have1× and4× exports. Comparison clips use
+three native640×360 panels plus a40px label strip, aligned by visible score30
+contact. Only exterior first/last-frame padding is added; internal source timing
+is retained. Decoded frame hashes verify every exported source frame, each
+comparison panel and exact4× repetition. Eight gameplay PTS witness panels were
+also directly viewed. `timing-summary.json` reports source PTS/core/ray/gold
+boundaries and uncertainties; unequal holds, weapon-smear masking and T1-left
+phase loss prevent a causal >=80ms conclusion. Available review showed stills,
+so perceived force/rhythm at original speed remains unverified.
+
+Retain this pre-existing dirty worktree and the durable local/Ubuntu evidence
+until the user chooses. No owned capture/build/export job remains running.
+The notes below preserve the experiment's implementation basis and earlier
+checkpoints; historical pending states are superseded by this handoff.
+
+User requests D/T1/T2 comparison before selecting any production change. Reuse
+this existing worktree/branch; HEAD62d26064, origin fetched at this continuation
+and main currently bad99db6. Preserve the existing uncommitted D tint and all
+other work. No integration, release, commit or push for these trials.
+
+Implementation basis: `ParryImpact.asset`, `ParryImpactPhysics.asset`, the color
+interpolation/streak shortening in `ImpactVfxPixel.cs`; retained
+`contact-tint-20261029/gold-align-remote-body.py` (verified2547-input archive),
+`adapters/ParryMirrorQA.cs` and isolated real-key `parry_clash.cjs`/`browser.cjs`.
+Copies and adapters live in the existing durable evidence tree, subdirectory
+`gold-spark-trials-20261029/`. Only isolated source archives receive review
+Resources assets/QA fixtures; no production profile, prefab, shader or API edit.
+
+T1: warm(1,.72,.16), cooled(1,.50,.08), leads cooling.63–.77s, secondary.56–.77s.
+T2 adds leads2→3 and secondary6→9 per group:30physical+2flash=32 versus D/T1=24.
+Hot, fragments/specks configuration, lifetime/trajectory/size ranges, core480ms,
+ray/light220ms, camera/world320x180/presentation640x360 stay unchanged. Existing
+40-state and64-particle near/far renderers cover this budget; eight leases total
+256particles. Cooling is capped by each sampled effective lifetime. T2 changes
+later RNG consumption, so identical seed means matched configuration/distribution,
+not identical trajectories for every corresponding particle.
+Warm/cooled are profile-wide, so unchanged fragment/speck group configuration
+does not mean unchanged hue for those groups; no per-group palette is introduced.
+
+Acceptance checklist fixed before capture: normal left/right D/T1/T2, complete
+preparation/contact/recovery/fade; then only the better trial left/right through
+Pause/Resume and Slayer, including restart/menu cleanup. Reuse prior ReBlade
+C1–C4 source/phase review below (C4 >2s tail is not a universal parry target).
+Measure core/ray/yellow visibility by original PTS; target ≥80ms additional
+readable sparks and denser yellow during150–400ms, readable weapons/no white
+mass/dark orange. Keep all held frames and inspect every selected frame and
+transition. Playback rhythm remains unverified if only still images are available.
+
+Technical scope: exact color/cooling/count/range invariants, rendered particle
+colors/size through expiry in both directions,32-particle renderer capacity,
+eight-lease bound, pause/expiry/reuse; reuse the existing cooling, snapshot,
+overflow and standalone trace checks. No full suite/profile/stress/soak. Current
+status: clones/adapters prepared; capture/PTS/frame review and recommendation
+remain pending.
+
+First technical result `20261029T093523-quick`, input `d474357c`:11cases,
+8PASS/3FAIL/0skip. The three new color/cooling cases incorrectly applied the
+1px cooled-ray assertion to the unchanged1–2px player specks (`d.small` explicitly
+bypasses ray shrink in `ImpactVfxPixel.cs`). Correct only the review assertion
+to exclude small specks; preserve the failed XML, no product fix. Existing seven
+cases plus the new32-particle pause/eight-lease/expiry/reuse case passed. Rerun
+only the three failed cases together with the GPU capture fixture, reusing the
+eight passing results. An owned Docker client hung after its container became
+Dead; exact name/state/parent verified before terminating only that client.
+
+One QA build `20261029T094457-webgl`, input `b99f6bff`, is in progress. Final
+combined capture request input `64d61b41` adds the corrected test and refreshes
+authored SpriteDepthBinding after mirror/cel selection, following its existing
+public Refresh method. Two earlier capture requests (`113f795b`, `587bfee5`)
+were canceled only while verifiably waiting for runner.lock; no Unity result or
+capture was produced from them. Final request remains queued behind the build.
+ReBlade source hash equals the retained receipt; four six-frame contact details
+were reopened here (24frames), while the prior239-frame reference review is
+reused as recorded, not claimed as a new full reinspection.
+
+Ubuntu failure: `20261029T094457-webgl` did not produce a player. Kernel evidence
+at10:07–10:09UTC shows CONSTRAINT_NONE/global_oom, culminating in killed Unity
+PID32758; Docker state OOMKilled=true/exit137/Dead. This is host-wide exhaustion,
+not evidence of a profile or8GiB cgroup failure. All three active SSH clients
+(build, queued capture, queued normal matrix) reset. No normal comparison ran.
+Do not use this result as build/visual evidence. Preserve log/source; no local
+build, host RAM/swap/service change or unrelated process termination. Memory
+subsequently recovered (7.3GiB available observed). Retry the final64d61b41
+combined GPU fixture first: `20261029T101255-quick`, executing now. Normal matrix
+will be pointed only at a successfully preserved, hash-verified retry QA player.
+
+Qualified GPU/static result `20261029T101255-quick`, source `64d61b41`, archive
+SHA256 `2250844fb1e3caea90f840360f330e3b65820a12d4488a1dd1399706bfc253c2`:
+4/4PASS/0skip,37.5897s, llvmpipe LLVM15.0.7. The corrected three color/cooling/
+count cases and the capture case all pass; reuse the prior8PASS cases, do not
+describe this as a single12-case passing run. Archive digest, all2561 input
+hashes, exact four XML cases, fixture marker18ee50de and172PNG sizes/hashes
+verified.86capture records=84matched samples+2T2/300ms repeat controls; both
+post/world repeats equal the originals byte-for-byte.
+
+Directly viewed all28 native1920x594 panels (three640x360 post originals and
+three native320x180 world originals per panel):84samples/168originals, both
+directions, every listed sample time. No extra visual credit for repeat controls.
+Detailed transcription: `gold-spark-trials-20261029/20261029T101255-quick/`:
+`fixed-observed.json`, `fixed-sample-review.csv`, `gold-trial-fixed-receipt.json`.
+T2 provisional static preference: more and brighter amber points during150–400ms,
+no additional broad white contact mass at those sampled times. T1 improves hue
+without extra count. Both are still amber/orange rather than a ReBlade plume;
+later particles are small floor embers. >=80ms additional readability remains
+unverified; sparse frozen samples are not a PTS recording or a transition review.
+
+Source limitation observed, not diagnosed: some post readbacks omit/darken
+actor/lighting regions between independent time samples while world retains
+the scene (notably right600/700/1100 and left300/350 column,700/900actors).
+Do not turn those independent samples into a movie or interpret them as verified
+temporal fade/profile-caused regression. Runtime clips must resolve readability.
+Local viewer `gold-spark-trials-20261029/review.html` adapts the retained approval
+viewer and exposes all14times/side, source profiles, tests and these limitations.
+
+QA build retry `20261029T101824-webgl` uses exactly the same `b99f6bff` inputs;
+currently compiling WebAssembly. No host/service/swap/local-build change.
+
+Retry build finished successfully and preserved the immutable33-file QA player
+under `20261029T101824-webgl/player`; both archive/2560-input digest and all33
+payload hashes rechecked. Initial normal matrix:6runs x7checks PASS,0exceptions/
+provider writes, actual320x180 world/640x360 output. Chrome152.0.7977.64,
+ANGLE Intel HD4600 (Mesa/GLES3.2), Ubuntu native host path (not a2CPU cgroup).
+Runtime mid-phase input G64–102 for D versus161–199 for T1/T2 and max24/24/32
+particles confirm the selected profiles, independent of visual acceptance.
+
+Initial `right-D-normal` source c8c7f34f: selectedF367–521,155/155frames and
+154/154pairs directly viewed at full context and native400x240, including holds.
+Reject whole source for black actor-region rectangles F481–486 after VFX expiry;
+do not trim or export it as accepted. Manual row-per-frame ledger preserved.
+Initial left D only full-contextF366–447 (82frames), native0; other initial
+four sources unreviewed. All remain preserved/unqualified, not declared visual
+failures or passes. See `initial-cohort-review-status.json` in trial evidence.
+
+Read-only renderer inspection did not establish the cause. One external capture
+diagnostic follows Chromium's documented `ui-disable-partial-swap` OpenGL switch:
+https://chromium.googlesource.com/chromium/src/+/refs/heads/main/ui/base/ui_base_switches.h
+No game/profile/shader edit or new build. `right-D-normal-fullswap1` source
+b1a63f8d passes7checks and has133/133frames/132pairs inspected at context/native,
+F560–692,22.400–27.680s+40ms. No black actor rectangle observed in this retry.
+Its static continuity is accepted; original-speed perception remains unverified.
+This is observed recovery, not a proven causal diagnosis. Five remaining sources
+now capture with identical full-swap transport for a matched cohort. Initial
+sources and their gaps remain separate; never mix their metrics into accepted
+cohort results. Page-origin/video offsets are not calibrated; use direct visible
+contact PTS, not the approximate telemetry emission times, for final durations.
+
+# Gold alignment correction - 2026-10-29 (perceptual motion gate open)
+
+## Flash lifetime comparison — 2026-10-29, review only
+
+Scope: requested ReBlade segment 4.600 s through last decoded frame, all four
+contacts; eight existing D contacts, normal / Pause-Resume / Slayer separated.
+Reused retained source videos, manifests, numbered sheets/native crops and existing
+per-frame records. No build, preset/API/gameplay edit, commit or push in this review.
+
+Source identity: SHA-256 rechecked against retained receipts:
+- [ReBlade source](E:/codex-data/artifacts/TypingHero/parry-horizontal-flash-20261027/shorts-rp4vZPWLXsQ/source.mp4):
+  `a9e1f284cdf9fff5a9286f12fc52b8df4111af16f45e141e6d4833795ffd77b6`.
+  Published source: https://www.youtube.com/shorts/rp4vZPWLXsQ.
+- D left: `bae46829ca0fe0e0ba50de275e171c496e986f592b4474e706bf0e92695d7d43`.
+- D right exclusive retry: `b77cd3787841ce81653f3640fe1f2a212b4c51cc3141a6e343acbb5fcd8726e4`.
+  The earlier rejected right recording is excluded.
+
+Coverage selected before inspection: ReBlade F276–514, PTS4.600–8.566667,
+239/239 frames and238/238 adjacent transitions; D left F476–1010,
+PTS19.040–40.400,535/535 and534/534; D right F510–1051,
+PTS20.400–42.040,542/542 and541/541. Total1316frames/1313pairs.
+Preparation, contact, recovery, pause/resume, Slayer and subsequent menu/restart
+states remain included; repeated frames were not removed.
+ReBlade sheets23–42 and enlarged contact details; D focus000–033 per direction
+were directly inspected. D crops preserve native400x240 within640x360;
+faint particle disappearance outside those crops is not established.
+[Per-frame phase/transition record](D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/contact-tint-20261029/20261029T073229-webgl/flash-lifetime-review-20261029.json)
+supplements the existing detailed frame CSVs; it is a transcription after viewing,
+not an image classifier or substitute for viewing.
+
+Measurement: bright core means compact brightest contact center; ray means the
+long contact streak, excluding weapon smears; fade means dimmer residual core;
+tail means detached sparks. Phases overlap, so columns must not be summed.
+Frame ranges below are inclusive, PTS are first/last visible frame in seconds.
+Nominal duration includes the last frame's hold: (last-first+1)/fps.
+Visual boundary uncertainty is at least one frame per endpoint: ReBlade16.7ms,
+D40ms; conservative duration uncertainties33.3ms/80ms and cross-source
+duration-difference uncertainty113.3ms. Ambiguous/occluded endpoints have larger
+or unbounded uncertainty as noted. These are recording-time visibility estimates,
+not engine lifetime measurements. Last ReBlade decoded PTS is8.566667;
+container/audio duration is not used to extend its final visible hold.
+
+| ReBlade contact | Bright core: frames; PTS; duration | Readable ray: frames; PTS; duration | Core fade | Spark tail / limit |
+|---|---|---|---|---|
+| C1 onset297 /4.950 |297–304;4.950–5.067;133ms|300–307;5.000–5.117;133ms|305–307;5.083–5.117;50ms|Spark-only308–312;5.133–5.200. Next contact313 overlaps; exact end unavailable.|
+| C2 onset313 /5.217 |313–320;5.217–5.333;133ms|317–323;5.283–5.383;117ms|321–323;5.350–5.383;50ms|Spark-only324 onward;5.400 onward. Falling particles overlap C3; exact end unavailable.|
+| C3 onset344 /5.733 |344–351;5.733–5.850;133ms|348–353;5.800–5.883;100ms|352–353;5.867–5.883;33ms|Clear sparks354–367;5.900–6.117. Flecks368–371 ambiguous; absent by372/6.200. Onset-to-tail endpoint roughly383–467ms.|
+| C4 onset384 /6.400 |384–391;6.400–6.517;at least133ms before masking|388–393;6.467–6.550;100ms|From392/6.533 a dense bright plume masks isolated core fade; not measurable|Dense plume through419/6.983, then disperses; gold particles remain at514/8.567. Tail censored at EOF, at least2167ms from onset.|
+
+C4 is visibly a different, much denser ending than C1–C3. It must not become a
+single representative lifetime for all ReBlade parries. The visible slow/held
+progression does not by itself identify ReBlade's internal hitstop mechanism.
+
+| D contact / state | Bright core: frames; PTS; duration | Readable ray: frames; PTS; duration | Dim core / fade | Last visible spark estimate in crop |
+|---|---|---|---|---|
+| L1 normal, onset510/20.400 |511–514;20.440–20.560;160ms|511–514;20.440–20.560;160ms, faint at514|515–520;20.600–20.800;240ms|539/21.560, absent540; onset-to-next-boundary1200ms|
+| L2 normal, onset598/23.920 |598–601;23.920–24.040;160ms|598–601;23.920–24.040;160ms|602–608;24.080–24.320;280ms|623/24.920, approximately1040ms from onset to next boundary|
+| R1 normal, onset543/21.720 |544–546;21.760–21.840;120ms|544–545;21.760–21.800;80ms|547–556;21.880–22.240;400ms including held frames|569/22.760, absent570; approximately1080ms|
+| R2 normal, onset632/25.280 |633–635;25.320–25.400;120ms|633–635;25.320–25.400;120ms|636–641;25.440–25.640;240ms|661/26.440, absent662; approximately1200ms|
+| L3 Pause/Resume, onset686/27.440 |687/27.480 before overlay;730–732/29.200–29.280 after|687/27.480;730–731/29.200–29.240 after, last faint|733–739;29.320–29.560;280ms after clear resume|Approximately755/30.200; do not count overlay as active tail lifetime|
+| R3 Pause/Resume, onset722/28.880 |723–724/28.920–28.960 before;774–776/30.960–31.040 after|723–724 before;774/30.960 after|777–784;31.080–31.360;320ms after clear resume|Approximately801/32.040; no combined active lifetime inferred|
+| L4 Slayer, onset815/32.600 |816–823;32.640–32.920;320ms recorded|816–823;32.640–32.920;320ms recorded|Orange core824–837/32.960–33.480 under red layer;560ms visible, not isolated natural fade|839/33.560; absent840; approximately1000ms|
+| R4 Slayer, onset856/34.240 |857–861;34.280–34.440;200ms recorded|857–861;34.280–34.440;200ms recorded|Orange core862–874/34.480–34.960 under red layer;520ms visible, not isolated natural fade|881/35.240; absent882; approximately1040ms|
+
+Pause overlay: L688–729/27.520–29.160, first clear frame730/29.200;
+R725–773/29.000–30.920, first clear774/30.960. These visible overlay intervals
+(1.68s/1.96s to clear frame) are not exact engine pause durations. No subtraction
+of wall-clock time is used to assert active VFX lifetime. Slayer red masking and
+retained frames similarly prevent interpreting disappearance as an alpha curve.
+
+| Normal-contact comparison, D minus ReBlade C1–C3 | Nominal difference | Interpretation |
+|---|---|---|
+| Bright core: D120–160ms versus133ms |−13 to+27ms|Within frame-resolution uncertainty; no consistent earlier D disappearance established.|
+| Readable ray: D80–160ms versus100–133ms |−53 to+60ms|R1 is nominally shortest, but overlap/uncertainty prevents a general “D rays vanish sooner” claim.|
+| Dim core: D240–400ms versus33–50ms |+190 to+367ms|D visibly retains a dim orange star longer. This is visibility of different artwork, not equal luminance or engine lifetime.|
+| Spark tail |No valid pooled difference|C1/C2 overlap, C3 faint endpoint uncertain, C4 EOF-censored; D endpoints are crop-limited.|
+
+Observed conclusion: D's strong center is not demonstrably shorter in these
+normal contacts. D's dim core remains after the long ray is gone. ReBlade C4
+maintains a much brighter, denser gold plume and a tail visible for at least2.167s;
+D's small red/orange tail is much less prominent even while still visible.
+Compared specifically with D Slayer crop endpoints1.00–1.04s, ReBlade C4's
+recorded visible tail extends at least about1.13s longer, but states/crops differ,
+so this is not a matched engine-lifetime comparison.
+Hypothesis only: particle brightness, density and coverage can explain a feeling
+of faster disappearance in D; this review does not isolate their causal effects.
+Serialized core480ms, ray/light220ms remain unchanged and do not prove equally
+long perceptual visibility.
+
+Frame witnesses:
+- [ReBlade core-to-spark C1, F305–310](E:/codex-data/artifacts/TypingHero/parry-horizontal-flash-20261027/shorts-rp4vZPWLXsQ/detail-gold-1-305.jpg);
+  [C2 F319–324](E:/codex-data/artifacts/TypingHero/parry-horizontal-flash-20261027/shorts-rp4vZPWLXsQ/detail-gold-2-319.jpg);
+  [C3 F352–357](E:/codex-data/artifacts/TypingHero/parry-horizontal-flash-20261027/shorts-rp4vZPWLXsQ/detail-gold-3-352.jpg);
+  [C4 F392–397](E:/codex-data/artifacts/TypingHero/parry-horizontal-flash-20261027/shorts-rp4vZPWLXsQ/detail-gold-4-392.jpg).
+- [D L1 F508–523](D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/contact-tint-20261029/20261029T073229-webgl/review-D-left/focus/focus-002.png);
+  [D R1 F542–557](D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/contact-tint-20261029/20261029T073229-webgl/review-D-right-exclusive/focus/focus-002.png).
+- [D L4 F812–827](D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/contact-tint-20261029/20261029T073229-webgl/review-D-left/focus/focus-021.png);
+  [D R4 F846–861](D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/contact-tint-20261029/20261029T073229-webgl/review-D-right-exclusive/focus/focus-021.png).
+
+Status: static phase measurement and full selected-frame inspection complete.
+Original-speed perceptual rhythm remains **unverified**: available viewing here
+returned still images. No claim of playback acceptance, reference match, or
+reason to automatically increase lifetime. Preserve preset D pending user judgment.
+
+Current: D `(1,.90,.35,.80)` passes static production captures and six focused
+technical cases. One immutable WebGL build; final left/right-retry real-key
+checks pass. All selected1077 frames/1075 within-source transitions directly
+reviewed in full-context sheets and native crops. Perceived original-speed
+motion remains unverified with available still-image/telemetry tools, so the
+single-field preset change is uncommitted/unpushed. No main integration/release.
+
+User rejected A `(1,.78,.28,.80)` because the core surroundings read orange
+against the brighter yellow ray/sparks. A is a rejected comparison, not an
+accepted color. The older selection language below is historical and superseded.
+Frozen white comparison remains `4b5d4df3`; continuation starts at clean task
+HEAD `62d2606491512ccc769c473705ef6811fd5e4d13`. Remote verified as
+`https://github.com/micharel09/TypingHero.git`; origin fetched, no main integration.
+
+Acceptance: small yellow-white brightest center; surrounding yellow in the same
+family as existing ray/sparks; both contact weapons clearer than white; no wide
+white, green-yellow, weak/dark result. Preserve distant rays, receiver and fade.
+Only production edit allowed is channel0 tint. Trial order D `(1,.90,.35,.80)`,
+E `(1,.96,.42,.80)` only if D still orange, F same accepted RGB/alpha .65 only
+if white/occlusion remains too wide. Maximum three new tints, no B/C retry.
+
+Reuse: external `contact-tint-20261029/ParryHdrQA-v2.cs`, hash-named adapter
+`runner-captures-v2.py`, qualified white/A captures from `20261029T035847-quick`,
+six-case `runner-tint-final.py`, native keyboard driver and exclusive runner.
+Adapt the fixture on profile clones with per-variant expected tint; preserve
+particle count/startColor/actual age/light/background assertions and separate
+15ms repeat. New viewer adapts `approval-2263fb89` HTML/CSS; both old viewers
+remain unchanged. Production stays A until direct static comparison passes.
+
+Owner/consumer: this parry task. Windows worktree
+`D:/Projects/TypingHero-worktrees/parry-cinematic-flash`; durable evidence root
+`D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/`.
+Ubuntu `fly-server` runner uses `/data/typinghero-game-loop/results/<run-id>`
+under the existing `runner.lock`, source archive and result lifecycle. SSH/SCP
+transfers between these exact roots. Unity/build/image/video processing stays
+on Ubuntu. New result IDs and hashes are recorded here as produced. Task owner
+cleans only owned results/artifacts after user visual approval/task closure;
+retain worktree/evidence for review. No new temp/log system or local heavy jobs.
+
+Commit/push gate: static images, six technical cases, final real-key WebGL QA,
+all selected frames/transitions and original-timing perceptual playback review.
+Playback ended/callback/drop receipts alone do not meet motion acceptance.
+No main merge or itch.io release is authorized in this continuation.
+
+## D capture execution
+
+First local snapshot attempt failed before SSH/Unity with adapter NameError
+`time` in the injected timestamp expression; no remote result or color evidence.
+Corrected it and moved archive assembly to Ubuntu by adapting the existing
+snapshot/server pipeline. Base archive `20261029T043751-quick`, source `eeccbfae`
+was fully rehashed; all2547 input SHA256 values match the current worktree using
+the existing YAML/meta-only LF normalization. No source inputs were inferred
+from a clean status alone. This avoids repeated local source compression.
+
+Candidate-D result `20261029T065856-quick`, source
+`b1a0163d80dbe4a7b0ee2c06ff6b546359180129ff1279c6c5a4d348e0869ac0`,
+contains the2547 verified inputs plus fixture `ParryContactTintQA_ed9ce59a95b0.cs`.
+Template SHA256 `ed9ce59a95b0fc5fefd86fc945b5e5171589122f9e76daa98dd207efa2d64ff9`.
+Fixture uses actual nonzero injection timestamp, per-variant tint expectations,
+white/A/D clones and a separate D15ms repeat; no production asset mutation.
+Exact filter selects only `ParryContactTintCaptureQA_ed9ce59a95b0.CaptureMatchedPostprocessedPairs`.
+Qualified result: 1/1 PASS,0skip; exact XML test/marker, source/archive digest,
+16 capture records and32 original PNGs checked together. White/A controls match
+all20 corresponding prior PNGs byte-for-byte; D15ms repeat matches both outputs.
+`20261029T065856-quick/gold-align-capture-receipt.json` contains exact hashes.
+All10 D originals,20 white/A control originals viewed in separate native post
+640x360/world320x180 sheets, five nearest2x contact comparisons, and all five
+full-post D images at1280x720. Two repeated images are technical stability
+evidence, not additional visual samples. Old A WebGL contact `right-620.png`
+was opened at native640x360 to compare its bright gold ray/sparks.
+
+| Time | D center and hue | Weapons / ray-sparks / receiver / static sequence |
+|---|---|---|
+|15ms|Small yellow-white contact, yellow shoulder; no separate orange mass|Defense blade and opposing horizontal blade distinguishable; bright diagonal ray remains dominant at range; receiver unchanged|
+|30ms|Bright point retained; gold stays close to the ray family|Left detached fragment warms independently; weapon edges remain visible; no receiver/background change|
+|60ms|Compact white-yellow point, warm yellow surroundings|Detached debris is orange in all three controls; not a core tint defect. Ray keeps its taper while weakening; no pose/framing jump|
+|100ms|D star reads yellow/gold around the small white point; A has the stronger separate orange surround|Both weapon approaches separate better than white's larger pale area. Warm outer texture tips remain, without a broad orange field; far ray and lit actors agree with controls|
+|140ms|Yellow star persists as the diagonal ray fades; no green cast or dark/weak collapse|Brightest point remains at contact; no new broad white patch; detached orange particles and receiver remain the original contributions|
+
+D `(1,.90,.35,.80)` selected for production on this static evidence. E/F were
+not tried: no remaining broad orange field or excessive white/occlusion was
+observed. These five ordered stills do not establish perceived motion rhythm.
+Production edit now changes exactly channel0 tint, retaining every other byte
+of the normalized asset. Production four-variant capture queued, source
+`b3c9a2bc7bdd1a5a3700ae6f53973eef8e16874d319a2bfeb364a7e943134efb`;
+40-image qualification/review and all later gates remain pending.
+
+## Production D and focused technical qualification
+
+Production `20261029T071310-quick` / `b3c9a2bc` qualified 1/1 PASS,0skip,
+11.367153s; fixture template `cc1a266761b52639381b664fa2e001479ecdaa29615ff75fb058db34bc75a0e8`,
+20 records/40 original PNGs, correct marker/filter and rehashed archive snapshot.
+All10 full-production PNGs equal the qualified D candidate bytes. All10 core-off
+post/world PNGs equal the frozen white core-off bytes. PNG hashes match local
+SCP copies. Details: result `gold-align-capture-receipt.json`.
+
+Directly viewed all40 originals via five post native640x360 x four-variant
+sheets and five separate world320x180 x four-variant sheets. Additionally opened
+all20 post images individually at nearest1280x720. Full/core-off/ray-off/light-off
+retain the intended attribution at all five times: core-off removes the100/140ms
+gold star, ray-off removes only the diagonal presentation ray, light-off dims
+the existing weapon/actor illumination without turning the core orange or dark.
+Full and ray-off world textures remain byte-identical (no world ray duplicate).
+No new wide white region/green cast or receiver/background discontinuity observed.
+This accepts static hue/readability only, not perceived-speed motion.
+
+Technical `20261029T071427-quick`, source
+`937b769656ed5973a7c257f4e6ff0f865285671d85c96858d99e71e5b02dbaf6`:
+6/6 PASS,0skip using exactly the prior four-name filter/six cases. No tests added
+or edited. Source-backed assertions read current authored tint, check actual
+startColor, live snapshot/Pause/Resume/clear/disable/pool reuse, repeat builder
+profile bytes and the frozen standalone MetalClash trace. Of13 affected inputs,
+12 match A; only normalized preset changes to
+`f73437d3677aff854c1cafc89505c43480d5873a375a37df232ccedf83ccb15e`.
+`gold-align-reused-input-hashes.json` records the comparison. All other2546 source
+inputs match the verified base; unchanged shader/HDR/viewport evidence reused.
+
+One final Ubuntu WebGL build is now requested from frozen production D inputs
+plus the unchanged, URL-gated mirror fixture. No additional resolution/profile,
+main integration or release. Real-key QA, frame/transition/perceptual playback
+review, final viewer and commit/push gates remain open.
+
+## Build identity correction
+
+Final requested build source is
+`6e2ac7cc0bc355ee8dad3a115eebfff8ce86e2e9837aed3910a583f3f2e02d0f`.
+Its verified result directory is `20261029T073229-webgl`. Earlier live progress
+was incorrectly attributed from `20261029T071532-webgl`; that directory's marker
+is `f0cfb043b1593db67f7a4cb9941ec3d970e41af0df16ea1c22fa99057bed4c7f`
+and belongs to another queued job. Its build progress/success is NOT task evidence.
+This task requested one build; it waited behind that job and is now executing.
+
+Two task-created helpers were mistakenly copied into that other result directory.
+Their exact SHA256 values were compared with the local originals before unlinking
+only those two files; no original/owner/player/log data was changed or removed.
+Receipt: `gold-align-misattributed-run-cleanup.json`. Both helpers now point to
+the source-verified073229 result. Future evidence uses snapshot/fixture/payload
+identity, not directory recency. Qualified D/production captures and the six-case
+logic source937b7696 remain correctly identified; the logic marker was rechecked.
+Build completion, real-key QA and motion acceptance remain pending.
+
+## Final D player and motion selection (recorded before export/review)
+
+Build `20261029T073229-webgl` completed and preserved its immutable player, QA
+marker true. Rehashed all2548 source entries to snapshot6e2ac7cc; archive SHA256
+`b95899f45742e8142da52f8e5e7ba18df6ab25834e5f0872f115e765c10add07`.
+Serialized preset matches the qualified normalized D asset f73437d3. Both hardware
+runs match all33 immutable player file hashes. `gold-align-runtime-audit.json`
+records the full source/payload/renderer/input/source-video identities.
+
+Chrome152.0.7977.64, ANGLE Intel HD4600/OpenGL ES3.2, source videos640x360;
+world320x180 checked by the driver. Right/left each12/12 technical checks PASS,
+0exceptions/provider writes, maximum one presentation quad. Actual signed angles
+right `[20,45,-15,65]`, left `[-20,-45,15,-65]`; all8 combinations, no seed supplement.
+Four real-key parries each direction, fourth into Slayer, third live Pause/Resume,
+pool reuse and clean Restart/Menu covered. Browser/parry drivers match the accepted
+A hashes508e1e3e/8f526f20. Only the existing exclusive wrapper's job list is adapted
+to run both directions serially under one lock. Technical pass is not motion acceptance.
+
+Selected intervals are recorded now, before exporting or inspecting source frames:
+
+| Source | SHA256 | Interval [start,end) / whole source count |
+|---|---|---|
+|right-tintD-6e2ac7cc/page@d292d6959841e3c02d8bc905ce918697.webm|2b5464474c6c2fec7bdee61f5c33b82e8da6b211bc1a6b59b7ef1cc2ff21decd|18.790580019533635-42.200000s /1055 frames|
+|left-tintD-6e2ac7cc/page@6a8963bd50ba0b6df64b941862023f40.webm|bae46829ca0fe0e0ba50de275e171c496e986f592b4474e706bf0e92695d7d43|19.065710039049385-40.440000s /1011 frames|
+
+Reason: one second before the first post-Restart observer through the entire
+remaining source, including complete preparation, contact, fade/recovery, all four
+parries/Slayer, Pause/Resume and clean Restart/Menu. No chronology errors are excluded.
+Include a preceding held frame if its duration crosses the start boundary, plus
+the available immediate outside boundary frames. Use actual manifest PTS, not index/FPS.
+Whole-source export uses unchanged HD-2D helper39fef34b and existing Pillow deps
+on Ubuntu under runner.lock. Native focus crops are additional spatial evidence,
+not new timing or replacement frames. Original source order/repeats are retained.
+
+Source scope: existing parry flipbook tint only; fixed white/A images and yellow
+ray/sparks in the same scene are the color reference. No new ReBlade reference-video
+review or character animation authoring is claimed. Applying sprite-frame-review to
+the selected output frames/transitions; original-timing perceptual playback remains
+unverified because the available tool input is still images/browser telemetry.
+No commit/push until that mandatory motion gate is actually met.
+
+## Initial right source rejected; same-player retry
+
+Whole-source export qualified2066/2066 frames with exact PTS. Original selections
+resolve to rightF469-1054 (586/585), leftF476-1010 (535/534), with held-start frames
+included and immediate outside boundaries468/475. These export counts are not
+visual acceptance.
+
+Initial right2b546447 was reviewed at full-context320px/source frame through
+F879: selectedF469-879 =411frames/410pairs, plusF464-468 outside context. Native
+sourceF841,842,843,844,845,848,849 were opened to resolve the Slayer transition.
+Actor visibility changes lit clash -> absent/black actors(F842-843) -> prior lit
+clash(F844-845) -> absent/black(F848) -> opaque red silhouettes(F849). The existing
+SlayerScreenFX entry weight is monotonic; telemetry has no additional emission and
+quad/burst expiry progresses without a new ray. Recorder origin is suspected but
+not independently proven; this recorded visibility/chronology inconsistency is
+insufficient for motion acceptance. Reject the entire initial right source rather
+than trimming the affected frames. Its12 technical passes remain separate.
+
+`right-rejected-observed-ranges.json` preserves actual observations/native views;
+F880-1054 remain unreviewed and excluded. Source video, all exported frames, sheets,
+telemetry and initial `gold-align-runtime-audit-initial.json` are retained intact.
+No normal/slow accepted clip exported from this source. No tint/gameplay change.
+
+Adapted the existing exclusive retry wrapper only to right orientation, same
+immutable073229 player and unchanged drivers. Requested label
+`right-exclusive-tintD-6e2ac7cc`; waits behind an existing Unity job under the shared
+runner lock. Host IO at request: some avg10=6.68, full avg10=2.41 (60s averages
+still higher). No other job stopped and no additional build requested. This is
+the first rejected D motion source; bounded retry/three-recurrence rule retained.
+Left original source remains awaiting direct review, not accepted by technical pass.
+External adapters and input manifest stay in the existing contact-tint evidence
+directory. Ubuntu result owner and cleanup conditions are those above.
+
+## Left source frame/transition review
+
+Left source bae46829: whole1011/1011 exported; selectedF476-1010 inclusive,
+19.04-40.40s with final40ms duration to40.44s. Directly inspected all535 selected
+frames/534 consecutive transitions in full-context sheets29-63 (320px/source),
+then focus000-033 at native400x240 crop. Full-context boundaryF464-475 adds12
+outside frames, not selected-frame credit. Every sheet boundary and held frame
+retained. Manual `left-observed-ranges.json` records actual ranges and observations;
+`left-frame-review-6e2ac7cc.csv` expands those observed phases to one row per frame,
+actual PTS/duration, next transition and evidence. Export counters stay separate.
+
+First contactF510-514, secondF598-601: compact yellow-white point and yellow
+star shoulder next to the narrow gold ray. Later broad horizontal white pixels
+are the pre-existing weapon cel; small orange texture tips/detached debris remain.
+PauseF688-729 holds the live clash behind the overlay. ResumeF730-731 continues
+the gold star, then weapon smear/fadeF732-742 without a new ray. FourthF815-823
+shows the steep mirrored ray and yellow star; red silhouettes fromF824 occlude
+late hue. Unlike the rejected right source, no return to a prior lit clash is
+observed throughF877. RestartF893-923 and MenuF954-1010 show no old core/ray.
+The final frame is source EOF, not a loop boundary.
+
+This establishes frame continuity/visible color only. Original-timing perceptual
+playback remains unverified: enabled tools provide still images and telemetry,
+not continuous video input. No commit/push. Adapt existing A exporter to this
+exact reviewed interval (535 normal frames,2140 frames at4x repeated-frame slow
+motion), compare every decoded hash and duration. Export waits behind the same
+runner lock; no additional build or local image/video processing.
+
+## Right retry source selection (before export/review)
+
+Exclusive same-player retry completed12/12 technical checks,0exceptions/provider
+writes, maximum one presentation quad, actual angles `[20,45,-15,65]`, all33
+payload hashes match073229 player. No new build. Source
+`right-exclusive-tintD-6e2ac7cc/page@e974f9d800197982270ec83b9c362e78.webm`,
+SHA256 `b77cd3787841ce81653f3640fe1f2a212b4c51cc3141a6e343acbb5fcd8726e4`,
+1052 frames,640x360,25fps,timebase1/1000,duration42.08s. Selected interval
+`[20.407860000014306,42.08)` uses the same reason: one second before first
+post-Restart observer through EOF, all preparation/four contacts/fade/recovery,
+Slayer, Pause/Resume, Restart/Menu. Include any held frame crossing the start
+and immediate outside boundary. Source is not yet visually accepted.
+
+`gold-align-runtime-audit-retry.json` rehashes the immutable source/archive/payload
+and identifies this retry separately; the initial audit/rejected source remain.
+Export the entire new source using unchanged39fef34b helper under runner.lock to
+`review-D-right-exclusive`, never overwrite initial right or left review files.
+Record actual selected PTS/frame ranges after export, before direct review.
+
+## Right retry frame review and clip export
+
+Whole1052/1052 source frames exported with exact PTS. Selection includes held
+F510 at20.40s throughF1051 at42.04s plus its40ms duration to42.08s:542frames,
+541pairs. Directly inspected sheets31-65 at320px/source, then focus000-033 at
+native400x240; all selected frames, held repeats and every adjacent transition
+including sheet boundaries. Full-contextF496-509 adds14 outside frames, including
+immediate boundaryF509. Source EOF is non-looping. Actual ranges/phase corrections
+from native review are in `right-exclusive-observed-ranges.json`; one row per
+frame in `right-exclusive-frame-review-6e2ac7cc.csv`.
+
+FirstF543-545 and secondF632-635 have a small pale contact and narrow yellow ray.
+Large white horizontal shapeF546 is the existing Attack1_5 weapon cel, not a tint
+field. Warm original star tips/debris remain during fade. Third PauseF725-767
+holds the live clash; actors resume beneath closing overlayF768-773, starF775-776
+continues then fades without a second ray. FourthF858-861 stays yellow around
+the pale point. F862-863 darkens actors onto red, F864-874 holds late silhouettes,
+F875 onward recovers without returning to an earlier lit clash. Late color is
+occluded by Slayer red. Fresh RestartF928-969 and MenuF993-1051 contain no old
+core/ray. This retry resolves the initial source visibility inconsistency for
+frame continuity; it does not prove perceived original-speed rhythm.
+
+Left export qualified535 normal/2140 slow frames,21.40s/85.60s; all decoded frame
+hashes match source and exactly4 repeats for slow. Normal SHA256 e1c34d14,
+slow bf255e0e. Four selected left contactsF513/600/731/818 opened at native640x360
+and full nearest1280x720. Right export uses the fully reviewed542-frame interval,
+expected2168 slow frames,21.68s/86.72s, contactsF545/635/775/858. Both hosts retain
+original source/logs, rejected right source and machine export manifests separately
+from actual review records. Clip export receipt is technical only; perceived
+motion gate remains open and blocks commit/push.
+
+Right clip exporter initially waited under runner.lock behind an unrelated Unity
+job. Its own waiting PID4083740 was checked against exact script path/right argument
+before SIGTERM; no other job was interrupted. Existing A `export-final-clips.py`
+contains independent FFmpeg export. Adapted D back to that mechanism for media
+encoding only, Ubuntu `ionice -c3 nice -n19`, two FFmpeg threads. All Unity, browser
+QA and whole-source frame export already completed under the existing lock.
+This changes scheduling only, preserving source/interval/codec/normal timing,
+4x repeated-frame slow filter and every decoded-frame/duration assertion. No
+additional Unity/browser run or build. This supersedes the earlier clip-lock
+choice; the original queued attempt produced no right clips.
+
+The independent export PID4108624 was observed in `D/__wait_on_buffer` before
+FFmpeg began. After re-verifying exact script/right arguments and nice19, changed
+only its I/O class from idle to lowest best-effort7 (`ionice -c2 -n7 -p4108624`)
+to permit progress during sustained host I/O. Nice19/two FFmpeg threads remain;
+no other process priority was changed. Source/filters/hash checks remain identical.
+
+## Final artifact status
+
+Right export completed:542 normal/2168 slow frames,21.68s/86.72s, all decoded
+hashes equal the reviewed source subset and exactly4 repeats per slow frame.
+Normal SHA256 `665164a0dd43bf58ff67f85b1a42cd52874d5b2ff47c44c1479241e378b34581`;
+slow `9a8031e1a9d440f24011954c7807df9bfd7c819fee99be05aa486eb01397e2e7`.
+All four local clips match qualified Ubuntu hashes. All8 final contact stills
+opened native640x360 and nearest1280x720. No new color candidate or game change.
+
+New viewer is `approval-6e2ac7cc/review-6e2ac7cc.html` in the durable evidence
+root, label "Chờ người dùng duyệt hình". It adapts A HTML/CSS, adds white/A-rejected/D
+columns for all5 times and4 layer variants, separate world textures, four real/slow
+clips,8 contacts/2x links and preset/capture/XML/source/frame-ledger evidence.
+Windows encoding default initially garbled metadata text; explicit UTF-8 read
+corrected it and DOM U+1EA2 check passed. Prior75+157 viewer hashes remain unchanged.
+Final link/video-dimension/host-transfer receipts accompany the new viewer.
+
+Acceptance remains open ONLY for perceptual original-timing motion review. Tools
+expose still images/browser telemetry; frame inspection, decoded hashes, video
+metadata and any playback-ended receipt cannot establish perceived flash rhythm,
+occlusion duration or fade/Resume feel. Do not count user visual approval as agent
+QA. No additional runtime test/build is needed while these source/config inputs
+stay unchanged. No commit/push until actual perceptual review can be completed.
+Local HEAD and remote task branch remain62d2606491512ccc769c473705ef6811fd5e4d13;
+the one-field D edit and scoped docs remain uncommitted. Gameplay memory is not
+promoted to a verified D preset. Keep task worktree, immutable Ubuntu073229 player,
+sources/rejected captures and both-host evidence for that continuation/user review;
+cleanup only after user approval and task closure. No main merge/itch.io release.
+
+Viewer final checks:294 local links,0missing;216 PNG headers have the expected
+post/world/nearest2x dimensions. Browser loads all128 displayed images and four
+640x360 videos at21.68/86.72/21.40/85.60s without media errors; UTF-8 status and
+single-viewport horizontal fit pass. DOM receipt is technical, not playback review.
+Manifest255 files SHA256 `dd9b5fd71d7207513bd6404dbdb5f616e0e8db1cba08cd4537f7d05da10c8e34`
+matches both hosts. Detailed receipts: `gold-align-viewer-check.json` and
+`gold-align-viewer-transfer.json` in local073229 evidence result.
+
+Two earlier viewer-audit attempts were rejected: a non-ASCII assertion literal
+was changed by PowerShell's stdin encoding, then the checker assumed2x-world PNG
+was1280x720 instead of its correct640x360. Corrected checker expectations/UTF-8
+handling; no PNG/texture/asset or clip changes were made for those failures.
+Final reusable audit helper and its SHA are preserved with the task adapters.
+
+---
+
+# Historical A candidate record (color rejected; playback perception unverified)
 
 ## Final WebGL and review checkpoint - 2026-10-29
 
