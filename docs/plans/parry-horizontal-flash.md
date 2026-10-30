@@ -33,7 +33,12 @@ Production Player prefab still references profile GUIDdf72d97d1af744d19eda0382bf
 physics remains GUIDa4335d1b5e37493fa5e7f5db154c6a46. No scene override replaces it.
 Artwork review is reused for the same T2 render data; no fresh WebGL build or
 new reference/motion-quality claim is needed for this identical promotion.
-Commit85f5e050 is already on the task branch remote; final main push follows.
+Commit85f5e050 and merge b775bb39 are on origin/main and the task branch remote;
+fetch plus both ancestor checks verified integration on2026-10-30. This
+documentation-only receipt does not change the tested runtime inputs.
+The pre-existing worktree/branch are retained for the existing evidence adapters
+and reproduction; remove only when no longer needed and still clean, with the
+result preserved on main. The original dirty root checkout remains untouched.
 
 # Gold spark trials — 2026-10-29 (historical review-only handoff)
 
