@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Globalization;
 
 [DisallowMultipleComponent]
 [DefaultExecutionOrder(1060)]
@@ -29,7 +30,7 @@ public sealed class ScoreUI_ComboHUD : MonoBehaviour
 
             if (show)
             {
-                multiplierText.text = $"\u00d7{mul:0.0}";
+                multiplierText.text = "\u00d7" + mul.ToString("0.##", CultureInfo.InvariantCulture);
                 multiplierText.color = tint;
             }
         }

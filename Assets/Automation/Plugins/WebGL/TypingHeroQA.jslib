@@ -1,4 +1,10 @@
 mergeInto(LibraryManager.library, {
+  TypingHeroQA_TutorialClock: function(now) {
+    window.typingHeroTutorialClock = { unity: now, browser: performance.now() };
+  },
+  TypingHeroQA_TutorialTrace: function(json) {
+    window.typingHeroTutorialTrace = { json: UTF8ToString(json), receivedAt: performance.now() };
+  },
   // Fixed storage; only the batch reader allocates/serializes sample rows.
   // Unity LateUpdate markers count engine frames, independently of browser rAF.
   TypingHeroQA_FrameBegin: function () {

@@ -1,0 +1,4 @@
+Tutorial button art: Gothic Pixel UI by AbyssOwl
+https://abyssowl.itch.io/gothic-pixel-ui
+Free version 1.0.2. Original art preserved; Unity 9-slice and interaction tint.
+Commercial use permitted with credit. License: LICENSE.txt in source assets; GothicPixelUI-License.txt in exported builds.

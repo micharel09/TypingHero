@@ -164,6 +164,8 @@ internal static class CombatR7Build
         Box(mult.rectTransform, combo, 0, 9, 294, 36); Style(mult, 24); mult.alignment = TextAlignmentOptions.Center;
         Set(combo.GetComponent<ScoreUI_ComboHUD>(), "followScore", score.rectTransform);
         Value(combo.GetComponent<ScoreUI_ComboHUD>(), "gapPx", 9f);
+        var retiredHint = cluster.Find("ScoreMultiplierHint");
+        if (retiredHint) Object.DestroyImmediate(retiredHint.gameObject);
         var decay = Item("ComboDecay").GetComponent<Slider>();
         Box(decay.GetComponent<RectTransform>(), combo, 15, 51, 264, 6);
         foreach (var image in decay.GetComponentsInChildren<Image>(true)) image.enabled = image.transform == decay.fillRect;

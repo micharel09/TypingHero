@@ -22,7 +22,18 @@ are in `gold-spark-trials-20261029/promotion-selected-request.json`.
 Scoped Ubuntu verification20261030T055639-quick passed8/8cases,0failed/skipped,
 5.5193448s; source85117ed6221c54718aed1ea07b93d0e7adde911e92ad71366d1ab6d7ac696f9e,
 2549inputs. All production-specific count/trajectory/palette/render/pool and
-default/custom binding assertions pass. Latest-main integration remains pending.
+default/custom binding assertions pass. Integrated origin/main bad99db6; the only
+conflict was verification.md's independent leading evidence sections, both kept.
+Merged working source119bf23e66c538294e17c0010958eba3259d90896062aa9b4c76e5ee9d4687b6
+(2895inputs) passed14/14scoped cases,0failed/skipped,24.0826462s. Repeated the
+eight production cases plus public emission, two arena lifecycle paths, manual
+cue/input, parry deadline and duplicate-success protection. All106identified
+VFX/render/profile inputs remain byte-identical to selected-source85117ed6.
+Production Player prefab still references profile GUIDdf72d97d1af744d19eda0382bfaa99e9;
+physics remains GUIDa4335d1b5e37493fa5e7f5db154c6a46. No scene override replaces it.
+Artwork review is reused for the same T2 render data; no fresh WebGL build or
+new reference/motion-quality claim is needed for this identical promotion.
+Commit85f5e050 is already on the task branch remote; final main push follows.
 
 # Gold spark trials — 2026-10-29 (historical review-only handoff)
 

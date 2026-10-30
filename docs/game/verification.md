@@ -9,6 +9,13 @@ seed/mirror and count-matched trajectory invariants, core/ray lifetime, material
 speck routing, default/custom builder binding, Pause/Resume and8lease256particle
 expiry/disable/reuse. No new runtime API/shader or visual assets.
 
+After merging origin/main bad99db6, source119bf23e (2895inputs) passes14/14,
+0failed/skipped,24.0826462s on the same Ubuntu runner. This repeats the eight
+production cases and checks public parry emission, two arena lifecycle paths,
+manual cue/input behavior, parry-window deadline and no duplicate success VFX.
+All106identified profile/VFX/render inputs match the first passing snapshot.
+The document conflict preserves both parry and upstream score evidence.
+
 Artwork evidence reuses the exact selected T2 profile from20261029T101824-webgl:
 both normal directions and both Pause/Resume→Slayer-activation→Restart/Menu
 sources directly reviewed, with all holds retained. No new viewing credit is
@@ -59,6 +66,54 @@ claim. Detailed QA allocation samples include an additional JSON telemetry confo
 whole-game allocation is not zero. User visual/continuous perceptual approval remains
 pending. Task branch only: no main integration or itch.io publication.
 [Checkpoint and evidence identities](../plans/parry-horizontal-flash.md).
+## Redundant multiplier notice removed (2026-10-28; source verified)
+
+- User rejected the standalone SCORE MULTIPLIER caption. Removed its four scene
+  blocks and two references, timer/pause/reset code and retained run flag.
+  Builder removes an existing legacy caption instead of recreating it.
+- Structural comparison: all 1121 retained IDs remain, 1119 unaffected blocks are
+  byte-identical; only the two references change. ScoreSystem/EndlessRun match
+  pre-notice source29b9029c exactly. The remaining ComboHUD code matches that
+  baseline except for invariant0.## formatting. Existing guide, multiplier/decay
+  geometry, popup, score rules and award pulse are unchanged.
+- Supplemental Ubuntu format/award, pulse and128case geometry requests timed out
+  after180s and600s waiting for the shared runner; no tests executed and no fresh
+  Unity compile/run PASS is claimed. Other jobs remained untouched. Static checks
+  establish scene/reference removal and unchanged remaining code; source audit,
+  CJS syntax and whitespace checks pass. Original native/layout receipts below remain
+  historical evidence for unchanged behavior, not a new browser-run claim.
+  No new WebGL/viewport/clip matrix or local build was run.
+  Follow-up result and integration: [checkpoint](../plans/score-combo-clarity.md).
+
+## Score multiplier clarity (2026-10-28; initial iteration verified)
+
+- Invariant `0.##` formats x1.15/x1.3/x1.45/x1.5/x3 while retaining actual floats,
+  +.15 growth, x3 cap, Unity rounding, combo timing, colors and popup behavior.
+  The existing guide explains multiplier and combo expiry; SCORE MULTIPLIER
+  appears once per match for 2.4 unpaused seconds, including through Pause/Resume.
+- Unity2022.3.25f1/fly-server focused20261028T021251-quick:5/5PASS,0skips,
+  input95fa9b95;128font/long-total/multiplier/pulse combinations pass. Production
+  input under fr-FR still displays a dot; normal word5/6/7 awards12/13/14 with
+  third raw multiplier1.44999993. Pause/reading, expiry, re-activation, retained
+  Endless run, Restart and disable cleanup pass; original tier pulse passes.
+- Existing local Windows adapter with fresh Library, Unity2022.3.25f1 and installed
+  WebGL module: QA build and strict repeated builder PASS; LF-normalized input
+  6f96da77085592384aa29af8b56dcaf0feb638f7a25d27acd18a2b5284bd3a0d.
+  Scene projection retains1121original IDs, updates five scoped blocks, adds four
+  hint blocks and leaves1116unrelated blocks unchanged. Only four empty YAML field
+  spaces were trimmed; task blocks otherwise match the generated scene.33player hashes recorded.
+- Native Edge156.0.4314.50 / Playwright1.63.0 / GTX1650Ti ANGLE D3D11:
+  89/89PASS in54.582s,0exceptions/provider IO. Actual keyboard typing/parry,
+  x1/first combo, renewal, expiry/timeout, one-time notice, Pause/Resume, Restart,
+  Slayer x3/natural exit and normal combo after Slayer pass. Directly inspected
+  all11captures, including guide/x1/combo/Slayer at1280x720 and400x300; text,
+  decay, HP, typing tray and character-side popup remain placed correctly.
+  Firebase fixture interception and external blocking stayed enabled.
+- First Linux build stopped after prolonged lack of log progress; retry logged
+  missing-source CS2001, with stale shared compilation state suspected. Neither
+  is counted as a build PASS. Only verified task containers were stopped; shared cache and
+  other jobs preserved. No full suite/stress/soak/production/itch.io release.
+  Exact provenance, clip and integration: [checkpoint](../plans/score-combo-clarity.md).
 
 ## READY task closed; release canceled by user (2026-10-27)
 
@@ -654,6 +709,146 @@ player SHA256 checks PASS. Final menu, Play setup, live Swordsman combat/receive
 hit and manual Pause inspected in Orca using real input. Demo8151 retained paused;
 retired kaluga8148 removed. No full animation/shadow/performance or new terminal-
 result regression claim. [Version, attempts and resources](../plans/parry-main-demo.md).
+
+## Narrower centered tutorial (2026-10-28; review branch)
+
+Unity 2022.3.25f1 Windows strict repeat builder PASS/exit0; the focused
+CompactCardsAutoplayLoopAndFinishWithoutPractice test PASS, 1/1, on the final
+projected scene. Only six RectTransforms change; 1,293 other records and all
+1,299 scene IDs remain. Normal WebGL PASS/exit0, qa:false and four payloads
+exclude QA markers. All ten cards directly inspected at 1280x720/640x360:
+GIF size unchanged, horizontal padding halved, titles/rules fit. Mouse Next,
+Start, replay/held Enter/Skip pass at both sizes; zero page/console exceptions
+or external requests. Demo: http://127.0.0.1:8313/.
+[Checkpoint](../plans/parry-cue-demo.md#narrower-tutorial-modal-follow-up-2026-10-28-verified-review-candidate).
+
+## Larger centered tutorial (2026-10-28; review branch)
+
+Unity 2022.3.25f1 Windows strict repeat builder and three focused TutorialTests
+PASS on the projected scene. Normal WebGL build PASS with QA markers absent.
+All five cards at 1280x720/640x360 were directly inspected; mouse Next, Start,
+Skip, held Enter and Pause/Resume exercised. No browser page exceptions or
+external requests. The existing Endless flow and original clips remain unchanged.
+Demo and 28-second silent clip: http://127.0.0.1:8312/. Full decode and
+video/webm response PASS. [Checkpoint](../plans/parry-cue-demo.md#larger-tutorial-modal-follow-up-2026-10-28-verified-review-candidate).
+
+## Centered tutorial follow-up (2026-10-28; earlier review candidate)
+
+Unity 2022.3.25f1 strict repeat builder PASS; three requested TutorialTests PASS
+on the projected scene. Normal WebGL build PASS and 34 player files match server
+hashes; four payloads exclude QA markers. Edge inspected all ten cards at
+1280x720 and 640x360, including mouse Next/Start/Skip, held Enter and pause/
+resume. After both Start and Skip, real typed words scored and the timer moved.
+Page exceptions and external requests: zero. Demo and 28-second silent 25 fps
+clip are hosted at http://127.0.0.1:8311/. Current Endless starts the first
+encounter immediately and uses Continue between encounters; its post-win screen
+was not directly checked. Details and failed attempts:
+[checkpoint](../plans/parry-cue-demo.md#centered-tutorial-follow-up-2026-10-28-in-progress).
+
+## Compact five-card tutorial (2026-10-27; review branch)
+
+Windows Unity2022.3.25f1: strict repeat builder and normal WebGL PASS/exit0.
+Final projected scene TutorialTests7/7 PASS,0failed/skipped,6.6656177s: five cards,
+autoplay/loop/reset, no practice gate, reading/pause/provider locks, preference/
+restart/abandon/Skip and clean battle. Edge normal player1280x720 and640x360:
+all10cards directly inspected; real Next/Enter, Start, pause/resume, Menu replay,
+Skip and viewed Play confirmed. JS page exceptions0/external requests0. Four
+normal payloads exclude QA markers in ASCII/UTF16. Only16tutorial records change;
+1283others remain byte-identical after projection. Existing clip art/timing stays.
+New independent demo8310 and27sclip preserve old demos; branch pushed only,
+main integration deferred. [Evidence and failed pilots](../plans/parry-cue-demo.md#compact-five-card-tutorial-2026-10-27-verified-review-candidate).
+
+## Tutorial fixed footer (2026-10-27; review branch)
+
+Windows Unity 2022.3.25f1 strict repeat builder and QA/normal WebGL PASS, exit0. Edge156.0.4314.42:389 scoped checks PASS at actual1280x720 and640x360: fixed footer baseline, labels, Watch/Replay, disabled practice action, real HIT/parry, miss/Retry, Back, Next, Start and Skip. No QA Unity/browser errors or external requests. All30 QA stills directly reviewed; terminal-demo copy overflow was found visually and shortened to FINISHED. This final string-only correction is verified on the normal player at both sizes; unchanged behavioral checks and builder results are reused. Seven final normal UI stills reviewed; QA globals absent and all4 JS/WASM/data payloads exclude QA markers in ASCII/UTF16.
+
+Only23 tutorial scene records change; all other1276 records retain original bytes. IDs, Button events/navigation, shared assets and gameplay logic remain unchanged. QA/normal tutorial serialization matches. Demo/clip: http://127.0.0.1:8309/ . Old demos retained; current branch only, no main merge. [Details](../plans/parry-cue-demo.md#tutorial-fixed-footer-2026-10-27).
+
+## Tutorial Gothic button skin (2026-10-27; review branch)
+
+Windows Unity 2022.3.25f1: final strict repeat-builder, QA WebGL and normal WebGL PASS, exit 0. Native Edge 156.0.4314.42 / GTX 1650 Ti D3D11: 374 checks PASS at 1280x720 and 640x360, 0 exceptions/provider reads/writes. Covers Watch/Replay, Retry/Back/Next/Skip/Start, disabled click rejection, practice and fresh battle. All button roles/states directly inspected; fixed corners, legible white labels and unchanged geometry. Measured flat-face/white-core contrast: 9.808 normal, 5.256 hover, 14.030 pressed at both sizes.
+
+80 original AbyssOwl PNGs are byte-identical; source credit/license and exported CREDITS.txt/GothicPixelUI-License.txt verified. Scoped scene keeps 978 non-tutorial blocks byte-identical, changes 34 tutorial records and removes 8 old skin components; no RectTransform/listener/navigation change or new dangling reference. Runtime/config/shared art unchanged. Normal qa:false and all 4 payload QA-marker scans pass; fixture-isolated normal Play/Skip/viewed Play/Pause smoke and 4 stills inspected. No new animation/performance/full-suite claim. New demo 8307 retains old 8306 and main integration is deferred. [Source mapping, provenance and delivery](../plans/parry-cue-demo.md#gothic-tutorial-buttons-2026-10-27-verified-review-candidate).
+
+## Tutorial playback hot path (2026-10-26; review branch)
+
+Ubuntu2022.3.25f1 quick160709/inputd0f5f956:9/9 scoped tutorial tests PASS,
+0failed/skipped,29.4497702s. All1,995 lookups,28 boundaries/five loops,
+loading/navigation/error/lifecycle and native handoff remain covered. Warmed
+cache/render/same-frame tick loops allocate0bytes; held and loading ticks produce
+zero new Image dirty callbacks. PNG/importer/descriptor/scene preservation checks
+cover149 files against ce9b87a5; unchanged three builder-fixture receipts are reused.
+
+Ubuntu QA153705/input728fddcf builds and passes strict repeat builder. Its initially
+mis-selected default browser harness fails NameInput and is not a profile pass.
+The preserved/downloaded33-file player passes the correct native tutorial trace:
+51/51, all33 explicit pairs, no buffer overflow, two slots and battle cleanup0.
+Five priority render gaps16.875–22.965ms; synchronous resource calls peak0.725ms.
+Separate normal capture34/34 and post-QA-metadata-removal normal17/17 pass on
+Windows/Edge156/D3D11. Peak tutorial texture objects2/30.019043MiB; HUD/menu/battle/
+viewed clone/restart/replay/late exit cleanup0. Final normal JS/WASM/data exclude
+QA globals and the trace type in ASCII/UTF16. Six pages at both requested sizes
+and actual Enter/Back/Pause/Resume/Start/parry are covered by104 native QA checks.
+
+Direct selected visual review:528/528 images and495/495 consecutive pairs across
+all33 boundary/loop intervals, retaining timestamps/repeats. No blank/wrong atlas
+observed. Existing1,995-cel review is reused for unchanged art/timing. Current trace
+and capture support continuous streaming in these measurements; every historical
+133–213ms capture gap's exact cause remains unverified. The Score loop's old133ms
+gap is after0→8, not the10→0 atlas pair. No clock clamp/slowdown or FPS guarantee.
+New4,992-frame VFR video fully decodes with increasing PTS; old videos/demos remain.
+
+Demo8305 and all receipts/failed attempts/input variance/retention are recorded in
+[the playback checkpoint](../plans/parry-cue-demo.md#playback-hot-path-follow-up-2026-10-26-review-candidate).
+Canonical Ubuntu normal160828/inputacf808ea: build/hash/QA exclusion PASS; exact
+player native17/17 PASS, all six640x360 pages inspected. Demo8305 serves this player
+with the existing offline fixture worker. Final current-source Windows QA passes
+strict repeat/build,58/58 lightweight trace checks (publisher frozen throughout
+tutorial and resumed afterward) and104/104 input checks again. Final priority
+render gaps18.455?19.955ms; resource calls peak0.355ms. Final QA source/binary
+provenance is the explicit post-build hash receipt in the checkpoint, not the
+inherited local snapshot marker. Main integration is deferred for review.
+
+## Tutorial atlas streaming (2026-10-26; review branch)
+
+Ubuntu2022.3.25f1 scoped receipts cover eight unique tutorial tests, including all
+1,995 frame lookups,28 atlas boundaries/five loops, native resource unload/reload,
+pause/loading, stale completions, error navigation, final-only completion and clean
+encounter clone. Current/fresh/custom-tuned builder fixtures each pass two runs;
+GUIDs/listeners/tuning remain. Exact input/run provenance and earlier failed attempts
+are in [the checkpoint](../plans/parry-cue-demo.md#atlas-streaming-acceptance-2026-10-26).
+
+Normal result102719/input18d5570d, qa:false: downloaded33-file hashes match Ubuntu;
+JS/WASM/data have no QA markers. Native Edge156/D3D11 GTX1650Ti at1280x720 passes33
+checks;640x360 passes17. Actual GPU upload/delete peak is2 tutorial atlases,
+30.019043 MiB RGBA versus33/457.108154 MiB baseline. HUD/menu/Start Battle/viewed
+Play/encounter clone/restart/replay/late-exit cleanup reach0. This measures tutorial
+textures only, not total RAM/download/FPS. All six pages at both sizes and all33
+boundary/loop sheets were directly inspected (132frames/99consecutive pairs).
+Unchanged PNG/SpriteRect/timing hashes permit reuse of original cel review.
+
+Receipts under `E:/CodexTemp/TypingHero/space-press-cue/atlas-*`; demo8304 and
+`Tutorial-Atlas-Streaming.mp4` preserve old8303/player/video. No main integration.
+
+## Tutorial Space example (2026-10-24; isolated preview)
+
+Unity2022.3.25f1/fly-server QA082204 and normal083354 share immutable input
+`a820ba0399c0ec4334a70fc781fd849001380ca55fd9c9a5b20200d45fd257c0`.
+8/8focused Unity tests PASS,0failed/skipped,3.5245s; strict repeat-builder,
+WebGL/compiled observation bridge and normal QA exclusion PASS. Both downloaded
+players match33remote file hashes;5normal JS/WASM/data payloads exclude QA markers.
+
+Edge156.0.4314.42/Intel UHD/ANGLE D3D11, native-final2:22/22checks PASS at640x360
+and1280x720,0exceptions/provider reads/writes. All five example phases, input/score
+lock, Pause/F8/Resume, restart, Enter/viewed/clean combat, real parry per size and
+menu replay covered. Every selected capture frame directly inspected:452/452frames,
+450/450adjacent pairs, all13sheets; original timing/holds retained. Final MP4s also
+reviewed70/70 and181/181frames, including explicit terminal hold repeats. Native
+normal5/5PASS plus actual tutorial/combat/Pause/menu image review; demo8303 bootstrap,
+QA absence, clip HTTP type/hash verified. No full-suite/performance/actor-motion
+or new-player usability claim. Failed builder/driver/lock waits and precise scope,
+per-frame CSVs, clips and retention: [checkpoint](../plans/parry-cue-demo.md).
+Main integration remains deferred for preview.
 
 ## Latest-main parry demo and depth completion (2026-10-24)
 
@@ -4218,3 +4413,115 @@ receipt is reused; no new gameplay-suite claim. Exact evidence and cleanup are i
 - Build input882e88e000ed107ebdb465d8659812bf95b7b107eaf20f0938a3d8d52f51aee1;
   final-font test inputb3044b14fb58292db85872307ac09b5cb6b80068ea371c00291e38010d6f4b24.
   Failed driver pilots, source normalization and receipts: [checkpoint](../plans/score-hud-cluster.md).
+
+# Compact Space cue preview receipt (2026-10-24)
+
+Final28x11logical cap: QA `20261024T063401-webgl` passes3/3 scoped tests, strict repeat-builder and compiled observation bridge. Normal `20261024T064636-production` builds and excludes QA markers from all five JS/WASM/data payloads;33 downloaded files match remote hashes. Canonical serialized scene/import metadata checked against generated output. Runtime framework/WASM unchanged from preceding validated candidate; shrink changes serialized UI only.
+
+Muted native Edge156/Playwright1.58.2: focused Guard route17/17 PASS; final direct capture19/19 PASS; normal smoke5/5 PASS with all8 screenshots visually inspected. Earlier native-head32 assertions remain useful but its profile ended on an incorrect harness route expectation, so it is not reported as a complete pass. Reuse existing seven-attack prediction/real input results for unchanged combat. See [trial checkpoint](../plans/parry-cue-demo.md) for boundaries and superseded candidates.
+
+Artifacts `E:/CodexTemp/TypingHero/space-press-cue`: `native-direct-review/selection.json` and `review.md` register complete selected intervals, original PNG timestamps/hashes and direct visual review of392/392frames,386/386pairs. Old Playwright video had stale-frame replay and is superseded by chronologically timestamped CDP originals. Final silent clip235frames/9.733s,960x540; served payload hash matches local. Normal demo bootstrap active fixture worker/no QA globals/no exceptions PASS at http://127.0.0.1:8303/. Trial branch retained off main for subjective size/distraction review; no full performance or all-seven new lit-scene claim.
+
+
+## Two-step tutorial parry modal (2026-10-24; isolated preview)
+
+Unity2022.3.25f1: serialize102925 strict repeat PASS; QA103338/input494d9c04
+passes8/8focused Unity cases in3.5205443s and strict repeat/WebGL build.
+Native Edge real keyboard/mouse29/29PASS at640x360/1280x720: Next/held Enter,
+Back, exact Pause/Resume frame/clock, entry reset, Restart/Menu/replay/viewed,
+input/score/provider lock, selected-difficulty fresh battle, no clone leak and
+one actual parry. Zero exceptions/provider reads/writes; fixtures retained.
+
+Normal110858/input770b5a63 PASS;33file hashes match remote and five payloads
+exclude QA markers. All2382runtime inputs match QA except three caption strings
+in source scene/manifest; generated scene/PNG/importer/durations equality proved.
+Reuse unchanged runtime evidence. Normal native5/5PASS and all10images inspected.
+Final asset77/77frames,76/76pairs plus loop reviewed; complete normal capture
+222/222frames,221/221pairs on19sheets reviewed. Encoded223frame/4.979s MP4 decodes,
+with explicit500ms terminal hold. Actual source/frame observations, failed
+attempts, adapter recovery and retention: [checkpoint](../plans/parry-cue-demo.md).
+Demo http://127.0.0.1:8303/ and /Tutorial-Parry-Modal.mp4 use the verified normal
+player, local fixture worker and no QA globals. Main integration remains deferred.
+
+
+## Six-page tutorial beat guidance (2026-10-25; isolated review branch)
+
+Final assets:927/927 frames,922/922 consecutive transitions and5/5 loop joins
+visually inspected at480x180 and nearest2x with actual UGUI guidance. Final
+Slayer450 preview RGB buffers exactly match the final Unity exports; unchanged
+four clips retain inspected export hashes. Source/crop/event/duration hashes,
+per-frame observations and rejected candidates are registered in the
+[trial checkpoint](../plans/parry-cue-demo.md).
+
+Pinned local Unity2022.3.25f1:5/5 focused PlayMode cases PASS; final QA WebGL
+build and strict repeat builder PASS, atlas metadata unchanged.860 retained named
+sprite IDs stable. Final native browser94/94 PASS across640x360/1280x720, including
+six-page click/Enter, held-release gate, Back/reset, Pause/Resume, restart/menu,
+viewed/input/score/provider locks, fresh battle and actual Space parry. All13
+screenshots inspected; zero exceptions/provider reads/writes. Normal WebGL build PASS, qa:false and five JS/WASM/data payloads exclude QA
+markers. Final normal native7/7 PASS, zero exceptions/provider reads/writes;
+all11 screenshots inspected. Actual normal parry95/95frames and94/94transitions
+reviewed, showing full preparation, Space/contact/+30/Guard loss and recovery.
+New six-page51.164s VFR video includes full UGUI guidance and real parry;1474frames
+fully decode with increasing PTS, explicit2.5s HUD intro/500ms terminal holds.
+Demo8303 serves final normal player;31 served files and MP4 match local hashes.
+Receipts and retained resources are in the checkpoint. Main integration is deferred
+for user review.
+
+## Whole-frame tutorial replacement (2026-10-26; isolated review branch)
+
+Supersedes the cropped/composited tutorial acceptance above. New five real-input
+normal-player clips retain complete16:9 gameplay, one nearest320x180 resize,
+original timing/holds, Point atlases and2px gutters. Direct visual review:
+1995/1995cels,1990/1990adjacent pairs and5/5loop joins on69sheets; independent
+pixel equality passes all1995sources. Final37UGUI guide/pose variants inspected.
+All1995UGUI frame lookups, boundaries/loops, Pause clock/frame hold, Resume and
+Back reset PASS on Ubuntu quick073902. Four other tutorial lifecycle/provider
+cases passed063923; the fixed350ms Resume-wait failure was corrected with a
+bounded actual-clock wait and the all-lesson case rerun, without changing gameplay.
+
+Ubuntu Unity2022.3.25f1 QA074535 and normal075759 WebGL builds PASS, input87210702.
+Strict twice-builder PASS;82tutorial outputs/full generated scene byte-identical
+between final quick and QA runs.18asset GUIDs,1018named frame IDs,1231scene IDs
+and2persistent listeners retained; only15existing tutorial records change.
+Native QA104/104PASS at640x360/1280x720, including six pages, lifecycle/viewed,
+clean40/180/100battle and real Space parry; all13screenshots inspected. Normal
+native6/6PASS, all11screenshots inspected;0exceptions/provider reads/writes in
+both runs. qa:false and all five JS/WASM/data payloads exclude QA globals.
+Actual normal parry101/101frames,100/100pairs directly reviewed. New73.902s
+VFR walkthrough2223frames fully decodes with increasing PTS and500ms ending hold.
+Demo8303 serves the new normal player:31served files/video match hashes, existing
+offline fixture worker active, QA absent. Scope, failed/cancelled attempts,
+source timestamps/hashes and retained review resources: [checkpoint](../plans/parry-cue-demo.md).
+Final Unity tests, serialization and builds used for acceptance ran on Ubuntu;
+main integration stays deferred for user review. No full runtime/performance
+suite or combat changes.
+
+
+### Tutorial new-player candidate (2026-10-27)
+
+- Ubuntu rendered Unity2022.3.25f1:18/18 scoped PlayMode tests PASS at
+  `/data/typinghero-game-loop/results/20261027T064043-quick`, input
+  `df152cc07c741411295d19c3f2ad67cd1e10a1cc6bdf606a38f0737f0b915c6e`.
+  Includes1995 lookup identities,28 internal boundaries/five terminal holds,
+  cache lifecycle/errors, zero warmed cache/render/tick bytes and Image dirty
+  callbacks, genuine HIT/parry/retry/cancellation, and six normal regressions.
+- QA strict repeat-builder PASS. Native Edge/D3D11:640x36091checks PASS;
+  normal1280x72034checks PASS. Earlier QA1280 completed90scoped checks before
+  an omitted preparation-dialog step in the harness; its report remains FAILED.
+  Separate demo smoke directly verifies unseen Play, Skip and viewed Play.
+- Normal output qa:false; all5JS/WASM/data payloads exclude ASCII/UTF16 QA
+  markers.33player files copied with matching SHA256. A nonfatal font metadata
+  import-version diagnostic remains in the normal build log; build exit0 and
+  actual normal menu/tutorial/practice text were verified visually.
+- Actual normal GPU tutorial peak:2textures/31,477,248bytes (30.02MiB); all
+  practice/battle/restart/menu/replay/late-Skip cleanup observations return0.
+- New capture:1465frames/1457consecutive transitions directly inspected across
+ 8selected segments, all held/repeated frames and original presentation timestamps
+  retained. Existing unchanged28internal-boundary visual receipts are reused;
+  five new terminal/Replay windows replace automatic wrapping. Raw records,
+  PTS/frame hashes,41overlapping sheets, all failed reports and timing limits
+  are preserved with the [checkpoint](../plans/parry-cue-demo.md).
+- No independent novice study or whole-game FPS guarantee. Live-practice capture
+  has a213ms interval whose precise capture-vs-game-render cause is unverified;
+  it is retained in the video and does not involve a displayed tutorial atlas.

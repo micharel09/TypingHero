@@ -1,0 +1,12 @@
+Gothic Pixel UI - Game Asset Pack by AbyssOwl
+Source: https://abyssowl.itch.io/gothic-pixel-ui
+Free version 1.0.2, downloaded 2026-10-27; original PNGs preserved.
+
+License information (author page, accessed 2026-10-27):
+This asset pack can be used in both commercial and non-commercial projects. All assets included in the pack can be edited and/or modified in any way. No part of this asset pack may be resold even after editing and/or modification. The images in this asset pack are not to be used to train AI or generative models or tools. Attribution is required in the form of a credit to AbyssOwl for commercial projects.
+
+Required credit: Gothic Pixel UI by AbyssOwl
+Tutorial buttons use split_assets/frames and bars/large_ornate_frame2.png (Gold).
+The author's page permits stretching elements and extending/repeating sections.
+Unity 9-slice preserves the 12px corners; only the straight edges/solid center stretch.
+No separate interaction sprites are supplied for this frame; Unity ColorTint is used.

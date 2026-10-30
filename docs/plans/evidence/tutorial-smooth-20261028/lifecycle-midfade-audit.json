@@ -1,0 +1,26 @@
+{
+  "next-midfade": {
+    "step": 0,
+    "loopPhase": 1,
+    "alpha": 0.20593595504760742,
+    "accepted": 2.4052000045776367,
+    "displayedFrame": 71,
+    "now": 23.15003
+  },
+  "skip-midfade": {
+    "step": 2,
+    "loopPhase": 1,
+    "alpha": 0.30939406156539917,
+    "accepted": 6.406265012919903,
+    "displayedFrame": 191,
+    "now": 29.99584
+  },
+  "start-midfade": {
+    "step": 4,
+    "loopPhase": 1,
+    "alpha": 0.444452166557312,
+    "accepted": 8.701680001802742,
+    "displayedFrame": 260,
+    "now": 42.845699999
+  }
+}

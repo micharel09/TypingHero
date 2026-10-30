@@ -2,10 +2,12 @@
 module.exports = async function scoreCluster(api, browser) {
   const {session,start,state,until,clickControl,check,report}=api;
   const sizes=[[1280,720],[400,300]];
+  const label=(s,name)=>s.typography.find(t=>t.path.endsWith('/'+name));
   const geometry=(s,label)=>{
     const k=Math.min(s.width/960,s.height/540);
     const center=r=>r.x+r.width/2;
     check(s.comboUnderScore && s.comboDecayUnderScore,label+': multiplier and decay belong to score cluster');
+    check(!s.typography.some(t=>t.path.endsWith('/ScoreMultiplierHint')),label+': redundant multiplier notice absent');
     const frame=s.scoreFrameRect;
     const left=frame.x, right=frame.x+frame.width;
     const top=frame.y+frame.height, bottom=frame.y;
@@ -17,6 +19,8 @@ module.exports = async function scoreCluster(api, browser) {
     } else check(Math.abs(center(s.scoreRect)-s.width/2)<1,label+': x1 total centered');
     check(Math.abs(s.playerStatusRect.height/k-50.4)<1,label+': player status contains HP row only');
     check(s.comboVisible===(s.multiplier>1.0001) && s.comboDecayVisible===s.comboVisible,label+': visibility follows actual multiplier');
+    if(s.comboVisible) check(s.typography.find(t=>t.path.endsWith('/Multiplier'))?.text===
+      '\u00d7'+Number(s.multiplier.toFixed(2)),label+': displayed multiplier matches the actual score multiplier');
     if(s.comboVisible) check(Math.abs(s.comboDecayValue-Math.max(0,Math.min(1,s.comboRemaining/s.comboWindowSeconds)))<.002+s.frameMs/1000/s.comboWindowSeconds,label+': fill follows live remaining time within one update');
   };
   const resizeCapture=async(page,label,live=false)=>{
@@ -51,6 +55,20 @@ module.exports = async function scoreCluster(api, browser) {
     await start(page,false);
     let initial=await until(page,s=>!s.dungeonTransitioning);
     if(initial.tutorial){
+      for(const [width,height] of sizes){
+        await page.setViewportSize({width,height});
+        const before=await until(page,s=>s.width===width && s.height===height);
+        const guide=await until(page,s=>s.frame>=before.frame+3);
+        const copy=label(guide,'ScoreGuide');
+        check(copy?.text==='<color=#DCC47C>Score / Combo</color>\nChain correct words to raise your score multiplier. Keep going before the combo bar runs out.',
+          'guide explains score multiplier and combo time '+width+'x'+height);
+        const b=copy.bounds,g=copy.glyphBounds;
+        check(!copy.truncated && g.x>=b.x && g.x+g.width<=b.x+b.width && g.y>=b.y && g.y+g.height<=b.y+b.height,
+          'complete guide copy fits its card '+width+'x'+height);
+        check(guide.tutorialArrows.some(a=>a.target==='ScoreCluster'),'guide arrow still targets score frame');
+        await page.screenshot({path:report.outputDirectory+'/guide-'+width+'x'+height+'.png'});
+      }
+      await page.setViewportSize({width:640,height:360});
       await page.keyboard.press('Enter',{delay:350});
       await until(page,s=>!s.tutorial && !s.dungeonTransitioning);
     }

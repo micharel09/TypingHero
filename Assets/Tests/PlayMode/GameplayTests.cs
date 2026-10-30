@@ -798,6 +798,53 @@ public sealed class GameplayTests
         finally { TutorialRun.End(); EndlessRun.Clear(); }
     }
 
+    ScoreSystem CreateScoreHUD(out ScoreUI_ComboHUD hud, out TMP_Text multiplier)
+    {
+        var hudHost = new GameObject("combo presentation", typeof(RectTransform), typeof(ScoreUI_ComboHUD));
+        hudHost.transform.SetParent(root.transform, false);
+        hud = hudHost.GetComponent<ScoreUI_ComboHUD>();
+        multiplier = new GameObject("Multiplier", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
+        multiplier.transform.SetParent(hudHost.transform, false);
+        Set(hud, "multiplierText", multiplier);
+        var host = Own(new GameObject("score with combo HUD")); host.SetActive(false);
+        var score = host.AddComponent<ScoreSystem>();
+        Set(score, "rules", Own(ScriptableObject.CreateInstance<ScoreRules>()));
+        Set(score, "comboHUD", hud); host.SetActive(true);
+        return score;
+    }
+
+    [Test, Category("Quick")]
+    public void ScoreMultiplierLabelsPreserveRealAwardsAndInvariantDecimals()
+    {
+        var culture = System.Globalization.CultureInfo.CurrentCulture;
+        try
+        {
+            System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("fr-FR");
+            var score = CreateScoreHUD(out var hud, out var multiplier);
+            float expected = 1;
+            for (int i = 1; i <= 25; i++)
+            {
+                int before = score.Score;
+                typing.ProcessInput(Get<string>(typing, "current"));
+                if (i >= 5) expected = Mathf.Min(3, expected + .15f);
+                Assert.That(score.Multiplier, Is.EqualTo(expected), "Use the original unrounded multiplier");
+                Assert.That(score.Score - before, Is.EqualTo(Mathf.RoundToInt(10 * expected)));
+                Assert.That(multiplier.gameObject.activeSelf, Is.EqualTo(i >= 5));
+                if (i == 5) Assert.That(multiplier.text, Is.EqualTo("\u00d71.15"));
+                if (i == 6) Assert.That(multiplier.text, Is.EqualTo("\u00d71.3"));
+                if (i == 7) Assert.That(multiplier.text, Is.EqualTo("\u00d71.45"));
+                if (i >= 18) Assert.That(multiplier.text, Is.EqualTo("\u00d73"));
+                if (i >= 5 && i <= 7)
+                    TestContext.WriteLine($"word{i}: multiplier={expected:R}, label={multiplier.text}, award={score.Score - before}");
+            }
+            hud.SetMultiplier(1.5f, 3, Color.yellow);
+            Assert.That(multiplier.text, Is.EqualTo("\u00d71.5"));
+            Assert.That(Mathf.RoundToInt(14.5f), Is.EqualTo(14), "Unity midpoint-to-even remains unchanged");
+            Assert.That(Mathf.RoundToInt(15.5f), Is.EqualTo(16));
+        }
+        finally { System.Globalization.CultureInfo.CurrentCulture = culture; }
+    }
+
     [UnityTest, Category("Quick")]
     public IEnumerator HitstopRestartBeforeExpiredCoroutineResumesRestoresOriginalScale()
     {

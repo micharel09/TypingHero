@@ -1,0 +1,24 @@
+SimpleKeys - Animated Pixel Keyboard Keys, by beamedeighth
+Author: https://beamedeighth.itch.io/simplekeys-animated-pixel-keyboard-keys
+Classic/Dark/Spritesheets/SPACE.png (blank lock face),
+Classic/Dark/Spritesheets/SPACEALTERNATIVE.png (warning),
+Classic/Light/Spritesheets/SPACEALTERNATIVE.png (timing/parry).
+Original bytes retained. Each sheet has two 67x16 frames: released, pressed.
+Unity slices the original sheet and uses 9-slice for the empty face area;
+only Unity tint/layout changes. No generated or redrawn artwork.
+
+Author's published terms, checked 2026-10-24:
+"You can use these assets in any kind of project you want, personal or commercial.
+Giving credits is not necessary but appreciated."
+"You can't sell these assets."
+This is the author's custom permission, not CC0.
+
+The author's download page returned HTTP403. These files were retrieved from a
+public project that credits the same SimpleKeys pack:
+https://thegouge.itch.io/mimics-dungeon
+https://github.com/KoolGouge-Games/Mimic-Dungeon
+Pinned revision: 180c911869bac33cdf90eb19e16371a58620c97a
+Path prefix: godot/assets/UI Elements/SimpleKeys/SimpleKeys/
+Dark SPACE SHA256: 9fb284be36aeb23dd5fa8f0d99b6bc48c1770e558466292be5ff8fa28fa14edf
+Light SPACEALTERNATIVE SHA256: 581248f7c82dd7afb4ff01b59966a4ea8165346aa2225fcd80205d4136cc8fb6
+Dark SPACEALTERNATIVE SHA256: 7336659e4821c3e86013ef128805b5d72a221349f8d07d15138578a8bc4f8f78

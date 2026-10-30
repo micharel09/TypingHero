@@ -132,6 +132,30 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
         practiceIdle = hold;
         _nextAttackAt = Now + .5f;
     }
+    internal bool StartPracticeAttack()
+    {
+        if (!TutorialRun.Active || TutorialRun.Practicing != TutorialRun.Practice.Parry || _attacking ||
+            GamePauseController.InputBlocked) return false;
+        remainingSwings = pattern = 0;
+        StartAttack();
+        return true;
+    }
+
+    internal void CancelPracticeAttack()
+    {
+        if (!TutorialRun.Active) return;
+        _attacking = preparing = attackPending = _queuedHitReact = false;
+        remainingSwings = 0;
+        var strike = GetComponent<AttackStrike>();
+        if (strike) strike.CancelSwing();
+        HideCue();
+        if (animator)
+        {
+            animator.speed = 1;
+            animator.Play("Base Layer.skeleton_idle", 0, 0);
+            animator.Update(0);
+        }
+    }
     [SerializeField] GameObject attackCue;
     public void Anim_Telegraph()
     {
@@ -189,7 +213,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
             preparing = false; animator.speed = 1;
         }
 
-        if (!_attacking && Now >= _nextAttackAt) { StartAttack(); return; }
+        if (!practiceIdle && !_attacking && Now >= _nextAttackAt) { StartAttack(); return; }
 
         if (_attacking)
         {
@@ -257,7 +281,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
 
     internal void RecordParry()
     {
-        if (endless == null || chain == null || !_attacking) return;
+        if (TutorialRun.Active || endless == null || chain == null || !_attacking) return;
         chainParries++;
         if (chain.Length == 3 && chainParries == 3) EndlessProfile.Unlock(EndlessProfile.TripleParry);
     }

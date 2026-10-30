@@ -1,0 +1,6659 @@
+{
+  "columns": 6,
+  "cellWidth": 324,
+  "cellHeight": 184,
+  "width": 320,
+  "height": 180,
+  "atlases": [
+    "score-0.png",
+    "score-1.png",
+    "score-2.png",
+    "score-3.png"
+  ],
+  "selection": {
+    "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture",
+    "start": 32.497545000001786,
+    "end": 41.199225000008944,
+    "sourceBuild": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/normal-player",
+    "input": "normal c779 gameplay player, real UI and keyboard; no QA bridge or gameplay mutation",
+    "events": [
+      {
+        "timestamp": 32.497545000001786,
+        "caption": "Complete words.",
+        "focus": {
+          "x": 128,
+          "y": 260,
+          "width": 120,
+          "height": 36
+        }
+      },
+      {
+        "timestamp": 33.16563000001013,
+        "caption": "Word 1 of 5",
+        "focus": {
+          "x": 218,
+          "y": 4,
+          "width": 204,
+          "height": 40
+        }
+      },
+      {
+        "timestamp": 34.24577000001073,
+        "caption": "Word 2 of 5",
+        "focus": {
+          "x": 218,
+          "y": 4,
+          "width": 204,
+          "height": 40
+        }
+      },
+      {
+        "timestamp": 35.28006500001252,
+        "caption": "Word 3 of 5",
+        "focus": {
+          "x": 218,
+          "y": 4,
+          "width": 204,
+          "height": 40
+        }
+      },
+      {
+        "timestamp": 36.406635000005366,
+        "caption": "Word 4 of 5",
+        "focus": {
+          "x": 218,
+          "y": 4,
+          "width": 204,
+          "height": 40
+        }
+      },
+      {
+        "timestamp": 37.49845000000298,
+        "caption": "Word 5: combo!",
+        "focus": {
+          "x": 218,
+          "y": 46,
+          "width": 204,
+          "height": 44
+        }
+      },
+      {
+        "timestamp": 38.226329999998214,
+        "caption": "Word 6: multiplier active.",
+        "focus": {
+          "x": 218,
+          "y": 46,
+          "width": 204,
+          "height": 44
+        }
+      },
+      {
+        "timestamp": 39.99922500000894,
+        "caption": "Combo ends.",
+        "focus": {
+          "x": 218,
+          "y": 4,
+          "width": 204,
+          "height": 40
+        }
+      },
+      {
+        "timestamp": 40.39922500000894,
+        "caption": "Score stays.",
+        "focus": {
+          "x": 218,
+          "y": 4,
+          "width": 204,
+          "height": 40
+        }
+      }
+    ],
+    "cadence": {
+      "fps": 30.007997131232806,
+      "p95": 41.34000000357929,
+      "max": 88.01999999582932,
+      "requested": 401,
+      "completed": 401,
+      "gate": true
+    },
+    "sourceReportSha256": "33be09b85005c4bfb60f358c9bd47794c918600871b520b103b0f760c2dc8588",
+    "leadingPauseFramesOutsideSelection": 3,
+    "leadingIdleFramesOutsideSelection": 0,
+    "selectionNote": "Start is the directly inspected first fully unpaused frame; final real source frame serves as duration boundary. Score trailing idle after combo expiry shortened to 1.2s. No interior frames removed; full cue and complete Slayer entry/attack/exit retained. Leading boundary gives 300-500ms idle before the first demonstration action/cue."
+  },
+  "frames": [
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000003.png",
+      "sha256": "ad030974c19b094e8f99d7074b8780fd39a4dfab5598d4a5ed1064d65591503a",
+      "timestamp": 32.497545000001786,
+      "duration": 0.03253499999642884,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6374f7392a380eb791ab10c61576d8736879d7dcf18d93d862b4621d64632b39",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000004.png",
+      "sha256": "2569d61d82487f4b73648999dfaa2be428a8d4c26082bbdb8f004bd9a5b2b31e",
+      "timestamp": 32.530079999998215,
+      "duration": 0.033285000011325394,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "71f44bce0af099236547446bb558b8b34e9df1caaa2cd93330ad71801a2bc422",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000005.png",
+      "sha256": "0b80394060f76dc2a925a7e5c70819bc3335c9e0c153ce9325e289f7bc6cf8e7",
+      "timestamp": 32.56336500000954,
+      "duration": 0.03333499999344269,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a170138263936bd1b7cd2ba89f1cb7a57a3c8ff73af484c558cbe806fe7f12f8",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000006.png",
+      "sha256": "92c278dce527bbda2fdd636a08d596cbc8742b592454d2506ce6e3846bbb0d96",
+      "timestamp": 32.59670000000298,
+      "duration": 0.033430000007150795,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cc91d330f0e7e134bd47182ca575b4e3d6aa4b83330b89fa744ad745431d861f",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000007.png",
+      "sha256": "30d70efadadb4c7c3e300cf5dba2c3567ceeea4ad41901ebf156678080537a7c",
+      "timestamp": 32.63013000001013,
+      "duration": 0.034250000000000114,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1989554d53f451d7c5cc467d55b4c74adaa4c017b77100954811ecd62663c4a0",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000008.png",
+      "sha256": "f9e38a4eca0bf5f0d1e421e7eb1097dee920efa1b45808428cd0679c809fc151",
+      "timestamp": 32.664380000010134,
+      "duration": 0.03365999999642355,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "58ff51dc1b435aff0c46ff68059a38c3aac1d6d0bdddccf2766623a0080f486c",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000009.png",
+      "sha256": "77d7248482fc34354e1a5e7a8eaf2e0bd708990908bb539e576ac9565c173221",
+      "timestamp": 32.69804000000656,
+      "duration": 0.03203499999642645,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "61d89256ee78935a5922d34984e9cad2c63b9d87fda424b4a7f97fd826d7b5a7",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000010.png",
+      "sha256": "97bf4a28e002e9d67a7aa4889207b3c7a695a1f6a889b243236974b07b8c08e2",
+      "timestamp": 32.730075000002984,
+      "duration": 0.03379000000655452,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "499e2a03b8149b59c87eec1f486f7aa1133ad0001253c42c15b12b44ab6b8e90",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000011.png",
+      "sha256": "ecd633291728559dabc1da58eea875d34bad97fb5596024715ce6f825ae3b06a",
+      "timestamp": 32.76386500000954,
+      "duration": 0.03281499999761195,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "dc586a82de79a4ffda903406230914dbd8e796e2303080a72e43b9394e9cd362",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000012.png",
+      "sha256": "88e468ab480f4c745eb6a135e8cc8410d344a7b750747184a441d815d9f1ce01",
+      "timestamp": 32.79668000000715,
+      "duration": 0.033649999991062884,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "54b1b59fb22212a812d48f3b0b702e7241410d18737bb81bed106009c6a9cb72",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000013.png",
+      "sha256": "57905b172d3539fb831602f4c2838d7fc62d9e10282a117a26f8fff177985c9f",
+      "timestamp": 32.83032999999821,
+      "duration": 0.049395000010726164,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a3ca4d24fc8d8cae7e68dc2c4a2370314f1369489ee8eb1047c35cc489b58f6f",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000014.png",
+      "sha256": "45a68be9bfa4c5ea546005c426c4f380197edb6d4d4986b9cbf62e8ed6e0297d",
+      "timestamp": 32.87972500000894,
+      "duration": 0.03498999999463592,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "eb372d2840aa828894573d522502915d51f13703ccaf0adb6cb1a350251ca94c",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000015.png",
+      "sha256": "ab7fa7bdc8b9f4dfe14894cd5a2f22ae5699f876824f774fe78991a89a2cbe8d",
+      "timestamp": 32.914715000003575,
+      "duration": 0.03105500000715722,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8d7d389c622952ccc1df950295edc9ddec8eb9aee8548bc34f9dcac45cdc171d",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000016.png",
+      "sha256": "29a7643c268bcd10fb5dad537a4b1924d98d2028eee1dfc1d16d3a0b1642114a",
+      "timestamp": 32.94577000001073,
+      "duration": 0.030344999998803246,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "210ed5f1874d30b73093b50d7a9b6b85effb5f6932c049644c08ebb8292d74ef",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000017.png",
+      "sha256": "47b7c2c1dd5fd82e736c0c565ad1be5b31eef03045445654f78c863a54f83f78",
+      "timestamp": 32.976115000009536,
+      "duration": 0.03639499999582796,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a8a134d7343dc825b341f43abfdc0051b4c28523447df3b54626ea3129f1ce2d",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000018.png",
+      "sha256": "79b9f237a664cda0104edea116ccb6b5f2a116de5e9417e96add2cd0da4aff98",
+      "timestamp": 33.01251000000536,
+      "duration": 0.03721500000357736,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "626bce979d7ad44e72aaba6d164f4ce2d54da5eb88940f5589dd2423c87af909",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000019.png",
+      "sha256": "3e88939db54be7e52f8f9b674ff9a8216d11497bf83a5aa1ffa5f5d9b206a19c",
+      "timestamp": 33.04972500000894,
+      "duration": 0.019530000001189762,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d662006e6c81baa4505ace3649a906b5c9aee16af39aeb41735b8838d70a07be",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000020.png",
+      "sha256": "8b7e8f6d82bb3cc55eb8ad1ea158dcba4554cdedadd9972d5e1cb59af13e1198",
+      "timestamp": 33.06925500001013,
+      "duration": 0.028504999995234925,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "eebe4e3c3b43d7f05bc02d5b720265fd42e5379f603ced42551f4f6a4ee927d6",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000021.png",
+      "sha256": "e629fee0eccb4388a60d4a83a1b1a14091fc29c78196d17b9ea47da5342597a6",
+      "timestamp": 33.097760000005366,
+      "duration": 0.03301000000536192,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fa95d22f5a36511e8498cbfb6ace5076ae427fd3af5cacf05bf640186b0e3eba",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000022.png",
+      "sha256": "94bbb92a3176c7a5306d5f61696e3909880b8d6b19fbb50b96535153bf19e229",
+      "timestamp": 33.13077000001073,
+      "duration": 0.034859999999405034,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e70b4d5d2bc63e4bc664e4bf7d3a55762fc577ecf1a31ec76cbfe2a3cf79f2a2",
+      "atlas": 0,
+      "caption": "Complete words.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000023.png",
+      "sha256": "80df03a425322169b4afc528bc9ff8ca7a4a0de8ea57d1b7da8a62f7f2207c12",
+      "timestamp": 33.16563000001013,
+      "duration": 0.031384999990464735,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "09b1abdf31df038639fe7a9dd6867f945c3daf47f66f43a9aa0680905778ed59",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000024.png",
+      "sha256": "88ca45fe1055cce40b30996ac937fe6c4f2d4e83df83fe7149857a84e864439d",
+      "timestamp": 33.1970150000006,
+      "duration": 0.03393000000715318,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c4bb5e54d38af527e8e9aeebed14ef24d4e90dbc71cc4e28b4a647765b94c6a0",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000025.png",
+      "sha256": "a8aa414f2f832535cfd192c7946a8acf176a4f5de9463d6aa24a6f12f6d7c03f",
+      "timestamp": 33.23094500000775,
+      "duration": 0.03417999999224719,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "52df7719d46178e9c52e6f861d6cdefec42951a1e4b8f8d4fb395e2857f2ee60",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000026.png",
+      "sha256": "ca89cf6b6275de5ed6abbd633d24a4279208e6e82c193a785c7f8f43d0b1d648",
+      "timestamp": 33.265125,
+      "duration": 0.031945000007752355,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8b52b5dacb52320fb1dc5e608fb3074ded3e9ed8255efb64327a4979e6fd848d",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000027.png",
+      "sha256": "e17bc9ef969be00f536bd6b5013ea57815c646573676c73ff085c8e17ffb1aee",
+      "timestamp": 33.29707000000775,
+      "duration": 0.0330600000023793,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7a955af8877cd4109b1b5f9bd901dc64b2e80fe1f38b5aef8cd9edc85a8ad761",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000028.png",
+      "sha256": "c2b153523d777886beaf48289dd9080e78ed870d7efa6e5c3f490eda791c7f2a",
+      "timestamp": 33.33013000001013,
+      "duration": 0.03363499999046837,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8710b1214c19ee55f3b79eb15b108beffdffde90f20c6c8a40f8cb8a4ee92c86",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000029.png",
+      "sha256": "0ebbba3590711df41e982dfd3e11689c77c30afb919af84367f62e415b6ee15d",
+      "timestamp": 33.3637650000006,
+      "duration": 0.033960000008342206,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3eb714b5f2a43391470e5c8250ecb37a25170bd904cafa90ece820453b48da43",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000030.png",
+      "sha256": "c2f7b0e0758e16ab645dea78dbccddb10c6886f43b1acc378c3863f96d268331",
+      "timestamp": 33.39772500000894,
+      "duration": 0.03200499999523032,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2fd6343d90f28ba7ae6866a3ee6052595ca9cb596d4b97368c1e76e0610c33e0",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000031.png",
+      "sha256": "384ee9ba1750a25494576ac3eaa11eecbafc0f003c37f037cec0322958f1ea5b",
+      "timestamp": 33.42973000000417,
+      "duration": 0.033394999995827845,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4008562ad05f348ee23a71e1cbe5ff61b99ce45427d4abf432a31210b7b1030f",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000032.png",
+      "sha256": "7714c72cbf9f2d4909330550973f32dcb5aa822e91836afca717b22c8adf9668",
+      "timestamp": 33.463125,
+      "duration": 0.036385000005367374,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b9ebda89f08c3e5d4e4405dcf7427239e11d654e83cd294c315f5d87da2ad5f5",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000033.png",
+      "sha256": "d917927fbfeb66d6db3705dc60e27ba4185f88fdf8b89a7f69bbea08683fa14b",
+      "timestamp": 33.499510000005365,
+      "duration": 0.03034999999403709,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a551641920df148fe70bc7da328e84a5f573fc7c0cf380e862a8f54a3da045c5",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000034.png",
+      "sha256": "75d0136d870aff5ed3b920f2ceef67131359145a4767e3a594b7b754d16465da",
+      "timestamp": 33.5298599999994,
+      "duration": 0.035450000002981596,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d2d7466e804f6c25a29dc5d450284d33e4963e796ce913c343b9ba854d15c741",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000035.png",
+      "sha256": "4f7ac3e177ec46130451e402b4c67cfe1a20b6aabcf39b5936a7b6d202aa7361",
+      "timestamp": 33.565310000002384,
+      "duration": 0.03148499999940668,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "747ad58c8b4463aa76636cb4d75b125d115721e8021f1aaa2a7a814ce5165a02",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000036.png",
+      "sha256": "947b24866002245f1f1b2540b506fc78008d2b350f7f19ff2e5f7e0b38575d90",
+      "timestamp": 33.59679500000179,
+      "duration": 0.03668999999761269,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e3f87e21281725f18d6257a8b250be3036be4d40ee2606b0ac80c6d7aae604da",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000037.png",
+      "sha256": "7b71c466a17370467c6fa4ba6870d13d82dce66301d30ead7328aa0bbab728d7",
+      "timestamp": 33.6334849999994,
+      "duration": 0.03654500000178729,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8d5f26f8701a097938b0d9f5bdea337ab70deef45952cfb62af4ad4d17f5612c",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000038.png",
+      "sha256": "5cad56286eb6fa3750bc3acd5fd4dd7fb587725715e7f51bafb58368f24ae799",
+      "timestamp": 33.67003000000119,
+      "duration": 0.027605000004172098,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "980b75792c7f3a97db727288aaf71cb17333c22d8bf3b62c4c9ef7419a967e04",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000039.png",
+      "sha256": "d9d6eda3cb7583dd42bf3e3efddfe023f656893592c253d2a96c715f4d14e350",
+      "timestamp": 33.69763500000536,
+      "duration": 0.03332500000298211,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "22bb79c57a96f130f60735353cd9ed1ce48deef5f302b410f433b1df4bca0653",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000040.png",
+      "sha256": "901d127d21b23dec7b5eb05b325e5b0451106c71a8b87e7baa57504244d4e208",
+      "timestamp": 33.730960000008345,
+      "duration": 0.03280499999225128,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2467765f019d8324da41907dc52951274498bc286e99c0dd289b39ea6b64f79b",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000041.png",
+      "sha256": "b79adf899e434467c0c56d403f1caf9ff9623479d15c349f1903bdfe785e5304",
+      "timestamp": 33.763765000000596,
+      "duration": 0.03403500001132187,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "60de98dad71edada44c3081e8eae7caa591068ab148e5d95ecbe70ce7ec9c1e8",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000042.png",
+      "sha256": "a140213b0e1d6791d4d341ff91823a2f892f5f8108e1a39a047d19ef9714629f",
+      "timestamp": 33.79780000001192,
+      "duration": 0.04828499999642588,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d9a26ab1277503d3212f57722bb492afd238da140f8ac5fc7a16a6449c0d90ef",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000043.png",
+      "sha256": "046e7471008414b5716dcc68d0229139ca17452002a1052bc3b5bccb65f26720",
+      "timestamp": 33.846085000008344,
+      "duration": 0.027980000004170336,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "61675db50428ec463ead065d73c51a6785a131af3b344af1799d672db318f701",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000044.png",
+      "sha256": "dcbd2e88d8be09f2ef413739d1806783a3ac7afc64f1bd0b809d853e0ef6e6a6",
+      "timestamp": 33.874065000012514,
+      "duration": 0.055299999997025395,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "969a18bf51e6d2943c77bc92d99607e6652037df8f9ca95ce06cf31d3206e728",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000045.png",
+      "sha256": "a266e9bf027a10603a4633cd2a6bc6399ca98b93c02d6d1b4222fc71d0a8594f",
+      "timestamp": 33.92936500000954,
+      "duration": 0.02026999999582557,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "12a9263b4ab7c2a2f7a97bf55e32a32b082c1d7fc49b6e79958227fd1a76296a",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000046.png",
+      "sha256": "c9aa06ac0635ea4bd3f970101e06f220bd2c0b1babdf531e8990fde8f567eddd",
+      "timestamp": 33.949635000005365,
+      "duration": 0.04197499999403931,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8bdcc88dae94fd128828b5bca9ec988bf9f9105c6ff64181e284d31489d5ad83",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000047.png",
+      "sha256": "193a75aa5306860ad1ee6e37ebbde4d97796a432951280351009b8b77fbeeb87",
+      "timestamp": 33.991609999999405,
+      "duration": 0.019895000010727415,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "08cac3c0f589ac47e3f9b413b1499906d9f6f8fb2601f9d8f3cde3954c678604",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000048.png",
+      "sha256": "1857daf0d3ce0bf14d9c693829108e87e1135aefd54ebbf3db168f285b546e60",
+      "timestamp": 34.01150500001013,
+      "duration": 0.034229999989271676,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c7143308f8aa6f86e4e006a7ceccf821a64dca900a4386d68045e9beea1be268",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000049.png",
+      "sha256": "d734651830885d7d19963b293ad80ca46e4f15a93ae8943df0939a50339ba0cf",
+      "timestamp": 34.045734999999404,
+      "duration": 0.026660000011325735,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4e11d6f3b9cb54c2d7bca63a48e791a4440aca8ad994d376ff8e3ecea38e9c84",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000050.png",
+      "sha256": "f02a3ac8838e902a8f7db220bcf089d6141abc38e7364e619cea8f7effe035b9",
+      "timestamp": 34.07239500001073,
+      "duration": 0.026674999997020166,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1257514b67ca5577dc15060a39b996d1eb52334a8ad9042d5db6b7191d23bf55",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000051.png",
+      "sha256": "9ca5fe254d9765856f7ac7c1126d555a91631c3f4a0171b7f42c097704b87791",
+      "timestamp": 34.09907000000775,
+      "duration": 0.08801999999582932,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d3d33f064756ea06967e7cb895ec88adac810ba6d50b6898b541cba6c176e865",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000052.png",
+      "sha256": "cc8ae1d70b820063b879625b5a647fab76ef92b0f58ad37d791dcbefd2e4ca41",
+      "timestamp": 34.18709000000358,
+      "duration": 0.034475000008939105,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fe4c68a1d9a0f0d68a20a7bfca9c9c72b3a95f31e8486c581b6c9eba7805e3ba",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000053.png",
+      "sha256": "5655f693e06b21178dd998d6bec9e82209900418a3f4e1d6229816809da0e852",
+      "timestamp": 34.22156500001252,
+      "duration": 0.024204999998211463,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "82ee8bd48aa94df3a745f6820ce4031a89bcdbb71a5fb836e13d3e28e99ba821",
+      "atlas": 0,
+      "caption": "Word 1 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000054.png",
+      "sha256": "1fe07bf1b3342f4258e0747960768f9c0867c8a8d9c09bed476f56e625c0a149",
+      "timestamp": 34.24577000001073,
+      "duration": 0.015875000000001194,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6baa2a6d586ff1ea22f92663cc965757781ffc8c7b6a67982829cce3cd11e222",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000055.png",
+      "sha256": "1490483ba129e3c8ae9180d2e78f17a7c84b08dfb72daf5e9215ac08157c0204",
+      "timestamp": 34.26164500001073,
+      "duration": 0.014394999995822388,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6cca84d2c4386abcd4f71ac49c091411bcdfe3e6fcc93787fe8410a731a7f76e",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000056.png",
+      "sha256": "1a9915a9b86f498e48f3d960e7cf29635e2e9a87aca9f35966e12ca25f6594e3",
+      "timestamp": 34.27604000000655,
+      "duration": 0.030510000005371296,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "52439c208df8ab988334596ae6c8c71ed99ec9c5ee926f371ad8b14e34f8251a",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000057.png",
+      "sha256": "f73bd4626524ef981f58e15126cb9c7a45e8f4fa2fb1c7f370bcbd1911aa6c34",
+      "timestamp": 34.306550000011924,
+      "duration": 0.029299999997014936,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "61e1c512e4a0178f7392d3cb1c55f35eafa0c39939863e90ee5a42e04d86abb7",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000058.png",
+      "sha256": "c8299d94270bb16d1a0127cba07dee5537cd9ee562d9088420375d8cd1eaa627",
+      "timestamp": 34.33585000000894,
+      "duration": 0.03426999999582847,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5ff3900c89c72c4848dc00553a5d0866171ce1186fa191cd11202c781494b2c7",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000059.png",
+      "sha256": "f5966dffbee55e21ee3b77240b62dd88aac4a6684cc9da60c8d7e8b655b400d7",
+      "timestamp": 34.37012000000477,
+      "duration": 0.03515000000596302,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "672a39aad2b8a4691d7c590f7916c25e3b5581e94ebd638f3487ebbd7211658f",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000060.png",
+      "sha256": "5bd322b60527c94727b9c4f775ea55efad53ae653bbce35e8f2a64fb8d0c61c4",
+      "timestamp": 34.40527000001073,
+      "duration": 0.028964999988673412,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0332c94939146acda17a55501d88c8a3d50efae2feee74735bdc610feb637448",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000061.png",
+      "sha256": "897bb40cd54606efedeb491e389cd2a63082f42796855b07fb725d9990f097db",
+      "timestamp": 34.434234999999404,
+      "duration": 0.03178500001132534,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d59c50db4950721c48919c886c62fccfdc4be3fe7402fdd66689836d1a0e9404",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000062.png",
+      "sha256": "23f7a78db18d5291c59e94257c61b57db20337ee7a1e812b4987e8f37aff793b",
+      "timestamp": 34.46602000001073,
+      "duration": 0.0375499999970188,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6527d8582a8b36cd512c273c41f0a2aa7188eec619a90cf0813a639023ddd4e0",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000063.png",
+      "sha256": "969a064ed209b91f955af83b68a1269271385fe5c7e02f7ca9231a98ed57e963",
+      "timestamp": 34.50357000000775,
+      "duration": 0.028189999997614734,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e286851f1cceb1a09f60d459aba3307ee58f407ee38fea81a8b7fd2a81087afe",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000064.png",
+      "sha256": "bfc28b8b38f04224b04fe6a221f7b9fb8bb640c4cff6e7ed5fb2b9321de8c876",
+      "timestamp": 34.53176000000536,
+      "duration": 0.034310000002385266,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c29ccc9237b208e2615ea512b96de1452d6fc921b32bd4ab4ebc57fb37cd8942",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000065.png",
+      "sha256": "5b501b64545f9722e429e7567de74e201f027b31fe6684497f14b3e7b9fd17f6",
+      "timestamp": 34.56607000000775,
+      "duration": 0.032704999998209416,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b6ea7b2fb10f1f1f64a9159bae29e1e12ee11d06e0fe6d2938249968ee593299",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000066.png",
+      "sha256": "b3288512c8fe7cbbaab6465414b3cc975cdba58f1731d3889f13dce162c91bad",
+      "timestamp": 34.59877500000596,
+      "duration": 0.035484999999404465,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4ef1adcda926cf672400915f9deabccf96c9bf805413b35d2d678b9e407a5049",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000067.png",
+      "sha256": "27d3186e5a9e828e54b7b20dbc493626d384e81a34612dbfecb374c9d1406bc6",
+      "timestamp": 34.63426000000536,
+      "duration": 0.0310400000065556,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c3fd38bb9b8980123ed3832b1160fb6c5482dc57e9bd0d534ba5dccef5e66bfe",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000068.png",
+      "sha256": "3bdccb2a7a1ed28576b2eaa537fd64b73c5d28299fef94bff28e6050617cdcf5",
+      "timestamp": 34.66530000001192,
+      "duration": 0.033279999986291386,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0188a5f11c96fff0ea82c6433c4d9f34a345f8fd820e721ddd6924466bd12a70",
+      "atlas": 0,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000069.png",
+      "sha256": "c26111c37fd823a616434d8b30d15d87f03c2a87559db436e4ff75de01d92eec",
+      "timestamp": 34.69857999999821,
+      "duration": 0.03262000000476917,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "892b77b4818fb3896dcdf9f0ba02d0626aa7c5b178e0a5b92f0ab5d3519abb41",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000070.png",
+      "sha256": "1e2566623b2a5a7bb533ddd056df0613beb314da291859d30653e80c8c49d69b",
+      "timestamp": 34.73120000000298,
+      "duration": 0.03448000000417295,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bfe27d24546b3a325a3629273745b48b62d2dd1d7e9b5e9f037e71da43113af7",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000071.png",
+      "sha256": "b5e354c787529674fdae488cdf81df0c1d379340d1a69426cb2f1e917e53d70a",
+      "timestamp": 34.76568000000715,
+      "duration": 0.03082999999821112,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "17e0cf6ac8cfe2e0d12a3f8d54a0e253046e30b626ea045f95ff98efc604944e",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000072.png",
+      "sha256": "400268425c269d26d768e717ece2942e9930cef4daed9f5192589567a89052a2",
+      "timestamp": 34.79651000000536,
+      "duration": 0.03370999999344804,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ec0a772400e21f5ca29527e6a0e3cfefe76c16519858cb7f72c9a1a2bac2b428",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000073.png",
+      "sha256": "a3c5ed361525d61239dc155f5790f6d10b0a9367340c83d573c7396af5e058d9",
+      "timestamp": 34.83021999999881,
+      "duration": 0.03305500000715256,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b8036e448d24c1399b9d33d136d2977ff22812e0aec4e78112e7a84af17e06b9",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000074.png",
+      "sha256": "53a28e092b00dcdaa700476d90d7c89ad985e487a2dd55eb2054c6fa503fa1dc",
+      "timestamp": 34.86327500000596,
+      "duration": 0.03534999999403965,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1b0917a53644ae0e6b54d47281b3ed3c991849665982c8ba03d94a301f80817f",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000075.png",
+      "sha256": "0d5b4186243a5a5f1e8ca5871d8e27014e88342db6fd32409b691cddd0d6d008",
+      "timestamp": 34.898625,
+      "duration": 0.036969999998802905,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4584d8117723a06df1bf683decd01fbffb33a95aa47aecc23c2491c36bb10041",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000076.png",
+      "sha256": "ba9d9bf9861f9f730016785730b119be2ea9ba09f69d711f981525779d52a6eb",
+      "timestamp": 34.935594999998806,
+      "duration": 0.06418000000715551,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7509830deb68405ebe83e459a858dd149cd2ddd98ff4abd773aed59254d03363",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000077.png",
+      "sha256": "a893a41d3e8cf33fb438323f3e4215ae281bf91024e68c1a9570f66dff214c77",
+      "timestamp": 34.99977500000596,
+      "duration": 0.016034999996421107,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c7192727568084533f9899fea03c26acb4be464ad299479651875918110d25e1",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000078.png",
+      "sha256": "8b9bc0f31962adedd68d3d315b1e62529a236a15b47fb1eec39488bdda6e18cf",
+      "timestamp": 35.01581000000238,
+      "duration": 0.03206499999761547,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c29ce27c852281523a5b16c08a600e3e16c149c17d0fe165bd287853a4be3f60",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000079.png",
+      "sha256": "216d3ead085ed35a9aa43c2993453d97073973782954a225613c0f465ae2ff37",
+      "timestamp": 35.047875,
+      "duration": 0.03252000001073441,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ac5946be0586f8ed1c6f53183ba579b8144240467ac6f85e61ff5cc0ea768f3e",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000080.png",
+      "sha256": "fdac0bcd61be00a2eaa438e616d15c7039816203a108ded9d7e3f985a4e71dbb",
+      "timestamp": 35.08039500001073,
+      "duration": 0.02928000000118658,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1f5dc009024bb39a50e7203d32032a1d2aa969765a3f837c15049924d761cc45",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000081.png",
+      "sha256": "286fea50435f6014fe6a498c245d0ab19d836ca20587f87f429194be65632786",
+      "timestamp": 35.10967500001192,
+      "duration": 0.024614999994639675,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9525e79750ffd0f420b2da201319c8f1d344d962130d7a271f23afa57b4e1ca6",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000082.png",
+      "sha256": "a66379390928d5ee7017fc3f6f0c73011f3c2991fd2aec8fc3fb7cae80bf3f21",
+      "timestamp": 35.13429000000656,
+      "duration": 0.02933499999344491,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "549bdefbe5bfe8dc4950c909514fe7372bc15034bb1c338f0a1c2fb3590fea07",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000083.png",
+      "sha256": "404e9c578f8041c19ae564803d518c283e4be979799f0243497739271c0cda4d",
+      "timestamp": 35.163625,
+      "duration": 0.05234499999880171,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0161b8c8dfa884c98294b775f809fe0b7117ee5bdb2c8db13f5a551c49147b20",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000084.png",
+      "sha256": "4875eef6dd575add1fcc1f81125ab451117826a08e0b4ff171859a73945522de",
+      "timestamp": 35.215969999998805,
+      "duration": 0.03103500001132886,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b0ea430ba27335bc95830c1cadebfd8af0017e344759ec95a0ef5d6a3698adee",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000085.png",
+      "sha256": "80a1808b651d6b4ba4fb7506cb98ee693a214b557c61c32a2d320f6f711343a9",
+      "timestamp": 35.247005000010134,
+      "duration": 0.0330600000023864,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "23f460b439fc068af369cf43c8c0f925e13b2683c8ecb712502ee7af2c68164b",
+      "atlas": 1,
+      "caption": "Word 2 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000086.png",
+      "sha256": "3c69978180926bccbb8f0690b215bd5e2e63cbf87ff4642256feb73ad19f5fdd",
+      "timestamp": 35.28006500001252,
+      "duration": 0.03115999999641872,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ed58214c4b1f85b06e6cd756d53e61f43bd352e82de9609896bba93e7655915c",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000087.png",
+      "sha256": "e364eb2dfb08ab0ea96039192890f0bfce88ef5d3cd613e8071a356c8b6f8126",
+      "timestamp": 35.31122500000894,
+      "duration": 0.03450999999046189,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bd55a7a53e57ad90c129740f1e42e6f5015f136f3b57acaf6c043f9c69ac9b52",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000088.png",
+      "sha256": "9caa0fecca30359ee0fc5f6520e08fe491da9f9d708f8b37c76850f578c00f20",
+      "timestamp": 35.3457349999994,
+      "duration": 0.03420000000298273,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "78f47a7c1bfa18be3cb4b3cd2fcd6ee208e5803610d9598df9d9df889ba81c85",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000089.png",
+      "sha256": "d1c16f3098692334123210f09e3690a2cd7349d8eb2c00c90fd915528738e7ba",
+      "timestamp": 35.379935000002384,
+      "duration": 0.02342499999701886,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2b234d8a79b89820ed98654c43dc02282a6964418fdd9bd1edcf6de770848143",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000090.png",
+      "sha256": "90ee54d89236e7d0065137da0257d4f0c397439f1d5b13948a3bcbeec73d77a6",
+      "timestamp": 35.4033599999994,
+      "duration": 0.026945000007749798,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "edb8504fd0469607253a902b03c5c9a8a20b0555ae7dbfdadc4ef7b907db994e",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000091.png",
+      "sha256": "ffd2b9e56b5ceaf0051d76f176f4175aa229d95b29b4219d5f44c16d745cf9e2",
+      "timestamp": 35.43030500000715,
+      "duration": 0.03712999999522992,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fcfbf8f745848f648ff6369cb3f341656975eddca82046e82d9d29069fe6b728",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000092.png",
+      "sha256": "c06955425731475aaad8bc2e6d84709cdee4d8609a8f363cd9ea58512ecea8b4",
+      "timestamp": 35.46743500000238,
+      "duration": 0.03915500000119465,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b15f5a92826bca0ee34372ab754f58ce95483579c4ff100020b711c183c65d5e",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000093.png",
+      "sha256": "826cf6c8e386b19e85a9d37ca54103ebdea39de8b195237b199a93a54f72c738",
+      "timestamp": 35.50659000000358,
+      "duration": 0.02640999999642446,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5b5c5213de35f0b020ae911029f1ba52e6310e074731c8ab3caacce3a07f4920",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000094.png",
+      "sha256": "18e2cf171c38b66ce9c3cf9b7d4ce709724fe6cc6b707a5495fd9eb3496e0d12",
+      "timestamp": 35.533,
+      "duration": 0.034920000001790186,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b4a477dd945e8f49e928a82df22b5a781869fad24d966402ef5d7eef4bc0fa91",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000095.png",
+      "sha256": "c07a193120b4bf541bc231571124773d34ee847d5d6501e835686e90bd6e7cdb",
+      "timestamp": 35.56792000000179,
+      "duration": 0.030965000003575938,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "af8ec898e927711f817a2c3db360f88f2239d0b572d41d1d26bb5c9b9ce41b68",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000096.png",
+      "sha256": "4005c6d4d4ab655df7fc5e08d3dbef8a0de102d2e765cc7f300c31a21e6b0796",
+      "timestamp": 35.59888500000537,
+      "duration": 0.03554000000655577,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1558e4fe826aca424208eca112f4c2cadfed6e8e303e4d14c1a2152d26db62c1",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000097.png",
+      "sha256": "3969a4f8b6076e2cf334c032f716d70ad2269587575447ceac5aab14f5af2098",
+      "timestamp": 35.63442500001192,
+      "duration": 0.04214999999105373,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "235ef16091feacbec09cf83cd4f3794e4cbd7406db44b3e3170f4b9dfa4447b6",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000098.png",
+      "sha256": "1128232e360160d103bd531e6b99ed8140e9903e6df8ef85357778024598c337",
+      "timestamp": 35.67657500000298,
+      "duration": 0.028680000007156536,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3f448b346f94f8995c3b5dfb459bc17ad16279a53ae7e67d33199d91bb037b87",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000099.png",
+      "sha256": "8109397295c7cc9a6a9590768914ea4c46903b9d553b6f7edb6174a3009f58ba",
+      "timestamp": 35.70525500001013,
+      "duration": 0.0281049999892673,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fd5e0c5c0277ae4f5637eda6f03d37cc943e737b50508f64c42ca7abd0dd3abf",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000100.png",
+      "sha256": "0004f1ee9180e368d6b9ae482422b93c4a51d34998854d3c5158b582f824817f",
+      "timestamp": 35.7333599999994,
+      "duration": 0.029749999999999943,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "816907e25b8b23e6d52d740d451beefe01a952add9288326cdbc90be7be3d73a",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000101.png",
+      "sha256": "ada4cb83342ae8ed1b22940a5c7f6333b182abd83edeab823aa59de3001851a9",
+      "timestamp": 35.7631099999994,
+      "duration": 0.03645500001311319,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "af9ff8cc462c69478cbfaa5ca517f443d5c7835794551d549a66744215b326b0",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000102.png",
+      "sha256": "23922471fd61c30f5a864b0144084731a55e4dee94964c9a3087efe889b3c263",
+      "timestamp": 35.799565000012514,
+      "duration": 0.031125000000002956,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a52ddcbf0b08fa0f7f571252d3a99f75a6068553d35d593da1b6d0a6a3b67e1d",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000103.png",
+      "sha256": "58529cb9d3cdbd360453c3eb0295b56107baec90e7da89d635f6e1f1eb4d9e14",
+      "timestamp": 35.83069000001252,
+      "duration": 0.03988499999046269,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "adea5e0337db7f38d8c2a0409de6b1cb9775770e4cab6bb69387cb0b285c8f2c",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000104.png",
+      "sha256": "2ab03f2a496b999bdcfcc56b59a71793396a562bc95c6805bb833cd197383bed",
+      "timestamp": 35.87057500000298,
+      "duration": 0.02835999999940242,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "90371e9d8c39d143bfade82656087ecc8a7d38b249f095c9d05a8380982d55f1",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000105.png",
+      "sha256": "0343ab08ad90939d965a894dcfd19010ae803471c2011aea52fc9c24231df516",
+      "timestamp": 35.89893500000238,
+      "duration": 0.031725000008940185,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f4b4289234f9c00357e5ddbee968e3275d886bf09c08dafcbe1e4d445122c8b5",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000106.png",
+      "sha256": "4f6ce970d8609ba5ab6a8a4fd202b4f7c277c71e9e00533205d1362a24a4ad7e",
+      "timestamp": 35.93066000001132,
+      "duration": 0.03575999999046786,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "835246d3e34f57ec15035797373d975a875b377448638c9baa20aad6ba4b1895",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000107.png",
+      "sha256": "147fe8944570ff8f416c2ea447e3fe12717ec1eca9279de112486047c693eee6",
+      "timestamp": 35.96642000000179,
+      "duration": 0.03179000000655208,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "37292d28b0c7f077b38532de69fc28a9823c2268fa87b3bdcfe18620f9c9a615",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000108.png",
+      "sha256": "8814c091d9a05195f2153d37e5c114c8d4aa5354379d46bb7da2ff1a193fc715",
+      "timestamp": 35.99821000000834,
+      "duration": 0.04781499999761962,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f774d33b7c18cd27896721f2ce661a91334bffe3d81e4ac8943b4f15f92f51ef",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000109.png",
+      "sha256": "5a0d13153731afe6ed453ae57644bf2af5e588686b3631a3c8dc578b31f74e2b",
+      "timestamp": 36.04602500000596,
+      "duration": 0.039400000005962,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c89b5c06d28843cdb1bcef899891390b00010ed9629fb922a9792dfd10f84c16",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000110.png",
+      "sha256": "e3b82d7da784e717afb1ca36b5368ffc00b883af1114a8fd65e1f879852c8759",
+      "timestamp": 36.085425000011924,
+      "duration": 0.039924999997019484,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a64b48e19b79a177a73dd615b2876917ca464837b3b5516a318b65114f184412",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000111.png",
+      "sha256": "a05188912cba5b6b61ded2196f5413952a9a770ac3cc2cd89c5724570589b638",
+      "timestamp": 36.12535000000894,
+      "duration": 0.015329999998208166,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0a89ff858aeef41aad10fc8dccde9cf546538bda56bb112652d7d29fe89a0097",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000112.png",
+      "sha256": "18d74c57a45099717198c6c2b4375e61d95a50f3b23fe22e57ba5d4f573c80b6",
+      "timestamp": 36.14068000000715,
+      "duration": 0.030700000002980232,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c0c2b0af557edd21554df1e29e28bc13376a72e0ef1c7b75ce03175775206285",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000113.png",
+      "sha256": "7485d0c8f6ad7e2776ee5a026026cdba01ad833eac18aa3367368839ebf5edbb",
+      "timestamp": 36.17138000001013,
+      "duration": 0.03386999998986795,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c360cb90b3caf68b5119ba511e14e832e3a9b85e1392153d5fedba1cec3f12b9",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000114.png",
+      "sha256": "bad01ac2bebcf4696ce778f0adcb9da3af0eb5d86160ad1f327755ec6605c1f3",
+      "timestamp": 36.20525,
+      "duration": 0.041719999998811375,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "38bf3ea56287fbde368bc249be8325bb637e5fc0d137790a651765292fe7658c",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000115.png",
+      "sha256": "f36f38b00ed09985333a6b8f59e8915de14c6bbd31c1a76642b06ce4bb953513",
+      "timestamp": 36.24696999999881,
+      "duration": 0.03995500001310859,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9d427ec13eb0a458c793e7bfa5ab2dfd6eacb1655c044d3988921908c446c33b",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000116.png",
+      "sha256": "09a397b445597adf44f696403b5748314fc5387cf585da8ddfe53c03e582e086",
+      "timestamp": 36.28692500001192,
+      "duration": 0.03640999999642247,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "73f5dbd1aa9fc1dac6d7d6880c206080047a1e8e1a6fa32005c6df4ef244fd31",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000117.png",
+      "sha256": "87d2781f8a43c87df85bb2145bfc3a2e4e13e722c4e29b21d992ac94876ff3c1",
+      "timestamp": 36.32333500000834,
+      "duration": 0.017234999999409695,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "222b96d9c3ba8b8c85f214670c787b4349777de79583131f30ed150316b5183a",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000118.png",
+      "sha256": "7171172bcf0f9575fb273cda6626a64f9b238c30e31dc4d01306a80f7a5e96f1",
+      "timestamp": 36.34057000000775,
+      "duration": 0.038974999994039194,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "25c5b305c7bb5bc5b999d19825e47418729c90f8645f2adeda1887894d91bb42",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000119.png",
+      "sha256": "f0d4fc4c2230f7398741ae796c7bc58a30c32b20d7dcf8c1017fa27ad3237039",
+      "timestamp": 36.37954500000179,
+      "duration": 0.0270900000035752,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f388b730ec57ac290ea4108bb86a49c2fffd1bee07a5db710abcb3a669a5d65f",
+      "atlas": 1,
+      "caption": "Word 3 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000120.png",
+      "sha256": "24700d30f18d77d7143c5857862b9dcef079b40a456faad897068455378306c4",
+      "timestamp": 36.406635000005366,
+      "duration": 0.02671500000357696,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "252273ab38b3ef96befdd3da1af1858d180008a911bd76b0862ec85040e51c6b",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000121.png",
+      "sha256": "4230cb4c5c70a3b822b78c31b1ab6b46758f6c9df237c28f2ee4abb71030b286",
+      "timestamp": 36.43335000000894,
+      "duration": 0.030575000002976083,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "28feddfdbd45b2fa5bdf047b3f32ac32b6f38fd77526cb850b136b62dd20feea",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000122.png",
+      "sha256": "0b7ed18ffd8fffefa4c8c593e8263601a2f7f78f26a8d8dd711a1df34e85357b",
+      "timestamp": 36.46392500001192,
+      "duration": 0.038439999997621044,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c37940924137e53245eb9495c32d7218e4422f762ad531e57814a2807d449a8e",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000123.png",
+      "sha256": "ecc0c5dda95d7c83762374b95aa68c9a3e9389dfc2c7a9b088966bb88d486767",
+      "timestamp": 36.50236500000954,
+      "duration": 0.03128999999164961,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "abc06bc2e51adc291364c4c025928aec02bcd3229f207277e1896d81a6ef85c4",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000124.png",
+      "sha256": "d2fdf1b574a48f9dfafb560df51c4ec24136baf15e71ab41a47ccb624648de94",
+      "timestamp": 36.53365500000119,
+      "duration": 0.03300500001013518,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "31798cf54d2d5b05f8dd1209f96bdac0bbf8f905d61b8908aa56577b2fa34c37",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000125.png",
+      "sha256": "97c2b083215c8d014e398a8e4d7c4d1d348d9ebdb7246a1c19e8648ccc2f1b84",
+      "timestamp": 36.566660000011325,
+      "duration": 0.03309999999403601,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "aa5ae9559b5d9c42a0da9d90d5f323a8d667eef04aa14616b3b7dff64962dc59",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000126.png",
+      "sha256": "bb9c00101253cf1c872cdc5949502f2b980b1c3b1e88b91609b931e7454ad769",
+      "timestamp": 36.59976000000536,
+      "duration": 0.035400000005964216,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9f3a4c910a4a381a2e2f62f1f721db9981e59060f9f33d4a32bd10b7f34f719e",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000127.png",
+      "sha256": "f263f47a6bf874316005ba61cd73fb69487327427af682d8729dae8e63c2c600",
+      "timestamp": 36.635160000011325,
+      "duration": 0.03168499998748331,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0163322a810079bf5ac8ebe2e2ad4c23b499b8e1fd01ed9c4e2ea7db89ae0fcd",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000128.png",
+      "sha256": "30c90fc473e677c30df3454712229dd1e147e327b7cfb1cf4a0abe4646e98874",
+      "timestamp": 36.66684499999881,
+      "duration": 0.032400000005957,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ea4779e8d2d00d2a9a8655106d4d8d24779d5ddbc0c3cf5c5ab7b579cd0271b9",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000129.png",
+      "sha256": "cd0b64848fe2c21e40ae3e48103acc209592eef56835f2bfa1de45f910587b68",
+      "timestamp": 36.699245000004765,
+      "duration": 0.03220000000298029,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d1efb5af1f8f8b1bdd0094900f3c638bf1bb116dba9c84fb75d2c4cde8f63a46",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000130.png",
+      "sha256": "2d5ec839c92c2e3762979620ff5aa56febda3db291fe4a141572339654ddda78",
+      "timestamp": 36.731445000007746,
+      "duration": 0.0362950000017932,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8bbd585408827db8bc63c0ae4c6b82f3efb887534d52b71109b25b96c1a675c4",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000131.png",
+      "sha256": "4ed0880c079190014cdfc1c3b713f53a5957123589adf9bc55b6812075c6b61e",
+      "timestamp": 36.76774000000954,
+      "duration": 0.03017499999701556,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f5c3889431efb504a906d90b8ec3f9bafa5521732760123d3446e5707609e037",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000132.png",
+      "sha256": "b4ec84d43ac04a4fb3cd468ae0c4ffeb89c88fd3fe1bef5e16cd975c95ba9e9f",
+      "timestamp": 36.797915000006554,
+      "duration": 0.035189999997619736,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "375afd95eb41f135fe84c682839d7f8c1b1a99bc201dc9bed2e756417fd279f6",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000133.png",
+      "sha256": "034fd12e1524f586a9b7733ff033f36f2ae7dd3dbea81ecf794dd34e20fb9ca0",
+      "timestamp": 36.833105000004174,
+      "duration": 0.031165000006552646,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9ad0e19d1e84fb2dc9aa07bd8ef0810771e96cb7b19b4f1e3a896450afddce48",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000134.png",
+      "sha256": "ed3bbfa0004dadf53a00f2787ab14fd501633e30f754cf876110b228ac7ecf08",
+      "timestamp": 36.86427000001073,
+      "duration": 0.03414000000059758,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4d4615d8791129da447e412589ee256b6dae7b42e7e57620c51198818c46ec05",
+      "atlas": 1,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000135.png",
+      "sha256": "2a9094929654814508c7f55b91911541d5869296bde27dc26586ded9361a0c6c",
+      "timestamp": 36.898410000011324,
+      "duration": 0.0319099999964223,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4c46fd52f22edd3cf55ed38251bd6987588f27014d6d683aa509519c0a34ed20",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000136.png",
+      "sha256": "6a9a3a5c6f2dfc6894d8c0c31bcf1d199c67c80d9a5403e65ae67a9e5c1435d3",
+      "timestamp": 36.93032000000775,
+      "duration": 0.0376149999946378,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1e00338219bd4b7e6549537d0ec201845af38ae1b3dce1af70f7674776653a78",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000137.png",
+      "sha256": "8430951dea3ef7ca917da0a4da275ff873fa071ff5ec5419c48fe102e2d8d1bd",
+      "timestamp": 36.967935000002385,
+      "duration": 0.030564999997615416,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1affd5a1aa6f006f02f7cd416412f956598ec1238753ae0ca8ca4b98b9727016",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000138.png",
+      "sha256": "d68ee2471366e39d40ed8be36e42b61ab662d39b33dd36fd86c532871c67fb09",
+      "timestamp": 36.9985,
+      "duration": 0.03605500000715267,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a404cd6db0c723bb4c4536a9d16507114f7401f6a490ca08fbf1230da535b2dd",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000139.png",
+      "sha256": "c1f970cc5ea1707d1a5197894a27ee0f7fadde1742ef5b3644cf40d8d2215896",
+      "timestamp": 37.03455500000715,
+      "duration": 0.032959999993444455,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cc4ae11e5b91f6f39607557b5e6d9c1337ca049adc63938430181ad53a50eb8e",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000140.png",
+      "sha256": "68a91e6bdcb5a0ef4697afb6e6d920444a33248897cec3d568404054f04e747c",
+      "timestamp": 37.0675150000006,
+      "duration": 0.04116500000655776,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e35199915136b51e13587ccdac36c2d1fd7a3b49af0566bc907762181bbf9fb1",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000141.png",
+      "sha256": "8d2db3bf1887b5d5ec552fb43835498750374ae56b06e1229e07472317bcea90",
+      "timestamp": 37.108680000007155,
+      "duration": 0.03446500000357133,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "622682af0b9386f5ffb4ebcf51657bfb1b6b401390ede5d67a6ec166d52895a5",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000142.png",
+      "sha256": "107db5f1bf1a7542e53a8100ae174c2e13facfa028b2d20235ae74b007752a70",
+      "timestamp": 37.143145000010726,
+      "duration": 0.03614999999106061,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bf14a597cf9d85e5a07e7ed7e927a87f08af43d726726864ae0a23c3fb407e8e",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000143.png",
+      "sha256": "82fbe3e567e1e9beab28cb19803ed390535b74551268529e70ea79a13aad5f1e",
+      "timestamp": 37.17929500000179,
+      "duration": 0.03527500000596007,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ea83e0ec44026b5fcf2a0ef6e1a662dca98804935386ea239516ed39449e29c7",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000144.png",
+      "sha256": "e902be713290519f474cab45846ea23686019290b4e385c4f35778c27c2fe488",
+      "timestamp": 37.21457000000775,
+      "duration": 0.034469999998812284,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "862bf55961adc25cc9ba8eadd233963b17d9998078560cfa08f55130a1b9da1e",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000145.png",
+      "sha256": "758079edbf58bd2ae284e5d2ff6d01b4a7eb66c233a6a0e7a72e305fafa336a4",
+      "timestamp": 37.24904000000656,
+      "duration": 0.030219999998806202,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "54bc219e4aa892732d4196fd73859708721ef5f3ce2f2a422b353eb220d9107e",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000146.png",
+      "sha256": "642c8e96c65c377592510adcaec88d162c8e8e49df55b160cf274f13a70f2808",
+      "timestamp": 37.279260000005365,
+      "duration": 0.029165000006557307,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0998343e5a79f579733d52162563521480f87c84f1250324e3d529796b010a44",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000147.png",
+      "sha256": "1f6e7c0e6f4fa2084c3661decd3dff0c68179093a6dc6283df4257ebcdda9741",
+      "timestamp": 37.30842500001192,
+      "duration": 0.02318499998747825,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "621464c50d98d98a91d41e828fa51d0ec1437215d2ecfbbc60d7a72c7333f09c",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000148.png",
+      "sha256": "a4d3cff81e80d9cb59b4c252bed6922f9c11af814df684d9a457a340be466eb4",
+      "timestamp": 37.3316099999994,
+      "duration": 0.03443000000715557,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d3d48a29181771d30b4ba81d198dfc766d2b43b93528df690fb5f2d7465fc592",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000149.png",
+      "sha256": "c0780a00b3c0738046f10fbd1650e7f3dc1d16680c242a443f37a57bda0cebdb",
+      "timestamp": 37.36604000000656,
+      "duration": 0.03384000000357901,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bee40e4f28ecfabd552e332a970dad54294c458ebab9d17422727a12f6a1e98c",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000150.png",
+      "sha256": "daef987ac19a4ad26ef74c5071d685358b05bf5d1c86de9ad67fc8684f22c115",
+      "timestamp": 37.399880000010135,
+      "duration": 0.036584999993444,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d5db0df0f20a9154752051a6fbd6fc79548015a9ee833843281cca84208963ba",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000151.png",
+      "sha256": "8398bdbc504ef082d5294fece60aed1e0de885529fbd6985298293285cbbaecd",
+      "timestamp": 37.43646500000358,
+      "duration": 0.030989999994631034,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8da109476c464284ef783582fec8fb333132345ae90d272be8fd4889613f0472",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000152.png",
+      "sha256": "c5d25904a9e8ceb8552d7e4f2eefecd6626719a0735b4ae390d6e747fa5a1862",
+      "timestamp": 37.46745499999821,
+      "duration": 0.030995000004772066,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "905d81347cbba2b914039a3146f58f3ef6adc55bdbacd70ccc453ceb0669e0f6",
+      "atlas": 2,
+      "caption": "Word 4 of 5",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000153.png",
+      "sha256": "0de8bb9f26880c7614cee69da32620b97f551faa59d7ad7c8ba2c501cba2c898",
+      "timestamp": 37.49845000000298,
+      "duration": 0.03313500000535896,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "13358c48dc48b7382d001dc820e2c2e27a04a8925863341d024f980777328ca0",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000154.png",
+      "sha256": "2a4e4828573e20907bd97205cdc72d52c623b23c0535dc67c32f62f640b97a29",
+      "timestamp": 37.53158500000834,
+      "duration": 0.03264499999583137,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d3436b19536e30d6e939612d7f88972cdfc0a24b89381a4d8e12ca762721dcd7",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000155.png",
+      "sha256": "2d5d4fb298851a4aa092b7a110f3ec1e54b79162a338e878b9a71538382b754f",
+      "timestamp": 37.56423000000417,
+      "duration": 0.03415500000119209,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b9f1dcb8baa96193f6ac281812c3fbbc387b8eb62405e358aaad2f6ae411e55a",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000156.png",
+      "sha256": "b0c9561a19e2ebf2e6a2c829246110fc5e2c448cc484f850c9fd0b4b1d5fd81e",
+      "timestamp": 37.598385000005365,
+      "duration": 0.03331000000238049,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "60e28acf6b70ca04c4bd8cdab7ea4a641497b38c5d5057f434a3e395576c6c90",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000157.png",
+      "sha256": "2a7cff042a22ae6ad242703918e45bece82538ed6154341168b1b4b5578b0add",
+      "timestamp": 37.631695000007745,
+      "duration": 0.05113499999046667,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "98c8d27afef4a859879079387857e3cedf583eb763bbef19ea646d090ae0bf1d",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000158.png",
+      "sha256": "e849223f5c9274c2878a6dac3a66d7078defe7144154e81d155cf9cd410c9c61",
+      "timestamp": 37.68282999999821,
+      "duration": 0.026245000004770702,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "489f73cede63243d9a0abc81546057041fcf96b23b862f624c402e3c4e7a71c3",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000159.png",
+      "sha256": "072eddc39b838989c21252a4b4fb3487b0f13cd9da8b70e7ca82a2d457956692",
+      "timestamp": 37.70907500000298,
+      "duration": 0.025665000006554806,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3ac100a98dc22e9a508b3423323d82800e3296eabfe3785d5c33ab799be5d9ac",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000160.png",
+      "sha256": "66d0292c3b172a560a5a5b650ff30fad170a662f79fd5210c674548588c48225",
+      "timestamp": 37.73474000000954,
+      "duration": 0.03571499998867722,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7520a7ec5e6930b00fc777b763472655e7eb7dc2fb755a9cdf8a50a9565c66a0",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000161.png",
+      "sha256": "1b71cdc2c9c6ef42e1dab75ee9f2f570bbd4ace550b3b57a21f377d226200697",
+      "timestamp": 37.770454999998215,
+      "duration": 0.032245000004763824,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "47db93058852a191cf728850bba41fe916535b3ef6543f8c6e81ded410f83a8b",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000162.png",
+      "sha256": "e22a2d601412fb2817c779d755f22f617334f2f9d51a48b99c19f9c4c3852a6a",
+      "timestamp": 37.80270000000298,
+      "duration": 0.03670000000298046,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bfb62693a064d5065c3368534f06bcbb8fed6ab67d3bba09d6f173e01d633a00",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000163.png",
+      "sha256": "280a0f123cf773de3dfe3e0726ea93c06ce072c21e23bdcbe21574736f75c119",
+      "timestamp": 37.83940000000596,
+      "duration": 0.027284999996425086,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a3958c9e4f88b356be6fdae3b3a76a8b8f1bbe2f392dd69d6c2373c6a2a1828b",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000164.png",
+      "sha256": "f9841c01b2c5f42847e358efb4d73f8e8d8d9230e7e65616ccd12b98b20fbc58",
+      "timestamp": 37.866685000002384,
+      "duration": 0.03067000000179121,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "77388c3d098592b34114d2bd963341ab0944f651f12506d019ee0ef8bc78d1fb",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000165.png",
+      "sha256": "f58bbb03bdb457442860eb96aa50f3bcf1720a011979edc0b231b6889c8f05e0",
+      "timestamp": 37.897355000004175,
+      "duration": 0.03267499999701329,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "795368bb3996da255bcffc1239ff7f3c2783f2d87613e072c22c10cdee6a4857",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000166.png",
+      "sha256": "f41b55c3b5e94dc22b51d65847ac01fd6d9ca6c901743afc6b0d0b48020054a4",
+      "timestamp": 37.93003000000119,
+      "duration": 0.033685000002385834,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1c1caf0675a97c2e9614e51a89c75f88f0759ef9594ff3f5ec6ed09dd86f2940",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000167.png",
+      "sha256": "23092b0ae75fbc0b56e64956792e6b7f1865d8c76b492693dc33d08b67e8efc7",
+      "timestamp": 37.963715000003575,
+      "duration": 0.03983500000834539,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "407c768b31686858ebd18507f58eb836137f176dd7fcace629e1be752ad06ecd",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000168.png",
+      "sha256": "f984ef4d9a6ffffa0282fe39cd0f02aed8b4064070b19b50b9b32d98451e9b14",
+      "timestamp": 38.00355000001192,
+      "duration": 0.027349999994036978,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "da4fe789ad716a70f7d34d3272ff1f49a165aa25f52764efcd3ed701576d5442",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000169.png",
+      "sha256": "b42c8ef5a1ed1f452db2726e6e6648d48817483f0c7445d899fc8b5260fe0a15",
+      "timestamp": 38.03090000000596,
+      "duration": 0.034694999992851194,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "864374943d5d6fc961cb3be835384abc30699a4912b14132b7ad596453264a90",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000170.png",
+      "sha256": "f32a1725b0b1f8c6f1319fba24f6cae8f9b8e38f4f1f9fb4a99f87e4d7af58a7",
+      "timestamp": 38.06559499999881,
+      "duration": 0.033520000010732076,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "105eb981c133a0ffc6b36f8c3d68f702a032803f4696a76d49b59c36de3ff7a0",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000171.png",
+      "sha256": "0a8928176fbb86d821938a711b907ed55111eae2fa4c1d3a03b7d4c2e293e88d",
+      "timestamp": 38.09911500000954,
+      "duration": 0.036054999992245484,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5a1c0116583d137960aeff159b8e286907da274960a1e080b802d5d89024acee",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000172.png",
+      "sha256": "29aebe8a38dbef1665445ff3d94ddd0812cf3a033de68d0077afbff97399252b",
+      "timestamp": 38.135170000001786,
+      "duration": 0.03452500000596359,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "116f85eedbf20920edd1b5fa2db392b463fe63681fd594992b37533cc7c6d543",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000173.png",
+      "sha256": "7eeec1c9fdf16629553a59f0305c8fd96351fc3b26a9d7b39afb8321af235715",
+      "timestamp": 38.16969500000775,
+      "duration": 0.03001500000059565,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9bba9f8571174fdfb7084e22eb5b49f4d76e0ba940d123d5f181645c1aefdab4",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000174.png",
+      "sha256": "17169b16df3cea51e33ee2e41efaac3975236961586df0529f7b72f039862394",
+      "timestamp": 38.199710000008345,
+      "duration": 0.04090999999642264,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "de02015971ca7187d331c9440e54a3e93c75e40ebf814ea4b5267c0e43d1882c",
+      "atlas": 2,
+      "caption": "Word 5: combo!",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000175.png",
+      "sha256": "2650f717d711479f1e3b1e64efb5cb3760846e9a2f712046e0998352fc9d3759",
+      "timestamp": 38.24062000000477,
+      "duration": 0.037140000000597695,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "41bcfb068b91720f774ea97e601f6ac0c6b024da26dfcf869bfd8c23c735b5d7",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000176.png",
+      "sha256": "f5cfb3a97c6c82b84de4c00a8052c0b868381c15523095c6914eacafea19480f",
+      "timestamp": 38.277760000005365,
+      "duration": 0.03088500000536243,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e6ed44aa96b2de9228818f9c07545b859849cb21ba4716236100a4ea4a4c3f44",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000177.png",
+      "sha256": "6ef25e52d1b70e3c2eb355f4e91ca777df8ae5c0135f7ee89c7b2756aa7a4a62",
+      "timestamp": 38.30864500001073,
+      "duration": 0.030405000001195504,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e5a7fbba0117919380a9dfce0ada4238adca3100ace5b2a3a24912d7c6faf230",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000178.png",
+      "sha256": "62e27c5bc8c868a514fe3a5e49df4c0e61cc80612bd217b8336389815992fa4f",
+      "timestamp": 38.33905000001192,
+      "duration": 0.026759999990460415,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5a5cb866e004f42b82dc6bf41b2e2234fe14b791a22a7b49ffd560508be0bc43",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000179.png",
+      "sha256": "03c24a5fd09eef1b9cb86274075ffc46a077ee3a6508a7a3d41ff4fe90e7a625",
+      "timestamp": 38.365810000002384,
+      "duration": 0.03698000000417068,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cdc6fbc2d89fa8addd83d86177b30f93ae7ff16c441335e526c04b1594dc152b",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000180.png",
+      "sha256": "8907d58081aefaf6453922cbe550441269b88279121a863464a49ef508ff2bc7",
+      "timestamp": 38.402790000006554,
+      "duration": 0.03696999999881001,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9ca216025a3bf93a7335f2ef61941d22a2cc1c33f769ca19a09f8ed7ce4bce28",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000181.png",
+      "sha256": "05b0424b05e10f9de12b68014f7517b7bfe22c6643aec66113dc6bc173a2f5b2",
+      "timestamp": 38.439760000005364,
+      "duration": 0.031430000007155456,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "82f2dc1683f7e3b52eb69d29eba8262a7e24dd4260bfa0420be7ed56247acf5a",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000182.png",
+      "sha256": "001835faa9352c6e5d6092ede4d60ecffcf62534bab2a245411624cf9012fb40",
+      "timestamp": 38.47119000001252,
+      "duration": 0.03154499998688465,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a2255e2585536a8371932459728b025fb62e5f260c713d25539ae9f258875c17",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000183.png",
+      "sha256": "3f01acc7cbf8287a1a09df5290d4a276d37428865bc6a7b967ec1c0ee5882614",
+      "timestamp": 38.502734999999404,
+      "duration": 0.02993500000238214,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "77ff41911b2a6cb6e61f26b744e9b807c7a483d7bc472c28aa497bf523c3963e",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000184.png",
+      "sha256": "97145693d3d1c5f2785924f277bc993f3c96041b797ab0b490a961f9ee94f576",
+      "timestamp": 38.53267000000179,
+      "duration": 0.03499500000476985,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "99bd5682ac5f62207a65606a3c1c39048ee19fb8c3a8a0b79b259786fd594c30",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000185.png",
+      "sha256": "c590b9fc42be59df4f9d05fcad8b3b0a1557aa93ac78d4ac2e261b47c393d593",
+      "timestamp": 38.567665000006556,
+      "duration": 0.030200000002977845,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "35b49b7c5acb35359a04d072ec6a33cd23c50338dd9ee7fb2720ad2d8a5694eb",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000186.png",
+      "sha256": "3a74be1aef4170154633d2c8f39e81ff62c01e100100b319dc77fba8d2eb7c10",
+      "timestamp": 38.597865000009534,
+      "duration": 0.03414499999583143,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2f636074219442c7e556879440d198195b9055cc23256686e05fb23e0b956a19",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000187.png",
+      "sha256": "cca3da35c3e25b674707af4a9fb1072faa27ea05e564541b3700810145474bbb",
+      "timestamp": 38.632010000005366,
+      "duration": 0.03580500000715148,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b6b500b79c31d07d686693f96ef3556a61b153b3a8d37a001abae4a883a7c6e6",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000188.png",
+      "sha256": "21943c2b294aaa1334787c870ed679a8baaf871b460f8c0b0a8269d654098278",
+      "timestamp": 38.66781500001252,
+      "duration": 0.030294999986885784,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "86c18b29505045cc0e6e5c82e66d3228bee67f45d367782ce56ec99640dfcb51",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000189.png",
+      "sha256": "4c947c89db94fffe0ab669768789eb37af663564b3950b8f6c23b870dc4dc7f6",
+      "timestamp": 38.6981099999994,
+      "duration": 0.036999999999999034,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "38585843e9d73fc57ce0fe194c029dc98cf6b3f3a21b243a488894ab73eec4c0",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000190.png",
+      "sha256": "58cd3227cd790346ed1a612d8cfc29848c3ac30bb16850d6cb0d33a77ae340ef",
+      "timestamp": 38.7351099999994,
+      "duration": 0.03639500001072804,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "19326aed040578095ddb2cca53af43426b2e3f770e61007a4a08852d3b6621a0",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000191.png",
+      "sha256": "515995fb4e35f8004bb3fff9bbc83d85f75986fd02210b8c7033dcbe602a54f4",
+      "timestamp": 38.77150500001013,
+      "duration": 0.028439999997615928,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f2ab4a77b501fe660362e03a09f1eb71913a39b966557941f3f85dd38049f3a8",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000192.png",
+      "sha256": "e32f60fec37ea2253d636bcbaff5c408535ab1b66eefea37022dddc0766a58da",
+      "timestamp": 38.799945000007746,
+      "duration": 0.038405000001198175,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4024da2c6342544d263880cbcf71b9947324290a731aac4518e27bce6eb4bc04",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000193.png",
+      "sha256": "b508f7b938d10bdaa87cc88d285213b6c23d25646e449067bb3223d54ce4fc51",
+      "timestamp": 38.838350000008944,
+      "duration": 0.02764999999105555,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "52c76896ecfb7db351e1d0a7d3e48a5993fe894a39f2d1204b427db6f16810e3",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000194.png",
+      "sha256": "baafd556aa286a236bc762c61cdb75cb58feaf2967355705054789dac520065f",
+      "timestamp": 38.866,
+      "duration": 0.03728000000118925,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "34d98a21d826c03466a164a275c82d81a5e30aa11dba54d7d1de58532ad6b3af",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000195.png",
+      "sha256": "42efcaef83709414639887ad23a7f684b064ed3e6238f3dcb6fb86857ca35a3f",
+      "timestamp": 38.90328000000119,
+      "duration": 0.033344999998810465,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9177afdbb5bd6b79170b02e3a65edaace0d8804b5324760ac98103b7536fe790",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000196.png",
+      "sha256": "ee6098997ab9a02533a348dd0bbcac8493aadebc57673b4cb286c14ddb7c9ba4",
+      "timestamp": 38.936625,
+      "duration": 0.032655000001192036,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "61f236005dac96a971c6fc3ef5d0a9e36450f847acef1cc43138e6ec6afbef89",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000197.png",
+      "sha256": "ca1dabbd493924fb6b6999dd5e5a24a712b3681d41852bcc88c5577561589f61",
+      "timestamp": 38.96928000000119,
+      "duration": 0.03611500000953782,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a20db0b2418923b33e2a223398c7939a1619d1f00bfe6ff3bc91f8b3ef5c0e0e",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000198.png",
+      "sha256": "8d41a7ea88a6de910b186868689335ea0dd0054df937a69edcd5f7878843e4bd",
+      "timestamp": 39.00539500001073,
+      "duration": 0.02735999999940475,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3775100877ca87d3532c25fb0ed7b179cf765d5960822ac2eb2a7acc9459d6b2",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000199.png",
+      "sha256": "01f3314923c0648e0bc7cde3021624925743063ac6d4fe3d16017fbfcbf696b7",
+      "timestamp": 39.032755000010134,
+      "duration": 0.031659999996421107,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4dc579eae441a64294888b9ba3d0b7ce76f7eceff7ff7d5bcc28b9f7610118d3",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000200.png",
+      "sha256": "387002293895201e86ea39b52c973874398d27700fbce99a5935663f66681102",
+      "timestamp": 39.064415000006555,
+      "duration": 0.038140000000595364,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "beae136d759179d89a89ea8b1dc9d67a2cd076b486b6347a51554b4004101c12",
+      "atlas": 2,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000201.png",
+      "sha256": "c7ef678af5ca5f26f22461850d89db6e29e767e4d23c8f66f2b85ba602a52908",
+      "timestamp": 39.10255500000715,
+      "duration": 0.030034999996424006,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fb61be3a660c3445a4f7934d89ff4360b5db7c94e567eb9777a021ffe2ed6a97",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000202.png",
+      "sha256": "97c09d87c77428f499ed7b5b8425efef9b7936a2d184f8d9ce5982112a9b16af",
+      "timestamp": 39.132590000003574,
+      "duration": 0.03214000000059514,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3cf82ce6aa1fc85a655ee7743dea695f542d1b9e5c0b7d49df3daa2bfc820d1f",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000203.png",
+      "sha256": "b0849856e907f481200bd86b40a618c1ce4c110d0c6f312959f529410b9ae7a1",
+      "timestamp": 39.16473000000417,
+      "duration": 0.034775000005964785,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6a666a9a2abd660c76084cd218bc303ce0c7092e4ba0bc22c70c36550e150630",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000204.png",
+      "sha256": "255be0a41e66981a7cb613220a42d09a16c1fa7b03ec1cd2230a3ef86f9e2fe1",
+      "timestamp": 39.199505000010134,
+      "duration": 0.03521499998867483,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0390220c29e07e978d574b236fcf3184f2bf492906a00197e8ac0e53a8ec93ed",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000205.png",
+      "sha256": "54d6dcc47fe243feaf037eace9f983c7d7320b052fa7807126d4fc38058dabeb",
+      "timestamp": 39.23471999999881,
+      "duration": 0.03488000001013347,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a466dd7d0e1d92d7c40fed0eaa11290a874a26b777c34c9c8173ad81e1c6a963",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000206.png",
+      "sha256": "982648ecc0d4a04c7455294395def6ad6da85d93e54978bd653c7f3e14481224",
+      "timestamp": 39.26960000000894,
+      "duration": 0.031104999989267412,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c4b5759db57c2503423ad1d554c6add1441fa7321ecad1136d24de0d8a597b6e",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000207.png",
+      "sha256": "fdefe3e64cfac4714e096b7dd7921cce840232440681e542737fdced7b5c18d5",
+      "timestamp": 39.30070499999821,
+      "duration": 0.030480000004175167,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a8ad087e2e61957371b033ae5ae857dd9f3cbdeef37272de1d9fca375cb0cc41",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000208.png",
+      "sha256": "51fd21836bb01f781fb4db4c2e21840c8f2d1cf37d5156999bc7de65a0e7349c",
+      "timestamp": 39.331185000002385,
+      "duration": 0.03537500000000193,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "024ee91bde5f9af24958741a6478d827ee2b82b93692ef8859841041a31f362a",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000209.png",
+      "sha256": "15c5bf92e9c8539135b1dc2d576423070eac68c2ed74c17bdf7ad0b6adec109f",
+      "timestamp": 39.36656000000239,
+      "duration": 0.030814999997609505,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5ff18a98913e4a2e151f95e2000379b6d3794dbcb8f49806c58f11a3633652f1",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000210.png",
+      "sha256": "de2d9de9f60514c95b8ece3883d8b5c0c106a0dbeea9ea2ef70bc8c06e0438d7",
+      "timestamp": 39.397375,
+      "duration": 0.03354500000179428,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "187db1b10ae569f4dc8fd78715581b20d7745777b83b370a37f390cde92c3596",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000211.png",
+      "sha256": "e16fe98828540f92d7527871825d690da84f4e5c0d2889b8601fd3fcc1407848",
+      "timestamp": 39.43092000000179,
+      "duration": 0.034255000010126935,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "51b59ba839c8d0dd6761d8a1b26db82511c8d8cc4d43aed04db522b66dd87923",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000212.png",
+      "sha256": "236597f52c13825eb5db00200bcf6402cf7ae0aa5afcf91b89b3636df00eb941",
+      "timestamp": 39.46517500001192,
+      "duration": 0.03839999999106425,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "74946a88ad5c4b0514dd6c60b4f421fb08870943e2a3f4c90b7b341125a51928",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000213.png",
+      "sha256": "0793e440c16a992a4f6fa319caf7490bd17f090785b58141bd4bdc69b79a57b4",
+      "timestamp": 39.50357500000298,
+      "duration": 0.031609999999403726,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1f0826f677f650404e5f6b08589f0e45aaccdaf87c3c7c2ad0a249c912499793",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000214.png",
+      "sha256": "a98e83910a09a273e2e34b39b8a4baf57e154a984245970662966366f6c8f1e8",
+      "timestamp": 39.535185000002386,
+      "duration": 0.0331800000071496,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c0e1847080dd39d02d20291fc1cbc00dc4762f58c2a9dcadeb0fc7591ffdef39",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000215.png",
+      "sha256": "03b4bf2c1b64331fd4c18418b61935fe6b3b586fab6df90573c92ab1346dbe60",
+      "timestamp": 39.568365000009535,
+      "duration": 0.03550499999523282,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "8297138b25b7f2ccf9568f5ecc03dc681d01ddd142746dc1383e1a23f7b474a7",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000216.png",
+      "sha256": "15a0b1d58f2f4fedaabfea043a0ed151eecee8d2c275b4e0fd7a8afbd538ee38",
+      "timestamp": 39.60387000000477,
+      "duration": 0.031500000000001194,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c390cba62beae6d9bc743363af2997ce1969e41471197d93fcf1b69d4e961aa3",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000217.png",
+      "sha256": "b28c2e251564d4d9d6fe3a5fb9372871dbee26d106ad1b75884cac5aac54f176",
+      "timestamp": 39.63537000000477,
+      "duration": 0.03003000000119016,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9fdfa19e7377b9127306f07376a85b64c1fdd8bc11c50414bdd311a8723c7f40",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000218.png",
+      "sha256": "410012a790f5bda937651c92b3155df96b2e7558ce9fef47f73188207a4cec3a",
+      "timestamp": 39.66540000000596,
+      "duration": 0.03370999999344093,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "08955c78569aa4217c55b9010cf42bc326871c483a74675cced6037ca70a480a",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000219.png",
+      "sha256": "35b04a8c75ac6c782e305c7aeef79aea880d5bcc5863e2dbef480537e3984242",
+      "timestamp": 39.6991099999994,
+      "duration": 0.037830000013116205,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "088b55c08ab8cb3971c1a7a91aa7e40e1c68d815664dcaa0c734dad63f6475e4",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000220.png",
+      "sha256": "77b535092f80f73efc6e852a2de3c137a6ed7764a7cc088986cf0c22954ee19a",
+      "timestamp": 39.73694000001252,
+      "duration": 0.02825499999523373,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0d59910e0eee91aadd3b86470ed475686534ef24884d5d91f1a9e5cedc8077ed",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000221.png",
+      "sha256": "847b66c68fe4de7f3a091f76aa61349887663c722d6add8368b83940092f9243",
+      "timestamp": 39.76519500000775,
+      "duration": 0.03679999999701522,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "128aade2796a970675b24e041b0f1a88dc009714fc0fd1169728f64fa93f5972",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000222.png",
+      "sha256": "6c5bbec8118614c93e332e1cb8588bebc26e43f31a21b23338b92093665d9f2a",
+      "timestamp": 39.801995000004766,
+      "duration": 0.03589000000059883,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2938f4d9b50851978e74fe964ea24ac7b24d2b05f6babbf19e79be25c8ec4fad",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000223.png",
+      "sha256": "7f01f02ae122b7c1d737e6b5813cf93b35ecc2e5761a48144d16c047ea0a668d",
+      "timestamp": 39.837885000005365,
+      "duration": 0.030984999999404295,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "427675a9fbd8637435453742d1a401bca3e3d386dedfee37c08630ab5f5152ea",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000224.png",
+      "sha256": "f6f89678de6586b746007ba8cfbd409ad8bfaee424855e5338cf127ddb2deca4",
+      "timestamp": 39.86887000000477,
+      "duration": 0.032400000005957,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "aa525466e50494eecb311f08c348e7223b156acb06a7dbd0312d30241d57513c",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000225.png",
+      "sha256": "9b87ef73d1fe8c10c68ade694fc51f7de9831487a3ee53d1b2f5192b5f188c6c",
+      "timestamp": 39.901270000010726,
+      "duration": 0.028734999999407762,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9cfd13483348fd79616c7fae8caf895afe159c94f8c3ffe35b2ddbbc185fff82",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000226.png",
+      "sha256": "a89eb271666326e514e34e20ce5437b77323e7b33c16519022900acdc8159039",
+      "timestamp": 39.930005000010134,
+      "duration": 0.03991499999165171,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9aa25cde6a75e969d6296ad3f3ead9dcfea2282eee7d2af0e938080dc11e91d8",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000227.png",
+      "sha256": "26f9377cc3d8e17c3905819d5195da032e822c26adc78efec7da3c44f372d625",
+      "timestamp": 39.969920000001785,
+      "duration": 0.029305000007155968,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "654251aec85a0198ff60da2727f7f8d8cc7ebc618f719ee894331885c61dd031",
+      "atlas": 3,
+      "caption": "Word 6: multiplier active.",
+      "focus": {
+        "x": 218,
+        "y": 46,
+        "width": 204,
+        "height": 44
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000228.png",
+      "sha256": "0ae7ce3adacbdf635b068046de3645308a5679d94c4b788c2e536c001fc7fa65",
+      "timestamp": 39.99922500000894,
+      "duration": 0.0352249999940355,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6ae2477b74c0c375a1c752c9597c8fecedc51d96ad73474770330ffb315e30a8",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000229.png",
+      "sha256": "fe00b48a55093bc8171f1ef45c3b4ba4e878df01b574cef4d4e6b6ae01ce9fd7",
+      "timestamp": 40.03445000000298,
+      "duration": 0.03285500000417585,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b6a970a466c9d71eb1649dab4c491061623b11be72eb22acc39442a886c7f5a9",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000230.png",
+      "sha256": "0eae390aa157dc93e0f9a80f6315943aca06724cfee672e86639bb59619b2fe7",
+      "timestamp": 40.06730500000715,
+      "duration": 0.030069999992846874,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f77a15ada72ce226595a39a4bbb96cc0b2f23fc76de7ca4b2fde09ee24a7e3b1",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000231.png",
+      "sha256": "8d0b9aec623e7026aa8acb200909991da426f450e3a1fd12935e9f1fa349d336",
+      "timestamp": 40.097375,
+      "duration": 0.040359999999402874,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e6423b83141127a103437ffb7b77420376624a74ae4c5a339e08a78e5219df4d",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000232.png",
+      "sha256": "86520295fdfba4cd3b00b21e64afb35d67828053e9d78194be298ae4a03117f1",
+      "timestamp": 40.1377349999994,
+      "duration": 0.02892000000178996,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d00687afe84f506b48bf6cbc1d1e7cfc27a2bbb639a8a62c55079d533312daa0",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000233.png",
+      "sha256": "8ce19bbbb68b3237bf1f0acdd73ee51abcc274875e1a436b3f6f5f226bc28caa",
+      "timestamp": 40.16665500000119,
+      "duration": 0.036870000004768144,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cadf0e132ecedf4d023d15224c3b926e1dc21b9f6663a4d137dabc1ed6562edb",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000234.png",
+      "sha256": "47292e217758e24fb0e2e6e506877feb0367b2c303ca9a1c696e9ff73af8ef58",
+      "timestamp": 40.20352500000596,
+      "duration": 0.030844999998805633,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "376988a71b4799bf6f254243bd3c58ddad8a2749d6ddf5e288dc31ce0efd434d",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000235.png",
+      "sha256": "d9cf6d05420f7e10758c7216d0d241d2a4bbd68eb8877d87e4c9ad46e6f9c9e9",
+      "timestamp": 40.234370000004766,
+      "duration": 0.03493999999761854,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f9f2242db7026d7b369425797529faf9e0c799abab6f8c9a26dc97529fc8217e",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000236.png",
+      "sha256": "8b2842b81fc018ffeb19696ba9bc626b94f9d52c49f575de544a0a4e7cd7eabb",
+      "timestamp": 40.269310000002385,
+      "duration": 0.03173000000417403,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b1904907bea02c1facd1bc176ab230b0cff8a0b37f947f06aa1b50346c9d271e",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000237.png",
+      "sha256": "2183e0f900b704997f1ad43367769517c75408831f08999079b2c912059a45a1",
+      "timestamp": 40.30104000000656,
+      "duration": 0.03350499999523038,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "49cbc68dcd8e92b267eb74daf20271bf7998695196e8475f76748511218f6af1",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000238.png",
+      "sha256": "f002fad89607ec910757627cfd8345d8e0f4055e848168b29af8c4b24ec055bd",
+      "timestamp": 40.33454500000179,
+      "duration": 0.034525000005956485,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "81f2ffd910f08db0986e34adeac498bb60e19ae30b5f7c8d75db6866cdb73066",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000239.png",
+      "sha256": "dc405533712f0488144f40dad50e92e7c0a85fccf4a68079b5e545abaec8e041",
+      "timestamp": 40.369070000007746,
+      "duration": 0.033825000002984495,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9f3f6c7ebfead166e46c71ff776810391d4e9fac2d54572fb21defa54ba1aeab",
+      "atlas": 3,
+      "caption": "Combo ends.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000240.png",
+      "sha256": "2bf8fd80e3f455514c4eb2dba0be4b282082c7339d83d3a47136b25cc2fb57bd",
+      "timestamp": 40.40289500001073,
+      "duration": 0.03936999998986579,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3ce38e6f5dfe5ad2a5d329a50cdb94063cdeffe59deb68e8b930c71c68caf5b2",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000241.png",
+      "sha256": "d767c3e7791c2ad93d244bb2d5c71ee420911c4a8b3c46d6dbfc0e5c580cfae6",
+      "timestamp": 40.442265000000596,
+      "duration": 0.022550000011918314,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6523b7c5f09c64e4c295ba18197b718d92fdb3e70ab64817d6fa3d3eee9bdb18",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000242.png",
+      "sha256": "dc0b74208f52a90b5866b48f6af5d5cb485238d3f12b2d7f0080e8f1d16ee6c8",
+      "timestamp": 40.464815000012514,
+      "duration": 0.07463999998569903,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c5b7d174d6347811074f5178695456e7e0662ca37f72c98e0623020136e932be",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000243.png",
+      "sha256": "f2dd00a765cb9ccf076b1b5ca8f9a9a943b3deb37234b18e29044f75f005e377",
+      "timestamp": 40.53945499999821,
+      "duration": 0.012970000013709182,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d9ae61f4a48dbc13068bbadbc06ba48d1ad30a894105a48835735dc3fc6d2489",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000244.png",
+      "sha256": "085565a8320c66cbf34333e784b30d5ad69b1f5c06b4e6af3167f5733b96fa16",
+      "timestamp": 40.55242500001192,
+      "duration": 0.04342499999701488,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4d41737d9b506748dbf45766170e484acce5b9d583102666dc419fb00c9127db",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000245.png",
+      "sha256": "c0aa76df9c917a493fa76e55dfea91a845b55891df1cc1631b0034cd9ef06cf2",
+      "timestamp": 40.59585000000894,
+      "duration": 0.021965000003582702,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7acbe2713c1c51910d983724624f09121d799c289a830e4a75eb3205cdb4c1b3",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000246.png",
+      "sha256": "6c14ac5b11f3a5cdb878c6eb3a0310447cd97646a4eb863de4b6589b5ecc697d",
+      "timestamp": 40.61781500001252,
+      "duration": 0.02738999998569369,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "726f0932568fae5c420272d0c3635a3c5f769d316eee9376108e7bbb52109c44",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000247.png",
+      "sha256": "785088eb5fdc429da31b06566129ff3363d78eb94b88f10a8d882bc88be9a4dc",
+      "timestamp": 40.645204999998214,
+      "duration": 0.02535000000894172,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a497d8ede1c7a4eb742322dfbb693cec59d184df5d4a5953b6cefbd9fea47ac5",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000248.png",
+      "sha256": "f8182f2fe91eb314342c516bef50d69dcb0c65c6fc78b08b1053b0e38e720a85",
+      "timestamp": 40.670555000007155,
+      "duration": 0.02881000000238032,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "43ff0403398227797983d9a885d6fbb7efba65ca15388c88820b83b1cf7fb3af",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000249.png",
+      "sha256": "43cc05a1319b88d274db80b35da9fd597d2fcd53bfecf8bc209c5de532f4941d",
+      "timestamp": 40.699365000009536,
+      "duration": 0.03023999999463456,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e586cb0c2e25a30431a0cfe6a10f870c260bf9acb624e54e8741159e2cabe588",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000250.png",
+      "sha256": "304d7d2862f19d38b4c44816c81b621f54ecbec5edd5af8945c032751d249ea3",
+      "timestamp": 40.72960500000417,
+      "duration": 0.033859999999407364,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "644d003eb28196c1ce74ac0b2675dc0747456fa7b622f0610c89e093610fd910",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000251.png",
+      "sha256": "624160ab5eb8483ea8ee1a57e0141580b3785828ccd057c6bc5f0b85a5386f49",
+      "timestamp": 40.76346500000358,
+      "duration": 0.03705500000715034,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "614dfeab1f13ea9ed7aa21ae7bebd49e9ddcec5a612bbb85c2a3e9bd3a20be5d",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000252.png",
+      "sha256": "032e7342fc9e88da5299b806e54e8778761b9386e27b138f7515553eee77977e",
+      "timestamp": 40.80052000001073,
+      "duration": 0.02912500000000051,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9e7a9b0b6d2ddec8b890b222806183a119167c95a40e332590f87e37bf1ffc84",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000253.png",
+      "sha256": "8aee920de734992d060c7009839b689708f1ff913aa6a210c3482bdadb4e7175",
+      "timestamp": 40.82964500001073,
+      "duration": 0.03280499999225128,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "78b930dc155b57413d8baaa06caa26fb18758ba726bc6450a5759580aa3ac194",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000254.png",
+      "sha256": "32d5ae408c1fa74cce1a6feab24d880c4b32a76ef681ac3f00775795a13a7502",
+      "timestamp": 40.86245000000298,
+      "duration": 0.03504500000178723,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b2f9867fbf603f46ca052c428640704196809ac654f9f3a7de36c1ca010e9541",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000255.png",
+      "sha256": "f74d263257eccb654fb0ccde9115584f60a40b6eff9271edb184647d39beaabe",
+      "timestamp": 40.89749500000477,
+      "duration": 0.03609000000357554,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "dd05ab7bbac643d4db1d2c071a46e3818ee7ad6535efa2e2143f1c487ef96fe9",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000256.png",
+      "sha256": "76ffa9ea0a7f84fb78e26fbbd6f866d549fa5d45d2692360567b9f83d796f7e6",
+      "timestamp": 40.93358500000834,
+      "duration": 0.03102499999106101,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9cb860649a59aca7ad3e2df9ce0c3694fa7e25478255cd9ba4abb99ed5fa18f2",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000257.png",
+      "sha256": "0931be351a76f270f40284ad7022564fbc1b5acbb2717d85947ee8f66d2aeaa5",
+      "timestamp": 40.964609999999404,
+      "duration": 0.03383000001311132,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6c3606776af8119c09a71b75d342f70eb50ff224aec927e862a251966483522e",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000258.png",
+      "sha256": "07085160f0ce1bfbb1c1981163244242337748a55c878a65733a4249d2f6e4ca",
+      "timestamp": 40.998440000012515,
+      "duration": 0.03436999998987034,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5621a424f90bf459ec14b96c8e62ea13ffe65ba1bc81b0202eb0fd5eeb62ab93",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000259.png",
+      "sha256": "015ac9d549e05abf981f0be0b8c963ed2f03a6a0d508185eb6dc77e47b5996dc",
+      "timestamp": 41.032810000002385,
+      "duration": 0.030915000006558557,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5edce6b88ab115a6308fa97599aafb30959cd71da39badcc043d17fe9977a003",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000260.png",
+      "sha256": "f13991d3c5572b9ec66a1cd32f90999dfd8fb9ee8dc416466cbf834f0370aaf2",
+      "timestamp": 41.063725000008944,
+      "duration": 0.039909999996417866,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cf02f479aedd39d2d1913501d6b5eea7d6e63f4feefbc36a85d9e5309c7f1976",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000261.png",
+      "sha256": "3d27fa8d97b209d4d7845b822f1f26de94338eec6de796887ef8facdf79bfb05",
+      "timestamp": 41.10363500000536,
+      "duration": 0.030665000006557364,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ba354d5f5f8649ed2cf67a9b9adca352e440948ace3672c8d1d5090a6f4e7227",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000262.png",
+      "sha256": "08ebc20a79564ea80a000be56fce42262eef12c63c1c2ce93790a1e44feb041f",
+      "timestamp": 41.13430000001192,
+      "duration": 0.035174999997025225,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a861a2aac15a2893c382b39759d20aaa3f72a581afa6343af2c659b307707cfe",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-score-03/capture/000263.png",
+      "sha256": "a6caad0d8694e6ddfc08b0885f02219923c5366ad523e2f840621187f947d43e",
+      "timestamp": 41.169475000008944,
+      "duration": 0.029749999999999943,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3dbe99f9de084411e9dd12eb1f7b3578bd7d0381df66ba841110705e790e2566",
+      "atlas": 3,
+      "caption": "Score stays.",
+      "focus": {
+        "x": 218,
+        "y": 4,
+        "width": 204,
+        "height": 40
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    }
+  ],
+  "transform": "full-frame RGBA resize 320x180 nearest-neighbor only",
+  "sourceTimelineSha256": "2b0cdcee0d675d5740603cf1e7fa451e212ddb9c07a074519e59c7b23c93b4f2",
+  "atlasSha256": {
+    "score-0.png": "a471700bc28c8f2af7a74187a634f818d15a980dade90b2f4a179d74d1dca6ac",
+    "score-1.png": "a89088d243c5ec39f627bb783e06392a81458a28ef085a57cd1ac9e87d8db998",
+    "score-2.png": "3f30649a436d4bc5cb406812d155cf195296a01ef811a4f5ef666f557f72f63e",
+    "score-3.png": "d60c50fe4cdd5759ad069037f8db87108d798ad270adf8fe7abecbdd50895a0d"
+  }
+}

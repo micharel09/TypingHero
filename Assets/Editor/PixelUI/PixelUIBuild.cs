@@ -46,6 +46,9 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             .Concat(Directory.GetFiles(BlackletterTitleBuild.Art, "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Art/EndlessSkeletons", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Resources/Endless", "*", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles("Assets/Resources/Tutorial", "*", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles("Assets/Art/UI/TutorialParry", "*", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles("Assets/Art/UI/GothicPixelUI", "*", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyUI", "*"))
             .Concat(Directory.GetFiles("Assets/Audio/SFX/Clips/KenneyInterface", "*"))
             .Concat(Directory.GetFiles(ShogunTheme.Events, "*")).ToArray();
@@ -114,7 +117,7 @@ public sealed class PixelUIBuild : IPreprocessBuildWithReport
             // Return the actual Unity-serialized assets alongside the WebGL artifact.
             Directory.CreateDirectory("build/PixelUI");
             AssetDatabase.ExportPackage(new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/SampleScene.unity", DungeonSessionBuild.WorldPath,
-                PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'),
+                PixelUIFactory.Generated.TrimEnd('/'), PixelUIFactory.Art.TrimEnd('/'), "Assets/Art/UI/GothicPixelUI",
                 CombatR7Build.Art.TrimEnd('/'), DungeonUISkin.Art.TrimEnd('/'), BlackletterTitleBuild.Art.TrimEnd('/'),
                 DungeonArenaBuild.Art.TrimEnd('/'), DungeonPixelRoomBuild.Art.TrimEnd('/'), DungeonHangingLanternBuild.Art.TrimEnd('/'), "Assets/Scripts/Rendering", "Assets/Settings", "Assets/Data/Lighting",
                 ShogunEnvironment.Art.TrimEnd('/'), "Assets/Audio/SFX/Clips/KenneyUI", ShogunTheme.Events.TrimEnd('/') }.Concat(LightingBuildValidation.Dependencies()).Distinct().ToArray(), "build/PixelUI/PixelUI.unitypackage",

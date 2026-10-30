@@ -16,6 +16,18 @@ using UnityEngine.Rendering.Universal;
 [DefaultExecutionOrder(2000)]
 public sealed class GameLoopProbe : MonoBehaviour
 {
+    // Observation request: export after the measured interval, never each frame.
+    public void ExportTutorialTrace()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        TypingHeroQA_TutorialClock(Time.realtimeSinceStartupAsDouble);
+        TypingHeroQA_TutorialTrace(TutorialPlaybackTrace.ReadAndClear());
+#endif
+    }
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")] static extern void TypingHeroQA_TutorialTrace(string json);
+    [DllImport("__Internal")] static extern void TypingHeroQA_TutorialClock(double now);
+#endif
     [Serializable] sealed class SortingFrame
     {
         public int order, enemyOrder, attackMask, parryMask, mismatches, frame;
@@ -55,6 +67,8 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool spaceCueVisible, spaceCueFilled, spaceCueLocked, legacyCueVisible;
         public int cueAttackId;
         public Rect spaceCueRect;
+        public bool spaceCuePressed;
+        public Vector2 spaceCueHeadPoint;
         public string cel, sparkCel;
         public Vector2 contact;
         public Vector3 sparkPoint, cameraPosition, cameraCorrection;
@@ -257,7 +271,11 @@ public sealed class GameLoopProbe : MonoBehaviour
         var cueLeft = presenter ? Read<Image>(presenter, "left") : null;
         var cueLock = presenter ? Read<Image>(presenter, "locked") : null;
         combatFrame.spaceCueVisible = cueKey && cueKey.gameObject.activeInHierarchy;
-        combatFrame.spaceCueFilled = cueLeft && cueLeft.sprite && cueLeft.sprite.name == "tile_0507";
+        combatFrame.spaceCueFilled = cueLeft && cueLeft.sprite && cueLeft.sprite.name.StartsWith("light_");
+        combatFrame.spaceCuePressed = cueLeft && cueLeft.sprite && cueLeft.sprite.name.EndsWith("_pressed");
+        var cueEnemy = presenter ? Read<Transform>(presenter, "enemyTransform") : null;
+        combatFrame.spaceCueHeadPoint = cueEnemy ? (Vector2)CombatViewportCamera.WorldToScreenPoint(Camera.main,
+            cueEnemy.TransformPoint(Read<Vector2>(presenter, "headLocal"))) : default;
         combatFrame.spaceCueLocked = cueLock && cueLock.gameObject.activeInHierarchy;
         var legacy = combatEnemy && combatEnemy.AttackCueObject ? combatEnemy.AttackCueObject.GetComponent<Graphic>() : null;
         combatFrame.legacyCueVisible = legacy && legacy.enabled && legacy.gameObject.activeInHierarchy;
@@ -315,6 +333,8 @@ public sealed class GameLoopProbe : MonoBehaviour
     }
     void ObserveDetailedFrame()
     {
+        // Tutorial timing uses the fixed trace, not the per-frame combat JSON publisher.
+        if (TutorialRun.Active && TutorialRun.Practicing == TutorialRun.Practice.None) return;
         PublishCombatFrame();
         if (!sortingAnimator || !sortingSprite) return;
         var info = sortingAnimator.IsInTransition(0) ? sortingAnimator.GetNextAnimatorStateInfo(0)
@@ -437,6 +457,14 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool tutorial, stunned;
         public bool audioPaused;
         public int tutorialStatus;
+        public bool tutorialParry;
+        public int tutorialStep;
+        public int tutorialPractice;
+        public bool tutorialDemoPlaying;
+        public string tutorialMessage;
+        public double tutorialClipTime;
+        public string tutorialClipFrame;
+        public Rect tutorialModal, tutorialClipRect;
         public Rect tutorialPanel;
         public GuideArrow[] tutorialArrows;
         public float cameraOrtho, multiplier, scorePulse, scoreZoom, redAlpha;
@@ -497,7 +525,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     static GuideArrow[] ObserveGuide(TutorialOverlay overlay)
     {
         if (!overlay || !overlay.gameObject.activeInHierarchy) return Array.Empty<GuideArrow>();
-        return Read<TutorialOverlay.Arrow[]>(overlay, "arrows").Select(a => new GuideArrow {
+        return Read<TutorialOverlay.Arrow[]>(overlay, "arrows").Where(a => a.shaft.gameObject.activeInHierarchy).Select(a => new GuideArrow {
             target = a.target.name,
             start = a.shaft.TransformPoint(new Vector3(a.shaft.rect.xMin, 0, 0)),
             end = a.shaft.TransformPoint(new Vector3(a.shaft.rect.xMax, 0, 0)),
@@ -876,6 +904,15 @@ public sealed class GameLoopProbe : MonoBehaviour
                 tutorial = TutorialRun.Active, tutorialStatus = (int)TutorialRun.Status,
                 tutorialPanel = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/TutorialPrompt")) : default,
                 tutorialArrows = ObserveGuide(guide),
+                tutorialParry = guide && Read(guide, "step", 0) == 3,
+                tutorialStep = Read(guide, "step", 0),
+                tutorialPractice = (int)TutorialRun.Practicing,
+                tutorialDemoPlaying = Read(guide, "demoPlaying", false),
+                tutorialMessage = guide && Read<TMP_Text>(guide, "practiceMessage") ? Read<TMP_Text>(guide, "practiceMessage").text : "",
+                tutorialClipTime = Read(guide, "clipTime", 0d),
+                tutorialClipFrame = guide && Read<Image>(guide, "clipImage") && Read<Image>(guide, "clipImage").sprite ? Read<Image>(guide, "clipImage").sprite.name : "",
+                tutorialModal = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/ParryModal/Panel")) : default,
+                tutorialClipRect = guide ? ScreenRect((RectTransform)guide.transform.Find("Reference960x540/ParryModal/Panel/Clip")) : default,
                 stunned = enemy && enemy.GetComponent<EnemyStunController>() && enemy.GetComponent<EnemyStunController>().IsStunned,
                 scene = SceneManager.GetActiveScene().name, frame = Time.frameCount,
                 endless = endless != null,

@@ -91,6 +91,18 @@ public class ParrySystem : MonoBehaviour
                (playerAnimator.IsInTransition(0) && playerAnimator.GetNextAnimatorStateInfo(0).fullPathHash == hash);
     }
 
+    internal void ResetPracticePose()
+    {
+        ClearContactPose();
+        RestoreEnemyTrail();
+        if (gate) gate.PopParryPose(this);
+        poseRequestedFrame = successRequestedFrame = -1;
+        successUntilUnscaled = 0;
+        _lastOpenAt = _lastCloseAt = float.NegativeInfinity;
+        followUpUntil = double.NegativeInfinity;
+        SuccessPoseCompleted = windowOpen = false;
+    }
+
     bool InParryOrSuccess() => config &&
         (InAnimation(config.playerParryPoseStatePath) || InAnimation(config.playerParrySuccessStatePath));
 
@@ -196,7 +208,8 @@ public class ParrySystem : MonoBehaviour
     // biến ParrySuccess từ "obsolete" thành fallback thật sự
     public void ParrySuccess() => ForceSuccess(null);
 
-    internal bool CanBeginParry => !GamePauseController.InputBlocked && !CombatSession.Finished && config && playerAnimator &&
+    internal bool CanBeginParry => (!TutorialRun.Active || TutorialRun.Practicing == TutorialRun.Practice.Parry) &&
+        !GamePauseController.InputBlocked && !CombatSession.Finished && config && playerAnimator &&
         !string.IsNullOrEmpty(config.playerParryPoseStatePath) && (!gate || gate.CanParry) && !PoseLocked;
     // Reuse the authored impact cels briefly. Animator states, events and hitboxes keep running.
     // Events arrive before SpriteRenderer curves are applied, so sampling only renderer.sprite

@@ -117,6 +117,8 @@ public static class GameLoopBuild
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\nDungeonTileset II v1.7 by 0x72 / Robert (CC0). https://0x72.itch.io/dungeontileset-ii\n");
         System.IO.File.Copy("Assets/Art/Environment/PixelDungeon/LICENSE.txt", output + "/PixelDungeon-CC0.txt", true);
         System.IO.File.Copy("Assets/Art/UI/DarkAges/LICENSE.txt", output + "/DarkAges-License.txt", true);
+        System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" + System.IO.File.ReadAllText("Assets/Art/UI/GothicPixelUI/CREDITS.txt"));
+        System.IO.File.Copy("Assets/Art/UI/GothicPixelUI/LICENSE.txt", output + "/GothicPixelUI-License.txt", true);
         foreach (var license in new[] { "Crusenho-License.txt", "Kenney-License.txt", "VT323-OFL.txt" })
             System.IO.File.Copy("Assets/Art/UI/Pixel/" + license, output + "/" + license, true);
         System.IO.File.AppendAllText(output + "/CREDITS.txt", "\n" +

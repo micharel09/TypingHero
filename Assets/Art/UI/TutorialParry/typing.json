@@ -1,0 +1,1870 @@
+{
+  "columns": 6,
+  "cellWidth": 324,
+  "cellHeight": 184,
+  "width": 320,
+  "height": 180,
+  "atlases": [
+    "typing-0.png",
+    "typing-1.png"
+  ],
+  "selection": {
+    "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture",
+    "start": 32.22671999999881,
+    "end": 34.63192000000179,
+    "sourceBuild": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/normal-player",
+    "input": "normal c779 gameplay player, real UI and keyboard; no QA bridge or gameplay mutation",
+    "events": [
+      {
+        "timestamp": 32.22671999999881,
+        "caption": "Type the word.",
+        "focus": {
+          "x": 128,
+          "y": 260,
+          "width": 120,
+          "height": 36
+        }
+      },
+      {
+        "timestamp": 32.73159999999404,
+        "caption": "Word complete!",
+        "focus": {
+          "x": 502,
+          "y": 34,
+          "width": 132,
+          "height": 28
+        }
+      },
+      {
+        "timestamp": 33.031599999994036,
+        "caption": "Enemy HP drops.",
+        "focus": {
+          "x": 502,
+          "y": 34,
+          "width": 132,
+          "height": 28
+        }
+      }
+    ],
+    "cadence": {
+      "fps": 30.065783935235885,
+      "p95": 39.10999999940401,
+      "max": 56.59499999880779,
+      "requested": 76,
+      "completed": 76,
+      "gate": true
+    },
+    "sourceReportSha256": "19703f871a6aaa4ac4ca6d44be728d9ea6643f22e9b7f5dd891a8a041ccee717",
+    "leadingPauseFramesOutsideSelection": 3,
+    "leadingIdleFramesOutsideSelection": 0,
+    "selectionNote": "Start is the directly inspected first fully unpaused frame; final real source frame serves as duration boundary. Score trailing idle after combo expiry shortened to 1.2s. No interior frames removed; full cue and complete Slayer entry/attack/exit retained. Leading boundary gives 300-500ms idle before the first demonstration action/cue."
+  },
+  "frames": [
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000003.png",
+      "sha256": "8ce48c8b01f18d669999e522c2e79ff3b07f52dd9a7ef3d03b178492b06fe71e",
+      "timestamp": 32.22671999999881,
+      "duration": 0.03946999999880774,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "cddb9a3c4024904d7c48c4f2aed1007e742e25f43698dcba64e18f266f9bae0d",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000004.png",
+      "sha256": "2b90efad8650a9cc490022959ed2f4255bd0648c5ba4c3e3d0a130d3f220a95b",
+      "timestamp": 32.266189999997614,
+      "duration": 0.032265000000599287,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e14106e8ec884e41a62e29779abc68813fb402352c84ecf22948b238f9fb7381",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000005.png",
+      "sha256": "3e54111f0a62d532502a3cba4157d024527e75d11ce65912bff5acd70bbb2762",
+      "timestamp": 32.298454999998214,
+      "duration": 0.030444999992845112,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9518b2fb2522f22cbc640d4eb02532de11063db20d46ee0bc492694d00571faf",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000006.png",
+      "sha256": "6fe34eceb011d9e279c9e59125af1c409fc866f9b28aff44fdf275f78f35dcb3",
+      "timestamp": 32.32889999999106,
+      "duration": 0.03624500000476871,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "17a0ce1d815d12598a1365fc7c2669c615bfeb22e092df4a7479d5c23212d866",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000007.png",
+      "sha256": "c44bd1ada951e13713e2caeafea5d971d08913088968d8bd21f47e90741eacd8",
+      "timestamp": 32.36514499999583,
+      "duration": 0.031189999997614848,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3389811cf2d71097634b02f1f48c347aa91ad0c7e87c722aead52f2268d8bd93",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000008.png",
+      "sha256": "9a6b8a1c3920351323c0a7973051ce94d1968af7a4a9542b8878648f32aadd41",
+      "timestamp": 32.39633499999344,
+      "duration": 0.03161500000953765,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "41328256973645dccdae0ac4c9705f21d66471b1c85e55c85bda54d71c72b80c",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000009.png",
+      "sha256": "24a78d870d4c307361fe6d0dc8c2b7a91187353cb9157e52b98174989e0fdb0b",
+      "timestamp": 32.42795000000298,
+      "duration": 0.034004999995232765,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f8c38871626da259da4d43d30e96a3cdd8506bf8b4b083bfbf40c528c56e4728",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000010.png",
+      "sha256": "a4ca60357a8455e3224ed566c0c36df060023c2e1d91f30f8c7626faeac73952",
+      "timestamp": 32.46195499999821,
+      "duration": 0.033734999999403215,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3f3a2592a04b48cfa0e3bec285af40ef3259314eb5b6e500f68e4b66a393ebae",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000011.png",
+      "sha256": "a6aa66d2cd284259f4013b2cc52c8f122d64a7ad030dece6c1504949f9183452",
+      "timestamp": 32.495689999997616,
+      "duration": 0.03664000000059531,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d863a0e748cd96c80bffe322e4499f2f5de1d59e2cdf86e35fd8f0c96e3bb965",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000012.png",
+      "sha256": "1bf93e383d7ef2463c1dd552293c50e3ec6e881f6659285d9bea77d4eab669c9",
+      "timestamp": 32.53232999999821,
+      "duration": 0.03349500000476979,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c22d0c8d106ab098f91229bc26a6a9d698dd6950931d0df3eb1a37dce76b62ad",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000013.png",
+      "sha256": "2ea5644f3935ee57183254994935d64fbf3c59ee1c210ff2c5db12864f1c7567",
+      "timestamp": 32.56582500000298,
+      "duration": 0.05659499999880779,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7af3c88361a9033af151ddbdedcad2da4771f5999928b34f68f6bb15a9e04992",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000014.png",
+      "sha256": "d499041b351abeaaff6bed087ce70a9070470c6da0a6d2b59c17d7839805fcbf",
+      "timestamp": 32.62242000000179,
+      "duration": 0.015444999992844544,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3ece22053da533f615d459bda3350f021b5917f5d58e7d7c181e98556e965853",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000015.png",
+      "sha256": "75991abb64471a1ba68a90f3f456f409187adcb3e6d6acb0de19cdcc0013bf2e",
+      "timestamp": 32.63786499999463,
+      "duration": 0.028540000006557875,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ac903b2c1551960a7e09411aae279212c9d0256fed2b73bb8b3e22857cd80de2",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000016.png",
+      "sha256": "f869960f0cb347ad0ea0e6f2fa428823b4c781bcc4826c5afe5fd2a8220ce9fb",
+      "timestamp": 32.66640500000119,
+      "duration": 0.030009999990461722,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c5bc5da6469acd08ba7354ab44f1a7d9ed91bbd7f31e5077f7e0bc8e3bebca1d",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000017.png",
+      "sha256": "9dee3dbcc8fca17ed8fceb13eb3c5ce74de73d0f3eb33c882653a369e35ffa18",
+      "timestamp": 32.69641499999165,
+      "duration": 0.03518500000238589,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2aec2356ad13052ff6cad5535abee5405dbffe8cdabba08dd7c7921a2847c8ca",
+      "atlas": 0,
+      "caption": "Type the word.",
+      "focus": {
+        "x": 128,
+        "y": 260,
+        "width": 120,
+        "height": 36
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000018.png",
+      "sha256": "1870151851cb3430a936ec1d3165018e05ab1569c16e37cfb980da800faeedcb",
+      "timestamp": 32.73159999999404,
+      "duration": 0.03407999999821243,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e99ae25f6568d3d00b8a6f4928b79622b82f7759fa19c73e57ef78d8941dc5c4",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000019.png",
+      "sha256": "ec1638459fdaf9290d9e94a5a076be104d557e0e3fee85372f50048ff4274d44",
+      "timestamp": 32.76567999999225,
+      "duration": 0.03854500000178973,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0ff2f0eff5cae310dae25efbf25036cfffd1b4f58a7112a09efd2d649fd5c5e7",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000020.png",
+      "sha256": "28393eb5ee3838c1f3aaffa28be795bad2caba3ce4afdf5f7e676bbf467e5abb",
+      "timestamp": 32.80422499999404,
+      "duration": 0.03085000000893956,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "585d865ceb3eb3b242673a73b1b090846a8f208aaa73f41b02d9acfb383c4771",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000021.png",
+      "sha256": "52a851f9e605b322ea947459ca1c1d9e5ee913c5f959953a5d37a03f4bce04c2",
+      "timestamp": 32.83507500000298,
+      "duration": 0.030099999994035898,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "393fdd9f544bf2ab0a60c49e39adf8110c0adffc4be913faa4ad55b5adbe5f3b",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000022.png",
+      "sha256": "5dfa4d01a4a0151f5c5727d106d961128d78ccccb3eed35bf0c8a4ba961b1b55",
+      "timestamp": 32.865174999997016,
+      "duration": 0.033989999994638254,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "dfd4a9574127b3c3d5d972ee0eec6d35d1fa51e81f1bc4b285ce9112d1cf3a8a",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000023.png",
+      "sha256": "279f9b57113fae2701df5d1ec462f2e8590f500b753ee478740504ca7585f536",
+      "timestamp": 32.899164999991655,
+      "duration": 0.035130000010134665,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d8faac0c5a92c9b435a932296ac78b4c179e1a3963e98bc7800165a78bdc5056",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000024.png",
+      "sha256": "bd424d70d82f1b3ecd4df8b9da7d6aa794c0e42f872cf52f2a9b774b7e74f459",
+      "timestamp": 32.93429500000179,
+      "duration": 0.030084999993441386,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0c41434ee0cf71d9e7b97fbf62e26d2ed1c9d01b8916a453dd6ccefd3c429f7b",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000025.png",
+      "sha256": "80c8fb215e746bf47700c5fbc5746da9cad6eaedc0ca4ff1f01160f35e6b1335",
+      "timestamp": 32.96437999999523,
+      "duration": 0.035725000008945074,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6d42816bdc705ff4089e15306b8a7c3bc4c60afbe17b18270638c3d2fce1d1c6",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000026.png",
+      "sha256": "77733b3428f9ebebdfbdf98adeea813ccb62bb7acabd4b60f8171d54b7c03dd3",
+      "timestamp": 33.000105000004176,
+      "duration": 0.031194999992841588,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "603e7da5b72970620ee96fd27a104df1e7a07acfafdf5dd21d784fa3ba2b2b00",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000027.png",
+      "sha256": "d0ad7f2e239bb11aedef8bbacaf158a17de9b23070b8ca76512d462d80707351",
+      "timestamp": 33.03129999999702,
+      "duration": 0.02937000000476786,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "763003daea3c29af6cce602adbec647d64934950fa07d8c516611b1df8cd0ef4",
+      "atlas": 0,
+      "caption": "Word complete!",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000028.png",
+      "sha256": "3977a244f6240358aef935780c0ebb023d1201481527d665e4a792a0f5c317e5",
+      "timestamp": 33.060670000001785,
+      "duration": 0.03855499999225742,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "428f4c01a623b83d0b280deda16293721fb04e135507852a6b014a038449b344",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000029.png",
+      "sha256": "ad3a46f406301845ff35c38c2eb541d6d63dbab6e4a3ba0228e9ae58d693c275",
+      "timestamp": 33.09922499999404,
+      "duration": 0.03033500000834266,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "76bcea8bed1b9fedc1becb977cde5baa2447384ccf984d9170fef2769cf37e16",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000030.png",
+      "sha256": "55f6f7c85d96da41a91f8c7a385963f3af16dfaa88e19c5c9f349a3716f8fb82",
+      "timestamp": 33.129560000002385,
+      "duration": 0.03472499999404022,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4ae416e4eee87b523c4863c0f85baed0c38d2da31b64cf5c5aac875ab9005cc3",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000031.png",
+      "sha256": "f9e1f36ef62b518a944a03f79743809c269fd935550ea697e5905257cef27720",
+      "timestamp": 33.164284999996426,
+      "duration": 0.031585000008341524,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "158291cb8e5c7d8fd238ed80698b2e5a0d6da90a5831c03b218e60c7ea424812",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000032.png",
+      "sha256": "b3da99fd4481589bb14d5b3ed0d6aeb4575c0dae039636bf15f2257e57a20f6a",
+      "timestamp": 33.19587000000477,
+      "duration": 0.03362500000000068,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "4bbbc8f929889eea6ccc85a3aa1101726c7c2a691a2311c591d1291794a29ae5",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000033.png",
+      "sha256": "0b341385dec1d405439557674186f3c444f11d01f540e4af338890c2a6e58f72",
+      "timestamp": 33.22949500000477,
+      "duration": 0.038379999995228786,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "2c22d236646a7ca5fc7ebf0e2e76265738a4599167930bb06411ada9bfb1e83d",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000034.png",
+      "sha256": "95010e5a39577b914897130288383eb3ad20e0e56209e080f16b2669c5cce8fd",
+      "timestamp": 33.267875,
+      "duration": 0.02732500000298188,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "44aec499b7ab070ea90e7c6ca3acc05332b450d507a744616a167addcd621c93",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000035.png",
+      "sha256": "82d38619e19512a09d4d0c06cbc32c1c6cdc8ea8a994b0a51206471615a369f9",
+      "timestamp": 33.29520000000298,
+      "duration": 0.0369549999982155,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "b21b875bb226006b2e4fd6d4070bcc01a1ce3e4ac5e42f1c373f05003b8b1673",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000036.png",
+      "sha256": "780da3912776deff692e5030a20a32c00c9e93978360cc98a4e71fd1a295c22e",
+      "timestamp": 33.332155000001194,
+      "duration": 0.02764499999582881,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a51a63064c8ff5017eb79a7e2e12b0e25fdb21c50b4ed8d5d56d8370d7ec7dab",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000037.png",
+      "sha256": "3a82b3c8b2f7b745f95ee38f4aff5f6d7bbec9c796f5c7bf6e2d71301e9cc85c",
+      "timestamp": 33.35979999999702,
+      "duration": 0.03805500000714801,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6204421cc04851a0276335e68d4aafed747223d502e621591525ac44da2b51ce",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000038.png",
+      "sha256": "5876a677973299b238d55db4a3ca832d3ce82f59da7b8af18fc2fc584961a243",
+      "timestamp": 33.39785500000417,
+      "duration": 0.03290500000119323,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "7d6eebc7fdb9d6bbe497d7c76fdbc359c27fa7c4f74835dc0afbc7024cbca471",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000039.png",
+      "sha256": "8d2a7bfcc8983a8da069fafc14b52bace89dce295a39e8dd5bd673d1584cb008",
+      "timestamp": 33.430760000005364,
+      "duration": 0.033439999997618486,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "5df79104bb5cc36ff8d5daee4c3e1e76083fe9a3478187c2eee8348d3b0424df",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000040.png",
+      "sha256": "e9a65da5cd1fc124f6904570dbdeacf46290d894e630176cd8f25f09aa13f16d",
+      "timestamp": 33.46420000000298,
+      "duration": 0.029619999989861867,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c3a251caa76d47f29d7990185494bdcc9fa8a2690f50ce9b58647a3088bd7b04",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000041.png",
+      "sha256": "7bc5df545744f55ac14b31f87c2a640f11c04be1ae42c3b8c0215235ed7c3f23",
+      "timestamp": 33.493819999992844,
+      "duration": 0.035079999998217204,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "6ebe0009da53ed2f33577bb4d96dafe6847d617ba0d6591622120dd1227ffaaa",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000042.png",
+      "sha256": "d9171e38d8e3c7d00cd1fe0c3bc6ac3bdf30c84e3304847995789e5eaecf6d71",
+      "timestamp": 33.52889999999106,
+      "duration": 0.033065000012513224,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "afdaf13038a5b8edfc8563691766164957d9e8fecb2907034955b33db0aa8a7c",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000043.png",
+      "sha256": "4e45fc6cf078f1943fa17e20059c41eb8b495264f0e60edd2dd551364a3942ad",
+      "timestamp": 33.561965000003575,
+      "duration": 0.03752499999106362,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "3a4b0f6a1bab3fa148f7e52b48e8cf2196025939f8efabf6099621932ef696cf",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000044.png",
+      "sha256": "f8df45d495e34e044e16edf66cd4212a1f7b8a77933f238e4b95430d3e467a71",
+      "timestamp": 33.59948999999464,
+      "duration": 0.02715500000118709,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f0cc4650c635ae23e4d1a26f83fc40b05c9cd1a7406778b1fef2af412b215556",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000045.png",
+      "sha256": "3d8f758d0dcae7b046bc95c598129b8781298b3c3865b9c3a3684ca1b9bbbd5b",
+      "timestamp": 33.626644999995825,
+      "duration": 0.036435000002384754,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "f99b536ce43e445623d694e2873c6bd9c78800a9c4134d3feda14a3ed6009dcc",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000046.png",
+      "sha256": "6245c2b77ef62b83bee0f197b67d63bae0c2cb6b4cccd34a3f58cec933da4c2a",
+      "timestamp": 33.66307999999821,
+      "duration": 0.03159999999404306,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "58ba0709c416c419b8009df5d2ecf753512c7b9a22b1df0e8a33691dc464848c",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000047.png",
+      "sha256": "331ce9991ed49400df6bdc5ee765c88b27d2b8d682416a59de5ee348e2ed505e",
+      "timestamp": 33.69467999999225,
+      "duration": 0.035230000004169426,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9f85420cc0d55d0a4dac51e5637045c5b8dd6b1c932c83ca3e58c14bc6a50539",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000048.png",
+      "sha256": "5cba48581129a2aaf6a50fd7e12873b23615858006c7cbf2c27a9ccb7a8ce112",
+      "timestamp": 33.72990999999642,
+      "duration": 0.03160500000416988,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9c4a2ac985054741f21526787916a966cd1eb7b000c3778a1024dcb6deeab4d5",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000049.png",
+      "sha256": "78cb34960ce787a5570d30642a47b771fa79bd2ae049dff1c2ba2c6ade9e5ed4",
+      "timestamp": 33.76151500000059,
+      "duration": 0.03910999999940401,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "e9b11d1485d24c28f17ea307e745c05691e8860f3062f79f5f94a9317b3adb48",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000050.png",
+      "sha256": "a82e838213a241797394a759dc80d3dfcceba82155a5a670faa8d781d0df45cd",
+      "timestamp": 33.800625,
+      "duration": 0.02810999999940833,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "bfcb01f266ad938361b18cb5343a0a6c4a3825aa95086d8bd28dbdcee8b9ea2e",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000051.png",
+      "sha256": "fb3f4b99975d12c373dc3319df82e3420d925ea7f670a34840af2998ecb3a2c9",
+      "timestamp": 33.828734999999405,
+      "duration": 0.03262999999522975,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "79512cf978899175a898744b65b7b39ce604ef290b196843a1620a96af755dc9",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000052.png",
+      "sha256": "5d23694b85b7f2d45e893cc45e9a58659cd703f1c39311666045195fd0273d9a",
+      "timestamp": 33.861364999994635,
+      "duration": 0.036445000007752526,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "aaaadac70f247fc2e8a5c9e03f0da3917fb4f0b6cdb667647187a7af9e0874f7",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000053.png",
+      "sha256": "65168fd1bd099d4c416be864d4d7edc192db6c4d89299d5043efa57097ffa0ea",
+      "timestamp": 33.89781000000239,
+      "duration": 0.03255499999225009,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9c2f7aa3fe05bb912f442655c5d3b43874189a210757bbe3c4b98cbe4feb66a8",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000054.png",
+      "sha256": "eebf783ba15942eeffe547db558ee5ae88a32ae63a0f529fdfd8ec516c219781",
+      "timestamp": 33.93036499999464,
+      "duration": 0.03302000001072969,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0e9c23a234b5484dab16a29ac99abd3a457f26b0b49f4dca931203f54b58edaf",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000055.png",
+      "sha256": "42303e9e65b5b028e4ecd0548d004f273ddff9bef01b4fb0558db14d192c2715",
+      "timestamp": 33.96338500000537,
+      "duration": 0.03300499999522799,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c0638be40a3bbe6dc6bfb8a8e2a1405c3925499c909d69b81381ee66d8142f19",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000056.png",
+      "sha256": "1bfea45908c4ab6b770d63c9a6a5806ee10c2d959fb284e8e6f3f5d6c328aa3f",
+      "timestamp": 33.996390000000595,
+      "duration": 0.03242000000179246,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "c650aa855807a964696eec32f918ca70a4390f78915d4e0d95cf77d994e4744f",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000057.png",
+      "sha256": "ab6619d5974622c55b6b0906ec91d71e6b781469e2c50af34e89edff5a79f9a6",
+      "timestamp": 34.02881000000239,
+      "duration": 0.031214999988669945,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "818a62ef1adf67e9ae195cbd70abc7f5ecdc58fdc43310551b1b08bb4a91ccfd",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000058.png",
+      "sha256": "88f5465d0565b6a4c54d3309a96adaed432e960fd3122df6d52bf48c5941a602",
+      "timestamp": 34.06002499999106,
+      "duration": 0.04223000000417443,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "58e604fafc66ad519a44eabd32625046d484c63bb76e486f7f81da34689300e0",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000059.png",
+      "sha256": "c7b010c12a369dc3e0eb7282441d36e906897d063be227bfc6b90ee6db974775",
+      "timestamp": 34.10225499999523,
+      "duration": 0.024630000010134268,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1bccef6735a4820397d5a51bfd96a4124f8cf46ff8028d8a19d2c138dcc85fdc",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000060.png",
+      "sha256": "62951eaa7fe3079d41f02905f49deeab22bd845971523540624c4beba3ec0b20",
+      "timestamp": 34.126885000005366,
+      "duration": 0.0377599999904632,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "0cb423c43f8b70f7bfee0b8bca5080b1b6382aa56253280abbd6176a2fd7515b",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000061.png",
+      "sha256": "45fd0dcc0b0bb0e920ad80b67f6b3ea07c6c6668889d0d4e7634ef0f133e6789",
+      "timestamp": 34.16464499999583,
+      "duration": 0.03262499999999591,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "79b9456307ea437501b6933d7ba731075a994f9923620020bacf4c8145438c9b",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000062.png",
+      "sha256": "a7a63b39b7d867f49c6e57c8ef026e42c4739b61eb87f59e5e9e228376313f89",
+      "timestamp": 34.197269999995825,
+      "duration": 0.0337600000053655,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "da4a7c136110e5f8b9490353a3a82ca91dc661111fd25ababbf581b7b57b91e3",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000063.png",
+      "sha256": "59f4eeba667c9d0970fd5adbf45da51ac47ba13d41708efc4440e5dcc9d9d423",
+      "timestamp": 34.23103000000119,
+      "duration": 0.03310500000417704,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "866d2ae430789c813511fa9b59dcc450cabd2afcf6c96f59b19830eecc54feca",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000064.png",
+      "sha256": "bb73b48c6bc02fdbb7bdfb7ebdec84f17b97481002b47813484d0bf014d0bff0",
+      "timestamp": 34.26413500000537,
+      "duration": 0.03542999999224605,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d72b3548ac19eb73455cdea9fbe5007460373e416dda6f95c74253185c1c88d2",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000065.png",
+      "sha256": "fc0e87c999ab52325e597e086b69806722b43c363254bcffeac94ec14bbadcc8",
+      "timestamp": 34.299564999997614,
+      "duration": 0.03156499999762019,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "1cdee1a57c3554db8ffd6b32c7d4a302b1b60a3112aeda28fbc4f218fd38f35e",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000066.png",
+      "sha256": "fb3a471782969b2842d1646de114173b2caef35c3bfe12a384ba9b67d1c185c7",
+      "timestamp": 34.331129999995234,
+      "duration": 0.03149500000476735,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "288d82b7e56d0b97e565c46cb0078b34d9d20889deb211c0cfdbe25c3a774444",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000067.png",
+      "sha256": "4a5001a17a6ad2818a5289b63bb73c3a77218a126442592646d7693f410b37be",
+      "timestamp": 34.362625,
+      "duration": 0.03148999999463342,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "fc274771f03b3367121bf7c0aad87cf23fc813fc90fd1b14f2e94c7530ca61f6",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000068.png",
+      "sha256": "953b06cfe0310484b446c2bc77d66a53ee810a9e9a76554ff66f57c7477ae590",
+      "timestamp": 34.394114999994635,
+      "duration": 0.03735999999940276,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9dc4240276c9d90d32a625c6fa0f16189f263f0eb855f9221960b83353e7a2ad",
+      "atlas": 0,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000069.png",
+      "sha256": "ed7cdd2b0d06297c24a0c69332204f79f5d50f81dd2ae2bfbb4a3e718209769b",
+      "timestamp": 34.43147499999404,
+      "duration": 0.03128000000119613,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "92989934d13db50d64a45058fc9a24f792afb34c3c6e8221a7f1bc13e6b250de",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000070.png",
+      "sha256": "795ed98dbe5732461f4dc8d514c99421aa85fc7c6f84573e77d18dc422e203c5",
+      "timestamp": 34.462754999995234,
+      "duration": 0.03590999999642008,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "ffbd6c9067efcf6ec573bf916b59f4e22818ff67b484ebcec328640906be55e7",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000071.png",
+      "sha256": "175e3fd9e1ee720589c7c8785847ffbb47facdc45e3626276263c2cc648d4035",
+      "timestamp": 34.498664999991654,
+      "duration": 0.031240000009539415,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "38476027d91e5fb95e54930acade15089c53eaf97f16ff467de4bbcf2ea83db5",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000072.png",
+      "sha256": "0ab244b078f30fe91cf66211c21e9b3f68417a7d305e49c02c7a4260b31ce6d6",
+      "timestamp": 34.52990500000119,
+      "duration": 0.03541499999165154,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "a30b2be39733131c3bff770accc9cd2f3e2587d372a709956f5ed19d60108a7d",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000073.png",
+      "sha256": "895de13fd9a8615eaad64baf475692bf51a20398902e69f622674f9e06275a34",
+      "timestamp": 34.565319999992845,
+      "duration": 0.03410999999940856,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "d06ee20bbceb6986826f2756abae5d8fd58e08f842002713acde9e31430bfc65",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    },
+    {
+      "source": "/data/typinghero-game-loop/task-tutorial-smooth-20261028/capture-typing-03/capture/000074.png",
+      "sha256": "6615b7ed7b6412e89cffbb73d67845dc0b1b93b26f1a7c00e82c7fc51a6d1523",
+      "timestamp": 34.59942999999225,
+      "duration": 0.03249000000953828,
+      "sourceSize": [
+        640,
+        360
+      ],
+      "width": 320,
+      "height": 180,
+      "resizedRgbaSha256": "9071d7e7d59304c355383c1d1ed2629132b3410924f124f836b2c2c698853485",
+      "atlas": 1,
+      "caption": "Enemy HP drops.",
+      "focus": {
+        "x": 502,
+        "y": 34,
+        "width": 132,
+        "height": 28
+      },
+      "label": {
+        "x": 144,
+        "y": 414
+      }
+    }
+  ],
+  "transform": "full-frame RGBA resize 320x180 nearest-neighbor only",
+  "sourceTimelineSha256": "6fb54d031b3e44e3e49a3dc262df4ef55d728fbda3f38cd213188cfa00df098e",
+  "atlasSha256": {
+    "typing-0.png": "9655d4e353ac765c05a09b3bcedee11674b5da928f2b0b47147325be41212284",
+    "typing-1.png": "c82be1f4c910b57b13e3cccc8140f9831173f4ed9fece8c14369f5ab4dd4d8f0"
+  }
+}
