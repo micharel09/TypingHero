@@ -7574,3 +7574,76 @@ Existing wait-staging-preview.py monitor PID29184 polls availability only and
 submits once with lockwait0. Historical request pointers copied to lighting-K-request.
 At continuation09:54UTC monitor remains PREFLIGHT_BUSY/requestSubmitted=false;
 other task build is untouched. Do not launch a duplicate preview/monitor.
+
+
+## Lighting preset evidence ? 2026-10-30
+
+K monitor stopped on SSH timeout before submission (209 checks); receipt preserved
+in lighting-K-request/monitor-stopped-ssh-timeout.json. Restart of the same frozen
+request submitted once at availability with wait0, finished exit0:
+20261030T054749-serialize / input7bf8cdd8162b1fa1f85af7d98adf990232949b6c2ca94c73c7144f3a81aeadf9.
+Directly inspected all7 center idle shots at1280x720 and native320x180 sRGB.
+K1-K6 FAIL selection: front floor wedge disappears into black; hero trousers/boots
+remain dark even at intensity20. Retain original Point16/rotation. No Spot written.
+Target from gameplay collider offsets (-.104569614,-1.671523333,.008948484),
+front world(-.174523473,.477449179,-1.991051555), tested aim quaternion
+(.398999423,.016028255,-.006975755,.916784585). These are rejected diagnostic values.
+Exact images/receipt/fixture/hashes/shot review: durable lighting-K-center-01.
+
+Rear9-shot request20261030T055139-serialize exit0,
+inputda115b0dcf4cb3c5f0d933b33c80357bd341d02e579f0f8b83a28e2c05771a6d.
+Directly inspected all9 at1280x720/native320x180. Factor0 at12/16 loses recess detail;
+20 retains original wall pools. Factor.15 increases doorway information but hero
+lower body remains dark. Factor.30 reveals arch/door more, while pools move toward
+head region and red vertical banner patch beside left fixture becomes conspicuous.
+No rear configuration satisfies all selection conditions; no rear preset written.
+Keep original transforms/rear20 for independent remaining diagnostics. Fixture
+and corresponding light each use original position+same delta exactly once.
+Exact images/receipt/fixture/shot hashes and observations: lighting-rear-center-01.
+
+Fill3-shot request20261030T055506-serialize exit0,
+input35a89c49d1f8943eafc22455ce55264b564c4ca05e5dfefab3fdb100758357cf.
+All3 shots directly inspected1280x720/native320x180. Reductions darken outer pier
+edges without resolving central hero/background contrast or rear hotspots.
+Retain control1.5/1.5 for material diagnostic. No final candidate selected.
+Evidence/fixture/shot hashes and observations: lighting-fill-center-01.
+
+Next diagnostic adapts the same preview, cloning only Recess/ClosedDoor materials
+in memory and multiplying RGB, preserving alpha/other properties. Six gains per
+user plan under original retained lighting. Direct attempt rejected busy lock
+without Unity execution. Frozen request863b0491c3f75d1463fcf0f37bb87c778a60344b29238d470075d0efd9f95dcc;
+existing wait-staging-preview monitor submits once on availability with wait0.
+Previous pointer receipts preserved under lighting-material-request-01.
+
+Coverage here is19/19 static center shots (7+9+3), each presentation/native.
+Zero new runtime frames or transitions reviewed; no follow/pose/contact/shimmer,
+playback/GTX/production or final art PASS. Shadow-bias branch not triggered:
+these static images do not establish a detached planted-foot shadow or acne.
+All production assets/runtime remain L0. No main integration. This staged failure
+does not prove all possible five-fixture configurations impossible; remaining
+material diagnostic and any candidate acceptance remain open.
+
+
+Material monitor subsequently submitted once and finished exit0:
+20261030T055935-serialize, input376b0fd27c6b9c760263106acaec76bf9cca333617af96356ce93ff19bcb4b1b.
+All6 center shots directly inspected at1280x720/native320x180 presentation sRGB.
+Gain changes slightly reveal doorway/recess, but do not resolve hero lower-body
+contrast or competing wall pools. No gain combination selected; production gains1.
+Images, fixture, per-shot review/hashes, unity log and snapshot retained in
+lighting-material-center-01. All4 preview runs now retain logs/snapshots locally.
+
+Current outcome:25/25 static center shots directly inspected (7K+9rear+3fill+6material),
+zero new runtime frames/transitions. No accepted preset; no edge/pose promotion,
+bloom finalization, performance/release build or main merge. No production lighting,
+scene, material or runtime file was edited. Baseline lighting remains Point16,
+rear20 at original positions, side1.5/1.5, original material gains/shadow bias,
+exposure.35/bloom.12/blur0/hazeoff. 75/75 restored Slayer tests remain scoped PASS.
+
+The planned preset ranges have not yielded a candidate at the first center-idle
+selection gate. This is a bounded search result, not proof that five fixtures cannot
+work under any possible parameters; no Cartesian combination or broadened ranges
+were tested. Next requires a user decision to widen the authorized preset search
+(e.g. front cone/intensity while keeping fixture count/position/assets/gameplay),
+or retain baseline. No silently invented light/shader/geometry replacement.
+All monitors finished; no active task job. Retain worktree/branch/durable and remote
+preview results for comparison until a later accepted integration.
