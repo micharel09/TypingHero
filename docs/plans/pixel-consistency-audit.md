@@ -7647,3 +7647,40 @@ were tested. Next requires a user decision to widen the authorized preset search
 or retain baseline. No silently invented light/shader/geometry replacement.
 All monitors finished; no active task job. Retain worktree/branch/durable and remote
 preview results for comparison until a later accepted integration.
+
+
+## Expanded front-light center diagnostics — 2026-11-03
+
+The user subsequently authorized widening the front-light cone/intensity search.
+This supersedes the earlier request-for-decision status only; prior FAILED/invalid
+receipts and rejected-preset history above are retained unchanged.
+
+Existing Ubuntu authoring preview completed as `20261103T025428-serialize`, input
+snapshot SHA-256 `2acc0e5e813bc956452ba685d6137d99508ebaf6f72426de04409333637fca0c`.
+All six center-idle variants were directly inspected at presentation 1280x720 and
+native 320x180 (12 image views total): Point16/24/32/48 and Spot160/120 at 48/64.
+The same camera, idle cels, clock, exposure0.35, bloom0, blur0 and haze-off state
+were held. Fixture positions and non-front settings remained at baseline. Profiles
+were cloned in memory; no asset or scene was saved.
+
+Point24/32 add little visible action separation. Point48 creates a broader continuous
+floor pool toward the foreground and lifts the hero's face/arm/red clothing, while
+the black trousers/boots remain near the dark floor value. Spot160/120 at48 focuses
+the pool closer to the actors; intensity64 adds brightness but no doorway detail or
+reduction in the rear wall hotspots. The door/recess remain dark in both lighting
+types. Point48 and Spot160/120 at48 are retained only as the two diagnostic variants
+for follow-camera review; neither is an accepted production preset.
+
+Per-image filenames, direct observations, SHA-256 digests, fixture/target metadata,
+capture limits and runner status are recorded in
+`D:\Projects\TypingHero-deliverables\dungeon-cinematic-arena-20261028\lighting-intensity-center-01\review.md`.
+Image/receipt/fixture hashes remain in that durable folder. The later nonblocking
+runner lock probe returned unavailable; no follow/zoom request was submitted and no
+other runner job was touched.
+
+No production code, scene, profile, material, gameplay or Slayer file changed.
+Previously passing 75/75 Slayer tests still apply to their exact unchanged runtime
+inputs; no new runtime tests, captures, camera-edge/pose checks or performance tests
+were completed in this diagnostic. Overall lighting acceptance and integration
+remain open. Reference-video coverage counts above were not increased or reviewed
+again by this static lighting comparison.
