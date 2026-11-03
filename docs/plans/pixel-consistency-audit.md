@@ -7727,3 +7727,65 @@ its recorded unchanged inputs; reference coverage remains the earlier verified
 authorized by this failed art gate. Keep all prior FAILED/invalid receipts and
 the task worktree/durable evidence. This is a bounded failure for the six listed
 combinations, not proof that every possible setup fails.
+
+
+## Rear emitter Z receiver controls ? 2026-11-03 (sweep blocked)
+
+Continuation follows the supplied emitter-Z plan from task HEAD `3add4446`.
+Visual L0 remains `bae2897a`; raw performance A remains
+`dc66303baaf010f48b46d4431c4280fa23f7f51c`. Existing FAILED/invalid records above
+and the user's dirty `AGENTS.md` are preserved. No production owner was edited.
+
+Reused the durable `ArenaAuthoringPreview.cs`, its in-memory profile/material
+clones, authored scene/actors/camera, `DungeonTorchLight.Preview` and
+`LightProfile.Apply`. Diagnostic extension adds emitter-only Z movement,
+front/side-off controls, and actual mesh-triangle receiver positions/normals with
+per-light distance and signed N?L. Fixture/holder/flame/caster transforms stay at
+authored depth; no generator, scene save, shader or runtime change occurred.
+`WorldLightingAuthoring` source confirms flame scale depends on flame position.
+
+Ubuntu preview `20261103T044150-serialize` finished exit 0, input SHA-256
+`fe2434285dfafbf283e246c705cc462a957f3086a9f60d5569592964bb460988`.
+Six controls: L0, all five lights off with flames visible, rear-only original,
+and rear-only emitter deltaZ -0.50/-1.00/-1.50. X is unchanged, gains 1/1,
+rear intensity20/range15, exposure0.35, ambient0, bloom0/blur0, authored fog on;
+haze/rune/reflection off. Directly inspected all six at both 1280x720 and native
+320x180 (12 presentation views). Verified all 18 PNG hashes/dimensions and receipt
+invariants, including all five flames, unchanged roots/emitter XY and exact Z deltas.
+Linear world PNGs are diagnostic only, not visual acceptance.
+
+Measured front triangle normal (0,0,-1), StoneArch Z9.1000004, ClosedDoor
+Z10.6499996, original emitter Z9.3473406. Arch signed N?L changes from
+(-0.0315,-0.0588) to (0.1575,0.2858) at deltaZ -1.50; door becomes
+(0.3118,0.5229). These are representative actual triangle centroids, not uniform
+surface measurements. Compared with all-off, rear-only images show receiver
+contribution; the upper/right arch edge is visible at shifted Z with authored fog.
+Door/recess remain very dark. This confirms contribution, not an accepted preset.
+The conditional no-contribution fog-off branch was therefore not triggered.
+
+Durable source, pre/post diagnostic source, log, receipt, images, per-shot direct
+observations and verification hashes:
+`D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028/lighting-receiver-z-01/`.
+The initial seconds900 wrapper call failed argument validation before SSH/Unity;
+`execution.log` retains it; `execution-02.log` is the completed controls run.
+Input archive/manifest retained in existing `input-serialize-fe2434285dfa`.
+
+Prepared the next nine presets in exact order: factorX0, deltaZ -0.50/-1.00/-1.50,
+rear12/16/20, front Point16/range16, side1.5/1.5, Recess1.4/ClosedDoor1.1, fog on.
+Source and nonblocking preflight/status receipts are retained in
+`D:/Projects/TypingHero-deliverables/dungeon-cinematic-arena-20261028/lighting-rear-z-factor000-01/`.
+Preflight returned available=false, MemAvailable6645108KiB, disk15.87GiB.
+No sweep request submitted, no queued lock waiter/monitor or local build launched.
+Current external preview source is exactly this prepared nine-shot revision.
+
+Next: nonblocking Ubuntu lock/capacity preflight, run that prepared preview with
+lock-wait0 only when available, inspect nine candidates in order, and stop after
+two full background passes; otherwise continue factors0.15/0.30 within the 27 cap.
+No candidate has passed the background art gate. Gain/front/fill/shadow/bloom,
+pose/follow, serialization/owner export, preset tests, real-input pilot/matrix,
+frame/playback, GTX A/B, immutable production manifests/build/smoke and main
+integration remain OPEN and were not executed. New runtime/reference frames
+reviewed:0; no historical video coverage reused or increased this continuation.
+Prior 75/75 tests do not certify a new preset. No production A/B digest or final
+clip exists for this revision. Retain worktree/branch and durable/remote evidence;
+no active task job or disposable new temporary artifacts remain.
