@@ -1,3 +1,95 @@
+# T3/T4 trial closure - 2026-11-03
+
+User accepted the recommendation to keep T2 and requested main integration and
+closure. T2 was already production on origin/main48d4a8eb. This integration records
+only the trial evidence and decision; it does not promote T3/T4 or change runtime,
+assets, shader, API, timing or particle budgets. The review-only no-commit state
+below is historical and is superseded for this documentation handoff.
+
+Acceptance for this closure is documentation review, evidence-link/path checks,
+production-preservation audit and git diff --check. Reuse the recorded Unity and
+native results for their unchanged inputs; no new build or gameplay suite.
+Perceived playback rhythm, partial full-context coverage and marked actor-loss
+frames remain unverified; user closure does not convert those gaps to PASS.
+
+Retain durable evidence at the review entry below and the four owned Ubuntu result
+directories for reproduction. Existing worktree
+D:/Projects/TypingHero-worktrees/parry-cinematic-flash and branch
+micharel09/parry-cinematic-flash predate this continuation and contain a pre-existing
+AGENTS.md change, so they are preserved. Remove evidence only when reproduction is
+no longer needed; remove the worktree/branch only once unrelated work is resolved
+and their results are preserved remotely. No task-owned job remains running.
+
+---
+
+# Stronger T3/T4 trials - 2026-11-03 (review handoff, production stays T2)
+
+Recommendation: keep T2. T4 visibly improves density150-400ms; T3 is subtler.
+At450-600ms both still reduce to small low amber/floor flecks, so neither is
+accepted for the complete requested bright/readable cluster. Native lifecycle
+extension is conditional on a passing choice and was not run. Original-speed
+perceived rhythm remains unverified because direct review used still frames.
+No trial production application, commit, push, merge or release.
+
+Evidence entry:
+`D:/Projects/TypingHero-evidence/parry-gold-qa-20261028/hd2d-fix-20261028/gold-spark-t3-t4-20261103/review.html`.
+README.md contains source paths, exact adapter basis, failed attempts, reproduction
+and resource retention. Both native three-column T2/T3/T4 clips at1x/0.25x,
+matched150/250/350/450/600ms images, PTS CSV/JSON and per-frame ledgers delivered.
+
+Retained parry worktree48d4a8eb equaled fetched origin/main. Pre-existing AGENTS.md
+edit and dirty parent checkout preserved. Production ParryImpact.asset/physics,
+ImpactVfxPixel.cs and prefab remain identical to main. Adapted previous experiment's
+fixtures/keyboard drivers/exporters; only isolated QA archives receive Resources
+trial assets. All Unity/build/media work ran on Ubuntu; no runtime/shader/API edit.
+
+T3 warm(1,.85,.30), cooled(1,.65,.12), lead long/short12-16px, secondary
+long/short6-9px,width2. T4 additionally4leads/12secondary per side. T2/T3=32total;
+T4=40total/38physical/16per near-far renderer, existing40state/64renderer/8lease
+limits unchanged. Hot/cooling/lifetimes/speeds/physics, core480ms and ray/light220ms
+unchanged. Shared palette affects fragments/specks; counts shift later RNG draws.
+Static allowed-delta and production-preservation audit PASS.
+
+Ubuntu20261103T030531-quick/source9c5db769:2PASS/3FAIL/0skip. GPU matched capture
+and T4pause/expiry/eight-lease320particle/disable/reuse pass. Three length cases
+failed due Vector2 expected versus Vector2Int source. Corrected archive3fa43771/
+20261103T031020-quick still returned old failures0/3 despite corrected source;
+cached compilation suspected. Unique GoldSparkTrialT34TestsV2/current entry mtimes,
+sourcec40625ab/20261103T032339-quick:3/3PASS,0fail/skip,0.2360385s. Keep the failures;
+this is3corrected passes plus2reused passing cases, not one5case passing run.
+
+GPU:172PNGs/86records;84unique samples/2stable repeat controls. All28native
+comparison panels/168unique originals directly inspected; no repeat viewing credit.
+QA source08a9d33a/20261103T031133-webgl build/repeated builder PASS; all2907common
+capture/build inputs identical. Six IntelHD4600/ANGLE native keyboard runs:
+7checks each/42totalPASS,0exceptions/provider writes, peaks32/32/40. Earlier
+PracticeButton pilot failed at tutorial; external driver adapted to existing
+SkipTutorial control. No gameplay change or fake setter input.
+
+Before viewing, review-selection.json fixed both directions from preparation through
+contact/full tail/EOF, including repeated/held frames. Direct native actor/contact/
+tray review1133/1133frames,1127/1127adjacent pairs; full-context coverage is separate
+in observed.json (T2right complete, other overviews partial). No new solid white/yellow
+particle strip or typing-text occlusion observed in effect regions. Unverified dark
+actor-region losses after expiry: T3left567-571, T4right504-505, T4left534-537 and
+602-607, with adjoining pairs. Cause unverified; retained in evidence-only exports,
+not silently approved or attributed to profile. Four aligned160/480ms witnesses
+viewed. Original-speed force/rhythm remains unverified.
+
+Ubuntu verifies every exported original frame hash, every comparison panel and exact
+4x frame repetition; downloaded source/export SHA256 matches. Original internal
+PTS/holds remain, endpoint clones only align contact. CFR25/40ms boundaries do not
+prove exact effect lifetime. No native Slayer/lifecycle extension, full suite,
+production build, FPS claim or reference-match claim. T4 focused Unity lifecycle
+passing receipt is distinct from unrun native lifecycle.
+
+Existing worktree/branch and durable evidence retained until selection/reproduction
+is no longer needed. Four owned Ubuntu results above/README retained; shared source/
+Library/toolchain and unrelated tasks preserved. No owned job left running.
+Only this checkpoint is changed in the repository by this trial; no task commit.
+
+---
+
 # Approved gold trial2 — 2026-10-30
 
 User accepted the recommendation ("oke chốt theo bạn đi"): apply T2 to production
