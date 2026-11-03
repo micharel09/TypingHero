@@ -7729,7 +7729,7 @@ the task worktree/durable evidence. This is a bounded failure for the six listed
 combinations, not proof that every possible setup fails.
 
 
-## Rear emitter Z receiver controls ? 2026-11-03 (sweep blocked)
+## Rear emitter Z receiver controls - 2026-11-03 (sweep blocked)
 
 Continuation follows the supplied emitter-Z plan from task HEAD `3add4446`.
 Visual L0 remains `bae2897a`; raw performance A remains
@@ -7740,7 +7740,7 @@ Reused the durable `ArenaAuthoringPreview.cs`, its in-memory profile/material
 clones, authored scene/actors/camera, `DungeonTorchLight.Preview` and
 `LightProfile.Apply`. Diagnostic extension adds emitter-only Z movement,
 front/side-off controls, and actual mesh-triangle receiver positions/normals with
-per-light distance and signed N?L. Fixture/holder/flame/caster transforms stay at
+per-light distance and signed N dot L. Fixture/holder/flame/caster transforms stay at
 authored depth; no generator, scene save, shader or runtime change occurred.
 `WorldLightingAuthoring` source confirms flame scale depends on flame position.
 
@@ -7755,7 +7755,7 @@ invariants, including all five flames, unchanged roots/emitter XY and exact Z de
 Linear world PNGs are diagnostic only, not visual acceptance.
 
 Measured front triangle normal (0,0,-1), StoneArch Z9.1000004, ClosedDoor
-Z10.6499996, original emitter Z9.3473406. Arch signed N?L changes from
+Z10.6499996, original emitter Z9.3473406. Arch signed N dot L changes from
 (-0.0315,-0.0588) to (0.1575,0.2858) at deltaZ -1.50; door becomes
 (0.3118,0.5229). These are representative actual triangle centroids, not uniform
 surface measurements. Compared with all-off, rear-only images show receiver
