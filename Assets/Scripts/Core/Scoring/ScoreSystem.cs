@@ -37,6 +37,7 @@ public class ScoreSystem : MonoBehaviour
 
     float _windowRemain;
     bool _paused;
+    bool _semiSlayerHeld;
     internal float ComboWindowSeconds => rules.comboWindowSeconds /
         (!TutorialRun.Active && EndlessRun.Current != null ? EndlessRun.Current.Difficulty.Pace() : 1f);
     Camera _cam;
@@ -72,7 +73,7 @@ public class ScoreSystem : MonoBehaviour
 
     void Update()
     {
-        if (CombatSession.Finished || GamePauseController.InputBlocked || (_paused && stopDecayWhilePaused)) return;
+        if (_semiSlayerHeld || CombatSession.Finished || GamePauseController.InputBlocked || (_paused && stopDecayWhilePaused)) return;
         if (Multiplier <= rules.startMultiplier && !_comboEnabled) { ComboRemain01 = 0f; return; }
 
         _windowRemain -= Time.unscaledDeltaTime;
@@ -91,6 +92,8 @@ public class ScoreSystem : MonoBehaviour
         _paused = v;
         if (_floating) _floating.SetPaused(v && !CombatSession.Finished);
     }
+
+    internal void SetSemiSlayerHeld(bool held) => _semiSlayerHeld = held;
 
     public void ResetScore()
     {

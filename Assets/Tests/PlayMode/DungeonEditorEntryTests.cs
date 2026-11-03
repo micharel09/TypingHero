@@ -59,6 +59,33 @@ public sealed class DungeonEditorEntryTests
     }
 
     [UnityTest, Category("Quick")]
+    public IEnumerator SuccessfulParryAddsTwentySemiSlayerCharge()
+    {
+        yield return SceneManager.LoadSceneAsync(DungeonSession.GameScene, LoadSceneMode.Additive);
+        var scene = SceneManager.GetSceneByName(DungeonSession.GameScene);
+        SceneManager.SetActiveScene(scene);
+        var session = DungeonSession.I;
+        Assert.That(session.TryBeginEditorGameplay(scene), Is.True);
+        yield return DungeonSceneTestFlow.Wait();
+
+        var mode = Object.FindObjectOfType<SemiSlayerMode>();
+        var parry = Object.FindObjectOfType<ParrySystem>();
+        var typing = Object.FindObjectOfType<TypingManager>();
+        Assert.That(mode, Is.Not.Null);
+        Assert.That(parry, Is.Not.Null);
+        Assert.That(typing, Is.Not.Null);
+        float deadline = Time.realtimeSinceStartup + 5f;
+        while ((DungeonSession.InputSuppressed || GamePauseController.InputBlocked || typing.IsReadyPrompt) &&
+               Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(DungeonSession.InputSuppressed || GamePauseController.InputBlocked || typing.IsReadyPrompt, Is.False);
+
+        var run = EndlessDuel.I.Run;
+        run.SemiSlayerCharge = 40;
+        parry.ParrySuccess();
+        Assert.That(run.SemiSlayerCharge, Is.EqualTo(60));
+    }
+
+    [UnityTest, Category("Quick")]
     public IEnumerator ReusesOpenWorldThroughDirectStartRestartAndMenuStart()
     {
         var session = DungeonSession.I;

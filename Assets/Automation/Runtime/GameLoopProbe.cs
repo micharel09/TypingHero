@@ -181,6 +181,13 @@ public sealed class GameLoopProbe : MonoBehaviour
     [Serializable] sealed class ParryPayload { public ParryParticleFrame[] parryParticles; }
     readonly ParryPayload parryPayload = new ParryPayload();
     bool parryPayloadSent, verifyCombatSerialization;
+    SemiSlayerMode observedSemiSlayer;
+    PlayerWeaponHitbox observedSemiHitbox;
+    readonly System.Collections.Generic.List<int> semiHitFrames = new();
+    readonly System.Collections.Generic.List<float> semiHitTimes = new();
+    bool previousSemiSlayerActive;
+    readonly System.Collections.Generic.List<int> semiHitAttackIds = new();
+    int previousSemiHitAttackId;
 #if UNITY_WEBGL && !UNITY_EDITOR
     void PublishCombatSnapshot()
     {
@@ -302,6 +309,7 @@ public sealed class GameLoopProbe : MonoBehaviour
     DuelIntroPresentation performanceIntro;
     void LateUpdate()
     {
+        ObserveSemiSlayerHits();
 #if UNITY_WEBGL && !UNITY_EDITOR
         int mode = TypingHeroQA_FrameBegin();
         verifyCombatSerialization = (mode & 4) != 0;
@@ -330,6 +338,32 @@ public sealed class GameLoopProbe : MonoBehaviour
 #else
         ObserveDetailedFrame();
 #endif
+    }
+    void ObserveSemiSlayerHits()
+    {
+        if (!observedSemiSlayer) observedSemiSlayer = FindObjectOfType<SemiSlayerMode>();
+        if (!observedSemiHitbox) observedSemiHitbox = FindObjectOfType<PlayerWeaponHitbox>();
+        bool active = observedSemiSlayer && observedSemiSlayer.IsActive;
+        if (active && !previousSemiSlayerActive)
+        {
+            semiHitFrames.Clear(); semiHitTimes.Clear(); semiHitAttackIds.Clear();
+            previousSemiHitAttackId = observedSemiHitbox ? observedSemiHitbox.LastHitAttackId : 0;
+            if (observedSemiHitbox && observedSemiHitbox.LastHitAttackId > 0 &&
+                observedSemiHitbox.LastHitAttackId == observedSemiHitbox.AttackId)
+            {
+                semiHitAttackIds.Add(observedSemiHitbox.LastHitAttackId);
+                semiHitFrames.Add(observedSemiHitbox.LastHitFrame);
+                semiHitTimes.Add(Time.unscaledTime);
+            }
+        }
+        if (active && observedSemiHitbox && observedSemiHitbox.LastHitAttackId > previousSemiHitAttackId)
+        {
+            previousSemiHitAttackId = observedSemiHitbox.LastHitAttackId;
+            semiHitAttackIds.Add(previousSemiHitAttackId);
+            semiHitFrames.Add(observedSemiHitbox.LastHitFrame);
+            semiHitTimes.Add(Time.unscaledTime);
+        }
+        previousSemiSlayerActive = active;
     }
     void ObserveDetailedFrame()
     {
@@ -441,6 +475,13 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool finished, cue, pendingAttack, helpOpen, helpSeen, parryPose;
         public float combatSeconds, musicVolume, sfxVolume;
         public int inputLetters, inputCorrect, matchParries, finalScore, stamina, nextProgress;
+        public int semiSlayerCharge, semiSlayerSwings, semiSlayerHits;
+        public int[] semiSlayerHitFrames;
+        public int[] semiSlayerHitAttackIds;
+        public float[] semiSlayerHitTimes;
+        public bool semiSlayerActive, semiSlayerEnemyHeld, typingHeld;
+        public float semiSlayerFill;
+        public Rect semiSlayerRect;
         public string result;
         public string enemySprite, enemyTexture;
         public float enemyAnimationTime, frameMs, scroll, timeScale, wordTime, rowError, rowSlide;
@@ -701,6 +742,7 @@ public sealed class GameLoopProbe : MonoBehaviour
                 if (observedParry) observedParry.OnParrySuccess += Parry;
             }
             var slayer = FindObjectOfType<PlayerSlayerMode>();
+            var semiSlayer = FindObjectOfType<SemiSlayerMode>();
             performancePlayer = health;
             performanceEnemy = enemy;
             performanceSlayer = slayer;
@@ -766,6 +808,8 @@ public sealed class GameLoopProbe : MonoBehaviour
             var layout = FindObjectOfType<CombatHUDLayout>();
             var playerStatus = Read<RectTransform>(layout, "playerStatus");
             var enemyStatus = Read<RectTransform>(layout, "enemyStatus");
+            var semiSlider = playerStatus && playerStatus.Find("SemiSlayerCharge")
+                ? playerStatus.Find("SemiSlayerCharge").GetComponent<Slider>() : null;
             var multiplierLabel = Read<TMP_Text>(layout, "multiplierText");
             var comboHUD = Read<ScoreUI_ComboHUD>(ScoreSystem.I, "comboHUD");
             var comboDecay = Read<Slider>(comboHUD, "decaySlider");
@@ -941,6 +985,16 @@ public sealed class GameLoopProbe : MonoBehaviour
                 inputLetters = match ? match.Letters : 0, inputCorrect = match ? match.Correct : 0,
                 matchParries = match ? match.Parries : 0, finalScore = match ? match.FinalScore : 0,
                 stamina = stamina ? stamina.Current : -1, nextProgress = Read(typing, "_typeAheadCount", 0),
+                semiSlayerCharge = semiSlayer ? semiSlayer.Charge : -1,
+                semiSlayerSwings = semiSlayer ? semiSlayer.CompletedSwings : 0,
+                semiSlayerHits = semiHitFrames.Count, semiSlayerHitFrames = semiHitFrames.ToArray(),
+                semiSlayerHitAttackIds = semiHitAttackIds.ToArray(),
+                semiSlayerHitTimes = semiHitTimes.ToArray(),
+                semiSlayerActive = semiSlayer && semiSlayer.IsActive,
+                semiSlayerEnemyHeld = enemy && enemy.SemiSlayerHeld,
+                typingHeld = Read(typing, "semiSlayerHeld", false),
+                semiSlayerFill = semiSlider ? semiSlider.normalizedValue : -1,
+                semiSlayerRect = semiSlider ? ScreenRect((RectTransform)semiSlider.transform) : default,
                 audioPaused = AudioListener.pause,
                 musicVolume = AudioPreferences.Music, sfxVolume = AudioPreferences.Sfx,
                 result = resultLabel ? resultLabel.text : "",

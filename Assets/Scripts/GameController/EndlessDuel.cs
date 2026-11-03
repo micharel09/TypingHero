@@ -88,10 +88,11 @@ public sealed class EndlessDuel : MonoBehaviour
         if (resultSaved) return resultSummary;
         resultSaved = true;
         Run.Capture(CombatSession.I, won ? player.Current : 0);
-        bool best = Run.SaveBest();
+        bool semiSlayerPrototype = player && player.GetComponent<SemiSlayerMode>();
+        bool best = !semiSlayerPrototype && Run.SaveBest();
         var killer = FindObjectOfType<SkeletonController>();
         string cause = Run.Enemy.Name + " / " + (killer ? killer.LastAttack : "Attack");
-        EndlessLeaderboard.Queue(Run.Defeated, Run.Score, Run.Difficulty);
+        if (!semiSlayerPrototype) EndlessLeaderboard.Queue(Run.Defeated, Run.Score, Run.Difficulty);
         int cleared = PlayerPrefs.GetInt(EndlessDifficulties.StorageKey(Run.Difficulty, EndlessRun.BestDefeatedKey), 0);
         int score = PlayerPrefs.GetInt(EndlessDifficulties.StorageKey(Run.Difficulty, EndlessRun.BestScoreKey), 0);
         NewBest = best; BestDefeated = cleared; BestScore = score;

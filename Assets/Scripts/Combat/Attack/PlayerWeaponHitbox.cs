@@ -27,9 +27,13 @@ public class PlayerWeaponHitbox : MonoBehaviour
     [SerializeField] SlashLibrary slashLibrary;
     [SerializeField] SpriteRenderer slashSource;
     Sprite contactCel;
+    PlayerAttackContext attackContext = PlayerAttackContext.Normal;
     internal void SetContactCel(Sprite cel) => contactCel = cel;
     internal int AttackId { get; private set; }
     internal int LastHitFrame { get; private set; } = -1;
+#if TYPINGHERO_AUTOMATION
+    internal int LastHitAttackId { get; private set; }
+#endif
     internal Vector2 LastContact { get; private set; }
     bool active;
     readonly List<Collider2D> overlaps = new List<Collider2D>(32);
@@ -56,10 +60,13 @@ public class PlayerWeaponHitbox : MonoBehaviour
         if (!slayer) slayer = GetComponentInParent<PlayerSlayerMode>();
     }
 
-    public void BeginAttack(int attackId)
+    public void BeginAttack(int attackId) => BeginAttack(attackId, PlayerAttackContext.Normal);
+
+    internal void BeginAttack(int attackId, PlayerAttackContext context)
     {
         hitTargets.Clear();
         AttackId = attackId;
+        attackContext = context;
         active = true;
         col.enabled = true;
     }
@@ -69,6 +76,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
         active = false;
         col.enabled = false;
         hitTargets.Clear();
+        attackContext = PlayerAttackContext.Normal;
     }
 
     // ... giữ nguyên phần khai báo ở trên
@@ -97,7 +105,8 @@ public class PlayerWeaponHitbox : MonoBehaviour
         uint anchorLifetime = hitAnchor ? hitAnchor.Lifetime : 0;
         Vector3? slayerVisualPoint = hitAnchor && hitAnchor.TryGetWorldPoint(out var chest) ? chest : (Vector3?)null;
         Vector3 impactDirection = root.position - transform.root.position;
-        bool ignoreHitstop = wasSlayer && slayer.IgnoreHitstop;
+        var context = attackContext;
+        bool ignoreHitstop = context.IgnoreHitstop || (wasSlayer && slayer.IgnoreHitstop);
         var images = wasSlayer ? transform.root.GetComponentInChildren<SlayerAfterimagePool>() : null;
         Color impactTint = images ? images.CurrentTint : Color.clear;
         Vector2? slayerDirection = wasSlayer ? slayer.StrikeDirection : (Vector2?)null;
@@ -116,13 +125,17 @@ public class PlayerWeaponHitbox : MonoBehaviour
         }
 
         // === DAMAGE ===
-        int applyDamage = damage;
+        int applyDamage = context.HasDamageOverride ? context.DamageOverride : damage;
         if (wasSlayer)
         {
             float mul = Mathf.Max(0f, slayer.CurrentSlayerMultiplier);
-            applyDamage = Mathf.RoundToInt(damage * mul);
+            applyDamage = Mathf.RoundToInt(applyDamage * mul);
         }
-        LastHitFrame = Time.frameCount; LastContact = p;
+        LastHitFrame = Time.frameCount;
+#if TYPINGHERO_AUTOMATION
+        LastHitAttackId = AttackId;
+#endif
+        LastContact = p;
         dmg.TakeDamage(applyDamage, p);
         if (wasSlayer && !dmg.IsDead && root && root.TryGetComponent(out EnemySlayerHitPose pose))
         {
@@ -146,7 +159,7 @@ public class PlayerWeaponHitbox : MonoBehaviour
 
 
         // === STAMINA DRAIN ===
-        if (root && root.TryGetComponent(out EnemyStamina stam))
+        if (context.DrainStamina && root && root.TryGetComponent(out EnemyStamina stam))
         {
             int before = stam.Current;
             if (staminaOnHit >= 0) stam.ConsumeHit(staminaOnHit);

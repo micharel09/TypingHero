@@ -289,29 +289,11 @@ public class PlayerSlayerMode : MonoBehaviour
         _typedSteps += 1;
         if (afterimage) afterimage.CaptureImpactTint(_typedSteps);
 
-        if (_didFirstSwing && afterimage)
-            afterimage.SpawnBurstFromCurrentFrame(_typedSteps);
-
         var st = PickRandomAttackState();
-        if (!string.IsNullOrEmpty(st))
-        {
-            // Damage remains immediate; the selected clip now starts at contact.
-            animator.Play(st, 0, 0f);
-            animator.Update(0f);
-        }
-
-        var direction = LocalStrikeDirection(selectedAttackIndex);
-        if (strikeSource)
-        {
-            if (strikeSource.flipX) direction.x = -direction.x;
-            if (strikeSource.flipY) direction.y = -direction.y;
-            direction = strikeSource.transform.TransformVector(direction);
-        }
-        StrikeDirection = direction.normalized;
-
-        if (strikeTrail) strikeTrail.BeginSlayerSwing();
-        attackEvents.OnAttackStart();
-        attackEvents.OnAttackEnd();
+        if (PlayerSlayerSwing.Execute(animator, attackEvents, strikeTrail, afterimage, strikeSource,
+            st, speedParam, attackSpeedMultiplier, selectedAttackIndex, _typedSteps,
+            _didFirstSwing, false, PlayerAttackContext.Normal, out var direction))
+            StrikeDirection = direction;
         _didFirstSwing = true;
     }
 

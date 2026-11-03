@@ -111,7 +111,7 @@ async function start(page, skipTutorial = true) {
 
 async function session(browser, viewport, rows, embedded = false) {
   const context = await browser.newContext({ viewport, serviceWorkers: 'block',
-    ...((process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1' || process.env.TYPINGHERO_ENDLESS_ONLY === '1' || process.env.TYPINGHERO_ENDLESS_NETWORK_ONLY === '1' || process.env.TYPINGHERO_HUD_R7_ONLY === '1' || process.env.TYPINGHERO_PARRY_CLASH_ONLY === '1') ? {recordVideo:{dir:report.outputDirectory,size:viewport}} : {}) });
+    ...((process.env.TYPINGHERO_PIXEL_SPARKS_ONLY === '1' || process.env.TYPINGHERO_ENDLESS_ONLY === '1' || process.env.TYPINGHERO_ENDLESS_NETWORK_ONLY === '1' || process.env.TYPINGHERO_HUD_R7_ONLY === '1' || process.env.TYPINGHERO_PARRY_CLASH_ONLY === '1' || process.env.TYPINGHERO_SEMI_SLAYER_ONLY === '1') ? {recordVideo:{dir:report.outputDirectory,size:viewport}} : {}) });
   const endlessEntries = new Map();
   await context.route('**/*', async route => {
     const req = route.request();
@@ -554,7 +554,11 @@ async function modalFlow(page, paused) {
       browser = context.browser();
     } else browser = await chromium.launch(options);
     report.chromium = browser.version();
-    if (process.env.TYPINGHERO_CAMERA_IMPACT_ONLY === '1') {
+    if (process.env.TYPINGHERO_SEMI_SLAYER_ONLY === '1') {
+      report.scenario='semi-slayer';
+      report.viewport='320x180 and 640x360; gameplay at 960x540';
+      await require('./semi_slayer.cjs')({session,start,state,until,clickControl,check,report},browser);
+    } else if (process.env.TYPINGHERO_CAMERA_IMPACT_ONLY === '1') {
       report.scenario='camera-impact'; report.viewport='1280x720 and 640x360';
       await require('./camera_impact.cjs')({session,state,until,clickControl,check,report},browser);
     } else if (process.env.TYPINGHERO_TUTORIAL_ONLY === '1') {
@@ -657,7 +661,7 @@ async function modalFlow(page, paused) {
       } finally { await context.close(); }
       if (profile === 'webgl') await require('./tutorial_embedding.cjs')({session, state, until, clickControl, check, report}, browser);
     }
-    if (profile === 'webgl' && process.env.TYPINGHERO_PARRY_CLASH_ONLY !== '1' && !['endless','endless-network','endless-ui','endless-typing-audio','score-cluster','tutorial','camera-impact'].includes(report.scenario) && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
+    if (profile === 'webgl' && process.env.TYPINGHERO_PARRY_CLASH_ONLY !== '1' && !['endless','endless-network','endless-ui','endless-typing-audio','score-cluster','tutorial','camera-impact','semi-slayer'].includes(report.scenario) && process.env.TYPINGHERO_PIXEL_SPARKS_ONLY !== '1' && process.env.TYPINGHERO_SLAYER_ONLY !== '1' && process.env.TYPINGHERO_SKELETON_ART_ONLY !== '1' && process.env.TYPINGHERO_ATTACK_SORTING_ONLY !== '1' && process.env.TYPINGHERO_SCORE_LAYOUT_ONLY !== '1') await require('./slayer.cjs')({session,start,state,until,check,report}, browser);
     check(!report.pageError, 'no JavaScript exceptions');
     check(report.exceptions.length === 0, 'no startup or runtime exceptions in console');
     report.status = 'passed';

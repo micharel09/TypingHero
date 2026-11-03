@@ -210,7 +210,8 @@ public class ParrySystem : MonoBehaviour
 
     internal bool CanBeginParry => (!TutorialRun.Active || TutorialRun.Practicing == TutorialRun.Practice.Parry) &&
         !GamePauseController.InputBlocked && !CombatSession.Finished && config && playerAnimator &&
-        !string.IsNullOrEmpty(config.playerParryPoseStatePath) && (!gate || gate.CanParry) && !PoseLocked;
+        !string.IsNullOrEmpty(config.playerParryPoseStatePath) && (!gate || gate.CanParry) && !PoseLocked &&
+        !SemiSlayerMode.IsActiveOn(playerAnimator);
     // Reuse the authored impact cels briefly. Animator states, events and hitboxes keep running.
     // Events arrive before SpriteRenderer curves are applied, so sampling only renderer.sprite
     // would capture the previous wind-up cel and Hurt could replace contact before it is drawn.

@@ -12,13 +12,18 @@ public sealed class SlashVolume : MonoBehaviour
     MeshFilter front, back;
     MeshRenderer frontRenderer, backRenderer;
     bool slayerSwing;
+    bool slayerSignalBound;
     float slayerAge;
     int bornFrame;
     Sprite lastSlayerCel;
     PlayerSlayerMode slayerOwner;
     internal bool TrailVisible => (frontRenderer && frontRenderer.enabled) || (backRenderer && backRenderer.enabled);
-    internal void BeginSlayerSwing()
+    internal void BeginSlayerSwing() => BeginTimedSwing(true);
+    internal void BeginSemiSlayerSwing() => BeginTimedSwing(false);
+
+    void BeginTimedSwing(bool bindToSlayerSignal)
     {
+        slayerSignalBound = bindToSlayerSignal;
         slayerSwing = true; slayerAge = 0; bornFrame = Time.frameCount;
         lastSlayerCel = source ? source.sprite : null;
     }
@@ -27,7 +32,7 @@ public sealed class SlashVolume : MonoBehaviour
     {
         if (!slayerOwner) return;
         // Entry must not retain a preceding parry; exit must not revive the held cel.
-        slayerSwing = true; slayerAge = .12f;
+        slayerSignalBound = true; slayerSwing = true; slayerAge = .12f;
         lastSlayerCel = source ? source.sprite : null;
     }
     void Awake()
@@ -64,7 +69,7 @@ public sealed class SlashVolume : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (slayerSwing && !SlayerModeSignals.Active && source && source.sprite != lastSlayerCel)
+        if (slayerSwing && slayerSignalBound && !SlayerModeSignals.Active && source && source.sprite != lastSlayerCel)
             slayerSwing = false;
         if (slayerSwing)
         {

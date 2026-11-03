@@ -320,6 +320,14 @@ same-artifact name reload verified. Public release: https://micharel09.itch.io/c
   records are preserved and can rank above new six-defeat results.
   Modal filter defaults to run/menu level and ignores previous requests after a
   filter change or close. Classic contract stays unchanged.
+- Semi Slayer prototype: each completed normal word adds10 run-only charge; the
+  `ParrySystem.OnParrySuccess` event adds20; Left Shift consumes100. Ten shared S1/S2/S3
+  swings deal5 HP each. Typing, word/combo timers and score are held; combat time runs
+  until Pause. The skill holds the enemy, leaves normal Slayer/stamina/hitstop unchanged,
+  and releases input/enemy locks after the chain. Charge carries through Continue and
+  resets on Restart; the prototype disables local-best and pending-leaderboard writes.
+  Runtime status and evidence limits are in the
+  [Semi Slayer checkpoint](../plans/semi-slayer-prototype.md).
 - Finite first-boss QA: current-snapshot Quick116/116, five-level matrix4413/30wins
   and pending/tutorial86 pass; see verification and Endless checkpoint for exact input,
   offline-test status and cleanup. No production change by this task.

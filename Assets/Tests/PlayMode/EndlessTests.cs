@@ -23,13 +23,15 @@ public sealed class EndlessTests
                 EndlessDifficulties.Selected = EndlessDifficulties.Step(difficulty, 1);
                 var run = EndlessRun.EnterScene();
                 Assert.That(run.Difficulty, Is.EqualTo(difficulty));
-                run.Defeated = 5; run.Health = 17; run.Score = 500; run.Parries = 9;
+                run.Defeated = 5; run.Health = 17; run.Score = 500; run.Parries = 9; run.SemiSlayerCharge = 70;
                 EndlessRun.Continuing = true;
                 Assert.That(EndlessRun.EnterScene(), Is.SameAs(run));
                 Assert.That(run.Health, Is.EqualTo(17)); Assert.That(run.Parries, Is.EqualTo(9));
+                Assert.That(run.SemiSlayerCharge, Is.EqualTo(70));
                 EndlessRun.Restart(); var restart = EndlessRun.EnterScene();
                 Assert.That(restart.Difficulty, Is.EqualTo(difficulty));
                 Assert.That(restart.Defeated + restart.Health + restart.Score + restart.Parries, Is.Zero);
+                Assert.That(restart.SemiSlayerCharge, Is.Zero);
             }
         }
         finally
@@ -179,6 +181,54 @@ public sealed class EndlessTests
             }
         }
         Object.DestroyImmediate(EndlessLeaderboard.Get().gameObject);
+    }
+
+    [Test, Category("Quick")]
+    public void SemiSlayerPrototypeDoesNotPersistOrQueueEndlessScores()
+    {
+        const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        string bestKey = EndlessDifficulties.StorageKey(EndlessDifficulty.Normal, EndlessRun.BestDefeatedKey);
+        string scoreKey = EndlessDifficulties.StorageKey(EndlessDifficulty.Normal, EndlessRun.BestScoreKey);
+        string pendingKey = EndlessDifficulties.StorageKey(EndlessDifficulty.Normal, EndlessLeaderboard.PendingKey);
+        string[] keys = { bestKey, scoreKey, pendingKey };
+        var saved = new string[keys.Length];
+        for (int i = 0; i < keys.Length; i++)
+            saved[i] = PlayerPrefs.HasKey(keys[i]) ? PlayerPrefs.GetString(keys[i], PlayerPrefs.GetInt(keys[i]).ToString()) : null;
+
+        var host = new GameObject("Semi Slayer prototype result fixture");
+        var player = host.AddComponent<PlayerHealth>();
+        var session = host.AddComponent<CombatSession>();
+        var duel = host.AddComponent<EndlessDuel>();
+        host.AddComponent<SemiSlayerMode>();
+        try
+        {
+            PlayerPrefs.SetInt(bestKey, 18);
+            PlayerPrefs.SetInt(scoreKey, 9999);
+            PlayerPrefs.DeleteKey(pendingKey);
+            var run = EndlessRun.Begin();
+            run.Defeated = 5;
+            run.Score = 12000;
+            typeof(EndlessDuel).GetField("<Run>k__BackingField", flags).SetValue(duel, run);
+            typeof(EndlessDuel).GetField("player", flags).SetValue(duel, player);
+
+            Assert.That(duel.FinishRun(true), Does.Contain("BOSS DEFEATED"));
+            Assert.That(duel.NewBest, Is.False);
+            Assert.That(PlayerPrefs.GetInt(bestKey), Is.EqualTo(18));
+            Assert.That(PlayerPrefs.GetInt(scoreKey), Is.EqualTo(9999));
+            Assert.That(PlayerPrefs.HasKey(pendingKey), Is.False);
+        }
+        finally
+        {
+            Object.DestroyImmediate(host);
+            for (int i = 0; i < keys.Length; i++)
+            {
+                if (saved[i] == null) PlayerPrefs.DeleteKey(keys[i]);
+                else if (i < 2) PlayerPrefs.SetInt(keys[i], int.Parse(saved[i]));
+                else PlayerPrefs.SetString(keys[i], saved[i]);
+            }
+            PlayerPrefs.Save();
+            EndlessRun.Clear();
+        }
     }
 
     [Test, Category("Quick")]

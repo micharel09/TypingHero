@@ -62,6 +62,7 @@ public class TypingManager : MonoBehaviour
     [SerializeField] Color completedColor = new Color(.44f, .66f, .62f, 1);
     Color currentColor, nextColor, thirdColor;
     bool readyPrompt;
+    bool semiSlayerHeld;
     ReadyPromptLayout readyLayout;
     internal event Action<int, bool> ReadyInputChanged;
     Action readyComplete;
@@ -108,7 +109,8 @@ public class TypingManager : MonoBehaviour
         Paint();
     }
 
-    float DT => GamePauseController.InputBlocked || (CombatSession.Finished && !readyPrompt) ? 0 : Time.unscaledDeltaTime;
+    internal bool IsReadyPrompt => readyPrompt;
+    float DT => semiSlayerHeld || GamePauseController.InputBlocked || (CombatSession.Finished && !readyPrompt) ? 0 : Time.unscaledDeltaTime;
 
     void Awake()
     {
@@ -127,7 +129,7 @@ public class TypingManager : MonoBehaviour
         errorRemaining = Mathf.Max(0, errorRemaining - DT);
         introStartRemaining = Mathf.Max(0, introStartRemaining - DT);
         ProcessInput(Input.inputString);
-        if (!readyPrompt && practiceTimer && !GamePauseController.InputBlocked && !CombatSession.Finished) HandleTimer();
+        if (!semiSlayerHeld && !readyPrompt && practiceTimer && !GamePauseController.InputBlocked && !CombatSession.Finished) HandleTimer();
         Paint();
     }
 
@@ -138,6 +140,7 @@ public class TypingManager : MonoBehaviour
         ForceInitial();
     }
     internal void StopPracticeInput() => practiceInput = false;
+    internal void SetSemiSlayerHeld(bool held) => semiSlayerHeld = held;
 
     void HandleTimer()
     {
@@ -150,7 +153,7 @@ public class TypingManager : MonoBehaviour
 
     internal void ProcessInput(string s)
     {
-        if (!practiceInput || GamePauseController.InputBlocked || DungeonSession.InputSuppressed ||
+        if (semiSlayerHeld || !practiceInput || GamePauseController.InputBlocked || DungeonSession.InputSuppressed ||
             (CombatSession.Finished && !readyPrompt) || (readyPrompt && (Time.frameCount <= readyFrame || LeaderboardModal.BlocksShortcuts)) || string.IsNullOrEmpty(s)) return;
         int completed = 0;
         foreach (char c in s)

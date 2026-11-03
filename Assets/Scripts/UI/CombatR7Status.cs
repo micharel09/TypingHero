@@ -11,14 +11,20 @@ public sealed class CombatR7Status : MonoBehaviour
     [SerializeField] TMP_Text playerHp, enemyHp;
     [SerializeField] Image comboFill;
     [SerializeField] Sprite normalFill, goldFill;
+    [SerializeField] Slider semiSlayerCharge;
+    [SerializeField] Image semiSlayerFill, semiSlayerFrame, semiSlayerSocket;
+    [SerializeField] TMP_Text semiSlayerKey;
+    [SerializeField] Sprite semiFrame, goldFrame, semiSocket, goldSocket, semiFill, goldSemiFill;
     PlayerHealth player;
     SkeletonController enemy;
+    SemiSlayerMode semiSlayer;
     string opponent;
     bool boss, elite;
     internal TMP_Text IntroEnemyLabel => enemyLabel;
     void Start()
     {
         player = FindObjectOfType<PlayerHealth>(); enemy = FindObjectOfType<SkeletonController>();
+        semiSlayer = FindObjectOfType<SemiSlayerMode>();
         var run = EndlessDuel.I ? EndlessDuel.I.Run : null;
         boss = run != null && run.Slot == 5; elite = run != null && run.Slot == 4;
         opponent = run == null ? "SKELETON" : run.Enemy.Name.ToUpperInvariant();
@@ -39,6 +45,30 @@ public sealed class CombatR7Status : MonoBehaviour
         if (enemy) enemyHp.text = $"{enemy.Current}/{enemy.maxHealth}";
         bool slayer = TypingManager.MuteWordCorrect;
         comboFill.sprite = slayer ? goldFill : normalFill;
+        if (!semiSlayer) semiSlayer = FindObjectOfType<SemiSlayerMode>();
+        bool showSemiSlayer = semiSlayer && EndlessRun.Current != null && !TutorialRun.Active;
+        bool charged = showSemiSlayer && semiSlayer.Charge >= 100;
+        if (semiSlayerCharge)
+        {
+            semiSlayerCharge.gameObject.SetActive(showSemiSlayer);
+            semiSlayerCharge.SetValueWithoutNotify(showSemiSlayer ? semiSlayer.Charge01 : 0f);
+        }
+        if (semiSlayerFrame)
+        {
+            semiSlayerFrame.gameObject.SetActive(showSemiSlayer);
+            semiSlayerFrame.sprite = charged ? goldFrame : semiFrame;
+        }
+        if (semiSlayerSocket)
+        {
+            semiSlayerSocket.gameObject.SetActive(showSemiSlayer);
+            semiSlayerSocket.sprite = charged ? goldSocket : semiSocket;
+        }
+        if (semiSlayerFill) semiSlayerFill.sprite = charged ? goldSemiFill : semiFill;
+        if (semiSlayerKey)
+        {
+            semiSlayerKey.gameObject.SetActive(showSemiSlayer);
+            semiSlayerKey.color = charged ? new Color(0.9f, 0.77f, 0.49f, 1f) : Color.white;
+        }
         float seconds = CombatSession.I ? CombatSession.I.Seconds : 0;
         clock.text = $"{(int)seconds / 60:00}:{(int)seconds % 60:00}";
     }

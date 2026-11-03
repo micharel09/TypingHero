@@ -8,6 +8,7 @@ internal sealed class EndlessRun
     internal bool Completed => !RepeatAfterBoss && Defeated >= DuelsPerRound;
     internal static EndlessRun Current { get; private set; }
     internal static bool Continuing { get; set; }
+    internal int SemiSlayerCharge;
     static bool prepared;
     internal EndlessDifficulty Difficulty { get; private set; }
     internal int Defeated, Health, Score, Letters, Correct, Parries;

@@ -1,6 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+internal readonly struct PlayerAttackContext
+{
+    internal static readonly PlayerAttackContext Normal = new(false, 0, true, false, false);
+    internal static readonly PlayerAttackContext SemiSlayer = new(true, 5, false, true, true);
+
+    internal readonly bool HasDamageOverride;
+    internal readonly int DamageOverride;
+    internal readonly bool DrainStamina;
+    internal readonly bool IgnoreHitstop;
+    internal readonly bool ConfirmImmediately;
+
+    PlayerAttackContext(bool hasDamageOverride, int damageOverride, bool drainStamina, bool ignoreHitstop,
+        bool confirmImmediately)
+    {
+        HasDamageOverride = hasDamageOverride;
+        DamageOverride = damageOverride;
+        DrainStamina = drainStamina;
+        IgnoreHitstop = ignoreHitstop;
+        ConfirmImmediately = confirmImmediately;
+    }
+}
+
 public class PlayerAttackEvents : MonoBehaviour
 {
     public PlayerWeaponHitbox hitbox;
@@ -36,13 +58,15 @@ public class PlayerAttackEvents : MonoBehaviour
         if (notify) OnWindowClose?.Invoke();
     }
 
-    public void OnAttackStart() => StartAttack(null, false);
+    public void OnAttackStart() => StartAttack(null, false, PlayerAttackContext.Normal);
 
-    public void OnAttackStartCel(Sprite cel) => StartAttack(cel, true);
+    internal void OnAttackStart(PlayerAttackContext context) => StartAttack(null, context.ConfirmImmediately, context);
+
+    public void OnAttackStartCel(Sprite cel) => StartAttack(cel, true, PlayerAttackContext.Normal);
     public void OnAttackContact(Sprite cel) { if (hitbox) hitbox.SetContactCel(cel); }
     public void OnParryFollowUpEnd(Sprite openingCel) => CancelAttack(openingCel);
 
-    void StartAttack(Sprite cel, bool confirmImmediately)
+    void StartAttack(Sprite cel, bool confirmImmediately, PlayerAttackContext context)
     {
         if (hitbox == null) return;
 
@@ -55,7 +79,7 @@ public class PlayerAttackEvents : MonoBehaviour
         openedAt = Time.time;
 
         currentAttackId = ++globalAttackCounter;
-        hitbox.BeginAttack(currentAttackId);
+        hitbox.BeginAttack(currentAttackId, context);
         hitbox.SetContactCel(cel);
 
         // Đẩy transform ra PhysX ngay frame này (để tiếp xúc chính xác)

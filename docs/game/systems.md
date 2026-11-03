@@ -83,6 +83,7 @@ standalone duplicate hosts retain their existing cleanup behavior. See [intro ch
 
 | Owner | Source/config | Consumers and verification |
 | --- | --- | --- |
+| Semi Slayer prototype | `SemiSlayerMode`, `PlayerSlayerSwing`, `EndlessRun`, `PlayerAttackEvents`, `PlayerWeaponHitbox`, `ParrySystem`, `SkeletonController`, `CombatR7Status` | Endless run-only charge, shared S1/S2/S3 attack path, enemy/input/typing hold and HUD charge bar. Quick event test verifies parry +20; WebGL verifies ten hits, damage, pause, clocks and HUD. Facing-left and timed browser parry remain unverified. See [checkpoint](../plans/semi-slayer-prototype.md). |
 | Local dark fantasy HUD | `CombatR7Build`, `PixelUIBuild`, `export_combat_r7.py`, `CombatR7/DarkFantasy/`, `ScoreRules` and `ScoreSystem` display tint |26 isolated PNGs, two pause rim subrects and hard HP underlay; 874scene IDs/fonts/bindings retained; follow-up shortens rails102to82px and hides both HP labels/encounter line; side groups at80%, score/typing unchanged. Strict repeat builder, focused native11 and production4 combat/pause captures pass. No full suite or upload; [checkpoint](../plans/hud-dark-fantasy.md). |
 | Typing | `Assets/Scripts/Core/TypingManager/` and `Assets/Data/Words/WP_Common200.asset` | PlayerController, Slayer, scoring subscribe to static events; quick typing/timeout/type-ahead |
 | Combat | `Assets/Scripts/Combat/`, `Assets/Data/Attack/` | Animation events, hitboxes, gates, parry target and health; quick + WebGL |

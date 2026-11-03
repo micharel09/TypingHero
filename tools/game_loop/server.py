@@ -65,7 +65,7 @@ def main():
     scenario = sys.argv[4] if len(sys.argv) > 4 else 'full'
     profile_allocations = len(sys.argv) > 5 and sys.argv[5] == '1'
     if profile_allocations and profile != 'webgl': raise ValueError('Allocation profiling requires WebGL QA')
-    if scenario not in ('full', 'tutorial', 'skeleton-art', 'attack-sorting', 'score-layout', 'score-cluster', 'pixel-sparks', 'pixel-sparks-parry', 'endless', 'combat-r7', 'parry-clash', 'camera-impact') or (scenario != 'full' and profile != 'webgl'):
+    if scenario not in ('full', 'tutorial', 'skeleton-art', 'attack-sorting', 'score-layout', 'score-cluster', 'pixel-sparks', 'pixel-sparks-parry', 'endless', 'combat-r7', 'parry-clash', 'camera-impact', 'semi-slayer') or (scenario != 'full' and profile != 'webgl'):
         raise ValueError('Unsupported browser scenario/profile')
     test_filter = sys.argv[7] if len(sys.argv) > 7 else ""
     if test_filter and profile != "quick": raise ValueError("Test filter requires quick")
@@ -247,7 +247,7 @@ scan('/build');
             shutil.copytree(build, result / 'player')
             print(f"Production player preserved: {result / 'player'}", flush=True)
             return
-        if scenario.startswith('pixel-sparks') or scenario in ('tutorial', 'endless', 'combat-r7', 'parry-clash', 'score-cluster', 'camera-impact'):
+        if scenario.startswith('pixel-sparks') or scenario in ('tutorial', 'endless', 'combat-r7', 'parry-clash', 'score-cluster', 'camera-impact', 'semi-slayer'):
             # Preserve this exact player before releasing the shared runner lock.
             # Native QA must not race another task replacing build-qa.
             immutable = result / 'player'
@@ -282,6 +282,7 @@ scan('/build');
               *(['-e', 'TYPINGHERO_PIXEL_SPARKS_ONLY=1'] if scenario in ('pixel-sparks', 'pixel-sparks-parry', 'parry-clash') else []),
               *(['-e', 'TYPINGHERO_PARRY_CLASH_ONLY=1'] if scenario == 'parry-clash' else []),
               *(['-e', 'TYPINGHERO_CAMERA_IMPACT_ONLY=1'] if scenario == 'camera-impact' else []),
+              *(['-e', 'TYPINGHERO_SEMI_SLAYER_ONLY=1'] if scenario == 'semi-slayer' else []),
               *(['-e', 'TYPINGHERO_PIXEL_PARRY_ONLY=1'] if scenario == 'pixel-sparks-parry' else []),
               "-v", f"{BASE / 'toolchain'}:/tools", "-v", f"{SOURCE / 'tools/game_loop'}:/runner:ro",
               "-v", f"{build}:/build:ro", "-v", f"{result}:/results", browser,

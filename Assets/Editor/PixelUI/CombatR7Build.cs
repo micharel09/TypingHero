@@ -149,9 +149,21 @@ internal static class CombatR7Build
         Bar(Item("PlayerHP").GetComponent<Slider>(), player, "hp", false);
         Bar(Item("EnemyHP").GetComponent<Slider>(), enemy, "hp", false);
         Bar(Item("EnemyStamina").GetComponent<Slider>(), enemy, "stamina", true);
-        // Preserve the old status decorations' IDs without presenting score as a player resource.
-        foreach (string name in new[] { "FrameSecondary", "SocketSecondary", "IconSecondary" })
-            if (player.Find(name)) player.Find(name).gameObject.SetActive(false);
+        var semiBar = Node(player, "SemiSlayerCharge");
+        var semiFill = Node(semiBar, "Fill"); Stretch(semiFill, semiBar);
+        Image(semiBar, Color.white);
+        Image(semiFill, Color.white);
+        var semiSlider = semiBar.GetComponent<Slider>();
+        if (!semiSlider) semiSlider = semiBar.gameObject.AddComponent<Slider>();
+        semiSlider.fillRect = semiFill; semiSlider.minValue = 0; semiSlider.maxValue = 1;
+        semiSlider.value = 0; semiSlider.interactable = false;
+        semiSlider.transition = Selectable.Transition.None;
+        semiSlider.navigation = new Navigation { mode = Navigation.Mode.None };
+        Bar(semiSlider, player, "stamina", true);
+        foreach (string name in new[] { "FrameSecondary", "SocketSecondary" })
+            if (player.Find(name)) player.Find(name).gameObject.SetActive(true);
+        if (player.Find("IconSecondary")) player.Find("IconSecondary").gameObject.SetActive(false);
+        var semiKey = LabelOnce(player, "SemiSlayerKeyR7", "SHIFT", 3, 26, 10, 7, 8);
         var cluster = Item("ScoreCluster"); Box(cluster, hud, 333, 9, 294, 66);
         var scoreBoard = Picture(cluster, "Metal", "score-frame", 0, 0, 98, 22); scoreBoard.transform.SetAsFirstSibling();
         scoreBoard.color = Color.white;
@@ -198,6 +210,7 @@ internal static class CombatR7Build
         }
         CombatLabel(playerHp, font8); CombatLabel(enemyHp, font8);
         CombatLabel(mult, font8); CombatLabel(clock, font10); CombatLabel(score, font12);
+        CombatLabel(semiKey, font8); semiKey.alignment = TextAlignmentOptions.Center;
         Backplate(root, "PlayerReadabilityR7", 3, 0, 102, 11).enabled = false;
         Backplate(root, "EnemyReadabilityR7", 215, 0, 102, 11).enabled = false;
         Backplate(root, "ClockReadabilityR7", 256, 145, 32, 14);
@@ -227,6 +240,13 @@ internal static class CombatR7Build
         Set(status, "playerHp", playerHp); Set(status, "enemyHp", enemyHp);
         Set(status, "comboFill", decayFill);
         Set(status, "normalFill", Sprite("combo-fill")); Set(status, "goldFill", Sprite("combo-gold-fill"));
+        Set(status, "semiSlayerCharge", semiSlider); Set(status, "semiSlayerFill", semiFill.GetComponent<Image>());
+        Set(status, "semiSlayerFrame", player.Find("FrameSecondary").GetComponent<Image>());
+        Set(status, "semiSlayerSocket", player.Find("SocketSecondary").GetComponent<Image>());
+        Set(status, "semiSlayerKey", semiKey);
+        Set(status, "semiFrame", Sprite("secondary-frame")); Set(status, "goldFrame", Sprite("secondary-frame-gold"));
+        Set(status, "semiSocket", Sprite("secondary-socket")); Set(status, "goldSocket", Sprite("secondary-socket-gold"));
+        Set(status, "semiFill", Sprite("combo-fill")); Set(status, "goldSemiFill", Sprite("combo-gold-fill"));
         Set(Find<TutorialOverlay>(), "staminaTarget", enemy.Find("FrameSecondary"));
         Set(status, "enemySocket", enemy.Find("SocketHP").GetComponent<Image>());
         Set(status, "enemyIcon", enemy.Find("IconHP").GetComponent<Image>());

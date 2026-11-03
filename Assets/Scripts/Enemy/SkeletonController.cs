@@ -127,6 +127,34 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     float Now => Time.time;
     public bool IsAttacking => _attacking;
     bool practiceIdle;
+    object semiSlayerOwner;
+    internal bool SemiSlayerHeld => semiSlayerOwner != null;
+
+    internal void HoldForSemiSlayer(object owner)
+    {
+        if (owner == null || (semiSlayerOwner != null && !ReferenceEquals(semiSlayerOwner, owner))) return;
+        if (semiSlayerOwner != null) return;
+        semiSlayerOwner = owner;
+        _attacking = preparing = attackPending = cueAnnounced = _queuedHitReact = false;
+        remainingSwings = 0;
+        var strike = GetComponent<AttackStrike>();
+        if (strike) strike.CancelSwing();
+        HideCue();
+        if (animator)
+        {
+            animator.speed = 1;
+            animator.Play("Base Layer.skeleton_idle", 0, 0f);
+            animator.Update(0f);
+        }
+    }
+
+    internal void ReleaseSemiSlayer(object owner)
+    {
+        if (owner == null || !ReferenceEquals(semiSlayerOwner, owner)) return;
+        semiSlayerOwner = null;
+        if (!IsDead && !CombatSession.Finished) _nextAttackAt = Now + attackInterval;
+    }
+
     internal void HoldPracticeAttacks(bool hold)
     {
         practiceIdle = hold;
@@ -174,6 +202,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
     public void HideCue() { attackPending = false; if (attackCue) attackCue.SetActive(false); }
     void OnDisable()
     {
+        semiSlayerOwner = null;
         _attacking = false; remainingSwings = 0; preparing = false;
         var strike = GetComponent<AttackStrike>();
         if (strike) strike.CancelSwing();
@@ -194,7 +223,7 @@ public sealed class SkeletonController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (practiceIdle || IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
+        if (practiceIdle || SemiSlayerHeld || IsDead || CombatSession.Finished || GamePauseController.InputBlocked) return;
         if (introHandoff) { introHandoff = false; _nextAttackAt = Now + .5f; }
         if (preparing && (!AnimatorUtil.IsInState(animator, attackStatePath, out var heldState) ||
             (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).fullPathHash != heldState.fullPathHash)))
