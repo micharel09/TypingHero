@@ -7684,3 +7684,46 @@ inputs; no new runtime tests, captures, camera-edge/pose checks or performance t
 were completed in this diagnostic. Overall lighting acceptance and integration
 remain open. Reference-video coverage counts above were not increased or reviewed
 again by this static lighting comparison.
+
+## Rear background gate — 2026-11-03
+
+Continuation follows the user's bounded Point-front plan. The existing five
+fixtures and scene remain the basis; no new composition or runtime behavior was
+introduced. Reused `ArenaAuthoringPreview.cs`, `DungeonTorchLight.Preview`,
+`LightProfile.Apply`, `DungeonArenaBuild`, and `WorldLightingAuthoring`. The
+preview uses in-memory profile/material clones, one-time X-only rear fixture/light
+deltas, control shots, and sRGB presentation exports. No scene/asset save or room
+generator call occurred.
+
+Ubuntu authoring preview completed with exit 0 as `20261103T040334-serialize`;
+snapshot SHA-256 `e237250b6ad01673eb2f587eb49a528f5172c0bc6132781ab033f7989308bdd2`.
+Directly inspected all 13 scenarios at 1280x720 and native 320x180: 26
+presentation images. Receipt and image hashes/dimensions validated. The three
+world PNGs per scenario are clamped linear diagnostics and were excluded from
+acceptance. Detailed observations and hashes are in
+`D:\Projects\TypingHero-deliverables\dungeon-cinematic-arena-20261028\lighting-rear-background-01\20261103T040334-serialize\review.md`
+and `preview\receipt.json`.
+
+Contribution controls confirm that disabling the front light while keeping its
+flame renderer visible materially reduces action readability. Rear-on at factors
+0.15/0.30 and intensity 16 brightens the flanking wall; the central door/recess
+does not gain useful visible contribution. The fog-off diagnostic reveals more
+wall/floor texture, but the door remains dark; authored fog stays enabled.
+
+All six B candidates (factor 0.15/0.30 by rear intensity 12/16/20) used front
+Point 16, side 1.5/1.5, cloned Recess gain 1.4 and ClosedDoor gain 1.1, with
+authored fog retained. At native size the door/arch/recess remain under-read, the
+dark hero has weak separation from the uneven floor, and stronger rear intensity
+makes wall pools/red banner competition more prominent. None meets the combined
+rear gate. Stop before gain reduction, front-intensity selection, fill/shadow/
+bloom tuning, pose/follow checks, or serialized changes. No lighting preset was
+selected or written.
+
+Production scene, profiles, materials, runtime, gameplay and API remain at L0. No
+new tests, runtime pilot, reference-video frames, performance run, build, manifest
+or release gate was run. The prior 75/75 Slayer test result remains limited to
+its recorded unchanged inputs; reference coverage remains the earlier verified
+537 frames/536 transitions and was not recounted here. No main integration is
+authorized by this failed art gate. Keep all prior FAILED/invalid receipts and
+the task worktree/durable evidence. This is a bounded failure for the six listed
+combinations, not proof that every possible setup fails.
