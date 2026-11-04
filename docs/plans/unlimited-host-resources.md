@@ -23,9 +23,9 @@
 
 - Canonical repository: `micharel09/TypingHero`, base `origin/main` at
   `652ad93b26dc65ade1c91d22b4e2ee68e7314e24`.
-- Task worktree: `E:/Workspaces/ClackBlade/host-unlimited-resources`, branch
-  `codex/host-unlimited-resources`. The original checkout has unrelated dirty
-  changes and remains untouched.
+- Implementation worktree: `E:/Workspaces/ClackBlade/host-unlimited-resources`,
+  branch `codex/host-unlimited-resources`; the original checkout's unrelated
+  dirty changes were preserved.
 - Ubuntu host `quanubutu`: cron cleanup exists, systemd cleanup units do not;
   mobile runner has `CPUQuota=200%` and `MemoryMax=6G`; no active
   `Runner.Worker` or smoke session was observed.
@@ -53,11 +53,14 @@
   hierarchy. All affected commands/checks were corrected and rerun successfully.
 - Final source review and `git diff --check` pass; only the four intended
   repository files and this task checkpoint are changed.
-- Branch integration and task-resource cleanup remain.
+- Commit `bf36c8424273363979337dfef3248dfe080a78ee` is verified on both
+  `origin/main` and the remote task branch after a fresh fetch; it is an
+  ancestor of `origin/main`.
+- Registered Ubuntu task temp completed as `deleted / verified-absent`. The
+  task worktree and local branch are removed after this integration; the remote
+  task branch is retained per repository instructions.
 
-## Next steps
+## Status
 
-1. Commit, push and fast-forward the verified task branch into `origin/main`,
-   following the repository workflow without touching the dirty parent checkout.
-2. Complete the registered Ubuntu temp task and remove the clean task worktree
-   and local branch after verifying remote integration.
+Implementation and rollout are complete. No active jobs were stopped or
+recreated. The dirty parent checkout remains unchanged.
