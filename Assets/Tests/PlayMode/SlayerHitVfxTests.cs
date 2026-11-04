@@ -472,6 +472,34 @@ public sealed class SlayerHitVfxTests
         volume.BeginSlayerSwing(); late.Invoke(volume, null);
         Assert.That(rig.GetComponentsInChildren<MeshRenderer>().Any(r => r.enabled), Is.True, "same held cel starts a new trail");
     }
+    [TestCase(false), TestCase(true), Category("Quick")]
+    public void EndingSemiSlayerReturnsTrailToTheNextNormalCel(bool returnToIdle)
+    {
+        var rig = Host("semi trail rig"); rig.AddComponent<PlayerSlayerMode>();
+        var sr = rig.AddComponent<SpriteRenderer>();
+        var library = AssetDatabase.LoadAssetAtPath<SlashLibrary>("Assets/Art/VFX/SlashVolume/SlashLibrary.asset");
+        var normalMaterial = new Material(library.material); owned.Add(normalMaterial);
+        var volume = rig.AddComponent<SlashVolume>();
+        Set(volume, "source", sr); Set(volume, "library", library); Set(volume, "normalPlayerMaterial", normalMaterial);
+        sr.sprite = library.frames[0].sprite;
+        var mode = rig.AddComponent<SemiSlayerMode>(); Set(mode, "slashTrail", volume);
+        rig.SetActive(true); SlayerModeSignals.SetActive(false);
+        var late = typeof(SlashVolume).GetMethod("LateUpdate", Flags);
+
+        volume.BeginSemiSlayerSwing(); late.Invoke(volume, null);
+        Assert.That(volume.TrailVisible, Is.True, "Semi Slayer begins with a visible trail");
+        Set(mode, "active", true);
+        Set(volume, "slayerAge", .12f); // The final Semi cel has reached the existing 120 ms expiry.
+        typeof(SemiSlayerMode).GetMethod("Finish", Flags).Invoke(mode, new object[] { returnToIdle });
+
+        Assert.That(Get<bool>(volume, "slayerSignalBound"), Is.True,
+            "ending the skill binds the held cel to the normal animation's next sprite change");
+        sr.sprite = library.frames[1].sprite;
+        late.Invoke(volume, null);
+        Assert.That(volume.TrailVisible, Is.True, "the next normal slash cel takes over after the expired Semi cel");
+        Assert.That(rig.GetComponentsInChildren<MeshRenderer>().First(r => r.enabled).sharedMaterial,
+            Is.SameAs(normalMaterial), "the normal trail keeps its non-Slayer material");
+    }
     [UnityTest, Category("Quick")]
     public IEnumerator SlayerBodyPulseSurvivesSilhouetteHoldsPauseAndRestoresBaselineAndPropertyBlock()
     {

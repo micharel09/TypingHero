@@ -464,7 +464,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public bool hitLocked, deadLocked, typingMuted;
         public int playerCurrentState, playerNextState;
         public float playerAnimatorTime, playerAnimatorSpeed, playerStateSpeed;
-        public bool playerHitStateActive, playerAnimatorTransition, playerAnimatorEnabled;
+        public bool playerHitStateActive, playerAnimatorTransition, playerAnimatorEnabled, playerIdle;
         public SortingFrame playerSorting;
         public SparkFrame[] sparks;
         public int sparkMask;
@@ -472,7 +472,7 @@ public sealed class GameLoopProbe : MonoBehaviour
         public string scene, current, next, playerName;
         public int frame, score, hp, maxHp, enemyHp, words, chars, parries, errors, objects;
         public bool slayer, parryWindow, canParry, enemyAttacking, overlay, paused;
-        public bool finished, cue, pendingAttack, helpOpen, helpSeen, parryPose;
+        public bool finished, runCompleted, cue, pendingAttack, helpOpen, helpSeen, parryPose;
         public float combatSeconds, musicVolume, sfxVolume;
         public int inputLetters, inputCorrect, matchParries, finalScore, stamina, nextProgress;
         public int semiSlayerCharge, semiSlayerSwings, semiSlayerHits;
@@ -867,6 +867,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 playerStateSpeed = playerInfo.speed * playerInfo.speedMultiplier,
                 playerAnimatorTransition = playerTransition,
                 playerAnimatorEnabled = sortingAnimator && sortingAnimator.isActiveAndEnabled,
+                playerIdle = sortingAnimator && !playerTransition &&
+                    playerInfo.fullPathHash == Animator.StringToHash("Base Layer.player_idle"),
                 playerHitStateActive = hitState != 0 && (playerInfo.fullPathHash == hitState || playerNext == hitState),
                 sparks = sparks, sparkMask = sparkMask, lastError = lastError,
                 dungeonId = FindObjectOfType<DungeonWorld>() ? FindObjectOfType<DungeonWorld>().environment.GetInstanceID() : 0,
@@ -978,7 +980,8 @@ public sealed class GameLoopProbe : MonoBehaviour
                 enemyChainRemaining = Read(enemy, "remainingSwings", 0),
                 hitLocked = gate && gate.IsHitLocked, deadLocked = gate && gate.IsDeadLocked,
                 typingMuted = TypingManager.MuteWordCorrect,
-                finished = CombatSession.Finished, cue = cue && cue.activeInHierarchy,
+                finished = CombatSession.Finished, runCompleted = endless != null && endless.Completed,
+                cue = cue && cue.activeInHierarchy,
                 pendingAttack = Read(controller, "pendingAttack", false), parryPose = gate && gate.IsParryPoseLocked,
                 helpOpen = help && help.IsOpen, helpSeen = HowToPlayPanel.Seen,
                 combatSeconds = match ? match.Seconds : 0,

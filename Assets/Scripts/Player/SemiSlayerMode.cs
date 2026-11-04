@@ -209,14 +209,19 @@ public sealed class SemiSlayerMode : MonoBehaviour
             return;
         }
         completedSwings++;
-        swingDelay = secondsBetweenSwings;
+        if (active) swingDelay = secondsBetweenSwings;
     }
 
     bool MustInterrupt() => CombatSession.Finished || DungeonSession.InputSuppressed ||
         !player || player.Current <= 0 || !enemy || enemy.IsDead;
 
     void OnPlayerDamaged() { if (active) Finish(false); }
-    void OnEnemyDeathStarted() { if (active) Finish(false); }
+    void OnEnemyDeathStarted()
+    {
+        if (!active) return;
+        if (afterimage) afterimage.CancelBurst();
+        Finish(true);
+    }
 
     void Finish(bool returnToIdle)
     {
@@ -228,12 +233,13 @@ public sealed class SemiSlayerMode : MonoBehaviour
             attackEvents.CancelAttack();
             attackEvents.minOpenSeconds = savedMinHitWindow;
         }
+        if (slashTrail) slashTrail.EndSemiSlayerSwing();
         if (!returnToIdle && afterimage) afterimage.CancelBurst();
         if (animator)
         {
             animator.SetFloat(speedParam, savedSpeedMultiplier);
-            if (returnToIdle && player && player.Current > 0 && !CombatSession.Finished &&
-                (!gate || gate.CanAttack) && !string.IsNullOrEmpty(exitStatePath))
+            if (returnToIdle && player && player.Current > 0 && (!gate || gate.CanAttack) &&
+                !DungeonSession.InputSuppressed && !string.IsNullOrEmpty(exitStatePath))
                 animator.CrossFadeInFixedTime(exitStatePath, 0.02f, 0, 0f);
         }
         if (enemy) enemy.ReleaseSemiSlayer(this);

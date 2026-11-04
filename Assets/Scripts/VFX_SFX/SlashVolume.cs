@@ -20,6 +20,15 @@ public sealed class SlashVolume : MonoBehaviour
     internal bool TrailVisible => (frontRenderer && frontRenderer.enabled) || (backRenderer && backRenderer.enabled);
     internal void BeginSlayerSwing() => BeginTimedSwing(true);
     internal void BeginSemiSlayerSwing() => BeginTimedSwing(false);
+    internal void EndSemiSlayerSwing()
+    {
+        if (!slayerSwing || slayerSignalBound) return;
+        // Match Slayer exit: the held cel is already past its 120 ms lifetime;
+        // a new source sprite hands rendering back to the ordinary animation.
+        slayerSignalBound = true;
+        slayerAge = .12f;
+        lastSlayerCel = source ? source.sprite : null;
+    }
 
     void BeginTimedSwing(bool bindToSlayerSignal)
     {
