@@ -2561,8 +2561,9 @@ Account licenses use `.config/unity3d/Unity/licenses/*.xml`; legacy ULF files us
 `.local/share/unity3d/Unity/Unity_lic.ulf`. An explicit `--license` can mount an
 existing matching server ULF instead. The existing GitHub WebGL pipeline uses Unity
 account secrets; those are not readable from repository source and are not copied.
-Do not log secret contents. Docker containers run sequentially with 2 CPUs/8 GiB.
-Chromium has a private 1 GiB shared-memory mount within that memory limit.
+Do not log secret contents. Docker containers run sequentially without CPU or
+memory quotas and use available host capacity; the existing free-disk preflight
+still applies. Chromium has a private 1 GiB shared-memory mount.
 Snapshots replace only the task source directory; persistent Library is separate.
 Disk checks precede setup, import/build and browser stages. Lock prevents concurrent runs.
 
@@ -2702,8 +2703,8 @@ Pinned image storage measured: 4.79 GiB compressed + 9.94 GiB uncompressed layer
 tar bytes. Actual Docker 29 OCI import validates canonical image name and exact
 manifest ID. Public transfer caches are no longer served; no service was installed.
 
-Browser toolchain smoke passed with the actual 2 CPU / 8 GiB / 1 GiB shared-memory
-limits and network disabled: Playwright 1.63.0, Chromium 153.0.8010.12, WebGL2 via
+Historical smoke under the former quotas passed with 2 CPU / 8 GiB / 1 GiB shared
+memory and network disabled: Playwright 1.63.0, Chromium 153.0.8010.12, WebGL2 via
 ANGLE Vulkan 1.3.0 SwiftShader (Subzero). Browser image digest:
 `sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27`.
 This smoke verifies browser/graphics prerequisites; actual game profile results

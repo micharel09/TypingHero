@@ -8,6 +8,15 @@ import subprocess
 BASE = Path('/data/typinghero-game-loop')
 
 
+def docker_wrapper_source(docker_binary, config):
+    return (
+        '#!/usr/bin/python3\nimport os,sys\nargs=sys.argv[1:]\n'
+        f'if args and args[0]=="run": args=["run","--hostname",{config["containerHostname"]!r},'
+        f'"--mac-address",{config["containerMacAddress"]!r}]+args[1:]\n'
+        f'os.execv({docker_binary!r},["docker",*args])\n'
+    )
+
+
 def main():
     source = BASE / 'source'
     config = json.loads((source / 'tools/game_loop/toolchain.json').read_text())
@@ -36,10 +45,7 @@ def main():
     bin_dir = BASE / 'toolchain/activation-bin'
     bin_dir.mkdir(mode=0o700, exist_ok=True)
     wrapper = bin_dir / 'docker'
-    wrapper.write_text('#!/usr/bin/python3\nimport os,sys\nargs=sys.argv[1:]\n'
-                       f'if args and args[0]=="run": args=["run","--cpus","2","--memory","8g",'
-                       f'"--hostname",{config["containerHostname"]!r},"--mac-address",{config["containerMacAddress"]!r}]+args[1:]\n'
-                       f'os.execv({docker_binary!r},["docker",*args])\n')
+    wrapper.write_text(docker_wrapper_source(docker_binary, config))
     wrapper.chmod(0o700)
     env['PATH'] = str(bin_dir) + os.pathsep + env['PATH']
     if not env.get('UNITY_LICENSE') and not (env.get('UNITY_EMAIL') and env.get('UNITY_PASSWORD')):

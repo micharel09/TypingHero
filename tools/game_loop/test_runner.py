@@ -1,5 +1,6 @@
 """Runner contract tests; these do not replace Unity or browser acceptance."""
 import importlib.util
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -11,6 +12,9 @@ spec = importlib.util.spec_from_file_location("game_loop_server", Path(__file__)
 # server uses Linux-only fcntl; run this module on fly-server.
 server = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(server)
+activate_spec = importlib.util.spec_from_file_location("game_loop_activate", Path(__file__).with_name("activate.py"))
+activate = importlib.util.module_from_spec(activate_spec)
+activate_spec.loader.exec_module(activate)
 
 
 class ResultContractTests(unittest.TestCase):
@@ -67,6 +71,34 @@ class ResultContractTests(unittest.TestCase):
         self.assertTrue(cleanup.called)
         for call in cleanup.call_args_list:
             self.assertEqual(call.args[0], ['docker', 'rm', '-f', name])
+
+    def test_container_uses_host_compute_and_keeps_browser_shared_memory(self):
+        process = Mock()
+        process.wait.return_value = 0
+        process.poll.return_value = 0
+        with patch.object(server.subprocess, 'Popen', return_value=process) as launch, \
+             patch.object(server.subprocess, 'run'):
+            server.container(['--shm-size', '1g', '--network', 'none', 'test-image'], timeout=1)
+        args = launch.call_args.args[0]
+        self.assertNotIn('--cpus', args)
+        self.assertNotIn('--memory', args)
+        self.assertEqual(args[args.index('--shm-size') + 1], '1g')
+
+    def test_activation_wrapper_keeps_identity_without_compute_caps(self):
+        config = {'containerHostname': 'typinghero-ci', 'containerMacAddress': '02:00:00:00:00:01'}
+        with tempfile.TemporaryDirectory(dir='/data/typinghero-game-loop') as directory:
+            root = Path(directory)
+            docker = root / 'docker-target'
+            captured = root / 'docker-args.json'
+            docker.write_text(f'#!/usr/bin/python3\nimport json,sys\nfrom pathlib import Path\nPath({str(captured)!r}).write_text(json.dumps(sys.argv[1:]))\n')
+            docker.chmod(0o700)
+            wrapper = root / 'docker'
+            wrapper.write_text(activate.docker_wrapper_source(str(docker), config))
+            wrapper.chmod(0o700)
+            subprocess.run([str(wrapper), 'run', '--rm', 'test-image'], check=True)
+            args = json.loads(captured.read_text())
+        self.assertEqual(args, ['run', '--hostname', config['containerHostname'],
+                                '--mac-address', config['containerMacAddress'], '--rm', 'test-image'])
 
 
 if __name__ == "__main__": unittest.main()

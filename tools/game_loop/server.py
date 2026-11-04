@@ -157,7 +157,7 @@ def main():
             browser = subprocess.check_output(["docker", "image", "inspect", "--format", "{{index .RepoDigests 0}}", config["playwright"]], text=True).strip()
             (BASE / "browser-image.txt").write_text(browser)
             tooling = BASE / "toolchain"; tooling.mkdir(exist_ok=True)
-            container(["--cpus", "2", "--memory", "8g", "-v", f"{tooling}:/tools", "-w", "/tools", browser,
+            container(["-v", f"{tooling}:/tools", "-w", "/tools", browser,
                   "npm", "install", "--save-exact", "playwright@" + config["playwrightPackage"]], timeout=600)
             print("Toolchain ready; " + ("license state present" if license_present else "Unity activation is still required"), flush=True)
             return
@@ -171,8 +171,7 @@ def main():
 
         def unity(extra, qa=False, build="build-qa", modules=()):
             space(BASE, config["minimumFreeGiB"]["unity"])
-            container(["--cpus", "2", "--memory", "8g",
-                  "--hostname", config["containerHostname"], "--mac-address", config["containerMacAddress"],
+            container(["--hostname", config["containerHostname"], "--mac-address", config["containerMacAddress"],
                   "--user", f"{os.getuid()}:{os.getgid()}", "-e", "HOME=/home/runner",
                   "--network", "bridge", "-v", f"{SOURCE}:/project", "-v", f"{BASE / 'library'}:/project/Library",
                   "-v", f"{BASE / 'unity-home'}:/home/runner", "-v", f"{BASE / 'cache'}:/home/runner/.cache", "-v", f"{result}:/results",
@@ -271,7 +270,7 @@ scan('/build');
             print(f"QA player preserved: {build}", flush=True)
         space(BASE, config["minimumFreeGiB"]["browser"])
         browser = (BASE / "browser-image.txt").read_text().strip()
-        container(["--cpus", "2", "--memory", "8g", "--shm-size", config["browserSharedMemory"], "--network", "none",
+        container(["--shm-size", config["browserSharedMemory"], "--network", "none",
               *(['-e', 'TYPINGHERO_TUTORIAL_ONLY=1'] if scenario == 'tutorial' else []),
               *(['-e', 'TYPINGHERO_SKELETON_ART_ONLY=1'] if scenario == 'skeleton-art' else []),
               *(['-e', 'TYPINGHERO_ENDLESS_ONLY=1'] if scenario == 'endless' else []),
